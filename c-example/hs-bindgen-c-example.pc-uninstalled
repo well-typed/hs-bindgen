@@ -1,0 +1,6 @@
+Name: hs-bindgen-c-example
+Description: Example C library for testing Haskell binding generation
+Version: 0.1.0
+
+Cflags: -I${prefix}
+Libs: -L${prefix} -lhs-bindgen-c-example

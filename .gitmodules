@@ -1,0 +1,9 @@
+[submodule "alternatives/hsc2hs"]
+	path = alternatives/tools/hsc2hs
+	url = https://github.com/haskell/hsc2hs.git
+[submodule "alternatives/c2hs"]
+	path = alternatives/tools/c2hs
+	url = https://github.com/haskell/c2hs.git
+[submodule "alternatives/tool/cgen"]
+	path = alternatives/tools/cgen
+	url = https://github.com/anttisalonen/cgen.git
