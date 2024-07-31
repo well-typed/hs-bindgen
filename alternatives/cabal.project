@@ -1,0 +1,6 @@
+packages: 
+  experiment/manual
+  experiment/hsc2hs
+  experiment/c2hs
+  tools/hsc2hs
+  tools/c2hs
