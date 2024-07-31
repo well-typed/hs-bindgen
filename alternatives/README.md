@@ -52,15 +52,15 @@ example are
 Similarly, the expressions
 
 ```haskell
-(#peek struct ExampleStruct, a) ptr
-(#poke struct ExampleStruct, a) ptr haskellStructA
+(#peek struct ExampleStruct, a)
+(#poke struct ExampleStruct, a)
 ```
 
 turn into
 
 ```c
-hsc_peek (struct ExampleStruct, b);
-hsc_poke (struct ExampleStruct, b);
+hsc_peek (struct ExampleStruct, a);
+hsc_poke (struct ExampleStruct, a);
 ```
 
 where
