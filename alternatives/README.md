@@ -75,7 +75,7 @@ where
                 (long) offsetof (t, f));
 ```
 
-It also supports writing some inline-C using #def, as some form of poor-man's
+It also supports writing some inline-C using `#def`, as some form of poor-man's
 <https://hackage.haskell.org/package/inline-c>.
 
 You get no support for declaring function signatures, this piggy-backs on the
