@@ -85,7 +85,7 @@ See https://ghc.gitlab.haskell.org/ghc/doc/users_guide/utils.html#writing-haskel
 
 ## `c2hs`
 
-The main point of @c2hs@ is to allow users to write /high level/ bindings in
+The main point of @c2hs@ is to allow users to write _high level_ bindings in
 a more convenient manner, by providing for certain types of abstractions.
 For example, where with @c2hs@ or manual bindings, we end up having to write
 
