@@ -41,7 +41,7 @@ struct). We will therefore [bind to
 ### No (or very limited) bespoke syntax
 
 One of the downsides of working with `c2hs` is that users need to learn a new
-(frankly rather arcana) syntax. We want to limit any new syntax that users might
+(frankly rather arcane) syntax. We want to limit any new syntax that users might
 have to learn, working primarily with just regular Haskell. The low-level /
 high-level split we propose (see below) is part motivated by this requirement:
 even if we do not use the tool to generate high-level Haskell bindings, users
