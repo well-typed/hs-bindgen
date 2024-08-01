@@ -128,7 +128,11 @@ See https://github.com/haskell/c2hs/wiki/User-Guide for more information.
 
 ## `cgen`
 
-TODO.
+TODO <https://github.com/well-typed/hs-bindgen/issues/6>
+
+## `fficxx`
+
+TODO <https://github.com/well-typed/hs-bindgen/issues/7>
 
 ## Bespoke generators
 
