@@ -26,3 +26,12 @@ executable try-manual
       HsBindgenCExample
   pkgconfig-depends:
       hs-bindgen-c-example
+
+  if(flag(include-invalid))
+    cpp-options:
+      -DINCLUDE_INVALID
+
+flag include-invalid
+  description: Also include invalid declarations
+  default: False
+  manual: True
