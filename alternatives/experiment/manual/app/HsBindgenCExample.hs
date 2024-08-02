@@ -21,6 +21,8 @@ data HaskellStruct = HaskellStruct {
   Valid declarations
 -------------------------------------------------------------------------------}
 
+type FunPtr_Void_Int = FunPtr (Int -> IO ())
+
 foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_helloworld"
   cHelloWorld :: IO ()
 
@@ -31,10 +33,16 @@ foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showStruct"
   cShowStruct :: Ptr HaskellStruct -> IO ()
 
 foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_callFunPtr"
-  cCallFunPtr :: FunPtr (Int -> IO ()) -> IO ()
+  cCallFunPtr :: FunPtr_Void_Int -> IO ()
 
 foreign import capi "hs-bindgen-c-example.h &hs_bindgen_c_example_showInt"
-  addrOf_cShowInt :: FunPtr (Int -> IO ())
+  addrOf_cShowInt :: FunPtr_Void_Int
+
+foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_returnFunPtr"
+  cReturnFunPtr :: IO FunPtr_Void_Int
+
+foreign import ccall "dynamic"
+  callFunPtr_Void_Int :: FunPtr_Void_Int -> Int -> IO ()
 
 instance Storable HaskellStruct where
   sizeOf    _ = 8
