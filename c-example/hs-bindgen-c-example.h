@@ -6,9 +6,12 @@ typedef struct ExampleStruct {
     int b;
 } ExampleStruct;
 
+typedef void (*FunPtr_Void_Int)(int);
+
 void hs_bindgen_c_example_helloworld();
 void hs_bindgen_c_example_showInt(int);
 void hs_bindgen_c_example_showStruct(ExampleStruct*);
-void hs_bindgen_c_example_callFunPtr(void (*)(int));
+void hs_bindgen_c_example_callFunPtr(FunPtr_Void_Int);
+FunPtr_Void_Int hs_bindgen_c_example_returnFunPtr();
 
 #endif

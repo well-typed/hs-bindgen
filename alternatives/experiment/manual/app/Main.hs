@@ -14,6 +14,8 @@ main = do
       poke ptr $ HaskellStruct 1234 5678
       cShowStruct ptr
     cCallFunPtr addrOf_cShowInt
+    funPtr <- cReturnFunPtr
+    callFunPtr_Void_Int funPtr 12345678
 
 #ifdef INCLUDE_INVALID
     invalid_cHelloWorld_extraParam 0

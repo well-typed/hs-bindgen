@@ -172,5 +172,7 @@ might consider, such as
 * generating bindings for [C preprocessor
   macros](https://github.com/well-typed/hs-bindgen/issues/43)
 * generating bindings for [function
-  addresses](https://github.com/well-typed/hs-bindgen/issues/46)
+  addresses](https://github.com/well-typed/hs-bindgen/issues/46), and conversely
+  for [resolving function
+  pointers](https://github.com/well-typed/hs-bindgen/issues/49).
 
