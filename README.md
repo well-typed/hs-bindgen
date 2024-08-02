@@ -171,9 +171,10 @@ might consider, such as
 
 * generating bindings for
   [C preprocessor macros](https://github.com/well-typed/hs-bindgen/issues/43)
-* generating bindings for
+* support for function poiinters: generating bindings for
   [function addresses](https://github.com/well-typed/hs-bindgen/issues/46) or
   [generating function pointers from Haskell functions](https://github.com/well-typed/hs-bindgen/issues/51),
   and conversely for
   [resolving function pointers](https://github.com/well-typed/hs-bindgen/issues/49).
+* [support varargs functions](https://github.com/well-typed/hs-bindgen/issues/53)
 
