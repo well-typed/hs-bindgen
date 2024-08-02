@@ -79,9 +79,17 @@ instance Storable HaskellStruct where
 
 #ifdef INCLUDE_INVALID
 
--- No warnings or errors from the C compiler at all
-foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_helloworld"
-  invalid_cHelloWorld_extraParam :: Int -> IO ()
+-- This gives a warning if the header file declares the function as
+--
+-- > void hs_bindgen_c_example_helloworld(void);
+--
+-- but not if we declare it as
+--
+-- > void hs_bindgen_c_example_helloworld();
+--
+-- since such a declaration /does not define the arguments/.
+-- foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_helloworld"
+--   invalid_cHelloWorld_extraParam :: Int -> IO ()
 
 -- C compiler /error/ ("too few arguments")
 --foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showInt"
