@@ -169,10 +169,11 @@ them to change the way that the code is generated.
 This milestone is currently just a collection of additional features that we
 might consider, such as
 
-* generating bindings for [C preprocessor
-  macros](https://github.com/well-typed/hs-bindgen/issues/43)
-* generating bindings for [function
-  addresses](https://github.com/well-typed/hs-bindgen/issues/46), and conversely
-  for [resolving function
-  pointers](https://github.com/well-typed/hs-bindgen/issues/49).
+* generating bindings for
+  [C preprocessor macros](https://github.com/well-typed/hs-bindgen/issues/43)
+* generating bindings for
+  [function addresses](https://github.com/well-typed/hs-bindgen/issues/46) or
+  [generating function pointers from Haskell functions](https://github.com/well-typed/hs-bindgen/issues/51),
+  and conversely for
+  [resolving function pointers](https://github.com/well-typed/hs-bindgen/issues/49).
 

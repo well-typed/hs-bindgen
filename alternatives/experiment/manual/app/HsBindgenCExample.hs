@@ -44,6 +44,9 @@ foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_returnFunPtr"
 foreign import ccall "dynamic"
   callFunPtr_Void_Int :: FunPtr_Void_Int -> Int -> IO ()
 
+foreign import ccall "wrapper"
+  wrapFunPtr_Void_Int :: (Int -> IO ()) -> IO FunPtr_Void_Int
+
 instance Storable HaskellStruct where
   sizeOf    _ = 8
   alignment _ = 4

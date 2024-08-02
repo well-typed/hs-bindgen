@@ -18,9 +18,9 @@ void hs_bindgen_c_example_showStruct(ExampleStruct* s)
 }
 
 void hs_bindgen_c_example_callFunPtr(FunPtr_Void_Int funPtr) {
-    printf("hs_bindgen_c_example_showInt(callFunPtr)\n");
-    printf("  "); (*funPtr)(1234);
-    printf("  "); (*funPtr)(5678);
+    printf("hs_bindgen_c_example_callFunPtr(%p)\n", funPtr);
+    printf("  "); fflush(stdout); (*funPtr)(1234);
+    printf("  "); fflush(stdout); (*funPtr)(5678);
 }
 
 FunPtr_Void_Int hs_bindgen_c_example_returnFunPtr() {
