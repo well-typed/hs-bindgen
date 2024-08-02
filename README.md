@@ -139,7 +139,7 @@ to have to write them all out, and so some generation might still be useful.
 This is all the more important for data type declarations (as opposed to
 function definitions); we'll want to try and generate high-level equivalents
 for [`struct`s](https://github.com/well-typed/hs-bindgen/issues/39),
-[`enum`]s(https://github.com/well-typed/hs-bindgen/issues/40), and
+[`enum`s](https://github.com/well-typed/hs-bindgen/issues/40), and
 [(tagged) unions](https://github.com/well-typed/hs-bindgen/issues/18).
 
 However, there is a trade-off here. There are _lot_ of [decisions that need to
@@ -170,7 +170,7 @@ This milestone is currently just a collection of additional features that we
 might consider, such as
 
 * generating bindings for [C preprocessor
-  macros](https://github.com/well-typed/hs-bindgen/issues/43).
+  macros](https://github.com/well-typed/hs-bindgen/issues/43)
 * generating bindings for [function
   addresses](https://github.com/well-typed/hs-bindgen/issues/46)
 
