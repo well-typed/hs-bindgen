@@ -57,7 +57,7 @@ customization can be done again with regular Haskell code.
 
 ## Roadmap
 
-The project is split up into three milestones, each of which are useful in their
+The project is split up into three major milestones, each of which are useful in their
 own right and can be released as version
 [0.1](https://github.com/well-typed/hs-bindgen/issues/29),
 [0.2](https://github.com/well-typed/hs-bindgen/issues/30) and
@@ -105,6 +105,14 @@ Whenever possible, if the C header contains documentation, we should also
 Haddocks](https://github.com/well-typed/hs-bindgen/issues/26) in the generated
 bindings.
 
+We should support functions that [accept or return `struct`s by
+value](https://github.com/well-typed/hs-bindgen/issues/37), by generating
+appropriate wrappers for them.
+
+We should also generate binding for
+[constants](https://github.com/well-typed/hs-bindgen/issues/41) and [global
+variables](https://github.com/well-typed/hs-bindgen/issues/42).
+
 While some for users these low-level bindings might be useable as-is, the
 primary objective here is to make it easier for users to manually write
 high-level bindings; this is now regular Haskell coding, and should be well
@@ -128,6 +136,12 @@ of the high-level bindings can be expressed using the patterns provided by the
 `hs-bindgen-patterns` library from milestone 2.5, it might still be cumbersome
 to have to write them all out, and so some generation might still be useful.
 
+This is all the more important for data type declarations (as opposed to
+function definitions); we'll want to try and generate high-level equivalents
+for [`struct`s](https://github.com/well-typed/hs-bindgen/issues/39),
+[`enum`]s(https://github.com/well-typed/hs-bindgen/issues/40), and
+[(tagged) unions](https://github.com/well-typed/hs-bindgen/issues/18).
+
 However, there is a trade-off here. There are _lot_ of [decisions that need to
 be made for the high-level
 bindings](https://github.com/well-typed/hs-bindgen/issues/21): the C header file
@@ -149,3 +163,10 @@ generated code that explain tool
 decisions](https://github.com/well-typed/hs-bindgen/issues/23). In other words,
 the generated code should provide sufficient information to the user to allow
 them to change the way that the code is generated.
+
+### [Milestone 4: Additional features](https://github.com/well-typed/hs-bindgen/milestone/5)
+
+This milestone is currently just a collection of additional features that we
+might consider, such as generating bindings for [C preprocessor
+macros](https://github.com/well-typed/hs-bindgen/issues/43).
+
