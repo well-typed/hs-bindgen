@@ -167,6 +167,10 @@ them to change the way that the code is generated.
 ### [Milestone 4: Additional features](https://github.com/well-typed/hs-bindgen/milestone/5)
 
 This milestone is currently just a collection of additional features that we
-might consider, such as generating bindings for [C preprocessor
-macros](https://github.com/well-typed/hs-bindgen/issues/43).
+might consider, such as
+
+* generating bindings for [C preprocessor
+  macros](https://github.com/well-typed/hs-bindgen/issues/43).
+* generating bindings for [function
+  addresses](https://github.com/well-typed/hs-bindgen/issues/46)
 

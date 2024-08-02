@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 module Main (main) where
 
 import Foreign
@@ -11,7 +13,10 @@ main = do
     alloca $ \ptr -> do
       poke ptr $ HaskellStruct 1234 5678
       cShowStruct ptr
+    cCallFunPtr addrOf_cShowInt
 
+#ifdef INCLUDE_INVALID
     invalid_cHelloWorld_extraParam 0
     alloca $ \ptr ->
       invalid_cShowInt_wrongParam ptr
+#endif

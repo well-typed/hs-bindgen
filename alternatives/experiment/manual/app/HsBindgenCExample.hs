@@ -1,4 +1,5 @@
 {-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE CPP     #-}
 
 -- | Handwritten bindings, using CAPI calling convention
 --
@@ -28,6 +29,12 @@ foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showInt"
 
 foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showStruct"
   cShowStruct :: Ptr HaskellStruct -> IO ()
+
+foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_callFunPtr"
+  cCallFunPtr :: FunPtr (Int -> IO ()) -> IO ()
+
+foreign import capi "hs-bindgen-c-example.h &hs_bindgen_c_example_showInt"
+  addrOf_cShowInt :: FunPtr (Int -> IO ())
 
 instance Storable HaskellStruct where
   sizeOf    _ = 8
@@ -59,6 +66,8 @@ instance Storable HaskellStruct where
   > cabal run try-manual --ghc-option=-keep-tmp-files
 -------------------------------------------------------------------------------}
 
+#ifdef INCLUDE_INVALID
+
 -- No warnings or errors from the C compiler at all
 foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_helloworld"
   invalid_cHelloWorld_extraParam :: Int -> IO ()
@@ -70,3 +79,5 @@ foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_helloworld"
 -- C compiler /warning/ ("makes integer from pointer without a cast")
 foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showInt"
   invalid_cShowInt_wrongParam :: Ptr Int -> IO ()
+
+#endif
