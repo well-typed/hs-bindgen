@@ -13,6 +13,7 @@ main = do
     alloca $ \ptr -> do
       poke ptr $ HaskellStruct 1234 5678
       cShowStruct ptr
+    cCallFunPtr addrOf_cShowInt
 
 #ifdef INCLUDE_INVALID
     invalid_cHelloWorld_extraParam 0

@@ -30,6 +30,12 @@ foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showInt"
 foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_showStruct"
   cShowStruct :: Ptr HaskellStruct -> IO ()
 
+foreign import capi "hs-bindgen-c-example.h hs_bindgen_c_example_callFunPtr"
+  cCallFunPtr :: FunPtr (Int -> IO ()) -> IO ()
+
+foreign import capi "hs-bindgen-c-example.h &hs_bindgen_c_example_showInt"
+  addrOf_cShowInt :: FunPtr (Int -> IO ())
+
 instance Storable HaskellStruct where
   sizeOf    _ = 8
   alignment _ = 4
