@@ -177,4 +177,4 @@ might consider, such as
   and conversely for
   [resolving function pointers](https://github.com/well-typed/hs-bindgen/issues/49).
 * [support varargs functions](https://github.com/well-typed/hs-bindgen/issues/53)
-
+* [deal with under-defined functions](https://github.com/well-typed/hs-bindgen/issues/55)
