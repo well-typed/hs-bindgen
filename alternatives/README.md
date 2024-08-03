@@ -138,7 +138,8 @@ TODO <https://github.com/well-typed/hs-bindgen/issues/7>
 
 There are a number of bespoke generators, that don't generate bindings from
 Haskell files, but from richer API descriptions. In this section we mention a
-few of these, primarily to be able to tick them off as "not directly relevant".
+few of these; perhaps we can take some inspiration from these API descriptions
+in the kind of customization options that `hs-bindgen` should offer.
 
 ### https://github.com/gtk2hs/gtk2hs/tree/master/tools/apiGen
 
@@ -165,3 +166,26 @@ where https://github.com/boto/botocore is
 ### https://hackage.haskell.org/package/godot-haskell
 
 Generates bindings from the Godot documentation, not from general header files.
+
+### https://github.com/ekmett/gl
+
+> The `gl` package supplies low level bindings to all of the OpenGL
+> specification for Haskell. This package, `glgen`, is used to build the `gl`
+> package.
+
+Generates bindings from the [Khronos XML specification of
+OpenGL](https://registry.khronos.org/OpenGL/).
+
+### https://hackage.haskell.org/package/vulkan
+
+Generates bindings from the Vulkan docs.
+
+The `README`
+[goes into some detail](https://github.com/expipiplus1/vulkan?tab=readme-ov-file#how-the-c-types-relate-to-haskell-types)
+on the chosen relation between C types and Haskell types.
+
+### https://hackage.haskell.org/package/vulkan-api
+
+Generate bindings from the Vulkan XML spec. Makes some different choices for the
+mappings; see discussion in
+[Why another Haskell bindings?](https://github.com/achirkin/vulkan?tab=readme-ov-file#why-another-haskell-bindings).
