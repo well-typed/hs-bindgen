@@ -72,6 +72,11 @@ instances for "all"
 [`union`](https://github.com/well-typed/hs-bindgen/issues/16) definitions found
 in the C header.
 
+We should support most field types, including
+[bitfields](https://github.com/well-typed/hs-bindgen/issues/17), [fixed size
+arrays](https://github.com/well-typed/hs-bindgen/issues/36), [flexible array
+members](https://github.com/well-typed/hs-bindgen/issues/19), etc.
+
 This will require a mechanism to select which instances are of interest, perhaps
 [similar to those supported by Rust
 bindgen](https://github.com/well-typed/hs-bindgen/issues/12), or through some
@@ -112,6 +117,11 @@ appropriate wrappers for them.
 We should also generate binding for
 [constants](https://github.com/well-typed/hs-bindgen/issues/41) and [global
 variables](https://github.com/well-typed/hs-bindgen/issues/42).
+
+There should also support some additional C types in this milestone (types which
+don't involve `Storable` instances), such as
+[`typedef`s](https://github.com/well-typed/hs-bindgen/issues/33), and
+[incomplete structs](https://github.com/well-typed/hs-bindgen/issues/58).
 
 While some for users these low-level bindings might be useable as-is, the
 primary objective here is to make it easier for users to manually write
@@ -171,10 +181,12 @@ might consider, such as
 
 * generating bindings for
   [C preprocessor macros](https://github.com/well-typed/hs-bindgen/issues/43)
-* support for function poiinters: generating bindings for
+* support for function pointers: generating bindings for
   [function addresses](https://github.com/well-typed/hs-bindgen/issues/46) or
   [generating function pointers from Haskell functions](https://github.com/well-typed/hs-bindgen/issues/51),
   and conversely for
   [resolving function pointers](https://github.com/well-typed/hs-bindgen/issues/49).
 * [support varargs functions](https://github.com/well-typed/hs-bindgen/issues/53)
 * [deal with under-defined functions](https://github.com/well-typed/hs-bindgen/issues/55)
+* [support thread-local variables](https://github.com/well-typed/hs-bindgen/issues/57)
+* [support multidimensional arrays](https://github.com/well-typed/hs-bindgen/issues/59)
