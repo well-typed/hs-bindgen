@@ -186,7 +186,7 @@ might consider, such as
   [generating function pointers from Haskell functions](https://github.com/well-typed/hs-bindgen/issues/51),
   and conversely for
   [resolving function pointers](https://github.com/well-typed/hs-bindgen/issues/49).
-* [support varargs functions](https://github.com/well-typed/hs-bindgen/issues/53)
-* [deal with under-defined functions](https://github.com/well-typed/hs-bindgen/issues/55)
-* [support thread-local variables](https://github.com/well-typed/hs-bindgen/issues/57)
-* [support multidimensional arrays](https://github.com/well-typed/hs-bindgen/issues/59)
+* support [varargs functions](https://github.com/well-typed/hs-bindgen/issues/53)
+* deal with [under-defined functions](https://github.com/well-typed/hs-bindgen/issues/55)
+* support [thread-local variables](https://github.com/well-typed/hs-bindgen/issues/57)
+* support [multidimensional arrays](https://github.com/well-typed/hs-bindgen/issues/59)
