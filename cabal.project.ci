@@ -1,0 +1,4 @@
+packages: hs-bindgen
+
+package hs-bindgen
+  ghc-options: -Werror

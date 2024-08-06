@@ -1,3 +1,4 @@
 .envrc
 dist-newstyle/
 unversioned
+cabal.project.local
