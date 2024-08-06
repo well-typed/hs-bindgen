@@ -64,6 +64,8 @@ jobs:
           chmod a+x "$HOME/.ghcup/bin/ghcup"
           "$HOME/.ghcup/bin/ghcup" install ghc "$HCVER" || (cat "$HOME"/.ghcup/logs/*.* && false)
           "$HOME/.ghcup/bin/ghcup" install cabal 3.12.1.0 || (cat "$HOME"/.ghcup/logs/*.* && false)
+          apt-get update
+          apt-get install -y libclang-dev
         env:
           HCKIND: ${{ matrix.compilerKind }}
           HCNAME: ${{ matrix.compiler }}
@@ -165,6 +167,12 @@ jobs:
           echo "package hs-bindgen" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           cat >> cabal.project <<EOF
+          package hs-bindgen
+            extra-lib-dirs:     /usr/lib/llvm-14/lib
+            extra-include-dirs: /usr/lib/llvm-14/include
+
+          package hs-bindgen
+            ghc-options: -Werror
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(hs-bindgen)$/; }' >> cabal.project.local
           cat cabal.project
