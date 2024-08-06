@@ -9,6 +9,8 @@ category:           Development
 build-type:         Simple
 synopsis:           Generate Haskell bindings from C headers
 extra-doc-files:    CHANGELOG.md
+extra-source-files: cbits/*.c
+                    cbits/*.h
 tested-with:      , GHC==9.2.8
                   , GHC==9.4.8
                   , GHC==9.6.6
@@ -27,12 +29,33 @@ common lang
   default-language:
       GHC2021
   default-extensions:
+      DeriveAnyClass
       DerivingStrategies
+      DerivingVia
       DisambiguateRecordFields
+      RoleAnnotations
+      TypeFamilies
+
+-- @libclang@
+--
+-- TODO: <https://github.com/llvm/llvm-project/issues/9777>
+-- It seems @libclang@ does not support @pkg-config@.
+common clang-wrappers
+  extra-libraries:
+      clang
+  c-sources:
+      cbits/clang_wrappers.c
+  include-dirs:
+      cbits
+  cc-options:
+      -Wall
 
 library
   import:
-      lang
+    , lang
+    , clang-wrappers
+  other-extensions:
+      CApiFFI
   exposed-modules:
       HsBindgen
       HsBindgen.Preprocessor
@@ -42,18 +65,21 @@ library
       HsBindgen.Annotation
       HsBindgen.C
       HsBindgen.Clang
+      HsBindgen.Clang.LowLevel
+      HsBindgen.Clang.LowLevel.Enums
+      HsBindgen.Clang.Util
       HsBindgen.Spec.Resolved
   hs-source-dirs:
       src
   build-depends:
+      -- Internal dependencies
+    , hs-bindgen-patterns
+  build-depends:
+      -- External dependencies
+    , bytestring       >= 0.11 && < 0.13
     , haskell-src-exts >= 1.23 && < 1.24
     , haskell-src-meta >= 0.8  && < 0.9
     , template-haskell >= 2.18 && < 2.23
-
-  -- TODO: <https://github.com/llvm/llvm-project/issues/9777>
-  -- It seems @libclang@ does not support @pkg-config@.
-  extra-libraries:
-      clang
 
 executable hs-bindgen
   import:
@@ -74,3 +100,34 @@ executable hs-bindgen
     , optparse-applicative >= 0.18 && < 0.19
   hs-source-dirs:
       app
+
+executable clang-tutorial
+  import:
+    , lang
+    , clang-wrappers
+  main-is:
+      Main.hs
+  other-modules:
+      HsBindgen.Clang.LowLevel
+      HsBindgen.Clang.LowLevel.Enums
+      HsBindgen.Clang.Util
+  hs-source-dirs:
+      -- This uses functionality which is not exported, so we use the src dir
+      -- directly, rather than depending on the @hs-bindgen@ library.
+      clang-tutorial
+      src
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen-patterns
+  build-depends:
+      -- External dependencies
+    , bytestring >= 0.11 && < 0.13
+
+  if !flag(build-clang-tutorial)
+    buildable:
+      False
+
+flag build-clang-tutorial
+  description: Build the CLang tutorial (this is for internal debugging only)
+  default: False
+  manual: True

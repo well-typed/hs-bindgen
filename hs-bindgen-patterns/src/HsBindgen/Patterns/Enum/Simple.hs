@@ -1,0 +1,85 @@
+module HsBindgen.Patterns.Enum.Simple (
+    SimpleEnum(..)
+  , IsSimpleEnum(..)
+    -- * API
+  , simpleEnum
+  , fromSimpleEnum
+  , unsafeFromSimpleEnum
+  ) where
+
+import Foreign.C
+import GHC.Stack
+
+{-------------------------------------------------------------------------------
+  Definition
+-------------------------------------------------------------------------------}
+
+-- | ADTs corresponding to simple enums
+--
+-- See 'SimpleEnum' for discussion
+class IsSimpleEnum a where
+  -- | Translate Haskell constructor to C value
+  simpleToC :: a -> CInt
+
+  -- | Translate C value to haskell constructor
+  --
+  -- This returns a 'Maybe' value, because C enums do not restrict the range.
+  -- From Wikipedia (<https://en.wikipedia.org/wiki/C_syntax#Enumerated_type>):
+  --
+  -- > Some compilers warn if an object with enumerated type is assigned a value
+  -- > that is not one of its constants. However, such an object can be assigned
+  -- > any values in the range of their compatible type, and enum constants can
+  -- > be used anywhere an integer is expected. For this reason, enum values are
+  -- > often used in place of preprocessor #define directives to create named
+  -- > constants. Such constants are generally safer to use than macros, since
+  -- > they reside within a specific identifier namespace.
+  --
+  -- This means that a 'Nothing' value is not necessary an error.
+  simpleFromC :: CInt -> Maybe a
+
+-- | Simple C enums
+--
+-- Suppose we have a simple C enum defined like this:
+--
+-- > enum SomeEnum {
+-- >   Value1,
+-- >   Value2,
+-- >   Value3
+-- > };
+--
+-- Then 'SimpleEnum' can link the underlying 'CInt' to a Haskell ADT. Using
+-- @hsc2hs@, this might look like
+--
+-- > data SomeEnum = Value1 | Value2 | Value3
+-- >
+-- > instance IsSimpleEnum SomeEnum where
+-- >   simpleToC Value1 = #const Value1
+-- >   simpleToC Value2 = #const Value2
+-- >   simpleToC Value3 = #const Value3
+-- >
+-- >   simpleFromC (#const Value1) = Just Value1
+-- >   simpleFromC (#const Value2) = Just Value2
+-- >   simpleFromC (#const Value3) = Just Value3
+-- >
+-- >   simpleFromC _otherwise = Nothing
+newtype SimpleEnum a = SimpleEnum CInt
+
+{-------------------------------------------------------------------------------
+  API
+-------------------------------------------------------------------------------}
+
+simpleEnum :: IsSimpleEnum a => a -> SimpleEnum a
+simpleEnum = SimpleEnum . simpleToC
+
+-- | Underlying C value
+--
+-- Returns the raw 'CInt' if is out of the range of @a@
+fromSimpleEnum :: IsSimpleEnum a => SimpleEnum a -> Either CInt a
+fromSimpleEnum (SimpleEnum i) = maybe (Left i) Right $ simpleFromC i
+
+-- | Like 'fromSimpleEnum', but throw an exception if the value is out of range
+unsafeFromSimpleEnum :: (HasCallStack, IsSimpleEnum a) => SimpleEnum a -> a
+unsafeFromSimpleEnum = either (error . err) id . fromSimpleEnum
+  where
+    err :: CInt -> String
+    err i = "SimpleEnum out of range: " ++ show i
