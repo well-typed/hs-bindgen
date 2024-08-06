@@ -1,0 +1,69 @@
+cabal-version:      3.0
+name:               hs-bindgen
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+category:           Development
+build-type:         Simple
+synopsis:           Generate Haskell bindings from C headers
+extra-doc-files:    CHANGELOG.md
+tested-with:      , GHC==9.2.8
+                  , GHC==9.4.8
+                  , GHC==9.6.6
+                  , GHC==9.8.2
+                  , GHC==9.10.1
+
+common lang
+  ghc-options:
+      -Wall
+      -Widentities
+      -Wprepositive-qualified-module
+      -Wredundant-constraints
+      -Wunused-packages
+  build-depends:
+      base >= 4.16 && < 4.21
+  default-language:
+      GHC2021
+  default-extensions:
+      DerivingStrategies
+      DisambiguateRecordFields
+
+library
+  import:
+      lang
+  exposed-modules:
+      HsBindgen
+      HsBindgen.Preprocessor
+      HsBindgen.Preprocessor.Render
+      HsBindgen.Spec
+  other-modules:
+      HsBindgen.Annotation
+      HsBindgen.Spec.Resolved
+  hs-source-dirs:
+      src
+  build-depends:
+    , haskell-src-exts >= 1.23 && < 1.24
+    , haskell-src-meta >= 0.8  && < 0.9
+    , template-haskell >= 2.18 && < 2.23
+
+executable hs-bindgen
+  import:
+      lang
+  main-is:
+      Main.hs
+  other-modules:
+      HsBindgen.Cmdline
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
+  build-depends:
+      -- External dependencies
+      --
+      -- NOTE: Ideally this should not depend on haskell-src-exts or
+      -- haskell-src-meta; functionality that requires these libraries should
+      -- live in the library instead.
+    , optparse-applicative >= 0.18 && < 0.19
+  hs-source-dirs:
+      app
