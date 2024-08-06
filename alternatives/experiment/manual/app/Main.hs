@@ -35,7 +35,6 @@ main = do
     cCallFunPtr funPtrFromHaskell
 
 #ifdef INCLUDE_INVALID
-    invalid_cHelloWorld_extraParam 0
     alloca $ \ptr ->
       invalid_cShowInt_wrongParam ptr
 #endif

@@ -2,7 +2,7 @@
 
 #include "hs-bindgen-c-example.h"
 
-void hs_bindgen_c_example_helloworld()
+void hs_bindgen_c_example_helloworld(void)
 {
     printf("hs_bindgen_c_example_helloworld\n");
 }
@@ -26,5 +26,3 @@ void hs_bindgen_c_example_callFunPtr(FunPtr_Void_Int funPtr) {
 FunPtr_Void_Int hs_bindgen_c_example_returnFunPtr() {
     return &hs_bindgen_c_example_showInt;
 }
-
-
