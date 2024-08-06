@@ -1,4 +1,12 @@
 packages: hs-bindgen
 
+-- TODO: <https://github.com/well-typed/hs-bindgen/issues/78>
+-- We should instead /discover/ where @libclang@ is.
+package hs-bindgen
+  extra-lib-dirs:
+    /usr/lib/llvm-14/lib
+  extra-include-dirs:
+    /usr/lib/llvm-14/include
+
 package hs-bindgen
   ghc-options: -Werror

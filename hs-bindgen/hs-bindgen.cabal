@@ -40,6 +40,8 @@ library
       HsBindgen.Spec
   other-modules:
       HsBindgen.Annotation
+      HsBindgen.C
+      HsBindgen.Clang
       HsBindgen.Spec.Resolved
   hs-source-dirs:
       src
@@ -47,6 +49,11 @@ library
     , haskell-src-exts >= 1.23 && < 1.24
     , haskell-src-meta >= 0.8  && < 0.9
     , template-haskell >= 2.18 && < 2.23
+
+  -- TODO: <https://github.com/llvm/llvm-project/issues/9777>
+  -- It seems @libclang@ does not support @pkg-config@.
+  extra-libraries:
+      clang
 
 executable hs-bindgen
   import:
