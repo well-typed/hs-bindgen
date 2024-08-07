@@ -21,6 +21,13 @@ module HsBindgen.Annotation (
 -------------------------------------------------------------------------------}
 
 -- | Syntax tree annotation
+--
+-- TODO: <https://github.com/well-typed/hs-bindgen/issues/23>
+-- We should use this explain tool decisions (when generating high-level API).
+--
+-- TODO: <https://github.com/well-typed/hs-bindgen/issues/74>
+-- We should reference the relevant part of the C header here (including line
+-- numbers).
 data Ann = Ann {
     }
 

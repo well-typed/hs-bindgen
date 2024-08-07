@@ -1,4 +1,11 @@
-packages: hs-bindgen
+packages: hs-bindgen-patterns, hs-bindgen
+
+package hs-bindgen
+  flags: +build-clang-tutorial
+  ghc-options: -Werror
+
+package hs-bindgen-patterns
+  ghc-options: -Werror
 
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/78>
 -- We should instead /discover/ where @libclang@ is.
@@ -8,5 +15,3 @@ package hs-bindgen
   extra-include-dirs:
     /usr/lib/llvm-14/include
 
-package hs-bindgen
-  ghc-options: -Werror

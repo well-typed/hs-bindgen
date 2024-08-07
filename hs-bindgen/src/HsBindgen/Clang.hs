@@ -1,7 +1,4 @@
--- | Bindings to @libclang@
---
--- The goal of this module is not to be a complete set of bindings for all of
--- @libclang@, but rather only to the parts that we need.
+-- | High-level bindings to @libclang@
 --
 -- Intended for qualified import.
 --

@@ -1,0 +1,42 @@
+cabal-version:      3.0
+name:               hs-bindgen-patterns
+version:            0.1.0
+synopsis:           Design patterns for writing high-level FFI bindings
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+category:           Development
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+tested-with:      , GHC==9.2.8
+                  , GHC==9.4.8
+                  , GHC==9.6.6
+                  , GHC==9.8.2
+                  , GHC==9.10.1
+
+common lang
+  ghc-options:
+      -Wall
+  build-depends:
+      base >= 4.16 && < 4.21
+  default-language:
+      GHC2021
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
+  other-extensions:
+      CPP
+
+library
+  import:
+      lang
+  exposed-modules:
+      HsBindgen.Patterns
+  other-modules:
+      HsBindgen.Patterns.Enum.Bitfield
+      HsBindgen.Patterns.Enum.Simple
+      HsBindgen.Patterns.SafeForeignPtr
+      HsBindgen.Patterns.Stack
+  hs-source-dirs:
+      src

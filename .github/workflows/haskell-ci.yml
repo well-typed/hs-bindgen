@@ -146,6 +146,7 @@ jobs:
       - name: initial cabal.project for sdist
         run: |
           touch cabal.project
+          echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-patterns" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen" >> cabal.project
           cat cabal.project
       - name: sdist
@@ -158,23 +159,32 @@ jobs:
           find sdist -maxdepth 1 -type f -name '*.tar.gz' -exec tar -C $GITHUB_WORKSPACE/unpacked -xzvf {} \;
       - name: generate cabal.project
         run: |
+          PKGDIR_hs_bindgen_patterns="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-patterns-[0-9.]*')"
+          echo "PKGDIR_hs_bindgen_patterns=${PKGDIR_hs_bindgen_patterns}" >> "$GITHUB_ENV"
           PKGDIR_hs_bindgen="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-[0-9.]*')"
           echo "PKGDIR_hs_bindgen=${PKGDIR_hs_bindgen}" >> "$GITHUB_ENV"
           rm -f cabal.project cabal.project.local
           touch cabal.project
           touch cabal.project.local
+          echo "packages: ${PKGDIR_hs_bindgen_patterns}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen}" >> cabal.project
+          echo "package hs-bindgen-patterns" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package hs-bindgen" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           cat >> cabal.project <<EOF
           package hs-bindgen
-            extra-lib-dirs:     /usr/lib/llvm-14/lib
-            extra-include-dirs: /usr/lib/llvm-14/include
+            flags:       +build-clang-tutorial
+            ghc-options: -Werror
+
+          package hs-bindgen-patterns
+            ghc-options: -Werror
 
           package hs-bindgen
-            ghc-options: -Werror
+            extra-lib-dirs:     /usr/lib/llvm-14/lib
+            extra-include-dirs: /usr/lib/llvm-14/include
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(hs-bindgen)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(hs-bindgen|hs-bindgen-patterns)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -199,6 +209,8 @@ jobs:
           $CABAL v2-build $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --write-ghc-environment-files=always
       - name: cabal check
         run: |
+          cd ${PKGDIR_hs_bindgen_patterns} || false
+          ${CABAL} -vnormal check
           cd ${PKGDIR_hs_bindgen} || false
           ${CABAL} -vnormal check
       - name: haddock
