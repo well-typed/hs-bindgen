@@ -1,11 +1,11 @@
 -- | Utility functions for use with the @libclang@ low-level bindings
-module HsBindgen.Clang.Util (
+module HsBindgen.C.Clang.Util (
     -- * Classifying types
     isPointerType
   , isRecordType
   ) where
 
-import HsBindgen.Clang.LowLevel
+import HsBindgen.C.Clang
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

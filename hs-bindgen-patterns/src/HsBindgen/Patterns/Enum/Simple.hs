@@ -8,6 +8,7 @@ module HsBindgen.Patterns.Enum.Simple (
   ) where
 
 import Foreign.C
+import GHC.Show (appPrec1)
 import GHC.Stack
 
 {-------------------------------------------------------------------------------
@@ -17,9 +18,9 @@ import GHC.Stack
 -- | ADTs corresponding to simple enums
 --
 -- See 'SimpleEnum' for discussion
-class IsSimpleEnum a where
+class IsSimpleEnum hs where
   -- | Translate Haskell constructor to C value
-  simpleToC :: a -> CInt
+  simpleToC :: hs -> CInt
 
   -- | Translate C value to haskell constructor
   --
@@ -35,7 +36,7 @@ class IsSimpleEnum a where
   -- > they reside within a specific identifier namespace.
   --
   -- This means that a 'Nothing' value is not necessary an error.
-  simpleFromC :: CInt -> Maybe a
+  simpleFromC :: CInt -> Maybe hs
 
 -- | Simple C enums
 --
@@ -62,24 +63,38 @@ class IsSimpleEnum a where
 -- >   simpleFromC (#const Value3) = Just Value3
 -- >
 -- >   simpleFromC _otherwise = Nothing
-newtype SimpleEnum a = SimpleEnum CInt
+newtype SimpleEnum hs = SimpleEnum CInt
+
+instance (IsSimpleEnum hs, Show hs) => Show (SimpleEnum hs) where
+  showsPrec p x = showParen (p >= appPrec1) $
+      either showC showHS $ fromSimpleEnum x
+    where
+      showC :: CInt -> ShowS
+      showC c =
+            showString "SimpleEnum "
+          . showsPrec appPrec1 c
+
+      showHS :: hs -> ShowS
+      showHS hs =
+             showString "simpleEnum "
+           . showsPrec appPrec1 hs
 
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
 
-simpleEnum :: IsSimpleEnum a => a -> SimpleEnum a
+simpleEnum :: IsSimpleEnum hs => hs -> SimpleEnum hs
 simpleEnum = SimpleEnum . simpleToC
 
 -- | Underlying C value
 --
 -- Returns the raw 'CInt' if is out of the range of @a@
-fromSimpleEnum :: IsSimpleEnum a => SimpleEnum a -> Either CInt a
+fromSimpleEnum :: IsSimpleEnum hs => SimpleEnum hs -> Either CInt hs
 fromSimpleEnum (SimpleEnum i) = maybe (Left i) Right $ simpleFromC i
 
 -- | Like 'fromSimpleEnum', but throw an exception if the value is out of range
-unsafeFromSimpleEnum :: (HasCallStack, IsSimpleEnum a) => SimpleEnum a -> a
+unsafeFromSimpleEnum :: (HasCallStack, IsSimpleEnum hs) => SimpleEnum hs -> hs
 unsafeFromSimpleEnum = either (error . err) id . fromSimpleEnum
   where
     err :: CInt -> String
-    err i = "SimpleEnum out of range: " ++ show i
+    err c = "SimpleEnum out of range: " ++ show c

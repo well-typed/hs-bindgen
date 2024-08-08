@@ -57,18 +57,21 @@ library
   other-extensions:
       CApiFFI
   exposed-modules:
-      HsBindgen
-      HsBindgen.Preprocessor
-      HsBindgen.Preprocessor.Render
-      HsBindgen.Spec
+      HsBindgen.Lib
+      HsBindgen.TH
   other-modules:
-      HsBindgen.Annotation
-      HsBindgen.C
-      HsBindgen.Clang
-      HsBindgen.Clang.LowLevel
-      HsBindgen.Clang.LowLevel.Enums
-      HsBindgen.Clang.Util
-      HsBindgen.Spec.Resolved
+      HsBindgen.C.AST
+      HsBindgen.C.Clang
+      HsBindgen.C.Clang.Enums
+      HsBindgen.C.Clang.Instances
+      HsBindgen.C.Clang.Util
+      HsBindgen.C.Parser
+      HsBindgen.Hs.Annotation
+      HsBindgen.Hs.Render
+      HsBindgen.Spec
+      HsBindgen.Spec.Execution
+      HsBindgen.Translation.LowLevel
+      HsBindgen.Util.Tracer
   hs-source-dirs:
       src
   build-depends:
@@ -77,8 +80,11 @@ library
   build-depends:
       -- External dependencies
     , bytestring       >= 0.11 && < 0.13
+    , contra-tracer    >= 0.2  && < 0.3
+    , data-default     >= 0.7  && < 0.8
     , haskell-src-exts >= 1.23 && < 1.24
     , haskell-src-meta >= 0.8  && < 0.9
+    , pretty-show      >= 1.10 && < 1.11
     , template-haskell >= 2.18 && < 2.23
 
 executable hs-bindgen
@@ -97,6 +103,7 @@ executable hs-bindgen
       -- NOTE: Ideally this should not depend on haskell-src-exts or
       -- haskell-src-meta; functionality that requires these libraries should
       -- live in the library instead.
+    , data-default         >= 0.7  && < 0.8
     , optparse-applicative >= 0.18 && < 0.19
   hs-source-dirs:
       app
@@ -108,9 +115,10 @@ executable clang-tutorial
   main-is:
       Main.hs
   other-modules:
-      HsBindgen.Clang.LowLevel
-      HsBindgen.Clang.LowLevel.Enums
-      HsBindgen.Clang.Util
+      HsBindgen.C.Clang
+      HsBindgen.C.Clang.Enums
+      HsBindgen.C.Clang.Instances
+      HsBindgen.C.Clang.Util
   hs-source-dirs:
       -- This uses functionality which is not exported, so we use the src dir
       -- directly, rather than depending on the @hs-bindgen@ library.

@@ -65,7 +65,7 @@ newSafeForeignPtr ptr finalizer = do
     ref   <- newIORef undefined
 
     let finalizer' :: IO ()
-        finalizer' = writeIORef ref GarbageCollected >> finalizer
+        finalizer' = atomicWriteIORef ref GarbageCollected >> finalizer
 
     foreignPtr <- Concurrent.newForeignPtr ptr finalizer'
     writeIORef ref $ Allocated foreignPtr
