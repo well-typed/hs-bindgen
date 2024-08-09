@@ -18,8 +18,8 @@ import Data.Bits
 -- | Single flags
 --
 -- See 'BitfieldEnum' for discussion.
-class IsSingleFlag flag where
-  flagToC :: flag -> CUInt
+class IsSingleFlag hs where
+  flagToC :: hs -> CUInt
 
 -- | Enum that corresponds to a bitfield
 --
@@ -47,18 +47,18 @@ class IsSingleFlag flag where
 -- >   flagToC Flag3 = #const Flag3
 -- >   flagToC Flag4 = #const Flag4
 -- >   flagToC Flag5 = #const Flag5
-newtype BitfieldEnum flag = BitfieldEnum CUInt
+newtype BitfieldEnum hs = BitfieldEnum CUInt
 
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
 
 -- | Construct 'BitfieldEnum'
-bitfieldEnum :: IsSingleFlag flag => [flag] -> BitfieldEnum flag
+bitfieldEnum :: IsSingleFlag hs => [hs] -> BitfieldEnum hs
 bitfieldEnum = BitfieldEnum . Foldable.foldl' (.|.) 0 . map flagToC
 
 -- | Check if the given flag is set
-flagIsSet :: IsSingleFlag flag => BitfieldEnum flag -> flag -> Bool
+flagIsSet :: IsSingleFlag hs => BitfieldEnum hs -> hs -> Bool
 flagIsSet (BitfieldEnum i) flag = (i .&. flagToC flag) /= 0
 
 -- | All set flags
@@ -71,6 +71,6 @@ flagIsSet (BitfieldEnum i) flag = (i .&. flagToC flag) /= 0
 -- flags. Their definition has no bearing on the generated C code, and can
 -- simply be derived.
 fromBitfieldEnum ::
-     (IsSingleFlag flag, Enum flag, Bounded flag)
-  => BitfieldEnum flag -> [flag]
+     (IsSingleFlag hs, Enum hs, Bounded hs)
+  => BitfieldEnum hs -> [hs]
 fromBitfieldEnum i = [flag | flag <- [minBound .. maxBound], flagIsSet i flag]

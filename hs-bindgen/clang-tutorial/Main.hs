@@ -6,8 +6,8 @@ module Main (main) where
 import Control.Monad
 import System.Environment
 
-import HsBindgen.Clang.LowLevel
-import HsBindgen.Clang.Util
+import HsBindgen.C.Clang
+import HsBindgen.C.Clang.Util
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ tutorial fp = do
     -- Obtain a cursor at the root of the translation unit
     --
 
-    index  <- clang_createIndex 0 0
+    index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit
                 index
                 fp

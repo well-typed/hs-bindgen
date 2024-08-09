@@ -76,6 +76,14 @@ CXType* wrap_malloc_getPointeeType(CXType* T) {
     return result;
 }
 
+long long wrap_Type_getSizeOf(CXType* T) {
+    return clang_Type_getSizeOf(*T);
+}
+
+long long wrap_Type_getAlignOf(CXType* T) {
+    return clang_Type_getAlignOf(*T);
+}
+
 /**
  * Mapping between cursors and source code
  */

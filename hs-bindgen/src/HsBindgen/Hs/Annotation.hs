@@ -10,10 +10,11 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Annotation (Ann)
--- > import HsBindgen.Annotation qualified as Ann
-module HsBindgen.Annotation (
+-- > import HsBindgen.Hs.Annotation (Ann, noAnn)
+-- > import HsBindgen.Hs.Annotation qualified as Ann
+module HsBindgen.Hs.Annotation (
     Ann(..)
+  , noAnn
   ) where
 
 {-------------------------------------------------------------------------------
@@ -31,8 +32,5 @@ module HsBindgen.Annotation (
 data Ann = Ann {
     }
 
-instance Semigroup Ann where
-  _ <> _ = mempty
-
-instance Monoid Ann where
-  mempty = Ann
+noAnn :: Ann
+noAnn = Ann

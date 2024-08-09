@@ -40,6 +40,9 @@ CXType* wrap_malloc_getCursorType(CXCursor* C);
 CXString* wrap_malloc_getTypeKindSpelling(enum CXTypeKind K);
 CXString* wrap_malloc_getTypeSpelling(CXType* CT);
 CXType* wrap_malloc_getPointeeType(CXType* T);
+long long wrap_Type_getSizeOf(CXType* T);
+long long wrap_Type_getAlignOf(CXType* T);
+
 
 /**
  * Mapping between cursors and source code

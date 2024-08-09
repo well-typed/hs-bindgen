@@ -4,8 +4,16 @@
 --
 -- The goal of these bindings is to provide an API which is as close as possible
 -- to using the C API, whilst taking care of the most annoying low-level details
--- (callbacks, bytestrings, out-parameters, etc.). Despite the low-level nature,
--- these bindings should be useable without imports of @Foreign.*@.
+-- such as
+--
+-- * callbacks
+-- * bytestrings
+-- * out-parameters
+-- * checking results for errors and throwing exceptions
+-- * etc.
+--
+-- Despite the low-level nature, these bindings should be useable without
+-- imports of @Foreign.*@.
 --
 -- Guidelines:
 --
@@ -27,9 +35,10 @@
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/80> Ideally we would
 -- bootstrap this (generate it using @hs-bindgen@ itself).
-module HsBindgen.Clang.LowLevel (
+module HsBindgen.C.Clang (
     -- * Top-level
     CXIndex
+  , DisplayDiagnostics(..)
   , clang_createIndex
     -- * Translation unit manipulation
   , CXTranslationUnit
@@ -56,6 +65,8 @@ module HsBindgen.Clang.LowLevel (
   , clang_getTypeKindSpelling
   , clang_getTypeSpelling
   , clang_getPointeeType
+  , clang_Type_getSizeOf
+  , clang_Type_getAlignOf
     -- * Mapping between cursors and source code
   , CXSourceRange
   , clang_getCursorExtent
@@ -64,6 +75,8 @@ module HsBindgen.Clang.LowLevel (
   , clang_getRangeStart
   , clang_getRangeEnd
   , clang_getExpansionLocation
+    -- * Error results (exceptions)
+  , CallFailed(..)
   ) where
 
 import Control.Exception
@@ -74,8 +87,9 @@ import Foreign.C
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
+import HsBindgen.C.Clang.Enums
+import HsBindgen.C.Clang.Instances ()
 import HsBindgen.Patterns
-import HsBindgen.Clang.LowLevel.Enums
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -89,22 +103,35 @@ import HsBindgen.Clang.LowLevel.Enums
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gae039c2574bfd75774ca7a9a3e55910cb>
 data CXIndex
 
--- | Provides a shared context for creating translation units.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga51eb9b38c18743bf2d824c6230e61f93>
 foreign import capi unsafe "clang-c/Index.h clang_createIndex"
-  clang_createIndex ::
+  clang_createIndex' ::
        CInt
        -- ^ @excludeDeclarationsFromPCH@
-       --
-       -- When non-zero, allows enumeration of "local" declarations (when
-       -- loading any new translation units). A "local" declaration is one that
-       -- belongs in the translation unit itself and not in a precompiled header
-       -- that was used by the translation unit. If zero, all declarations will
-       -- be enumerated.
     -> CInt
        -- ^ @displayDiagnostics@
     -> IO (Ptr CXIndex)
+
+data DisplayDiagnostics =
+    DisplayDiagnostics
+  | DontDisplayDiagnostics
+
+-- | Provides a shared context for creating translation units.
+--
+-- /NOTE/: We are not planning to support precompiled headers, so we omit the
+-- first argument (@excludeDeclarationsFromPCH@).
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga51eb9b38c18743bf2d824c6230e61f93>
+clang_createIndex ::
+     DisplayDiagnostics
+  -> IO (Ptr CXIndex)
+clang_createIndex diagnostics =
+    clang_createIndex' 0 diagnostics'
+  where
+    diagnostics' :: CInt
+    diagnostics' =
+        case diagnostics of
+          DisplayDiagnostics     -> 1
+          DontDisplayDiagnostics -> 0
 
 {-------------------------------------------------------------------------------
   Definition of 'CXTranslationUnit_Flags'
@@ -289,16 +316,16 @@ clang_visitChildren ::
      -- See 'CXCursorVisitor' for details.
      --
      -- /NOTE/:
-  -> IO CUInt
-     -- ^ A non-zero value if the traversal was terminated prematurely by the
-     -- visitor returning 'CXChildVisit_Break'.
+  -> IO Bool
+     -- ^ 'True' if the traversal was terminated prematurely by the visitor
+     -- returning 'CXChildVisit_Break'.
 clang_visitChildren root visitor = do
     visitor' <- mkCursorVisitor $ \current parent ->
       ensureScoped current $ \current' ->
       ensureScoped parent  $ \parent'  ->
         visitor current' parent'
     withSafeForeignPtr root $ \parent' ->
-      clang_visitChildren' parent' visitor'
+      (/= 0) <$> clang_visitChildren' parent' visitor'
 
 {-------------------------------------------------------------------------------
   Cross-referencing in the AST
@@ -417,6 +444,40 @@ clang_getPointeeType ::
 clang_getPointeeType typ =
     withSafeForeignPtr typ $ \typ' -> attachFinalizer $
       clang_getPointeeType' typ'
+
+foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
+  clang_Type_getSizeOf' ::
+       Ptr CXType
+    -> IO CLLong
+
+-- | Return the size of a type in bytes as per C++[expr.sizeof] standard.
+--
+-- May throw 'CXTypeLayoutException'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
+clang_Type_getSizeOf ::
+     SafeForeignPtr CXType
+  -> IO CLLong
+clang_Type_getSizeOf typ =
+    withSafeForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
+      clang_Type_getSizeOf' typ'
+
+foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
+  clang_getAlignOf' ::
+       Ptr CXType
+    -> IO CLLong
+
+-- | Return the alignment of a type in bytes as per C++[expr.alignof] standard.
+--
+-- May throw 'CXTypeLayoutException'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
+clang_Type_getAlignOf ::
+     SafeForeignPtr CXType
+  -> IO CLLong
+clang_Type_getAlignOf typ =
+    withSafeForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
+      clang_getAlignOf' typ'
 
 {-------------------------------------------------------------------------------
   Mapping between cursors and source code
@@ -583,6 +644,49 @@ packCXString mkStr = do
       BS.Strict.packCString
 
 {-------------------------------------------------------------------------------
+  Checking for error results
+
+  We do the actual checks in this module, and export only the exception types.
+-------------------------------------------------------------------------------}
+
+data CallFailed = CallFailed Stack
+  deriving stock (Show)
+  deriving Exception via ContainsStack CallFailed
+
+-- | Ensure that a function did not return 'nullPtr' (indicating error)
+ensureNotNull :: HasCallStack => IO (Ptr a) -> IO (Ptr a)
+ensureNotNull call = do
+    ptr <- call
+    if ptr == nullPtr then do
+      stack <- getStack
+      throwIO $ CallFailed stack
+    else
+      return ptr
+
+data CXTypeLayoutException =
+    CXTypeLayoutException Stack CInt (Maybe CXTypeLayoutError)
+  deriving stock (Show)
+  deriving Exception via ContainsStack CXTypeLayoutException
+
+-- | Check that an (integral) result from @libclang@ function is not an error
+ensure ::
+     ( HasCallStack
+     , IsSimpleEnum hs
+     , Exception e
+     , Integral c
+     )
+  => (c -> Bool)
+  -> (Stack -> CInt -> Maybe hs -> e)
+  -> IO c -> IO c
+ensure p mkErr call = do
+    c <- call
+    if p c then
+      return c
+    else do
+      stack <- getStack
+      throwIO $ mkErr stack (fromIntegral c) (simpleFromC $ fromIntegral c)
+
+{-------------------------------------------------------------------------------
   Internal: auxiliary
 -------------------------------------------------------------------------------}
 
@@ -617,16 +721,3 @@ withCStrings = \args k ->
                   go          xs $ \xs' ->
                   k (x' : xs')
 
-data CallFailed = CallFailed Stack
-  deriving stock (Show)
-  deriving Exception via ContainsStack CallFailed
-
--- | Ensure that a function did not return 'nullPtr' (indicating error)
-ensureNotNull :: HasCallStack => IO (Ptr a) -> IO (Ptr a)
-ensureNotNull mkPtr = do
-    ptr <- mkPtr
-    if ptr == nullPtr then do
-      stack <- getStack
-      throwIO $ CallFailed stack
-    else
-      return ptr

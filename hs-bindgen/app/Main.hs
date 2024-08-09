@@ -1,14 +1,9 @@
-module Main where
+module Main (main) where
 
 import HsBindgen.Cmdline
-import HsBindgen.Preprocessor (generateModule)
-import HsBindgen.Preprocessor.Render (render)
-import HsBindgen.Spec qualified as Spec
+import HsBindgen.Lib
 
 main :: IO ()
 main = do
     cmdline <- getCmdline
-    spec'   <- Spec.resolve (cmdInput cmdline)
-    writeFile (cmdOutput cmdline) $
-      render (cmdRenderOptions cmdline) $
-        generateModule spec'
+    execSpec (cmdSpec cmdline)
