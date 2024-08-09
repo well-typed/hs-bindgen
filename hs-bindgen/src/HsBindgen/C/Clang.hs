@@ -26,7 +26,7 @@
 -- * For functions that take structs or return structs by value, we use our own
 --   wrappers from @cbits/clang_wrappers.h@.
 -- * In cases where we are responsible for calling @free@ (or some other
---   finalizer), we use 'SafeForeignPtr' rather than 'Ptr' in argument position.
+--   finalizer), we use 'ForeignPtr' rather than 'Ptr' in argument position.
 --
 -- The sections in this module and in the export list correspond to
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html>, with the exception of
@@ -49,6 +49,7 @@ module HsBindgen.C.Clang (
     -- * Cursor manipulations
   , CXCursor
   , clang_getTranslationUnitCursor
+  , clang_equalCursors
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , CXCursorVisitor
@@ -84,6 +85,7 @@ import Data.ByteString qualified as BS.Strict
 import Data.ByteString qualified as Strict (ByteString)
 import Foreign
 import Foreign.C
+import Foreign.Concurrent qualified as Concurrent
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
@@ -248,9 +250,28 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTranslationUnitCurso
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaec6e69127920785e74e4a517423f4391>
 clang_getTranslationUnitCursor ::
      Ptr CXTranslationUnit
-  -> IO (SafeForeignPtr CXCursor)
-clang_getTranslationUnitCursor unit = attachFinalizer $
+  -> IO (ForeignPtr CXCursor)
+clang_getTranslationUnitCursor unit = attachFinalizer =<<
     clang_getTranslationUnitCursor' unit
+
+foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
+  clang_equalCursors' ::
+       Ptr CXCursor
+    -> Ptr CXCursor
+    -> IO CUInt
+
+-- | Determine whether two cursors are equivalent.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga98df58f09878710b983b6f3f60f0cba3>
+clang_equalCursors ::
+     ForeignPtr CXCursor
+  -> ForeignPtr CXCursor
+  -> IO Bool
+clang_equalCursors a b =
+    withForeignPtr a $ \a' ->
+    withForeignPtr b $ \b' ->
+      (/= 0) <$> clang_equalCursors' a' b'
+
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -284,7 +305,7 @@ foreign import ccall "wrapper"
 --
 -- /NOTE/: This is marked @safe@ rather than @unsafe@ as this calls back into
 -- Haskell.
-foreign import capi safe "clang_wrappers.h wrap_visitChildren"
+foreign import capi safe "clang_wrappers.h wrap_malloc_visitChildren"
   clang_visitChildren' ::
        Ptr CXCursor
     -> FunPtr CXCursorVisitor
@@ -300,14 +321,14 @@ foreign import capi safe "clang_wrappers.h wrap_visitChildren"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__TRAVERSAL.html#ga5d0a813d937e1a7dcc35f206ad1f7a91>
 clang_visitChildren ::
-     SafeForeignPtr CXCursor
+     ForeignPtr CXCursor
      -- ^ @parent@
      --
      -- The cursor whose child may be visited. All kinds of cursors can be
      -- visited, including invalid cursors (which, by definition, have no
      -- children).
-  -> (    SafeForeignPtr CXCursor
-       -> SafeForeignPtr CXCursor
+  -> (    ForeignPtr CXCursor
+       -> ForeignPtr CXCursor
        -> IO (SimpleEnum CXChildVisitResult)
      )
      -- ^ @visitor@
@@ -315,16 +336,18 @@ clang_visitChildren ::
      -- The visitor function that will be invoked for each child of parent.
      -- See 'CXCursorVisitor' for details.
      --
-     -- /NOTE/:
+     -- /NOTE/: We omit the @client_data@ argument from @libclang@, as it is
+     -- not needed in Haskell (the IO action can have arbitrary data in its
+     -- closure).
   -> IO Bool
      -- ^ 'True' if the traversal was terminated prematurely by the visitor
      -- returning 'CXChildVisit_Break'.
 clang_visitChildren root visitor = do
-    visitor' <- mkCursorVisitor $ \current parent ->
-      ensureScoped current $ \current' ->
-      ensureScoped parent  $ \parent'  ->
-        visitor current' parent'
-    withSafeForeignPtr root $ \parent' ->
+    visitor' <- mkCursorVisitor $ \current parent -> do
+      current' <- attachFinalizer current
+      parent'  <- attachFinalizer parent
+      visitor current' parent'
+    withForeignPtr root $ \parent' ->
       (/= 0) <$> clang_visitChildren' parent' visitor'
 
 {-------------------------------------------------------------------------------
@@ -346,10 +369,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDisplayName"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac3eba3224d109a956f9ef96fd4fe5c83>
 clang_getCursorDisplayName ::
-     SafeForeignPtr CXCursor
+     ForeignPtr CXCursor
   -> IO Strict.ByteString
 clang_getCursorDisplayName cursor =
-    withSafeForeignPtr cursor $ \cursor' -> packCXString $
+    withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_getCursorDisplayName' cursor'
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSpelling"
@@ -361,11 +384,12 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSpelling"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
 clang_getCursorSpelling ::
-     SafeForeignPtr CXCursor
+     ForeignPtr CXCursor
   -> IO Strict.ByteString
 clang_getCursorSpelling cursor =
-    withSafeForeignPtr cursor $ \cursor' -> packCXString $
+    withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_getCursorSpelling' cursor'
+
 {-------------------------------------------------------------------------------
   Type information for CXCursors
 
@@ -382,9 +406,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
        Ptr CXType
     -> IO (SimpleEnum CXTypeKind)
 
-cxtKind :: SafeForeignPtr CXType -> SimpleEnum CXTypeKind
+cxtKind :: ForeignPtr CXType -> SimpleEnum CXTypeKind
 cxtKind typ = unsafePerformIO $
-    withSafeForeignPtr typ $ \typ' ->
+    withForeignPtr typ $ \typ' ->
       cxtKind' typ'
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorType"
@@ -395,9 +419,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorType"
 -- | Retrieve the type of a CXCursor (if any).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaae5702661bb1f2f93038051737de20f4>
-clang_getCursorType :: SafeForeignPtr CXCursor -> IO (SafeForeignPtr CXType)
+clang_getCursorType :: ForeignPtr CXCursor -> IO (ForeignPtr CXType)
 clang_getCursorType cursor =
-    withSafeForeignPtr cursor $ \cursor' -> attachFinalizer $
+    withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCursorType' cursor'
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeKindSpelling"
@@ -411,7 +435,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeKindSpelling"
 clang_getTypeKindSpelling ::
      SimpleEnum CXTypeKind
   -> IO Strict.ByteString
-clang_getTypeKindSpelling kind = packCXString $
+clang_getTypeKindSpelling kind = packCXString =<<
     clang_getTypeKindSpelling' kind
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeSpelling"
@@ -424,10 +448,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeSpelling"
 --
 -- If the type is invalid, an empty string is returned.
 clang_getTypeSpelling ::
-     SafeForeignPtr CXType
+     ForeignPtr CXType
   -> IO Strict.ByteString
 clang_getTypeSpelling typ =
-     withSafeForeignPtr typ $ \typ' -> packCXString $
+     withForeignPtr typ $ \typ' -> packCXString =<<
        clang_getTypeSpelling' typ'
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getPointeeType"
@@ -439,10 +463,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getPointeeType"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaafa3eb34932d8da1358d50ed949ff3ee>
 clang_getPointeeType ::
-     SafeForeignPtr CXType
-  -> IO (SafeForeignPtr CXType)
+     ForeignPtr CXType
+  -> IO (ForeignPtr CXType)
 clang_getPointeeType typ =
-    withSafeForeignPtr typ $ \typ' -> attachFinalizer $
+    withForeignPtr typ $ \typ' -> attachFinalizer =<<
       clang_getPointeeType' typ'
 
 foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
@@ -456,10 +480,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
 clang_Type_getSizeOf ::
-     SafeForeignPtr CXType
+     ForeignPtr CXType
   -> IO CLLong
 clang_Type_getSizeOf typ =
-    withSafeForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
+    withForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
       clang_Type_getSizeOf' typ'
 
 foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
@@ -473,10 +497,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
 clang_Type_getAlignOf ::
-     SafeForeignPtr CXType
+     ForeignPtr CXType
   -> IO CLLong
 clang_Type_getAlignOf typ =
-    withSafeForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
+    withForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
       clang_getAlignOf' typ'
 
 {-------------------------------------------------------------------------------
@@ -502,10 +526,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorExtent"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#ga79f6544534ab73c78a8494c4c0bc2840>
 clang_getCursorExtent ::
-     SafeForeignPtr CXCursor
-  -> IO (SafeForeignPtr CXSourceRange)
+     ForeignPtr CXCursor
+  -> IO (ForeignPtr CXSourceRange)
 clang_getCursorExtent cursor =
-    withSafeForeignPtr cursor $ \cursor' -> attachFinalizer $
+    withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCursorExtent' cursor'
 
 {-------------------------------------------------------------------------------
@@ -530,10 +554,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeStart"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gac2cc034e3965739c41662f6ada7ff248>
 clang_getRangeStart ::
-     SafeForeignPtr CXSourceRange
-  -> IO (SafeForeignPtr CXSourceLocation)
+     ForeignPtr CXSourceRange
+  -> IO (ForeignPtr CXSourceLocation)
 clang_getRangeStart range =
-    withSafeForeignPtr range $ \range' -> attachFinalizer $
+    withForeignPtr range $ \range' -> attachFinalizer =<<
       clang_getRangeStart' range'
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeEnd"
@@ -546,10 +570,10 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeEnd"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacdb7d3c2b77a06bcc2e83bde3e14c3c0>
 clang_getRangeEnd ::
-     SafeForeignPtr CXSourceRange
-  -> IO (SafeForeignPtr CXSourceLocation)
+     ForeignPtr CXSourceRange
+  -> IO (ForeignPtr CXSourceLocation)
 clang_getRangeEnd range =
-    withSafeForeignPtr range $ \range' -> attachFinalizer $
+    withForeignPtr range $ \range' -> attachFinalizer =<<
       clang_getRangeEnd' range'
 
 -- | A particular source file that is part of a translation unit.
@@ -581,10 +605,10 @@ foreign import capi "clang_wrappers.h wrap_getExpansionLocation"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gadee4bea0fa34550663e869f48550eb1f>
 clang_getExpansionLocation ::
-     SafeForeignPtr CXSourceLocation
+     ForeignPtr CXSourceLocation
   -> IO (Ptr CXFile, CUInt, CUInt, CUInt)
 clang_getExpansionLocation location =
-     withSafeForeignPtr location $ \location' ->
+     withForeignPtr location $ \location' ->
        alloca $ \file ->
        alloca $ \line ->
        alloca $ \column ->
@@ -635,9 +659,8 @@ foreign import capi unsafe "clang_wrappers.h wrap_disposeString"
 -- The @libclang@ functions that return a @CXString@ do so by /value/; we
 -- allocate this on the heap in our wrapper functions. Since we no longer need
 -- this after packing, we free the pointer after packing.
-packCXString :: IO (Ptr CXString) -> IO Strict.ByteString
-packCXString mkStr = do
-    str <- mkStr
+packCXString :: Ptr CXString -> IO Strict.ByteString
+packCXString str =
     bracket
       (clang_getCString str)
       (\_ -> clang_disposeString str >> free str) $
@@ -649,24 +672,24 @@ packCXString mkStr = do
   We do the actual checks in this module, and export only the exception types.
 -------------------------------------------------------------------------------}
 
-data CallFailed = CallFailed Stack
+data CallFailed = CallFailed Backtrace
   deriving stock (Show)
-  deriving Exception via ContainsStack CallFailed
+  deriving Exception via CollectedBacktrace CallFailed
 
 -- | Ensure that a function did not return 'nullPtr' (indicating error)
 ensureNotNull :: HasCallStack => IO (Ptr a) -> IO (Ptr a)
 ensureNotNull call = do
     ptr <- call
     if ptr == nullPtr then do
-      stack <- getStack
+      stack <- collectBacktrace
       throwIO $ CallFailed stack
     else
       return ptr
 
 data CXTypeLayoutException =
-    CXTypeLayoutException Stack CInt (Maybe CXTypeLayoutError)
+    CXTypeLayoutException Backtrace CInt (Maybe CXTypeLayoutError)
   deriving stock (Show)
-  deriving Exception via ContainsStack CXTypeLayoutException
+  deriving Exception via CollectedBacktrace CXTypeLayoutException
 
 -- | Check that an (integral) result from @libclang@ function is not an error
 ensure ::
@@ -676,36 +699,22 @@ ensure ::
      , Integral c
      )
   => (c -> Bool)
-  -> (Stack -> CInt -> Maybe hs -> e)
+  -> (Backtrace -> CInt -> Maybe hs -> e)
   -> IO c -> IO c
 ensure p mkErr call = do
     c <- call
     if p c then
       return c
     else do
-      stack <- getStack
+      stack <- collectBacktrace
       throwIO $ mkErr stack (fromIntegral c) (simpleFromC $ fromIntegral c)
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary
 -------------------------------------------------------------------------------}
 
-attachFinalizer :: IO (Ptr a) -> IO (SafeForeignPtr a)
-attachFinalizer mkPtr = do
-    ptr <- mkPtr
-    newSafeForeignPtr ptr $ free ptr
-
--- | Ensure that a 'Ptr' is used within the given scope
---
--- We don't attach a finalizer (we are not responsible for freeing any memory),
--- but take advantage of 'SafeForeignPtr' to ensure that if the 'SafeForeignPtr'
--- is accessed outside the scope, an exception is thrown.
---
--- (We cannot prevent the underlying 'Ptr' from leaking, but this is an
--- implementation detail that is not visible outside the scope of this module.)
-ensureScoped  :: Ptr a -> (SafeForeignPtr a -> IO r) -> IO r
-ensureScoped ptr =
-    bracket (newSafeForeignPtr ptr $ return ()) finalizeSafeForeignPtr
+attachFinalizer :: Ptr a -> IO (ForeignPtr a)
+attachFinalizer ptr = Concurrent.newForeignPtr ptr $ free ptr
 
 -- | Extension of 'withCString' for multiple CStrings
 withCStrings :: [String] -> (Ptr CString -> CInt -> IO r) -> IO r

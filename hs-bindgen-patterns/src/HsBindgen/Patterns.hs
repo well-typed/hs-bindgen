@@ -21,21 +21,13 @@ module HsBindgen.Patterns (
   , bitfieldEnum
   , fromBitfieldEnum
   , flagIsSet
-    -- * Foreign pointers
-  , SafeForeignPtr
-  , AccessedFinalizedForeignPtrException
-    -- ** API
-  , newSafeForeignPtr
-  , withSafeForeignPtr
-  , finalizeSafeForeignPtr
     -- * Backtrace
-  , Stack
-  , getStack
-  , prettyStack
-  , ContainsStack(..)
+  , Backtrace
+  , collectBacktrace
+  , prettyBacktrace
+  , CollectedBacktrace(..)
   ) where
 
+import HsBindgen.Patterns.Backtrace
 import HsBindgen.Patterns.Enum.Bitfield
 import HsBindgen.Patterns.Enum.Simple
-import HsBindgen.Patterns.SafeForeignPtr
-import HsBindgen.Patterns.Stack
