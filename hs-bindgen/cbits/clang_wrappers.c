@@ -15,16 +15,24 @@ CXCursor* wrap_malloc_getTranslationUnitCursor (CXTranslationUnit unit) {
     return result;
 }
 
+unsigned wrap_equalCursors(CXCursor* a, CXCursor* b) {
+    return clang_equalCursors(*a, *b);
+}
+
 /**
  * Traversing the AST with cursors
  */
 
 enum CXChildVisitResult wrap_HsCXCursorVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data) {
     HsCXCursorVisitor visitor = client_data;
-    return visitor(&cursor, &parent);
+    CXCursor* cursor_ = malloc(sizeof(CXCursor));
+    CXCursor* parent_ = malloc(sizeof(CXCursor));
+    *cursor_ = cursor;
+    *parent_ = parent;
+    return visitor(cursor_, parent_);
 }
 
-unsigned wrap_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor) {
+unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor) {
     return clang_visitChildren(*parent, &wrap_HsCXCursorVisitor, visitor);
 }
 

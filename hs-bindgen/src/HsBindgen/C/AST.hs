@@ -10,6 +10,8 @@ module HsBindgen.C.AST (
     Header(..)
   , Decl(..)
   , Struct(..)
+  , StructField(..)
+  , PrimType(..)
   ) where
 
 import GHC.Generics (Generic)
@@ -36,7 +38,21 @@ data Decl =
 data Struct = Struct {
       sizeof    :: Int
     , alignment :: Int
+    , fields    :: [StructField]
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
+data StructField = StructField {
+      fieldName :: String
+    , fieldType :: PrimType
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+data PrimType =
+    PrimInt   -- @int@
+  | PrimChar  -- @char@
+  | PrimFloat -- @float@
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)

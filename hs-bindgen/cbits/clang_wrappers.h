@@ -14,7 +14,8 @@
  * Cursor manipulations
  */
 
-CXCursor* wrap_malloc_getTranslationUnitCursor (CXTranslationUnit unit);
+CXCursor* wrap_malloc_getTranslationUnitCursor(CXTranslationUnit unit);
+unsigned wrap_equalCursors(CXCursor* a, CXCursor* b);
 
 /**
  * Traversing the AST with cursors
@@ -22,7 +23,7 @@ CXCursor* wrap_malloc_getTranslationUnitCursor (CXTranslationUnit unit);
 
 typedef enum CXChildVisitResult(* HsCXCursorVisitor) (CXCursor* cursor, CXCursor* parent);
 
-unsigned wrap_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor);
+unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor);
 
 /**
  * Cross-referencing in the AST

@@ -63,6 +63,7 @@ library
       HsBindgen.C.AST
       HsBindgen.C.Clang
       HsBindgen.C.Clang.Enums
+      HsBindgen.C.Clang.Fold
       HsBindgen.C.Clang.Instances
       HsBindgen.C.Clang.Util
       HsBindgen.C.Parser

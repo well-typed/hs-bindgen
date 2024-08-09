@@ -1,11 +1,11 @@
 {-# LANGUAGE CPP #-}
 
--- | Shim to provide stack support
-module HsBindgen.Patterns.Stack (
-    Stack
-  , prettyStack
-  , getStack
-  , ContainsStack(..)
+-- | Shim to provide backtrace support
+module HsBindgen.Patterns.Backtrace (
+    Backtrace
+  , prettyBacktrace
+  , collectBacktrace
+  , CollectedBacktrace(..)
   ) where
 
 import Control.Exception
@@ -24,35 +24,35 @@ import Control.Exception.Backtrace
 
 -- Take advantage of the new backtrace support in ghc 9.10 and up.
 
-newtype Stack = WrapStack {
+newtype Backtrace = WrapStack {
       unwrapStack :: Backtraces
     }
 
-instance Show Stack where
-  show = prettyStack
+instance Show Backtrace where
+  show = prettyBacktrace
 
-prettyStack :: Stack -> String
-prettyStack = displayBacktraces . unwrapStack
+prettyBacktrace :: Backtrace -> String
+prettyBacktrace = displayBacktraces . unwrapStack
 
-getStack :: HasCallStack => IO Stack
-getStack = WrapStack <$> collectBacktraces
+collectBacktrace :: HasCallStack => IO Backtrace
+collectBacktrace = WrapStack <$> collectBacktraces
 
 #else
 
 -- For older ghc (< 9.10), we just use the 'CallStack'.
 
-newtype Stack = WrapStack {
+newtype Backtrace = WrapStack {
       unwrapStack :: CallStack
     }
 
-instance Show Stack where
-  show = prettyStack
+instance Show Backtrace where
+  show = prettyBacktrace
 
-prettyStack :: Stack -> String
-prettyStack = prettyCallStack . unwrapStack
+prettyBacktrace :: Backtrace -> String
+prettyBacktrace = prettyCallStack . unwrapStack
 
-getStack :: HasCallStack => IO Stack
-getStack = return $ WrapStack callStack
+collectBacktrace :: HasCallStack => IO Backtrace
+collectBacktrace = return $ WrapStack callStack
 
 #endif
 
@@ -64,15 +64,16 @@ getStack = return $ WrapStack callStack
 --
 -- In ghc 9.10 and higher, 'throwIO' will include a backtrace immediately, but
 -- this is not true for older versions. It is therefore useful to include an
--- explicit stack in exceptions, but if we do, we should then /also/ have
--- @ghc@'s stack annotation. Example usage:
+-- explicit backtrace in exceptions, but if we do, we should then not /also/
+-- have @ghc@'s automatic backtrace annotation. Example usage:
 --
--- > data CallFailed = CallFailed Stack
+-- > data CallFailed = CallFailed Backtrace
 -- >   deriving stock (Show)
-newtype ContainsStack a = ContainsStack a
+-- >   deriving Exception via CollectedBacktrac CallFailed
+newtype CollectedBacktrace a = CollectedBacktrace a
   deriving newtype Show
 
-instance (Show a, Typeable a) => Exception (ContainsStack a) where
+instance (Show a, Typeable a) => Exception (CollectedBacktrace a) where
 #if MIN_VERSION_base(4,20,0)
     backtraceDesired _ = False
 #endif

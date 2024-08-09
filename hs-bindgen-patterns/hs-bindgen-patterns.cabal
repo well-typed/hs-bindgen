@@ -34,9 +34,8 @@ library
   exposed-modules:
       HsBindgen.Patterns
   other-modules:
+      HsBindgen.Patterns.Backtrace
       HsBindgen.Patterns.Enum.Bitfield
       HsBindgen.Patterns.Enum.Simple
-      HsBindgen.Patterns.SafeForeignPtr
-      HsBindgen.Patterns.Stack
   hs-source-dirs:
       src
