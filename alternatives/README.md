@@ -126,6 +126,65 @@ at times, especially with cross compilation.
 
 See https://github.com/haskell/c2hs/wiki/User-Guide for more information.
 
+## `inline-c`
+
+The [`inline-c` library](https://hackage.haskell.org/package/inline-c) can be
+used to manually write bindings to a C library. This is mostly a syntactic
+convenience; under the hood, the library uses Template Haskell to generate
+foreign import declarations.
+
+For example, code of the form
+
+```hs
+import qualified Language.C.Inline as C
+import MyLibContext( myLibCtxt )
+
+C.include "myLib.h"
+C.context myLibCtxt
+
+myFunction :: CInt -> HsEnum -> IO HsStruct
+myFunction i f =
+   [|C.exp| CStruct* { myCFunction($(int i), $(CEnum f)) } |]
+```
+
+will generate a foreign import
+
+```hs
+foreign import safe <inline_c_internal_id_1>
+  inline_c_internal_id_1 :: CInt -> CEnum -> IO (Ptr CStruct)
+```
+
+as well as a `.c` file of the form
+
+```c
+#include "myLib.h"
+
+CStruct* inline_c_internal_id_1 (int i, CEnum s) {
+  myCFunction(i, s);
+}
+```
+
+Here `myLibCtxt` specifies how Haskell and C types are interconverted:
+
+```hs
+module MyLibContext where
+
+import qualified Language.C.Inline as C
+
+data HsEnum = ...
+instance Storable HsEnum
+data HsStruct = ...
+instance Storable HsStruct
+
+myLibCtxt :: C.Context
+myLibCtxt = mempty
+  { C.ctxtTypesTables = Map.fromList
+    [ ( C.TypeName "CEnum"  , [t| HsEnum |] )
+    , ( C.TypeName "CStruct", [t| HsStruct |] )
+    ]
+  }
+```
+
 ## `cgen`
 
 TODO <https://github.com/well-typed/hs-bindgen/issues/6>

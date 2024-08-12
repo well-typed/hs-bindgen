@@ -1,5 +1,6 @@
-packages: 
+packages:
   experiment/manual
+  experiment/inline-c
   experiment/hsc2hs
   experiment/c2hs
   tools/hsc2hs
