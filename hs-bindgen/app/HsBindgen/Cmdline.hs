@@ -46,31 +46,47 @@ parseSpec = subparser $ mconcat [
     , cmd "parse" parseCmdParse $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
+    , cmd "dump" parseCmdDump $ mconcat [
+          progDesc "Dump the libclang AST (primarily for development of hs-bindgen itself)"
+        ]
     ]
 
 parseCmdProcess :: Parser (Spec (IO ()))
 parseCmdProcess =
     Preprocess
-      <$> parsePrepareInput
+      <$> parseParseCHeader
       <*> parseTranslation
       <*> parseProcessHsOutput
 
 parseCmdParse :: Parser (Spec (IO ()))
 parseCmdParse =
     Preprocess
-      <$> parsePrepareInput
-      <*> pure ParseOnly
+      <$> parseParseCHeader
+      <*> pure NoTranslation
       <*> parseProcessCOutput
+
+parseCmdDump :: Parser (Spec (IO ()))
+parseCmdDump =
+    Preprocess
+      <$> parseDumpClangAST
+      <*> pure NoTranslation
+      <*> pure NoOutput
 
 {-------------------------------------------------------------------------------
   Prepare input
 -------------------------------------------------------------------------------}
 
-parsePrepareInput :: Parser (PrepareInput CHeader)
-parsePrepareInput =
+parseParseCHeader :: Parser (PrepareInput CHeader)
+parseParseCHeader =
     ParseCHeader
       <$> parseTracer
       <*> parseClangArgs
+      <*> parseInput
+
+parseDumpClangAST :: Parser (PrepareInput ())
+parseDumpClangAST =
+    DumpClangAST
+      <$> parseClangArgs
       <*> parseInput
 
 parseTracer :: Parser (Tracer IO String)

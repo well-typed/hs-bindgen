@@ -45,7 +45,7 @@ tutorial fp = do
 
         -- Extracting the Cursor kind
 
-        cursor_type        <- clang_getCursorType current_cursor;
+        cursor_type        <- clang_getCursorType current_cursor
         type_kind_spelling <- clang_getTypeKindSpelling (cxtKind cursor_type)
         putStrLn $ concat [
             "  "

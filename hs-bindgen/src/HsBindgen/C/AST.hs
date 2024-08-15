@@ -7,23 +7,28 @@
 --
 -- > import HsBindgen.C.AST qualified as C
 module HsBindgen.C.AST (
+    -- * Top-level
     Header(..)
   , Decl(..)
+    -- * Structs
   , Struct(..)
   , StructField(..)
+    -- * Types
+  , Typ(..)
   , PrimType(..)
+  , Typedef(..)
   ) where
 
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal)
 
 {-------------------------------------------------------------------------------
-  Definition
+  Top-level
 -------------------------------------------------------------------------------}
 
 -- | C header
 data Header = Header {
-      decls :: [Decl]
+      headerDecls :: [Decl]
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -31,14 +36,20 @@ data Header = Header {
 -- | Top-level declaration
 data Decl =
     DeclStruct Struct
+  | DeclTypedef Typedef
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
+{-------------------------------------------------------------------------------
+  Structs
+-------------------------------------------------------------------------------}
+
 -- | Definition of a struct
 data Struct = Struct {
-      sizeof    :: Int
-    , alignment :: Int
-    , fields    :: [StructField]
+      structName      :: String
+    , structSizeof    :: Int
+    , structAlignment :: Int
+    , structFields    :: [StructField]
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -47,6 +58,27 @@ data StructField = StructField {
       fieldName :: String
     , fieldType :: PrimType
     }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  Typedefs
+-------------------------------------------------------------------------------}
+
+data Typedef = Typedef {
+      typedefName :: String
+    , typedefType :: Typ
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+data Typ =
+    TypPrim PrimType
+  | TypStruct Struct
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

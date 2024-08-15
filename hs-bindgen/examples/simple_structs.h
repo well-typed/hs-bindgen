@@ -9,4 +9,9 @@ typedef struct S2 {
     char a; 
     int b;
     float c;
-} S2;
+} S2_t;
+
+// anonymous struct with typedef
+typedef struct {
+    char a;
+} S3_t;

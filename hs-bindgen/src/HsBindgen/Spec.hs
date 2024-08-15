@@ -59,9 +59,22 @@ data Spec result where
 -------------------------------------------------------------------------------}
 
 data PrepareInput inp where
+  -- | Parse C header
+  --
+  -- This is the main way in which we prepare the input.
   ParseCHeader ::
        Tracer IO String
-    -> ClangArgs -> FilePath -> PrepareInput C.Header
+    -> ClangArgs
+    -> FilePath
+    -> PrepareInput C.Header
+
+  -- | Just dump the @libclang@ AST
+  --
+  -- Used only for development of @hs-bindgen@.
+  DumpClangAST ::
+       ClangArgs
+    -> FilePath
+    -> PrepareInput ()
 
 -- | @libclang@ command line arguments
 --
@@ -75,9 +88,9 @@ type ClangArgs = [String]
 -------------------------------------------------------------------------------}
 
 data Translation inp out where
-  ParseOnly  :: Translation C.Header C.Header
-  GenDecls   :: Translation C.Header [Hs.Decl Ann]
-  GenModule  :: HsModuleOpts -> Translation C.Header (Hs.Module Ann)
+  NoTranslation :: Translation a a
+  GenDecls      :: Translation C.Header [Hs.Decl Ann]
+  GenModule     :: HsModuleOpts -> Translation C.Header (Hs.Module Ann)
 
 data HsModuleOpts = HsModuleOpts {
       hsModuleName :: String
@@ -91,5 +104,6 @@ data HsModuleOpts = HsModuleOpts {
 -------------------------------------------------------------------------------}
 
 data ProcessOutput out where
+  NoOutput :: ProcessOutput ()
   PrettyC  :: ProcessOutput C.Header
   PrettyHs :: HsRenderOpts -> Maybe FilePath -> ProcessOutput (Hs.Module Ann)

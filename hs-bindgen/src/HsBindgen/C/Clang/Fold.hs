@@ -2,6 +2,7 @@
 module HsBindgen.C.Clang.Fold (
     Fold
   , Next(..)
+  , recurse_
   , clang_fold
   ) where
 
@@ -16,12 +17,46 @@ import HsBindgen.Patterns
   Definition
 -------------------------------------------------------------------------------}
 
+-- | Typed fold over the AST
+--
+-- This is similar to 'CXCursorVisitor', but
+--
+-- * we allow for (typed) results
+-- * when recursing into the children of a node, we get to specify a /different/
+--   function
+--
+-- This provides for a much nicer user experience.
 type Fold a = ForeignPtr CXCursor -> IO (Next a)
 
+-- | Result of visiting one node
+--
+-- This is the equivalent of 'CXChildVisitResult'
 data Next a where
-  Stop     :: Maybe a -> Next a
+  -- | Stop folding early
+  --
+  -- This is the equivalent of 'CXChildVisit_Break'.
+  Stop :: Maybe a -> Next a
+
+  -- | Continue with the next sibling of the current node
+  --
+  -- This is the equivalent of 'CXChildVisit_Continue'.
   Continue :: Maybe a -> Next a
-  Recurse  :: Fold b -> ([b] -> IO a) -> Next a
+
+  -- | Recurse into the children of the current node
+  --
+  -- We can specify a different 'Fold' to process the children, and must
+  -- provide a "summarize" function which turns the results obtained from
+  -- processing the children into a result for the parent.
+  --
+  -- This is the equivalent of 'CXChildVisit_Recurse'.
+  Recurse :: Fold b -> ([b] -> IO (Maybe a)) -> Next a
+
+-- | Variation on 'Recurse' for folds without results
+--
+-- We could optimize this case (avoiding the collection of the @()@ results),
+-- but it doesn't really matter in practice; we use this for debugging only.
+recurse_ :: Fold () -> Next a
+recurse_ f = Recurse f (\_ -> return Nothing)
 
 {-------------------------------------------------------------------------------
   Internal: stack
@@ -40,7 +75,7 @@ data Processing a = Processing {
 
 data Stack a where
   Bottom :: Processing a -> Stack a
-  Push   :: Processing a -> ([a] -> IO b) -> Stack b -> Stack a
+  Push   :: Processing a -> ([a] -> IO (Maybe b)) -> Stack b -> Stack a
 
 topProcessing :: Stack a -> Processing a
 topProcessing (Bottom p)     = p
@@ -68,7 +103,11 @@ initStack root topLevelFold = do
           }
     return $ Bottom p
 
-push :: ForeignPtr CXCursor -> Fold b -> ([b] -> IO a) -> Stack a -> IO (Stack b)
+push ::
+     ForeignPtr CXCursor
+  -> Fold b
+  -> ([b] -> IO (Maybe a))
+  -> Stack a -> IO (Stack b)
 push newParent fold collect stack = do
     partialResults <- newIORef []
     let p = Processing {
@@ -94,8 +133,8 @@ popUntil someStack newParent = do
               error "popUntil: something has gone horribly wrong"
             Push p collect stack' -> do
               as <- readIORef (partialResults p)
-              b  <- collect (reverse as)
-              modifyIORef (topResults stack') (b:)
+              mb <- collect (reverse as)
+              forM_ mb $ modifyIORef (topResults stack') . (:)
               loop stack'
 
 {-------------------------------------------------------------------------------
@@ -113,6 +152,7 @@ clang_fold root topLevelFold = do
     stack     <- initStack root topLevelFold
     someStack <- newIORef $ SomeStack stack
     _terminatedEarly <- clang_visitChildren root $ visitor someStack
+    popUntil someStack root
     reverse <$> readIORef (topResults stack)
   where
     visitor ::
@@ -126,11 +166,11 @@ clang_fold root topLevelFold = do
         let p = topProcessing stack
         next <- currentFold p current
         case next of
-          Stop a -> do
-            forM_ a $ modifyIORef (partialResults p) . (:)
+          Stop ma -> do
+            forM_ ma $ modifyIORef (partialResults p) . (:)
             return $ simpleEnum CXChildVisit_Break
-          Continue a -> do
-            forM_ a $ modifyIORef (partialResults p) . (:)
+          Continue ma -> do
+            forM_ ma $ modifyIORef (partialResults p) . (:)
             return $ simpleEnum CXChildVisit_Continue
           Recurse fold collect -> do
             stack' <- push current fold collect stack
