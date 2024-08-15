@@ -29,14 +29,16 @@ execSpec (GenSplice a b) = liftIO $
 prepareInput :: PrepareInput inp -> IO inp
 prepareInput (ParseCHeader tracer clangArgs fp) =
     C.parseHeader (contramap prettyLogMsg tracer) clangArgs fp
+prepareInput (DumpClangAST clangArgs fp) =
+    C.dumpClangAST clangArgs fp
 
 {-------------------------------------------------------------------------------
   Main mode
 -------------------------------------------------------------------------------}
 
 translate :: Translation inp out -> inp -> out
-translate ParseOnly        = id
-translate GenDecls         = generateDeclarations . C.decls
+translate NoTranslation    = id
+translate GenDecls         = generateDeclarations . C.headerDecls
 translate (GenModule opts) = generateModule opts
 
 {-------------------------------------------------------------------------------
@@ -46,3 +48,4 @@ translate (GenModule opts) = generateModule opts
 processOutput :: ProcessOutput out -> out -> IO ()
 processOutput PrettyC            = Pretty.dumpIO
 processOutput (PrettyHs opts fp) = Hs.renderIO opts fp
+processOutput NoOutput           = return

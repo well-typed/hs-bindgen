@@ -272,7 +272,6 @@ clang_equalCursors a b =
     withForeignPtr b $ \b' ->
       (/= 0) <$> clang_equalCursors' a' b'
 
-
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
 
