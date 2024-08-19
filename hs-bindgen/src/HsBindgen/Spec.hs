@@ -12,6 +12,7 @@ module HsBindgen.Spec (
     -- * Prepare input
   , PrepareInput(..)
   , ClangArgs
+  , prettyClangArgs
     -- * Translate
   , Translation(..)
   , HsModuleOpts(..)
@@ -20,6 +21,7 @@ module HsBindgen.Spec (
   , HsRenderOpts(..)
   ) where
 
+import Data.Void (Void, absurd)
 import Language.Haskell.Exts qualified as Hs
 import Language.Haskell.TH (Q)
 import Language.Haskell.TH qualified as TH
@@ -79,9 +81,15 @@ data PrepareInput inp where
 -- | @libclang@ command line arguments
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/83>
--- We should have a proper data type instead of @[String]@ for the arguments
+-- We should have a proper data type instead of @[Void]@ for the arguments
 -- (part of #10 and #71).
-type ClangArgs = [String]
+--
+-- Currently there are no use for them, so [Void] ~ () works well.
+type ClangArgs = [Void]
+
+-- | Translate clang arguments to arguments passed to the library
+prettyClangArgs :: ClangArgs -> [String]
+prettyClangArgs = map absurd
 
 {-------------------------------------------------------------------------------
   Translation (this should be a pure function)

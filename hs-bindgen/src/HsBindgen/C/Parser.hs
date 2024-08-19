@@ -38,7 +38,7 @@ parseHeaderWith ::
   -> IO [a]
 parseHeaderWith args fp fold = do
     index  <- clang_createIndex DontDisplayDiagnostics
-    unit   <- clang_parseTranslationUnit index fp args flags
+    unit   <- clang_parseTranslationUnit index fp (prettyClangArgs args) flags
     cursor <- clang_getTranslationUnitCursor unit
 
     clang_fold cursor fold

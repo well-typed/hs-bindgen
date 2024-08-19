@@ -4,6 +4,7 @@ module HsBindgen.Cmdline (
   ) where
 
 import Data.Default
+import Data.Void (Void)
 import Options.Applicative
 
 import HsBindgen.Lib
@@ -102,10 +103,13 @@ parseVerbosity =
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs =
-    many $ strOption $ mconcat [
+    many $ option parseClangArg $ mconcat [
         long "clang-option"
       , help "Pass option to libclang"
       ]
+  where
+    parseClangArg :: ReadM Void
+    parseClangArg = maybeReader (\_ -> Nothing)
 
 parseInput :: Parser FilePath
 parseInput =
