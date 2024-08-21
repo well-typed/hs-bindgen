@@ -14,6 +14,7 @@ tested-with:      , GHC==9.2.8
                   , GHC==9.6.6
                   , GHC==9.8.2
                   , GHC==9.10.1
+extra-source-files: fixtures/*.txt examples/*.h
 
 common lang
   ghc-options:
@@ -39,7 +40,8 @@ library
   exposed-modules:
       HsBindgen.Lib
       HsBindgen.TH
-  other-modules:
+  -- TODO: to be other-modules
+  exposed-modules:
       HsBindgen.C.AST
       HsBindgen.C.Parser
       HsBindgen.Hs.Annotation
@@ -54,6 +56,7 @@ library
       -- External dependencies
     , bytestring       >= 0.11 && < 0.13
     , contra-tracer    >= 0.2  && < 0.3
+    , containers       >= 0.6.5.1 && <0.8
     , data-default     >= 0.7  && < 0.8
     , haskell-src-exts >= 1.23 && < 1.24
     , haskell-src-meta >= 0.8  && < 0.9
@@ -81,3 +84,21 @@ executable hs-bindgen
       -- live in the library instead.
     , optparse-applicative >= 0.18 && < 0.19
 
+test-suite golden
+  import:         lang
+  type:           exitcode-stdio-1.0
+  main-is:        golden.hs
+  hs-source-dirs: tests
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
+  build-depends:
+      -- Inherited dependencies
+    , containers
+    , bytestring
+  build-depends:
+      -- External dependencies
+    , directory    ^>=1.3.6.2
+    , filepath     ^>=1.4.2.2 || ^>=1.5.2.0
+    , tasty        ^>=1.5
+    , tasty-golden ^>=2.3.5
