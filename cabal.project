@@ -1,6 +1,3 @@
 packages: hs-bindgen-patterns
 packages: hs-bindgen
 packages: hs-bindgen-libclang
-
-package hs-bindgen-libclang
-  flags: +build-clang-tutorial
