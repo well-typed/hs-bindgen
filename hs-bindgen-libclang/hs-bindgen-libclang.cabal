@@ -58,20 +58,13 @@ library
   include-dirs: cbits
   cc-options:   -Wall
 
-executable clang-tutorial
+test-suite clang-tutorial
   import:         lang
-  main-is:        Main.hs
+  type:           exitcode-stdio-1.0
+  main-is:        clang-tutorial.hs
   hs-source-dirs: clang-tutorial
 
   build-depends:
       -- Internal dependencies
     , hs-bindgen-libclang
     , hs-bindgen-patterns
-
-  if !flag(build-clang-tutorial)
-    buildable: False
-
-flag build-clang-tutorial
-  description: Build the CLang tutorial (this is for internal debugging only)
-  default: False
-  manual: True

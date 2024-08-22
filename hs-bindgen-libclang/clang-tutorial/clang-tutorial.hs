@@ -93,5 +93,7 @@ tutorial fp = do
 
 main :: IO ()
 main = do
-    [fp] <- getArgs
-    tutorial fp
+    args <- getArgs
+    case args of
+        fp : _ -> tutorial fp
+        _      -> return ()

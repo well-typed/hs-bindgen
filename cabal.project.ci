@@ -3,7 +3,6 @@ packages: hs-bindgen
 packages: hs-bindgen-libclang
 
 package hs-bindgen-libclang
-  flags: +build-clang-tutorial
   ghc-options: -Werror
 
 package hs-bindgen
