@@ -4,8 +4,10 @@
 --
 -- > import Hsbindgen.C.Parser qualified as C
 module HsBindgen.C.Parser (
-    parseHeader
-  , dumpClangAST
+    parseHeaderWith
+  , foldDecls
+  , foldDumpAST
+  , ParseMsg(..)
   ) where
 
 import Data.ByteString qualified as Strict (ByteString)
@@ -15,21 +17,14 @@ import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Clang
-import HsBindgen.Patterns
-import HsBindgen.Spec
-import HsBindgen.Util.Tracer
+import HsBindgen.C.Clang.Args
 import HsBindgen.C.Clang.Fold
+import HsBindgen.Patterns
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Parsing
 -------------------------------------------------------------------------------}
-
--- | Parse C header
-parseHeader ::
-     Tracer IO LogMsg
-  -> ClangArgs -> FilePath -> IO C.Header
-parseHeader tracer args fp =
-    C.Header <$> parseHeaderWith args fp (foldTopLevel tracer)
 
 parseHeaderWith ::
      ClangArgs
@@ -52,8 +47,8 @@ parseHeaderWith args fp fold = do
   Top-level
 -------------------------------------------------------------------------------}
 
-foldTopLevel :: Tracer IO LogMsg -> Fold C.Decl
-foldTopLevel tracer current = do
+foldDecls :: Tracer IO ParseMsg -> Fold C.Decl
+foldDecls tracer current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
       Right CXType_Record -> do
@@ -93,7 +88,7 @@ parseStruct current = do
       , structFields
       }
 
-foldStructFields :: Tracer IO LogMsg -> Fold C.StructField
+foldStructFields :: Tracer IO ParseMsg -> Fold C.StructField
 foldStructFields tracer current = do
     cursorType <- clang_getCursorType current
     case primType $ cxtKind cursorType of
@@ -117,7 +112,7 @@ parseTypedef current = do
         , typedefType
         }
 
-foldTyp :: Tracer IO LogMsg -> Fold C.Typ
+foldTyp :: Tracer IO ParseMsg -> Fold C.Typ
 foldTyp tracer current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
@@ -143,10 +138,6 @@ primType = either (const Nothing) aux . fromSimpleEnum
   Debugging
 -------------------------------------------------------------------------------}
 
--- | Parse C header
-dumpClangAST :: ClangArgs -> FilePath -> IO ()
-dumpClangAST args fp = const () <$> parseHeaderWith args fp foldDumpAST
-
 -- | Fold that simply tries to dump the @libclang@ AST to the console
 --
 -- We can use this at the top-level in 'dumpClangAST', but it is also useful
@@ -154,7 +145,7 @@ dumpClangAST args fp = const () <$> parseHeaderWith args fp foldDumpAST
 -- a certain node. For example, suppose we are working on `foldTyp`, and we're
 -- not exactly sure what the @struct@ case looks like; we might temporarily use
 --
--- > foldTyp :: Tracer IO LogMsg -> Fold C.Typ
+-- > foldTyp :: Tracer IO ParseMsg -> Fold C.Typ
 -- > foldTyp tracer current = do
 -- >     cursorType <- clang_getCursorType current
 -- >     case fromSimpleEnum $ cxtKind cursorType of
@@ -198,10 +189,10 @@ decodeString = BS.Strict.Char8.unpack
   Logging
 -------------------------------------------------------------------------------}
 
-data LogMsg =
+data ParseMsg =
     -- | We skipped over an element in the Clang AST we did not recognize
     Skipping CallStack (SimpleEnum CXTypeKind)
 
-instance PrettyLogMsg LogMsg where
+instance PrettyLogMsg ParseMsg where
   prettyLogMsg (Skipping cs kind) =
     "Skipping over " ++ show kind ++ " at " ++ prettyCallStack cs

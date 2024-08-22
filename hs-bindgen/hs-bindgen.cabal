@@ -44,8 +44,6 @@ library
       HsBindgen.C.Parser
       HsBindgen.Hs.Annotation
       HsBindgen.Hs.Render
-      HsBindgen.Spec
-      HsBindgen.Spec.Execution
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.Tracer
   build-depends:
