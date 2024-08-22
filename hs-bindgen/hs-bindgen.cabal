@@ -36,13 +36,9 @@ common lang
       RoleAnnotations
       TypeFamilies
 
--- @libclang@
---
--- TODO: <https://github.com/llvm/llvm-project/issues/9777>
--- It seems @libclang@ does not support @pkg-config@.
 common clang-wrappers
-  extra-libraries:
-      clang
+  build-depends:
+      hs-bindgen-libclang ==0.1.0
   c-sources:
       cbits/clang_wrappers.c
   include-dirs:

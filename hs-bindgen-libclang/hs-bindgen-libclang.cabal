@@ -1,0 +1,20 @@
+cabal-version:      3.0
+name:               hs-bindgen-libclang
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+category:           Development
+build-type:         Configure
+synopsis:           Generate Haskell bindings from C headers: libclang provider
+tested-with:      , GHC==9.2.8
+                  , GHC==9.4.8
+                  , GHC==9.6.6
+                  , GHC==9.8.2
+                  , GHC==9.10.1
+extra-source-files: configure, hs-bindgen-libclang.buildinfo.in
+
+library
+  default-language: GHC2021
+  build-depends: base <5

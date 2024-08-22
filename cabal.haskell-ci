@@ -1,2 +1,2 @@
 copy-fields: all
-apt: libclang-dev 
+apt: llvm libclang-dev
