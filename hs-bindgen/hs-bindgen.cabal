@@ -9,8 +9,6 @@ category:           Development
 build-type:         Simple
 synopsis:           Generate Haskell bindings from C headers
 extra-doc-files:    CHANGELOG.md
-extra-source-files: cbits/*.c
-                    cbits/*.h
 tested-with:      , GHC==9.2.8
                   , GHC==9.4.8
                   , GHC==9.6.6
@@ -31,37 +29,18 @@ common lang
   default-extensions:
       DeriveAnyClass
       DerivingStrategies
-      DerivingVia
       DisambiguateRecordFields
-      RoleAnnotations
       TypeFamilies
 
-common clang-wrappers
-  build-depends:
-      hs-bindgen-libclang ==0.1.0
-  c-sources:
-      cbits/clang_wrappers.c
-  include-dirs:
-      cbits
-  cc-options:
-      -Wall
-
 library
-  import:
-    , lang
-    , clang-wrappers
-  other-extensions:
-      CApiFFI
+  import:         lang
+  hs-source-dirs: src
+
   exposed-modules:
       HsBindgen.Lib
       HsBindgen.TH
   other-modules:
       HsBindgen.C.AST
-      HsBindgen.C.Clang
-      HsBindgen.C.Clang.Enums
-      HsBindgen.C.Clang.Fold
-      HsBindgen.C.Clang.Instances
-      HsBindgen.C.Clang.Util
       HsBindgen.C.Parser
       HsBindgen.Hs.Annotation
       HsBindgen.Hs.Render
@@ -69,11 +48,10 @@ library
       HsBindgen.Spec.Execution
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.Tracer
-  hs-source-dirs:
-      src
   build-depends:
       -- Internal dependencies
     , hs-bindgen-patterns
+    , hs-bindgen-libclang
   build-depends:
       -- External dependencies
     , bytestring       >= 0.11 && < 0.13
@@ -85,10 +63,10 @@ library
     , template-haskell >= 2.18 && < 2.23
 
 executable hs-bindgen
-  import:
-      lang
-  main-is:
-      Main.hs
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: app
+
   other-modules:
       HsBindgen.Cmdline
   build-depends:
@@ -102,37 +80,4 @@ executable hs-bindgen
       -- live in the library instead.
     , data-default         >= 0.7  && < 0.8
     , optparse-applicative >= 0.18 && < 0.19
-  hs-source-dirs:
-      app
 
-executable clang-tutorial
-  import:
-    , lang
-    , clang-wrappers
-  main-is:
-      Main.hs
-  other-modules:
-      HsBindgen.C.Clang
-      HsBindgen.C.Clang.Enums
-      HsBindgen.C.Clang.Instances
-      HsBindgen.C.Clang.Util
-  hs-source-dirs:
-      -- This uses functionality which is not exported, so we use the src dir
-      -- directly, rather than depending on the @hs-bindgen@ library.
-      clang-tutorial
-      src
-  build-depends:
-      -- Internal dependencies
-    , hs-bindgen-patterns
-  build-depends:
-      -- External dependencies
-    , bytestring >= 0.11 && < 0.13
-
-  if !flag(build-clang-tutorial)
-    buildable:
-      False
-
-flag build-clang-tutorial
-  description: Build the CLang tutorial (this is for internal debugging only)
-  default: False
-  manual: True

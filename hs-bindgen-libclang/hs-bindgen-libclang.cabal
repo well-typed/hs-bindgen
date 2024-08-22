@@ -13,8 +13,64 @@ tested-with:      , GHC==9.2.8
                   , GHC==9.6.6
                   , GHC==9.8.2
                   , GHC==9.10.1
-extra-source-files: configure, hs-bindgen-libclang.buildinfo.in
+extra-source-files: cbits/*.c
+                    cbits/*.h
+                    configure
+                    hs-bindgen-libclang.buildinfo.in
+
+common lang
+  ghc-options:
+      -Wall
+      -Widentities
+      -Wprepositive-qualified-module
+      -Wredundant-constraints
+      -Wunused-packages
+  build-depends:
+      base >= 4.16 && < 4.21
+  default-language:
+      GHC2021
+  default-extensions:
+      DerivingStrategies
+      DerivingVia
 
 library
-  default-language: GHC2021
-  build-depends: base <5
+  import:         lang
+  hs-source-dirs: src
+
+  other-extensions:
+      CApiFFI
+  exposed-modules:
+      HsBindgen.C.Clang
+      HsBindgen.C.Clang.Enums
+      HsBindgen.C.Clang.Fold
+      HsBindgen.C.Clang.Instances
+      HsBindgen.C.Clang.Util
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen-patterns
+  build-depends:
+      -- External dependencies
+    , bytestring >= 0.11 && < 0.13
+
+  -- C bindings
+  c-sources:    cbits/clang_wrappers.c
+  include-dirs: cbits
+  cc-options:   -Wall
+
+executable clang-tutorial
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: clang-tutorial
+
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen-libclang
+    , hs-bindgen-patterns
+
+  if !flag(build-clang-tutorial)
+    buildable: False
+
+flag build-clang-tutorial
+  description: Build the CLang tutorial (this is for internal debugging only)
+  default: False
+  manual: True
