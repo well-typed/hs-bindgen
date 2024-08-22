@@ -71,11 +71,13 @@ executable hs-bindgen
       -- Internal dependencies
     , hs-bindgen
   build-depends:
+      -- Inherited dependencies
+    , data-default
+  build-depends:
       -- External dependencies
       --
       -- NOTE: Ideally this should not depend on haskell-src-exts or
       -- haskell-src-meta; functionality that requires these libraries should
       -- live in the library instead.
-    , data-default         >= 0.7  && < 0.8
     , optparse-applicative >= 0.18 && < 0.19
 
