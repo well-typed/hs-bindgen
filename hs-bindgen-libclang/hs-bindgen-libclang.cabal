@@ -41,6 +41,7 @@ library
       CApiFFI
   exposed-modules:
       HsBindgen.C.Clang
+      HsBindgen.C.Clang.Args
       HsBindgen.C.Clang.Enums
       HsBindgen.C.Clang.Fold
       HsBindgen.C.Clang.Instances

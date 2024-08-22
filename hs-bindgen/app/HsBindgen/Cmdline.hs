@@ -1,5 +1,6 @@
 module HsBindgen.Cmdline (
     Cmdline(..)
+  , Mode(..)
   , getCmdline
   ) where
 
@@ -26,8 +27,31 @@ getCmdline = execParser opts
 
 -- | Command line arguments
 data Cmdline = Cmdline {
-      cmdSpec :: Spec (IO ())
+      verbosity :: Bool
+    , clangArgs :: ClangArgs
+    , mode      :: Mode
     }
+  deriving (Show)
+
+data Mode =
+    -- | The main mode: preprocess C headers to Haskell modules
+    Preprocess {
+        input      :: FilePath
+      , moduleOpts :: HsModuleOpts
+      , renderOpts :: HsRenderOpts
+      , output     :: Maybe FilePath
+      }
+
+    -- | Just parse the C header
+  | ParseCHeader {
+        input :: FilePath
+      }
+
+    -- | Dump the raw @libclang@ AST
+  | DumpClangAST {
+        input :: FilePath
+      }
+  deriving (Show)
 
 {-------------------------------------------------------------------------------
   Parser
@@ -36,61 +60,44 @@ data Cmdline = Cmdline {
 parseCmdline :: Parser Cmdline
 parseCmdline =
     Cmdline
-      <$> parseSpec
+      <$> parseVerbosity
+      <*> parseClangArgs
+      <*> parseMode
 
-parseSpec :: Parser (Spec (IO ()))
-parseSpec = subparser $ mconcat [
-      cmd "process" parseCmdProcess $ mconcat [
+parseMode :: Parser Mode
+parseMode = subparser $ mconcat [
+      cmd "preprocess" parseModePreprocess $ mconcat [
           progDesc "Generate Haskell module from C header"
         ]
-    , cmd "parse" parseCmdParse $ mconcat [
+    , cmd "parse" parseModeParseCHeader $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
-    , cmd "dump" parseCmdDump $ mconcat [
+    , cmd "dump-clang-ast" parseModeDumpClangAST $ mconcat [
           progDesc "Dump the libclang AST (primarily for development of hs-bindgen itself)"
         ]
     ]
 
-parseCmdProcess :: Parser (Spec (IO ()))
-parseCmdProcess =
+parseModePreprocess :: Parser Mode
+parseModePreprocess =
     Preprocess
-      <$> parseParseCHeader
-      <*> parseTranslation
-      <*> parseProcessHsOutput
+      <$> parseInput
+      <*> parseHsModuleOpts
+      <*> parseHsRenderOpts
+      <*> parseOutput
 
-parseCmdParse :: Parser (Spec (IO ()))
-parseCmdParse =
-    Preprocess
-      <$> parseParseCHeader
-      <*> pure NoTranslation
-      <*> parseProcessCOutput
+parseModeParseCHeader :: Parser Mode
+parseModeParseCHeader =
+    ParseCHeader
+      <$> parseInput
 
-parseCmdDump :: Parser (Spec (IO ()))
-parseCmdDump =
-    Preprocess
-      <$> parseDumpClangAST
-      <*> pure NoTranslation
-      <*> pure NoOutput
+parseModeDumpClangAST :: Parser Mode
+parseModeDumpClangAST =
+    DumpClangAST
+      <$> parseInput
 
 {-------------------------------------------------------------------------------
   Prepare input
 -------------------------------------------------------------------------------}
-
-parseParseCHeader :: Parser (PrepareInput CHeader)
-parseParseCHeader =
-    ParseCHeader
-      <$> parseTracer
-      <*> parseClangArgs
-      <*> parseInput
-
-parseDumpClangAST :: Parser (PrepareInput ())
-parseDumpClangAST =
-    DumpClangAST
-      <$> parseClangArgs
-      <*> parseInput
-
-parseTracer :: Parser (Tracer IO String)
-parseTracer = mkTracerIO <$> parseVerbosity
 
 parseVerbosity :: Parser Bool
 parseVerbosity =
@@ -120,11 +127,6 @@ parseInput =
   Translation
 -------------------------------------------------------------------------------}
 
-parseTranslation :: Parser (Translation CHeader HsModule)
-parseTranslation =
-    GenModule
-      <$> parseHsModuleOpts
-
 parseHsModuleOpts :: Parser HsModuleOpts
 parseHsModuleOpts =
     HsModuleOpts
@@ -139,15 +141,6 @@ parseHsModuleOpts =
 {-------------------------------------------------------------------------------
   Process output
 -------------------------------------------------------------------------------}
-
-parseProcessCOutput :: Parser (ProcessOutput CHeader)
-parseProcessCOutput = pure PrettyC
-
-parseProcessHsOutput :: Parser (ProcessOutput HsModule)
-parseProcessHsOutput =
-    PrettyHs
-      <$> parseHsRenderOpts
-      <*> parseOutput
 
 parseHsRenderOpts :: Parser HsRenderOpts
 parseHsRenderOpts =

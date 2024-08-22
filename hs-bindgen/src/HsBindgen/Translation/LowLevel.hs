@@ -7,7 +7,8 @@
 -- * Milestone 2: Low-level API
 --   <https://github.com/well-typed/hs-bindgen/milestone/3>
 module HsBindgen.Translation.LowLevel (
-    generateModule
+    HsModuleOpts(..)
+  , generateModule
   , generateDeclarations
   ) where
 
@@ -15,7 +16,16 @@ import Language.Haskell.Exts qualified as Hs
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.Annotation
-import HsBindgen.Spec
+-- import HsBindgen.Spec
+
+{-------------------------------------------------------------------------------
+  Configuration
+-------------------------------------------------------------------------------}
+
+data HsModuleOpts = HsModuleOpts {
+      hsModuleName :: String
+    }
+  deriving (Show)
 
 {-------------------------------------------------------------------------------
   Top-level
