@@ -6,7 +6,6 @@
 module HsBindgen.C.Parser (
     parseHeaderWith
   , foldDecls
-  , foldDumpAST
   , foldShowAST
   , ParseMsg(..)
   ) where
@@ -140,7 +139,7 @@ primType = either (const Nothing) aux . fromSimpleEnum
   Debugging
 -------------------------------------------------------------------------------}
 
--- | Fold that simply tries to dump the @libclang@ AST to the console
+-- | Fold that simply tries to show the @libclang@ AST
 --
 -- We can use this at the top-level in 'dumpClangAST', but it is also useful
 -- more locally when trying to figure out what the ATS looks like underneath
@@ -152,27 +151,9 @@ primType = either (const Nothing) aux . fromSimpleEnum
 -- >     cursorType <- clang_getCursorType current
 -- >     case fromSimpleEnum $ cxtKind cursorType of
 -- >       Right CXType_Record -> do
--- >         return $ recurse_ foldDumpAST
+-- >         return $ Recurse foldShowAST $ \t -> print t >> return Nothing
 --
 -- to see the AST under the @struct@ parent node.
-foldDumpAST :: Fold ()
-foldDumpAST = go 0
-  where
-    go :: Int -> Fold ()
-    go n current = do
-        displayName <- clang_getCursorDisplayName current
-        cursorType  <- clang_getCursorType current
-        typeKind    <- clang_getTypeKindSpelling (cxtKind cursorType)
-
-        putStrLn $ mconcat [
-            replicate (n * 2) ' '
-          , show displayName
-          , " :: "
-          , show typeKind
-          ]
-
-        return $ recurse_ (go (n + 1))
-
 foldShowAST :: Fold (Tree String)
 foldShowAST = go
   where

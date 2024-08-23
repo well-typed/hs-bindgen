@@ -1,13 +1,13 @@
 module Main (main) where
 
+import Data.ByteString.Lazy.Char8 qualified as LBS8
+import Data.Tree (Tree (..))
+import System.Directory (doesFileExist, setCurrentDirectory)
+import System.FilePath ((</>), (-<.>))
 import Test.Tasty (defaultMain, testGroup)
 import Test.Tasty.Golden (goldenVsStringDiff)
-import Data.Tree (Tree (..))
-import System.FilePath ((</>), (-<.>))
-import System.Directory (doesFileExist, setCurrentDirectory)
 
-import Data.ByteString.Lazy.Char8 qualified as LBS8
-import HsBindgen.C.Parser qualified as C
+import HsBindgen.Lib
 
 main :: IO ()
 main = do
@@ -16,8 +16,8 @@ main = do
         [ goldenVsStringDiff "simple_structs" diff "fixtures/simple_structs.dump.txt" $ do
             let fp = "examples/simple_structs.h"
                 args = []
-            res <- C.parseHeaderWith args fp C.foldShowAST
-            
+            res <- showClangAST args fp
+
             return $ LBS8.pack $ unlines $ concatMap treeToLines res
         ]
   where
@@ -33,7 +33,7 @@ treeToLines tree = go 0 tree [] where
 -- not the package directory.
 --
 -- However, many tests are written so they assume that are run from
--- *package* directory. 
+-- *package* directory.
 findPackageDirectory :: String -> IO ()
 findPackageDirectory pkgname = do
     here <- doesFileExist (pkgname -<.> ".cabal")

@@ -18,7 +18,7 @@ module HsBindgen.Lib (
   , ParseMsg  -- opaque
   , ClangArgs
   , parseCHeader
-  , dumpClangAST
+  , showClangAST
 
     -- * Translation
   , HsModuleOpts(..)
@@ -41,6 +41,7 @@ module HsBindgen.Lib (
   , mkTracerIO
   ) where
 
+import Data.Tree (Forest)
 import Language.Haskell.Exts qualified as Hs
 import Language.Haskell.Meta qualified as Meta
 import Language.Haskell.TH qualified as TH
@@ -92,11 +93,11 @@ parseCHeader ::
 parseCHeader tracer args fp =
     WrapCHeader . C.Header <$> C.parseHeaderWith args fp (C.foldDecls tracer)
 
--- | Dump the raw @libclang@ AST
+-- | Show the raw @libclang@ AST
 --
 -- This is primarily for debugging.
-dumpClangAST :: ClangArgs -> FilePath -> IO ()
-dumpClangAST args fp = const () <$> C.parseHeaderWith args fp C.foldDumpAST
+showClangAST :: ClangArgs -> FilePath -> IO (Forest String)
+showClangAST args fp = C.parseHeaderWith args fp C.foldShowAST
 
 {-------------------------------------------------------------------------------
   Translation
