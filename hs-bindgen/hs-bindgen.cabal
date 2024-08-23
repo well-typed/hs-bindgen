@@ -40,8 +40,7 @@ library
   exposed-modules:
       HsBindgen.Lib
       HsBindgen.TH
-  -- TODO: to be other-modules
-  exposed-modules:
+  other-modules:
       HsBindgen.C.AST
       HsBindgen.C.Parser
       HsBindgen.Hs.Annotation
@@ -75,6 +74,7 @@ executable hs-bindgen
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
+    , containers
     , data-default
   build-depends:
       -- External dependencies

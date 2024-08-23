@@ -47,8 +47,8 @@ data Mode =
         input :: FilePath
       }
 
-    -- | Dump the raw @libclang@ AST
-  | DumpClangAST {
+    -- | Show the raw @libclang@ AST
+  | ShowClangAST {
         input :: FilePath
       }
   deriving (Show)
@@ -72,8 +72,8 @@ parseMode = subparser $ mconcat [
     , cmd "parse" parseModeParseCHeader $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
-    , cmd "dump-clang-ast" parseModeDumpClangAST $ mconcat [
-          progDesc "Dump the libclang AST (primarily for development of hs-bindgen itself)"
+    , cmd "show-clang-ast" parseModeDumpClangAST $ mconcat [
+          progDesc "Show the libclang AST (primarily for development of hs-bindgen itself)"
         ]
     ]
 
@@ -92,7 +92,7 @@ parseModeParseCHeader =
 
 parseModeDumpClangAST :: Parser Mode
 parseModeDumpClangAST =
-    DumpClangAST
+    ShowClangAST
       <$> parseInput
 
 {-------------------------------------------------------------------------------

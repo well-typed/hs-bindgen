@@ -2,7 +2,6 @@
 module HsBindgen.C.Clang.Fold (
     Fold
   , Next(..)
-  , recurse_
   , clang_fold
   ) where
 
@@ -50,13 +49,6 @@ data Next a where
   --
   -- This is the equivalent of 'CXChildVisit_Recurse'.
   Recurse :: Fold b -> ([b] -> IO (Maybe a)) -> Next a
-
--- | Variation on 'Recurse' for folds without results
---
--- We could optimize this case (avoiding the collection of the @()@ results),
--- but it doesn't really matter in practice; we use this for debugging only.
-recurse_ :: Fold () -> Next a
-recurse_ f = Recurse f (\_ -> return Nothing)
 
 {-------------------------------------------------------------------------------
   Internal: stack
