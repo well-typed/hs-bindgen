@@ -6,7 +6,7 @@ struct S1 {
 
 // struct with typedef
 typedef struct S2 {
-    char a; 
+    char a;
     int b;
     float c;
 } S2_t;

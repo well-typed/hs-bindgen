@@ -6,7 +6,10 @@
 module HsBindgen.C.Parser (
     parseHeaderWith
   , foldDecls
-  , foldShowAST
+    -- * Debugging
+  , Element(..)
+  , foldClangAST
+    -- * Logging
   , ParseMsg(..)
   ) where
 
@@ -139,6 +142,16 @@ primType = either (const Nothing) aux . fromSimpleEnum
   Debugging
 -------------------------------------------------------------------------------}
 
+-- | An element in the @libclang@ AST
+data Element = Element {
+      elementDisplayName      :: Strict.ByteString
+    , elementTypeKind         :: SimpleEnum CXTypeKind
+    , elementTypeKindSpelling :: Strict.ByteString
+    , elementRawComment       :: Strict.ByteString
+    , elementBriefComment     :: Strict.ByteString
+    }
+  deriving (Show)
+
 -- | Fold that simply tries to show the @libclang@ AST
 --
 -- We can use this at the top-level in 'dumpClangAST', but it is also useful
@@ -151,25 +164,30 @@ primType = either (const Nothing) aux . fromSimpleEnum
 -- >     cursorType <- clang_getCursorType current
 -- >     case fromSimpleEnum $ cxtKind cursorType of
 -- >       Right CXType_Record -> do
--- >         return $ Recurse foldShowAST $ \t -> print t >> return Nothing
+-- >         return $ Recurse foldClangAST $ \t -> print t >> return Nothing
 --
 -- to see the AST under the @struct@ parent node.
-foldShowAST :: Fold (Tree String)
-foldShowAST = go
+foldClangAST :: Fold (Tree Element)
+foldClangAST = go
   where
-    go :: Fold (Tree String)
+    go :: Fold (Tree Element)
     go current = do
-        displayName <- clang_getCursorDisplayName current
-        cursorType  <- clang_getCursorType current
-        typeKind    <- clang_getTypeKindSpelling (cxtKind cursorType)
+        elementDisplayName      <- clang_getCursorDisplayName current
+        elementTypeKind         <- cxtKind <$> clang_getCursorType current
+        elementTypeKindSpelling <- clang_getTypeKindSpelling elementTypeKind
+        elementRawComment       <- clang_Cursor_getRawCommentText current
+        elementBriefComment     <- clang_Cursor_getBriefCommentText current
 
-        let node = mconcat
-              [ show displayName
-              , " :: "
-              , show typeKind
-              ]
+        let element :: Element
+            element = Element {
+                elementDisplayName
+              , elementTypeKind
+              , elementTypeKindSpelling
+              , elementRawComment
+              , elementBriefComment
+              }
 
-        return $ Recurse go (return . Just . Node node)
+        return $ Recurse go (return . Just . Node element)
 
 {-------------------------------------------------------------------------------
   Auxiliary: strings

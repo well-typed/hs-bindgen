@@ -58,6 +58,8 @@ module HsBindgen.C.Clang (
   , CXString
   , clang_getCursorDisplayName
   , clang_getCursorSpelling
+  , clang_Cursor_getRawCommentText
+  , clang_Cursor_getBriefCommentText
     -- * Type information for CXCursors
   , CXTypeKind(..)
   , CXType
@@ -389,6 +391,34 @@ clang_getCursorSpelling cursor =
     withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_getCursorSpelling' cursor'
 
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getRawCommentText"
+  clang_Cursor_getRawCommentText' ::
+       Ptr CXCursor
+    -> IO (Ptr CXString)
+
+-- | Given a cursor that represents a declaration, return the associated comment
+-- text, including comment markers.
+clang_Cursor_getRawCommentText ::
+     ForeignPtr CXCursor
+  -> IO Strict.ByteString
+clang_Cursor_getRawCommentText cursor =
+    withForeignPtr cursor $ \cursor' -> packCXString =<<
+      clang_Cursor_getRawCommentText' cursor'
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getBriefCommentText"
+  clang_Cursor_getBriefCommentText' ::
+       Ptr CXCursor
+    -> IO (Ptr CXString)
+
+-- | Given a cursor that represents a documentable entity (e.g., declaration),
+-- return the associated brief comment.
+clang_Cursor_getBriefCommentText ::
+     ForeignPtr CXCursor
+  -> IO Strict.ByteString
+clang_Cursor_getBriefCommentText cursor =
+    withForeignPtr cursor $ \cursor' -> packCXString =<<
+      clang_Cursor_getBriefCommentText' cursor'
+
 {-------------------------------------------------------------------------------
   Type information for CXCursors
 
@@ -661,9 +691,11 @@ foreign import capi unsafe "clang_wrappers.h wrap_disposeString"
 packCXString :: Ptr CXString -> IO Strict.ByteString
 packCXString str =
     bracket
-      (clang_getCString str)
-      (\_ -> clang_disposeString str >> free str) $
-      BS.Strict.packCString
+        (clang_getCString str)
+        (\_ -> clang_disposeString str >> free str) $ \cstr ->
+      if cstr == nullPtr
+        then return BS.Strict.empty
+        else BS.Strict.packCString cstr
 
 {-------------------------------------------------------------------------------
   Checking for error results

@@ -20,5 +20,6 @@ main = do
         preprocess tracer clangArgs input moduleOpts renderOpts output
       ParseCHeader{input} ->
         prettyC =<< parseCHeader tracer clangArgs input
-      ShowClangAST{input} ->
-        putStr . drawForest =<< showClangAST clangArgs input
+      ShowClangAST{input} -> do
+        ast <- getClangAST clangArgs input
+        putStr . drawForest $ fmap (fmap show) ast

@@ -18,7 +18,6 @@ module HsBindgen.Lib (
   , ParseMsg  -- opaque
   , ClangArgs
   , parseCHeader
-  , showClangAST
 
     -- * Translation
   , HsModuleOpts(..)
@@ -33,6 +32,10 @@ module HsBindgen.Lib (
 
     -- * Common pipelines
   , preprocess
+
+    -- * Debugging
+  , Element(..)
+  , getClangAST
 
     -- * Logging
   , Tracer
@@ -49,7 +52,7 @@ import Text.Show.Pretty qualified as Pretty
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Clang.Args
-import HsBindgen.C.Parser (ParseMsg)
+import HsBindgen.C.Parser (ParseMsg, Element(..))
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.Hs.Annotation
 import HsBindgen.Hs.Render (HsRenderOpts(..))
@@ -93,12 +96,6 @@ parseCHeader ::
 parseCHeader tracer args fp =
     WrapCHeader . C.Header <$> C.parseHeaderWith args fp (C.foldDecls tracer)
 
--- | Show the raw @libclang@ AST
---
--- This is primarily for debugging.
-showClangAST :: ClangArgs -> FilePath -> IO (Forest String)
-showClangAST args fp = C.parseHeaderWith args fp C.foldShowAST
-
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
@@ -137,4 +134,14 @@ preprocess ::
 preprocess tracer clangArgs inp modOpts renderOpts out = do
     modl <- genModule modOpts <$> parseCHeader tracer clangArgs inp
     prettyHs renderOpts out modl
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+-- | Show the raw @libclang@ AST
+--
+-- This is primarily for debugging.
+getClangAST :: ClangArgs -> FilePath -> IO (Forest Element)
+getClangAST args fp = C.parseHeaderWith args fp C.foldClangAST
 

@@ -31,6 +31,8 @@ unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor);
 
 CXString* wrap_malloc_getCursorDisplayName(CXCursor* cursor);
 CXString* wrap_malloc_getCursorSpelling(CXCursor* cursor);
+CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C);
+CXString* wrap_malloc_Cursor_getBriefCommentText(CXCursor* C);
 
 /**
  * Type information for CXCursors
