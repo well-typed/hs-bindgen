@@ -1,7 +1,4 @@
 #include <stdlib.h>
-#include <string.h>
-
-#include <clang-c/Index.h>
 
 #include "clang_wrappers.h"
 

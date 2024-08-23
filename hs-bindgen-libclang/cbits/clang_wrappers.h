@@ -1,3 +1,6 @@
+#ifndef CLANG_WRAPPERS_H
+#define CLANG_WRAPPERS_H
+
 /**
  * Wrappers for clang functions that take structs, or return them, by value.
  *
@@ -67,3 +70,5 @@ void wrap_getExpansionLocation(CXSourceLocation* location, CXFile* file, unsigne
 
 const char * wrap_getCString(CXString* string);
 void wrap_disposeString(CXString* string);
+
+#endif

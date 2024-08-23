@@ -51,9 +51,9 @@ import Language.Haskell.TH qualified as TH
 import Text.Show.Pretty qualified as Pretty
 
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Clang.Args
 import HsBindgen.C.Parser (ParseMsg, Element(..))
 import HsBindgen.C.Parser qualified as C
+import HsBindgen.Clang.Args
 import HsBindgen.Hs.Annotation
 import HsBindgen.Hs.Render (HsRenderOpts(..))
 import HsBindgen.Hs.Render qualified as Hs
@@ -139,7 +139,7 @@ preprocess tracer clangArgs inp modOpts renderOpts out = do
   Debugging
 -------------------------------------------------------------------------------}
 
--- | Show the raw @libclang@ AST
+-- | Return the raw @libclang@ AST
 --
 -- This is primarily for debugging.
 getClangAST :: ClangArgs -> FilePath -> IO (Forest Element)

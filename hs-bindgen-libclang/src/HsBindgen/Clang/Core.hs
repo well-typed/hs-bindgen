@@ -35,7 +35,7 @@
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/80> Ideally we would
 -- bootstrap this (generate it using @hs-bindgen@ itself).
-module HsBindgen.C.Clang (
+module HsBindgen.Clang.Core (
     -- * Top-level
     CXIndex
   , DisplayDiagnostics(..)
@@ -78,21 +78,23 @@ module HsBindgen.C.Clang (
   , clang_getRangeStart
   , clang_getRangeEnd
   , clang_getExpansionLocation
-    -- * Error results (exceptions)
+    -- * Exceptions
   , CallFailed(..)
+  , CXTypeLayoutException(..)
   ) where
 
 import Control.Exception
-import Data.ByteString qualified as BS.Strict
 import Data.ByteString qualified as Strict (ByteString)
 import Foreign
 import Foreign.C
-import Foreign.Concurrent qualified as Concurrent
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
-import HsBindgen.C.Clang.Enums
-import HsBindgen.C.Clang.Instances ()
+import HsBindgen.Clang.Core.Enums
+import HsBindgen.Clang.Core.Instances ()
+import HsBindgen.Clang.Util.Bindings
+import HsBindgen.Clang.Util.CXString
+import HsBindgen.Clang.Util.FFI
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -646,118 +648,10 @@ clang_getExpansionLocation location =
          (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
 
 {-------------------------------------------------------------------------------
-  Internal: String manipulation routines
-
-  <https://clang.llvm.org/doxygen/group__CINDEX__STRING.html>
+  Exceptions
 -------------------------------------------------------------------------------}
-
--- | A character string.
---
--- The 'CXString' type is used to return strings from the interface when the
--- ownership of that string might differ from one call to the next. Use
--- 'clang_getCString' to retrieve the string data and, once finished with the
--- string data, call 'clang_disposeString' to free the string.
---
--- <https://clang.llvm.org/doxygen/structCXString.html>
-data CXString
-
--- | Retrieve the character data associated with the given string.
---
--- We use @ccall@ rather than @capi@ here to avoid compiler warning about
--- casting @const char *@ to @char *@ (we make a copy of the C string and then
--- do not use it again, so it's safe).
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__STRING.html#gabe1284209a3cd35c92e61a31e9459fe7>
-foreign import ccall unsafe "clang_wrappers.h wrap_getCString"
-  clang_getCString ::
-       Ptr CXString
-    -> IO CString
-
--- | Free the given string.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__STRING.html#gaeff715b329ded18188959fab3066048f>
-foreign import capi unsafe "clang_wrappers.h wrap_disposeString"
-  clang_disposeString ::
-       Ptr CXString
-    -> IO ()
-
--- | Pack 'CXString'
---
--- This is intended to be used in a similar way to 'attachFinalizer'.
---
--- The @libclang@ functions that return a @CXString@ do so by /value/; we
--- allocate this on the heap in our wrapper functions. Since we no longer need
--- this after packing, we free the pointer after packing.
-packCXString :: Ptr CXString -> IO Strict.ByteString
-packCXString str =
-    bracket
-        (clang_getCString str)
-        (\_ -> clang_disposeString str >> free str) $ \cstr ->
-      if cstr == nullPtr
-        then return BS.Strict.empty
-        else BS.Strict.packCString cstr
-
-{-------------------------------------------------------------------------------
-  Checking for error results
-
-  We do the actual checks in this module, and export only the exception types.
--------------------------------------------------------------------------------}
-
-data CallFailed = CallFailed Backtrace
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace CallFailed
-
--- | Ensure that a function did not return 'nullPtr' (indicating error)
-ensureNotNull :: HasCallStack => IO (Ptr a) -> IO (Ptr a)
-ensureNotNull call = do
-    ptr <- call
-    if ptr == nullPtr then do
-      stack <- collectBacktrace
-      throwIO $ CallFailed stack
-    else
-      return ptr
 
 data CXTypeLayoutException =
     CXTypeLayoutException Backtrace CInt (Maybe CXTypeLayoutError)
   deriving stock (Show)
   deriving Exception via CollectedBacktrace CXTypeLayoutException
-
--- | Check that an (integral) result from @libclang@ function is not an error
-ensure ::
-     ( HasCallStack
-     , IsSimpleEnum hs
-     , Exception e
-     , Integral c
-     )
-  => (c -> Bool)
-  -> (Backtrace -> CInt -> Maybe hs -> e)
-  -> IO c -> IO c
-ensure p mkErr call = do
-    c <- call
-    if p c then
-      return c
-    else do
-      stack <- collectBacktrace
-      throwIO $ mkErr stack (fromIntegral c) (simpleFromC $ fromIntegral c)
-
-{-------------------------------------------------------------------------------
-  Internal: auxiliary
--------------------------------------------------------------------------------}
-
-attachFinalizer :: Ptr a -> IO (ForeignPtr a)
-attachFinalizer ptr = Concurrent.newForeignPtr ptr $ free ptr
-
--- | Extension of 'withCString' for multiple CStrings
-withCStrings :: [String] -> (Ptr CString -> CInt -> IO r) -> IO r
-withCStrings = \args k ->
-    allocaArray (length args) $ \arr ->
-      go args $ \args' -> do
-        pokeArray arr args'
-        k arr (fromIntegral $ length args)
-  where
-    go :: [String] -> ([CString] -> IO r) -> IO r
-    go []     k = k []
-    go (x:xs) k = withCString x  $ \x'  ->
-                  go          xs $ \xs' ->
-                  k (x' : xs')
-
