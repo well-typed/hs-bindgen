@@ -2,10 +2,11 @@ packages: hs-bindgen-patterns
 packages: hs-bindgen
 packages: hs-bindgen-libclang
 
-package hs-bindgen-libclang
+package hs-bindgen
+  tests: true
   ghc-options: -Werror
 
-package hs-bindgen
+package hs-bindgen-libclang
   ghc-options: -Werror
 
 package hs-bindgen-patterns
