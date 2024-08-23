@@ -52,6 +52,19 @@ CXString* wrap_malloc_getCursorSpelling(CXCursor* cursor) {
     return result;
 }
 
+CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_Cursor_getRawCommentText(*C);
+    return result;
+}
+
+CXString* wrap_malloc_Cursor_getBriefCommentText(CXCursor* C) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_Cursor_getBriefCommentText(*C);
+    return result;
+}
+
+
 /**
  * Type information for CXCursors
  */

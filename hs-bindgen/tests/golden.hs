@@ -16,17 +16,25 @@ main = do
         [ goldenVsStringDiff "simple_structs" diff "fixtures/simple_structs.dump.txt" $ do
             let fp = "examples/simple_structs.h"
                 args = []
-            res <- showClangAST args fp
+            res <- getClangAST args fp
 
             return $ LBS8.pack $ unlines $ concatMap treeToLines res
         ]
   where
     diff ref new = ["diff", "-u", ref, new]
 
-treeToLines :: Tree String -> [String]
+treeToLines :: Tree Element -> [String]
 treeToLines tree = go 0 tree [] where
-    go :: Int -> Tree String -> [String] -> [String]
-    go !n (Node l xs) next = (replicate (n * 2) ' ' ++ l) : foldr (go (n + 1)) next xs
+    go :: Int -> Tree Element -> [String] -> [String]
+    go !n (Node l xs) next = (replicate (n * 2) ' ' ++ showElem l) : foldr (go (n + 1)) next xs
+
+showElem :: Element -> [Char]
+showElem Element{elementDisplayName, elementTypeKindSpelling} = mconcat [
+      show elementDisplayName
+    , " :: "
+    , show elementTypeKindSpelling
+    ]
+
 
 -- | In multi-package projects @cabal run test-suite@ will run the test-suite
 -- from your current working directory (e.g. project root), which is often
