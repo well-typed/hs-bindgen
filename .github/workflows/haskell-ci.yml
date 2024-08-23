@@ -184,8 +184,11 @@ jobs:
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           cat >> cabal.project <<EOF
           package hs-bindgen
-            flags:       +build-clang-tutorial
-            ghc-options: -Werror -Wno-error=unused-packages
+            tests:       true
+            ghc-options: -Werror
+
+          package hs-bindgen-libclang
+            ghc-options: -Werror
 
           package hs-bindgen-patterns
             ghc-options: -Werror
@@ -213,6 +216,9 @@ jobs:
       - name: build
         run: |
           $CABAL v2-build $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --write-ghc-environment-files=always
+      - name: tests
+        run: |
+          $CABAL v2-test $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --test-show-details=direct
       - name: cabal check
         run: |
           cd ${PKGDIR_hs_bindgen_patterns} || false
