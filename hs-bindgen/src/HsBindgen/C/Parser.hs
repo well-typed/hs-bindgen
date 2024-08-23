@@ -7,6 +7,7 @@ module HsBindgen.C.Parser (
     parseHeaderWith
   , foldDecls
   , foldDumpAST
+  , foldShowAST
   , ParseMsg(..)
   ) where
 
@@ -14,6 +15,7 @@ import Data.ByteString qualified as Strict (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
 import Foreign
 import GHC.Stack
+import Data.Tree
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Clang
@@ -170,6 +172,23 @@ foldDumpAST = go 0
           ]
 
         return $ recurse_ (go (n + 1))
+
+foldShowAST :: Fold (Tree String)
+foldShowAST = go
+  where
+    go :: Fold (Tree String)
+    go current = do
+        displayName <- clang_getCursorDisplayName current
+        cursorType  <- clang_getCursorType current
+        typeKind    <- clang_getTypeKindSpelling (cxtKind cursorType)
+
+        let node = mconcat
+              [ show displayName
+              , " :: "
+              , show typeKind
+              ]
+
+        return $ Recurse go (return . Just . Node node)
 
 {-------------------------------------------------------------------------------
   Auxiliary: strings
