@@ -40,12 +40,19 @@ library
   other-extensions:
       CApiFFI
   exposed-modules:
-      HsBindgen.C.Clang
-      HsBindgen.C.Clang.Args
-      HsBindgen.C.Clang.Enums
-      HsBindgen.C.Clang.Fold
-      HsBindgen.C.Clang.Instances
-      HsBindgen.C.Clang.Util
+      HsBindgen.Clang.Args
+      HsBindgen.Clang.Core
+      HsBindgen.Clang.Doxygen
+      HsBindgen.Clang.Fold
+      HsBindgen.Clang.Util
+  other-modules:
+      HsBindgen.Clang.Core.Enums
+      HsBindgen.Clang.Core.Instances
+      HsBindgen.Clang.Doxygen.Enums
+      HsBindgen.Clang.Doxygen.Instances
+      HsBindgen.Clang.Util.Bindings
+      HsBindgen.Clang.Util.CXString
+      HsBindgen.Clang.Util.FFI
   build-depends:
       -- Internal dependencies
     , hs-bindgen-patterns
@@ -54,9 +61,12 @@ library
     , bytestring >= 0.11 && < 0.13
 
   -- C bindings
-  c-sources:    cbits/clang_wrappers.c
   include-dirs: cbits
   cc-options:   -Wall
+
+  c-sources:
+      cbits/clang_wrappers.c
+      cbits/doxygen_wrappers.c
 
 test-suite clang-tutorial
   import:         lang

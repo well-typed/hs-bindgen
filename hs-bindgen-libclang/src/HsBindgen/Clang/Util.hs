@@ -1,11 +1,13 @@
 -- | Utility functions for use with the @libclang@ low-level bindings
-module HsBindgen.C.Clang.Util (
+--
+-- This is part of the @hs-bindgen-libclang@ public API.
+module HsBindgen.Clang.Util (
     -- * Classifying types
     isPointerType
   , isRecordType
   ) where
 
-import HsBindgen.C.Clang
+import HsBindgen.Clang.Core
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

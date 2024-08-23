@@ -1,7 +1,7 @@
 -- | Haskell equivalent of C enums using in @libclang@
 --
 -- This module should only be imported by "HsBingen.Clang.LowLevel".
-module HsBindgen.C.Clang.Enums (
+module HsBindgen.Clang.Core.Enums (
     CXTranslationUnit_Flag(..)
   , CXTypeKind(..)
   , CXChildVisitResult(..)

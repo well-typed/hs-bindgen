@@ -1,4 +1,4 @@
-module HsBindgen.C.Clang.Args (
+module HsBindgen.Clang.Args (
     ClangArgs
   ) where
 

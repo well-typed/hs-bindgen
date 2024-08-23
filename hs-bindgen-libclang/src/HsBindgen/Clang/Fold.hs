@@ -1,5 +1,5 @@
 -- | Higher-level bindings for traversing the API
-module HsBindgen.C.Clang.Fold (
+module HsBindgen.Clang.Fold (
     Fold
   , Next(..)
   , clang_fold
@@ -9,7 +9,7 @@ import Control.Monad
 import Data.IORef
 import Foreign
 
-import HsBindgen.C.Clang
+import HsBindgen.Clang.Core
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

@@ -188,9 +188,11 @@ jobs:
             ghc-options: -Werror
 
           package hs-bindgen-libclang
+            tests:       true
             ghc-options: -Werror
 
           package hs-bindgen-patterns
+            tests:       true
             ghc-options: -Werror
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(hs-bindgen|hs-bindgen-libclang|hs-bindgen-patterns)$/; }' >> cabal.project.local

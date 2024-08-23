@@ -6,8 +6,8 @@ module Main (main) where
 import Control.Monad
 import System.Environment
 
-import HsBindgen.C.Clang
-import HsBindgen.C.Clang.Util
+import HsBindgen.Clang.Core
+import HsBindgen.Clang.Util
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

@@ -20,9 +20,9 @@ import GHC.Stack
 import Data.Tree
 
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Clang
-import HsBindgen.C.Clang.Args
-import HsBindgen.C.Clang.Fold
+import HsBindgen.Clang.Args
+import HsBindgen.Clang.Core
+import HsBindgen.Clang.Fold
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -144,15 +144,15 @@ primType = either (const Nothing) aux . fromSimpleEnum
 
 -- | An element in the @libclang@ AST
 data Element = Element {
-      elementDisplayName      :: Strict.ByteString
-    , elementTypeKind         :: SimpleEnum CXTypeKind
-    , elementTypeKindSpelling :: Strict.ByteString
-    , elementRawComment       :: Strict.ByteString
-    , elementBriefComment     :: Strict.ByteString
+      elementDisplayName      :: !Strict.ByteString
+    , elementTypeKind         :: !(SimpleEnum CXTypeKind)
+    , elementTypeKindSpelling :: !Strict.ByteString
+    , elementRawComment       :: !Strict.ByteString
+    , elementBriefComment     :: !Strict.ByteString
     }
   deriving (Show)
 
--- | Fold that simply tries to show the @libclang@ AST
+-- | Fold that returns the raw @libclang@ AST
 --
 -- We can use this at the top-level in 'dumpClangAST', but it is also useful
 -- more locally when trying to figure out what the ATS looks like underneath

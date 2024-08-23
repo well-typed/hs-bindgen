@@ -7,7 +7,9 @@ package hs-bindgen
   ghc-options: -Werror
 
 package hs-bindgen-libclang
+  tests: true
   ghc-options: -Werror
 
 package hs-bindgen-patterns
+  tests: true
   ghc-options: -Werror
