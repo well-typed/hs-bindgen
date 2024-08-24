@@ -649,6 +649,7 @@ LIBOBJS
 HS_BINDGEN_INCLUDEDIR
 HS_BINDGEN_LIBDIR
 HS_BINDGEN_EXTRA_LIBS
+LLVM_PATH
 LLVM_CONFIG
 OBJEXT
 EXEEXT
@@ -707,7 +708,9 @@ CC
 CFLAGS
 LDFLAGS
 LIBS
-CPPFLAGS'
+CPPFLAGS
+LLVM_CONFIG
+LLVM_PATH'
 
 
 # Initialize some variables set by options.
@@ -1331,6 +1334,8 @@ Some influential environment variables:
   LIBS        libraries to pass to the linker, e.g. -l<library>
   CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
+  LLVM_CONFIG Location of llvm-config
+  LLVM_PATH   Location of LLVM installation
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -3209,6 +3214,11 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
+
+
+
+
+
 # Extract the first word of "llvm-config", so it can be a program name with args.
 set dummy llvm-config; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -3254,27 +3264,56 @@ printf "%s\n" "no" >&6; }
 fi
 
 
-if test ! -x "$LLVM_CONFIG"; then
-  as_fn_error $? "Could not find llvm-config" "$LINENO" 5
+if test -z "$LLVM_CONFIG"; then
+  if test -z "$LLVM_PATH"; then
+    as_fn_error $? "could not find llvm-config" "$LINENO" 5
+  else
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: could not find llvm-config; using LLVM_PATH=$LLVM_PATH" >&5
+printf "%s\n" "$as_me: could not find llvm-config; using LLVM_PATH=$LLVM_PATH" >&6;}
+  fi
 fi
 
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking LLVM version" >&5
+printf %s "checking LLVM version... " >&6; }
 
-# TODO: Use https://www.gnu.org/software/autoconf-archive/ax_compare_version.html
-# to compare version
+if test -z "$LLVM_CONFIG"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: skipped" >&5
+printf "%s\n" "skipped" >&6; }
+else
+LLVM_VERSION="$("$LLVM_CONFIG" --version)"
+if test $? == 0; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $LLVM_VERSION" >&5
+printf "%s\n" "$LLVM_VERSION" >&6; }
+  else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: error" >&5
+printf "%s\n" "error" >&6; }
+  as_fn_error $? "could not run llvm-config" "$LINENO" 5
+fi
+fi
+
 
 HS_BINDGEN_EXTRA_LIBS="clang"
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking LLVM library directory" >&5
 printf %s "checking LLVM library directory... " >&6; }
-HS_BINDGEN_LIBDIR=$(llvm-config --libdir)
+if test -z "$LLVM_CONFIG"; then
+HS_BINDGEN_LIBDIR="$LLVM_PATH/lib"
+else
+HS_BINDGEN_LIBDIR="$("$LLVM_CONFIG" --libdir)";
+fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $HS_BINDGEN_LIBDIR" >&5
 printf "%s\n" "$HS_BINDGEN_LIBDIR" >&6; }
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking LLVM include directory" >&5
 printf %s "checking LLVM include directory... " >&6; }
-HS_BINDGEN_INCLUDEDIR=$(llvm-config --includedir)
+if test -z "$LLVM_CONFIG"; then
+HS_BINDGEN_INCLUDEDIR="$LLVM_PATH/include"
+else
+HS_BINDGEN_INCLUDEDIR="$("$LLVM_CONFIG" --includedir)"
+fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $HS_BINDGEN_INCLUDEDIR" >&5
 printf "%s\n" "$HS_BINDGEN_INCLUDEDIR" >&6; }
+
 
 LIBS="$LIBS -l$HS_BINDGEN_EXTRA_LIBS"
 LDFLAGS="$LDFLAGS -L$HS_BINDGEN_LIBDIR"
@@ -3362,6 +3401,7 @@ then :
 else $as_nop
   as_fn_error $? "Cannot link against libclang" "$LINENO" 5
 fi
+
 
 
 
