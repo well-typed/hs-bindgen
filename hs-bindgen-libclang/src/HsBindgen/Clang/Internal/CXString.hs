@@ -3,7 +3,7 @@
 -- | Dealing with @CXString@
 --
 -- This is internal API; the public API deals with strict bytestrings only.
-module HsBindgen.Clang.Util.CXString (
+module HsBindgen.Clang.Internal.CXString (
     CXString
   , packCXString
   ) where

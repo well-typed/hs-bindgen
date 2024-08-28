@@ -1,5 +1,5 @@
 -- | Internal utilities for working with the C FFI
-module HsBindgen.Clang.Util.FFI (
+module HsBindgen.Clang.Internal.FFI (
     withCStrings
   ) where
 
@@ -19,4 +19,3 @@ withCStrings = \args k ->
     go (x:xs) k = withCString x  $ \x'  ->
                   go          xs $ \xs' ->
                   k (x' : xs')
-

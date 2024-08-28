@@ -61,6 +61,16 @@ CXString* wrap_malloc_Cursor_getBriefCommentText(CXCursor* C) {
     return result;
 }
 
+unsigned wrap_isCursorDefinition(CXCursor *C) {
+    return clang_isCursorDefinition(*C);
+}
+
+CXSourceRange* wrap_malloc_Cursor_getSpellingNameRange(CXCursor *C, unsigned pieceIndex, unsigned options) {
+    CXSourceRange* result = malloc(sizeof(CXSourceRange));
+    *result = clang_Cursor_getSpellingNameRange(*C, pieceIndex, options);
+    return result;
+}
+
 
 /**
  * Type information for CXCursors
@@ -102,6 +112,15 @@ long long wrap_Type_getAlignOf(CXType* T) {
     return clang_Type_getAlignOf(*T);
 }
 
+unsigned wrap_Type_isTransparentTagTypedef(CXType *T) {
+    return clang_Type_isTransparentTagTypedef(*T);
+}
+
+unsigned wrap_Cursor_isAnonymous(CXCursor* C) {
+    return clang_Cursor_isAnonymous(*C);
+}
+
+
 /**
  * Mapping between cursors and source code
  */
@@ -132,6 +151,20 @@ void wrap_getExpansionLocation(CXSourceLocation* location, CXFile* file, unsigne
     clang_getExpansionLocation(*location, file, line, column, offset);
 }
 
+void wrap_getSpellingLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
+    clang_getSpellingLocation(*location, file, line, column, offset);
+}
+
+/**
+ * File manipulation routines
+ */
+
+CXString* wrap_malloc_getFileName(CXFile SFile) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_getFileName(SFile);
+    return result;
+}
+
 /**
  * String manipulation routines
  */
@@ -143,4 +176,3 @@ const char * wrap_getCString (CXString* string) {
 void wrap_disposeString(CXString* string) {
     clang_disposeString(*string);
 }
-

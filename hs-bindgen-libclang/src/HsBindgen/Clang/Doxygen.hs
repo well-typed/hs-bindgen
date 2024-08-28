@@ -27,8 +27,8 @@ import Foreign.C
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Doxygen.Enums
 import HsBindgen.Clang.Doxygen.Instances ()
-import HsBindgen.Clang.Util.Bindings
-import HsBindgen.Clang.Util.CXString
+import HsBindgen.Clang.Internal.Bindings
+import HsBindgen.Clang.Internal.CXString
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
