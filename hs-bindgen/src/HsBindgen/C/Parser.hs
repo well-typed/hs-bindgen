@@ -22,7 +22,9 @@ import Data.Tree
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
-import HsBindgen.Clang.Fold
+import HsBindgen.Clang.Core.Util.Fold
+import HsBindgen.Clang.Core.Util.SourceLoc (SourceRange)
+import HsBindgen.Clang.Core.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -51,7 +53,7 @@ parseHeaderWith args fp fold = do
   Top-level
 -------------------------------------------------------------------------------}
 
-foldDecls :: Tracer IO ParseMsg -> Fold C.Decl
+foldDecls :: HasCallStack => Tracer IO ParseMsg -> Fold C.Decl
 foldDecls tracer current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
@@ -85,6 +87,7 @@ parseStruct current = do
     structName      <- decodeString <$> clang_getCursorDisplayName current
     structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
+
     return $ \structFields -> C.Struct{
         structName
       , structSizeof
@@ -92,7 +95,7 @@ parseStruct current = do
       , structFields
       }
 
-foldStructFields :: Tracer IO ParseMsg -> Fold C.StructField
+foldStructFields :: HasCallStack => Tracer IO ParseMsg -> Fold C.StructField
 foldStructFields tracer current = do
     cursorType <- clang_getCursorType current
     case primType $ cxtKind cursorType of
@@ -116,7 +119,7 @@ parseTypedef current = do
         , typedefType
         }
 
-foldTyp :: Tracer IO ParseMsg -> Fold C.Typ
+foldTyp :: HasCallStack => Tracer IO ParseMsg -> Fold C.Typ
 foldTyp tracer current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
@@ -144,11 +147,15 @@ primType = either (const Nothing) aux . fromSimpleEnum
 
 -- | An element in the @libclang@ AST
 data Element = Element {
-      elementDisplayName      :: !Strict.ByteString
-    , elementTypeKind         :: !(SimpleEnum CXTypeKind)
-    , elementTypeKindSpelling :: !Strict.ByteString
-    , elementRawComment       :: !Strict.ByteString
-    , elementBriefComment     :: !Strict.ByteString
+      elementSpelling          :: !Strict.ByteString
+    , elementSpellingNameRange :: !SourceRange
+    , elementDisplayName       :: !Strict.ByteString
+    , elementTypeKind          :: !(SimpleEnum CXTypeKind)
+    , elementTypeKindSpelling  :: !Strict.ByteString
+    , elementRawComment        :: !Strict.ByteString
+    , elementBriefComment      :: !Strict.ByteString
+    , elementIsAnonymous       :: !Bool
+    , elementIsDefinition      :: !Bool
     }
   deriving (Show)
 
@@ -172,19 +179,27 @@ foldClangAST = go
   where
     go :: Fold (Tree Element)
     go current = do
-        elementDisplayName      <- clang_getCursorDisplayName current
-        elementTypeKind         <- cxtKind <$> clang_getCursorType current
-        elementTypeKindSpelling <- clang_getTypeKindSpelling elementTypeKind
-        elementRawComment       <- clang_Cursor_getRawCommentText current
-        elementBriefComment     <- clang_Cursor_getBriefCommentText current
+        elementSpelling          <- clang_getCursorSpelling                     current
+        elementSpellingNameRange <- SourceLoc.clang_Cursor_getSpellingNameRange current
+        elementDisplayName       <- clang_getCursorDisplayName                  current
+        elementTypeKind          <- cxtKind <$> clang_getCursorType             current
+        elementTypeKindSpelling  <- clang_getTypeKindSpelling elementTypeKind
+        elementRawComment        <- clang_Cursor_getRawCommentText              current
+        elementBriefComment      <- clang_Cursor_getBriefCommentText            current
+        elementIsAnonymous       <- clang_Cursor_isAnonymous                    current
+        elementIsDefinition      <- clang_isCursorDefinition                    current
 
         let element :: Element
             element = Element {
-                elementDisplayName
+                elementSpelling
+              , elementSpellingNameRange
+              , elementDisplayName
               , elementTypeKind
               , elementTypeKindSpelling
               , elementRawComment
               , elementBriefComment
+              , elementIsAnonymous
+              , elementIsDefinition
               }
 
         return $ Recurse go (return . Just . Node element)

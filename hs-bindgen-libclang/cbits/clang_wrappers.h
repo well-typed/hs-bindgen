@@ -36,6 +36,8 @@ CXString* wrap_malloc_getCursorDisplayName(CXCursor* cursor);
 CXString* wrap_malloc_getCursorSpelling(CXCursor* cursor);
 CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C);
 CXString* wrap_malloc_Cursor_getBriefCommentText(CXCursor* C);
+unsigned wrap_isCursorDefinition(CXCursor *C);
+CXSourceRange* wrap_malloc_Cursor_getSpellingNameRange(CXCursor *C, unsigned pieceIndex, unsigned options);
 
 /**
  * Type information for CXCursors
@@ -48,7 +50,8 @@ CXString* wrap_malloc_getTypeSpelling(CXType* CT);
 CXType* wrap_malloc_getPointeeType(CXType* T);
 long long wrap_Type_getSizeOf(CXType* T);
 long long wrap_Type_getAlignOf(CXType* T);
-
+unsigned wrap_Type_isTransparentTagTypedef(CXType *T);
+unsigned wrap_Cursor_isAnonymous(CXCursor* C);
 
 /**
  * Mapping between cursors and source code
@@ -63,6 +66,13 @@ CXSourceRange* wrap_malloc_getCursorExtent(CXCursor *);
 CXSourceLocation* wrap_malloc_getRangeStart(CXSourceRange* range);
 CXSourceLocation* wrap_malloc_getRangeEnd(CXSourceRange* range);
 void wrap_getExpansionLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
+void wrap_getSpellingLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
+
+/**
+ * File manipulation routines
+ */
+
+CXString* wrap_malloc_getFileName(CXFile SFile);
 
 /**
  * String manipulation routines

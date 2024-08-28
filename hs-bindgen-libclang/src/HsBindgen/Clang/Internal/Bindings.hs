@@ -1,9 +1,10 @@
 -- | Internal utilities for creating the bindings
-module HsBindgen.Clang.Util.Bindings (
+module HsBindgen.Clang.Internal.Bindings (
     -- * Memory management
     attachFinalizer
-    -- * Checking return values
+    -- * Dealing with return values
   , CallFailed(..)
+  , cToBool
   , ensure
   , ensureNotNull
   ) where
@@ -24,8 +25,12 @@ attachFinalizer :: Ptr a -> IO (ForeignPtr a)
 attachFinalizer ptr = Concurrent.newForeignPtr ptr $ free ptr
 
 {-------------------------------------------------------------------------------
-  Check return values
+  Dealing with return values
 -------------------------------------------------------------------------------}
+
+cToBool :: CUInt -> Bool
+cToBool 0 = False
+cToBool _ = True
 
 -- | Check that an (integral) result from @libclang@ function is not an error
 ensure ::
@@ -60,4 +65,3 @@ ensureNotNull call = do
       throwIO $ CallFailed stack
     else
       return ptr
-

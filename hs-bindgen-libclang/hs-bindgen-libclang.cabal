@@ -42,17 +42,18 @@ library
   exposed-modules:
       HsBindgen.Clang.Args
       HsBindgen.Clang.Core
+      HsBindgen.Clang.Core.Util
+      HsBindgen.Clang.Core.Util.Fold
+      HsBindgen.Clang.Core.Util.SourceLoc
       HsBindgen.Clang.Doxygen
-      HsBindgen.Clang.Fold
-      HsBindgen.Clang.Util
   other-modules:
       HsBindgen.Clang.Core.Enums
       HsBindgen.Clang.Core.Instances
       HsBindgen.Clang.Doxygen.Enums
       HsBindgen.Clang.Doxygen.Instances
-      HsBindgen.Clang.Util.Bindings
-      HsBindgen.Clang.Util.CXString
-      HsBindgen.Clang.Util.FFI
+      HsBindgen.Clang.Internal.Bindings
+      HsBindgen.Clang.Internal.CXString
+      HsBindgen.Clang.Internal.FFI
   build-depends:
       -- Internal dependencies
     , hs-bindgen-patterns
