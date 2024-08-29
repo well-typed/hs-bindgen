@@ -147,7 +147,8 @@ primType = either (const Nothing) aux . fromSimpleEnum
 
 -- | An element in the @libclang@ AST
 data Element = Element {
-      elementSpelling          :: !Strict.ByteString
+      elementSourceRange       :: !SourceRange
+    , elementSpelling          :: !Strict.ByteString
     , elementSpellingNameRange :: !SourceRange
     , elementDisplayName       :: !Strict.ByteString
     , elementTypeKind          :: !(SimpleEnum CXTypeKind)
@@ -179,6 +180,7 @@ foldClangAST = go
   where
     go :: Fold (Tree Element)
     go current = do
+        elementSourceRange       <- SourceLoc.clang_getCursorExtent             current
         elementSpelling          <- clang_getCursorSpelling                     current
         elementSpellingNameRange <- SourceLoc.clang_Cursor_getSpellingNameRange current
         elementDisplayName       <- clang_getCursorDisplayName                  current
@@ -191,7 +193,8 @@ foldClangAST = go
 
         let element :: Element
             element = Element {
-                elementSpelling
+                elementSourceRange
+              , elementSpelling
               , elementSpellingNameRange
               , elementDisplayName
               , elementTypeKind

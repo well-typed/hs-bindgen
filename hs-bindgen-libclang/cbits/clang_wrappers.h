@@ -32,8 +32,11 @@ unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor);
  * Cross-referencing in the AST
  */
 
-CXString* wrap_malloc_getCursorDisplayName(CXCursor* cursor);
-CXString* wrap_malloc_getCursorSpelling(CXCursor* cursor);
+CXString* wrap_malloc_getCursorDisplayName(CXCursor* C);
+CXString* wrap_malloc_getCursorSpelling(CXCursor* C);
+CXCursor* wrap_malloc_getCursorReferenced(CXCursor* C);
+CXCursor* wrap_malloc_getCursorDefinition(CXCursor* C);
+CXCursor* wrap_malloc_getCanonicalCursor(CXCursor* C);
 CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C);
 CXString* wrap_malloc_Cursor_getBriefCommentText(CXCursor* C);
 unsigned wrap_isCursorDefinition(CXCursor *C);
@@ -57,7 +60,7 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C);
  * Mapping between cursors and source code
  */
 
-CXSourceRange* wrap_malloc_getCursorExtent(CXCursor *);
+CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C);
 
 /**
  * Physical source locations

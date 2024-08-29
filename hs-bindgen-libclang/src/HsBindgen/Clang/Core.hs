@@ -58,6 +58,9 @@ module HsBindgen.Clang.Core (
   , CXString
   , clang_getCursorDisplayName
   , clang_getCursorSpelling
+  , clang_getCursorReferenced
+  , clang_getCursorDefinition
+  , clang_getCanonicalCursor
   , clang_Cursor_getRawCommentText
   , clang_Cursor_getBriefCommentText
   , clang_Cursor_getSpellingNameRange
@@ -399,6 +402,47 @@ clang_getCursorSpelling ::
 clang_getCursorSpelling cursor =
     withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_getCursorSpelling' cursor'
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorReferenced"
+  clang_getCursorReferenced' ::
+       Ptr CXCursor
+    -> IO (Ptr CXCursor)
+
+-- | For a cursor that is a reference, retrieve a cursor representing the entity
+-- that it references.
+clang_getCursorReferenced ::
+     ForeignPtr CXCursor
+  -> IO (ForeignPtr CXCursor)
+clang_getCursorReferenced cursor =
+    withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
+      clang_getCursorReferenced' cursor'
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDefinition"
+  clang_getCursorDefinition' ::
+       Ptr CXCursor
+    -> IO (Ptr CXCursor)
+
+-- | For a cursor that is either a reference to or a declaration of some entity,
+-- retrieve a cursor that describes the definition of that entity.
+clang_getCursorDefinition ::
+     ForeignPtr CXCursor
+  -> IO (ForeignPtr CXCursor)
+clang_getCursorDefinition cursor =
+    withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
+      clang_getCursorDefinition' cursor'
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCanonicalCursor"
+  clang_getCanonicalCursor' ::
+       Ptr CXCursor
+    -> IO (Ptr CXCursor)
+
+-- |  Retrieve the canonical cursor corresponding to the given cursor.
+clang_getCanonicalCursor ::
+     ForeignPtr CXCursor
+  -> IO (ForeignPtr CXCursor)
+clang_getCanonicalCursor cursor =
+    withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
+      clang_getCanonicalCursor' cursor'
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getRawCommentText"
   clang_Cursor_getRawCommentText' ::

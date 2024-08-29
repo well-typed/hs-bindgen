@@ -37,17 +37,36 @@ unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor) 
  * Cross-referencing in the AST
  */
 
-CXString* wrap_malloc_getCursorDisplayName(CXCursor* cursor) {
+CXString* wrap_malloc_getCursorDisplayName(CXCursor* C) {
     CXString* result = malloc(sizeof(CXString));
-    *result = clang_getCursorDisplayName(*cursor);
+    *result = clang_getCursorDisplayName(*C);
     return result;
 }
 
-CXString* wrap_malloc_getCursorSpelling(CXCursor* cursor) {
+CXString* wrap_malloc_getCursorSpelling(CXCursor* C) {
     CXString* result = malloc(sizeof(CXString));
-    *result = clang_getCursorSpelling(*cursor);
+    *result = clang_getCursorSpelling(*C);
     return result;
 }
+
+CXCursor* wrap_malloc_getCursorReferenced(CXCursor* C) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCursorReferenced(*C);
+    return result;
+}
+
+CXCursor* wrap_malloc_getCursorDefinition(CXCursor* C) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCursorDefinition(*C);
+    return result;
+}
+
+CXCursor* wrap_malloc_getCanonicalCursor(CXCursor* C) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCanonicalCursor(*C);
+    return result;
+}
+
 
 CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C) {
     CXString* result = malloc(sizeof(CXString));
@@ -125,9 +144,9 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C) {
  * Mapping between cursors and source code
  */
 
-CXSourceRange* wrap_malloc_getCursorExtent(CXCursor * cursor) {
+CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C) {
     CXSourceRange* result = malloc(sizeof(CXSourceRange));
-    *result = clang_getCursorExtent(*cursor);
+    *result = clang_getCursorExtent(*C);
     return result;
 }
 
