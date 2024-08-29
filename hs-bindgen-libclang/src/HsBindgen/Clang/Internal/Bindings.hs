@@ -1,7 +1,9 @@
 -- | Internal utilities for creating the bindings
 module HsBindgen.Clang.Internal.Bindings (
-    -- * Memory management
-    attachFinalizer
+    -- * Pointers
+    IsPointer(..)
+  , IsForeignPtr(..)
+  , DeriveIsForeignPtr(..)
     -- * Dealing with return values
   , CallFailed(..)
   , cToBool
@@ -10,19 +12,51 @@ module HsBindgen.Clang.Internal.Bindings (
   ) where
 
 import Control.Exception
+import Data.Kind
 import Foreign
 import Foreign.C
 import Foreign.Concurrent qualified as Concurrent
 import GHC.Stack
 
 import HsBindgen.Patterns
+import Data.Coerce
 
 {-------------------------------------------------------------------------------
-  Memory management
+  Pointers
 -------------------------------------------------------------------------------}
 
-attachFinalizer :: Ptr a -> IO (ForeignPtr a)
-attachFinalizer ptr = Concurrent.newForeignPtr ptr $ free ptr
+class IsPointer p where
+  mkNullPtr :: p
+  isNullPtr :: p -> Bool
+  freePtr   :: p -> IO ()
+
+instance IsPointer (Ptr p) where
+  mkNullPtr = nullPtr
+  isNullPtr = (== nullPtr)
+  freePtr   = free
+
+{-------------------------------------------------------------------------------
+  Foreign pointers
+-------------------------------------------------------------------------------}
+
+class IsForeignPtr p where
+  type UnderlyingPtr p :: Type
+  wrapForeignPtr :: UnderlyingPtr p -> IO p
+  unwrapForeignPtr :: forall a. p -> (UnderlyingPtr p -> IO a) -> IO a
+
+newtype DeriveIsForeignPtr u p = DeriveIsForeignPtr p
+
+instance (Coercible p (ForeignPtr a), Coercible u (Ptr a))
+      => IsForeignPtr (DeriveIsForeignPtr u p) where
+  type UnderlyingPtr (DeriveIsForeignPtr u p) = u
+  wrapForeignPtr ptr = do
+      let ptr' :: Ptr a
+          ptr' = coerce ptr
+      coerce <$> Concurrent.newForeignPtr ptr' (free ptr')
+  unwrapForeignPtr fptr k = do
+      let fptr' :: ForeignPtr a
+          fptr' = coerce fptr
+      withForeignPtr fptr' $ k . coerce
 
 {-------------------------------------------------------------------------------
   Dealing with return values
@@ -57,10 +91,10 @@ data CallFailed = CallFailed Backtrace
 -- | Ensure that a function did not return 'nullPtr' (indicating error)
 --
 -- Throws 'CallFailed' on 'nullPtr'.
-ensureNotNull :: HasCallStack => IO (Ptr a) -> IO (Ptr a)
+ensureNotNull :: (HasCallStack, IsPointer a) => IO a -> IO a
 ensureNotNull call = do
     ptr <- call
-    if ptr == nullPtr then do
+    if isNullPtr ptr then do
       stack <- collectBacktrace
       throwIO $ CallFailed stack
     else

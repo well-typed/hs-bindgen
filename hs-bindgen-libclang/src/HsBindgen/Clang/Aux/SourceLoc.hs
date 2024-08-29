@@ -18,14 +18,13 @@ module HsBindgen.Clang.Aux.SourceLoc (
 
 import Data.ByteString qualified as Strict (ByteString)
 import Data.ByteString.UTF8 qualified as BS.UTF8
-import Foreign
+import Data.List (intercalate)
 
 import HsBindgen.Clang.Core qualified as Core
 import HsBindgen.Clang.Core hiding (
     clang_Cursor_getSpellingNameRange
   , clang_getCursorExtent
   )
-import Data.List (intercalate)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -78,11 +77,11 @@ prettySourceRange (SourceRange start end) = concat [
   Construction
 -------------------------------------------------------------------------------}
 
-clang_Cursor_getSpellingNameRange :: ForeignPtr CXCursor -> IO SourceRange
+clang_Cursor_getSpellingNameRange :: CXCursor -> IO SourceRange
 clang_Cursor_getSpellingNameRange cursor =
     toSourceRange =<< Core.clang_Cursor_getSpellingNameRange cursor 0 0
 
-clang_getCursorExtent :: ForeignPtr CXCursor -> IO SourceRange
+clang_getCursorExtent :: CXCursor -> IO SourceRange
 clang_getCursorExtent cursor =
     toSourceRange =<< Core.clang_getCursorExtent cursor
 
@@ -90,7 +89,7 @@ clang_getCursorExtent cursor =
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-toSourceRange :: ForeignPtr CXSourceRange -> IO SourceRange
+toSourceRange :: CXSourceRange -> IO SourceRange
 toSourceRange rng = do
     begin <- clang_getRangeStart rng
     end   <- clang_getRangeEnd   rng
@@ -98,7 +97,7 @@ toSourceRange rng = do
       <$> toSourceLoc begin
       <*> toSourceLoc end
 
-toSourceLoc :: ForeignPtr CXSourceLocation -> IO SourceLoc
+toSourceLoc :: CXSourceLocation -> IO SourceLoc
 toSourceLoc loc = do
     (file, line, col, _bufOffset) <- clang_getSpellingLocation loc
     SourceLoc

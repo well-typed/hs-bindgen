@@ -7,7 +7,6 @@ module HsBindgen.Clang.Aux.Fold (
 
 import Control.Monad
 import Data.IORef
-import Foreign
 
 import HsBindgen.Clang.Core
 import HsBindgen.Patterns
@@ -25,7 +24,7 @@ import HsBindgen.Patterns
 --   function
 --
 -- This provides for a much nicer user experience.
-type Fold a = ForeignPtr CXCursor -> IO (Next a)
+type Fold a = CXCursor -> IO (Next a)
 
 -- | Result of visiting one node
 --
@@ -56,7 +55,7 @@ data Next a where
 
 data Processing a = Processing {
       -- | The AST node whose children we are processing
-      parent :: ForeignPtr CXCursor
+      parent :: CXCursor
 
       -- | The 'Fold' we are applying at this level
     , currentFold :: Fold a
@@ -73,7 +72,7 @@ topProcessing :: Stack a -> Processing a
 topProcessing (Bottom p)     = p
 topProcessing (Push   p _ _) = p
 
-topParent :: Stack a -> ForeignPtr CXCursor
+topParent :: Stack a -> CXCursor
 topParent = parent . topProcessing
 
 topResults :: Stack a -> IORef [a]
@@ -83,7 +82,7 @@ data SomeStack where
  SomeStack :: Stack a -> SomeStack
 
 initStack ::
-     ForeignPtr CXCursor
+     CXCursor
   -> Fold a
   -> IO (Stack a)
 initStack root topLevelFold = do
@@ -96,7 +95,7 @@ initStack root topLevelFold = do
     return $ Bottom p
 
 push ::
-     ForeignPtr CXCursor
+     CXCursor
   -> Fold b
   -> ([b] -> IO (Maybe a))
   -> Stack a -> IO (Stack b)
@@ -109,7 +108,7 @@ push newParent fold collect stack = do
           }
     return $ Push p collect stack
 
-popUntil :: IORef SomeStack -> ForeignPtr CXCursor -> IO ()
+popUntil :: IORef SomeStack -> CXCursor -> IO ()
 popUntil someStack newParent = do
     SomeStack stack <- readIORef someStack
     writeIORef someStack =<< loop stack
@@ -139,7 +138,7 @@ popUntil someStack newParent = do
 --
 -- * visitors can return results
 -- * we can specify different visitors at different levels of the AST
-clang_fold :: ForeignPtr CXCursor -> Fold a -> IO [a]
+clang_fold :: CXCursor -> Fold a -> IO [a]
 clang_fold root topLevelFold = do
     stack     <- initStack root topLevelFold
     someStack <- newIORef $ SomeStack stack
@@ -149,8 +148,8 @@ clang_fold root topLevelFold = do
   where
     visitor ::
          IORef SomeStack
-      -> ForeignPtr CXCursor
-      -> ForeignPtr CXCursor
+      -> CXCursor
+      -> CXCursor
       -> IO (SimpleEnum CXChildVisitResult)
     visitor someStack current parent = do
         popUntil someStack parent

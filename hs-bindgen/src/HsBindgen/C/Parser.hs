@@ -15,9 +15,8 @@ module HsBindgen.C.Parser (
 
 import Data.ByteString qualified as Strict (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
-import Foreign
-import GHC.Stack
 import Data.Tree
+import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Clang.Args
@@ -81,7 +80,7 @@ foldDecls tracer current = do
 -- Implementation note: It seems libclang will give us a name for the struct if
 -- the struct it a tag, but also when it's anonymous but the surrounding typedef
 -- has a name.
-parseStruct :: ForeignPtr CXCursor -> IO ([C.StructField] -> C.Struct)
+parseStruct :: CXCursor -> IO ([C.StructField] -> C.Struct)
 parseStruct current = do
     cursorType      <- clang_getCursorType current
     structName      <- decodeString <$> clang_getCursorDisplayName current
@@ -111,7 +110,7 @@ foldStructFields tracer current = do
   Types
 -------------------------------------------------------------------------------}
 
-parseTypedef :: ForeignPtr CXCursor -> IO (C.Typ -> C.Typedef)
+parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
 parseTypedef current = do
     typedefName <- decodeString <$> clang_getCursorDisplayName current
     return $ \typedefType -> C.Typedef{

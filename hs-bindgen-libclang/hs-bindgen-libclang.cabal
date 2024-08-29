@@ -32,6 +32,8 @@ common lang
   default-extensions:
       DerivingStrategies
       DerivingVia
+      TypeFamilies
+      UndecidableInstances
 
 library
   import:         lang

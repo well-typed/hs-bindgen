@@ -35,38 +35,34 @@ import HsBindgen.Patterns
   Top-level
 -------------------------------------------------------------------------------}
 
+newtype CXComment_ = CXComment_ (Ptr ())
+  deriving newtype (IsPointer)
+
 -- | A parsed comment.
-data CXComment
+newtype CXComment = CXComment (ForeignPtr ())
+  deriving IsForeignPtr via DeriveIsForeignPtr CXComment_ CXComment
 
 foreign import capi unsafe "doxygen_wrappers.h wrap_malloc_Cursor_getParsedComment"
-  clang_Cursor_getParsedComment' ::
-       Ptr CXCursor
-    -> IO (Ptr CXComment)
+  clang_Cursor_getParsedComment' :: CXCursor_ -> IO CXComment_
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getKind"
+  clang_Comment_getKind' :: CXComment_ -> IO (SimpleEnum CXCommentKind)
 
 -- | Given a cursor that represents a documentable entity (e.g., declaration),
 -- return the associated parsed comment as a 'CXComment_FullComment' AST node.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gab4f95ae3b2e0bd63b10cecc3727a391e>
-clang_Cursor_getParsedComment ::
-     ForeignPtr CXCursor
-  -> IO (ForeignPtr CXComment)
+clang_Cursor_getParsedComment :: CXCursor -> IO CXComment
 clang_Cursor_getParsedComment cursor =
-    withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
       clang_Cursor_getParsedComment' cursor'
 
-foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getKind"
-  clang_Comment_getKind' ::
-       Ptr CXComment
-    -> IO (SimpleEnum CXCommentKind)
-
+-- | Get the type of an AST node of any kind
+--
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gad7f2a27ab2f69abcb9442e05a21a130f>
-clang_Comment_getKind ::
-     ForeignPtr CXComment
-     -- ^ AST node of any kind.
-  -> IO (SimpleEnum CXCommentKind)
-     -- ^ the type of the AST node.
+clang_Comment_getKind :: CXComment -> IO (SimpleEnum CXCommentKind)
 clang_Comment_getKind comment =
-    withForeignPtr comment $ \comment' ->
+    unwrapForeignPtr comment $ \comment' ->
       clang_Comment_getKind' comment'
 
 {-------------------------------------------------------------------------------
@@ -74,27 +70,23 @@ clang_Comment_getKind comment =
 -------------------------------------------------------------------------------}
 
 foreign import capi unsafe "doxygen_wrappers.h wrap_malloc_FullComment_getAsHTML"
-  clang_FullComment_getAsHTML' ::
-       Ptr CXComment
-    -> IO (Ptr CXString)
-
--- | Convert a given full parsed comment to an HTML fragment.
-clang_FullComment_getAsHTML ::
-     ForeignPtr CXComment
-  -> IO (Strict.ByteString)
-clang_FullComment_getAsHTML comment =
-    withForeignPtr comment $ \comment' -> packCXString =<<
-      clang_FullComment_getAsHTML' comment'
+  clang_FullComment_getAsHTML' :: CXComment_ -> IO CXString
 
 foreign import capi unsafe "doxygen_wrappers.h wrap_malloc_FullComment_getAsXML"
-  clang_FullComment_getAsXML' ::
-       Ptr CXComment
-    -> IO (Ptr CXString)
+  clang_FullComment_getAsXML' :: CXComment_ -> IO CXString
+
+-- | Convert a given full parsed comment to an HTML fragment.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gafdfc03bbfdddd06c380a2644f16ccba9>
+clang_FullComment_getAsHTML :: CXComment -> IO (Strict.ByteString)
+clang_FullComment_getAsHTML comment =
+    unwrapForeignPtr comment $ \comment' -> packCXString =<<
+      clang_FullComment_getAsHTML' comment'
 
 -- | Convert a given full parsed comment to an XML document.
-clang_FullComment_getAsXML ::
-     ForeignPtr CXComment
-  -> IO (Strict.ByteString)
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gac877b07be05f591fdfea05f466ed9395>
+clang_FullComment_getAsXML :: CXComment -> IO (Strict.ByteString)
 clang_FullComment_getAsXML comment =
-    withForeignPtr comment $ \comment' -> packCXString =<<
+    unwrapForeignPtr comment $ \comment' -> packCXString =<<
       clang_FullComment_getAsXML' comment'
