@@ -121,10 +121,8 @@ data CXIndex
 
 foreign import capi unsafe "clang-c/Index.h clang_createIndex"
   clang_createIndex' ::
-       CInt
-       -- ^ @excludeDeclarationsFromPCH@
-    -> CInt
-       -- ^ @displayDiagnostics@
+       CInt -- ^ @excludeDeclarationsFromPCH@
+    -> CInt -- ^ @displayDiagnostics@
     -> IO (Ptr CXIndex)
 
 data DisplayDiagnostics =
@@ -207,14 +205,10 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga2baf83f8c3299788234c8bce55e4472e>
 clang_parseTranslationUnit ::
      HasCallStack
-  => Ptr CXIndex
-     -- ^ @CIdx@
-  -> FilePath
-     -- ^ @source_filename@
-  -> [String]
-     -- ^ @command_line_args@
-  -> CXTranslationUnit_Flags
-     -- ^ @options@
+  => Ptr CXIndex              -- ^ @CIdx@
+  -> FilePath                 -- ^ @source_filename@
+  -> [String]                 -- ^ @command_line_args@
+  -> CXTranslationUnit_Flags  -- ^ @options@
   -> IO (Ptr CXTranslationUnit)
 clang_parseTranslationUnit cIdx src args options =
     withCString  src  $ \src' ->
@@ -252,9 +246,10 @@ clang_parseTranslationUnit cIdx src args options =
 data CXCursor
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTranslationUnitCursor"
-  clang_getTranslationUnitCursor' ::
-       Ptr CXTranslationUnit
-    -> IO (Ptr CXCursor)
+  clang_getTranslationUnitCursor' :: Ptr CXTranslationUnit -> IO (Ptr CXCursor)
+
+foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
+  clang_equalCursors' :: Ptr CXCursor -> Ptr CXCursor -> IO CUInt
 
 -- | Retrieve the cursor that represents the given translation unit.
 --
@@ -268,19 +263,10 @@ clang_getTranslationUnitCursor ::
 clang_getTranslationUnitCursor unit = attachFinalizer =<<
     clang_getTranslationUnitCursor' unit
 
-foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
-  clang_equalCursors' ::
-       Ptr CXCursor
-    -> Ptr CXCursor
-    -> IO CUInt
-
 -- | Determine whether two cursors are equivalent.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga98df58f09878710b983b6f3f60f0cba3>
-clang_equalCursors ::
-     ForeignPtr CXCursor
-  -> ForeignPtr CXCursor
-  -> IO Bool
+clang_equalCursors :: ForeignPtr CXCursor -> ForeignPtr CXCursor -> IO Bool
 clang_equalCursors a b =
     withForeignPtr a $ \a' ->
     withForeignPtr b $ \b' ->
@@ -319,10 +305,7 @@ foreign import ccall "wrapper"
 -- /NOTE/: This is marked @safe@ rather than @unsafe@ as this calls back into
 -- Haskell.
 foreign import capi safe "clang_wrappers.h wrap_malloc_visitChildren"
-  clang_visitChildren' ::
-       Ptr CXCursor
-    -> FunPtr CXCursorVisitor
-    -> IO CUInt
+  clang_visitChildren' :: Ptr CXCursor -> FunPtr CXCursorVisitor -> IO CUInt
 
 -- | Visit the children of a particular cursor.
 --
@@ -370,9 +353,34 @@ clang_visitChildren root visitor = do
 -------------------------------------------------------------------------------}
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDisplayName"
-  clang_getCursorDisplayName' ::
-       Ptr CXCursor
-    -> IO (Ptr CXString)
+  clang_getCursorDisplayName' :: Ptr CXCursor -> IO (Ptr CXString)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSpelling"
+  clang_getCursorSpelling' :: Ptr CXCursor -> IO (Ptr CXString)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorReferenced"
+  clang_getCursorReferenced' :: Ptr CXCursor -> IO (Ptr CXCursor)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDefinition"
+  clang_getCursorDefinition' :: Ptr CXCursor -> IO (Ptr CXCursor)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCanonicalCursor"
+  clang_getCanonicalCursor' :: Ptr CXCursor -> IO (Ptr CXCursor)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getRawCommentText"
+  clang_Cursor_getRawCommentText' :: Ptr CXCursor -> IO (Ptr CXString)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getBriefCommentText"
+  clang_Cursor_getBriefCommentText' :: Ptr CXCursor -> IO (Ptr CXString)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getSpellingNameRange"
+  clang_Cursor_getSpellingNameRange' :: Ptr CXCursor
+    -> CUInt
+    -> CUInt
+    -> IO (Ptr CXSourceRange)
+
+foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
+  clang_isCursorDefinition' :: Ptr CXCursor -> IO CUInt
 
 -- | Retrieve the display name for the entity referenced by this cursor.
 --
@@ -388,11 +396,6 @@ clang_getCursorDisplayName cursor =
     withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_getCursorDisplayName' cursor'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSpelling"
-  clang_getCursorSpelling' ::
-       Ptr CXCursor
-    -> IO (Ptr CXString)
-
 -- | Retrieve a name for the entity referenced by this cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
@@ -403,13 +406,10 @@ clang_getCursorSpelling cursor =
     withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_getCursorSpelling' cursor'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorReferenced"
-  clang_getCursorReferenced' ::
-       Ptr CXCursor
-    -> IO (Ptr CXCursor)
-
 -- | For a cursor that is a reference, retrieve a cursor representing the entity
 -- that it references.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gabf059155921552e19fc2abed5b4ff73a>
 clang_getCursorReferenced ::
      ForeignPtr CXCursor
   -> IO (ForeignPtr CXCursor)
@@ -417,13 +417,10 @@ clang_getCursorReferenced cursor =
     withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCursorReferenced' cursor'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDefinition"
-  clang_getCursorDefinition' ::
-       Ptr CXCursor
-    -> IO (Ptr CXCursor)
-
 -- | For a cursor that is either a reference to or a declaration of some entity,
 -- retrieve a cursor that describes the definition of that entity.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gafcfbec461e561bf13f1e8540bbbd655b>
 clang_getCursorDefinition ::
      ForeignPtr CXCursor
   -> IO (ForeignPtr CXCursor)
@@ -431,23 +428,15 @@ clang_getCursorDefinition cursor =
     withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCursorDefinition' cursor'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCanonicalCursor"
-  clang_getCanonicalCursor' ::
-       Ptr CXCursor
-    -> IO (Ptr CXCursor)
-
 -- |  Retrieve the canonical cursor corresponding to the given cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac802826668be9fd40a017523cc7d24fe>
 clang_getCanonicalCursor ::
      ForeignPtr CXCursor
   -> IO (ForeignPtr CXCursor)
 clang_getCanonicalCursor cursor =
     withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCanonicalCursor' cursor'
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getRawCommentText"
-  clang_Cursor_getRawCommentText' ::
-       Ptr CXCursor
-    -> IO (Ptr CXString)
 
 -- | Given a cursor that represents a declaration, return the associated comment
 -- text, including comment markers.
@@ -460,11 +449,6 @@ clang_Cursor_getRawCommentText cursor =
     withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_Cursor_getRawCommentText' cursor'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getBriefCommentText"
-  clang_Cursor_getBriefCommentText' ::
-       Ptr CXCursor
-    -> IO (Ptr CXString)
-
 -- | Given a cursor that represents a documentable entity (e.g., declaration),
 -- return the associated brief comment.
 --
@@ -475,13 +459,6 @@ clang_Cursor_getBriefCommentText ::
 clang_Cursor_getBriefCommentText cursor =
     withForeignPtr cursor $ \cursor' -> packCXString =<<
       clang_Cursor_getBriefCommentText' cursor'
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getSpellingNameRange"
-  clang_Cursor_getSpellingNameRange' ::
-       Ptr CXCursor
-    -> CUInt -- ^ @pieceIndex@
-    -> CUInt -- ^ @options
-    -> IO (Ptr CXSourceRange)
 
 -- | Retrieve a range for a piece that forms the cursors spelling name.
 --
@@ -506,11 +483,6 @@ clang_Cursor_getSpellingNameRange cursor pieceIndex options =
     withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_Cursor_getSpellingNameRange' cursor' pieceIndex options
 
-foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
-  clang_isCursorDefinition' ::
-       Ptr CXCursor
-    -> IO CUInt
-
 -- | Determine whether the declaration pointed to by this cursor is also a
 -- definition of that entity.
 --
@@ -534,19 +506,39 @@ clang_isCursorDefinition cursor =
 data CXType
 
 foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
-  cxtKind' ::
-       Ptr CXType
-    -> IO (SimpleEnum CXTypeKind)
+  cxtKind' :: Ptr CXType -> IO (SimpleEnum CXTypeKind)
 
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorType"
+  clang_getCursorType' :: Ptr CXCursor -> IO (Ptr CXType)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeKindSpelling"
+  clang_getTypeKindSpelling' :: SimpleEnum CXTypeKind -> IO (Ptr CXString)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeSpelling"
+  clang_getTypeSpelling' :: Ptr CXType -> IO (Ptr CXString)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getPointeeType"
+  clang_getPointeeType' :: Ptr CXType -> IO (Ptr CXType)
+
+foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
+  clang_Type_getSizeOf' :: Ptr CXType -> IO CLLong
+
+foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
+  clang_getAlignOf' :: Ptr CXType -> IO CLLong
+
+foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
+  clang_Type_isTransparentTagTypedef' :: Ptr CXType -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
+  clang_Cursor_isAnonymous' :: Ptr CXCursor -> IO CUInt
+
+-- | Extract the @kind@ field from a @CXType@ struct
+--
+-- <https://clang.llvm.org/doxygen/structCXType.html#ab27a7510dc88b0ec80cff04ec89901aa>
 cxtKind :: ForeignPtr CXType -> SimpleEnum CXTypeKind
 cxtKind typ = unsafePerformIO $
     withForeignPtr typ $ \typ' ->
       cxtKind' typ'
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorType"
-  clang_getCursorType' ::
-       Ptr CXCursor
-    -> IO (Ptr CXType)
 
 -- | Retrieve the type of a CXCursor (if any).
 --
@@ -556,90 +548,51 @@ clang_getCursorType cursor =
     withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCursorType' cursor'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeKindSpelling"
-  clang_getTypeKindSpelling' ::
-     SimpleEnum CXTypeKind
-  -> IO (Ptr CXString)
-
 -- | Retrieve the spelling of a given CXTypeKind.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
-clang_getTypeKindSpelling ::
-     SimpleEnum CXTypeKind
-  -> IO Strict.ByteString
+clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO Strict.ByteString
 clang_getTypeKindSpelling kind = packCXString =<<
     clang_getTypeKindSpelling' kind
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeSpelling"
-  clang_getTypeSpelling' ::
-       Ptr CXType
-    -> IO (Ptr CXString)
 
 -- | Pretty-print the underlying type using the rules of the language of the
 -- translation unit from which it came.
 --
 -- If the type is invalid, an empty string is returned.
-clang_getTypeSpelling ::
-     ForeignPtr CXType
-  -> IO Strict.ByteString
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
+clang_getTypeSpelling :: ForeignPtr CXType -> IO Strict.ByteString
 clang_getTypeSpelling typ =
      withForeignPtr typ $ \typ' -> packCXString =<<
        clang_getTypeSpelling' typ'
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getPointeeType"
-  clang_getPointeeType' ::
-       Ptr CXType
-    -> IO (Ptr CXType)
-
 -- | For pointer types, returns the type of the pointee.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaafa3eb34932d8da1358d50ed949ff3ee>
-clang_getPointeeType ::
-     ForeignPtr CXType
-  -> IO (ForeignPtr CXType)
+clang_getPointeeType :: ForeignPtr CXType -> IO (ForeignPtr CXType)
 clang_getPointeeType typ =
     withForeignPtr typ $ \typ' -> attachFinalizer =<<
       clang_getPointeeType' typ'
-
-foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
-  clang_Type_getSizeOf' ::
-       Ptr CXType
-    -> IO CLLong
 
 -- | Return the size of a type in bytes as per C++[expr.sizeof] standard.
 --
 -- May throw 'CXTypeLayoutException'.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
-clang_Type_getSizeOf ::
-     ForeignPtr CXType
-  -> IO CLLong
+clang_Type_getSizeOf :: ForeignPtr CXType -> IO CLLong
 clang_Type_getSizeOf typ =
     withForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
       clang_Type_getSizeOf' typ'
-
-foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
-  clang_getAlignOf' ::
-       Ptr CXType
-    -> IO CLLong
 
 -- | Return the alignment of a type in bytes as per C++[expr.alignof] standard.
 --
 -- May throw 'CXTypeLayoutException'.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
-clang_Type_getAlignOf ::
-     ForeignPtr CXType
-  -> IO CLLong
+clang_Type_getAlignOf :: ForeignPtr CXType -> IO CLLong
 clang_Type_getAlignOf typ =
     withForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
       clang_getAlignOf' typ'
-
-
-foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
-  clang_Type_isTransparentTagTypedef' ::
-       Ptr CXType
-    -> IO CUInt
 
 -- | Determine if a typedef is 'transparent' tag.
 --
@@ -648,25 +601,16 @@ foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
 -- macro.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga9ac4ecb0e84f25b9f05d54c67353eba0>
-clang_Type_isTransparentTagTypedef ::
-     ForeignPtr CXType
-  -> IO Bool
+clang_Type_isTransparentTagTypedef :: ForeignPtr CXType -> IO Bool
 clang_Type_isTransparentTagTypedef typ =
     withForeignPtr typ $ \typ' ->
       cToBool <$> clang_Type_isTransparentTagTypedef' typ'
-
-foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
-  clang_Cursor_isAnonymous' ::
-       Ptr CXCursor
-    -> IO CUInt
 
 -- | Determine whether the given cursor represents an anonymous tag or
 -- namespace.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6e0d2674d126fd43816ce3a80b592373>
-clang_Cursor_isAnonymous ::
-     ForeignPtr CXCursor
-  -> IO Bool
+clang_Cursor_isAnonymous :: ForeignPtr CXCursor -> IO Bool
 clang_Cursor_isAnonymous cursor =
     withForeignPtr cursor $ \cursor' ->
       cToBool <$> clang_Cursor_isAnonymous' cursor'
@@ -686,16 +630,12 @@ clang_Cursor_isAnonymous cursor =
 data CXSourceRange
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorExtent"
-  clang_getCursorExtent' ::
-       Ptr CXCursor
-    -> IO (Ptr CXSourceRange)
+  clang_getCursorExtent' :: Ptr CXCursor -> IO (Ptr CXSourceRange)
 
 -- | Retrieve the physical extent of the source construct referenced by the given cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#ga79f6544534ab73c78a8494c4c0bc2840>
-clang_getCursorExtent ::
-     ForeignPtr CXCursor
-  -> IO (ForeignPtr CXSourceRange)
+clang_getCursorExtent :: ForeignPtr CXCursor -> IO (ForeignPtr CXSourceRange)
 clang_getCursorExtent cursor =
     withForeignPtr cursor $ \cursor' -> attachFinalizer =<<
       clang_getCursorExtent' cursor'
@@ -712,42 +652,16 @@ clang_getCursorExtent cursor =
 -- <https://clang.llvm.org/doxygen/structCXSourceLocation.html>
 data CXSourceLocation
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeStart"
-  clang_getRangeStart' ::
-       Ptr CXSourceRange
-    -> IO (Ptr CXSourceLocation)
-
--- | Retrieve a source location representing the first character within a source
--- range.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gac2cc034e3965739c41662f6ada7ff248>
-clang_getRangeStart ::
-     ForeignPtr CXSourceRange
-  -> IO (ForeignPtr CXSourceLocation)
-clang_getRangeStart range =
-    withForeignPtr range $ \range' -> attachFinalizer =<<
-      clang_getRangeStart' range'
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeEnd"
-  clang_getRangeEnd' ::
-       Ptr CXSourceRange
-    -> IO (Ptr CXSourceLocation)
-
--- | Retrieve a source location representing the last character within a source
--- range.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacdb7d3c2b77a06bcc2e83bde3e14c3c0>
-clang_getRangeEnd ::
-     ForeignPtr CXSourceRange
-  -> IO (ForeignPtr CXSourceLocation)
-clang_getRangeEnd range =
-    withForeignPtr range $ \range' -> attachFinalizer =<<
-      clang_getRangeEnd' range'
-
 -- | A particular source file that is part of a translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#gacfcea9c1239c916597e2e5b3e109215a>
 data CXFile
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeStart"
+  clang_getRangeStart' :: Ptr CXSourceRange -> IO (Ptr CXSourceLocation)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeEnd"
+  clang_getRangeEnd' :: Ptr CXSourceRange -> IO (Ptr CXSourceLocation)
 
 foreign import capi "clang_wrappers.h wrap_getExpansionLocation"
   clang_getExpansionLocation' ::
@@ -762,6 +676,39 @@ foreign import capi "clang_wrappers.h wrap_getExpansionLocation"
     -> Ptr CUInt
        -- ^ [out] if non-NULL, will be set to the offset into the buffer to which the given source location points.
     -> IO ()
+
+foreign import capi "clang_wrappers.h wrap_getSpellingLocation"
+  clang_getSpellingLocation' ::
+       Ptr CXSourceLocation
+       -- ^ the location within a source file that will be decomposed into its parts.
+    -> Ptr (Ptr CXFile)
+       -- ^ [out] if non-NULL, will be set to the file to which the given source location points.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the line to which the given source location points.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the column to which the given source location points.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the offset into the buffer to which the given source location points.
+    -> IO ()
+
+
+-- | Retrieve a source location representing the first character within a source
+-- range.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gac2cc034e3965739c41662f6ada7ff248>
+clang_getRangeStart :: ForeignPtr CXSourceRange -> IO (ForeignPtr CXSourceLocation)
+clang_getRangeStart range =
+    withForeignPtr range $ \range' -> attachFinalizer =<<
+      clang_getRangeStart' range'
+
+-- | Retrieve a source location representing the last character within a source
+-- range.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacdb7d3c2b77a06bcc2e83bde3e14c3c0>
+clang_getRangeEnd :: ForeignPtr CXSourceRange -> IO (ForeignPtr CXSourceLocation)
+clang_getRangeEnd range =
+    withForeignPtr range $ \range' -> attachFinalizer =<<
+      clang_getRangeEnd' range'
 
 -- | Retrieve the file, line, column, and offset represented by the given source
 -- location.
@@ -783,20 +730,6 @@ clang_getExpansionLocation location =
        alloca $ \offset -> do
          clang_getExpansionLocation' location' file line column offset
          (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
-
-foreign import capi "clang_wrappers.h wrap_getSpellingLocation"
-  clang_getSpellingLocation' ::
-       Ptr CXSourceLocation
-       -- ^ the location within a source file that will be decomposed into its parts.
-    -> Ptr (Ptr CXFile)
-       -- ^ [out] if non-NULL, will be set to the file to which the given source location points.
-    -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the line to which the given source location points.
-    -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the column to which the given source location points.
-    -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the offset into the buffer to which the given source location points.
-    -> IO ()
 
 -- | Retrieve the file, line, column, and offset represented by the given source
 -- location.
@@ -826,16 +759,12 @@ clang_getSpellingLocation location =
 -------------------------------------------------------------------------------}
 
 foreign import capi "clang_wrappers.h wrap_malloc_getFileName"
-  clang_getFileName' ::
-       Ptr CXFile
-    -> IO (Ptr CXString)
+  clang_getFileName' :: Ptr CXFile -> IO (Ptr CXString)
 
 -- | Retrieve the complete file and path name of the given file.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
-clang_getFileName ::
-     Ptr CXFile
-  -> IO Strict.ByteString
+clang_getFileName :: Ptr CXFile -> IO Strict.ByteString
 clang_getFileName file = packCXString =<< clang_getFileName' file
 
 {-------------------------------------------------------------------------------
