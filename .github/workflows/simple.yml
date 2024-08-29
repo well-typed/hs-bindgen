@@ -39,7 +39,6 @@ jobs:
         uses: KyleMayes/install-llvm-action@v2
         with:
           version: "14"
-          directory: ${{ runner.temp }}/llvm
           env: false
 
       - name: Debug
