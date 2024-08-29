@@ -17,6 +17,7 @@ module HsBindgen.Clang.Aux.SourceLoc (
   ) where
 
 import Data.ByteString qualified as Strict (ByteString)
+import Data.ByteString.UTF8 qualified as BS.UTF8
 import Foreign
 
 import HsBindgen.Clang.Core qualified as Core
@@ -24,6 +25,7 @@ import HsBindgen.Clang.Core hiding (
     clang_Cursor_getSpellingNameRange
   , clang_getCursorExtent
   )
+import Data.List (intercalate)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -34,13 +36,43 @@ data SourceLoc = SourceLoc {
     , sourceLocLine   :: !Int
     , sourceLocColumn :: !Int
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Eq, Ord)
 
 data SourceRange = SourceRange {
       sourceRangeStart :: !SourceLoc
     , sourceRangeEnd   :: !SourceLoc
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Eq, Ord)
+
+{-------------------------------------------------------------------------------
+  Show instances
+
+  These are defined so that we could, if we wanted to, also provide an inverse
+  'IsString' instance; this is the reason for the @show . pretty...@
+-------------------------------------------------------------------------------}
+
+instance Show SourceLoc where
+  show = show . prettySourceLoc True
+
+instance Show SourceRange where
+  show = show . prettySourceRange
+
+prettySourceLoc ::
+     Bool -- ^ Should we show the file?
+  -> SourceLoc -> String
+prettySourceLoc showFile (SourceLoc file line col) =
+    intercalate ":" . concat $ [
+        -- Encoding and filepaths is a mess..
+        [ BS.UTF8.toString file | showFile ]
+      , [ show line, show col ]
+      ]
+
+prettySourceRange :: SourceRange -> String
+prettySourceRange (SourceRange start end) = concat [
+      prettySourceLoc True start
+    , "-"
+    , prettySourceLoc (sourceLocFile start /= sourceLocFile end) end
+    ]
 
 {-------------------------------------------------------------------------------
   Construction
