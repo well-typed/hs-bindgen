@@ -20,10 +20,9 @@ import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.Aux.Fold
-import HsBindgen.Clang.Aux.SourceLoc (SourceRange)
-import HsBindgen.Clang.Aux.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Core
+import HsBindgen.Clang.Util.Classification
+import HsBindgen.Clang.Util.Fold
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -34,14 +33,14 @@ import HsBindgen.Util.Tracer
 parseHeaderWith ::
      ClangArgs
   -> FilePath
-  -> Fold a
+  -> (CXTranslationUnit -> Fold a)
   -> IO [a]
 parseHeaderWith args fp fold = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit index fp args flags
     cursor <- clang_getTranslationUnitCursor unit
 
-    clang_fold cursor fold
+    clang_fold cursor $ fold unit
   where
     flags :: CXTranslationUnit_Flags
     flags = bitfieldEnum [
@@ -52,12 +51,14 @@ parseHeaderWith args fp fold = do
   Top-level
 -------------------------------------------------------------------------------}
 
-foldDecls :: HasCallStack => Tracer IO ParseMsg -> Fold C.Decl
-foldDecls tracer current = do
+foldDecls ::
+     HasCallStack
+  => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Decl
+foldDecls tracer unit current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
       Right CXType_Record -> do
-        mkStruct <- parseStruct current
+        mkStruct <- parseStruct unit current
         let mkDecl :: [C.StructField] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
@@ -66,7 +67,7 @@ foldDecls tracer current = do
         let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
             mkDecl [typ] = return $ Just (C.DeclTypedef $ mkTypedef typ)
             mkDecl types = error $ "mkTypedef: unexpected " ++ show types
-        return $ Recurse (foldTyp tracer) mkDecl
+        return $ Recurse (foldTyp tracer unit) mkDecl
       _otherwise -> do
         traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
         return $ Continue Nothing
@@ -80,15 +81,16 @@ foldDecls tracer current = do
 -- Implementation note: It seems libclang will give us a name for the struct if
 -- the struct it a tag, but also when it's anonymous but the surrounding typedef
 -- has a name.
-parseStruct :: CXCursor -> IO ([C.StructField] -> C.Struct)
-parseStruct current = do
+parseStruct :: CXTranslationUnit -> CXCursor -> IO ([C.StructField] -> C.Struct)
+parseStruct unit current = do
     cursorType      <- clang_getCursorType current
-    structName      <- decodeString <$> clang_getCursorDisplayName current
+    structTag       <- fmap decodeString . getUserProvided <$>
+                         getUserProvidedName unit current
     structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
     return $ \structFields -> C.Struct{
-        structName
+        structTag
       , structSizeof
       , structAlignment
       , structFields
@@ -118,12 +120,14 @@ parseTypedef current = do
         , typedefType
         }
 
-foldTyp :: HasCallStack => Tracer IO ParseMsg -> Fold C.Typ
-foldTyp tracer current = do
+foldTyp ::
+     HasCallStack
+  => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Typ
+foldTyp tracer unit current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
       Right CXType_Record -> do
-        mkStruct <- parseStruct current
+        mkStruct <- parseStruct unit current
         let mkDecl :: [C.StructField] -> IO (Maybe C.Typ)
             mkDecl = return . Just . C.TypStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
@@ -146,18 +150,13 @@ primType = either (const Nothing) aux . fromSimpleEnum
 
 -- | An element in the @libclang@ AST
 data Element = Element {
-      elementSourceRange       :: !SourceRange
-    , elementSpelling          :: !Strict.ByteString
-    , elementSpellingNameRange :: !SourceRange
-    , elementDisplayName       :: !Strict.ByteString
-    , elementTypeKind          :: !(SimpleEnum CXTypeKind)
-    , elementTypeKindSpelling  :: !Strict.ByteString
-    , elementRawComment        :: !Strict.ByteString
-    , elementBriefComment      :: !Strict.ByteString
-    , elementIsAnonymous       :: !Bool
-    , elementIsDefinition      :: !Bool
+      elementName         :: !(UserProvided Strict.ByteString)
+    , elementTypeKind     :: !Strict.ByteString
+    , elementRawComment   :: !Strict.ByteString
+    , elementIsAnonymous  :: !Bool
+    , elementIsDefinition :: !Bool
     }
-  deriving (Show)
+  deriving stock (Show)
 
 -- | Fold that returns the raw @libclang@ AST
 --
@@ -174,32 +173,23 @@ data Element = Element {
 -- >         return $ Recurse foldClangAST $ \t -> print t >> return Nothing
 --
 -- to see the AST under the @struct@ parent node.
-foldClangAST :: Fold (Tree Element)
-foldClangAST = go
+foldClangAST :: CXTranslationUnit -> Fold (Tree Element)
+foldClangAST unit = go
   where
     go :: Fold (Tree Element)
     go current = do
-        elementSourceRange       <- SourceLoc.clang_getCursorExtent             current
-        elementSpelling          <- clang_getCursorSpelling                     current
-        elementSpellingNameRange <- SourceLoc.clang_Cursor_getSpellingNameRange current
-        elementDisplayName       <- clang_getCursorDisplayName                  current
-        elementTypeKind          <- cxtKind <$> clang_getCursorType             current
-        elementTypeKindSpelling  <- clang_getTypeKindSpelling elementTypeKind
-        elementRawComment        <- clang_Cursor_getRawCommentText              current
-        elementBriefComment      <- clang_Cursor_getBriefCommentText            current
-        elementIsAnonymous       <- clang_Cursor_isAnonymous                    current
-        elementIsDefinition      <- clang_isCursorDefinition                    current
+        elementName         <- getUserProvidedName unit       current
+        elementTypeKind     <- clang_getTypeKindSpelling . cxtKind =<<
+                                          clang_getCursorType current
+        elementRawComment   <- clang_Cursor_getRawCommentText current
+        elementIsAnonymous  <- clang_Cursor_isAnonymous       current
+        elementIsDefinition <- clang_isCursorDefinition       current
 
         let element :: Element
             element = Element {
-                elementSourceRange
-              , elementSpelling
-              , elementSpellingNameRange
-              , elementDisplayName
+                elementName
               , elementTypeKind
-              , elementTypeKindSpelling
               , elementRawComment
-              , elementBriefComment
               , elementIsAnonymous
               , elementIsDefinition
               }

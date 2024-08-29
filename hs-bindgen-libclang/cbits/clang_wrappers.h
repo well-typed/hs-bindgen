@@ -63,6 +63,16 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C);
 CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C);
 
 /**
+ * Token extraction and manipulation
+ */
+
+CXToken* wrap_getToken(CXTranslationUnit TU, CXSourceLocation* Location);
+CXTokenKind wrap_getTokenKind(CXToken* Token);
+CXString* wrap_malloc_getTokenSpelling(CXTranslationUnit TU, CXToken* Token);
+CXSourceLocation* wrap_malloc_getTokenLocation(CXTranslationUnit TU, CXToken* Token);
+CXSourceRange* wrap_malloc_getTokenExtent(CXTranslationUnit TU, CXToken* Token);
+
+/**
  * Physical source locations
  */
 

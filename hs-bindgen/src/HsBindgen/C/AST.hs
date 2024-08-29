@@ -46,7 +46,7 @@ data Decl =
 
 -- | Definition of a struct
 data Struct = Struct {
-      structName      :: String
+      structTag       :: Maybe String
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]

@@ -1,5 +1,5 @@
 -- | Higher-level bindings for traversing the API
-module HsBindgen.Clang.Aux.Fold (
+module HsBindgen.Clang.Util.Fold (
     Fold
   , Next(..)
   , clang_fold

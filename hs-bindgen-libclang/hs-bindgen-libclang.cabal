@@ -47,10 +47,10 @@ library
       HsBindgen.Clang.Core
       HsBindgen.Clang.Doxygen
   exposed-modules:
-      -- Auxiliary functionality, without direct counterparts in libclang
-      HsBindgen.Clang.Aux.Classification
-      HsBindgen.Clang.Aux.Fold
-      HsBindgen.Clang.Aux.SourceLoc
+      -- Additional utilities, without direct counterparts in libclang
+      HsBindgen.Clang.Util.Classification
+      HsBindgen.Clang.Util.Fold
+      HsBindgen.Clang.Util.SourceLoc
   other-modules:
       HsBindgen.Clang.Core.Enums
       HsBindgen.Clang.Core.Instances

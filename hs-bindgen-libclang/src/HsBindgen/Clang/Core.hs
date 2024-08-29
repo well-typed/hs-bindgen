@@ -104,6 +104,13 @@ module HsBindgen.Clang.Core (
     -- * Mapping between cursors and source code
   , CXSourceRange
   , clang_getCursorExtent
+    -- * Token extraction and manipulation
+  , CXToken
+  , clang_getToken
+  , clang_getTokenKind
+  , clang_getTokenSpelling
+  , clang_getTokenLocation
+  , clang_getTokenExtent
     -- * Physical source locations
   , CXSourceLocation
   , clang_getRangeStart
@@ -662,6 +669,54 @@ clang_getCursorExtent :: CXCursor -> IO CXSourceRange
 clang_getCursorExtent cursor =
     unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
       wrap_malloc_getCursorExtent cursor'
+
+{-------------------------------------------------------------------------------
+  Token extraction and manipulation
+-------------------------------------------------------------------------------}
+
+newtype CXToken = CXToken (Ptr ())
+
+foreign import capi unsafe "clang_wrappers.h wrap_getToken"
+  wrap_getToken :: CXTranslationUnit -> CXSourceLocation_ -> IO CXToken
+
+foreign import capi unsafe "clang_wrappers.h wrap_getTokenKind"
+  clang_getTokenKind :: CXToken -> IO (SimpleEnum CXTokenKind)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenSpelling"
+  wrap_malloc_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO CXString
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenLocation"
+  wrap_malloc_getTokenLocation ::
+       CXTranslationUnit
+    -> CXToken
+    -> IO CXSourceLocation_
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenExtent"
+  wrap_malloc_getTokenExtent ::
+       CXTranslationUnit
+    -> CXToken
+    -> IO CXSourceRange_
+
+-- | Get the raw lexical token starting with the given location.
+clang_getToken :: CXTranslationUnit -> CXSourceLocation -> IO CXToken
+clang_getToken unit loc =
+    unwrapForeignPtr loc $ \loc' ->
+      wrap_getToken unit loc'
+
+-- | Determine the spelling of the given token.
+clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
+clang_getTokenSpelling unit token = packCXString =<<
+    wrap_malloc_getTokenSpelling unit token
+
+-- | Retrieve the source location of the given token.
+clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO CXSourceLocation
+clang_getTokenLocation unit token = wrapForeignPtr =<<
+    wrap_malloc_getTokenLocation unit token
+
+-- | Retrieve a source range that covers the given token.
+clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
+clang_getTokenExtent unit token = wrapForeignPtr =<<
+    wrap_malloc_getTokenExtent unit token
 
 {-------------------------------------------------------------------------------
   Physical source locations

@@ -90,7 +90,6 @@ CXSourceRange* wrap_malloc_Cursor_getSpellingNameRange(CXCursor *C, unsigned pie
     return result;
 }
 
-
 /**
  * Type information for CXCursors
  */
@@ -139,7 +138,6 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C) {
     return clang_Cursor_isAnonymous(*C);
 }
 
-
 /**
  * Mapping between cursors and source code
  */
@@ -147,6 +145,36 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C) {
 CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C) {
     CXSourceRange* result = malloc(sizeof(CXSourceRange));
     *result = clang_getCursorExtent(*C);
+    return result;
+}
+
+/**
+ * Token extraction and manipulation
+ */
+
+CXToken* wrap_getToken(CXTranslationUnit TU, CXSourceLocation* Location) {
+    return clang_getToken(TU, *Location);
+}
+
+CXTokenKind wrap_getTokenKind(CXToken* Token) {
+    return clang_getTokenKind(*Token);
+}
+
+CXString* wrap_malloc_getTokenSpelling(CXTranslationUnit TU, CXToken* Token) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_getTokenSpelling(TU, *Token);
+    return result;
+}
+
+CXSourceLocation* wrap_malloc_getTokenLocation(CXTranslationUnit TU, CXToken* Token) {
+    CXSourceLocation* result = malloc(sizeof(CXSourceLocation));
+    *result = clang_getTokenLocation(TU, *Token);
+    return result;
+}
+
+CXSourceRange* wrap_malloc_getTokenExtent(CXTranslationUnit TU, CXToken* Token) {
+    CXSourceRange* result = malloc(sizeof(CXSourceRange));
+    *result = clang_getTokenExtent(TU, *Token);
     return result;
 }
 

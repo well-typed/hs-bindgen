@@ -144,4 +144,3 @@ preprocess tracer clangArgs inp modOpts renderOpts out = do
 -- This is primarily for debugging.
 getClangAST :: ClangArgs -> FilePath -> IO (Forest Element)
 getClangAST args fp = C.parseHeaderWith args fp C.foldClangAST
-
