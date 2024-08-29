@@ -53,18 +53,6 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
 
-      - name: Debug
-        shell: bash
-        run: echo "$LLVM_PATH"
-
-      - name: Debug2
-        shell: bash
-        run: ls "$LLVM_PATH"
-
-      - name: Debug3
-        shell: bash
-        run: ls "$LLVM_PATH/bin"
-
       - name: Dry build (for cache key)
         run: cabal build all --enable-tests --dry-run
 
