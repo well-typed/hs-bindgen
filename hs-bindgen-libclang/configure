@@ -3319,6 +3319,8 @@ LIBS="$LIBS -l$HS_BINDGEN_EXTRA_LIBS"
 LDFLAGS="$LDFLAGS -L$(printf %q "$HS_BINDGEN_LIBDIR")"
 CPPFLAGS="$CPPFLAGS -I$(printf %q "$HS_BINDGEN_INCLUDEDIR")"
 
+echo -- "'$CPPFLAGS'"
+
 
 ac_header= ac_cache=
 for ac_item in $ac_header_c_list
