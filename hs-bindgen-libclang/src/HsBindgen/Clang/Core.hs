@@ -120,7 +120,7 @@ module HsBindgen.Clang.Core (
   ) where
 
 import Control.Exception
-import Data.ByteString qualified as Strict (ByteString)
+import Data.ByteString (ByteString)
 import Foreign
 import Foreign.C
 import GHC.Stack
@@ -420,7 +420,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
 -- template specialization.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac3eba3224d109a956f9ef96fd4fe5c83>
-clang_getCursorDisplayName :: CXCursor -> IO Strict.ByteString
+clang_getCursorDisplayName :: CXCursor -> IO ByteString
 clang_getCursorDisplayName cursor =
     unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
       wrap_malloc_getCursorDisplayName cursor'
@@ -428,7 +428,7 @@ clang_getCursorDisplayName cursor =
 -- | Retrieve a name for the entity referenced by this cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
-clang_getCursorSpelling :: CXCursor -> IO Strict.ByteString
+clang_getCursorSpelling :: CXCursor -> IO ByteString
 clang_getCursorSpelling cursor =
     unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
       wrap_malloc_getCursorSpelling cursor'
@@ -463,7 +463,7 @@ clang_getCanonicalCursor cursor =
 -- text, including comment markers.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga32905a8b1858e67cf5d28b7ad7150779>
-clang_Cursor_getRawCommentText :: CXCursor -> IO Strict.ByteString
+clang_Cursor_getRawCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getRawCommentText cursor =
     unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
       wrap_malloc_Cursor_getRawCommentText cursor'
@@ -472,7 +472,7 @@ clang_Cursor_getRawCommentText cursor =
 -- return the associated brief comment.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6b5282b915d457d728434c0651ea0b8b>
-clang_Cursor_getBriefCommentText :: CXCursor -> IO Strict.ByteString
+clang_Cursor_getBriefCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getBriefCommentText cursor =
     unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
       wrap_malloc_Cursor_getBriefCommentText cursor'
@@ -570,7 +570,7 @@ clang_getCursorType cursor =
 -- | Retrieve the spelling of a given CXTypeKind.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
-clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO Strict.ByteString
+clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO ByteString
 clang_getTypeKindSpelling kind = packCXString =<<
     wrap_malloc_getTypeKindSpelling kind
 
@@ -580,7 +580,7 @@ clang_getTypeKindSpelling kind = packCXString =<<
 -- If the type is invalid, an empty string is returned.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
-clang_getTypeSpelling :: CXType -> IO Strict.ByteString
+clang_getTypeSpelling :: CXType -> IO ByteString
 clang_getTypeSpelling typ =
      unwrapForeignPtr typ $ \typ' -> packCXString =<<
        wrap_malloc_getTypeSpelling typ'
@@ -791,7 +791,7 @@ foreign import capi "clang_wrappers.h wrap_malloc_getFileName"
 -- | Retrieve the complete file and path name of the given file.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
-clang_getFileName :: CXFile -> IO Strict.ByteString
+clang_getFileName :: CXFile -> IO ByteString
 clang_getFileName file = packCXString =<< wrap_malloc_getFileName file
 
 {-------------------------------------------------------------------------------

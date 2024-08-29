@@ -11,8 +11,8 @@ module HsBindgen.Clang.Internal.CXString (
   ) where
 
 import Control.Exception
+import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS.Strict
-import Data.ByteString qualified as Strict (ByteString)
 import Foreign
 import Foreign.C
 
@@ -29,7 +29,7 @@ import HsBindgen.Clang.Internal.Bindings
 -- The @libclang@ functions that return a @CXString@ do so by /value/; we
 -- allocate this on the heap in our wrapper functions. Since we no longer need
 -- this after packing, we free the pointer after packing.
-packCXString :: CXString -> IO Strict.ByteString
+packCXString :: CXString -> IO ByteString
 packCXString str =
     bracket
         (clang_getCString str)

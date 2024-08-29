@@ -16,7 +16,7 @@ module HsBindgen.Clang.Aux.SourceLoc (
   , clang_getCursorExtent
   ) where
 
-import Data.ByteString qualified as Strict (ByteString)
+import Data.ByteString (ByteString)
 import Data.ByteString.UTF8 qualified as BS.UTF8
 import Data.List (intercalate)
 
@@ -31,7 +31,7 @@ import HsBindgen.Clang.Core hiding (
 -------------------------------------------------------------------------------}
 
 data SourceLoc = SourceLoc {
-      sourceLocFile   :: !Strict.ByteString
+      sourceLocFile   :: !ByteString
     , sourceLocLine   :: !Int
     , sourceLocColumn :: !Int
     }
