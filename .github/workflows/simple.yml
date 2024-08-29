@@ -35,11 +35,6 @@ jobs:
       - name: ghc-pkg dump
         run: ghc-pkg list
 
-      - name: LLVM_CONFIG
-        shell: bash
-        if: ${{ startsWith(matrix.os, 'macos') }}
-        run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -52,6 +47,11 @@ jobs:
           env: false
       - name: cabal.project
         run: cp cabal.project.ci cabal.project
+
+      - name: LLVM_CONFIG
+        shell: bash
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
 
       - name: Debug
         shell: bash

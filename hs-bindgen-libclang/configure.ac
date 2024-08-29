@@ -62,8 +62,8 @@ dnl Runtime checks
 
 dnl Set some C related environment variables for further tests
 LIBS="$LIBS -l$HS_BINDGEN_EXTRA_LIBS"
-LDFLAGS="$LDFLAGS -L$HS_BINDGEN_LIBDIR"
-CPPFLAGS="$CPPFLAGS -I$HS_BINDGEN_INCLUDEDIR"
+LDFLAGS="$LDFLAGS -L$(printf %q "$HS_BINDGEN_LIBDIR")"
+CPPFLAGS="$CPPFLAGS -I$(printf %q "$HS_BINDGEN_INCLUDEDIR")"
 
 AC_CHECK_HEADER([clang-c/Index.h],[],[AC_MSG_ERROR([Cannot find libclang headers])])
 AC_CHECK_LIB([clang], [clang_createIndex],[],[AC_MSG_ERROR([Cannot link against libclang])])
