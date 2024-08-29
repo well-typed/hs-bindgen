@@ -6,9 +6,9 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Clang.Core.Util.SourceLoc (SourceLoc(..), SourceRange(..))
--- > import HsBindgen.Clang.Core.Util.SourceLoc qualified as SourceLoc
-module HsBindgen.Clang.Core.Util.SourceLoc (
+-- > import HsBindgen.Clang.Aux.SourceLoc (SourceLoc(..), SourceRange(..))
+-- > import HsBindgen.Clang.Aux.SourceLoc qualified as SourceLoc
+module HsBindgen.Clang.Aux.SourceLoc (
     SourceLoc(..)
   , SourceRange(..)
     -- * Construction

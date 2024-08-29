@@ -1,7 +1,5 @@
--- | Utility functions for use with the @libclang@ low-level bindings
---
--- This is part of the @hs-bindgen-libclang@ public API.
-module HsBindgen.Clang.Core.Util (
+-- | Classification of various parts of the @libclang@ AST
+module HsBindgen.Clang.Aux.Classification (
     -- * Classifying types
     isPointerType
   , isRecordType

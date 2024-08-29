@@ -21,10 +21,10 @@ import Data.Tree
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.Aux.Fold
+import HsBindgen.Clang.Aux.SourceLoc (SourceRange)
+import HsBindgen.Clang.Aux.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Core
-import HsBindgen.Clang.Core.Util.Fold
-import HsBindgen.Clang.Core.Util.SourceLoc (SourceRange)
-import HsBindgen.Clang.Core.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 

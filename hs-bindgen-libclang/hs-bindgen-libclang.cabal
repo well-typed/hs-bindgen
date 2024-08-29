@@ -40,12 +40,15 @@ library
   other-extensions:
       CApiFFI
   exposed-modules:
+      -- Low-level libclang bindings
       HsBindgen.Clang.Args
       HsBindgen.Clang.Core
-      HsBindgen.Clang.Core.Util
-      HsBindgen.Clang.Core.Util.Fold
-      HsBindgen.Clang.Core.Util.SourceLoc
       HsBindgen.Clang.Doxygen
+  exposed-modules:
+      -- Auxiliary functionality, without direct counterparts in libclang
+      HsBindgen.Clang.Aux.Classification
+      HsBindgen.Clang.Aux.Fold
+      HsBindgen.Clang.Aux.SourceLoc
   other-modules:
       HsBindgen.Clang.Core.Enums
       HsBindgen.Clang.Core.Instances
