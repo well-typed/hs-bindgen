@@ -7,7 +7,7 @@ import Control.Monad
 import System.Environment
 
 import HsBindgen.Clang.Core
-import HsBindgen.Clang.Core.Util
+import HsBindgen.Clang.Util.Classification
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

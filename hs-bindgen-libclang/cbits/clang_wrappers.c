@@ -37,17 +37,36 @@ unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor) 
  * Cross-referencing in the AST
  */
 
-CXString* wrap_malloc_getCursorDisplayName(CXCursor* cursor) {
+CXString* wrap_malloc_getCursorDisplayName(CXCursor* C) {
     CXString* result = malloc(sizeof(CXString));
-    *result = clang_getCursorDisplayName(*cursor);
+    *result = clang_getCursorDisplayName(*C);
     return result;
 }
 
-CXString* wrap_malloc_getCursorSpelling(CXCursor* cursor) {
+CXString* wrap_malloc_getCursorSpelling(CXCursor* C) {
     CXString* result = malloc(sizeof(CXString));
-    *result = clang_getCursorSpelling(*cursor);
+    *result = clang_getCursorSpelling(*C);
     return result;
 }
+
+CXCursor* wrap_malloc_getCursorReferenced(CXCursor* C) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCursorReferenced(*C);
+    return result;
+}
+
+CXCursor* wrap_malloc_getCursorDefinition(CXCursor* C) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCursorDefinition(*C);
+    return result;
+}
+
+CXCursor* wrap_malloc_getCanonicalCursor(CXCursor* C) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCanonicalCursor(*C);
+    return result;
+}
+
 
 CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C) {
     CXString* result = malloc(sizeof(CXString));
@@ -70,7 +89,6 @@ CXSourceRange* wrap_malloc_Cursor_getSpellingNameRange(CXCursor *C, unsigned pie
     *result = clang_Cursor_getSpellingNameRange(*C, pieceIndex, options);
     return result;
 }
-
 
 /**
  * Type information for CXCursors
@@ -120,14 +138,43 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C) {
     return clang_Cursor_isAnonymous(*C);
 }
 
-
 /**
  * Mapping between cursors and source code
  */
 
-CXSourceRange* wrap_malloc_getCursorExtent(CXCursor * cursor) {
+CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C) {
     CXSourceRange* result = malloc(sizeof(CXSourceRange));
-    *result = clang_getCursorExtent(*cursor);
+    *result = clang_getCursorExtent(*C);
+    return result;
+}
+
+/**
+ * Token extraction and manipulation
+ */
+
+CXToken* wrap_getToken(CXTranslationUnit TU, CXSourceLocation* Location) {
+    return clang_getToken(TU, *Location);
+}
+
+CXTokenKind wrap_getTokenKind(CXToken* Token) {
+    return clang_getTokenKind(*Token);
+}
+
+CXString* wrap_malloc_getTokenSpelling(CXTranslationUnit TU, CXToken* Token) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_getTokenSpelling(TU, *Token);
+    return result;
+}
+
+CXSourceLocation* wrap_malloc_getTokenLocation(CXTranslationUnit TU, CXToken* Token) {
+    CXSourceLocation* result = malloc(sizeof(CXSourceLocation));
+    *result = clang_getTokenLocation(TU, *Token);
+    return result;
+}
+
+CXSourceRange* wrap_malloc_getTokenExtent(CXTranslationUnit TU, CXToken* Token) {
+    CXSourceRange* result = malloc(sizeof(CXSourceRange));
+    *result = clang_getTokenExtent(TU, *Token);
     return result;
 }
 

@@ -32,6 +32,8 @@ common lang
   default-extensions:
       DerivingStrategies
       DerivingVia
+      TypeFamilies
+      UndecidableInstances
 
 library
   import:         lang
@@ -40,12 +42,15 @@ library
   other-extensions:
       CApiFFI
   exposed-modules:
+      -- Low-level libclang bindings
       HsBindgen.Clang.Args
       HsBindgen.Clang.Core
-      HsBindgen.Clang.Core.Util
-      HsBindgen.Clang.Core.Util.Fold
-      HsBindgen.Clang.Core.Util.SourceLoc
       HsBindgen.Clang.Doxygen
+  exposed-modules:
+      -- Additional utilities, without direct counterparts in libclang
+      HsBindgen.Clang.Util.Classification
+      HsBindgen.Clang.Util.Fold
+      HsBindgen.Clang.Util.SourceLoc
   other-modules:
       HsBindgen.Clang.Core.Enums
       HsBindgen.Clang.Core.Instances
@@ -59,7 +64,8 @@ library
     , hs-bindgen-patterns
   build-depends:
       -- External dependencies
-    , bytestring >= 0.11 && < 0.13
+    , bytestring  >= 0.11 && < 0.13
+    , utf8-string >= 1.0  && < 1.1
 
   -- C bindings
   include-dirs: cbits

@@ -205,3 +205,22 @@ instance IsSimpleEnum CXTypeLayoutError where
   simpleFromC (#const CXTypeLayoutError_Undeduced)        = Just CXTypeLayoutError_Undeduced
 
   simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXTokenKind
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXTokenKind where
+  simpleToC CXToken_Punctuation = #const CXToken_Punctuation
+  simpleToC CXToken_Keyword     = #const CXToken_Keyword
+  simpleToC CXToken_Identifier  = #const CXToken_Identifier
+  simpleToC CXToken_Literal     = #const CXToken_Literal
+  simpleToC CXToken_Comment     = #const CXToken_Comment
+
+  simpleFromC (#const CXToken_Punctuation) = Just CXToken_Punctuation
+  simpleFromC (#const CXToken_Keyword)     = Just CXToken_Keyword
+  simpleFromC (#const CXToken_Identifier)  = Just CXToken_Identifier
+  simpleFromC (#const CXToken_Literal)     = Just CXToken_Literal
+  simpleFromC (#const CXToken_Comment)     = Just CXToken_Comment
+
+  simpleFromC _otherwise = Nothing

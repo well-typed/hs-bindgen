@@ -6,6 +6,7 @@ module HsBindgen.Clang.Core.Enums (
   , CXTypeKind(..)
   , CXChildVisitResult(..)
   , CXTypeLayoutError(..)
+  , CXTokenKind(..)
   ) where
 
 {-------------------------------------------------------------------------------
@@ -245,6 +246,8 @@ data CXChildVisitResult =
 --
 -- A value of this enumeration type can be returned if the target type is not a
 -- valid argument to @sizeof@, @alignof@ or @offsetof@.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaaf1b95e9e7e792a08654563fef7502c1>
 data CXTypeLayoutError =
     -- | Type is of kind 'CXType_Invalid'.
     CXTypeLayoutError_Invalid
@@ -264,3 +267,26 @@ data CXTypeLayoutError =
     -- | The type is undeduced.
   | CXTypeLayoutError_Undeduced
   deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+{-------------------------------------------------------------------------------
+  CXTokenKind
+-------------------------------------------------------------------------------}
+
+-- | Describes a kind of token.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#gaf63e37eee4280e2c039829af24bbc201>
+data CXTokenKind =
+    -- | A token that contains some kind of punctuation.
+    CXToken_Punctuation
+
+    -- | A language keyword.
+  | CXToken_Keyword
+
+    -- | An identifier (that is not a keyword).
+  | CXToken_Identifier
+
+    -- | A numeric, string, or character literal.
+  | CXToken_Literal
+
+    -- | A comment.
+  | CXToken_Comment
