@@ -1,0 +1,3 @@
+"first" :: "Enum"
+  "FIRST1" :: "Int"
+  "FIRST2" :: "Int"
