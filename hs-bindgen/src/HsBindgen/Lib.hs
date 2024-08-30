@@ -39,6 +39,7 @@ module HsBindgen.Lib (
 
     -- * Logging
   , Tracer
+  , nullTracer
   , contramap
   , PrettyLogMsg(..)
   , mkTracerIO
