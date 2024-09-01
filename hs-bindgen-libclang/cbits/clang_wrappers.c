@@ -223,3 +223,12 @@ const char * wrap_getCString (CXString* string) {
 void wrap_disposeString(CXString* string) {
     clang_disposeString(*string);
 }
+
+/**
+ * Target info
+ */
+CXString *wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_TargetInfo_getTriple(Info);
+    return result;
+}

@@ -1,10 +1,12 @@
 module Main (main) where
 
+import Data.ByteString.Char8 qualified as BS8
 import Data.ByteString.Lazy.Char8 qualified as LBS8
 import Data.Tree (Tree (..))
 import System.Directory (doesFileExist, setCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
 import Test.Tasty (defaultMain, testGroup)
+import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.Golden (goldenVsStringDiff)
 import Test.Tasty.Golden.Advanced (goldenTest)
 import Language.Haskell.TH.Ppr (ppr)
@@ -19,7 +21,14 @@ main :: IO ()
 main = do
     findPackageDirectory "hs-bindgen"
     defaultMain $ testGroup "golden"
-        [ golden "simple_structs"
+        [ testCase "target-triple" $ do
+            let fp = "examples/simple_structs.h"
+                args = []
+            triple <- getTargetTriple args fp
+
+            triple @?= BS8.pack "x86_64-pc-linux-gnu"
+
+        , golden "simple_structs"
         , golden "nested_types"
         , golden "enums"
         , golden "primitive_types"

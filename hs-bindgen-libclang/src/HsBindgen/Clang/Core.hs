@@ -124,6 +124,11 @@ module HsBindgen.Clang.Core (
   , CXTypeLayoutException(..)
     -- * Exported for the benefit of other bindings
   , CXCursor_(..)
+    -- * Target info
+  , CXTargetInfo(..)
+  , clang_getTranslationUnitTargetInfo
+  , clang_TargetInfo_dispose
+  , clang_TargetInfo_getTriple
   ) where
 
 import Control.Exception
@@ -857,3 +862,25 @@ data CXTypeLayoutException =
     CXTypeLayoutException Backtrace CInt (Maybe CXTypeLayoutError)
   deriving stock (Show)
   deriving Exception via CollectedBacktrace CXTypeLayoutException
+
+{-------------------------------------------------------------------------------
+  Exceptions
+-------------------------------------------------------------------------------}
+
+-- | An opaque type representing target information for a given translation
+newtype {-# CType "CXTargetInfo" #-} CXTargetInfo = CXTargetInfo (Ptr ())
+  deriving newtype (IsPointer)
+
+foreign import capi "clang_wrappers.h clang_getTranslationUnitTargetInfo"
+  clang_getTranslationUnitTargetInfo :: CXTranslationUnit -> IO CXTargetInfo
+
+foreign import capi "clang_wrappers.h clang_TargetInfo_dispose"
+  clang_TargetInfo_dispose :: CXTargetInfo -> IO ()
+
+-- | Get the normalized target triple as a string.
+foreign import capi "clang_wrappers.h wrap_malloc_TargetInfo_getTriple"
+  wrap_malloc_TargetInfo_getTriple :: CXTargetInfo -> IO CXString
+
+clang_TargetInfo_getTriple :: CXTargetInfo -> IO ByteString
+clang_TargetInfo_getTriple info =
+    packCXString =<< wrap_malloc_TargetInfo_getTriple info

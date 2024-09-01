@@ -36,6 +36,7 @@ module HsBindgen.Lib (
     -- * Debugging
   , Element(..)
   , getClangAST
+  , getTargetTriple
 
     -- * Logging
   , Tracer
@@ -46,6 +47,7 @@ module HsBindgen.Lib (
   ) where
 
 import Data.Tree (Forest)
+import Data.ByteString qualified as Strict (ByteString)
 import GHC.Generics (Generic)
 import Language.Haskell.Exts qualified as Hs
 import Language.Haskell.Meta qualified as Meta
@@ -147,3 +149,7 @@ preprocess tracer clangArgs inp modOpts renderOpts out = do
 -- This is primarily for debugging.
 getClangAST :: ClangArgs -> FilePath -> IO (Forest Element)
 getClangAST args fp = C.parseHeaderWith args fp C.foldClangAST
+
+-- | Return the target triple for translation unit
+getTargetTriple :: ClangArgs -> FilePath -> IO Strict.ByteString
+getTargetTriple args fp = C.withTranslationUnit args fp C.getTranslationUnitTargetTriple
