@@ -21,6 +21,7 @@ main = do
     defaultMain $ testGroup "golden"
         [ golden "simple_structs"
         , golden "enums"
+        , golden "primitive_types"
         ]
   where
     diff ref new = ["diff", "-u", ref, new]
