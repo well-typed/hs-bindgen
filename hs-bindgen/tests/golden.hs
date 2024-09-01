@@ -22,6 +22,7 @@ main = do
         [ golden "simple_structs"
         , golden "enums"
         , golden "primitive_types"
+        , golden "macros"
         ]
   where
     diff ref new = ["diff", "-u", ref, new]
