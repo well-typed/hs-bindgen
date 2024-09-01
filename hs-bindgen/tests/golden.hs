@@ -23,9 +23,11 @@ main = do
     defaultMain $ testGroup "golden"
         [ testCase "target-triple" $ do
             let fp = "examples/simple_structs.h"
-                args = []
+                args = ["-target", "x86_64-pc-linux-gnu"]
             triple <- getTargetTriple args fp
 
+            -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
+            -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
             triple @?= BS8.pack "x86_64-pc-linux-gnu"
 
         , golden "simple_structs"
