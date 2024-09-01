@@ -46,6 +46,7 @@ module HsBindgen.Lib (
   ) where
 
 import Data.Tree (Forest)
+import GHC.Generics (Generic)
 import Language.Haskell.Exts qualified as Hs
 import Language.Haskell.Meta qualified as Meta
 import Language.Haskell.TH qualified as TH
@@ -71,6 +72,7 @@ import HsBindgen.Util.Tracer
 newtype CHeader = WrapCHeader {
       unwrapCHeader :: C.Header
     }
+  deriving (Eq, Generic)
 
 newtype HsModule = WrapHsModule {
       unwrapHsModule :: Hs.Module Ann

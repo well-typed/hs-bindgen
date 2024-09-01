@@ -6,7 +6,11 @@ import System.Directory (doesFileExist, setCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
 import Test.Tasty (defaultMain, testGroup)
 import Test.Tasty.Golden (goldenVsStringDiff)
+import Test.Tasty.Golden.Advanced (goldenTest)
 import Language.Haskell.TH.Ppr (ppr)
+import Data.TreeDiff.Golden (ediffGolden)
+
+import Orphans ()
 
 import HsBindgen.Clang.Util.Classification
 import HsBindgen.Lib
@@ -23,6 +27,7 @@ main = do
 
     golden name = testGroup name
         [ goldenDump name
+        , goldenTreeDiff name
         , goldenTH name
         ]
 
@@ -34,6 +39,13 @@ main = do
         res <- getClangAST args fp
 
         return $ LBS8.pack $ unlines $ concatMap treeToLines res
+
+    goldenTreeDiff name = ediffGolden goldenTest "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ do
+        let fp = "examples" </> (name ++ ".h")
+            args = []
+
+        header <- parseCHeader nullTracer args fp
+        return header
 
     goldenTH name = goldenVsStringDiff "th" diff ("fixtures" </> (name ++ ".th.txt")) $ do
         -- -<.> does weird stuff for filenames with multiple dots;
