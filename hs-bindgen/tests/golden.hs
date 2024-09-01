@@ -35,6 +35,7 @@ main = do
         , golden "enums"
         , golden "primitive_types"
         , golden "macros"
+        , golden "fixedwidth"
         ]
   where
     diff ref new = ["diff", "-u", ref, new]
