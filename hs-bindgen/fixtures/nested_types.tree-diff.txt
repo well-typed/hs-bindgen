@@ -1,0 +1,21 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Just "foo",
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = "i",
+              fieldType = PrimInt},
+            StructField {
+              fieldName = "c",
+              fieldType = PrimChar}]},
+      DeclStruct
+        Struct {
+          structTag = Just "bar",
+          structSizeof = 16,
+          structAlignment = 4,
+          structFields = []}])
