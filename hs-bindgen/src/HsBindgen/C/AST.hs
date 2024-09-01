@@ -13,6 +13,9 @@ module HsBindgen.C.AST (
     -- * Structs
   , Struct(..)
   , StructField(..)
+    -- * Enums
+  , Enu(..)
+  , EnumValue(..)
     -- * Types
   , Typ(..)
   , PrimType(..)
@@ -37,6 +40,7 @@ data Header = Header {
 data Decl =
     DeclStruct Struct
   | DeclTypedef Typedef
+  | DeclEnum Enu
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -62,6 +66,26 @@ data StructField = StructField {
   deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
+  Enums
+-------------------------------------------------------------------------------}
+
+data Enu = Enu {
+      enumTag       :: Maybe String
+    , enumSizeof    :: Int
+    , enumAlignment :: Int
+    , enumValues    :: [EnumValue] 
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+data EnumValue = EnumValue {
+      valueName :: String
+    -- , valueValue :: Integer
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
   Typedefs
 -------------------------------------------------------------------------------}
 
@@ -79,6 +103,7 @@ data Typedef = Typedef {
 data Typ =
     TypPrim PrimType
   | TypStruct Struct
+  -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

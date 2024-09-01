@@ -1,1 +1,11 @@
-WrapCHeader (Header [])
+WrapCHeader
+  (Header
+    [
+      DeclEnum
+        Enu {
+          enumTag = Just "first",
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue "FIRST1",
+            EnumValue "FIRST2"]}])
