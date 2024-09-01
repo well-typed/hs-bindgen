@@ -40,6 +40,7 @@ main = do
         , golden "macro_functions"
         , golden "uses_utf8"
         , golden "typedef_vs_macro"
+        , golden "fixedwidth"
         ]
   where
     golden name = testGroup name
