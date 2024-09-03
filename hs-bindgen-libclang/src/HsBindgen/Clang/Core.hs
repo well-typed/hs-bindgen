@@ -30,10 +30,9 @@
 -- * In cases where we are responsible for calling @free@ (or some other
 --   finalizer), we use 'ForeignPtr' rather than 'Ptr' in argument position.
 --
--- The sections in this module and in the export list correspond to
--- <https://clang.llvm.org/doxygen/group__CINDEX.html>, with the exception of
--- section "Physical source locations", which is for some reason not mentioned
--- there.
+-- Most sections in this module and in the export list correspond to
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html>; see also
+-- <https://clang.llvm.org/doxygen/modules.html> for the full list.
 --
 -- /Note on naming/: When exposing a @libclang@ function called @clang_foo@, we
 -- will call the corresponding Haskell function also @clang_foo@, so that the
@@ -108,6 +107,7 @@ module HsBindgen.Clang.Core (
   , clang_getEnumConstantDeclValue
     -- * Mapping between cursors and source code
   , CXSourceRange
+  , clang_getCursorLocation
   , clang_getCursorExtent
     -- * Token extraction and manipulation
   , CXToken
@@ -122,6 +122,7 @@ module HsBindgen.Clang.Core (
   , clang_getRangeEnd
   , clang_getExpansionLocation
   , clang_getSpellingLocation
+  , clang_Location_isFromMainFile
     -- * File manipulation routines
   , clang_getFileName
     -- * Exceptions
@@ -719,10 +720,35 @@ newtype CXSourceRange_ = CXSourceRange_ (Ptr ())
 newtype CXSourceRange = CXSourceRange (ForeignPtr ())
   deriving IsForeignPtr via DeriveIsForeignPtr CXSourceRange_ CXSourceRange
 
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLocation"
+  wrap_malloc_getCursorLocation :: CXCursor_ -> IO CXSourceLocation_
+
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorExtent"
   wrap_malloc_getCursorExtent :: CXCursor_ -> IO CXSourceRange_
 
--- | Retrieve the physical extent of the source construct referenced by the given cursor.
+-- | Retrieve the physical location of the source constructor referenced by the
+-- given cursor.
+--
+-- The location of a declaration is typically the location of the name of that
+-- declaration, where the name of that declaration would occur if it is unnamed,
+-- or some keyword that introduces that particular declaration. The location of
+-- a reference is where that reference occurs within the source code.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#gada3d3cbd3a3e83ff64f992617318dfb1>
+clang_getCursorLocation :: CXCursor -> IO CXSourceLocation
+clang_getCursorLocation cursor =
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+      wrap_malloc_getCursorLocation cursor'
+
+-- | Retrieve the physical extent of the source construct referenced by the
+-- given cursor.
+--
+-- The extent of a cursor starts with the file/line/column pointing at the first
+-- character within the source construct that the cursor refers to and ends with
+-- the last character within that source construct. For a declaration, the
+-- extent covers the declaration itself. For a reference, the extent covers the
+-- location of the reference (e.g., where the referenced entity was actually
+-- used).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#ga79f6544534ab73c78a8494c4c0bc2840>
 clang_getCursorExtent :: CXCursor -> IO CXSourceRange
@@ -732,6 +758,8 @@ clang_getCursorExtent cursor =
 
 {-------------------------------------------------------------------------------
   Token extraction and manipulation
+
+  <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html>
 -------------------------------------------------------------------------------}
 
 newtype CXToken = CXToken (Ptr ())
@@ -758,28 +786,38 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenExtent"
     -> IO CXSourceRange_
 
 -- | Get the raw lexical token starting with the given location.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga3b41b2c8a34e605a14608927ae544c03>
 clang_getToken :: CXTranslationUnit -> CXSourceLocation -> IO CXToken
 clang_getToken unit loc =
     unwrapForeignPtr loc $ \loc' ->
       wrap_getToken unit loc'
 
 -- | Determine the spelling of the given token.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
 clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
 clang_getTokenSpelling unit token = packCXString =<<
     wrap_malloc_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga76a721514acb4cc523e10a6913d88021>
 clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO CXSourceLocation
 clang_getTokenLocation unit token = wrapForeignPtr =<<
     wrap_malloc_getTokenLocation unit token
 
 -- | Retrieve a source range that covers the given token.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga5acbc0a2a3c01aa44e1c5c5ccc4e328b>
 clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
 clang_getTokenExtent unit token = wrapForeignPtr =<<
     wrap_malloc_getTokenExtent unit token
 
 {-------------------------------------------------------------------------------
   Physical source locations
+
+  <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html>
 -------------------------------------------------------------------------------}
 
 newtype CXSourceLocation_ = CXSourceLocation_ (Ptr ())
@@ -833,6 +871,9 @@ foreign import capi "clang_wrappers.h wrap_getSpellingLocation"
     -> Ptr CUInt
        -- ^ [out] if non-NULL, will be set to the offset into the buffer to which the given source location points.
     -> IO ()
+
+foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
+  wrap_Location_isFromMainFile :: CXSourceLocation_ -> IO CInt
 
 -- | Retrieve a source location representing the first character within a source
 -- range.
@@ -893,6 +934,15 @@ clang_getSpellingLocation location =
        alloca $ \offset -> do
          wrap_getSpellingLocation location' file line column offset
          (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
+
+-- | Check if the given source location is in the main file of the corresponding
+-- translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacb4ca7b858d66f0205797ae84cc4e8f2>
+clang_Location_isFromMainFile :: CXSourceLocation -> IO Bool
+clang_Location_isFromMainFile location =
+    unwrapForeignPtr location $ \location' ->
+      cToBool <$> wrap_Location_isFromMainFile location'
 
 {-------------------------------------------------------------------------------
   File manipulation routines

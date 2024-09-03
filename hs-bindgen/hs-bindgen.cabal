@@ -43,6 +43,7 @@ library
   exposed-modules:
       HsBindgen.C.AST
       HsBindgen.C.Parser
+      HsBindgen.C.Predicate
       HsBindgen.Hs.Annotation
       HsBindgen.Hs.Render
       HsBindgen.Translation.LowLevel
@@ -53,14 +54,16 @@ library
     , hs-bindgen-libclang
   build-depends:
       -- External dependencies
-    , bytestring       >= 0.11 && < 0.13
-    , contra-tracer    >= 0.2  && < 0.3
-    , containers       >= 0.6.5.1 && <0.8
-    , data-default     >= 0.7  && < 0.8
-    , haskell-src-exts >= 1.23 && < 1.24
-    , haskell-src-meta >= 0.8  && < 0.9
-    , pretty-show      >= 1.10 && < 1.11
-    , template-haskell >= 2.18 && < 2.23
+    , bytestring         >= 0.11    && < 0.13
+    , containers         >= 0.6.5.1 && < 0.8
+    , contra-tracer      >= 0.2     && < 0.3
+    , data-default       >= 0.7     && < 0.8
+    , haskell-src-exts   >= 1.23    && < 1.24
+    , haskell-src-meta   >= 0.8     && < 0.9
+    , mtl                >= 2.2     && < 2.4
+    , pretty-show        >= 1.10    && < 1.11
+    , regex-pcre-builtin >= 0.95    && < 0.96
+    , template-haskell   >= 2.18    && < 2.23
 
 executable hs-bindgen
   import:         lang

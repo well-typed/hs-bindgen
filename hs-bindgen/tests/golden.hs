@@ -51,7 +51,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        res <- getClangAST args fp
+        res <- getClangAST SelectFromMainFile args fp
 
         return $ LBS8.pack $ unlines $ concatMap treeToLines res
 
@@ -59,7 +59,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader nullTracer args fp
+        header <- parseCHeader nullTracer SelectFromMainFile args fp
         return header
 
     goldenTH name = goldenVsStringDiff "th" diff ("fixtures" </> (name ++ ".th.txt")) $ do
@@ -68,7 +68,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader nullTracer args fp
+        header <- parseCHeader nullTracer SelectFromMainFile args fp
         let decls = genDecls header
 
         return $ LBS8.pack $ unlines $ map (show . ppr) decls

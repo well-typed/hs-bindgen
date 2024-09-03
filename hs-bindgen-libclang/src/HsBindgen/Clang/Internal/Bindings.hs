@@ -63,7 +63,7 @@ instance (Coercible p (ForeignPtr a), Coercible u (Ptr a))
   Dealing with return values
 -------------------------------------------------------------------------------}
 
-cToBool :: CUInt -> Bool
+cToBool :: (Num a, Eq a) => a -> Bool
 cToBool 0 = False
 cToBool _ = True
 
