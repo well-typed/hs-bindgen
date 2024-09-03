@@ -36,6 +36,7 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 newtype CXComment_ = CXComment_ (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | A parsed comment.

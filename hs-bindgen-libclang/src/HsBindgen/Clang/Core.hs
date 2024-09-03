@@ -127,12 +127,11 @@ module HsBindgen.Clang.Core (
   , clang_getFileName
     -- * Exceptions
   , CallFailed(..)
-  , CXTypeLayoutException(..)
     -- * Exported for the benefit of other bindings
   , CXCursor_(..)
   ) where
 
-import Control.Exception
+import Control.Monad
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
 import Foreign
@@ -158,6 +157,7 @@ import HsBindgen.Patterns
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gae039c2574bfd75774ca7a9a3e55910cb>
 newtype CXIndex = CXIndex (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 foreign import capi unsafe "clang-c/Index.h clang_createIndex"
@@ -211,6 +211,7 @@ type CXTranslationUnit_Flags = BitfieldEnum CXTranslationUnit_Flag
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gacdb7815736ca709ce9a5e1ec2b7e16ac>
 newtype CXTranslationUnit = CXTranslationUnit (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | Provides the contents of a file that has not yet been saved to disk.
@@ -220,6 +221,7 @@ newtype CXTranslationUnit = CXTranslationUnit (Ptr ())
 --
 -- <https://clang.llvm.org/doxygen/structCXUnsavedFile.html>
 newtype CXUnsavedFile = CXUnsavedFile (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | An opaque type representing target information for a given translation
@@ -227,6 +229,7 @@ newtype CXUnsavedFile = CXUnsavedFile (Ptr ())
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga6b47552ab8c5d81387070a9b197cd3e2>
 newtype {-# CType "CXTargetInfo" #-} CXTargetInfo = CXTargetInfo (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- We use @ccall@ rather than @capi@ to avoid problems with the
@@ -263,11 +266,11 @@ foreign import capi "clang_wrappers.h wrap_malloc_TargetInfo_getTriple"
 -- | Same as 'clang_parseTranslationUnit2', but returns the 'CXTranslationUnit'
 -- instead of an error code.
 --
--- In case of an error this routine throws an exception.
+-- Throws 'CallFailed' in case of an error.
 --
--- /NOTE/: We omit arugments for unsaved files; we have no plans for supporting
--- a workflow where the C headers are being edited, and the bindings dynamically
--- updated.
+-- /NOTE/: We omit the argument for unsaved files; we have no plans for
+-- supporting a workflow where the C headers are being edited, and the bindings
+-- dynamically updated.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga2baf83f8c3299788234c8bce55e4472e>
 clang_parseTranslationUnit ::
@@ -284,12 +287,12 @@ clang_parseTranslationUnit cIdx src args options =
 
 -- | Get the normalized target triple as a string.
 --
--- May throw 'GetTripleFailed'.
+-- Throws 'CallFailed' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga7ae67e3c8baf6a9852900f6529dce2d0>
-clang_TargetInfo_getTriple :: CXTargetInfo -> IO ByteString
+clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO ByteString
 clang_TargetInfo_getTriple info =
-    ensure (not . BS.null) (\bt _ -> GetTripleFailed bt) $
+    ensure (not . BS.null) $
       packCXString =<< wrap_malloc_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
@@ -564,6 +567,7 @@ clang_isCursorDefinition cursor =
 -------------------------------------------------------------------------------}
 
 newtype CXType_ = CXType_ (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | The type of an element in the abstract syntax tree.
@@ -628,11 +632,11 @@ clang_getTypeKindSpelling kind = packCXString =<<
 -- | Pretty-print the underlying type using the rules of the language of the
 -- translation unit from which it came.
 --
--- If the type is invalid, an empty string is returned.
+-- Throws 'CallFailed' if the type is invalid.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
-clang_getTypeSpelling :: CXType -> IO ByteString
-clang_getTypeSpelling typ =
+clang_getTypeSpelling :: HasCallStack => CXType -> IO ByteString
+clang_getTypeSpelling typ = ensure (not . BS.null) $
      unwrapForeignPtr typ $ \typ' -> packCXString =<<
        wrap_malloc_getTypeSpelling typ'
 
@@ -644,24 +648,24 @@ clang_getPointeeType typ =
     unwrapForeignPtr typ $ \typ' -> wrapForeignPtr =<<
       wrap_malloc_getPointeeType typ'
 
--- | Return the size of a type in bytes as per C++[expr.sizeof] standard.
+-- | Return the size of a type in bytes as per @C++[expr.sizeof]@ standard.
 --
--- May throw 'CXTypeLayoutException'.
+-- Throws 'CallFailed' with 'CXTypeLayoutError' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
-clang_Type_getSizeOf :: CXType -> IO CLLong
+clang_Type_getSizeOf :: HasCallStack => CXType -> IO CLLong
 clang_Type_getSizeOf typ =
-    unwrapForeignPtr typ $ \typ' -> ensureEnum (>= 0) CXTypeLayoutException $
+    unwrapForeignPtr typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_Type_getSizeOf typ'
 
 -- | Return the alignment of a type in bytes as per C++[expr.alignof] standard.
 --
--- May throw 'CXTypeLayoutException'.
+-- Throws 'CallFailed' with 'CXTypeLayoutError' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
-clang_Type_getAlignOf :: CXType -> IO CLLong
+clang_Type_getAlignOf :: HasCallStack => CXType -> IO CLLong
 clang_Type_getAlignOf typ =
-    unwrapForeignPtr typ $ \typ' -> ensureEnum (>= 0) CXTypeLayoutException $
+    unwrapForeignPtr typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_getAlignOf typ'
 
 -- | Determine if a typedef is 'transparent' tag.
@@ -688,17 +692,26 @@ clang_Cursor_isAnonymous cursor =
 -- | Retrieve the integer value of an enum constant declaration as a signed long
 -- long.
 --
--- The @libclang@ docs state:
---
--- > If the cursor does not reference an enum constant declaration, LLONG_MIN is
--- > returned. Since this is also potentially a valid constant value, the kind
--- > of the cursor must be verified before calling this function.
---
--- This is therefore a precondition to calling 'clang_getEnumConstantDeclValue'.
+-- Throws 'CallFailed' if the cursor does not reference an enum constant
+-- declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6b8585818420e7512feb4c9d209b4f4d>
-clang_getEnumConstantDeclValue :: CXCursor -> IO CLLong
-clang_getEnumConstantDeclValue cursor = do
+clang_getEnumConstantDeclValue ::
+     HasCallStack
+  => CXCursor -- ^ Parent
+  -> CXCursor -> IO CLLong
+clang_getEnumConstantDeclValue parent cursor = do
+    -- The @libclang@ docs state:
+    --
+    -- > If the cursor does not reference an enum constant declaration,
+    -- > LLONG_MIN is returned. Since this is also potentially a valid constant
+    -- > value, the kind of the cursor must be verified before calling this
+    -- > function.
+    parentKind <- cxtKind <$> clang_getCursorType parent
+    unless (parentKind == simpleEnum CXType_Enum) $ callFailed parentKind
+    cursorKind <- cxtKind <$> clang_getCursorType cursor
+    unless (cursorKind == simpleEnum CXType_Int) $ callFailed cursorKind
+
     unwrapForeignPtr cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
 
@@ -709,6 +722,7 @@ clang_getEnumConstantDeclValue cursor = do
 -------------------------------------------------------------------------------}
 
 newtype CXSourceRange_ = CXSourceRange_ (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | Identifies a half-open character range in the source code.
@@ -821,6 +835,7 @@ clang_getTokenExtent unit token = wrapForeignPtr =<<
 -------------------------------------------------------------------------------}
 
 newtype CXSourceLocation_ = CXSourceLocation_ (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | Identifies a specific source location within a translation unit.
@@ -836,6 +851,7 @@ newtype CXSourceLocation = CXSourceLocation (ForeignPtr ())
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#gacfcea9c1239c916597e2e5b3e109215a>
 newtype CXFile = CXFile (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer, Storable)
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeStart"
@@ -958,18 +974,3 @@ foreign import capi "clang_wrappers.h wrap_malloc_getFileName"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
 clang_getFileName :: CXFile -> IO ByteString
 clang_getFileName file = packCXString =<< wrap_malloc_getFileName file
-
-{-------------------------------------------------------------------------------
-  Exceptions
--------------------------------------------------------------------------------}
-
-data CXTypeLayoutException =
-    CXTypeLayoutException Backtrace CInt (Maybe CXTypeLayoutError)
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace CXTypeLayoutException
-
--- | Call to 'clang_TargetInfo_getTriple' failed
-data GetTripleFailed =
-    GetTripleFailed Backtrace
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace GetTripleFailed

@@ -53,6 +53,7 @@ packCXString str =
 --
 -- <https://clang.llvm.org/doxygen/structCXString.html>
 newtype CXString = CXString (Ptr ())
+  deriving stock (Show)
   deriving newtype (IsPointer)
 
 -- | Retrieve the character data associated with the given string.

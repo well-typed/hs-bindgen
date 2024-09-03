@@ -11,8 +11,11 @@ module HsBindgen.Patterns (
     -- ** Simple
     SimpleEnum(..)
   , IsSimpleEnum(..)
+  , SimpleEnumOutOfRange(..)
   , simpleEnum
+  , coerceSimpleEnum
   , fromSimpleEnum
+  , simpleEnumInRange
   , unsafeFromSimpleEnum
     -- ** Bitfield
   , BitfieldEnum(..)
