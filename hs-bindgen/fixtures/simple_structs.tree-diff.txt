@@ -66,4 +66,16 @@ WrapCHeader
               structFields = [
                 StructField {
                   fieldName = "a",
-                  fieldType = PrimChar}]}}])
+                  fieldType = PrimChar}]}},
+      DeclStruct
+        Struct {
+          structTag = Just "S4",
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = "b",
+              fieldType = PrimChar},
+            StructField {
+              fieldName = "a",
+              fieldType = PrimInt}]}])

@@ -15,3 +15,8 @@ typedef struct S2 {
 typedef struct {
     char a;
 } S3_t;
+
+struct S4 {
+    char b;
+    int a;
+};
