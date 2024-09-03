@@ -94,4 +94,10 @@ CXString* wrap_malloc_getFileName(CXFile SFile);
 const char * wrap_getCString(CXString* string);
 void wrap_disposeString(CXString* string);
 
+/**
+ * Target info
+ */
+
+CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
+
 #endif

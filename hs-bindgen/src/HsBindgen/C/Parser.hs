@@ -5,14 +5,17 @@
 -- > import Hsbindgen.C.Parser qualified as C
 module HsBindgen.C.Parser (
     parseHeaderWith
+  , withTranslationUnit
   , foldDecls
     -- * Debugging
   , Element(..)
   , foldClangAST
+  , getTranslationUnitTargetTriple
     -- * Logging
   , ParseMsg(..)
   ) where
 
+import Control.Exception (bracket)
 import Data.ByteString qualified as Strict (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
 import Data.Tree
@@ -27,6 +30,32 @@ import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
+  General setup
+-------------------------------------------------------------------------------}
+
+withTranslationUnit ::
+     ClangArgs
+  -> FilePath
+  -> (CXTranslationUnit -> IO r)
+  -> IO r
+withTranslationUnit args fp kont = do
+    index  <- clang_createIndex DontDisplayDiagnostics
+    unit   <- clang_parseTranslationUnit index fp args flags
+    kont unit
+  where
+    flags :: CXTranslationUnit_Flags
+    flags = bitfieldEnum [
+          CXTranslationUnit_SkipFunctionBodies
+        ]
+
+getTranslationUnitTargetTriple :: CXTranslationUnit -> IO Strict.ByteString
+getTranslationUnitTargetTriple unit =
+    bracket
+        (clang_getTranslationUnitTargetInfo unit)
+        clang_TargetInfo_dispose
+        clang_TargetInfo_getTriple
+
+{-------------------------------------------------------------------------------
   Parsing
 -------------------------------------------------------------------------------}
 
@@ -35,17 +64,9 @@ parseHeaderWith ::
   -> FilePath
   -> (CXTranslationUnit -> Fold a)
   -> IO [a]
-parseHeaderWith args fp fold = do
-    index  <- clang_createIndex DontDisplayDiagnostics
-    unit   <- clang_parseTranslationUnit index fp args flags
+parseHeaderWith args fp fold = withTranslationUnit args fp $ \unit -> do
     cursor <- clang_getTranslationUnitCursor unit
-
     clang_fold cursor $ fold unit
-  where
-    flags :: CXTranslationUnit_Flags
-    flags = bitfieldEnum [
-          CXTranslationUnit_SkipFunctionBodies
-        ]
 
 {-------------------------------------------------------------------------------
   Top-level

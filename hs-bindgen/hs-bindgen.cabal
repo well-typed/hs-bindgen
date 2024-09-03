@@ -105,4 +105,5 @@ test-suite golden
     , filepath     ^>=1.4.2.2 || ^>=1.5.2.0
     , tasty        ^>=1.5
     , tasty-golden ^>=2.3.5
+    , tasty-hunit  ^>=0.10.2
     , tree-diff    ^>=0.3.1
