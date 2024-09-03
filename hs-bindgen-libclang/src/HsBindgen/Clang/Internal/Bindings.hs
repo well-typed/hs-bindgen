@@ -8,6 +8,7 @@ module HsBindgen.Clang.Internal.Bindings (
   , CallFailed(..)
   , cToBool
   , ensure
+  , ensureEnum
   , ensureNotNull
   ) where
 
@@ -66,15 +67,11 @@ cToBool :: CUInt -> Bool
 cToBool 0 = False
 cToBool _ = True
 
--- | Check that an (integral) result from @libclang@ function is not an error
+-- | Check return value
 ensure ::
-     ( HasCallStack
-     , IsSimpleEnum hs
-     , Exception e
-     , Integral c
-     )
-  => (c -> Bool)
-  -> (Backtrace -> CInt -> Maybe hs -> e)
+     (HasCallStack, Exception e)
+  => (c -> Bool)            -- ^ Predicate
+  -> (Backtrace -> c -> e)  -- ^ Construct exception (if predicate fails)
   -> IO c -> IO c
 ensure p mkErr call = do
     c <- call
@@ -82,7 +79,21 @@ ensure p mkErr call = do
       return c
     else do
       stack <- collectBacktrace
-      throwIO $ mkErr stack (fromIntegral c) (simpleFromC $ fromIntegral c)
+      throwIO $ mkErr stack c
+
+-- | Check that an (integral) result from @libclang@ function is not an error
+ensureEnum ::
+     ( HasCallStack
+     , Exception e
+     , IsSimpleEnum hs
+     , Integral c
+     )
+  => (c -> Bool)
+  -> (Backtrace -> CInt -> Maybe hs -> e)
+  -> IO c -> IO c
+ensureEnum p mkErr =
+    ensure p $ \bt c ->
+      mkErr bt (fromIntegral c) (simpleFromC $ fromIntegral c)
 
 data CallFailed = CallFailed Backtrace
   deriving stock (Show)
