@@ -14,6 +14,13 @@
 #include <clang-c/Index.h>
 
 /**
+ * Translation unit manipulation
+ */
+
+CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
+
+
+/**
  * Cursor manipulations
  */
 
@@ -56,6 +63,10 @@ long long wrap_Type_getAlignOf(CXType* T);
 unsigned wrap_Type_isTransparentTagTypedef(CXType *T);
 unsigned wrap_Cursor_isAnonymous(CXCursor* C);
 
+static inline long long wrap_getEnumConstantDeclValue(CXCursor *C) {
+    return clang_getEnumConstantDeclValue(*C);
+}
+
 /**
  * Mapping between cursors and source code
  */
@@ -93,15 +104,5 @@ CXString* wrap_malloc_getFileName(CXFile SFile);
 
 const char * wrap_getCString(CXString* string);
 void wrap_disposeString(CXString* string);
-
-/**
- * Target info
- */
-
-CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
-
-static inline long long wrap_getEnumConstantDeclValue(CXCursor *C) {
-    return clang_getEnumConstantDeclValue(*C);
-}
 
 #endif

@@ -69,7 +69,11 @@ module HsBindgen.Clang.Core (
   , CXUnsavedFile
   , CXTranslationUnit_Flags
   , CXTranslationUnit_Flag(..)
+  , CXTargetInfo(..)
   , clang_parseTranslationUnit
+  , clang_getTranslationUnitTargetInfo
+  , clang_TargetInfo_dispose
+  , clang_TargetInfo_getTriple
     -- * Cursor manipulations
   , CXCursor
   , clang_getTranslationUnitCursor
@@ -101,6 +105,7 @@ module HsBindgen.Clang.Core (
   , clang_Type_getAlignOf
   , clang_Type_isTransparentTagTypedef
   , clang_Cursor_isAnonymous
+  , clang_getEnumConstantDeclValue
     -- * Mapping between cursors and source code
   , CXSourceRange
   , clang_getCursorExtent
@@ -124,17 +129,11 @@ module HsBindgen.Clang.Core (
   , CXTypeLayoutException(..)
     -- * Exported for the benefit of other bindings
   , CXCursor_(..)
-    -- * Target info
-  , CXTargetInfo(..)
-  , clang_getTranslationUnitTargetInfo
-  , clang_TargetInfo_dispose
-  , clang_TargetInfo_getTriple
-    -- * Enumerations
-  , clang_getEnumConstantDeclValue
   ) where
 
 import Control.Exception
 import Data.ByteString (ByteString)
+import Data.ByteString qualified as BS
 import Foreign
 import Foreign.C
 import GHC.Stack
@@ -222,6 +221,13 @@ newtype CXTranslationUnit = CXTranslationUnit (Ptr ())
 newtype CXUnsavedFile = CXUnsavedFile (Ptr ())
   deriving newtype (IsPointer)
 
+-- | An opaque type representing target information for a given translation
+-- unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga6b47552ab8c5d81387070a9b197cd3e2>
+newtype {-# CType "CXTargetInfo" #-} CXTargetInfo = CXTargetInfo (Ptr ())
+  deriving newtype (IsPointer)
+
 -- We use @ccall@ rather than @capi@ to avoid problems with the
 -- @const char *const *@ type
 -- (see also <https://gitlab.haskell.org/ghc/ghc/-/issues/22043>).
@@ -235,6 +241,23 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit"
     -> CUInt
     -> CXTranslationUnit_Flags
     -> IO CXTranslationUnit
+
+-- | Get target information for this translation unit.
+--
+-- The 'CXTargetInfo' object cannot outlive the 'CXTranslationUnit' object.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga1813b53c06775c354f4797a5ec051948>
+foreign import capi "clang_wrappers.h clang_getTranslationUnitTargetInfo"
+  clang_getTranslationUnitTargetInfo :: CXTranslationUnit -> IO CXTargetInfo
+
+-- | Destroy the 'CXTargetInfo' object.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gafb00d82420b0101c185b88338567ffd9>
+foreign import capi "clang_wrappers.h clang_TargetInfo_dispose"
+  clang_TargetInfo_dispose :: CXTargetInfo -> IO ()
+
+foreign import capi "clang_wrappers.h wrap_malloc_TargetInfo_getTriple"
+  wrap_malloc_TargetInfo_getTriple :: CXTargetInfo -> IO CXString
 
 -- | Same as 'clang_parseTranslationUnit2', but returns the 'CXTranslationUnit'
 -- instead of an error code.
@@ -257,6 +280,16 @@ clang_parseTranslationUnit cIdx src args options =
     withCString  src  $ \src' ->
     withCStrings args $ \args' numArgs -> ensureNotNull $
       nowrapper_parseTranslationUnit cIdx src' args' numArgs mkNullPtr 0 options
+
+-- | Get the normalized target triple as a string.
+--
+-- May throw 'GetTripleFailed'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga7ae67e3c8baf6a9852900f6529dce2d0>
+clang_TargetInfo_getTriple :: CXTargetInfo -> IO ByteString
+clang_TargetInfo_getTriple info =
+    ensure (not . BS.null) (\bt _ -> GetTripleFailed bt) $
+      packCXString =<< wrap_malloc_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
   Cursor manipulations
@@ -565,6 +598,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
 foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
   wrap_Cursor_isAnonymous :: CXCursor_ -> IO CUInt
 
+foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
+  wrap_getEnumConstantDeclValue :: CXCursor_ -> IO CLLong
+
 -- | Extract the @kind@ field from a @CXType@ struct
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html#ab27a7510dc88b0ec80cff04ec89901aa>
@@ -614,7 +650,7 @@ clang_getPointeeType typ =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
 clang_Type_getSizeOf :: CXType -> IO CLLong
 clang_Type_getSizeOf typ =
-    unwrapForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
+    unwrapForeignPtr typ $ \typ' -> ensureEnum (>= 0) CXTypeLayoutException $
       wrap_Type_getSizeOf typ'
 
 -- | Return the alignment of a type in bytes as per C++[expr.alignof] standard.
@@ -624,7 +660,7 @@ clang_Type_getSizeOf typ =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
 clang_Type_getAlignOf :: CXType -> IO CLLong
 clang_Type_getAlignOf typ =
-    unwrapForeignPtr typ $ \typ' -> ensure (>= 0) CXTypeLayoutException $
+    unwrapForeignPtr typ $ \typ' -> ensureEnum (>= 0) CXTypeLayoutException $
       wrap_getAlignOf typ'
 
 -- | Determine if a typedef is 'transparent' tag.
@@ -647,6 +683,23 @@ clang_Cursor_isAnonymous :: CXCursor -> IO Bool
 clang_Cursor_isAnonymous cursor =
     unwrapForeignPtr cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isAnonymous cursor'
+
+-- | Retrieve the integer value of an enum constant declaration as a signed long
+-- long.
+--
+-- The @libclang@ docs state:
+--
+-- > If the cursor does not reference an enum constant declaration, LLONG_MIN is
+-- > returned. Since this is also potentially a valid constant value, the kind
+-- > of the cursor must be verified before calling this function.
+--
+-- This is therefore a precondition to calling 'clang_getEnumConstantDeclValue'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6b8585818420e7512feb4c9d209b4f4d>
+clang_getEnumConstantDeclValue :: CXCursor -> IO CLLong
+clang_getEnumConstantDeclValue cursor = do
+    unwrapForeignPtr cursor $ \cursor' ->
+      wrap_getEnumConstantDeclValue cursor'
 
 {-------------------------------------------------------------------------------
   Mapping between cursors and source code
@@ -865,36 +918,8 @@ data CXTypeLayoutException =
   deriving stock (Show)
   deriving Exception via CollectedBacktrace CXTypeLayoutException
 
-{-------------------------------------------------------------------------------
-  Target Info
--------------------------------------------------------------------------------}
-
--- | An opaque type representing target information for a given translation
-newtype {-# CType "CXTargetInfo" #-} CXTargetInfo = CXTargetInfo (Ptr ())
-  deriving newtype (IsPointer)
-
-foreign import capi "clang_wrappers.h clang_getTranslationUnitTargetInfo"
-  clang_getTranslationUnitTargetInfo :: CXTranslationUnit -> IO CXTargetInfo
-
-foreign import capi "clang_wrappers.h clang_TargetInfo_dispose"
-  clang_TargetInfo_dispose :: CXTargetInfo -> IO ()
-
--- | Get the normalized target triple as a string.
-foreign import capi "clang_wrappers.h wrap_malloc_TargetInfo_getTriple"
-  wrap_malloc_TargetInfo_getTriple :: CXTargetInfo -> IO CXString
-
-clang_TargetInfo_getTriple :: CXTargetInfo -> IO ByteString
-clang_TargetInfo_getTriple info =
-    packCXString =<< wrap_malloc_TargetInfo_getTriple info
-
-{-------------------------------------------------------------------------------
-  Enums
--------------------------------------------------------------------------------}
-
-foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
-  wrap_getEnumConstantDeclValue :: CXCursor_ -> IO CLLong
-
-clang_getEnumConstantDeclValue :: CXCursor -> IO CLLong
-clang_getEnumConstantDeclValue cursor =
-  unwrapForeignPtr cursor $ \cursor' ->
-  wrap_getEnumConstantDeclValue cursor'
+-- | Call to 'clang_TargetInfo_getTriple' failed
+data GetTripleFailed =
+    GetTripleFailed Backtrace
+  deriving stock (Show)
+  deriving Exception via CollectedBacktrace GetTripleFailed
