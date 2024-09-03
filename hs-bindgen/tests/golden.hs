@@ -14,15 +14,20 @@ main :: IO ()
 main = do
     findPackageDirectory "hs-bindgen"
     defaultMain $ testGroup "golden"
-        [ goldenVsStringDiff "simple_structs" diff "fixtures/simple_structs.dump.txt" $ do
-            let fp = "examples/simple_structs.h"
-                args = []
-            res <- getClangAST args fp
-
-            return $ LBS8.pack $ unlines $ concatMap treeToLines res
+        [ golden "simple_structs"
+        , golden "enums"
         ]
   where
     diff ref new = ["diff", "-u", ref, new]
+
+    golden name = goldenVsStringDiff name diff ("fixtures" </> (name ++ ".dump.txt")) $ do
+        -- -<.> does weird stuff for filenames with multiple dots;
+        -- I usually simply avoid using it.
+        let fp = "examples" </> (name ++ ".h")
+            args = []
+        res <- getClangAST args fp
+
+        return $ LBS8.pack $ unlines $ concatMap treeToLines res
 
 treeToLines :: Tree Element -> [String]
 treeToLines tree = go 0 tree [] where
