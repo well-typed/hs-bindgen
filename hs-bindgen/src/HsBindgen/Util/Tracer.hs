@@ -5,6 +5,7 @@
 -- Indended for unqualified import.
 module HsBindgen.Util.Tracer (
     Tracer -- opaque
+  , nullTracer
   , PrettyLogMsg(..)
     -- * Using the tracer
   , Level(..)
@@ -41,6 +42,9 @@ traceWith t l a = Contra.traceWith (unwrap t) (l, a)
 {-------------------------------------------------------------------------------
   Internal: general tracer construction
 -------------------------------------------------------------------------------}
+
+nullTracer :: Monad m => Tracer m a
+nullTracer = Wrap Contra.nullTracer
 
 mkTracer :: forall m a.
      Monad m
