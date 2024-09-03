@@ -7,5 +7,51 @@ WrapCHeader
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
-            EnumValue "FIRST1",
-            EnumValue "FIRST2"]}])
+            EnumValue {
+              valueName = "FIRST1",
+              valueValue = 0},
+            EnumValue {
+              valueName = "FIRST2",
+              valueValue = 1}]},
+      DeclEnum
+        Enu {
+          enumTag = Just "second",
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = "SECOND_A",
+              valueValue = `-1`},
+            EnumValue {
+              valueName = "SECOND_B",
+              valueValue = 0},
+            EnumValue {
+              valueName = "SECOND_C",
+              valueValue = 1}]},
+      DeclEnum
+        Enu {
+          enumTag = Just "same",
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = "SAME_A",
+              valueValue = 1},
+            EnumValue {
+              valueName = "SAME_B",
+              valueValue = 1}]},
+      DeclEnum
+        Enu {
+          enumTag = Just "packad",
+          enumSizeof = 1,
+          enumAlignment = 1,
+          enumValues = [
+            EnumValue {
+              valueName = "PACKED_A",
+              valueValue = 0},
+            EnumValue {
+              valueName = "PACKED_B",
+              valueValue = 1},
+            EnumValue {
+              valueName = "PACKED_C",
+              valueValue = 2}]}])
