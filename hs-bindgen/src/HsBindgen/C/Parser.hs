@@ -62,6 +62,11 @@ foldDecls tracer unit current = do
         let mkDecl :: [C.StructField] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
+      Right CXType_Enum -> do
+        mkEnum <- parseEnum unit current
+        let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
+            mkDecl = return . Just . C.DeclEnum . mkEnum
+        return $ Recurse (foldEnumValues tracer) mkDecl
       Right CXType_Typedef -> do
         mkTypedef <- parseTypedef current
         let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
@@ -107,6 +112,38 @@ foldStructFields tracer current = do
       _otherwise -> do
         traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
         return $ Continue Nothing
+
+{-------------------------------------------------------------------------------
+  Enums
+-------------------------------------------------------------------------------}
+
+parseEnum :: CXTranslationUnit -> CXCursor -> IO ([C.EnumValue] -> C.Enu)
+parseEnum unit current = do
+    cursorType    <- clang_getCursorType current
+    enumTag       <- fmap decodeString . getUserProvided <$>
+                         getUserProvidedName unit current
+    enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
+    enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
+
+    return $ \enumValues -> C.Enu{
+        enumTag
+      , enumSizeof
+      , enumAlignment
+      , enumValues
+      }
+
+foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
+foldEnumValues tracer current = do
+    cursorType <- clang_getCursorType current
+    case primType $ cxtKind cursorType of
+      Just _fieldType -> do
+        valueName <- decodeString <$> clang_getCursorDisplayName current
+        let field = C.EnumValue{valueName}
+        return $ Continue (Just field)
+      _otherwise -> do
+        traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
+        return $ Continue Nothing
+
 
 {-------------------------------------------------------------------------------
   Types
