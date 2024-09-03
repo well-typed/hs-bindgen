@@ -100,4 +100,8 @@ void wrap_disposeString(CXString* string);
 
 CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
 
+static inline long long wrap_getEnumConstantDeclValue(CXCursor *C) {
+    return clang_getEnumConstantDeclValue(*C);
+}
+
 #endif

@@ -159,7 +159,8 @@ foldEnumValues tracer current = do
     case primType $ cxtKind cursorType of
       Just _fieldType -> do
         valueName <- decodeString <$> clang_getCursorDisplayName current
-        let field = C.EnumValue{valueName}
+        valueValue <- toInteger <$> clang_getEnumConstantDeclValue current
+        let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
       _otherwise -> do
         traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)

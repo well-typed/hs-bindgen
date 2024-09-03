@@ -129,6 +129,8 @@ module HsBindgen.Clang.Core (
   , clang_getTranslationUnitTargetInfo
   , clang_TargetInfo_dispose
   , clang_TargetInfo_getTriple
+    -- * Enumerations
+  , clang_getEnumConstantDeclValue
   ) where
 
 import Control.Exception
@@ -864,7 +866,7 @@ data CXTypeLayoutException =
   deriving Exception via CollectedBacktrace CXTypeLayoutException
 
 {-------------------------------------------------------------------------------
-  Exceptions
+  Target Info
 -------------------------------------------------------------------------------}
 
 -- | An opaque type representing target information for a given translation
@@ -884,3 +886,15 @@ foreign import capi "clang_wrappers.h wrap_malloc_TargetInfo_getTriple"
 clang_TargetInfo_getTriple :: CXTargetInfo -> IO ByteString
 clang_TargetInfo_getTriple info =
     packCXString =<< wrap_malloc_TargetInfo_getTriple info
+
+{-------------------------------------------------------------------------------
+  Enums
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
+  wrap_getEnumConstantDeclValue :: CXCursor_ -> IO CLLong
+
+clang_getEnumConstantDeclValue :: CXCursor -> IO CLLong
+clang_getEnumConstantDeclValue cursor =
+  unwrapForeignPtr cursor $ \cursor' ->
+  wrap_getEnumConstantDeclValue cursor'

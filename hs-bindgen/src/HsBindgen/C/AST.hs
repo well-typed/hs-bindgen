@@ -79,8 +79,8 @@ data Enu = Enu {
   deriving anyclass (PrettyVal)
 
 data EnumValue = EnumValue {
-      valueName :: String
-    -- , valueValue :: Integer
+      valueName  :: String
+    , valueValue :: Integer
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
