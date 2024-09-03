@@ -28,6 +28,7 @@ getCmdline = execParser opts
 -- | Command line arguments
 data Cmdline = Cmdline {
       verbosity :: Bool
+    , predicate :: Predicate
     , clangArgs :: ClangArgs
     , mode      :: Mode
     }
@@ -61,6 +62,7 @@ parseCmdline :: Parser Cmdline
 parseCmdline =
     Cmdline
       <$> parseVerbosity
+      <*> parsePredicate
       <*> parseClangArgs
       <*> parseMode
 
@@ -94,6 +96,30 @@ parseModeDumpClangAST :: Parser Mode
 parseModeDumpClangAST =
     ShowClangAST
       <$> parseInput
+
+parsePredicate :: Parser Predicate
+parsePredicate = fmap aux . many . asum $ [
+      flag' SelectAll $ mconcat [
+          long "select-all"
+        , help "Process all elements"
+        ]
+    , fmap SelectByFileName $ strOption $ mconcat [
+          long "select-by-filename"
+        , help "Match filename against PCRE"
+        ]
+    , fmap SelectByElementName $ strOption $ mconcat [
+          long "select-by-element-name"
+        , help "Match element name against PCRE"
+        ]
+    , flag' SelectFromMainFile $ mconcat [
+          long "select-from-main-file"
+        , help "Only process elements from the main file (this is the default)"
+        ]
+    ]
+  where
+    aux :: [Predicate] -> Predicate
+    aux [] = SelectFromMainFile
+    aux ps = mconcat ps
 
 {-------------------------------------------------------------------------------
   Prepare input

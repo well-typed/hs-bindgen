@@ -16,18 +16,22 @@ module HsBindgen.C.Parser (
   ) where
 
 import Control.Exception (bracket)
-import Data.ByteString qualified as Strict (ByteString)
+import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
 import Data.Tree
 import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
+import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Classification
 import HsBindgen.Clang.Util.Fold
+import HsBindgen.Clang.Util.SourceLoc (SourceLoc)
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
+import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 
 {-------------------------------------------------------------------------------
   General setup
@@ -46,9 +50,10 @@ withTranslationUnit args fp kont = do
     flags :: CXTranslationUnit_Flags
     flags = bitfieldEnum [
           CXTranslationUnit_SkipFunctionBodies
+        , CXTranslationUnit_DetailedPreprocessingRecord
         ]
 
-getTranslationUnitTargetTriple :: CXTranslationUnit -> IO Strict.ByteString
+getTranslationUnitTargetTriple :: CXTranslationUnit -> IO ByteString
 getTranslationUnitTargetTriple unit =
     bracket
         (clang_getTranslationUnitTargetInfo unit)
@@ -74,8 +79,10 @@ parseHeaderWith args fp fold = withTranslationUnit args fp $ \unit -> do
 
 foldDecls ::
      HasCallStack
-  => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Decl
-foldDecls tracer unit current = do
+  => Tracer IO ParseMsg
+  -> Predicate
+  -> CXTranslationUnit -> Fold C.Decl
+foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
       Right CXType_Record -> do
@@ -95,7 +102,18 @@ foldDecls tracer unit current = do
             mkDecl types = error $ "mkTypedef: unexpected " ++ show types
         return $ Recurse (foldTyp tracer unit) mkDecl
       _otherwise -> do
-        traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
+        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
+        return $ Continue Nothing
+
+checkPredicate :: Tracer IO ParseMsg -> Predicate -> Fold a -> Fold a
+checkPredicate tracer p k current = do
+    isMatch <- Predicate.match current p
+    case isMatch of
+      Right ()     -> k current
+      Left  reason -> do
+        name <- clang_getCursorSpelling current
+        loc  <- SourceLoc.clang_getCursorLocation current
+        traceWith tracer Info $ Skipped name loc reason
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -131,7 +149,7 @@ foldStructFields tracer current = do
         let field = C.StructField{fieldName, fieldType}
         return $ Continue (Just field)
       _otherwise -> do
-        traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
+        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -163,9 +181,8 @@ foldEnumValues tracer current = do
         let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
       _otherwise -> do
-        traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
+        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
         return $ Continue Nothing
-
 
 {-------------------------------------------------------------------------------
   Types
@@ -191,7 +208,7 @@ foldTyp tracer unit current = do
             mkDecl = return . Just . C.TypStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
       _otherwise -> do
-        traceWith tracer Warning $ Skipping callStack (cxtKind cursorType)
+        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
         return $ Continue Nothing
 
 primType :: SimpleEnum CXTypeKind -> Maybe C.PrimType
@@ -209,9 +226,9 @@ primType = either (const Nothing) aux . fromSimpleEnum
 
 -- | An element in the @libclang@ AST
 data Element = Element {
-      elementName         :: !(UserProvided Strict.ByteString)
-    , elementTypeKind     :: !Strict.ByteString
-    , elementRawComment   :: !Strict.ByteString
+      elementName         :: !(UserProvided ByteString)
+    , elementTypeKind     :: !ByteString
+    , elementRawComment   :: !ByteString
     , elementIsAnonymous  :: !Bool
     , elementIsDefinition :: !Bool
     }
@@ -232,8 +249,8 @@ data Element = Element {
 -- >         return $ Recurse foldClangAST $ \t -> print t >> return Nothing
 --
 -- to see the AST under the @struct@ parent node.
-foldClangAST :: CXTranslationUnit -> Fold (Tree Element)
-foldClangAST unit = go
+foldClangAST :: Predicate -> CXTranslationUnit -> Fold (Tree Element)
+foldClangAST p unit = checkPredicate nullTracer p go
   where
     go :: Fold (Tree Element)
     go current = do
@@ -266,7 +283,7 @@ foldClangAST unit = go
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/96>
 -- We could consider trying to deduplicate.
-decodeString :: Strict.ByteString -> String
+decodeString :: ByteString -> String
 decodeString = BS.Strict.Char8.unpack
 
 {-------------------------------------------------------------------------------
@@ -274,9 +291,27 @@ decodeString = BS.Strict.Char8.unpack
 -------------------------------------------------------------------------------}
 
 data ParseMsg =
-    -- | We skipped over an element in the Clang AST we did not recognize
-    Skipping CallStack (SimpleEnum CXTypeKind)
+    -- | Skipped filtered-out element
+    --
+    -- We record the name and location of the element, as well as the reason we
+    -- skipped it.
+    Skipped ByteString SourceLoc String
+
+    -- | Skipped unrecognized element
+  | Unrecognized CallStack (SimpleEnum CXTypeKind)
 
 instance PrettyLogMsg ParseMsg where
-  prettyLogMsg (Skipping cs kind) =
-    "Skipping over " ++ show kind ++ " at " ++ prettyCallStack cs
+  prettyLogMsg (Skipped name loc reason) = mconcat [
+        "Skipped element "
+      , show name
+      , " at "
+      , show loc
+      , ": "
+      , reason
+      ]
+  prettyLogMsg (Unrecognized cs kind) = mconcat [
+        "Unrecognized element "
+      , show kind
+      , " at "
+      , prettyCallStack cs
+      ]

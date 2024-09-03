@@ -71,6 +71,7 @@ static inline long long wrap_getEnumConstantDeclValue(CXCursor *C) {
  * Mapping between cursors and source code
  */
 
+CXSourceLocation* wrap_malloc_getCursorLocation(CXCursor* C);
 CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C);
 
 /**
@@ -91,6 +92,7 @@ CXSourceLocation* wrap_malloc_getRangeStart(CXSourceRange* range);
 CXSourceLocation* wrap_malloc_getRangeEnd(CXSourceRange* range);
 void wrap_getExpansionLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
 void wrap_getSpellingLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
+int wrap_Location_isFromMainFile(CXSourceLocation* location);
 
 /**
  * File manipulation routines

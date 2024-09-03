@@ -13,6 +13,7 @@ module HsBindgen.Clang.Util.SourceLoc (
   , SourceRange(..)
     -- * Construction
   , clang_Cursor_getSpellingNameRange
+  , clang_getCursorLocation
   , clang_getCursorExtent
   ) where
 
@@ -23,6 +24,7 @@ import Data.List (intercalate)
 import HsBindgen.Clang.Core qualified as Core
 import HsBindgen.Clang.Core hiding (
     clang_Cursor_getSpellingNameRange
+  , clang_getCursorLocation
   , clang_getCursorExtent
   )
 
@@ -80,6 +82,10 @@ prettySourceRange (SourceRange start end) = concat [
 clang_Cursor_getSpellingNameRange :: CXCursor -> IO SourceRange
 clang_Cursor_getSpellingNameRange cursor =
     toSourceRange =<< Core.clang_Cursor_getSpellingNameRange cursor 0 0
+
+clang_getCursorLocation :: CXCursor -> IO SourceLoc
+clang_getCursorLocation cursor =
+    toSourceLoc =<< Core.clang_getCursorLocation cursor
 
 clang_getCursorExtent :: CXCursor -> IO SourceRange
 clang_getCursorExtent cursor =

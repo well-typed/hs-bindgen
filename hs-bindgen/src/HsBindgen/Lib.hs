@@ -16,6 +16,7 @@ module HsBindgen.Lib (
     -- * Prepare input
     CHeader   -- opaque
   , ParseMsg  -- opaque
+  , Predicate(..)
   , ClangArgs
   , parseCHeader
 
@@ -57,6 +58,7 @@ import Text.Show.Pretty qualified as Pretty
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Parser (ParseMsg, Element(..))
 import HsBindgen.C.Parser qualified as C
+import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
 import HsBindgen.Hs.Annotation
 import HsBindgen.Hs.Render (HsRenderOpts(..))
@@ -96,10 +98,12 @@ newtype HsModule = WrapHsModule {
 -- | Parse C header
 parseCHeader ::
      Tracer IO C.ParseMsg
+  -> Predicate
   -> ClangArgs
   -> FilePath -> IO CHeader
-parseCHeader tracer args fp =
-    WrapCHeader . C.Header <$> C.parseHeaderWith args fp (C.foldDecls tracer)
+parseCHeader tracer p args fp =
+    WrapCHeader . C.Header <$>
+      C.parseHeaderWith args fp (C.foldDecls tracer p)
 
 {-------------------------------------------------------------------------------
   Translation
@@ -130,14 +134,15 @@ prettyHs opts fp = Hs.renderIO opts fp . unwrapHsModule
 
 preprocess ::
      Tracer IO C.ParseMsg  -- ^ Tracer for the C parser
+  -> Predicate             -- ^ Select definitions
   -> ClangArgs             -- ^ @libclang@ options
   -> FilePath              -- ^ Path to the C header
   -> HsModuleOpts          -- ^ Options for the Haskell module generation
   -> Hs.HsRenderOpts       -- ^ Options for rendering the generated Haskell code
   -> Maybe FilePath        -- ^ Name of the Haskell file (none for @stdout@)
   -> IO ()
-preprocess tracer clangArgs inp modOpts renderOpts out = do
-    modl <- genModule modOpts <$> parseCHeader tracer clangArgs inp
+preprocess tracer p clangArgs inp modOpts renderOpts out = do
+    modl <- genModule modOpts <$> parseCHeader tracer p clangArgs inp
     prettyHs renderOpts out modl
 
 {-------------------------------------------------------------------------------
@@ -147,9 +152,13 @@ preprocess tracer clangArgs inp modOpts renderOpts out = do
 -- | Return the raw @libclang@ AST
 --
 -- This is primarily for debugging.
-getClangAST :: ClangArgs -> FilePath -> IO (Forest Element)
-getClangAST args fp = C.parseHeaderWith args fp C.foldClangAST
+getClangAST :: Predicate -> ClangArgs -> FilePath -> IO (Forest Element)
+getClangAST predicate args fp =
+    C.parseHeaderWith args fp $
+      C.foldClangAST predicate
 
 -- | Return the target triple for translation unit
 getTargetTriple :: ClangArgs -> FilePath -> IO Strict.ByteString
-getTargetTriple args fp = C.withTranslationUnit args fp C.getTranslationUnitTargetTriple
+getTargetTriple args fp =
+    C.withTranslationUnit args fp $
+      C.getTranslationUnitTargetTriple

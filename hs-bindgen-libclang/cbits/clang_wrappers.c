@@ -152,6 +152,12 @@ unsigned wrap_Cursor_isAnonymous(CXCursor* C) {
  * Mapping between cursors and source code
  */
 
+CXSourceLocation* wrap_malloc_getCursorLocation(CXCursor* C) {
+    CXSourceLocation* result = malloc(sizeof(CXSourceLocation));
+    *result = clang_getCursorLocation(*C);
+    return result;
+}
+
 CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C) {
     CXSourceRange* result = malloc(sizeof(CXSourceRange));
     *result = clang_getCursorExtent(*C);
@@ -210,6 +216,10 @@ void wrap_getExpansionLocation(CXSourceLocation* location, CXFile* file, unsigne
 
 void wrap_getSpellingLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
     clang_getSpellingLocation(*location, file, line, column, offset);
+}
+
+int wrap_Location_isFromMainFile(CXSourceLocation* location) {
+    return clang_Location_isFromMainFile(*location);
 }
 
 /**
