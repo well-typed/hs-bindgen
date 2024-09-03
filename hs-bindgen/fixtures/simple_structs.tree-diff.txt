@@ -1,0 +1,69 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Just "S1",
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = "a",
+              fieldType = PrimInt},
+            StructField {
+              fieldName = "b",
+              fieldType = PrimChar}]},
+      DeclStruct
+        Struct {
+          structTag = Just "S2",
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = "a",
+              fieldType = PrimChar},
+            StructField {
+              fieldName = "b",
+              fieldType = PrimInt},
+            StructField {
+              fieldName = "c",
+              fieldType = PrimFloat}]},
+      DeclTypedef
+        Typedef {
+          typedefName = "S2_t",
+          typedefType = TypStruct
+            Struct {
+              structTag = Just "S2",
+              structSizeof = 12,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  fieldName = "a",
+                  fieldType = PrimChar},
+                StructField {
+                  fieldName = "b",
+                  fieldType = PrimInt},
+                StructField {
+                  fieldName = "c",
+                  fieldType = PrimFloat}]}},
+      DeclStruct
+        Struct {
+          structTag = Nothing,
+          structSizeof = 1,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              fieldName = "a",
+              fieldType = PrimChar}]},
+      DeclTypedef
+        Typedef {
+          typedefName = "S3_t",
+          typedefType = TypStruct
+            Struct {
+              structTag = Nothing,
+              structSizeof = 1,
+              structAlignment = 1,
+              structFields = [
+                StructField {
+                  fieldName = "a",
+                  fieldType = PrimChar}]}}])

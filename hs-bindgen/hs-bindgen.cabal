@@ -40,7 +40,7 @@ library
   exposed-modules:
       HsBindgen.Lib
       HsBindgen.TH
-  other-modules:
+  exposed-modules:
       HsBindgen.C.AST
       HsBindgen.C.Parser
       HsBindgen.Hs.Annotation
@@ -89,6 +89,7 @@ test-suite golden
   type:           exitcode-stdio-1.0
   main-is:        golden.hs
   hs-source-dirs: tests
+  other-modules:  Orphans
   build-depends:
       -- Internal dependencies
     , hs-bindgen
@@ -104,3 +105,4 @@ test-suite golden
     , filepath     ^>=1.4.2.2 || ^>=1.5.2.0
     , tasty        ^>=1.5
     , tasty-golden ^>=2.3.5
+    , tree-diff    ^>=0.3.1
