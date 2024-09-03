@@ -20,6 +20,7 @@ main = do
     findPackageDirectory "hs-bindgen"
     defaultMain $ testGroup "golden"
         [ golden "simple_structs"
+        , golden "nested_types"
         , golden "enums"
         , golden "primitive_types"
         , golden "macros"
