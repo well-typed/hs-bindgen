@@ -1,0 +1,24 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Just "primitive",
+          structSizeof = 176,
+          structAlignment = 16,
+          structFields = [
+            StructField {
+              fieldName = "c",
+              fieldType = PrimChar},
+            StructField {
+              fieldName = "i",
+              fieldType = PrimInt},
+            StructField {
+              fieldName = "s2",
+              fieldType = PrimInt},
+            StructField {
+              fieldName = "si2",
+              fieldType = PrimInt},
+            StructField {
+              fieldName = "f",
+              fieldType = PrimFloat}]}])

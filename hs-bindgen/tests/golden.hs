@@ -21,6 +21,7 @@ main = do
     defaultMain $ testGroup "golden"
         [ golden "simple_structs"
         , golden "enums"
+        , golden "primitive_types"
         ]
   where
     diff ref new = ["diff", "-u", ref, new]
@@ -35,14 +36,15 @@ main = do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
-            args = []
+            args = ["-target", "x86_64-pc-linux-gnu"]
+
         res <- getClangAST args fp
 
         return $ LBS8.pack $ unlines $ concatMap treeToLines res
 
     goldenTreeDiff name = ediffGolden goldenTest "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ do
         let fp = "examples" </> (name ++ ".h")
-            args = []
+            args = ["-target", "x86_64-pc-linux-gnu"]
 
         header <- parseCHeader nullTracer args fp
         return header
@@ -51,7 +53,7 @@ main = do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
-            args = []
+            args = ["-target", "x86_64-pc-linux-gnu"]
 
         header <- parseCHeader nullTracer args fp
         let decls = genDecls header
