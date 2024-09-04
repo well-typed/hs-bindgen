@@ -79,8 +79,10 @@ treeToLines tree = go 0 tree [] where
     go !n (Node l xs) next = (replicate (n * 2) ' ' ++ showElem l) : foldr (go (n + 1)) next xs
 
 showElem :: Element -> [Char]
-showElem Element{elementName, elementTypeKind} = mconcat [
-      case elementName of
+showElem Element{elementName, elementKind, elementTypeKind} = mconcat [
+      show elementKind
+    , " "
+    , case elementName of
         UserProvided name  -> show name
         LibclangProvided _ -> "_" -- varies between llvm versions, so ignore
     , " :: "

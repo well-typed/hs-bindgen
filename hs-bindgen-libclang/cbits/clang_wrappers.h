@@ -28,6 +28,9 @@ CXCursor* wrap_malloc_getTranslationUnitCursor(CXTranslationUnit unit);
 unsigned wrap_equalCursors(CXCursor* a, CXCursor* b);
 CXCursor* wrap_malloc_getCursorSemanticParent(CXCursor* cursor);
 CXCursor* wrap_malloc_getCursorLexicalParent(CXCursor* cursor);
+enum CXCursorKind wrap_getCursorKind(CXCursor* cursor);
+CXString* wrap_malloc_getCursorKindSpelling(enum CXCursorKind Kind);
+
 
 /**
  * Traversing the AST with cursors

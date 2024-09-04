@@ -4,10 +4,10 @@
 all: clang_wrappers.o doxygen_wrappers.o
 
 clang_wrappers.o: clang_wrappers.c clang_wrappers.h
-	gcc -c -Wall clang_wrappers.c -I/usr/lib/llvm-18/include
+	gcc -c -Wall clang_wrappers.c -I/usr/lib/llvm-14/include
 
 doxygen_wrappers.o: doxygen_wrappers.c doxygen_wrappers.h
-	gcc -c -Wall doxygen_wrappers.c -I/usr/lib/llvm-18/include
+	gcc -c -Wall doxygen_wrappers.c -I/usr/lib/llvm-14/include
 
 .PHONY: clean
 clean:
