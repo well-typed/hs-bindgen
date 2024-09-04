@@ -62,11 +62,18 @@ getUserProvidedName ::
   -> CXCursor
   -> IO (UserProvided ByteString)
 getUserProvidedName unit cursor = do
-    nameSpelling      <- clang_getCursorSpelling cursor
-    nameRange         <- clang_Cursor_getSpellingNameRange cursor 0 0
-    nameStart         <- clang_getRangeStart nameRange
-    nameToken         <- clang_getToken unit nameStart
-    nameTokenSpelling <- clang_getTokenSpelling unit nameToken
-    return $ if nameSpelling == nameTokenSpelling
-               then UserProvided nameSpelling
-               else LibclangProvided nameSpelling
+    nameSpelling <- clang_getCursorSpelling cursor
+    nameRange    <- clang_Cursor_getSpellingNameRange cursor 0 0
+    nameStart    <- clang_getRangeStart nameRange
+    mNameToken   <- clang_getToken unit nameStart
+
+    case mNameToken of
+      Just nameToken -> do
+        nameTokenSpelling <- clang_getTokenSpelling unit nameToken
+        return $ if nameSpelling == nameTokenSpelling
+                   then UserProvided nameSpelling
+                   else LibclangProvided nameSpelling
+      Nothing ->
+        return $ LibclangProvided nameSpelling
+
+

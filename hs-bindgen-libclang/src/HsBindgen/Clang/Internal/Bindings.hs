@@ -12,6 +12,7 @@ module HsBindgen.Clang.Internal.Bindings (
   , cToBool
   , ensure
   , ensureNotNull
+  , checkNotNull
   , ensureNotInRange
   ) where
 
@@ -91,6 +92,14 @@ ensureOn f p call = do
 -- | Ensure that a function did not return 'nullPtr' (indicating error)
 ensureNotNull :: (HasCallStack, IsPointer a, Typeable a) => IO a -> IO a
 ensureNotNull = ensure (not . isNullPtr)
+
+-- | If the result is 'nullPtr', return 'Nothing'
+checkNotNull :: IsPointer a => IO a -> IO (Maybe a)
+checkNotNull call = do
+    ptr <- call
+    return $ if isNullPtr ptr
+               then Nothing
+               else Just ptr
 
 -- | Ensure that the result is not in the range of the specified enum
 --

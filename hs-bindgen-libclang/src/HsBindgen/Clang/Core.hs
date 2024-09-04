@@ -777,6 +777,8 @@ clang_getCursorExtent cursor =
 -------------------------------------------------------------------------------}
 
 newtype CXToken = CXToken (Ptr ())
+  deriving stock (Show)
+  deriving newtype (IsPointer)
 
 foreign import capi unsafe "clang_wrappers.h wrap_getToken"
   wrap_getToken :: CXTranslationUnit -> CXSourceLocation_ -> IO CXToken
@@ -802,8 +804,8 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenExtent"
 -- | Get the raw lexical token starting with the given location.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga3b41b2c8a34e605a14608927ae544c03>
-clang_getToken :: CXTranslationUnit -> CXSourceLocation -> IO CXToken
-clang_getToken unit loc =
+clang_getToken :: CXTranslationUnit -> CXSourceLocation -> IO (Maybe CXToken)
+clang_getToken unit loc = checkNotNull $
     unwrapForeignPtr loc $ \loc' ->
       wrap_getToken unit loc'
 
