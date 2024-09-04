@@ -15,6 +15,9 @@ module HsBindgen.Clang.Util.SourceLoc (
   , clang_Cursor_getSpellingNameRange
   , clang_getCursorLocation
   , clang_getCursorExtent
+    -- * Low-level
+  , toSourceLoc
+  , toSourceRange
   ) where
 
 import Data.ByteString (ByteString)
