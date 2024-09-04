@@ -20,10 +20,14 @@ module HsBindgen.C.AST (
   , Typ(..)
   , PrimType(..)
   , Typedef(..)
+    -- * Macros
+  , Token(..)
+  , Macro(..)
   ) where
 
+import Data.ByteString (ByteString)
 import GHC.Generics (Generic)
-import Text.Show.Pretty (PrettyVal)
+import Text.Show.Pretty (PrettyVal(..))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -41,6 +45,7 @@ data Decl =
     DeclStruct Struct
   | DeclTypedef Typedef
   | DeclEnum Enu
+  | DeclMacro Macro
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -73,7 +78,7 @@ data Enu = Enu {
       enumTag       :: Maybe String
     , enumSizeof    :: Int
     , enumAlignment :: Int
-    , enumValues    :: [EnumValue] 
+    , enumValues    :: [EnumValue]
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -111,5 +116,32 @@ data PrimType =
     PrimInt   -- @int@
   | PrimChar  -- @char@
   | PrimFloat -- @float@
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  Macros
+-------------------------------------------------------------------------------}
+
+newtype Token = Token ByteString
+  deriving stock (Show, Eq, Generic)
+
+instance PrettyVal Token where
+  prettyVal (Token t) = prettyVal (show t)
+
+-- | C macro definition
+--
+-- This is simply the list of tokens; for example,
+--
+-- > #define MYFOO 1
+-- > #define INCR(x) x + 1
+--
+-- are represented as
+--
+-- > Macro ["MYFOO", "1"]
+-- > Macro ["INCR", "(", "x", ")", "x", "+", "1"]
+--
+-- respectively.
+data Macro = Macro [Token]
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

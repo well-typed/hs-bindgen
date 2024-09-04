@@ -32,6 +32,7 @@ import HsBindgen.Clang.Util.SourceLoc (SourceLoc)
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
+import HsBindgen.Clang.Util.Tokens qualified as Tokens
 
 {-------------------------------------------------------------------------------
   General setup
@@ -103,8 +104,14 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
             mkDecl [typ] = return $ Just (C.DeclTypedef $ mkTypedef typ)
             mkDecl types = error $ "mkTypedef: unexpected " ++ show types
         return $ Recurse (foldTyp tracer unit) mkDecl
+      Right CXCursor_MacroDefinition -> do
+        range  <- clang_getCursorExtent current
+        tokens <- Tokens.clang_tokenize unit range
+        let decl :: C.Decl
+            decl = C.DeclMacro $ C.Macro $ map C.Token tokens
+        return $ Continue $ Just decl
       _otherwise -> do
-        traceWith tracer Warning $ UnrecognizedCursor callStack cursorKind
+        traceWith tracer Warning $ unrecognizedCursor cursorKind
         return $ Continue Nothing
 
 checkPredicate :: Tracer IO ParseMsg -> Predicate -> Fold a -> Fold a
@@ -151,7 +158,7 @@ foldStructFields tracer _parent current = do
         let field = C.StructField{fieldName, fieldType}
         return $ Continue (Just field)
       _otherwise -> do
-        traceWith tracer Warning $ UnrecognizedType callStack typeKind
+        traceWith tracer Warning $ unrecognizedType typeKind
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -183,7 +190,7 @@ foldEnumValues tracer _parent current = do
         let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
       _otherwise -> do
-        traceWith tracer Warning $ UnrecognizedType callStack typeKind
+        traceWith tracer Warning $ unrecognizedType typeKind
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -210,7 +217,7 @@ foldTyp tracer unit _parent current = do
             mkDecl = return . Just . C.TypStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
       _otherwise -> do
-        traceWith tracer Warning $ UnrecognizedCursor callStack cursorKind
+        traceWith tracer Warning $ unrecognizedCursor cursorKind
         return $ Continue Nothing
 
 primType :: SimpleEnum CXTypeKind -> Maybe C.PrimType
@@ -308,6 +315,12 @@ data ParseMsg =
 
     -- | Skip unrecognized type
   | UnrecognizedType CallStack (SimpleEnum CXTypeKind)
+
+unrecognizedCursor :: HasCallStack => SimpleEnum CXCursorKind -> ParseMsg
+unrecognizedCursor = UnrecognizedCursor callStack
+
+unrecognizedType :: HasCallStack => SimpleEnum CXTypeKind -> ParseMsg
+unrecognizedType = UnrecognizedType callStack
 
 instance PrettyLogMsg ParseMsg where
   prettyLogMsg (Skipped name loc reason) = mconcat [

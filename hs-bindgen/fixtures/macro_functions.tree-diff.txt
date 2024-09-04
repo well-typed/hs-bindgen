@@ -1,0 +1,25 @@
+WrapCHeader
+  (Header
+    [
+      DeclMacro
+        (Macro
+          [
+            Token "INCR",
+            Token "(",
+            Token "x",
+            Token ")",
+            Token "x",
+            Token "+",
+            Token "1"]),
+      DeclMacro
+        (Macro
+          [
+            Token "ADD",
+            Token "(",
+            Token "x",
+            Token ",",
+            Token "y",
+            Token ")",
+            Token "x",
+            Token "+",
+            Token "y"])])

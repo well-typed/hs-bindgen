@@ -121,6 +121,9 @@ module HsBindgen.Clang.Core (
   , clang_getTokenSpelling
   , clang_getTokenLocation
   , clang_getTokenExtent
+  , clang_tokenize
+  , clang_disposeTokens
+  , index_CXTokenArray
     -- * Physical source locations
   , CXSourceLocation
   , clang_getRangeStart
@@ -144,6 +147,7 @@ import Foreign.C
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
+import HsBindgen.Clang.Core.Constants
 import HsBindgen.Clang.Core.Enums
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Clang.Internal.Bindings
@@ -935,6 +939,52 @@ clang_getTokenLocation unit token = wrapForeignPtr =<<
 clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
 clang_getTokenExtent unit token = wrapForeignPtr =<<
     wrap_malloc_getTokenExtent unit token
+
+newtype CXTokenArray = CXTokenArray (Ptr ())
+  deriving (Storable)
+
+foreign import capi unsafe "clang_wrappers.h wrap_tokenize"
+  wrap_tokenize ::
+       CXTranslationUnit
+       -- ^ the translation unit whose text is being tokenized.
+    -> CXSourceRange_
+       -- ^ the source range in which text should be tokenized. All of the
+       -- tokens produced by tokenization will fall within this source range
+    -> Ptr CXTokenArray
+       -- ^ this pointer will be set to point to the array of tokens that occur
+       -- within the given source range. The returned pointer must be freed with
+       -- clang_disposeTokens() before the translation unit is destroyed.
+    -> Ptr CUInt
+       -- ^ will be set to the number of tokens in the *Tokens array.
+    -> IO ()
+
+-- | Free the given set of tokens.
+foreign import capi unsafe "clang-c/Index.h clang_disposeTokens"
+  clang_disposeTokens :: CXTranslationUnit -> CXTokenArray -> CUInt -> IO ()
+
+-- | Tokenize the source code described by the given range into raw lexical
+-- tokens.
+--
+-- Returns the array of tokens and the number of tokens in the array. The array
+-- must be disposed using 'clang_disponseTokens' before the translation unit is
+-- destroyed.
+clang_tokenize ::
+     CXTranslationUnit
+  -> CXSourceRange
+  -> IO (CXTokenArray, CUInt)
+clang_tokenize unit range =
+    unwrapForeignPtr range $ \range' ->
+      alloca $ \array ->
+      alloca $ \numTokens -> do
+        wrap_tokenize unit range' array numTokens
+        (,) <$> peek array <*> peek numTokens
+
+-- | Index token array
+--
+-- We do not verify bounds (nor that the array has not already been disposed).
+index_CXTokenArray :: CXTokenArray -> CUInt -> CXToken
+index_CXTokenArray (CXTokenArray array) i = CXToken $
+    array `plusPtr` (fromIntegral i * sizeof_CXToken)
 
 {-------------------------------------------------------------------------------
   Physical source locations
