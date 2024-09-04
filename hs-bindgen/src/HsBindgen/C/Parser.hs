@@ -172,12 +172,12 @@ parseEnum unit current = do
       }
 
 foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
-foldEnumValues tracer parent current = do
+foldEnumValues tracer _parent current = do
     cursorType <- clang_getCursorType current
     case primType $ cxtKind cursorType of
       Just _fieldType -> do
-        valueName <- decodeString <$> clang_getCursorDisplayName current
-        valueValue <- toInteger <$> clang_getEnumConstantDeclValue parent current
+        valueName  <- decodeString <$> clang_getCursorDisplayName     current
+        valueValue <- toInteger    <$> clang_getEnumConstantDeclValue current
         let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
       _otherwise -> do

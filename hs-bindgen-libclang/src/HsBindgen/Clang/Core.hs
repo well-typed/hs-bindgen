@@ -77,6 +77,8 @@ module HsBindgen.Clang.Core (
   , CXCursor
   , clang_getTranslationUnitCursor
   , clang_equalCursors
+  , clang_getCursorSemanticParent
+  , clang_getCursorLexicalParent
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , CXCursorVisitor
@@ -350,6 +352,86 @@ clang_equalCursors a b =
     unwrapForeignPtr a $ \a' ->
     unwrapForeignPtr b $ \b' ->
       cToBool <$> nowrapper_equalCursors a' b'
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSemanticParent"
+  wrap_malloc_getCursorSemanticParent :: CXCursor_ -> IO CXCursor_
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLexicalParent"
+  wrap_malloc_getCursorLexicalParent :: CXCursor_ -> IO CXCursor_
+
+-- | Determine the semantic parent of the given cursor.
+--
+-- The semantic parent of a cursor is the cursor that semantically contains the
+-- given cursor. For many declarations, the lexical and semantic parents are
+-- equivalent (the lexical parent is returned by
+-- 'clang_getCursorLexicalParent'). They diverge when declarations or
+-- definitions are provided out-of-line. For example:
+--
+-- > class C {
+-- >  void f();
+-- > };
+-- >
+-- > void C::f() { }
+--
+-- In the out-of-line definition of @C::f@, the semantic parent is the class
+-- @C@, of which this function is a member. The lexical parent is the place
+-- where the declaration actually occurs in the source code; in this case, the
+-- definition occurs in the translation unit. In general, the lexical parent for
+-- a given entity can change without affecting the semantics of the program, and
+-- the lexical parent of different declarations of the same entity may be
+-- different. Changing the semantic parent of a declaration, on the other hand,
+-- can have a major impact on semantics, and redeclarations of a particular
+-- entity should all have the same semantic context.
+--
+-- In the example above, both declarations of @C::f@ have @C@ as their semantic
+-- context, while the lexical context of the first @C::f@ is @C@ and the lexical
+-- context of the second @C::f@ is the translation unit.
+--
+-- For global declarations, the semantic parent is the translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gabc327b200d46781cf30cb84d4af3c877>
+clang_getCursorSemanticParent :: CXCursor -> IO CXCursor
+clang_getCursorSemanticParent cursor =
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+      wrap_malloc_getCursorSemanticParent cursor'
+
+-- | Determine the lexical parent of the given cursor.
+--
+-- The lexical parent of a cursor is the cursor in which the given cursor was
+-- actually written. For many declarations, the lexical and semantic parents are
+-- equivalent (the semantic parent is returned by
+-- 'clang_getCursorSemanticParent'). They diverge when declarations or
+-- definitions are provided out-of-line. For example:
+--
+-- > class C {
+-- >  void f();
+-- > };
+-- >
+-- > void C::f() { }
+--
+--
+-- In the out-of-line definition of @C::f@, the semantic parent is the class
+-- @C@, of which this function is a member. The lexical parent is the place
+-- where the declaration actually occurs in the source code; in this case, the
+-- definition occurs in the translation unit. In general, the lexical parent for
+-- a given entity can change without affecting the semantics of the program, and
+-- the lexical parent of different declarations of the same entity may be
+-- different. Changing the semantic parent of a declaration, on the other hand,
+-- can have a major impact on semantics, and redeclarations of a particular
+-- entity should all have the same semantic context.
+--
+-- In the example above, both declarations of @C::f@ have @C@ as their semantic
+-- context, while the lexical context of the first @C::f@ is @C@ and the lexical
+-- context of the second @C::f@ is the translation unit.
+--
+-- For declarations written in the global scope, the lexical parent is the
+-- translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gace7a423874d72b3fdc71d6b0f31830dd>
+clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
+clang_getCursorLexicalParent cursor =
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+      wrap_malloc_getCursorLexicalParent cursor'
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -696,21 +778,19 @@ clang_Cursor_isAnonymous cursor =
 -- declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6b8585818420e7512feb4c9d209b4f4d>
-clang_getEnumConstantDeclValue ::
-     HasCallStack
-  => CXCursor -- ^ Parent
-  -> CXCursor -> IO CLLong
-clang_getEnumConstantDeclValue parent cursor = do
+clang_getEnumConstantDeclValue :: HasCallStack => CXCursor -> IO CLLong
+clang_getEnumConstantDeclValue cursor = do
     -- The @libclang@ docs state:
     --
     -- > If the cursor does not reference an enum constant declaration,
     -- > LLONG_MIN is returned. Since this is also potentially a valid constant
     -- > value, the kind of the cursor must be verified before calling this
     -- > function.
+    parent     <- clang_getCursorSemanticParent cursor
     parentKind <- cxtKind <$> clang_getCursorType parent
-    unless (parentKind == simpleEnum CXType_Enum) $ callFailed parentKind
     cursorKind <- cxtKind <$> clang_getCursorType cursor
-    unless (cursorKind == simpleEnum CXType_Int) $ callFailed cursorKind
+    unless (parentKind == simpleEnum CXType_Enum) $ callFailed parentKind
+    unless (cursorKind == simpleEnum CXType_Int)  $ callFailed cursorKind
 
     unwrapForeignPtr cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'

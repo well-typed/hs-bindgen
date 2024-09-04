@@ -26,6 +26,18 @@ unsigned wrap_equalCursors(CXCursor* a, CXCursor* b) {
     return clang_equalCursors(*a, *b);
 }
 
+CXCursor* wrap_malloc_getCursorSemanticParent(CXCursor* cursor) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCursorSemanticParent(*cursor);
+    return result;
+}
+
+CXCursor* wrap_malloc_getCursorLexicalParent(CXCursor* cursor) {
+    CXCursor* result = malloc(sizeof(CXCursor));
+    *result = clang_getCursorLexicalParent(*cursor);
+    return result;
+}
+
 /**
  * Traversing the AST with cursors
  */
