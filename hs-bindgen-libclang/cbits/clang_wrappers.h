@@ -26,6 +26,8 @@ CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
 
 CXCursor* wrap_malloc_getTranslationUnitCursor(CXTranslationUnit unit);
 unsigned wrap_equalCursors(CXCursor* a, CXCursor* b);
+CXCursor* wrap_malloc_getCursorSemanticParent(CXCursor* cursor);
+CXCursor* wrap_malloc_getCursorLexicalParent(CXCursor* cursor);
 
 /**
  * Traversing the AST with cursors
