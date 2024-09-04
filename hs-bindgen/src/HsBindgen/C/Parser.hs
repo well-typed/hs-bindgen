@@ -51,6 +51,8 @@ withTranslationUnit args fp kont = do
     flags = bitfieldEnum [
           CXTranslationUnit_SkipFunctionBodies
         , CXTranslationUnit_DetailedPreprocessingRecord
+        , CXTranslationUnit_IncludeAttributedTypes
+        , CXTranslationUnit_VisitImplicitAttributes
         ]
 
 getTranslationUnitTargetTriple :: CXTranslationUnit -> IO ByteString
@@ -83,26 +85,26 @@ foldDecls ::
   -> Predicate
   -> CXTranslationUnit -> Fold C.Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
-    cursorType <- clang_getCursorType current
-    case fromSimpleEnum $ cxtKind cursorType of
-      Right CXType_Record -> do
+    cursorKind <- clang_getCursorKind current
+    case fromSimpleEnum cursorKind of
+      Right CXCursor_StructDecl -> do
         mkStruct <- parseStruct unit current
         let mkDecl :: [C.StructField] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
-      Right CXType_Enum -> do
+      Right CXCursor_EnumDecl -> do
         mkEnum <- parseEnum unit current
         let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclEnum . mkEnum
         return $ Recurse (foldEnumValues tracer) mkDecl
-      Right CXType_Typedef -> do
+      Right CXCursor_TypedefDecl -> do
         mkTypedef <- parseTypedef current
         let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
             mkDecl [typ] = return $ Just (C.DeclTypedef $ mkTypedef typ)
             mkDecl types = error $ "mkTypedef: unexpected " ++ show types
         return $ Recurse (foldTyp tracer unit) mkDecl
       _otherwise -> do
-        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
+        traceWith tracer Warning $ UnrecognizedCursor callStack cursorKind
         return $ Continue Nothing
 
 checkPredicate :: Tracer IO ParseMsg -> Predicate -> Fold a -> Fold a
@@ -142,14 +144,14 @@ parseStruct unit current = do
 
 foldStructFields :: HasCallStack => Tracer IO ParseMsg -> Fold C.StructField
 foldStructFields tracer _parent current = do
-    cursorType <- clang_getCursorType current
-    case primType $ cxtKind cursorType of
+    typeKind <- cxtKind <$> clang_getCursorType current
+    case primType typeKind of
       Just fieldType -> do
         fieldName <- decodeString <$> clang_getCursorDisplayName current
         let field = C.StructField{fieldName, fieldType}
         return $ Continue (Just field)
       _otherwise -> do
-        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
+        traceWith tracer Warning $ UnrecognizedType callStack typeKind
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -173,15 +175,15 @@ parseEnum unit current = do
 
 foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
 foldEnumValues tracer _parent current = do
-    cursorType <- clang_getCursorType current
-    case primType $ cxtKind cursorType of
+    typeKind <- cxtKind <$> clang_getCursorType current
+    case primType typeKind of
       Just _fieldType -> do
         valueName  <- decodeString <$> clang_getCursorDisplayName     current
         valueValue <- toInteger    <$> clang_getEnumConstantDeclValue current
         let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
       _otherwise -> do
-        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
+        traceWith tracer Warning $ UnrecognizedType callStack typeKind
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -200,15 +202,15 @@ foldTyp ::
      HasCallStack
   => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Typ
 foldTyp tracer unit _parent current = do
-    cursorType <- clang_getCursorType current
-    case fromSimpleEnum $ cxtKind cursorType of
-      Right CXType_Record -> do
+    cursorKind <- clang_getCursorKind current
+    case fromSimpleEnum cursorKind of
+      Right CXCursor_StructDecl -> do
         mkStruct <- parseStruct unit current
         let mkDecl :: [C.StructField] -> IO (Maybe C.Typ)
             mkDecl = return . Just . C.TypStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
       _otherwise -> do
-        traceWith tracer Warning $ Unrecognized callStack (cxtKind cursorType)
+        traceWith tracer Warning $ UnrecognizedCursor callStack cursorKind
         return $ Continue Nothing
 
 primType :: SimpleEnum CXTypeKind -> Maybe C.PrimType
@@ -227,6 +229,7 @@ primType = either (const Nothing) aux . fromSimpleEnum
 -- | An element in the @libclang@ AST
 data Element = Element {
       elementName         :: !(UserProvided ByteString)
+    , elementKind         :: !ByteString
     , elementTypeKind     :: !ByteString
     , elementRawComment   :: !ByteString
     , elementIsAnonymous  :: !Bool
@@ -255,6 +258,8 @@ foldClangAST p unit = checkPredicate nullTracer p go
     go :: Fold (Tree Element)
     go _parent current = do
         elementName         <- getUserProvidedName unit       current
+        elementKind         <- clang_getCursorKindSpelling =<<
+                                          clang_getCursorKind current
         elementTypeKind     <- clang_getTypeKindSpelling . cxtKind =<<
                                           clang_getCursorType current
         elementRawComment   <- clang_Cursor_getRawCommentText current
@@ -264,6 +269,7 @@ foldClangAST p unit = checkPredicate nullTracer p go
         let element :: Element
             element = Element {
                 elementName
+              , elementKind
               , elementTypeKind
               , elementRawComment
               , elementIsAnonymous
@@ -297,8 +303,11 @@ data ParseMsg =
     -- skipped it.
     Skipped ByteString SourceLoc String
 
-    -- | Skipped unrecognized element
-  | Unrecognized CallStack (SimpleEnum CXTypeKind)
+    -- | Skipped unrecognized cursor
+  | UnrecognizedCursor CallStack (SimpleEnum CXCursorKind)
+
+    -- | Skip unrecognized type
+  | UnrecognizedType CallStack (SimpleEnum CXTypeKind)
 
 instance PrettyLogMsg ParseMsg where
   prettyLogMsg (Skipped name loc reason) = mconcat [
@@ -309,8 +318,14 @@ instance PrettyLogMsg ParseMsg where
       , ": "
       , reason
       ]
-  prettyLogMsg (Unrecognized cs kind) = mconcat [
+  prettyLogMsg (UnrecognizedCursor cs kind) = mconcat [
         "Unrecognized element "
+      , show kind
+      , " at "
+      , prettyCallStack cs
+      ]
+  prettyLogMsg (UnrecognizedType cs kind) = mconcat [
+        "Unrecognized type "
       , show kind
       , " at "
       , prettyCallStack cs

@@ -38,6 +38,16 @@ CXCursor* wrap_malloc_getCursorLexicalParent(CXCursor* cursor) {
     return result;
 }
 
+enum CXCursorKind wrap_getCursorKind(CXCursor* cursor) {
+    return clang_getCursorKind(*cursor);
+}
+
+CXString* wrap_malloc_getCursorKindSpelling(enum CXCursorKind Kind) {
+    CXString* result = malloc(sizeof(CXString));
+    *result = clang_getCursorKindSpelling(Kind);
+    return result;
+}
+
 /**
  * Traversing the AST with cursors
  */

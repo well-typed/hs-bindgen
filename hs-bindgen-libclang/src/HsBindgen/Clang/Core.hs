@@ -75,10 +75,13 @@ module HsBindgen.Clang.Core (
   , clang_TargetInfo_getTriple
     -- * Cursor manipulations
   , CXCursor
+  , CXCursorKind(..)
   , clang_getTranslationUnitCursor
   , clang_equalCursors
   , clang_getCursorSemanticParent
   , clang_getCursorLexicalParent
+  , clang_getCursorKind
+  , clang_getCursorKindSpelling
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , CXCursorVisitor
@@ -334,6 +337,18 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTranslationUnitCurso
 foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
   nowrapper_equalCursors :: CXCursor_ -> CXCursor_ -> IO CUInt
 
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSemanticParent"
+  wrap_malloc_getCursorSemanticParent :: CXCursor_ -> IO CXCursor_
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLexicalParent"
+  wrap_malloc_getCursorLexicalParent :: CXCursor_ -> IO CXCursor_
+
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorKind"
+  wrap_getCursorKind :: CXCursor_ -> IO (SimpleEnum CXCursorKind)
+
+foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorKindSpelling"
+  wrap_malloc_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO CXString
+
 -- | Retrieve the cursor that represents the given translation unit.
 --
 -- The translation unit cursor can be used to start traversing the various
@@ -352,12 +367,6 @@ clang_equalCursors a b =
     unwrapForeignPtr a $ \a' ->
     unwrapForeignPtr b $ \b' ->
       cToBool <$> nowrapper_equalCursors a' b'
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSemanticParent"
-  wrap_malloc_getCursorSemanticParent :: CXCursor_ -> IO CXCursor_
-
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLexicalParent"
-  wrap_malloc_getCursorLexicalParent :: CXCursor_ -> IO CXCursor_
 
 -- | Determine the semantic parent of the given cursor.
 --
@@ -432,6 +441,25 @@ clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
 clang_getCursorLexicalParent cursor =
     unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
       wrap_malloc_getCursorLexicalParent cursor'
+
+-- | Retrieve the kind of the given cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga018aaf60362cb751e517d9f8620d490c>
+clang_getCursorKind :: CXCursor -> IO (SimpleEnum CXCursorKind)
+clang_getCursorKind cursor =
+    unwrapForeignPtr cursor $ \cursor' ->
+      wrap_getCursorKind cursor'
+
+-- | Get spelling of a cursor
+--
+-- NOTE: This is from the @libclang@ \"Debugging facilities\"
+-- (https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html). This should be
+-- used only for testing and debugging, and should not be relied upon.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html#ga7a4eecfc1b343568cb9ea447cbde08a8
+clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO ByteString
+clang_getCursorKindSpelling kind = packCXString =<<
+  wrap_malloc_getCursorKindSpelling kind
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -786,11 +814,9 @@ clang_getEnumConstantDeclValue cursor = do
     -- > LLONG_MIN is returned. Since this is also potentially a valid constant
     -- > value, the kind of the cursor must be verified before calling this
     -- > function.
-    parent     <- clang_getCursorSemanticParent cursor
-    parentKind <- cxtKind <$> clang_getCursorType parent
-    cursorKind <- cxtKind <$> clang_getCursorType cursor
-    unless (parentKind == simpleEnum CXType_Enum) $ callFailed parentKind
-    unless (cursorKind == simpleEnum CXType_Int)  $ callFailed cursorKind
+    cursorKind <- clang_getCursorKind cursor
+    unless (cursorKind == simpleEnum CXCursor_EnumConstantDecl) $
+      callFailed cursorKind
 
     unwrapForeignPtr cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'

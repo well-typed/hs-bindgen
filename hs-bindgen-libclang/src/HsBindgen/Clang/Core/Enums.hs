@@ -7,6 +7,7 @@ module HsBindgen.Clang.Core.Enums (
   , CXChildVisitResult(..)
   , CXTypeLayoutError(..)
   , CXTokenKind(..)
+  , CXCursorKind(..)
   ) where
 
 {-------------------------------------------------------------------------------
@@ -290,3 +291,846 @@ data CXTokenKind =
 
     -- | A comment.
   | CXToken_Comment
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+{-------------------------------------------------------------------------------
+  CXCursorKind
+-------------------------------------------------------------------------------}
+
+-- | Describes the kind of entity that a cursor refers to.
+--
+-- Notes:
+--
+-- * We only include constants available in @llvm-14@ and up.
+-- * We omit the various first and last markers (e.g., @CXCursor_FirstExpr@ and
+--   @CXCursor_LastExpr@); if we need them, we should define them as separate
+--   constants.
+-- * We omit aliases (such as @CXCursor_AsmStmt@, an alias for
+--   'CXCursor_GCCAsmStmt').
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013>
+data CXCursorKind =
+    --
+    -- Declarations
+    --
+
+    -- | A declaration whose specific kind is not exposed via this interface.
+    --
+    -- Unexposed declarations have the same operations as any other kind of
+    -- declaration; one can extract their location information, spelling, find
+    -- their definitions, etc. However, the specific kind of the declaration is
+    -- not reported.
+    CXCursor_UnexposedDecl
+
+    -- | A C or C++ struct.
+  | CXCursor_StructDecl
+
+    -- | A C or C++ union.
+  | CXCursor_UnionDecl
+
+    -- | A C++ class.
+  | CXCursor_ClassDecl
+
+    -- | An enumeration.
+  | CXCursor_EnumDecl
+
+    -- | A field (in C) or non-static data member (in C++) in a struct, union,
+    -- or C++ class.
+  | CXCursor_FieldDecl
+
+    -- | An enumerator constant.
+  | CXCursor_EnumConstantDecl
+
+    -- | A function.
+  | CXCursor_FunctionDecl
+
+    -- | A variable.
+  | CXCursor_VarDecl
+
+    -- | A function or method parameter.
+  | CXCursor_ParmDecl
+
+    -- | An Objective-C \@interface.
+  | CXCursor_ObjCInterfaceDecl
+
+    -- | An Objective-C \@interface for a category.
+  | CXCursor_ObjCCategoryDecl
+
+    -- | An Objective-C \@protocol declaration.
+  | CXCursor_ObjCProtocolDecl
+
+    -- | An Objective-C \@property declaration.
+  | CXCursor_ObjCPropertyDecl
+
+    -- | An Objective-C instance variable.
+  | CXCursor_ObjCIvarDecl
+
+    -- | An Objective-C instance method.
+  | CXCursor_ObjCInstanceMethodDecl
+
+    -- | An Objective-C class method.
+  | CXCursor_ObjCClassMethodDecl
+
+    -- | An Objective-C \@implementation.
+  | CXCursor_ObjCImplementationDecl
+
+    -- | An Objective-C \@implementation for a category.
+  | CXCursor_ObjCCategoryImplDecl
+
+    -- | A typedef.
+  | CXCursor_TypedefDecl
+
+    -- | A C++ class method.
+  | CXCursor_CXXMethod
+
+    -- | A C++ namespace.
+  | CXCursor_Namespace
+
+    -- | A linkage specification, e.g. 'extern "C"'.
+  | CXCursor_LinkageSpec
+
+    -- | A C++ constructor.
+  | CXCursor_Constructor
+
+    -- | A C++ destructor.
+  | CXCursor_Destructor
+
+    -- | A C++ conversion function.
+  | CXCursor_ConversionFunction
+
+    -- | A C++ template type parameter.
+  | CXCursor_TemplateTypeParameter
+
+    -- | A C++ non-type template parameter.
+  | CXCursor_NonTypeTemplateParameter
+
+    -- | A C++ template template parameter.
+  | CXCursor_TemplateTemplateParameter
+
+    -- | A C++ function template.
+  | CXCursor_FunctionTemplate
+
+    -- | A C++ class template.
+  | CXCursor_ClassTemplate
+
+    -- | A C++ class template partial specialization.
+  | CXCursor_ClassTemplatePartialSpecialization
+
+    -- | A C++ namespace alias declaration.
+  | CXCursor_NamespaceAlias
+
+    -- | A C++ using directive.
+  | CXCursor_UsingDirective
+
+    -- | A C++ using declaration.
+  | CXCursor_UsingDeclaration
+
+    -- | A C++ alias declaration
+  | CXCursor_TypeAliasDecl
+
+    -- | An Objective-C \@synthesize definition.
+  | CXCursor_ObjCSynthesizeDecl
+
+    -- | An Objective-C \@dynamic definition.
+  | CXCursor_ObjCDynamicDecl
+
+    -- | An access specifier.
+  | CXCursor_CXXAccessSpecifier
+
+    --
+    -- References
+    --
+
+  | CXCursor_ObjCSuperClassRef
+  | CXCursor_ObjCProtocolRef
+  | CXCursor_ObjCClassRef
+
+    -- | A reference to a type declaration.
+    --
+    -- A type reference occurs anywhere where a type is named but not declared.
+    -- For example, given:
+    --
+    -- > typedef unsigned size_type;
+    -- > size_type size;
+    --
+    -- The typedef is a declaration of @size_type@ ('CXCursor_TypedefDecl'),
+    -- while the type of the variable \"size\" is referenced. The cursor
+    -- referenced by the type of size is the typedef for @size_type@.
+  | CXCursor_TypeRef
+
+  | CXCursor_CXXBaseSpecifier
+
+    -- | A reference to a class template, function template, template template
+    -- parameter, or class template partial specialization.
+  | CXCursor_TemplateRef
+
+    -- | A reference to a namespace or namespace alias.
+  | CXCursor_NamespaceRef
+
+    -- | A reference to a member of a struct, union, or class that occurs in
+    -- some non-expression context, e.g., a designated initializer.
+  | CXCursor_MemberRef
+
+    -- | A reference to a labeled statement.
+    --
+    -- This cursor kind is used to describe the jump to \"start_over\" in the
+    -- goto statement in the following example:
+    --
+    -- > start_over:
+    -- >   ++counter;
+    -- >
+    -- >   goto start_over;
+    --
+    -- A label reference cursor refers to a label statement.
+  | CXCursor_LabelRef
+
+    -- | A reference to a set of overloaded functions or function templates that
+    -- has not yet been resolved to a specific function or function template.
+    --
+    -- An overloaded declaration reference cursor occurs in C++ templates where
+    -- a dependent name refers to a function. For example:
+    --
+    -- > template<typename T> void swap(T&, T&);
+    -- >
+    -- > struct X { ... };
+    -- > void swap(X&, X&);
+    -- >
+    -- > template<typename T>
+    -- > void reverse(T* first, T* last) {
+    -- >   while (first < last - 1) {
+    -- >     swap(*first, *--last);
+    -- >     ++first;
+    -- >   }
+    -- > }
+    -- >
+    -- > struct Y { };
+    -- > void swap(Y&, Y&);
+    --
+    -- Here, the identifier \"swap\" is associated with an overloaded
+    -- declaration reference. In the template definition, \"swap\" refers to
+    -- either of the two "\swap\" functions declared above, so both results will
+    -- be available. At instantiation time, \"swap\" may also refer to other
+    -- functions found via argument-dependent lookup (e.g., the \"swap\"
+    -- function at the end of the example).
+    --
+    -- The 'functionsclang_getNumOverloadedDecls' and 'clang_getOverloadedDecl'
+    -- can be used to retrieve the definitions referenced by this cursor.
+  | CXCursor_OverloadedDeclRef
+
+    -- | A reference to a variable that occurs in some non-expression context,
+    -- e.g., a C++ lambda capture list.
+  | CXCursor_VariableRef
+
+    --
+    -- Error conditions
+    --
+
+  | CXCursor_InvalidFile
+  | CXCursor_NoDeclFound
+  | CXCursor_NotImplemented
+  | CXCursor_InvalidCode
+
+    --
+    -- Expressions
+    --
+
+    -- | An expression whose specific kind is not exposed via this interface.
+    --
+    -- Unexposed expressions have the same operations as any other kind of
+    -- expression; one can extract their location information, spelling,
+    -- children, etc. However, the specific kind of the expression is not
+    -- reported.
+  | CXCursor_UnexposedExpr
+
+    -- | An expression that refers to some value declaration, such as a
+    -- function, variable, or enumerator.
+  | CXCursor_DeclRefExpr
+
+    -- | An expression that refers to a member of a struct, union, class,
+    -- Objective-C class, etc.
+  | CXCursor_MemberRefExpr
+
+   -- | An expression that calls a function.
+  | CXCursor_CallExpr
+
+   -- | An expression that sends a message to an Objective-C object or class.
+  | CXCursor_ObjCMessageExpr
+
+   -- | An expression that represents a block literal.
+  | CXCursor_BlockExpr
+
+   -- | An integer literal.
+  | CXCursor_IntegerLiteral
+
+   -- | A floating point number literal.
+  | CXCursor_FloatingLiteral
+
+   -- | An imaginary number literal.
+  | CXCursor_ImaginaryLiteral
+
+   -- | A string literal.
+  | CXCursor_StringLiteral
+
+   -- | A character literal.
+  | CXCursor_CharacterLiteral
+
+   -- | A parenthesized expression, e.g. @"(1)"@.
+   --
+   -- This AST node is only formed if full location information is requested.
+  | CXCursor_ParenExpr
+
+   -- | This represents the unary-expression's (except sizeof and alignof).
+  | CXCursor_UnaryOperator
+
+   -- | [C99 6.5.2.1] Array Subscripting.
+  | CXCursor_ArraySubscriptExpr
+
+   -- | A builtin binary operation expression such as @"x + y"@ or @"x <= y"@.
+  | CXCursor_BinaryOperator
+
+   -- | Compound assignment such as @"+="@.
+  | CXCursor_CompoundAssignOperator
+
+   -- | The @?:@ ternary operator.
+  | CXCursor_ConditionalOperator
+
+   -- | An explicit cast in C (C99 6.5.4) or a C-style cast in C++ (C++
+   -- [expr.cast]), which uses the syntax (Type)expr.
+   --
+   -- For example: @(int)f@.
+  | CXCursor_CStyleCastExpr
+
+   -- | [C99 6.5.2.5]
+  | CXCursor_CompoundLiteralExpr
+
+   -- | Describes an C or C++ initializer list.
+  | CXCursor_InitListExpr
+
+   -- | The GNU address of label extension, representing &&label.
+  | CXCursor_AddrLabelExpr
+
+   -- | This is the GNU Statement Expression extension: ({int X=4; X;})
+  | CXCursor_StmtExpr
+
+   -- | Represents a C11 generic selection.
+  | CXCursor_GenericSelectionExpr
+
+   -- | Implements the GNU @__null@ extension, which is a name for a null
+   -- pointer constant that has integral type (e.g., int or long) and is the
+   -- same size and alignment as a pointer.
+   --
+   -- The @__null@ extension is typically only used by system headers, which
+   -- define NULL as @__null@ in C++ rather than using 0 (which is an integer
+   -- that may not match the size of a pointer).
+  | CXCursor_GNUNullExpr
+
+   -- | C++'s static_cast<> expression.
+  | CXCursor_CXXStaticCastExpr
+
+   -- | C++'s dynamic_cast<> expression.
+  | CXCursor_CXXDynamicCastExpr
+
+   -- | C++'s reinterpret_cast<> expression.
+  | CXCursor_CXXReinterpretCastExpr
+
+   -- | C++'s const_cast<> expression.
+  | CXCursor_CXXConstCastExpr
+
+    -- | Represents an explicit C++ type conversion that uses "functional"
+    -- notion (C++ [expr.type.conv]).
+    --
+    -- Example:
+    --
+    -- > x = int(0.5);
+  | CXCursor_CXXFunctionalCastExpr
+
+   -- | A C++ typeid expression (C++ [expr.typeid]).
+  | CXCursor_CXXTypeidExpr
+
+   -- | [C++ 2.13.5] C++ Boolean Literal.
+  | CXCursor_CXXBoolLiteralExpr
+
+   -- | [C++0x 2.14.7] C++ Pointer Literal.
+  | CXCursor_CXXNullPtrLiteralExpr
+
+   -- | Represents the "this" expression in C++
+  | CXCursor_CXXThisExpr
+
+    -- | [C++ 15] C++ Throw Expression.
+    --
+    -- This handles @throw@ and @throw@ assignment-expression. When
+    -- assignment-expression isn't present, Op will be null.
+  | CXCursor_CXXThrowExpr
+
+    -- | A new expression for memory allocation and constructor calls, e.g:
+    -- @"new CXXNewExpr(foo)"@.
+  | CXCursor_CXXNewExpr
+
+   -- | A delete expression for memory deallocation and destructor calls, e.g.
+   -- @"delete[] pArray"@.
+  | CXCursor_CXXDeleteExpr
+
+   -- | A unary expression. (noexcept, sizeof, or other traits)
+  | CXCursor_UnaryExpr
+
+   -- | An Objective-C string literal i.e. @"foo".
+  | CXCursor_ObjCStringLiteral
+
+   -- | An Objective-C \@encode expression.
+  | CXCursor_ObjCEncodeExpr
+
+   -- | An Objective-C \@selector expression.
+  | CXCursor_ObjCSelectorExpr
+
+   -- | An Objective-C \@protocol expression.
+  | CXCursor_ObjCProtocolExpr
+
+    -- | An Objective-C "bridged" cast expression, which casts between
+    -- Objective-C pointers and C pointers, transferring ownership in the
+    -- process.
+    --
+    -- > NSString *str = (__bridge_transfer NSString *)CFCreateString();
+  | CXCursor_ObjCBridgedCastExpr
+
+    -- | Represents a C++0x pack expansion that produces a sequence of
+    -- expressions.
+    --
+    -- A pack expansion expression contains a pattern (which itself is an
+    -- expression) followed by an ellipsis. For example:
+    --
+    -- > template<typename F, typename ...Types>
+    -- > void forward(F f, Types &&...args) {
+    -- >  f(static_cast<Types&&>(args)...);
+    -- > }
+  | CXCursor_PackExpansionExpr
+
+    -- | Represents an expression that computes the length of a parameter pack.
+    --
+    -- > template<typename ...Types>
+    -- > struct count {
+    -- >   static const unsigned value = sizeof...(Types);
+    -- > };
+  | CXCursor_SizeOfPackExpr
+
+    -- | Represents a C++ lambda expression that produces a local function
+    -- object.
+    --
+    -- > void abssort(float *x, unsigned N) {
+    -- >   std::sort(x, x + N,
+    -- >             [](float a, float b) {
+    -- >               return std::abs(a) < std::abs(b);
+    -- >             });
+    -- > }
+  | CXCursor_LambdaExpr
+
+   -- | Objective-c Boolean Literal.
+  | CXCursor_ObjCBoolLiteralExpr
+
+   -- | Represents the "self" expression in an Objective-C method.
+  | CXCursor_ObjCSelfExpr
+
+    -- | Represents an @available(...) check.
+  | CXCursor_ObjCAvailabilityCheckExpr
+
+    -- | Fixed point literal
+  | CXCursor_FixedPointLiteral
+
+    -- | OpenMP 5.0 [2.1.4, Array Shaping].
+  | CXCursor_OMPArrayShapingExpr
+
+    -- | OpenMP 5.0 [2.1.6 Iterators]
+  | CXCursor_OMPIteratorExpr
+
+    -- | OpenCL's addrspace_cast<> expression.
+  | CXCursor_CXXAddrspaceCastExpr
+
+    --
+    -- Statements
+    --
+
+    -- | A statement whose specific kind is not exposed via this interface.
+    --
+    -- Unexposed statements have the same operations as any other kind of
+    -- statement; one can extract their location information, spelling,
+    -- children, etc. However, the specific kind of the statement is not
+    -- reported.
+  | CXCursor_UnexposedStmt
+
+    -- | A labelled statement in a function.
+    --
+    -- This cursor kind is used to describe the "start_over:" label statement in
+    -- the following example:
+    --
+    -- > start_over:
+    -- >   ++counter;
+  | CXCursor_LabelStmt
+
+    -- | A group of statements like @{ stmt stmt }@.
+    --
+    -- This cursor kind is used to describe compound statements, e.g. function
+    -- bodies.
+  | CXCursor_CompoundStmt
+
+    -- | A case statement.
+  | CXCursor_CaseStmt
+
+    -- | A default statement.
+  | CXCursor_DefaultStmt
+
+    -- | An if statement
+  | CXCursor_IfStmt
+
+    -- | A switch statement.
+  | CXCursor_SwitchStmt
+
+    -- | A while statement.
+  | CXCursor_WhileStmt
+
+    -- | A do statement.
+  | CXCursor_DoStmt
+
+    -- | A for statement.
+  | CXCursor_ForStmt
+
+    -- | A goto statement.
+  | CXCursor_GotoStmt
+
+    -- | An indirect goto statement.
+  | CXCursor_IndirectGotoStmt
+
+    -- | A continue statement.
+  | CXCursor_ContinueStmt
+
+    -- | A break statement.
+  | CXCursor_BreakStmt
+
+    -- | A return statement.
+  | CXCursor_ReturnStmt
+
+    -- | A GCC inline assembly statement extension.
+  | CXCursor_GCCAsmStmt
+
+    -- | Objective-C's overall \@try-\@catch-\@finally statement.
+  | CXCursor_ObjCAtTryStmt
+
+    -- | Objective-C's \@catch statement.
+  | CXCursor_ObjCAtCatchStmt
+
+    -- | Objective-C's \@finally statement.
+  | CXCursor_ObjCAtFinallyStmt
+
+    -- | Objective-C's \@throw statement.
+  | CXCursor_ObjCAtThrowStmt
+
+    -- | Objective-C's \@synchronized statement.
+  | CXCursor_ObjCAtSynchronizedStmt
+
+    -- | Objective-C's autorelease pool statement.
+  | CXCursor_ObjCAutoreleasePoolStmt
+
+    -- | Objective-C's collection statement.
+  | CXCursor_ObjCForCollectionStmt
+
+    -- | C++'s catch statement.
+  | CXCursor_CXXCatchStmt
+
+    -- | C++'s try statement.
+  | CXCursor_CXXTryStmt
+
+    -- | C++'s for (* : *) statement.
+  | CXCursor_CXXForRangeStmt
+
+    -- | Windows Structured Exception Handling's try statement.
+  | CXCursor_SEHTryStmt
+
+    -- | Windows Structured Exception Handling's except statement.
+  | CXCursor_SEHExceptStmt
+
+    -- | Windows Structured Exception Handling's finally statement.
+  | CXCursor_SEHFinallyStmt
+
+    -- | A MS inline assembly statement extension.
+  | CXCursor_MSAsmStmt
+
+    -- | The null statement ";": C99 6.8.3p3.
+    --
+    -- This cursor kind is used to describe the null statement.
+  | CXCursor_NullStmt
+
+   -- | Adaptor class for mixing declarations with statements and expressions.
+  | CXCursor_DeclStmt
+
+   -- | OpenMP parallel directive.
+  | CXCursor_OMPParallelDirective
+
+   -- | OpenMP SIMD directive.
+  | CXCursor_OMPSimdDirective
+
+   -- | OpenMP for directive.
+  | CXCursor_OMPForDirective
+
+   -- | OpenMP sections directive.
+  | CXCursor_OMPSectionsDirective
+
+   -- | OpenMP section directive.
+  | CXCursor_OMPSectionDirective
+
+   -- | OpenMP single directive.
+  | CXCursor_OMPSingleDirective
+
+   -- | OpenMP parallel for directive.
+  | CXCursor_OMPParallelForDirective
+
+   -- | OpenMP parallel sections directive.
+  | CXCursor_OMPParallelSectionsDirective
+
+   -- | OpenMP task directive.
+  | CXCursor_OMPTaskDirective
+
+   -- | OpenMP master directive.
+  | CXCursor_OMPMasterDirective
+
+   -- | OpenMP critical directive.
+  | CXCursor_OMPCriticalDirective
+
+   -- | OpenMP taskyield directive.
+  | CXCursor_OMPTaskyieldDirective
+
+   -- | OpenMP barrier directive.
+  | CXCursor_OMPBarrierDirective
+
+   -- | OpenMP taskwait directive.
+  | CXCursor_OMPTaskwaitDirective
+
+   -- | OpenMP flush directive.
+  | CXCursor_OMPFlushDirective
+
+   -- | Windows Structured Exception Handling's leave statement.
+  | CXCursor_SEHLeaveStmt
+
+   -- | OpenMP ordered directive.
+  | CXCursor_OMPOrderedDirective
+
+   -- | OpenMP atomic directive.
+  | CXCursor_OMPAtomicDirective
+
+   -- | OpenMP for SIMD directive.
+  | CXCursor_OMPForSimdDirective
+
+   -- | OpenMP parallel for SIMD directive.
+  | CXCursor_OMPParallelForSimdDirective
+
+   -- | OpenMP target directive.
+  | CXCursor_OMPTargetDirective
+
+   -- | OpenMP teams directive.
+  | CXCursor_OMPTeamsDirective
+
+   -- | OpenMP taskgroup directive.
+  | CXCursor_OMPTaskgroupDirective
+
+   -- | OpenMP cancellation point directive.
+  | CXCursor_OMPCancellationPointDirective
+
+   -- | OpenMP cancel directive.
+  | CXCursor_OMPCancelDirective
+
+   -- | OpenMP target data directive.
+  | CXCursor_OMPTargetDataDirective
+
+   -- | OpenMP taskloop directive.
+  | CXCursor_OMPTaskLoopDirective
+
+   -- | OpenMP taskloop simd directive.
+  | CXCursor_OMPTaskLoopSimdDirective
+
+   -- | OpenMP distribute directive.
+  | CXCursor_OMPDistributeDirective
+
+   -- | OpenMP target enter data directive.
+  | CXCursor_OMPTargetEnterDataDirective
+
+   -- | OpenMP target exit data directive.
+  | CXCursor_OMPTargetExitDataDirective
+
+   -- | OpenMP target parallel directive.
+  | CXCursor_OMPTargetParallelDirective
+
+   -- | OpenMP target parallel for directive.
+  | CXCursor_OMPTargetParallelForDirective
+
+   -- | OpenMP target update directive.
+  | CXCursor_OMPTargetUpdateDirective
+
+   -- | OpenMP distribute parallel for directive.
+  | CXCursor_OMPDistributeParallelForDirective
+
+   -- | OpenMP distribute parallel for simd directive.
+  | CXCursor_OMPDistributeParallelForSimdDirective
+
+   -- | OpenMP distribute simd directive.
+  | CXCursor_OMPDistributeSimdDirective
+
+   -- | OpenMP target parallel for simd directive.
+  | CXCursor_OMPTargetParallelForSimdDirective
+
+   -- | OpenMP target simd directive.
+  | CXCursor_OMPTargetSimdDirective
+
+   -- | OpenMP teams distribute directive.
+  | CXCursor_OMPTeamsDistributeDirective
+
+   -- | OpenMP teams distribute simd directive.
+  | CXCursor_OMPTeamsDistributeSimdDirective
+
+   -- | OpenMP teams distribute parallel for simd directive.
+  | CXCursor_OMPTeamsDistributeParallelForSimdDirective
+
+   -- | OpenMP teams distribute parallel for directive.
+  | CXCursor_OMPTeamsDistributeParallelForDirective
+
+   -- | OpenMP target teams directive.
+  | CXCursor_OMPTargetTeamsDirective
+
+   -- | OpenMP target teams distribute directive.
+  | CXCursor_OMPTargetTeamsDistributeDirective
+
+   -- | OpenMP target teams distribute parallel for directive.
+  | CXCursor_OMPTargetTeamsDistributeParallelForDirective
+
+   -- | OpenMP target teams distribute parallel for simd directive.
+  | CXCursor_OMPTargetTeamsDistributeParallelForSimdDirective
+
+   -- | OpenMP target teams distribute simd directive.
+  | CXCursor_OMPTargetTeamsDistributeSimdDirective
+
+   -- | C++2a std::bit_cast expression.
+  | CXCursor_BuiltinBitCastExpr
+
+   -- | OpenMP master taskloop directive.
+  | CXCursor_OMPMasterTaskLoopDirective
+
+   -- | OpenMP parallel master taskloop directive.
+  | CXCursor_OMPParallelMasterTaskLoopDirective
+
+   -- | OpenMP master taskloop simd directive.
+  | CXCursor_OMPMasterTaskLoopSimdDirective
+
+   -- | OpenMP parallel master taskloop simd directive.
+  | CXCursor_OMPParallelMasterTaskLoopSimdDirective
+
+   -- | OpenMP parallel master directive.
+  | CXCursor_OMPParallelMasterDirective
+
+   -- | OpenMP depobj directive.
+  | CXCursor_OMPDepobjDirective
+
+   -- | OpenMP scan directive.
+  | CXCursor_OMPScanDirective
+
+   -- | OpenMP tile directive.
+  | CXCursor_OMPTileDirective
+
+   -- | OpenMP canonical loop.
+  | CXCursor_OMPCanonicalLoop
+
+   -- | OpenMP interop directive.
+  | CXCursor_OMPInteropDirective
+
+   -- | OpenMP dispatch directive.
+  | CXCursor_OMPDispatchDirective
+
+   -- | OpenMP masked directive.
+  | CXCursor_OMPMaskedDirective
+
+   -- | OpenMP unroll directive.
+  | CXCursor_OMPUnrollDirective
+
+   -- | OpenMP metadirective directive.
+  | CXCursor_OMPMetaDirective
+
+   -- | OpenMP loop directive.
+  | CXCursor_OMPGenericLoopDirective
+
+    -- | Cursor that represents the translation unit itself.
+    --
+    -- The translation unit cursor exists primarily to act as the root cursor
+    -- for traversing the contents of a translation unit.
+  | CXCursor_TranslationUnit
+
+    --
+    -- Attributes
+    --
+
+    -- | An attribute whose specific kind is not exposed via this interface.
+  | CXCursor_UnexposedAttr
+
+  | CXCursor_IBActionAttr
+  | CXCursor_IBOutletAttr
+  | CXCursor_IBOutletCollectionAttr
+  | CXCursor_CXXFinalAttr
+  | CXCursor_CXXOverrideAttr
+  | CXCursor_AnnotateAttr
+  | CXCursor_AsmLabelAttr
+  | CXCursor_PackedAttr
+  | CXCursor_PureAttr
+  | CXCursor_ConstAttr
+  | CXCursor_NoDuplicateAttr
+  | CXCursor_CUDAConstantAttr
+  | CXCursor_CUDADeviceAttr
+  | CXCursor_CUDAGlobalAttr
+  | CXCursor_CUDAHostAttr
+  | CXCursor_CUDASharedAttr
+  | CXCursor_VisibilityAttr
+  | CXCursor_DLLExport
+  | CXCursor_DLLImport
+  | CXCursor_NSReturnsRetained
+  | CXCursor_NSReturnsNotRetained
+  | CXCursor_NSReturnsAutoreleased
+  | CXCursor_NSConsumesSelf
+  | CXCursor_NSConsumed
+  | CXCursor_ObjCException
+  | CXCursor_ObjCNSObject
+  | CXCursor_ObjCIndependentClass
+  | CXCursor_ObjCPreciseLifetime
+  | CXCursor_ObjCReturnsInnerPointer
+  | CXCursor_ObjCRequiresSuper
+  | CXCursor_ObjCRootClass
+  | CXCursor_ObjCSubclassingRestricted
+  | CXCursor_ObjCExplicitProtocolImpl
+  | CXCursor_ObjCDesignatedInitializer
+  | CXCursor_ObjCRuntimeVisible
+  | CXCursor_ObjCBoxable
+  | CXCursor_FlagEnum
+  | CXCursor_ConvergentAttr
+  | CXCursor_WarnUnusedAttr
+  | CXCursor_WarnUnusedResultAttr
+  | CXCursor_AlignedAttr
+
+    --
+    -- Preprocessing
+    --
+
+  | CXCursor_PreprocessingDirective
+  | CXCursor_MacroDefinition
+  | CXCursor_MacroExpansion
+  | CXCursor_InclusionDirective
+
+    --
+    -- Extra Declarations
+    --
+
+    -- | A module import declaration.
+  | CXCursor_ModuleImportDecl
+
+  | CXCursor_TypeAliasTemplateDecl
+
+   -- | A static_assert or _Static_assert node
+  | CXCursor_StaticAssert
+
+   -- | a friend declaration.
+  | CXCursor_FriendDecl
+
+    -- | A code completion overload candidate.
+  | CXCursor_OverloadCandidate
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
