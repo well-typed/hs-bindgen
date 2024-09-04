@@ -814,11 +814,9 @@ clang_getEnumConstantDeclValue cursor = do
     -- > LLONG_MIN is returned. Since this is also potentially a valid constant
     -- > value, the kind of the cursor must be verified before calling this
     -- > function.
-    parent     <- clang_getCursorSemanticParent cursor
-    parentKind <- cxtKind <$> clang_getCursorType parent
-    cursorKind <- cxtKind <$> clang_getCursorType cursor
-    unless (parentKind == simpleEnum CXType_Enum) $ callFailed parentKind
-    unless (cursorKind == simpleEnum CXType_Int)  $ callFailed cursorKind
+    cursorKind <- clang_getCursorKind cursor
+    unless (cursorKind == simpleEnum CXCursor_EnumConstantDecl) $
+      callFailed cursorKind
 
     unwrapForeignPtr cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
