@@ -1,0 +1,6 @@
+"inclusion directive" _ :: "Invalid"
+"StructDecl" "foo" :: "Record"
+  "FieldDecl" "sixty_four" :: "Typedef"
+    "TypeRef" "uint64_t" :: "Typedef"
+  "FieldDecl" "thirty_two" :: "Typedef"
+    "TypeRef" "uint32_t" :: "Typedef"

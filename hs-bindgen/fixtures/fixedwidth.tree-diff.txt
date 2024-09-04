@@ -1,0 +1,9 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Just "foo",
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = []}])
