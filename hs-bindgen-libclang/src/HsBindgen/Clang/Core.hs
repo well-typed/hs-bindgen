@@ -133,11 +133,13 @@ module HsBindgen.Clang.Core (
   , CXCursor_(..)
   ) where
 
+import Control.Exception
 import Control.Monad
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
 import Foreign
 import Foreign.C
+import Foreign.Concurrent qualified as Concurrent
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
@@ -295,7 +297,7 @@ clang_parseTranslationUnit cIdx src args options =
 clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO ByteString
 clang_TargetInfo_getTriple info =
     ensure (not . BS.null) $
-      packCXString =<< wrap_malloc_TargetInfo_getTriple info
+      packCXString $ wrap_malloc_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
   Cursor manipulations
@@ -325,7 +327,7 @@ newtype CXCursor_ = CXCursor_ (Ptr ())
 --   AST.
 --
 -- <https://clang.llvm.org/doxygen/structCXCursor.html>
-newtype CXCursor = CXCursor (ForeignPtr CXCursor_)
+newtype CXCursor = CXCursor (ForeignPtr ())
   deriving IsForeignPtr via DeriveIsForeignPtr CXCursor_ CXCursor
 
 foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTranslationUnitCursor"
@@ -341,7 +343,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaec6e69127920785e74e4a517423f4391>
 clang_getTranslationUnitCursor :: CXTranslationUnit -> IO CXCursor
-clang_getTranslationUnitCursor unit = wrapForeignPtr =<<
+clang_getTranslationUnitCursor unit = wrapForeignPtr $
     wrap_malloc_getTranslationUnitCursor unit
 
 -- | Determine whether two cursors are equivalent.
@@ -392,7 +394,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLexicalParent"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gabc327b200d46781cf30cb84d4af3c877>
 clang_getCursorSemanticParent :: CXCursor -> IO CXCursor
 clang_getCursorSemanticParent cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorSemanticParent cursor'
 
 -- | Determine the lexical parent of the given cursor.
@@ -430,7 +432,7 @@ clang_getCursorSemanticParent cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gace7a423874d72b3fdc71d6b0f31830dd>
 clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
 clang_getCursorLexicalParent cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorLexicalParent cursor'
 
 {-------------------------------------------------------------------------------
@@ -499,15 +501,19 @@ clang_visitChildren ::
   -> IO Bool
      -- ^ 'True' if the traversal was terminated prematurely by the visitor
      -- returning 'CXChildVisit_Break'.
-clang_visitChildren root visitor = do
-    visitor' <- mkCursorVisitor $ \current parent -> do
-      current' <- wrapForeignPtr current
-      parent'  <- wrapForeignPtr parent
-      visitor current' parent'
-    unwrapForeignPtr root $ \parent' ->
-      -- The @malloc@ does not happen in 'wrap_malloc_visitChildren' itself,
-      -- but for each invocation of the visitor (see above).
-      (/= 0) <$> wrap_malloc_visitChildren parent' visitor'
+clang_visitChildren root visitor =
+    -- Async exception handling is a bit tricky here: we mask async exceptions
+    -- on the outside, then unmask them for each AST node that we visit, /after/
+    -- having attached finalizers.
+    uninterruptibleMask $ \unmask -> do
+      visitor' <- mkCursorVisitor $ \(CXCursor_ current) (CXCursor_ parent) -> do
+        current' <- CXCursor <$> Concurrent.newForeignPtr current (free current)
+        parent'  <- CXCursor <$> Concurrent.newForeignPtr parent  (free parent)
+        unmask $ visitor current' parent'
+      unwrapForeignPtr root $ \parent' ->
+        -- The @malloc@ does not happen in 'wrap_malloc_visitChildren' itself,
+        -- but for each invocation of the visitor (see above).
+        (/= 0) <$> wrap_malloc_visitChildren parent' visitor'
 
 {-------------------------------------------------------------------------------
   Cross-referencing in the AST
@@ -555,7 +561,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac3eba3224d109a956f9ef96fd4fe5c83>
 clang_getCursorDisplayName :: CXCursor -> IO ByteString
 clang_getCursorDisplayName cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
+    unwrapForeignPtr cursor $ \cursor' -> packCXString $
       wrap_malloc_getCursorDisplayName cursor'
 
 -- | Retrieve a name for the entity referenced by this cursor.
@@ -563,7 +569,7 @@ clang_getCursorDisplayName cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
 clang_getCursorSpelling :: CXCursor -> IO ByteString
 clang_getCursorSpelling cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
+    unwrapForeignPtr cursor $ \cursor' -> packCXString $
       wrap_malloc_getCursorSpelling cursor'
 
 -- | For a cursor that is a reference, retrieve a cursor representing the entity
@@ -572,7 +578,7 @@ clang_getCursorSpelling cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gabf059155921552e19fc2abed5b4ff73a>
 clang_getCursorReferenced :: CXCursor -> IO CXCursor
 clang_getCursorReferenced cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorReferenced cursor'
 
 -- | For a cursor that is either a reference to or a declaration of some entity,
@@ -581,7 +587,7 @@ clang_getCursorReferenced cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gafcfbec461e561bf13f1e8540bbbd655b>
 clang_getCursorDefinition :: CXCursor -> IO CXCursor
 clang_getCursorDefinition cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorDefinition cursor'
 
 -- |  Retrieve the canonical cursor corresponding to the given cursor.
@@ -589,7 +595,7 @@ clang_getCursorDefinition cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac802826668be9fd40a017523cc7d24fe>
 clang_getCanonicalCursor :: CXCursor -> IO CXCursor
 clang_getCanonicalCursor cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCanonicalCursor cursor'
 
 -- | Given a cursor that represents a declaration, return the associated comment
@@ -598,7 +604,7 @@ clang_getCanonicalCursor cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga32905a8b1858e67cf5d28b7ad7150779>
 clang_Cursor_getRawCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getRawCommentText cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
+    unwrapForeignPtr cursor $ \cursor' -> packCXString $
       wrap_malloc_Cursor_getRawCommentText cursor'
 
 -- | Given a cursor that represents a documentable entity (e.g., declaration),
@@ -607,7 +613,7 @@ clang_Cursor_getRawCommentText cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6b5282b915d457d728434c0651ea0b8b>
 clang_Cursor_getBriefCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getBriefCommentText cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
+    unwrapForeignPtr cursor $ \cursor' -> packCXString $
       wrap_malloc_Cursor_getBriefCommentText cursor'
 
 -- | Retrieve a range for a piece that forms the cursors spelling name.
@@ -630,7 +636,7 @@ clang_Cursor_getSpellingNameRange ::
   -- Reserved.
   -> IO CXSourceRange
 clang_Cursor_getSpellingNameRange cursor pieceIndex options =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_Cursor_getSpellingNameRange cursor' pieceIndex options
 
 -- | Determine whether the declaration pointed to by this cursor is also a
@@ -701,14 +707,14 @@ cxtKind typ = unsafePerformIO $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaae5702661bb1f2f93038051737de20f4>
 clang_getCursorType :: CXCursor -> IO CXType
 clang_getCursorType cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorType cursor'
 
 -- | Retrieve the spelling of a given CXTypeKind.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
 clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO ByteString
-clang_getTypeKindSpelling kind = packCXString =<<
+clang_getTypeKindSpelling kind = packCXString $
     wrap_malloc_getTypeKindSpelling kind
 
 -- | Pretty-print the underlying type using the rules of the language of the
@@ -719,7 +725,7 @@ clang_getTypeKindSpelling kind = packCXString =<<
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
 clang_getTypeSpelling :: HasCallStack => CXType -> IO ByteString
 clang_getTypeSpelling typ = ensure (not . BS.null) $
-     unwrapForeignPtr typ $ \typ' -> packCXString =<<
+     unwrapForeignPtr typ $ \typ' -> packCXString $
        wrap_malloc_getTypeSpelling typ'
 
 -- | For pointer types, returns the type of the pointee.
@@ -727,7 +733,7 @@ clang_getTypeSpelling typ = ensure (not . BS.null) $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaafa3eb34932d8da1358d50ed949ff3ee>
 clang_getPointeeType :: CXType -> IO CXType
 clang_getPointeeType typ =
-    unwrapForeignPtr typ $ \typ' -> wrapForeignPtr =<<
+    unwrapForeignPtr typ $ \typ' -> wrapForeignPtr $
       wrap_malloc_getPointeeType typ'
 
 -- | Return the size of a type in bytes as per @C++[expr.sizeof]@ standard.
@@ -831,7 +837,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorExtent"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#gada3d3cbd3a3e83ff64f992617318dfb1>
 clang_getCursorLocation :: CXCursor -> IO CXSourceLocation
 clang_getCursorLocation cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorLocation cursor'
 
 -- | Retrieve the physical extent of the source construct referenced by the
@@ -847,7 +853,7 @@ clang_getCursorLocation cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#ga79f6544534ab73c78a8494c4c0bc2840>
 clang_getCursorExtent :: CXCursor -> IO CXSourceRange
 clang_getCursorExtent cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       wrap_malloc_getCursorExtent cursor'
 
 {-------------------------------------------------------------------------------
@@ -893,21 +899,21 @@ clang_getToken unit loc = checkNotNull $
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
 clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
-clang_getTokenSpelling unit token = packCXString =<<
+clang_getTokenSpelling unit token = packCXString $
     wrap_malloc_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga76a721514acb4cc523e10a6913d88021>
 clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO CXSourceLocation
-clang_getTokenLocation unit token = wrapForeignPtr =<<
+clang_getTokenLocation unit token = wrapForeignPtr $
     wrap_malloc_getTokenLocation unit token
 
 -- | Retrieve a source range that covers the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga5acbc0a2a3c01aa44e1c5c5ccc4e328b>
 clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
-clang_getTokenExtent unit token = wrapForeignPtr =<<
+clang_getTokenExtent unit token = wrapForeignPtr $
     wrap_malloc_getTokenExtent unit token
 
 {-------------------------------------------------------------------------------
@@ -979,7 +985,7 @@ foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gac2cc034e3965739c41662f6ada7ff248>
 clang_getRangeStart :: CXSourceRange -> IO CXSourceLocation
 clang_getRangeStart range =
-    unwrapForeignPtr range $ \range' -> wrapForeignPtr =<<
+    unwrapForeignPtr range $ \range' -> wrapForeignPtr $
       wrap_malloc_getRangeStart range'
 
 -- | Retrieve a source location representing the last character within a source
@@ -988,7 +994,7 @@ clang_getRangeStart range =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacdb7d3c2b77a06bcc2e83bde3e14c3c0>
 clang_getRangeEnd :: CXSourceRange -> IO CXSourceLocation
 clang_getRangeEnd range =
-    unwrapForeignPtr range $ \range' -> wrapForeignPtr =<<
+    unwrapForeignPtr range $ \range' -> wrapForeignPtr $
       wrap_malloc_getRangeEnd range'
 
 -- | Retrieve the file, line, column, and offset represented by the given source
@@ -1055,4 +1061,4 @@ foreign import capi "clang_wrappers.h wrap_malloc_getFileName"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
 clang_getFileName :: CXFile -> IO ByteString
-clang_getFileName file = packCXString =<< wrap_malloc_getFileName file
+clang_getFileName file = packCXString $ wrap_malloc_getFileName file

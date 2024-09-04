@@ -46,7 +46,7 @@ instance IsPointer (Ptr p) where
 
 class IsForeignPtr p where
   type UnderlyingPtr p :: Type
-  wrapForeignPtr :: UnderlyingPtr p -> IO p
+  wrapForeignPtr :: IO (UnderlyingPtr p) -> IO p
   unwrapForeignPtr :: forall a. p -> (UnderlyingPtr p -> IO a) -> IO a
 
 newtype DeriveIsForeignPtr u p = DeriveIsForeignPtr p
@@ -54,9 +54,8 @@ newtype DeriveIsForeignPtr u p = DeriveIsForeignPtr p
 instance (Coercible p (ForeignPtr a), Coercible u (Ptr a))
       => IsForeignPtr (DeriveIsForeignPtr u p) where
   type UnderlyingPtr (DeriveIsForeignPtr u p) = u
-  wrapForeignPtr ptr = do
-      let ptr' :: Ptr a
-          ptr' = coerce ptr
+  wrapForeignPtr allocPtr = uninterruptibleMask_ $ do
+      ptr' :: Ptr a <- coerce <$> allocPtr
       coerce <$> Concurrent.newForeignPtr ptr' (free ptr')
   unwrapForeignPtr fptr k = do
       let fptr' :: ForeignPtr a

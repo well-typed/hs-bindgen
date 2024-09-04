@@ -29,14 +29,16 @@ import HsBindgen.Clang.Internal.Bindings
 -- The @libclang@ functions that return a @CXString@ do so by /value/; we
 -- allocate this on the heap in our wrapper functions. Since we no longer need
 -- this after packing, we free the pointer after packing.
-packCXString :: CXString -> IO ByteString
-packCXString str =
-    bracket
-        (clang_getCString str)
-        (\_ -> clang_disposeString str >> freePtr str) $ \cstr ->
-      if cstr == nullPtr
-        then return BS.Strict.empty
-        else BS.Strict.packCString cstr
+packCXString :: IO CXString -> IO ByteString
+packCXString allocStr = uninterruptibleMask_ $ do
+    str  <- allocStr
+    cstr <- clang_getCString str
+    bs   <- if cstr == nullPtr
+              then return BS.Strict.empty
+              else BS.Strict.packCString cstr
+    clang_disposeString str
+    freePtr str
+    return bs
 
 {-------------------------------------------------------------------------------
   Low-level bindings

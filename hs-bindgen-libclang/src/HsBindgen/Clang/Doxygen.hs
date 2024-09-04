@@ -55,7 +55,7 @@ foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getKind"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gab4f95ae3b2e0bd63b10cecc3727a391e>
 clang_Cursor_getParsedComment :: CXCursor -> IO CXComment
 clang_Cursor_getParsedComment cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
+    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr $
       clang_Cursor_getParsedComment' cursor'
 
 -- | Get the type of an AST node of any kind
@@ -81,7 +81,7 @@ foreign import capi unsafe "doxygen_wrappers.h wrap_malloc_FullComment_getAsXML"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gafdfc03bbfdddd06c380a2644f16ccba9>
 clang_FullComment_getAsHTML :: CXComment -> IO ByteString
 clang_FullComment_getAsHTML comment =
-    unwrapForeignPtr comment $ \comment' -> packCXString =<<
+    unwrapForeignPtr comment $ \comment' -> packCXString $
       clang_FullComment_getAsHTML' comment'
 
 -- | Convert a given full parsed comment to an XML document.
@@ -89,5 +89,5 @@ clang_FullComment_getAsHTML comment =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gac877b07be05f591fdfea05f466ed9395>
 clang_FullComment_getAsXML :: CXComment -> IO ByteString
 clang_FullComment_getAsXML comment =
-    unwrapForeignPtr comment $ \comment' -> packCXString =<<
+    unwrapForeignPtr comment $ \comment' -> packCXString $
       clang_FullComment_getAsXML' comment'
