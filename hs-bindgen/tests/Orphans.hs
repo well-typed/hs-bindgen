@@ -16,3 +16,5 @@ instance ToExpr C.PrimType
 instance ToExpr C.StructField
 instance ToExpr C.Enu
 instance ToExpr C.EnumValue
+instance ToExpr C.Token
+instance ToExpr C.Macro

@@ -51,7 +51,9 @@ library
       HsBindgen.Clang.Util.Classification
       HsBindgen.Clang.Util.Fold
       HsBindgen.Clang.Util.SourceLoc
+      HsBindgen.Clang.Util.Tokens
   other-modules:
+      HsBindgen.Clang.Core.Constants
       HsBindgen.Clang.Core.Enums
       HsBindgen.Clang.Core.Instances
       HsBindgen.Clang.Doxygen.Enums

@@ -19,7 +19,6 @@
 
 CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
 
-
 /**
  * Cursor manipulations
  */
@@ -30,7 +29,6 @@ CXCursor* wrap_malloc_getCursorSemanticParent(CXCursor* cursor);
 CXCursor* wrap_malloc_getCursorLexicalParent(CXCursor* cursor);
 enum CXCursorKind wrap_getCursorKind(CXCursor* cursor);
 CXString* wrap_malloc_getCursorKindSpelling(enum CXCursorKind Kind);
-
 
 /**
  * Traversing the AST with cursors
@@ -88,6 +86,7 @@ CXTokenKind wrap_getTokenKind(CXToken* Token);
 CXString* wrap_malloc_getTokenSpelling(CXTranslationUnit TU, CXToken* Token);
 CXSourceLocation* wrap_malloc_getTokenLocation(CXTranslationUnit TU, CXToken* Token);
 CXSourceRange* wrap_malloc_getTokenExtent(CXTranslationUnit TU, CXToken* Token);
+void wrap_tokenize(CXTranslationUnit TU, CXSourceRange* Range, CXToken** Tokens, unsigned* NumTokens);
 
 /**
  * Physical source locations

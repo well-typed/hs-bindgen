@@ -216,6 +216,10 @@ CXSourceRange* wrap_malloc_getTokenExtent(CXTranslationUnit TU, CXToken* Token) 
     return result;
 }
 
+void wrap_tokenize(CXTranslationUnit TU, CXSourceRange* Range, CXToken** Tokens, unsigned* NumTokens) {
+    clang_tokenize(TU, *Range, Tokens, NumTokens);
+}
+
 /**
  * Physical source locations
  */

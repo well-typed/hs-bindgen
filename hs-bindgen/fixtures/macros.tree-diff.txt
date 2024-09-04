@@ -1,1 +1,6 @@
-WrapCHeader (Header [])
+WrapCHeader
+  (Header
+    [
+      DeclMacro
+        (Macro
+          [Token "MYFOO", Token "1"])])

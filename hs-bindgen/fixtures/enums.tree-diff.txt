@@ -1,6 +1,8 @@
 WrapCHeader
   (Header
     [
+      DeclMacro
+        (Macro [Token "ENUMS_H"]),
       DeclEnum
         Enu {
           enumTag = Just "first",
