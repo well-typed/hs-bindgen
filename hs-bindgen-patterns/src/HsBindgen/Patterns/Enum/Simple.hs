@@ -1,15 +1,24 @@
+{-# LANGUAGE CPP #-}
+
 module HsBindgen.Patterns.Enum.Simple (
     SimpleEnum(..)
   , IsSimpleEnum(..)
+  , SimpleEnumOutOfRange(..)
     -- * API
   , simpleEnum
+  , coerceSimpleEnum
   , fromSimpleEnum
+  , simpleEnumInRange
   , unsafeFromSimpleEnum
   ) where
 
+import Data.Coerce
+import Data.Kind
+import Data.Typeable
 import Foreign.C
-import GHC.Show (appPrec1)
+import GHC.Show (appPrec1, showSpace)
 import GHC.Stack
+import Control.Exception
 
 {-------------------------------------------------------------------------------
   Definition
@@ -17,8 +26,17 @@ import GHC.Stack
 
 -- | ADTs corresponding to simple enums
 --
--- See 'SimpleEnum' for discussion
-class IsSimpleEnum hs where
+-- Instances should satisfy the following laws:
+--
+-- > forall (x :: hs).   simpleFromC (simpleToC x) == Just x
+-- > forall (i :: CInt). if   simpleFromC i == Just x
+-- >                     then simpleToC   x == i
+--
+-- We require 'Typeable' so that we can show the Haskell type in error messages
+-- (since it's the Haskell type that determines the range of the enum).
+--
+-- See 'SimpleEnum' for additional discussion.
+class Typeable hs => IsSimpleEnum (hs :: Type) where
   -- | Translate Haskell constructor to C value
   simpleToC :: hs -> CInt
 
@@ -63,15 +81,18 @@ class IsSimpleEnum hs where
 -- >   simpleFromC (#const Value3) = Just Value3
 -- >
 -- >   simpleFromC _otherwise = Nothing
-newtype SimpleEnum hs = SimpleEnum CInt
+newtype SimpleEnum (hs :: Type) = SimpleEnum CInt
+  deriving stock (Eq, Ord)
 
 instance (IsSimpleEnum hs, Show hs) => Show (SimpleEnum hs) where
-  showsPrec p x = showParen (p >= appPrec1) $
-      either showC showHS $ fromSimpleEnum x
+  showsPrec p i = showParen (p >= appPrec1) $
+      either showC showHS $ fromSimpleEnum i
     where
       showC :: CInt -> ShowS
       showC c =
-            showString "SimpleEnum "
+            showString "SimpleEnum @"
+          . showsPrec appPrec1 (typeRep (Proxy @hs))
+          . showSpace
           . showsPrec appPrec1 c
 
       showHS :: hs -> ShowS
@@ -83,8 +104,20 @@ instance (IsSimpleEnum hs, Show hs) => Show (SimpleEnum hs) where
   API
 -------------------------------------------------------------------------------}
 
+-- | Construct 'SimpleEnum' from Haskell value
+--
+-- > forall (x :: hs). fromSimpleEnum (simpleEnum x) == Right x
 simpleEnum :: IsSimpleEnum hs => hs -> SimpleEnum hs
 simpleEnum = SimpleEnum . simpleToC
+
+-- | Construct 'SimpleEnum' from C value
+--
+-- The 'CInt' may be outside the range of the 'SimpleEnum'.
+--
+-- > forall (y :: CInt). if   simpleFromEnum (coerceSimpleEnum y) == Right x
+-- >                     then simpleEnum x == coerceSimpleEnum y
+coerceSimpleEnum :: CInt -> SimpleEnum hs
+coerceSimpleEnum = coerce
 
 -- | Underlying C value
 --
@@ -92,9 +125,41 @@ simpleEnum = SimpleEnum . simpleToC
 fromSimpleEnum :: IsSimpleEnum hs => SimpleEnum hs -> Either CInt hs
 fromSimpleEnum (SimpleEnum i) = maybe (Left i) Right $ simpleFromC i
 
--- | Like 'fromSimpleEnum', but throw an exception if the value is out of range
-unsafeFromSimpleEnum :: (HasCallStack, IsSimpleEnum hs) => SimpleEnum hs -> hs
-unsafeFromSimpleEnum = either (error . err) id . fromSimpleEnum
+-- | Is the underlying C value in the range of the Haskell type?
+simpleEnumInRange :: IsSimpleEnum hs => SimpleEnum hs -> Bool
+simpleEnumInRange = either (const False) (const True) . fromSimpleEnum
+
+-- | Like 'fromSimpleEnum', but throws 'SimpleEnumOutOfRange' if out of range
+unsafeFromSimpleEnum :: forall hs.
+     (HasCallStack, IsSimpleEnum hs, Typeable hs)
+  => SimpleEnum hs -> hs
+unsafeFromSimpleEnum = either (throw . err) id . fromSimpleEnum
   where
-    err :: CInt -> String
-    err c = "SimpleEnum out of range: " ++ show c
+    err :: CInt -> SimpleEnumOutOfRange hs
+    err = SimpleEnumOutOfRange callStack
+
+-- | Exception thrown by 'unsafeFromSimpleEnum'
+data SimpleEnumOutOfRange (hs :: Type) = SimpleEnumOutOfRange CallStack CInt
+
+instance IsSimpleEnum hs => Exception (SimpleEnumOutOfRange hs) where
+  displayException (SimpleEnumOutOfRange cs i) = concat [
+        "C value "
+      , show i
+      , " out of range of "
+      , show (typeRep (Proxy @hs))
+      , " at "
+      , prettyCallStack cs
+      ]
+
+#if MIN_VERSION_base(4,20,0)
+  backtraceDesired _ = False
+#endif
+
+instance IsSimpleEnum hs => Show (SimpleEnumOutOfRange hs) where
+  showsPrec p (SimpleEnumOutOfRange cs i) = showParen (p >= appPrec1) $
+        showString "SimpleEnumOutOfRange @"
+      . showsPrec appPrec1 (typeRep (Proxy @hs))
+      . showSpace
+      . showsPrec appPrec1 cs
+      . showSpace
+      . showsPrec appPrec1 i

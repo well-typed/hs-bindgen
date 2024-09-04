@@ -82,7 +82,7 @@ foldDecls ::
   => Tracer IO ParseMsg
   -> Predicate
   -> CXTranslationUnit -> Fold C.Decl
-foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
+foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
       Right CXType_Record -> do
@@ -106,10 +106,10 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
 checkPredicate :: Tracer IO ParseMsg -> Predicate -> Fold a -> Fold a
-checkPredicate tracer p k current = do
-    isMatch <- Predicate.match current p
+checkPredicate tracer p k parent current = do
+    isMatch <- Predicate.match parent current p
     case isMatch of
-      Right ()     -> k current
+      Right ()     -> k parent current
       Left  reason -> do
         name <- clang_getCursorSpelling current
         loc  <- SourceLoc.clang_getCursorLocation current
@@ -141,7 +141,7 @@ parseStruct unit current = do
       }
 
 foldStructFields :: HasCallStack => Tracer IO ParseMsg -> Fold C.StructField
-foldStructFields tracer current = do
+foldStructFields tracer _parent current = do
     cursorType <- clang_getCursorType current
     case primType $ cxtKind cursorType of
       Just fieldType -> do
@@ -172,12 +172,12 @@ parseEnum unit current = do
       }
 
 foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
-foldEnumValues tracer current = do
+foldEnumValues tracer parent current = do
     cursorType <- clang_getCursorType current
     case primType $ cxtKind cursorType of
       Just _fieldType -> do
         valueName <- decodeString <$> clang_getCursorDisplayName current
-        valueValue <- toInteger <$> clang_getEnumConstantDeclValue current
+        valueValue <- toInteger <$> clang_getEnumConstantDeclValue parent current
         let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
       _otherwise -> do
@@ -199,7 +199,7 @@ parseTypedef current = do
 foldTyp ::
      HasCallStack
   => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Typ
-foldTyp tracer unit current = do
+foldTyp tracer unit _parent current = do
     cursorType <- clang_getCursorType current
     case fromSimpleEnum $ cxtKind cursorType of
       Right CXType_Record -> do
@@ -253,7 +253,7 @@ foldClangAST :: Predicate -> CXTranslationUnit -> Fold (Tree Element)
 foldClangAST p unit = checkPredicate nullTracer p go
   where
     go :: Fold (Tree Element)
-    go current = do
+    go _parent current = do
         elementName         <- getUserProvidedName unit       current
         elementTypeKind     <- clang_getTypeKindSpelling . cxtKind =<<
                                           clang_getCursorType current

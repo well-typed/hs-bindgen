@@ -1,3 +1,5 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+
 -- | Internal utilities for creating the bindings
 module HsBindgen.Clang.Internal.Bindings (
     -- * Pointers
@@ -6,27 +8,28 @@ module HsBindgen.Clang.Internal.Bindings (
   , DeriveIsForeignPtr(..)
     -- * Dealing with return values
   , CallFailed(..)
+  , callFailed
   , cToBool
   , ensure
-  , ensureEnum
   , ensureNotNull
+  , ensureNotInRange
   ) where
 
 import Control.Exception
+import Data.Coerce
 import Data.Kind
+import Data.Typeable
 import Foreign
-import Foreign.C
 import Foreign.Concurrent qualified as Concurrent
 import GHC.Stack
 
 import HsBindgen.Patterns
-import Data.Coerce
 
 {-------------------------------------------------------------------------------
   Pointers
 -------------------------------------------------------------------------------}
 
-class IsPointer p where
+class Show p => IsPointer p where
   mkNullPtr :: p
   isNullPtr :: p -> Bool
   freePtr   :: p -> IO ()
@@ -67,46 +70,56 @@ cToBool :: (Num a, Eq a) => a -> Bool
 cToBool 0 = False
 cToBool _ = True
 
--- | Check return value
-ensure ::
-     (HasCallStack, Exception e)
-  => (c -> Bool)            -- ^ Predicate
-  -> (Backtrace -> c -> e)  -- ^ Construct exception (if predicate fails)
-  -> IO c -> IO c
-ensure p mkErr call = do
-    c <- call
-    if p c then
-      return c
-    else do
-      stack <- collectBacktrace
-      throwIO $ mkErr stack c
+-- | Check result for error value
+ensure :: (HasCallStack, Typeable a, Show a) => (a -> Bool) -> IO a -> IO a
+ensure = ensureOn id
 
--- | Check that an (integral) result from @libclang@ function is not an error
-ensureEnum ::
-     ( HasCallStack
-     , Exception e
-     , IsSimpleEnum hs
-     , Integral c
-     )
-  => (c -> Bool)
-  -> (Backtrace -> CInt -> Maybe hs -> e)
-  -> IO c -> IO c
-ensureEnum p mkErr =
-    ensure p $ \bt c ->
-      mkErr bt (fromIntegral c) (simpleFromC $ fromIntegral c)
-
-data CallFailed = CallFailed Backtrace
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace CallFailed
+-- | Generalization of 'ensure' with an additional translation step
+--
+-- This is useful in cases where the value that should be included in the
+-- exception should not be the original value but the translated one.
+ensureOn :: (HasCallStack, Typeable b, Show b)
+  => (a -> b)
+  -> (b -> Bool)
+  -> IO a -> IO a
+ensureOn f p call = do
+    x <- call
+    if p (f x)
+      then return x
+      else callFailed (f x)
 
 -- | Ensure that a function did not return 'nullPtr' (indicating error)
+ensureNotNull :: (HasCallStack, IsPointer a, Typeable a) => IO a -> IO a
+ensureNotNull = ensure (not . isNullPtr)
+
+-- | Ensure that the result is not in the range of the specified enum
 --
--- Throws 'CallFailed' on 'nullPtr'.
-ensureNotNull :: (HasCallStack, IsPointer a) => IO a -> IO a
-ensureNotNull call = do
-    ptr <- call
-    if isNullPtr ptr then do
-      stack <- collectBacktrace
-      throwIO $ CallFailed stack
-    else
-      return ptr
+-- This is used for functions which return errors from a specified enum, such as
+-- @clang_Type_getSizeOf@, which will return errors from the 'CXTypeLayoutError'
+-- enum.
+--
+-- Intended for use with a type argument:
+--
+-- > ensureNotInRange @CXTypeLayoutError $
+-- >   wrap_Type_getSizeOf typ'
+ensureNotInRange :: forall hs a.
+     (HasCallStack, Integral a, Show hs, IsSimpleEnum hs)
+  => IO a -> IO a
+ensureNotInRange = ensureOn conv (not . simpleEnumInRange)
+  where
+    conv :: a -> SimpleEnum hs
+    conv = coerceSimpleEnum . fromIntegral
+
+-- | Call to @libclang@ failed
+--
+-- In @libclang@, being a C framework, errors are returned as values; in order
+-- to ensure that we don't forget to check for these error values, we turn them
+-- into 'CallFailed' exceptions.
+data CallFailed result = CallFailed Backtrace result
+  deriving stock (Show)
+  deriving Exception via CollectedBacktrace (CallFailed result)
+
+callFailed :: (Typeable result, Show result, HasCallStack) => result -> IO a
+callFailed result = do
+    stack <- collectBacktrace
+    throwIO $ CallFailed stack result

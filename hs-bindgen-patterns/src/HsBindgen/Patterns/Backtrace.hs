@@ -75,5 +75,5 @@ newtype CollectedBacktrace a = CollectedBacktrace a
 
 instance (Show a, Typeable a) => Exception (CollectedBacktrace a) where
 #if MIN_VERSION_base(4,20,0)
-    backtraceDesired _ = False
+  backtraceDesired _ = False
 #endif

@@ -24,7 +24,7 @@ import HsBindgen.Patterns
 --   function
 --
 -- This provides for a much nicer user experience.
-type Fold a = CXCursor -> IO (Next a)
+type Fold a = CXCursor -> CXCursor -> IO (Next a)
 
 -- | Result of visiting one node
 --
@@ -155,7 +155,7 @@ clang_fold root topLevelFold = do
         popUntil someStack parent
         SomeStack stack <- readIORef someStack
         let p = topProcessing stack
-        next <- currentFold p current
+        next <- currentFold p parent current
         case next of
           Stop ma -> do
             forM_ ma $ modifyIORef (partialResults p) . (:)
