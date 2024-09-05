@@ -11,14 +11,24 @@
  * Top-level
  */
 
-CXComment* wrap_malloc_Cursor_getParsedComment(CXCursor* C);
-enum CXCommentKind wrap_Comment_getKind(CXComment* Comment);
+static inline void wrap_Cursor_getParsedComment(const CXCursor* C, CXComment* result) {
+    *result = clang_Cursor_getParsedComment(*C);
+}
+
+static inline enum CXCommentKind wrap_Comment_getKind(const CXComment* Comment) {
+    return clang_Comment_getKind(*Comment);
+}
 
 /**
  * Comment type 'CXComment_FullComment'
  */
 
-CXString* wrap_malloc_FullComment_getAsHTML(CXComment* Comment);
-CXString* wrap_malloc_FullComment_getAsXML(CXComment* Comment);
+static inline void wrap_FullComment_getAsHTML(const CXComment* Comment, CXString*  result) {
+    *result = clang_FullComment_getAsHTML(*Comment);
+}
+
+static inline void wrap_FullComment_getAsXML(const CXComment* Comment, CXString*  result) {
+    *result = clang_FullComment_getAsXML(*Comment);
+}
 
 #endif

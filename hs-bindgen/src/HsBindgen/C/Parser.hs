@@ -10,6 +10,7 @@ module HsBindgen.C.Parser (
     -- * Debugging
   , Element(..)
   , foldClangAST
+  , foldComments
   , getTranslationUnitTargetTriple
     -- * Logging
   , ParseMsg(..)
@@ -26,13 +27,14 @@ import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
+import HsBindgen.Clang.Doxygen
 import HsBindgen.Clang.Util.Classification
 import HsBindgen.Clang.Util.Fold
 import HsBindgen.Clang.Util.SourceLoc (SourceLoc)
-import HsBindgen.Patterns
-import HsBindgen.Util.Tracer
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
+import HsBindgen.Patterns
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   General setup
@@ -284,6 +286,29 @@ foldClangAST p unit = checkPredicate nullTracer p go
               }
 
         return $ Recurse go (return . Just . Node element)
+
+-- | Extract Doxygen comments as HTML for all top-level declarations
+--
+-- For each node in the Clang AST, we report the location, name and comment.
+foldComments ::
+     Predicate
+  -> CXTranslationUnit
+  -> Fold (Tree (SourceLoc, ByteString, Maybe ByteString))
+foldComments p _unit = checkPredicate nullTracer p go
+  where
+    go :: Fold (Tree (SourceLoc, ByteString, Maybe ByteString))
+    go _parent current = do
+        sourceLoc   <- SourceLoc.clang_getCursorLocation current
+        name        <- clang_getCursorSpelling current
+        comment     <- clang_Cursor_getParsedComment current
+        commentKind <- clang_Comment_getKind comment
+        mAsHTML     <- case fromSimpleEnum commentKind of
+                         Right CXComment_FullComment -> do
+                           Just <$> clang_FullComment_getAsHTML comment
+                         _otherwise ->
+                           return Nothing
+
+        return $ Recurse go (return . Just . Node (sourceLoc, name, mAsHTML))
 
 {-------------------------------------------------------------------------------
   Auxiliary: strings

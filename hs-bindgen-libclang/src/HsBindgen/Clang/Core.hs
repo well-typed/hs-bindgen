@@ -1,5 +1,3 @@
-{-# LANGUAGE CApiFFI #-}
-
 -- | Low-level bindings to @libclang@
 --
 -- The goal of these bindings is to provide an API which is as close as possible
@@ -25,10 +23,8 @@
 --   accessor for a field @field@ of a type @CXFooBar@ is called @cxfbField@.
 --
 -- * For functions that take structs or return structs by value, we use our own
---   wrappers from @cbits/clang_wrappers.h@.
---
--- * In cases where we are responsible for calling @free@ (or some other
---   finalizer), we use 'ForeignPtr' rather than 'Ptr' in argument position.
+--   wrappers from @cbits/clang_wrappers.h@, along with the infrastructure in
+--   "HsBindgen.Clang.Internal.ByValue".
 --
 -- Most sections in this module and in the export list correspond to
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html>; see also
@@ -41,19 +37,16 @@
 --
 -- 1. The majority of functions we don't import from @libclang@ directly, but
 --    instead from our custom C wrappers. These C wrapper functions are called
---    @wrap_foo@ or @wrap_malloc_foo@, and are imported as such.
---
---    The results of functions @wrap_malloc_foo@ are newly allocated, and must
---    be given a finalizer in the Haskell wrapper.
+--    @wrap_foo@, and are imported as such.
 --
 -- 2. For functions for which we don't need a C wrapper, we import the
---    @libclang@ function as @unwrapped_foo@.
+--    @libclang@ function as @nowrapper_foo@.
 --
 -- 3. In the rare case that we can export the C function directly, we import it
 --    simply as @clang_foo@.
 --
 -- /Note on pointers/: in the public API, all @libclang@ types are opaque.
--- Internally, they are all newtypes around either 'Ptr' or 'ForeignPtr',
+-- Internally, they are all newtypes around either 'Ptr' or 'OnHaskellHeap',
 -- depending on whether or not we own the value.
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/80> Ideally we would
@@ -84,7 +77,6 @@ module HsBindgen.Clang.Core (
   , clang_getCursorKindSpelling
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
-  , CXCursorVisitor
   , clang_visitChildren
     -- * Cross-referencing in the AST
   , CXString
@@ -135,8 +127,6 @@ module HsBindgen.Clang.Core (
   , clang_getFileName
     -- * Exceptions
   , CallFailed(..)
-    -- * Exported for the benefit of other bindings
-  , CXCursor_(..)
   ) where
 
 import Control.Monad
@@ -147,12 +137,13 @@ import Foreign.C
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
-import HsBindgen.Clang.Core.Constants
 import HsBindgen.Clang.Core.Enums
 import HsBindgen.Clang.Core.Instances ()
-import HsBindgen.Clang.Internal.Bindings
+import HsBindgen.Clang.Core.Structs
+import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString
 import HsBindgen.Clang.Internal.FFI
+import HsBindgen.Clang.Internal.Results
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -167,7 +158,6 @@ import HsBindgen.Patterns
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gae039c2574bfd75774ca7a9a3e55910cb>
 newtype CXIndex = CXIndex (Ptr ())
   deriving stock (Show)
-  deriving newtype (IsPointer)
 
 foreign import capi unsafe "clang-c/Index.h clang_createIndex"
   nowrapper_clang_createIndex ::
@@ -221,17 +211,16 @@ type CXTranslationUnit_Flags = BitfieldEnum CXTranslationUnit_Flag
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gacdb7815736ca709ce9a5e1ec2b7e16ac>
 newtype CXTranslationUnit = CXTranslationUnit (Ptr ())
   deriving stock (Show)
-  deriving newtype (IsPointer)
 
 -- | Provides the contents of a file that has not yet been saved to disk.
 --
 -- Each 'CXUnsavedFile' instance provides the name of a file on the system along
 -- with the current contents of that file that have not yet been saved to disk.
 --
+-- We don't export this type.
+--
 -- <https://clang.llvm.org/doxygen/structCXUnsavedFile.html>
-newtype CXUnsavedFile = CXUnsavedFile (Ptr ())
-  deriving stock (Show)
-  deriving newtype (IsPointer)
+type CXUnsavedFile = Ptr ()
 
 -- | An opaque type representing target information for a given translation
 -- unit.
@@ -239,7 +228,6 @@ newtype CXUnsavedFile = CXUnsavedFile (Ptr ())
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga6b47552ab8c5d81387070a9b197cd3e2>
 newtype {-# CType "CXTargetInfo" #-} CXTargetInfo = CXTargetInfo (Ptr ())
   deriving stock (Show)
-  deriving newtype (IsPointer)
 
 -- We use @ccall@ rather than @capi@ to avoid problems with the
 -- @const char *const *@ type
@@ -269,8 +257,8 @@ foreign import capi "clang_wrappers.h clang_getTranslationUnitTargetInfo"
 foreign import capi "clang_wrappers.h clang_TargetInfo_dispose"
   clang_TargetInfo_dispose :: CXTargetInfo -> IO ()
 
-foreign import capi "clang_wrappers.h wrap_malloc_TargetInfo_getTriple"
-  wrap_malloc_TargetInfo_getTriple :: CXTargetInfo -> IO CXString
+foreign import capi "clang_wrappers.h wrap_TargetInfo_getTriple"
+  wrap_TargetInfo_getTriple :: CXTargetInfo -> W CXString_ -> IO ()
 
 -- | Same as 'clang_parseTranslationUnit2', but returns the 'CXTranslationUnit'
 -- instead of an error code.
@@ -292,7 +280,7 @@ clang_parseTranslationUnit ::
 clang_parseTranslationUnit cIdx src args options =
     withCString  src  $ \src' ->
     withCStrings args $ \args' numArgs -> ensureNotNull $
-      nowrapper_parseTranslationUnit cIdx src' args' numArgs mkNullPtr 0 options
+      nowrapper_parseTranslationUnit cIdx src' args' numArgs nullPtr 0 options
 
 -- | Get the normalized target triple as a string.
 --
@@ -300,17 +288,14 @@ clang_parseTranslationUnit cIdx src args options =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga7ae67e3c8baf6a9852900f6529dce2d0>
 clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO ByteString
-clang_TargetInfo_getTriple info =
-    ensure (not . BS.null) $
-      packCXString =<< wrap_malloc_TargetInfo_getTriple info
+clang_TargetInfo_getTriple info = ensure (not . BS.null) $
+    packCXString$ wrap_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
   Cursor manipulations
 
   <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html>
 -------------------------------------------------------------------------------}
-
-newtype CXCursor_ = CXCursor_ (Ptr ())
 
 -- | A cursor representing some element in the abstract syntax tree for a
 -- translation unit.
@@ -332,26 +317,26 @@ newtype CXCursor_ = CXCursor_ (Ptr ())
 --   AST.
 --
 -- <https://clang.llvm.org/doxygen/structCXCursor.html>
-newtype CXCursor = CXCursor (ForeignPtr CXCursor_)
-  deriving IsForeignPtr via DeriveIsForeignPtr CXCursor_ CXCursor
+newtype CXCursor = CXCursor (OnHaskellHeap CXCursor_)
+  deriving newtype (LivesOnHaskellHeap, Preallocate)
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTranslationUnitCursor"
-  wrap_malloc_getTranslationUnitCursor :: CXTranslationUnit -> IO CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
+  wrap_getTranslationUnitCursor :: CXTranslationUnit -> W CXCursor_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
-  nowrapper_equalCursors :: CXCursor_ -> CXCursor_ -> IO CUInt
+  wrap_equalCursors :: R CXCursor_ -> R CXCursor_ -> IO CUInt
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSemanticParent"
-  wrap_malloc_getCursorSemanticParent :: CXCursor_ -> IO CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorSemanticParent"
+  wrap_getCursorSemanticParent :: R CXCursor_ -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLexicalParent"
-  wrap_malloc_getCursorLexicalParent :: CXCursor_ -> IO CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorLexicalParent"
+  wrap_getCursorLexicalParent :: R CXCursor_ -> W CXCursor_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorKind"
-  wrap_getCursorKind :: CXCursor_ -> IO (SimpleEnum CXCursorKind)
+  wrap_getCursorKind :: R CXCursor_ -> IO (SimpleEnum CXCursorKind)
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorKindSpelling"
-  wrap_malloc_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
+  wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()
 
 -- | Retrieve the cursor that represents the given translation unit.
 --
@@ -360,17 +345,17 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorKindSpelling"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaec6e69127920785e74e4a517423f4391>
 clang_getTranslationUnitCursor :: CXTranslationUnit -> IO CXCursor
-clang_getTranslationUnitCursor unit = wrapForeignPtr =<<
-    wrap_malloc_getTranslationUnitCursor unit
+clang_getTranslationUnitCursor unit =
+    preallocate $ wrap_getTranslationUnitCursor unit
 
 -- | Determine whether two cursors are equivalent.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga98df58f09878710b983b6f3f60f0cba3>
 clang_equalCursors :: CXCursor -> CXCursor -> IO Bool
 clang_equalCursors a b =
-    unwrapForeignPtr a $ \a' ->
-    unwrapForeignPtr b $ \b' ->
-      cToBool <$> nowrapper_equalCursors a' b'
+    onHaskellHeap a $ \a' ->
+    onHaskellHeap b $ \b' ->
+      cToBool <$> wrap_equalCursors a' b'
 
 -- | Determine the semantic parent of the given cursor.
 --
@@ -405,8 +390,8 @@ clang_equalCursors a b =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gabc327b200d46781cf30cb84d4af3c877>
 clang_getCursorSemanticParent :: CXCursor -> IO CXCursor
 clang_getCursorSemanticParent cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorSemanticParent cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorSemanticParent cursor'
 
 -- | Determine the lexical parent of the given cursor.
 --
@@ -443,15 +428,15 @@ clang_getCursorSemanticParent cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gace7a423874d72b3fdc71d6b0f31830dd>
 clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
 clang_getCursorLexicalParent cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorLexicalParent cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorLexicalParent cursor'
 
 -- | Retrieve the kind of the given cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga018aaf60362cb751e517d9f8620d490c>
 clang_getCursorKind :: CXCursor -> IO (SimpleEnum CXCursorKind)
 clang_getCursorKind cursor =
-    unwrapForeignPtr cursor $ \cursor' ->
+    onHaskellHeap cursor $ \cursor' ->
       wrap_getCursorKind cursor'
 
 -- | Get spelling of a cursor
@@ -462,8 +447,8 @@ clang_getCursorKind cursor =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html#ga7a4eecfc1b343568cb9ea447cbde08a8
 clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO ByteString
-clang_getCursorKindSpelling kind = packCXString =<<
-  wrap_malloc_getCursorKindSpelling kind
+clang_getCursorKindSpelling kind =
+    packCXString $ wrap_getCursorKindSpelling kind
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -473,32 +458,25 @@ clang_getCursorKindSpelling kind = packCXString =<<
 
 -- | Visitor invoked for each cursor found by a traversal.
 --
--- This visitor function will be invoked for each cursor found by
--- 'clang_visitCursorChildren'.
---
--- /NOTE/: The C type @CXCursorVisitor@ accepts a /third/ argument, which is a
--- pointer to some arbitrary piece of data. This is not necessary in Haskell:
--- visitors can have arbitrary data in their closure.
+-- This is an internal type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__TRAVERSAL.html#gabf842c9ee20048b596eb9dfe94bb1570>
-type CXCursorVisitor =
-     CXCursor_
-     -- ^ The cursor being visited.
-  -> CXCursor_
-     -- ^ The parent visitor for that cursor.
+type WrapCXCursorVisitor =
+     Ptr CXCursor_ -- ^ The cursor being visited.
+  -> Ptr CXCursor_ -- ^ The parent visitor for that cursor.
   -> IO (SimpleEnum CXChildVisitResult)
      -- ^ The visitor should return one of the 'CXChildVisitResult' values to
      -- direct 'clang_visitCursorChildren'.
 
 foreign import ccall "wrapper"
-  mkCursorVisitor :: CXCursorVisitor -> IO (FunPtr CXCursorVisitor)
+  mkCursorVisitor :: WrapCXCursorVisitor -> IO (FunPtr WrapCXCursorVisitor)
 
 -- | See 'clang_visitChildren' for docs
 --
 -- /NOTE/: This is marked @safe@ rather than @unsafe@ as this calls back into
 -- Haskell.
-foreign import capi safe "clang_wrappers.h wrap_malloc_visitChildren"
-  wrap_malloc_visitChildren :: CXCursor_ -> FunPtr CXCursorVisitor -> IO CUInt
+foreign import capi safe "clang_wrappers.h wrap_visitChildren"
+  wrap_visitChildren :: R CXCursor_ -> FunPtr WrapCXCursorVisitor -> IO CUInt
 
 -- | Visit the children of a particular cursor.
 --
@@ -523,7 +501,7 @@ clang_visitChildren ::
      -- ^ @visitor@
      --
      -- The visitor function that will be invoked for each child of parent.
-     -- See 'CXCursorVisitor' for details.
+     -- It is passed the the cursor being visited and its parent.
      --
      -- /NOTE/: We omit the @client_data@ argument from @libclang@, as it is
      -- not needed in Haskell (the IO action can have arbitrary data in its
@@ -533,13 +511,11 @@ clang_visitChildren ::
      -- returning 'CXChildVisit_Break'.
 clang_visitChildren root visitor = do
     visitor' <- mkCursorVisitor $ \current parent -> do
-      current' <- wrapForeignPtr current
-      parent'  <- wrapForeignPtr parent
+      current' <- CXCursor <$> copyToHaskellHeap current
+      parent'  <- CXCursor <$> copyToHaskellHeap parent
       visitor current' parent'
-    unwrapForeignPtr root $ \parent' ->
-      -- The @malloc@ does not happen in 'wrap_malloc_visitChildren' itself,
-      -- but for each invocation of the visitor (see above).
-      (/= 0) <$> wrap_malloc_visitChildren parent' visitor'
+    onHaskellHeap root $ \parent' ->
+      (/= 0) <$> wrap_visitChildren parent' visitor'
 
 {-------------------------------------------------------------------------------
   Cross-referencing in the AST
@@ -547,36 +523,37 @@ clang_visitChildren root visitor = do
   <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html>
 -------------------------------------------------------------------------------}
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDisplayName"
-  wrap_malloc_getCursorDisplayName :: CXCursor_ -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorDisplayName"
+  wrap_getCursorDisplayName :: R CXCursor_ -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorSpelling"
-  wrap_malloc_getCursorSpelling :: CXCursor_ -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorSpelling"
+  wrap_getCursorSpelling :: R CXCursor_ -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorReferenced"
-  wrap_malloc_getCursorReferenced :: CXCursor_ -> IO CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorReferenced"
+  wrap_getCursorReferenced :: R CXCursor_ -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorDefinition"
-  wrap_malloc_getCursorDefinition :: CXCursor_ -> IO CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorDefinition"
+  wrap_getCursorDefinition :: R CXCursor_ -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCanonicalCursor"
-  wrap_malloc_getCanonicalCursor :: CXCursor_ -> IO CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_getCanonicalCursor"
+  wrap_getCanonicalCursor :: R CXCursor_ -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getRawCommentText"
-  wrap_malloc_Cursor_getRawCommentText :: CXCursor_ -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getRawCommentText"
+  wrap_Cursor_getRawCommentText :: R CXCursor_ -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getBriefCommentText"
-  wrap_malloc_Cursor_getBriefCommentText :: CXCursor_ -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getBriefCommentText"
+  wrap_Cursor_getBriefCommentText :: R CXCursor_ -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_Cursor_getSpellingNameRange"
-  wrap_malloc_Cursor_getSpellingNameRange ::
-       CXCursor_
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getSpellingNameRange"
+  wrap_Cursor_getSpellingNameRange ::
+       R CXCursor_
     -> CUInt
     -> CUInt
-    -> IO CXSourceRange_
+    -> W CXSourceRange_
+    -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
-  nowrapper_isCursorDefinition :: CXCursor_ -> IO CUInt
+  wrap_isCursorDefinition :: R CXCursor_ -> IO CUInt
 
 -- | Retrieve the display name for the entity referenced by this cursor.
 --
@@ -587,16 +564,16 @@ foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac3eba3224d109a956f9ef96fd4fe5c83>
 clang_getCursorDisplayName :: CXCursor -> IO ByteString
 clang_getCursorDisplayName cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
-      wrap_malloc_getCursorDisplayName cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      packCXString$ wrap_getCursorDisplayName cursor'
 
 -- | Retrieve a name for the entity referenced by this cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
 clang_getCursorSpelling :: CXCursor -> IO ByteString
 clang_getCursorSpelling cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
-      wrap_malloc_getCursorSpelling cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      packCXString$ wrap_getCursorSpelling cursor'
 
 -- | For a cursor that is a reference, retrieve a cursor representing the entity
 -- that it references.
@@ -604,8 +581,8 @@ clang_getCursorSpelling cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gabf059155921552e19fc2abed5b4ff73a>
 clang_getCursorReferenced :: CXCursor -> IO CXCursor
 clang_getCursorReferenced cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorReferenced cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorReferenced cursor'
 
 -- | For a cursor that is either a reference to or a declaration of some entity,
 -- retrieve a cursor that describes the definition of that entity.
@@ -613,16 +590,16 @@ clang_getCursorReferenced cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gafcfbec461e561bf13f1e8540bbbd655b>
 clang_getCursorDefinition :: CXCursor -> IO CXCursor
 clang_getCursorDefinition cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorDefinition cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorDefinition cursor'
 
 -- |  Retrieve the canonical cursor corresponding to the given cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac802826668be9fd40a017523cc7d24fe>
 clang_getCanonicalCursor :: CXCursor -> IO CXCursor
 clang_getCanonicalCursor cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCanonicalCursor cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCanonicalCursor cursor'
 
 -- | Given a cursor that represents a declaration, return the associated comment
 -- text, including comment markers.
@@ -630,8 +607,8 @@ clang_getCanonicalCursor cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga32905a8b1858e67cf5d28b7ad7150779>
 clang_Cursor_getRawCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getRawCommentText cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
-      wrap_malloc_Cursor_getRawCommentText cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      packCXString$ wrap_Cursor_getRawCommentText cursor'
 
 -- | Given a cursor that represents a documentable entity (e.g., declaration),
 -- return the associated brief comment.
@@ -639,8 +616,8 @@ clang_Cursor_getRawCommentText cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6b5282b915d457d728434c0651ea0b8b>
 clang_Cursor_getBriefCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getBriefCommentText cursor =
-    unwrapForeignPtr cursor $ \cursor' -> packCXString =<<
-      wrap_malloc_Cursor_getBriefCommentText cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      packCXString$ wrap_Cursor_getBriefCommentText cursor'
 
 -- | Retrieve a range for a piece that forms the cursors spelling name.
 --
@@ -662,8 +639,8 @@ clang_Cursor_getSpellingNameRange ::
   -- Reserved.
   -> IO CXSourceRange
 clang_Cursor_getSpellingNameRange cursor pieceIndex options =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_Cursor_getSpellingNameRange cursor' pieceIndex options
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_Cursor_getSpellingNameRange cursor' pieceIndex options
 
 -- | Determine whether the declaration pointed to by this cursor is also a
 -- definition of that entity.
@@ -671,8 +648,8 @@ clang_Cursor_getSpellingNameRange cursor pieceIndex options =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6ad05634a73e693217088eaa693f0010>
 clang_isCursorDefinition :: CXCursor -> IO Bool
 clang_isCursorDefinition cursor =
-    unwrapForeignPtr cursor $ \cursor' ->
-      cToBool <$> nowrapper_isCursorDefinition cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      cToBool <$> wrap_isCursorDefinition cursor'
 
 {-------------------------------------------------------------------------------
   Type information for CXCursors
@@ -680,52 +657,48 @@ clang_isCursorDefinition cursor =
   <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html>
 -------------------------------------------------------------------------------}
 
-newtype CXType_ = CXType_ (Ptr ())
-  deriving stock (Show)
-  deriving newtype (IsPointer)
-
 -- | The type of an element in the abstract syntax tree.
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html>
-newtype CXType = CXType (ForeignPtr ())
-  deriving IsForeignPtr via DeriveIsForeignPtr CXType_ CXType
+newtype CXType = CXType (OnHaskellHeap CXType_)
+  deriving newtype (LivesOnHaskellHeap, Preallocate)
 
 foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
-  wrap_cxtKind :: CXType_ -> IO (SimpleEnum CXTypeKind)
+  wrap_cxtKind :: R CXType_ -> IO (SimpleEnum CXTypeKind)
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorType"
-  wrap_malloc_getCursorType :: CXCursor_ -> IO CXType_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorType"
+  wrap_getCursorType :: R CXCursor_ -> W CXType_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeKindSpelling"
-  wrap_malloc_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_getTypeKindSpelling"
+  wrap_getTypeKindSpelling :: SimpleEnum CXTypeKind -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTypeSpelling"
-  wrap_malloc_getTypeSpelling :: CXType_ -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_getTypeSpelling"
+  wrap_getTypeSpelling :: R CXType_ -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getPointeeType"
-  wrap_malloc_getPointeeType :: CXType_ -> IO CXType_
+foreign import capi unsafe "clang_wrappers.h wrap_getPointeeType"
+  wrap_getPointeeType :: R CXType_ -> W CXType_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
-  wrap_Type_getSizeOf :: CXType_ -> IO CLLong
+  wrap_Type_getSizeOf :: R CXType_ -> IO CLLong
 
 foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
-  wrap_getAlignOf :: CXType_ -> IO CLLong
+  wrap_getAlignOf :: R CXType_ -> IO CLLong
 
 foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
-  wrap_Type_isTransparentTagTypedef :: CXType_ -> IO CUInt
+  wrap_Type_isTransparentTagTypedef :: R CXType_ -> IO CUInt
 
 foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
-  wrap_Cursor_isAnonymous :: CXCursor_ -> IO CUInt
+  wrap_Cursor_isAnonymous :: R CXCursor_ -> IO CUInt
 
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
-  wrap_getEnumConstantDeclValue :: CXCursor_ -> IO CLLong
+  wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
 
 -- | Extract the @kind@ field from a @CXType@ struct
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html#ab27a7510dc88b0ec80cff04ec89901aa>
 cxtKind :: CXType -> SimpleEnum CXTypeKind
 cxtKind typ = unsafePerformIO $
-    unwrapForeignPtr typ $ \typ' ->
+    onHaskellHeap typ $ \typ' ->
       wrap_cxtKind typ'
 
 -- | Retrieve the type of a CXCursor (if any).
@@ -733,15 +706,15 @@ cxtKind typ = unsafePerformIO $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaae5702661bb1f2f93038051737de20f4>
 clang_getCursorType :: CXCursor -> IO CXType
 clang_getCursorType cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorType cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorType cursor'
 
 -- | Retrieve the spelling of a given CXTypeKind.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
 clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO ByteString
-clang_getTypeKindSpelling kind = packCXString =<<
-    wrap_malloc_getTypeKindSpelling kind
+clang_getTypeKindSpelling kind =
+    packCXString$ wrap_getTypeKindSpelling kind
 
 -- | Pretty-print the underlying type using the rules of the language of the
 -- translation unit from which it came.
@@ -751,16 +724,16 @@ clang_getTypeKindSpelling kind = packCXString =<<
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
 clang_getTypeSpelling :: HasCallStack => CXType -> IO ByteString
 clang_getTypeSpelling typ = ensure (not . BS.null) $
-     unwrapForeignPtr typ $ \typ' -> packCXString =<<
-       wrap_malloc_getTypeSpelling typ'
+     onHaskellHeap typ $ \typ' ->
+       packCXString$ wrap_getTypeSpelling typ'
 
 -- | For pointer types, returns the type of the pointee.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaafa3eb34932d8da1358d50ed949ff3ee>
 clang_getPointeeType :: CXType -> IO CXType
 clang_getPointeeType typ =
-    unwrapForeignPtr typ $ \typ' -> wrapForeignPtr =<<
-      wrap_malloc_getPointeeType typ'
+    onHaskellHeap typ $ \typ' ->
+      preallocate $ wrap_getPointeeType typ'
 
 -- | Return the size of a type in bytes as per @C++[expr.sizeof]@ standard.
 --
@@ -769,7 +742,7 @@ clang_getPointeeType typ =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
 clang_Type_getSizeOf :: HasCallStack => CXType -> IO CLLong
 clang_Type_getSizeOf typ =
-    unwrapForeignPtr typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
+    onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_Type_getSizeOf typ'
 
 -- | Return the alignment of a type in bytes as per C++[expr.alignof] standard.
@@ -779,7 +752,7 @@ clang_Type_getSizeOf typ =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
 clang_Type_getAlignOf :: HasCallStack => CXType -> IO CLLong
 clang_Type_getAlignOf typ =
-    unwrapForeignPtr typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
+    onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_getAlignOf typ'
 
 -- | Determine if a typedef is 'transparent' tag.
@@ -791,7 +764,7 @@ clang_Type_getAlignOf typ =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga9ac4ecb0e84f25b9f05d54c67353eba0>
 clang_Type_isTransparentTagTypedef :: CXType -> IO Bool
 clang_Type_isTransparentTagTypedef typ =
-    unwrapForeignPtr typ $ \typ' ->
+    onHaskellHeap typ $ \typ' ->
       cToBool <$> wrap_Type_isTransparentTagTypedef typ'
 
 -- | Determine whether the given cursor represents an anonymous tag or
@@ -800,7 +773,7 @@ clang_Type_isTransparentTagTypedef typ =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6e0d2674d126fd43816ce3a80b592373>
 clang_Cursor_isAnonymous :: CXCursor -> IO Bool
 clang_Cursor_isAnonymous cursor =
-    unwrapForeignPtr cursor $ \cursor' ->
+    onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isAnonymous cursor'
 
 -- | Retrieve the integer value of an enum constant declaration as a signed long
@@ -822,7 +795,7 @@ clang_getEnumConstantDeclValue cursor = do
     unless (cursorKind == simpleEnum CXCursor_EnumConstantDecl) $
       callFailed cursorKind
 
-    unwrapForeignPtr cursor $ \cursor' ->
+    onHaskellHeap cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
 
 {-------------------------------------------------------------------------------
@@ -831,24 +804,20 @@ clang_getEnumConstantDeclValue cursor = do
   <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html>
 -------------------------------------------------------------------------------}
 
-newtype CXSourceRange_ = CXSourceRange_ (Ptr ())
-  deriving stock (Show)
-  deriving newtype (IsPointer)
-
 -- | Identifies a half-open character range in the source code.
 --
 -- Use 'clang_getRangeStart' and 'clang_getRangeEnd' to retrieve the starting
 -- and end locations from a source range, respectively.
 --
 -- <https://clang.llvm.org/doxygen/structCXSourceRange.html>
-newtype CXSourceRange = CXSourceRange (ForeignPtr ())
-  deriving IsForeignPtr via DeriveIsForeignPtr CXSourceRange_ CXSourceRange
+newtype CXSourceRange = CXSourceRange (OnHaskellHeap CXSourceRange_)
+  deriving newtype (LivesOnHaskellHeap, Preallocate)
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorLocation"
-  wrap_malloc_getCursorLocation :: CXCursor_ -> IO CXSourceLocation_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorLocation"
+  wrap_getCursorLocation :: R CXCursor_ -> W CXSourceLocation_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorExtent"
-  wrap_malloc_getCursorExtent :: CXCursor_ -> IO CXSourceRange_
+foreign import capi unsafe "clang_wrappers.h wrap_getCursorExtent"
+  wrap_getCursorExtent :: R CXCursor_ -> W CXSourceRange_ -> IO ()
 
 -- | Retrieve the physical location of the source constructor referenced by the
 -- given cursor.
@@ -861,8 +830,8 @@ foreign import capi unsafe "clang_wrappers.h wrap_malloc_getCursorExtent"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#gada3d3cbd3a3e83ff64f992617318dfb1>
 clang_getCursorLocation :: CXCursor -> IO CXSourceLocation
 clang_getCursorLocation cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorLocation cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorLocation cursor'
 
 -- | Retrieve the physical extent of the source construct referenced by the
 -- given cursor.
@@ -877,8 +846,8 @@ clang_getCursorLocation cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#ga79f6544534ab73c78a8494c4c0bc2840>
 clang_getCursorExtent :: CXCursor -> IO CXSourceRange
 clang_getCursorExtent cursor =
-    unwrapForeignPtr cursor $ \cursor' -> wrapForeignPtr =<<
-      wrap_malloc_getCursorExtent cursor'
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getCursorExtent cursor'
 
 {-------------------------------------------------------------------------------
   Token extraction and manipulation
@@ -888,57 +857,58 @@ clang_getCursorExtent cursor =
 
 newtype CXToken = CXToken (Ptr ())
   deriving stock (Show)
-  deriving newtype (IsPointer)
 
 foreign import capi unsafe "clang_wrappers.h wrap_getToken"
-  wrap_getToken :: CXTranslationUnit -> CXSourceLocation_ -> IO CXToken
+  wrap_getToken :: CXTranslationUnit -> R CXSourceLocation_ -> IO CXToken
 
 foreign import capi unsafe "clang_wrappers.h wrap_getTokenKind"
   clang_getTokenKind :: CXToken -> IO (SimpleEnum CXTokenKind)
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenSpelling"
-  wrap_malloc_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO CXString
+foreign import capi unsafe "clang_wrappers.h wrap_getTokenSpelling"
+  wrap_getTokenSpelling :: CXTranslationUnit -> CXToken -> W CXString_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenLocation"
-  wrap_malloc_getTokenLocation ::
+foreign import capi unsafe "clang_wrappers.h wrap_getTokenLocation"
+  wrap_getTokenLocation ::
        CXTranslationUnit
     -> CXToken
-    -> IO CXSourceLocation_
+    -> W CXSourceLocation_
+    -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getTokenExtent"
-  wrap_malloc_getTokenExtent ::
+foreign import capi unsafe "clang_wrappers.h wrap_getTokenExtent"
+  wrap_getTokenExtent ::
        CXTranslationUnit
     -> CXToken
-    -> IO CXSourceRange_
+    -> W CXSourceRange_
+    -> IO ()
 
 -- | Get the raw lexical token starting with the given location.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga3b41b2c8a34e605a14608927ae544c03>
 clang_getToken :: CXTranslationUnit -> CXSourceLocation -> IO (Maybe CXToken)
 clang_getToken unit loc = checkNotNull $
-    unwrapForeignPtr loc $ \loc' ->
+    onHaskellHeap loc $ \loc' ->
       wrap_getToken unit loc'
 
 -- | Determine the spelling of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
 clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
-clang_getTokenSpelling unit token = packCXString =<<
-    wrap_malloc_getTokenSpelling unit token
+clang_getTokenSpelling unit token =
+    packCXString$ wrap_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga76a721514acb4cc523e10a6913d88021>
 clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO CXSourceLocation
-clang_getTokenLocation unit token = wrapForeignPtr =<<
-    wrap_malloc_getTokenLocation unit token
+clang_getTokenLocation unit token =
+    preallocate $ wrap_getTokenLocation unit token
 
 -- | Retrieve a source range that covers the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga5acbc0a2a3c01aa44e1c5c5ccc4e328b>
 clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
-clang_getTokenExtent unit token = wrapForeignPtr =<<
-    wrap_malloc_getTokenExtent unit token
+clang_getTokenExtent unit token =
+    preallocate $ wrap_getTokenExtent unit token
 
 newtype CXTokenArray = CXTokenArray (Ptr ())
   deriving (Storable)
@@ -947,7 +917,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_tokenize"
   wrap_tokenize ::
        CXTranslationUnit
        -- ^ the translation unit whose text is being tokenized.
-    -> CXSourceRange_
+    -> R CXSourceRange_
        -- ^ the source range in which text should be tokenized. All of the
        -- tokens produced by tokenization will fall within this source range
     -> Ptr CXTokenArray
@@ -973,7 +943,7 @@ clang_tokenize ::
   -> CXSourceRange
   -> IO (CXTokenArray, CUInt)
 clang_tokenize unit range =
-    unwrapForeignPtr range $ \range' ->
+    onHaskellHeap range $ \range' ->
       alloca $ \array ->
       alloca $ \numTokens -> do
         wrap_tokenize unit range' array numTokens
@@ -984,7 +954,7 @@ clang_tokenize unit range =
 -- We do not verify bounds (nor that the array has not already been disposed).
 index_CXTokenArray :: CXTokenArray -> CUInt -> CXToken
 index_CXTokenArray (CXTokenArray array) i = CXToken $
-    array `plusPtr` (fromIntegral i * sizeof_CXToken)
+    array `plusPtr` (fromIntegral i * knownSize @CXToken_)
 
 {-------------------------------------------------------------------------------
   Physical source locations
@@ -992,35 +962,31 @@ index_CXTokenArray (CXTokenArray array) i = CXToken $
   <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html>
 -------------------------------------------------------------------------------}
 
-newtype CXSourceLocation_ = CXSourceLocation_ (Ptr ())
-  deriving stock (Show)
-  deriving newtype (IsPointer)
-
 -- | Identifies a specific source location within a translation unit.
 --
 -- Use 'clang_getExpansionLocation' or 'clang_getSpellingLocation' to map a
 -- source location to a particular file, line, and column.
 --
 -- <https://clang.llvm.org/doxygen/structCXSourceLocation.html>
-newtype CXSourceLocation = CXSourceLocation (ForeignPtr ())
-  deriving IsForeignPtr via DeriveIsForeignPtr CXSourceLocation_ CXSourceLocation
+newtype CXSourceLocation = CXSourceLocation (OnHaskellHeap CXSourceLocation_)
+  deriving newtype (LivesOnHaskellHeap, Preallocate)
 
 -- | A particular source file that is part of a translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#gacfcea9c1239c916597e2e5b3e109215a>
 newtype CXFile = CXFile (Ptr ())
   deriving stock (Show)
-  deriving newtype (IsPointer, Storable)
+  deriving newtype (Storable)
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeStart"
-  wrap_malloc_getRangeStart :: CXSourceRange_ -> IO CXSourceLocation_
+foreign import capi unsafe "clang_wrappers.h wrap_getRangeStart"
+  wrap_getRangeStart :: R CXSourceRange_ -> W CXSourceLocation_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_malloc_getRangeEnd"
-  wrap_malloc_getRangeEnd :: CXSourceRange_ -> IO CXSourceLocation_
+foreign import capi unsafe "clang_wrappers.h wrap_getRangeEnd"
+  wrap_getRangeEnd :: R CXSourceRange_ -> W CXSourceLocation_ -> IO ()
 
 foreign import capi "clang_wrappers.h wrap_getExpansionLocation"
   wrap_getExpansionLocation ::
-       CXSourceLocation_
+       R CXSourceLocation_
        -- ^ the location within a source file that will be decomposed into its parts.
     -> Ptr CXFile
        -- ^ [out] if non-NULL, will be set to the file to which the given source location points.
@@ -1034,7 +1000,7 @@ foreign import capi "clang_wrappers.h wrap_getExpansionLocation"
 
 foreign import capi "clang_wrappers.h wrap_getSpellingLocation"
   wrap_getSpellingLocation ::
-       CXSourceLocation_
+       R CXSourceLocation_
        -- ^ the location within a source file that will be decomposed into its parts.
     -> Ptr CXFile
        -- ^ [out] if non-NULL, will be set to the file to which the given source location points.
@@ -1047,7 +1013,7 @@ foreign import capi "clang_wrappers.h wrap_getSpellingLocation"
     -> IO ()
 
 foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
-  wrap_Location_isFromMainFile :: CXSourceLocation_ -> IO CInt
+  wrap_Location_isFromMainFile :: R CXSourceLocation_ -> IO CInt
 
 -- | Retrieve a source location representing the first character within a source
 -- range.
@@ -1055,8 +1021,8 @@ foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gac2cc034e3965739c41662f6ada7ff248>
 clang_getRangeStart :: CXSourceRange -> IO CXSourceLocation
 clang_getRangeStart range =
-    unwrapForeignPtr range $ \range' -> wrapForeignPtr =<<
-      wrap_malloc_getRangeStart range'
+    onHaskellHeap range $ \range' ->
+      preallocate $ wrap_getRangeStart range'
 
 -- | Retrieve a source location representing the last character within a source
 -- range.
@@ -1064,8 +1030,8 @@ clang_getRangeStart range =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacdb7d3c2b77a06bcc2e83bde3e14c3c0>
 clang_getRangeEnd :: CXSourceRange -> IO CXSourceLocation
 clang_getRangeEnd range =
-    unwrapForeignPtr range $ \range' -> wrapForeignPtr =<<
-      wrap_malloc_getRangeEnd range'
+    onHaskellHeap range $ \range' ->
+      preallocate $ wrap_getRangeEnd range'
 
 -- | Retrieve the file, line, column, and offset represented by the given source
 -- location.
@@ -1080,7 +1046,7 @@ clang_getExpansionLocation ::
      CXSourceLocation
   -> IO (CXFile, CUInt, CUInt, CUInt)
 clang_getExpansionLocation location =
-     unwrapForeignPtr location $ \location' ->
+     onHaskellHeap location $ \location' ->
        alloca $ \file ->
        alloca $ \line ->
        alloca $ \column ->
@@ -1101,7 +1067,7 @@ clang_getSpellingLocation ::
      CXSourceLocation
   -> IO (CXFile, CUInt, CUInt, CUInt)
 clang_getSpellingLocation location =
-     unwrapForeignPtr location $ \location' ->
+     onHaskellHeap location $ \location' ->
        alloca $ \file ->
        alloca $ \line ->
        alloca $ \column ->
@@ -1115,7 +1081,7 @@ clang_getSpellingLocation location =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacb4ca7b858d66f0205797ae84cc4e8f2>
 clang_Location_isFromMainFile :: CXSourceLocation -> IO Bool
 clang_Location_isFromMainFile location =
-    unwrapForeignPtr location $ \location' ->
+    onHaskellHeap location $ \location' ->
       cToBool <$> wrap_Location_isFromMainFile location'
 
 {-------------------------------------------------------------------------------
@@ -1124,11 +1090,11 @@ clang_Location_isFromMainFile location =
   <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html>
 -------------------------------------------------------------------------------}
 
-foreign import capi "clang_wrappers.h wrap_malloc_getFileName"
-  wrap_malloc_getFileName :: CXFile -> IO CXString
+foreign import capi "clang_wrappers.h wrap_getFileName"
+  wrap_getFileName :: CXFile -> W CXString_ -> IO ()
 
 -- | Retrieve the complete file and path name of the given file.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
 clang_getFileName :: CXFile -> IO ByteString
-clang_getFileName file = packCXString =<< wrap_malloc_getFileName file
+clang_getFileName file = packCXString$ wrap_getFileName file

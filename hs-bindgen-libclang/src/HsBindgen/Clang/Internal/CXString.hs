@@ -1,5 +1,3 @@
-{-# LANGUAGE CApiFFI #-}
-
 -- | Dealing with @CXString@
 --
 -- This is internal API; the public API deals with strict bytestrings only.
@@ -16,24 +14,19 @@ import Data.ByteString qualified as BS.Strict
 import Foreign
 import Foreign.C
 
-import HsBindgen.Clang.Internal.Bindings
+import HsBindgen.Clang.Core.Instances ()
+import HsBindgen.Clang.Core.Structs
+import HsBindgen.Clang.Internal.ByValue
 
 {-------------------------------------------------------------------------------
   Translation to bytestrings
 -------------------------------------------------------------------------------}
 
 -- | Pack 'CXString'
---
--- This is intended to be used in a similar way to 'attachFinalizer'.
---
--- The @libclang@ functions that return a @CXString@ do so by /value/; we
--- allocate this on the heap in our wrapper functions. Since we no longer need
--- this after packing, we free the pointer after packing.
-packCXString :: CXString -> IO ByteString
-packCXString str =
-    bracket
-        (clang_getCString str)
-        (\_ -> clang_disposeString str >> freePtr str) $ \cstr ->
+packCXString :: (W CXString_ -> IO ()) -> IO ByteString
+packCXString allocStr =
+    bracket (preallocate allocStr) clang_disposeString $ \str -> do
+      cstr <- clang_getCString str
       if cstr == nullPtr
         then return BS.Strict.empty
         else BS.Strict.packCString cstr
@@ -52,9 +45,14 @@ packCXString str =
 -- string data, call 'clang_disposeString' to free the string.
 --
 -- <https://clang.llvm.org/doxygen/structCXString.html>
-newtype CXString = CXString (Ptr ())
-  deriving stock (Show)
-  deriving newtype (IsPointer)
+newtype CXString = CXString (OnHaskellHeap CXString_)
+  deriving newtype (LivesOnHaskellHeap, Preallocate)
+
+foreign import capi unsafe "clang_wrappers.h wrap_getCString"
+  wrap_getCString :: R CXString_ -> IO CString
+
+foreign import capi unsafe "clang_wrappers.h wrap_disposeString"
+  wrap_disposeString :: R CXString_ -> IO ()
 
 -- | Retrieve the character data associated with the given string.
 --
@@ -63,11 +61,11 @@ newtype CXString = CXString (Ptr ())
 -- do not use it again, so it's safe).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__STRING.html#gabe1284209a3cd35c92e61a31e9459fe7>
-foreign import ccall unsafe "clang_wrappers.h wrap_getCString"
-  clang_getCString :: CXString -> IO CString
+clang_getCString :: CXString -> IO CString
+clang_getCString str = onHaskellHeap str $ wrap_getCString
 
 -- | Free the given string.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__STRING.html#gaeff715b329ded18188959fab3066048f>
-foreign import capi unsafe "clang_wrappers.h wrap_disposeString"
-  clang_disposeString :: CXString -> IO ()
+clang_disposeString :: CXString -> IO ()
+clang_disposeString str = onHaskellHeap str $ wrap_disposeString

@@ -71,12 +71,14 @@ executable hs-bindgen
   hs-source-dirs: app
 
   other-modules:
-      HsBindgen.Cmdline
+      HsBindgen.App.Cmdline
+      HsBindgen.App.RenderComments
   build-depends:
       -- Internal dependencies
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
+    , bytestring
     , containers
     , data-default
   build-depends:
@@ -85,6 +87,8 @@ executable hs-bindgen
       -- NOTE: Ideally this should not depend on haskell-src-exts or
       -- haskell-src-meta; functionality that requires these libraries should
       -- live in the library instead.
+    , blaze-html           >= 0.9  && < 0.10
+    , blaze-markup         >= 0.8  && < 0.9
     , optparse-applicative >= 0.18 && < 0.19
 
 test-suite golden

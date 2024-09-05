@@ -36,7 +36,9 @@ module HsBindgen.Lib (
 
     -- * Debugging
   , Element(..)
+  , SourceLoc(..)
   , getClangAST
+  , getComments
   , getTargetTriple
 
     -- * Logging
@@ -48,7 +50,7 @@ module HsBindgen.Lib (
   ) where
 
 import Data.Tree (Forest)
-import Data.ByteString qualified as Strict (ByteString)
+import Data.ByteString (ByteString)
 import GHC.Generics (Generic)
 import Language.Haskell.Exts qualified as Hs
 import Language.Haskell.Meta qualified as Meta
@@ -65,6 +67,7 @@ import HsBindgen.Hs.Render (HsRenderOpts(..))
 import HsBindgen.Hs.Render qualified as Hs
 import HsBindgen.Translation.LowLevel
 import HsBindgen.Util.Tracer
+import HsBindgen.Clang.Util.SourceLoc
 
 {-------------------------------------------------------------------------------
   Type aliases
@@ -157,8 +160,21 @@ getClangAST predicate args fp =
     C.parseHeaderWith args fp $
       C.foldClangAST predicate
 
+-- | Get comments as HTML for all top-level declarations
+--
+-- For now this is primarily for debugging, but perhaps this could be made part
+-- of the library proper.
+getComments ::
+     Predicate
+  -> ClangArgs
+  -> FilePath
+  -> IO (Forest (SourceLoc, ByteString, Maybe ByteString))
+getComments predicate args fp =
+    C.parseHeaderWith args fp $
+      C.foldComments predicate
+
 -- | Return the target triple for translation unit
-getTargetTriple :: ClangArgs -> FilePath -> IO Strict.ByteString
+getTargetTriple :: ClangArgs -> FilePath -> IO ByteString
 getTargetTriple args fp =
     C.withTranslationUnit args fp $
       C.getTranslationUnitTargetTriple

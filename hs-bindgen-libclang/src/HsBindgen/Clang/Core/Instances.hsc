@@ -13,9 +13,22 @@
 module HsBindgen.Clang.Core.Instances () where
 
 import HsBindgen.Clang.Core.Enums
+import HsBindgen.Clang.Core.Structs
+import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Patterns
 
 #include <clang-c/Index.h>
+
+{-------------------------------------------------------------------------------
+  HasKnownSize instances
+-------------------------------------------------------------------------------}
+
+instance HasKnownSize CXCursor_         where knownSize = #size CXCursor
+instance HasKnownSize CXSourceLocation_ where knownSize = #size CXSourceLocation
+instance HasKnownSize CXSourceRange_    where knownSize = #size CXSourceRange
+instance HasKnownSize CXString_         where knownSize = #size CXString
+instance HasKnownSize CXToken_          where knownSize = #size CXToken
+instance HasKnownSize CXType_           where knownSize = #size CXType
 
 {-------------------------------------------------------------------------------
   CXTranslationUnit_Flag

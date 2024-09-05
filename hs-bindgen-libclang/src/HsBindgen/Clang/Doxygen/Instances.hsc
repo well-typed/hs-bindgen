@@ -3,9 +3,17 @@
 module HsBindgen.Clang.Doxygen.Instances () where
 
 import HsBindgen.Clang.Doxygen.Enums
+import HsBindgen.Clang.Doxygen.Structs
+import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Patterns
 
 #include <clang-c/Documentation.h>
+
+{-------------------------------------------------------------------------------
+  HasKnownSize instances
+-------------------------------------------------------------------------------}
+
+instance HasKnownSize CXComment_ where knownSize = #size CXComment
 
 {-------------------------------------------------------------------------------
   CXCommentKind
