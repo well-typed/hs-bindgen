@@ -4,11 +4,8 @@
 /**
  * Wrappers for clang functions that take structs, or return them, by value.
  *
- * For functions that return structs by value, we instead allocate memory and
- * return a pointer. It is the responsibility of the caller to attach a
- * finalizer to these pointers; to remind the caller to do so, these functions
- * are prefixed with @wrap_malloc_@; the other functions are prefixed with
- * @wrap_@ (in both cases this prefixes replaces the @clang_@ prefix).
+ * For functions that return structs by value, we instead expect a buffer to be
+ * preallocated Haskell-side.
  */
 
 #include <clang-c/Index.h>
@@ -17,56 +14,135 @@
  * Translation unit manipulation
  */
 
-CXString* wrap_malloc_TargetInfo_getTriple(CXTargetInfo Info);
+static inline void wrap_TargetInfo_getTriple(CXTargetInfo Info, CXString* result) {
+    *result = clang_TargetInfo_getTriple(Info);
+}
 
 /**
  * Cursor manipulations
  */
 
-CXCursor* wrap_malloc_getTranslationUnitCursor(CXTranslationUnit unit);
-unsigned wrap_equalCursors(CXCursor* a, CXCursor* b);
-CXCursor* wrap_malloc_getCursorSemanticParent(CXCursor* cursor);
-CXCursor* wrap_malloc_getCursorLexicalParent(CXCursor* cursor);
-enum CXCursorKind wrap_getCursorKind(CXCursor* cursor);
-CXString* wrap_malloc_getCursorKindSpelling(enum CXCursorKind Kind);
+static inline void wrap_getTranslationUnitCursor (CXTranslationUnit unit, CXCursor* result) {
+    *result = clang_getTranslationUnitCursor(unit);
+}
+
+static inline unsigned wrap_equalCursors(const CXCursor* a, const CXCursor* b) {
+    return clang_equalCursors(*a, *b);
+}
+
+static inline void wrap_getCursorSemanticParent(const CXCursor* cursor, CXCursor* result) {
+    *result = clang_getCursorSemanticParent(*cursor);
+}
+
+static inline void wrap_getCursorLexicalParent(const CXCursor* cursor, CXCursor* result) {
+    *result = clang_getCursorLexicalParent(*cursor);
+}
+
+static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
+    return clang_getCursorKind(*cursor);
+}
+
+static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* result) {
+    *result = clang_getCursorKindSpelling(Kind);
+}
 
 /**
  * Traversing the AST with cursors
+ *
+ * NOTE: The visitor is passed the two cursors as pointers, but those pointers
+ * are pointers to the /stack/. If these pointers can outlive their scope, then
+ * the visitor should copy them to the heap.
  */
 
-typedef enum CXChildVisitResult(* HsCXCursorVisitor) (CXCursor* cursor, CXCursor* parent);
+typedef enum CXChildVisitResult(*WrapCXCursorVisitor)(CXCursor* cursor, CXCursor* parent);
 
-unsigned wrap_malloc_visitChildren(CXCursor* parent, HsCXCursorVisitor visitor);
+enum CXChildVisitResult wrap_visitor(CXCursor cursor, CXCursor parent, CXClientData client_data);
+
+static inline unsigned wrap_visitChildren(const CXCursor* parent, WrapCXCursorVisitor visitor) {
+    return clang_visitChildren(*parent, &wrap_visitor, visitor);
+}
 
 /**
  * Cross-referencing in the AST
  */
 
-CXString* wrap_malloc_getCursorDisplayName(CXCursor* C);
-CXString* wrap_malloc_getCursorSpelling(CXCursor* C);
-CXCursor* wrap_malloc_getCursorReferenced(CXCursor* C);
-CXCursor* wrap_malloc_getCursorDefinition(CXCursor* C);
-CXCursor* wrap_malloc_getCanonicalCursor(CXCursor* C);
-CXString* wrap_malloc_Cursor_getRawCommentText(CXCursor* C);
-CXString* wrap_malloc_Cursor_getBriefCommentText(CXCursor* C);
-unsigned wrap_isCursorDefinition(CXCursor *C);
-CXSourceRange* wrap_malloc_Cursor_getSpellingNameRange(CXCursor *C, unsigned pieceIndex, unsigned options);
+static inline void wrap_getCursorDisplayName(const CXCursor* C, CXString* result) {
+    *result = clang_getCursorDisplayName(*C);
+}
+
+static inline void wrap_getCursorSpelling(const CXCursor* C, CXString*  result) {
+    *result = clang_getCursorSpelling(*C);
+}
+
+static inline void wrap_getCursorReferenced(const CXCursor* C, CXCursor* result) {
+    *result = clang_getCursorReferenced(*C);
+}
+
+static inline void wrap_getCursorDefinition(const CXCursor* C, CXCursor* result) {
+    *result = clang_getCursorDefinition(*C);
+}
+
+static inline void wrap_getCanonicalCursor(const CXCursor* C, CXCursor* result) {
+    *result = clang_getCanonicalCursor(*C);
+}
+
+static inline void wrap_Cursor_getRawCommentText(const CXCursor* C, CXString* result) {
+    *result = clang_Cursor_getRawCommentText(*C);
+}
+
+static inline void wrap_Cursor_getBriefCommentText(const CXCursor* C, CXString* result) {
+    *result = clang_Cursor_getBriefCommentText(*C);
+}
+
+static inline unsigned wrap_isCursorDefinition(const CXCursor *C) {
+    return clang_isCursorDefinition(*C);
+}
+
+static inline void wrap_Cursor_getSpellingNameRange(const CXCursor *C, unsigned pieceIndex, unsigned options, CXSourceRange* result) {
+    *result = clang_Cursor_getSpellingNameRange(*C, pieceIndex, options);
+}
 
 /**
  * Type information for CXCursors
  */
 
-enum CXTypeKind wrap_cxtKind(CXType* type);
-CXType* wrap_malloc_getCursorType(CXCursor* C);
-CXString* wrap_malloc_getTypeKindSpelling(enum CXTypeKind K);
-CXString* wrap_malloc_getTypeSpelling(CXType* CT);
-CXType* wrap_malloc_getPointeeType(CXType* T);
-long long wrap_Type_getSizeOf(CXType* T);
-long long wrap_Type_getAlignOf(CXType* T);
-unsigned wrap_Type_isTransparentTagTypedef(CXType *T);
-unsigned wrap_Cursor_isAnonymous(CXCursor* C);
+static inline enum CXTypeKind wrap_cxtKind(const CXType* type) {
+    return type->kind;
+}
 
-static inline long long wrap_getEnumConstantDeclValue(CXCursor *C) {
+static inline void wrap_getCursorType(const CXCursor* C, CXType* result) {
+    *result = clang_getCursorType(*C);
+}
+
+static inline void wrap_getTypeKindSpelling(enum CXTypeKind K, CXString* result) {
+    *result = clang_getTypeKindSpelling(K);
+}
+
+static inline void wrap_getTypeSpelling(const CXType* CT, CXString* result) {
+    *result = clang_getTypeSpelling(*CT);
+}
+
+static inline void wrap_getPointeeType(const CXType* T, CXType* result) {
+    *result = clang_getPointeeType(*T);
+}
+
+static inline long long wrap_Type_getSizeOf(const CXType* T) {
+    return clang_Type_getSizeOf(*T);
+}
+
+static inline long long wrap_Type_getAlignOf(const CXType* T) {
+    return clang_Type_getAlignOf(*T);
+}
+
+static inline unsigned wrap_Type_isTransparentTagTypedef(const CXType *T) {
+    return clang_Type_isTransparentTagTypedef(*T);
+}
+
+static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
+    return clang_Cursor_isAnonymous(*C);
+}
+
+static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
     return clang_getEnumConstantDeclValue(*C);
 }
 
@@ -74,41 +150,85 @@ static inline long long wrap_getEnumConstantDeclValue(CXCursor *C) {
  * Mapping between cursors and source code
  */
 
-CXSourceLocation* wrap_malloc_getCursorLocation(CXCursor* C);
-CXSourceRange* wrap_malloc_getCursorExtent(CXCursor* C);
+static inline void wrap_getCursorLocation(const CXCursor* C, CXSourceLocation* result) {
+    *result = clang_getCursorLocation(*C);
+}
+
+static inline void wrap_getCursorExtent(const CXCursor* C, CXSourceRange* result) {
+    *result = clang_getCursorExtent(*C);
+}
 
 /**
  * Token extraction and manipulation
  */
 
-CXToken* wrap_getToken(CXTranslationUnit TU, CXSourceLocation* Location);
-CXTokenKind wrap_getTokenKind(CXToken* Token);
-CXString* wrap_malloc_getTokenSpelling(CXTranslationUnit TU, CXToken* Token);
-CXSourceLocation* wrap_malloc_getTokenLocation(CXTranslationUnit TU, CXToken* Token);
-CXSourceRange* wrap_malloc_getTokenExtent(CXTranslationUnit TU, CXToken* Token);
-void wrap_tokenize(CXTranslationUnit TU, CXSourceRange* Range, CXToken** Tokens, unsigned* NumTokens);
+static inline CXToken* wrap_getToken(CXTranslationUnit TU, const CXSourceLocation* Location) {
+    return clang_getToken(TU, *Location);
+}
+
+static inline CXTokenKind wrap_getTokenKind(CXToken* Token) {
+    return clang_getTokenKind(*Token);
+}
+
+static inline void wrap_getTokenSpelling(CXTranslationUnit TU, CXToken* Token, CXString* result) {
+    *result = clang_getTokenSpelling(TU, *Token);
+}
+
+static inline void wrap_getTokenLocation(CXTranslationUnit TU, CXToken* Token, CXSourceLocation* result) {
+    *result = clang_getTokenLocation(TU, *Token);
+}
+
+static inline void wrap_getTokenExtent(CXTranslationUnit TU, CXToken* Token, CXSourceRange* result) {
+    *result = clang_getTokenExtent(TU, *Token);
+}
+
+static inline void wrap_tokenize(CXTranslationUnit TU, const CXSourceRange* Range, CXToken** Tokens, unsigned* NumTokens) {
+    clang_tokenize(TU, *Range, Tokens, NumTokens);
+}
 
 /**
  * Physical source locations
  */
 
-CXSourceLocation* wrap_malloc_getRangeStart(CXSourceRange* range);
-CXSourceLocation* wrap_malloc_getRangeEnd(CXSourceRange* range);
-void wrap_getExpansionLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
-void wrap_getSpellingLocation(CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset);
-int wrap_Location_isFromMainFile(CXSourceLocation* location);
+static inline void wrap_getRangeStart(const CXSourceRange* range, CXSourceLocation* result) {
+    *result = clang_getRangeStart(*range);
+}
+
+static inline void wrap_getRangeEnd(const CXSourceRange* range, CXSourceLocation* result) {
+    *result = clang_getRangeEnd(*range);
+}
+
+static inline void wrap_getExpansionLocation(const CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
+    clang_getExpansionLocation(*location, file, line, column, offset);
+}
+
+static inline void wrap_getSpellingLocation(const CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
+    clang_getSpellingLocation(*location, file, line, column, offset);
+}
+
+static inline int wrap_Location_isFromMainFile(const CXSourceLocation* location) {
+    return clang_Location_isFromMainFile(*location);
+}
 
 /**
  * File manipulation routines
  */
 
-CXString* wrap_malloc_getFileName(CXFile SFile);
+static inline void wrap_getFileName(CXFile SFile, CXString* result) {
+    *result = clang_getFileName(SFile);
+}
 
 /**
  * String manipulation routines
  */
 
-const char * wrap_getCString(CXString* string);
-void wrap_disposeString(CXString* string);
+static inline char* wrap_getCString(const CXString* string) {
+    // returning `const char*` confuses ghc
+    return (char*) clang_getCString(*string);
+}
+
+static inline void wrap_disposeString(const CXString* string) {
+    clang_disposeString(*string);
+}
 
 #endif

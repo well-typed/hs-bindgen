@@ -1,9 +1,17 @@
 module Main (main) where
 
+import Data.ByteString qualified as BS
 import Data.Tree (drawForest)
+import Text.Blaze.Html.Renderer.Utf8 qualified as Blaze
 
-import HsBindgen.Cmdline
+import HsBindgen.App.Cmdline
+import HsBindgen.App.RenderComments
 import HsBindgen.Lib
+import System.IO
+
+{-------------------------------------------------------------------------------
+  Main application
+-------------------------------------------------------------------------------}
 
 main :: IO ()
 main = do
@@ -24,3 +32,13 @@ main = do
       ShowClangAST{input} -> do
         ast <- getClangAST predicate clangArgs input
         putStr . drawForest $ fmap (fmap show) ast
+      RenderComments{input, output} -> do
+        comments <- getComments predicate clangArgs input
+        withOutput output $ \h ->
+          Blaze.renderHtmlToByteStringIO (BS.hPutStr h) $
+            renderComments comments
+
+withOutput :: Maybe FilePath -> (Handle -> IO r) -> IO r
+withOutput (Just fp) = withFile fp WriteMode
+withOutput Nothing   = ($ stdout)
+

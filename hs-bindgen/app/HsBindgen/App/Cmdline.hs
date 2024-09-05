@@ -1,4 +1,4 @@
-module HsBindgen.Cmdline (
+module HsBindgen.App.Cmdline (
     Cmdline(..)
   , Mode(..)
   , getCmdline
@@ -52,6 +52,12 @@ data Mode =
   | ShowClangAST {
         input :: FilePath
       }
+
+    -- | Extract all comments
+  | RenderComments {
+        input  :: FilePath
+      , output :: Maybe FilePath
+      }
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -77,6 +83,9 @@ parseMode = subparser $ mconcat [
     , cmd "show-clang-ast" parseModeDumpClangAST $ mconcat [
           progDesc "Show the libclang AST (primarily for development of hs-bindgen itself)"
         ]
+    , cmd "render-comments" parseModeRenderComments $ mconcat [
+          progDesc "Render comments as HTML"
+        ]
     ]
 
 parseModePreprocess :: Parser Mode
@@ -96,6 +105,12 @@ parseModeDumpClangAST :: Parser Mode
 parseModeDumpClangAST =
     ShowClangAST
       <$> parseInput
+
+parseModeRenderComments :: Parser Mode
+parseModeRenderComments =
+    RenderComments
+      <$> parseInput
+      <*> parseOutput
 
 parsePredicate :: Parser Predicate
 parsePredicate = fmap aux . many . asum $ [

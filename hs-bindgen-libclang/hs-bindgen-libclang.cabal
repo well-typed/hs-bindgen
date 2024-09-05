@@ -30,17 +30,28 @@ common lang
   default-language:
       GHC2021
   default-extensions:
-      DerivingStrategies
-      DerivingVia
-      TypeFamilies
-      UndecidableInstances
+      -- We don't provide a shared list of default extension between the library
+      -- and the clang-tutorial example; this way we can ensure that mere
+      -- /usage/ of the library does not result in requirements for enabled
+      -- language extensions.
 
 library
   import:         lang
   hs-source-dirs: src
 
-  other-extensions:
+  default-extensions:
       CApiFFI
+      DataKinds
+      DerivingStrategies
+      DerivingVia
+      MagicHash
+      TypeFamilies
+      UnboxedTuples
+      UndecidableInstances
+      UnliftedFFITypes
+      UnliftedNewtypes
+  other-extensions:
+      AllowAmbiguousTypes
   exposed-modules:
       -- Low-level libclang bindings
       HsBindgen.Clang.Args
@@ -53,14 +64,16 @@ library
       HsBindgen.Clang.Util.SourceLoc
       HsBindgen.Clang.Util.Tokens
   other-modules:
-      HsBindgen.Clang.Core.Constants
       HsBindgen.Clang.Core.Enums
       HsBindgen.Clang.Core.Instances
+      HsBindgen.Clang.Core.Structs
       HsBindgen.Clang.Doxygen.Enums
       HsBindgen.Clang.Doxygen.Instances
-      HsBindgen.Clang.Internal.Bindings
+      HsBindgen.Clang.Doxygen.Structs
+      HsBindgen.Clang.Internal.ByValue
       HsBindgen.Clang.Internal.CXString
       HsBindgen.Clang.Internal.FFI
+      HsBindgen.Clang.Internal.Results
   build-depends:
       -- Internal dependencies
     , hs-bindgen-patterns
@@ -75,7 +88,6 @@ library
 
   c-sources:
       cbits/clang_wrappers.c
-      cbits/doxygen_wrappers.c
 
 test-suite clang-tutorial
   import:         lang
