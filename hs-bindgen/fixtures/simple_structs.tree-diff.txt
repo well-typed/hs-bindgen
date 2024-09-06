@@ -9,9 +9,11 @@ WrapCHeader
           structFields = [
             StructField {
               fieldName = "a",
+              fieldOffset = 0,
               fieldType = PrimInt},
             StructField {
               fieldName = "b",
+              fieldOffset = 32,
               fieldType = PrimChar}]},
       DeclStruct
         Struct {
@@ -21,12 +23,15 @@ WrapCHeader
           structFields = [
             StructField {
               fieldName = "a",
+              fieldOffset = 0,
               fieldType = PrimChar},
             StructField {
               fieldName = "b",
+              fieldOffset = 32,
               fieldType = PrimInt},
             StructField {
               fieldName = "c",
+              fieldOffset = 64,
               fieldType = PrimFloat}]},
       DeclTypedef
         Typedef {
@@ -39,12 +44,15 @@ WrapCHeader
               structFields = [
                 StructField {
                   fieldName = "a",
+                  fieldOffset = 0,
                   fieldType = PrimChar},
                 StructField {
                   fieldName = "b",
+                  fieldOffset = 32,
                   fieldType = PrimInt},
                 StructField {
                   fieldName = "c",
+                  fieldOffset = 64,
                   fieldType = PrimFloat}]}},
       DeclStruct
         Struct {
@@ -54,6 +62,7 @@ WrapCHeader
           structFields = [
             StructField {
               fieldName = "a",
+              fieldOffset = 0,
               fieldType = PrimChar}]},
       DeclTypedef
         Typedef {
@@ -66,6 +75,7 @@ WrapCHeader
               structFields = [
                 StructField {
                   fieldName = "a",
+                  fieldOffset = 0,
                   fieldType = PrimChar}]}},
       DeclStruct
         Struct {
@@ -75,7 +85,9 @@ WrapCHeader
           structFields = [
             StructField {
               fieldName = "b",
+              fieldOffset = 0,
               fieldType = PrimChar},
             StructField {
               fieldName = "a",
+              fieldOffset = 32,
               fieldType = PrimInt}]}])

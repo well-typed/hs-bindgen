@@ -156,8 +156,9 @@ foldStructFields tracer _parent current = do
     typeKind <- cxtKind <$> clang_getCursorType current
     case primType typeKind of
       Just fieldType -> do
-        fieldName <- decodeString <$> clang_getCursorDisplayName current
-        let field = C.StructField{fieldName, fieldType}
+        fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
+        fieldName   <- decodeString <$> clang_getCursorDisplayName current
+        let field = C.StructField{fieldName, fieldOffset, fieldType}
         return $ Continue (Just field)
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedType typeKind

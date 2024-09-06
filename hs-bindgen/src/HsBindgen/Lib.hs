@@ -40,6 +40,7 @@ module HsBindgen.Lib (
   , getClangAST
   , getComments
   , getTargetTriple
+  , genHaskell
 
     -- * Logging
   , Tracer
@@ -49,25 +50,28 @@ module HsBindgen.Lib (
   , mkTracerIO
   ) where
 
-import Data.Tree (Forest)
 import Data.ByteString (ByteString)
+import Data.Tree (Forest)
 import GHC.Generics (Generic)
-import Language.Haskell.Exts qualified as Hs
-import Language.Haskell.Meta qualified as Meta
+import Language.Haskell.Exts qualified as E
 import Language.Haskell.TH qualified as TH
 import Text.Show.Pretty qualified as Pretty
 
+import HsBindgen.Backend.HsSrcExts (Ann)
+import HsBindgen.Backend.HsSrcExts.Render (HsRenderOpts(..))
+import HsBindgen.Backend.HsSrcExts.Render qualified as Backend.E
+import HsBindgen.Backend.HsSrcExts.Translation (HsModuleOpts(..))
+import HsBindgen.Backend.HsSrcExts.Translation qualified as Backend.E
+import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Parser (ParseMsg, Element(..))
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
-import HsBindgen.Hs.Annotation
-import HsBindgen.Hs.Render (HsRenderOpts(..))
-import HsBindgen.Hs.Render qualified as Hs
-import HsBindgen.Translation.LowLevel
-import HsBindgen.Util.Tracer
 import HsBindgen.Clang.Util.SourceLoc
+import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Translation.LowLevel qualified as LowLevel
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Type aliases
@@ -82,7 +86,7 @@ newtype CHeader = WrapCHeader {
   deriving (Eq, Generic)
 
 newtype HsModule = WrapHsModule {
-      unwrapHsModule :: Hs.Module Ann
+      unwrapHsModule :: E.Module Ann
     }
 
 {-------------------------------------------------------------------------------
@@ -113,10 +117,10 @@ parseCHeader tracer p args fp =
 -------------------------------------------------------------------------------}
 
 genModule :: HsModuleOpts -> CHeader -> HsModule
-genModule opts = WrapHsModule . generateModule opts . unwrapCHeader
+genModule opts = WrapHsModule . Backend.E.translate opts . unwrapCHeader
 
-genDecls :: CHeader -> [TH.Dec]
-genDecls = map Meta.toDec . generateDeclarations . C.headerDecls . unwrapCHeader
+genDecls :: CHeader -> TH.DecsQ
+genDecls = Backend.TH.translateC . unwrapCHeader
 
 {-------------------------------------------------------------------------------
   Processing output
@@ -129,7 +133,7 @@ prettyC :: CHeader -> IO ()
 prettyC = Pretty.dumpIO . unwrapCHeader
 
 prettyHs :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
-prettyHs opts fp = Hs.renderIO opts fp . unwrapHsModule
+prettyHs opts fp = Backend.E.renderIO opts fp . unwrapHsModule
 
 {-------------------------------------------------------------------------------
   Common pipelines
@@ -141,7 +145,7 @@ preprocess ::
   -> ClangArgs             -- ^ @libclang@ options
   -> FilePath              -- ^ Path to the C header
   -> HsModuleOpts          -- ^ Options for the Haskell module generation
-  -> Hs.HsRenderOpts       -- ^ Options for rendering the generated Haskell code
+  -> HsRenderOpts          -- ^ Options for rendering the generated Haskell code
   -> Maybe FilePath        -- ^ Name of the Haskell file (none for @stdout@)
   -> IO ()
 preprocess tracer p clangArgs inp modOpts renderOpts out = do
@@ -178,3 +182,9 @@ getTargetTriple :: ClangArgs -> FilePath -> IO ByteString
 getTargetTriple args fp =
     C.withTranslationUnit args fp $
       C.getTranslationUnitTargetTriple
+
+-- | Generate our internal Haskell representation of the translated C header
+genHaskell :: CHeader -> [Hs.Decl f]
+genHaskell = LowLevel.generateDeclarations . unwrapCHeader
+
+

@@ -100,6 +100,7 @@ module HsBindgen.Clang.Core (
   , clang_Type_getSizeOf
   , clang_Type_getAlignOf
   , clang_Type_isTransparentTagTypedef
+  , clang_Cursor_getOffsetOfField
   , clang_Cursor_isAnonymous
   , clang_getEnumConstantDeclValue
     -- * Mapping between cursors and source code
@@ -687,6 +688,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
 foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
   wrap_Type_isTransparentTagTypedef :: R CXType_ -> IO CUInt
 
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getOffsetOfField"
+  wrap_Cursor_getOffsetOfField :: R CXCursor_ -> IO CLLong
+
 foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
   wrap_Cursor_isAnonymous :: R CXCursor_ -> IO CUInt
 
@@ -766,6 +770,14 @@ clang_Type_isTransparentTagTypedef :: CXType -> IO Bool
 clang_Type_isTransparentTagTypedef typ =
     onHaskellHeap typ $ \typ' ->
       cToBool <$> wrap_Type_isTransparentTagTypedef typ'
+
+-- | Return the offset of the field represented by the Cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaa7e0f0ec320c645e971168ac39aa0cab>
+clang_Cursor_getOffsetOfField :: CXCursor -> IO CLLong
+clang_Cursor_getOffsetOfField cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_Cursor_getOffsetOfField cursor'
 
 -- | Determine whether the given cursor represents an anonymous tag or
 -- namespace.
