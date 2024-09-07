@@ -64,8 +64,9 @@ data Struct = Struct {
   deriving anyclass (PrettyVal)
 
 data StructField = StructField {
-      fieldName :: String
-    , fieldType :: PrimType
+      fieldName   :: String
+    , fieldOffset :: Int
+    , fieldType   :: PrimType
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

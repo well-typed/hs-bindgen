@@ -12,8 +12,9 @@ import HsBindgen.Util.Tracer
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/11>
 -- We need to think about how we want to handle configuration in TH mode.
 generateBindingsFor :: FilePath -> Q [Dec]
-generateBindingsFor fp = liftIO $
-    genDecls <$> parseCHeader tracer p args fp
+generateBindingsFor fp = do
+    cHeader <- liftIO $ parseCHeader tracer p args fp
+    genDecls cHeader
   where
     tracer :: Tracer IO ParseMsg
     tracer = contramap prettyLogMsg $ mkTracerQ False

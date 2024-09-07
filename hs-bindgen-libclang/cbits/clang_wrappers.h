@@ -138,6 +138,10 @@ static inline unsigned wrap_Type_isTransparentTagTypedef(const CXType *T) {
     return clang_Type_isTransparentTagTypedef(*T);
 }
 
+static inline long long wrap_Cursor_getOffsetOfField(const CXCursor* C) {
+    return clang_Cursor_getOffsetOfField(*C);
+}
+
 static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
     return clang_Cursor_isAnonymous(*C);
 }

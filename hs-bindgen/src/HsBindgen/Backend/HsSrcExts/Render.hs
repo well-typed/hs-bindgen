@@ -1,12 +1,10 @@
 -- | Render generated Haskell code
 --
--- This is a thin layer on top of @haskell-src-exts@.
---
 -- Intended for qualified import.
 --
--- > import HsBindgen.Hs.Render (HsRenderOpts(..))
--- > import HsBindgen.Hs.Render qualified as Hs
-module HsBindgen.Hs.Render (
+-- > import HsBindgen.Backend.HsSrcExts.Render (HsRenderOpts(..))
+-- > import HsBindgen.Backend.HsSrcExts.Render qualified as Backend.E
+module HsBindgen.Backend.HsSrcExts.Render (
     HsRenderOpts(..)
   , render
   , renderIO
@@ -17,7 +15,7 @@ import Language.Haskell.Exts (Module)
 import Language.Haskell.Exts.Pretty qualified as Pretty
 import System.IO
 
-import HsBindgen.Hs.Annotation (Ann)
+import HsBindgen.Backend.HsSrcExts (Ann)
 
 {-------------------------------------------------------------------------------
   Options

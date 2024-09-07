@@ -3,19 +3,20 @@ module Main (main) where
 import Data.ByteString.Char8 qualified as BS8
 import Data.ByteString.Lazy.Char8 qualified as LBS8
 import Data.Tree (Tree (..))
+import Data.TreeDiff.Golden (ediffGolden)
 import System.Directory (doesFileExist, setCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
 import Test.Tasty (defaultMain, testGroup)
-import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.Golden (goldenVsStringDiff)
 import Test.Tasty.Golden.Advanced (goldenTest)
-import Language.Haskell.TH.Ppr (ppr)
-import Data.TreeDiff.Golden (ediffGolden)
+import Test.Tasty.HUnit (testCase, (@?=))
 
 import Orphans ()
 
 import HsBindgen.Clang.Util.Classification
+import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
+import HsBindgen.Util.PHOAS
 
 main :: IO ()
 main = do
@@ -43,7 +44,7 @@ main = do
     golden name = testGroup name
         [ goldenDump name
         , goldenTreeDiff name
-        , goldenTH name
+        , goldenHs name
         ]
 
     goldenDump name = goldenVsStringDiff "ast" diff ("fixtures" </> (name ++ ".dump.txt")) $ do
@@ -63,16 +64,17 @@ main = do
         header <- parseCHeader nullTracer SelectFromMainFile args fp
         return header
 
-    goldenTH name = goldenVsStringDiff "th" diff ("fixtures" </> (name ++ ".th.txt")) $ do
+    goldenHs name = goldenVsStringDiff "hs" diff ("fixtures" </> (name ++ ".hs")) $ do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
         header <- parseCHeader nullTracer SelectFromMainFile args fp
-        let decls = genDecls header
+        let decls :: forall f. List Hs.Decl f
+            decls = List $ genHaskell header
 
-        return $ LBS8.pack $ unlines $ map (show . ppr) decls
+        return $ LBS8.pack $ showClosed decls
 
 treeToLines :: Tree Element -> [String]
 treeToLines tree = go 0 tree [] where

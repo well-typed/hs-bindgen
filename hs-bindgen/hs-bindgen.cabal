@@ -28,10 +28,16 @@ common lang
   default-language:
       GHC2021
   default-extensions:
+      DataKinds
+      DefaultSignatures
       DeriveAnyClass
       DerivingStrategies
+      DerivingVia
       DisambiguateRecordFields
+      LambdaCase
+      QuantifiedConstraints
       TypeFamilies
+      UndecidableInstances
 
 library
   import:         lang
@@ -41,13 +47,22 @@ library
       HsBindgen.Lib
       HsBindgen.TH
   exposed-modules:
+      HsBindgen.Backend.Common
+      HsBindgen.Backend.Common.Translation
+      HsBindgen.Backend.HsSrcExts
+      HsBindgen.Backend.HsSrcExts.Render
+      HsBindgen.Backend.HsSrcExts.Translation
+      HsBindgen.Backend.TH
+      HsBindgen.Backend.TH.Translation
       HsBindgen.C.AST
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
-      HsBindgen.Hs.Annotation
-      HsBindgen.Hs.Render
+      HsBindgen.Hs.AST
       HsBindgen.Translation.LowLevel
+      HsBindgen.Util.PHOAS
       HsBindgen.Util.Tracer
+  other-extensions:
+      TemplateHaskellQuotes
   build-depends:
       -- Internal dependencies
     , hs-bindgen-patterns
@@ -58,12 +73,14 @@ library
     , containers         >= 0.6.5.1 && < 0.8
     , contra-tracer      >= 0.2     && < 0.3
     , data-default       >= 0.7     && < 0.8
+    , fin                >= 0.3     && < 0.4
+    , generics-sop       >= 0.5     && < 0.6
     , haskell-src-exts   >= 1.23    && < 1.24
-    , haskell-src-meta   >= 0.8     && < 0.9
     , mtl                >= 2.2     && < 2.4
     , pretty-show        >= 1.10    && < 1.11
     , regex-pcre-builtin >= 0.95    && < 0.96
     , template-haskell   >= 2.18    && < 2.23
+    , vec                >= 0.5     && < 0.6
 
 executable hs-bindgen
   import:         lang
@@ -82,11 +99,6 @@ executable hs-bindgen
     , containers
     , data-default
   build-depends:
-      -- External dependencies
-      --
-      -- NOTE: Ideally this should not depend on haskell-src-exts or
-      -- haskell-src-meta; functionality that requires these libraries should
-      -- live in the library instead.
     , blaze-html           >= 0.9  && < 0.10
     , blaze-markup         >= 0.8  && < 0.9
     , optparse-applicative >= 0.18 && < 0.19
@@ -105,7 +117,6 @@ test-suite golden
       -- Inherited dependencies
     , containers
     , bytestring
-    , template-haskell
   build-depends:
       -- External dependencies
     , directory    ^>=1.3.6.2
@@ -114,3 +125,27 @@ test-suite golden
     , tasty-golden ^>=2.3.5
     , tasty-hunit  ^>=0.10.2
     , tree-diff    ^>=0.3.1
+
+test-suite test-th
+  import:         lang
+  type:           exitcode-stdio-1.0
+  main-is:        TestTH.hs
+  hs-source-dirs: test-th
+
+  other-extensions:
+      TemplateHaskell
+  other-modules:
+      HsBindgen.TestTH.Examples
+      HsBindgen.TestTH.Spliced
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
+  build-depends:
+      -- Inherited dependencies
+      fin
+    , vec
+  build-depends:
+      -- External dependencies
+    , tasty >= 1.5 && < 1.6
+
+

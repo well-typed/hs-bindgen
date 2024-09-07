@@ -9,9 +9,11 @@ WrapCHeader
           structFields = [
             StructField {
               fieldName = "i",
+              fieldOffset = 0,
               fieldType = PrimInt},
             StructField {
               fieldName = "c",
+              fieldOffset = 32,
               fieldType = PrimChar}]},
       DeclStruct
         Struct {

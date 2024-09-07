@@ -9,16 +9,21 @@ WrapCHeader
           structFields = [
             StructField {
               fieldName = "c",
+              fieldOffset = 0,
               fieldType = PrimChar},
             StructField {
               fieldName = "i",
+              fieldOffset = 128,
               fieldType = PrimInt},
             StructField {
               fieldName = "s2",
+              fieldOffset = 160,
               fieldType = PrimInt},
             StructField {
               fieldName = "si2",
+              fieldOffset = 192,
               fieldType = PrimInt},
             StructField {
               fieldName = "f",
+              fieldOffset = 1088,
               fieldType = PrimFloat}]}])
