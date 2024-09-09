@@ -1,0 +1,26 @@
+instance Storable S1
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \x_0 -> (pure MkS1 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {MkS1 a_3 b_4 -> pokeByteOff x_1 0 a_3 >> pokeByteOff x_1 32 b_4}}
+instance Storable S2
+    where {sizeOf = \_ -> 12;
+           alignment = \_ -> 4;
+           peek = \x_0 -> ((pure MkS2 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32) <*> peekByteOff x_0 64;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {MkS2 a_3
+                                        b_4
+                                        c_5 -> (pokeByteOff x_1 0 a_3 >> pokeByteOff x_1 32 b_4) >> pokeByteOff x_1 64 c_5}}
+instance Storable X
+    where {sizeOf = \_ -> 1;
+           alignment = \_ -> 1;
+           peek = \x_0 -> pure MkX <*> peekByteOff x_0 0;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {MkX a_3 -> pokeByteOff x_1 0 a_3}}
+instance Storable S4
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \x_0 -> (pure MkS4 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {MkS4 b_3 a_4 -> pokeByteOff x_1 0 b_3 >> pokeByteOff x_1 32 a_4}}

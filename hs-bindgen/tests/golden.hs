@@ -1,17 +1,17 @@
+{-# LANGUAGE CPP #-}
 module Main (main) where
 
 import Data.ByteString.Char8 qualified as BS8
-import Data.ByteString.Lazy.Char8 qualified as LBS8
 import Data.Tree (Tree (..))
 import Data.TreeDiff.Golden (ediffGolden)
 import System.Directory (doesFileExist, setCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
 import Test.Tasty (defaultMain, testGroup)
-import Test.Tasty.Golden (goldenVsStringDiff)
 import Test.Tasty.Golden.Advanced (goldenTest)
 import Test.Tasty.HUnit (testCase, (@?=))
 
 import Orphans ()
+import TH
 
 import HsBindgen.Clang.Util.Classification
 import HsBindgen.Hs.AST qualified as Hs
@@ -39,15 +39,17 @@ main = do
         , golden "macro_functions"
         ]
   where
-    diff ref new = ["diff", "-u", ref, new]
-
     golden name = testGroup name
         [ goldenDump name
         , goldenTreeDiff name
         , goldenHs name
+-- Since GHC-9.4 the Template Haskell ppr function has changed slightly
+#if __GLASGOW_HASKELL__ >=904
+        , goldenTh name
+#endif
         ]
 
-    goldenDump name = goldenVsStringDiff "ast" diff ("fixtures" </> (name ++ ".dump.txt")) $ do
+    goldenDump name = goldenVsStringDiff_ "ast" ("fixtures" </> (name ++ ".dump.txt")) $ do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
@@ -55,7 +57,7 @@ main = do
 
         res <- getClangAST SelectFromMainFile args fp
 
-        return $ LBS8.pack $ unlines $ concatMap treeToLines res
+        return $ unlines $ concatMap treeToLines res
 
     goldenTreeDiff name = ediffGolden goldenTest "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ do
         let fp = "examples" </> (name ++ ".h")
@@ -64,7 +66,7 @@ main = do
         header <- parseCHeader nullTracer SelectFromMainFile args fp
         return header
 
-    goldenHs name = goldenVsStringDiff "hs" diff ("fixtures" </> (name ++ ".hs")) $ do
+    goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
@@ -74,7 +76,7 @@ main = do
         let decls :: forall f. List Hs.Decl f
             decls = List $ genHaskell header
 
-        return $ LBS8.pack $ showClosed decls
+        return $ showClosed decls
 
 treeToLines :: Tree Element -> [String]
 treeToLines tree = go 0 tree [] where
@@ -91,7 +93,6 @@ showElem Element{elementName, elementKind, elementTypeKind} = mconcat [
     , " :: "
     , show elementTypeKind
     ]
-
 
 -- | In multi-package projects @cabal run test-suite@ will run the test-suite
 -- from your current working directory (e.g. project root), which is often

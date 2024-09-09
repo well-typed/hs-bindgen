@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        ghc: ['9.2.8']
+        ghc: ['9.4.8']
       fail-fast: false
     timeout-minutes:
       60

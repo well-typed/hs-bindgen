@@ -1,0 +1,10 @@
+instance Storable primitive
+    where {sizeOf = \_ -> 176;
+           alignment = \_ -> 16;
+           peek = \x_0 -> ((((pure Mkprimitive <*> peekByteOff x_0 0) <*> peekByteOff x_0 128) <*> peekByteOff x_0 160) <*> peekByteOff x_0 192) <*> peekByteOff x_0 1088;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {Mkprimitive c_3
+                                               i_4
+                                               s2_5
+                                               si2_6
+                                               f_7 -> (((pokeByteOff x_1 0 c_3 >> pokeByteOff x_1 128 i_4) >> pokeByteOff x_1 160 s2_5) >> pokeByteOff x_1 192 si2_6) >> pokeByteOff x_1 1088 f_7}}

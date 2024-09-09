@@ -108,7 +108,7 @@ test-suite golden
   type:           exitcode-stdio-1.0
   main-is:        golden.hs
   hs-source-dirs: tests
-  other-modules:  Orphans
+  other-modules:  Orphans Diff TH
   build-depends:
       -- Internal dependencies
     , hs-bindgen
@@ -117,14 +117,20 @@ test-suite golden
       -- Inherited dependencies
     , containers
     , bytestring
+    , mtl
+    , template-haskell
   build-depends:
       -- External dependencies
-    , directory    ^>=1.3.6.2
-    , filepath     ^>=1.4.2.2 || ^>=1.5.2.0
-    , tasty        ^>=1.5
-    , tasty-golden ^>=2.3.5
-    , tasty-hunit  ^>=0.10.2
-    , tree-diff    ^>=0.3.1
+    , directory     ^>=1.3.6.2
+    , filepath      ^>=1.4.2.2 || ^>=1.5.2.0
+    , tasty         ^>=1.5
+    , tasty-golden  ^>=2.3.5
+    , tasty-hunit   ^>=0.10.2
+    , tree-diff     ^>=0.3.1
+    , syb           ^>=0.7.2.4
+    , vector        ^>=0.13.1.0
+    , ansi-terminal ^>=1.1.1
+    , utf8-string   ^>=1.0.2
 
 test-suite test-th
   import:         lang

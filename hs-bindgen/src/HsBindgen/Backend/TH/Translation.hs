@@ -3,7 +3,6 @@ module HsBindgen.Backend.TH.Translation (
   , translateHs
   ) where
 
-import Language.Haskell.TH (Q)
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
@@ -17,13 +16,13 @@ import HsBindgen.Translation.LowLevel
   Generate list of declarations for splicing
 -------------------------------------------------------------------------------}
 
-translateC :: C.Header -> TH.DecsQ
+translateC :: TH.Quote q => C.Header -> q [TH.Dec]
 translateC = translateHs . generateDeclarations
 
-translateHs :: [Hs.Decl (Fresh BE)] -> TH.DecsQ
+translateHs :: forall q. TH.Quote q => [Hs.Decl (Fresh (BE q))] -> q [TH.Dec]
 translateHs =
     aux . runM . mapM (toBE BE)
   where
-    aux :: Q [TH.DecQ] -> TH.DecsQ
+    aux :: q ([q TH.Dec]) -> q [TH.Dec]
     aux = (>>= sequence)
 
