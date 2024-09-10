@@ -28,8 +28,11 @@ instance BackendRep BE where
   type Decl BE = E.Decl  Ann
 
   resolve _ = \case
+      Unit_type            -> prelude "()"
+      Unit_constructor     -> prelude "()"
       Applicative_pure     -> prelude "pure"
       Applicative_seq      -> prelude "<*>"
+      Monad_return         -> prelude "return"
       Monad_seq            -> prelude ">>"
       Storable_Storable    -> foreignStorable "Storable"
       Storable_sizeOf      -> foreignStorable "sizeOf"

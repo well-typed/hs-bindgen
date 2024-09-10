@@ -29,8 +29,11 @@ class BackendRep be where
   mkDecl  :: be -> SDecl be -> Decl be  -- ^ Construct declaration
 
 data Global =
-    Applicative_pure
+    Unit_type
+  | Unit_constructor
+  | Applicative_pure
   | Applicative_seq
+  | Monad_return
   | Monad_seq
   | Storable_Storable
   | Storable_sizeOf
