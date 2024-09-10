@@ -24,8 +24,11 @@ instance BackendRep BE where
   type Decl BE = TH.DecQ
 
   resolve _ =  \case
+      Unit_type            -> ''()
+      Unit_constructor     -> '()
       Applicative_pure     -> 'pure
       Applicative_seq      -> '(<*>)
+      Monad_return         -> 'return
       Monad_seq            -> '(>>)
       Storable_Storable    -> ''Foreign.Storable.Storable
       Storable_sizeOf      -> 'Foreign.Storable.sizeOf

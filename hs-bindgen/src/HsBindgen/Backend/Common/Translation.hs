@@ -129,7 +129,7 @@ inst be i = mkDecl be $ DInst i
 
 -- | Monad sequencing
 doAll :: Backend be => be -> [Expr be] -> Expr be
-doAll _  [] = error "doAll: TODO: empty list"
+doAll be [] = mkExpr be $ EGlobal Monad_return `EApp` EGlobal Unit_constructor
 doAll be ss = mkExpr be $ foldl1 (EInfix Monad_seq) (map EInj ss)
 
 freshVec ::
