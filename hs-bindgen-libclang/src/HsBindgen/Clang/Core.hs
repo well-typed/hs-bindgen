@@ -102,6 +102,7 @@ module HsBindgen.Clang.Core (
   , clang_Type_isTransparentTagTypedef
   , clang_Cursor_getOffsetOfField
   , clang_Cursor_isAnonymous
+  , clang_getEnumDeclIntegerType
   , clang_getEnumConstantDeclValue
     -- * Mapping between cursors and source code
   , CXSourceRange
@@ -694,6 +695,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getOffsetOfField"
 foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
   wrap_Cursor_isAnonymous :: R CXCursor_ -> IO CUInt
 
+foreign import capi unsafe "clang_wrappers.h wrap_getEnumDeclIntegerType"
+  wrap_getEnumDeclIntegerType :: R CXCursor_ -> W CXType_ -> IO ()
+
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
   wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
 
@@ -787,6 +791,14 @@ clang_Cursor_isAnonymous :: CXCursor -> IO Bool
 clang_Cursor_isAnonymous cursor =
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isAnonymous cursor'
+
+-- | Retrieve the integer type of an enum declaration.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0f5f950bee4e1828b51a41f0eaa951c4>
+clang_getEnumDeclIntegerType :: CXCursor -> IO CXType
+clang_getEnumDeclIntegerType cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getEnumDeclIntegerType cursor'
 
 -- | Retrieve the integer value of an enum constant declaration as a signed long
 -- long.

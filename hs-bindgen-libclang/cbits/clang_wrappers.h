@@ -146,6 +146,10 @@ static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
     return clang_Cursor_isAnonymous(*C);
 }
 
+static inline void wrap_getEnumDeclIntegerType(const CXCursor *C, CXType *result) {
+    *result = clang_getEnumDeclIntegerType(*C);
+}
+
 static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
     return clang_getEnumConstantDeclValue(*C);
 }
