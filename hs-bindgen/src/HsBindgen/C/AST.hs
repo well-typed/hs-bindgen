@@ -77,6 +77,7 @@ data StructField = StructField {
 
 data Enu = Enu {
       enumTag       :: Maybe String
+    , enumTyp       :: PrimType
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]

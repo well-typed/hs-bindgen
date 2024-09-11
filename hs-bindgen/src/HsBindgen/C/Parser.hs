@@ -96,10 +96,13 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
             mkDecl = return . Just . C.DeclStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
       Right CXCursor_EnumDecl -> do
-        mkEnum <- parseEnum unit current
-        let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
-            mkDecl = return . Just . C.DeclEnum . mkEnum
-        return $ Recurse (foldEnumValues tracer) mkDecl
+        mkEnum_ <- parseEnum tracer unit current
+        case mkEnum_ of
+          Nothing -> return $ Continue Nothing
+          Just mkEnum -> do
+            let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
+                mkDecl = return . Just . C.DeclEnum . mkEnum
+            return $ Recurse (foldEnumValues tracer) mkDecl
       Right CXCursor_TypedefDecl -> do
         mkTypedef <- parseTypedef current
         let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
@@ -168,20 +171,29 @@ foldStructFields tracer _parent current = do
   Enums
 -------------------------------------------------------------------------------}
 
-parseEnum :: CXTranslationUnit -> CXCursor -> IO ([C.EnumValue] -> C.Enu)
-parseEnum unit current = do
-    cursorType    <- clang_getCursorType current
-    enumTag       <- fmap decodeString . getUserProvided <$>
-                         getUserProvidedName unit current
-    enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
-    enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
+parseEnum :: Tracer IO ParseMsg -> CXTranslationUnit -> CXCursor -> IO (Maybe ([C.EnumValue] -> C.Enu))
+parseEnum tracer unit current = do
+    ty    <- clang_getEnumDeclIntegerType current
+    case primType ty of
+      Just enumTyp -> do
+        enumTag       <- fmap decodeString . getUserProvided <$>
+                            getUserProvidedName unit current
+        
+        enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
+        enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
-    return $ \enumValues -> C.Enu{
-        enumTag
-      , enumSizeof
-      , enumAlignment
-      , enumValues
-      }
+
+        return $ Just $ \enumValues -> C.Enu{
+            enumTag
+          , enumTyp
+          , enumSizeof
+          , enumAlignment
+          , enumValues
+          }
+
+      _otherwise -> do
+        traceWith tracer Warning $ unrecognizedType (cxtKind cursorType)
+        return Nothing
 
 foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
 foldEnumValues tracer _parent current = do
