@@ -94,14 +94,14 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
         mkStruct <- parseStruct unit current
         let mkDecl :: [C.StructField] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclStruct . mkStruct
-        return $ Recurse (foldStructFields tracer) mkDecl
+        return $ Recurse (foldStructFields unit tracer) mkDecl
       Right CXCursor_EnumDecl -> do
         mkEnum <- parseEnum unit current
         let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclEnum . mkEnum
         return $ Recurse (foldEnumValues tracer) mkDecl
       Right CXCursor_TypedefDecl -> do
-        typedef <- parseTypedef current
+        typedef <- parseTypedef unit current
         return $ Continue (Just (C.DeclTypedef typedef))
       Right CXCursor_MacroDefinition -> do
         range  <- clang_getCursorExtent current
@@ -148,10 +148,10 @@ parseStruct unit current = do
       , structFields
       }
 
-foldStructFields :: HasCallStack => Tracer IO ParseMsg -> Fold C.StructField
-foldStructFields tracer _parent current = do
+foldStructFields :: HasCallStack => CXTranslationUnit -> Tracer IO ParseMsg -> Fold C.StructField
+foldStructFields unit tracer _parent current = do
     ty <- clang_getCursorType current
-    ty' <- parseType ty
+    ty' <- parseType unit ty
     fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
     fieldName   <- decodeString <$> clang_getCursorDisplayName current
     case ty' of
@@ -198,26 +198,38 @@ foldEnumValues tracer _parent current = do
   Types
 -------------------------------------------------------------------------------}
 
-parseType :: CXType -> IO (Maybe C.Typ)
-parseType ty = case fromSimpleEnum $ cxtKind ty of
+-- TODO: this shouldn't need translation unit.
+-- i.e. parseStruct should not need translation unit.
+--
+parseType :: CXTranslationUnit -> CXType -> IO (Maybe C.Typ)
+parseType unit ty = case fromSimpleEnum $ cxtKind ty of
     -- TODO: should we rather throw exceptions,
     -- instead of silently ignoring stuff!?
     Left _i  -> return Nothing
     Right ki -> case ki of
         CXType_Int     -> return (Just (C.TypPrim C.PrimInt))
         CXType_Char_S  -> return (Just (C.TypPrim C.PrimChar))
+        CXType_SChar   -> return (Just (C.TypPrim C.PrimChar)) -- ??
         CXType_Float   -> return (Just (C.TypPrim C.PrimFloat))
-        CXType_Elaborated -> fail "elaborated"
+        CXType_Elaborated -> do
+          ty' <- clang_Type_getNamedType ty
+          parseType unit ty'
+        CXType_Record -> do
+          cursor <- clang_getTypeDeclaration ty
+          mkStruct <- parseStruct unit cursor
+          -- TODO: Tracer
+          fields <- clang_fold cursor $ foldStructFields unit nullTracer
+          return (Just (C.TypStruct (mkStruct fields)))
         CXType_Pointer -> do
             ty' <- clang_getPointeeType ty
-            fmap C.TypPointer <$> parseType ty'
+            fmap C.TypPointer <$> parseType unit ty'
         _ -> fail $ show ki
 
-parseTypedef :: CXCursor -> IO C.Typedef
-parseTypedef current = do
+parseTypedef :: CXTranslationUnit -> CXCursor -> IO C.Typedef
+parseTypedef unit current = do
     typedefName <- decodeString <$> clang_getCursorDisplayName current
     typ <- clang_getTypedefDeclUnderlyingType current
-    typedefType_ <- parseType typ
+    typedefType_ <- parseType unit typ
     case typedefType_ of
         Nothing -> fail "crap"
         Just typedefType -> return $ C.Typedef{

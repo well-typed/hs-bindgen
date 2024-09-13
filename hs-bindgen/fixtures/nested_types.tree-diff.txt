@@ -20,4 +20,40 @@ WrapCHeader
           structTag = Just "bar",
           structSizeof = 16,
           structAlignment = 4,
-          structFields = []}])
+          structFields = [
+            StructField {
+              fieldName = "foo1",
+              fieldOffset = 0,
+              fieldType = TypStruct
+                Struct {
+                  structTag = Just "foo",
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      fieldName = "i",
+                      fieldOffset = 0,
+                      fieldType = TypPrim PrimInt},
+                    StructField {
+                      fieldName = "c",
+                      fieldOffset = 32,
+                      fieldType = TypPrim
+                        PrimChar}]}},
+            StructField {
+              fieldName = "foo2",
+              fieldOffset = 64,
+              fieldType = TypStruct
+                Struct {
+                  structTag = Just "foo",
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      fieldName = "i",
+                      fieldOffset = 0,
+                      fieldType = TypPrim PrimInt},
+                    StructField {
+                      fieldName = "c",
+                      fieldOffset = 32,
+                      fieldType = TypPrim
+                        PrimChar}]}}]}])
