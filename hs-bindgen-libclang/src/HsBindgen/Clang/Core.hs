@@ -104,6 +104,13 @@ module HsBindgen.Clang.Core (
   , clang_Cursor_getOffsetOfField
   , clang_Cursor_isAnonymous
   , clang_getEnumConstantDeclValue
+  , clang_getCanonicalType
+  , clang_getTypedefName
+  , clang_getUnqualifiedType
+  , clang_getTypeDeclaration
+  , clang_Type_getNamedType
+  , clang_Type_getModifiedType
+  , clang_Type_getValueType
     -- * Mapping between cursors and source code
   , CXSourceRange
   , clang_getCursorLocation
@@ -129,6 +136,7 @@ module HsBindgen.Clang.Core (
   , clang_getFileName
     -- * Exceptions
   , CallFailed(..)
+  , Unsupported(..)
   ) where
 
 import Control.Monad
@@ -348,7 +356,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaec6e69127920785e74e4a517423f4391>
 clang_getTranslationUnitCursor :: CXTranslationUnit -> IO CXCursor
 clang_getTranslationUnitCursor unit =
-    preallocate $ wrap_getTranslationUnitCursor unit
+    preallocate_ $ wrap_getTranslationUnitCursor unit
 
 -- | Determine whether two cursors are equivalent.
 --
@@ -393,7 +401,7 @@ clang_equalCursors a b =
 clang_getCursorSemanticParent :: CXCursor -> IO CXCursor
 clang_getCursorSemanticParent cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorSemanticParent cursor'
+      preallocate_ $ wrap_getCursorSemanticParent cursor'
 
 -- | Determine the lexical parent of the given cursor.
 --
@@ -431,7 +439,7 @@ clang_getCursorSemanticParent cursor =
 clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
 clang_getCursorLexicalParent cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorLexicalParent cursor'
+      preallocate_ $ wrap_getCursorLexicalParent cursor'
 
 -- | Retrieve the kind of the given cursor.
 --
@@ -584,7 +592,7 @@ clang_getCursorSpelling cursor =
 clang_getCursorReferenced :: CXCursor -> IO CXCursor
 clang_getCursorReferenced cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorReferenced cursor'
+      preallocate_ $ wrap_getCursorReferenced cursor'
 
 -- | For a cursor that is either a reference to or a declaration of some entity,
 -- retrieve a cursor that describes the definition of that entity.
@@ -593,7 +601,7 @@ clang_getCursorReferenced cursor =
 clang_getCursorDefinition :: CXCursor -> IO CXCursor
 clang_getCursorDefinition cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorDefinition cursor'
+      preallocate_ $ wrap_getCursorDefinition cursor'
 
 -- |  Retrieve the canonical cursor corresponding to the given cursor.
 --
@@ -601,7 +609,7 @@ clang_getCursorDefinition cursor =
 clang_getCanonicalCursor :: CXCursor -> IO CXCursor
 clang_getCanonicalCursor cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCanonicalCursor cursor'
+      preallocate_ $ wrap_getCanonicalCursor cursor'
 
 -- | Given a cursor that represents a declaration, return the associated comment
 -- text, including comment markers.
@@ -642,7 +650,7 @@ clang_Cursor_getSpellingNameRange ::
   -> IO CXSourceRange
 clang_Cursor_getSpellingNameRange cursor pieceIndex options =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_Cursor_getSpellingNameRange cursor' pieceIndex options
+      preallocate_ $ wrap_Cursor_getSpellingNameRange cursor' pieceIndex options
 
 -- | Determine whether the declaration pointed to by this cursor is also a
 -- definition of that entity.
@@ -701,6 +709,30 @@ foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
   wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
 
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCanonicalType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getTypedefName :: R CXType_ -> W CXString_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getUnqualifiedType ::
+       R CXType_
+    -> W CXType_
+    -> IO (SimpleEnum WrapperResult)
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getTypeDeclaration :: R CXType_ -> W CXCursor_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Type_getNamedType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Type_getModifiedType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Type_getValueType :: R CXType_ -> W CXType_ -> IO ()
+
 -- | Extract the @kind@ field from a @CXType@ struct
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html#ab27a7510dc88b0ec80cff04ec89901aa>
@@ -715,7 +747,7 @@ cxtKind typ = unsafePerformIO $
 clang_getCursorType :: CXCursor -> IO CXType
 clang_getCursorType cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorType cursor'
+      preallocate_ $ wrap_getCursorType cursor'
 
 -- | Retrieve the spelling of a given CXTypeKind.
 --
@@ -737,11 +769,14 @@ clang_getTypeSpelling typ = ensure (not . BS.null) $
 
 -- | Retrieve the underlying type of a typedef declaration.
 --
---If the cursor does not reference a typedef declaration, an invalid type is returned.
+-- If the cursor does not reference a typedef declaration, an invalid type is
+-- returned.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8de899fc18dc859b6fe3b97309f4fd52>
 clang_getTypedefDeclUnderlyingType :: CXCursor -> IO CXType
 clang_getTypedefDeclUnderlyingType cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getTypedefDeclUnderlyingType cursor'
+      preallocate_ $ wrap_getTypedefDeclUnderlyingType cursor'
 
 -- | For pointer types, returns the type of the pointee.
 --
@@ -749,7 +784,7 @@ clang_getTypedefDeclUnderlyingType cursor =
 clang_getPointeeType :: CXType -> IO CXType
 clang_getPointeeType typ =
     onHaskellHeap typ $ \typ' ->
-      preallocate $ wrap_getPointeeType typ'
+      preallocate_ $ wrap_getPointeeType typ'
 
 -- | Return the size of a type in bytes as per @C++[expr.sizeof]@ standard.
 --
@@ -822,6 +857,104 @@ clang_getEnumConstantDeclValue cursor = do
     onHaskellHeap cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
 
+-- | Return the canonical type for a CXType.
+--
+-- Clang's type system explicitly models typedefs and all the ways a specific
+-- type can be represented. The canonical type is the underlying type with all
+-- the "sugar" removed. For example, if 'T' is a typedef for 'int', the
+-- canonical type for 'T' would be 'int'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaa9815d77adc6823c58be0a0e32010f8c>
+clang_getCanonicalType :: CXType -> IO CXType
+clang_getCanonicalType typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getCanonicalType typ'
+
+-- | Returns the typedef name of the given type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga7b8e66707c7f27550acfc2daeec527ed>
+clang_getTypedefName :: CXType -> IO ByteString
+clang_getTypedefName arg =
+    onHaskellHeap arg $ \arg' ->
+      packCXString $ wrap_getTypedefName arg'
+
+-- | Retrieve the unqualified variant of the given type, removing as little sugar as possible.
+--
+-- For example, given the following series of typedefs:
+--
+-- > typedef int Integer;
+-- > typedef const Integer CInteger;
+-- > typedef CInteger DifferenceType;
+--
+-- Executing 'clang_getUnqualifiedType' on a CXType that represents
+-- @DifferenceType@, will desugar to a type representing @Integer@, that has no
+-- qualifiers.
+--
+-- And, executing 'clang_getUnqualifiedType' on the type of the first argument
+-- of the following function declaration:
+--
+-- > void foo(const int);
+--
+-- Will return a type representing @int@, removing the @const@ qualifier.
+--
+-- Sugar over array types is not desugared.
+--
+-- A type can be checked for qualifiers with 'clang_isConstQualifiedType',
+-- 'clang_isVolatileQualifiedType' and 'clang_isRestrictQualifiedType'.
+--
+-- A type that resulted from a call to 'clang_getUnqualifiedType' will return
+-- false for all of the above calls.
+--
+-- Throws 'CallFailed' if the argument is an invalid type.
+-- /NOTE/: Requires @llvm-16@ or higher; throws 'Unsupported' otherwise.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8adac28955bf2f3a5ab1fd316a498334>
+clang_getUnqualifiedType :: CXType -> IO CXType
+clang_getUnqualifiedType typ = checkWrapperResult $
+    onHaskellHeap typ $ \typ' ->
+      preallocate $ wrap_getUnqualifiedType typ'
+
+-- | Return the cursor for the declaration of the given type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0aad74ea93a2f5dea58fd6fc0db8aad4>
+clang_getTypeDeclaration :: CXType -> IO CXCursor
+clang_getTypeDeclaration typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getTypeDeclaration typ'
+
+-- | Retrieve the type named by the qualified-id.
+--
+-- Throws 'CallFailed' if a non-elaborated type is passed in.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac6d90c2acdae77f75d8e8288658da463>
+clang_Type_getNamedType :: HasCallStack => CXType -> IO CXType
+clang_Type_getNamedType typ =
+    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
+      onHaskellHeap typ $ \typ' ->
+        preallocate_ $ wrap_Type_getNamedType typ'
+
+-- | Return the type that was modified by this attributed type.
+--
+-- Throws 'CallFailed' if the type is not an attributed type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6fc6ec9bfd9baada2d3fd6022d774675>
+clang_Type_getModifiedType :: HasCallStack => CXType -> IO CXType
+clang_Type_getModifiedType typ =
+    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
+      onHaskellHeap typ $ \typ' ->
+        preallocate_ $ wrap_Type_getModifiedType typ'
+
+-- | Gets the type contained by this atomic type.
+--
+-- Throws 'CallFailed' if a non-atomic type is passed in.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gae42d9886e0e221df03c4a518d9afb622>
+clang_Type_getValueType :: HasCallStack => CXType -> IO CXType
+clang_Type_getValueType typ =
+    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
+      onHaskellHeap typ $ \typ' ->
+        preallocate_ $ wrap_Type_getValueType typ'
+
 {-------------------------------------------------------------------------------
   Mapping between cursors and source code
 
@@ -855,7 +988,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_getCursorExtent"
 clang_getCursorLocation :: CXCursor -> IO CXSourceLocation
 clang_getCursorLocation cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorLocation cursor'
+      preallocate_ $ wrap_getCursorLocation cursor'
 
 -- | Retrieve the physical extent of the source construct referenced by the
 -- given cursor.
@@ -871,7 +1004,7 @@ clang_getCursorLocation cursor =
 clang_getCursorExtent :: CXCursor -> IO CXSourceRange
 clang_getCursorExtent cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_getCursorExtent cursor'
+      preallocate_ $ wrap_getCursorExtent cursor'
 
 {-------------------------------------------------------------------------------
   Token extraction and manipulation
@@ -918,21 +1051,21 @@ clang_getToken unit loc = checkNotNull $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
 clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
 clang_getTokenSpelling unit token =
-    packCXString$ wrap_getTokenSpelling unit token
+    packCXString $ wrap_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga76a721514acb4cc523e10a6913d88021>
 clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO CXSourceLocation
 clang_getTokenLocation unit token =
-    preallocate $ wrap_getTokenLocation unit token
+    preallocate_ $ wrap_getTokenLocation unit token
 
 -- | Retrieve a source range that covers the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga5acbc0a2a3c01aa44e1c5c5ccc4e328b>
 clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
 clang_getTokenExtent unit token =
-    preallocate $ wrap_getTokenExtent unit token
+    preallocate_ $ wrap_getTokenExtent unit token
 
 newtype CXTokenArray = CXTokenArray (Ptr ())
   deriving (Storable)
@@ -1046,7 +1179,7 @@ foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
 clang_getRangeStart :: CXSourceRange -> IO CXSourceLocation
 clang_getRangeStart range =
     onHaskellHeap range $ \range' ->
-      preallocate $ wrap_getRangeStart range'
+      preallocate_ $ wrap_getRangeStart range'
 
 -- | Retrieve a source location representing the last character within a source
 -- range.
@@ -1055,7 +1188,7 @@ clang_getRangeStart range =
 clang_getRangeEnd :: CXSourceRange -> IO CXSourceLocation
 clang_getRangeEnd range =
     onHaskellHeap range $ \range' ->
-      preallocate $ wrap_getRangeEnd range'
+      preallocate_ $ wrap_getRangeEnd range'
 
 -- | Retrieve the file, line, column, and offset represented by the given source
 -- location.

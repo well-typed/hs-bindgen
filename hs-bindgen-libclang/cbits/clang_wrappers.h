@@ -10,6 +10,47 @@
 
 #include <clang-c/Index.h>
 
+#include <stdio.h>
+
+enum WrapperResult {
+    /** The function is supported, but the call failed.
+     *
+     * This can be due to any number of reasons; a typical one is that an
+     * argument @CXType@ is invalid.
+     */
+    WrapperFailed = 0,
+
+    /** Wrapper was successful */
+    WrapperOk = 1,
+
+    /** LLVM is too old (older than version 11) */
+    WrapperLlvmTooOld  = -1,
+
+    /** We need at least LLVM version 11 */
+    WrapperNeedsLlvm11 = -11,
+
+    /** We need at least LLVM version 12 */
+    WrapperNeedsLlvm12 = -12,
+
+    /** We need at least LLVM version 13 */
+    WrapperNeedsLlvm13 = -13,
+
+    /** We need at least LLVM version 14 */
+    WrapperNeedsLlvm14 = -14,
+
+    /** We need at least LLVM version 15 */
+    WrapperNeedsLlvm15 = -15,
+
+    /** We need at least LLVM version 16 */
+    WrapperNeedsLlvm16 = -16,
+
+    /** We need at least LLVM version 17 */
+    WrapperNeedsLlvm17 = -17,
+
+    /** We need at least LLVM version 18 */
+    WrapperNeedsLlvm18 = -18,
+};
+
 /**
  * Translation unit manipulation
  */
@@ -152,6 +193,44 @@ static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
 
 static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
     return clang_getEnumConstantDeclValue(*C);
+}
+
+static inline void wrap_getCanonicalType(const CXType* T, CXType* result) {
+    *result = clang_getCanonicalType(*T);
+}
+
+static inline void wrap_getTypedefName(const CXType* CT, CXString* result) {
+    *result = clang_getTypedefName(*CT);
+}
+
+static inline enum WrapperResult wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
+    #if CINDEX_VERSION_MINOR >= 63
+        // clang_getUnqualifiedType segfaults when CT is invalid
+        if(CT->kind == CXType_Invalid) {
+            return WrapperFailed;
+        } else {
+            *result = clang_getUnqualifiedType(*CT);
+            return WrapperOk;
+        }
+    #else
+        return WrapperNeedsLlvm16;
+    #endif
+}
+
+static inline void wrap_getTypeDeclaration(const CXType* T, CXCursor* result) {
+    *result = clang_getTypeDeclaration(*T);
+}
+
+static inline void wrap_Type_getNamedType(const CXType* T, CXType* result) {
+    *result = clang_Type_getNamedType(*T);
+}
+
+static inline void wrap_Type_getModifiedType(const CXType* T, CXType* result) {
+    *result = clang_Type_getModifiedType(*T);
+}
+
+static inline void wrap_Type_getValueType(const CXType* CT, CXType* result) {
+    *result = clang_Type_getValueType(*CT);
 }
 
 /**

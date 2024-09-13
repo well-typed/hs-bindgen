@@ -18,6 +18,7 @@ import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Patterns
 
 #include <clang-c/Index.h>
+#include "clang_wrappers.h"
 
 {-------------------------------------------------------------------------------
   HasKnownSize instances
@@ -29,6 +30,37 @@ instance HasKnownSize CXSourceRange_    where knownSize = #size CXSourceRange
 instance HasKnownSize CXString_         where knownSize = #size CXString
 instance HasKnownSize CXToken_          where knownSize = #size CXToken
 instance HasKnownSize CXType_           where knownSize = #size CXType
+
+{-------------------------------------------------------------------------------
+  WrapperResult
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum WrapperResult where
+  simpleToC WrapperOk          = #const WrapperOk
+  simpleToC WrapperFailed      = #const WrapperFailed
+  simpleToC WrapperLlvmTooOld  = #const WrapperLlvmTooOld
+  simpleToC WrapperNeedsLlvm11 = #const WrapperNeedsLlvm11
+  simpleToC WrapperNeedsLlvm12 = #const WrapperNeedsLlvm12
+  simpleToC WrapperNeedsLlvm13 = #const WrapperNeedsLlvm13
+  simpleToC WrapperNeedsLlvm14 = #const WrapperNeedsLlvm14
+  simpleToC WrapperNeedsLlvm15 = #const WrapperNeedsLlvm15
+  simpleToC WrapperNeedsLlvm16 = #const WrapperNeedsLlvm16
+  simpleToC WrapperNeedsLlvm17 = #const WrapperNeedsLlvm17
+  simpleToC WrapperNeedsLlvm18 = #const WrapperNeedsLlvm18
+
+  simpleFromC (#const WrapperOk)          = Just WrapperOk
+  simpleFromC (#const WrapperFailed)      = Just WrapperFailed
+  simpleFromC (#const WrapperLlvmTooOld)  = Just WrapperLlvmTooOld
+  simpleFromC (#const WrapperNeedsLlvm11) = Just WrapperNeedsLlvm11
+  simpleFromC (#const WrapperNeedsLlvm12) = Just WrapperNeedsLlvm12
+  simpleFromC (#const WrapperNeedsLlvm13) = Just WrapperNeedsLlvm13
+  simpleFromC (#const WrapperNeedsLlvm14) = Just WrapperNeedsLlvm14
+  simpleFromC (#const WrapperNeedsLlvm15) = Just WrapperNeedsLlvm15
+  simpleFromC (#const WrapperNeedsLlvm16) = Just WrapperNeedsLlvm16
+  simpleFromC (#const WrapperNeedsLlvm17) = Just WrapperNeedsLlvm17
+  simpleFromC (#const WrapperNeedsLlvm18) = Just WrapperNeedsLlvm18
+
+  simpleFromC _otherwise = Nothing
 
 {-------------------------------------------------------------------------------
   CXTranslationUnit_Flag
