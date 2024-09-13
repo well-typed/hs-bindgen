@@ -4,7 +4,6 @@ struct S1 {
     char b;
 };
 
-/*
 // struct with typedef
 typedef struct S2 {
     char a;
@@ -16,7 +15,6 @@ typedef struct S2 {
 typedef struct {
     char a;
 } S3_t;
-*/
 
 struct S4 {
     char b;

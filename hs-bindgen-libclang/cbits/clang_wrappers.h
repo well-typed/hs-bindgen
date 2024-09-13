@@ -162,12 +162,13 @@ static inline void wrap_getTypedefName(const CXType* CT, CXString* result) {
     *result = clang_getTypedefName(*CT);
 }
 
-#if CINDEX_VERSION_MINOR >= 63
-/** \since llvm-16 */
 static inline void wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
+#if CINDEX_VERSION_MINOR >= 63
     *result = clang_getUnqualifiedType(*CT);
-}
+#else
+    result->kind = CXType_Invalid;
 #endif
+}
 
 static inline void wrap_getTypeDeclaration(const CXType* T, CXCursor* result) {
     *result = clang_getTypeDeclaration(*T);
