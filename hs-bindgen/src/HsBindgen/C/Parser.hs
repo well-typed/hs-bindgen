@@ -101,11 +101,8 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
             mkDecl = return . Just . C.DeclEnum . mkEnum
         return $ Recurse (foldEnumValues tracer) mkDecl
       Right CXCursor_TypedefDecl -> do
-        mkTypedef <- parseTypedef current
-        let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
-            mkDecl [typ] = return $ Just (C.DeclTypedef $ mkTypedef typ)
-            mkDecl types = error $ "mkTypedef: unexpected " ++ show types
-        return $ Recurse (foldTyp tracer unit) mkDecl
+        typedef <- parseTypedef current
+        return $ Continue (Just (C.DeclTypedef typedef))
       Right CXCursor_MacroDefinition -> do
         range  <- clang_getCursorExtent current
         tokens <- Tokens.clang_tokenize unit range
@@ -210,19 +207,25 @@ parseType ty = case fromSimpleEnum $ cxtKind ty of
         CXType_Int     -> return (Just (C.TypPrim C.PrimInt))
         CXType_Char_S  -> return (Just (C.TypPrim C.PrimChar))
         CXType_Float   -> return (Just (C.TypPrim C.PrimFloat))
+        CXType_Elaborated -> fail "elaborated"
         CXType_Pointer -> do
             ty' <- clang_getPointeeType ty
             fmap C.TypPointer <$> parseType ty'
-        _ -> return Nothing
+        _ -> fail $ show ki
 
-parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
+parseTypedef :: CXCursor -> IO C.Typedef
 parseTypedef current = do
     typedefName <- decodeString <$> clang_getCursorDisplayName current
-    return $ \typedefType -> C.Typedef{
+    typ <- clang_getTypedefDeclUnderlyingType current
+    typedefType_ <- parseType typ
+    case typedefType_ of
+        Nothing -> fail "crap"
+        Just typedefType -> return $ C.Typedef{
           typedefName
         , typedefType
         }
 
+{-
 foldTyp ::
      HasCallStack
   => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Typ
@@ -237,6 +240,7 @@ foldTyp tracer unit _parent current = do
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
         return $ Continue Nothing
+-}
 
 primType :: SimpleEnum CXTypeKind -> Maybe C.PrimType
 primType = either (const Nothing) aux . fromSimpleEnum
