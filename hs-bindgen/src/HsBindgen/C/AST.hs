@@ -66,7 +66,7 @@ data Struct = Struct {
 data StructField = StructField {
       fieldName   :: String
     , fieldOffset :: Int
-    , fieldType   :: PrimType
+    , fieldType   :: Typ
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -109,6 +109,7 @@ data Typedef = Typedef {
 data Typ =
     TypPrim PrimType
   | TypStruct Struct
+  | TypPointer Typ
   -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
