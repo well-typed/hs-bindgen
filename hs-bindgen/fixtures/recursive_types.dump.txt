@@ -1,0 +1,4 @@
+"StructDecl" "linked_list_a" :: "Record"
+  "FieldDecl" "head" :: "Int"
+  "FieldDecl" "tail" :: "Pointer"
+    "TypeRef" _ :: "Record"

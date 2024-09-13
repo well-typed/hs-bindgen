@@ -35,6 +35,7 @@ main = do
         , golden "nested_types"
         , golden "enums"
         , golden "primitive_types"
+        , golden "recursive_types"
         , golden "macros"
         , golden "macro_functions"
         ]
@@ -55,7 +56,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        res <- getClangAST (traceThrow False) SelectFromMainFile args fp
+        res <- getClangAST nullTracer SelectFromMainFile args fp
 
         return $ unlines $ concatMap treeToLines res
 
@@ -63,7 +64,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader (traceThrow False) nullTracer SelectFromMainFile args fp
+        header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
         return header
 
     goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ do
@@ -72,7 +73,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader (traceThrow False) nullTracer SelectFromMainFile args fp
+        header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
         let decls :: forall f. List Hs.Decl f
             decls = List $ genHaskell header
 

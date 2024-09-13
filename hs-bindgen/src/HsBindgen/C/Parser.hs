@@ -1,3 +1,4 @@
+{-# LANGUAGE RecursiveDo #-}
 -- | High-level bindings to @libclang@
 --
 -- Intended for qualified import.
@@ -24,6 +25,9 @@ import Data.List (partition)
 import Data.Tree
 import Foreign.C
 import GHC.Stack
+import Data.Map (Map)
+import Data.IORef
+import Data.Map.Lazy qualified as Map
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Predicate (Predicate)
@@ -128,20 +132,18 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         mkStruct <- parseStruct unit current
+        visited <- newIORef Map.empty
         let mkDecl :: [C.StructField] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclStruct . mkStruct
-        return $ Recurse (foldStructFields tracer) mkDecl
+        return $ Recurse (foldStructFields tracer unit) mkDecl
       Right CXCursor_EnumDecl -> do
         mkEnum <- parseEnum unit current
         let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
             mkDecl = return . Just . C.DeclEnum . mkEnum
         return $ Recurse (foldEnumValues tracer) mkDecl
       Right CXCursor_TypedefDecl -> do
-        mkTypedef <- parseTypedef current
-        let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
-            mkDecl [typ] = return $ Just (C.DeclTypedef $ mkTypedef typ)
-            mkDecl types = error $ "mkTypedef: unexpected " ++ show types
-        return $ Recurse (foldTyp tracer unit) mkDecl
+        typedef <- parseTypedef tracer unit current
+        return $ Continue (Just (C.DeclTypedef typedef))
       Right CXCursor_MacroDefinition -> do
         range  <- clang_getCursorExtent current
         tokens <- Tokens.clang_tokenize unit range
@@ -187,10 +189,10 @@ parseStruct unit current = do
       , structFields
       }
 
-foldStructFields :: Tracer IO ParseMsg -> Fold C.StructField
-foldStructFields tracer _parent current = do
+foldStructFields :: Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.StructField
+foldStructFields tracer unit _parent current = do
     ty  <- clang_getCursorType current
-    fieldType <- parseType tracer ty
+    fieldType <- parseType tracer unit ty
     fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
     fieldName   <- decodeString <$> clang_getCursorDisplayName current
 
@@ -240,8 +242,8 @@ foldEnumValues tracer _parent current = do
 -- If we encounter an unrecognized type, we return 'Nothing' and issue a
 -- warning. The warning is ussed here, rather than at the call site, because
 -- 'parseType' is recursive.
-parseType :: Tracer IO ParseMsg -> CXType -> IO C.Typ
-parseType _tracer = go
+parseType :: Tracer IO ParseMsg -> CXTranslationUnit -> CXType -> IO C.Typ
+parseType tracer unit = go
   where
     go :: CXType -> IO C.Typ
     go ty =
@@ -254,34 +256,27 @@ parseType _tracer = go
             C.TypPointer <$> go ty'
 
           Right CXType_Elaborated -> do
+            -- ty' <- clang_Type_getNamedType ty
             return C.TypElaborated
+
+          Right CXType_Record -> do
+            cursor <- clang_getTypeDeclaration ty
+            mkStruct <- parseStruct unit cursor
+            fields <- clang_fold cursor $ foldStructFields tracer unit
+            return (C.TypStruct (mkStruct fields))
 
           _otherwise -> do
             throwIO $ UnrecognizedType (cxtKind ty)
 
-
-parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
-parseTypedef current = do
+parseTypedef :: Tracer IO ParseMsg -> CXTranslationUnit -> CXCursor -> IO C.Typedef
+parseTypedef tracer unit current = do
     typedefName <- decodeString <$> clang_getCursorDisplayName current
-    return $ \typedefType -> C.Typedef{
+    typ <- clang_getTypedefDeclUnderlyingType current
+    typedefType <- parseType tracer unit typ
+    return $ C.Typedef{
           typedefName
         , typedefType
         }
-
-foldTyp ::
-     HasCallStack
-  => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Typ
-foldTyp tracer unit _parent current = do
-    cursorKind <- clang_getCursorKind current
-    case fromSimpleEnum cursorKind of
-      Right CXCursor_StructDecl -> do
-        mkStruct <- parseStruct unit current
-        let mkDecl :: [C.StructField] -> IO (Maybe C.Typ)
-            mkDecl = return . Just . C.TypStruct . mkStruct
-        return $ Recurse (foldStructFields tracer) mkDecl
-      _otherwise -> do
-        traceWith tracer Warning $ unrecognizedCursor cursorKind
-        return $ Continue Nothing
 
 primType :: Either CInt CXTypeKind -> Maybe C.PrimType
 primType (Left _)     = Nothing

@@ -30,4 +30,69 @@ WrapCHeader
             StructField {
               fieldName = "foo2",
               fieldOffset = 64,
-              fieldType = TypElaborated}]}])
+              fieldType = TypElaborated}]},
+      DeclStruct
+        Struct {
+          structTag = Just "ex3",
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = "",
+              fieldOffset = `-1`,
+              fieldType = TypStruct
+                Struct {
+                  structTag = Nothing,
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      fieldName = "ex3_a",
+                      fieldOffset = 0,
+                      fieldType = TypPrim
+                        (PrimInt Signed)},
+                    StructField {
+                      fieldName = "ex3_b",
+                      fieldOffset = 32,
+                      fieldType = TypPrim
+                        (PrimChar Nothing)}]}},
+            StructField {
+              fieldName = "ex3_c",
+              fieldOffset = 64,
+              fieldType = TypPrim
+                PrimFloat}]},
+      DeclStruct
+        Struct {
+          structTag = Just "ex4",
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = "ex4_b",
+              fieldOffset = `-1`,
+              fieldType = TypStruct
+                Struct {
+                  structTag = Just "ex4_b",
+                  structSizeof = 16,
+                  structAlignment = 8,
+                  structFields = [
+                    StructField {
+                      fieldName = "ex3_a",
+                      fieldOffset = 0,
+                      fieldType = TypPrim
+                        (PrimInt Signed)},
+                    StructField {
+                      fieldName = "ex3_b",
+                      fieldOffset = 32,
+                      fieldType = TypPrim
+                        (PrimChar Nothing)},
+                    StructField {
+                      fieldName = "recur",
+                      fieldOffset = 64,
+                      fieldType = TypPointer
+                        TypElaborated}]}},
+            StructField {
+              fieldName = "ex3_c",
+              fieldOffset = 0,
+              fieldType = TypPrim
+                PrimFloat}]}])

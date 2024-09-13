@@ -1,0 +1,20 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Just
+            "linked_list_a",
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = "head",
+              fieldOffset = 0,
+              fieldType = TypPrim
+                (PrimInt Signed)},
+            StructField {
+              fieldName = "tail",
+              fieldOffset = 64,
+              fieldType = TypPointer
+                TypElaborated}]}])
