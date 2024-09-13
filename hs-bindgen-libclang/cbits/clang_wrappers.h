@@ -154,6 +154,37 @@ static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
     return clang_getEnumConstantDeclValue(*C);
 }
 
+static inline void wrap_getCanonicalType(const CXType* T, CXType* result) {
+    *result = clang_getCanonicalType(*T);
+}
+
+static inline void wrap_getTypedefName(const CXType* CT, CXString* result) {
+    *result = clang_getTypedefName(*CT);
+}
+
+#if CINDEX_VERSION_MINOR >= 63
+/** \since llvm-16 */
+static inline void wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
+    *result = clang_getUnqualifiedType(*CT);
+}
+#endif
+
+static inline void wrap_getTypeDeclaration(const CXType* T, CXCursor* result) {
+    *result = clang_getTypeDeclaration(*T);
+}
+
+static inline void wrap_Type_getNamedType(const CXType* T, CXType* result) {
+    *result = clang_Type_getNamedType(*T);
+}
+
+static inline void wrap_Type_getModifiedType(const CXType* T, CXType* result) {
+    *result = clang_Type_getModifiedType(*T);
+}
+
+static inline void wrap_Type_getValueType(const CXType* CT, CXType* result) {
+    *result = clang_Type_getValueType(*CT);
+}
+
 /**
  * Mapping between cursors and source code
  */

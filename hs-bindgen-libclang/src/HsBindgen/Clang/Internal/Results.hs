@@ -8,6 +8,7 @@ module HsBindgen.Clang.Internal.Results (
     -- * Specific conditions
   , cToBool
   , ensure
+  , ensureOn
   , ensureNotNull
   , checkNotNull
   , ensureNotInRange

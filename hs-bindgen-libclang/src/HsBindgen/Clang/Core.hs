@@ -104,6 +104,13 @@ module HsBindgen.Clang.Core (
   , clang_Cursor_getOffsetOfField
   , clang_Cursor_isAnonymous
   , clang_getEnumConstantDeclValue
+  , clang_getCanonicalType
+  , clang_getTypedefName
+  , clang_getUnqualifiedType
+  , clang_getTypeDeclaration
+  , clang_Type_getNamedType
+  , clang_Type_getModifiedType
+  , clang_Type_getValueType
     -- * Mapping between cursors and source code
   , CXSourceRange
   , clang_getCursorLocation
@@ -701,6 +708,27 @@ foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
   wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
 
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCanonicalType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getTypedefName :: R CXType_ -> W CXString_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getUnqualifiedType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getTypeDeclaration :: R CXType_ -> W CXCursor_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Type_getNamedType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Type_getModifiedType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Type_getValueType :: R CXType_ -> W CXType_ -> IO ()
+
 -- | Extract the @kind@ field from a @CXType@ struct
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html#ab27a7510dc88b0ec80cff04ec89901aa>
@@ -822,6 +850,103 @@ clang_getEnumConstantDeclValue cursor = do
     onHaskellHeap cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
 
+-- | Return the canonical type for a CXType.
+--
+-- Clang's type system explicitly models typedefs and all the ways a specific
+-- type can be represented. The canonical type is the underlying type with all
+-- the "sugar" removed. For example, if 'T' is a typedef for 'int', the
+-- canonical type for 'T' would be 'int'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaa9815d77adc6823c58be0a0e32010f8c>
+clang_getCanonicalType :: CXType -> IO CXType
+clang_getCanonicalType typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate $ wrap_getCanonicalType typ'
+
+-- | Returns the typedef name of the given type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga7b8e66707c7f27550acfc2daeec527ed>
+clang_getTypedefName :: CXType -> IO ByteString
+clang_getTypedefName arg =
+    onHaskellHeap arg $ \arg' ->
+      packCXString $ wrap_getTypedefName arg'
+
+-- | Retrieve the unqualified variant of the given type, removing as little sugar as possible.
+--
+-- For example, given the following series of typedefs:
+--
+-- > typedef int Integer;
+-- > typedef const Integer CInteger;
+-- > typedef CInteger DifferenceType;
+--
+-- Executing 'clang_getUnqualifiedType' on a CXType that represents
+-- @DifferenceType@, will desugar to a type representing @Integer@, that has no
+-- qualifiers.
+--
+-- And, executing 'clang_getUnqualifiedType' on the type of the first argument
+-- of the following function declaration:
+--
+-- > void foo(const int);
+--
+-- Will return a type representing @int@, removing the @const@ qualifier.
+--
+-- Sugar over array types is not desugared.
+--
+-- A type can be checked for qualifiers with 'clang_isConstQualifiedType',
+-- 'clang_isVolatileQualifiedType' and 'clang_isRestrictQualifiedType'.
+--
+-- A type that resulted from a call to 'clang_getUnqualifiedType' will return
+-- false for all of the above calls.
+--
+-- /NOTE/: Requires @llvm-16@ or higher.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8adac28955bf2f3a5ab1fd316a498334>
+clang_getUnqualifiedType :: CXType -> IO CXType
+clang_getUnqualifiedType typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate $ wrap_getUnqualifiedType typ'
+
+-- | Return the cursor for the declaration of the given type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0aad74ea93a2f5dea58fd6fc0db8aad4>
+clang_getTypeDeclaration :: CXType -> IO CXCursor
+clang_getTypeDeclaration typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate $ wrap_getTypeDeclaration typ'
+
+-- | Retrieve the type named by the qualified-id.
+--
+-- Throws 'CallFailed' if a non-elaborated type is passed in.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac6d90c2acdae77f75d8e8288658da463>
+clang_Type_getNamedType :: HasCallStack => CXType -> IO CXType
+clang_Type_getNamedType typ =
+    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
+      onHaskellHeap typ $ \typ' ->
+        preallocate $ wrap_Type_getNamedType typ'
+
+-- | Return the type that was modified by this attributed type.
+--
+-- Throws 'CallFailed' if the type is not an attributed type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6fc6ec9bfd9baada2d3fd6022d774675>
+clang_Type_getModifiedType :: HasCallStack => CXType -> IO CXType
+clang_Type_getModifiedType typ =
+    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
+      onHaskellHeap typ $ \typ' ->
+        preallocate $ wrap_Type_getModifiedType typ'
+
+-- | Gets the type contained by this atomic type.
+--
+-- Throws 'CallFailed' if a non-atomic type is passed in.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gae42d9886e0e221df03c4a518d9afb622>
+clang_Type_getValueType :: HasCallStack => CXType -> IO CXType
+clang_Type_getValueType typ =
+    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
+      onHaskellHeap typ $ \typ' ->
+        preallocate $ wrap_Type_getValueType typ'
+
 {-------------------------------------------------------------------------------
   Mapping between cursors and source code
 
@@ -918,7 +1043,7 @@ clang_getToken unit loc = checkNotNull $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
 clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
 clang_getTokenSpelling unit token =
-    packCXString$ wrap_getTokenSpelling unit token
+    packCXString $ wrap_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
 --
