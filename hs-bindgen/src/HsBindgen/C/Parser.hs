@@ -16,10 +16,12 @@ module HsBindgen.C.Parser (
   , ParseMsg(..)
   ) where
 
-import Control.Exception (bracket)
+import Control.Exception
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
+import Data.List (partition)
 import Data.Tree
+import Foreign.C
 import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
@@ -29,29 +31,52 @@ import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Doxygen
 import HsBindgen.Clang.Util.Classification
+import HsBindgen.Clang.Util.Diagnostics (Diagnostic(..))
+import HsBindgen.Clang.Util.Diagnostics qualified as Diagnostics
 import HsBindgen.Clang.Util.Fold
 import HsBindgen.Clang.Util.SourceLoc (SourceLoc)
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
-import Foreign.C
 
 {-------------------------------------------------------------------------------
   General setup
 -------------------------------------------------------------------------------}
 
+-- TODO: <https://github.com/well-typed/hs-bindgen/issues/174>
+-- We should have a pretty renderer for diagnostics. For now we rely on
+-- 'diagnosticFormatted'.
+data CErrors = CErrors [ByteString]
+  deriving stock (Show)
+  deriving anyclass (Exception)
+
+-- | Parse C file
+--
+-- Throws 'CErrors' if @libclang@ reported any errors in the C file.
 withTranslationUnit ::
      ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withTranslationUnit args fp kont = do
+withTranslationUnit args fp k = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit index fp args flags
-    kont unit
+    diags  <- Diagnostics.getDiagnostics unit Nothing
+
+    let errors, warnings :: [Diagnostic]
+        (errors, warnings) = partition Diagnostics.isError diags
+
+    case errors of
+      [] -> do
+        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
+        -- We should print warnings only optionally.
+        print warnings
+        k unit
+      errs ->
+        throwIO $ CErrors $ map diagnosticFormatted errs
   where
-    flags :: CXTranslationUnit_Flags
+    flags :: BitfieldEnum CXTranslationUnit_Flags
     flags = bitfieldEnum [
           CXTranslationUnit_SkipFunctionBodies
         , CXTranslationUnit_DetailedPreprocessingRecord

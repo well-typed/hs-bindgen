@@ -60,6 +60,7 @@ library
   exposed-modules:
       -- Additional utilities, without direct counterparts in libclang
       HsBindgen.Clang.Util.Classification
+      HsBindgen.Clang.Util.Diagnostics
       HsBindgen.Clang.Util.Fold
       HsBindgen.Clang.Util.SourceLoc
       HsBindgen.Clang.Util.Tokens

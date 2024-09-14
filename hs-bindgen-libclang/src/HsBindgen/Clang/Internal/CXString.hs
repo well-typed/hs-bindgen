@@ -1,12 +1,7 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
+
 -- | Dealing with @CXString@
---
--- This is internal API; the public API deals with strict bytestrings only.
-module HsBindgen.Clang.Internal.CXString (
-    -- We must export the CXString constructor in order to be able to use it
-    -- in FFI imports. It is not part of the public API (we don't re-export it).
-    CXString(..)
-  , packCXString
-  ) where
+module HsBindgen.Clang.Internal.CXString () where
 
 import Control.Exception
 import Data.ByteString (ByteString)
@@ -22,14 +17,18 @@ import HsBindgen.Clang.Internal.ByValue
   Translation to bytestrings
 -------------------------------------------------------------------------------}
 
--- | Pack 'CXString'
-packCXString :: (W CXString_ -> IO ()) -> IO ByteString
-packCXString allocStr =
-    bracket (preallocate_ allocStr) clang_disposeString $ \str -> do
-      cstr <- clang_getCString str
-      if cstr == nullPtr
-        then return BS.Strict.empty
-        else BS.Strict.packCString cstr
+instance Preallocate ByteString where
+  type Writing ByteString = W CXString_
+
+  preallocate :: (W CXString_ -> IO b) -> IO (ByteString, b)
+  preallocate allocStr =
+      bracket
+          (preallocate allocStr)
+          (clang_disposeString . fst) $ \(str, b) -> do
+        cstr <- clang_getCString str
+        if cstr == nullPtr
+          then return (BS.Strict.empty, b)
+          else (, b) <$> BS.Strict.packCString cstr
 
 {-------------------------------------------------------------------------------
   Low-level bindings

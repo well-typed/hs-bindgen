@@ -4,6 +4,6 @@ struct foo {
 };
 
 struct bar {
-    foo foo1;
-    foo foo2;
+    struct foo foo1;
+    struct foo foo2;
 };

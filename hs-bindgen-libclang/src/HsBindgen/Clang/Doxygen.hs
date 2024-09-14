@@ -27,7 +27,7 @@ import HsBindgen.Clang.Doxygen.Enums
 import HsBindgen.Clang.Doxygen.Instances ()
 import HsBindgen.Clang.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Clang.Internal.CXString
+import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ foreign import capi unsafe "doxygen_wrappers.h wrap_FullComment_getAsXML"
 clang_FullComment_getAsHTML :: CXComment -> IO ByteString
 clang_FullComment_getAsHTML comment =
     onHaskellHeap comment $ \comment' ->
-      packCXString $ wrap_FullComment_getAsHTML comment'
+      preallocate_ $ wrap_FullComment_getAsHTML comment'
 
 -- | Convert a given full parsed comment to an XML document.
 --
@@ -85,4 +85,4 @@ clang_FullComment_getAsHTML comment =
 clang_FullComment_getAsXML :: CXComment -> IO ByteString
 clang_FullComment_getAsXML comment =
     onHaskellHeap comment $ \comment' ->
-      packCXString $ wrap_FullComment_getAsXML comment'
+      preallocate_ $ wrap_FullComment_getAsXML comment'

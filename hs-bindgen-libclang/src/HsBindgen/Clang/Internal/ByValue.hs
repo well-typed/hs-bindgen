@@ -12,9 +12,10 @@ module HsBindgen.Clang.Internal.ByValue (
   , onHaskellHeap
     -- * Preallocation
   , W(..)
-  , Preallocate -- opaque
-  , preallocate
+  , Preallocate(..)
   , preallocate_
+  , preallocatePair
+  , preallocatePair_
   ) where
 
 import Foreign
@@ -91,13 +92,13 @@ newtype W tag = W (MutableByteArray# RealWorld)
 --
 -- The definition of this class is not exported; instances are expected to be
 -- derived through newtype deriving.
-class LivesOnHaskellHeap a => Preallocate a where
+class Preallocate a where
   type Writing a :: UnliftedType
 
   -- | Preallocate a buffer
   --
   -- See 'onHaskellHeap' for rationale.
-  preallocate :: (Writing a -> IO b) -> IO (a, b)
+  preallocate :: (Writing a -> IO r) -> IO (a, r)
 
 preallocate_ :: Preallocate  a => (Writing a -> IO ()) -> IO a
 preallocate_ = fmap fst . preallocate
@@ -105,9 +106,32 @@ preallocate_ = fmap fst . preallocate
 instance HasKnownSize tag => Preallocate (OnHaskellHeap tag) where
   type Writing (OnHaskellHeap tag) = W tag
 
+  preallocate :: (W tag -> IO r) -> IO (OnHaskellHeap tag, r)
   preallocate f =
       mkByteArray# (knownSize @tag) OnHaskellHeap $ \arr ->
         f (W arr)
+
+-- | Preallocate two values
+--
+-- TODO: It would be nice to generalize this, but I can't quite figure out how
+-- without introducing a ton of machinery.
+preallocatePair :: forall a b r.
+     (Preallocate a, Preallocate b)
+  => (Writing a -> Writing b -> IO r)
+  -> IO ((a, b), r)
+preallocatePair k = fmap reassoc $
+    preallocate $ \wa ->
+    preallocate $ \wb ->
+      k wa wb
+  where
+    reassoc :: (a, (b, r)) -> ((a, b), r)
+    reassoc (a, (b, r)) = ((a, b), r)
+
+preallocatePair_ ::
+     (Preallocate a, Preallocate b)
+  => (Writing a -> Writing b -> IO ())
+  -> IO (a, b)
+preallocatePair_ = fmap fst . preallocatePair
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

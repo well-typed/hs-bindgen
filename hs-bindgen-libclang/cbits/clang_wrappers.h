@@ -52,6 +52,38 @@ enum WrapperResult {
 };
 
 /**
+ * Diagnostic reporting
+ */
+
+static inline void wrap_formatDiagnostic(CXDiagnostic Diagnostic, unsigned Options, CXString* result) {
+    *result = clang_formatDiagnostic(Diagnostic, Options);
+}
+
+static inline void wrap_getDiagnosticLocation(CXDiagnostic Diagnostic, CXSourceLocation* result) {
+    *result = clang_getDiagnosticLocation(Diagnostic);
+}
+
+static inline void wrap_getDiagnosticSpelling(CXDiagnostic Diagnostic, CXString* result) {
+    *result = clang_getDiagnosticSpelling(Diagnostic);
+}
+
+static inline void wrap_getDiagnosticOption(CXDiagnostic Diag, CXString* Disable, CXString* result) {
+    *result = clang_getDiagnosticOption(Diag, Disable);
+}
+
+static inline void wrap_getDiagnosticCategoryText(CXDiagnostic Diag, CXString* result) {
+    *result = clang_getDiagnosticCategoryText(Diag);
+}
+
+static inline void wrap_getDiagnosticRange(CXDiagnostic Diagnostic, unsigned Range, CXSourceRange* result) {
+    *result = clang_getDiagnosticRange(Diagnostic, Range);
+}
+
+static inline void wrap_getDiagnosticFixIt(CXDiagnostic Diagnostic, unsigned FixIt, CXSourceRange* ReplacementRange, CXString* result) {
+    *result = clang_getDiagnosticFixIt(Diagnostic, FixIt, ReplacementRange);
+}
+
+/**
  * Translation unit manipulation
  */
 
