@@ -96,6 +96,7 @@ module HsBindgen.Clang.Core (
   , clang_getCursorType
   , clang_getTypeKindSpelling
   , clang_getTypeSpelling
+  , clang_getTypedefDeclUnderlyingType
   , clang_getPointeeType
   , clang_Type_getSizeOf
   , clang_Type_getAlignOf
@@ -676,6 +677,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_getTypeKindSpelling"
 foreign import capi unsafe "clang_wrappers.h wrap_getTypeSpelling"
   wrap_getTypeSpelling :: R CXType_ -> W CXString_ -> IO ()
 
+foreign import capi unsafe "clang_wrappers.h wrap_getTypedefDeclUnderlyingType"
+  wrap_getTypedefDeclUnderlyingType :: R CXCursor_ -> W CXType_ -> IO ()
+
 foreign import capi unsafe "clang_wrappers.h wrap_getPointeeType"
   wrap_getPointeeType :: R CXType_ -> W CXType_ -> IO ()
 
@@ -730,6 +734,14 @@ clang_getTypeSpelling :: HasCallStack => CXType -> IO ByteString
 clang_getTypeSpelling typ = ensure (not . BS.null) $
      onHaskellHeap typ $ \typ' ->
        packCXString$ wrap_getTypeSpelling typ'
+
+-- | Retrieve the underlying type of a typedef declaration.
+--
+--If the cursor does not reference a typedef declaration, an invalid type is returned.
+clang_getTypedefDeclUnderlyingType :: CXCursor -> IO CXType
+clang_getTypedefDeclUnderlyingType cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate $ wrap_getTypedefDeclUnderlyingType cursor'
 
 -- | For pointer types, returns the type of the pointee.
 --
