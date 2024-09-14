@@ -20,12 +20,22 @@ module HsBindgen.Clang.Internal.ByValue (
 import Foreign
 import GHC.Exts
 import GHC.IO
+import Data.Array.Byte (ByteArray (..))
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
 data OnHaskellHeap tag = OnHaskellHeap ByteArray#
+
+instance Eq (OnHaskellHeap tag) where
+  OnHaskellHeap a == OnHaskellHeap b = ByteArray a == ByteArray b
+
+instance Ord (OnHaskellHeap tag) where
+  compare (OnHaskellHeap a) (OnHaskellHeap b) = compare (ByteArray a) (ByteArray b)
+
+instance Show (OnHaskellHeap tag) where
+  showsPrec d (OnHaskellHeap a) = showsPrec d (ByteArray a)
 
 {-------------------------------------------------------------------------------
   Construction
