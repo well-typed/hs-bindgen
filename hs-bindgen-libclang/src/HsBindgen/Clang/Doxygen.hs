@@ -51,7 +51,7 @@ foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getKind"
 clang_Cursor_getParsedComment :: CXCursor -> IO CXComment
 clang_Cursor_getParsedComment cursor =
     onHaskellHeap cursor $ \cursor' ->
-      preallocate $ wrap_Cursor_getParsedComment cursor'
+      preallocate_ $ wrap_Cursor_getParsedComment cursor'
 
 -- | Get the type of an AST node of any kind
 --

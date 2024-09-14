@@ -14,6 +14,7 @@ module HsBindgen.Clang.Internal.ByValue (
   , W(..)
   , Preallocate -- opaque
   , preallocate
+  , preallocate_
   ) where
 
 import Foreign
@@ -41,7 +42,7 @@ class HasKnownSize tag where
 copyToHaskellHeap :: forall tag.
      HasKnownSize tag
   => Ptr tag -> IO (OnHaskellHeap tag)
-copyToHaskellHeap src =
+copyToHaskellHeap src = fmap fst $
     mkByteArray# (knownSize @tag) OnHaskellHeap $ \arr -> do
       let dest :: Ptr tag
           dest = Ptr (mutableByteArrayContents# arr)
@@ -86,7 +87,10 @@ class LivesOnHaskellHeap a => Preallocate a where
   -- | Preallocate a buffer
   --
   -- See 'onHaskellHeap' for rationale.
-  preallocate :: (Writing a -> IO ()) -> IO a
+  preallocate :: (Writing a -> IO b) -> IO (a, b)
+
+preallocate_ :: Preallocate  a => (Writing a -> IO ()) -> IO a
+preallocate_ = fmap fst . preallocate
 
 instance HasKnownSize tag => Preallocate (OnHaskellHeap tag) where
   type Writing (OnHaskellHeap tag) = W tag
@@ -102,10 +106,10 @@ instance HasKnownSize tag => Preallocate (OnHaskellHeap tag) where
 mkByteArray# ::
      Int
   -> (ByteArray# -> a)
-  -> (MutableByteArray# RealWorld -> IO ())
-  -> IO a
+  -> (MutableByteArray# RealWorld -> IO b)
+  -> IO (a, b)
 mkByteArray# (I# sz) wrap fill = IO $ \w0 ->
     let !(# w1, arr  #) = newPinnedByteArray# sz     w0
-        !(# w2, ()   #) = unIO (fill arr)            w1
+        !(# w2, b    #) = unIO (fill arr)            w1
         !(# w3, arr' #) = unsafeFreezeByteArray# arr w2
-    in (# w3, wrap arr' #)
+    in (# w3, (wrap arr', b) #)

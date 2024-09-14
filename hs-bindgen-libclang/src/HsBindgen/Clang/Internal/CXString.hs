@@ -25,7 +25,7 @@ import HsBindgen.Clang.Internal.ByValue
 -- | Pack 'CXString'
 packCXString :: (W CXString_ -> IO ()) -> IO ByteString
 packCXString allocStr =
-    bracket (preallocate allocStr) clang_disposeString $ \str -> do
+    bracket (preallocate_ allocStr) clang_disposeString $ \str -> do
       cstr <- clang_getCString str
       if cstr == nullPtr
         then return BS.Strict.empty
