@@ -153,16 +153,17 @@ parseStruct unit current = do
 
 foldStructFields :: HasCallStack => Tracer IO ParseMsg -> Fold C.StructField
 foldStructFields tracer _parent current = do
-    typeKind <- cxtKind <$> clang_getCursorType current
-    case primType typeKind of
+    ty <- clang_getCursorType current
+    ty' <- parseType ty
+    fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
+    fieldName   <- decodeString <$> clang_getCursorDisplayName current
+    case ty' of
+      Nothing -> do
+        traceWith tracer Warning $ unrecognizedType (cxtKind ty)
+        return $ Continue Nothing
       Just fieldType -> do
-        fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-        fieldName   <- decodeString <$> clang_getCursorDisplayName current
         let field = C.StructField{fieldName, fieldOffset, fieldType}
         return $ Continue (Just field)
-      _otherwise -> do
-        traceWith tracer Warning $ unrecognizedType typeKind
-        return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Enums
@@ -199,6 +200,20 @@ foldEnumValues tracer _parent current = do
 {-------------------------------------------------------------------------------
   Types
 -------------------------------------------------------------------------------}
+
+parseType :: CXType -> IO (Maybe C.Typ)
+parseType ty = case fromSimpleEnum $ cxtKind ty of
+    -- TODO: should we rather throw exceptions,
+    -- instead of silently ignoring stuff!?
+    Left _i  -> return Nothing
+    Right ki -> case ki of
+        CXType_Int     -> return (Just (C.TypPrim C.PrimInt))
+        CXType_Char_S  -> return (Just (C.TypPrim C.PrimChar))
+        CXType_Float   -> return (Just (C.TypPrim C.PrimFloat))
+        CXType_Pointer -> do
+            ty' <- clang_getPointeeType ty
+            fmap C.TypPointer <$> parseType ty'
+        _ -> return Nothing
 
 parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
 parseTypedef current = do

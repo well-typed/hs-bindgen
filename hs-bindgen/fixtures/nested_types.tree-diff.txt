@@ -10,11 +10,11 @@ WrapCHeader
             StructField {
               fieldName = "i",
               fieldOffset = 0,
-              fieldType = PrimInt},
+              fieldType = TypPrim PrimInt},
             StructField {
               fieldName = "c",
               fieldOffset = 32,
-              fieldType = PrimChar}]},
+              fieldType = TypPrim PrimChar}]},
       DeclStruct
         Struct {
           structTag = Just "bar",

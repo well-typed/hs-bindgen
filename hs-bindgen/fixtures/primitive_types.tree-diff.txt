@@ -10,20 +10,21 @@ WrapCHeader
             StructField {
               fieldName = "c",
               fieldOffset = 0,
-              fieldType = PrimChar},
+              fieldType = TypPrim PrimChar},
             StructField {
               fieldName = "i",
               fieldOffset = 128,
-              fieldType = PrimInt},
+              fieldType = TypPrim PrimInt},
             StructField {
               fieldName = "s2",
               fieldOffset = 160,
-              fieldType = PrimInt},
+              fieldType = TypPrim PrimInt},
             StructField {
               fieldName = "si2",
               fieldOffset = 192,
-              fieldType = PrimInt},
+              fieldType = TypPrim PrimInt},
             StructField {
               fieldName = "f",
               fieldOffset = 1088,
-              fieldType = PrimFloat}]}])
+              fieldType = TypPrim
+                PrimFloat}]}])
