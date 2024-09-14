@@ -81,7 +81,7 @@ newtype W tag = W (MutableByteArray# RealWorld)
 --
 -- The definition of this class is not exported; instances are expected to be
 -- derived through newtype deriving.
-class LivesOnHaskellHeap a => Preallocate a where
+class Preallocate a where
   type Writing a :: UnliftedType
 
   -- | Preallocate a buffer
