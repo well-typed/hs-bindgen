@@ -15,6 +15,9 @@ module HsBindgen.Clang.Util.SourceLoc (
   , clang_Cursor_getSpellingNameRange
   , clang_getCursorLocation
   , clang_getCursorExtent
+  , clang_getDiagnosticLocation
+  , clang_getDiagnosticRange
+  , clang_getDiagnosticFixIt
     -- * Low-level
   , toSourceLoc
   , toSourceRange
@@ -23,12 +26,16 @@ module HsBindgen.Clang.Util.SourceLoc (
 import Data.ByteString (ByteString)
 import Data.ByteString.UTF8 qualified as BS.UTF8
 import Data.List (intercalate)
+import Foreign.C
 
 import HsBindgen.Clang.Core qualified as Core
 import HsBindgen.Clang.Core hiding (
     clang_Cursor_getSpellingNameRange
   , clang_getCursorLocation
   , clang_getCursorExtent
+  , clang_getDiagnosticLocation
+  , clang_getDiagnosticRange
+  , clang_getDiagnosticFixIt
   )
 
 {-------------------------------------------------------------------------------
@@ -93,6 +100,22 @@ clang_getCursorLocation cursor =
 clang_getCursorExtent :: CXCursor -> IO SourceRange
 clang_getCursorExtent cursor =
     toSourceRange =<< Core.clang_getCursorExtent cursor
+
+clang_getDiagnosticLocation :: CXDiagnostic -> IO SourceLoc
+clang_getDiagnosticLocation diag =
+    toSourceLoc =<< Core.clang_getDiagnosticLocation diag
+
+clang_getDiagnosticRange :: CXDiagnostic -> CUInt -> IO SourceRange
+clang_getDiagnosticRange diag i =
+    toSourceRange =<< Core.clang_getDiagnosticRange diag i
+
+clang_getDiagnosticFixIt ::
+     CXDiagnostic
+  -> CUInt
+  -> IO (SourceRange, ByteString)
+clang_getDiagnosticFixIt diag i = do
+    (range, bs) <- Core.clang_getDiagnosticFixIt diag i
+    (,bs) <$> toSourceRange range
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
