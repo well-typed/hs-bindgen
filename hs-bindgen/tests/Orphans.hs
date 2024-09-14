@@ -13,6 +13,7 @@ instance ToExpr C.Struct
 instance ToExpr C.Typedef
 instance ToExpr C.Typ
 instance ToExpr C.PrimType
+instance ToExpr C.PrimSign
 instance ToExpr C.StructField
 instance ToExpr C.Enu
 instance ToExpr C.EnumValue

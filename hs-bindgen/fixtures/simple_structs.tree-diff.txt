@@ -10,11 +10,13 @@ WrapCHeader
             StructField {
               fieldName = "a",
               fieldOffset = 0,
-              fieldType = TypPrim PrimInt},
+              fieldType = TypPrim
+                (PrimInt Signed)},
             StructField {
               fieldName = "b",
               fieldOffset = 32,
-              fieldType = TypPrim PrimChar}]},
+              fieldType = TypPrim
+                (PrimChar Nothing)}]},
       DeclStruct
         Struct {
           structTag = Just "S2",
@@ -24,11 +26,13 @@ WrapCHeader
             StructField {
               fieldName = "a",
               fieldOffset = 0,
-              fieldType = TypPrim PrimChar},
+              fieldType = TypPrim
+                (PrimChar Nothing)},
             StructField {
               fieldName = "b",
               fieldOffset = 32,
-              fieldType = TypPrim PrimInt},
+              fieldType = TypPrim
+                (PrimInt Signed)},
             StructField {
               fieldName = "c",
               fieldOffset = 64,
@@ -46,11 +50,13 @@ WrapCHeader
                 StructField {
                   fieldName = "a",
                   fieldOffset = 0,
-                  fieldType = TypPrim PrimChar},
+                  fieldType = TypPrim
+                    (PrimChar Nothing)},
                 StructField {
                   fieldName = "b",
                   fieldOffset = 32,
-                  fieldType = TypPrim PrimInt},
+                  fieldType = TypPrim
+                    (PrimInt Signed)},
                 StructField {
                   fieldName = "c",
                   fieldOffset = 64,
@@ -65,7 +71,8 @@ WrapCHeader
             StructField {
               fieldName = "a",
               fieldOffset = 0,
-              fieldType = TypPrim PrimChar}]},
+              fieldType = TypPrim
+                (PrimChar Nothing)}]},
       DeclTypedef
         Typedef {
           typedefName = "S3_t",
@@ -79,7 +86,7 @@ WrapCHeader
                   fieldName = "a",
                   fieldOffset = 0,
                   fieldType = TypPrim
-                    PrimChar}]}},
+                    (PrimChar Nothing)}]}},
       DeclStruct
         Struct {
           structTag = Just "S4",
@@ -89,8 +96,10 @@ WrapCHeader
             StructField {
               fieldName = "b",
               fieldOffset = 0,
-              fieldType = TypPrim PrimChar},
+              fieldType = TypPrim
+                (PrimChar Nothing)},
             StructField {
               fieldName = "a",
               fieldOffset = 32,
-              fieldType = TypPrim PrimInt}]}])
+              fieldType = TypPrim
+                (PrimInt Signed)}]}])
