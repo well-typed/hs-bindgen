@@ -66,7 +66,7 @@ instance IsSimpleEnum WrapperResult where
   CXTranslationUnit_Flag
 -------------------------------------------------------------------------------}
 
-instance IsSingleFlag CXTranslationUnit_Flag where
+instance IsSingleFlag CXTranslationUnit_Flags where
   flagToC CXTranslationUnit_None                                 = #const CXTranslationUnit_None
   flagToC CXTranslationUnit_DetailedPreprocessingRecord          = #const CXTranslationUnit_DetailedPreprocessingRecord
   flagToC CXTranslationUnit_Incomplete                           = #const CXTranslationUnit_Incomplete
@@ -784,5 +784,36 @@ instance IsSimpleEnum CXCursorKind where
   simpleFromC (#const CXCursor_StaticAssert)                                     = Just CXCursor_StaticAssert
   simpleFromC (#const CXCursor_FriendDecl)                                       = Just CXCursor_FriendDecl
   simpleFromC (#const CXCursor_OverloadCandidate)                                = Just CXCursor_OverloadCandidate
+
+  simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXDiagnosticDisplayOptions
+-------------------------------------------------------------------------------}
+
+instance IsSingleFlag CXDiagnosticDisplayOptions where
+  flagToC CXDiagnostic_DisplaySourceLocation = #const CXDiagnostic_DisplaySourceLocation
+  flagToC CXDiagnostic_DisplayColumn         = #const CXDiagnostic_DisplayColumn
+  flagToC CXDiagnostic_DisplaySourceRanges   = #const CXDiagnostic_DisplaySourceRanges
+  flagToC CXDiagnostic_DisplayOption         = #const CXDiagnostic_DisplayOption
+  flagToC CXDiagnostic_DisplayCategoryId     = #const CXDiagnostic_DisplayCategoryId
+  flagToC CXDiagnostic_DisplayCategoryName   = #const CXDiagnostic_DisplayCategoryName
+
+{-------------------------------------------------------------------------------
+  CXDiagnosticSeverity
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXDiagnosticSeverity where
+  simpleToC CXDiagnostic_Ignored  = #const CXDiagnostic_Ignored
+  simpleToC CXDiagnostic_Note     = #const CXDiagnostic_Note
+  simpleToC CXDiagnostic_Warning  = #const CXDiagnostic_Warning
+  simpleToC CXDiagnostic_Error    = #const CXDiagnostic_Error
+  simpleToC CXDiagnostic_Fatal    = #const CXDiagnostic_Fatal
+
+  simpleFromC (#const CXDiagnostic_Ignored) = Just CXDiagnostic_Ignored
+  simpleFromC (#const CXDiagnostic_Note)    = Just CXDiagnostic_Note
+  simpleFromC (#const CXDiagnostic_Warning) = Just CXDiagnostic_Warning
+  simpleFromC (#const CXDiagnostic_Error)   = Just CXDiagnostic_Error
+  simpleFromC (#const CXDiagnostic_Fatal)   = Just CXDiagnostic_Fatal
 
   simpleFromC _otherwise = Nothing

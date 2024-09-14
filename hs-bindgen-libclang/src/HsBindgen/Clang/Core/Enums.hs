@@ -1,14 +1,16 @@
 -- | Haskell equivalent of C enums using in @libclang@
 --
--- This module should only be imported by "HsBingen.Clang.LowLevel".
+-- This module should only be imported by "HsBindgen.Clang.Core".
 module HsBindgen.Clang.Core.Enums (
     WrapperResult(..)
-  , CXTranslationUnit_Flag(..)
+  , CXTranslationUnit_Flags(..)
   , CXTypeKind(..)
   , CXChildVisitResult(..)
   , CXTypeLayoutError(..)
   , CXTokenKind(..)
   , CXCursorKind(..)
+  , CXDiagnosticDisplayOptions(..)
+  , CXDiagnosticSeverity(..)
   ) where
 
 {-------------------------------------------------------------------------------
@@ -61,10 +63,14 @@ data WrapperResult =
   CXTranslationUnit_Flag
 -------------------------------------------------------------------------------}
 
--- | Single flag of 'CXTranslationUnit_Flags'
+-- | Flags that control the creation of translation units.
+--
+-- The enumerators in this enumeration type are meant to be bitwise ORed
+-- together to specify which options should be used when constructing the
+-- translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gab1e4965c1ebe8e41d71e90203a723fe9>
-data CXTranslationUnit_Flag =
+data CXTranslationUnit_Flags =
     -- | Used to indicate that no special translation-unit options are needed.
     CXTranslationUnit_None
 
@@ -1180,4 +1186,87 @@ data CXCursorKind =
 
     -- | A code completion overload candidate.
   | CXCursor_OverloadCandidate
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+{-------------------------------------------------------------------------------
+  CXDiagnosticDisplayOptions
+-------------------------------------------------------------------------------}
+
+-- | Options to control the display of diagnostics.
+--
+-- The values in this enum are meant to be combined to customize the behavior of
+-- 'clang_formatDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga0545c7c3ef36a397c44d142b0385b8d1>
+data CXDiagnosticDisplayOptions =
+    -- | Display the source-location information where the diagnostic was
+    -- located.
+    --
+    -- When set, diagnostics will be prefixed by the file, line, and
+    -- (optionally) column to which the diagnostic refers. For example,
+    --
+    -- > test.c:28: warning: extra tokens at end of #endif directive
+    --
+    -- This option corresponds to the clang flag @-fshow-source-location@.
+    CXDiagnostic_DisplaySourceLocation
+
+    -- | If displaying the source-location information of the diagnostic, also
+    -- include the column number.
+    --
+    -- | This option corresponds to the clang flag @-fshow-column@.
+  | CXDiagnostic_DisplayColumn
+
+    -- | If displaying the source-location information of the diagnostic, also
+    -- include information about source ranges in a machine-parsable format.
+    --
+    -- This option corresponds to the clang flag
+    -- @-fdiagnostics-print-source-range-info@.
+  | CXDiagnostic_DisplaySourceRanges
+
+    -- | Display the option name associated with this diagnostic, if any.
+    --
+    -- The option name displayed (e.g., @-Wconversion@) will be placed in
+    -- brackets after the diagnostic text. This option corresponds to the clang
+    -- flag @-fdiagnostics-show-option@.
+  | CXDiagnostic_DisplayOption
+
+    -- | Display the category number associated with this diagnostic, if any.
+    --
+    -- The category number is displayed within brackets after the diagnostic
+    -- text. This option corresponds to the clang flag
+    -- @-fdiagnostics-show-category=id@.
+  | CXDiagnostic_DisplayCategoryId
+
+    -- | Display the category name associated with this diagnostic, if any.
+    --
+    -- The category name is displayed within brackets after the diagnostic text.
+    -- This option corresponds to the clang flag
+    -- @-fdiagnostics-show-category=name@.
+  | CXDiagnostic_DisplayCategoryName
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+{-------------------------------------------------------------------------------
+  CXDiagnosticSeverity
+-------------------------------------------------------------------------------}
+
+-- | Describes the severity of a particular diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gabff210a02d448bf64e8aee79b2241370>
+data CXDiagnosticSeverity =
+    -- | A diagnostic that has been suppressed, e.g., by a command-line option.
+    CXDiagnostic_Ignored
+
+    -- | This diagnostic is a note that should be attached to the previous
+    -- (non-note) diagnostic.
+  | CXDiagnostic_Note
+
+    -- | This diagnostic indicates suspicious code that may not be wrong.
+  | CXDiagnostic_Warning
+
+    -- | This diagnostic indicates that the code is ill-formed.
+  | CXDiagnostic_Error
+
+    -- | This diagnostic indicates that the code is ill-formed such that future
+    -- parser recovery is unlikely to produce useful results.
+  | CXDiagnostic_Fatal
   deriving stock (Show, Eq, Ord, Enum, Bounded)

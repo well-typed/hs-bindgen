@@ -56,11 +56,34 @@ module HsBindgen.Clang.Core (
     CXIndex
   , DisplayDiagnostics(..)
   , clang_createIndex
+  , clang_getNumDiagnostics
+  , clang_getDiagnostic
+    -- * Diagnostic reporting
+  , CXDiagnostic
+  , CXDiagnosticSet
+  , CXDiagnosticDisplayOptions(..)
+  , CXDiagnosticSeverity(..)
+  , clang_getNumDiagnosticsInSet
+  , clang_getDiagnosticInSet
+  , clang_disposeDiagnosticSet
+  , clang_getChildDiagnostics
+  , clang_disposeDiagnostic
+  , clang_formatDiagnostic
+  , clang_defaultDiagnosticDisplayOptions
+  , clang_getDiagnosticSeverity
+  , clang_getDiagnosticLocation
+  , clang_getDiagnosticSpelling
+  , clang_getDiagnosticOption
+  , clang_getDiagnosticCategory
+  , clang_getDiagnosticCategoryText
+  , clang_getDiagnosticNumRanges
+  , clang_getDiagnosticRange
+  , clang_getDiagnosticNumFixIts
+  , clang_getDiagnosticFixIt
     -- * Translation unit manipulation
   , CXTranslationUnit
   , CXUnsavedFile
-  , CXTranslationUnit_Flags
-  , CXTranslationUnit_Flag(..)
+  , CXTranslationUnit_Flags(..)
   , CXTargetInfo(..)
   , clang_parseTranslationUnit
   , clang_getTranslationUnitTargetInfo
@@ -168,15 +191,35 @@ import HsBindgen.Patterns
 newtype CXIndex = CXIndex (Ptr ())
   deriving stock (Show)
 
+data DisplayDiagnostics =
+    DisplayDiagnostics
+  | DontDisplayDiagnostics
+
 foreign import capi unsafe "clang-c/Index.h clang_createIndex"
   nowrapper_clang_createIndex ::
        CInt -- ^ @excludeDeclarationsFromPCH@
     -> CInt -- ^ @displayDiagnostics@
     -> IO CXIndex
 
-data DisplayDiagnostics =
-    DisplayDiagnostics
-  | DontDisplayDiagnostics
+-- | Determine the number of diagnostics produced for the given translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#gae9f047b4bbbbb01161478d549b7aab25>
+foreign import capi unsafe "clang-c/Index.h clang_getNumDiagnostics"
+  clang_getNumDiagnostics :: CXTranslationUnit -> IO CUInt
+
+-- | Retrieve a diagnostic associated with the given translation unit.
+--
+-- Returns the requested diagnostic. This diagnostic must be freed via a call to
+-- 'clang_disposeDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga3f54a79e820c2ac9388611e98029afe5>
+foreign import capi unsafe "clang-c/Index.h clang_getDiagnostic"
+  clang_getDiagnostic ::
+       CXTranslationUnit
+       -- ^ the translation unit to query.
+    -> CUInt
+       -- ^ the zero-based diagnostic number to retrieve.
+    -> IO CXDiagnostic
 
 -- | Provides a shared context for creating translation units.
 --
@@ -197,17 +240,223 @@ clang_createIndex diagnostics =
           DontDisplayDiagnostics -> 0
 
 {-------------------------------------------------------------------------------
-  Definition of 'CXTranslationUnit_Flags'
+  Diagnostic reporting
+
+  <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html>
 -------------------------------------------------------------------------------}
 
--- | Flags that control the creation of translation units.
+-- | A single diagnostic, containing the diagnostic's severity, location, text,
+-- source ranges, and fix-it hints.
 --
--- The enumerators in this enumeration type are meant to be bitwise ORed
--- together to specify which options should be used when constructing the
--- translation unit.
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga44bb8aba7c40590ad25d1763c4fbff7f>
+newtype CXDiagnostic = CXDiagnostic (Ptr ())
+
+-- | A group of CXDiagnostics.
 --
--- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gab1e4965c1ebe8e41d71e90203a723fe9>
-type CXTranslationUnit_Flags = BitfieldEnum CXTranslationUnit_Flag
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga38dfc0ae45b55bf7fd577eed9148e244>
+newtype CXDiagnosticSet = CXDiagnosticSet (Ptr ())
+
+-- | Determine the number of diagnostics in a 'CXDiagnosticSet'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga44e87e54125e501de0d3bd29161fe26b>
+foreign import capi unsafe "clang-c/Index.h clang_getNumDiagnosticsInSet"
+  clang_getNumDiagnosticsInSet :: CXDiagnosticSet -> IO CUInt
+
+-- | Retrieve a diagnostic associated with the given 'CXDiagnosticSet'.
+--
+-- Returns the requested diagnostic. This diagnostic must be freed via a call to
+-- 'clang_disposeDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga997e07d587e02eea7d29874c33c94249>
+foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticInSet"
+  clang_getDiagnosticInSet ::
+       CXDiagnosticSet  -- ^ the CXDiagnosticSet to query.
+    -> CUInt            -- ^ the zero-based diagnostic number to retrieve.
+    -> IO CXDiagnostic
+
+-- | Release a CXDiagnosticSet and all of its contained diagnostics.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga1a1126b07e4dc0b45b0617f3cc848d57>
+foreign import capi unsafe "clang-c/Index.h clang_disposeDiagnosticSet"
+  clang_disposeDiagnosticSet :: CXDiagnosticSet -> IO ()
+
+-- | Retrieve the child diagnostics of a CXDiagnostic.
+--
+-- This 'CXDiagnosticSet' does not need to be released by
+-- 'clang_disposeDiagnosticSet'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga1aa24f925b34bb988dc3ea06ec27dcda>
+foreign import capi unsafe "clang-c/Index.h clang_getChildDiagnostics"
+  clang_getChildDiagnostics :: CXDiagnostic -> IO CXDiagnosticSet
+
+-- | Destroy a diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga07061e0ad7665b7c5ee7253cd1bf4a5c>
+foreign import capi unsafe "clang-c/Index.h clang_disposeDiagnostic"
+  clang_disposeDiagnostic :: CXDiagnostic -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_formatDiagnostic"
+  wrap_formatDiagnostic ::
+       CXDiagnostic
+    -> BitfieldEnum CXDiagnosticDisplayOptions
+    -> W CXString_
+    -> IO ()
+
+-- | Retrieve the set of display options most similar to the default behavior of
+-- the clang compiler.
+--
+-- Returns a set of display options suitable for use with
+-- 'clang_formatDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga5fcf910792541399efd63c62042ce353>
+foreign import capi unsafe "clang-c/Index.h clang_defaultDiagnosticDisplayOptions"
+  clang_defaultDiagnosticDisplayOptions ::
+       IO (BitfieldEnum CXDiagnosticDisplayOptions)
+
+-- | Determine the severity of the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gaff14261578eb9a2b02084f0cc6b95f9a>
+foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticSeverity"
+  clang_getDiagnosticSeverity ::
+       CXDiagnostic
+    -> IO (SimpleEnum CXDiagnosticSeverity)
+
+foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticLocation"
+  wrap_getDiagnosticLocation :: CXDiagnostic -> W CXSourceLocation_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticSpelling"
+  wrap_getDiagnosticSpelling :: CXDiagnostic -> W CXString_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticOption"
+  wrap_getDiagnosticOption ::
+        CXDiagnostic
+     -> W CXString_
+     -> W CXString_
+     -> IO ()
+
+-- | Retrieve the category number for this diagnostic.
+--
+-- Diagnostics can be categorized into groups along with other, related
+-- diagnostics (e.g., diagnostics under the same warning flag). This routine
+-- retrieves the category number for the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga0ec085bd59b8b6c935eab0e53a1f348f>
+foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticCategory"
+  clang_getDiagnosticCategory :: CXDiagnostic -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticCategoryText"
+  wrap_getDiagnosticCategoryText :: CXDiagnostic -> W CXString_ -> IO ()
+
+-- | Determine the number of source ranges associated with the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga7acbd761f1113ea657022e5708694924>
+foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticNumRanges"
+  clang_getDiagnosticNumRanges :: CXDiagnostic -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticRange"
+  wrap_getDiagnosticRange :: CXDiagnostic -> CUInt -> W CXSourceRange_ -> IO ()
+
+-- | Determine the number of fix-it hints associated with the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gafe38dfd661f6ba59df956dfeabece2a2>
+foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticNumFixIts"
+  clang_getDiagnosticNumFixIts :: CXDiagnostic -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticFixIt"
+  wrap_getDiagnosticFixIt ::
+       CXDiagnostic
+    -> CUInt
+    -> W CXSourceRange_
+    -> W CXString_
+    -> IO ()
+
+-- | Format the given diagnostic in a manner that is suitable for display.
+--
+-- This routine will format the given diagnostic to a string, rendering the
+-- diagnostic according to the various options given. The
+-- 'clang_defaultDiagnosticDisplayOptions' function returns the set of options
+-- that most closely mimics the behavior of the clang compiler.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga455234ab6de0ca12c9ea36f8874060e8>
+clang_formatDiagnostic ::
+     CXDiagnostic
+  -> BitfieldEnum CXDiagnosticDisplayOptions
+  -> IO ByteString
+clang_formatDiagnostic diagnostic options =
+    preallocate_ $ wrap_formatDiagnostic diagnostic options
+
+-- | Retrieve the source location of the given diagnostic.
+--
+-- This location is where Clang would print the caret (@^@) when displaying the
+-- diagnostic on the command line.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gabfcf70ac15bb3e5ae39ef2c5e07c7428>
+clang_getDiagnosticLocation :: CXDiagnostic -> IO CXSourceLocation
+clang_getDiagnosticLocation diagnostic =
+    preallocate_ $ wrap_getDiagnosticLocation diagnostic
+
+-- | Retrieve the text of the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga34a875e6d06ed4f8d2fc032f850ebbe1>
+clang_getDiagnosticSpelling :: CXDiagnostic -> IO ByteString
+clang_getDiagnosticSpelling diagnostic =
+    preallocate_ $ wrap_getDiagnosticSpelling diagnostic
+
+-- | Retrieve the name of the command-line option that enabled this diagnostic.
+--
+-- Returns a string that contains the command-line option used to enable this
+-- warning, such as @"-Wconversion"@ or @"-pedantic"@, as well as the option
+-- that disables this diagnostic (if any).
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga69b094e2cca1cd6f452327dc9204a168>
+clang_getDiagnosticOption :: CXDiagnostic -> IO (ByteString, ByteString)
+clang_getDiagnosticOption diagnostic =
+    preallocatePair_ $ wrap_getDiagnosticOption diagnostic
+
+-- | Retrieve the diagnostic category text for a given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga6950702b6122f1cd74e1a369605a9f54>>
+clang_getDiagnosticCategoryText :: CXDiagnostic -> IO ByteString
+clang_getDiagnosticCategoryText diagnostic =
+    preallocate_ $ wrap_getDiagnosticCategoryText diagnostic
+
+-- | Retrieve a source range associated with the diagnostic.
+--
+-- A diagnostic's source ranges highlight important elements in the source code.
+-- On the command line, Clang displays source ranges by underlining them with
+-- @~@ characters.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gabd440f1577374289ffebe73d9f65b294>
+clang_getDiagnosticRange ::
+     CXDiagnostic  -- ^ the diagnostic whose range is being extracted.
+  -> CUInt         -- ^ the zero-based index specifying which range to extract
+  -> IO CXSourceRange
+clang_getDiagnosticRange diagnostic range =
+    preallocate_ $ wrap_getDiagnosticRange diagnostic range
+
+-- | Retrieve the replacement information for a given fix-it.
+--
+-- Fix-its are described in terms of a source range whose contents should be
+-- replaced by a string. This approach generalizes over three kinds of
+-- operations: removal of source code (the range covers the code to be removed
+-- and the replacement string is empty), replacement of source code (the range
+-- covers the code to be replaced and the replacement string provides the new
+-- code), and insertion (both the start and end of the range point at the
+-- insertion location, and the replacement string provides the text to insert).
+--
+-- Returns the replacement range and a string containing text that should be
+-- replace the source code. The replacement range is the source range whose
+-- contents will be replaced with the returned replacement string. Note that
+-- source ranges are half-open ranges [a, b), so the source code should be
+-- replaced from a and up to (but not including) b.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gadf990bd68112475c5c07b19c1fe3938a>
+clang_getDiagnosticFixIt ::
+     CXDiagnostic  -- ^ The diagnostic whose fix-its are being queried.
+  -> CUInt         -- ^ The zero-based index of the fix-it.
+  -> IO (CXSourceRange, ByteString)
+clang_getDiagnosticFixIt diagnostic fixit =
+    preallocatePair_ $ wrap_getDiagnosticFixIt diagnostic fixit
 
 {-------------------------------------------------------------------------------
   Translation unit manipulation
@@ -249,7 +498,7 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit"
     -> CInt
     -> CXUnsavedFile
     -> CUInt
-    -> CXTranslationUnit_Flags
+    -> BitfieldEnum CXTranslationUnit_Flags
     -> IO CXTranslationUnit
 
 -- | Get target information for this translation unit.
@@ -281,10 +530,10 @@ foreign import capi "clang_wrappers.h wrap_TargetInfo_getTriple"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga2baf83f8c3299788234c8bce55e4472e>
 clang_parseTranslationUnit ::
      HasCallStack
-  => CXIndex                  -- ^ @CIdx@
-  -> FilePath                 -- ^ @source_filename@
-  -> [String]                 -- ^ @command_line_args@
-  -> CXTranslationUnit_Flags  -- ^ @options@
+  => CXIndex                               -- ^ @CIdx@
+  -> FilePath                              -- ^ @source_filename@
+  -> [String]                              -- ^ @command_line_args@
+  -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO CXTranslationUnit
 clang_parseTranslationUnit cIdx src args options =
     withCString  src  $ \src' ->

@@ -20,6 +20,7 @@ import Control.Exception (bracket)
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
 import Data.Tree
+import Foreign.C
 import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
@@ -35,7 +36,6 @@ import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
-import Foreign.C
 
 {-------------------------------------------------------------------------------
   General setup
@@ -47,11 +47,11 @@ withTranslationUnit ::
   -> (CXTranslationUnit -> IO r)
   -> IO r
 withTranslationUnit args fp kont = do
-    index  <- clang_createIndex DontDisplayDiagnostics
+    index  <- clang_createIndex DisplayDiagnostics
     unit   <- clang_parseTranslationUnit index fp args flags
     kont unit
   where
-    flags :: CXTranslationUnit_Flags
+    flags :: BitfieldEnum CXTranslationUnit_Flags
     flags = bitfieldEnum [
           CXTranslationUnit_SkipFunctionBodies
         , CXTranslationUnit_DetailedPreprocessingRecord
