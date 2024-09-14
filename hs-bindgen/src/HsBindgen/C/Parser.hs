@@ -35,6 +35,7 @@ import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
+import Foreign.C
 
 {-------------------------------------------------------------------------------
   General setup
@@ -153,14 +154,12 @@ parseStruct unit current = do
 
 foldStructFields :: HasCallStack => Tracer IO ParseMsg -> Fold C.StructField
 foldStructFields tracer _parent current = do
-    ty <- clang_getCursorType current
-    ty' <- parseType ty
+    ty  <- clang_getCursorType current
+    ty' <- parseType tracer ty
     fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
     fieldName   <- decodeString <$> clang_getCursorDisplayName current
     case ty' of
-      Nothing -> do
-        traceWith tracer Warning $ unrecognizedType (cxtKind ty)
-        return $ Continue Nothing
+      Nothing        -> return $ Continue Nothing
       Just fieldType -> do
         let field = C.StructField{fieldName, fieldOffset, fieldType}
         return $ Continue (Just field)
@@ -187,7 +186,7 @@ parseEnum unit current = do
 foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
 foldEnumValues tracer _parent current = do
     typeKind <- cxtKind <$> clang_getCursorType current
-    case primType typeKind of
+    case primType (fromSimpleEnum typeKind) of
       Just _fieldType -> do
         valueName  <- decodeString <$> clang_getCursorDisplayName     current
         valueValue <- toInteger    <$> clang_getEnumConstantDeclValue current
@@ -201,19 +200,28 @@ foldEnumValues tracer _parent current = do
   Types
 -------------------------------------------------------------------------------}
 
-parseType :: CXType -> IO (Maybe C.Typ)
-parseType ty = case fromSimpleEnum $ cxtKind ty of
-    -- TODO: should we rather throw exceptions,
-    -- instead of silently ignoring stuff!?
-    Left _i  -> return Nothing
-    Right ki -> case ki of
-        CXType_Int     -> return (Just (C.TypPrim C.PrimInt))
-        CXType_Char_S  -> return (Just (C.TypPrim C.PrimChar))
-        CXType_Float   -> return (Just (C.TypPrim C.PrimFloat))
-        CXType_Pointer -> do
+-- | Parse type
+--
+-- If we encounter an unrecognized type, we return 'Nothing' and issue a
+-- warning. The warning is ussed here, rather than at the call site, because
+-- 'parseType' is recursive.
+parseType :: HasCallStack => Tracer IO ParseMsg -> CXType -> IO (Maybe C.Typ)
+parseType tracer = go
+  where
+    go :: CXType -> IO (Maybe C.Typ)
+    go ty =
+        case fromSimpleEnum $ cxtKind ty of
+          kind | Just prim <- primType kind ->
+            return $ Just (C.TypPrim prim)
+
+          Right CXType_Pointer -> do
             ty' <- clang_getPointeeType ty
-            fmap C.TypPointer <$> parseType ty'
-        _ -> return Nothing
+            fmap C.TypPointer <$> go ty'
+
+          _otherwise -> do
+            traceWith tracer Warning $ unrecognizedType (cxtKind ty)
+            return Nothing
+
 
 parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
 parseTypedef current = do
@@ -238,14 +246,25 @@ foldTyp tracer unit _parent current = do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
         return $ Continue Nothing
 
-primType :: SimpleEnum CXTypeKind -> Maybe C.PrimType
-primType = either (const Nothing) aux . fromSimpleEnum
-  where
-    aux :: CXTypeKind -> Maybe C.PrimType
-    aux CXType_Int    = Just C.PrimInt
-    aux CXType_Char_S = Just C.PrimChar
-    aux CXType_Float  = Just C.PrimFloat
-    aux _             = Nothing
+primType :: Either CInt CXTypeKind -> Maybe C.PrimType
+primType (Left _)     = Nothing
+primType (Right kind) =
+    case kind of
+      CXType_Char_S     -> Just $ C.PrimChar     Nothing
+      CXType_SChar      -> Just $ C.PrimChar     (Just C.Signed)
+      CXType_UChar      -> Just $ C.PrimChar     (Just C.Unsigned)
+      CXType_Short      -> Just $ C.PrimShortInt C.Signed
+      CXType_UShort     -> Just $ C.PrimShortInt C.Unsigned
+      CXType_Int        -> Just $ C.PrimInt      C.Signed
+      CXType_UInt       -> Just $ C.PrimInt      C.Unsigned
+      CXType_Long       -> Just $ C.PrimLong     C.Signed
+      CXType_ULong      -> Just $ C.PrimLong     C.Unsigned
+      CXType_LongLong   -> Just $ C.PrimLongLong C.Signed
+      CXType_ULongLong  -> Just $ C.PrimLongLong C.Unsigned
+      CXType_Float      -> Just $ C.PrimFloat
+      CXType_Double     -> Just $ C.PrimDouble
+      CXType_LongDouble -> Just $ C.PrimLongDouble
+      _otherwise        -> Nothing
 
 {-------------------------------------------------------------------------------
   Debugging
