@@ -671,7 +671,7 @@ clang_isCursorDefinition cursor =
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html>
 newtype CXType = CXType (OnHaskellHeap CXType_)
-  deriving newtype (LivesOnHaskellHeap, Preallocate)
+  deriving newtype (LivesOnHaskellHeap, Preallocate, Eq, Ord, Show)
 
 foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
   wrap_cxtKind :: R CXType_ -> IO (SimpleEnum CXTypeKind)
