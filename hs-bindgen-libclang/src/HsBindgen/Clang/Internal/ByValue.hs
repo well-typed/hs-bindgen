@@ -12,8 +12,7 @@ module HsBindgen.Clang.Internal.ByValue (
   , onHaskellHeap
     -- * Preallocation
   , W(..)
-  , Preallocate -- opaque
-  , preallocate
+  , Preallocate(..)
   , preallocate_
   ) where
 
@@ -95,6 +94,7 @@ preallocate_ = fmap fst . preallocate
 instance HasKnownSize tag => Preallocate (OnHaskellHeap tag) where
   type Writing (OnHaskellHeap tag) = W tag
 
+  preallocate :: (W tag -> IO b) -> IO (OnHaskellHeap tag, b)
   preallocate f =
       mkByteArray# (knownSize @tag) OnHaskellHeap $ \arr ->
         f (W arr)

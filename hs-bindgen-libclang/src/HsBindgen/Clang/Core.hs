@@ -79,7 +79,6 @@ module HsBindgen.Clang.Core (
   , CXChildVisitResult(..)
   , clang_visitChildren
     -- * Cross-referencing in the AST
-  , CXString
   , clang_getCursorDisplayName
   , clang_getCursorSpelling
   , clang_getCursorReferenced
@@ -151,7 +150,7 @@ import HsBindgen.Clang.Core.Enums
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Clang.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Clang.Internal.CXString
+import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.FFI
 import HsBindgen.Clang.Internal.Results
 import HsBindgen.Patterns
@@ -299,7 +298,7 @@ clang_parseTranslationUnit cIdx src args options =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga7ae67e3c8baf6a9852900f6529dce2d0>
 clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO ByteString
 clang_TargetInfo_getTriple info = ensure (not . BS.null) $
-    packCXString$ wrap_TargetInfo_getTriple info
+    preallocate_ $ wrap_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
   Cursor manipulations
@@ -458,7 +457,7 @@ clang_getCursorKind cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html#ga7a4eecfc1b343568cb9ea447cbde08a8
 clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO ByteString
 clang_getCursorKindSpelling kind =
-    packCXString $ wrap_getCursorKindSpelling kind
+    preallocate_ $ wrap_getCursorKindSpelling kind
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -575,7 +574,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
 clang_getCursorDisplayName :: CXCursor -> IO ByteString
 clang_getCursorDisplayName cursor =
     onHaskellHeap cursor $ \cursor' ->
-      packCXString$ wrap_getCursorDisplayName cursor'
+      preallocate_$ wrap_getCursorDisplayName cursor'
 
 -- | Retrieve a name for the entity referenced by this cursor.
 --
@@ -583,7 +582,7 @@ clang_getCursorDisplayName cursor =
 clang_getCursorSpelling :: CXCursor -> IO ByteString
 clang_getCursorSpelling cursor =
     onHaskellHeap cursor $ \cursor' ->
-      packCXString$ wrap_getCursorSpelling cursor'
+      preallocate_$ wrap_getCursorSpelling cursor'
 
 -- | For a cursor that is a reference, retrieve a cursor representing the entity
 -- that it references.
@@ -618,7 +617,7 @@ clang_getCanonicalCursor cursor =
 clang_Cursor_getRawCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getRawCommentText cursor =
     onHaskellHeap cursor $ \cursor' ->
-      packCXString$ wrap_Cursor_getRawCommentText cursor'
+      preallocate_$ wrap_Cursor_getRawCommentText cursor'
 
 -- | Given a cursor that represents a documentable entity (e.g., declaration),
 -- return the associated brief comment.
@@ -627,7 +626,7 @@ clang_Cursor_getRawCommentText cursor =
 clang_Cursor_getBriefCommentText :: CXCursor -> IO ByteString
 clang_Cursor_getBriefCommentText cursor =
     onHaskellHeap cursor $ \cursor' ->
-      packCXString$ wrap_Cursor_getBriefCommentText cursor'
+      preallocate_$ wrap_Cursor_getBriefCommentText cursor'
 
 -- | Retrieve a range for a piece that forms the cursors spelling name.
 --
@@ -754,7 +753,7 @@ clang_getCursorType cursor =
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
 clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO ByteString
 clang_getTypeKindSpelling kind =
-    packCXString$ wrap_getTypeKindSpelling kind
+    preallocate_$ wrap_getTypeKindSpelling kind
 
 -- | Pretty-print the underlying type using the rules of the language of the
 -- translation unit from which it came.
@@ -765,7 +764,7 @@ clang_getTypeKindSpelling kind =
 clang_getTypeSpelling :: HasCallStack => CXType -> IO ByteString
 clang_getTypeSpelling typ = ensure (not . BS.null) $
      onHaskellHeap typ $ \typ' ->
-       packCXString$ wrap_getTypeSpelling typ'
+       preallocate_$ wrap_getTypeSpelling typ'
 
 -- | Retrieve the underlying type of a typedef declaration.
 --
@@ -876,7 +875,7 @@ clang_getCanonicalType typ =
 clang_getTypedefName :: CXType -> IO ByteString
 clang_getTypedefName arg =
     onHaskellHeap arg $ \arg' ->
-      packCXString $ wrap_getTypedefName arg'
+      preallocate_ $ wrap_getTypedefName arg'
 
 -- | Retrieve the unqualified variant of the given type, removing as little sugar as possible.
 --
@@ -1051,7 +1050,7 @@ clang_getToken unit loc = checkNotNull $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
 clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
 clang_getTokenSpelling unit token =
-    packCXString $ wrap_getTokenSpelling unit token
+    preallocate_ $ wrap_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
 --
@@ -1254,4 +1253,4 @@ foreign import capi "clang_wrappers.h wrap_getFileName"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
 clang_getFileName :: CXFile -> IO ByteString
-clang_getFileName file = packCXString$ wrap_getFileName file
+clang_getFileName file = preallocate_$ wrap_getFileName file
