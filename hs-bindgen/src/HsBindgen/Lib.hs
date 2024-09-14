@@ -119,7 +119,7 @@ parseCHeader tracer p args fp =
 genModule :: HsModuleOpts -> CHeader -> HsModule
 genModule opts = WrapHsModule . Backend.E.translate opts . unwrapCHeader
 
-genDecls :: CHeader -> TH.DecsQ
+genDecls :: TH.Quote q => CHeader -> q [TH.Dec]
 genDecls = Backend.TH.translateC . unwrapCHeader
 
 {-------------------------------------------------------------------------------

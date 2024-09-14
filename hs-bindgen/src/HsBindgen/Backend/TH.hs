@@ -7,7 +7,7 @@ module HsBindgen.Backend.TH (
   ) where
 
 import Foreign.Storable qualified
-import Language.Haskell.TH (Q)
+import Data.Kind (Type)
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
@@ -16,12 +16,13 @@ import HsBindgen.Backend.Common
   Backend definition
 -------------------------------------------------------------------------------}
 
-data BE = BE
+type BE :: (Type -> Type) -> Type
+data BE q = BE
 
-instance BackendRep BE where
-  type Name BE = TH.Name
-  type Expr BE = TH.ExpQ
-  type Decl BE = TH.DecQ
+instance TH.Quote q => BackendRep (BE q) where
+  type Name (BE q) = TH.Name
+  type Expr (BE q) = q TH.Exp
+  type Decl (BE q) = q TH.Dec
 
   resolve _ =  \case
       Unit_type            -> ''()
@@ -73,11 +74,11 @@ instance BackendRep BE where
                         instanceDecs i
                     )
     where
-      simpleDecl :: TH.Name -> SExpr BE -> TH.DecQ
+      simpleDecl :: TH.Name -> SExpr (BE q) -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr be f) []
 
-instance Backend BE where
-  newtype M BE a = Gen { unwrapGen :: Q a }
+instance TH.Quote q => Backend (BE q) where
+  newtype M (BE q) a = Gen { unwrapGen :: q a }
     deriving newtype (
         Functor
       , Applicative
@@ -91,5 +92,5 @@ instance Backend BE where
   Monad functionality
 -------------------------------------------------------------------------------}
 
-runM :: M BE a -> Q a
+runM :: M (BE q) a -> q a
 runM = unwrapGen
