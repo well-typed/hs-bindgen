@@ -148,6 +148,8 @@ module HsBindgen.Clang.Core (
   , clang_tokenize
   , clang_disposeTokens
   , index_CXTokenArray
+  , clang_annotateTokens
+  , index_CXCursorArray
     -- * Physical source locations
   , CXSourceLocation
   , clang_getRangeStart
@@ -1361,6 +1363,34 @@ clang_tokenize unit range =
 index_CXTokenArray :: CXTokenArray -> CUInt -> CXToken
 index_CXTokenArray (CXTokenArray array) i = CXToken $
     array `plusPtr` (fromIntegral i * knownSize @CXToken_)
+
+newtype CXCursorArray = CXCursorArray (ArrOnHaskellHeap CXCursor_)
+
+foreign import capi unsafe "clang-c/Index.h clang_annotateTokens"
+  nowrapper_annotateTokens ::
+       CXTranslationUnit
+       -- ^ the translation unit that owns the given tokens.
+    -> CXTokenArray
+       -- ^ the set of tokens to annotate.
+    -> CUInt
+       -- ^ the number of tokens in Tokens.
+    -> W CXCursor_
+       -- ^ an array of NumTokens cursors, whose contents will be replaced with
+       -- the cursors corresponding to each token.
+    -> IO ()
+
+clang_annotateTokens ::
+     CXTranslationUnit
+  -> CXTokenArray  -- ^ Tokens to annotate
+  -> CUInt         -- ^ Number of tokens in the array
+  -> IO CXCursorArray
+clang_annotateTokens unit tokens numTokens = fmap CXCursorArray $
+    preallocateArray (fromIntegral numTokens) $ \arr ->
+      nowrapper_annotateTokens unit tokens numTokens arr
+
+index_CXCursorArray :: CXCursorArray -> CUInt -> IO CXCursor
+index_CXCursorArray (CXCursorArray arr) i =
+    CXCursor <$> indexArrOnHaskellHeap arr (fromIntegral i)
 
 {-------------------------------------------------------------------------------
   Physical source locations

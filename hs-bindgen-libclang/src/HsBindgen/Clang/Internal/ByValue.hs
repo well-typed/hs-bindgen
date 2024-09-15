@@ -16,12 +16,16 @@ module HsBindgen.Clang.Internal.ByValue (
   , preallocate_
   , preallocatePair
   , preallocatePair_
+    -- * Arrays of values
+  , ArrOnHaskellHeap(..)
+  , preallocateArray
+  , indexArrOnHaskellHeap
   ) where
 
+import Data.Array.Byte (ByteArray (..))
 import Foreign
 import GHC.Exts
 import GHC.IO
-import Data.Array.Byte (ByteArray (..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -54,7 +58,7 @@ copyToHaskellHeap :: forall tag.
      HasKnownSize tag
   => Ptr tag -> IO (OnHaskellHeap tag)
 copyToHaskellHeap src = fmap fst $
-    mkByteArray# (knownSize @tag) OnHaskellHeap $ \arr -> do
+    mkByteArray (knownSize @tag) OnHaskellHeap $ \arr -> do
       let dest :: Ptr tag
           dest = Ptr (mutableByteArrayContents# arr)
       copyBytes dest src (knownSize @tag)
@@ -108,7 +112,7 @@ instance HasKnownSize tag => Preallocate (OnHaskellHeap tag) where
 
   preallocate :: (W tag -> IO r) -> IO (OnHaskellHeap tag, r)
   preallocate f =
-      mkByteArray# (knownSize @tag) OnHaskellHeap $ \arr ->
+      mkByteArray (knownSize @tag) OnHaskellHeap $ \arr ->
         f (W arr)
 
 -- | Preallocate two values
@@ -134,16 +138,50 @@ preallocatePair_ ::
 preallocatePair_ = fmap fst . preallocatePair
 
 {-------------------------------------------------------------------------------
+  Arrays of values
+-------------------------------------------------------------------------------}
+
+data ArrOnHaskellHeap tag = ArrOnHaskellHeap ByteArray#
+
+preallocateArray :: forall tag.
+     HasKnownSize tag
+  => Int
+  -> (W tag -> IO ())
+  -> IO (ArrOnHaskellHeap tag)
+preallocateArray n k = fmap (\(a, ()) -> a) $
+    mkByteArray (n * knownSize @tag) ArrOnHaskellHeap $ \arr ->
+      k (W arr)
+
+indexArrOnHaskellHeap :: forall tag.
+     HasKnownSize tag
+  => ArrOnHaskellHeap tag
+  -> Int
+  -> IO (OnHaskellHeap tag)
+indexArrOnHaskellHeap (ArrOnHaskellHeap src) i = fmap (\(a, ()) -> a) $
+    mkByteArray (knownSize @tag) OnHaskellHeap $ \dst ->
+      copyByteArray src (i * knownSize @tag) dst 0 (knownSize @tag)
+
+{-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-mkByteArray# ::
+mkByteArray ::
      Int
   -> (ByteArray# -> a)
   -> (MutableByteArray# RealWorld -> IO b)
   -> IO (a, b)
-mkByteArray# (I# sz) wrap fill = IO $ \w0 ->
+mkByteArray (I# sz) wrap fill = IO $ \w0 ->
     let !(# w1, arr  #) = newPinnedByteArray# sz     w0
         !(# w2, b    #) = unIO (fill arr)            w1
         !(# w3, arr' #) = unsafeFreezeByteArray# arr w2
     in (# w3, (wrap arr', b) #)
+
+copyByteArray ::
+     ByteArray#                   -- ^ source
+  -> Int                          -- ^ source offset
+  -> MutableByteArray# RealWorld  -- ^ destination
+  -> Int                          -- ^ destination offset
+  -> Int                          -- ^ length
+  -> IO ()
+copyByteArray src (I# src_ofs) dst (I# dst_ofs) (I# len) = IO $ \w ->
+    (# copyByteArray# src src_ofs dst dst_ofs len w, () #)

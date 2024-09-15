@@ -21,10 +21,6 @@ module HsBindgen.C.AST (
   , PrimType(..)
   , PrimSign(..)
   , Typedef(..)
-    -- * Macros
-  , Macro(..)
-  , Token(..)
-  , TokenSpelling(..)
     -- * Source locations
   , SourcePath(..)
   , SourceLoc(..)
@@ -35,8 +31,8 @@ import Data.Text (Text)
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
 
+import HsBindgen.C.Macro (Macro, UnrecognizedMacro)
 import HsBindgen.Clang.Util.SourceLoc
-import HsBindgen.Clang.Util.Tokens
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -54,7 +50,7 @@ data Decl =
     DeclStruct Struct
   | DeclTypedef Typedef
   | DeclEnum Enu
-  | DeclMacro Macro
+  | DeclMacro (Either UnrecognizedMacro Macro)
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -178,26 +174,5 @@ data PrimType =
 
 -- | Sign of a primitive type
 data PrimSign = Signed | Unsigned
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
-{-------------------------------------------------------------------------------
-  Macros
--------------------------------------------------------------------------------}
-
--- | C macro definition
---
--- This is simply the list of tokens; for example,
---
--- > #define MYFOO 1
--- > #define INCR(x) x + 1
---
--- are represented as
---
--- > Macro ["MYFOO", "1"]
--- > Macro ["INCR", "(", "x", ")", "x", "+", "1"]
---
--- respectively.
-data Macro = Macro [Token TokenSpelling]
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

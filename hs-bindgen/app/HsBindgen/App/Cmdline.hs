@@ -1,6 +1,7 @@
 module HsBindgen.App.Cmdline (
     Cmdline(..)
   , Mode(..)
+  , DevMode(..)
   , getCmdline
   ) where
 
@@ -58,6 +59,12 @@ data Mode =
         input  :: FilePath
       , output :: Maybe FilePath
       }
+
+  | Dev DevMode
+  deriving (Show)
+
+data DevMode =
+    DevModePrelude
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -71,6 +78,10 @@ parseCmdline =
       <*> parsePredicate
       <*> parseClangArgs
       <*> parseMode
+
+{-------------------------------------------------------------------------------
+  Mode selection
+-------------------------------------------------------------------------------}
 
 parseMode :: Parser Mode
 parseMode = subparser $ mconcat [
@@ -86,7 +97,21 @@ parseMode = subparser $ mconcat [
     , cmd "render-comments" parseModeRenderComments $ mconcat [
           progDesc "Render comments as HTML"
         ]
+    , cmd "dev" parseDevMode $ mconcat [
+          progDesc "Tools for the development of hs-bindgen itself"
+        ]
     ]
+
+parseDevMode :: Parser Mode
+parseDevMode = subparser $ mconcat [
+      cmd "prelude" (Dev <$> parseDevModePrelude) $ mconcat [
+          progDesc "Trawl the C standard libraries to generate the hs-bindgen prelude"
+       ]
+    ]
+
+{-------------------------------------------------------------------------------
+  Regular modes
+-------------------------------------------------------------------------------}
 
 parseModePreprocess :: Parser Mode
 parseModePreprocess =
@@ -112,29 +137,12 @@ parseModeRenderComments =
       <$> parseInput
       <*> parseOutput
 
-parsePredicate :: Parser Predicate
-parsePredicate = fmap aux . many . asum $ [
-      flag' SelectAll $ mconcat [
-          long "select-all"
-        , help "Process all elements"
-        ]
-    , fmap SelectByFileName $ strOption $ mconcat [
-          long "select-by-filename"
-        , help "Match filename against PCRE"
-        ]
-    , fmap SelectByElementName $ strOption $ mconcat [
-          long "select-by-element-name"
-        , help "Match element name against PCRE"
-        ]
-    , flag' SelectFromMainFile $ mconcat [
-          long "select-from-main-file"
-        , help "Only process elements from the main file (this is the default)"
-        ]
-    ]
-  where
-    aux :: [Predicate] -> Predicate
-    aux [] = SelectFromMainFile
-    aux ps = mconcat ps
+{-------------------------------------------------------------------------------
+  Dev modes
+-------------------------------------------------------------------------------}
+
+parseDevModePrelude :: Parser DevMode
+parseDevModePrelude = pure DevModePrelude
 
 {-------------------------------------------------------------------------------
   Prepare input
@@ -163,6 +171,30 @@ parseInput =
       , long "input"
       , short 'i'
       ]
+
+parsePredicate :: Parser Predicate
+parsePredicate = fmap aux . many . asum $ [
+      flag' SelectAll $ mconcat [
+          long "select-all"
+        , help "Process all elements"
+        ]
+    , fmap SelectByFileName $ strOption $ mconcat [
+          long "select-by-filename"
+        , help "Match filename against PCRE"
+        ]
+    , fmap SelectByElementName $ strOption $ mconcat [
+          long "select-by-element-name"
+        , help "Match element name against PCRE"
+        ]
+    , flag' SelectFromMainFile $ mconcat [
+          long "select-from-main-file"
+        , help "Only process elements from the main file (this is the default)"
+        ]
+    ]
+  where
+    aux :: [Predicate] -> Predicate
+    aux [] = SelectFromMainFile
+    aux ps = mconcat ps
 
 {-------------------------------------------------------------------------------
   Translation

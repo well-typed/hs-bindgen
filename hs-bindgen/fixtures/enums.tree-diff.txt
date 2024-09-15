@@ -2,25 +2,8 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Macro
-          [
-            Token {
-              tokenKind = SimpleEnum 2,
-              tokenSpelling = TokenSpelling
-                "ENUMS_H",
-              tokenExtent = SourceRange {
-                sourceRangeStart = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "enums.h"],
-                  sourceLocLine = 2,
-                  sourceLocColumn = 9},
-                sourceRangeEnd = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "enums.h"],
-                  sourceLocLine = 2,
-                  sourceLocColumn = 16}}}]),
+        (Right
+          (IncludeGuard "ENUMS_H")),
       DeclEnum
         Enu {
           enumTag = Just "first",
