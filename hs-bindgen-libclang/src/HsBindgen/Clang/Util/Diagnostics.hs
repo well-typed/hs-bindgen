@@ -58,6 +58,7 @@ data Diagnostic = Diagnostic {
     , diagnosticChildren  :: [Diagnostic]
     }
   deriving stock (Show)
+  deriving anyclass (Exception)
 
 -- | Suggestion to fix the code
 --

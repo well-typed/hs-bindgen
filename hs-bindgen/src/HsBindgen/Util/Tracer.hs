@@ -14,6 +14,7 @@ module HsBindgen.Util.Tracer (
     -- * Constructing tracers
   , mkTracerIO
   , mkTracerQ
+  , traceThrow
   ) where
 
 import Control.Tracer qualified as Contra
@@ -22,6 +23,7 @@ import Data.Bifunctor
 import Data.Functor.Contravariant
 
 import Language.Haskell.TH.Syntax
+import Control.Exception
 
 {-------------------------------------------------------------------------------
   Definition
@@ -94,6 +96,17 @@ mkTracerQ  =
       (qReport True)
       (qReport False)
       (qReport False . ("Info: " ++))
+
+-- | Throw any messages that aren't suppressed by the verbosity level
+traceThrow ::
+     Exception a
+  => Bool  -- ^ Verbose
+  -> Tracer IO a
+traceThrow =
+    mkTracer
+      throwIO
+      throwIO
+      throwIO
 
 {-------------------------------------------------------------------------------
   Type class intended for rendering log messages

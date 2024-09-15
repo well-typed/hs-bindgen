@@ -1316,7 +1316,7 @@ clang_getTokenExtent unit token =
     preallocate_ $ wrap_getTokenExtent unit token
 
 newtype CXTokenArray = CXTokenArray (Ptr ())
-  deriving (Storable)
+  deriving newtype (Storable)
 
 foreign import capi unsafe "clang_wrappers.h wrap_tokenize"
   wrap_tokenize ::

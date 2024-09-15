@@ -32,6 +32,7 @@ module HsBindgen.Lib (
   , prettyC
 
     -- * Common pipelines
+  , Preprocess(..)
   , preprocess
 
     -- * Debugging
@@ -48,6 +49,7 @@ module HsBindgen.Lib (
   , contramap
   , PrettyLogMsg(..)
   , mkTracerIO
+  , traceThrow
   ) where
 
 import Data.ByteString (ByteString)
@@ -68,6 +70,7 @@ import HsBindgen.C.Parser (ParseMsg, Element(..))
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.Util.Diagnostics qualified as C (Diagnostic)
 import HsBindgen.Clang.Util.SourceLoc
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Translation.LowLevel qualified as LowLevel
@@ -104,13 +107,15 @@ newtype HsModule = WrapHsModule {
 
 -- | Parse C header
 parseCHeader ::
-     Tracer IO C.ParseMsg
+     Tracer IO C.Diagnostic
+  -> Tracer IO C.ParseMsg
   -> Predicate
   -> ClangArgs
   -> FilePath -> IO CHeader
-parseCHeader tracer p args fp =
-    WrapCHeader . C.Header <$>
-      C.parseHeaderWith args fp (C.foldDecls tracer p)
+parseCHeader traceWarnings traceParseMsgs p args fp =
+    fmap (WrapCHeader . C.Header) $
+      C.parseHeaderWith traceWarnings args fp $
+        C.foldDecls traceParseMsgs p
 
 {-------------------------------------------------------------------------------
   Translation
@@ -139,18 +144,42 @@ prettyHs opts fp = Backend.E.renderIO opts fp . unwrapHsModule
   Common pipelines
 -------------------------------------------------------------------------------}
 
-preprocess ::
-     Tracer IO C.ParseMsg  -- ^ Tracer for the C parser
-  -> Predicate             -- ^ Select definitions
-  -> ClangArgs             -- ^ @libclang@ options
-  -> FilePath              -- ^ Path to the C header
-  -> HsModuleOpts          -- ^ Options for the Haskell module generation
-  -> HsRenderOpts          -- ^ Options for rendering the generated Haskell code
-  -> Maybe FilePath        -- ^ Name of the Haskell file (none for @stdout@)
-  -> IO ()
-preprocess tracer p clangArgs inp modOpts renderOpts out = do
-    modl <- genModule modOpts <$> parseCHeader tracer p clangArgs inp
-    prettyHs renderOpts out modl
+data Preprocess = Preprocess {
+      -- | Tracer for warnings from @libclang@
+      preprocessTraceWarnings :: Tracer IO C.Diagnostic
+
+      -- | Tracer for /our/ C parser
+    , preprocessTraceParseMsgs :: Tracer IO C.ParseMsg
+
+      -- | Select definitions
+    , preprocessPredicate :: Predicate
+
+      -- | @libclang@ options
+    , preprocessClangArgs :: ClangArgs
+
+      -- | Path to the C header
+    , preprocessInputPath :: FilePath
+
+      -- | Options for the Haskell module generation
+    , preprocessModuleOpts :: HsModuleOpts
+
+      -- | Options for rendering generated Haskell
+    , preprocessRenderOpts :: HsRenderOpts
+
+      -- | Name of the Haskell file (none for @stdout@)
+    , preprocessOutputPath :: Maybe FilePath
+    }
+
+preprocess :: Preprocess -> IO ()
+preprocess prep = do
+    modl <- genModule (preprocessModuleOpts prep) <$>
+              parseCHeader
+                (preprocessTraceWarnings  prep)
+                (preprocessTraceParseMsgs prep)
+                (preprocessPredicate      prep)
+                (preprocessClangArgs      prep)
+                (preprocessInputPath      prep)
+    prettyHs (preprocessRenderOpts prep) (preprocessOutputPath prep) modl
 
 {-------------------------------------------------------------------------------
   Debugging
@@ -159,9 +188,14 @@ preprocess tracer p clangArgs inp modOpts renderOpts out = do
 -- | Return the raw @libclang@ AST
 --
 -- This is primarily for debugging.
-getClangAST :: Predicate -> ClangArgs -> FilePath -> IO (Forest Element)
-getClangAST predicate args fp =
-    C.parseHeaderWith args fp $
+getClangAST ::
+     Tracer IO C.Diagnostic
+  -> Predicate
+  -> ClangArgs
+  -> FilePath
+  -> IO (Forest Element)
+getClangAST tracer predicate args fp =
+    C.parseHeaderWith tracer args fp $
       C.foldClangAST predicate
 
 -- | Get comments as HTML for all top-level declarations
@@ -169,18 +203,23 @@ getClangAST predicate args fp =
 -- For now this is primarily for debugging, but perhaps this could be made part
 -- of the library proper.
 getComments ::
-     Predicate
+     Tracer IO C.Diagnostic
+  -> Predicate
   -> ClangArgs
   -> FilePath
   -> IO (Forest (SourceLoc, ByteString, Maybe ByteString))
-getComments predicate args fp =
-    C.parseHeaderWith args fp $
+getComments tracer predicate args fp =
+    C.parseHeaderWith tracer args fp $
       C.foldComments predicate
 
 -- | Return the target triple for translation unit
-getTargetTriple :: ClangArgs -> FilePath -> IO ByteString
-getTargetTriple args fp =
-    C.withTranslationUnit args fp $
+getTargetTriple ::
+     Tracer IO C.Diagnostic
+  -> ClangArgs
+  -> FilePath
+  -> IO ByteString
+getTargetTriple tracer args fp =
+    C.withTranslationUnit tracer args fp $
       C.getTranslationUnitTargetTriple
 
 -- | Generate our internal Haskell representation of the translated C header
