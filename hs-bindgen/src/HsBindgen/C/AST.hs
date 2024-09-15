@@ -111,6 +111,7 @@ data Typ =
     TypPrim PrimType
   | TypStruct Struct
   | TypPointer Typ
+  | TypElaborated -- TODO: reference into type symbol table.
   -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

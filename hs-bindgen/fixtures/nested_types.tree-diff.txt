@@ -22,4 +22,12 @@ WrapCHeader
           structTag = Just "bar",
           structSizeof = 16,
           structAlignment = 4,
-          structFields = []}])
+          structFields = [
+            StructField {
+              fieldName = "foo1",
+              fieldOffset = 0,
+              fieldType = TypElaborated},
+            StructField {
+              fieldName = "foo2",
+              fieldOffset = 64,
+              fieldType = TypElaborated}]}])
