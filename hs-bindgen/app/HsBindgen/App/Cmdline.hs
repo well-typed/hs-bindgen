@@ -36,7 +36,7 @@ data Cmdline = Cmdline {
 
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
-    Preprocess {
+    ModePreprocess {
         input      :: FilePath
       , moduleOpts :: HsModuleOpts
       , renderOpts :: HsRenderOpts
@@ -44,17 +44,17 @@ data Mode =
       }
 
     -- | Just parse the C header
-  | ParseCHeader {
+  | ModeParseCHeader {
         input :: FilePath
       }
 
     -- | Show the raw @libclang@ AST
-  | ShowClangAST {
+  | ModeShowClangAST {
         input :: FilePath
       }
 
     -- | Extract all comments
-  | RenderComments {
+  | ModeRenderComments {
         input  :: FilePath
       , output :: Maybe FilePath
       }
@@ -90,7 +90,7 @@ parseMode = subparser $ mconcat [
 
 parseModePreprocess :: Parser Mode
 parseModePreprocess =
-    Preprocess
+    ModePreprocess
       <$> parseInput
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
@@ -98,17 +98,17 @@ parseModePreprocess =
 
 parseModeParseCHeader :: Parser Mode
 parseModeParseCHeader =
-    ParseCHeader
+    ModeParseCHeader
       <$> parseInput
 
 parseModeDumpClangAST :: Parser Mode
 parseModeDumpClangAST =
-    ShowClangAST
+    ModeShowClangAST
       <$> parseInput
 
 parseModeRenderComments :: Parser Mode
 parseModeRenderComments =
-    RenderComments
+    ModeRenderComments
       <$> parseInput
       <*> parseOutput
 

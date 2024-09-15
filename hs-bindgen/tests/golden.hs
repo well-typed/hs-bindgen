@@ -25,7 +25,7 @@ main = do
         [ testCase "target-triple" $ do
             let fp = "examples/simple_structs.h"
                 args = ["-target", "x86_64-pc-linux-gnu"]
-            triple <- getTargetTriple args fp
+            triple <- getTargetTriple (traceThrow False) args fp
 
             -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
             -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -55,7 +55,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        res <- getClangAST SelectFromMainFile args fp
+        res <- getClangAST (traceThrow False) SelectFromMainFile args fp
 
         return $ unlines $ concatMap treeToLines res
 
@@ -63,7 +63,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader nullTracer SelectFromMainFile args fp
+        header <- parseCHeader (traceThrow False) nullTracer SelectFromMainFile args fp
         return header
 
     goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ do
@@ -72,7 +72,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader nullTracer SelectFromMainFile args fp
+        header <- parseCHeader (traceThrow False) nullTracer SelectFromMainFile args fp
         let decls :: forall f. List Hs.Decl f
             decls = List $ genHaskell header
 

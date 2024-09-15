@@ -21,19 +21,46 @@ main = do
       , mode
       , clangArgs
       } <- getCmdline
-    let tracer :: forall a. PrettyLogMsg a => Tracer IO a
-        tracer = contramap prettyLogMsg $ mkTracerIO verbosity
+
+    let tracer :: Tracer IO String
+        tracer = mkTracerIO verbosity
 
     case mode of
-      Preprocess{input, moduleOpts, renderOpts, output} ->
-        preprocess tracer predicate clangArgs input moduleOpts renderOpts output
-      ParseCHeader{input} ->
-        prettyC =<< parseCHeader tracer predicate clangArgs input
-      ShowClangAST{input} -> do
-        ast <- getClangAST predicate clangArgs input
-        putStr . drawForest $ fmap (fmap show) ast
-      RenderComments{input, output} -> do
-        comments <- getComments predicate clangArgs input
+      ModePreprocess{input, moduleOpts, renderOpts, output} ->
+        preprocess $ Preprocess {
+            preprocessTraceWarnings  = contramap show tracer
+          , preprocessTraceParseMsgs = contramap prettyLogMsg tracer
+          , preprocessPredicate      = predicate
+          , preprocessClangArgs      = clangArgs
+          , preprocessInputPath      = input
+          , preprocessModuleOpts     = moduleOpts
+          , preprocessRenderOpts     = renderOpts
+          , preprocessOutputPath     = output
+          }
+      ModeParseCHeader{input} -> do
+        cHeader <-
+          parseCHeader
+            (contramap show tracer)
+            (contramap prettyLogMsg tracer)
+            predicate
+            clangArgs
+            input
+        prettyC cHeader
+      ModeShowClangAST{input} -> do
+        clangAST <-
+          getClangAST
+            (contramap show tracer)
+            predicate
+            clangArgs
+            input
+        putStr . drawForest $ fmap (fmap show) clangAST
+      ModeRenderComments{input, output} -> do
+        comments <-
+          getComments
+            (contramap show tracer)
+            predicate
+            clangArgs
+            input
         withOutput output $ \h ->
           Blaze.renderHtmlToByteStringIO (BS.hPutStr h) $
             renderComments comments

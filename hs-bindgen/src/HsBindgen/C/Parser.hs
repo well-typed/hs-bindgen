@@ -17,6 +17,7 @@ module HsBindgen.C.Parser (
   ) where
 
 import Control.Exception
+import Control.Monad
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as BS.Strict.Char8
 import Data.List (partition)
@@ -59,11 +60,12 @@ newtype UnrecognizedType = UnrecognizedType (SimpleEnum CXTypeKind)
 --
 -- Throws 'CErrors' if @libclang@ reported any errors in the C file.
 withTranslationUnit ::
-     ClangArgs
+     Tracer IO Diagnostic  -- ^ Tracer for warnings
+  -> ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withTranslationUnit args fp k = do
+withTranslationUnit tracer args fp k = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit index fp args flags
     diags  <- Diagnostics.getDiagnostics unit Nothing
@@ -77,7 +79,7 @@ withTranslationUnit args fp k = do
       [] -> do
         -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
         -- We should print warnings only optionally.
-        -- print warnings
+        forM_ warnings $ traceWith tracer Warning
         k unit
       errs ->
         throwIO $ CErrors $ map diagnosticFormatted errs
@@ -102,13 +104,15 @@ getTranslationUnitTargetTriple unit =
 -------------------------------------------------------------------------------}
 
 parseHeaderWith ::
-     ClangArgs
+     Tracer IO Diagnostic
+  -> ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> Fold a)
   -> IO [a]
-parseHeaderWith args fp fold = withTranslationUnit args fp $ \unit -> do
-    cursor <- clang_getTranslationUnitCursor unit
-    clang_fold cursor $ fold unit
+parseHeaderWith tracer args fp fold =
+    withTranslationUnit tracer args fp $ \unit -> do
+      cursor <- clang_getTranslationUnitCursor unit
+      clang_fold cursor $ fold unit
 
 {-------------------------------------------------------------------------------
   Top-level

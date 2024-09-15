@@ -42,6 +42,7 @@ library
   default-extensions:
       CApiFFI
       DataKinds
+      DeriveAnyClass
       DerivingStrategies
       DerivingVia
       MagicHash

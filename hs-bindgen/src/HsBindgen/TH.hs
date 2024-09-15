@@ -4,6 +4,7 @@ module HsBindgen.TH (generateBindingsFor) where
 import Control.Monad.IO.Class
 import Language.Haskell.TH
 
+import HsBindgen.Clang.Util.Diagnostics (Diagnostic)
 import HsBindgen.Lib
 import HsBindgen.Util.Tracer
 
@@ -13,11 +14,14 @@ import HsBindgen.Util.Tracer
 -- We need to think about how we want to handle configuration in TH mode.
 generateBindingsFor :: FilePath -> Q [Dec]
 generateBindingsFor fp = do
-    cHeader <- liftIO $ parseCHeader tracer p args fp
+    cHeader <- liftIO $ parseCHeader traceWarnings traceParseMsgs p args fp
     genDecls cHeader
   where
-    tracer :: Tracer IO ParseMsg
-    tracer = contramap prettyLogMsg $ mkTracerQ False
+    traceWarnings :: Tracer IO Diagnostic
+    traceWarnings = contramap show $ mkTracerQ False
+
+    traceParseMsgs :: Tracer IO ParseMsg
+    traceParseMsgs = contramap prettyLogMsg $ mkTracerQ False
 
     p :: Predicate
     p = SelectFromMainFile
