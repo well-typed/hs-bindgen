@@ -67,11 +67,13 @@ withTranslationUnit args fp k = do
     let errors, warnings :: [Diagnostic]
         (errors, warnings) = partition Diagnostics.isError diags
 
+    let _unused = warnings
+
     case errors of
       [] -> do
         -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
         -- We should print warnings only optionally.
-        print warnings
+        -- print warnings
         k unit
       errs ->
         throwIO $ CErrors $ map diagnosticFormatted errs
