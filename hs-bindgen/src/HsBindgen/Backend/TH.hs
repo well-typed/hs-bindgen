@@ -65,6 +65,7 @@ instance TH.Quote q => BackendRep (BE q) where
                          ]
       EInj x        -> x
 
+  mkDecl :: BE q -> SDecl (BE q) -> Decl (BE q)
   mkDecl be = \case
       DVar x f -> simpleDecl x f
       DInst i  -> TH.instanceD
@@ -75,6 +76,7 @@ instance TH.Quote q => BackendRep (BE q) where
                     ( map (\(x, f) -> simpleDecl (resolve be x) f) $
                         instanceDecs i
                     )
+      DData d -> TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [{- constructos -}] []
     where
       simpleDecl :: TH.Name -> SExpr (BE q) -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr be f) []

@@ -42,12 +42,18 @@ instance (DefToBE be a, DefToBE be b) => ToBE be (Hs.Ap a b) where
 
 instance Backend be => ToBE be Hs.Decl where
   type Rep be Hs.Decl = Decl be
+  toBE be (Hs.DeclData d) = mkDecl be <$> toBE be d
   toBE be (Hs.DeclInstance i) = inst be <$> toBE be i
 
 instance Backend be => ToBE be Hs.InstanceDecl where
   type Rep be Hs.InstanceDecl = Instance be
   toBE be (Hs.InstanceStorable i) = toBE be i
 
+instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
+  type Rep be (Hs.WithStruct Hs.DataDecl) = SDecl be
+
+  toBE _be (Hs.WithStruct struct Hs.MkDataDecl) = do
+    return $ DData $ Data $ Hs.structName struct
 {-------------------------------------------------------------------------------
   'Storable'
 -------------------------------------------------------------------------------}

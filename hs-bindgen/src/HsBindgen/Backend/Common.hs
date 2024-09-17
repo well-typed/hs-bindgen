@@ -6,6 +6,7 @@ module HsBindgen.Backend.Common (
   , SExpr(..)
   , SDecl(..)
   , Instance(..)
+  , Data(..)
     -- * Full backend
   , Backend(..)
   , Fresh(..)
@@ -60,11 +61,16 @@ data SExpr be =
 data SDecl be =
     DVar (Name be) (SExpr be)
   | DInst (Instance be)
+  | DData (Data be)
 
 data Instance be = Instance {
       instanceClass :: Global
     , instanceType  :: HsName NsTypeConstr
     , instanceDecs  :: [(Global, SExpr be)]
+    }
+
+data Data be = Data {
+      dataType :: HsName NsTypeConstr
     }
 
 {-------------------------------------------------------------------------------
