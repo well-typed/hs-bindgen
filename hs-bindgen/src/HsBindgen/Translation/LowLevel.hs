@@ -41,6 +41,7 @@ instance ToHs C.Header where
 instance ToHs C.Decl where
   type InHs C.Decl = List Hs.Decl
   toHs (C.DeclStruct struct) = reifyStructFields struct $ structDecs struct
+  toHs (C.DeclEnum e)        = enumDecs e
   toHs _otherwise = List [] -- TODO
 
 {-------------------------------------------------------------------------------
@@ -95,3 +96,38 @@ structDecs struct fields = List [
 
     poke :: f Bound -> C.StructField -> f Bound -> Hs.PokeByteOff f
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f) i
+
+{-------------------------------------------------------------------------------
+  Enum
+-------------------------------------------------------------------------------}
+
+enumDecs :: forall f.
+  C.Enu -> List Hs.Decl f
+enumDecs e = List [
+      Hs.DeclInstance $ Hs.InstanceStorable storable
+    ]
+  where
+    hs :: Hs.Struct (S Z)
+    hs = Hs.Struct {
+          structName   = fromMaybe "X" (C.enumTag e)
+        , structConstr = maybe "MkX" ("Mk" ++) (C.enumTag e)
+        , structFields = Vec.singleton (maybe "unX" ("un" ++) (C.enumTag e))
+        }
+
+    storable :: Hs.WithStruct Hs.StorableInstance f
+    storable = Hs.WithStruct hs $ Hs.StorableInstance {
+          Hs.storableSizeOf    = C.enumSizeof e
+        , Hs.storableAlignment = C.enumAlignment e
+        , Hs.storablePeek      = Hs.Lambda $ \ptr ->
+                                  Hs.Ap (Hs.IntroStruct hs) $
+                                    [ peek ptr ]
+        , Hs.storablePoke      = Hs.Lambda $ \ptr ->
+                                   Hs.ElimStruct hs $ \xs -> Hs.Seq . List $
+                                     [ poke ptr (Vec.head xs) ]
+        }
+
+    peek :: f Bound -> Hs.PeekByteOff f
+    peek ptr = Hs.PeekByteOff ptr 0
+
+    poke :: f Bound -> f Bound -> Hs.PokeByteOff f
+    poke ptr i = Hs.PokeByteOff ptr 0 i

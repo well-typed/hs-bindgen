@@ -1,0 +1,24 @@
+instance Storable first
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \x_0 -> pure Mkfirst <*> peekByteOff x_0 0;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {Mkfirst unfirst_3 -> pokeByteOff x_1 0 unfirst_3}}
+instance Storable second
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \x_0 -> pure Mksecond <*> peekByteOff x_0 0;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {Mksecond unsecond_3 -> pokeByteOff x_1 0 unsecond_3}}
+instance Storable same
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \x_0 -> pure Mksame <*> peekByteOff x_0 0;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {Mksame unsame_3 -> pokeByteOff x_1 0 unsame_3}}
+instance Storable packad
+    where {sizeOf = \_ -> 1;
+           alignment = \_ -> 1;
+           peek = \x_0 -> pure Mkpackad <*> peekByteOff x_0 0;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {Mkpackad unpackad_3 -> pokeByteOff x_1 0 unpackad_3}}
