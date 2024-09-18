@@ -4,16 +4,15 @@
 module HsBindgen.Clang.Internal.CXString () where
 
 import Control.Exception
-import Data.ByteString qualified as BS.Strict
 import Data.Text (Text)
 import Data.Text qualified as Text
-import Data.Text.Encoding qualified as Text
 import Foreign
 import Foreign.C
 
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Clang.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
+import GHC.Ptr (Ptr(..))
 
 {-------------------------------------------------------------------------------
   Translation to bytestrings
@@ -35,13 +34,12 @@ instance Preallocate Text where
       bracket
           (preallocate allocStr)
           (clang_disposeString . fst) $ \(str, b) -> do
-        cstr <- clang_getCString str
+        cstr@(Ptr addr) <- clang_getCString str
         if cstr == nullPtr then
           return (Text.empty, b)
-        else
-          -- TODO: It would be nice to avoid this detour through @bytestring@,
-          -- but I am not sure how.
-          (, b) . Text.decodeUtf8 <$> BS.Strict.packCString cstr
+        else do
+          let !t = Text.unpackCString# addr
+          return (t, b)
 
 {-------------------------------------------------------------------------------
   Low-level bindings
