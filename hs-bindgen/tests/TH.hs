@@ -44,7 +44,7 @@ goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ 
     let fp = "examples" </> (name ++ ".h")
         args = ["-target", "x86_64-pc-linux-gnu"]
 
-    header <- parseCHeader (traceThrow False) nullTracer SelectFromMainFile args fp
+    header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
     let decls :: Qu [TH.Dec]
         decls = genDecls header
 
