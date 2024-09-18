@@ -23,6 +23,7 @@ common lang
       -Wprepositive-qualified-module
       -Wredundant-constraints
       -Wunused-packages
+      -Wno-unticked-promoted-constructors
   build-depends:
       base >= 4.16 && < 4.21
   default-language:
