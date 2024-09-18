@@ -18,7 +18,7 @@ module HsBindgen.Clang.Doxygen (
   , clang_FullComment_getAsXML
   ) where
 
-import Data.ByteString (ByteString)
+import Data.Text (Text)
 import Foreign.C
 
 import HsBindgen.Clang.Core
@@ -74,7 +74,7 @@ foreign import capi unsafe "doxygen_wrappers.h wrap_FullComment_getAsXML"
 -- | Convert a given full parsed comment to an HTML fragment.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gafdfc03bbfdddd06c380a2644f16ccba9>
-clang_FullComment_getAsHTML :: CXComment -> IO ByteString
+clang_FullComment_getAsHTML :: CXComment -> IO Text
 clang_FullComment_getAsHTML comment =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_FullComment_getAsHTML comment'
@@ -82,7 +82,7 @@ clang_FullComment_getAsHTML comment =
 -- | Convert a given full parsed comment to an XML document.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gac877b07be05f591fdfea05f466ed9395>
-clang_FullComment_getAsXML :: CXComment -> IO ByteString
+clang_FullComment_getAsXML :: CXComment -> IO Text
 clang_FullComment_getAsXML comment =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_FullComment_getAsXML comment'

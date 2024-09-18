@@ -23,9 +23,9 @@ module HsBindgen.Clang.Util.SourceLoc (
   , toSourceRange
   ) where
 
-import Data.ByteString (ByteString)
-import Data.ByteString.UTF8 qualified as BS.UTF8
 import Data.List (intercalate)
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Foreign.C
 
 import HsBindgen.Clang.Core qualified as Core
@@ -43,7 +43,7 @@ import HsBindgen.Clang.Core hiding (
 -------------------------------------------------------------------------------}
 
 data SourceLoc = SourceLoc {
-      sourceLocFile   :: !ByteString
+      sourceLocFile   :: !Text
     , sourceLocLine   :: !Int
     , sourceLocColumn :: !Int
     }
@@ -73,8 +73,7 @@ prettySourceLoc ::
   -> SourceLoc -> String
 prettySourceLoc showFile (SourceLoc file line col) =
     intercalate ":" . concat $ [
-        -- Encoding and filepaths is a mess..
-        [ BS.UTF8.toString file | showFile ]
+        [ Text.unpack file | showFile ]
       , [ show line, show col ]
       ]
 
@@ -112,7 +111,7 @@ clang_getDiagnosticRange diag i =
 clang_getDiagnosticFixIt ::
      CXDiagnostic
   -> CUInt
-  -> IO (SourceRange, ByteString)
+  -> IO (SourceRange, Text)
 clang_getDiagnosticFixIt diag i = do
     (range, bs) <- Core.clang_getDiagnosticFixIt diag i
     (,bs) <$> toSourceRange range

@@ -70,7 +70,6 @@ library
     , hs-bindgen-libclang
   build-depends:
       -- External dependencies
-    , bytestring         >= 0.11    && < 0.13
     , containers         >= 0.6.5.1 && < 0.8
     , contra-tracer      >= 0.2     && < 0.3
     , data-default       >= 0.7     && < 0.8
@@ -81,6 +80,7 @@ library
     , pretty-show        >= 1.10    && < 1.11
     , regex-pcre-builtin >= 0.95    && < 0.96
     , template-haskell   >= 2.18    && < 2.23
+    , text               >= 1.2     && < 2.2
     , vec                >= 0.5     && < 0.6
 
 executable hs-bindgen
@@ -99,6 +99,7 @@ executable hs-bindgen
     , bytestring
     , containers
     , data-default
+    , text
   build-depends:
     , blaze-html           >= 0.9  && < 0.10
     , blaze-markup         >= 0.8  && < 0.9

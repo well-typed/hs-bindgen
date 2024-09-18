@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 -- | Low-level translation of the C header to a Haskell module
 --
 -- TODO: This module is intended to implement the following milestones:
@@ -75,7 +77,7 @@ structDecs struct fields = List [
     hs :: Hs.Struct n
     hs = Hs.Struct {
           structName   = fromMaybe "X" (C.structTag struct)
-        , structConstr = maybe "MkX" ("Mk" ++) (C.structTag struct)
+        , structConstr = maybe "MkX" ("Mk" <>) (C.structTag struct)
         , structFields = Vec.map C.fieldName fields
         }
 
@@ -110,8 +112,8 @@ enumDecs e = List [
     hs :: Hs.Struct (S Z)
     hs = Hs.Struct {
           structName   = fromMaybe "X" (C.enumTag e)
-        , structConstr = maybe "MkX" ("Mk" ++) (C.enumTag e)
-        , structFields = Vec.singleton (maybe "unX" ("un" ++) (C.enumTag e))
+        , structConstr = maybe "MkX" ("Mk" <>) (C.enumTag e)
+        , structFields = Vec.singleton (maybe "unX" ("un" <>) (C.enumTag e))
         }
 
     storable :: Hs.WithStruct Hs.StorableInstance f

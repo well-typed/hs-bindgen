@@ -1,7 +1,10 @@
-{-# LANGUAGE CPP #-}
+
+
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE CPP               #-}
+
 module Main (main) where
 
-import Data.ByteString.Char8 qualified as BS8
 import Data.Tree (Tree (..))
 import Data.TreeDiff.Golden (ediffGolden)
 import System.Directory (doesFileExist, setCurrentDirectory)
@@ -29,7 +32,7 @@ main = do
 
             -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
             -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
-            triple @?= BS8.pack "x86_64-pc-linux-gnu"
+            triple @?= "x86_64-pc-linux-gnu"
 
         , golden "simple_structs"
         , golden "nested_types"

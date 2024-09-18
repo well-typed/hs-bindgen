@@ -18,9 +18,8 @@ module HsBindgen.C.Parser (
 
 import Control.Exception
 import Control.Monad
-import Data.ByteString (ByteString)
-import Data.ByteString.Char8 qualified as BS.Strict.Char8
 import Data.List (partition)
+import Data.Text (Text)
 import Data.Tree
 import Foreign.C
 import GHC.Stack
@@ -48,7 +47,7 @@ import HsBindgen.Util.Tracer
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/174>
 -- We should have a pretty renderer for diagnostics. For now we rely on
 -- 'diagnosticFormatted'.
-data CErrors = CErrors [ByteString]
+data CErrors = CErrors [Text]
   deriving stock (Show)
   deriving anyclass (Exception)
 
@@ -92,7 +91,7 @@ withTranslationUnit tracer args fp k = do
         , CXTranslationUnit_VisitImplicitAttributes
         ]
 
-getTranslationUnitTargetTriple :: CXTranslationUnit -> IO ByteString
+getTranslationUnitTargetTriple :: CXTranslationUnit -> IO Text
 getTranslationUnitTargetTriple unit =
     bracket
         (clang_getTranslationUnitTargetInfo unit)
@@ -175,7 +174,7 @@ checkPredicate tracer p k parent current = do
 parseStruct :: CXTranslationUnit -> CXCursor -> IO ([C.StructField] -> C.Struct)
 parseStruct unit current = do
     cursorType      <- clang_getCursorType current
-    structTag       <- fmap decodeString . getUserProvided <$>
+    structTag       <- getUserProvided <$>
                          getUserProvidedName unit current
     structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
@@ -192,7 +191,7 @@ foldStructFields tracer _parent current = do
     ty  <- clang_getCursorType current
     fieldType <- parseType tracer ty
     fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-    fieldName   <- decodeString <$> clang_getCursorDisplayName current
+    fieldName   <- clang_getCursorDisplayName current
 
     let field = C.StructField{fieldName, fieldOffset, fieldType}
     return $ Continue (Just field)
@@ -204,8 +203,7 @@ foldStructFields tracer _parent current = do
 parseEnum :: CXTranslationUnit -> CXCursor -> IO ([C.EnumValue] -> C.Enu)
 parseEnum unit current = do
     cursorType    <- clang_getCursorType current
-    enumTag       <- fmap decodeString . getUserProvided <$>
-                         getUserProvidedName unit current
+    enumTag       <- getUserProvided <$> getUserProvidedName unit current
     enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
@@ -221,7 +219,7 @@ foldEnumValues tracer _parent current = do
     cursorKind <- clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_EnumConstantDecl -> do
-        valueName  <- decodeString <$> clang_getCursorDisplayName     current
+        valueName  <- clang_getCursorDisplayName     current
         valueValue <- toInteger    <$> clang_getEnumConstantDeclValue current
         let field = C.EnumValue{valueName, valueValue}
         return $ Continue (Just field)
@@ -262,7 +260,7 @@ parseType _tracer = go
 
 parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
 parseTypedef current = do
-    typedefName <- decodeString <$> clang_getCursorDisplayName current
+    typedefName <- clang_getCursorDisplayName current
     return $ \typedefType -> C.Typedef{
           typedefName
         , typedefType
@@ -309,10 +307,10 @@ primType (Right kind) =
 
 -- | An element in the @libclang@ AST
 data Element = Element {
-      elementName         :: !(UserProvided ByteString)
-    , elementKind         :: !ByteString
-    , elementTypeKind     :: !ByteString
-    , elementRawComment   :: !ByteString
+      elementName         :: !(UserProvided Text)
+    , elementKind         :: !Text
+    , elementTypeKind     :: !Text
+    , elementRawComment   :: !Text
     , elementIsAnonymous  :: !Bool
     , elementIsDefinition :: !Bool
     }
@@ -365,10 +363,10 @@ foldClangAST p unit = checkPredicate nullTracer p go
 foldComments ::
      Predicate
   -> CXTranslationUnit
-  -> Fold (Tree (SourceLoc, ByteString, Maybe ByteString))
+  -> Fold (Tree (SourceLoc, Text, Maybe Text))
 foldComments p _unit = checkPredicate nullTracer p go
   where
-    go :: Fold (Tree (SourceLoc, ByteString, Maybe ByteString))
+    go :: Fold (Tree (SourceLoc, Text, Maybe Text))
     go _parent current = do
         sourceLoc   <- SourceLoc.clang_getCursorLocation current
         name        <- clang_getCursorSpelling current
@@ -383,20 +381,6 @@ foldComments p _unit = checkPredicate nullTracer p go
         return $ Recurse go (return . Just . Node (sourceLoc, name, mAsHTML))
 
 {-------------------------------------------------------------------------------
-  Auxiliary: strings
--------------------------------------------------------------------------------}
-
--- | Decode string
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/87>
--- Deal with file encodings other than ASCII
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/96>
--- We could consider trying to deduplicate.
-decodeString :: ByteString -> String
-decodeString = BS.Strict.Char8.unpack
-
-{-------------------------------------------------------------------------------
   Logging
 -------------------------------------------------------------------------------}
 
@@ -405,7 +389,7 @@ data ParseMsg =
     --
     -- We record the name and location of the element, as well as the reason we
     -- skipped it.
-    Skipped ByteString SourceLoc String
+    Skipped Text SourceLoc String
 
     -- | Skipped unrecognized cursor
   | UnrecognizedCursor CallStack (SimpleEnum CXCursorKind)

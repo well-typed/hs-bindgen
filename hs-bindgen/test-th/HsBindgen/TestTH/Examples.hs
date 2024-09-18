@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module HsBindgen.TestTH.Examples (
     MyStruct(..)
   , decls

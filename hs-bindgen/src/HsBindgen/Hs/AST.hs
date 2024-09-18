@@ -39,6 +39,7 @@ module HsBindgen.Hs.AST (
   ) where
 
 import Data.Nat
+import Data.Text (Text)
 import Data.Type.Nat
 import Data.Vec.Lazy (Vec(..))
 import Generics.SOP qualified as SOP
@@ -52,9 +53,9 @@ import HsBindgen.Util.PHOAS
 -------------------------------------------------------------------------------}
 
 data Struct (n :: Nat) = Struct {
-      structName   :: String
-    , structConstr :: String
-    , structFields :: Vec n String
+      structName   :: Text
+    , structConstr :: Text
+    , structFields :: Vec n Text
     }
 
 deriving stock instance Show (Struct n)

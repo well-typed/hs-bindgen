@@ -11,7 +11,7 @@ module HsBindgen.Clang.Util.Classification (
   , getUserProvidedName
   ) where
 
-import Data.ByteString (ByteString)
+import Data.Text (Text)
 
 import HsBindgen.Clang.Core
 import HsBindgen.Patterns
@@ -60,7 +60,7 @@ getUserProvided (LibclangProvided _) = Nothing
 getUserProvidedName ::
      CXTranslationUnit
   -> CXCursor
-  -> IO (UserProvided ByteString)
+  -> IO (UserProvided Text)
 getUserProvidedName unit cursor = do
     nameSpelling <- clang_getCursorSpelling cursor
     nameRange    <- clang_Cursor_getSpellingNameRange cursor 0 0

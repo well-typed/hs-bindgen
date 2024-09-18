@@ -4,7 +4,7 @@ module HsBindgen.Clang.Util.Tokens (
 
 import Control.Exception
 import Control.Monad
-import Data.ByteString (ByteString)
+import Data.Text (Text)
 
 import HsBindgen.Clang.Core qualified as Core
 import HsBindgen.Clang.Core hiding (
@@ -16,7 +16,7 @@ import HsBindgen.Clang.Core hiding (
 -------------------------------------------------------------------------------}
 
 -- | Get all tokens in the specified range
-clang_tokenize :: CXTranslationUnit -> CXSourceRange -> IO [ByteString]
+clang_tokenize :: CXTranslationUnit -> CXSourceRange -> IO [Text]
 clang_tokenize unit range = do
     bracket
         (Core.clang_tokenize unit range)

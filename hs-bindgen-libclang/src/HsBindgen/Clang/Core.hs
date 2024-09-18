@@ -162,8 +162,8 @@ module HsBindgen.Clang.Core (
   ) where
 
 import Control.Monad
-import Data.ByteString (ByteString)
-import Data.ByteString qualified as BS
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Foreign
 import Foreign.C
 import GHC.Stack
@@ -381,7 +381,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticFixIt"
 clang_formatDiagnostic ::
      CXDiagnostic
   -> BitfieldEnum CXDiagnosticDisplayOptions
-  -> IO ByteString
+  -> IO Text
 clang_formatDiagnostic diagnostic options =
     preallocate_ $ wrap_formatDiagnostic diagnostic options
 
@@ -398,7 +398,7 @@ clang_getDiagnosticLocation diagnostic =
 -- | Retrieve the text of the given diagnostic.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga34a875e6d06ed4f8d2fc032f850ebbe1>
-clang_getDiagnosticSpelling :: CXDiagnostic -> IO ByteString
+clang_getDiagnosticSpelling :: CXDiagnostic -> IO Text
 clang_getDiagnosticSpelling diagnostic =
     preallocate_ $ wrap_getDiagnosticSpelling diagnostic
 
@@ -409,14 +409,14 @@ clang_getDiagnosticSpelling diagnostic =
 -- that disables this diagnostic (if any).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga69b094e2cca1cd6f452327dc9204a168>
-clang_getDiagnosticOption :: CXDiagnostic -> IO (ByteString, ByteString)
+clang_getDiagnosticOption :: CXDiagnostic -> IO (Text, Text)
 clang_getDiagnosticOption diagnostic =
     preallocatePair_ $ wrap_getDiagnosticOption diagnostic
 
 -- | Retrieve the diagnostic category text for a given diagnostic.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga6950702b6122f1cd74e1a369605a9f54>>
-clang_getDiagnosticCategoryText :: CXDiagnostic -> IO ByteString
+clang_getDiagnosticCategoryText :: CXDiagnostic -> IO Text
 clang_getDiagnosticCategoryText diagnostic =
     preallocate_ $ wrap_getDiagnosticCategoryText diagnostic
 
@@ -454,7 +454,7 @@ clang_getDiagnosticRange diagnostic range =
 clang_getDiagnosticFixIt ::
      CXDiagnostic  -- ^ The diagnostic whose fix-its are being queried.
   -> CUInt         -- ^ The zero-based index of the fix-it.
-  -> IO (CXSourceRange, ByteString)
+  -> IO (CXSourceRange, Text)
 clang_getDiagnosticFixIt diagnostic fixit =
     preallocatePair_ $ wrap_getDiagnosticFixIt diagnostic fixit
 
@@ -545,8 +545,8 @@ clang_parseTranslationUnit cIdx src args options =
 -- Throws 'CallFailed' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga7ae67e3c8baf6a9852900f6529dce2d0>
-clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO ByteString
-clang_TargetInfo_getTriple info = ensure (not . BS.null) $
+clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO Text
+clang_TargetInfo_getTriple info = ensure (not . Text.null) $
     preallocate_ $ wrap_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
@@ -704,7 +704,7 @@ clang_getCursorKind cursor =
 -- used only for testing and debugging, and should not be relied upon.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html#ga7a4eecfc1b343568cb9ea447cbde08a8
-clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO ByteString
+clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO Text
 clang_getCursorKindSpelling kind =
     preallocate_ $ wrap_getCursorKindSpelling kind
 
@@ -820,7 +820,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
 -- template specialization.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac3eba3224d109a956f9ef96fd4fe5c83>
-clang_getCursorDisplayName :: CXCursor -> IO ByteString
+clang_getCursorDisplayName :: CXCursor -> IO Text
 clang_getCursorDisplayName cursor =
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_getCursorDisplayName cursor'
@@ -828,7 +828,7 @@ clang_getCursorDisplayName cursor =
 -- | Retrieve a name for the entity referenced by this cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
-clang_getCursorSpelling :: CXCursor -> IO ByteString
+clang_getCursorSpelling :: CXCursor -> IO Text
 clang_getCursorSpelling cursor =
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_getCursorSpelling cursor'
@@ -863,7 +863,7 @@ clang_getCanonicalCursor cursor =
 -- text, including comment markers.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga32905a8b1858e67cf5d28b7ad7150779>
-clang_Cursor_getRawCommentText :: CXCursor -> IO ByteString
+clang_Cursor_getRawCommentText :: CXCursor -> IO Text
 clang_Cursor_getRawCommentText cursor =
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_Cursor_getRawCommentText cursor'
@@ -872,7 +872,7 @@ clang_Cursor_getRawCommentText cursor =
 -- return the associated brief comment.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6b5282b915d457d728434c0651ea0b8b>
-clang_Cursor_getBriefCommentText :: CXCursor -> IO ByteString
+clang_Cursor_getBriefCommentText :: CXCursor -> IO Text
 clang_Cursor_getBriefCommentText cursor =
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_Cursor_getBriefCommentText cursor'
@@ -1000,7 +1000,7 @@ clang_getCursorType cursor =
 -- | Retrieve the spelling of a given CXTypeKind.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
-clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO ByteString
+clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO Text
 clang_getTypeKindSpelling kind =
     preallocate_$ wrap_getTypeKindSpelling kind
 
@@ -1010,8 +1010,8 @@ clang_getTypeKindSpelling kind =
 -- Throws 'CallFailed' if the type is invalid.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
-clang_getTypeSpelling :: HasCallStack => CXType -> IO ByteString
-clang_getTypeSpelling typ = ensure (not . BS.null) $
+clang_getTypeSpelling :: HasCallStack => CXType -> IO Text
+clang_getTypeSpelling typ = ensure (not . Text.null) $
      onHaskellHeap typ $ \typ' ->
        preallocate_$ wrap_getTypeSpelling typ'
 
@@ -1121,7 +1121,7 @@ clang_getCanonicalType typ =
 -- | Returns the typedef name of the given type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga7b8e66707c7f27550acfc2daeec527ed>
-clang_getTypedefName :: CXType -> IO ByteString
+clang_getTypedefName :: CXType -> IO Text
 clang_getTypedefName arg =
     onHaskellHeap arg $ \arg' ->
       preallocate_ $ wrap_getTypedefName arg'
@@ -1297,7 +1297,7 @@ clang_getToken unit loc = checkNotNull $
 -- | Determine the spelling of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
-clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO ByteString
+clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO Text
 clang_getTokenSpelling unit token =
     preallocate_ $ wrap_getTokenSpelling unit token
 
@@ -1501,5 +1501,5 @@ foreign import capi "clang_wrappers.h wrap_getFileName"
 -- | Retrieve the complete file and path name of the given file.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
-clang_getFileName :: CXFile -> IO ByteString
+clang_getFileName :: CXFile -> IO Text
 clang_getFileName file = preallocate_$ wrap_getFileName file
