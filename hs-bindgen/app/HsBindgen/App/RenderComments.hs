@@ -10,7 +10,7 @@ import Text.Blaze.Html5 (Html, ToMarkup(..), (!))
 import Text.Blaze.Html5 qualified as H
 import Text.Blaze.Html5.Attributes qualified as A
 
-import HsBindgen.Lib
+import HsBindgen.C.AST
 
 {-------------------------------------------------------------------------------
   Render comments
@@ -32,9 +32,12 @@ renderNode (Node (sourceLoc, name, mComment) children) = do
     H.div ! A.style "margin-left: 1em;" $ do
       mapM_ renderNode children
 
+instance ToMarkup SourcePath where
+  toMarkup = Blaze.text . getSourcePath
+
 instance ToMarkup SourceLoc where
   toMarkup SourceLoc{sourceLocFile, sourceLocLine, sourceLocColumn} = do
-      Blaze.text sourceLocFile
+      toMarkup sourceLocFile
       ":"
       toMarkup sourceLocLine
       ":"

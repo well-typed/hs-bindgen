@@ -81,7 +81,8 @@ library
     , hs-bindgen-patterns
   build-depends:
       -- External dependencies
-    , text >= 1.2 && < 2.2
+    , pretty-show >= 1.10 && < 1.11
+    , text        >= 1.2  && < 2.2
 
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2

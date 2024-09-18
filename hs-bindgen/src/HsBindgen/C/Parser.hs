@@ -145,7 +145,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
         range  <- clang_getCursorExtent current
         tokens <- Tokens.clang_tokenize unit range
         let decl :: C.Decl
-            decl = C.DeclMacro $ C.Macro $ map C.Token tokens
+            decl = C.DeclMacro $ C.Macro tokens
         return $ Continue $ Just decl
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
