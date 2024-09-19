@@ -40,6 +40,7 @@ main = do
         , golden "primitive_types"
         , golden "macros"
         , golden "macro_functions"
+        , golden "uses_utf8"
         ]
   where
     golden name = testGroup name
