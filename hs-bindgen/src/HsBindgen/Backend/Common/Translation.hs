@@ -1,8 +1,11 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 -- | Translation from the Haskell AST to the backend representation
 module HsBindgen.Backend.Common.Translation (toBE) where
 
 import Data.Foldable
 import Data.Kind
+import Data.Text (Text)
 import Data.Vec.Lazy (Vec(..))
 
 import HsBindgen.Backend.Common
@@ -135,7 +138,7 @@ doAll be ss = mkExpr be $ foldl1 (EInfix Monad_seq) (map EInj ss)
 freshVec ::
      Backend be
   => be
-  -> Vec n String
+  -> Vec n Text
   -> (Vec n (Fresh be Bound) -> M be a)
   -> M be a
 freshVec  _ VNil       k = k VNil

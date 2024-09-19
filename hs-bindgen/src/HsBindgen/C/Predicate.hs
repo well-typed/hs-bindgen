@@ -14,9 +14,10 @@ module HsBindgen.C.Predicate (
 import Control.Monad
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
 import Control.Monad.IO.Class
-import Data.ByteString (ByteString)
 import Data.String
+import Data.Text (Text)
 import Text.Regex.PCRE qualified as PCRE
+import Text.Regex.PCRE.Text () -- instances only
 
 import HsBindgen.Clang.Core
 
@@ -123,5 +124,5 @@ instance IsString Regex where
       regexCompiled :: PCRE.Regex
       regexCompiled = PCRE.makeRegex regexString
 
-matchTest :: Regex -> ByteString -> Bool
+matchTest :: Regex -> Text -> Bool
 matchTest = PCRE.matchTest . regexCompiled

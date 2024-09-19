@@ -6,8 +6,9 @@ module HsBindgen.Backend.TH (
   , runM
   ) where
 
-import Foreign.Storable qualified
 import Data.Kind (Type)
+import Data.Text qualified as Text
+import Foreign.Storable qualified
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
@@ -42,7 +43,7 @@ instance TH.Quote q => BackendRep (BE q) where
   mkExpr be = \case
       EGlobal n     -> TH.varE (resolve be n)
       EVar x        -> TH.varE (getFresh x)
-      ECon n        -> TH.conE (TH.mkName n)
+      ECon n        -> TH.conE (TH.mkName $ Text.unpack n)
       EInt i        -> TH.litE (TH.IntegerL $ fromIntegral i)
       EApp f x      -> TH.appE (mkExpr be f) (mkExpr be x)
       EInfix op x y -> TH.infixE
@@ -54,7 +55,7 @@ instance TH.Quote q => BackendRep (BE q) where
                          (mkExpr be f)
       ECase x ms    -> TH.caseE (mkExpr be x) [
                            TH.match
-                             ( TH.conP (TH.mkName c) $
+                             ( TH.conP (TH.mkName $ Text.unpack c) $
                                  map (TH.varP . getFresh) xs
                              )
                              (TH.normalB $ mkExpr be b)
@@ -68,7 +69,7 @@ instance TH.Quote q => BackendRep (BE q) where
       DInst i  -> TH.instanceD
                     (return [])
                     [t| $(TH.conT $ resolve be $ instanceClass i)
-                        $(TH.conT $ TH.mkName $ instanceType i)
+                        $(TH.conT $ TH.mkName $ Text.unpack $ instanceType i)
                     |]
                     ( map (\(x, f) -> simpleDecl (resolve be x) f) $
                         instanceDecs i
@@ -86,7 +87,7 @@ instance TH.Quote q => Backend (BE q) where
       , TH.Quote
       )
 
-  fresh _ = \x k -> TH.newName x >>= k . Fresh
+  fresh _ = \x k -> TH.newName (Text.unpack x) >>= k . Fresh
 
 {-------------------------------------------------------------------------------
   Monad functionality

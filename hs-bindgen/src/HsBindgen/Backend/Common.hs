@@ -12,6 +12,7 @@ module HsBindgen.Backend.Common (
   ) where
 
 import Data.Kind
+import Data.Text (Text)
 
 import HsBindgen.Util.PHOAS
 
@@ -47,12 +48,12 @@ data Global =
 data SExpr be =
     EGlobal Global
   | EVar (Fresh be Bound)
-  | ECon String
+  | ECon Text
   | EInt Int
   | EApp (SExpr be) (SExpr be)
   | EInfix Global (SExpr be) (SExpr be)
   | ELam (Maybe (Fresh be Bound)) (SExpr be)
-  | ECase (SExpr be) [(String, [Fresh be Bound], SExpr be)]
+  | ECase (SExpr be) [(Text, [Fresh be Bound], SExpr be)]
   | EInj (Expr be)
 
 -- | Simple declarations
@@ -62,7 +63,7 @@ data SDecl be =
 
 data Instance be = Instance {
       instanceClass :: Global
-    , instanceType  :: String
+    , instanceType  :: Text
     , instanceDecs  :: [(Global, SExpr be)]
     }
 
@@ -76,6 +77,6 @@ class (BackendRep be, Monad (M be)) => Backend be where
   -- | Pick fresh variable
   --
   -- This is scoped because variables don't need to be /globally/ unique.
-  fresh :: be -> String -> (Fresh be Bound -> M be a) -> M be a
+  fresh :: be -> Text -> (Fresh be Bound -> M be a) -> M be a
 
 newtype Fresh be a = Fresh { getFresh :: Name be }

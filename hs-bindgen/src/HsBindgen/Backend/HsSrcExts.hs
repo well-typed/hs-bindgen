@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module HsBindgen.Backend.HsSrcExts (
     BE(..)
     -- * Backend monad
@@ -11,6 +13,8 @@ module HsBindgen.Backend.HsSrcExts (
 
 import Control.Monad.Reader
 import Control.Monad.State
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Language.Haskell.Exts ()
 import Language.Haskell.Exts qualified as E
 
@@ -100,7 +104,8 @@ instance Backend BE where
       , MonadState GenState
       )
 
-  fresh _ = \x k -> withFreshName x $ k . Fresh . E.UnQual ann . E.Ident ann
+  fresh _ = \x k -> withFreshName x $
+              k . Fresh . E.UnQual ann . E.Ident ann . Text.unpack
 
 {-------------------------------------------------------------------------------
   Generation state
@@ -118,10 +123,10 @@ initGenState = GenState
 runM :: M BE a -> (a, GenState)
 runM = flip runState initGenState . flip runReaderT 0 . unwrapGen
 
-withFreshName :: String -> (String -> M BE a) -> M BE a
+withFreshName :: Text -> (Text -> M BE a) -> M BE a
 withFreshName x k = Gen $ do
     i <- ask
-    local succ $ unwrapGen (k (x ++ show i))
+    local succ $ unwrapGen (k (x <> Text.pack (show i)))
 
 {-------------------------------------------------------------------------------
   Syntax tree annotation
@@ -141,14 +146,17 @@ ann = Ann
   Name resolution
 -------------------------------------------------------------------------------}
 
-unqualified :: String -> E.QName Ann
-unqualified = E.UnQual ann . E.Ident ann
+unqualified :: Text -> E.QName Ann
+unqualified = E.UnQual ann . E.Ident ann . Text.unpack
 
-prelude :: String -> E.QName Ann
+prelude :: Text -> E.QName Ann
 prelude = unqualified
 
-foreignStorable :: String -> E.QName Ann
-foreignStorable = E.Qual ann (E.ModuleName ann "Foreign.Storable") . E.Ident ann
+foreignStorable :: Text -> E.QName Ann
+foreignStorable =
+      E.Qual ann (E.ModuleName ann "Foreign.Storable")
+    . E.Ident ann
+    . Text.unpack
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: @haskell-src-exts@

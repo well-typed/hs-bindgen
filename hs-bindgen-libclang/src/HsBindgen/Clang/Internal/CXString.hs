@@ -4,31 +4,42 @@
 module HsBindgen.Clang.Internal.CXString () where
 
 import Control.Exception
-import Data.ByteString (ByteString)
-import Data.ByteString qualified as BS.Strict
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Foreign
 import Foreign.C
 
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Clang.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
+import GHC.Ptr (Ptr(..))
 
 {-------------------------------------------------------------------------------
   Translation to bytestrings
+
+  TODO: <https://github.com/well-typed/hs-bindgen/issues/87>
+  It seems @libclang@ exclusively uses UTF-8 internally, but would be good to
+  find an authoritative reference to confirm this.
+
+  TODO: <https://github.com/well-typed/hs-bindgen/issues/96>
+  We could consider trying to deduplicate.
 -------------------------------------------------------------------------------}
 
-instance Preallocate ByteString where
-  type Writing ByteString = W CXString_
+-- | @libclang@ uses UTF-8 internally
+instance Preallocate Text where
+  type Writing Text = W CXString_
 
-  preallocate :: (W CXString_ -> IO b) -> IO (ByteString, b)
+  preallocate :: (W CXString_ -> IO b) -> IO (Text, b)
   preallocate allocStr =
       bracket
           (preallocate allocStr)
           (clang_disposeString . fst) $ \(str, b) -> do
-        cstr <- clang_getCString str
-        if cstr == nullPtr
-          then return (BS.Strict.empty, b)
-          else (, b) <$> BS.Strict.packCString cstr
+        cstr@(Ptr addr) <- clang_getCString str
+        if cstr == nullPtr then
+          return (Text.empty, b)
+        else do
+          let !t = Text.unpackCString# addr
+          return (t, b)
 
 {-------------------------------------------------------------------------------
   Low-level bindings

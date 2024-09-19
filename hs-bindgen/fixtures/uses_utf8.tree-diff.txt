@@ -1,0 +1,17 @@
+WrapCHeader
+  (Header
+    [
+      DeclMacro
+        (Macro [Token "USES_UTF8_H"]),
+      DeclEnum
+        Enu {
+          enumTag = Just "MyEnum",
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = "Say\20320\22909",
+              valueValue = 0},
+            EnumValue {
+              valueName = "Say\25308\25308",
+              valueValue = 1}]}])

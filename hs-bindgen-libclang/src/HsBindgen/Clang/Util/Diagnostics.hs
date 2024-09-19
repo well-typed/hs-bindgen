@@ -6,14 +6,14 @@ module HsBindgen.Clang.Util.Diagnostics (
   ) where
 
 import Control.Exception
-import Data.ByteString (ByteString)
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Foreign.C
 
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.SourceLoc (SourceLoc, SourceRange)
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Patterns
-import Data.ByteString qualified as BS
 
 {-------------------------------------------------------------------------------
   Definition
@@ -21,7 +21,7 @@ import Data.ByteString qualified as BS
 
 data Diagnostic = Diagnostic {
       -- | Formatted by @libclang@ in a manner that is suitable for display
-      diagnosticFormatted :: ByteString
+      diagnosticFormatted :: Text
 
       -- | Severity
     , diagnosticSeverity :: SimpleEnum CXDiagnosticSeverity
@@ -30,19 +30,19 @@ data Diagnostic = Diagnostic {
     , diagnosticLocation  :: SourceLoc
 
       -- | Text of the diagnostic
-    , diagnosticSpelling  :: ByteString
+    , diagnosticSpelling  :: Text
 
       -- | The command line option that enabled this diagnostic
-    , diagnosticOption :: Maybe ByteString
+    , diagnosticOption :: Maybe Text
 
       -- | The @libclang@ option to disable this option
-    , diagnosticDisabledBy :: Maybe ByteString
+    , diagnosticDisabledBy :: Maybe Text
 
       -- | Diagnostic category
     , diagnosticCategory :: Int
 
       -- | Rendered category
-    , diagnosticCategoryText :: ByteString
+    , diagnosticCategoryText :: Text
 
       -- | Source range associated with the diagnostic
       --
@@ -79,7 +79,7 @@ data FixIt = FixIt {
       fixItRange :: SourceRange
 
       -- | Text that should replace the source code
-    , fixItReplacement :: ByteString
+    , fixItReplacement :: Text
     }
   deriving stock (Show)
 
@@ -157,10 +157,10 @@ reify displayOptions diag = do
         , diagnosticChildren
         }
   where
-    nonEmpty :: ByteString -> Maybe ByteString
+    nonEmpty :: Text -> Maybe Text
     nonEmpty bs
-      | BS.null bs = Nothing
-      | otherwise  = Just bs
+      | Text.null bs = Nothing
+      | otherwise    = Just bs
 
 getChildDiagnostics ::
      BitfieldEnum CXDiagnosticDisplayOptions

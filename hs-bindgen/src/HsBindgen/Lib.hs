@@ -52,7 +52,7 @@ module HsBindgen.Lib (
   , traceThrow
   ) where
 
-import Data.ByteString (ByteString)
+import Data.Text (Text)
 import Data.Tree (Forest)
 import GHC.Generics (Generic)
 import Language.Haskell.Exts qualified as E
@@ -207,7 +207,7 @@ getComments ::
   -> Predicate
   -> ClangArgs
   -> FilePath
-  -> IO (Forest (SourceLoc, ByteString, Maybe ByteString))
+  -> IO (Forest (SourceLoc, Text, Maybe Text))
 getComments tracer predicate args fp =
     C.parseHeaderWith tracer args fp $
       C.foldComments predicate
@@ -217,7 +217,7 @@ getTargetTriple ::
      Tracer IO C.Diagnostic
   -> ClangArgs
   -> FilePath
-  -> IO ByteString
+  -> IO Text
 getTargetTriple tracer args fp =
     C.withTranslationUnit tracer args fp $
       C.getTranslationUnitTargetTriple

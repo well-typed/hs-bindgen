@@ -26,7 +26,7 @@ module HsBindgen.C.AST (
   , Macro(..)
   ) where
 
-import Data.ByteString (ByteString)
+import Data.Text (Text)
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
 
@@ -56,7 +56,7 @@ data Decl =
 
 -- | Definition of a struct
 data Struct = Struct {
-      structTag       :: Maybe String
+      structTag       :: Maybe Text
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -65,7 +65,7 @@ data Struct = Struct {
   deriving anyclass (PrettyVal)
 
 data StructField = StructField {
-      fieldName   :: String
+      fieldName   :: Text
     , fieldOffset :: Int
     , fieldType   :: Typ
     }
@@ -77,7 +77,7 @@ data StructField = StructField {
 -------------------------------------------------------------------------------}
 
 data Enu = Enu {
-      enumTag       :: Maybe String
+      enumTag       :: Maybe Text
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]
@@ -86,7 +86,7 @@ data Enu = Enu {
   deriving anyclass (PrettyVal)
 
 data EnumValue = EnumValue {
-      valueName  :: String
+      valueName  :: Text
     , valueValue :: Integer
     }
   deriving stock (Show, Eq, Generic)
@@ -97,7 +97,7 @@ data EnumValue = EnumValue {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefName :: String
+      typedefName :: Text
     , typedefType :: Typ
     }
   deriving stock (Show, Eq, Generic)
@@ -177,7 +177,7 @@ data PrimSign = Signed | Unsigned
   Macros
 -------------------------------------------------------------------------------}
 
-newtype Token = Token ByteString
+newtype Token = Token Text
   deriving stock (Show, Eq, Generic)
 
 instance PrettyVal Token where
