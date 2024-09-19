@@ -139,6 +139,7 @@ module HsBindgen.Clang.Core (
   , clang_getCursorExtent
     -- * Token extraction and manipulation
   , CXToken
+  , CXTokenKind(..)
   , clang_getToken
   , clang_getTokenKind
   , clang_getTokenSpelling

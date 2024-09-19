@@ -7,9 +7,14 @@ module HsBindgen.Patterns.Enum.Bitfield (
   , flagIsSet
   ) where
 
-import Foreign.C
-import Data.Foldable qualified as Foldable
 import Data.Bits
+import Data.Foldable qualified as Foldable
+import Data.Typeable
+import Foreign.C
+import GHC.Generics (Generic)
+import GHC.Show (appPrec1, showSpace)
+import Text.Show.Pretty (PrettyVal(..))
+import Text.Show.Pretty qualified as Pretty
 
 {-------------------------------------------------------------------------------
   Definition
@@ -18,7 +23,7 @@ import Data.Bits
 -- | Single flags
 --
 -- See 'BitfieldEnum' for discussion.
-class IsSingleFlag hs where
+class Typeable hs => IsSingleFlag hs where
   flagToC :: hs -> CUInt
 
 -- | Enum that corresponds to a bitfield
@@ -48,6 +53,54 @@ class IsSingleFlag hs where
 -- >   flagToC Flag4 = #const Flag4
 -- >   flagToC Flag5 = #const Flag5
 newtype BitfieldEnum hs = BitfieldEnum CUInt
+  deriving stock (Eq, Ord, Generic)
+
+{-------------------------------------------------------------------------------
+  Showing values
+-------------------------------------------------------------------------------}
+
+instance (IsSingleFlag hs, Enum hs, Bounded hs, Show hs)
+      => Show (BitfieldEnum hs) where
+  showsPrec p i = showParen (p >= appPrec1) $
+      either (uncurry showC) showHs $ showBitfieldEnum i
+    where
+      showC :: CUInt -> TypeRep -> ShowS
+      showC c typ =
+            showString "BitfieldEnum @"
+          . showsPrec appPrec1 typ
+          . showSpace
+          . showsPrec appPrec1 c
+
+      showHs :: [hs] -> ShowS
+      showHs hs =
+             showString "simpleEnum "
+           . showsPrec appPrec1 hs
+
+instance (IsSingleFlag hs, Enum hs, Bounded hs, PrettyVal hs)
+      => PrettyVal (BitfieldEnum hs) where
+  prettyVal =
+      either (uncurry showC) showHs . showBitfieldEnum
+    where
+      showC :: CUInt -> TypeRep -> Pretty.Value
+      showC c typ = Pretty.Con "BitfieldEnum" [
+            Pretty.Con ("@" ++ show typ) []
+          , prettyVal (fromIntegral c :: Int)
+          ]
+
+      showHs :: [hs] -> Pretty.Value
+      showHs hs = Pretty.Con "bitfieldEnum" [
+            prettyVal hs
+          ]
+
+-- | Internal auxiliary for showing 'SimpleEnum'
+showBitfieldEnum :: forall hs.
+     (IsSingleFlag hs, Enum hs, Bounded hs)
+  => BitfieldEnum hs -> Either (CUInt, TypeRep) [hs]
+showBitfieldEnum =
+    either (Left . showC) Right . fromBitfieldEnum
+  where
+    showC :: CUInt -> (CUInt, TypeRep)
+    showC c = (c, typeRep (Proxy @hs))
 
 {-------------------------------------------------------------------------------
   API
@@ -67,10 +120,21 @@ flagIsSet (BitfieldEnum i) flag = (i .&. flagToC flag) /= 0
 -- technically speaking a constant, making this function @O(1)@, this is still
 -- a relatively expensive function. Consider using 'flagIsSet' instead.
 --
+-- Returns a 'Left' value if some bits in the enum did not correspond to any
+-- known @hs@ flag.
+--
 -- NOTE: The @Enum@ and @Bounded@ instances are simply used to enumerate all
 -- flags. Their definition has no bearing on the generated C code, and can
 -- simply be derived.
-fromBitfieldEnum ::
+fromBitfieldEnum :: forall hs.
      (IsSingleFlag hs, Enum hs, Bounded hs)
-  => BitfieldEnum hs -> [hs]
-fromBitfieldEnum i = [flag | flag <- [minBound .. maxBound], flagIsSet i flag]
+  => BitfieldEnum hs -> Either CUInt [hs]
+fromBitfieldEnum i@(BitfieldEnum c)
+  | bitfieldEnum allRecognized == i
+  = Right allRecognized
+
+  | otherwise
+  = Left c
+  where
+    allRecognized :: [hs]
+    allRecognized = [flag | flag <- [minBound .. maxBound], flagIsSet i flag]

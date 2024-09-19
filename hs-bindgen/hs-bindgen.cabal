@@ -115,12 +115,14 @@ test-suite golden
       -- Internal dependencies
     , hs-bindgen
     , hs-bindgen-libclang
+    , hs-bindgen-patterns
   build-depends:
       -- Inherited dependencies
-    , containers
     , bytestring
+    , containers
     , mtl
     , template-haskell
+    , text
   build-depends:
       -- External dependencies
     , directory     ^>=1.3.6.2

@@ -37,7 +37,6 @@ module HsBindgen.Lib (
 
     -- * Debugging
   , Element(..)
-  , SourceLoc(..)
   , getClangAST
   , getComments
   , getTargetTriple

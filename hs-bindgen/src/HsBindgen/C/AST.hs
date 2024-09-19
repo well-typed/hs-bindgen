@@ -22,13 +22,21 @@ module HsBindgen.C.AST (
   , PrimSign(..)
   , Typedef(..)
     -- * Macros
-  , Token(..)
   , Macro(..)
+  , Token(..)
+  , TokenSpelling(..)
+    -- * Source locations
+  , SourcePath(..)
+  , SourceLoc(..)
+  , SourceRange(..)
   ) where
 
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
+
+import HsBindgen.Clang.Util.SourceLoc
+import HsBindgen.Clang.Util.Tokens
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -177,12 +185,6 @@ data PrimSign = Signed | Unsigned
   Macros
 -------------------------------------------------------------------------------}
 
-newtype Token = Token Text
-  deriving stock (Show, Eq, Generic)
-
-instance PrettyVal Token where
-  prettyVal (Token t) = prettyVal (show t)
-
 -- | C macro definition
 --
 -- This is simply the list of tokens; for example,
@@ -196,6 +198,6 @@ instance PrettyVal Token where
 -- > Macro ["INCR", "(", "x", ")", "x", "+", "1"]
 --
 -- respectively.
-data Macro = Macro [Token]
+data Macro = Macro [Token TokenSpelling]
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

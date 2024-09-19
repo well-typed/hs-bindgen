@@ -9,16 +9,20 @@
 -- > import HsBindgen.Clang.Util.SourceLoc (SourceLoc(..), SourceRange(..))
 -- > import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 module HsBindgen.Clang.Util.SourceLoc (
-    SourceLoc(..)
+    SourcePath(..)
+  , SourceLoc(..)
   , SourceRange(..)
     -- * Construction
   , clang_Cursor_getSpellingNameRange
-  , clang_getCursorLocation
   , clang_getCursorExtent
+  , clang_getCursorLocation
+  , clang_getDiagnosticFixIt
   , clang_getDiagnosticLocation
   , clang_getDiagnosticRange
-  , clang_getDiagnosticFixIt
+  , clang_getTokenExtent
+  , clang_getTokenLocation
     -- * Low-level
+  , toSourcePath
   , toSourceLoc
   , toSourceRange
   ) where
@@ -27,33 +31,47 @@ import Data.List (intercalate)
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign.C
+import GHC.Generics (Generic)
+import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.Core qualified as Core
 import HsBindgen.Clang.Core hiding (
     clang_Cursor_getSpellingNameRange
-  , clang_getCursorLocation
   , clang_getCursorExtent
+  , clang_getCursorLocation
+  , clang_getDiagnosticFixIt
   , clang_getDiagnosticLocation
   , clang_getDiagnosticRange
-  , clang_getDiagnosticFixIt
+  , clang_getTokenExtent
+  , clang_getTokenLocation
   )
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
+-- | Paths as reported by @libclang@
+--
+-- Clang uses UTF-8 internally for everything, including paths, which is why
+-- this is 'Text', not 'OsPath'. There might still be differences between
+-- platforms of course (such as directory separators).
+newtype SourcePath = SourcePath {
+      getSourcePath :: Text
+    }
+  deriving newtype (Eq, Ord)
+
 data SourceLoc = SourceLoc {
-      sourceLocFile   :: !Text
+      sourceLocFile   :: !SourcePath
     , sourceLocLine   :: !Int
     , sourceLocColumn :: !Int
     }
-  deriving stock (Eq, Ord)
+  deriving stock (Eq, Ord, Generic)
 
 data SourceRange = SourceRange {
       sourceRangeStart :: !SourceLoc
     , sourceRangeEnd   :: !SourceLoc
     }
-  deriving stock (Eq, Ord)
+  deriving stock (Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Show instances
@@ -62,18 +80,30 @@ data SourceRange = SourceRange {
   'IsString' instance; this is the reason for the @show . pretty...@
 -------------------------------------------------------------------------------}
 
+instance Show SourcePath where
+  show = show . getSourcePath
+
 instance Show SourceLoc where
   show = show . prettySourceLoc True
 
 instance Show SourceRange where
   show = show . prettySourceRange
 
+instance PrettyVal SourcePath where
+  prettyVal = prettyVal . show
+
+instance PrettyVal SourceLoc where
+  prettyVal = prettyVal . show
+
+instance PrettyVal SourceRange where
+  prettyVal = prettyVal . show
+
 prettySourceLoc ::
      Bool -- ^ Should we show the file?
   -> SourceLoc -> String
 prettySourceLoc showFile (SourceLoc file line col) =
     intercalate ":" . concat $ [
-        [ Text.unpack file | showFile ]
+        [ Text.unpack (getSourcePath file) | showFile ]
       , [ show line, show col ]
       ]
 
@@ -116,9 +146,20 @@ clang_getDiagnosticFixIt diag i = do
     (range, bs) <- Core.clang_getDiagnosticFixIt diag i
     (,bs) <$> toSourceRange range
 
+clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO SourceLoc
+clang_getTokenLocation unit token =
+    toSourceLoc =<< Core.clang_getTokenLocation unit token
+
+clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO SourceRange
+clang_getTokenExtent unit token =
+    toSourceRange =<< Core.clang_getTokenExtent unit token
+
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
+
+toSourcePath :: Text -> SourcePath
+toSourcePath = SourcePath
 
 toSourceRange :: CXSourceRange -> IO SourceRange
 toSourceRange rng = do
@@ -132,6 +173,6 @@ toSourceLoc :: CXSourceLocation -> IO SourceLoc
 toSourceLoc loc = do
     (file, line, col, _bufOffset) <- clang_getSpellingLocation loc
     SourceLoc
-      <$> clang_getFileName file
-      <*> pure (fromIntegral line)
-      <*> pure (fromIntegral col)
+      <$> (toSourcePath <$> clang_getFileName file)
+      <*> (pure $ fromIntegral line)
+      <*> (pure $ fromIntegral col)

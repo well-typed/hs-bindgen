@@ -12,13 +12,16 @@ module HsBindgen.Patterns.Enum.Simple (
   , unsafeFromSimpleEnum
   ) where
 
+import Control.Exception
 import Data.Coerce
 import Data.Kind
 import Data.Typeable
 import Foreign.C
+import GHC.Generics (Generic)
 import GHC.Show (appPrec1, showSpace)
 import GHC.Stack
-import Control.Exception
+import Text.Show.Pretty (PrettyVal(..))
+import Text.Show.Pretty qualified as Pretty
 
 {-------------------------------------------------------------------------------
   Definition
@@ -82,23 +85,52 @@ class Typeable hs => IsSimpleEnum (hs :: Type) where
 -- >
 -- >   simpleFromC _otherwise = Nothing
 newtype SimpleEnum (hs :: Type) = SimpleEnum CInt
-  deriving stock (Eq, Ord)
+  deriving stock (Eq, Ord, Generic)
+
+{-------------------------------------------------------------------------------
+  Showing values
+-------------------------------------------------------------------------------}
 
 instance (IsSimpleEnum hs, Show hs) => Show (SimpleEnum hs) where
   showsPrec p i = showParen (p >= appPrec1) $
-      either showC showHS $ fromSimpleEnum i
+      either (uncurry showC) showHs $ showSimpleEnum i
     where
-      showC :: CInt -> ShowS
-      showC c =
+      showC :: CInt -> TypeRep -> ShowS
+      showC c typ  =
             showString "SimpleEnum @"
-          . showsPrec appPrec1 (typeRep (Proxy @hs))
+          . showsPrec appPrec1 typ
           . showSpace
           . showsPrec appPrec1 c
 
-      showHS :: hs -> ShowS
-      showHS hs =
+      showHs :: hs -> ShowS
+      showHs hs =
              showString "simpleEnum "
            . showsPrec appPrec1 hs
+
+instance (IsSimpleEnum hs, PrettyVal hs) => PrettyVal (SimpleEnum hs) where
+  prettyVal =
+      either (uncurry showC) showHs . showSimpleEnum
+    where
+      showC :: CInt -> TypeRep -> Pretty.Value
+      showC c typ = Pretty.Con "SimpleEnum" [
+            Pretty.Con ("@" ++ show typ) []
+          , prettyVal (fromIntegral c :: Int)
+          ]
+
+      showHs :: hs -> Pretty.Value
+      showHs hs = Pretty.Con "simpleEnum" [
+            prettyVal hs
+          ]
+
+-- | Internal auxiliary for showing 'SimpleEnum'
+showSimpleEnum :: forall hs.
+     IsSimpleEnum hs
+  => SimpleEnum hs -> Either (CInt, TypeRep) hs
+showSimpleEnum =
+    either (Left . showC) Right . fromSimpleEnum
+  where
+    showC :: CInt -> (CInt, TypeRep)
+    showC c = (c, typeRep (Proxy @hs))
 
 {-------------------------------------------------------------------------------
   API
