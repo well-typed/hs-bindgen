@@ -110,7 +110,7 @@ test-suite golden
   type:           exitcode-stdio-1.0
   main-is:        golden.hs
   hs-source-dirs: tests
-  other-modules:  Orphans Diff TH
+  other-modules:  Orphans Diff TH TastyGolden
   build-depends:
       -- Internal dependencies
     , hs-bindgen
@@ -125,6 +125,7 @@ test-suite golden
     , text
   build-depends:
       -- External dependencies
+    , deepseq
     , directory     ^>=1.3.6.2
     , filepath      ^>=1.4.2.2 || ^>=1.5.2.0
     , tasty         ^>=1.5

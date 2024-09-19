@@ -14,15 +14,15 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName)
-import Test.Tasty.Golden.Advanced (goldenTest)
 
+import TastyGolden
 import Diff
 
 import HsBindgen.Lib
 
 -- | Like goldenVsString but using our own diff function.
-goldenVsStringDiff_ :: TestName -> FilePath -> IO String -> TestTree
-goldenVsStringDiff_ name fp action = goldenTest name correct action cmp update
+goldenVsStringDiff_ :: TestName -> FilePath -> ((String -> IO ()) -> IO String) -> TestTree
+goldenVsStringDiff_ name fp action = goldenTestSteps name correct action cmp update
   where
     correct :: IO String
     correct = do
@@ -38,13 +38,17 @@ goldenVsStringDiff_ name fp action = goldenTest name correct action cmp update
         | otherwise  = return $ Just $ unlines $ ansiLinesDiff (lines xss) (lines yss)
 
 goldenTh :: TestName -> TestTree
-goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ do
+goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     let fp = "examples" </> (name ++ ".h")
         args = ["-target", "x86_64-pc-linux-gnu"]
 
-    header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
+    let tracer = mkTracer report report report False
+    let tracerD = contramap show tracer
+    let tracerP = contramap prettyLogMsg tracer
+
+    header <- parseCHeader tracerD tracerP SelectFromMainFile args fp
     let decls :: Qu [TH.Dec]
         decls = genDecls header
 
