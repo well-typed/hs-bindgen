@@ -24,9 +24,10 @@ import HsBindgen.Clang.Core hiding (
 -------------------------------------------------------------------------------}
 
 data Token a = Token {
-      tokenKind     :: !(SimpleEnum CXTokenKind)
-    , tokenSpelling :: !a
-    , tokenExtent   :: !SourceRange
+      tokenKind       :: !(SimpleEnum CXTokenKind)
+    , tokenSpelling   :: !a
+    , tokenExtent     :: !SourceRange
+    , tokenCursorKind :: !(SimpleEnum CXCursorKind)
     }
   deriving stock (Show, Eq, Functor, Foldable, Traversable, Generic)
   deriving anyclass (PrettyVal)
@@ -44,17 +45,21 @@ clang_tokenize :: CXTranslationUnit -> CXSourceRange -> IO [Token TokenSpelling]
 clang_tokenize unit range = do
     bracket
         (Core.clang_tokenize unit range)
-        (uncurry $ Core.clang_disposeTokens unit) $ \(array, numTokens) ->
+        (uncurry $ Core.clang_disposeTokens unit) $ \(tokens, numTokens) -> do
+      cursors <- clang_annotateTokens unit tokens numTokens
       forM [0 .. pred numTokens] $ \i -> do
-        toToken unit $ index_CXTokenArray array i
+        cursor <- index_CXCursorArray cursors i
+        toToken unit (index_CXTokenArray tokens i) cursor
 
-toToken :: CXTranslationUnit -> CXToken -> IO (Token TokenSpelling)
-toToken unit token = do
-    tokenKind     <- clang_getTokenKind token
-    tokenSpelling <- TokenSpelling <$> clang_getTokenSpelling unit token
-    tokenExtent   <- SourceLoc.clang_getTokenExtent unit token
+toToken :: CXTranslationUnit -> CXToken -> CXCursor -> IO (Token TokenSpelling)
+toToken unit token cursor = do
+    tokenKind       <- clang_getTokenKind token
+    tokenSpelling   <- TokenSpelling <$> clang_getTokenSpelling unit token
+    tokenExtent     <- SourceLoc.clang_getTokenExtent unit token
+    tokenCursorKind <- clang_getCursorKind cursor
     return Token{
         tokenKind
       , tokenSpelling
       , tokenExtent
+      , tokenCursorKind
       }

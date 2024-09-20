@@ -2,39 +2,7 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Macro
-          [
-            Token {
-              tokenKind = SimpleEnum 2,
-              tokenSpelling = TokenSpelling
-                "MYFOO",
-              tokenExtent = SourceRange {
-                sourceRangeStart = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "macros.h"],
-                  sourceLocLine = 1,
-                  sourceLocColumn = 9},
-                sourceRangeEnd = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "macros.h"],
-                  sourceLocLine = 1,
-                  sourceLocColumn = 14}}},
-            Token {
-              tokenKind = SimpleEnum 3,
-              tokenSpelling = TokenSpelling
-                "1",
-              tokenExtent = SourceRange {
-                sourceRangeStart = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "macros.h"],
-                  sourceLocLine = 1,
-                  sourceLocColumn = 15},
-                sourceRangeEnd = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "macros.h"],
-                  sourceLocLine = 1,
-                  sourceLocColumn = 16}}}])])
+        (Right
+          (ObjectLike
+            "MYFOO"
+            (Integer 1)))])

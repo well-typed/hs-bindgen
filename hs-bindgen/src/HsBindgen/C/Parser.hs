@@ -2,7 +2,7 @@
 --
 -- Intended for qualified import.
 --
--- > import Hsbindgen.C.Parser qualified as C
+-- > import HsBindgen.C.Parser qualified as C
 module HsBindgen.C.Parser (
     parseHeaderWith
   , withTranslationUnit
@@ -25,6 +25,7 @@ import Foreign.C
 import GHC.Stack
 
 import HsBindgen.C.AST qualified as C
+import HsBindgen.C.Macro qualified as Macro
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args
@@ -145,7 +146,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
         range  <- clang_getCursorExtent current
         tokens <- Tokens.clang_tokenize unit range
         let decl :: C.Decl
-            decl = C.DeclMacro $ C.Macro tokens
+            decl = C.DeclMacro $ Macro.parse tokens
         return $ Continue $ Just decl
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind

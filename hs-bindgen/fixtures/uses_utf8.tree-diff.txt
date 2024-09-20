@@ -2,25 +2,8 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Macro
-          [
-            Token {
-              tokenKind = SimpleEnum 2,
-              tokenSpelling = TokenSpelling
-                "USES_UTF8_H",
-              tokenExtent = SourceRange {
-                sourceRangeStart = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "uses_utf8.h"],
-                  sourceLocLine = 2,
-                  sourceLocColumn = 9},
-                sourceRangeEnd = SourceLoc {
-                  sourceLocFile = [
-                    "examples",
-                    "uses_utf8.h"],
-                  sourceLocLine = 2,
-                  sourceLocColumn = 20}}}]),
+        (Right
+          (IncludeGuard "USES_UTF8_H")),
       DeclEnum
         Enu {
           enumTag = Just "MyEnum",
