@@ -7,13 +7,13 @@ WrapCHeader
             "INCR"
             ["x"]
             (EAdd
-              (EAtom (AVar "x"))
-              (EAtom (AInt 1))))),
+              (ESimple (SVar "x" []))
+              (ESimple (SInt 1))))),
       DeclMacro
         (Right
           (FunctionLike
             "ADD"
             ["x", "y"]
             (EAdd
-              (EAtom (AVar "x"))
-              (EAtom (AVar "y")))))])
+              (ESimple (SVar "x" []))
+              (ESimple (SVar "y" [])))))])
