@@ -3,6 +3,4 @@ WrapCHeader
     [
       DeclMacro
         (Right
-          (ObjectLike
-            "MYFOO"
-            (Integer 1)))])
+          (ObjectLike "MYFOO" (SInt 1)))])

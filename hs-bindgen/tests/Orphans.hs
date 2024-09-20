@@ -30,9 +30,9 @@ instance ToExpr C.Enu
 instance ToExpr C.EnumValue
 instance ToExpr C.Header
 instance ToExpr C.Macro
-instance ToExpr C.Macro.Atom
-instance ToExpr C.Macro.Expansion
+instance ToExpr C.Macro.Attribute
 instance ToExpr C.Macro.Expr
+instance ToExpr C.Macro.SimpleExpr
 instance ToExpr C.Macro.TokenSpelling
 instance ToExpr C.PrimSign
 instance ToExpr C.PrimType

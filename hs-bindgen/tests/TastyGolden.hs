@@ -64,7 +64,7 @@ newtype NoCreateFile = NoCreateFile Bool
   deriving (Eq, Ord)
 
 instance IsOption NoCreateFile where
-    defaultValue = NoCreateFile True
+    defaultValue = NoCreateFile False
     parseValue = fmap NoCreateFile . safeReadBool
     optionName = return "no-create"
     optionHelp = return "Error when golden file does not exist"
@@ -122,8 +122,8 @@ runGoldenSteps (GoldenSteps getGolden getTested cmp update) progress opts = do
                         -- golden file. In that case, it makes sense to replace a broken
                         -- golden file with the current version.
                         update new
-                        return $ testPassed $ unlines $ 
-                            "Accepted the new version. Was failing with exception:" : 
+                        return $ testPassed $ unlines $
+                            "Accepted the new version. Was failing with exception:" :
                             displayException e :
                             msgs
 

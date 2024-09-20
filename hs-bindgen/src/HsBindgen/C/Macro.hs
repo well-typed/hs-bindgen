@@ -9,11 +9,11 @@
 module HsBindgen.C.Macro (
     -- * Definition
     Macro(..)
-  , Expansion(..)
   , MacroName
   , Arg
   , Expr(..)
-  , Atom(..)
+  , SimpleExpr(..)
+  , Attribute(..)
     -- * Unrecognized macros
   , UnrecognizedMacro(..)
   , Token(..)
@@ -22,7 +22,7 @@ module HsBindgen.C.Macro (
   , parse
   ) where
 
-import Control.Exception
+import Control.Exception (Exception)
 import Control.Monad
 import Data.Bifunctor
 import Data.Char (toUpper)
@@ -31,6 +31,7 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
+import Text.Parsec (try)
 import Text.Parsec.Combinator
 import Text.Parsec.Error
 import Text.Parsec.Expr
@@ -51,19 +52,14 @@ import HsBindgen.Patterns
 
 data Macro =
     IncludeGuard MacroName
-  | ObjectLike MacroName Expansion
+  | ObjectLike MacroName SimpleExpr
   | FunctionLike MacroName [Arg] Expr
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
-data Expansion =
-    Empty
-  | Integer Integer
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
+-- | Body of a function-like macro
 data Expr =
-    EAtom Atom
+    ESimple SimpleExpr
   | EUnaryPlus Expr        -- ^ @+@
   | EUnaryMinus Expr       -- ^ @-@
   | ELogicalNot Expr       -- ^ @!@
@@ -89,14 +85,20 @@ data Expr =
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
-data Atom =
+data SimpleExpr =
+    -- | Empty
+    SEmpty
+
     -- | Integer literal
-    AInt Integer
+  | SInt Integer
 
     -- | Variable
     --
     -- This might be a macro argument, or another marco.
-  | AVar Name
+  | SVar Name [Arg]
+
+    -- | Attribute
+  | SAttr Attribute SimpleExpr
 
     -- | Stringizing
     --
@@ -104,7 +106,7 @@ data Atom =
     --
     -- * Section 6.10.3.2, "The # operator" of the spec
     -- * <https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html>
-  | AStringize Name
+  | SStringize Name
 
     -- | Concatenation
     --
@@ -112,7 +114,17 @@ data Atom =
     --
     -- * Section 6.10.3.3, "The ## operator" of the spec
     -- * <https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html>
-  | AConcat Atom Atom
+  | SConcat SimpleExpr SimpleExpr
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+-- | Attribute
+--
+-- See Section 5.25, "Attribute syntax" of the gcc manual.
+-- <https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Attribute-Syntax.html#Attribute-Syntax>.
+--
+-- For now we make no attempt to parse what's actually inside the attribute.
+data Attribute = Attribute [Token TokenSpelling]
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -171,9 +183,9 @@ parseMacro :: FilePath -> Parser Macro
 parseMacro sourcePath = do
     result <- parseMacro'
     case result of
-      ObjectLike name Empty | Text.unpack name `elem` includeGuards ->
+      ObjectLike name SEmpty | Text.unpack name `elem` includeGuards ->
         return $ IncludeGuard name
-      ObjectLike name (Integer 1) | Text.unpack name `elem` includeGuards ->
+      ObjectLike name (SInt 1) | Text.unpack name `elem` includeGuards ->
         return $ IncludeGuard name
       _otherwise ->
         return result
@@ -186,12 +198,15 @@ parseMacro' :: Parser Macro
 parseMacro' = do
     name <- parseMacroName
     choice [
-        ObjectLike name <$> parseExpansion
-      , FunctionLike name <$> parseArgs <*> parseExpr
+        FunctionLike name <$> parseArgs <*> parseExpr
+      , ObjectLike name <$> parseSimpleExpr
       ] <* eof
 
 parseMacroName :: Parser MacroName
-parseMacroName = tokenOfKind CXToken_Identifier Just
+parseMacroName = parseName
+
+parseName ::Parser MacroName
+parseName = tokenOfKind CXToken_Identifier Just
 
 -- | Possible names for include guards, given the file (base) name
 possibleIncludeGuards :: String -> [String]
@@ -202,18 +217,62 @@ possibleIncludeGuards baseName = [
     ]
 
 {-------------------------------------------------------------------------------
-  Object-like macros
+  Simple expressions
 -------------------------------------------------------------------------------}
 
-parseExpansion :: Parser Expansion
-parseExpansion = choice [
-      Empty <$ eof
-    , Integer <$> parseInteger
-    ]
+parseSimpleExpr :: Parser SimpleExpr
+parseSimpleExpr =
+    buildExpressionParser ops term <?> "simple expression"
+  where
+    term :: Parser SimpleExpr
+    term = choice [
+        SEmpty <$ eof
+      , SInt <$> parseInteger
+      , SVar <$> parseName <*> option [] parseArgs
+      , SAttr <$> parseAttribute <*> parseSimpleExpr
+      , SStringize <$ punctuation "#" <*> parseName
+      ]
 
--- | TODO: This is wrong, we should not parse C int literals with Haskell rules
+    ops :: OperatorTable [Token TokenSpelling] ParserState Identity SimpleExpr
+    ops = [[Infix (SConcat <$ punctuation "##") AssocLeft]]
+
+-- | Parse attribute
+--
+-- > __attribute__ (( .. ))
+--
+-- /NOTE/: An 'Attribute' starts with 'comma', so any use of 'parseAttribute'
+-- must come /before/ allowing regular parentheses.
+parseAttribute :: Parser Attribute
+parseAttribute = do
+    exact CXToken_Keyword "__attribute__"
+    doubleOpenParens
+    -- TODO: Could we avoid the 'try'?
+    Attribute <$> manyTill (token Just) (try doubleCloseParens)
+  where
+    doubleOpenParens, doubleCloseParens :: Parser ()
+    doubleOpenParens  = (punctuation "(" >> punctuation "(") <?> "(("
+    doubleCloseParens = (punctuation ")" >> punctuation ")") <?> "))"
+
 parseInteger :: Parser Integer
-parseInteger = tokenOfKind CXToken_Literal (readMaybe . Text.unpack)
+parseInteger = tokenOfKind CXToken_Literal aux
+  where
+    -- TODO: This is wrong, we should not parse C literals with Haskell rules
+    aux :: Text -> Maybe Integer
+    aux = readMaybe . dropSuffix . Text.unpack
+
+    -- TODO: Should we preserve this suffix in some way..? are we losing info?
+    dropSuffix :: String -> String
+    dropSuffix str = reverse $
+       case reverse str of
+         'l':'l':xs -> xs
+         'L':'L':xs -> xs
+         'u':xs     -> xs
+         'U':xs     -> xs
+         'l':xs     -> xs
+         'L':xs     -> xs
+         'z':xs     -> xs
+         'Z':xs     -> xs
+         xs         -> xs
 
 {-------------------------------------------------------------------------------
   Function-like macros
@@ -223,7 +282,7 @@ parseArgs :: Parser [Arg]
 parseArgs = parens $ parseArg `sepBy` comma
 
 parseArg :: Parser Arg
-parseArg = tokenOfKind CXToken_Identifier Just
+parseArg = parseName
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -240,8 +299,8 @@ parseExpr =
     term :: Parser Expr
     term = choice [
           parens parseExpr
-        , EAtom <$> parseAtom
-        ] <?> "simple expression"
+        , ESimple <$> parseSimpleExpr
+        ]
 
     -- 'OperatorTable' expects the list in descending precedence
     ops :: OperatorTable [Token TokenSpelling] ParserState Identity Expr
@@ -290,22 +349,6 @@ parseExpr =
       , [ Infix (EBitwiseOr  <$ punctuation "|")  AssocLeft ]
       , [ Infix (ELogicalAnd <$ punctuation "&&") AssocLeft ]
       , [ Infix (ELogicalOr  <$ punctuation "||") AssocLeft ]
-      ]
-
-parseAtom :: Parser Atom
-parseAtom =
-    buildExpressionParser ops term <?> "atomic expression"
-  where
-    term :: Parser Atom
-    term = choice [
-        AInt <$> parseInteger
-      , AVar <$> tokenOfKind CXToken_Identifier Just
-      ] <?> "simple atomic expression"
-
-    ops :: OperatorTable [Token TokenSpelling] ParserState Identity Atom
-    ops = [
-        -- [Prefix (AStringize <$ punctuation "#")]
-        [Infix (AConcat <$ punctuation "##") AssocLeft]
       ]
 
 {-------------------------------------------------------------------------------
