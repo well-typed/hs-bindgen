@@ -47,6 +47,7 @@ module HsBindgen.Lib (
   , nullTracer
   , contramap
   , PrettyLogMsg(..)
+  , mkTracer
   , mkTracerIO
   , traceThrow
   ) where

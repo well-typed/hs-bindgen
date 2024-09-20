@@ -53,30 +53,38 @@ main = do
 #endif
         ]
 
-    goldenDump name = goldenVsStringDiff_ "ast" ("fixtures" </> (name ++ ".dump.txt")) $ do
+    goldenDump name = goldenVsStringDiff_ "ast" ("fixtures" </> (name ++ ".dump.txt")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        res <- getClangAST nullTracer SelectFromMainFile args fp
+        let tracer = mkTracer report report report False
+        let tracerD = contramap show tracer
+        res <- getClangAST tracerD SelectFromMainFile args fp
 
         return $ unlines $ concatMap treeToLines res
 
     goldenTreeDiff name = ediffGolden goldenTest "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ do
+        -- TODO: there aren't ediffGolden variant for goldenTestSteps like signature... yet
+
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
         header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
         return header
 
-    goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ do
+    goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
             args = ["-target", "x86_64-pc-linux-gnu"]
 
-        header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
+        let tracer = mkTracer report report report False
+        let tracerD = contramap show tracer
+        let tracerP = contramap prettyLogMsg tracer
+
+        header <- parseCHeader tracerD tracerP SelectFromMainFile args fp
         let decls :: forall f. List Hs.Decl f
             decls = List $ genHaskell header
 

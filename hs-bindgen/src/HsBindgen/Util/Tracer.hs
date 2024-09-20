@@ -12,6 +12,7 @@ module HsBindgen.Util.Tracer (
   , traceWith
   , contramap
     -- * Constructing tracers
+  , mkTracer
   , mkTracerIO
   , mkTracerQ
   , traceThrow
@@ -68,7 +69,7 @@ mkTracer outputError outputWarning outputInfo verbose =
                        else squelch         -< msg
 
 {-------------------------------------------------------------------------------
-  Specific tracesr
+  Specific tracers
 -------------------------------------------------------------------------------}
 
 -- | Standard tracer for use in the 'IO' monad
