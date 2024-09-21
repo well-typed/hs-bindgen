@@ -1,1 +1,4 @@
-"macro definition" "MYFOO" :: "Invalid"
+"macro definition" "OBJECTLIKE1" :: "Invalid"
+"macro definition" "OBJECTLIKE2" :: "Invalid"
+"macro definition" "OBJECTLIKE3" :: "Invalid"
+"macro definition" "OBJECTLIKE4" :: "Invalid"

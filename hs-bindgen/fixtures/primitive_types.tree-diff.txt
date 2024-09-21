@@ -27,32 +27,32 @@ WrapCHeader
               fieldName = CName "s",
               fieldOffset = 32,
               fieldType = TypPrim
-                (PrimShortInt Signed)},
+                (PrimShort Signed)},
             StructField {
               fieldName = CName "si",
               fieldOffset = 48,
               fieldType = TypPrim
-                (PrimShortInt Signed)},
+                (PrimShort Signed)},
             StructField {
               fieldName = CName "ss",
               fieldOffset = 64,
               fieldType = TypPrim
-                (PrimShortInt Signed)},
+                (PrimShort Signed)},
             StructField {
               fieldName = CName "ssi",
               fieldOffset = 80,
               fieldType = TypPrim
-                (PrimShortInt Signed)},
+                (PrimShort Signed)},
             StructField {
               fieldName = CName "us",
               fieldOffset = 96,
               fieldType = TypPrim
-                (PrimShortInt Unsigned)},
+                (PrimShort Unsigned)},
             StructField {
               fieldName = CName "usi",
               fieldOffset = 112,
               fieldType = TypPrim
-                (PrimShortInt Unsigned)},
+                (PrimShort Unsigned)},
             StructField {
               fieldName = CName "i",
               fieldOffset = 128,

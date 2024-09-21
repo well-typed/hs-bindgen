@@ -23,6 +23,7 @@ import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal)
 
 import HsBindgen.C.AST.Name
+import HsBindgen.C.AST.Type
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -80,6 +81,11 @@ data MTerm =
     --
     -- This might be a macro argument, or another marco.
   | MVar CName [MExpr]
+
+    -- | Type declaration
+    --
+    -- For now we only support primitive types.
+  | MType PrimType
 
     -- | Attribute
   | MAttr Attribute MTerm
