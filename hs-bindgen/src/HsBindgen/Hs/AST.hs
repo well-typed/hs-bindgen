@@ -39,13 +39,13 @@ module HsBindgen.Hs.AST (
   ) where
 
 import Data.Nat
-import Data.Text (Text)
 import Data.Type.Nat
 import Data.Vec.Lazy (Vec(..))
 import Generics.SOP qualified as SOP
 import GHC.Generics qualified as GHC
 import GHC.Show (appPrec1)
 
+import HsBindgen.Hs.AST.Name
 import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
@@ -53,9 +53,9 @@ import HsBindgen.Util.PHOAS
 -------------------------------------------------------------------------------}
 
 data Struct (n :: Nat) = Struct {
-      structName   :: Text
-    , structConstr :: Text
-    , structFields :: Vec n Text
+      structName   :: HsName NsTypeConstr
+    , structConstr :: HsName NsConstr
+    , structFields :: Vec n (HsName NsVar)
     }
 
 deriving stock instance Show (Struct n)

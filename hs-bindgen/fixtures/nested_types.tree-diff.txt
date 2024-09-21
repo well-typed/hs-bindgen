@@ -3,31 +3,31 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just "foo",
+          structTag = Just (CName "foo"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
             StructField {
-              fieldName = "i",
+              fieldName = CName "i",
               fieldOffset = 0,
               fieldType = TypPrim
                 (PrimInt Signed)},
             StructField {
-              fieldName = "c",
+              fieldName = CName "c",
               fieldOffset = 32,
               fieldType = TypPrim
                 (PrimChar Nothing)}]},
       DeclStruct
         Struct {
-          structTag = Just "bar",
+          structTag = Just (CName "bar"),
           structSizeof = 16,
           structAlignment = 4,
           structFields = [
             StructField {
-              fieldName = "foo1",
+              fieldName = CName "foo1",
               fieldOffset = 0,
               fieldType = TypElaborated},
             StructField {
-              fieldName = "foo2",
+              fieldName = CName "foo2",
               fieldOffset = 64,
               fieldType = TypElaborated}]}])

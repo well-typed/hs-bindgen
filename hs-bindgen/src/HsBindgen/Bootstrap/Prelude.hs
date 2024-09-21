@@ -7,8 +7,9 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import System.FilePath ((</>))
 
-import HsBindgen.C.Macro qualified as Macro
 import HsBindgen.C.Parser
+import HsBindgen.C.Parser.Macro (UnrecognizedMacro)
+import HsBindgen.C.Parser.Macro qualified as Macro
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Fold
 import HsBindgen.Clang.Util.SourceLoc (SourceLoc(..))
@@ -30,7 +31,7 @@ data PreludeEntry
   Top-level
 -------------------------------------------------------------------------------}
 
-genPrelude :: Tracer IO Unrecognized -> IO ()
+genPrelude :: Tracer IO GenPreludeMsg -> IO ()
 genPrelude tracer = do
     dataDir <- getDataDir
     let standardHeaders :: FilePath
@@ -46,7 +47,7 @@ genPrelude tracer = do
     print entries
 
 fold ::
-     Tracer IO Unrecognized
+     Tracer IO GenPreludeMsg
   -> FilePath -- ^ Path to @standard_headers.h@
   -> CXTranslationUnit
   -> Fold PreludeEntry
@@ -55,21 +56,26 @@ fold tracer standardHeaders unit = go
     go :: Fold PreludeEntry
     go = checkLoc $ \loc _parent current -> do
         kind <- clang_getCursorKind current
+
+        let skip :: IO (Next a)
+            skip = do
+                traceWith tracer Info $ Skipping loc kind
+                return $ Continue Nothing
+
         case fromSimpleEnum kind of
-          Right CXCursor_InclusionDirective ->
-            return $ Continue Nothing
-          Right CXCursor_MacroExpansion -> do
-            putStrLn $ "Skipping macro expansion on " ++ show loc
-            return $ Continue Nothing
+          Right CXCursor_InclusionDirective -> skip
+          Right CXCursor_MacroExpansion     -> skip
+
           Right CXCursor_MacroDefinition -> do
             cursorExtent <- clang_getCursorExtent current
             tokens <- Tokens.clang_tokenize unit cursorExtent
             case Macro.parse tokens of
-              Right macro -> do
-                putStrLn $ "Skipping " ++ show macro
-                return $ Continue Nothing
+              Right macro ->
+                appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
               Left err -> do
-                throwIO err
+                traceWith tracer Warning $ UnrecognizedMacro err
+            return $ Continue Nothing
+
           _otherwise ->
             Continue <$> unrecognized tracer current
 
@@ -96,25 +102,38 @@ fold tracer standardHeaders unit = go
   Auxiliary
 -------------------------------------------------------------------------------}
 
-data Unrecognized =
-    UnrecognizedElement {
-        unrecognizedKind :: SimpleEnum CXCursorKind
-      , unrecognizedName :: Text
-      , unrecognizedLoc  :: SourceLoc
-      }
+data GenPreludeMsg =
+    Skipping SourceLoc (SimpleEnum CXCursorKind)
+  | UnrecognizedElement SourceLoc (SimpleEnum CXCursorKind) Text
+  | UnrecognizedMacro UnrecognizedMacro
   deriving stock (Show)
   deriving anyclass (Exception)
 
-unrecognized :: Tracer IO Unrecognized -> CXCursor -> IO (Maybe a)
+instance PrettyLogMsg GenPreludeMsg where
+  prettyLogMsg (Skipping loc kind) = concat [
+        "Skipped "
+      , show kind
+      , " at "
+      , show loc
+      ]
+
+  prettyLogMsg (UnrecognizedElement loc kind name) = concat [
+        show name
+      , ": unrecognized "
+      , show kind
+      , " at "
+      , show loc
+      ]
+
+  prettyLogMsg (UnrecognizedMacro err) =
+      prettyLogMsg err
+
+unrecognized :: Tracer IO GenPreludeMsg -> CXCursor -> IO (Maybe a)
 unrecognized tracer current = do
-    unrecognizedKind <- clang_getCursorKind current
-    unrecognizedName <- clang_getCursorSpelling current
-    unrecognizedLoc  <- SourceLoc.clang_getCursorLocation current
-    traceWith tracer Error $ UnrecognizedElement {
-        unrecognizedKind
-      , unrecognizedName
-      , unrecognizedLoc
-      }
+    loc  <- SourceLoc.clang_getCursorLocation current
+    kind <- clang_getCursorKind current
+    name <- clang_getCursorSpelling current
+    traceWith tracer Error $ UnrecognizedElement loc kind name
     return Nothing
 
 

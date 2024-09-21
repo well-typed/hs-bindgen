@@ -2,7 +2,7 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.C.Parser qualified as C
+-- > import HsBindgen.Parser qualified as C
 module HsBindgen.C.Parser (
     parseHeaderWith
   , withTranslationUnit
@@ -24,8 +24,8 @@ import Data.Tree
 import Foreign.C
 import GHC.Stack
 
-import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Macro qualified as Macro
+import HsBindgen.C.AST
+import HsBindgen.C.Parser.Macro qualified as Macro
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args
@@ -35,7 +35,6 @@ import HsBindgen.Clang.Util.Classification
 import HsBindgen.Clang.Util.Diagnostics (Diagnostic(..))
 import HsBindgen.Clang.Util.Diagnostics qualified as Diagnostics
 import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc (SourceLoc)
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
@@ -122,31 +121,31 @@ foldDecls ::
      HasCallStack
   => Tracer IO ParseMsg
   -> Predicate
-  -> CXTranslationUnit -> Fold C.Decl
+  -> CXTranslationUnit -> Fold Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
     cursorKind <- clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         mkStruct <- parseStruct unit current
-        let mkDecl :: [C.StructField] -> IO (Maybe C.Decl)
-            mkDecl = return . Just . C.DeclStruct . mkStruct
+        let mkDecl :: [StructField] -> IO (Maybe Decl)
+            mkDecl = return . Just . DeclStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
       Right CXCursor_EnumDecl -> do
         mkEnum <- parseEnum unit current
-        let mkDecl :: [C.EnumValue] -> IO (Maybe C.Decl)
-            mkDecl = return . Just . C.DeclEnum . mkEnum
+        let mkDecl :: [EnumValue] -> IO (Maybe Decl)
+            mkDecl = return . Just . DeclEnum . mkEnum
         return $ Recurse (foldEnumValues tracer) mkDecl
       Right CXCursor_TypedefDecl -> do
         mkTypedef <- parseTypedef current
-        let mkDecl :: [C.Typ] -> IO (Maybe C.Decl)
-            mkDecl [typ] = return $ Just (C.DeclTypedef $ mkTypedef typ)
+        let mkDecl :: [Typ] -> IO (Maybe Decl)
+            mkDecl [typ] = return $ Just (DeclTypedef $ mkTypedef typ)
             mkDecl types = error $ "mkTypedef: unexpected " ++ show types
         return $ Recurse (foldTyp tracer unit) mkDecl
       Right CXCursor_MacroDefinition -> do
         range  <- clang_getCursorExtent current
         tokens <- Tokens.clang_tokenize unit range
-        let decl :: C.Decl
-            decl = C.DeclMacro $ Macro.parse tokens
+        let decl :: Decl
+            decl = DeclMacro $ Macro.parse tokens
         return $ Continue $ Just decl
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
@@ -172,57 +171,58 @@ checkPredicate tracer p k parent current = do
 -- Implementation note: It seems libclang will give us a name for the struct if
 -- the struct it a tag, but also when it's anonymous but the surrounding typedef
 -- has a name.
-parseStruct :: CXTranslationUnit -> CXCursor -> IO ([C.StructField] -> C.Struct)
+parseStruct :: CXTranslationUnit -> CXCursor -> IO ([StructField] -> Struct)
 parseStruct unit current = do
     cursorType      <- clang_getCursorType current
-    structTag       <- getUserProvided <$>
+    structTag       <- fmap CName . getUserProvided <$>
                          getUserProvidedName unit current
     structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
-    return $ \structFields -> C.Struct{
+    return $ \structFields -> Struct{
         structTag
       , structSizeof
       , structAlignment
       , structFields
       }
 
-foldStructFields :: Tracer IO ParseMsg -> Fold C.StructField
+foldStructFields :: Tracer IO ParseMsg -> Fold StructField
 foldStructFields tracer _parent current = do
-    ty  <- clang_getCursorType current
-    fieldType <- parseType tracer ty
+    ty          <- clang_getCursorType current
+    fieldType   <- parseType tracer ty
     fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-    fieldName   <- clang_getCursorDisplayName current
+    fieldName   <- CName <$> clang_getCursorDisplayName current
 
-    let field = C.StructField{fieldName, fieldOffset, fieldType}
+    let field = StructField{fieldName, fieldOffset, fieldType}
     return $ Continue (Just field)
 
 {-------------------------------------------------------------------------------
   Enums
 -------------------------------------------------------------------------------}
 
-parseEnum :: CXTranslationUnit -> CXCursor -> IO ([C.EnumValue] -> C.Enu)
+parseEnum :: CXTranslationUnit -> CXCursor -> IO ([EnumValue] -> Enu)
 parseEnum unit current = do
     cursorType    <- clang_getCursorType current
-    enumTag       <- getUserProvided <$> getUserProvidedName unit current
+    enumTag       <- fmap CName . getUserProvided <$>
+                       getUserProvidedName unit current
     enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
-    return $ \enumValues -> C.Enu{
+    return $ \enumValues -> Enu{
         enumTag
       , enumSizeof
       , enumAlignment
       , enumValues
       }
 
-foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold C.EnumValue
+foldEnumValues :: HasCallStack => Tracer IO ParseMsg -> Fold EnumValue
 foldEnumValues tracer _parent current = do
     cursorKind <- clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_EnumConstantDecl -> do
-        valueName  <- clang_getCursorDisplayName     current
-        valueValue <- toInteger    <$> clang_getEnumConstantDeclValue current
-        let field = C.EnumValue{valueName, valueValue}
+        valueName  <- CName <$> clang_getCursorDisplayName current
+        valueValue <- toInteger <$> clang_getEnumConstantDeclValue current
+        let field = EnumValue{valueName, valueValue}
         return $ Continue (Just field)
 
       _ -> do
@@ -239,67 +239,67 @@ foldEnumValues tracer _parent current = do
 -- If we encounter an unrecognized type, we return 'Nothing' and issue a
 -- warning. The warning is ussed here, rather than at the call site, because
 -- 'parseType' is recursive.
-parseType :: Tracer IO ParseMsg -> CXType -> IO C.Typ
+parseType :: Tracer IO ParseMsg -> CXType -> IO Typ
 parseType _tracer = go
   where
-    go :: CXType -> IO C.Typ
+    go :: CXType -> IO Typ
     go ty =
         case fromSimpleEnum $ cxtKind ty of
           kind | Just prim <- primType kind ->
-            return $ C.TypPrim prim
+            return $ TypPrim prim
 
           Right CXType_Pointer -> do
             ty' <- clang_getPointeeType ty
-            C.TypPointer <$> go ty'
+            TypPointer <$> go ty'
 
           Right CXType_Elaborated -> do
-            return C.TypElaborated
+            return TypElaborated
 
           _otherwise -> do
             throwIO $ UnrecognizedType (cxtKind ty)
 
 
-parseTypedef :: CXCursor -> IO (C.Typ -> C.Typedef)
+parseTypedef :: CXCursor -> IO (Typ -> Typedef)
 parseTypedef current = do
-    typedefName <- clang_getCursorDisplayName current
-    return $ \typedefType -> C.Typedef{
+    typedefName <- CName <$> clang_getCursorDisplayName current
+    return $ \typedefType -> Typedef{
           typedefName
         , typedefType
         }
 
 foldTyp ::
      HasCallStack
-  => Tracer IO ParseMsg -> CXTranslationUnit -> Fold C.Typ
+  => Tracer IO ParseMsg -> CXTranslationUnit -> Fold Typ
 foldTyp tracer unit _parent current = do
     cursorKind <- clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         mkStruct <- parseStruct unit current
-        let mkDecl :: [C.StructField] -> IO (Maybe C.Typ)
-            mkDecl = return . Just . C.TypStruct . mkStruct
+        let mkDecl :: [StructField] -> IO (Maybe Typ)
+            mkDecl = return . Just . TypStruct . mkStruct
         return $ Recurse (foldStructFields tracer) mkDecl
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
         return $ Continue Nothing
 
-primType :: Either CInt CXTypeKind -> Maybe C.PrimType
+primType :: Either CInt CXTypeKind -> Maybe PrimType
 primType (Left _)     = Nothing
 primType (Right kind) =
     case kind of
-      CXType_Char_S     -> Just $ C.PrimChar     Nothing
-      CXType_SChar      -> Just $ C.PrimChar     (Just C.Signed)
-      CXType_UChar      -> Just $ C.PrimChar     (Just C.Unsigned)
-      CXType_Short      -> Just $ C.PrimShortInt C.Signed
-      CXType_UShort     -> Just $ C.PrimShortInt C.Unsigned
-      CXType_Int        -> Just $ C.PrimInt      C.Signed
-      CXType_UInt       -> Just $ C.PrimInt      C.Unsigned
-      CXType_Long       -> Just $ C.PrimLong     C.Signed
-      CXType_ULong      -> Just $ C.PrimLong     C.Unsigned
-      CXType_LongLong   -> Just $ C.PrimLongLong C.Signed
-      CXType_ULongLong  -> Just $ C.PrimLongLong C.Unsigned
-      CXType_Float      -> Just $ C.PrimFloat
-      CXType_Double     -> Just $ C.PrimDouble
-      CXType_LongDouble -> Just $ C.PrimLongDouble
+      CXType_Char_S     -> Just $ PrimChar     Nothing
+      CXType_SChar      -> Just $ PrimChar     (Just Signed)
+      CXType_UChar      -> Just $ PrimChar     (Just Unsigned)
+      CXType_Short      -> Just $ PrimShortInt Signed
+      CXType_UShort     -> Just $ PrimShortInt Unsigned
+      CXType_Int        -> Just $ PrimInt      Signed
+      CXType_UInt       -> Just $ PrimInt      Unsigned
+      CXType_Long       -> Just $ PrimLong     Signed
+      CXType_ULong      -> Just $ PrimLong     Unsigned
+      CXType_LongLong   -> Just $ PrimLongLong Signed
+      CXType_ULongLong  -> Just $ PrimLongLong Unsigned
+      CXType_Float      -> Just $ PrimFloat
+      CXType_Double     -> Just $ PrimDouble
+      CXType_LongDouble -> Just $ PrimLongDouble
       _otherwise        -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -324,7 +324,7 @@ data Element = Element {
 -- a certain node. For example, suppose we are working on `foldTyp`, and we're
 -- not exactly sure what the @struct@ case looks like; we might temporarily use
 --
--- > foldTyp :: Tracer IO ParseMsg -> Fold C.Typ
+-- > foldTyp :: Tracer IO ParseMsg -> Fold Typ
 -- > foldTyp tracer current = do
 -- >     cursorType <- clang_getCursorType current
 -- >     case fromSimpleEnum $ cxtKind cursorType of

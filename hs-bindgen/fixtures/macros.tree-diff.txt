@@ -3,4 +3,13 @@ WrapCHeader
     [
       DeclMacro
         (Right
-          (ObjectLike "MYFOO" (SInt 1)))])
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 1,
+              sourceLocColumn = 9},
+            macroName = CName "MYFOO",
+            macroArgs = [],
+            macroBody = MTerm (MInt 1)})])

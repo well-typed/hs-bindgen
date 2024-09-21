@@ -9,9 +9,12 @@ module HsBindgen.Backend.TH (
 import Data.Kind (Type)
 import Data.Text qualified as Text
 import Foreign.Storable qualified
+import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
+import HsBindgen.Hs.AST.Name
+import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -43,7 +46,7 @@ instance TH.Quote q => BackendRep (BE q) where
   mkExpr be = \case
       EGlobal n     -> TH.varE (resolve be n)
       EVar x        -> TH.varE (getFresh x)
-      ECon n        -> TH.conE (TH.mkName $ Text.unpack n)
+      ECon n        -> hsConE n
       EInt i        -> TH.litE (TH.IntegerL $ fromIntegral i)
       EApp f x      -> TH.appE (mkExpr be f) (mkExpr be x)
       EInfix op x y -> TH.infixE
@@ -55,9 +58,7 @@ instance TH.Quote q => BackendRep (BE q) where
                          (mkExpr be f)
       ECase x ms    -> TH.caseE (mkExpr be x) [
                            TH.match
-                             ( TH.conP (TH.mkName $ Text.unpack c) $
-                                 map (TH.varP . getFresh) xs
-                             )
+                             (hsConP c $ map (TH.varP . getFresh) xs)
                              (TH.normalB $ mkExpr be b)
                              []
                          | (c, xs, b) <- ms
@@ -69,7 +70,7 @@ instance TH.Quote q => BackendRep (BE q) where
       DInst i  -> TH.instanceD
                     (return [])
                     [t| $(TH.conT $ resolve be $ instanceClass i)
-                        $(TH.conT $ TH.mkName $ Text.unpack $ instanceType i)
+                        $(hsConT  $ instanceType i)
                     |]
                     ( map (\(x, f) -> simpleDecl (resolve be x) f) $
                         instanceDecs i
@@ -87,7 +88,12 @@ instance TH.Quote q => Backend (BE q) where
       , TH.Quote
       )
 
-  fresh _ = \x k -> TH.newName (Text.unpack x) >>= k . Fresh
+  fresh ::
+       BE q
+    -> HsName NsVar
+    -> (Fresh (BE q) Bound -> M (BE q) a)
+    -> M (BE q) a
+  fresh _ = \x k -> TH.newName (Text.unpack (getHsName x)) >>= k . Fresh
 
 {-------------------------------------------------------------------------------
   Monad functionality
@@ -95,3 +101,23 @@ instance TH.Quote q => Backend (BE q) where
 
 runM :: M (BE q) a -> q a
 runM = unwrapGen
+
+{-------------------------------------------------------------------------------
+  Dealing with names
+-------------------------------------------------------------------------------}
+
+hsConE :: Quote m => HsName NsConstr -> m TH.Exp
+hsConE = TH.conE . hsNameToTH
+
+hsConP :: Quote m => HsName NsConstr -> [m TH.Pat] -> m TH.Pat
+hsConP = TH.conP . hsNameToTH
+
+hsConT :: Quote m => HsName NsTypeConstr -> m TH.Type
+hsConT = TH.conT . hsNameToTH
+
+hsNameToTH :: HsName ns -> TH.Name
+hsNameToTH = TH.mkName . Text.unpack  . getHsName
+
+
+
+

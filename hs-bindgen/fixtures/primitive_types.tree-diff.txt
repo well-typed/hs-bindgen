@@ -3,150 +3,151 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just "primitive",
+          structTag = Just
+            (CName "primitive"),
           structSizeof = 176,
           structAlignment = 16,
           structFields = [
             StructField {
-              fieldName = "c",
+              fieldName = CName "c",
               fieldOffset = 0,
               fieldType = TypPrim
                 (PrimChar Nothing)},
             StructField {
-              fieldName = "sc",
+              fieldName = CName "sc",
               fieldOffset = 8,
               fieldType = TypPrim
                 (PrimChar (Just Signed))},
             StructField {
-              fieldName = "uc",
+              fieldName = CName "uc",
               fieldOffset = 16,
               fieldType = TypPrim
                 (PrimChar (Just Unsigned))},
             StructField {
-              fieldName = "s",
+              fieldName = CName "s",
               fieldOffset = 32,
               fieldType = TypPrim
                 (PrimShortInt Signed)},
             StructField {
-              fieldName = "si",
+              fieldName = CName "si",
               fieldOffset = 48,
               fieldType = TypPrim
                 (PrimShortInt Signed)},
             StructField {
-              fieldName = "ss",
+              fieldName = CName "ss",
               fieldOffset = 64,
               fieldType = TypPrim
                 (PrimShortInt Signed)},
             StructField {
-              fieldName = "ssi",
+              fieldName = CName "ssi",
               fieldOffset = 80,
               fieldType = TypPrim
                 (PrimShortInt Signed)},
             StructField {
-              fieldName = "us",
+              fieldName = CName "us",
               fieldOffset = 96,
               fieldType = TypPrim
                 (PrimShortInt Unsigned)},
             StructField {
-              fieldName = "usi",
+              fieldName = CName "usi",
               fieldOffset = 112,
               fieldType = TypPrim
                 (PrimShortInt Unsigned)},
             StructField {
-              fieldName = "i",
+              fieldName = CName "i",
               fieldOffset = 128,
               fieldType = TypPrim
                 (PrimInt Signed)},
             StructField {
-              fieldName = "s2",
+              fieldName = CName "s2",
               fieldOffset = 160,
               fieldType = TypPrim
                 (PrimInt Signed)},
             StructField {
-              fieldName = "si2",
+              fieldName = CName "si2",
               fieldOffset = 192,
               fieldType = TypPrim
                 (PrimInt Signed)},
             StructField {
-              fieldName = "u",
+              fieldName = CName "u",
               fieldOffset = 224,
               fieldType = TypPrim
                 (PrimInt Unsigned)},
             StructField {
-              fieldName = "ui",
+              fieldName = CName "ui",
               fieldOffset = 256,
               fieldType = TypPrim
                 (PrimInt Unsigned)},
             StructField {
-              fieldName = "l",
+              fieldName = CName "l",
               fieldOffset = 320,
               fieldType = TypPrim
                 (PrimLong Signed)},
             StructField {
-              fieldName = "li",
+              fieldName = CName "li",
               fieldOffset = 384,
               fieldType = TypPrim
                 (PrimLong Signed)},
             StructField {
-              fieldName = "sl",
+              fieldName = CName "sl",
               fieldOffset = 448,
               fieldType = TypPrim
                 (PrimLong Signed)},
             StructField {
-              fieldName = "sli",
+              fieldName = CName "sli",
               fieldOffset = 512,
               fieldType = TypPrim
                 (PrimLong Signed)},
             StructField {
-              fieldName = "ul",
+              fieldName = CName "ul",
               fieldOffset = 576,
               fieldType = TypPrim
                 (PrimLong Unsigned)},
             StructField {
-              fieldName = "uli",
+              fieldName = CName "uli",
               fieldOffset = 640,
               fieldType = TypPrim
                 (PrimLong Unsigned)},
             StructField {
-              fieldName = "ll",
+              fieldName = CName "ll",
               fieldOffset = 704,
               fieldType = TypPrim
                 (PrimLongLong Signed)},
             StructField {
-              fieldName = "lli",
+              fieldName = CName "lli",
               fieldOffset = 768,
               fieldType = TypPrim
                 (PrimLongLong Signed)},
             StructField {
-              fieldName = "sll",
+              fieldName = CName "sll",
               fieldOffset = 832,
               fieldType = TypPrim
                 (PrimLongLong Signed)},
             StructField {
-              fieldName = "slli",
+              fieldName = CName "slli",
               fieldOffset = 896,
               fieldType = TypPrim
                 (PrimLongLong Signed)},
             StructField {
-              fieldName = "ull",
+              fieldName = CName "ull",
               fieldOffset = 960,
               fieldType = TypPrim
                 (PrimLongLong Unsigned)},
             StructField {
-              fieldName = "ulli",
+              fieldName = CName "ulli",
               fieldOffset = 1024,
               fieldType = TypPrim
                 (PrimLongLong Unsigned)},
             StructField {
-              fieldName = "f",
+              fieldName = CName "f",
               fieldOffset = 1088,
               fieldType = TypPrim PrimFloat},
             StructField {
-              fieldName = "d",
+              fieldName = CName "d",
               fieldOffset = 1152,
               fieldType = TypPrim PrimDouble},
             StructField {
-              fieldName = "ld",
+              fieldName = CName "ld",
               fieldOffset = 1280,
               fieldType = TypPrim
                 PrimLongDouble}]}])

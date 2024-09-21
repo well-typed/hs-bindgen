@@ -5,11 +5,11 @@ module HsBindgen.Backend.Common.Translation (toBE) where
 
 import Data.Foldable
 import Data.Kind
-import Data.Text (Text)
 import Data.Vec.Lazy (Vec(..))
 
 import HsBindgen.Backend.Common
 import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Hs.AST.Name
 import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ doAll be ss = mkExpr be $ foldl1 (EInfix Monad_seq) (map EInj ss)
 freshVec ::
      Backend be
   => be
-  -> Vec n Text
+  -> Vec n (HsName NsVar)
   -> (Vec n (Fresh be Bound) -> M be a)
   -> M be a
 freshVec  _ VNil       k = k VNil
