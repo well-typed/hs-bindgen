@@ -10,6 +10,46 @@ WrapCHeader
                 "macros.h"],
               sourceLocLine = 1,
               sourceLocColumn = 9},
-            macroName = CName "MYFOO",
+            macroName = CName "OBJECTLIKE1",
             macroArgs = [],
-            macroBody = MTerm (MInt 1)})])
+            macroBody = MTerm (MInt 1)}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 2,
+              sourceLocColumn = 9},
+            macroName = CName "OBJECTLIKE2",
+            macroArgs = [],
+            macroBody = MTerm (MInt 2)}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 3,
+              sourceLocColumn = 9},
+            macroName = CName "OBJECTLIKE3",
+            macroArgs = [],
+            macroBody = MAdd
+              (MTerm (MInt 3))
+              (MTerm (MInt 3))}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 4,
+              sourceLocColumn = 9},
+            macroName = CName "OBJECTLIKE4",
+            macroArgs = [],
+            macroBody = MAdd
+              (MTerm (MInt 4))
+              (MTerm (MInt 4))})])

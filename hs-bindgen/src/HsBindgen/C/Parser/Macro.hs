@@ -8,6 +8,7 @@ module HsBindgen.C.Parser.Macro (
 import Control.Exception (Exception)
 import Control.Monad
 import Data.Bifunctor
+import Data.Char (isDigit, toLower)
 import Data.Functor.Identity
 import Data.List (intercalate)
 import Data.Text (Text)
@@ -17,7 +18,7 @@ import Text.Parsec.Combinator
 import Text.Parsec.Error
 import Text.Parsec.Expr
 import Text.Parsec.Pos qualified as Parsec
-import Text.Parsec.Prim (Parsec, (<?>), many, unexpected)
+import Text.Parsec.Prim (Parsec, (<?>), many, unexpected, try)
 import Text.Parsec.Prim qualified as Parsec
 import Text.Read (readMaybe)
 import Text.Show.Pretty (PrettyVal)
@@ -91,9 +92,16 @@ type Parser = Parsec [Token TokenSpelling] ParserState
 parseMacro :: Parser Macro
 parseMacro = do
     (macroLoc, macroName) <- parseMacroName
-    macroArgs <- option [] parseFormalArgs
-    macroBody <- parseMExpr
-    return Macro{macroLoc, macroName, macroArgs, macroBody}
+    choice [
+        -- When we see an opening bracket it might be the start of an argument
+        -- list, or it might be the start of the body, wrapped in parentheses.
+        try $ functionLike macroLoc macroName
+      , objectLike macroLoc macroName
+      ]
+  where
+    functionLike, objectLike :: SourceLoc -> CName -> Parser Macro
+    functionLike loc name = Macro loc name <$> parseFormalArgs <*> parseMExpr
+    objectLike   loc name = Macro loc name [] <$> parseMExpr
 
 parseMacroName :: Parser (SourceLoc, CName)
 parseMacroName = parseName
@@ -130,26 +138,31 @@ parseMTerm =
 parseVar :: Parser CName
 parseVar = snd <$> parseName
 
+-- | Parse integer literal
+--
+-- Reference: <https://en.cppreference.com/w/cpp/language/integer_literal>
 parseInteger :: Parser Integer
-parseInteger = tokenOfKind CXToken_Literal aux
+parseInteger = tokenOfKind CXToken_Literal (aux . Text.unpack)
   where
-    -- TODO: This is wrong, we should not parse C literals with Haskell rules
-    aux :: Text -> Maybe Integer
-    aux = readMaybe . dropSuffix . Text.unpack
+    aux :: String -> Maybe Integer
+    aux str
+      | isValidSuffix suffix
+      = readMaybe literal -- TODO: we should not parse C with Haskell rules
 
-    -- TODO: Should we preserve this suffix in some way..? are we losing info?
-    dropSuffix :: String -> String
-    dropSuffix str = reverse $
-       case reverse str of
-         'l':'l':xs -> xs
-         'L':'L':xs -> xs
-         'u':xs     -> xs
-         'U':xs     -> xs
-         'l':xs     -> xs
-         'L':xs     -> xs
-         'z':xs     -> xs
-         'Z':xs     -> xs
-         xs         -> xs
+      | otherwise
+      = Nothing
+      where
+        (literal, suffix) = span (\c -> isDigit c || c == 'x') str
+
+    -- TODO: Should we preserve the suffix information in some way?
+    isValidSuffix :: String -> Bool
+    isValidSuffix str = map toLower str `elem` [
+          ""
+        , "u"
+        ,  "l",   "ll",   "z"
+        , "ul",  "ull",  "uz"
+        ,  "lu",  "llu",  "zu"
+        ]
 
 {-------------------------------------------------------------------------------
   Attributes
