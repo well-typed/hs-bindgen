@@ -71,7 +71,7 @@ execMode cmdline tracer = \case
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode _cmdline tracer = \case
     DevModePrelude ->
-      genPrelude (show `contramap` tracer)
+      genPrelude (prettyLogMsg `contramap` tracer)
 
 withOutput :: Maybe FilePath -> (Handle -> IO r) -> IO r
 withOutput (Just fp) = withFile fp WriteMode

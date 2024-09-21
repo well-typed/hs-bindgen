@@ -14,12 +14,14 @@ module HsBindgen.C.Macro (
   , Expr(..)
   , SimpleExpr(..)
   , Attribute(..)
-    -- * Unrecognized macros
+    -- * Classification
+  , isIncludeGuard
+    -- * Parsing
+  , parse
+    -- ** Unrecognized macros
   , UnrecognizedMacro(..)
   , Token(..)
   , TokenSpelling(..)
-    -- * Parse
-  , parse
   ) where
 
 import Control.Exception (Exception)
@@ -44,15 +46,19 @@ import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.SourceLoc
 import HsBindgen.Clang.Util.Tokens
 import HsBindgen.Patterns
+import HsBindgen.Util.Tracer
+import Data.List (intercalate)
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
-data Macro =
-    IncludeGuard MacroName
-  | ObjectLike MacroName SimpleExpr
-  | FunctionLike MacroName [Arg] Expr
+data Macro = Macro {
+      macroLoc  :: SourceLoc
+    , macroName :: MacroName
+    , macroArgs :: [Arg]
+    , macroBody :: Expr
+    }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -94,7 +100,7 @@ data SimpleExpr =
     -- | Variable
     --
     -- This might be a macro argument, or another marco.
-  | SVar Name [Expr]
+  | SVar Var [Expr]
 
     -- | Attribute
   | SAttr Attribute SimpleExpr
@@ -127,9 +133,39 @@ data Attribute = Attribute [Token TokenSpelling]
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
-type MacroName = Text
-type Arg       = Text
+type MacroName = Name
+type Arg       = Name
+type Var       = Name
 type Name      = Text
+
+{-------------------------------------------------------------------------------
+  Classification
+-------------------------------------------------------------------------------}
+
+isIncludeGuard :: Macro -> Bool
+isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
+    and [
+        Text.unpack macroName `elem` includeGuards
+      , null macroArgs
+      , case macroBody of
+          ESimple SEmpty   -> True
+          ESimple (SInt 1) -> True
+          _otherwise       -> False
+      ]
+  where
+    sourcePath :: FilePath
+    sourcePath = Text.unpack . getSourcePath $ sourceLocFile macroLoc
+
+    includeGuards :: [String]
+    includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
+
+    -- | Possible names for include guards, given the file (base) name
+    possibleIncludeGuards :: String -> [String]
+    possibleIncludeGuards baseName = [
+                 map toUpper baseName ++ "_H"
+        , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name
+        ,        map toUpper baseName ++ "_INCLUDED"
+        ]
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -142,20 +178,30 @@ data UnrecognizedMacro = UnrecognizedMacro {
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal, Exception)
 
+instance PrettyLogMsg UnrecognizedMacro where
+  prettyLogMsg UnrecognizedMacro{
+          unrecognizedMacroTokens
+        , unrecognizedMacroError
+        } = unlines [
+        unrecognizedMacroError
+      , "#define " ++ intercalate " " (
+            map
+              (Text.unpack . getTokenSpelling . tokenSpelling)
+              unrecognizedMacroTokens
+          )
+      ]
+
 parse :: [Token TokenSpelling] -> Either UnrecognizedMacro Macro
-parse [] = error "HsBindgen.C.Macro.parse: impossible empty macro"
-parse tokens@(macroName:_) =
+parse tokens =
     first unrecognized $
-      Parsec.runParser
-        (parseMacro sourcePath)
-        initParserState
-        sourcePath
-        tokens
+      Parsec.runParser parseMacro initParserState sourcePath tokens
   where
     sourcePath :: FilePath
     sourcePath =
-        Text.unpack . getSourcePath . sourceLocFile $
-          sourceRangeStart (tokenExtent macroName)
+        case tokens of
+          []  -> error "parse: impossible" -- must have the macro name
+          t:_ -> Text.unpack . getSourcePath . sourceLocFile $
+                   sourceRangeStart (tokenExtent t)
 
     unrecognized :: ParseError -> UnrecognizedMacro
     unrecognized err = UnrecognizedMacro{
@@ -178,42 +224,23 @@ parse tokens@(macroName:_) =
 
 type Parser = Parsec [Token TokenSpelling] ParserState
 
-parseMacro :: FilePath -> Parser Macro
-parseMacro sourcePath = do
-    result <- parseMacro'
-    case result of
-      ObjectLike name SEmpty | Text.unpack name `elem` includeGuards ->
-        return $ IncludeGuard name
-      ObjectLike name (SInt 1) | Text.unpack name `elem` includeGuards ->
-        return $ IncludeGuard name
-      _otherwise ->
-        return result
-  where
-    includeGuards :: [String]
-    includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
+parseMacro :: Parser Macro
+parseMacro = do
+    (macroLoc, macroName) <- parseMacroName
+    macroArgs <- option [] parseFormalArgs
+    macroBody <- parseExpr
+    return Macro{macroLoc, macroName, macroArgs, macroBody}
 
--- | Like 'macro', but without the special case for include guards
-parseMacro' :: Parser Macro
-parseMacro' = do
-    name <- parseMacroName
-    choice [
-        FunctionLike name <$> parseFormalArgs <*> parseExpr
-      , ObjectLike name <$> parseSimpleExpr
-      ] <* eof
-
-parseMacroName :: Parser MacroName
+parseMacroName :: Parser (SourceLoc, MacroName)
 parseMacroName = parseName
 
-parseName ::Parser MacroName
-parseName = tokenOfKind CXToken_Identifier Just
-
--- | Possible names for include guards, given the file (base) name
-possibleIncludeGuards :: String -> [String]
-possibleIncludeGuards baseName = [
-             map toUpper baseName ++ "_H"
-    , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name
-    ,        map toUpper baseName ++ "_INCLUDED"
-    ]
+parseName :: Parser (SourceLoc, MacroName)
+parseName = token $ \t -> do
+    guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
+    return (
+        sourceRangeStart (tokenExtent t)
+      , getTokenSpelling (tokenSpelling t)
+      )
 
 {-------------------------------------------------------------------------------
   Simple expressions
@@ -227,13 +254,16 @@ parseSimpleExpr =
     term = choice [
         SEmpty <$ eof
       , SInt <$> parseInteger
-      , SVar <$> parseName <*> option [] parseActualArgs
+      , SVar <$> parseVar <*> option [] parseActualArgs
       , SAttr <$> parseAttribute <*> parseSimpleExpr
-      , SStringize <$ punctuation "#" <*> parseName
+      , SStringize <$ punctuation "#" <*> parseVar
       ]
 
     ops :: OperatorTable [Token TokenSpelling] ParserState Identity SimpleExpr
     ops = [[Infix (SConcat <$ punctuation "##") AssocLeft]]
+
+parseVar :: Parser Var
+parseVar = snd <$> parseName
 
 parseInteger :: Parser Integer
 parseInteger = tokenOfKind CXToken_Literal aux
@@ -314,7 +344,7 @@ parseFormalArgs :: Parser [Arg]
 parseFormalArgs = parens $ parseFormalArg `sepBy` comma
 
 parseFormalArg :: Parser Arg
-parseFormalArg = parseName
+parseFormalArg = snd <$> parseName
 
 parseActualArgs :: Parser [Expr]
 parseActualArgs = parens $ parseExpr `sepBy` comma
