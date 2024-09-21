@@ -60,13 +60,19 @@ library
       HsBindgen.Backend.TH.Translation
       HsBindgen.Bootstrap.Prelude
       HsBindgen.C.AST
-      HsBindgen.C.Macro
       HsBindgen.C.Parser
+      HsBindgen.C.Parser.Macro
       HsBindgen.C.Predicate
       HsBindgen.Hs.AST
+      HsBindgen.Hs.AST.Name
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.PHOAS
       HsBindgen.Util.Tracer
+  other-modules:
+      -- Re-exported through HsBindgen.C.AST
+      HsBindgen.C.AST.Macro
+      HsBindgen.C.AST.Name
+      HsBindgen.C.AST.Type
   other-modules:
       Paths_hs_bindgen
   autogen-modules:

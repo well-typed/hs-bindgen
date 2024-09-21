@@ -3,17 +3,32 @@ WrapCHeader
     [
       DeclMacro
         (Right
-          (FunctionLike
-            "INCR"
-            ["x"]
-            (EAdd
-              (ESimple (SVar "x" []))
-              (ESimple (SInt 1))))),
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macro_functions.h"],
+              sourceLocLine = 1,
+              sourceLocColumn = 9},
+            macroName = CName "INCR",
+            macroArgs = [CName "x"],
+            macroBody = MAdd
+              (MTerm (MVar (CName "x") []))
+              (MTerm (MInt 1))}),
       DeclMacro
         (Right
-          (FunctionLike
-            "ADD"
-            ["x", "y"]
-            (EAdd
-              (ESimple (SVar "x" []))
-              (ESimple (SVar "y" [])))))])
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macro_functions.h"],
+              sourceLocLine = 2,
+              sourceLocColumn = 9},
+            macroName = CName "ADD",
+            macroArgs = [
+              CName "x",
+              CName "y"],
+            macroBody = MAdd
+              (MTerm (MVar (CName "x") []))
+              (MTerm
+                (MVar (CName "y") []))})])

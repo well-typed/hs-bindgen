@@ -3,58 +3,67 @@ WrapCHeader
     [
       DeclMacro
         (Right
-          (IncludeGuard "ENUMS_H")),
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "enums.h"],
+              sourceLocLine = 2,
+              sourceLocColumn = 9},
+            macroName = CName "ENUMS_H",
+            macroArgs = [],
+            macroBody = MTerm MEmpty}),
       DeclEnum
         Enu {
-          enumTag = Just "first",
+          enumTag = Just (CName "first"),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
             EnumValue {
-              valueName = "FIRST1",
+              valueName = CName "FIRST1",
               valueValue = 0},
             EnumValue {
-              valueName = "FIRST2",
+              valueName = CName "FIRST2",
               valueValue = 1}]},
       DeclEnum
         Enu {
-          enumTag = Just "second",
+          enumTag = Just (CName "second"),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
             EnumValue {
-              valueName = "SECOND_A",
+              valueName = CName "SECOND_A",
               valueValue = `-1`},
             EnumValue {
-              valueName = "SECOND_B",
+              valueName = CName "SECOND_B",
               valueValue = 0},
             EnumValue {
-              valueName = "SECOND_C",
+              valueName = CName "SECOND_C",
               valueValue = 1}]},
       DeclEnum
         Enu {
-          enumTag = Just "same",
+          enumTag = Just (CName "same"),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
             EnumValue {
-              valueName = "SAME_A",
+              valueName = CName "SAME_A",
               valueValue = 1},
             EnumValue {
-              valueName = "SAME_B",
+              valueName = CName "SAME_B",
               valueValue = 1}]},
       DeclEnum
         Enu {
-          enumTag = Just "packad",
+          enumTag = Just (CName "packad"),
           enumSizeof = 1,
           enumAlignment = 1,
           enumValues = [
             EnumValue {
-              valueName = "PACKED_A",
+              valueName = CName "PACKED_A",
               valueValue = 0},
             EnumValue {
-              valueName = "PACKED_B",
+              valueName = CName "PACKED_B",
               valueValue = 1},
             EnumValue {
-              valueName = "PACKED_C",
+              valueName = CName "PACKED_C",
               valueValue = 2}]}])

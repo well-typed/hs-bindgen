@@ -19,6 +19,7 @@ import Language.Haskell.Exts ()
 import Language.Haskell.Exts qualified as E
 
 import HsBindgen.Backend.Common
+import HsBindgen.Hs.AST.Name
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -123,10 +124,10 @@ initGenState = GenState
 runM :: M BE a -> (a, GenState)
 runM = flip runState initGenState . flip runReaderT 0 . unwrapGen
 
-withFreshName :: Text -> (Text -> M BE a) -> M BE a
+withFreshName :: HsName NsVar -> (Text -> M BE a) -> M BE a
 withFreshName x k = Gen $ do
     i <- ask
-    local succ $ unwrapGen (k (x <> Text.pack (show i)))
+    local succ $ unwrapGen (k (getHsName x <> Text.pack (show i)))
 
 {-------------------------------------------------------------------------------
   Syntax tree annotation
@@ -146,10 +147,10 @@ ann = Ann
   Name resolution
 -------------------------------------------------------------------------------}
 
-unqualified :: Text -> E.QName Ann
-unqualified = E.UnQual ann . E.Ident ann . Text.unpack
+unqualified :: HsName ns -> E.QName Ann
+unqualified = E.UnQual ann . E.Ident ann . Text.unpack . getHsName
 
-prelude :: Text -> E.QName Ann
+prelude :: HsName ns -> E.QName Ann
 prelude = unqualified
 
 foreignStorable :: Text -> E.QName Ann

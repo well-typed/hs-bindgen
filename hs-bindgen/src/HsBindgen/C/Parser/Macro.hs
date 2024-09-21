@@ -1,38 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- | C macros of a certain shape
---
--- Intended for qualified import.
---
--- > import HsBindgen.C.Macro (Macro, UnrecognizedMacro)
--- > import HsBindgen.C.Macro qualified as Macro
-module HsBindgen.C.Macro (
-    -- * Definition
-    Macro(..)
-  , MacroName
-  , Arg
-  , Expr(..)
-  , SimpleExpr(..)
-  , Attribute(..)
-    -- * Classification
-  , isIncludeGuard
-    -- * Parsing
+module HsBindgen.C.Parser.Macro (
+    UnrecognizedMacro(..)
   , parse
-    -- ** Unrecognized macros
-  , UnrecognizedMacro(..)
-  , Token(..)
-  , TokenSpelling(..)
   ) where
 
 import Control.Exception (Exception)
 import Control.Monad
 import Data.Bifunctor
-import Data.Char (toUpper)
 import Data.Functor.Identity
+import Data.List (intercalate)
 import Data.Text (Text)
 import Data.Text qualified as Text
 import GHC.Generics (Generic)
-import System.FilePath (takeBaseName)
 import Text.Parsec.Combinator
 import Text.Parsec.Error
 import Text.Parsec.Expr
@@ -42,130 +22,13 @@ import Text.Parsec.Prim qualified as Parsec
 import Text.Read (readMaybe)
 import Text.Show.Pretty (PrettyVal)
 
+import HsBindgen.C.AST.Macro
+import HsBindgen.C.AST.Name
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.SourceLoc
 import HsBindgen.Clang.Util.Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
-import Data.List (intercalate)
-
-{-------------------------------------------------------------------------------
-  Definition
--------------------------------------------------------------------------------}
-
-data Macro = Macro {
-      macroLoc  :: SourceLoc
-    , macroName :: MacroName
-    , macroArgs :: [Arg]
-    , macroBody :: Expr
-    }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
--- | Body of a function-like macro
-data Expr =
-    ESimple SimpleExpr
-  | EUnaryPlus Expr        -- ^ @+@
-  | EUnaryMinus Expr       -- ^ @-@
-  | ELogicalNot Expr       -- ^ @!@
-  | EBitwiseNot Expr       -- ^ @~@
-  | EMult Expr Expr        -- ^ @*@
-  | EDiv Expr Expr         -- ^ @/@
-  | ERem Expr Expr         -- ^ @%@
-  | EAdd Expr Expr         -- ^ @+@
-  | ESub Expr Expr         -- ^ @-@
-  | EShiftLeft Expr Expr   -- ^ @<<@
-  | EShiftRight Expr Expr  -- ^ @>>@
-  | ERelLT Expr Expr       -- ^ @<@
-  | ERelLE Expr Expr       -- ^ @<=@
-  | ERelGT Expr Expr       -- ^ @>@
-  | ERelGE Expr Expr       -- ^ @>=@
-  | ERelEQ Expr Expr       -- ^ @==@
-  | ERelNE Expr Expr       -- ^ @!=@
-  | EBitwiseAnd Expr Expr  -- ^ @&@
-  | EBitwiseXor Expr Expr  -- ^ @^@
-  | EBitwiseOr Expr Expr   -- ^ @|@
-  | ELogicalAnd Expr Expr  -- ^ @&&@
-  | ELogicalOr Expr Expr   -- ^ @||@
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
-data SimpleExpr =
-    -- | Empty
-    SEmpty
-
-    -- | Integer literal
-  | SInt Integer
-
-    -- | Variable
-    --
-    -- This might be a macro argument, or another marco.
-  | SVar Var [Expr]
-
-    -- | Attribute
-  | SAttr Attribute SimpleExpr
-
-    -- | Stringizing
-    --
-    -- See
-    --
-    -- * Section 6.10.3.2, "The # operator" of the spec
-    -- * <https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html>
-  | SStringize Name
-
-    -- | Concatenation
-    --
-    -- See
-    --
-    -- * Section 6.10.3.3, "The ## operator" of the spec
-    -- * <https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html>
-  | SConcat SimpleExpr SimpleExpr
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
--- | Attribute
---
--- See Section 5.25, "Attribute syntax" of the gcc manual.
--- <https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Attribute-Syntax.html#Attribute-Syntax>.
---
--- For now we make no attempt to parse what's actually inside the attribute.
-data Attribute = Attribute [Token TokenSpelling]
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
-type MacroName = Name
-type Arg       = Name
-type Var       = Name
-type Name      = Text
-
-{-------------------------------------------------------------------------------
-  Classification
--------------------------------------------------------------------------------}
-
-isIncludeGuard :: Macro -> Bool
-isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
-    and [
-        Text.unpack macroName `elem` includeGuards
-      , null macroArgs
-      , case macroBody of
-          ESimple SEmpty   -> True
-          ESimple (SInt 1) -> True
-          _otherwise       -> False
-      ]
-  where
-    sourcePath :: FilePath
-    sourcePath = Text.unpack . getSourcePath $ sourceLocFile macroLoc
-
-    includeGuards :: [String]
-    includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
-
-    -- | Possible names for include guards, given the file (base) name
-    possibleIncludeGuards :: String -> [String]
-    possibleIncludeGuards baseName = [
-                 map toUpper baseName ++ "_H"
-        , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name
-        ,        map toUpper baseName ++ "_INCLUDED"
-        ]
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -228,41 +91,41 @@ parseMacro :: Parser Macro
 parseMacro = do
     (macroLoc, macroName) <- parseMacroName
     macroArgs <- option [] parseFormalArgs
-    macroBody <- parseExpr
+    macroBody <- parseMExpr
     return Macro{macroLoc, macroName, macroArgs, macroBody}
 
-parseMacroName :: Parser (SourceLoc, MacroName)
+parseMacroName :: Parser (SourceLoc, CName)
 parseMacroName = parseName
 
-parseName :: Parser (SourceLoc, MacroName)
+parseName :: Parser (SourceLoc, CName)
 parseName = token $ \t -> do
     guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
     return (
         sourceRangeStart (tokenExtent t)
-      , getTokenSpelling (tokenSpelling t)
+      , CName $ getTokenSpelling (tokenSpelling t)
       )
 
 {-------------------------------------------------------------------------------
   Simple expressions
 -------------------------------------------------------------------------------}
 
-parseSimpleExpr :: Parser SimpleExpr
-parseSimpleExpr =
+parseMTerm :: Parser MTerm
+parseMTerm =
     buildExpressionParser ops term <?> "simple expression"
   where
-    term :: Parser SimpleExpr
+    term :: Parser MTerm
     term = choice [
-        SEmpty <$ eof
-      , SInt <$> parseInteger
-      , SVar <$> parseVar <*> option [] parseActualArgs
-      , SAttr <$> parseAttribute <*> parseSimpleExpr
-      , SStringize <$ punctuation "#" <*> parseVar
+        MEmpty <$ eof
+      , MInt <$> parseInteger
+      , MVar <$> parseVar <*> option [] parseActualArgs
+      , MAttr <$> parseAttribute <*> parseMTerm
+      , MStringize <$ punctuation "#" <*> parseVar
       ]
 
-    ops :: OperatorTable [Token TokenSpelling] ParserState Identity SimpleExpr
-    ops = [[Infix (SConcat <$ punctuation "##") AssocLeft]]
+    ops :: OperatorTable [Token TokenSpelling] ParserState Identity MTerm
+    ops = [[Infix (MConcat <$ punctuation "##") AssocLeft]]
 
-parseVar :: Parser Var
+parseVar :: Parser CName
 parseVar = snd <$> parseName
 
 parseInteger :: Parser Integer
@@ -340,14 +203,14 @@ anythingMatchingBrackets =
   Function-like macros
 -------------------------------------------------------------------------------}
 
-parseFormalArgs :: Parser [Arg]
+parseFormalArgs :: Parser [CName]
 parseFormalArgs = parens $ parseFormalArg `sepBy` comma
 
-parseFormalArg :: Parser Arg
+parseFormalArg :: Parser CName
 parseFormalArg = snd <$> parseName
 
-parseActualArgs :: Parser [Expr]
-parseActualArgs = parens $ parseExpr `sepBy` comma
+parseActualArgs :: Parser [MExpr]
+parseActualArgs = parens $ parseMExpr `sepBy` comma
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -357,63 +220,63 @@ parseActualArgs = parens $ parseExpr `sepBy` comma
   follow the same structure.
 -------------------------------------------------------------------------------}
 
-parseExpr :: Parser Expr
-parseExpr =
+parseMExpr :: Parser MExpr
+parseMExpr =
     buildExpressionParser ops term <?> "expression"
   where
-    term :: Parser Expr
+    term :: Parser MExpr
     term = choice [
-          parens parseExpr
-        , ESimple <$> parseSimpleExpr
+          parens parseMExpr
+        , MTerm <$> parseMTerm
         ]
 
     -- 'OperatorTable' expects the list in descending precedence
-    ops :: OperatorTable [Token TokenSpelling] ParserState Identity Expr
+    ops :: OperatorTable [Token TokenSpelling] ParserState Identity MExpr
     ops = [
         -- Precedence 1 (all left-to-right)
         []
 
         -- Precedence 2 (all right-to-left)
-      , [ Prefix (EUnaryPlus  <$ punctuation "+")
-        , Prefix (EUnaryMinus <$ punctuation "-")
-        , Prefix (ELogicalNot <$ punctuation "!")
-        , Prefix (EBitwiseNot <$ punctuation "~")
+      , [ Prefix (MUnaryPlus  <$ punctuation "+")
+        , Prefix (MUnaryMinus <$ punctuation "-")
+        , Prefix (MLogicalNot <$ punctuation "!")
+        , Prefix (MBitwiseNot <$ punctuation "~")
         ]
 
         -- Precedence 3 (precedence 3 .. 12 are all left-to-right)
-      , [ Infix (EMult <$ punctuation "*") AssocLeft
-        , Infix (EDiv  <$ punctuation "/") AssocLeft
-        , Infix (ERem  <$ punctuation "%") AssocLeft
+      , [ Infix (MMult <$ punctuation "*") AssocLeft
+        , Infix (MDiv  <$ punctuation "/") AssocLeft
+        , Infix (MRem  <$ punctuation "%") AssocLeft
         ]
 
         -- Precedence 4
-      , [ Infix (EAdd <$ punctuation "+") AssocLeft
-        , Infix (ESub <$ punctuation "-") AssocLeft
+      , [ Infix (MAdd <$ punctuation "+") AssocLeft
+        , Infix (MSub <$ punctuation "-") AssocLeft
         ]
 
         -- Precedence 5
-      , [ Infix (EShiftLeft  <$ punctuation "<<") AssocLeft
-        , Infix (EShiftRight <$ punctuation ">>") AssocLeft
+      , [ Infix (MShiftLeft  <$ punctuation "<<") AssocLeft
+        , Infix (MShiftRight <$ punctuation ">>") AssocLeft
         ]
 
         -- Precedence 6
-      , [ Infix (ERelLT <$ punctuation "<")  AssocLeft
-        , Infix (ERelLE <$ punctuation "<=") AssocLeft
-        , Infix (ERelGT <$ punctuation ">")  AssocLeft
-        , Infix (ERelGE <$ punctuation ">=") AssocLeft
+      , [ Infix (MRelLT <$ punctuation "<")  AssocLeft
+        , Infix (MRelLE <$ punctuation "<=") AssocLeft
+        , Infix (MRelGT <$ punctuation ">")  AssocLeft
+        , Infix (MRelGE <$ punctuation ">=") AssocLeft
         ]
 
         -- Precedence 7
-      , [ Infix (ERelEQ <$ punctuation "==") AssocLeft
-        , Infix (ERelNE <$ punctuation "!=") AssocLeft
+      , [ Infix (MRelEQ <$ punctuation "==") AssocLeft
+        , Infix (MRelNE <$ punctuation "!=") AssocLeft
         ]
 
         -- Precedence 8 .. 12
-      , [ Infix (EBitwiseAnd <$ punctuation "&")  AssocLeft ]
-      , [ Infix (EBitwiseXor <$ punctuation "^")  AssocLeft ]
-      , [ Infix (EBitwiseOr  <$ punctuation "|")  AssocLeft ]
-      , [ Infix (ELogicalAnd <$ punctuation "&&") AssocLeft ]
-      , [ Infix (ELogicalOr  <$ punctuation "||") AssocLeft ]
+      , [ Infix (MBitwiseAnd <$ punctuation "&")  AssocLeft ]
+      , [ Infix (MBitwiseXor <$ punctuation "^")  AssocLeft ]
+      , [ Infix (MBitwiseOr  <$ punctuation "|")  AssocLeft ]
+      , [ Infix (MLogicalAnd <$ punctuation "&&") AssocLeft ]
+      , [ Infix (MLogicalOr  <$ punctuation "||") AssocLeft ]
       ]
 
 {-------------------------------------------------------------------------------

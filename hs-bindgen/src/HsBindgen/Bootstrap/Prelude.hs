@@ -7,9 +7,9 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import System.FilePath ((</>))
 
-import HsBindgen.C.Macro (UnrecognizedMacro)
-import HsBindgen.C.Macro qualified as Macro
 import HsBindgen.C.Parser
+import HsBindgen.C.Parser.Macro (UnrecognizedMacro)
+import HsBindgen.C.Parser.Macro qualified as Macro
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Fold
 import HsBindgen.Clang.Util.SourceLoc (SourceLoc(..))

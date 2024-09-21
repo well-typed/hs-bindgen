@@ -20,6 +20,7 @@ import Data.Vec.Lazy qualified as Vec
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Util.PHOAS
+import HsBindgen.Hs.AST.Name
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -76,9 +77,9 @@ structDecs struct fields = List [
   where
     hs :: Hs.Struct n
     hs = Hs.Struct {
-          structName   = fromMaybe "X" (C.structTag struct)
-        , structConstr = maybe "MkX" ("Mk" <>) (C.structTag struct)
-        , structFields = Vec.map C.fieldName fields
+          structName   = fromMaybe "X" (toHsName <$> C.structTag struct)
+        , structConstr = maybe "MkX" ("Mk" <>) (toHsName <$> C.structTag struct)
+        , structFields = Vec.map (toHsName . C.fieldName) fields
         }
 
     storable :: Hs.WithStruct Hs.StorableInstance f
@@ -111,9 +112,10 @@ enumDecs e = List [
   where
     hs :: Hs.Struct (S Z)
     hs = Hs.Struct {
-          structName   = fromMaybe "X" (C.enumTag e)
-        , structConstr = maybe "MkX" ("Mk" <>) (C.enumTag e)
-        , structFields = Vec.singleton (maybe "unX" ("un" <>) (C.enumTag e))
+          structName   = fromMaybe "X" (toHsName <$> C.enumTag e)
+        , structConstr = maybe "MkX" ("Mk" <>) (toHsName <$> C.enumTag e)
+        , structFields = Vec.singleton $
+                           maybe "unX" ("un" <>) (toHsName <$> C.enumTag e)
         }
 
     storable :: Hs.WithStruct Hs.StorableInstance f

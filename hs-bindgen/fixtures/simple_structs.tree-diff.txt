@@ -3,62 +3,62 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just "S1",
+          structTag = Just (CName "S1"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
             StructField {
-              fieldName = "a",
+              fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypPrim
                 (PrimInt Signed)},
             StructField {
-              fieldName = "b",
+              fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypPrim
                 (PrimChar Nothing)}]},
       DeclStruct
         Struct {
-          structTag = Just "S2",
+          structTag = Just (CName "S2"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
             StructField {
-              fieldName = "a",
+              fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypPrim
                 (PrimChar Nothing)},
             StructField {
-              fieldName = "b",
+              fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypPrim
                 (PrimInt Signed)},
             StructField {
-              fieldName = "c",
+              fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypPrim
                 PrimFloat}]},
       DeclTypedef
         Typedef {
-          typedefName = "S2_t",
+          typedefName = CName "S2_t",
           typedefType = TypStruct
             Struct {
-              structTag = Just "S2",
+              structTag = Just (CName "S2"),
               structSizeof = 12,
               structAlignment = 4,
               structFields = [
                 StructField {
-                  fieldName = "a",
+                  fieldName = CName "a",
                   fieldOffset = 0,
                   fieldType = TypPrim
                     (PrimChar Nothing)},
                 StructField {
-                  fieldName = "b",
+                  fieldName = CName "b",
                   fieldOffset = 32,
                   fieldType = TypPrim
                     (PrimInt Signed)},
                 StructField {
-                  fieldName = "c",
+                  fieldName = CName "c",
                   fieldOffset = 64,
                   fieldType = TypPrim
                     PrimFloat}]}},
@@ -69,13 +69,13 @@ WrapCHeader
           structAlignment = 1,
           structFields = [
             StructField {
-              fieldName = "a",
+              fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypPrim
                 (PrimChar Nothing)}]},
       DeclTypedef
         Typedef {
-          typedefName = "S3_t",
+          typedefName = CName "S3_t",
           typedefType = TypStruct
             Struct {
               structTag = Nothing,
@@ -83,23 +83,23 @@ WrapCHeader
               structAlignment = 1,
               structFields = [
                 StructField {
-                  fieldName = "a",
+                  fieldName = CName "a",
                   fieldOffset = 0,
                   fieldType = TypPrim
                     (PrimChar Nothing)}]}},
       DeclStruct
         Struct {
-          structTag = Just "S4",
+          structTag = Just (CName "S4"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
             StructField {
-              fieldName = "b",
+              fieldName = CName "b",
               fieldOffset = 0,
               fieldType = TypPrim
                 (PrimChar Nothing)},
             StructField {
-              fieldName = "a",
+              fieldName = CName "a",
               fieldOffset = 32,
               fieldType = TypPrim
                 (PrimInt Signed)}]}])
