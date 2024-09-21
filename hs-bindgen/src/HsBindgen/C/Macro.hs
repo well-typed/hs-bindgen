@@ -31,12 +31,11 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
-import Text.Parsec (try)
 import Text.Parsec.Combinator
 import Text.Parsec.Error
 import Text.Parsec.Expr
 import Text.Parsec.Pos qualified as Parsec
-import Text.Parsec.Prim (Parsec, (<?>))
+import Text.Parsec.Prim (Parsec, (<?>), many)
 import Text.Parsec.Prim qualified as Parsec
 import Text.Read (readMaybe)
 import Text.Show.Pretty (PrettyVal)
@@ -95,7 +94,7 @@ data SimpleExpr =
     -- | Variable
     --
     -- This might be a macro argument, or another marco.
-  | SVar Name [Arg]
+  | SVar Name [Expr]
 
     -- | Attribute
   | SAttr Attribute SimpleExpr
@@ -198,7 +197,7 @@ parseMacro' :: Parser Macro
 parseMacro' = do
     name <- parseMacroName
     choice [
-        FunctionLike name <$> parseArgs <*> parseExpr
+        FunctionLike name <$> parseFormalArgs <*> parseExpr
       , ObjectLike name <$> parseSimpleExpr
       ] <* eof
 
@@ -228,30 +227,13 @@ parseSimpleExpr =
     term = choice [
         SEmpty <$ eof
       , SInt <$> parseInteger
-      , SVar <$> parseName <*> option [] parseArgs
+      , SVar <$> parseName <*> option [] parseActualArgs
       , SAttr <$> parseAttribute <*> parseSimpleExpr
       , SStringize <$ punctuation "#" <*> parseName
       ]
 
     ops :: OperatorTable [Token TokenSpelling] ParserState Identity SimpleExpr
     ops = [[Infix (SConcat <$ punctuation "##") AssocLeft]]
-
--- | Parse attribute
---
--- > __attribute__ (( .. ))
---
--- /NOTE/: An 'Attribute' starts with 'comma', so any use of 'parseAttribute'
--- must come /before/ allowing regular parentheses.
-parseAttribute :: Parser Attribute
-parseAttribute = do
-    exact CXToken_Keyword "__attribute__"
-    doubleOpenParens
-    -- TODO: Could we avoid the 'try'?
-    Attribute <$> manyTill (token Just) (try doubleCloseParens)
-  where
-    doubleOpenParens, doubleCloseParens :: Parser ()
-    doubleOpenParens  = (punctuation "(" >> punctuation "(") <?> "(("
-    doubleCloseParens = (punctuation ")" >> punctuation ")") <?> "))"
 
 parseInteger :: Parser Integer
 parseInteger = tokenOfKind CXToken_Literal aux
@@ -275,14 +257,67 @@ parseInteger = tokenOfKind CXToken_Literal aux
          xs         -> xs
 
 {-------------------------------------------------------------------------------
+  Attributes
+
+  We don't really parse attributes, but just skip over them.
+-------------------------------------------------------------------------------}
+
+-- | Parse attribute
+--
+-- > __attribute__ (( .. ))
+parseAttribute :: Parser Attribute
+parseAttribute = fmap Attribute $ do
+    exact CXToken_Keyword "__attribute__"
+    doubleOpenParens *> anythingMatchingBrackets <* doubleCloseParens
+  where
+    doubleOpenParens, doubleCloseParens :: Parser ()
+    doubleOpenParens  = (punctuation "(" >> punctuation "(") <?> "(("
+    doubleCloseParens = (punctuation ")" >> punctuation ")") <?> "))"
+
+-- | Any sequence of tokens, as long as the brackets inside are matched
+anythingMatchingBrackets :: Parser [Token TokenSpelling]
+anythingMatchingBrackets =
+    concat <$> many go
+  where
+    go :: Parser [Token TokenSpelling]
+    go = choice [
+          do open   <- token isOpenParens
+             inside <- concat <$> many go
+             close  <- token isCloseParens
+             return $ [open] ++ inside ++ [close]
+        , (:[]) <$> token nonParens
+        ]
+
+    isOpenParens :: Token TokenSpelling -> Maybe (Token TokenSpelling)
+    isOpenParens t = do
+        guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Punctuation
+        guard $ getTokenSpelling (tokenSpelling t) == "("
+        return t
+
+    isCloseParens :: Token TokenSpelling -> Maybe (Token TokenSpelling)
+    isCloseParens t = do
+        guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Punctuation
+        guard $ getTokenSpelling (tokenSpelling t) == ")"
+        return t
+
+    nonParens :: Token TokenSpelling -> Maybe (Token TokenSpelling)
+    nonParens t =
+        case (isOpenParens t, isCloseParens t) of
+          (Nothing, Nothing) -> Just t
+          _otherwise         -> Nothing
+
+{-------------------------------------------------------------------------------
   Function-like macros
 -------------------------------------------------------------------------------}
 
-parseArgs :: Parser [Arg]
-parseArgs = parens $ parseArg `sepBy` comma
+parseFormalArgs :: Parser [Arg]
+parseFormalArgs = parens $ parseFormalArg `sepBy` comma
 
-parseArg :: Parser Arg
-parseArg = parseName
+parseFormalArg :: Parser Arg
+parseFormalArg = parseName
+
+parseActualArgs :: Parser [Expr]
+parseActualArgs = parens $ parseExpr `sepBy` comma
 
 {-------------------------------------------------------------------------------
   Expressions

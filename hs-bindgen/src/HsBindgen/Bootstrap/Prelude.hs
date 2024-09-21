@@ -65,11 +65,11 @@ fold tracer standardHeaders unit = go
             cursorExtent <- clang_getCursorExtent current
             tokens <- Tokens.clang_tokenize unit cursorExtent
             case Macro.parse tokens of
-              Right macro -> do
-                putStrLn $ "Skipping " ++ show macro
-                return $ Continue Nothing
+              Right macro ->
+                appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
               Left err -> do
-                throwIO err
+                appendFile "macros-unrecognized.log" (show (Macro.unrecognizedMacroTokens err) ++ "\n" ++ Macro.unrecognizedMacroError err ++ "\n")
+            return $ Continue Nothing
           _otherwise ->
             Continue <$> unrecognized tracer current
 
