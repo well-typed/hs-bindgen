@@ -68,7 +68,7 @@ data PrimType =
     PrimChar (Maybe PrimSign)
 
     -- | @[signed | unsigned] short [int]@
-  | PrimShortInt PrimSign
+  | PrimShort PrimSign
 
     -- | @[signed | unsigned] int@
   | PrimInt PrimSign

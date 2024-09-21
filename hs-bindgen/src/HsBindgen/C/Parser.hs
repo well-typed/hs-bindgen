@@ -289,8 +289,8 @@ primType (Right kind) =
       CXType_Char_S     -> Just $ PrimChar     Nothing
       CXType_SChar      -> Just $ PrimChar     (Just Signed)
       CXType_UChar      -> Just $ PrimChar     (Just Unsigned)
-      CXType_Short      -> Just $ PrimShortInt Signed
-      CXType_UShort     -> Just $ PrimShortInt Unsigned
+      CXType_Short      -> Just $ PrimShort    Signed
+      CXType_UShort     -> Just $ PrimShort    Unsigned
       CXType_Int        -> Just $ PrimInt      Signed
       CXType_UInt       -> Just $ PrimInt      Unsigned
       CXType_Long       -> Just $ PrimLong     Signed

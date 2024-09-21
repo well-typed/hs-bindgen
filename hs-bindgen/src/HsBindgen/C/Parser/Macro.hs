@@ -17,13 +17,14 @@ import Text.Parsec.Combinator
 import Text.Parsec.Error
 import Text.Parsec.Expr
 import Text.Parsec.Pos qualified as Parsec
-import Text.Parsec.Prim (Parsec, (<?>), many)
+import Text.Parsec.Prim (Parsec, (<?>), many, unexpected)
 import Text.Parsec.Prim qualified as Parsec
 import Text.Read (readMaybe)
 import Text.Show.Pretty (PrettyVal)
 
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
+import HsBindgen.C.AST.Type
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.SourceLoc
 import HsBindgen.Clang.Util.Tokens
@@ -115,11 +116,12 @@ parseMTerm =
   where
     term :: Parser MTerm
     term = choice [
-        MEmpty <$ eof
-      , MInt <$> parseInteger
-      , MVar <$> parseVar <*> option [] parseActualArgs
-      , MAttr <$> parseAttribute <*> parseMTerm
-      , MStringize <$ punctuation "#" <*> parseVar
+        MEmpty     <$  eof
+      , MInt       <$> parseInteger
+      , MVar       <$> parseVar <*> option [] parseActualArgs
+      , MType      <$> parsePrimType
+      , MAttr      <$> parseAttribute <*> parseMTerm
+      , MStringize <$  punctuation "#" <*> parseVar
       ]
 
     ops :: OperatorTable [Token TokenSpelling] ParserState Identity MTerm
@@ -198,6 +200,65 @@ anythingMatchingBrackets =
         case (isOpenParens t, isCloseParens t) of
           (Nothing, Nothing) -> Just t
           _otherwise         -> Nothing
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+parseKeywordType :: Parser Text
+parseKeywordType = choice [
+      keyword "char"
+    , keyword "int"
+    , keyword "short"
+    , keyword "long"
+    , keyword "float"
+    , keyword "double"
+    , keyword "signed"
+    , keyword "unsigned"
+    ]
+
+parsePrimType :: Parser PrimType
+parsePrimType = do
+    kws <- many1 parseKeywordType
+    case kws of
+      -- char
+      [             "char"] -> return $ PrimChar Nothing
+      ["signed"   , "char"] -> return $ PrimChar (Just Signed)
+      ["unsigned" , "char"] -> return $ PrimChar (Just Unsigned)
+      -- short
+      [             "short"        ] -> return $ PrimShort Signed
+      ["signed"   , "short"        ] -> return $ PrimShort Signed
+      ["unsigned" , "short"        ] -> return $ PrimShort Unsigned
+      [             "short" , "int"] -> return $ PrimShort Signed
+      ["signed"   , "short" , "int"] -> return $ PrimShort Signed
+      ["unsigned" , "short" , "int"] -> return $ PrimShort Unsigned
+      -- int
+      [             "int"] -> return $ PrimInt Signed
+      ["signed"   , "int"] -> return $ PrimInt Signed
+      ["unsigned" , "int"] -> return $ PrimInt Unsigned
+      -- long
+      [             "long"        ] -> return $ PrimLong Signed
+      ["signed"   , "long"        ] -> return $ PrimLong Signed
+      ["unsigned" , "long"        ] -> return $ PrimLong Unsigned
+      [             "long" , "int"] -> return $ PrimLong Signed
+      ["signed"   , "long" , "int"] -> return $ PrimLong Signed
+      ["unsigned" , "long" , "int"] -> return $ PrimLong Unsigned
+      -- long
+      [             "long" , "long"        ] -> return $ PrimLongLong Signed
+      ["signed"   , "long" , "long"        ] -> return $ PrimLongLong Signed
+      ["unsigned" , "long" , "long"        ] -> return $ PrimLongLong Unsigned
+      [             "long" , "long" , "int"] -> return $ PrimLongLong Signed
+      ["signed"   , "long" , "long" , "int"] -> return $ PrimLongLong Signed
+      ["unsigned" , "long" , "long" , "int"] -> return $ PrimLongLong Unsigned
+      -- float, double, long double
+      [         "float" ] -> return $ PrimFloat
+      [         "double"] -> return $ PrimDouble
+      ["long" , "double"] -> return $ PrimLongDouble
+      -- invalid
+      _otherwise -> unexpected $ concat [
+          "Unexpected primitive type "
+        , show $ intercalate " " (map Text.unpack kws)
+        ]
 
 {-------------------------------------------------------------------------------
   Function-like macros
@@ -304,6 +365,9 @@ comma = punctuation ","
 
 punctuation :: Text -> Parser ()
 punctuation = exact CXToken_Punctuation
+
+keyword :: Text -> Parser Text
+keyword kw = kw <$ exact CXToken_Keyword kw
 
 exact :: CXTokenKind -> Text -> Parser ()
 exact kind expected = tokenOfKind kind (\actual -> guard $ expected == actual)
