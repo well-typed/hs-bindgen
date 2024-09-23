@@ -154,8 +154,8 @@ linesDiff xss yss = fullDiff
         (\_ -> ())
         (\_ -> ())
 
-ansiLinesDiff :: [String] -> [String] -> [String]
-ansiLinesDiff xss yss = ansify (snd (linesDiff xss yss))
+ansiLinesDiff :: String -> String -> [String]
+ansiLinesDiff xss yss = ansify (snd (linesDiff (lines xss) (lines yss)))
 
 ansify :: Diff String String (Either (Either String String) (Diff Char Char ())) -> [String]
 ansify End = []
