@@ -37,4 +37,5 @@ struct primitive {
     float f;
     double d;
     long double ld;
+    long double ld2;
 };

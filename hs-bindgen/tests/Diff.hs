@@ -28,6 +28,9 @@ data Diff a b d
     | Diff [a] [b] [d] (Diff a b d)
   deriving Show
 
+type Diff' ab = Diff ab ab
+type Either' ab = Either ab ab
+
 consS :: a -> b -> Diff a b d -> Diff a b d
 consS x y (Same xs ys df) = Same (x : xs) (y : ys) df
 consS x y df              = Same [x] [y] df
@@ -134,13 +137,21 @@ ansiReset :: String
 ansiReset = ANSI.setSGRCode [ANSI.Reset]
 
 -------------------------------------------------------------------------------
+-- words
+-------------------------------------------------------------------------------
+
+lexemes :: String -> [String]
+lexemes = words
+
+-------------------------------------------------------------------------------
 -- Lines diff
 -------------------------------------------------------------------------------
 
 -- | Lines diff, where each line is also diffed to show in line additions/removals
-linesDiff :: [String] -> [String] -> (Double, Diff String String (Either (Either String String) (Diff Char Char ())))
+linesDiff :: [[String]] -> [[String]] -> (Double, Diff' [String] (Either (Either' [String]) (Diff' String (Either (Either' String) (Diff' Char ())))))
 linesDiff xss yss = fullDiff
   where
+    fullDiff :: (Double, Diff' [String] (Either (Either' [String]) (Diff' String (Either (Either' String) (Diff' Char ())))))
     fullDiff = genericDiff
         (\xs ys -> let (r, d) = lineDiff xs ys in (r, Right d))
         (Left . Left)
@@ -148,22 +159,28 @@ linesDiff xss yss = fullDiff
         xss
         yss
 
-    lineDiff :: String -> String -> (Double, Diff Char Char ())
+    lineDiff :: [String] -> [String] -> (Double, Diff' String (Either (Either' String) (Diff' Char ())))
     lineDiff = genericDiff
+        (\xs ys -> let (r, d) = wordDiff xs ys in (r, Right d))
+        (Left . Left)
+        (Left . Right)
+
+    wordDiff :: String -> String -> (Double, Diff' Char ())
+    wordDiff = genericDiff
         (\x y -> (if x == y then 0 else 1, ()))
         (\_ -> ())
         (\_ -> ())
 
 ansiLinesDiff :: String -> String -> [String]
-ansiLinesDiff xss yss = ansify (snd (linesDiff (lines xss) (lines yss)))
+ansiLinesDiff xss yss = ansify (snd (linesDiff (map lexemes (lines xss)) (map lexemes (lines yss))))
 
-ansify :: Diff String String (Either (Either String String) (Diff Char Char ())) -> [String]
+ansify :: Diff' [String] (Either (Either' [String]) (Diff' String (Either (Either' String) (Diff' Char ())))) -> [String]
 ansify End = []
 ansify (Same xs _ df) =
     map noChange xs ++
     ansify df
   where
-    noChange s = ansiReset ++ " " ++ s
+    noChange s = ansiReset ++ " " ++ concat s
 ansify (Diff _xs _ys ds df) =
     mapMaybe removed_ ds ++
     mapMaybe added_ ds ++
@@ -172,6 +189,20 @@ ansify (Diff _xs _ys ds df) =
     removed s = ansiRed   ++ "-" ++ s ++ ansiReset
     added   s = ansiGreen ++ "+" ++ s ++ ansiReset
 
+    removed_ :: Either (Either' [String]) (Diff' String (Either (Either' String) (Diff' Char ()))) -> Maybe String
+    removed_ (Left (Left s))  = Just $ removed $ concat s
+    removed_ (Left (Right _)) = Nothing
+    removed_ (Right d)        = Just $ removed $ removed2 d
+
+    added_ = removed_
+
+    removed2 :: Diff' String (Either (Either' String) (Diff' Char ())) -> String
+    removed2 End = ""
+    removed2 (Same xs _ d) = concat xs ++ removed2 d
+    removed2 (Diff _ _ ds' d) = removed2 d
+    
+
+{-
     removed_ :: Either (Either String String) (Diff Char Char ()) -> Maybe String
     removed_ (Left (Left s))  = Just $ removed s
     removed_ (Left (Right _)) = Nothing
@@ -181,6 +212,7 @@ ansify (Diff _xs _ys ds df) =
     added_ (Left (Right s)) = Just $ added s
     added_ (Left (Left _))  = Nothing
     added_ (Right d)        = Just $ ansiGreen ++ "+" ++ ansiReset ++ addedLine d
+-}
 
 removedLine :: Diff Char Char () -> String
 removedLine End = ansiReset
