@@ -11,7 +11,7 @@ instance Storable S2
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkS2 a_3
                                         b_4
-                                        c_5 -> (pokeByteOff x_1 0 a_3 >> pokeByteOff x_1 32 b_4) >> pokeByteOff x_1 64 c_5}}
+                                        c_5 -> pokeByteOff x_1 0 a_3 >> (pokeByteOff x_1 32 b_4 >> pokeByteOff x_1 64 c_5)}}
 instance Storable X
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
