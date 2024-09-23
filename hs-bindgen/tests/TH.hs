@@ -35,7 +35,7 @@ goldenVsStringDiff_ name fp action = goldenTestSteps name correct action cmp upd
     cmp :: String -> String -> IO (Maybe String)
     cmp xss yss
         | xss == yss = return Nothing
-        | otherwise  = return $ Just $ unlines $ ansiLinesDiff (lines xss) (lines yss)
+        | otherwise  = return $ Just $ unlines $ ansiLinesDiff xss yss
 
 goldenTh :: TestName -> TestTree
 goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
