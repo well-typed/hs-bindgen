@@ -58,29 +58,15 @@ instance IsOption AcceptTests where
     optionHelp = return "Accept current results of golden tests"
     optionCLParser = flagCLParser Nothing (AcceptTests True)
 
--- | This option, when set to 'True', specifies to error when a file does
--- not exist, instead of creating a new file.
-newtype NoCreateFile = NoCreateFile Bool
-  deriving (Eq, Ord)
-
-instance IsOption NoCreateFile where
-    defaultValue = NoCreateFile False
-    parseValue = fmap NoCreateFile . safeReadBool
-    optionName = return "no-create"
-    optionHelp = return "Error when golden file does not exist"
-    optionCLParser = flagCLParser Nothing (NoCreateFile True)
-
 instance IsTest GoldenSteps where
     run opts golden progress = runGoldenSteps golden progress opts
     testOptions = return
         [ Option (Proxy :: Proxy AcceptTests)
-        , Option (Proxy :: Proxy NoCreateFile)
         ]
 
 runGoldenSteps :: GoldenSteps -> (Progress -> IO ()) -> OptionSet -> IO Result
 runGoldenSteps (GoldenSteps getGolden getTested cmp update) progress opts = do
     let AcceptTests accept = lookupOption opts
-    let NoCreateFile noCreate = lookupOption opts
 
     msgsRef <- newIORef []
 
@@ -105,14 +91,12 @@ runGoldenSteps (GoldenSteps getGolden getTested cmp update) progress opts = do
             case mbRef of
                 Left e
                     | Just e' <- fromException e, isDoesNotExistError e' ->
-                      if noCreate
-                        then
-                          -- Don't ever delete the output file in this case, as there is
-                          -- no duplicate golden file
-                          return $ testFailed $ unlines $ "Golden file does not exist;" : msgs
+                        if accept
+                        then do
+                            update new
+                            return $ testPassed $ unlines $ "Golden file did not exist; created" : msgs
                         else do
-                          update new
-                          return $ testPassed $ unlines $ "Golden file did not exist; created" : msgs
+                            return $ testFailed $ unlines $ "Golden file does not exist" : msgs
 
                     | Just _ <- fromException @AsyncException e -> throwIO e
                     | Just _ <- fromException @IOError e        -> throwIO e
@@ -128,7 +112,6 @@ runGoldenSteps (GoldenSteps getGolden getTested cmp update) progress opts = do
                             msgs
 
                 Right ref -> do
-
                     result <- cmp ref new
 
                     case result of
