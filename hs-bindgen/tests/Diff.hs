@@ -32,6 +32,9 @@ consS :: a -> b -> Diff a b d -> Diff a b d
 consS x y (Same xs ys df) = Same (x : xs) (y : ys) df
 consS x y df              = Same [x] [y] df
 
+makeSame :: [a] -> Diff a a d
+makeSame xs = Same xs xs End
+
 consR :: b -> d -> Diff a b d -> Diff a b d
 consR y d (Diff xs ys ds df) = Diff xs (y : ys) (d : ds) df
 consR y d df                 = Diff [] [y] [d] df
@@ -142,7 +145,7 @@ linesDiff :: [String] -> [String] -> (Double, Diff String String (Either (Either
 linesDiff xss yss = fullDiff
   where
     fullDiff = genericDiff
-        (\xs ys -> let (r, d) = lineDiff xs ys in (r, Right d))
+        (\xs ys -> if xs == ys then (0, Right (makeSame xs)) else let (r, d) = lineDiff xs ys in (r, Right d))
         (Left . Left)
         (Left . Right)
         xss
@@ -154,8 +157,8 @@ linesDiff xss yss = fullDiff
         (\_ -> ())
         (\_ -> ())
 
-ansiLinesDiff :: [String] -> [String] -> [String]
-ansiLinesDiff xss yss = ansify (snd (linesDiff xss yss))
+ansiLinesDiff :: String -> String -> [String]
+ansiLinesDiff xss yss = ansify (snd (linesDiff (lines xss) (lines yss)))
 
 ansify :: Diff String String (Either (Either String String) (Diff Char Char ())) -> [String]
 ansify End = []
