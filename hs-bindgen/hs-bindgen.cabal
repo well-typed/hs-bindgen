@@ -70,6 +70,7 @@ library
       HsBindgen.Util.Tracer
   other-modules:
       -- Re-exported through HsBindgen.C.AST
+      HsBindgen.C.AST.Literal
       HsBindgen.C.AST.Macro
       HsBindgen.C.AST.Name
       HsBindgen.C.AST.Type
