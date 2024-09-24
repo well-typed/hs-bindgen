@@ -133,7 +133,7 @@ inst be i = mkDecl be $ DInst i
 -- | Monad sequencing
 doAll :: Backend be => be -> [Expr be] -> Expr be
 doAll be [] = mkExpr be $ EGlobal Monad_return `EApp` EGlobal Unit_constructor
-doAll be ss = mkExpr be $ foldl1 (EInfix Monad_seq) (map EInj ss)
+doAll be ss = mkExpr be $ foldr1 (EInfix Monad_seq) (map EInj ss)
 
 freshVec ::
      Backend be
