@@ -77,6 +77,9 @@ data MTerm =
     -- | Integer literal
   | MInt Integer
 
+    -- | Floating point literal
+  | MFloat Double
+
     -- | Variable or function/macro call
     --
     -- This might be a macro argument, or another marco.

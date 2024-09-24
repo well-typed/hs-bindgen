@@ -87,6 +87,9 @@ data PrimType =
 
     -- | @long double@
   | PrimLongDouble
+
+    -- | @void@
+  | PrimVoid
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

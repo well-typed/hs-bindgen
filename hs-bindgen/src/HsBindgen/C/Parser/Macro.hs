@@ -126,6 +126,7 @@ parseMTerm =
     term = choice [
         MEmpty     <$  eof
       , MInt       <$> parseInteger
+      , MFloat     <$> parseFloatingPoint
       , MVar       <$> parseVar <*> option [] parseActualArgs
       , MType      <$> parsePrimType
       , MAttr      <$> parseAttribute <*> parseMTerm
@@ -163,6 +164,13 @@ parseInteger = tokenOfKind CXToken_Literal (aux . Text.unpack)
         , "ul",  "ull",  "uz"
         ,  "lu",  "llu",  "zu"
         ]
+
+-- | Parse floating point literal
+parseFloatingPoint :: Parser Double
+parseFloatingPoint = tokenOfKind CXToken_Literal (aux . Text.unpack)
+  where
+    aux :: String -> Maybe Double
+    aux = readMaybe
 
 {-------------------------------------------------------------------------------
   Attributes
@@ -228,6 +236,7 @@ parseKeywordType = choice [
     , keyword "double"
     , keyword "signed"
     , keyword "unsigned"
+    , keyword "void"
     ]
 
 parsePrimType :: Parser PrimType
@@ -267,6 +276,8 @@ parsePrimType = do
       [         "float" ] -> return $ PrimFloat
       [         "double"] -> return $ PrimDouble
       ["long" , "double"] -> return $ PrimLongDouble
+      -- void
+      ["void"] -> return $ PrimVoid
       -- invalid
       _otherwise -> unexpected $ concat [
           "Unexpected primitive type "
