@@ -3,6 +3,8 @@ module Diff (ansiLinesDiff) where
 
 import Data.Maybe (mapMaybe)
 import Data.Vector qualified as V
+import Data.Vector.Primitive qualified as VP
+import Data.Vector.Primitive.Mutable qualified as VPM
 import System.Console.ANSI qualified as ANSI
 
 -------------------------------------------------------------------------------
@@ -47,6 +49,10 @@ consD :: a -> b -> d -> Diff a b d -> Diff a b d
 consD x y d (Diff xs ys ds df) = Diff (x : xs) (y : ys) (d : ds) df
 consD x y d df                 = Diff [x] [y] [d] df
 
+forMDown_ :: Monad m => Int -> Int -> (Int -> m ()) -> m () 
+forMDown_ mi ma f = go ma where
+  go x = if x >= mi then f x >> go (x - 1) else return ()
+
 genericDiff :: forall a b d. (a -> b -> (Double, d))
      -> (a -> d)
      -> (b -> d)
@@ -79,27 +85,37 @@ genericDiff cmp_ inl inr xs_ ys_ = (distance, walk 0 0)
             yc = ys V.! j
 
     dist :: Int -> Int -> Double
-    dist !i !j = distances V.! (j + i * (yn + 1))
+    dist !i !j = distances VP.! (j + i * (yn + 1))
 
-    distances :: V.Vector Double
-    distances = V.generate ((xn + 1) * (yn + 1)) $ \ij -> case ij `divMod` (yn + 1) of
-        (i, j)
-            | i == xn, j == yn
-            -> 0
+    distances :: VP.Vector Double
+    distances = VP.create $ do
+        vec <- VPM.new ((xn + 1) * (yn + 1))
 
-            | i == xn
-            -> 1 + dist i (j + 1)
+        let dist' i j = VPM.read vec (j + i * (yn + 1))
 
-            | j == yn
-            -> 1 + dist (i + 1) j
+        forMDown_ 0 ((xn + 1) * (yn + 1) - 1) $ \ij -> do
+            let (!i, !j) = ij `divMod` (yn + 1) 
+            !d <- if | i == xn, j == yn
+                     -> return 0
 
-            | otherwise
-            , let (r, _) = cmp i j
-            -> if r == 0
-               then dist (i + 1) (j + 1)
-               else min3 (r + dist i       (j + 1))
-                         (r + dist (i + 1) j)
-                         (r + dist (i + 1) (j + 1))
+                     | i == xn
+                     -> (1 +) <$> dist' i (j + 1)
+
+                     | j == yn
+                     -> (1 +) <$> dist' (i + 1) j
+
+                     | let (r, _) = cmp i j
+                     -> if r == 0
+                        then dist' (i + 1) (j + 1)
+                        else do
+                          a <- dist' i       (j + 1)
+                          b <- dist' (i + 1) j
+                          c <- dist' (i + 1) (j + 1)
+                          return $! r + min3 a b c
+
+            VPM.write vec ij d
+
+        return vec
 
     walk :: Int -> Int -> Diff a b d
     walk !i !j

@@ -9,7 +9,7 @@ struct primitive {
     signed short int ssi;
 
     unsigned short us;
-    unsigned short int usi;
+    unsigned short int usii;
 
     int i;
     signed s2;
