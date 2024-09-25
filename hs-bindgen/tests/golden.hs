@@ -27,7 +27,7 @@ main = do
     defaultMain $ testGroup "golden"
         [ testCase "target-triple" $ do
             let fp = "examples/simple_structs.h"
-                args = ["-target", "x86_64-pc-linux-gnu"]
+                args = clangArgs
             triple <- getTargetTriple nullTracer args fp
 
             -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
@@ -57,7 +57,7 @@ main = do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
-            args = ["-target", "x86_64-pc-linux-gnu"]
+            args = clangArgs
 
         let tracer = mkTracer report report report False
         let tracerD = contramap show tracer
@@ -69,7 +69,7 @@ main = do
         -- TODO: there aren't ediffGolden variant for goldenTestSteps like signature... yet
 
         let fp = "examples" </> (name ++ ".h")
-            args = ["-target", "x86_64-pc-linux-gnu"]
+            args = clangArgs
 
         header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
         return header
@@ -78,7 +78,7 @@ main = do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
-            args = ["-target", "x86_64-pc-linux-gnu"]
+            args = clangArgs
 
         let tracer = mkTracer report report report False
         let tracerD = contramap show tracer
@@ -89,6 +89,12 @@ main = do
             decls = List $ genHaskell header
 
         return $ showClosed decls
+
+clangArgs :: ClangArgs
+clangArgs = defaultClangArgs{
+     clangTarget = Just "x86_64-pc-linux-gnu"
+   , clangCStandard = Just C23
+   }
 
 treeToLines :: Tree Element -> [String]
 treeToLines tree = go 0 tree [] where

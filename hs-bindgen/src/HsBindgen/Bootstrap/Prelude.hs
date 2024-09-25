@@ -10,6 +10,7 @@ import System.FilePath ((</>))
 import HsBindgen.C.Parser
 import HsBindgen.C.Parser.Macro (UnrecognizedMacro)
 import HsBindgen.C.Parser.Macro qualified as Macro
+import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Fold
 import HsBindgen.Clang.Util.SourceLoc (SourceLoc(..))
@@ -39,7 +40,7 @@ genPrelude tracer = do
 
     entries <- withTranslationUnit
         (show `contramap` mkTracerIO True)
-        []
+        defaultClangArgs
         standardHeaders $
         \unit -> do
       cursor <- clang_getTranslationUnitCursor unit

@@ -4,6 +4,7 @@ module HsBindgen.TH (generateBindingsFor) where
 import Control.Monad.IO.Class
 import Language.Haskell.TH
 
+import HsBindgen.Clang.Args
 import HsBindgen.Clang.Util.Diagnostics (Diagnostic)
 import HsBindgen.Lib
 import HsBindgen.Util.Tracer
@@ -27,5 +28,5 @@ generateBindingsFor fp = do
     p = SelectFromMainFile
 
     args :: ClangArgs
-    args = []
+    args = defaultClangArgs
 

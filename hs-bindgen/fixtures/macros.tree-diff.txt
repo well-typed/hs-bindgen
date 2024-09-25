@@ -196,8 +196,10 @@ WrapCHeader
             macroBody = MTerm
               (MInt
                 Literal {
-                  literalText = "18",
-                  literalValue = 18})}),
+                  literalText =
+                  "18'446'744'073'709'550'592llu",
+                  literalValue =
+                  18446744073709550592})}),
       DeclMacro
         (Right
           Macro {
@@ -213,8 +215,10 @@ WrapCHeader
             macroBody = MTerm
               (MInt
                 Literal {
-                  literalText = "1844",
-                  literalValue = 1844})}),
+                  literalText =
+                  "1844'6744'0737'0955'0592uLL",
+                  literalValue =
+                  18446744073709550592})}),
       DeclMacro
         (Right
           Macro {
@@ -230,5 +234,7 @@ WrapCHeader
             macroBody = MTerm
               (MInt
                 Literal {
-                  literalText = "184467",
-                  literalValue = 184467})})])
+                  literalText =
+                  "184467'440737'0'95505'92LLU",
+                  literalValue =
+                  18446744073709550592})})])

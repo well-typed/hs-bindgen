@@ -6,6 +6,7 @@ module Main (main) where
 import Control.Monad
 import System.Environment
 
+import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Classification
 import HsBindgen.Patterns
@@ -24,7 +25,7 @@ tutorial fp = do
     unit   <- clang_parseTranslationUnit
                 index
                 fp
-                []
+                defaultClangArgs
                 (bitfieldEnum [CXTranslationUnit_None])
     cursor <- clang_getTranslationUnitCursor unit
 

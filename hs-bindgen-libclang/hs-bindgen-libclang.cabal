@@ -58,6 +58,7 @@ library
       HsBindgen.Clang.Args
       HsBindgen.Clang.Core
       HsBindgen.Clang.Doxygen
+      HsBindgen.Clang.Version
   exposed-modules:
       -- Additional utilities, without direct counterparts in libclang
       HsBindgen.Clang.Util.Classification
@@ -81,6 +82,7 @@ library
     , hs-bindgen-patterns
   build-depends:
       -- External dependencies
+    , mtl         >= 2.2  && < 2.4
     , pretty-show >= 1.10 && < 1.11
     , text        >= 1.2  && < 2.2
 

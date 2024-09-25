@@ -28,10 +28,10 @@ getCmdline = execParser opts
 
 -- | Command line arguments
 data Cmdline = Cmdline {
-      verbosity :: Bool
-    , predicate :: Predicate
-    , clangArgs :: ClangArgs
-    , mode      :: Mode
+      cmdVerbosity :: Bool
+    , cmdPredicate :: Predicate
+    , cmdClangArgs :: ClangArgs
+    , cmdMode      :: Mode
     }
   deriving (Show)
 
@@ -158,10 +158,13 @@ parseVerbosity =
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs =
-    many $ strOption $ mconcat [
+    fmap aux . many $ strOption $ mconcat [
         long "clang-option"
       , help "Pass option to libclang"
       ]
+  where
+    aux :: [String] -> ClangArgs
+    aux args = defaultClangArgs{clangOtherArgs = args}
 
 parseInput :: Parser FilePath
 parseInput =

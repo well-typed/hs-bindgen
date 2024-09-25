@@ -23,7 +23,7 @@ import Data.Typeable
 import Foreign
 import GHC.Stack
 
-import HsBindgen.Clang.Core.Enums
+import HsBindgen.Clang.Core.Enums (WrapperResult(..))
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Patterns
 
