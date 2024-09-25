@@ -22,6 +22,7 @@ import HsBindgen.Clang.Util.Tokens
 import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal)
 
+import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 
@@ -75,7 +76,10 @@ data MTerm =
     MEmpty
 
     -- | Integer literal
-  | MInt Integer
+  | MInt (Literal Integer)
+
+    -- | Floating point literal
+  | MFloat Double
 
     -- | Variable or function/macro call
     --
@@ -132,9 +136,9 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
         macroName `elem` includeGuards
       , null macroArgs
       , case macroBody of
-          MTerm MEmpty   -> True
-          MTerm (MInt 1) -> True
-          _otherwise       -> False
+          MTerm MEmpty                         -> True
+          MTerm (MInt i) | literalValue i == 1 -> True
+          _otherwise                           -> False
       ]
   where
     sourcePath :: FilePath

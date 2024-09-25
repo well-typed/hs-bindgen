@@ -12,7 +12,11 @@ WrapCHeader
               sourceLocColumn = 9},
             macroName = CName "OBJECTLIKE1",
             macroArgs = [],
-            macroBody = MTerm (MInt 1)}),
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "1",
+                  literalValue = 1})}),
       DeclMacro
         (Right
           Macro {
@@ -24,7 +28,11 @@ WrapCHeader
               sourceLocColumn = 9},
             macroName = CName "OBJECTLIKE2",
             macroArgs = [],
-            macroBody = MTerm (MInt 2)}),
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "2",
+                  literalValue = 2})}),
       DeclMacro
         (Right
           Macro {
@@ -37,8 +45,16 @@ WrapCHeader
             macroName = CName "OBJECTLIKE3",
             macroArgs = [],
             macroBody = MAdd
-              (MTerm (MInt 3))
-              (MTerm (MInt 3))}),
+              (MTerm
+                (MInt
+                  Literal {
+                    literalText = "3",
+                    literalValue = 3}))
+              (MTerm
+                (MInt
+                  Literal {
+                    literalText = "3",
+                    literalValue = 3}))}),
       DeclMacro
         (Right
           Macro {
@@ -51,5 +67,174 @@ WrapCHeader
             macroName = CName "OBJECTLIKE4",
             macroArgs = [],
             macroBody = MAdd
-              (MTerm (MInt 4))
-              (MTerm (MInt 4))})])
+              (MTerm
+                (MInt
+                  Literal {
+                    literalText = "4",
+                    literalValue = 4}))
+              (MTerm
+                (MInt
+                  Literal {
+                    literalText = "4",
+                    literalValue = 4}))}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 6,
+              sourceLocColumn = 9},
+            macroName = CName
+              "MEANING_OF_LIFE1",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "42",
+                  literalValue = 42})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 7,
+              sourceLocColumn = 9},
+            macroName = CName
+              "MEANING_OF_LIFE2",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "052",
+                  literalValue = 42})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 8,
+              sourceLocColumn = 9},
+            macroName = CName
+              "MEANING_OF_LIFE3",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "0x2a",
+                  literalValue = 42})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 9,
+              sourceLocColumn = 9},
+            macroName = CName
+              "MEANING_OF_LIFE4",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "0X2A",
+                  literalValue = 42})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 10,
+              sourceLocColumn = 9},
+            macroName = CName
+              "MEANING_OF_LIFE5",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText = "0b101010",
+                  literalValue = 42})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 12,
+              sourceLocColumn = 9},
+            macroName = CName
+              "LONG_INT_TOKEN1",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText =
+                  "18446744073709550592ull",
+                  literalValue =
+                  18446744073709550592})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 13,
+              sourceLocColumn = 9},
+            macroName = CName
+              "LONG_INT_TOKEN2",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText =
+                  "18'446'744'073'709'550'592llu",
+                  literalValue =
+                  18446744073709550592})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 14,
+              sourceLocColumn = 9},
+            macroName = CName
+              "LONG_INT_TOKEN3",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText =
+                  "1844'6744'0737'0955'0592uLL",
+                  literalValue =
+                  18446744073709550592})}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = SourceLoc {
+              sourceLocFile = [
+                "examples",
+                "macros.h"],
+              sourceLocLine = 15,
+              sourceLocColumn = 9},
+            macroName = CName
+              "LONG_INT_TOKEN4",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                Literal {
+                  literalText =
+                  "184467'440737'0'95505'92LLU",
+                  literalValue =
+                  18446744073709550592})})])

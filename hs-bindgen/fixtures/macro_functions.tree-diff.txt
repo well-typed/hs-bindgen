@@ -14,7 +14,11 @@ WrapCHeader
             macroArgs = [CName "x"],
             macroBody = MAdd
               (MTerm (MVar (CName "x") []))
-              (MTerm (MInt 1))}),
+              (MTerm
+                (MInt
+                  Literal {
+                    literalText = "1",
+                    literalValue = 1}))}),
       DeclMacro
         (Right
           Macro {

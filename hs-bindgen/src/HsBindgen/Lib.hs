@@ -17,8 +17,12 @@ module HsBindgen.Lib (
     CHeader   -- opaque
   , ParseMsg  -- opaque
   , Predicate(..)
-  , ClangArgs
   , parseCHeader
+
+    -- ** Clang arguments
+  , ClangArgs(..)
+  , CStandard(..)
+  , defaultClangArgs
 
     -- * Translation
   , HsModuleOpts(..)

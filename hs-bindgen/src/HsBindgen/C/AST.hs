@@ -30,6 +30,7 @@ module HsBindgen.C.AST (
     -- ** Expressions
   , MExpr(..)
   , MTerm(..)
+  , Literal(..)
     -- ** Attributes
   , Attribute(..)
     -- ** Classification
@@ -47,6 +48,7 @@ module HsBindgen.C.AST (
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
 
+import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type

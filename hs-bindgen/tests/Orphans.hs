@@ -44,6 +44,7 @@ instance ToExpr C.Typedef
 instance ToExpr C.UnrecognizedMacro
 
 instance ToExpr a => ToExpr (C.Token a)
+instance ToExpr a => ToExpr (C.Literal a)
 
 -- Construct platform-independent expression
 instance ToExpr C.SourcePath where

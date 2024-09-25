@@ -42,7 +42,7 @@ goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ 
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     let fp = "examples" </> (name ++ ".h")
-        args = ["-target", "x86_64-pc-linux-gnu"]
+        args = clangArgs
 
     let tracer = mkTracer report report report False
     let tracerD = contramap show tracer
@@ -60,6 +60,9 @@ goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ 
             nameFlavour -> nameFlavour
 
     return $ unlines $ map (show . TH.ppr) $ unqualNames $ runQu decls
+
+clangArgs :: ClangArgs
+clangArgs = defaultClangArgs{clangTarget = Just "x86_64-pc-linux-gnu"}
 
 -- | Deterministic monad with TH.Quote instance
 newtype Qu a = Qu (State Integer a)

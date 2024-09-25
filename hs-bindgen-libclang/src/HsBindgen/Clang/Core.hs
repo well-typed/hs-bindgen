@@ -172,6 +172,7 @@ import Foreign.C
 import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
+import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core.Enums
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Clang.Core.Structs
@@ -535,13 +536,23 @@ clang_parseTranslationUnit ::
      HasCallStack
   => CXIndex                               -- ^ @CIdx@
   -> FilePath                              -- ^ @source_filename@
-  -> [String]                              -- ^ @command_line_args@
+  -> ClangArgs                             -- ^ @command_line_args@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO CXTranslationUnit
 clang_parseTranslationUnit cIdx src args options =
-    withCString  src  $ \src' ->
-    withCStrings args $ \args' numArgs -> ensureNotNull $
-      nowrapper_parseTranslationUnit cIdx src' args' numArgs nullPtr 0 options
+    case fromClangArgs args of
+      Left  err   -> callFailed err
+      Right args' ->
+        withCString  src   $ \src' ->
+        withCStrings args' $ \args'' numArgs -> ensureNotNull $
+          nowrapper_parseTranslationUnit
+            cIdx
+            src'
+            args''
+            numArgs
+            nullPtr
+            0
+            options
 
 -- | Get the normalized target triple as a string.
 --

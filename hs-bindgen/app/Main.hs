@@ -16,12 +16,12 @@ import HsBindgen.Lib
 
 main :: IO ()
 main = do
-    cmdline@Cmdline{verbosity, mode} <- getCmdline
+    cmdline@Cmdline{cmdVerbosity, cmdMode} <- getCmdline
 
     let tracer :: Tracer IO String
-        tracer = mkTracerIO verbosity
+        tracer = mkTracerIO cmdVerbosity
 
-    execMode cmdline tracer (mode)
+    execMode cmdline tracer (cmdMode)
 
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline tracer = \case
@@ -29,8 +29,8 @@ execMode cmdline tracer = \case
       preprocess $ Preprocess {
           preprocessTraceWarnings  = contramap show tracer
         , preprocessTraceParseMsgs = contramap prettyLogMsg tracer
-        , preprocessPredicate      = predicate
-        , preprocessClangArgs      = clangArgs
+        , preprocessPredicate      = cmdPredicate
+        , preprocessClangArgs      = cmdClangArgs
         , preprocessInputPath      = input
         , preprocessModuleOpts     = moduleOpts
         , preprocessRenderOpts     = renderOpts
@@ -41,24 +41,24 @@ execMode cmdline tracer = \case
         parseCHeader
           (contramap show tracer)
           (contramap prettyLogMsg tracer)
-          predicate
-          clangArgs
+          cmdPredicate
+          cmdClangArgs
           input
       prettyC cHeader
     ModeShowClangAST{input} -> do
       clangAST <-
         getClangAST
           (contramap show tracer)
-          predicate
-          clangArgs
+          cmdPredicate
+          cmdClangArgs
           input
       putStr . drawForest $ fmap (fmap show) clangAST
     ModeRenderComments{input, output} -> do
       comments <-
         getComments
           (contramap show tracer)
-          predicate
-          clangArgs
+          cmdPredicate
+          cmdClangArgs
           input
       withOutput output $ \h ->
         Blaze.renderHtmlToByteStringIO (BS.hPutStr h) $
@@ -66,7 +66,7 @@ execMode cmdline tracer = \case
     Dev devMode ->
       execDevMode cmdline tracer devMode
   where
-    Cmdline{predicate, clangArgs} = cmdline
+    Cmdline{cmdPredicate, cmdClangArgs} = cmdline
 
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode _cmdline tracer = \case
