@@ -1,15 +1,16 @@
 packages: hs-bindgen-patterns
 packages: hs-bindgen
 packages: hs-bindgen-libclang
+packages: ansi-diff
 
 package hs-bindgen
-  tests: true
   ghc-options: -Werror
 
 package hs-bindgen-libclang
-  tests: true
   ghc-options: -Werror
 
 package hs-bindgen-patterns
-  tests: true
+  ghc-options: -Werror
+
+package ansi-diff
   ghc-options: -Werror

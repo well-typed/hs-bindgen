@@ -1,0 +1,35 @@
+instance Storable primitive
+    where {sizeOf = \_ -> 176;
+           alignment = \_ -> 16;
+           peek = \x_0 -> (((((((((((((((((((((((((((((pure Mkprimitive <*> peekByteOff x_0 0) <*> peekByteOff x_0 8) <*> peekByteOff x_0 16) <*> peekByteOff x_0 32) <*> peekByteOff x_0 48) <*> peekByteOff x_0 64) <*> peekByteOff x_0 80) <*> peekByteOff x_0 96) <*> peekByteOff x_0 112) <*> peekByteOff x_0 128) <*> peekByteOff x_0 160) <*> peekByteOff x_0 192) <*> peekByteOff x_0 224) <*> peekByteOff x_0 256) <*> peekByteOff x_0 320) <*> peekByteOff x_0 384) <*> peekByteOff x_0 448) <*> peekByteOff x_0 512) <*> peekByteOff x_0 576) <*> peekByteOff x_0 640) <*> peekByteOff x_0 704) <*> peekByteOff x_0 768) <*> peekByteOff x_0 832) <*> peekByteOff x_0 896) <*> peekByteOff x_0 960) <*> peekByteOff x_0 1024) <*> peekByteOff x_0 1088) <*> peekByteOff x_0 1152) <*> peekByteOff x_0 1216) <*> peekByteOff x_0 1280;
+           poke = \x_1 -> \x_2 -> case x_2 of
+                                  {Mkprimitive c_3
+                                               sc_4
+                                               uc_5
+                                               s_6
+                                               si_7
+                                               ss_8
+                                               ssi_9
+                                               us_10
+                                               usi_11
+                                               i_12
+                                               s2_13
+                                               si2_14
+                                               u_15
+                                               ui_16
+                                               l_17
+                                               li_18
+                                               sl_19
+                                               sli_20
+                                               ul_21
+                                               uli_22
+                                               uli2_23
+                                               ll_24
+                                               lli_25
+                                               sll_26
+                                               slli_27
+                                               ull_28
+                                               ulli_29
+                                               f_30
+                                               d_31
+                                               ld_32 -> pokeByteOff x_1 0 c_3 >> (pokeByteOff x_1 8 sc_4 >> (pokeByteOff x_1 16 uc_5 >> (pokeByteOff x_1 32 s_6 >> (pokeByteOff x_1 48 si_7 >> (pokeByteOff x_1 64 ss_8 >> (pokeByteOff x_1 80 ssi_9 >> (pokeByteOff x_1 96 us_10 >> (pokeByteOff x_1 112 usi_11 >> (pokeByteOff x_1 128 i_12 >> (pokeByteOff x_1 160 s2_13 >> (pokeByteOff x_1 192 si2_14 >> (pokeByteOff x_1 224 u_15 >> (pokeByteOff x_1 256 ui_16 >> (pokeByteOff x_1 320 l_17 >> (pokeByteOff x_1 384 li_18 >> (pokeByteOff x_1 448 sl_19 >> (pokeByteOff x_1 512 sli_20 >> (pokeByteOff x_1 576 ul_21 >> (pokeByteOff x_1 640 uli_22 >> (pokeByteOff x_1 704 uli2_23 >> (pokeByteOff x_1 768 ll_24 >> (pokeByteOff x_1 832 lli_25 >> (pokeByteOff x_1 896 sll_26 >> (pokeByteOff x_1 960 slli_27 >> (pokeByteOff x_1 1024 ull_28 >> (pokeByteOff x_1 1088 ulli_29 >> (pokeByteOff x_1 1152 f_30 >> (pokeByteOff x_1 1216 d_31 >> pokeByteOff x_1 1280 ld_32))))))))))))))))))))))))))))}}
