@@ -66,6 +66,7 @@ library
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Translation.LowLevel
+      HsBindgen.Util.Parsec
       HsBindgen.Util.PHOAS
       HsBindgen.Util.Tracer
   other-modules:

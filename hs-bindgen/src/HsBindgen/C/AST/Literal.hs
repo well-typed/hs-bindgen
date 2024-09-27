@@ -8,8 +8,9 @@ import Data.Maybe (mapMaybe)
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Text.Parsec
-import Text.Parsec.Pos
 import Text.Show.Pretty (PrettyVal)
+
+import HsBindgen.Util.Parsec
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -51,16 +52,16 @@ data IntSuffix =
 
 parseIntSuffix :: Parser IntSuffix
 parseIntSuffix = choice [
-      IntSuffixUnsigned <$ caseInsensitive "u"
-    , IntSuffixLongLong <$ caseInsensitive "ll"
-    , IntSuffixLong     <$ caseInsensitive "l"
-    , IntSuffixSize     <$ caseInsensitive "z"
+      IntSuffixUnsigned <$ caseInsensitive' "u"
+    , IntSuffixLongLong <$ caseInsensitive' "ll"
+    , IntSuffixLong     <$ caseInsensitive' "l"
+    , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
 parseIntLitAux :: Parser Integer
 parseIntLitAux = do
     -- TODO: Should we keep the suffices around?
-    (base, digits, _suffices) <- aux
+    (base, digits, _suffixes) <- aux
 
     let multipliers :: [Integer]
         multipliers = iterate (* baseToInt base) 1
@@ -101,9 +102,9 @@ getDigit Separator = Nothing
 
 parseBase :: Parser Base
 parseBase = choice [
-      BaseHex <$ caseInsensitive "0x"
-    , BaseBin <$ caseInsensitive "0b"
-    , BaseOct <$ caseInsensitive "0"
+      BaseHex <$ caseInsensitive' "0x"
+    , BaseBin <$ caseInsensitive' "0b"
+    , BaseOct <$ caseInsensitive' "0"
     , BaseDec <$ lookAhead (satisfy $ \c -> c >= '1' && c <= '9')
     ]
 
@@ -137,20 +138,3 @@ parseDigitInBase = satisfyWith . (. toLower) . aux
 
 type Parser = Parsec Text ()
 
--- | Case-insensitive match
---
--- Does not consume any input unless the full string matches.
-caseInsensitive :: String -> Parser ()
-caseInsensitive = \str ->
-    try (mapM_ aux str <?> str)
-  where
-    aux :: Char -> Parser Char
-    aux c = satisfy $ \c' -> toLower c == toLower c'
-
--- | Generalization of 'satisfy' that returns evidence
-satisfyWith :: (Char -> Maybe a) -> Parser a
-satisfyWith p =
-    tokenPrim show updatePos p
-  where
-    updatePos :: SourcePos -> Char -> Text -> SourcePos
-    updatePos pos c _rest = updatePosChar pos c
