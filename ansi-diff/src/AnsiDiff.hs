@@ -16,6 +16,7 @@ import Data.Algorithm.Diff qualified as Diff
 
 ansidiff :: String -> String -> String
 ansidiff old new = runStringWriter $ do
+    writeStr ansiReset
     let linesDiff = Diff.getDiff (lines old) (lines new)
     forM_ (chunks linesDiff) $ \case
         Same s _   -> writeStrLn $ ' ' : s
