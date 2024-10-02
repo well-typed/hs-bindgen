@@ -37,7 +37,7 @@ benchmarks =
         , env (readString "fixtures/primitive_types.th.old.txt") $ \old ->
           env (readString "fixtures/primitive_types.th.new.txt") $ \new ->
           bench "ansi-diff.metric" $
-            whnf (fst . uncurry AnsiDiff.metric)
+            whnf (uncurry AnsiDiff.metric)
             (old, new)
 
         , env (readString "fixtures/primitive_types.th.old.txt") $ \old ->
@@ -69,7 +69,7 @@ benchmarks =
         , env (readString "fixtures/primitive_types.hs.old.txt") $ \old ->
           env (readString "fixtures/primitive_types.hs.new.txt") $ \new ->
           bench "ansi-diff.levenshtein" $
-            whnf (fst . uncurry AnsiDiff.metric)
+            whnf (uncurry AnsiDiff.metric)
             (old, new)
 
         , env (readString "fixtures/primitive_types.hs.old.txt") $ \old ->
