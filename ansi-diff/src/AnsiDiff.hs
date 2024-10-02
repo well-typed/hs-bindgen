@@ -19,72 +19,102 @@ ansidiff old new = runStringWriter $ do
     writeStr ansiReset
     let linesDiff = Diff.getDiff (lines old) (lines new)
     forM_ (chunks linesDiff) $ \case
-        Same s _   -> writeStrLn $ ' ' : s
+        Same xs _  -> forM_ xs $ \x -> writeStrLn $ ' ' : x
         Diff xs ys -> ansiDiff' xs ys
 
 ansiDiff' :: [String] -> [String] -> StringWriter ()
 ansiDiff' old new = do
     -- removed
     forM_ diffs $ \case
-        Left (Left x) ->
-            writeStrLn $ ansiRed ++ '-' : x ++ ansiReset
-        Left (Right _) ->
-            return ()
-        Right ds ->
-            removedLine ds
+        Ins x      -> writeStrLn $ ansiRed ++ '-' : x ++ ansiReset
+        Del _      -> return ()
+        Swp n d ds
+            -- empasise line diffs only if there are similar enough.
+            | 2 * n < d -> removedLine ds
+            | otherwise -> removedLine' ds
 
     -- added
     forM_ diffs $ \case
-        Left (Left _) ->
-            return ()
-        Left (Right y) ->
-            writeStrLn $ ansiGreen ++ '+' : y ++ ansiReset
-        Right ds ->
-            addedLine ds
+        Ins _ -> return ()
+        Del y -> writeStrLn $ ansiGreen ++ '+' : y ++ ansiReset
+        Swp n d ds
+            | 2 * n < d -> addedLine ds
+            | otherwise -> addedLine' ds
 
   where
     -- TODO this is a very poor alignment
+    diffs :: [D Char]
     diffs = alignWith f old new where
-        f (This x)    = Left (Left x)
-        f (That y)    = Left (Right y)
-        f (These x y) = Right (Diff.getGroupedDiff x y)
+        f (This x)    = Ins x
+        f (That y)    = Del y
+        f (These x y) =
+            let d :: [Diff.Diff Char]
+                d = Diff.getDiff x y
 
-removedLine :: [Diff.Diff String] -> StringWriter ()
+                (m, n) = metric' d
+            in Swp m n (chunks d)
+
+data D a
+    = Del [a]
+    | Ins [a]
+    | Swp !Int !Int [Chunk a a]
+
+removedLine :: [Chunk Char Char] -> StringWriter ()
 removedLine ds = do
     writeStr ansiRed
     writeChar '-'
 
     forM_ ds $ \case
-        Diff.First s  -> do
+        Diff s _ -> do
             writeStr ansiRED
             writeStr s
             writeStr ansiReset
-        Diff.Second _ -> do
-            return ()
-        Diff.Both s _ -> do
+        Same s _ -> do
             writeStr ansiRed
             writeStr s
             writeStr ansiReset
 
     writeChar '\n'
 
-addedLine :: [Diff.Diff String] -> StringWriter ()
+removedLine' :: [Chunk Char Char] -> StringWriter ()
+removedLine' ds = do
+    writeStr ansiRed
+    writeChar '-'
+
+    forM_ ds $ \case
+        Diff s _ -> writeStr s
+        Same s _ -> writeStr s
+
+    writeStr ansiReset
+    writeChar '\n'
+
+addedLine :: [Chunk Char Char] -> StringWriter ()
 addedLine ds = do
     writeStr ansiGreen
     writeChar '+'
 
     forM_ ds $ \case
-        Diff.First _  -> do
-            return ()
-        Diff.Second s -> do
+        Diff _ s -> do
             writeStr ansiGREEN
             writeStr s
             writeStr ansiReset
-        Diff.Both s _ -> do
+        Same _ s -> do
             writeStr ansiGreen
             writeStr s
             writeStr ansiReset
 
+    writeChar '\n'
+
+addedLine' :: [Chunk Char Char] -> StringWriter ()
+addedLine' ds = do
+    writeStr ansiGreen
+    writeChar '+'
+
+    forM_ ds $ \case
+        Diff _ s -> writeStr s
+        Same _ s -> writeStr s
+
+    writeStr ansiReset
     writeChar '\n'
 
 -------------------------------------------------------------------------------
@@ -110,15 +140,15 @@ writeStrLn str = S.modify' $ \s -> s . (str ++) . ('\n' :)
 -------------------------------------------------------------------------------
 
 -- | Diff chunks
---
--- We represent the similar lines individually, as we don't skip them in output atm.
 data Chunk a b
-    = Same a b
+    = Same [a] [b]
     | Diff [a] [b]
 
 chunks :: [Diff.PolyDiff a b] -> [Chunk a b]
 chunks [] = []
-chunks (Diff.Both x y : ds) = Same x y : chunks ds
+chunks (Diff.Both x y : ds) = consS (chunks ds) where
+    consS (Same xs ys : ds') = Same (x : xs) (y : ys) : ds'
+    consS ds'                = Same [x] [y] : ds'
 chunks (Diff.First x  : ds) = consL (chunks ds) where
     consL (Diff xs ys : ds') = Diff (x : xs) ys : ds'
     consL ds'                = Diff [x] [] : ds'
