@@ -13,7 +13,7 @@ import HsBindgen.C.Parser.Macro qualified as Macro
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc (SourceLoc(..))
+import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
@@ -68,8 +68,10 @@ fold tracer standardHeaders unit = go
           Right CXCursor_MacroExpansion     -> skip
 
           Right CXCursor_MacroDefinition -> do
-            cursorExtent <- clang_getCursorExtent current
-            tokens <- Tokens.clang_tokenize unit cursorExtent
+            cursorExtent <- SourceLoc.clang_getCursorExtent current
+            tokens       <- Tokens.clang_tokenize
+                              unit
+                              (multiLocExpansion <$> cursorExtent)
             case Macro.parse tokens of
               Right macro ->
                 appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
@@ -80,11 +82,12 @@ fold tracer standardHeaders unit = go
           _otherwise ->
             Continue <$> unrecognized tracer current
 
-    checkLoc :: (SourceLoc -> Fold a) -> Fold a
+    checkLoc :: (MultiLoc -> Fold a) -> Fold a
     checkLoc k parent current = do
         loc <- SourceLoc.clang_getCursorLocation current
         let fp :: FilePath
-            fp = Text.unpack (SourceLoc.getSourcePath $ sourceLocFile loc)
+            fp = Text.unpack . getSourcePath . singleLocPath $
+                   multiLocExpansion loc
 
         if | fp == "" ->
                -- TODO: Should we do anything with the macro definitions from
@@ -104,8 +107,8 @@ fold tracer standardHeaders unit = go
 -------------------------------------------------------------------------------}
 
 data GenPreludeMsg =
-    Skipping SourceLoc (SimpleEnum CXCursorKind)
-  | UnrecognizedElement SourceLoc (SimpleEnum CXCursorKind) Text
+    Skipping MultiLoc (SimpleEnum CXCursorKind)
+  | UnrecognizedElement MultiLoc (SimpleEnum CXCursorKind) Text
   | UnrecognizedMacro UnrecognizedMacro
   deriving stock (Show)
   deriving anyclass (Exception)

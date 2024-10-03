@@ -4,12 +4,16 @@ WrapCHeader
       DeclMacro
         (Right
           Macro {
-            macroLoc = SourceLoc {
-              sourceLocFile = [
-                "examples",
-                "uses_utf8.h"],
-              sourceLocLine = 2,
-              sourceLocColumn = 9},
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "uses_utf8.h"],
+                singleLocLine = 2,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
             macroName = CName "USES_UTF8_H",
             macroArgs = [],
             macroBody = MTerm MEmpty}),

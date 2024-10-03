@@ -27,7 +27,7 @@ import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.SourceLoc
+import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Clang.Util.Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
@@ -65,8 +65,10 @@ parse tokens =
     sourcePath =
         case tokens of
           []  -> error "parse: impossible" -- must have the macro name
-          t:_ -> Text.unpack . getSourcePath . sourceLocFile $
-                   sourceRangeStart (tokenExtent t)
+          t:_ -> Text.unpack . getSourcePath $ singleLocPath start
+            where
+              start :: SingleLoc
+              start = rangeStart $ multiLocExpansion <$> tokenExtent t
 
     unrecognized :: ParseError -> UnrecognizedMacro
     unrecognized err = UnrecognizedMacro{
@@ -99,18 +101,18 @@ parseMacro = do
       , objectLike macroLoc macroName
       ]
   where
-    functionLike, objectLike :: SourceLoc -> CName -> Parser Macro
+    functionLike, objectLike :: MultiLoc -> CName -> Parser Macro
     functionLike loc name = Macro loc name <$> parseFormalArgs <*> parseMExpr
     objectLike   loc name = Macro loc name [] <$> parseMExpr
 
-parseMacroName :: Parser (SourceLoc, CName)
+parseMacroName :: Parser (MultiLoc, CName)
 parseMacroName = parseName
 
-parseName :: Parser (SourceLoc, CName)
+parseName :: Parser (MultiLoc, CName)
 parseName = token $ \t -> do
     guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
     return (
-        sourceRangeStart (tokenExtent t)
+        rangeStart $ tokenExtent t
       , CName $ getTokenSpelling (tokenSpelling t)
       )
 
@@ -400,13 +402,9 @@ tokenPretty Token{tokenKind, tokenSpelling} = concat [
 tokenSourcePos :: Token a -> Parsec.SourcePos
 tokenSourcePos t =
     Parsec.newPos
-      (Text.unpack $ getSourcePath sourceLocFile)
-      sourceLocLine
-      sourceLocColumn
+      (Text.unpack . getSourcePath $ singleLocPath start)
+      (singleLocLine start)
+      (singleLocColumn start)
   where
-    SourceLoc{
-        sourceLocFile
-      , sourceLocLine
-      , sourceLocColumn
-      } = sourceRangeStart (tokenExtent t)
-
+    start :: SingleLoc
+    start = rangeStart $ multiLocExpansion <$> tokenExtent t

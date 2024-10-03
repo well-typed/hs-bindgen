@@ -13,3 +13,13 @@ enum CXChildVisitResult wrap_visitor(CXCursor cursor, CXCursor parent, CXClientD
     WrapCXCursorVisitor visitor = client_data;
     return visitor(&cursor, &parent);
 }
+
+/**
+ * Debugging
+ */
+
+void clang_breakpoint(void) {
+    static int i = 0;
+    fprintf(stderr, "clang_breakpoint: %d\n", ++i);
+}
+

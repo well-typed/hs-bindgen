@@ -65,6 +65,7 @@ library
       HsBindgen.Clang.Util.Diagnostics
       HsBindgen.Clang.Util.Fold
       HsBindgen.Clang.Util.SourceLoc
+      HsBindgen.Clang.Util.SourceLoc.Type
       HsBindgen.Clang.Util.Tokens
   other-modules:
       HsBindgen.Clang.Core.Enums

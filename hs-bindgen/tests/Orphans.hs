@@ -32,10 +32,10 @@ instance ToExpr C.Header
 instance ToExpr C.Macro
 instance ToExpr C.MExpr
 instance ToExpr C.MTerm
+instance ToExpr C.MultiLoc
 instance ToExpr C.PrimSign
 instance ToExpr C.PrimType
-instance ToExpr C.SourceLoc
-instance ToExpr C.SourceRange
+instance ToExpr C.SingleLoc
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TokenSpelling
@@ -43,8 +43,9 @@ instance ToExpr C.Typ
 instance ToExpr C.Typedef
 instance ToExpr C.UnrecognizedMacro
 
-instance ToExpr a => ToExpr (C.Token a)
 instance ToExpr a => ToExpr (C.Literal a)
+instance ToExpr a => ToExpr (C.Range a)
+instance ToExpr a => ToExpr (C.Token a)
 
 -- Construct platform-independent expression
 instance ToExpr C.SourcePath where

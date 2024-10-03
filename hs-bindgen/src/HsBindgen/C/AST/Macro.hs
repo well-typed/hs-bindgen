@@ -17,21 +17,21 @@ import Data.Char (toUpper)
 import Data.String
 import Data.Text qualified as Text
 import GHC.Generics (Generic)
-import HsBindgen.Clang.Util.SourceLoc
-import HsBindgen.Clang.Util.Tokens
 import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal)
 
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
+import HsBindgen.Clang.Util.SourceLoc.Type
+import HsBindgen.Clang.Util.Tokens
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 data Macro = Macro {
-      macroLoc  :: SourceLoc
+      macroLoc  :: MultiLoc
     , macroName :: CName
     , macroArgs :: [CName]
     , macroBody :: MExpr
@@ -142,7 +142,8 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
       ]
   where
     sourcePath :: FilePath
-    sourcePath = Text.unpack . getSourcePath $ sourceLocFile macroLoc
+    sourcePath = Text.unpack . getSourcePath . singleLocPath $
+                   multiLocExpansion macroLoc
 
     includeGuards :: [CName]
     includeGuards = possibleIncludeGuards (takeBaseName sourcePath)

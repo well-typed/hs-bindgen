@@ -75,7 +75,7 @@ import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Util.Diagnostics qualified as C (Diagnostic)
-import HsBindgen.Clang.Util.SourceLoc
+import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Translation.LowLevel qualified as LowLevel
 import HsBindgen.Util.Tracer
@@ -211,7 +211,7 @@ getComments ::
   -> Predicate
   -> ClangArgs
   -> FilePath
-  -> IO (Forest (SourceLoc, Text, Maybe Text))
+  -> IO (Forest (MultiLoc, Text, Maybe Text))
 getComments tracer predicate args fp =
     C.parseHeaderWith tracer args fp $
       C.foldComments predicate
