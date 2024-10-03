@@ -25,7 +25,7 @@ data Literal a = Literal {
       -- unreadable in decimal.
       literalText  :: Text
 
-      -- | The (parsed) valeu of the literal
+      -- | The (parsed) value of the literal
     , literalValue :: a
     }
   deriving stock (Show, Eq, Generic)

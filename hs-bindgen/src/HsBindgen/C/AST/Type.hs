@@ -48,7 +48,7 @@ data Typ =
 --
 -- 1. We could produce a field of type 'CInt' in the generated Haskell code
 -- 2. We could query @libclang@ to what choice it makes for the selected
---    target platform, and use 'CShort' or 'CLong' (or something else again.
+--    target platform, and use 'CShort' or 'CLong' (or something else) again.
 --
 -- Both options have advantages; most users will probably prefer (1), so that
 -- we generate a /single/ API, independent of implementation details. However,
@@ -59,7 +59,7 @@ data Typ =
 data PrimType =
     -- | @[signed | unsigned] char@
     --
-    -- The C standard distinguishes between /three/ kinds of @cha@: @char@,
+    -- The C standard distinguishes between /three/ kinds of @char@: @char@,
     -- @signed char@ and @unsigned char@. Unlike the other integer types,
     -- the interpretation of @char@ as either @signed char@ or @unsigned char@
     -- is implementation defined.
