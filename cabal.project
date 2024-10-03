@@ -1,12 +1,13 @@
 packages: hs-bindgen-patterns
 packages: hs-bindgen
 packages: hs-bindgen-libclang
+packages: ansi-diff
+
+tests: True
+benchmarks: True
 
 package hs-bindgen
-  tests: true
 
 package hs-bindgen-libclang
-  tests: true
 
 package hs-bindgen-patterns
-  tests: true

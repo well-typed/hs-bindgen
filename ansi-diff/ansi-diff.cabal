@@ -1,0 +1,92 @@
+cabal-version:      3.0
+name:               ansi-diff
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             TBA
+maintainer:         TBA
+category:           Development
+build-type:         Simple
+synopsis:           Pretty ANSI-colourful diffs
+extra-doc-files:    CHANGELOG.md
+tested-with:
+  GHC ==9.2.8 || ==9.4.8 || ==9.6.6 || ==9.8.2 || ==9.10.1
+
+extra-source-files: fixtures/*.txt
+
+common lang
+  ghc-options:
+    -Wall -Widentities -Wprepositive-qualified-module
+    -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
+  build-depends:      base >=4.16 && <4.21
+  default-language:   GHC2021
+  default-extensions:
+    DataKinds
+    DefaultSignatures
+    DeriveAnyClass
+    DerivingStrategies
+    DerivingVia
+    DisambiguateRecordFields
+    LambdaCase
+    MultiWayIf
+    QuantifiedConstraints
+    TypeFamilies
+    UndecidableInstances
+
+library
+  import:          lang
+  hs-source-dirs:  src
+  exposed-modules: AnsiDiff
+  build-depends:
+    , ansi-terminal
+    , base
+    , Diff           ^>=0.5
+    , primitive
+    , semialign      ^>=1.3.1
+    , these          ^>=1.2.1
+    , transformers
+
+benchmark ansi-diff-bench
+  import:         lang
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: bench
+  main-is:        ansi-diff-bench.hs
+  build-depends:
+    , ansi-diff
+    , bytestring
+    , deepseq
+    , Diff           ^>=0.5
+    , directory
+    , edit-distance
+    , filepath
+    , tasty-bench
+    , text
+    , text-metrics
+
+test-suite ansi-diff-test
+  import:         lang
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        ansi-diff-test.hs
+  build-depends:
+    , ansi-diff
+    , base
+    , edit-distance
+    , QuickCheck
+    , tasty
+    , tasty-quickcheck
+
+-- cabal run ansi-diff:test:ansi-diff -- ansi-diff/fixtures/primitive_types.hs.old.txt ansi-diff/fixtures/primitive_types.hs.new.txt
+-- cabal run ansi-diff:test:ansi-diff -- ansi-diff/fixtures/primitive_types.th.old.txt ansi-diff/fixtures/primitive_types.th.new.txt
+test-suite ansi-diff
+  import:         lang
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: exe
+  main-is:        ansi-diff.hs
+  build-depends:
+    , ansi-diff
+    , base
+    , bytestring
+    , utf8-string
