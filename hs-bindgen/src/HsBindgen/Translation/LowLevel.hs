@@ -71,8 +71,9 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 structDecs :: forall n f.
      SNatI n
   => C.Struct -> Vec n C.StructField -> List Hs.Decl f
-structDecs struct fields = List [
-      Hs.DeclInstance $ Hs.InstanceStorable storable
+structDecs struct fields = List
+    [ Hs.DeclData $ Hs.WithStruct hs Hs.MkDataDecl
+    , Hs.DeclInstance $ Hs.InstanceStorable storable
     ]
   where
     hs :: Hs.Struct n

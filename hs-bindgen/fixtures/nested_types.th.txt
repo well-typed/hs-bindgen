@@ -1,3 +1,4 @@
+data foo
 instance Storable foo
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
@@ -5,6 +6,7 @@ instance Storable foo
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {Mkfoo i_3
                                          c_4 -> pokeByteOff x_1 0 i_3 >> pokeByteOff x_1 32 c_4}}
+data bar
 instance Storable bar
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;

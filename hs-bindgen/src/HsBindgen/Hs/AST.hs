@@ -26,6 +26,7 @@ module HsBindgen.Hs.AST (
     -- * Declarations
   , Decl(..)
   , InstanceDecl(..)
+  , DataDecl(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -83,7 +84,8 @@ data Ap a b f = Ap (b f) [a f]
 -- | Top-level declaration
 type Decl :: PHOAS
 data Decl f =
-    DeclInstance (InstanceDecl f)
+    DeclData (WithStruct DataDecl f)
+  | DeclInstance (InstanceDecl f)
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
 
@@ -91,6 +93,11 @@ data Decl f =
 type InstanceDecl :: PHOAS
 data InstanceDecl f =
     InstanceStorable (WithStruct StorableInstance f)
+  deriving stock (GHC.Generic)
+  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+type DataDecl :: Nat -> PHOAS
+data DataDecl n f = MkDataDecl
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
 
@@ -168,6 +175,7 @@ data ElimStruct n a f = ElimStruct (Struct n) (Vec n (f Bound) -> a f)
 -------------------------------------------------------------------------------}
 
 deriving anyclass instance ShowOpen (Decl Unique)
+deriving anyclass instance SNatI n => ShowOpen (DataDecl n Unique)
 deriving anyclass instance ShowOpen (InstanceDecl Unique)
 deriving anyclass instance ShowOpen (PeekByteOff Unique)
 deriving anyclass instance ShowOpen (PokeByteOff Unique)

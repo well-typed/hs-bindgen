@@ -1,3 +1,4 @@
+data primitive
 instance Storable primitive
     where {sizeOf = \_ -> 176;
            alignment = \_ -> 16;
