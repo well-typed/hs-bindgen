@@ -10,12 +10,12 @@ main :: IO ()
 main = defaultMain $ testGroup "ansi-diff"
     [ testProperty "metric-less-edit-distance" $ \xs ys ->
         let n = ED.levenshteinDistance ED.defaultEditCosts xs ys
-            m = fst (AnsiDiff.metric xs ys)
+            m = AnsiDiff.metric xs ys
         in counterexample (show (n, m)) $ m <= n
 
     , testProperty "metric-zero" $ \xs ys ->
         let n = ED.levenshteinDistance ED.defaultEditCosts xs ys
-            m = fst (AnsiDiff.metric xs ys)
+            m = AnsiDiff.metric xs ys
             f x = compare x 0
         in f n === f m
     ]
