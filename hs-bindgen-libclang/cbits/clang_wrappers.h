@@ -294,8 +294,16 @@ static inline void wrap_getTypedefName(const CXType* CT, CXString* result) {
     *result = clang_getTypedefName(*CT);
 }
 
+/**
+ * Call `clang_getUnqualifiedType`
+ *
+ * This function does not exist in versions before Clang 16.  This function acts
+ * as a no-op in that case, and `result` should not be used.
+ */
 static inline void wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
-    *result = clang_getUnqualifiedType(*CT);
+    #if CINDEX_VERSION_MINOR >= 63
+        *result = clang_getUnqualifiedType(*CT);
+    #endif
 }
 
 static inline void wrap_getTypeDeclaration(const CXType* T, CXCursor* result) {
