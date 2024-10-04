@@ -87,7 +87,7 @@ See https://ghc.gitlab.haskell.org/ghc/doc/users_guide/utils.html#writing-haskel
 
 The main point of `c2hs` is to allow users to write _high level_ bindings in
 a more convenient manner, by providing for certain types of abstractions.
-For example, where with `c2hs` or manual bindings, we end up having to write
+For example, where with `hsc2hs` or manual bindings, we end up having to write
 
 ```haskell
 alloca $ \ptr -> do
@@ -95,7 +95,7 @@ alloca $ \ptr -> do
   cShowStruct ptr
 ```
 
-but with `hsc2hs` we can capture this pattern
+but with `c2hs` we can capture this pattern
 
 ```haskell
 withAlloca :: Storable a => a -> (Ptr () -> IO r) -> IO r
