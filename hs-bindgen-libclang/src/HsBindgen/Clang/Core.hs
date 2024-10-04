@@ -161,9 +161,11 @@ module HsBindgen.Clang.Core (
   , clang_getFileName
     -- * Exceptions
   , CallFailed(..)
-  , Unsupported(..)
+  , ClangVersionError(..)
+  , InvalidCXTypeError(..)
   ) where
 
+import Control.Exception
 import Control.Monad
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -180,6 +182,7 @@ import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.FFI
 import HsBindgen.Clang.Internal.Results
+import HsBindgen.Clang.Version
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -978,10 +981,7 @@ foreign import capi unsafe "clang_wrappers.h"
   wrap_getTypedefName :: R CXType_ -> W CXString_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h"
-  wrap_getUnqualifiedType ::
-       R CXType_
-    -> W CXType_
-    -> IO (SimpleEnum WrapperResult)
+  wrap_getUnqualifiedType :: R CXType_ -> W CXType_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h"
   wrap_getTypeDeclaration :: R CXType_ -> W CXCursor_ -> IO ()
@@ -1168,13 +1168,22 @@ clang_getTypedefName arg =
 -- false for all of the above calls.
 --
 -- Throws 'CallFailed' if the argument is an invalid type.
--- /NOTE/: Requires @llvm-16@ or higher; throws 'Unsupported' otherwise.
+--
+-- /NOTE/: Requires @llvm-16@ or higher; throws 'ClangVersionError' otherwise.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8adac28955bf2f3a5ab1fd316a498334>
 clang_getUnqualifiedType :: CXType -> IO CXType
-clang_getUnqualifiedType typ = checkWrapperResult $
-    onHaskellHeap typ $ \typ' ->
-      preallocate $ wrap_getUnqualifiedType typ'
+clang_getUnqualifiedType typ
+    | clangVersion < Clang16 = do
+        stack <- collectBacktrace
+        throwIO $ ClangVersionError Clang16Required stack
+    | fromSimpleEnum (cxtKind typ) == Right CXType_Invalid = do
+        -- clang_getUnqualifiedType segfaults when CT is invalid
+        stack <- collectBacktrace
+        throwIO $ InvalidCXTypeError stack
+    | otherwise =
+        onHaskellHeap typ $ \typ' ->
+          preallocate_ $ wrap_getUnqualifiedType typ'
 
 -- | Return the cursor for the declaration of the given type.
 --

@@ -12,18 +12,20 @@ module HsBindgen.Clang.Internal.Results (
   , ensureNotNull
   , checkNotNull
   , ensureNotInRange
-    -- * Check wrapper result
-  , Unsupported(..)
-  , checkWrapperResult
+    -- * Clang version error
+  , ClangVersionRequirement(..)
+  , ClangVersionError(..)
+    -- * Invalid CXType error
+  , InvalidCXTypeError(..)
   ) where
 
 import Control.Exception
 import Data.Coerce
 import Data.Typeable
 import Foreign
+import GHC.Generics (Generic)
 import GHC.Stack
 
-import HsBindgen.Clang.Core.Enums (WrapperResult(..))
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Patterns
 
@@ -104,28 +106,35 @@ ensureNotInRange = ensureOn conv (not . simpleEnumInRange)
     conv = coerceSimpleEnum . fromIntegral
 
 {-------------------------------------------------------------------------------
-  Check wrapper result
+  Clang version error
 -------------------------------------------------------------------------------}
 
-data Unsupported = Unsupported (SimpleEnum WrapperResult) Backtrace
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace Unsupported
+-- | Clang version requirement
+data ClangVersionRequirement =
+    ClangTooOld     -- ^ Clang is too old (older than version 11)
+  | Clang11Required -- ^ We need at least Clang version 11
+  | Clang12Required -- ^ We need at least Clang version 12
+  | Clang13Required -- ^ We need at least Clang version 13
+  | Clang14Required -- ^ We need at least Clang version 14
+  | Clang15Required -- ^ We need at least Clang version 15
+  | Clang16Required -- ^ We need at least Clang version 16
+  | Clang17Required -- ^ We need at least Clang version 17
+  | Clang18Required -- ^ We need at least Clang version 18
+  deriving stock (Show, Eq, Enum, Bounded, Generic)
 
--- | Check wrapper result
---
--- Throws 'CallFailed' on 'WrapperFailed', and 'Unsupported' if the version of
--- LLVM is unsupported.
-checkWrapperResult :: HasCallStack => IO (a, SimpleEnum WrapperResult) -> IO a
-checkWrapperResult f = do
-    (result, mSupported) <- f
-    case fromSimpleEnum mSupported of
-      Right WrapperOk ->
-        return result
-      Right WrapperFailed ->
-        callFailed mSupported
-      _otherwise -> do
-        stack <- collectBacktrace
-        throwIO $ Unsupported mSupported stack
+-- | The version of Clang being used is not supported
+data ClangVersionError = ClangVersionError ClangVersionRequirement Backtrace
+  deriving stock (Show)
+  deriving Exception via CollectedBacktrace ClangVersionError
+
+{-------------------------------------------------------------------------------
+  Invalid CXType error
+-------------------------------------------------------------------------------}
+
+-- | Haskell-side invalid type error
+data InvalidCXTypeError = InvalidCXTypeError Backtrace
+  deriving stock (Show)
+  deriving Exception via CollectedBacktrace InvalidCXTypeError
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
