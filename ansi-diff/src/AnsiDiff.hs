@@ -1,12 +1,9 @@
 module AnsiDiff (
     ansidiff,
-    -- * Implementation bits
-    metric,
 ) where
 
 import Control.Monad (forM_)
 import Control.Monad.ST (ST)
-import Data.Foldable (foldl')
 import Data.Primitive.Types (Prim)
 import Data.Primitive.Array
 import Data.Primitive.PrimArray
@@ -73,9 +70,27 @@ alignment xs' ys' = do
         forM_ [0..xn-1] $ \i -> forM_ [0..yn-1] $ \j -> do
             let xc = indexArray xs i
             let yc = indexArray ys j
-            -- here we use edit-distance, because all the strings we are comparing are different,
-            -- potentially a lot. Thus we care about worse case performance.
-            writePrimArray arr (i + j * xn) $ fromIntegral (ED.levenshteinDistance ED.defaultEditCosts xc yc) / fromIntegral (max (length xc) (length yc))
+            let xm = length xc
+            let ym = length yc
+            let mi = min xm ym
+            let ma = max xm ym
+
+            let r :: Double
+                !r | ma == 0 = 0
+                   | mi == 0 = 1
+
+                    -- a lower bound of edit-distance,
+                    -- if it's not satisfying a predicate for inter-line diff,
+                    -- just use it instead of calculating proper edit-distance
+                    -- (see tests)
+                   | let lb = fromIntegral (ma - mi) / fromIntegral ma
+                   , not (predicate lb) = lb
+
+                    -- here we use edit-distance, because all the strings we are comparing are different,
+                    -- potentially a lot. Thus we care about worse case performance i.e. O (nm) is the same as O(nd).
+                   | otherwise = fromIntegral (ED.levenshteinDistance ED.defaultEditCosts xc yc) / fromIntegral ma
+
+            writePrimArray arr (i + j * xn) r
 
     indexDiff :: Int -> Int -> Double
     indexDiff i j = indexPrimArray diffs (i + j * xn)
@@ -246,33 +261,6 @@ chunks (Diff.First x  : ds) = consL (chunks ds) where
 chunks (Diff.Second y : ds) = consR (chunks ds) where
     consR (Diff xs ys : ds') = Diff xs (y : ys) : ds'
     consR ds'                = Diff [] [y] : ds'
-
--------------------------------------------------------------------------------
--- metric
--------------------------------------------------------------------------------
-
--- | A edit-distance like metric.
---
--- This is not Levenshtein, but related metric.
--- The result is less or equal to an ordinary Levenshtein metric,
--- but is zero iff Levenshtein distance is zero.
---
--- This is a lot faster than @edit-distance@ or @text-metrics@  metric.
---
-metric :: Eq a => [a] -> [a] -> Int
-metric xs ys = case metric' (Diff.getDiff xs ys) of
-    Int3 k i d -> max i d - k
-
-metric' :: [Diff.PolyDiff a b] -> Int3
-metric' ds = Data.Foldable.foldl' f (Int3 0 0 0) ds
-  where
-    f :: Int3 -> Diff.PolyDiff a b -> Int3
-    f (Int3 k i d) (Diff.Both _ _) = (Int3 (k + 1) (i + 1) (d + 1))
-    f (Int3 k i d) (Diff.First _)  = (Int3 k (i + 1) d)
-    f (Int3 k i d) (Diff.Second _) = (Int3 k i (d + 1))
-
-data Int3 = Int3 !Int !Int !Int
-  deriving Show
 
 -------------------------------------------------------------------------------
 -- ANSI helpers
