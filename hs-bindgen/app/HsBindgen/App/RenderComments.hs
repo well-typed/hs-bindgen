@@ -17,16 +17,16 @@ import HsBindgen.C.AST
 -------------------------------------------------------------------------------}
 
 -- | Generate HTML page with comments
-renderComments :: Forest (SourceLoc, Text, Maybe Text) -> Html
+renderComments :: Forest (MultiLoc, Text, Maybe Text) -> Html
 renderComments comments = H.docTypeHtml $
     H.body $ do
       mapM_ renderNode comments
 
-renderNode :: Tree (SourceLoc, Text, Maybe Text) -> Html
+renderNode :: Tree (MultiLoc, Text, Maybe Text) -> Html
 renderNode (Node (sourceLoc, name, mComment) children) = do
     H.b $ Blaze.text name
     " ("
-    toMarkup sourceLoc
+    toMarkup (multiLocExpansion sourceLoc)
     ")"
     mapM_ Blaze.text mComment
     H.div ! A.style "margin-left: 1em;" $ do
@@ -35,10 +35,10 @@ renderNode (Node (sourceLoc, name, mComment) children) = do
 instance ToMarkup SourcePath where
   toMarkup = Blaze.text . getSourcePath
 
-instance ToMarkup SourceLoc where
-  toMarkup SourceLoc{sourceLocFile, sourceLocLine, sourceLocColumn} = do
-      toMarkup sourceLocFile
+instance ToMarkup SingleLoc where
+  toMarkup SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
+      toMarkup singleLocPath
       ":"
-      toMarkup sourceLocLine
+      toMarkup singleLocLine
       ":"
-      toMarkup sourceLocColumn
+      toMarkup singleLocColumn

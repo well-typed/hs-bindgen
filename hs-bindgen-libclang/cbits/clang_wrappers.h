@@ -217,6 +217,10 @@ static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* 
     *result = clang_getCursorKindSpelling(Kind);
 }
 
+static inline CXTranslationUnit wrap_Cursor_getTranslationUnit(const CXCursor* cursor) {
+    return clang_Cursor_getTranslationUnit(*cursor);
+}
+
 /**
  * Traversing the AST with cursors
  *
@@ -419,8 +423,24 @@ static inline void wrap_getExpansionLocation(const CXSourceLocation* location, C
     clang_getExpansionLocation(*location, file, line, column, offset);
 }
 
+static inline void wrap_getPresumedLocation(const CXSourceLocation* location, CXString* filename, unsigned* line, unsigned* column) {
+    clang_getPresumedLocation(*location, filename, line, column);
+}
+
 static inline void wrap_getSpellingLocation(const CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
     clang_getSpellingLocation(*location, file, line, column, offset);
+}
+
+static inline void wrap_getFileLocation(const CXSourceLocation* location, CXFile* file, unsigned* line, unsigned* column, unsigned* offset) {
+    clang_getFileLocation(*location, file, line, column, offset);
+}
+
+static inline void wrap_getLocation(CXTranslationUnit tu, CXFile file, unsigned line, unsigned column, CXSourceLocation* result) {
+    *result = clang_getLocation(tu, file, line, column);
+}
+
+static inline void wrap_getRange(const CXSourceLocation* begin, const CXSourceLocation* end, CXSourceRange* result) {
+    *result = clang_getRange(*begin, *end);
 }
 
 static inline int wrap_Location_isFromMainFile(const CXSourceLocation* location) {
@@ -447,5 +467,11 @@ static inline char* wrap_getCString(const CXString* string) {
 static inline void wrap_disposeString(const CXString* string) {
     clang_disposeString(*string);
 }
+
+/**
+ * Debugging
+ */
+
+void clang_breakpoint(void);
 
 #endif

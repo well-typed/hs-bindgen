@@ -142,8 +142,8 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
             mkDecl types = error $ "mkTypedef: unexpected " ++ show types
         return $ Recurse (foldTyp tracer unit) mkDecl
       Right CXCursor_MacroDefinition -> do
-        range  <- clang_getCursorExtent current
-        tokens <- Tokens.clang_tokenize unit range
+        range  <- SourceLoc.clang_getCursorExtent current
+        tokens <- Tokens.clang_tokenize unit (multiLocExpansion <$> range)
         let decl :: Decl
             decl = DeclMacro $ Macro.parse tokens
         return $ Continue $ Just decl
@@ -167,15 +167,11 @@ checkPredicate tracer p k parent current = do
 -------------------------------------------------------------------------------}
 
 -- | Parse struct
---
--- Implementation note: It seems libclang will give us a name for the struct if
--- the struct it a tag, but also when it's anonymous but the surrounding typedef
--- has a name.
 parseStruct :: CXTranslationUnit -> CXCursor -> IO ([StructField] -> Struct)
-parseStruct unit current = do
+parseStruct _unit current = do
     cursorType      <- clang_getCursorType current
     structTag       <- fmap CName . getUserProvided <$>
-                         getUserProvidedName unit current
+                         getUserProvidedName current
     structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
@@ -201,10 +197,10 @@ foldStructFields tracer _parent current = do
 -------------------------------------------------------------------------------}
 
 parseEnum :: CXTranslationUnit -> CXCursor -> IO ([EnumValue] -> Enu)
-parseEnum unit current = do
+parseEnum _unit current = do
     cursorType    <- clang_getCursorType current
     enumTag       <- fmap CName . getUserProvided <$>
-                       getUserProvidedName unit current
+                       getUserProvidedName current
     enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
@@ -235,10 +231,6 @@ foldEnumValues tracer _parent current = do
 -------------------------------------------------------------------------------}
 
 -- | Parse type
---
--- If we encounter an unrecognized type, we return 'Nothing' and issue a
--- warning. The warning is ussed here, rather than at the call site, because
--- 'parseType' is recursive.
 parseType :: Tracer IO ParseMsg -> CXType -> IO Typ
 parseType _tracer = go
   where
@@ -309,6 +301,7 @@ primType (Right kind) =
 -- | An element in the @libclang@ AST
 data Element = Element {
       elementName         :: !(UserProvided Text)
+    , elementLocation     :: !(Range MultiLoc)
     , elementKind         :: !Text
     , elementTypeKind     :: !Text
     , elementRawComment   :: !Text
@@ -333,22 +326,24 @@ data Element = Element {
 --
 -- to see the AST under the @struct@ parent node.
 foldClangAST :: Predicate -> CXTranslationUnit -> Fold (Tree Element)
-foldClangAST p unit = checkPredicate nullTracer p go
+foldClangAST p _unit = checkPredicate nullTracer p go
   where
     go :: Fold (Tree Element)
     go _parent current = do
-        elementName         <- getUserProvidedName unit       current
+        elementName         <- getUserProvidedName             current
+        elementLocation     <- SourceLoc.clang_getCursorExtent current
         elementKind         <- clang_getCursorKindSpelling =<<
-                                          clang_getCursorKind current
+                                          clang_getCursorKind  current
         elementTypeKind     <- clang_getTypeKindSpelling . cxtKind =<<
-                                          clang_getCursorType current
-        elementRawComment   <- clang_Cursor_getRawCommentText current
-        elementIsAnonymous  <- clang_Cursor_isAnonymous       current
-        elementIsDefinition <- clang_isCursorDefinition       current
+                                          clang_getCursorType  current
+        elementRawComment   <- clang_Cursor_getRawCommentText  current
+        elementIsAnonymous  <- clang_Cursor_isAnonymous        current
+        elementIsDefinition <- clang_isCursorDefinition        current
 
         let element :: Element
             element = Element {
                 elementName
+              , elementLocation
               , elementKind
               , elementTypeKind
               , elementRawComment
@@ -364,10 +359,10 @@ foldClangAST p unit = checkPredicate nullTracer p go
 foldComments ::
      Predicate
   -> CXTranslationUnit
-  -> Fold (Tree (SourceLoc, Text, Maybe Text))
+  -> Fold (Tree (MultiLoc, Text, Maybe Text))
 foldComments p _unit = checkPredicate nullTracer p go
   where
-    go :: Fold (Tree (SourceLoc, Text, Maybe Text))
+    go :: Fold (Tree (MultiLoc, Text, Maybe Text))
     go _parent current = do
         sourceLoc   <- SourceLoc.clang_getCursorLocation current
         name        <- clang_getCursorSpelling current
@@ -390,7 +385,7 @@ data ParseMsg =
     --
     -- We record the name and location of the element, as well as the reason we
     -- skipped it.
-    Skipped Text SourceLoc String
+    Skipped Text MultiLoc String
 
     -- | Skipped unrecognized cursor
   | UnrecognizedCursor CallStack (SimpleEnum CXCursorKind)

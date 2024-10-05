@@ -98,6 +98,8 @@ module HsBindgen.Clang.Core (
   , clang_getCursorLexicalParent
   , clang_getCursorKind
   , clang_getCursorKindSpelling
+  , clang_Cursor_getTranslationUnit
+  , clang_isDeclaration
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , clang_visitChildren
@@ -152,13 +154,21 @@ module HsBindgen.Clang.Core (
   , index_CXCursorArray
     -- * Physical source locations
   , CXSourceLocation
+  , CXFile
   , clang_getRangeStart
   , clang_getRangeEnd
   , clang_getExpansionLocation
+  , clang_getPresumedLocation
   , clang_getSpellingLocation
+  , clang_getFileLocation
+  , clang_getLocation
+  , clang_getRange
+  , clang_getFile
   , clang_Location_isFromMainFile
     -- * File manipulation routines
   , clang_getFileName
+    -- * Debugging
+  , clang_breakpoint
     -- * Exceptions
   , CallFailed(..)
   , Unsupported(..)
@@ -610,6 +620,12 @@ foreign import capi unsafe "clang_wrappers.h wrap_getCursorKind"
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
   wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()
 
+foreign import capi unsafe "wrap_Cursor_getTranslationUnit"
+  wrap_Cursor_getTranslationUnit :: R CXCursor_ -> IO CXTranslationUnit
+
+foreign import capi unsafe "clang-c/Index.h clang_isDeclaration"
+  nowrapper_isDeclaration :: SimpleEnum CXCursorKind -> IO CUInt
+
 -- | Retrieve the cursor that represents the given translation unit.
 --
 -- The translation unit cursor can be used to start traversing the various
@@ -721,6 +737,20 @@ clang_getCursorKind cursor =
 clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO Text
 clang_getCursorKindSpelling kind =
     preallocate_ $ wrap_getCursorKindSpelling kind
+
+-- | Returns the translation unit that a cursor originated from.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga529f1504710a41ce358d4e8c3161848d>
+clang_Cursor_getTranslationUnit :: CXCursor -> IO (Maybe CXTranslationUnit)
+clang_Cursor_getTranslationUnit cursor = checkNotNull $
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_Cursor_getTranslationUnit cursor'
+
+-- | Determine whether the given cursor kind represents a declaration.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga660aa4846fce0a54e20073ab6a5465a0>
+clang_isDeclaration :: SimpleEnum CXCursorKind -> IO Bool
+clang_isDeclaration kind = cToBool <$> nowrapper_isDeclaration kind
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -1031,12 +1061,11 @@ clang_getTypeSpelling typ = ensure (not . Text.null) $
 
 -- | Retrieve the underlying type of a typedef declaration.
 --
--- If the cursor does not reference a typedef declaration, an invalid type is
--- returned.
+-- Throws 'CallFailed' if the cursor does not reference a typedef declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8de899fc18dc859b6fe3b97309f4fd52>
 clang_getTypedefDeclUnderlyingType :: CXCursor -> IO CXType
-clang_getTypedefDeclUnderlyingType cursor =
+clang_getTypedefDeclUnderlyingType cursor = ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getTypedefDeclUnderlyingType cursor'
 
@@ -1190,10 +1219,9 @@ clang_getTypeDeclaration typ =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac6d90c2acdae77f75d8e8288658da463>
 clang_Type_getNamedType :: HasCallStack => CXType -> IO CXType
-clang_Type_getNamedType typ =
-    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
-      onHaskellHeap typ $ \typ' ->
-        preallocate_ $ wrap_Type_getNamedType typ'
+clang_Type_getNamedType typ = ensureValidType $
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_Type_getNamedType typ'
 
 -- | Return the type that was modified by this attributed type.
 --
@@ -1201,10 +1229,9 @@ clang_Type_getNamedType typ =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6fc6ec9bfd9baada2d3fd6022d774675>
 clang_Type_getModifiedType :: HasCallStack => CXType -> IO CXType
-clang_Type_getModifiedType typ =
-    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
-      onHaskellHeap typ $ \typ' ->
-        preallocate_ $ wrap_Type_getModifiedType typ'
+clang_Type_getModifiedType typ = ensureValidType $
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_Type_getModifiedType typ'
 
 -- | Gets the type contained by this atomic type.
 --
@@ -1212,10 +1239,9 @@ clang_Type_getModifiedType typ =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gae42d9886e0e221df03c4a518d9afb622>
 clang_Type_getValueType :: HasCallStack => CXType -> IO CXType
-clang_Type_getValueType typ =
-    ensureOn (fromSimpleEnum . cxtKind) (/= Right CXType_Invalid) $
-      onHaskellHeap typ $ \typ' ->
-        preallocate_ $ wrap_Type_getValueType typ'
+clang_Type_getValueType typ = ensureValidType $
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_Type_getValueType typ'
 
 {-------------------------------------------------------------------------------
   Mapping between cursors and source code
@@ -1431,33 +1457,104 @@ foreign import capi unsafe "clang_wrappers.h wrap_getRangeStart"
 foreign import capi unsafe "clang_wrappers.h wrap_getRangeEnd"
   wrap_getRangeEnd :: R CXSourceRange_ -> W CXSourceLocation_ -> IO ()
 
-foreign import capi "clang_wrappers.h wrap_getExpansionLocation"
+foreign import capi unsafe "clang_wrappers.h wrap_getExpansionLocation"
   wrap_getExpansionLocation ::
        R CXSourceLocation_
-       -- ^ the location within a source file that will be decomposed into its parts.
+       -- ^ the location within a source file that will be decomposed into its
+       -- parts.
     -> Ptr CXFile
-       -- ^ [out] if non-NULL, will be set to the file to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the file to which the given source
+       -- location points.
     -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the line to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the line to which the given source
+       -- location points.
     -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the column to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the column to which the given
+       -- source location points.
     -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the offset into the buffer to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the offset into the buffer to
+       -- which the given source location points.
     -> IO ()
 
-foreign import capi "clang_wrappers.h wrap_getSpellingLocation"
+foreign import capi unsafe "clang_wrappers.h wrap_getPresumedLocation"
+  wrap_getPresumedLocation ::
+       R CXSourceLocation_
+       -- ^ the location within a source file that will be decomposed into its
+       -- parts.
+    -> W CXString_
+       -- ^ [out] if non-NULL, will be set to the filename of the source
+       -- location.
+       --
+       -- Note that filenames returned will be for "virtual" files, which don't
+       -- necessarily exist on the machine running clang - e.g. when parsing
+       -- preprocessed output obtained from a different environment. If a
+       -- non-NULL value is passed in, remember to dispose of the returned value
+       -- using clang_disposeString() once you've finished with it. For an
+       -- invalid source location, an empty string is returned.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the line number of the source
+       -- location. For an invalid source location, zero is returned.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the column number of the source
+       -- location. For an invalid source location, zero is returned.
+    -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getSpellingLocation"
   wrap_getSpellingLocation ::
        R CXSourceLocation_
-       -- ^ the location within a source file that will be decomposed into its parts.
+       -- ^ the location within a source file that will be decomposed into its
+       -- parts.
     -> Ptr CXFile
-       -- ^ [out] if non-NULL, will be set to the file to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the file to which the given source
+       -- location points.
     -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the line to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the line to which the given source
+       -- location points.
     -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the column to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the column to which the given
+       -- source location points.
     -> Ptr CUInt
-       -- ^ [out] if non-NULL, will be set to the offset into the buffer to which the given source location points.
+       -- ^ [out] if non-NULL, will be set to the offset into the buffer to
+       -- which the given source location points.
     -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getFileLocation"
+  wrap_getFileLocation ::
+       R CXSourceLocation_
+       -- ^ the location within a source file that will be decomposed into its
+       -- parts.
+    -> Ptr CXFile
+       -- ^ [out] if non-NULL, will be set to the file to which the given source
+       -- location points.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the line to which the given source
+       -- location points.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the column to which the given
+       -- source location points.
+    -> Ptr CUInt
+       -- ^ [out] if non-NULL, will be set to the offset into the buffer to
+       -- which the given source location points.
+    -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getLocation"
+  wrap_getLocation ::
+       CXTranslationUnit
+    -> CXFile
+    -> CUInt
+    -> CUInt
+    -> W CXSourceLocation_
+    -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getRange"
+  wrap_getRange ::
+       R CXSourceLocation_
+    -> R CXSourceLocation_
+    -> W CXSourceRange_
+    -> IO ()
+
+foreign import capi unsafe "clang-c/Index.h clang_getFile"
+  nowrapper_getFile :: CXTranslationUnit -> CString -> IO CXFile
 
 foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
   wrap_Location_isFromMainFile :: R CXSourceLocation_ -> IO CInt
@@ -1486,20 +1583,54 @@ clang_getRangeEnd range =
 -- If the location refers into a macro expansion, retrieves the location of the
 -- macro expansion.
 --
--- Returns the file, line, column and offset into the buffer.
+-- NOTE: this replaces @clang_getInstantiationLocation@ (now legacy).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gadee4bea0fa34550663e869f48550eb1f>
 clang_getExpansionLocation ::
      CXSourceLocation
   -> IO (CXFile, CUInt, CUInt, CUInt)
 clang_getExpansionLocation location =
-     onHaskellHeap location $ \location' ->
-       alloca $ \file ->
-       alloca $ \line ->
-       alloca $ \column ->
-       alloca $ \offset -> do
-         wrap_getExpansionLocation location' file line column offset
-         (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
+    onHaskellHeap location $ \location' ->
+      alloca $ \file ->
+      alloca $ \line ->
+      alloca $ \column ->
+      alloca $ \offset -> do
+        wrap_getExpansionLocation location' file line column offset
+        (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
+
+-- | Retrieve the file, line and column represented by the given source
+-- location, as specified in a @#line@ directive.
+--
+-- Note that filenames returned will be for "virtual" files, which don't
+-- necessarily exist on the machine running clang - e.g. when parsing
+-- preprocessed output obtained from a different environment.
+--
+-- Example: given the following source code in a file somefile.c
+--
+-- > #123 "dummy.c" 1
+-- >
+-- > static int func(void)
+-- > {
+-- >     return 0;
+-- > }
+--
+-- the location information returned by this function would be
+--
+-- > File: dummy.c Line: 124 Column: 12
+--
+-- whereas 'clang_getExpansionLocation' would have returned
+--
+-- > File: somefile.c Line: 3 Column: 12
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga03508d9c944feeb3877515a1b08d36f9>
+clang_getPresumedLocation :: CXSourceLocation -> IO (Text, CUInt, CUInt)
+clang_getPresumedLocation location =
+    onHaskellHeap location $ \location' ->
+      alloca $ \line ->
+      alloca $ \column -> do
+        filename' <- preallocate_ $ \filename ->
+          wrap_getPresumedLocation location' filename line column
+        (filename',,) <$> peek line <*> peek column
 
 -- | Retrieve the file, line, column, and offset represented by the given source
 -- location.
@@ -1507,20 +1638,71 @@ clang_getExpansionLocation location =
 -- If the location refers into a macro instantiation, return where the location
 -- was originally spelled in the source file.
 --
--- See also 'clang_getExpansionLocation'.
---
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga01f1a342f7807ea742aedd2c61c46fa0>
 clang_getSpellingLocation ::
      CXSourceLocation
   -> IO (CXFile, CUInt, CUInt, CUInt)
 clang_getSpellingLocation location =
-     onHaskellHeap location $ \location' ->
-       alloca $ \file ->
-       alloca $ \line ->
-       alloca $ \column ->
-       alloca $ \offset -> do
-         wrap_getSpellingLocation location' file line column offset
-         (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
+    onHaskellHeap location $ \location' ->
+      alloca $ \file ->
+      alloca $ \line ->
+      alloca $ \column ->
+      alloca $ \offset -> do
+        wrap_getSpellingLocation location' file line column offset
+        (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
+
+-- | Retrieve the file, line, column, and offset represented by the given source
+-- location.
+--
+-- If the location refers into a macro expansion, return where the macro was
+-- expanded or where the macro argument was written, if the location points at a
+-- macro argument.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gae0ee9ff0ea04f2446832fc12a7fd2ac8>
+clang_getFileLocation ::
+     CXSourceLocation
+  -> IO (CXFile, CUInt, CUInt, CUInt)
+clang_getFileLocation location =
+    onHaskellHeap location $ \location' ->
+      alloca $ \file ->
+      alloca $ \line ->
+      alloca $ \column ->
+      alloca $ \offset -> do
+        wrap_getFileLocation location' file line column offset
+        (,,,) <$> peek file <*> peek line <*> peek column <*> peek offset
+
+-- | Retrieves the source location associated with a given file/line/column in a
+-- particular translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga86d822034407d60d9e1f36e07cbc0f67>
+clang_getLocation ::
+     CXTranslationUnit
+  -> CXFile
+  -> CUInt   -- ^ Line
+  -> CUInt   -- ^ Column
+  -> IO CXSourceLocation
+clang_getLocation unit file line col =
+    preallocate_ $ wrap_getLocation unit file line col
+
+-- | Retrieve a source range given the beginning and ending source locations.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga4e2b6d439f72fdee12c2e4dcf4ff1e2f>
+clang_getRange :: CXSourceLocation -> CXSourceLocation -> IO CXSourceRange
+clang_getRange begin end =
+    onHaskellHeap begin $ \begin' ->
+    onHaskellHeap end   $ \end' ->
+      preallocate_ $ wrap_getRange begin' end'
+
+-- | Retrieve a file handle within the given translation unit.
+--
+-- Returns the file handle for the named file in the translation unit.
+-- Throws 'CallFailed' if the file was not a part of this translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaa0554e2ea48ecd217a29314d3cbd2085>
+clang_getFile :: CXTranslationUnit -> Text -> IO CXFile
+clang_getFile unit file = ensureNotNull $
+    withCString (Text.unpack file) $ \file' ->
+      nowrapper_getFile unit file'
 
 -- | Check if the given source location is in the main file of the corresponding
 -- translation unit.
@@ -1545,3 +1727,34 @@ foreign import capi "clang_wrappers.h wrap_getFileName"
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
 clang_getFileName :: CXFile -> IO Text
 clang_getFileName file = preallocate_$ wrap_getFileName file
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+-- | Debugging breakpoint hook
+--
+-- Every call to @clang_breakpoint@ prints
+--
+-- > clang_breakpoint: <count>
+--
+-- to @stderr@, for an ever increasing @<count>@ (starting at 1). This is useful
+-- for debugging; for example, if you want a breakpoint on the 13th invocation:
+--
+-- > break clang_breakpoint
+-- > ignore 1 12
+foreign import capi "clang_wrappers.h clang_breakpoint"
+  clang_breakpoint :: IO ()
+
+{-------------------------------------------------------------------------------
+  Auxiliary
+-------------------------------------------------------------------------------}
+
+ensureValidType :: HasCallStack => IO CXType -> IO CXType
+ensureValidType = ensure (aux . fromSimpleEnum . cxtKind)
+  where
+    aux :: Either CInt CXTypeKind -> Bool
+    aux (Left _)               = False
+    aux (Right CXType_Invalid) = False
+    aux _otherwise             = True
+

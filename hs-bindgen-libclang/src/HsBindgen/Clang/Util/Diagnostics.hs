@@ -11,7 +11,7 @@ import Data.Text qualified as Text
 import Foreign.C
 
 import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.SourceLoc (SourceLoc, SourceRange)
+import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Patterns
 
@@ -27,7 +27,7 @@ data Diagnostic = Diagnostic {
     , diagnosticSeverity :: SimpleEnum CXDiagnosticSeverity
 
       -- | Source location (where Clang would print the caret @^@)
-    , diagnosticLocation  :: SourceLoc
+    , diagnosticLocation  :: MultiLoc
 
       -- | Text of the diagnostic
     , diagnosticSpelling  :: Text
@@ -49,7 +49,7 @@ data Diagnostic = Diagnostic {
       -- A diagnostic's source ranges highlight important elements in the source
       -- code. On the command line, Clang displays source ranges by underlining
       -- them with @~@ characters.
-    , diagnosticRanges :: [SourceRange]
+    , diagnosticRanges :: [Range MultiLoc]
 
       -- | Fix-it hints
     , diagnosticFixIts :: [FixIt]
@@ -76,7 +76,7 @@ data FixIt = FixIt {
       -- replaced with the returned replacement string. Note that source ranges
       -- are half-open ranges [a, b), so the source code should be replaced from
       -- a and up to (but not including) b.
-      fixItRange :: SourceRange
+      fixItRange :: Range MultiLoc
 
       -- | Text that should replace the source code
     , fixItReplacement :: Text

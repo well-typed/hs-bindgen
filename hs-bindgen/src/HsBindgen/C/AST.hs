@@ -41,8 +41,9 @@ module HsBindgen.C.AST (
   , TokenSpelling(..)
     -- * Source locations
   , SourcePath(..)
-  , SourceLoc(..)
-  , SourceRange(..)
+  , SingleLoc(..)
+  , MultiLoc(..)
+  , Range(..)
   ) where
 
 import GHC.Generics (Generic)
@@ -53,8 +54,8 @@ import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.C.Parser.Macro (UnrecognizedMacro(..))
-import HsBindgen.Clang.Util.SourceLoc
 import HsBindgen.Clang.Util.Tokens
+import HsBindgen.Clang.Util.SourceLoc.Type
 
 {-------------------------------------------------------------------------------
   Top-level

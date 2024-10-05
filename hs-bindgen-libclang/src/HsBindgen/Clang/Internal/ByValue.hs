@@ -104,7 +104,7 @@ class Preallocate a where
   -- See 'onHaskellHeap' for rationale.
   preallocate :: (Writing a -> IO r) -> IO (a, r)
 
-preallocate_ :: Preallocate  a => (Writing a -> IO ()) -> IO a
+preallocate_ :: Preallocate a => (Writing a -> IO ()) -> IO a
 preallocate_ = fmap fst . preallocate
 
 instance HasKnownSize tag => Preallocate (OnHaskellHeap tag) where

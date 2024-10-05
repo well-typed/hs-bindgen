@@ -4,12 +4,16 @@ WrapCHeader
       DeclMacro
         (Right
           Macro {
-            macroLoc = SourceLoc {
-              sourceLocFile = [
-                "examples",
-                "enums.h"],
-              sourceLocLine = 2,
-              sourceLocColumn = 9},
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 2,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
             macroName = CName "ENUMS_H",
             macroArgs = [],
             macroBody = MTerm MEmpty}),
