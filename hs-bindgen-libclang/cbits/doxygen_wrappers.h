@@ -20,6 +20,14 @@ static inline enum CXCommentKind wrap_Comment_getKind(const CXComment* Comment) 
 }
 
 /**
+ * Comment type 'CXComment_Text'
+ */
+
+static inline void wrap_TextComment_getText(const CXComment* Comment, CXString*  result) {
+    *result = clang_TextComment_getText(*Comment);
+}
+
+/**
  * Comment type 'CXComment_InlineCommand'
  */
 
