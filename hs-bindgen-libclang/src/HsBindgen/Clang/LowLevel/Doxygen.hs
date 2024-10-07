@@ -13,6 +13,8 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , CXCommentKind(..)
   , clang_Cursor_getParsedComment
   , clang_Comment_getKind
+    -- * Comment type 'CXComment_Text'
+  , clang_TextComment_getText
     -- * Comment type 'CXComment_InlineCommand'
   , clang_InlineCommandComment_getCommandName
   , clang_InlineCommandComment_getRenderKind
@@ -65,6 +67,21 @@ clang_Comment_getKind :: CXComment -> IO (SimpleEnum CXCommentKind)
 clang_Comment_getKind comment =
     onHaskellHeap comment $ \comment' ->
       wrap_Comment_getKind comment'
+
+{-------------------------------------------------------------------------------
+  Comment type 'CXComment_Text'
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_TextComment_getText"
+  wrap_TextComment_getText :: R CXComment_ -> W CXString_ -> IO ()
+
+-- | Get the text contained in the AST node.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gae9a27e851356181beac36bbff6e638e2>
+clang_TextComment_getText :: CXComment -> IO Text
+clang_TextComment_getText comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_TextComment_getText comment'
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_InlineCommand'
