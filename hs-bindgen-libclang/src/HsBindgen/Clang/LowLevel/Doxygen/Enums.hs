@@ -1,5 +1,6 @@
 module HsBindgen.Clang.LowLevel.Doxygen.Enums (
     CXCommentKind(..)
+  , CXCommentInlineCommandRenderKind(..)
   ) where
 
 -- | Describes the type of the comment AST node ('CXComment').
@@ -100,3 +101,25 @@ data CXCommentKind =
     -- | A full comment attached to a declaration, contains block content.
   | CXComment_FullComment
   deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+-- | The most appropriate rendering mode for an inline command, chosen on
+-- command semantics in Doxygen.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga23efacd9c1e4e286a9f9714e1720fdcf>
+data CXCommentInlineCommandRenderKind =
+    -- | Command argument should be rendered in a normal font.
+    CXCommentInlineCommandRenderKind_Normal
+
+    -- | Command argument should be rendered in a bold font.
+  | CXCommentInlineCommandRenderKind_Bold
+
+    -- | Command argument should be rendered in a monospaced font.
+  | CXCommentInlineCommandRenderKind_Monospaced
+
+    -- | Command argument should be rendered emphasized (typically italic
+    -- font).
+  | CXCommentInlineCommandRenderKind_Emphasized
+
+    -- | Command argument should not be rendered (since it only defines an
+    -- anchor).
+  | CXCommentInlineCommandRenderKind_Anchor
