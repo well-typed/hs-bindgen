@@ -299,6 +299,8 @@ static inline void wrap_getTypedefName(const CXType* CT, CXString* result) {
  *
  * This function does not exist in versions before Clang 16.  This function acts
  * as a no-op in that case, and `result` should not be used.
+ *
+ * Calling this function with an invalid CT results in a segfault.
  */
 static inline void wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
     #if CINDEX_VERSION_MINOR >= 63

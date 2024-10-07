@@ -162,7 +162,6 @@ module HsBindgen.Clang.Core (
     -- * Exceptions
   , CallFailed(..)
   , ClangVersionError(..)
-  , InvalidCXTypeError(..)
   ) where
 
 import Control.Exception
@@ -1173,17 +1172,18 @@ clang_getTypedefName arg =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8adac28955bf2f3a5ab1fd316a498334>
 clang_getUnqualifiedType :: CXType -> IO CXType
-clang_getUnqualifiedType typ
-    | clangVersion < Clang16 = do
-        stack <- collectBacktrace
-        throwIO $ ClangVersionError Clang16Required stack
-    | fromSimpleEnum (cxtKind typ) == Right CXType_Invalid = do
-        -- clang_getUnqualifiedType segfaults when CT is invalid
-        stack <- collectBacktrace
-        throwIO $ InvalidCXTypeError stack
-    | otherwise =
-        onHaskellHeap typ $ \typ' ->
-          preallocate_ $ wrap_getUnqualifiedType typ'
+clang_getUnqualifiedType typ = do
+    -- clang_getUnqualifiedType was added in Clang 16
+    unless (clangVersion >= Clang16) $ do
+      stack <- collectBacktrace
+      throwIO $ ClangVersionError Clang16Required stack
+    -- clang_getUnqualifiedType segfaults when CT is invalid
+    case fromSimpleEnum (cxtKind typ) of
+      e@Left{}                 -> callFailed e
+      e@(Right CXType_Invalid) -> callFailed e
+      Right{}                  -> pure ()
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getUnqualifiedType typ'
 
 -- | Return the cursor for the declaration of the given type.
 --

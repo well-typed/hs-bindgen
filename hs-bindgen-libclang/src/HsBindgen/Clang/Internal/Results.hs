@@ -15,8 +15,6 @@ module HsBindgen.Clang.Internal.Results (
     -- * Clang version error
   , ClangVersionRequirement(..)
   , ClangVersionError(..)
-    -- * Invalid CXType error
-  , InvalidCXTypeError(..)
   ) where
 
 import Control.Exception
@@ -38,14 +36,14 @@ import HsBindgen.Patterns
 -- In @libclang@, being a C framework, errors are returned as values; in order
 -- to ensure that we don't forget to check for these error values, we turn them
 -- into 'CallFailed' exceptions.
-data CallFailed result = CallFailed result Backtrace
+data CallFailed hint = CallFailed hint Backtrace
   deriving stock (Show)
-  deriving Exception via CollectedBacktrace (CallFailed result)
+  deriving Exception via CollectedBacktrace (CallFailed hint)
 
-callFailed :: (Typeable result, Show result, HasCallStack) => result -> IO a
-callFailed result = do
+callFailed :: (Typeable hint, Show hint, HasCallStack) => hint -> IO a
+callFailed hint = do
     stack <- collectBacktrace
-    throwIO $ CallFailed result stack
+    throwIO $ CallFailed hint stack
 
 {-------------------------------------------------------------------------------
   Specific conditions
@@ -126,15 +124,6 @@ data ClangVersionRequirement =
 data ClangVersionError = ClangVersionError ClangVersionRequirement Backtrace
   deriving stock (Show)
   deriving Exception via CollectedBacktrace ClangVersionError
-
-{-------------------------------------------------------------------------------
-  Invalid CXType error
--------------------------------------------------------------------------------}
-
--- | Haskell-side invalid type error
-data InvalidCXTypeError = InvalidCXTypeError Backtrace
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace InvalidCXTypeError
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
