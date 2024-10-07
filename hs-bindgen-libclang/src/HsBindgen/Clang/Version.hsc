@@ -1,10 +1,17 @@
 module HsBindgen.Clang.Version (
+    -- * Definition
     ClangVersion(..)
+    -- * Current version
   , clangVersion
+    -- * Version requirements
+  , Requires
+  , requireClangVersion
   ) where
 
+import Control.Monad (unless)
 import Foreign.C
 import GHC.Generics (Generic)
+import GHC.Stack (HasCallStack)
 import Text.Show.Pretty (PrettyVal)
 import System.IO.Unsafe (unsafePerformIO)
 
@@ -119,3 +126,20 @@ instance IsSimpleEnum ClangVersion where
 
   simpleFromC _otherwise = Nothing
 
+{-------------------------------------------------------------------------------
+  Version requirements
+-------------------------------------------------------------------------------}
+
+-- | Version requirement
+--
+-- @Requires a@ means that version @a@ or later is required.  For example,
+-- @Requires 'Clang17_or_18_or_19'@ means that Clang 17 or later is required.
+newtype Requires a = Requires a
+  deriving stock (Show)
+
+-- | Throw a
+-- @'HsBindgen.Clang.Internal.Results.CallFailed' ('Requires' 'ClangVersion')@
+-- exception if the current Clang version is not greater than or equal to the
+-- specified Clang version
+requireClangVersion :: HasCallStack => ClangVersion -> IO ()
+requireClangVersion v = unless (clangVersion >= v) $ callFailed (Requires v)

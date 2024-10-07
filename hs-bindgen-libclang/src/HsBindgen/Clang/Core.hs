@@ -161,10 +161,8 @@ module HsBindgen.Clang.Core (
   , clang_getFileName
     -- * Exceptions
   , CallFailed(..)
-  , ClangVersionError(..)
   ) where
 
-import Control.Exception
 import Control.Monad
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -1174,9 +1172,7 @@ clang_getTypedefName arg =
 clang_getUnqualifiedType :: CXType -> IO CXType
 clang_getUnqualifiedType typ = do
     -- clang_getUnqualifiedType was added in Clang 16
-    unless (clangVersion >= Clang16) $ do
-      stack <- collectBacktrace
-      throwIO $ ClangVersionError Clang16Required stack
+    requireClangVersion Clang16
     -- clang_getUnqualifiedType segfaults when CT is invalid
     case fromSimpleEnum (cxtKind typ) of
       e@Left{}                 -> callFailed e
