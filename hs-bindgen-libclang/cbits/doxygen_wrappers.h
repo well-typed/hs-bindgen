@@ -20,6 +20,26 @@ static inline enum CXCommentKind wrap_Comment_getKind(const CXComment* Comment) 
 }
 
 /**
+ * Comment type 'CXComment_InlineCommand'
+ */
+
+static inline void wrap_InlineCommandComment_getCommandName(const CXComment* Comment, CXString*  result) {
+    *result = clang_InlineCommandComment_getCommandName(*Comment);
+}
+
+static inline enum CXCommentInlineCommandRenderKind wrap_InlineCommandComment_getRenderKind(const CXComment* Comment) {
+    return clang_InlineCommandComment_getRenderKind(*Comment);
+}
+
+static inline unsigned wrap_InlineCommandComment_getNumArgs(const CXComment* Comment) {
+    return clang_InlineCommandComment_getNumArgs(*Comment);
+}
+
+static inline void wrap_InlineCommandComment_getArgText(const CXComment* Comment, unsigned argIdx, CXString* result) {
+    *result = clang_InlineCommandComment_getArgText(*Comment, argIdx);
+}
+
+/**
  * Comment type 'CXComment_FullComment'
  */
 
