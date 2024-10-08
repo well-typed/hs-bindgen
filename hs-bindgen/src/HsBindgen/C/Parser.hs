@@ -25,9 +25,9 @@ import Foreign.C
 import GHC.Stack
 
 import HsBindgen.C.AST
-import HsBindgen.C.Parser.Macro qualified as Macro
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
+import HsBindgen.C.Reparse
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Doxygen
@@ -129,7 +129,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
         mkStruct <- parseStruct unit current
         let mkDecl :: [StructField] -> IO (Maybe Decl)
             mkDecl = return . Just . DeclStruct . mkStruct
-        return $ Recurse (foldStructFields tracer) mkDecl
+        return $ Recurse (foldStructFields tracer unit) mkDecl
       Right CXCursor_EnumDecl -> do
         mkEnum <- parseEnum unit current
         let mkDecl :: [EnumValue] -> IO (Maybe Decl)
@@ -145,7 +145,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
         range  <- SourceLoc.clang_getCursorExtent current
         tokens <- Tokens.clang_tokenize unit (multiLocExpansion <$> range)
         let decl :: Decl
-            decl = DeclMacro $ Macro.parse tokens
+            decl = DeclMacro $ reparseWith reparseMacro tokens
         return $ Continue $ Just decl
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
@@ -182,8 +182,8 @@ parseStruct _unit current = do
       , structFields
       }
 
-foldStructFields :: Tracer IO ParseMsg -> Fold StructField
-foldStructFields tracer _parent current = do
+foldStructFields :: Tracer IO ParseMsg -> CXTranslationUnit -> Fold StructField
+foldStructFields tracer _unit _parent current = do
     ty          <- clang_getCursorType current
     fieldType   <- parseType tracer ty
     fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
@@ -270,7 +270,7 @@ foldTyp tracer unit _parent current = do
         mkStruct <- parseStruct unit current
         let mkDecl :: [StructField] -> IO (Maybe Typ)
             mkDecl = return . Just . TypStruct . mkStruct
-        return $ Recurse (foldStructFields tracer) mkDecl
+        return $ Recurse (foldStructFields tracer unit) mkDecl
       _otherwise -> do
         traceWith tracer Warning $ unrecognizedCursor cursorKind
         return $ Continue Nothing
