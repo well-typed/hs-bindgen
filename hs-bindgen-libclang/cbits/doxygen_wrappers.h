@@ -128,6 +128,14 @@ static inline unsigned wrap_TParamCommandComment_getIndex(const CXComment* Comme
 }
 
 /**
+ * Comment type 'CXComment_VerbatimBlockLine'
+ */
+
+static inline void wrap_VerbatimBlockLineComment_getText(const CXComment* Comment, CXString*  result) {
+    *result = clang_VerbatimBlockLineComment_getText(*Comment);
+}
+
+/**
  * Comment type 'CXComment_FullComment'
  */
 
