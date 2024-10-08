@@ -245,7 +245,8 @@ parseType _tracer = go
             TypPointer <$> go ty'
 
           Right CXType_Elaborated -> do
-            return TypElaborated
+            name <- CName <$> clang_getTypeSpelling ty
+            return $ TypElaborated name
 
           _otherwise -> do
             throwIO $ UnrecognizedType (cxtKind ty)

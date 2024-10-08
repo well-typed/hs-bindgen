@@ -29,10 +29,15 @@ data Typ =
     TypPrim PrimType
   | TypStruct Struct
   | TypPointer Typ
-  | TypElaborated -- TODO: reference into type symbol table.
+  | TypElaborated Symbol
   -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
+
+-- | Reference into the type symbol table
+--
+-- TODO: for now this is simply the name of the C type.
+type Symbol = CName
 
 {-------------------------------------------------------------------------------
   Primitives types

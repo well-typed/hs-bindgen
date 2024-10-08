@@ -26,8 +26,10 @@ WrapCHeader
             StructField {
               fieldName = CName "foo1",
               fieldOffset = 0,
-              fieldType = TypElaborated},
+              fieldType = TypElaborated
+                (CName "struct foo")},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
-              fieldType = TypElaborated}]}])
+              fieldType = TypElaborated
+                (CName "struct foo")}]}])
