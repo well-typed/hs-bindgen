@@ -24,6 +24,11 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , clang_InlineCommandComment_getRenderKind
   , clang_InlineCommandComment_getNumArgs
   , clang_InlineCommandComment_getArgText
+    -- * Comment type 'CXComment_BlockCommand'
+  , clang_BlockCommandComment_getCommandName
+  , clang_BlockCommandComment_getNumArgs
+  , clang_BlockCommandComment_getArgText
+  , clang_BlockCommandComment_getParagraph
     -- * Comment type 'CXComment_FullComment'
   , clang_FullComment_getAsHTML
   , clang_FullComment_getAsXML
@@ -210,6 +215,67 @@ clang_InlineCommandComment_getArgText ::
 clang_InlineCommandComment_getArgText comment argIdx =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_InlineCommandComment_getArgText comment' argIdx
+
+{-------------------------------------------------------------------------------
+  Comment type 'CXComment_BlockCommand'
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_BlockCommandComment_getCommandName"
+  wrap_BlockCommandComment_getCommandName ::
+       R CXComment_
+    -> W CXString_
+    -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_BlockCommandComment_getNumArgs"
+  wrap_BlockCommandComment_getNumArgs :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_BlockCommandComment_getArgText"
+  wrap_BlockCommandComment_getArgText ::
+       R CXComment_
+    -> CUInt
+    -> W CXString_
+    -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_BlockCommandComment_getParagraph"
+  wrap_BlockCommandComment_getParagraph :: R CXComment_ -> W CXComment_ -> IO ()
+
+-- | Get the name of the block command.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga8fdde998537370477362a4f84bc03420>
+clang_BlockCommandComment_getCommandName :: CXComment -> IO Text
+clang_BlockCommandComment_getCommandName comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_BlockCommandComment_getCommandName comment'
+
+-- | Get the number of word-like arguments.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gacb447968ce9efdfdabbfca8918540cdf>
+clang_BlockCommandComment_getNumArgs :: CXComment -> IO CUInt
+clang_BlockCommandComment_getNumArgs comment =
+    onHaskellHeap comment $ \comment' ->
+      wrap_BlockCommandComment_getNumArgs comment'
+
+-- | Get the text of the specified word-like argument.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga9faf08601d88c809a9a97a9826051990>
+clang_BlockCommandComment_getArgText ::
+     CXComment
+  -> CUInt -- ^ argument index (zero-based)
+  -> IO Text
+clang_BlockCommandComment_getArgText comment argIdx =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_BlockCommandComment_getArgText comment' argIdx
+
+-- | Get the paragraph argument of the block command.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gac6f2ffc8fdbe9394bd4bb7d54327c968>
+clang_BlockCommandComment_getParagraph ::
+     CXComment
+  -- ^ a @CXComment_BlockCommand@ or @CXComment_VerbatimBlockCommand@ AST node
+  -> IO CXComment
+clang_BlockCommandComment_getParagraph comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_BlockCommandComment_getParagraph comment'
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_FullComment'
