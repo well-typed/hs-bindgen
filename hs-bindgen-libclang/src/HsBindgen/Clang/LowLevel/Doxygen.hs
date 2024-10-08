@@ -42,6 +42,8 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , clang_TParamCommandComment_getIndex
     -- * Comment type 'CXComment_VerbatimBlockLine'
   , clang_VerbatimBlockLineComment_getText
+    -- * Comment type 'CXComment_VerbatimLine'
+  , clang_VerbatimLineComment_getText
     -- * Comment type 'CXComment_FullComment'
   , clang_FullComment_getAsHTML
   , clang_FullComment_getAsXML
@@ -426,6 +428,21 @@ clang_VerbatimBlockLineComment_getText :: CXComment -> IO Text
 clang_VerbatimBlockLineComment_getText comment =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_VerbatimBlockLineComment_getText comment'
+
+{-------------------------------------------------------------------------------
+  Comment type 'CXComment_VerbatimLine'
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_VerbatimLineComment_getText"
+  wrap_VerbatimLineComment_getText :: R CXComment_ -> W CXString_ -> IO ()
+
+-- | Get the text contained in the AST node.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga4eb1de9012b525f14051409427bd8eb2>
+clang_VerbatimLineComment_getText :: CXComment -> IO Text
+clang_VerbatimLineComment_getText comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_VerbatimLineComment_getText comment'
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_FullComment'
