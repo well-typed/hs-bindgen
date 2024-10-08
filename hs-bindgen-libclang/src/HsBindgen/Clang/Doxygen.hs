@@ -80,7 +80,9 @@ clang_Cursor_getParsedComment cursor =
 -- | Get the type of an AST node of any kind
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gad7f2a27ab2f69abcb9442e05a21a130f>
-clang_Comment_getKind :: CXComment -> IO (SimpleEnum CXCommentKind)
+clang_Comment_getKind ::
+     CXComment -- ^ AST node of any kind
+  -> IO (SimpleEnum CXCommentKind)
 clang_Comment_getKind comment =
     onHaskellHeap comment $ \comment' ->
       wrap_Comment_getKind comment'
@@ -201,7 +203,10 @@ clang_InlineCommandComment_getNumArgs comment =
 -- | Get the text of the specified argument.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga6824f3cdcb42edbd143db77a657fe888>
-clang_InlineCommandComment_getArgText :: CXComment -> CUInt -> IO Text
+clang_InlineCommandComment_getArgText ::
+     CXComment
+  -> CUInt -- ^ argument index (zero-based)
+  -> IO Text
 clang_InlineCommandComment_getArgText comment argIdx =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_InlineCommandComment_getArgText comment' argIdx
