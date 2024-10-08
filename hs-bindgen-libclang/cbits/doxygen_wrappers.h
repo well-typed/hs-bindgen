@@ -84,6 +84,30 @@ static inline void wrap_BlockCommandComment_getParagraph(const CXComment* Commen
 }
 
 /**
+ * Comment type 'CXComment_ParamCommand'
+ */
+
+static inline void wrap_ParamCommandComment_getParamName(const CXComment* Comment, CXString*  result) {
+    *result = clang_ParamCommandComment_getParamName(*Comment);
+}
+
+static inline unsigned wrap_ParamCommandComment_isParamIndexValid(const CXComment* Comment) {
+    return clang_ParamCommandComment_isParamIndexValid(*Comment);
+}
+
+static inline unsigned wrap_ParamCommandComment_getParamIndex(const CXComment* Comment) {
+    return clang_ParamCommandComment_getParamIndex(*Comment);
+}
+
+static inline unsigned wrap_ParamCommandComment_isDirectionExplicit(const CXComment* Comment) {
+    return clang_ParamCommandComment_isDirectionExplicit(*Comment);
+}
+
+static inline enum CXCommentParamPassDirection wrap_ParamCommandComment_getDirection(const CXComment* Comment) {
+    return clang_ParamCommandComment_getDirection(*Comment);
+}
+
+/**
  * Comment type 'CXComment_FullComment'
  */
 
