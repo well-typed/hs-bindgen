@@ -61,8 +61,13 @@ library
       HsBindgen.Bootstrap.Prelude
       HsBindgen.C.AST
       HsBindgen.C.Parser
-      HsBindgen.C.Parser.Macro
       HsBindgen.C.Predicate
+      HsBindgen.C.Reparse
+      HsBindgen.C.Reparse.Common
+      HsBindgen.C.Reparse.Infra
+      HsBindgen.C.Reparse.Literal
+      HsBindgen.C.Reparse.Macro
+      HsBindgen.C.Reparse.Type
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Translation.LowLevel

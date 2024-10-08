@@ -8,13 +8,12 @@ import Data.Text qualified as Text
 import System.FilePath ((</>))
 
 import HsBindgen.C.Parser
-import HsBindgen.C.Parser.Macro (UnrecognizedMacro)
-import HsBindgen.C.Parser.Macro qualified as Macro
+import HsBindgen.C.Reparse
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
+import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
@@ -72,7 +71,7 @@ fold tracer standardHeaders unit = go
             tokens       <- Tokens.clang_tokenize
                               unit
                               (multiLocExpansion <$> cursorExtent)
-            case Macro.parse tokens of
+            case reparseWith reparseMacro tokens of
               Right macro ->
                 appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
               Left err -> do
@@ -109,7 +108,7 @@ fold tracer standardHeaders unit = go
 data GenPreludeMsg =
     Skipping MultiLoc (SimpleEnum CXCursorKind)
   | UnrecognizedElement MultiLoc (SimpleEnum CXCursorKind) Text
-  | UnrecognizedMacro UnrecognizedMacro
+  | UnrecognizedMacro ReparseError
   deriving stock (Show)
   deriving anyclass (Exception)
 
