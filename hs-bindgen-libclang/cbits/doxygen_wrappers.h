@@ -136,6 +136,14 @@ static inline void wrap_VerbatimBlockLineComment_getText(const CXComment* Commen
 }
 
 /**
+ * Comment type 'CXComment_VerbatimLine'
+ */
+
+static inline void wrap_VerbatimLineComment_getText(const CXComment* Comment, CXString*  result) {
+    *result = clang_VerbatimLineComment_getText(*Comment);
+}
+
+/**
  * Comment type 'CXComment_FullComment'
  */
 
