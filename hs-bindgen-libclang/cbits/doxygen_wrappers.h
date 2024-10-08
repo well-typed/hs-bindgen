@@ -64,6 +64,34 @@ static inline void wrap_InlineCommandComment_getArgText(const CXComment* Comment
 }
 
 /**
+ * Comment type 'CXComment_HTMLStartTag' and 'CXComment_HTMLEndTag'
+ */
+
+static inline void wrap_HTMLTagComment_getTagName(const CXComment* Comment, CXString*  result) {
+    *result = clang_HTMLTagComment_getTagName(*Comment);
+}
+
+static inline unsigned wrap_HTMLStartTagComment_isSelfClosing(const CXComment* Comment) {
+    return clang_HTMLStartTagComment_isSelfClosing(*Comment);
+}
+
+static inline unsigned wrap_HTMLStartTag_getNumAttrs(const CXComment* Comment) {
+    return clang_HTMLStartTag_getNumAttrs(*Comment);
+}
+
+static inline void wrap_HTMLStartTag_getAttrName(const CXComment* Comment, unsigned attrIdx, CXString*  result) {
+    *result = clang_HTMLStartTag_getAttrName(*Comment, attrIdx);
+}
+
+static inline void wrap_HTMLStartTag_getAttrValue(const CXComment* Comment, unsigned attrIdx, CXString*  result) {
+    *result = clang_HTMLStartTag_getAttrValue(*Comment, attrIdx);
+}
+
+static inline void wrap_HTMLTagComment_getAsString(const CXComment* Comment, CXString*  result) {
+    *result = clang_HTMLTagComment_getAsString(*Comment);
+}
+
+/**
  * Comment type 'CXComment_BlockCommand'
  */
 
