@@ -19,6 +19,22 @@ static inline enum CXCommentKind wrap_Comment_getKind(const CXComment* Comment) 
     return clang_Comment_getKind(*Comment);
 }
 
+static inline unsigned wrap_Comment_getNumChildren(const CXComment* Comment) {
+    return clang_Comment_getNumChildren(*Comment);
+}
+
+static inline void wrap_Comment_getChild(const CXComment* Comment, unsigned childIdx, CXComment* result) {
+    *result = clang_Comment_getChild(*Comment, childIdx);
+}
+
+static inline unsigned wrap_Comment_isWhitespace(const CXComment* Comment) {
+    return clang_Comment_isWhitespace(*Comment);
+}
+
+static inline unsigned wrap_InlineContentComment_hasTrailingNewline(const CXComment* Comment) {
+    return clang_InlineContentComment_hasTrailingNewline(*Comment);
+}
+
 /**
  * Comment type 'CXComment_Text'
  */
