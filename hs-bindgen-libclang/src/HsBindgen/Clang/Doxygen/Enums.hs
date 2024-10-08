@@ -124,6 +124,7 @@ data CXCommentInlineCommandRenderKind =
     -- | Command argument should not be rendered (since it only defines an
     -- anchor).
   | CXCommentInlineCommandRenderKind_Anchor
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
 
 -- | Describes parameter passing direction for @\\param@ or @\\arg@ command.
 --
@@ -137,3 +138,4 @@ data CXCommentParamPassDirection =
 
     -- | The parameter is an input and output parameter.
   | CXCommentParamPassDirection_InOut
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
