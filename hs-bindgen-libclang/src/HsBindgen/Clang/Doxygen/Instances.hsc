@@ -49,3 +49,37 @@ instance IsSimpleEnum CXCommentKind where
   simpleFromC (#const CXComment_FullComment)          = Just CXComment_FullComment
 
   simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXCommentInlineCommandRenderKind
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXCommentInlineCommandRenderKind where
+  simpleToC CXCommentInlineCommandRenderKind_Normal     = #const CXCommentInlineCommandRenderKind_Normal
+  simpleToC CXCommentInlineCommandRenderKind_Bold       = #const CXCommentInlineCommandRenderKind_Bold
+  simpleToC CXCommentInlineCommandRenderKind_Monospaced = #const CXCommentInlineCommandRenderKind_Monospaced
+  simpleToC CXCommentInlineCommandRenderKind_Emphasized = #const CXCommentInlineCommandRenderKind_Emphasized
+  simpleToC CXCommentInlineCommandRenderKind_Anchor     = #const CXCommentInlineCommandRenderKind_Anchor
+
+  simpleFromC (#const CXCommentInlineCommandRenderKind_Normal)     = Just CXCommentInlineCommandRenderKind_Normal
+  simpleFromC (#const CXCommentInlineCommandRenderKind_Bold)       = Just CXCommentInlineCommandRenderKind_Bold
+  simpleFromC (#const CXCommentInlineCommandRenderKind_Monospaced) = Just CXCommentInlineCommandRenderKind_Monospaced
+  simpleFromC (#const CXCommentInlineCommandRenderKind_Emphasized) = Just CXCommentInlineCommandRenderKind_Emphasized
+  simpleFromC (#const CXCommentInlineCommandRenderKind_Anchor)     = Just CXCommentInlineCommandRenderKind_Anchor
+
+  simpleFromC _otherwise = Nothing
+
+{-------------------------------------------------------------------------------
+  CXCommentParamPassDirection
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXCommentParamPassDirection where
+  simpleToC CXCommentParamPassDirection_In    = #const CXCommentParamPassDirection_In
+  simpleToC CXCommentParamPassDirection_Out   = #const CXCommentParamPassDirection_Out
+  simpleToC CXCommentParamPassDirection_InOut = #const CXCommentParamPassDirection_InOut
+
+  simpleFromC (#const CXCommentParamPassDirection_In)    = Just CXCommentParamPassDirection_In
+  simpleFromC (#const CXCommentParamPassDirection_Out)   = Just CXCommentParamPassDirection_Out
+  simpleFromC (#const CXCommentParamPassDirection_InOut) = Just CXCommentParamPassDirection_InOut
+
+  simpleFromC _otherwise = Nothing
