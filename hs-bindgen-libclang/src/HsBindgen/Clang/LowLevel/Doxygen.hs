@@ -20,6 +20,7 @@ module HsBindgen.Clang.LowLevel.Doxygen (
     -- * Comment type 'CXComment_Text'
   , clang_TextComment_getText
     -- * Comment type 'CXComment_InlineCommand'
+  , CXCommentInlineCommandRenderKind(..)
   , clang_InlineCommandComment_getCommandName
   , clang_InlineCommandComment_getRenderKind
   , clang_InlineCommandComment_getNumArgs
@@ -37,6 +38,7 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , clang_BlockCommandComment_getArgText
   , clang_BlockCommandComment_getParagraph
     -- * Comment type 'CXComment_ParamCommand'
+  , CXCommentParamPassDirection(..)
   , clang_ParamCommandComment_getParamName
   , clang_ParamCommandComment_isParamIndexValid
   , clang_ParamCommandComment_getParamIndex
