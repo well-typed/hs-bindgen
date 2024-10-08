@@ -29,6 +29,12 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , clang_BlockCommandComment_getNumArgs
   , clang_BlockCommandComment_getArgText
   , clang_BlockCommandComment_getParagraph
+    -- * Comment type 'CXComment_ParamCommand'
+  , clang_ParamCommandComment_getParamName
+  , clang_ParamCommandComment_isParamIndexValid
+  , clang_ParamCommandComment_getParamIndex
+  , clang_ParamCommandComment_isDirectionExplicit
+  , clang_ParamCommandComment_getDirection
     -- * Comment type 'CXComment_FullComment'
   , clang_FullComment_getAsHTML
   , clang_FullComment_getAsXML
@@ -276,6 +282,72 @@ clang_BlockCommandComment_getParagraph ::
 clang_BlockCommandComment_getParagraph comment =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_BlockCommandComment_getParagraph comment'
+
+{-------------------------------------------------------------------------------
+  Comment type 'CXComment_ParamCommand'
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_ParamCommandComment_getParamName"
+  wrap_ParamCommandComment_getParamName :: R CXComment_ -> W CXString_ -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_ParamCommandComment_isParamIndexValid"
+  wrap_ParamCommandComment_isParamIndexValid :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_ParamCommandComment_getParamIndex"
+  wrap_ParamCommandComment_getParamIndex :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_ParamCommandComment_isDirectionExplicit"
+  wrap_ParamCommandComment_isDirectionExplicit :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_ParamCommandComment_getDirection"
+  wrap_ParamCommandComment_getDirection ::
+       R CXComment_
+    -> IO (SimpleEnum CXCommentParamPassDirection)
+
+-- | Get the parameter name.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gaffd7aaf697c5eb3a3d2b508b5d806763>
+clang_ParamCommandComment_getParamName :: CXComment -> IO Text
+clang_ParamCommandComment_getParamName comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_ParamCommandComment_getParamName comment'
+
+-- | Determine whether the parameter that this AST node represents was found in
+-- the function prototype and @clang_ParamCommandComment_getParamIndex@ function
+-- will return a meaningful value.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga92e6422da2a3e428b4452a3e8955ff76>
+clang_ParamCommandComment_isParamIndexValid :: CXComment -> IO Bool
+clang_ParamCommandComment_isParamIndexValid comment =
+    onHaskellHeap comment $ \comment' ->
+      cToBool <$> wrap_ParamCommandComment_isParamIndexValid comment'
+
+-- | Get the zero-based parameter index in function prototype.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gad9d1dc9ebb52dcc9cb7da8ca4c23332a>
+clang_ParamCommandComment_getParamIndex :: CXComment -> IO CUInt
+clang_ParamCommandComment_getParamIndex comment =
+    onHaskellHeap comment $ \comment' ->
+      wrap_ParamCommandComment_getParamIndex comment'
+
+-- | Determine whether the parameter passing direction was specified explicitly
+-- in the comment.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gaf68f19e83ca9b27aec7eb22b065620bd>
+clang_ParamCommandComment_isDirectionExplicit :: CXComment -> IO Bool
+clang_ParamCommandComment_isDirectionExplicit comment =
+    onHaskellHeap comment $ \comment' ->
+      cToBool <$> wrap_ParamCommandComment_isDirectionExplicit comment'
+
+-- | Get the parameter passing direction.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gac78b84734e9e6040a001a0036e6aa15c>
+clang_ParamCommandComment_getDirection ::
+     CXComment
+  -> IO (SimpleEnum CXCommentParamPassDirection)
+clang_ParamCommandComment_getDirection comment =
+    onHaskellHeap comment $ \comment' ->
+      wrap_ParamCommandComment_getDirection comment'
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_FullComment'

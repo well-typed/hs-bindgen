@@ -1,6 +1,7 @@
 module HsBindgen.Clang.LowLevel.Doxygen.Enums (
     CXCommentKind(..)
   , CXCommentInlineCommandRenderKind(..)
+  , CXCommentParamPassDirection(..)
   ) where
 
 -- | Describes the type of the comment AST node ('CXComment').
@@ -123,3 +124,16 @@ data CXCommentInlineCommandRenderKind =
     -- | Command argument should not be rendered (since it only defines an
     -- anchor).
   | CXCommentInlineCommandRenderKind_Anchor
+
+-- | Describes parameter passing direction for @\\param@ or @\\arg@ command.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gafadf6e52217ea74d1a014198df656ee1>
+data CXCommentParamPassDirection =
+    -- | The parameter is an input parameter.
+    CXCommentParamPassDirection_In
+
+    -- | The parameter is an output parameter.
+  | CXCommentParamPassDirection_Out
+
+    -- | The parameter is an input and output parameter.
+  | CXCommentParamPassDirection_InOut
