@@ -2,8 +2,7 @@
 --
 -- This module should only be imported by "HsBindgen.Clang.Core".
 module HsBindgen.Clang.Core.Enums (
-    WrapperResult(..)
-  , CXTranslationUnit_Flags(..)
+    CXTranslationUnit_Flags(..)
   , CXTypeKind(..)
   , CXChildVisitResult(..)
   , CXTypeLayoutError(..)
@@ -15,53 +14,6 @@ module HsBindgen.Clang.Core.Enums (
 
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal)
-
-{-------------------------------------------------------------------------------
-  WrapperSupported
--------------------------------------------------------------------------------}
-
--- | Result from the wrapper itself
---
--- Most wrappers directly call the corresponding function from @libclang@, but
--- some need to do some additional checks.
-data WrapperResult =
-    -- | The function is supported, but the call failed.
-    --
-    -- This can be due to any number of reasons; a typical one is that an
-    -- argument @CXType@ is invalid.
-    WrapperFailed
-
-    -- | Wrapper was successful
-  | WrapperOk
-
-    -- | LLVM is too old (older than version 11)
-  | WrapperLlvmTooOld
-
-    -- | We need at least LLVM version 11
-  | WrapperNeedsLlvm11
-
-    -- | We need at least LLVM version 12
-  | WrapperNeedsLlvm12
-
-    -- | We need at least LLVM version 13
-  | WrapperNeedsLlvm13
-
-    -- | We need at least LLVM version 14
-  | WrapperNeedsLlvm14
-
-    -- | We need at least LLVM version 15
-  | WrapperNeedsLlvm15
-
-    -- | We need at least LLVM version 16
-  | WrapperNeedsLlvm16
-
-    -- | We need at least LLVM version 17
-  | WrapperNeedsLlvm17
-
-    -- | We need at least LLVM version 18
-  | WrapperNeedsLlvm18
-  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXTranslationUnit_Flag

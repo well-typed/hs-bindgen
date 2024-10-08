@@ -12,9 +12,6 @@ module HsBindgen.Clang.Internal.Results (
   , ensureNotNull
   , checkNotNull
   , ensureNotInRange
-    -- * Check wrapper result
-  , Unsupported(..)
-  , checkWrapperResult
   ) where
 
 import Control.Exception
@@ -23,7 +20,6 @@ import Data.Typeable
 import Foreign
 import GHC.Stack
 
-import HsBindgen.Clang.Core.Enums (WrapperResult(..))
 import HsBindgen.Clang.Core.Instances ()
 import HsBindgen.Patterns
 
@@ -36,14 +32,14 @@ import HsBindgen.Patterns
 -- In @libclang@, being a C framework, errors are returned as values; in order
 -- to ensure that we don't forget to check for these error values, we turn them
 -- into 'CallFailed' exceptions.
-data CallFailed result = CallFailed result Backtrace
+data CallFailed hint = CallFailed hint Backtrace
   deriving stock (Show)
-  deriving Exception via CollectedBacktrace (CallFailed result)
+  deriving Exception via CollectedBacktrace (CallFailed hint)
 
-callFailed :: (Typeable result, Show result, HasCallStack) => result -> IO a
-callFailed result = do
+callFailed :: (Typeable hint, Show hint, HasCallStack) => hint -> IO a
+callFailed hint = do
     stack <- collectBacktrace
-    throwIO $ CallFailed result stack
+    throwIO $ CallFailed hint stack
 
 {-------------------------------------------------------------------------------
   Specific conditions
@@ -102,30 +98,6 @@ ensureNotInRange = ensureOn conv (not . simpleEnumInRange)
   where
     conv :: a -> SimpleEnum hs
     conv = coerceSimpleEnum . fromIntegral
-
-{-------------------------------------------------------------------------------
-  Check wrapper result
--------------------------------------------------------------------------------}
-
-data Unsupported = Unsupported (SimpleEnum WrapperResult) Backtrace
-  deriving stock (Show)
-  deriving Exception via CollectedBacktrace Unsupported
-
--- | Check wrapper result
---
--- Throws 'CallFailed' on 'WrapperFailed', and 'Unsupported' if the version of
--- LLVM is unsupported.
-checkWrapperResult :: HasCallStack => IO (a, SimpleEnum WrapperResult) -> IO a
-checkWrapperResult f = do
-    (result, mSupported) <- f
-    case fromSimpleEnum mSupported of
-      Right WrapperOk ->
-        return result
-      Right WrapperFailed ->
-        callFailed mSupported
-      _otherwise -> do
-        stack <- collectBacktrace
-        throwIO $ Unsupported mSupported stack
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
