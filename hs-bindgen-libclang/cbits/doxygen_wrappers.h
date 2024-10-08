@@ -3,6 +3,18 @@
 
 /**
  * Wrappers for the Doxygen API
+ *
+ * All functions that we use are wrapped.  Prefix `clang_` of the actual
+ * function name is replaced with `wrap_`.  This allows us to import the wrapped
+ * function via FFI and define the Haskell function with the actual function
+ * name within the same module.
+ *
+ * Wrapper functions of functions that return values of primitive types keep the
+ * same API.  Wrapper functions of functions that return values of non-primitive
+ * types use a `result` parameter instead.
+ *
+ * The LLVM codebase capitalizes parameter names.  Wrapper functions keep this
+ * convention for such parameters, while `result` is not capitalized.
  */
 
 #include <clang-c/Documentation.h>
@@ -23,8 +35,8 @@ static inline unsigned wrap_Comment_getNumChildren(const CXComment* Comment) {
     return clang_Comment_getNumChildren(*Comment);
 }
 
-static inline void wrap_Comment_getChild(const CXComment* Comment, unsigned childIdx, CXComment* result) {
-    *result = clang_Comment_getChild(*Comment, childIdx);
+static inline void wrap_Comment_getChild(const CXComment* Comment, unsigned ChildIdx, CXComment* result) {
+    *result = clang_Comment_getChild(*Comment, ChildIdx);
 }
 
 static inline unsigned wrap_Comment_isWhitespace(const CXComment* Comment) {
@@ -59,8 +71,8 @@ static inline unsigned wrap_InlineCommandComment_getNumArgs(const CXComment* Com
     return clang_InlineCommandComment_getNumArgs(*Comment);
 }
 
-static inline void wrap_InlineCommandComment_getArgText(const CXComment* Comment, unsigned argIdx, CXString* result) {
-    *result = clang_InlineCommandComment_getArgText(*Comment, argIdx);
+static inline void wrap_InlineCommandComment_getArgText(const CXComment* Comment, unsigned ArgIdx, CXString* result) {
+    *result = clang_InlineCommandComment_getArgText(*Comment, ArgIdx);
 }
 
 /**
@@ -79,12 +91,12 @@ static inline unsigned wrap_HTMLStartTag_getNumAttrs(const CXComment* Comment) {
     return clang_HTMLStartTag_getNumAttrs(*Comment);
 }
 
-static inline void wrap_HTMLStartTag_getAttrName(const CXComment* Comment, unsigned attrIdx, CXString*  result) {
-    *result = clang_HTMLStartTag_getAttrName(*Comment, attrIdx);
+static inline void wrap_HTMLStartTag_getAttrName(const CXComment* Comment, unsigned AttrIdx, CXString*  result) {
+    *result = clang_HTMLStartTag_getAttrName(*Comment, AttrIdx);
 }
 
-static inline void wrap_HTMLStartTag_getAttrValue(const CXComment* Comment, unsigned attrIdx, CXString*  result) {
-    *result = clang_HTMLStartTag_getAttrValue(*Comment, attrIdx);
+static inline void wrap_HTMLStartTag_getAttrValue(const CXComment* Comment, unsigned AttrIdx, CXString*  result) {
+    *result = clang_HTMLStartTag_getAttrValue(*Comment, AttrIdx);
 }
 
 static inline void wrap_HTMLTagComment_getAsString(const CXComment* Comment, CXString*  result) {
@@ -103,8 +115,8 @@ static inline unsigned wrap_BlockCommandComment_getNumArgs(const CXComment* Comm
     return clang_BlockCommandComment_getNumArgs(*Comment);
 }
 
-static inline void wrap_BlockCommandComment_getArgText(const CXComment* Comment, unsigned argIdx, CXString*  result) {
-    *result = clang_BlockCommandComment_getArgText(*Comment, argIdx);
+static inline void wrap_BlockCommandComment_getArgText(const CXComment* Comment, unsigned ArgIdx, CXString*  result) {
+    *result = clang_BlockCommandComment_getArgText(*Comment, ArgIdx);
 }
 
 static inline void wrap_BlockCommandComment_getParagraph(const CXComment* Comment, CXComment* result) {
@@ -151,8 +163,8 @@ static inline unsigned wrap_TParamCommandComment_getDepth(const CXComment* Comme
     return clang_TParamCommandComment_getDepth(*Comment);
 }
 
-static inline unsigned wrap_TParamCommandComment_getIndex(const CXComment* Comment, unsigned depth) {
-    return clang_TParamCommandComment_getIndex(*Comment, depth);
+static inline unsigned wrap_TParamCommandComment_getIndex(const CXComment* Comment, unsigned Depth) {
+    return clang_TParamCommandComment_getIndex(*Comment, Depth);
 }
 
 /**
