@@ -35,6 +35,11 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , clang_ParamCommandComment_getParamIndex
   , clang_ParamCommandComment_isDirectionExplicit
   , clang_ParamCommandComment_getDirection
+    -- * Comment type 'CXComment_TParamCommand'
+  , clang_TParamCommandComment_getParamName
+  , clang_TParamCommandComment_isParamPositionValid
+  , clang_TParamCommandComment_getDepth
+  , clang_TParamCommandComment_getIndex
     -- * Comment type 'CXComment_FullComment'
   , clang_FullComment_getAsHTML
   , clang_FullComment_getAsXML
@@ -348,6 +353,62 @@ clang_ParamCommandComment_getDirection ::
 clang_ParamCommandComment_getDirection comment =
     onHaskellHeap comment $ \comment' ->
       wrap_ParamCommandComment_getDirection comment'
+
+{-------------------------------------------------------------------------------
+  Comment type 'CXComment_TParamCommand'
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_TParamCommandComment_getParamName"
+  wrap_TParamCommandComment_getParamName :: R CXComment_ -> W CXString_ -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_TParamCommandComment_isParamPositionValid"
+  wrap_TParamCommandComment_isParamPositionValid :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_TParamCommandComment_getDepth"
+  wrap_TParamCommandComment_getDepth :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_TParamCommandComment_getIndex"
+  wrap_TParamCommandComment_getIndex :: R CXComment_ -> CUInt -> IO CUInt
+
+-- | Get the template parameter name.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga01f61f1d0dabcaf806eb1b9f21e5e340>
+clang_TParamCommandComment_getParamName :: CXComment -> IO Text
+clang_TParamCommandComment_getParamName comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_TParamCommandComment_getParamName comment'
+
+-- | Determine whether the parameter that this AST node represents was found in
+-- the template parameter list and @clang_TParamCommandComment_getDepth@ and
+-- @clang_TParamCommandComment_getIndex@ functions will return a meaningful
+-- value.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga1f6e7538a646824f3dde65d634de753f>
+clang_TParamCommandComment_isParamPositionValid :: CXComment -> IO Bool
+clang_TParamCommandComment_isParamPositionValid comment =
+    onHaskellHeap comment $ \comment' ->
+      cToBool <$> wrap_TParamCommandComment_isParamPositionValid comment'
+
+-- | Get the zero-based nesting depth of this parameter in the template
+-- parameter list.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga88371156eeeb768d0d14eb5630b7c726>
+clang_TParamCommandComment_getDepth :: CXComment -> IO CUInt
+clang_TParamCommandComment_getDepth comment =
+    onHaskellHeap comment $ \comment' ->
+      wrap_TParamCommandComment_getDepth comment'
+
+-- | Get the zero-based parameter index in the template parameter list at a
+-- given nesting depth.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga0b91d26f02a476076b6dc5b5eea59a8f>
+clang_TParamCommandComment_getIndex ::
+     CXComment
+  -> CUInt -- ^ depth
+  -> IO CUInt
+clang_TParamCommandComment_getIndex comment depth =
+    onHaskellHeap comment $ \comment' ->
+      wrap_TParamCommandComment_getIndex comment' depth
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_FullComment'

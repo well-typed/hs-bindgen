@@ -108,6 +108,26 @@ static inline enum CXCommentParamPassDirection wrap_ParamCommandComment_getDirec
 }
 
 /**
+ * Comment type 'CXComment_TParamCommand'
+ */
+
+static inline void wrap_TParamCommandComment_getParamName(const CXComment* Comment, CXString*  result) {
+    *result = clang_TParamCommandComment_getParamName(*Comment);
+}
+
+static inline unsigned wrap_TParamCommandComment_isParamPositionValid(const CXComment* Comment) {
+    return clang_TParamCommandComment_isParamPositionValid(*Comment);
+}
+
+static inline unsigned wrap_TParamCommandComment_getDepth(const CXComment* Comment) {
+    return clang_TParamCommandComment_getDepth(*Comment);
+}
+
+static inline unsigned wrap_TParamCommandComment_getIndex(const CXComment* Comment, unsigned depth) {
+    return clang_TParamCommandComment_getIndex(*Comment, depth);
+}
+
+/**
  * Comment type 'CXComment_FullComment'
  */
 
