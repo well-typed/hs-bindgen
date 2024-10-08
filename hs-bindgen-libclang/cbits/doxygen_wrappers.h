@@ -64,6 +64,26 @@ static inline void wrap_InlineCommandComment_getArgText(const CXComment* Comment
 }
 
 /**
+ * Comment type 'CXComment_BlockCommand'
+ */
+
+static inline void wrap_BlockCommandComment_getCommandName(const CXComment* Comment, CXString*  result) {
+    *result = clang_BlockCommandComment_getCommandName(*Comment);
+}
+
+static inline unsigned wrap_BlockCommandComment_getNumArgs(const CXComment* Comment) {
+    return clang_BlockCommandComment_getNumArgs(*Comment);
+}
+
+static inline void wrap_BlockCommandComment_getArgText(const CXComment* Comment, unsigned argIdx, CXString*  result) {
+    *result = clang_BlockCommandComment_getArgText(*Comment, argIdx);
+}
+
+static inline void wrap_BlockCommandComment_getParagraph(const CXComment* Comment, CXComment* result) {
+    *result = clang_BlockCommandComment_getParagraph(*Comment);
+}
+
+/**
  * Comment type 'CXComment_FullComment'
  */
 
