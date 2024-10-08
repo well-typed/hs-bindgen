@@ -13,6 +13,10 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , CXCommentKind(..)
   , clang_Cursor_getParsedComment
   , clang_Comment_getKind
+  , clang_Comment_getNumChildren
+  , clang_Comment_getChild
+  , clang_Comment_isWhitespace
+  , clang_InlineContentComment_hasTrailingNewline
     -- * Comment type 'CXComment_Text'
   , clang_TextComment_getText
     -- * Comment type 'CXComment_InlineCommand'
@@ -35,6 +39,7 @@ import HsBindgen.Clang.LowLevel.Doxygen.Instances ()
 import HsBindgen.Clang.LowLevel.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
+import HsBindgen.Clang.Internal.Results
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -50,6 +55,18 @@ foreign import capi unsafe "doxygen_wrappers.h wrap_Cursor_getParsedComment"
 
 foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getKind"
   wrap_Comment_getKind :: R CXComment_ -> IO (SimpleEnum CXCommentKind)
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getNumChildren"
+  wrap_Comment_getNumChildren :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_getChild"
+  wrap_Comment_getChild :: R CXComment_ -> CUInt -> W CXComment_ -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_Comment_isWhitespace"
+  wrap_Comment_isWhitespace :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_InlineContentComment_hasTrailingNewline"
+  wrap_InlineContentComment_hasTrailingNewline :: R CXComment_ -> IO CUInt
 
 -- | Given a cursor that represents a documentable entity (e.g., declaration),
 -- return the associated parsed comment as a 'CXComment_FullComment' AST node.
@@ -67,6 +84,52 @@ clang_Comment_getKind :: CXComment -> IO (SimpleEnum CXCommentKind)
 clang_Comment_getKind comment =
     onHaskellHeap comment $ \comment' ->
       wrap_Comment_getKind comment'
+
+-- | Get the number of children of the AST node.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gaad4eba69493735a4db462bb4b5bed97a>
+clang_Comment_getNumChildren ::
+     CXComment -- ^ AST node of any kind
+  -> IO CUInt
+clang_Comment_getNumChildren comment =
+    onHaskellHeap comment $ \comment' ->
+      wrap_Comment_getNumChildren comment'
+
+-- | Get the specified child of the AST node.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gad5567ecc26b083562e42b83170c105aa>
+clang_Comment_getChild ::
+     CXComment -- ^ AST node of any kind
+  -> CUInt     -- ^ child index (zero-based)
+  -> IO CXComment
+clang_Comment_getChild comment childIdx =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_Comment_getChild comment' childIdx
+
+-- | Determine whether the comment is considered whitespace.
+--
+-- A @CXComment_Paragraph@ node is considered whitespace if it contains only
+-- @CXComment_Text@ nodes that are empty or whitespace.
+--
+-- Other AST nodes (except @CXComment_Paragraph@ and @CXComment_Text@) are
+-- never considered whitespace.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga1193c1dc798aecad92cb30cea78bf71e>
+clang_Comment_isWhitespace :: CXComment -> IO Bool
+clang_Comment_isWhitespace comment =
+    onHaskellHeap comment $ \comment' ->
+      cToBool <$> wrap_Comment_isWhitespace comment'
+
+-- | Determine whether the comment is inline content and has a newline
+-- immediately following it in the comment text.
+--
+-- Newlines between paragraphs do not count.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gacbc2924271ca86226c024e859e0a75c8>
+clang_InlineContentComment_hasTrailingNewline :: CXComment -> IO Bool
+clang_InlineContentComment_hasTrailingNewline comment =
+    onHaskellHeap comment $ \comment' ->
+      cToBool <$> wrap_InlineContentComment_hasTrailingNewline comment'
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_Text'
