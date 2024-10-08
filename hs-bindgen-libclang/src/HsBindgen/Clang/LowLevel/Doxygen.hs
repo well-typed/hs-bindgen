@@ -24,6 +24,13 @@ module HsBindgen.Clang.LowLevel.Doxygen (
   , clang_InlineCommandComment_getRenderKind
   , clang_InlineCommandComment_getNumArgs
   , clang_InlineCommandComment_getArgText
+    -- * Comment type 'CXComment_HTMLStartTag' and 'CXComment_HTMLEndTag'
+  , clang_HTMLTagComment_getTagName
+  , clang_HTMLStartTagComment_isSelfClosing
+  , clang_HTMLStartTag_getNumAttrs
+  , clang_HTMLStartTag_getAttrName
+  , clang_HTMLStartTag_getAttrValue
+  , clang_HTMLTagComment_getAsString
     -- * Comment type 'CXComment_BlockCommand'
   , clang_BlockCommandComment_getCommandName
   , clang_BlockCommandComment_getNumArgs
@@ -230,6 +237,98 @@ clang_InlineCommandComment_getArgText ::
 clang_InlineCommandComment_getArgText comment argIdx =
     onHaskellHeap comment $ \comment' ->
       preallocate_ $ wrap_InlineCommandComment_getArgText comment' argIdx
+
+{-------------------------------------------------------------------------------
+  Comment type 'CXComment_HTMLStartTag' and 'CXComment_HTMLEndTag'
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_HTMLTagComment_getTagName"
+  wrap_HTMLTagComment_getTagName :: R CXComment_ -> W CXString_ -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_HTMLStartTagComment_isSelfClosing"
+  wrap_HTMLStartTagComment_isSelfClosing :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_HTMLStartTag_getNumAttrs"
+  wrap_HTMLStartTag_getNumAttrs :: R CXComment_ -> IO CUInt
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_HTMLStartTag_getAttrName"
+  wrap_HTMLStartTag_getAttrName :: R CXComment_ -> CUInt -> W CXString_ -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_HTMLStartTag_getAttrValue"
+  wrap_HTMLStartTag_getAttrValue ::
+       R CXComment_
+    -> CUInt
+    -> W CXString_
+    -> IO ()
+
+foreign import capi unsafe "doxygen_wrappers.h wrap_HTMLTagComment_getAsString"
+  wrap_HTMLTagComment_getAsString :: R CXComment_ -> W CXString_ -> IO ()
+
+-- | Get the HTML tag name.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga55b84483c67c0629260b1534d4b3f80e>
+clang_HTMLTagComment_getTagName ::
+     CXComment
+  -- ^ a 'CXComment_HTMLStartTag' or 'CXComment_HTMLEndTag' AST node
+  -> IO Text
+clang_HTMLTagComment_getTagName comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_HTMLTagComment_getTagName comment'
+
+-- | Determine whether the tag is self-closing.
+--
+-- Example: @<br />@ is self-closing
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga052be5f208a0ef2f76e3e9923a96ef19>
+clang_HTMLStartTagComment_isSelfClosing ::
+     CXComment -- ^ a 'CXComment_HTMLStartTag' AST node
+  -> IO Bool
+clang_HTMLStartTagComment_isSelfClosing comment =
+    onHaskellHeap comment $ \comment' ->
+      cToBool <$> wrap_HTMLStartTagComment_isSelfClosing comment'
+
+-- | Get the number of attributes (name-value pairs) attached to the start tag.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gaffb8098debd5b99c2345840a5f0e63e0>
+clang_HTMLStartTag_getNumAttrs ::
+     CXComment -- ^ a 'CXComment_HTMLStartTag' AST node
+  -> IO CUInt
+clang_HTMLStartTag_getNumAttrs comment =
+    onHaskellHeap comment $ \comment' ->
+      wrap_HTMLStartTag_getNumAttrs comment'
+
+-- | Get the name of the specified attribute.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga4bdf958af343477fc70eb2b4822cd006>
+clang_HTMLStartTag_getAttrName ::
+     CXComment -- ^ a 'CXComment_HTMLStartTag' AST node
+  -> CUInt     -- ^ attribute index (zero-based)
+  -> IO Text
+clang_HTMLStartTag_getAttrName comment attrIdx =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_HTMLStartTag_getAttrName comment' attrIdx
+
+-- | Get the value of the specified attribute.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gae674a07af38d28d67941c1c54909c5e8>
+clang_HTMLStartTag_getAttrValue ::
+     CXComment -- ^ a 'CXComment_HTMLStartTag' AST node
+  -> CUInt     -- ^ attribute index (zero-based)
+  -> IO Text
+clang_HTMLStartTag_getAttrValue comment attrIdx =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_HTMLStartTag_getAttrValue comment' attrIdx
+
+-- | Convert an HTML tag AST node to string.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga684a46f5993fe907016aba5dbe9d1d9e>
+clang_HTMLTagComment_getAsString ::
+     CXComment
+  -- ^ a 'CXComment_HTMLStartTag' or 'CXComment_HTMLEndTag' AST node
+  -> IO Text
+clang_HTMLTagComment_getAsString comment =
+    onHaskellHeap comment $ \comment' ->
+      preallocate_ $ wrap_HTMLTagComment_getAsString comment'
 
 {-------------------------------------------------------------------------------
   Comment type 'CXComment_BlockCommand'
