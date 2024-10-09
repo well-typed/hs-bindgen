@@ -6,12 +6,14 @@ module Main (main) where
 import Control.Monad
 import Foreign.C.Types (CUInt)
 
+import Data.Text qualified as T
 import Options.Applicative qualified as OA
 
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Doxygen
 import HsBindgen.Clang.Util.Classification
+import HsBindgen.Clang.Util.Fold
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -21,64 +23,83 @@ import HsBindgen.Patterns
 data Options = Options {
       optComments :: Bool
     , optExtents  :: Bool
+    , optFile     :: FilePath
+    , optKind     :: Bool
+    , optParent   :: Bool
+    , optSameFile :: Bool
+    , optType     :: Bool
     }
 
 {-------------------------------------------------------------------------------
   Implementation
 -------------------------------------------------------------------------------}
 
-clangAstDump :: Options -> FilePath -> IO ()
-clangAstDump opts path = do
-    putStrLn $ "## `" ++ path ++ "`"
+clangAstDump :: Options -> IO ()
+clangAstDump opts@Options{..} = do
+    putStrLn $ "## `" ++ optFile ++ "`"
     putStrLn ""
     index <- clang_createIndex DontDisplayDiagnostics
-    unit <- clang_parseTranslationUnit
-              index
-              path
-              defaultClangArgs
-              (bitfieldEnum [CXTranslationUnit_None])
-    cursor <- clang_getTranslationUnitCursor unit
-    terminatedPrematurely <- clang_visitChildren cursor $ visit opts
-    when terminatedPrematurely $ do
-      putStrLn ""
-      putStrLn "BREAK"
+    let clangOpts = bitfieldEnum [CXTranslationUnit_None]
+    unit <- clang_parseTranslationUnit index optFile defaultClangArgs clangOpts
+    rootCursor <- clang_getTranslationUnitCursor unit
+    void . clang_fold rootCursor $ \parent cursor -> do
+      (cursorFile, _, _) <-
+        clang_getPresumedLocation =<< clang_getCursorLocation cursor
+      if optSameFile && cursorFile /= T.pack optFile
+        then pure $ Continue Nothing
+        else foldDecls opts parent cursor
 
-visit :: Options -> CXCursor -> CXCursor -> IO (SimpleEnum CXChildVisitResult)
-visit Options{..} cursor _cursorParent = do
+foldDecls :: Options -> CXCursor -> CXCursor -> IO (Next ())
+foldDecls opts@Options{..} parent cursor = do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
+
+    when optParent $
+      traceU 1 "parent" =<< clang_getCursorDisplayName parent
+
+    when optExtents $ do
+      extent <- clang_getCursorExtent cursor
+      (file, startLine, startCol) <-
+        clang_getPresumedLocation =<< clang_getRangeStart extent
+      (_, endLine, endCol) <-
+        clang_getPresumedLocation =<< clang_getRangeEnd extent
+      traceU 1 "extent" (file, (startLine, startCol), (endLine, endCol))
+
+    cursorKind <- clang_getCursorKind cursor
+    traceU 1 "cursor kind" cursorKind
+    isDecl <- clang_isDeclaration cursorKind
+    when optKind $
+      traceWhen 2 "declaration" isDecl
 
     cursorType <- clang_getCursorType cursor
     let typeKind = cxtKind cursorType
-    traceU 1 "cursor type kind" $ fromSimpleEnum typeKind
-    traceU 2 "spelling" =<< clang_getTypeKindSpelling typeKind
+    traceU 1 "cursor type" =<< clang_getTypeSpelling cursorType
+    when optType $ do
+      traceU 2 "kind" $ fromSimpleEnum typeKind
+      traceU 3 "spelling" =<< clang_getTypeKindSpelling typeKind
+      traceU 2 "canonical"
+        =<< clang_getTypeSpelling
+        =<< clang_getCanonicalType cursorType
 
     when (isPointerType typeKind) $
       traceU 1 "pointer"
         =<< clang_getTypeSpelling
         =<< clang_getPointeeType cursorType
 
-    when (isRecordType typeKind) $
-      traceU 1 "record"
-        =<< clang_getTypeSpelling cursorType
-
-    isDecl <- clang_isDeclaration =<< clang_getCursorKind cursor
-    traceWhen 1 "declaration" isDecl
-
-    when optExtents $ do
-      cursorExtent <- clang_getCursorExtent cursor
-      traceU 1 "extent start" . (\(_, line, col, _) -> (line, col))
-        =<< clang_getExpansionLocation
-        =<< clang_getRangeStart cursorExtent
-      traceU 1 "extent end" . (\(_, line, col, _) -> (line, col))
-        =<< clang_getExpansionLocation
-        =<< clang_getRangeEnd cursorExtent
-
     when (isDecl && optComments) $ do
-      traceU 1 "comment" =<< clang_Cursor_getRawCommentText cursor
-      traceU 2 "brief" =<< clang_Cursor_getBriefCommentText cursor
-      dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
+      commentText <- clang_Cursor_getRawCommentText cursor
+      unless (T.null commentText) $ do
+        traceU 1 "comment" commentText
+        traceU 2 "brief" =<< clang_Cursor_getBriefCommentText cursor
+        dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
 
-    pure $ simpleEnum CXChildVisit_Recurse
+    let doRecurse  = pure $ Recurse (foldDecls opts) (pure . const Nothing)
+        doContinue = Continue Nothing <$ traceL 1 "CONTINUE"
+    case fromSimpleEnum cursorKind of
+      Right CXCursor_StructDecl      -> doRecurse
+      Right CXCursor_EnumDecl        -> doRecurse
+      Right CXCursor_TypedefDecl     -> doRecurse
+      Right CXCursor_MacroDefinition -> doRecurse
+      _otherwise                     -> doContinue
 
 dumpComment :: Int -> Maybe CUInt -> CXComment -> IO ()
 dumpComment level mIdx comment = do
@@ -126,8 +147,8 @@ trace' level mIndex mLabel mValue = putStrLn $ concat
         (Nothing,    Nothing)    -> ""
     ]
 
---traceL :: Int -> String -> IO ()
---traceL level label = trace' @() level Nothing (Just label) Nothing
+traceL :: Int -> String -> IO ()
+traceL level label = trace' @() level Nothing (Just label) Nothing
 
 traceU_ :: Show a => Int -> a -> IO ()
 traceU_ level value = trace' level Nothing Nothing (Just value)
@@ -150,44 +171,26 @@ traceWhen level label b = when b $ traceU level label b
   CLI
 -------------------------------------------------------------------------------}
 
-data CliOptions = CliOptions {
-      cliOptions :: Options
-    , cliFile    :: FilePath
-    }
-
-parseArgs :: IO CliOptions
+parseArgs :: IO Options
 parseArgs = OA.execParser pinfo
   where
-    pinfo :: OA.ParserInfo CliOptions
-    pinfo = OA.info (OA.helper <*> parseCliOptions) $ mconcat
+    pinfo :: OA.ParserInfo Options
+    pinfo = OA.info (OA.helper <*> parseOptions) $ mconcat
       [ OA.fullDesc
       , OA.progDesc "Clang AST dump"
       , OA.failureCode 2
       ]
 
-    parseCliOptions :: OA.Parser CliOptions
-    parseCliOptions = do
-      cliOptions <- parseOptions
-      cliFile    <- fileArgument
-      pure CliOptions{..}
-
     parseOptions :: OA.Parser Options
     parseOptions = do
-      optComments <- commentsOption
-      optExtents  <- extentsOption
+      optFile     <- fileArgument
+      optComments <- mkFlag "comments"  "show comments"
+      optExtents  <- mkFlag "extents"   "show extents"
+      optKind     <- mkFlag "kind"      "show kind details"
+      optParent   <- mkFlag "parent"    "show parent"
+      optSameFile <- mkFlag "same-file" "only show from specified file"
+      optType     <- mkFlag "type"      "show type details"
       pure Options{..}
-
-    commentsOption :: OA.Parser Bool
-    commentsOption = OA.switch $ mconcat
-      [ OA.long "comments"
-      , OA.help "show comments"
-      ]
-
-    extentsOption :: OA.Parser Bool
-    extentsOption = OA.switch $ mconcat
-      [ OA.long "extents"
-      , OA.help "show extents"
-      ]
 
     fileArgument :: OA.Parser FilePath
     fileArgument = OA.strArgument $ mconcat
@@ -195,7 +198,8 @@ parseArgs = OA.execParser pinfo
       , OA.help "C (header) file to parse"
       ]
 
+    mkFlag :: String -> String -> OA.Parser Bool
+    mkFlag flag doc = OA.switch $ OA.long flag <> OA.help doc
+
 main :: IO ()
-main = do
-    CliOptions{..} <- parseArgs
-    clangAstDump cliOptions cliFile
+main = clangAstDump =<< parseArgs
