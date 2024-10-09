@@ -3,7 +3,6 @@
 
 module HsBindgen.App.RenderComments (renderComments) where
 
-import Data.Text (Text)
 import Data.Tree
 import Text.Blaze qualified as Blaze
 import Text.Blaze.Html5 (Html, ToMarkup(..), (!))
@@ -11,24 +10,25 @@ import Text.Blaze.Html5 qualified as H
 import Text.Blaze.Html5.Attributes qualified as A
 
 import HsBindgen.C.AST
+import HsBindgen.Lib (Comment(..))
 
 {-------------------------------------------------------------------------------
   Render comments
 -------------------------------------------------------------------------------}
 
 -- | Generate HTML page with comments
-renderComments :: Forest (MultiLoc, Text, Maybe Text) -> Html
+renderComments :: Forest Comment -> Html
 renderComments comments = H.docTypeHtml $
     H.body $ do
       mapM_ renderNode comments
 
-renderNode :: Tree (MultiLoc, Text, Maybe Text) -> Html
-renderNode (Node (sourceLoc, name, mComment) children) = do
-    H.b $ Blaze.text name
+renderNode :: Tree Comment -> Html
+renderNode (Node Comment{commentNode, commentLoc, commentHTML} children) = do
+    H.b $ Blaze.text commentNode
     " ("
-    toMarkup (multiLocExpansion sourceLoc)
+    toMarkup (multiLocExpansion commentLoc)
     ")"
-    mapM_ Blaze.text mComment
+    mapM_ Blaze.text commentHTML
     H.div ! A.style "margin-left: 1em;" $ do
       mapM_ renderNode children
 

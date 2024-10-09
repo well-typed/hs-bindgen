@@ -65,10 +65,8 @@ instance Monoid Predicate where
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
-match ::
-     CXCursor -- ^ Parent
-  -> CXCursor -> Predicate -> IO (Either String ())
-match _parent current = runExceptT . go
+match :: CXCursor -> Predicate -> IO (Either String ())
+match current = runExceptT . go
   where
     go :: Predicate -> ExceptT String IO ()
     go SelectAll      = return ()

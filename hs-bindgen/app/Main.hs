@@ -27,14 +27,14 @@ execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline tracer = \case
     ModePreprocess{input, moduleOpts, renderOpts, output} ->
       preprocess $ Preprocess {
-          preprocessTraceWarnings  = contramap show tracer
-        , preprocessTraceParseMsgs = contramap prettyLogMsg tracer
-        , preprocessPredicate      = cmdPredicate
-        , preprocessClangArgs      = cmdClangArgs
-        , preprocessInputPath      = input
-        , preprocessModuleOpts     = moduleOpts
-        , preprocessRenderOpts     = renderOpts
-        , preprocessOutputPath     = output
+          preprocessTraceWarnings = contramap show tracer
+        , preprocessTraceSkipped  = contramap prettyLogMsg tracer
+        , preprocessPredicate     = cmdPredicate
+        , preprocessClangArgs     = cmdClangArgs
+        , preprocessInputPath     = input
+        , preprocessModuleOpts    = moduleOpts
+        , preprocessRenderOpts    = renderOpts
+        , preprocessOutputPath    = output
         }
     ModeParseCHeader{input} -> do
       cHeader <-
