@@ -21,7 +21,7 @@ generateBindingsFor fp = do
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show $ mkTracerQ False
 
-    traceParseMsgs :: Tracer IO ParseMsg
+    traceParseMsgs :: Tracer IO Skipped
     traceParseMsgs = contramap prettyLogMsg $ mkTracerQ False
 
     p :: Predicate

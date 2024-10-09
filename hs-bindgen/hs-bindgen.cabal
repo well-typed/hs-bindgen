@@ -60,6 +60,12 @@ library
       HsBindgen.Backend.TH.Translation
       HsBindgen.Bootstrap.Prelude
       HsBindgen.C.AST
+      HsBindgen.C.Fold
+      HsBindgen.C.Fold.Comments
+      HsBindgen.C.Fold.Common
+      HsBindgen.C.Fold.Decl
+      HsBindgen.C.Fold.Raw
+      HsBindgen.C.Fold.Type
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -123,7 +129,6 @@ executable hs-bindgen
     , bytestring
     , containers
     , data-default
-    , text
   build-depends:
     , blaze-html           >= 0.9  && < 0.10
     , blaze-markup         >= 0.8  && < 0.9

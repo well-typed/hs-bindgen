@@ -3,6 +3,8 @@ module HsBindgen.Bootstrap.Prelude (
   ) where
 
 import Control.Exception
+import Control.Monad.Identity
+import Control.Monad.IO.Class
 import Data.Text (Text)
 import Data.Text qualified as Text
 import System.FilePath ((</>))
@@ -43,22 +45,22 @@ genPrelude tracer = do
         standardHeaders $
         \unit -> do
       cursor <- clang_getTranslationUnitCursor unit
-      clang_fold cursor $ fold tracer standardHeaders unit
+      runFoldIdentity $ clang_fold cursor $ fold tracer standardHeaders unit
     print entries
 
 fold ::
      Tracer IO GenPreludeMsg
   -> FilePath -- ^ Path to @standard_headers.h@
   -> CXTranslationUnit
-  -> Fold PreludeEntry
+  -> Fold Identity PreludeEntry
 fold tracer standardHeaders unit = go
   where
-    go :: Fold PreludeEntry
-    go = checkLoc $ \loc _parent current -> do
-        kind <- clang_getCursorKind current
+    go :: Fold Identity PreludeEntry
+    go = checkLoc $ \loc current -> do
+        kind <- liftIO $ clang_getCursorKind current
 
-        let skip :: IO (Next a)
-            skip = do
+        let skip :: FoldM Identity (Next Identity a)
+            skip = liftIO $ do
                 traceWith tracer Info $ Skipping loc kind
                 return $ Continue Nothing
 
@@ -67,23 +69,15 @@ fold tracer standardHeaders unit = go
           Right CXCursor_MacroExpansion     -> skip
 
           Right CXCursor_MacroDefinition -> do
-            cursorExtent <- SourceLoc.clang_getCursorExtent current
-            tokens       <- Tokens.clang_tokenize
-                              unit
-                              (multiLocExpansion <$> cursorExtent)
-            case reparseWith reparseMacro tokens of
-              Right macro ->
-                appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
-              Left err -> do
-                traceWith tracer Warning $ UnrecognizedMacro err
+            processMacro tracer unit loc current
             return $ Continue Nothing
 
           _otherwise ->
             Continue <$> unrecognized tracer current
 
-    checkLoc :: (MultiLoc -> Fold a) -> Fold a
-    checkLoc k parent current = do
-        loc <- SourceLoc.clang_getCursorLocation current
+    checkLoc :: (MultiLoc -> Fold m a) -> Fold m a
+    checkLoc k current = do
+        loc <- liftIO $ SourceLoc.clang_getCursorLocation current
         let fp :: FilePath
             fp = Text.unpack . getSourcePath . singleLocPath $
                    multiLocExpansion loc
@@ -99,7 +93,24 @@ fold tracer standardHeaders unit = go
                return $ Continue Nothing
 
            | otherwise ->
-               k loc parent current
+               k loc current
+
+processMacro ::
+     MonadIO m
+  => Tracer IO GenPreludeMsg
+  -> CXTranslationUnit
+  -> MultiLoc
+  -> CXCursor -> m ()
+processMacro tracer unit loc current = liftIO $ do
+    cursorExtent <- SourceLoc.clang_getCursorExtent current
+    tokens       <- Tokens.clang_tokenize
+                      unit
+                      (multiLocExpansion <$> cursorExtent)
+    case reparseWith reparseMacro tokens of
+      Right macro ->
+        appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
+      Left err -> do
+        traceWith tracer Warning $ UnrecognizedMacro err
 
 {-------------------------------------------------------------------------------
   Auxiliary
@@ -131,8 +142,8 @@ instance PrettyLogMsg GenPreludeMsg where
   prettyLogMsg (UnrecognizedMacro err) =
       prettyLogMsg err
 
-unrecognized :: Tracer IO GenPreludeMsg -> CXCursor -> IO (Maybe a)
-unrecognized tracer current = do
+unrecognized :: MonadIO m => Tracer IO GenPreludeMsg -> CXCursor -> m (Maybe a)
+unrecognized tracer current = liftIO $ do
     loc  <- SourceLoc.clang_getCursorLocation current
     kind <- clang_getCursorKind current
     name <- clang_getCursorSpelling current

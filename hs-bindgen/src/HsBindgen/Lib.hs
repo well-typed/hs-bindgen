@@ -14,8 +14,8 @@
 -- that library should be considered internal to @hs-bindgen@.
 module HsBindgen.Lib (
     -- * Prepare input
-    CHeader   -- opaque
-  , ParseMsg  -- opaque
+    CHeader    -- opaque
+  , C.Skipped  -- opaque
   , Predicate(..)
   , parseCHeader
 
@@ -40,8 +40,9 @@ module HsBindgen.Lib (
   , preprocess
 
     -- * Debugging
-  , Element(..)
+  , C.Element(..)
   , getClangAST
+  , C.Comment(..)
   , getComments
   , getTargetTriple
   , genHaskell
@@ -70,12 +71,11 @@ import HsBindgen.Backend.HsSrcExts.Translation (HsModuleOpts(..))
 import HsBindgen.Backend.HsSrcExts.Translation qualified as Backend.E
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Parser (ParseMsg, Element(..))
+import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Util.Diagnostics qualified as C (Diagnostic)
-import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Translation.LowLevel qualified as LowLevel
 import HsBindgen.Util.Tracer
@@ -112,14 +112,19 @@ newtype HsModule = WrapHsModule {
 -- | Parse C header
 parseCHeader ::
      Tracer IO C.Diagnostic
-  -> Tracer IO C.ParseMsg
+  -> Tracer IO C.Skipped
   -> Predicate
   -> ClangArgs
   -> FilePath -> IO CHeader
-parseCHeader traceWarnings traceParseMsgs p args fp =
+parseCHeader traceWarnings traceSkipped p args fp =
     fmap (WrapCHeader . C.Header) $
-      C.parseHeaderWith traceWarnings args fp $
-        C.foldDecls traceParseMsgs p
+      C.withTranslationUnit traceWarnings args fp $ \unit -> do
+        (decls, _finalDeclState) <-
+          C.foldTranslationUnitWith
+            unit
+            (C.runFoldState C.initDeclState)
+            (C.foldDecls traceSkipped p unit)
+        return decls
 
 {-------------------------------------------------------------------------------
   Translation
@@ -153,7 +158,7 @@ data Preprocess = Preprocess {
       preprocessTraceWarnings :: Tracer IO C.Diagnostic
 
       -- | Tracer for /our/ C parser
-    , preprocessTraceParseMsgs :: Tracer IO C.ParseMsg
+    , preprocessTraceSkipped :: Tracer IO C.Skipped
 
       -- | Select definitions
     , preprocessPredicate :: Predicate
@@ -178,11 +183,11 @@ preprocess :: Preprocess -> IO ()
 preprocess prep = do
     modl <- genModule (preprocessModuleOpts prep) <$>
               parseCHeader
-                (preprocessTraceWarnings  prep)
-                (preprocessTraceParseMsgs prep)
-                (preprocessPredicate      prep)
-                (preprocessClangArgs      prep)
-                (preprocessInputPath      prep)
+                (preprocessTraceWarnings prep)
+                (preprocessTraceSkipped  prep)
+                (preprocessPredicate     prep)
+                (preprocessClangArgs     prep)
+                (preprocessInputPath     prep)
     prettyHs (preprocessRenderOpts prep) (preprocessOutputPath prep) modl
 
 {-------------------------------------------------------------------------------
@@ -197,10 +202,13 @@ getClangAST ::
   -> Predicate
   -> ClangArgs
   -> FilePath
-  -> IO (Forest Element)
-getClangAST tracer predicate args fp =
-    C.parseHeaderWith tracer args fp $
-      C.foldClangAST predicate
+  -> IO (Forest C.Element)
+getClangAST traceWarnings predicate args fp =
+    C.withTranslationUnit traceWarnings args fp $ \unit ->
+      C.foldTranslationUnitWith
+        unit
+        C.runFoldIdentity
+        (C.foldRaw predicate)
 
 -- | Get comments as HTML for all top-level declarations
 --
@@ -211,10 +219,16 @@ getComments ::
   -> Predicate
   -> ClangArgs
   -> FilePath
-  -> IO (Forest (MultiLoc, Text, Maybe Text))
-getComments tracer predicate args fp =
-    C.parseHeaderWith tracer args fp $
-      C.foldComments predicate
+  -> IO (Forest C.Comment)
+getComments traceWarnings predicate args fp =
+    C.withTranslationUnit traceWarnings args fp $ \unit ->
+      C.foldTranslationUnitWith
+        unit
+        C.runFoldIdentity
+        (C.foldComments predicate)
+
+    --C.parseHeaderWith tracer args fp $
+    --
 
 -- | Return the target triple for translation unit
 getTargetTriple ::
