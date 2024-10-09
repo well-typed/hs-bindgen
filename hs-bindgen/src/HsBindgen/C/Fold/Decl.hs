@@ -25,8 +25,6 @@ import Data.Maybe (catMaybes)
   Monad used for the traversal
 -------------------------------------------------------------------------------}
 
-type M = State DeclState
-
 data DeclState = DeclState
 
 initDeclState :: DeclState
@@ -40,7 +38,7 @@ foldDecls ::
      HasCallStack
   => Tracer IO Skipped
   -> Predicate
-  -> CXTranslationUnit -> Fold M Decl
+  -> CXTranslationUnit -> Fold (State DeclState) Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
