@@ -148,7 +148,8 @@ foldDecls tracer p unit = checkPredicate tracer p $ \_parent current -> do
             decl = DeclMacro $ reparseWith reparseMacro tokens
         return $ Continue $ Just decl
       _otherwise -> do
-        traceWith tracer Warning $ unrecognizedCursor cursorKind
+        loc <- SourceLoc.clang_getCursorLocation current
+        traceWith tracer Warning $ unrecognizedCursor cursorKind loc
         return $ Continue Nothing
 
 checkPredicate :: Tracer IO ParseMsg -> Predicate -> Fold a -> Fold a
@@ -223,7 +224,8 @@ foldEnumValues tracer _parent current = do
 
       _ -> do
         -- there could be attributes, e.g. packed
-        traceWith tracer Warning $ unrecognizedCursor cursorKind
+        loc <- SourceLoc.clang_getCursorLocation current
+        traceWith tracer Warning $ unrecognizedCursor cursorKind loc
         return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -272,7 +274,8 @@ foldTyp tracer unit _parent current = do
             mkDecl = return . Just . TypStruct . mkStruct
         return $ Recurse (foldStructFields tracer unit) mkDecl
       _otherwise -> do
-        traceWith tracer Warning $ unrecognizedCursor cursorKind
+        loc <- SourceLoc.clang_getCursorLocation current
+        traceWith tracer Warning $ unrecognizedCursor cursorKind loc
         return $ Continue Nothing
 
 primType :: Either CInt CXTypeKind -> Maybe PrimType
@@ -389,9 +392,11 @@ data ParseMsg =
     Skipped Text MultiLoc String
 
     -- | Skipped unrecognized cursor
-  | UnrecognizedCursor CallStack (SimpleEnum CXCursorKind)
+  | UnrecognizedCursor CallStack (SimpleEnum CXCursorKind) MultiLoc
 
-unrecognizedCursor :: HasCallStack => SimpleEnum CXCursorKind -> ParseMsg
+unrecognizedCursor ::
+     HasCallStack
+  => SimpleEnum CXCursorKind -> MultiLoc -> ParseMsg
 unrecognizedCursor = UnrecognizedCursor callStack
 
 instance PrettyLogMsg ParseMsg where
@@ -403,9 +408,11 @@ instance PrettyLogMsg ParseMsg where
       , ": "
       , reason
       ]
-  prettyLogMsg (UnrecognizedCursor cs kind) = mconcat [
+  prettyLogMsg (UnrecognizedCursor cs kind loc) = mconcat [
         "Unrecognized element "
       , show kind
       , " at "
+      , show loc
+      , ". Callstack: "
       , prettyCallStack cs
       ]
