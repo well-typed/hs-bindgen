@@ -1,0 +1,39 @@
+cabal-version:      3.0
+name:               clang-ast-dump
+version:            0.0.0.0
+synopsis:           Clang AST dump
+build-type:         Simple
+
+executable clang-ast-dump
+  main-is: Main.hs
+  build-depends:
+      -- Inherited dependencies
+    , base
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen-libclang
+    , hs-bindgen-patterns
+  build-depends:
+      -- External dependencies
+    , optparse-applicative
+  default-language:
+      GHC2021
+  default-extensions:
+      DataKinds
+      DefaultSignatures
+      DeriveAnyClass
+      DerivingStrategies
+      DerivingVia
+      DisambiguateRecordFields
+      LambdaCase
+      MultiWayIf
+      QuantifiedConstraints
+      TypeFamilies
+      UndecidableInstances
+  ghc-options:
+      -Wall
+      -Widentities
+      -Wprepositive-qualified-module
+      -Wredundant-constraints
+      -Wunused-packages
+      -Wno-unticked-promoted-constructors
