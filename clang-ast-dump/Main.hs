@@ -184,7 +184,7 @@ dumpComment level mIdx comment = do
 
       Right CXComment_FullComment -> pure ()
 
-      Left n  -> traceU level1 "COMMENT_KIND_ENUM_OUT_OF_RANGE" n
+      Left n -> traceU level1 "COMMENT_KIND_ENUM_OUT_OF_RANGE" n
 
     numChildren <- clang_Comment_getNumChildren comment
     when (numChildren > 0) $ do
