@@ -69,6 +69,12 @@ mkTypeUse = go
             name <- CName <$> clang_getTypeSpelling ty
             return $ TypElaborated name
 
+          -- Older versions of libclang (e.g. clang-14) report 'CXType_Typedef'
+          -- instead of 'CXType_Elaborated'.
+          Right CXType_Typedef -> do
+            name <- CName <$> clang_getTypeSpelling ty
+            return $ TypElaborated name
+
           _otherwise ->
             unrecognizedType ty
 
