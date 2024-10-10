@@ -198,10 +198,20 @@ dumpComment level mIdx comment = do
     level3 = level + 3
 
 {-------------------------------------------------------------------------------
-  Helper Functions
+  Trace Functions
 -------------------------------------------------------------------------------}
 
-trace' :: Show a => Int -> Maybe Int -> Maybe String -> Maybe a -> IO ()
+-- | Trace Markdown list item (internal)
+--
+-- This function is not meant to be used directly.  Use one of the below
+-- functions instead.
+trace' ::
+     Show a
+  => Int           -- ^ indentation level, from 0
+  -> Maybe Int     -- ^ index of ordered list
+  -> Maybe String  -- ^ label
+  -> Maybe a       -- ^ value
+  -> IO ()
 trace' level mIndex mLabel mValue = putStrLn $ concat
     [ replicate (level * 4) ' '
     , maybe "* " ((++ ". ") . show) mIndex
@@ -212,27 +222,69 @@ trace' level mIndex mLabel mValue = putStrLn $ concat
         (Nothing,    Nothing)    -> ""
     ]
 
-traceL :: Int -> String -> IO ()
+-- | Trace label (unordered)
+traceL ::
+     Int     -- ^ indentation level, from 0
+  -> String  -- ^ label
+  -> IO ()
 traceL level label = trace' @() level Nothing (Just label) Nothing
 
-traceU_ :: Show a => Int -> a -> IO ()
+-- | Trace value (unordered, no label)
+traceU_ ::
+     Show a
+  => Int  -- ^ indentation level, from 0
+  -> a    -- ^ value
+  -> IO ()
 traceU_ level value = trace' level Nothing Nothing (Just value)
 
-traceU :: Show a => Int -> String -> a -> IO ()
+-- | Trace value (unordered, with label)
+traceU ::
+     Show a
+  => Int     -- ^ indentation level, from 0
+  -> String  -- ^ label
+  -> a       -- ^ value
+  -> IO ()
 traceU level label value = trace' level Nothing (Just label) (Just value)
 
-traceO_ :: (Integral i, Show a) => Int -> i -> a -> IO ()
+-- | Trace value (ordered, no label)
+traceO_ ::
+     (Integral i, Show a)
+  => Int  -- ^ indentation level, from 0
+  -> i    -- ^ index of ordered list
+  -> a    -- ^ value
+  -> IO ()
 traceO_ level index value =
     trace' level (Just $ fromIntegral index) Nothing (Just value)
 
-traceO :: (Integral i, Show a) => Int -> i -> String -> a -> IO ()
+-- | Trace value (ordered, with label)
+traceO ::
+     (Integral i, Show a)
+  => Int     -- ^ indentation level, from 0
+  -> i       -- ^ index of ordered list
+  -> String  -- ^ label
+  -> a       -- ^ value
+  -> IO ()
 traceO level index label value =
     trace' level (Just $ fromIntegral index) (Just label) (Just value)
 
-traceWhen :: Show a => Int -> String -> (a -> Bool) -> a -> IO ()
+-- | Trace value when predicate holds (unordered, with label)
+traceWhen ::
+     Show a
+  => Int          -- ^ indentation level, from 0
+  -> String       -- ^ label
+  -> (a -> Bool)  -- ^ predicate
+  -> a            -- ^ value
+  -> IO ()
 traceWhen level label p value = when (p value) $ traceU level label value
 
-traceUnless :: Show a => Int -> String -> (a -> Bool) -> a -> IO ()
+-- | Trace value when predicate does not hold (unordered, with label)
+traceUnless ::
+     Show a
+  => Int          -- ^ indentation level, from 0
+  -> String       -- ^ label
+  -> (a -> Bool)  -- ^ predicate
+  -> a            -- ^ value
+  -> IO ()
 traceUnless level label p value = unless (p value) $ traceU level label value
 
 {-------------------------------------------------------------------------------
