@@ -41,6 +41,7 @@ main = do
         , golden "macros"
         , golden "macro_functions"
         , golden "uses_utf8"
+        , golden "typedef_vs_macro"
         ]
   where
     golden name = testGroup name
