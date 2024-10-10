@@ -61,11 +61,9 @@ library
       HsBindgen.Bootstrap.Prelude
       HsBindgen.C.AST
       HsBindgen.C.Fold
-      HsBindgen.C.Fold.Comments
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
       HsBindgen.C.Fold.DeclState
-      HsBindgen.C.Fold.Raw
       HsBindgen.C.Fold.Type
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
@@ -122,18 +120,13 @@ executable hs-bindgen
 
   other-modules:
       HsBindgen.App.Cmdline
-      HsBindgen.App.RenderComments
   build-depends:
       -- Internal dependencies
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
-    , bytestring
-    , containers
     , data-default
   build-depends:
-    , blaze-html           >= 0.9  && < 0.10
-    , blaze-markup         >= 0.8  && < 0.9
     , optparse-applicative >= 0.18 && < 0.19
 
 test-suite golden
@@ -145,12 +138,10 @@ test-suite golden
   build-depends:
       -- Internal dependencies
     , hs-bindgen
-    , hs-bindgen-libclang
     , hs-bindgen-patterns
   build-depends:
       -- Inherited dependencies
     , bytestring
-    , containers
     , mtl
     , template-haskell
     , text

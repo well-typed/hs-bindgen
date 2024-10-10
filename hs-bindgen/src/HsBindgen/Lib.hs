@@ -40,10 +40,6 @@ module HsBindgen.Lib (
   , preprocess
 
     -- * Debugging
-  , C.Element(..)
-  , getClangAST
-  , C.Comment(..)
-  , getComments
   , getTargetTriple
   , genHaskell
 
@@ -58,7 +54,6 @@ module HsBindgen.Lib (
   ) where
 
 import Data.Text (Text)
-import Data.Tree (Forest)
 import GHC.Generics (Generic)
 import Language.Haskell.Exts qualified as E
 import Language.Haskell.TH qualified as TH
@@ -193,42 +188,6 @@ preprocess prep = do
 {-------------------------------------------------------------------------------
   Debugging
 -------------------------------------------------------------------------------}
-
--- | Return the raw @libclang@ AST
---
--- This is primarily for debugging.
-getClangAST ::
-     Tracer IO C.Diagnostic
-  -> Predicate
-  -> ClangArgs
-  -> FilePath
-  -> IO (Forest C.Element)
-getClangAST traceWarnings predicate args fp =
-    C.withTranslationUnit traceWarnings args fp $ \unit ->
-      C.foldTranslationUnitWith
-        unit
-        C.runFoldIdentity
-        (C.foldRaw predicate)
-
--- | Get comments as HTML for all top-level declarations
---
--- For now this is primarily for debugging, but perhaps this could be made part
--- of the library proper.
-getComments ::
-     Tracer IO C.Diagnostic
-  -> Predicate
-  -> ClangArgs
-  -> FilePath
-  -> IO (Forest C.Comment)
-getComments traceWarnings predicate args fp =
-    C.withTranslationUnit traceWarnings args fp $ \unit ->
-      C.foldTranslationUnitWith
-        unit
-        C.runFoldIdentity
-        (C.foldComments predicate)
-
-    --C.parseHeaderWith tracer args fp $
-    --
 
 -- | Return the target triple for translation unit
 getTargetTriple ::

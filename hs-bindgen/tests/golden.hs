@@ -5,7 +5,6 @@
 
 module Main (main) where
 
-import Data.Tree (Tree (..))
 import Data.TreeDiff.Golden (ediffGolden)
 import System.Directory (doesFileExist, setCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
@@ -16,7 +15,6 @@ import Test.Tasty.HUnit (testCase, (@?=))
 import Orphans ()
 import TH
 
-import HsBindgen.Clang.Util.Classification
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
 import HsBindgen.Util.PHOAS
@@ -45,26 +43,13 @@ main = do
         ]
   where
     golden name = testGroup name
-        [ goldenDump name
-        , goldenTreeDiff name
+        [ goldenTreeDiff name
         , goldenHs name
 -- Since GHC-9.4 the Template Haskell ppr function has changed slightly
 #if __GLASGOW_HASKELL__ >=904
         , goldenTh name
 #endif
         ]
-
-    goldenDump name = goldenVsStringDiff_ "ast" ("fixtures" </> (name ++ ".dump.txt")) $ \report -> do
-        -- -<.> does weird stuff for filenames with multiple dots;
-        -- I usually simply avoid using it.
-        let fp = "examples" </> (name ++ ".h")
-            args = clangArgs
-
-        let tracer = mkTracer report report report False
-        let tracerD = contramap show tracer
-        res <- getClangAST tracerD SelectFromMainFile args fp
-
-        return $ unlines $ concatMap treeToLines res
 
     goldenTreeDiff name = ediffGolden goldenTest "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ do
         -- TODO: there aren't ediffGolden variant for goldenTestSteps like signature... yet
@@ -96,22 +81,6 @@ clangArgs = defaultClangArgs{
      clangTarget = Just "x86_64-pc-linux-gnu"
    , clangCStandard = Just C23
    }
-
-treeToLines :: Tree Element -> [String]
-treeToLines tree = go 0 tree [] where
-    go :: Int -> Tree Element -> [String] -> [String]
-    go !n (Node l xs) next = (replicate (n * 2) ' ' ++ showElem l) : foldr (go (n + 1)) next xs
-
-showElem :: Element -> [Char]
-showElem Element{elementName, elementKind, elementTypeKind} = mconcat [
-      show elementKind
-    , " "
-    , case elementName of
-        UserProvided name  -> show name
-        LibclangProvided _ -> "_" -- varies between llvm versions, so ignore
-    , " :: "
-    , show elementTypeKind
-    ]
 
 -- | In multi-package projects @cabal run test-suite@ will run the test-suite
 -- from your current working directory (e.g. project root), which is often
