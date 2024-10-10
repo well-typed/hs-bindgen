@@ -52,8 +52,8 @@ foldDecls :: Options -> CXCursor -> CXCursor -> IO (Next ())
 foldDecls opts@Options{..} parent cursor = do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
 
-    parentName <- clang_getCursorDisplayName parent
-    traceWhen 1 "parent" (/= T.pack optFile) parentName
+    traceWhen 1 "parent" (/= T.pack optFile)
+      =<< clang_getCursorDisplayName parent
 
     when optExtents $ do
       extent <- clang_getCursorExtent cursor
