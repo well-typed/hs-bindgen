@@ -25,7 +25,6 @@ data Options = Options {
     , optExtents  :: Bool
     , optFile     :: FilePath
     , optKind     :: Bool
-    , optParent   :: Bool
     , optSameFile :: Bool
     , optType     :: Bool
     }
@@ -53,8 +52,8 @@ foldDecls :: Options -> CXCursor -> CXCursor -> IO (Next ())
 foldDecls opts@Options{..} parent cursor = do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
 
-    when optParent $
-      traceU 1 "parent" =<< clang_getCursorDisplayName parent
+    parentName <- clang_getCursorDisplayName parent
+    when (parentName /= T.pack optFile) $ traceU 1 "parent" parentName
 
     when optExtents $ do
       extent <- clang_getCursorExtent cursor
@@ -256,7 +255,6 @@ main = clangAstDump =<< OA.execParser pinfo
       optComments <- mkFlag "comments"  "show comments"
       optExtents  <- mkFlag "extents"   "show extents"
       optKind     <- mkFlag "kind"      "show kind details"
-      optParent   <- mkFlag "parent"    "show parent"
       optSameFile <- mkFlag "same-file" "only show from specified file"
       optType     <- mkFlag "type"      "show type details"
       pure Options{..}
