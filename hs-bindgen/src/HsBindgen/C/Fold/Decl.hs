@@ -49,11 +49,18 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         decl <- declEnum <$> mkEnumHeader current
         return $ Recurse (continue mkEnumValue) (Just . decl)
       Right CXCursor_TypedefDecl -> do
-        decl <- declTypedef <$> mkTypedefHeader current
-        return $ Recurse foldTypeDecl (Just . decl)
+        typedefHeader <- mkTypedefHeader current
+        case typedefHeader of
+          TypedefPrim typedef ->
+            return $ Continue $ Just $ DeclTypedef typedef
+          TypedefElaborated mkTypedef ->
+            return $ Recurse foldTypeDecl (Just . declTypedef mkTypedef)
       Right CXCursor_MacroDefinition -> do
         decl <- declMacro <$> mkMacro unit current
         return $ Continue (Just decl)
+      Right CXCursor_MacroExpansion ->
+        -- TODO
+        return $ Continue Nothing
       _otherwise -> do
         unrecognizedCursor current
 
