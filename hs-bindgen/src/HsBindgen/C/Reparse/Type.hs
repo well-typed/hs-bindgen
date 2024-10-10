@@ -1,7 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module HsBindgen.C.Reparse.Type (
-    reparsePrimType
+    reparseTypeUse
+  , reparsePrimType
   ) where
 
 import Data.List (intercalate)
@@ -11,13 +12,27 @@ import Text.Parsec
 
 import HsBindgen.C.AST
 import HsBindgen.C.Reparse.Infra
+import HsBindgen.C.Reparse.Common
+
+{-------------------------------------------------------------------------------
+  Type use sites
+-------------------------------------------------------------------------------}
+
+-- | Reparse type use
+--
+-- TODO: This parser is quite minimal at the moment.
+reparseTypeUse :: Reparse Typ
+reparseTypeUse = choice [
+      TypPrim <$> reparsePrimType
+    , TypElaborated <$> reparseName
+    ]
 
 {-------------------------------------------------------------------------------
   Primitive types
 -------------------------------------------------------------------------------}
 
-parseKeywordType :: Reparse Text
-parseKeywordType = choice [
+primTypeKeyword :: Reparse Text
+primTypeKeyword = choice [
       keyword "char"
     , keyword "int"
     , keyword "short"
@@ -31,7 +46,7 @@ parseKeywordType = choice [
 
 reparsePrimType :: Reparse PrimType
 reparsePrimType = do
-    kws <- many1 parseKeywordType
+    kws <- many1 primTypeKeyword
     case kws of
       -- char
       [             "char"] -> return $ PrimChar Nothing

@@ -3,6 +3,7 @@
 -- | Common parsers (for values throughout the AST)
 module HsBindgen.C.Reparse.Common (
     reparseName
+  , reparseLocName
   , reparseAttribute
   ) where
 
@@ -18,8 +19,11 @@ import HsBindgen.Patterns
   Identifiers
 -------------------------------------------------------------------------------}
 
-reparseName :: Reparse (MultiLoc, CName)
-reparseName = token $ \t -> do
+reparseName :: Reparse CName
+reparseName = snd <$> reparseLocName
+
+reparseLocName :: Reparse (MultiLoc, CName)
+reparseLocName = token $ \t -> do
     guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
     return (
         rangeStart $ tokenExtent t

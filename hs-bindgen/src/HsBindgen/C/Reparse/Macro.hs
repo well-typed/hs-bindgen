@@ -34,7 +34,7 @@ import HsBindgen.Clang.Util.SourceLoc.Type
 
 reparseMacro :: Reparse Macro
 reparseMacro = do
-    (macroLoc, macroName) <- reparseName
+    (macroLoc, macroName) <- reparseLocName
     choice [
         -- When we see an opening bracket it might be the start of an argument
         -- list, or it might be the start of the body, wrapped in parentheses.
@@ -51,7 +51,7 @@ formalArgs :: Reparse [CName]
 formalArgs = parens $ formalArg `sepBy` comma
 
 formalArg :: Reparse CName
-formalArg = snd <$> reparseName
+formalArg = reparseName
 
 {-------------------------------------------------------------------------------
   Simple expressions
@@ -75,7 +75,7 @@ mTerm =
     ops = [[Infix (MConcat <$ punctuation "##") AssocLeft]]
 
 var :: Reparse CName
-var = snd <$> reparseName
+var = reparseName
 
 -- | Parse integer literal
 literalInteger :: Reparse (Literal Integer)

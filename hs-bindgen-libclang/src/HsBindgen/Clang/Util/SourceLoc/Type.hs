@@ -9,8 +9,12 @@ module HsBindgen.Clang.Util.SourceLoc.Type (
   , SingleLoc(..)
   , MultiLoc(..)
   , Range(..)
+    -- * Comparisons
+  , compareSingleLoc
+  , rangeContainsLoc
   ) where
 
+import Control.Monad
 import Data.List (intercalate)
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -114,6 +118,33 @@ data Range a = Range {
     }
   deriving stock (Eq, Ord, Generic)
   deriving stock (Functor, Foldable, Traversable)
+
+{-------------------------------------------------------------------------------
+  Comparisons
+-------------------------------------------------------------------------------}
+
+-- | Compare locations
+--
+-- Returns 'Nothing' if the locations aren't in the same file.
+compareSingleLoc :: SingleLoc -> SingleLoc -> Maybe Ordering
+compareSingleLoc a b = do
+    guard $ singleLocPath a == singleLocPath b
+    return $
+      compare
+        (singleLocLine a, singleLocColumn a)
+        (singleLocLine b, singleLocColumn b)
+
+-- | Check if a location falls within the given range
+--
+-- Treats the range as half-open, with an inclusive lower bound and exclusive
+-- upper bound (following 'CXSourceRange').
+--
+-- Returns 'Nothing' if the three locations are not all in the same file.
+rangeContainsLoc :: Range SingleLoc -> SingleLoc -> Maybe Bool
+rangeContainsLoc Range{rangeStart, rangeEnd} loc = do
+    afterStart <- (/= LT) <$> compareSingleLoc loc rangeStart
+    beforeEnd  <- (== LT) <$> compareSingleLoc loc rangeEnd
+    return $ afterStart && beforeEnd
 
 {-------------------------------------------------------------------------------
   Show instances

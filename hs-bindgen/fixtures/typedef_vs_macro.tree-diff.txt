@@ -1,0 +1,74 @@
+WrapCHeader
+  (Header
+    [
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typedef_vs_macro.h"],
+                singleLocLine = 4,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "M1",
+            macroArgs = [],
+            macroBody = MTerm
+              (MType (PrimInt Signed))}),
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typedef_vs_macro.h"],
+                singleLocLine = 5,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "M2",
+            macroArgs = [],
+            macroBody = MTerm
+              (MType (PrimChar Nothing))}),
+      DeclTypedef
+        Typedef {
+          typedefName = CName "T1",
+          typedefType = TypPrim
+            (PrimInt Signed)},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "T2",
+          typedefType = TypPrim
+            (PrimChar Nothing)},
+      DeclStruct
+        Struct {
+          structTag = Just
+            (CName "ExampleStruct"),
+          structSizeof = 16,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "t1",
+              fieldOffset = 0,
+              fieldType = TypElaborated
+                (CName "T1")},
+            StructField {
+              fieldName = CName "t2",
+              fieldOffset = 32,
+              fieldType = TypElaborated
+                (CName "T2")},
+            StructField {
+              fieldName = CName "m1",
+              fieldOffset = 64,
+              fieldType = TypElaborated
+                (CName "M1")},
+            StructField {
+              fieldName = CName "m2",
+              fieldOffset = 96,
+              fieldType = TypElaborated
+                (CName "M2")}]}])

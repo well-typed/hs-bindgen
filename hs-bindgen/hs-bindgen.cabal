@@ -64,12 +64,14 @@ library
       HsBindgen.C.Fold.Comments
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
+      HsBindgen.C.Fold.DeclState
       HsBindgen.C.Fold.Raw
       HsBindgen.C.Fold.Type
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
       HsBindgen.C.Reparse.Common
+      HsBindgen.C.Reparse.FieldDecl
       HsBindgen.C.Reparse.Infra
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro
