@@ -53,7 +53,7 @@ foldDecls opts@Options{..} parent cursor = do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
 
     parentName <- clang_getCursorDisplayName parent
-    when (parentName /= T.pack optFile) $ traceU 1 "parent" parentName
+    traceWhen 1 "parent" (/= T.pack optFile) parentName
 
     when optExtents $ do
       extent <- clang_getCursorExtent cursor
@@ -67,7 +67,7 @@ foldDecls opts@Options{..} parent cursor = do
     traceU 1 "cursor kind" cursorKind
     isDecl <- clang_isDeclaration cursorKind
     when optKind $
-      traceWhen 2 "declaration" isDecl
+      traceWhen 2 "declaration" id isDecl
 
     cursorType <- clang_getCursorType cursor
     let typeKind = cxtKind cursorType
@@ -105,7 +105,7 @@ dumpComment :: Int -> Maybe CUInt -> CXComment -> IO ()
 dumpComment level mIdx comment = do
     commentKind <- clang_Comment_getKind comment
     maybe (traceU level) (traceO level) mIdx "kind" $ fromSimpleEnum commentKind
-    traceWhen level1 "whitespace" =<< clang_Comment_isWhitespace comment
+    traceWhen level1 "whitespace" id =<< clang_Comment_isWhitespace comment
 
     case fromSimpleEnum commentKind of
       Right CXComment_Null -> pure ()
@@ -126,7 +126,7 @@ dumpComment level mIdx comment = do
 
       Right CXComment_HTMLStartTag -> do
         traceU level1 "name" =<< clang_HTMLTagComment_getTagName comment
-        traceWhen level1 "self-closing"
+        traceWhen level1 "self-closing" id
           =<< clang_HTMLStartTagComment_isSelfClosing comment
         numAttrs <- clang_HTMLStartTag_getNumAttrs comment
         when (numAttrs > 0) $ do
@@ -157,7 +157,7 @@ dumpComment level mIdx comment = do
         traceU level1 "name" =<< clang_ParamCommandComment_getParamName comment
         traceU level1 "index"
           =<< clang_ParamCommandComment_getParamIndex comment
-        traceUnless level2 "invalid"
+        traceUnless level2 "invalid" id
           =<< clang_ParamCommandComment_isParamIndexValid comment
         traceU level1 "direction" . fromSimpleEnum
           =<< clang_ParamCommandComment_getDirection comment
@@ -166,7 +166,7 @@ dumpComment level mIdx comment = do
 
       Right CXComment_TParamCommand -> do
         traceU level1 "name" =<< clang_TParamCommandComment_getParamName comment
-        traceUnless level1 "position invalid"
+        traceUnless level1 "position invalid" id
           =<< clang_TParamCommandComment_isParamPositionValid comment
         depth <- clang_TParamCommandComment_getDepth comment
         traceU level1 "depth" depth
@@ -229,11 +229,11 @@ traceO :: (Integral i, Show a) => Int -> i -> String -> a -> IO ()
 traceO level index label value =
     trace' level (Just $ fromIntegral index) (Just label) (Just value)
 
-traceWhen :: Int -> String -> Bool -> IO ()
-traceWhen level label b = when b $ traceU level label b
+traceWhen :: Show a => Int -> String -> (a -> Bool) -> a -> IO ()
+traceWhen level label p value = when (p value) $ traceU level label value
 
-traceUnless :: Int -> String -> Bool -> IO ()
-traceUnless level label b = unless b $ traceU level label b
+traceUnless :: Show a => Int -> String -> (a -> Bool) -> a -> IO ()
+traceUnless level label p value = unless (p value) $ traceU level label value
 
 {-------------------------------------------------------------------------------
   CLI
