@@ -17,10 +17,10 @@ import Control.Monad.Reader
 import Control.Monad.State
 import Data.IORef
 import Data.Kind
+import Data.Tuple (swap)
 
 import HsBindgen.Clang.Core
 import HsBindgen.Patterns
-import Data.Tuple (swap)
 
 {-------------------------------------------------------------------------------
   Definition

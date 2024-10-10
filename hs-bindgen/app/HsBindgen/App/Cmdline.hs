@@ -44,27 +44,15 @@ data Mode =
       , output     :: Maybe FilePath
       }
 
-    -- | Just parse the C header
-  | ModeParseCHeader {
-        input :: FilePath
-      }
-
-    -- | Show the raw @libclang@ AST
-  | ModeShowClangAST {
-        input :: FilePath
-      }
-
-    -- | Extract all comments
-  | ModeRenderComments {
-        input  :: FilePath
-      , output :: Maybe FilePath
-      }
-
   | Dev DevMode
   deriving (Show)
 
 data DevMode =
-    DevModePrelude
+    -- | Just parse the C header
+    DevModeParseCHeader FilePath
+
+    -- | Generate prelude (bootstrap)
+  | DevModePrelude
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -88,23 +76,17 @@ parseMode = subparser $ mconcat [
       cmd "preprocess" parseModePreprocess $ mconcat [
           progDesc "Generate Haskell module from C header"
         ]
-    , cmd "parse" parseModeParseCHeader $ mconcat [
-          progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
-        ]
-    , cmd "show-clang-ast" parseModeDumpClangAST $ mconcat [
-          progDesc "Show the libclang AST (primarily for development of hs-bindgen itself)"
-        ]
-    , cmd "render-comments" parseModeRenderComments $ mconcat [
-          progDesc "Render comments as HTML"
-        ]
     , cmd "dev" parseDevMode $ mconcat [
           progDesc "Tools for the development of hs-bindgen itself"
         ]
     ]
 
 parseDevMode :: Parser Mode
-parseDevMode = subparser $ mconcat [
-      cmd "prelude" (Dev <$> parseDevModePrelude) $ mconcat [
+parseDevMode = fmap Dev $ subparser $ mconcat [
+      cmd "parse" parseDevModeParseCHeader $ mconcat [
+          progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
+        ]
+    , cmd "prelude" parseDevModePrelude $ mconcat [
           progDesc "Trawl the C standard libraries to generate the hs-bindgen prelude"
        ]
     ]
@@ -121,25 +103,12 @@ parseModePreprocess =
       <*> parseHsRenderOpts
       <*> parseOutput
 
-parseModeParseCHeader :: Parser Mode
-parseModeParseCHeader =
-    ModeParseCHeader
-      <$> parseInput
-
-parseModeDumpClangAST :: Parser Mode
-parseModeDumpClangAST =
-    ModeShowClangAST
-      <$> parseInput
-
-parseModeRenderComments :: Parser Mode
-parseModeRenderComments =
-    ModeRenderComments
-      <$> parseInput
-      <*> parseOutput
-
 {-------------------------------------------------------------------------------
   Dev modes
 -------------------------------------------------------------------------------}
+
+parseDevModeParseCHeader :: Parser DevMode
+parseDevModeParseCHeader = DevModeParseCHeader <$> parseInput
 
 parseDevModePrelude :: Parser DevMode
 parseDevModePrelude = pure DevModePrelude

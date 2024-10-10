@@ -6,10 +6,12 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
+import Data.Maybe (catMaybes)
 import GHC.Stack
 
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
+import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Fold.Type
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Reparse
@@ -19,16 +21,6 @@ import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
-import Data.Maybe (catMaybes)
-
-{-------------------------------------------------------------------------------
-  Monad used for the traversal
--------------------------------------------------------------------------------}
-
-data DeclState = DeclState
-
-initDeclState :: DeclState
-initDeclState = DeclState
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -38,22 +30,31 @@ foldDecls ::
      HasCallStack
   => Tracer IO Skipped
   -> Predicate
-  -> CXTranslationUnit -> Fold (State DeclState) Decl
+  -> CXTranslationUnit
+  -> Fold (State DeclState) Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         decl <- declStruct <$> mkStructHeader current
-        return $ Recurse (continue mkStructField) (Just . decl)
+        return $ Recurse (continue $ mkStructField unit) (Just . decl)
       Right CXCursor_EnumDecl -> do
         decl <- declEnum <$> mkEnumHeader current
         return $ Recurse (continue mkEnumValue) (Just . decl)
       Right CXCursor_TypedefDecl -> do
-        decl <- declTypedef <$> mkTypedefHeader current
-        return $ Recurse foldTypeDecl (Just . decl)
+        typedefHeader <- mkTypedefHeader current
+        case typedefHeader of
+          TypedefPrim typedef ->
+            return $ Continue $ Just $ DeclTypedef typedef
+          TypedefElaborated mkTypedef ->
+            return $ Recurse (foldTypeDecl unit) (Just . declTypedef mkTypedef)
       Right CXCursor_MacroDefinition -> do
         decl <- declMacro <$> mkMacro unit current
         return $ Continue (Just decl)
+      Right CXCursor_MacroExpansion -> do
+        loc <- liftIO $ SourceLoc.clang_getCursorLocation current
+        modify $ registerMacroExpansion loc
+        return $ Continue Nothing
       _otherwise -> do
         unrecognizedCursor current
 

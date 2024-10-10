@@ -11,6 +11,7 @@ module HsBindgen.C.Fold.Type (
   , mkStructField
   , mkEnumHeader
   , mkEnumValue
+  , TypedefHeader(..)
   , mkTypedefHeader
   ) where
 
@@ -20,9 +21,13 @@ import GHC.Stack
 
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
+import HsBindgen.C.Fold.DeclState
+import HsBindgen.C.Reparse
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Classification
 import HsBindgen.Clang.Util.Fold
+import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
+import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -30,15 +35,15 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Fold type /declaration/
-foldTypeDecl :: HasCallStack => Fold s Typ
-foldTypeDecl current = do
+foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (State DeclState) Typ
+foldTypeDecl unit current = do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         mkStruct <- mkStructHeader current
         let mkDecl :: [StructField] -> Maybe Typ
             mkDecl = Just . TypStruct . mkStruct
-        return $ Recurse (continue mkStructField) mkDecl
+        return $ Recurse (continue $ mkStructField unit) mkDecl
       _otherwise ->
         unrecognizedCursor current
 
@@ -64,6 +69,12 @@ mkTypeUse = go
             name <- CName <$> clang_getTypeSpelling ty
             return $ TypElaborated name
 
+          -- Older versions of libclang (e.g. clang-14) report 'CXType_Typedef'
+          -- instead of 'CXType_Elaborated'.
+          Right CXType_Typedef -> do
+            name <- CName <$> clang_getTypeSpelling ty
+            return $ TypElaborated name
+
           _otherwise ->
             unrecognizedType ty
 
@@ -86,14 +97,32 @@ mkStructHeader current = liftIO $ do
       , structFields
       }
 
-mkStructField :: MonadIO m => CXCursor -> m StructField
-mkStructField current = liftIO $ do
-    ty          <- clang_getCursorType current
-    fieldType   <- mkTypeUse ty
-    fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-    fieldName   <- CName <$> clang_getCursorDisplayName current
+mkStructField ::
+     CXTranslationUnit
+  -> CXCursor
+  -> FoldM (State DeclState) StructField
+mkStructField unit current = do
+    extent   <- liftIO $ SourceLoc.clang_getCursorExtent current
+    hasMacro <- gets $ containsMacroExpansion extent
 
-    return StructField{fieldName, fieldOffset, fieldType}
+    if hasMacro then liftIO $ do
+
+      tokens <- Tokens.clang_tokenize unit (multiLocExpansion <$> extent)
+      case reparseWith reparseFieldDecl tokens of
+        Left err ->
+          error $ "mkStructField: " ++ show err
+        Right (fieldType, fieldName) -> do
+          fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
+          return StructField{fieldName, fieldOffset, fieldType}
+
+    else liftIO $ do
+
+      ty          <- clang_getCursorType current
+      fieldType   <- mkTypeUse ty
+      fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
+      fieldName   <- CName <$> clang_getCursorDisplayName current
+
+      return StructField{fieldName, fieldOffset, fieldType}
 
 {-------------------------------------------------------------------------------
   Enums
@@ -134,13 +163,26 @@ mkEnumValue current = liftIO $ do
   Typedefs
 -------------------------------------------------------------------------------}
 
-mkTypedefHeader :: MonadIO m => CXCursor -> m (Typ -> Typedef)
+data TypedefHeader =
+    -- | Typedef around a primitive type. No further parsing required
+    TypedefPrim Typedef
+
+    -- | Typedef around an elaborated type such as a struct.
+  | TypedefElaborated (Typ -> Typedef)
+
+mkTypedefHeader :: MonadIO m => CXCursor -> m TypedefHeader
 mkTypedefHeader current = liftIO $ do
     typedefName <- CName <$> clang_getCursorDisplayName current
-    return $ \typedefType -> Typedef{
-          typedefName
-        , typedefType
-        }
+    let mkTypedef typedefType = Typedef{typedefName, typedefType}
+
+    underlyingType <- clang_getTypedefDeclUnderlyingType current
+    case fromSimpleEnum (cxtKind underlyingType) of
+      typ | Just prim <- primType typ ->
+        return $ TypedefPrim $ mkTypedef (TypPrim prim)
+      Right CXType_Elaborated -> do
+        return $ TypedefElaborated mkTypedef
+      typ ->
+        error $ "mkTypedefHeader: unexpected " ++ show typ
 
 {-------------------------------------------------------------------------------
   Primitive types

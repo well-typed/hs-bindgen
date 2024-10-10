@@ -10,8 +10,10 @@ module HsBindgen.C.Reparse (
   , ReparseError(..)
   , reparseWith
     -- * Specific parsers
+  , reparseFieldDecl
   , reparseMacro
   ) where
 
+import HsBindgen.C.Reparse.FieldDecl
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Macro

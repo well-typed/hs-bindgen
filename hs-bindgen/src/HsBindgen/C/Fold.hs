@@ -12,17 +12,10 @@ module HsBindgen.C.Fold (
   , DeclState
   , initDeclState
   , foldDecls
-    -- ** Development tools
-  , Element(..)
-  , foldRaw
-  , Comment(..)
-  , foldComments
     -- * Logging
   , Skipped
   ) where
 
-import HsBindgen.C.Fold.Comments
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.Decl
-import HsBindgen.C.Fold.Raw
 import HsBindgen.Clang.Util.Fold
