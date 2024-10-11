@@ -51,19 +51,24 @@ library
       HsBindgen.Lib
       HsBindgen.TH
   exposed-modules:
+      -- Exposed for the sake of tests
+      -- TODO: We should reconsider the proper way to export these.
+      HsBindgen.C.AST
+      HsBindgen.Hs.AST
+      HsBindgen.Util.PHOAS
+      HsBindgen.Backend.TH.Translation
+  other-modules:
       HsBindgen.Backend.Common
       HsBindgen.Backend.Common.Translation
       HsBindgen.Backend.HsSrcExts
       HsBindgen.Backend.HsSrcExts.Render
       HsBindgen.Backend.HsSrcExts.Translation
       HsBindgen.Backend.TH
-      HsBindgen.Backend.TH.Translation
-      HsBindgen.Bootstrap.Prelude
-      HsBindgen.C.AST
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
       HsBindgen.C.Fold.DeclState
+      HsBindgen.C.Fold.Prelude
       HsBindgen.C.Fold.Type
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
@@ -74,11 +79,9 @@ library
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
-      HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.Parsec
-      HsBindgen.Util.PHOAS
       HsBindgen.Util.Tracer
   other-modules:
       -- Re-exported through HsBindgen.C.AST
@@ -86,10 +89,6 @@ library
       HsBindgen.C.AST.Macro
       HsBindgen.C.AST.Name
       HsBindgen.C.AST.Type
-  other-modules:
-      Paths_hs_bindgen
-  autogen-modules:
-      Paths_hs_bindgen
   other-extensions:
       TemplateHaskellQuotes
   build-depends:
@@ -120,12 +119,16 @@ executable hs-bindgen
 
   other-modules:
       HsBindgen.App.Cmdline
+      Paths_hs_bindgen
+  autogen-modules:
+      Paths_hs_bindgen
   build-depends:
       -- Internal dependencies
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
     , data-default
+    , filepath
   build-depends:
     , optparse-applicative >= 0.18 && < 0.19
 

@@ -26,7 +26,7 @@ main = do
         [ testCase "target-triple" $ do
             let fp = "examples/simple_structs.h"
                 args = clangArgs
-            triple <- getTargetTriple nullTracer args fp
+            triple <- withC nullTracer args fp $ getTargetTriple
 
             -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
             -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -57,7 +57,7 @@ main = do
         let fp = "examples" </> (name ++ ".h")
             args = clangArgs
 
-        header <- parseCHeader nullTracer nullTracer SelectFromMainFile args fp
+        header <- parseC nullTracer args fp
         return header
 
     goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
@@ -67,12 +67,10 @@ main = do
             args = clangArgs
 
         let tracer = mkTracer report report report False
-        let tracerD = contramap show tracer
-        let tracerP = contramap prettyLogMsg tracer
 
-        header <- parseCHeader tracerD tracerP SelectFromMainFile args fp
+        header <- parseC tracer args fp
         let decls :: forall f. List Hs.Decl f
-            decls = List $ genHaskell header
+            decls = genHsDecls header
 
         return $ showClosed decls
 
@@ -99,3 +97,24 @@ findPackageDirectory pkgname = do
         then setCurrentDirectory pkgname
         -- do not try too hard, if not in the package directory, nor project root: abort
         else fail $ "Cannot find package directory for " ++ pkgname
+
+withC ::
+     Tracer IO String
+  -> ClangArgs
+  -> FilePath
+  -> (CXTranslationUnit -> IO r)
+  -> IO r
+withC tracer args fp =
+    withTranslationUnit tracerD args fp
+  where
+    tracerD = contramap show tracer
+
+parseC ::
+     Tracer IO String
+  -> ClangArgs
+  -> FilePath
+  -> IO CHeader
+parseC tracer args fp =
+    withC tracer args fp $ parseCHeader tracerP SelectFromMainFile
+  where
+    tracerP = contramap prettyLogMsg tracer
