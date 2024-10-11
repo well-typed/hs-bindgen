@@ -24,4 +24,4 @@ module HsBindgen.C.Fold (
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.Decl
 import HsBindgen.C.Fold.Prelude
-import HsBindgen.Clang.Util.Fold
+import HsBindgen.Clang.HighLevel.Types

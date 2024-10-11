@@ -7,11 +7,11 @@ module HsBindgen.C.Fold.DeclState (
   , containsMacroExpansion
   ) where
 
+import Data.Maybe (fromMaybe)
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.Clang.Util.SourceLoc.Type
-import Data.Maybe (fromMaybe)
+import HsBindgen.Clang.HighLevel.Types
 
 {-------------------------------------------------------------------------------
   Definition

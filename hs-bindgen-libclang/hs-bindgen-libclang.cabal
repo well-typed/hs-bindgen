@@ -54,30 +54,30 @@ library
   other-extensions:
       AllowAmbiguousTypes
   exposed-modules:
-      -- Low-level libclang bindings
       HsBindgen.Clang.Args
-      HsBindgen.Clang.Core
-      HsBindgen.Clang.Doxygen
       HsBindgen.Clang.Version
-  exposed-modules:
-      -- Additional utilities, without direct counterparts in libclang
-      HsBindgen.Clang.Util.Classification
-      HsBindgen.Clang.Util.Diagnostics
-      HsBindgen.Clang.Util.Fold
-      HsBindgen.Clang.Util.SourceLoc
-      HsBindgen.Clang.Util.SourceLoc.Type
-      HsBindgen.Clang.Util.Tokens
+
+      HsBindgen.Clang.LowLevel.Core
+      HsBindgen.Clang.LowLevel.Doxygen
+
+      HsBindgen.Clang.HighLevel
+      HsBindgen.Clang.HighLevel.Types
   other-modules:
-      HsBindgen.Clang.Core.Enums
-      HsBindgen.Clang.Core.Instances
-      HsBindgen.Clang.Core.Structs
-      HsBindgen.Clang.Doxygen.Enums
-      HsBindgen.Clang.Doxygen.Instances
-      HsBindgen.Clang.Doxygen.Structs
+      HsBindgen.Clang.LowLevel.Core.Enums
+      HsBindgen.Clang.LowLevel.Core.Instances
+      HsBindgen.Clang.LowLevel.Core.Structs
+      HsBindgen.Clang.LowLevel.Doxygen.Enums
+      HsBindgen.Clang.LowLevel.Doxygen.Instances
+      HsBindgen.Clang.LowLevel.Doxygen.Structs
       HsBindgen.Clang.Internal.ByValue
       HsBindgen.Clang.Internal.CXString
       HsBindgen.Clang.Internal.FFI
       HsBindgen.Clang.Internal.Results
+      HsBindgen.Clang.HighLevel.Diagnostics
+      HsBindgen.Clang.HighLevel.Fold
+      HsBindgen.Clang.HighLevel.SourceLoc
+      HsBindgen.Clang.HighLevel.Tokens
+      HsBindgen.Clang.HighLevel.UserProvided
   build-depends:
       -- Internal dependencies
     , hs-bindgen-patterns

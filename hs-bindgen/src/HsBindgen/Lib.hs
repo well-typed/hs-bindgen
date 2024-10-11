@@ -15,8 +15,8 @@
 module HsBindgen.Lib (
     -- * Prepare input
     CXTranslationUnit -- opaque
-  , C.Diagnostic(..)
-  , C.FixIt(..)
+  , Diagnostic(..)
+  , FixIt(..)
   , withTranslationUnit
 
     -- ** Clang arguments
@@ -81,13 +81,13 @@ import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.Diagnostics qualified as C
-import HsBindgen.Clang.Util.Fold
+import HsBindgen.Clang.HighLevel qualified as HighLevel
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Util.Tracer
 import HsBindgen.Translation.LowLevel qualified as LowLevel
 import HsBindgen.Util.PHOAS
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Type aliases
@@ -123,7 +123,7 @@ newtype HsModule = WrapHsModule {
 -- See section "Process the C input" for example functions you can pass as
 -- arguments; the most important being 'parseCHeader'.
 withTranslationUnit ::
-     Tracer IO C.Diagnostic      -- ^ Tracer for warnings from @libclang@
+     Tracer IO  Diagnostic       -- ^ Tracer for warnings from @libclang@
   -> ClangArgs                   -- ^ @libclang@ arguments
   -> FilePath                    -- ^ Input path
   -> (CXTranslationUnit -> IO r)
@@ -149,7 +149,8 @@ bootstrapPrelude ::
   -> IO [C.PreludeEntry]
 bootstrapPrelude tracer unit = do
     cursor <- clang_getTranslationUnitCursor unit
-    C.runFoldIdentity $ clang_fold cursor $ C.foldPrelude tracer' unit
+    C.runFoldIdentity $
+      HighLevel.clang_visitChildren cursor $ C.foldPrelude tracer' unit
   where
     -- We could take a tracer for 'C.GenPreludeMsg', but there is only a point
     -- in doing so if we then also export that type.

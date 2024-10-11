@@ -1,11 +1,11 @@
 -- | Higher-level bindings for traversing the API
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Util.Fold (
+module HsBindgen.Clang.HighLevel.Fold (
     -- * Folds
     Fold
   , Next(..)
-  , clang_fold
+  , clang_visitChildren
     -- * FoldM
   , FoldM
   , runFoldIdentity
@@ -21,7 +21,8 @@ import Data.IORef
 import Data.Kind
 import Data.Tuple (swap)
 
-import HsBindgen.Clang.Core
+import HsBindgen.Clang.LowLevel.Core hiding (clang_visitChildren)
+import HsBindgen.Clang.LowLevel.Core qualified as Core
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -152,11 +153,11 @@ popUntil someStack newParent = do
 --
 -- * visitors can return results
 -- * we can specify different visitors at different levels of the AST
-clang_fold :: forall m a. CXCursor -> Fold m a -> FoldM m [a]
-clang_fold root topLevelFold = wrapFoldM $ \support -> do
+clang_visitChildren :: forall m a. CXCursor -> Fold m a -> FoldM m [a]
+clang_visitChildren root topLevelFold = wrapFoldM $ \support -> do
     stack     <- initStack root topLevelFold
     someStack <- newIORef $ SomeStack stack
-    _terminatedEarly <- clang_visitChildren root $ visitor support someStack
+    _terminatedEarly <- Core.clang_visitChildren root $ visitor support someStack
     popUntil someStack root
     reverse <$> readIORef (topResults stack)
   where

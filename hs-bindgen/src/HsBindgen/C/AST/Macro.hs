@@ -23,8 +23,7 @@ import Text.Show.Pretty (PrettyVal)
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
-import HsBindgen.Clang.Util.SourceLoc.Type
-import HsBindgen.Clang.Util.Tokens
+import HsBindgen.Clang.HighLevel.Types
 
 {-------------------------------------------------------------------------------
   Top-level

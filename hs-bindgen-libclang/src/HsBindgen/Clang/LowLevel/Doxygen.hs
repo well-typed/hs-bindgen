@@ -7,7 +7,7 @@
 -- schedule of stability and deprecation.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html>
-module HsBindgen.Clang.Doxygen (
+module HsBindgen.Clang.LowLevel.Doxygen (
     -- * Top-level
     CXComment
   , CXCommentKind(..)
@@ -21,11 +21,11 @@ module HsBindgen.Clang.Doxygen (
 import Data.Text (Text)
 import Foreign.C
 
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Core.Structs
-import HsBindgen.Clang.Doxygen.Enums
-import HsBindgen.Clang.Doxygen.Instances ()
-import HsBindgen.Clang.Doxygen.Structs
+import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.LowLevel.Core.Structs
+import HsBindgen.Clang.LowLevel.Doxygen.Enums
+import HsBindgen.Clang.LowLevel.Doxygen.Instances ()
+import HsBindgen.Clang.LowLevel.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Patterns

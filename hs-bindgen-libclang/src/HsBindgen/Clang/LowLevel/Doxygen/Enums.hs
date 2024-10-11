@@ -1,4 +1,4 @@
-module HsBindgen.Clang.Doxygen.Enums (
+module HsBindgen.Clang.LowLevel.Doxygen.Enums (
     CXCommentKind(..)
   ) where
 

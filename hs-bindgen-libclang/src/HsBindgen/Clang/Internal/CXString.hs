@@ -9,8 +9,8 @@ import Data.Text qualified as Text
 import Foreign
 import Foreign.C
 
-import HsBindgen.Clang.Core.Instances ()
-import HsBindgen.Clang.Core.Structs
+import HsBindgen.Clang.LowLevel.Core.Instances ()
+import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
 import GHC.Ptr (Ptr(..))
 

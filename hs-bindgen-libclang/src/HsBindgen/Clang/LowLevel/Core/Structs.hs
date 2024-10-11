@@ -1,4 +1,4 @@
-module HsBindgen.Clang.Core.Structs (
+module HsBindgen.Clang.LowLevel.Core.Structs (
     CXCursor_
   , CXSourceLocation_
   , CXSourceRange_

@@ -20,7 +20,7 @@ import Data.Typeable
 import Foreign
 import GHC.Stack
 
-import HsBindgen.Clang.Core.Instances ()
+import HsBindgen.Clang.LowLevel.Core.Instances ()
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

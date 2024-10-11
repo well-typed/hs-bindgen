@@ -21,9 +21,9 @@ import GHC.Stack
 import HsBindgen.C.AST
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
+import HsBindgen.Clang.HighLevel qualified as HighLevel
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -54,7 +54,7 @@ checkPredicate tracer p k current = do
       Right ()     -> k current
       Left  reason -> liftIO $ do
         name <- clang_getCursorSpelling current
-        loc  <- SourceLoc.clang_getCursorLocation current
+        loc  <- HighLevel.clang_getCursorLocation current
         traceWith tracer Info $ Skipped name loc reason
         return $ Continue Nothing
 
@@ -80,7 +80,7 @@ data UnrecognizedType = UnrecognizedType {
 unrecognizedCursor :: (MonadIO m, HasCallStack) => CXCursor -> m a
 unrecognizedCursor cursor = liftIO $ do
     unrecognizedCursorKind  <- clang_getCursorKind cursor
-    unrecognizedCursorLoc   <- SourceLoc.clang_getCursorLocation cursor
+    unrecognizedCursorLoc   <- HighLevel.clang_getCursorLocation cursor
     unrecognizedCursorTrace <- collectBacktrace
     throwIO UnrecognizedCursor{
         unrecognizedCursorKind

@@ -18,10 +18,9 @@ import Data.List (partition)
 import Data.Text (Text)
 
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.Diagnostics (Diagnostic(..))
-import HsBindgen.Clang.Util.Diagnostics qualified as Diagnostics
-import HsBindgen.Clang.Util.Fold
+import HsBindgen.Clang.HighLevel qualified as HighLevel
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -52,10 +51,10 @@ withTranslationUnit ::
 withTranslationUnit tracer args fp k = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit index fp args flags
-    diags  <- Diagnostics.getDiagnostics unit Nothing
+    diags  <- HighLevel.clang_getDiagnostics unit Nothing
 
     let errors, warnings :: [Diagnostic]
-        (errors, warnings) = partition Diagnostics.isError diags
+        (errors, warnings) = partition diagnosticIsError diags
 
     let _unused = warnings
 
@@ -94,4 +93,4 @@ foldTranslationUnitWith ::
   -> IO b
 foldTranslationUnitWith unit runFold fold = do
     cursor <- clang_getTranslationUnitCursor unit
-    runFold $ clang_fold cursor fold
+    runFold $ HighLevel.clang_visitChildren cursor fold

@@ -16,8 +16,8 @@ import HsBindgen.C.Reparse.Common
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Reparse.Type
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.SourceLoc.Type
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
   Top-level

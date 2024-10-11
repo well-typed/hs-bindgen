@@ -1,39 +1,14 @@
--- | Classification of various parts of the @libclang@ AST
---
--- Intended for unqualified import.
-module HsBindgen.Clang.Util.Classification (
-    -- * Classifying types
-    isPointerType
-  , isRecordType
-    -- * Distinguish user-provided from @libclang@-provided values
-  , UserProvided(..)
+-- * Distinguish user-provided from @libclang@-provided values
+module HsBindgen.Clang.HighLevel.UserProvided (
+    UserProvided(..)
   , getUserProvided
-  , getUserProvidedName
+  , clang_getCursorSpelling
   ) where
 
 import Data.Text (Text)
 
-import HsBindgen.Clang.Core
-import HsBindgen.Patterns
-
-{-------------------------------------------------------------------------------
-  Classifying types
--------------------------------------------------------------------------------}
-
--- | Check if this is a pointer type
---
--- Pointer types are types for which we can call 'clang_getPointeeType'.
-isPointerType :: SimpleEnum CXTypeKind -> Bool
-isPointerType = either (const False) aux . fromSimpleEnum
-  where
-    aux :: CXTypeKind -> Bool
-    aux CXType_Pointer         = True
-    aux CXType_LValueReference = True
-    aux CXType_RValueReference = True
-    aux _                      = False
-
-isRecordType :: SimpleEnum CXTypeKind -> Bool
-isRecordType = (== Right CXType_Record) . fromSimpleEnum
+import HsBindgen.Clang.LowLevel.Core hiding (clang_getCursorSpelling)
+import HsBindgen.Clang.LowLevel.Core qualified as Core
 
 {-------------------------------------------------------------------------------
   Distinguish user-provided from @libclang@-provided values
@@ -57,9 +32,9 @@ getUserProvided (LibclangProvided _) = Nothing
 -- @libclang@ fills in a name (\"spelling\") for the struct tag, even though the
 -- user did not provide one; recent versions of @llvm@ fill in @S3_t@ (@""@ in
 -- older versions).
-getUserProvidedName :: CXCursor -> IO (UserProvided Text)
-getUserProvidedName cursor = do
-    nameSpelling <- clang_getCursorSpelling cursor
+clang_getCursorSpelling :: CXCursor -> IO (UserProvided Text)
+clang_getCursorSpelling cursor = do
+    nameSpelling <- Core.clang_getCursorSpelling cursor
 
     -- We could /ask/ for the @unit@ to be given to us, but the call to
     -- 'clang_getCursorSpelling' is a useful check; for example, it may reveal
