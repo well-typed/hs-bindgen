@@ -45,12 +45,10 @@ goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ 
         args = clangArgs
 
     let tracer = mkTracer report report report False
-    let tracerD = contramap show tracer
-    let tracerP = contramap prettyLogMsg tracer
 
-    header <- parseCHeader tracerD tracerP SelectFromMainFile args fp
+    header <- parseC tracer args fp
     let decls :: Qu [TH.Dec]
-        decls = genDecls header
+        decls = genTH header
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.
@@ -76,3 +74,15 @@ instance TH.Quote Qu where
 
 runQu :: Qu a -> a
 runQu (Qu m) = evalState m 0
+
+parseC ::
+     Tracer IO String
+  -> ClangArgs
+  -> FilePath
+  -> IO CHeader
+parseC tracer args fp =
+    withTranslationUnit tracerD args fp $
+      parseCHeader tracerP SelectFromMainFile
+  where
+    tracerD = contramap show tracer
+    tracerP = contramap prettyLogMsg tracer

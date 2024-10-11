@@ -12,10 +12,16 @@ module HsBindgen.C.Fold (
   , DeclState
   , initDeclState
   , foldDecls
+    -- ** Debugging/development
+    -- *** Process the C prelude
+  , PreludeEntry
+  , GenPreludeMsg
+  , foldPrelude
     -- * Logging
   , Skipped
   ) where
 
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.Decl
+import HsBindgen.C.Fold.Prelude
 import HsBindgen.Clang.Util.Fold

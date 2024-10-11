@@ -14,43 +14,54 @@
 -- that library should be considered internal to @hs-bindgen@.
 module HsBindgen.Lib (
     -- * Prepare input
-    CHeader    -- opaque
-  , C.Skipped  -- opaque
-  , Predicate(..)
-  , parseCHeader
+    CXTranslationUnit -- opaque
+  , C.Diagnostic(..)
+  , C.FixIt(..)
+  , withTranslationUnit
 
     -- ** Clang arguments
   , ClangArgs(..)
   , CStandard(..)
   , defaultClangArgs
 
+    -- ** Select parts of the AST
+  , Predicate(..)
+  , C.Skipped -- opaque
+
+    -- ** Process the C input
+  , CHeader -- opaque
+  , parseCHeader
+
+    -- ** Development/debugging
+  , getTargetTriple
+  , bootstrapPrelude
+
     -- * Translation
   , HsModuleOpts(..)
   , HsModule -- opaque
   , genModule
-  , genDecls
+  , genTH
+
+    -- ** Development/debugging
+  , genHsDecls
 
     -- * Process output
   , HsRenderOpts(..)
   , prettyHs
   , prettyC
 
-    -- * Common pipelines
-  , Preprocess(..)
-  , preprocess
-
-    -- * Debugging
-  , getTargetTriple
-  , genHaskell
-
     -- * Logging
   , Tracer
+
+    -- ** Construction
   , nullTracer
+  , mkTracerIO
+  , mkTracerQ
+  , mkTracer
+
+    -- ** Usage
   , contramap
   , PrettyLogMsg(..)
-  , mkTracer
-  , mkTracerIO
-  , traceThrow
   ) where
 
 import Data.Text (Text)
@@ -70,10 +81,13 @@ import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.Util.Diagnostics qualified as C (Diagnostic)
+import HsBindgen.Clang.Core
+import HsBindgen.Clang.Util.Diagnostics qualified as C
+import HsBindgen.Clang.Util.Fold
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Translation.LowLevel qualified as LowLevel
 import HsBindgen.Util.Tracer
+import HsBindgen.Translation.LowLevel qualified as LowLevel
+import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
   Type aliases
@@ -104,22 +118,47 @@ newtype HsModule = WrapHsModule {
   Support multiple C headers.
 -------------------------------------------------------------------------------}
 
--- | Parse C header
+-- | Open C header
+--
+-- See section "Process the C input" for example functions you can pass as
+-- arguments; the most important being 'parseCHeader'.
+withTranslationUnit ::
+     Tracer IO C.Diagnostic      -- ^ Tracer for warnings from @libclang@
+  -> ClangArgs                   -- ^ @libclang@ arguments
+  -> FilePath                    -- ^ Input path
+  -> (CXTranslationUnit -> IO r)
+  -> IO r
+withTranslationUnit = C.withTranslationUnit
+
 parseCHeader ::
-     Tracer IO C.Diagnostic
-  -> Tracer IO C.Skipped
+     Tracer IO C.Skipped
   -> Predicate
-  -> ClangArgs
-  -> FilePath -> IO CHeader
-parseCHeader traceWarnings traceSkipped p args fp =
-    fmap (WrapCHeader . C.Header) $
-      C.withTranslationUnit traceWarnings args fp $ \unit -> do
-        (decls, _finalDeclState) <-
-          C.foldTranslationUnitWith
-            unit
-            (C.runFoldState C.initDeclState)
-            (C.foldDecls traceSkipped p unit)
-        return decls
+  -> CXTranslationUnit
+  -> IO CHeader
+parseCHeader traceSkipped p unit = do
+    (decls, _finalDeclState) <-
+      C.foldTranslationUnitWith
+        unit
+        (C.runFoldState C.initDeclState)
+        (C.foldDecls traceSkipped p unit)
+    return $ WrapCHeader (C.Header decls)
+
+bootstrapPrelude ::
+     Tracer IO String   -- ^ Warnings
+  -> CXTranslationUnit
+  -> IO [C.PreludeEntry]
+bootstrapPrelude tracer unit = do
+    cursor <- clang_getTranslationUnitCursor unit
+    C.runFoldIdentity $ clang_fold cursor $ C.foldPrelude tracer' unit
+  where
+    -- We could take a tracer for 'C.GenPreludeMsg', but there is only a point
+    -- in doing so if we then also export that type.
+    tracer' :: Tracer IO C.GenPreludeMsg
+    tracer' = contramap prettyLogMsg tracer
+
+-- | Return the target triple for translation unit
+getTargetTriple :: CXTranslationUnit -> IO Text
+getTargetTriple = C.getTranslationUnitTargetTriple
 
 {-------------------------------------------------------------------------------
   Translation
@@ -128,8 +167,11 @@ parseCHeader traceWarnings traceSkipped p args fp =
 genModule :: HsModuleOpts -> CHeader -> HsModule
 genModule opts = WrapHsModule . Backend.E.translate opts . unwrapCHeader
 
-genDecls :: TH.Quote q => CHeader -> q [TH.Dec]
-genDecls = Backend.TH.translateC . unwrapCHeader
+genTH :: TH.Quote q => CHeader -> q [TH.Dec]
+genTH = Backend.TH.translateC . unwrapCHeader
+
+genHsDecls :: CHeader -> List Hs.Decl f
+genHsDecls = List . LowLevel.generateDeclarations . unwrapCHeader
 
 {-------------------------------------------------------------------------------
   Processing output
@@ -143,64 +185,4 @@ prettyC = Pretty.dumpIO . unwrapCHeader
 
 prettyHs :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
 prettyHs opts fp = Backend.E.renderIO opts fp . unwrapHsModule
-
-{-------------------------------------------------------------------------------
-  Common pipelines
--------------------------------------------------------------------------------}
-
-data Preprocess = Preprocess {
-      -- | Tracer for warnings from @libclang@
-      preprocessTraceWarnings :: Tracer IO C.Diagnostic
-
-      -- | Tracer for /our/ C parser
-    , preprocessTraceSkipped :: Tracer IO C.Skipped
-
-      -- | Select definitions
-    , preprocessPredicate :: Predicate
-
-      -- | @libclang@ options
-    , preprocessClangArgs :: ClangArgs
-
-      -- | Path to the C header
-    , preprocessInputPath :: FilePath
-
-      -- | Options for the Haskell module generation
-    , preprocessModuleOpts :: HsModuleOpts
-
-      -- | Options for rendering generated Haskell
-    , preprocessRenderOpts :: HsRenderOpts
-
-      -- | Name of the Haskell file (none for @stdout@)
-    , preprocessOutputPath :: Maybe FilePath
-    }
-
-preprocess :: Preprocess -> IO ()
-preprocess prep = do
-    modl <- genModule (preprocessModuleOpts prep) <$>
-              parseCHeader
-                (preprocessTraceWarnings prep)
-                (preprocessTraceSkipped  prep)
-                (preprocessPredicate     prep)
-                (preprocessClangArgs     prep)
-                (preprocessInputPath     prep)
-    prettyHs (preprocessRenderOpts prep) (preprocessOutputPath prep) modl
-
-{-------------------------------------------------------------------------------
-  Debugging
--------------------------------------------------------------------------------}
-
--- | Return the target triple for translation unit
-getTargetTriple ::
-     Tracer IO C.Diagnostic
-  -> ClangArgs
-  -> FilePath
-  -> IO Text
-getTargetTriple tracer args fp =
-    C.withTranslationUnit tracer args fp $
-      C.getTranslationUnitTargetTriple
-
--- | Generate our internal Haskell representation of the translated C header
-genHaskell :: CHeader -> [Hs.Decl f]
-genHaskell = LowLevel.generateDeclarations . unwrapCHeader
-
 

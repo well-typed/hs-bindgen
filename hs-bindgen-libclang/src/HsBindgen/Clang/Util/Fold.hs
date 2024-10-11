@@ -1,4 +1,6 @@
 -- | Higher-level bindings for traversing the API
+--
+-- Intended for unqualified import.
 module HsBindgen.Clang.Util.Fold (
     -- * Folds
     Fold

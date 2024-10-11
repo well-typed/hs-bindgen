@@ -1,5 +1,7 @@
-module HsBindgen.Bootstrap.Prelude (
-    genPrelude
+module HsBindgen.C.Fold.Prelude (
+    PreludeEntry
+  , GenPreludeMsg
+  , foldPrelude
   ) where
 
 import Control.Exception
@@ -7,11 +9,8 @@ import Control.Monad.Identity
 import Control.Monad.IO.Class
 import Data.Text (Text)
 import Data.Text qualified as Text
-import System.FilePath ((</>))
 
-import HsBindgen.C.Parser
 import HsBindgen.C.Reparse
-import HsBindgen.Clang.Args
 import HsBindgen.Clang.Core
 import HsBindgen.Clang.Util.Fold
 import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
@@ -19,8 +18,6 @@ import HsBindgen.Clang.Util.SourceLoc.Type
 import HsBindgen.Clang.Util.Tokens qualified as Tokens
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
-
-import Paths_hs_bindgen
 
 {-------------------------------------------------------------------------------
   Definition
@@ -33,27 +30,11 @@ data PreludeEntry
   Top-level
 -------------------------------------------------------------------------------}
 
-genPrelude :: Tracer IO GenPreludeMsg -> IO ()
-genPrelude tracer = do
-    dataDir <- getDataDir
-    let standardHeaders :: FilePath
-        standardHeaders = (dataDir </> "bootstrap" </> "standard_headers.h")
-
-    entries <- withTranslationUnit
-        (show `contramap` mkTracerIO True)
-        defaultClangArgs
-        standardHeaders $
-        \unit -> do
-      cursor <- clang_getTranslationUnitCursor unit
-      runFoldIdentity $ clang_fold cursor $ fold tracer standardHeaders unit
-    print entries
-
-fold ::
+foldPrelude ::
      Tracer IO GenPreludeMsg
-  -> FilePath -- ^ Path to @standard_headers.h@
   -> CXTranslationUnit
   -> Fold Identity PreludeEntry
-fold tracer standardHeaders unit = go
+foldPrelude tracer unit = go
   where
     go :: Fold Identity PreludeEntry
     go = checkLoc $ \loc current -> do
@@ -86,10 +67,6 @@ fold tracer standardHeaders unit = go
                -- TODO: Should we do anything with the macro definitions from
                -- @llvm@? (Things like @__GNUC__@, @__LITTLE_ENDIAN__@,
                -- @__INT_WIDTH__@, ..)
-               return $ Continue Nothing
-
-           | fp == standardHeaders ->
-               -- Ignore our own file (we are only interested in the imports)
                return $ Continue Nothing
 
            | otherwise ->

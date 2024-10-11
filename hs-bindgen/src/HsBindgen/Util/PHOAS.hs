@@ -16,6 +16,7 @@ module HsBindgen.Util.PHOAS (
   ) where
 
 import Data.Fin qualified as Fin
+import Data.Foldable
 import Data.Kind
 import Data.List (intersperse)
 import Data.Type.Nat
@@ -24,7 +25,6 @@ import Data.Vec.Lazy qualified as Vec
 import Generics.SOP
 import GHC.Generics qualified as GHC
 import GHC.Show
-import Data.Foldable
 
 {-------------------------------------------------------------------------------
   Main definitions
