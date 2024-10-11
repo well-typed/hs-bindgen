@@ -1,8 +1,8 @@
-module HsBindgen.Clang.Util.Diagnostics (
+module HsBindgen.Clang.HighLevel.Diagnostics (
     Diagnostic(..)
   , FixIt(..)
-  , getDiagnostics
-  , isError
+  , clang_getDiagnostics
+  , diagnosticIsError
   ) where
 
 import Control.Exception
@@ -10,9 +10,9 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign.C
 
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.SourceLoc.Type
-import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
+import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.HighLevel.SourceLoc (MultiLoc, Range)
+import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -83,8 +83,8 @@ data FixIt = FixIt {
     }
   deriving stock (Show)
 
-isError :: Diagnostic -> Bool
-isError diag =
+diagnosticIsError :: Diagnostic -> Bool
+diagnosticIsError diag =
     case fromSimpleEnum (diagnosticSeverity diag) of
       Right CXDiagnostic_Error -> True
       Right CXDiagnostic_Fatal -> True
@@ -95,14 +95,14 @@ isError diag =
   Top-level
 -------------------------------------------------------------------------------}
 
-getDiagnostics ::
+clang_getDiagnostics ::
      CXTranslationUnit
   -> Maybe (BitfieldEnum CXDiagnosticDisplayOptions)
      -- ^ Display options for constructing 'diagnosticFormatted'
      --
      -- If 'Nothing', uses 'clang_defaultDiagnosticDisplayOptions'.
   -> IO [Diagnostic]
-getDiagnostics unit mDisplayOptions = do
+clang_getDiagnostics unit mDisplayOptions = do
     displayOptions <- case mDisplayOptions of
                         Just displayOptions -> return displayOptions
                         Nothing -> clang_defaultDiagnosticDisplayOptions

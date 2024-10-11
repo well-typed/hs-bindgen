@@ -23,11 +23,9 @@ import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Reparse
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.Classification
-import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
-import HsBindgen.Clang.Util.Tokens qualified as Tokens
+import HsBindgen.Clang.HighLevel qualified as HighLevel
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -86,7 +84,7 @@ mkStructHeader :: MonadIO m => CXCursor -> m ([StructField] -> Struct)
 mkStructHeader current = liftIO $ do
     cursorType      <- clang_getCursorType current
     structTag       <- fmap CName . getUserProvided <$>
-                         getUserProvidedName current
+                         HighLevel.clang_getCursorSpelling current
     structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
@@ -102,12 +100,12 @@ mkStructField ::
   -> CXCursor
   -> FoldM (State DeclState) StructField
 mkStructField unit current = do
-    extent   <- liftIO $ SourceLoc.clang_getCursorExtent current
+    extent   <- liftIO $ HighLevel.clang_getCursorExtent current
     hasMacro <- gets $ containsMacroExpansion extent
 
     if hasMacro then liftIO $ do
 
-      tokens <- Tokens.clang_tokenize unit (multiLocExpansion <$> extent)
+      tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
       case reparseWith reparseFieldDecl tokens of
         Left err ->
           error $ "mkStructField: " ++ show err
@@ -132,7 +130,7 @@ mkEnumHeader :: MonadIO m => CXCursor -> m ([EnumValue] -> Enu)
 mkEnumHeader current = liftIO $ do
     cursorType    <- clang_getCursorType current
     enumTag       <- fmap CName . getUserProvided <$>
-                       getUserProvidedName current
+                       HighLevel.clang_getCursorSpelling current
     enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 

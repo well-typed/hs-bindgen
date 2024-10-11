@@ -25,6 +25,7 @@ module HsBindgen.C.Reparse.Infra (
 
 import Control.Exception (Exception)
 import Control.Monad
+import Data.Bifunctor
 import Data.List (intercalate)
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -34,12 +35,10 @@ import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos
 import Text.Show.Pretty (PrettyVal)
 
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.SourceLoc.Type
-import HsBindgen.Clang.Util.Tokens
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer (PrettyLogMsg(..))
-import Data.Bifunctor
 
 {-------------------------------------------------------------------------------
   Parser type

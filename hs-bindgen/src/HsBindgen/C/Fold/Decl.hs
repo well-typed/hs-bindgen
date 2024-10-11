@@ -15,10 +15,9 @@ import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Fold.Type
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Reparse
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
-import HsBindgen.Clang.Util.Tokens qualified as Tokens
+import HsBindgen.Clang.HighLevel qualified as HighLevel
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -52,7 +51,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         decl <- declMacro <$> mkMacro unit current
         return $ Continue (Just decl)
       Right CXCursor_MacroExpansion -> do
-        loc <- liftIO $ SourceLoc.clang_getCursorLocation current
+        loc <- liftIO $ HighLevel.clang_getCursorLocation current
         modify $ registerMacroExpansion loc
         return $ Continue Nothing
       _otherwise -> do
@@ -83,6 +82,6 @@ mkMacro ::
      MonadIO m
   => CXTranslationUnit -> CXCursor -> m (Either ReparseError Macro)
 mkMacro unit current = liftIO $ do
-    range  <- SourceLoc.clang_getCursorExtent current
-    tokens <- Tokens.clang_tokenize unit (multiLocExpansion <$> range)
+    range  <- HighLevel.clang_getCursorExtent current
+    tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
     return $ reparseWith reparseMacro tokens

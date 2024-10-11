@@ -11,11 +11,9 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 
 import HsBindgen.C.Reparse
-import HsBindgen.Clang.Core
-import HsBindgen.Clang.Util.Fold
-import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
-import HsBindgen.Clang.Util.SourceLoc.Type
-import HsBindgen.Clang.Util.Tokens qualified as Tokens
+import HsBindgen.Clang.HighLevel qualified as HighLevel
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
 
@@ -58,7 +56,7 @@ foldPrelude tracer unit = go
 
     checkLoc :: (MultiLoc -> Fold m a) -> Fold m a
     checkLoc k current = do
-        loc <- liftIO $ SourceLoc.clang_getCursorLocation current
+        loc <- liftIO $ HighLevel.clang_getCursorLocation current
         let fp :: FilePath
             fp = Text.unpack . getSourcePath . singleLocPath $
                    multiLocExpansion loc
@@ -79,8 +77,8 @@ processMacro ::
   -> MultiLoc
   -> CXCursor -> m ()
 processMacro tracer unit loc current = liftIO $ do
-    cursorExtent <- SourceLoc.clang_getCursorExtent current
-    tokens       <- Tokens.clang_tokenize
+    cursorExtent <- HighLevel.clang_getCursorExtent current
+    tokens       <- HighLevel.clang_tokenize
                       unit
                       (multiLocExpansion <$> cursorExtent)
     case reparseWith reparseMacro tokens of
@@ -121,7 +119,7 @@ instance PrettyLogMsg GenPreludeMsg where
 
 unrecognized :: MonadIO m => Tracer IO GenPreludeMsg -> CXCursor -> m (Maybe a)
 unrecognized tracer current = liftIO $ do
-    loc  <- SourceLoc.clang_getCursorLocation current
+    loc  <- HighLevel.clang_getCursorLocation current
     kind <- clang_getCursorKind current
     name <- clang_getCursorSpelling current
     traceWith tracer Error $ UnrecognizedElement loc kind name

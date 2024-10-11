@@ -51,7 +51,7 @@
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/80> Ideally we would
 -- bootstrap this (generate it using @hs-bindgen@ itself).
-module HsBindgen.Clang.Core (
+module HsBindgen.Clang.LowLevel.Core (
     -- * Top-level
     CXIndex
   , DisplayDiagnostics(..)
@@ -182,9 +182,9 @@ import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO)
 
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.Core.Enums
-import HsBindgen.Clang.Core.Instances ()
-import HsBindgen.Clang.Core.Structs
+import HsBindgen.Clang.LowLevel.Core.Enums
+import HsBindgen.Clang.LowLevel.Core.Instances ()
+import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.FFI

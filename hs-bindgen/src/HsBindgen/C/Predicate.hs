@@ -19,7 +19,7 @@ import Data.Text (Text)
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text () -- instances only
 
-import HsBindgen.Clang.Core
+import HsBindgen.Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
   Definition

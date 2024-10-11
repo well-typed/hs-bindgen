@@ -10,10 +10,10 @@
 -- result of the @hsc2hs@ preprocessor.
 --
 -- This module should only be imported by "HsBingen.Clang.LowLevel".
-module HsBindgen.Clang.Core.Instances () where
+module HsBindgen.Clang.LowLevel.Core.Instances () where
 
-import HsBindgen.Clang.Core.Enums
-import HsBindgen.Clang.Core.Structs
+import HsBindgen.Clang.LowLevel.Core.Enums
+import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Patterns
 

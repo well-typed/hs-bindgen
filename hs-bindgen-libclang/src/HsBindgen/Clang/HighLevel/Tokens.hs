@@ -1,4 +1,4 @@
-module HsBindgen.Clang.Util.Tokens (
+module HsBindgen.Clang.HighLevel.Tokens (
     Token(..)
   , TokenSpelling(..)
   , clang_tokenize
@@ -10,14 +10,12 @@ import Data.Text (Text)
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
 
-import HsBindgen.Clang.Util.SourceLoc.Type
-import HsBindgen.Clang.Util.SourceLoc qualified as SourceLoc
+import HsBindgen.Clang.HighLevel.SourceLoc (Range, MultiLoc, SingleLoc)
+import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
 import HsBindgen.Patterns
 
-import HsBindgen.Clang.Core qualified as Core
-import HsBindgen.Clang.Core hiding (
-    clang_tokenize
-  )
+import HsBindgen.Clang.LowLevel.Core qualified as Core
+import HsBindgen.Clang.LowLevel.Core hiding (clang_tokenize)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -51,7 +49,7 @@ clang_tokenize ::
      -- ^ Range
      --
      -- We use 'Range' 'SingleLoc' here instead of 'CXSourceRange' in order to
-     -- avoid ambiguity; see 'HsBindgen.Clang.Util.SourceLoc.Multi' for
+     -- avoid ambiguity; see 'HsBindgen.Clang.HighLevel.SourceLoc.Multi' for
      -- discussion.
   -> IO [Token TokenSpelling]
 clang_tokenize unit range = do

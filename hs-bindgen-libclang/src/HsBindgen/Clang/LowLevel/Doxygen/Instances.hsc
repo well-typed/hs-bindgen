@@ -1,9 +1,9 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module HsBindgen.Clang.Doxygen.Instances () where
+module HsBindgen.Clang.LowLevel.Doxygen.Instances () where
 
-import HsBindgen.Clang.Doxygen.Enums
-import HsBindgen.Clang.Doxygen.Structs
+import HsBindgen.Clang.LowLevel.Doxygen.Enums
+import HsBindgen.Clang.LowLevel.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Patterns
 

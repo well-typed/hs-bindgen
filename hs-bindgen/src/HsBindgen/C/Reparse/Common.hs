@@ -12,7 +12,7 @@ import Text.Parsec hiding (token)
 
 import HsBindgen.C.AST
 import HsBindgen.C.Reparse.Infra
-import HsBindgen.Clang.Core
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------

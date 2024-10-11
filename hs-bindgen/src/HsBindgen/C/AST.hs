@@ -54,8 +54,7 @@ import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Infra (ReparseError(..))
-import HsBindgen.Clang.Util.SourceLoc.Type
-import HsBindgen.Clang.Util.Tokens
+import HsBindgen.Clang.HighLevel.Types
 
 {-------------------------------------------------------------------------------
   Top-level

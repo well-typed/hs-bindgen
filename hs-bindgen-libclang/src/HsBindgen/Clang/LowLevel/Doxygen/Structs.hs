@@ -1,4 +1,4 @@
-module HsBindgen.Clang.Doxygen.Structs (
+module HsBindgen.Clang.LowLevel.Doxygen.Structs (
     CXComment_
   ) where
 
