@@ -1,5 +1,7 @@
 module HsBindgen.Clang.LowLevel.Doxygen.Enums (
     CXCommentKind(..)
+  , CXCommentInlineCommandRenderKind(..)
+  , CXCommentParamPassDirection(..)
   ) where
 
 -- | Describes the type of the comment AST node ('CXComment').
@@ -99,4 +101,41 @@ data CXCommentKind =
 
     -- | A full comment attached to a declaration, contains block content.
   | CXComment_FullComment
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+-- | The most appropriate rendering mode for an inline command, chosen on
+-- command semantics in Doxygen.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#ga23efacd9c1e4e286a9f9714e1720fdcf>
+data CXCommentInlineCommandRenderKind =
+    -- | Command argument should be rendered in a normal font.
+    CXCommentInlineCommandRenderKind_Normal
+
+    -- | Command argument should be rendered in a bold font.
+  | CXCommentInlineCommandRenderKind_Bold
+
+    -- | Command argument should be rendered in a monospaced font.
+  | CXCommentInlineCommandRenderKind_Monospaced
+
+    -- | Command argument should be rendered emphasized (typically italic
+    -- font).
+  | CXCommentInlineCommandRenderKind_Emphasized
+
+    -- | Command argument should not be rendered (since it only defines an
+    -- anchor).
+  | CXCommentInlineCommandRenderKind_Anchor
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+-- | Describes parameter passing direction for @\\param@ or @\\arg@ command.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__COMMENT.html#gafadf6e52217ea74d1a014198df656ee1>
+data CXCommentParamPassDirection =
+    -- | The parameter is an input parameter.
+    CXCommentParamPassDirection_In
+
+    -- | The parameter is an output parameter.
+  | CXCommentParamPassDirection_Out
+
+    -- | The parameter is an input and output parameter.
+  | CXCommentParamPassDirection_InOut
   deriving stock (Show, Eq, Ord, Enum, Bounded)
