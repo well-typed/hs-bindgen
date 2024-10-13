@@ -1,6 +1,8 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+#include <stdio.h>
+
 enum first {
     FIRST1,
     FIRST2
