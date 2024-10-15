@@ -18,6 +18,8 @@ extra-source-files: fixtures/*.txt
                     examples/*.h
                     fixtures/*.hs
                     bootstrap/*.h
+                    musl-include/**/*.h
+
 common lang
   ghc-options:
       -Wall

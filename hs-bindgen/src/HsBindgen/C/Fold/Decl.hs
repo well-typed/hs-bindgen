@@ -54,6 +54,9 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         loc <- liftIO $ HighLevel.clang_getCursorLocation current
         modify $ registerMacroExpansion loc
         return $ Continue Nothing
+      Right CXCursor_InclusionDirective ->
+        -- Ignore
+        return $ Continue Nothing
       _otherwise -> do
         unrecognizedCursor current
 

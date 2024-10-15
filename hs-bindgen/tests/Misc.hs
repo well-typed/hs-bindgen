@@ -7,7 +7,7 @@ module Misc (
 
 import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
-import System.Directory (doesFileExist, setCurrentDirectory)
+import System.Directory (doesFileExist, setCurrentDirectory, getCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
 import Test.Tasty (TestTree, TestName)
 
@@ -46,15 +46,17 @@ goldenVsStringDiff_ name fp action = goldenTestSteps name correct action cmp upd
 --
 -- However, many tests are written so they assume that are run from
 -- *package* directory.
-findPackageDirectory :: String -> IO ()
+findPackageDirectory :: String -> IO FilePath
 findPackageDirectory pkgname = do
     here <- doesFileExist (pkgname -<.> ".cabal")
     if here
-    then return ()
+    then getCurrentDirectory
     else do
         there <- doesFileExist (pkgname </> pkgname -<.> ".cabal")
         if there
-        then setCurrentDirectory pkgname
+        then do
+            setCurrentDirectory pkgname
+            getCurrentDirectory
         -- do not try too hard, if not in the package directory, nor project root: abort
         else fail $ "Cannot find package directory for " ++ pkgname
 
@@ -62,8 +64,9 @@ findPackageDirectory pkgname = do
 -- default ClangArgs used in tests
 -------------------------------------------------------------------------------
 
-clangArgs :: ClangArgs
-clangArgs = defaultClangArgs{
+clangArgs :: FilePath -> ClangArgs
+clangArgs packageRoot = defaultClangArgs{
      clangTarget = Just "x86_64-pc-linux-gnu"
    , clangCStandard = Just C23
+   , clangOtherArgs = ["-nostdinc", "-isystem" ++ (packageRoot </> "musl-include")]
    }

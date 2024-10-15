@@ -25,6 +25,8 @@ data ClangArgs = ClangArgs {
     , clangCStandard :: Maybe CStandard
 
       -- | Other arguments
+      --
+      -- See https://clang.llvm.org/docs/ClangCommandLineReference.html
     , clangOtherArgs :: [String]
     }
   deriving stock (Show, Eq)
