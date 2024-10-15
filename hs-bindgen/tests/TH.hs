@@ -15,12 +15,12 @@ import Test.Tasty (TestTree, TestName)
 import Misc
 import HsBindgen.Lib
 
-goldenTh :: TestName -> TestTree
-goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
+goldenTh :: FilePath -> TestName -> TestTree
+goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     let fp = "examples" </> (name ++ ".h")
-        args = clangArgs
+        args = clangArgs packageRoot
 
     let tracer = mkTracer report report report False
 

@@ -21,34 +21,36 @@ import HsBindgen.Lib
 import HsBindgen.Util.PHOAS
 
 main :: IO ()
-main = do
-    findPackageDirectory "hs-bindgen"
-    defaultMain $ testGroup "golden"
-        [ testCase "target-triple" $ do
-            let fp = "examples/simple_structs.h"
-                args = clangArgs
-            triple <- withC nullTracer args fp $ getTargetTriple
+main = findPackageDirectory "hs-bindgen" >>= main'
 
-            -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
-            -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
-            triple @?= "x86_64-pc-linux-gnu"
+main' :: FilePath -> IO ()
+main' packageRoot = defaultMain $ testGroup "golden"
+    [ testCase "target-triple" $ do
+        let fp = "examples/simple_structs.h"
+            args = clangArgs packageRoot
+        triple <- withC nullTracer args fp $ getTargetTriple
 
-        , golden "simple_structs"
-        , golden "nested_types"
-        , golden "enums"
-        , golden "primitive_types"
-        , golden "macros"
-        , golden "macro_functions"
-        , golden "uses_utf8"
-        , golden "typedef_vs_macro"
-        ]
+        -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
+        -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
+        triple @?= "x86_64-pc-linux-gnu"
+
+    , golden "simple_structs"
+    , golden "nested_types"
+    , golden "enums"
+    , golden "primitive_types"
+    , golden "macros"
+    , golden "macro_functions"
+    , golden "uses_utf8"
+    , golden "typedef_vs_macro"
+    , golden "headers"
+    ]
   where
     golden name = testGroup name
         [ goldenTreeDiff name
         , goldenHs name
 -- Since GHC-9.4 the Template Haskell ppr function has changed slightly
 #if __GLASGOW_HASKELL__ >=904
-        , goldenTh name
+        , goldenTh packageRoot name
 #endif
         ]
 
@@ -56,7 +58,7 @@ main = do
         -- TODO: there aren't ediffGolden variant for goldenTestSteps like signature... yet
 
         let fp = "examples" </> (name ++ ".h")
-            args = clangArgs
+            args = clangArgs packageRoot
 
         header <- parseC nullTracer args fp
         return header
@@ -65,7 +67,7 @@ main = do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
-            args = clangArgs
+            args = clangArgs packageRoot
 
         let tracer = mkTracer report report report False
 
