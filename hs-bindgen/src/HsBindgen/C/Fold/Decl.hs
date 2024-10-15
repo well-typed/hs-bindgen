@@ -55,7 +55,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         modify $ registerMacroExpansion loc
         return $ Continue Nothing
       Right CXCursor_InclusionDirective ->
-        -- Ignore
+        -- The inclusion directive merely tells us that we are now going to
+        -- process a #include-d file; we don't need to do anything special at
+        -- this point so we can just ignore it (for each declaration we see we
+        -- are anyway told from which file it originates, which we use for
+        -- filtering).
         return $ Continue Nothing
       _otherwise -> do
         unrecognizedCursor current
