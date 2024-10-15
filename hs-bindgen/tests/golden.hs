@@ -74,12 +74,6 @@ main = do
 
         return $ showClosed decls
 
-clangArgs :: ClangArgs
-clangArgs = defaultClangArgs{
-     clangTarget = Just "x86_64-pc-linux-gnu"
-   , clangCStandard = Just C23
-   }
-
 -- | In multi-package projects @cabal run test-suite@ will run the test-suite
 -- from your current working directory (e.g. project root), which is often
 -- not the package directory.

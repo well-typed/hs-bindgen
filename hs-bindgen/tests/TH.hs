@@ -4,6 +4,7 @@
 module TH (
     goldenVsStringDiff_,
     goldenTh,
+    clangArgs,
 ) where
 
 import Control.Monad.State.Strict (State, get, put, evalState)
@@ -60,7 +61,10 @@ goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ 
     return $ unlines $ map (show . TH.ppr) $ unqualNames $ runQu decls
 
 clangArgs :: ClangArgs
-clangArgs = defaultClangArgs{clangTarget = Just "x86_64-pc-linux-gnu"}
+clangArgs = defaultClangArgs{
+     clangTarget = Just "x86_64-pc-linux-gnu"
+   , clangCStandard = Just C23
+   }
 
 -- | Deterministic monad with TH.Quote instance
 newtype Qu a = Qu (State Integer a)
