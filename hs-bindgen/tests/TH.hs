@@ -2,41 +2,18 @@
 --
 -- This module exists mainly to avoid hassle with unused imports and packages.
 module TH (
-    goldenVsStringDiff_,
     goldenTh,
-    clangArgs,
 ) where
 
 import Control.Monad.State.Strict (State, get, put, evalState)
-import Data.ByteString qualified as BS
-import Data.ByteString.UTF8 qualified as UTF8
 import Data.Generics qualified as SYB
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName)
 
-import TastyGolden
-import AnsiDiff (ansidiff)
-
+import Misc
 import HsBindgen.Lib
-
--- | Like goldenVsString but using our own diff function.
-goldenVsStringDiff_ :: TestName -> FilePath -> ((String -> IO ()) -> IO String) -> TestTree
-goldenVsStringDiff_ name fp action = goldenTestSteps name correct action cmp update
-  where
-    correct :: IO String
-    correct = do
-        contents <- BS.readFile fp
-        return $ UTF8.toString contents
-
-    update :: String -> IO ()
-    update s = BS.writeFile fp (UTF8.fromString s)
-
-    cmp :: String -> String -> IO (Maybe String)
-    cmp xss yss
-        | xss == yss = return Nothing
-        | otherwise  = return $ Just $ ansidiff xss yss
 
 goldenTh :: TestName -> TestTree
 goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
@@ -59,12 +36,6 @@ goldenTh name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ 
             nameFlavour -> nameFlavour
 
     return $ unlines $ map (show . TH.ppr) $ unqualNames $ runQu decls
-
-clangArgs :: ClangArgs
-clangArgs = defaultClangArgs{
-     clangTarget = Just "x86_64-pc-linux-gnu"
-   , clangCStandard = Just C23
-   }
 
 -- | Deterministic monad with TH.Quote instance
 newtype Qu a = Qu (State Integer a)

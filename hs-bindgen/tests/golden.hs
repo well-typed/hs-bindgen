@@ -1,19 +1,20 @@
-
-
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE CPP               #-}
 
 module Main (main) where
 
 import Data.TreeDiff.Golden (ediffGolden)
-import System.Directory (doesFileExist, setCurrentDirectory)
-import System.FilePath ((</>), (-<.>))
+import System.FilePath ((</>))
 import Test.Tasty (defaultMain, testGroup)
 import Test.Tasty.Golden.Advanced (goldenTest)
 import Test.Tasty.HUnit (testCase, (@?=))
 
 import Orphans ()
+import Misc
+
+#if __GLASGOW_HASKELL__ >=904
 import TH
+#endif
 
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
@@ -73,24 +74,6 @@ main = do
             decls = genHsDecls header
 
         return $ showClosed decls
-
--- | In multi-package projects @cabal run test-suite@ will run the test-suite
--- from your current working directory (e.g. project root), which is often
--- not the package directory.
---
--- However, many tests are written so they assume that are run from
--- *package* directory.
-findPackageDirectory :: String -> IO ()
-findPackageDirectory pkgname = do
-    here <- doesFileExist (pkgname -<.> ".cabal")
-    if here
-    then return ()
-    else do
-        there <- doesFileExist (pkgname </> pkgname -<.> ".cabal")
-        if there
-        then setCurrentDirectory pkgname
-        -- do not try too hard, if not in the package directory, nor project root: abort
-        else fail $ "Cannot find package directory for " ++ pkgname
 
 withC ::
      Tracer IO String
