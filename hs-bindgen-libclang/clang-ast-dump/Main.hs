@@ -294,24 +294,28 @@ traceUnless level label p value = unless (p value) $ traceU level label value
 -------------------------------------------------------------------------------}
 
 main :: IO ()
-main = clangAstDump =<< OA.execParser pinfo
+main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
   where
-    pinfo :: OA.ParserInfo Options
+    pinfo :: OA.ParserInfo (Bool, Options)
     pinfo = OA.info (OA.helper <*> parseOptions) $ mconcat
       [ OA.fullDesc
       , OA.progDesc "Clang AST dump"
       , OA.failureCode 2
       ]
 
-    parseOptions :: OA.Parser Options
+    parseOptions :: OA.Parser (Bool, Options)
     parseOptions = do
+      -- flags enabled by all flag
       optComments <- mkFlag "comments"  "show comments"
       optExtents  <- mkFlag "extents"   "show extents"
       optKind     <- mkFlag "kind"      "show kind details"
-      optSameFile <- mkFlag "same-file" "only show from specified file"
       optType     <- mkFlag "type"      "show type details"
+      -- all flag
+      optAll      <- mkFlag "all"       "enable all above flags"
+      -- other options/arguments
+      optSameFile <- mkFlag "same-file" "only show from specified file"
       optFile     <- fileArgument
-      pure Options{..}
+      pure (optAll, Options{..})
 
     fileArgument :: OA.Parser FilePath
     fileArgument = OA.strArgument $ mconcat
@@ -321,3 +325,14 @@ main = clangAstDump =<< OA.execParser pinfo
 
     mkFlag :: String -> String -> OA.Parser Bool
     mkFlag flag doc = OA.switch $ OA.long flag <> OA.help doc
+
+    applyAll :: Bool -> Options -> Options
+    applyAll False opts = opts
+    applyAll True Options{..} = Options {
+        optComments = True
+      , optExtents  = True
+      , optFile     = optFile
+      , optKind     = True
+      , optSameFile = optSameFile
+      , optType     = True
+      }
