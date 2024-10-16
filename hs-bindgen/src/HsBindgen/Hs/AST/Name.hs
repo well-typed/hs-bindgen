@@ -341,17 +341,21 @@ transformName strategy invCharAct = case strategy of
       | c == '_' = goHaskell True cs
       | isValidChar c =
           (if isUp then Char.toUpper c else c) : goHaskell False cs
-      | isEscape =
-          '\'' : showHex (Char.ord c) "" ++ goHaskell False cs
+      | isEscape = escapeChar c ++ goHaskell False cs
       | otherwise = goHaskell isUp cs
     goHaskell _isUp [] = []
 
     goMaintain :: String -> String
     goMaintain (c:cs)
       | isValidChar c = c : goMaintain cs
-      | isEscape      = '\'' : showHex (Char.ord c) "" ++ goMaintain cs
+      | isEscape      = escapeChar c ++ goMaintain cs
       | otherwise     = goMaintain cs
     goMaintain []     = []
+
+    escapeChar :: Char -> String
+    escapeChar c =
+      let hex = showHex (Char.ord c) ""
+      in  '\'' : replicate (max 0 (4 - length hex)) '0' ++ hex
 
 joinNamePrefixes :: NameManglingStrategy -> [Text] -> Text -> Text
 joinNamePrefixes _strategy [] t = t
