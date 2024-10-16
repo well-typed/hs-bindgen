@@ -85,7 +85,9 @@ structDecs struct fields = List
           structConstr = toHsName opts (NsConstrContext structName) cStructName
           structFields =
             Vec.map
-              (toHsName opts (RecordFieldContext structConstr) . C.fieldName)
+              ( toHsName opts (FieldContext structName structConstr True)
+              . C.fieldName
+              )
               fields
       in  Hs.Struct{..}
 
@@ -126,7 +128,7 @@ enumDecs e = List [
           structName = toHsName opts EmptyNsTypeConstrContext cEnumName
           structConstr = toHsName opts (NsConstrContext structName) cEnumName
           structFields = Vec.singleton $
-            toHsName opts (RecordFieldContext structConstr) cEnumName
+            toHsName opts (FieldContext structName structConstr True) cEnumName
       in  Hs.Struct{..}
 
     storable :: Hs.WithStruct Hs.StorableInstance f
