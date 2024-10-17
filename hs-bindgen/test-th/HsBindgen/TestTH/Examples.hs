@@ -38,7 +38,7 @@ myStruct :: Hs.Struct ('S ('S 'Z))
 myStruct = Hs.Struct {
       structName   = "MyStruct"
     , structConstr = "MkMyStruct"
-    , structFields = "myStructField1" ::: "myStructField2" ::: VNil
+    , structFields = ("myStructField1", Hs.HsType "Int") ::: ("myStructField2", Hs.HsType "Char") ::: VNil
     }
 
 myStructStorableInstance :: Hs.WithStruct Hs.StorableInstance f
