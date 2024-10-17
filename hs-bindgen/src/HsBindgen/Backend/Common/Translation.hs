@@ -54,6 +54,7 @@ instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
 
   toBE _be (Hs.WithStruct struct Hs.MkDataDecl) = do
     return $ DData $ Data $ Hs.structName struct
+
 {-------------------------------------------------------------------------------
   'Storable'
 -------------------------------------------------------------------------------}
@@ -105,12 +106,15 @@ instance Backend be => ToBE be (Hs.IntroStruct n) where
 
 instance DefToBE be a => ToBE be (Hs.ElimStruct n a) where
   toBE be (Hs.ElimStruct struct k) =
-      fresh    be "x"                      $ \x ->
-      freshVec be (Hs.structFields struct) $ \fs -> do
+      fresh    be "x"        $ \x ->
+      freshVec be fieldNames $ \fs -> do
         k' <- toBE be (k fs)
         return $ mkExpr be $ ELam (Just x) $ ECase (EVar x) [
             (Hs.structConstr struct, toList fs, EInj k')
           ]
+    where
+      fieldNames :: Vec n (HsName NsVar)
+      fieldNames = fst <$> Hs.structFields struct
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality

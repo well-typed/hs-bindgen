@@ -20,6 +20,8 @@
 module HsBindgen.Hs.AST (
     -- * Information about generated code
     Struct(..)
+    -- * Types
+  , HsType(..)
     -- * Variable binding
   , Lambda(..)
   , Ap(..)
@@ -56,10 +58,18 @@ import HsBindgen.Util.PHOAS
 data Struct (n :: Nat) = Struct {
       structName   :: HsName NsTypeConstr
     , structConstr :: HsName NsConstr
-    , structFields :: Vec n (HsName NsVar)
+    , structFields :: Vec n (HsName NsVar, HsType)
     }
 
 deriving stock instance Show (Struct n)
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+data HsType =
+  HsType String
+  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Variable binding

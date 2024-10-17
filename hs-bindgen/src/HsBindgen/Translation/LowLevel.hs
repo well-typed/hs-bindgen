@@ -80,8 +80,11 @@ structDecs struct fields = List
     hs = Hs.Struct {
           structName   = fromMaybe "X" (toHsName <$> C.structTag struct)
         , structConstr = maybe "MkX" ("Mk" <>) (toHsName <$> C.structTag struct)
-        , structFields = Vec.map (toHsName . C.fieldName) fields
+        , structFields = Vec.map mkField fields
         }
+
+    mkField :: C.StructField -> (HsName NsVar, Hs.HsType)
+    mkField f = (toHsName (C.fieldName f), Hs.HsType "StructFieldTypeTODO")
 
     storable :: Hs.WithStruct Hs.StorableInstance f
     storable = Hs.WithStruct hs $ Hs.StorableInstance {
@@ -115,8 +118,10 @@ enumDecs e = List [
     hs = Hs.Struct {
           structName   = fromMaybe "X" (toHsName <$> C.enumTag e)
         , structConstr = maybe "MkX" ("Mk" <>) (toHsName <$> C.enumTag e)
-        , structFields = Vec.singleton $
-                           maybe "unX" ("un" <>) (toHsName <$> C.enumTag e)
+        , structFields = Vec.singleton
+          ( maybe "unX" ("un" <>) (toHsName <$> C.enumTag e)
+          , Hs.HsType "EnumTypeTODO"
+          )
         }
 
     storable :: Hs.WithStruct Hs.StorableInstance f
