@@ -6,6 +6,7 @@ module HsBindgen.C.AST.Macro (
     Macro(..)
     -- ** Expressions
   , MExpr(..)
+  , MFun(..)
   , MTerm(..)
     -- ** Attributes
   , Attribute(..)
@@ -45,28 +46,34 @@ data Macro = Macro {
 -- | Body of a function-like macro
 data MExpr =
     MTerm MTerm
-  | MUnaryPlus MExpr        -- ^ @+@
-  | MUnaryMinus MExpr       -- ^ @-@
-  | MLogicalNot MExpr       -- ^ @!@
-  | MBitwiseNot MExpr       -- ^ @~@
-  | MMult MExpr MExpr        -- ^ @*@
-  | MDiv MExpr MExpr         -- ^ @/@
-  | MRem MExpr MExpr         -- ^ @%@
-  | MAdd MExpr MExpr         -- ^ @+@
-  | MSub MExpr MExpr         -- ^ @-@
-  | MShiftLeft MExpr MExpr   -- ^ @<<@
-  | MShiftRight MExpr MExpr  -- ^ @>>@
-  | MRelLT MExpr MExpr       -- ^ @<@
-  | MRelLE MExpr MExpr       -- ^ @<=@
-  | MRelGT MExpr MExpr       -- ^ @>@
-  | MRelGE MExpr MExpr       -- ^ @>=@
-  | MRelEQ MExpr MExpr       -- ^ @==@
-  | MRelNE MExpr MExpr       -- ^ @!=@
-  | MBitwiseAnd MExpr MExpr  -- ^ @&@
-  | MBitwiseXor MExpr MExpr  -- ^ @^@
-  | MBitwiseOr MExpr MExpr   -- ^ @|@
-  | MLogicalAnd MExpr MExpr  -- ^ @&&@
-  | MLogicalOr MExpr MExpr   -- ^ @||@
+  -- | Exactly saturated application
+  | MApp MFun [MExpr]
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+data MFun
+  = MUnaryPlus  -- ^ @+@
+  | MUnaryMinus -- ^ @-@
+  | MLogicalNot -- ^ @!@
+  | MBitwiseNot -- ^ @~@
+  | MMult       -- ^ @*@
+  | MDiv        -- ^ @/@
+  | MRem        -- ^ @%@
+  | MAdd        -- ^ @+@
+  | MSub        -- ^ @-@
+  | MShiftLeft  -- ^ @<<@
+  | MShiftRight -- ^ @>>@
+  | MRelLT      -- ^ @<@
+  | MRelLE      -- ^ @<=@
+  | MRelGT      -- ^ @>@
+  | MRelGE      -- ^ @>=@
+  | MRelEQ      -- ^ @==@
+  | MRelNE      -- ^ @!=@
+  | MBitwiseAnd -- ^ @&@
+  | MBitwiseXor -- ^ @^@
+  | MBitwiseOr  -- ^ @|@
+  | MLogicalAnd -- ^ @&&@
+  | MLogicalOr  -- ^ @||@
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

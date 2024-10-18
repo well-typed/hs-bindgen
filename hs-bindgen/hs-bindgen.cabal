@@ -81,6 +81,8 @@ library
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
+      HsBindgen.C.Tc.Macro
+      HsBindgen.Pretty.Orphans
       HsBindgen.Hs.AST.Name
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.Parsec

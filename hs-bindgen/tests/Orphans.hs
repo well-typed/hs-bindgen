@@ -30,7 +30,9 @@ instance ToExpr C.Enu
 instance ToExpr C.EnumValue
 instance ToExpr C.Header
 instance ToExpr C.Macro
+instance ToExpr C.MacroDecl
 instance ToExpr C.MExpr
+instance ToExpr C.MFun
 instance ToExpr C.MTerm
 instance ToExpr C.MultiLoc
 instance ToExpr C.PrimSign
@@ -50,6 +52,9 @@ instance ToExpr a => ToExpr (C.Token a)
 -- Construct platform-independent expression
 instance ToExpr C.SourcePath where
   toExpr = toExpr . splitDirectories . Text.unpack . C.getSourcePath
+
+instance ToExpr C.TcMacroError where
+  toExpr _ = toExpr "<<typechecking macro failed>>"
 
 {-------------------------------------------------------------------------------
   hs-bindgen-patterns
