@@ -122,16 +122,11 @@ enumDecs e = List [
     hs :: Hs.Struct (S Z)
     hs =
       let cEnumName = fromMaybe "X" $ C.enumTag e
-          opts = defaultNameManglingOptions {
-              nameManglingFieldPrefix = Just "un"
-            }
+          opts = defaultNameManglingOptions
           structName = toHsName opts EmptyNsTypeConstrContext cEnumName
           structConstr = toHsName opts (NsConstrContext structName) cEnumName
           structFields = Vec.singleton
-            ( toHsName
-                opts
-                (FieldContext structName structConstr True)
-                cEnumName
+            ( toHsName opts (EnumContext structName) cEnumName
             , Hs.HsType "EnumTypeTODO"
             )
       in  Hs.Struct{..}
