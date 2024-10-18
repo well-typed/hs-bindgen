@@ -2,7 +2,7 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {

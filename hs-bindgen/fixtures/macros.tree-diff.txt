@@ -2,7 +2,7 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -22,7 +22,7 @@ WrapCHeader
                   literalText = "1",
                   literalValue = 1})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -42,7 +42,7 @@ WrapCHeader
                   literalText = "2",
                   literalValue = 2})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -56,19 +56,21 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "OBJECTLIKE3",
             macroArgs = [],
-            macroBody = MAdd
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "3",
-                    literalValue = 3}))
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "3",
-                    literalValue = 3}))}),
+            macroBody = MApp
+              MAdd
+              [
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "3",
+                      literalValue = 3}),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "3",
+                      literalValue = 3})]}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -82,19 +84,21 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "OBJECTLIKE4",
             macroArgs = [],
-            macroBody = MAdd
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "4",
-                    literalValue = 4}))
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "4",
-                    literalValue = 4}))}),
+            macroBody = MApp
+              MAdd
+              [
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "4",
+                      literalValue = 4}),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "4",
+                      literalValue = 4})]}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -115,7 +119,7 @@ WrapCHeader
                   literalText = "42",
                   literalValue = 42})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -136,7 +140,7 @@ WrapCHeader
                   literalText = "052",
                   literalValue = 42})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -157,7 +161,7 @@ WrapCHeader
                   literalText = "0x2a",
                   literalValue = 42})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -178,7 +182,7 @@ WrapCHeader
                   literalText = "0X2A",
                   literalValue = 42})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -199,7 +203,7 @@ WrapCHeader
                   literalText = "0b101010",
                   literalValue = 42})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -222,7 +226,7 @@ WrapCHeader
                   literalValue =
                   18446744073709550592})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -245,7 +249,7 @@ WrapCHeader
                   literalValue =
                   18446744073709550592})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -268,7 +272,7 @@ WrapCHeader
                   literalValue =
                   18446744073709550592})}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {

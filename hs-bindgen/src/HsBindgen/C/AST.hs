@@ -27,8 +27,10 @@ module HsBindgen.C.AST (
   , Typedef(..)
     -- * Macros
   , Macro(..)
+  , MacroDecl(..)
     -- ** Expressions
   , MExpr(..)
+  , MFun(..)
   , MTerm(..)
   , Literal(..)
     -- ** Attributes
@@ -37,6 +39,7 @@ module HsBindgen.C.AST (
   , isIncludeGuard
     -- ** Unrecognized
   , ReparseError(..)
+  , TcMacroError(..)
   , Token(..)
   , TokenSpelling(..)
     -- * Source locations
@@ -54,6 +57,8 @@ import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Infra (ReparseError(..))
+import HsBindgen.C.Tc.Macro
+  ( TcMacroError(..) )
 import HsBindgen.Clang.HighLevel.Types
 
 {-------------------------------------------------------------------------------
@@ -72,7 +77,13 @@ data Decl =
     DeclStruct Struct
   | DeclTypedef Typedef
   | DeclEnum Enu
-  | DeclMacro (Either ReparseError Macro)
+  | DeclMacro MacroDecl
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
+data MacroDecl
+  = MacroReparseError ReparseError
+  | MacroTcError TcMacroError
+  | MacroDecl Macro
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
