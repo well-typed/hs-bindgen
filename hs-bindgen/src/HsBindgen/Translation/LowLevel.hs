@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
 
 -- | Low-level translation of the C header to a Haskell module
 --
@@ -77,14 +78,18 @@ structDecs struct fields = List
     ]
   where
     hs :: Hs.Struct n
-    hs = Hs.Struct {
-          structName   = fromMaybe "X" (toHsName <$> C.structTag struct)
-        , structConstr = maybe "MkX" ("Mk" <>) (toHsName <$> C.structTag struct)
-        , structFields = Vec.map mkField fields
-        }
-
-    mkField :: C.StructField -> (HsName NsVar, Hs.HsType)
-    mkField f = (toHsName (C.fieldName f), Hs.HsType "StructFieldTypeTODO")
+    hs =
+      let cStructName = fromMaybe "X" $ C.structTag struct
+          opts = defaultNameManglingOptions
+          structName = toHsName opts EmptyNsTypeConstrContext cStructName
+          structConstr = toHsName opts (NsConstrContext structName) cStructName
+          mkField f =
+            ( toHsName opts (FieldContext structName structConstr True) $
+                C.fieldName f
+            , Hs.HsType "StructFieldTypeTODO"
+            )
+          structFields = Vec.map mkField fields
+      in  Hs.Struct{..}
 
     storable :: Hs.WithStruct Hs.StorableInstance f
     storable = Hs.WithStruct hs $ Hs.StorableInstance {
@@ -115,14 +120,16 @@ enumDecs e = List [
     ]
   where
     hs :: Hs.Struct (S Z)
-    hs = Hs.Struct {
-          structName   = fromMaybe "X" (toHsName <$> C.enumTag e)
-        , structConstr = maybe "MkX" ("Mk" <>) (toHsName <$> C.enumTag e)
-        , structFields = Vec.singleton
-          ( maybe "unX" ("un" <>) (toHsName <$> C.enumTag e)
-          , Hs.HsType "EnumTypeTODO"
-          )
-        }
+    hs =
+      let cEnumName = fromMaybe "X" $ C.enumTag e
+          opts = defaultNameManglingOptions
+          structName = toHsName opts EmptyNsTypeConstrContext cEnumName
+          structConstr = toHsName opts (NsConstrContext structName) cEnumName
+          structFields = Vec.singleton
+            ( toHsName opts (EnumContext structName) cEnumName
+            , Hs.HsType "EnumTypeTODO"
+            )
+      in  Hs.Struct{..}
 
     storable :: Hs.WithStruct Hs.StorableInstance f
     storable = Hs.WithStruct hs $ Hs.StorableInstance {
