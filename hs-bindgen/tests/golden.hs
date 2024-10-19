@@ -3,12 +3,12 @@
 
 module Main (main) where
 
-import Data.TreeDiff.Golden (ediffGolden)
+import Data.TreeDiff.Golden (ediffGolden1)
 import System.FilePath ((</>))
 import Test.Tasty (defaultMain, testGroup)
-import Test.Tasty.Golden.Advanced (goldenTest)
 import Test.Tasty.HUnit (testCase, (@?=))
 
+import TastyGolden (goldenTestSteps)
 import Orphans ()
 import Misc
 
@@ -55,13 +55,13 @@ main' packageRoot = defaultMain $ testGroup "golden"
 #endif
         ]
 
-    goldenTreeDiff name = ediffGolden goldenTest "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ do
-        -- TODO: there aren't ediffGolden variant for goldenTestSteps like signature... yet
-
+    goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do
         let fp = "examples" </> (name ++ ".h")
             args = clangArgs packageRoot
 
-        header <- parseC nullTracer args fp
+        let tracer = mkTracer report report report False
+
+        header <- parseC tracer args fp
         return header
 
     goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
