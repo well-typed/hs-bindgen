@@ -16,7 +16,8 @@ import Text.EditDistance qualified as ED
 ansidiff :: String -> String -> String
 ansidiff old new = runStringWriter $ do
     writeStr ansiReset
-    let linesDiff = Diff.getDiff (lines old) (lines new)
+    let normalisedLines = lines . filter ( /= '\r' )
+        linesDiff = Diff.getDiff (normalisedLines old) (normalisedLines new)
     forM_ (chunks linesDiff) $ \case
         Same xs _  -> forM_ xs $ \x -> writeStrLn $ ' ' : x
         Diff xs ys -> ansiDiff' xs ys

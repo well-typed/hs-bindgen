@@ -2,7 +2,7 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -16,15 +16,17 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "INCR",
             macroArgs = [CName "x"],
-            macroBody = MAdd
-              (MTerm (MVar (CName "x") []))
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "1",
-                    literalValue = 1}))}),
+            macroBody = MApp
+              MAdd
+              [
+                MTerm (MVar (CName "x") []),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "1",
+                      literalValue = 1})]}),
       DeclMacro
-        (Right
+        (MacroDecl
           Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
@@ -40,7 +42,8 @@ WrapCHeader
             macroArgs = [
               CName "x",
               CName "y"],
-            macroBody = MAdd
-              (MTerm (MVar (CName "x") []))
-              (MTerm
-                (MVar (CName "y") []))})])
+            macroBody = MApp
+              MAdd
+              [
+                MTerm (MVar (CName "x") []),
+                MTerm (MVar (CName "y") [])]})])
