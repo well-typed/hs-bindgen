@@ -6,6 +6,7 @@ module HsBindgen.C.AST.Macro (
     Macro(..)
     -- ** Expressions
   , MExpr(..)
+  , MFun(..)
   , MTerm(..)
     -- ** Attributes
   , Attribute(..)
@@ -14,16 +15,25 @@ module HsBindgen.C.AST.Macro (
   ) where
 
 import Data.Char (toUpper)
+import Data.Nat (Nat(..))
+import Data.Vec.Lazy (Vec(..))
 import Data.String
 import Data.Text qualified as Text
+import Data.Type.Equality
+  ( type (:~:)(..), TestEquality(..) )
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
-import Text.Show.Pretty (PrettyVal)
+import Text.Show.Pretty (PrettyVal(..))
+import Text.Show.Pretty qualified as Pretty
 
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Pretty.Orphans
+  ()
+import HsBindgen.Util.TestEquality
+  ( SimpleEnum(..) )
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -45,30 +55,76 @@ data Macro = Macro {
 -- | Body of a function-like macro
 data MExpr =
     MTerm MTerm
-  | MUnaryPlus MExpr        -- ^ @+@
-  | MUnaryMinus MExpr       -- ^ @-@
-  | MLogicalNot MExpr       -- ^ @!@
-  | MBitwiseNot MExpr       -- ^ @~@
-  | MMult MExpr MExpr        -- ^ @*@
-  | MDiv MExpr MExpr         -- ^ @/@
-  | MRem MExpr MExpr         -- ^ @%@
-  | MAdd MExpr MExpr         -- ^ @+@
-  | MSub MExpr MExpr         -- ^ @-@
-  | MShiftLeft MExpr MExpr   -- ^ @<<@
-  | MShiftRight MExpr MExpr  -- ^ @>>@
-  | MRelLT MExpr MExpr       -- ^ @<@
-  | MRelLE MExpr MExpr       -- ^ @<=@
-  | MRelGT MExpr MExpr       -- ^ @>@
-  | MRelGE MExpr MExpr       -- ^ @>=@
-  | MRelEQ MExpr MExpr       -- ^ @==@
-  | MRelNE MExpr MExpr       -- ^ @!=@
-  | MBitwiseAnd MExpr MExpr  -- ^ @&@
-  | MBitwiseXor MExpr MExpr  -- ^ @^@
-  | MBitwiseOr MExpr MExpr   -- ^ @|@
-  | MLogicalAnd MExpr MExpr  -- ^ @&&@
-  | MLogicalOr MExpr MExpr   -- ^ @||@
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
+  -- | Exactly saturated non-nullary function application.
+  | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
+deriving stock instance Show MExpr
+instance PrettyVal MExpr where
+  prettyVal = \case
+    MTerm tm    -> Pretty.Con "MTerm" [prettyVal tm]
+    MApp f args -> Pretty.Con "MApp" [prettyVal f, prettyVal args]
+
+instance Eq MExpr where
+  MTerm m1 == MTerm m2 = m1 == m2
+  MApp f1 args1 == MApp f2 args2
+    | Just Refl <- testEquality f1 f2
+    = args1 == args2
+    | otherwise
+    = False
+  _ == _ = False
+
+data MFun arity where
+  -- | @+@
+  MUnaryPlus  :: MFun ( S Z )
+  -- | @-@
+  MUnaryMinus :: MFun ( S Z )
+  -- | @!@
+  MLogicalNot :: MFun ( S Z )
+  -- | @~@
+  MBitwiseNot :: MFun ( S Z )
+  -- | @*@
+  MMult       :: MFun ( S ( S Z ) )
+  -- | @/@
+  MDiv        :: MFun ( S ( S Z ) )
+  -- | @%@
+  MRem        :: MFun ( S ( S Z ) )
+  -- | @+@
+  MAdd        :: MFun ( S ( S Z ) )
+  -- | @-@
+  MSub        :: MFun ( S ( S Z ) )
+  -- | @<<@
+  MShiftLeft  :: MFun ( S ( S Z ) )
+  -- | @>>@
+  MShiftRight :: MFun ( S ( S Z ) )
+  -- | @<@
+  MRelLT      :: MFun ( S ( S Z ) )
+  -- | @<=@
+  MRelLE      :: MFun ( S ( S Z ) )
+  -- | @>@
+  MRelGT      :: MFun ( S ( S Z ) )
+  -- | @>=@
+  MRelGE      :: MFun ( S ( S Z ) )
+  -- | @==@
+  MRelEQ      :: MFun ( S ( S Z ) )
+  -- | @!=@
+  MRelNE      :: MFun ( S ( S Z ) )
+  -- | @&@
+  MBitwiseAnd :: MFun ( S ( S Z ) )
+  -- | @^@
+  MBitwiseXor :: MFun ( S ( S Z ) )
+  -- | @|@
+  MBitwiseOr  :: MFun ( S ( S Z ) )
+  -- | @&&@
+  MLogicalAnd :: MFun ( S ( S Z ) )
+  -- | @||@
+  MLogicalOr  :: MFun ( S ( S Z ) )
+
+deriving stock instance Show ( MFun arity )
+deriving stock instance Eq   ( MFun arity )
+deriving via SimpleEnum MFun
+  instance TestEquality MFun
+
+instance PrettyVal ( MFun arity ) where
+  prettyVal f = Pretty.Con (show f) []
 
 data MTerm =
     -- | Empty
