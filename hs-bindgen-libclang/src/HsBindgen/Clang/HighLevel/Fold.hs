@@ -240,4 +240,3 @@ runFoldState s f = do
     a   <- unwrapFoldM f ref
     (a,) <$> readIORef ref
 
-

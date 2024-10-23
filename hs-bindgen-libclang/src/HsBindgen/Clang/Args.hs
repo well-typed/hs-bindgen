@@ -101,5 +101,3 @@ fromClangArgs args = aux [
     ifGiven Nothing  _ = return []
     ifGiven (Just a) f = f a
 
-
-

@@ -206,4 +206,3 @@ primType (Right kind) =
       CXType_LongDouble -> Just $ PrimLongDouble
       _otherwise        -> Nothing
 
-

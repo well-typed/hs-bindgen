@@ -1,4 +1,33 @@
 data CPrimitive
+    = MkCPrimitive {cPrimitive_c :: CChar,
+                    cPrimitive_sc :: CSChar,
+                    cPrimitive_uc :: CSChar,
+                    cPrimitive_s :: CShort,
+                    cPrimitive_si :: CShort,
+                    cPrimitive_ss :: CShort,
+                    cPrimitive_ssi :: CShort,
+                    cPrimitive_us :: CUShort,
+                    cPrimitive_usi :: CUShort,
+                    cPrimitive_i :: CInt,
+                    cPrimitive_s2 :: CInt,
+                    cPrimitive_si2 :: CInt,
+                    cPrimitive_u :: CUInt,
+                    cPrimitive_ui :: CUInt,
+                    cPrimitive_l :: CLong,
+                    cPrimitive_li :: CLong,
+                    cPrimitive_sl :: CLong,
+                    cPrimitive_sli :: CLong,
+                    cPrimitive_ul :: CULong,
+                    cPrimitive_uli :: CULong,
+                    cPrimitive_ll :: CLLong,
+                    cPrimitive_lli :: CLLong,
+                    cPrimitive_sll :: CLLong,
+                    cPrimitive_slli :: CLLong,
+                    cPrimitive_ull :: CULLong,
+                    cPrimitive_ulli :: CULLong,
+                    cPrimitive_f :: CFloat,
+                    cPrimitive_d :: CDouble,
+                    cPrimitive_ld :: CDouble}
 instance Storable CPrimitive
     where {sizeOf = \_ -> 176;
            alignment = \_ -> 16;
