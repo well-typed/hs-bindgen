@@ -28,7 +28,8 @@ module HsBindgen.Hs.AST.Name (
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
-  , keywords
+  , varReservedNames
+  , typeVarReservedNames
   , handleModuleNameParent
     -- ** Defaults
   , defaultNameManglingOptions
@@ -345,8 +346,8 @@ handleReservedNone = id
 -- The transformation function must return a valid Haskell name.  One
 -- transformation function is provided in this module: 'appendSingleQuote'.
 --
--- For example, 'keywords' may be used to avoid using Haskell keywords as
--- identifiers.
+-- For example, 'varReservedNames' and 'typeVarReservedNames' may be used to
+-- avoid using reserved names for variables and type variables, respectively.
 handleReservedNames :: (Text -> Text) -> [Text] -> HsName ns -> HsName ns
 handleReservedNames f reserved name@(HsName t)
     | t `elem` reserved = HsName $ f t
@@ -356,11 +357,14 @@ handleReservedNames f reserved name@(HsName t)
 appendSingleQuote :: Text -> Text
 appendSingleQuote = (<> "'")
 
--- | Haskell keywords
+-- | Reserved names in the Haskell variable namespace
 --
--- <https://wiki.haskell.org/Keywords>
-keywords :: [Text]
-keywords =
+-- Reference:
+--
+-- * [Keywords](https://wiki.haskell.org/Keywords)
+-- * [Stolen Syntax](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/stolen_syntax.html)
+varReservedNames :: [Text]
+varReservedNames =
     [ "as"
     , "case"
     , "class"
@@ -385,13 +389,23 @@ keywords =
     , "module"
     , "newtype"
     , "of"
+    , "pattern"
     , "proc"
     , "qualified"
     , "rec"
+    , "static"
     , "then"
     , "type"
     , "where"
     ]
+
+-- | Reserved names in the Haskell type variable namespace
+--
+-- Reference:
+--
+-- * [`role`](https://gitlab.haskell.org/ghc/ghc/-/issues/18941)
+typeVarReservedNames :: [Text]
+typeVarReservedNames = "role" : varReservedNames
 
 -- | Prepend the parent module name, joining using a @.@, if one is provided in
 -- the context
@@ -417,7 +431,7 @@ handleModuleNameParent NsModuleNameContext{..} name =
 --   characters.
 -- * Type constructors are prefixed with @C@, escaping invalid characters.
 -- * Type variables have invalid characters escaped, and single quotes are
---   appended to Haskell keywords.
+--   appended to reserved names.
 -- * Constructors are prefixed with @MkC@, escaping invalid characters.
 -- * Record fields are prefixed with the type name if the data type has a single
 --   constructor or the constructor name otherwise, joined using an underscore,
@@ -425,7 +439,7 @@ handleModuleNameParent NsModuleNameContext{..} name =
 -- * Enumeration fields are prefixed with @un@, joined using an underscore,
 --   escaping invalid characters.
 -- * Other variables have invalid characters escaped, and single quotes are
---   appended to Haskell keywords.
+--   appended to reserved names.
 defaultNameManglingOptions :: NameManglingOptions
 defaultNameManglingOptions = NameManglingOptions {
     nameManglingModule = \ctx -> handleModuleNameParent ctx .
@@ -457,7 +471,7 @@ defaultNameManglingOptions = NameManglingOptions {
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        (handleReservedNames appendSingleQuote keywords)
+        (handleReservedNames appendSingleQuote typeVarReservedNames)
 
   , nameManglingConstr = \NsConstrContext{} ->
       translateName
@@ -474,7 +488,7 @@ defaultNameManglingOptions = NameManglingOptions {
           joinWithSnakeCase -- not used (no prefixes/suffixes)
           []
           []
-          (handleReservedNames appendSingleQuote keywords)
+          (handleReservedNames appendSingleQuote varReservedNames)
       EnumContext{} ->
         translateName
           (maintainCName escapeInvalidChar)
@@ -505,7 +519,7 @@ defaultNameManglingOptions = NameManglingOptions {
 -- * Type constructors are transformed to @PascalCase@ and prefixed with @C@,
 --   escaping invalid characters.
 -- * Type variables have invalid characters dropped, and single quotes are
---   appended to Haskell keywords.
+--   appended to reserved names.
 -- * Constructors are are transformed to @PascalCase@ and prefixed with @MkC@,
 --   escaping invalid characters.
 -- * Record fields are prefixed with the type name if the data type has a single
@@ -514,7 +528,7 @@ defaultNameManglingOptions = NameManglingOptions {
 -- * Enumeration fields are prefixed with @un@, joined using @camelCase@,
 --   dropping invalid characters.
 -- * Other variables have invalid characters dropped, and single quotes are
---   appended to Haskell keywords.
+--   appended to reserved names.
 haskellNameManglingOptions :: NameManglingOptions
 haskellNameManglingOptions = NameManglingOptions {
     nameManglingModule = \ctx -> handleModuleNameParent ctx .
@@ -547,7 +561,7 @@ haskellNameManglingOptions = NameManglingOptions {
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        (handleReservedNames appendSingleQuote keywords)
+        (handleReservedNames appendSingleQuote typeVarReservedNames)
 
   , nameManglingConstr = \NsConstrContext{} ->
       translateName
@@ -564,7 +578,7 @@ haskellNameManglingOptions = NameManglingOptions {
           joinWithCamelCase -- not used (no prefixes/suffixes)
           []
           []
-          (handleReservedNames appendSingleQuote keywords)
+          (handleReservedNames appendSingleQuote varReservedNames)
       EnumContext{} ->
         translateName
           (camelCaseCName dropInvalidChar)
