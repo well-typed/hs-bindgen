@@ -1,0 +1,36 @@
+WrapCHeader
+  (Header
+    [
+      DeclMacro
+        (Right
+          Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macrodeftype.h"],
+                singleLocLine = 1,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "foo",
+            macroArgs = [],
+            macroBody = MTerm
+              (MType (PrimLong Signed))}),
+      DeclStruct
+        Struct {
+          structTag = Just (CName "bar"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypElaborated
+                (CName "foo")},
+            StructField {
+              fieldName = CName "y",
+              fieldOffset = 64,
+              fieldType = TypElaborated
+                (CName "foo")}]}])
