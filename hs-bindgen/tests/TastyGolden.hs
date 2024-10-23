@@ -56,7 +56,7 @@ instance IsOption AcceptTests where
     parseValue = fmap AcceptTests . safeReadBool
     optionName = return "accept"
     optionHelp = return "Accept current results of golden tests"
-    optionCLParser = flagCLParser Nothing (AcceptTests True)
+    optionCLParser = flagCLParser (Just 'a') (AcceptTests True)
 
 instance IsTest GoldenSteps where
     run opts golden progress = runGoldenSteps golden progress opts
