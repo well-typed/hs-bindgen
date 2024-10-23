@@ -26,3 +26,70 @@ const _: () = {
     ["Offset of field: bar::foo1"][::std::mem::offset_of!(bar, foo1) - 0usize];
     ["Offset of field: bar::foo2"][::std::mem::offset_of!(bar, foo2) - 8usize];
 };
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ex3 {
+    pub __bindgen_anon_1: ex3__bindgen_ty_1,
+    pub ex3_c: f32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ex3__bindgen_ty_1 {
+    pub ex3_a: ::std::os::raw::c_int,
+    pub ex3_b: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of ex3__bindgen_ty_1"][::std::mem::size_of::<ex3__bindgen_ty_1>() - 8usize];
+    [
+        "Alignment of ex3__bindgen_ty_1",
+    ][::std::mem::align_of::<ex3__bindgen_ty_1>() - 4usize];
+    [
+        "Offset of field: ex3__bindgen_ty_1::ex3_a",
+    ][::std::mem::offset_of!(ex3__bindgen_ty_1, ex3_a) - 0usize];
+    [
+        "Offset of field: ex3__bindgen_ty_1::ex3_b",
+    ][::std::mem::offset_of!(ex3__bindgen_ty_1, ex3_b) - 4usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of ex3"][::std::mem::size_of::<ex3>() - 12usize];
+    ["Alignment of ex3"][::std::mem::align_of::<ex3>() - 4usize];
+    ["Offset of field: ex3::ex3_c"][::std::mem::offset_of!(ex3, ex3_c) - 8usize];
+};
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ex4 {
+    pub linkedlist: ex4_ex4_b,
+    pub ex3_c: f32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ex4_ex4_b {
+    pub ex3_a: ::std::os::raw::c_int,
+    pub ex3_b: ::std::os::raw::c_char,
+    pub recur: *mut ex4_ex4_b,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of ex4_ex4_b"][::std::mem::size_of::<ex4_ex4_b>() - 16usize];
+    ["Alignment of ex4_ex4_b"][::std::mem::align_of::<ex4_ex4_b>() - 8usize];
+    [
+        "Offset of field: ex4_ex4_b::ex3_a",
+    ][::std::mem::offset_of!(ex4_ex4_b, ex3_a) - 0usize];
+    [
+        "Offset of field: ex4_ex4_b::ex3_b",
+    ][::std::mem::offset_of!(ex4_ex4_b, ex3_b) - 4usize];
+    [
+        "Offset of field: ex4_ex4_b::recur",
+    ][::std::mem::offset_of!(ex4_ex4_b, recur) - 8usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of ex4"][::std::mem::size_of::<ex4>() - 24usize];
+    ["Alignment of ex4"][::std::mem::align_of::<ex4>() - 8usize];
+    [
+        "Offset of field: ex4::linkedlist",
+    ][::std::mem::offset_of!(ex4, linkedlist) - 0usize];
+    ["Offset of field: ex4::ex3_c"][::std::mem::offset_of!(ex4, ex3_c) - 16usize];
+};
