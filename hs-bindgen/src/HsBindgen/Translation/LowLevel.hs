@@ -84,7 +84,7 @@ structDecs struct fields = List
         }
 
     mkField :: C.StructField -> (HsName NsVar, Hs.HsType)
-    mkField f = (toHsName (C.fieldName f), Hs.HsType "StructFieldTypeTODO")
+    mkField f = (toHsName (C.fieldName f), typ (C.fieldType f))
 
     storable :: Hs.WithStruct Hs.StorableInstance f
     storable = Hs.WithStruct hs $ Hs.StorableInstance {
@@ -141,3 +141,13 @@ enumDecs e = List [
 
     poke :: f Bound -> f Bound -> Hs.PokeByteOff f
     poke ptr i = Hs.PokeByteOff ptr 0 i
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+typ :: C.Typ -> Hs.HsType
+typ (C.TypElaborated c) = Hs.HsType (show c) -- wrong
+typ (C.TypStruct s)     = Hs.HsType (show (C.structTag s)) -- also wrong
+typ (C.TypPrim p)       = Hs.HsType (show p)
+typ (C.TypPointer _t)   = Hs.HsType "pointer"
