@@ -1,4 +1,33 @@
 data CPrimitive
+    = MkCPrimitive CChar
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   CInt
+                   CInt
+                   CInt
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   ()
+                   CFloat
+                   ()
+                   ()
 instance Storable CPrimitive
     where {sizeOf = \_ -> 176;
            alignment = \_ -> 16;

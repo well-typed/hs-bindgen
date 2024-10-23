@@ -1,4 +1,4 @@
-data CExampleStruct
+data CExampleStruct = MkCExampleStruct () () () ()
 instance Storable CExampleStruct
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;

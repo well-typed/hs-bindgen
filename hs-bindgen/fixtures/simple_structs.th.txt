@@ -1,4 +1,4 @@
-data CS1
+data CS1 = MkCS1 CInt CChar
 instance Storable CS1
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
@@ -6,7 +6,7 @@ instance Storable CS1
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCS1 cS1_a_3
                                          cS1_b_4 -> pokeByteOff x_1 0 cS1_a_3 >> pokeByteOff x_1 32 cS1_b_4}}
-data CS2
+data CS2 = MkCS2 CChar CInt CFloat
 instance Storable CS2
     where {sizeOf = \_ -> 12;
            alignment = \_ -> 4;
@@ -15,14 +15,14 @@ instance Storable CS2
                                   {MkCS2 cS2_a_3
                                          cS2_b_4
                                          cS2_c_5 -> pokeByteOff x_1 0 cS2_a_3 >> (pokeByteOff x_1 32 cS2_b_4 >> pokeByteOff x_1 64 cS2_c_5)}}
-data CX
+data CX = MkCX CChar
 instance Storable CX
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
            peek = \x_0 -> pure MkCX <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCX cX_a_3 -> pokeByteOff x_1 0 cX_a_3}}
-data CS4
+data CS4 = MkCS4 CChar CInt
 instance Storable CS4
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;

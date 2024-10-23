@@ -53,7 +53,19 @@ instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
   type Rep be (Hs.WithStruct Hs.DataDecl) = SDecl be
 
   toBE _be (Hs.WithStruct struct Hs.MkDataDecl) = do
-    return $ DData $ Data $ Hs.structName struct
+    return $ DData $ Data
+      { dataType = Hs.structName struct
+      , dataCon  = Hs.structConstr struct
+      , dataFields = map (typeToBE . snd) $ toList $ Hs.structFields struct
+      }
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+typeToBE :: {- Backend be => -} Hs.HsType -> SType be
+typeToBE (Hs.HsPrimType t) = TGlobal (PrimType t)
+typeToBE _ = TGlobal Unit_type
 
 {-------------------------------------------------------------------------------
   'Storable'

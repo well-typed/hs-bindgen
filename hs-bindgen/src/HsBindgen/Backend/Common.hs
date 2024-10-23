@@ -5,6 +5,7 @@ module HsBindgen.Backend.Common (
   , Global(..)
   , SExpr(..)
   , SDecl(..)
+  , SType(..)
   , Instance(..)
   , Data(..)
     -- * Full backend
@@ -15,6 +16,7 @@ module HsBindgen.Backend.Common (
 import Data.Kind
 
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
@@ -25,10 +27,12 @@ class BackendRep be where
   type Name be :: Type
   type Expr be :: Type
   type Decl be :: Type
+  type Ty   be :: Type
 
   resolve :: be -> Global   -> Name be  -- ^ Resolve name
   mkExpr  :: be -> SExpr be -> Expr be  -- ^ Construct expression
   mkDecl  :: be -> SDecl be -> Decl be  -- ^ Construct declaration
+  mkType  :: be -> SType be -> Ty   be  -- ^ Construct type
 
 data Global =
     Unit_type
@@ -44,6 +48,8 @@ data Global =
   | Storable_pokeByteOff
   | Storable_peek
   | Storable_poke
+
+  | PrimType HsPrimType
 
 -- | Simple expressions
 data SExpr be =
@@ -61,7 +67,13 @@ data SExpr be =
 data SDecl be =
     DVar (Name be) (SExpr be)
   | DInst (Instance be)
-  | DData (Data be)
+  | DData (Data be) -- TOOD: rename to Record
+
+-- | Simple types
+data SType be =
+    TGlobal Global
+  | TCon (HsName NsTypeConstr)
+  | TApp (SType be) (SType be)
 
 data Instance be = Instance {
       instanceClass :: Global
@@ -69,8 +81,11 @@ data Instance be = Instance {
     , instanceDecs  :: [(Global, SExpr be)]
     }
 
+-- TODO: rename to Record
 data Data be = Data {
-      dataType :: HsName NsTypeConstr
+      dataType   :: HsName NsTypeConstr
+    , dataCon    :: HsName NsConstr
+    , dataFields :: [SType be]
     }
 
 {-------------------------------------------------------------------------------

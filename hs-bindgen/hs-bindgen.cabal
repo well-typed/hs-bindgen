@@ -82,6 +82,7 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.Hs.AST.Name
+      HsBindgen.Hs.AST.Type
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.Parsec
       HsBindgen.Util.Tracer

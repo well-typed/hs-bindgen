@@ -22,6 +22,7 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Util.PHOAS
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Type
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -82,14 +83,14 @@ structDecs struct fields = List
       let cStructName = fromMaybe "X" $ C.structTag struct
           opts = defaultNameManglingOptions
           structName = toHsName opts EmptyNsTypeConstrContext cStructName
-          structConstr = toHsName opts (NsConstrContext structName) cStructName
+          structConstr = toHsName opts (NsConstrContext structName) cStructName   
           mkField f =
             ( toHsName opts (FieldContext structName structConstr True) $
                 C.fieldName f
-            , Hs.HsType "StructFieldTypeTODO"
+            , typ (C.fieldType f)
             )
           structFields = Vec.map mkField fields
-      in  Hs.Struct{..}
+      in  Hs.Struct{..} 
 
     storable :: Hs.WithStruct Hs.StorableInstance f
     storable = Hs.WithStruct hs $ Hs.StorableInstance {
@@ -148,3 +149,17 @@ enumDecs e = List [
 
     poke :: f Bound -> f Bound -> Hs.PokeByteOff f
     poke ptr i = Hs.PokeByteOff ptr 0 i
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+typ :: C.Typ -> Hs.HsType
+typ (C.TypElaborated c) = Hs.HsType (show c) -- wrong
+typ (C.TypStruct s)     = Hs.HsType (show (C.structTag s)) -- also wrong
+typ (C.TypPrim p)       = case p of
+  C.PrimInt C.Signed -> Hs.HsPrimType HsPrimCInt
+  C.PrimChar Nothing -> Hs.HsPrimType HsPrimCChar
+  C.PrimFloat        -> Hs.HsPrimType HsPrimCFloat
+  _ -> Hs.HsType (show p)
+typ (C.TypPointer _t)   = Hs.HsType "pointer"

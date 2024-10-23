@@ -1,4 +1,4 @@
-data CFoo
+data CFoo = MkCFoo () ()
 instance Storable CFoo
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
