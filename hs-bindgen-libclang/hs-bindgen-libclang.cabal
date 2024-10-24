@@ -74,6 +74,7 @@ library
       HsBindgen.Clang.Internal.FFI
       HsBindgen.Clang.Internal.Results
       HsBindgen.Clang.HighLevel.Diagnostics
+      HsBindgen.Clang.HighLevel.Documentation
       HsBindgen.Clang.HighLevel.Fold
       HsBindgen.Clang.HighLevel.SourceLoc
       HsBindgen.Clang.HighLevel.Tokens
