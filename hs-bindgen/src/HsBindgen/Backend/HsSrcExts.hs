@@ -31,6 +31,7 @@ instance BackendRep BE where
   type Name BE = E.QName Ann
   type Expr BE = E.Exp   Ann
   type Decl BE = E.Decl  Ann
+  type Ty   BE = E.Type  Ann
 
   resolve _ = \case
       Unit_type            -> prelude "()"
@@ -46,6 +47,8 @@ instance BackendRep BE where
       Storable_pokeByteOff -> foreignStorable "pokeByteOff"
       Storable_peek        -> foreignStorable "peek"
       Storable_poke        -> foreignStorable "poke"
+
+      _ -> error "TODO"
 
   mkExpr be = \case
       EGlobal n     -> E.Var ann (resolve be n)

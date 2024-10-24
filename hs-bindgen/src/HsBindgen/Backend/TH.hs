@@ -8,6 +8,7 @@ module HsBindgen.Backend.TH (
 
 import Data.Kind (Type)
 import Data.Text qualified as Text
+import Foreign.C.Types qualified
 import Foreign.Storable qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
@@ -27,6 +28,7 @@ instance TH.Quote q => BackendRep (BE q) where
   type Name (BE q) = TH.Name
   type Expr (BE q) = q TH.Exp
   type Decl (BE q) = q TH.Dec
+  type Ty   (BE q) = q TH.Type
 
   resolve _ =  \case
       Unit_type            -> ''()
@@ -42,6 +44,9 @@ instance TH.Quote q => BackendRep (BE q) where
       Storable_pokeByteOff -> 'Foreign.Storable.pokeByteOff
       Storable_peek        -> 'Foreign.Storable.peek
       Storable_poke        -> 'Foreign.Storable.poke
+      Foreign_CChar        -> 'Foreign.C.Types.CChar
+      Foreign_CFloat       -> 'Foreign.C.Types.CFloat
+      Foreign_CInt         -> 'Foreign.C.Types.CInt
 
   mkExpr be = \case
       EGlobal n     -> TH.varE (resolve be n)

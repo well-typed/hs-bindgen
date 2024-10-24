@@ -5,6 +5,7 @@ module HsBindgen.Backend.Common (
   , Global(..)
   , SExpr(..)
   , SDecl(..)
+  , SType(..)
   , Instance(..)
   , Data(..)
     -- * Full backend
@@ -25,6 +26,7 @@ class BackendRep be where
   type Name be :: Type
   type Expr be :: Type
   type Decl be :: Type
+  type Ty   be :: Type
 
   resolve :: be -> Global   -> Name be  -- ^ Resolve name
   mkExpr  :: be -> SExpr be -> Expr be  -- ^ Construct expression
@@ -45,6 +47,10 @@ data Global =
   | Storable_peek
   | Storable_poke
 
+  | Foreign_CInt
+  | Foreign_CChar
+  | Foreign_CFloat
+
 -- | Simple expressions
 data SExpr be =
     EGlobal Global
@@ -63,6 +69,11 @@ data SDecl be =
   | DInst (Instance be)
   | DData (Data be)
 
+-- | Simple types
+data SType be =
+    TGlobal Global
+  | TApp (SType be) (SType be)
+
 data Instance be = Instance {
       instanceClass :: Global
     , instanceType  :: HsName NsTypeConstr
@@ -71,6 +82,7 @@ data Instance be = Instance {
 
 data Data be = Data {
       dataType :: HsName NsTypeConstr
+    , dataFields :: [SType be]
     }
 
 {-------------------------------------------------------------------------------
