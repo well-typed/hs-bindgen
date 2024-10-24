@@ -1,6 +1,6 @@
-instance Storable MyEnum
+instance Storable CMyEnum
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \x_0 -> pure MkMyEnum <*> peekByteOff x_0 0;
+           peek = \x_0 -> pure MkCMyEnum <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkMyEnum unmyEnum_3 -> pokeByteOff x_1 0 unmyEnum_3}}
+                                  {MkCMyEnum un_MyEnum_3 -> pokeByteOff x_1 0 un_MyEnum_3}}
