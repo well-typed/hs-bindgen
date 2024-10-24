@@ -1,8 +1,8 @@
-data Cfoo
-instance Storable Cfoo
+data CFoo
+instance Storable CFoo
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \x_0 -> (pure MkCfoo <*> peekByteOff x_0 0) <*> peekByteOff x_0 64;
+           peek = \x_0 -> (pure MkCFoo <*> peekByteOff x_0 0) <*> peekByteOff x_0 64;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCfoo cfoo_sixty_four_3
-                                          cfoo_thirty_two_4 -> pokeByteOff x_1 0 cfoo_sixty_four_3 >> pokeByteOff x_1 64 cfoo_thirty_two_4}}
+                                  {MkCFoo cFoo_sixty_four_3
+                                          cFoo_thirty_two_4 -> pokeByteOff x_1 0 cFoo_sixty_four_3 >> pokeByteOff x_1 64 cFoo_thirty_two_4}}

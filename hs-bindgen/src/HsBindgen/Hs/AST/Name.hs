@@ -459,8 +459,8 @@ defaultNameManglingOptions = NameManglingOptions {
 
   , nameManglingTypeConstr = \EmptyNsTypeConstrContext ->
       translateName
-        (maintainCName escapeInvalidChar)
-        joinWithConcat
+        (camelCaseCName escapeInvalidChar)
+        joinWithCamelCase
         ["C"]
         []
         handleReservedNone
@@ -475,8 +475,8 @@ defaultNameManglingOptions = NameManglingOptions {
 
   , nameManglingConstr = \NsConstrContext{} ->
       translateName
-        (maintainCName escapeInvalidChar)
-        joinWithConcat
+        (camelCaseCName escapeInvalidChar)
+        joinWithCamelCase
         ["MkC"]
         []
         handleReservedNone

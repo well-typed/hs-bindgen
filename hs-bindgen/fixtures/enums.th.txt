@@ -1,24 +1,24 @@
-instance Storable Cfirst
+instance Storable CFirst
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \x_0 -> pure MkCfirst <*> peekByteOff x_0 0;
+           peek = \x_0 -> pure MkCFirst <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCfirst un_first_3 -> pokeByteOff x_1 0 un_first_3}}
-instance Storable Csecond
+                                  {MkCFirst un_first_3 -> pokeByteOff x_1 0 un_first_3}}
+instance Storable CSecond
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \x_0 -> pure MkCsecond <*> peekByteOff x_0 0;
+           peek = \x_0 -> pure MkCSecond <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCsecond un_second_3 -> pokeByteOff x_1 0 un_second_3}}
-instance Storable Csame
+                                  {MkCSecond un_second_3 -> pokeByteOff x_1 0 un_second_3}}
+instance Storable CSame
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \x_0 -> pure MkCsame <*> peekByteOff x_0 0;
+           peek = \x_0 -> pure MkCSame <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCsame un_same_3 -> pokeByteOff x_1 0 un_same_3}}
-instance Storable Cpackad
+                                  {MkCSame un_same_3 -> pokeByteOff x_1 0 un_same_3}}
+instance Storable CPackad
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
-           peek = \x_0 -> pure MkCpackad <*> peekByteOff x_0 0;
+           peek = \x_0 -> pure MkCPackad <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCpackad un_packad_3 -> pokeByteOff x_1 0 un_packad_3}}
+                                  {MkCPackad un_packad_3 -> pokeByteOff x_1 0 un_packad_3}}

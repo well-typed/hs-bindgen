@@ -1,35 +1,35 @@
-data Cprimitive
-instance Storable Cprimitive
+data CPrimitive
+instance Storable CPrimitive
     where {sizeOf = \_ -> 176;
            alignment = \_ -> 16;
-           peek = \x_0 -> ((((((((((((((((((((((((((((pure MkCprimitive <*> peekByteOff x_0 0) <*> peekByteOff x_0 8) <*> peekByteOff x_0 16) <*> peekByteOff x_0 32) <*> peekByteOff x_0 48) <*> peekByteOff x_0 64) <*> peekByteOff x_0 80) <*> peekByteOff x_0 96) <*> peekByteOff x_0 112) <*> peekByteOff x_0 128) <*> peekByteOff x_0 160) <*> peekByteOff x_0 192) <*> peekByteOff x_0 224) <*> peekByteOff x_0 256) <*> peekByteOff x_0 320) <*> peekByteOff x_0 384) <*> peekByteOff x_0 448) <*> peekByteOff x_0 512) <*> peekByteOff x_0 576) <*> peekByteOff x_0 640) <*> peekByteOff x_0 704) <*> peekByteOff x_0 768) <*> peekByteOff x_0 832) <*> peekByteOff x_0 896) <*> peekByteOff x_0 960) <*> peekByteOff x_0 1024) <*> peekByteOff x_0 1088) <*> peekByteOff x_0 1152) <*> peekByteOff x_0 1280;
+           peek = \x_0 -> ((((((((((((((((((((((((((((pure MkCPrimitive <*> peekByteOff x_0 0) <*> peekByteOff x_0 8) <*> peekByteOff x_0 16) <*> peekByteOff x_0 32) <*> peekByteOff x_0 48) <*> peekByteOff x_0 64) <*> peekByteOff x_0 80) <*> peekByteOff x_0 96) <*> peekByteOff x_0 112) <*> peekByteOff x_0 128) <*> peekByteOff x_0 160) <*> peekByteOff x_0 192) <*> peekByteOff x_0 224) <*> peekByteOff x_0 256) <*> peekByteOff x_0 320) <*> peekByteOff x_0 384) <*> peekByteOff x_0 448) <*> peekByteOff x_0 512) <*> peekByteOff x_0 576) <*> peekByteOff x_0 640) <*> peekByteOff x_0 704) <*> peekByteOff x_0 768) <*> peekByteOff x_0 832) <*> peekByteOff x_0 896) <*> peekByteOff x_0 960) <*> peekByteOff x_0 1024) <*> peekByteOff x_0 1088) <*> peekByteOff x_0 1152) <*> peekByteOff x_0 1280;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCprimitive cprimitive_c_3
-                                                cprimitive_sc_4
-                                                cprimitive_uc_5
-                                                cprimitive_s_6
-                                                cprimitive_si_7
-                                                cprimitive_ss_8
-                                                cprimitive_ssi_9
-                                                cprimitive_us_10
-                                                cprimitive_usi_11
-                                                cprimitive_i_12
-                                                cprimitive_s2_13
-                                                cprimitive_si2_14
-                                                cprimitive_u_15
-                                                cprimitive_ui_16
-                                                cprimitive_l_17
-                                                cprimitive_li_18
-                                                cprimitive_sl_19
-                                                cprimitive_sli_20
-                                                cprimitive_ul_21
-                                                cprimitive_uli_22
-                                                cprimitive_ll_23
-                                                cprimitive_lli_24
-                                                cprimitive_sll_25
-                                                cprimitive_slli_26
-                                                cprimitive_ull_27
-                                                cprimitive_ulli_28
-                                                cprimitive_f_29
-                                                cprimitive_d_30
-                                                cprimitive_ld_31 -> pokeByteOff x_1 0 cprimitive_c_3 >> (pokeByteOff x_1 8 cprimitive_sc_4 >> (pokeByteOff x_1 16 cprimitive_uc_5 >> (pokeByteOff x_1 32 cprimitive_s_6 >> (pokeByteOff x_1 48 cprimitive_si_7 >> (pokeByteOff x_1 64 cprimitive_ss_8 >> (pokeByteOff x_1 80 cprimitive_ssi_9 >> (pokeByteOff x_1 96 cprimitive_us_10 >> (pokeByteOff x_1 112 cprimitive_usi_11 >> (pokeByteOff x_1 128 cprimitive_i_12 >> (pokeByteOff x_1 160 cprimitive_s2_13 >> (pokeByteOff x_1 192 cprimitive_si2_14 >> (pokeByteOff x_1 224 cprimitive_u_15 >> (pokeByteOff x_1 256 cprimitive_ui_16 >> (pokeByteOff x_1 320 cprimitive_l_17 >> (pokeByteOff x_1 384 cprimitive_li_18 >> (pokeByteOff x_1 448 cprimitive_sl_19 >> (pokeByteOff x_1 512 cprimitive_sli_20 >> (pokeByteOff x_1 576 cprimitive_ul_21 >> (pokeByteOff x_1 640 cprimitive_uli_22 >> (pokeByteOff x_1 704 cprimitive_ll_23 >> (pokeByteOff x_1 768 cprimitive_lli_24 >> (pokeByteOff x_1 832 cprimitive_sll_25 >> (pokeByteOff x_1 896 cprimitive_slli_26 >> (pokeByteOff x_1 960 cprimitive_ull_27 >> (pokeByteOff x_1 1024 cprimitive_ulli_28 >> (pokeByteOff x_1 1088 cprimitive_f_29 >> (pokeByteOff x_1 1152 cprimitive_d_30 >> pokeByteOff x_1 1280 cprimitive_ld_31)))))))))))))))))))))))))))}}
+                                  {MkCPrimitive cPrimitive_c_3
+                                                cPrimitive_sc_4
+                                                cPrimitive_uc_5
+                                                cPrimitive_s_6
+                                                cPrimitive_si_7
+                                                cPrimitive_ss_8
+                                                cPrimitive_ssi_9
+                                                cPrimitive_us_10
+                                                cPrimitive_usi_11
+                                                cPrimitive_i_12
+                                                cPrimitive_s2_13
+                                                cPrimitive_si2_14
+                                                cPrimitive_u_15
+                                                cPrimitive_ui_16
+                                                cPrimitive_l_17
+                                                cPrimitive_li_18
+                                                cPrimitive_sl_19
+                                                cPrimitive_sli_20
+                                                cPrimitive_ul_21
+                                                cPrimitive_uli_22
+                                                cPrimitive_ll_23
+                                                cPrimitive_lli_24
+                                                cPrimitive_sll_25
+                                                cPrimitive_slli_26
+                                                cPrimitive_ull_27
+                                                cPrimitive_ulli_28
+                                                cPrimitive_f_29
+                                                cPrimitive_d_30
+                                                cPrimitive_ld_31 -> pokeByteOff x_1 0 cPrimitive_c_3 >> (pokeByteOff x_1 8 cPrimitive_sc_4 >> (pokeByteOff x_1 16 cPrimitive_uc_5 >> (pokeByteOff x_1 32 cPrimitive_s_6 >> (pokeByteOff x_1 48 cPrimitive_si_7 >> (pokeByteOff x_1 64 cPrimitive_ss_8 >> (pokeByteOff x_1 80 cPrimitive_ssi_9 >> (pokeByteOff x_1 96 cPrimitive_us_10 >> (pokeByteOff x_1 112 cPrimitive_usi_11 >> (pokeByteOff x_1 128 cPrimitive_i_12 >> (pokeByteOff x_1 160 cPrimitive_s2_13 >> (pokeByteOff x_1 192 cPrimitive_si2_14 >> (pokeByteOff x_1 224 cPrimitive_u_15 >> (pokeByteOff x_1 256 cPrimitive_ui_16 >> (pokeByteOff x_1 320 cPrimitive_l_17 >> (pokeByteOff x_1 384 cPrimitive_li_18 >> (pokeByteOff x_1 448 cPrimitive_sl_19 >> (pokeByteOff x_1 512 cPrimitive_sli_20 >> (pokeByteOff x_1 576 cPrimitive_ul_21 >> (pokeByteOff x_1 640 cPrimitive_uli_22 >> (pokeByteOff x_1 704 cPrimitive_ll_23 >> (pokeByteOff x_1 768 cPrimitive_lli_24 >> (pokeByteOff x_1 832 cPrimitive_sll_25 >> (pokeByteOff x_1 896 cPrimitive_slli_26 >> (pokeByteOff x_1 960 cPrimitive_ull_27 >> (pokeByteOff x_1 1024 cPrimitive_ulli_28 >> (pokeByteOff x_1 1088 cPrimitive_f_29 >> (pokeByteOff x_1 1152 cPrimitive_d_30 >> pokeByteOff x_1 1280 cPrimitive_ld_31)))))))))))))))))))))))))))}}

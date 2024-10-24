@@ -1,16 +1,16 @@
-data Cfoo
-instance Storable Cfoo
+data CFoo
+instance Storable CFoo
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \x_0 -> (pure MkCfoo <*> peekByteOff x_0 0) <*> peekByteOff x_0 32;
+           peek = \x_0 -> (pure MkCFoo <*> peekByteOff x_0 0) <*> peekByteOff x_0 32;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCfoo cfoo_i_3
-                                          cfoo_c_4 -> pokeByteOff x_1 0 cfoo_i_3 >> pokeByteOff x_1 32 cfoo_c_4}}
-data Cbar
-instance Storable Cbar
+                                  {MkCFoo cFoo_i_3
+                                          cFoo_c_4 -> pokeByteOff x_1 0 cFoo_i_3 >> pokeByteOff x_1 32 cFoo_c_4}}
+data CBar
+instance Storable CBar
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;
-           peek = \x_0 -> (pure MkCbar <*> peekByteOff x_0 0) <*> peekByteOff x_0 64;
+           peek = \x_0 -> (pure MkCBar <*> peekByteOff x_0 0) <*> peekByteOff x_0 64;
            poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCbar cbar_foo1_3
-                                          cbar_foo2_4 -> pokeByteOff x_1 0 cbar_foo1_3 >> pokeByteOff x_1 64 cbar_foo2_4}}
+                                  {MkCBar cBar_foo1_3
+                                          cBar_foo2_4 -> pokeByteOff x_1 0 cBar_foo1_3 >> pokeByteOff x_1 64 cBar_foo2_4}}
