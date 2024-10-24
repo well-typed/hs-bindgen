@@ -16,6 +16,8 @@ module HsBindgen.C.AST (
   , Typ(..)
     -- ** Primitive types
   , PrimType(..)
+  , PrimIntType(..)
+  , PrimFloatType(..)
   , PrimSign(..)
     -- ** Structs
   , Struct(..)
@@ -27,8 +29,10 @@ module HsBindgen.C.AST (
   , Typedef(..)
     -- * Macros
   , Macro(..)
+  , MacroDecl(..)
     -- ** Expressions
   , MExpr(..)
+  , MFun(..)
   , MTerm(..)
   , Literal(..)
     -- ** Attributes
@@ -39,6 +43,10 @@ module HsBindgen.C.AST (
   , ReparseError(..)
   , Token(..)
   , TokenSpelling(..)
+    -- * Macro type
+  , QuantTy
+  , TcMacroError(..)
+  , pprTcMacroError
     -- * Source locations
   , SourcePath(..)
   , SingleLoc(..)
@@ -54,6 +62,8 @@ import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Infra (ReparseError(..))
+import HsBindgen.C.Tc.Macro
+  ( QuantTy, TcMacroError(..), pprTcMacroError )
 import HsBindgen.Clang.HighLevel.Types
 
 {-------------------------------------------------------------------------------
@@ -72,7 +82,13 @@ data Decl =
     DeclStruct Struct
   | DeclTypedef Typedef
   | DeclEnum Enu
-  | DeclMacro (Either ReparseError Macro)
+  | DeclMacro MacroDecl
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
+data MacroDecl
+  = MacroReparseError ReparseError
+  | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: TcMacroError }
+  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: Maybe QuantTy }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
