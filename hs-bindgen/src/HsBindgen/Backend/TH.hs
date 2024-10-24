@@ -70,6 +70,11 @@ instance TH.Quote q => BackendRep (BE q) where
                          ]
       EInj x        -> x
 
+  mkType :: BE q -> SType (BE q) -> Ty (BE q)
+  mkType be = \case
+      TGlobal n -> TH.varT (resolve be n)
+      TApp f t  -> TH.appT (mkType be f) (mkType be t)
+
   mkDecl :: BE q -> SDecl (BE q) -> Decl (BE q)
   mkDecl be = \case
       DVar x f -> simpleDecl x f

@@ -78,6 +78,8 @@ instance BackendRep BE where
                          ]
       EInj x        -> x
 
+  mkType = error "TODO"
+
   mkDecl be = \case
        DVar x f -> simpleDecl x f
        DInst i  -> E.InstDecl ann Nothing

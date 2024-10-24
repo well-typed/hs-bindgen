@@ -31,6 +31,7 @@ class BackendRep be where
   resolve :: be -> Global   -> Name be  -- ^ Resolve name
   mkExpr  :: be -> SExpr be -> Expr be  -- ^ Construct expression
   mkDecl  :: be -> SDecl be -> Decl be  -- ^ Construct declaration
+  mkType  :: be -> SType be -> Ty   be  -- ^ Construct type
 
 data Global =
     Unit_type
