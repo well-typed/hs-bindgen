@@ -15,6 +15,7 @@ module HsBindgen.Clang.HighLevel.Documentation (
 import Control.Monad
 import Data.Either
 import Data.Text (Text)
+import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
@@ -98,6 +99,9 @@ data CommentInlineContent =
 -------------------------------------------------------------------------------}
 
 -- | Reify the Clang comment for a cursor to the Haskell type
+--
+-- An error is thrown when an unexpected comment kind is encountered, such as
+-- block content within inline content.
 clang_getComment :: CXCursor -> IO (Maybe Comment)
 clang_getComment cursor = do
     comment <- clang_Cursor_getParsedComment cursor
@@ -106,40 +110,35 @@ clang_getComment cursor = do
       Right CXComment_Null -> pure Nothing
       Right CXComment_FullComment -> do
         commentCName <- clang_getCursorDisplayName cursor
-        commentChildren <- getChildren getBlockContent comment
+        commentChildren <- getChildren (getBlockContent cursor) comment
         pure $ Just Comment{..}
-      Right{} -> do
-        -- should never happen
-        commentCName <- clang_getCursorDisplayName cursor
-        commentChildren <- getBlockContent comment
-        pure $ Just Comment{..}
-      Left{} -> pure Nothing
+      Right commentKind ->
+        errorWithContext cursor $ "root comment of kind " ++ show commentKind
+      Left n ->
+        errorWithContext cursor $ "root comment with invalid kind " ++ show n
 
 -- | Reify block content
 --
--- This function deals with non-block content as follows:
---
--- * Null comments are ignored.
--- * Inline content is returned in a paragraph.
--- * A verbatim block line is returned in a verbatim block.
--- * Children of full comments are returned.  This function returns a list in
---   order to handle this case.
-getBlockContent :: CXComment -> IO [CommentBlockContent]
-getBlockContent comment = do
+-- An error is thrown when an unexpected comment kind is encountered.
+getBlockContent ::
+     CXCursor -- ^ cursor to provide context in error messages
+  -> CXComment
+  -> IO CommentBlockContent
+getBlockContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_Paragraph -> do
-        paragraphContent <- getChildren getInlineContent comment
-        pure [Paragraph{..}]
+        paragraphContent <- getChildren (getInlineContent cursor) comment
+        pure Paragraph{..}
 
       Right CXComment_BlockCommand -> do
         blockCommandName <- clang_BlockCommandComment_getCommandName comment
         idxs <- getIdxs <$> clang_BlockCommandComment_getNumArgs comment
         blockCommandArgs <-
           mapM (clang_BlockCommandComment_getArgText comment) idxs
-        blockCommandParagraph <- getChildren getInlineContent
+        blockCommandParagraph <- getChildren (getInlineContent cursor)
           =<< clang_BlockCommandComment_getParagraph comment
-        pure [BlockCommand{..}]
+        pure BlockCommand{..}
 
       Right CXComment_ParamCommand -> do
         paramCommandName <- clang_ParamCommandComment_getParamName comment
@@ -155,8 +154,8 @@ getBlockContent comment = do
             <$> clang_ParamCommandComment_getDirection comment
         paramCommandIsDirectionExplicit <-
           clang_ParamCommandComment_isDirectionExplicit comment
-        paramCommandContent <- getChildren getBlockContent comment
-        pure [ParamCommand{..}]
+        paramCommandContent <- getChildren (getBlockContent cursor) comment
+        pure ParamCommand{..}
 
       Right CXComment_TParamCommand -> do
         tParamCommandName <- clang_TParamCommandComment_getParamName comment
@@ -169,69 +168,37 @@ getBlockContent comment = do
                 (fromIntegral d,) . fromIntegral
                   <$> clang_TParamCommandComment_getIndex comment d
             else pure Nothing
-        tParamCommandContent <- getChildren getBlockContent comment
-        pure [TParamCommand{..}]
+        tParamCommandContent <- getChildren (getBlockContent cursor) comment
+        pure TParamCommand{..}
 
       Right CXComment_VerbatimBlockCommand -> do
-        verbatimBlockLines <- getChildren getVerbatimBlockLine comment
-        pure [VerbatimBlockCommand{..}]
+        verbatimBlockLines <- getChildren (getVerbatimBlockLine cursor) comment
+        pure VerbatimBlockCommand{..}
 
       Right CXComment_VerbatimLine -> do
         -- rest of line after misused command becomes a verbatim line
         verbatimLine <- clang_VerbatimLineComment_getText comment
-        pure [VerbatimLine{..}]
+        pure VerbatimLine{..}
 
-      Right CXComment_Null ->
-        -- should never happen; ignore
-        pure mempty
+      Right commentKind -> errorWithContext cursor $
+        "child comment of non-block kind " ++ show commentKind
 
-      Right CXComment_Text -> do
-        -- should never happen; put in paragraph
-        paragraphContent <- getInlineContent comment
-        pure [Paragraph{..}]
-
-      Right CXComment_InlineCommand -> do
-        -- should never happen; put in paragraph
-        paragraphContent <- getInlineContent comment
-        pure [Paragraph{..}]
-
-      Right CXComment_HTMLStartTag -> do
-        -- should never happen; put in paragraph
-        paragraphContent <- getInlineContent comment
-        pure [Paragraph{..}]
-
-      Right CXComment_HTMLEndTag -> do
-        -- should never happen; put in paragraph
-        paragraphContent <- getInlineContent comment
-        pure [Paragraph{..}]
-
-      Right CXComment_VerbatimBlockLine -> do
-        -- should never happen; put in verbatim block
-        verbatimBlockLines <- getVerbatimBlockLine comment
-        pure [VerbatimBlockCommand{..}]
-
-      Right CXComment_FullComment -> do
-        -- should never happen; return children
-        getChildren getBlockContent comment
-
-      Left{} -> pure mempty
+      Left n ->
+        errorWithContext cursor $ "child comment with invalid kind " ++ show n
 
 -- | Reify inline content
 --
--- This function deals with non-inline content as follows:
---
--- * Null comments are ignored.
--- * Children of paragraphs are returned.  This function returns a list in order
---   to handle this case.
--- * Other block content is ignored.
--- * Full comments are ignored.
-getInlineContent :: CXComment -> IO [CommentInlineContent]
-getInlineContent comment = do
+-- An error is thrown when an unexpected comment kind is encountered.
+getInlineContent ::
+     CXCursor -- ^ cursor to provide context in error messages
+  -> CXComment
+  -> IO CommentInlineContent
+getInlineContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_Text -> do
         textContent <- clang_TextComment_getText comment
-        pure [TextContent{..}]
+        pure TextContent{..}
 
       Right CXComment_InlineCommand -> do
         inlineCommandName <- clang_InlineCommandComment_getCommandName comment
@@ -241,7 +208,7 @@ getInlineContent comment = do
         idxs <- getIdxs <$> clang_InlineCommandComment_getNumArgs comment
         inlineCommandArgs <-
           mapM (clang_InlineCommandComment_getArgText comment) idxs
-        pure [InlineCommand{..}]
+        pure InlineCommand{..}
 
       Right CXComment_HTMLStartTag -> do
         htmlStartTagName <- clang_HTMLTagComment_getTagName comment
@@ -252,79 +219,42 @@ getInlineContent comment = do
           attrName  <- clang_HTMLStartTag_getAttrName  comment idx
           attrValue <- clang_HTMLStartTag_getAttrValue comment idx
           pure (attrName, attrValue)
-        pure [HtmlStartTag{..}]
+        pure HtmlStartTag{..}
 
       Right CXComment_HTMLEndTag -> do
         htmlEndTagName <- clang_HTMLTagComment_getTagName comment
-        pure [HtmlEndTag{..}]
+        pure HtmlEndTag{..}
 
-      Right CXComment_Null ->
-        -- should never happen; ignore
-        pure mempty
+      Right commentKind -> errorWithContext cursor $
+        "child comment of non-inline kind " ++ show commentKind
 
-      Right CXComment_Paragraph -> do
-        -- should never happen; get children
-        getChildren getInlineContent comment
-
-      Right CXComment_BlockCommand ->
-        -- should never happen; ignore
-        pure mempty
-
-      Right CXComment_ParamCommand ->
-        -- should never happen; ignore
-        pure mempty
-
-      Right CXComment_TParamCommand ->
-        -- should never happen; ignore
-        pure mempty
-
-      Right CXComment_VerbatimBlockCommand ->
-        -- should never happen; ignore
-        pure mempty
-
-      Right CXComment_VerbatimBlockLine ->
-        -- should never happen; ignore
-        pure mempty
-
-      Right CXComment_VerbatimLine ->
-        -- should never happen; ignore
-        pure mempty
-
-      Right CXComment_FullComment ->
-        -- should never happen; ignore
-        pure mempty
-
-      Left{} -> pure mempty
+      Left n ->
+        errorWithContext cursor $ "child comment with invalid kind " ++ show n
 
 -- | Get a verbatim block line as 'Text'
 --
--- All other types of comments are ignored.
---
--- This function returns a list so that it can be used with 'getChildren'.
-getVerbatimBlockLine :: CXComment -> IO [Text]
-getVerbatimBlockLine comment = do
+-- An error is thrown when an unexpected comment kind is encountered.
+getVerbatimBlockLine ::
+     CXCursor -- ^ cursor to provide context in error messages
+  -> CXComment
+  -> IO Text
+getVerbatimBlockLine cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_VerbatimBlockLine ->
-        pure <$> clang_VerbatimBlockLineComment_getText comment
+        clang_VerbatimBlockLineComment_getText comment
 
-      Right{} ->
-        -- should never happen; ignore
-        pure mempty
+      Right commentKind -> errorWithContext cursor $
+        "child comment of non-verbatim-block-line kind " ++ show commentKind
 
-      Left{} ->
-        -- should never happen; ignore
-        pure mempty
+      Left n ->
+        errorWithContext cursor $ "child comment with invalid kind " ++ show n
 
 -- | Reify children
---
--- The function that reifies each child returns a list in order to handle
--- unexpected cases (such as inline content when block content is expected).
--- The results are concatenated.
-getChildren :: (CXComment -> IO [a]) -> CXComment -> IO [a]
+getChildren :: (CXComment -> IO a) -> CXComment -> IO [a]
 getChildren f comment = do
     idxs <- getIdxs <$> clang_Comment_getNumChildren comment
-    concat <$> mapM (f <=< clang_Comment_getChild comment) idxs
+    mapM (f <=< clang_Comment_getChild comment) idxs
 
 -- | Get indexes (zero-based)
 getIdxs :: (Enum a, Eq a, Num a)
@@ -337,6 +267,29 @@ getIdxs n = [0 .. n - 1]
   Translation
 -------------------------------------------------------------------------------}
 
--- TODO need to pass more options/information to translate references
+-- TODO need options and context to translate references
+-- TODO need indentation, comment position, and max line width
 --translateComment :: Comment -> String
 --translateComment = undefined
+
+{-------------------------------------------------------------------------------
+  Auxiliary Functions
+-------------------------------------------------------------------------------}
+
+-- | Throw an error with context information
+errorWithContext :: HasCallStack
+  => CXCursor -- ^ cursor to provide context in error messages
+  -> String   -- ^ error message
+  -> IO a
+errorWithContext cursor msg = do
+    displayName <- clang_getCursorDisplayName cursor
+    extent <- clang_getCursorExtent cursor
+    (file, startLine, startCol) <-
+      clang_getPresumedLocation =<< clang_getRangeStart extent
+    (_, endLine, endCol) <-
+      clang_getPresumedLocation =<< clang_getRangeEnd extent
+    error $ concat
+      [ msg, ": cursor ", show displayName, " in ", show file, " ("
+      , show startLine, ":", show startCol, "-", show endLine, ":"
+      , show endCol, ")"
+      ]
