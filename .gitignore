@@ -3,3 +3,4 @@ dist-newstyle/
 unversioned
 cabal.project.local
 .vscode/
+*.dll
