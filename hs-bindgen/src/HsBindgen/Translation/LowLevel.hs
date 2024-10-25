@@ -174,15 +174,19 @@ typ _     (C.TypPrim p)       = case p of
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
   C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar
   C.PrimChar (Just C.Unsigned) -> Hs.HsPrimType HsPrimCSChar
-  C.PrimInt C.Signed           -> Hs.HsPrimType HsPrimCInt
-  C.PrimInt C.Unsigned         -> Hs.HsPrimType HsPrimCUInt
-  C.PrimShort C.Signed         -> Hs.HsPrimType HsPrimCShort
-  C.PrimShort C.Unsigned       -> Hs.HsPrimType HsPrimCUShort
-  C.PrimLong C.Signed          -> Hs.HsPrimType HsPrimCLong
-  C.PrimLong C.Unsigned        -> Hs.HsPrimType HsPrimCULong
-  C.PrimLongLong C.Signed      -> Hs.HsPrimType HsPrimCLLong
-  C.PrimLongLong C.Unsigned    -> Hs.HsPrimType HsPrimCULLong
-  C.PrimFloat                  -> Hs.HsPrimType HsPrimCFloat
-  C.PrimDouble                 -> Hs.HsPrimType HsPrimCDouble
-  C.PrimLongDouble             -> Hs.HsPrimType HsPrimCDouble -- not sure this is correct.
+  C.PrimIntegral i ->
+    case i of
+      C.PrimInt C.Signed       -> Hs.HsPrimType HsPrimCInt
+      C.PrimInt C.Unsigned     -> Hs.HsPrimType HsPrimCUInt
+      C.PrimShort C.Signed     -> Hs.HsPrimType HsPrimCShort
+      C.PrimShort C.Unsigned   -> Hs.HsPrimType HsPrimCUShort
+      C.PrimLong C.Signed      -> Hs.HsPrimType HsPrimCLong
+      C.PrimLong C.Unsigned    -> Hs.HsPrimType HsPrimCULong
+      C.PrimLongLong C.Signed  -> Hs.HsPrimType HsPrimCLLong
+      C.PrimLongLong C.Unsigned-> Hs.HsPrimType HsPrimCULLong
+  C.PrimFloating f ->
+    case f of
+      C.PrimFloat              -> Hs.HsPrimType HsPrimCFloat
+      C.PrimDouble             -> Hs.HsPrimType HsPrimCDouble
+      C.PrimLongDouble         -> Hs.HsPrimType HsPrimCDouble -- wrong (see #247)
 typ opts (C.TypPointer t)    = Hs.HsPtr (typ opts t)

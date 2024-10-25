@@ -2,8 +2,8 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -16,16 +16,21 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "INCR",
             macroArgs = [CName "x"],
-            macroBody = MAdd
-              (MTerm (MVar (CName "x") []))
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "1",
-                    literalValue = 1}))}),
+            macroBody = MApp
+              MAdd
+              [
+                MTerm (MVar (CName "x") []),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "1",
+                      literalValue = 1}
+                    Nothing)]},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => (a -> a))"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -40,7 +45,173 @@ WrapCHeader
             macroArgs = [
               CName "x",
               CName "y"],
-            macroBody = MAdd
-              (MTerm (MVar (CName "x") []))
-              (MTerm
-                (MVar (CName "y") []))})])
+            macroBody = MApp
+              MAdd
+              [
+                MTerm (MVar (CName "x") []),
+                MTerm (MVar (CName "y") [])]},
+          macroDeclMacroTy = Just
+            "(forall a. Num a => (a -> a -> a))"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 4,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "ID",
+            macroArgs = [CName "X"],
+            macroBody = MTerm
+              (MVar (CName "X") [])},
+          macroDeclMacroTy = Just
+            "(forall a. (a -> a))"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 5,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "CONST",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MTerm
+              (MVar (CName "X") [])},
+          macroDeclMacroTy = Just
+            "(forall a b. (a -> b -> a))"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 7,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "CMP",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MApp
+              MRelLT
+              [
+                MTerm (MVar (CName "X") []),
+                MTerm (MVar (CName "Y") [])]},
+          macroDeclMacroTy = Just
+            "(forall a. Ord a => (a -> a -> Bool))"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 8,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "FUN1",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MApp
+              MAdd
+              [
+                MTerm (MVar (CName "X") []),
+                MApp
+                  MMult
+                  [
+                    MTerm
+                      (MInt
+                        Literal {
+                          literalText = "12ull",
+                          literalValue = 12}
+                        (Just (PrimLongLong Unsigned))),
+                    MTerm (MVar (CName "Y") [])]]},
+          macroDeclMacroTy = Just
+            "(ULLong -> ULLong -> ULLong)"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 9,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "FUN2",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MApp
+              MShiftLeft
+              [
+                MTerm (MVar (CName "X") []),
+                MApp
+                  MMult
+                  [
+                    MTerm
+                      (MInt
+                        Literal {
+                          literalText = "3ull",
+                          literalValue = 3}
+                        (Just (PrimLongLong Unsigned))),
+                    MTerm (MVar (CName "Y") [])]]},
+          macroDeclMacroTy = Just
+            "(forall a. Bits a => (a -> ULLong -> a))"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 11,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "G",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MTerm
+              (MVar
+                (CName "CONST")
+                [
+                  MTerm
+                    (MVar
+                      (CName "INCR")
+                      [MTerm (MVar (CName "Y") [])]),
+                  MTerm
+                    (MVar
+                      (CName "ID")
+                      [
+                        MTerm
+                          (MVar (CName "X") [])])])},
+          macroDeclMacroTy = Just
+            "(forall a b. Integral b => (a -> b -> b))"}])

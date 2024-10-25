@@ -5,6 +5,7 @@ module HsBindgen.C.Reparse.Macro (
   ) where
 
 import Data.Text qualified as Text
+import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
 import Text.Read (readMaybe)
@@ -12,12 +13,14 @@ import Text.Read (readMaybe)
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
+import HsBindgen.C.AST.Type (PrimIntType)
 import HsBindgen.C.Reparse.Common
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Reparse.Type
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -63,13 +66,13 @@ mTerm =
   where
     term :: Reparse MTerm
     term = choice [
-        MEmpty     <$  eof
-      , MInt       <$> literalInteger
-      , MFloat     <$> literalFloat
-      , MVar       <$> var <*> option [] actualArgs
-      , MType      <$> reparsePrimType
-      , MAttr      <$> reparseAttribute <*> mTerm
-      , MStringize <$  punctuation "#" <*> var
+        MEmpty       <$  eof
+      , uncurry MInt <$> literalInteger
+      , MFloat       <$> literalFloat
+      , MVar         <$> var <*> option [] actualArgs
+      , MType        <$> reparsePrimType
+      , MAttr        <$> reparseAttribute <*> mTerm
+      , MStringize   <$  punctuation "#" <*> var
       ]
 
     ops = [[Infix (MConcat <$ punctuation "##") AssocLeft]]
@@ -78,9 +81,11 @@ var :: Reparse CName
 var = reparseName
 
 -- | Parse integer literal
-literalInteger :: Reparse (Literal Integer)
-literalInteger = uncurry Literal <$>
+literalInteger :: Reparse (Literal Integer, Maybe PrimIntType)
+literalInteger = do
+  (txt, (lit, suffixes)) <-
     parseTokenOfKind CXToken_Literal reparseLiteralInteger
+  return $ (Literal txt lit, suffixes)
 
 -- | Parse floating point literal
 literalFloat :: Reparse Double
@@ -116,44 +121,47 @@ mExpr =
         []
 
         -- Precedence 2 (all right-to-left)
-      , [ Prefix (MUnaryPlus  <$ punctuation "+")
-        , Prefix (MUnaryMinus <$ punctuation "-")
-        , Prefix (MLogicalNot <$ punctuation "!")
-        , Prefix (MBitwiseNot <$ punctuation "~")
+      , [ Prefix (ap1 MUnaryPlus  <$ punctuation "+")
+        , Prefix (ap1 MUnaryMinus <$ punctuation "-")
+        , Prefix (ap1 MLogicalNot <$ punctuation "!")
+        , Prefix (ap1 MBitwiseNot <$ punctuation "~")
         ]
 
         -- Precedence 3 (precedence 3 .. 12 are all left-to-right)
-      , [ Infix (MMult <$ punctuation "*") AssocLeft
-        , Infix (MDiv  <$ punctuation "/") AssocLeft
-        , Infix (MRem  <$ punctuation "%") AssocLeft
+      , [ Infix (ap2 MMult <$ punctuation "*") AssocLeft
+        , Infix (ap2 MDiv  <$ punctuation "/") AssocLeft
+        , Infix (ap2 MRem  <$ punctuation "%") AssocLeft
         ]
 
         -- Precedence 4
-      , [ Infix (MAdd <$ punctuation "+") AssocLeft
-        , Infix (MSub <$ punctuation "-") AssocLeft
+      , [ Infix (ap2 MAdd <$ punctuation "+") AssocLeft
+        , Infix (ap2 MSub <$ punctuation "-") AssocLeft
         ]
 
         -- Precedence 5
-      , [ Infix (MShiftLeft  <$ punctuation "<<") AssocLeft
-        , Infix (MShiftRight <$ punctuation ">>") AssocLeft
+      , [ Infix (ap2 MShiftLeft  <$ punctuation "<<") AssocLeft
+        , Infix (ap2 MShiftRight <$ punctuation ">>") AssocLeft
         ]
 
         -- Precedence 6
-      , [ Infix (MRelLT <$ punctuation "<")  AssocLeft
-        , Infix (MRelLE <$ punctuation "<=") AssocLeft
-        , Infix (MRelGT <$ punctuation ">")  AssocLeft
-        , Infix (MRelGE <$ punctuation ">=") AssocLeft
+      , [ Infix (ap2 MRelLT <$ punctuation "<")  AssocLeft
+        , Infix (ap2 MRelLE <$ punctuation "<=") AssocLeft
+        , Infix (ap2 MRelGT <$ punctuation ">")  AssocLeft
+        , Infix (ap2 MRelGE <$ punctuation ">=") AssocLeft
         ]
 
         -- Precedence 7
-      , [ Infix (MRelEQ <$ punctuation "==") AssocLeft
-        , Infix (MRelNE <$ punctuation "!=") AssocLeft
+      , [ Infix (ap2 MRelEQ <$ punctuation "==") AssocLeft
+        , Infix (ap2 MRelNE <$ punctuation "!=") AssocLeft
         ]
 
         -- Precedence 8 .. 12
-      , [ Infix (MBitwiseAnd <$ punctuation "&")  AssocLeft ]
-      , [ Infix (MBitwiseXor <$ punctuation "^")  AssocLeft ]
-      , [ Infix (MBitwiseOr  <$ punctuation "|")  AssocLeft ]
-      , [ Infix (MLogicalAnd <$ punctuation "&&") AssocLeft ]
-      , [ Infix (MLogicalOr  <$ punctuation "||") AssocLeft ]
+      , [ Infix (ap2 MBitwiseAnd <$ punctuation "&")  AssocLeft ]
+      , [ Infix (ap2 MBitwiseXor <$ punctuation "^")  AssocLeft ]
+      , [ Infix (ap2 MBitwiseOr  <$ punctuation "|")  AssocLeft ]
+      , [ Infix (ap2 MLogicalAnd <$ punctuation "&&") AssocLeft ]
+      , [ Infix (ap2 MLogicalOr  <$ punctuation "||") AssocLeft ]
       ]
+
+    ap1 op arg = MApp op ( arg ::: VNil )
+    ap2 op arg1 arg2 = MApp op ( arg1 ::: arg2 ::: VNil )

@@ -2,8 +2,8 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -20,10 +20,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "1",
-                  literalValue = 1})}),
+                  literalValue = 1}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -40,10 +43,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "2",
-                  literalValue = 2})}),
+                  literalValue = 2}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -56,20 +62,26 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "OBJECTLIKE3",
             macroArgs = [],
-            macroBody = MAdd
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "3",
-                    literalValue = 3}))
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "3",
-                    literalValue = 3}))}),
+            macroBody = MApp
+              MAdd
+              [
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "3",
+                      literalValue = 3}
+                    Nothing),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "3",
+                      literalValue = 3}
+                    Nothing)]},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -82,20 +94,26 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "OBJECTLIKE4",
             macroArgs = [],
-            macroBody = MAdd
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "4",
-                    literalValue = 4}))
-              (MTerm
-                (MInt
-                  Literal {
-                    literalText = "4",
-                    literalValue = 4}))}),
+            macroBody = MApp
+              MAdd
+              [
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "4",
+                      literalValue = 4}
+                    Nothing),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "4",
+                      literalValue = 4}
+                    Nothing)]},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -113,10 +131,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "42",
-                  literalValue = 42})}),
+                  literalValue = 42}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -134,10 +155,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "052",
-                  literalValue = 42})}),
+                  literalValue = 42}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -155,10 +179,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "0x2a",
-                  literalValue = 42})}),
+                  literalValue = 42}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -176,10 +203,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "0X2A",
-                  literalValue = 42})}),
+                  literalValue = 42}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -197,10 +227,13 @@ WrapCHeader
               (MInt
                 Literal {
                   literalText = "0b101010",
-                  literalValue = 42})}),
+                  literalValue = 42}
+                Nothing)},
+          macroDeclMacroTy = Just
+            "(forall a. Integral a => a)"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -220,10 +253,14 @@ WrapCHeader
                   literalText =
                   "18446744073709550592ull",
                   literalValue =
-                  18446744073709550592})}),
+                  18446744073709550592}
+                (Just
+                  (PrimLongLong Unsigned)))},
+          macroDeclMacroTy = Just
+            "ULLong"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -243,10 +280,14 @@ WrapCHeader
                   literalText =
                   "18'446'744'073'709'550'592llu",
                   literalValue =
-                  18446744073709550592})}),
+                  18446744073709550592}
+                (Just
+                  (PrimLongLong Unsigned)))},
+          macroDeclMacroTy = Just
+            "ULLong"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -266,10 +307,14 @@ WrapCHeader
                   literalText =
                   "1844'6744'0737'0955'0592uLL",
                   literalValue =
-                  18446744073709550592})}),
+                  18446744073709550592}
+                (Just
+                  (PrimLongLong Unsigned)))},
+          macroDeclMacroTy = Just
+            "ULLong"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -289,4 +334,112 @@ WrapCHeader
                   literalText =
                   "184467'440737'0'95505'92LLU",
                   literalValue =
-                  18446744073709550592})})])
+                  18446744073709550592}
+                (Just
+                  (PrimLongLong Unsigned)))},
+          macroDeclMacroTy = Just
+            "ULLong"},
+      DeclMacro
+        MacroTcError {
+          macroTcErrorMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macros.h"],
+                singleLocLine = 17,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "BAD1",
+            macroArgs = [],
+            macroBody = MApp
+              MAdd
+              [
+                MTerm (MFloat 0.1),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "1",
+                      literalValue = 1}
+                    Nothing)]},
+          macroTcError = T.concat
+            [
+              "Failed to typecheck macro:\n",
+              "Inconsistent pairs of constraints:\n",
+              "  - 'Integral a_0[tau]' and Fractional a_0[tau]\n"]},
+      DeclMacro
+        MacroTcError {
+          macroTcErrorMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macros.h"],
+                singleLocLine = 18,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "BAD2",
+            macroArgs = [],
+            macroBody = MApp
+              MMult
+              [
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "2l",
+                      literalValue = 2}
+                    (Just (PrimLong Signed))),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "2ul",
+                      literalValue = 2}
+                    (Just (PrimLong Unsigned)))]},
+          macroTcError = T.concat
+            [
+              "Failed to typecheck macro:\n",
+              "Could not unify:\n",
+              "  - ULong\n",
+              "  - Long\n",
+              "because the type constructors are different.\n",
+              "In an application of 'MMult'.\n",
+              "\n"]},
+      DeclMacro
+        MacroTcError {
+          macroTcErrorMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macros.h"],
+                singleLocLine = 19,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "BAD3",
+            macroArgs = [],
+            macroBody = MApp
+              MDiv
+              [
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "3",
+                      literalValue = 3}
+                    Nothing),
+                MTerm
+                  (MInt
+                    Literal {
+                      literalText = "7",
+                      literalValue = 7}
+                    Nothing)]},
+          macroTcError = T.concat
+            [
+              "Failed to typecheck macro:\n",
+              "Inconsistent pairs of constraints:\n",
+              "  - 'Fractional a_0[tau]' and Integral a_0[tau]\n"]}])

@@ -11,7 +11,8 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypPrim
-                (PrimInt Signed)},
+                (PrimIntegral
+                  (PrimInt Signed))},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -32,12 +33,13 @@ WrapCHeader
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypPrim
-                (PrimInt Signed)},
+                (PrimIntegral
+                  (PrimInt Signed))},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypPrim
-                PrimFloat}]},
+                (PrimFloating PrimFloat)}]},
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
@@ -56,12 +58,13 @@ WrapCHeader
                   fieldName = CName "b",
                   fieldOffset = 32,
                   fieldType = TypPrim
-                    (PrimInt Signed)},
+                    (PrimIntegral
+                      (PrimInt Signed))},
                 StructField {
                   fieldName = CName "c",
                   fieldOffset = 64,
                   fieldType = TypPrim
-                    PrimFloat}]}},
+                    (PrimFloating PrimFloat)}]}},
       DeclStruct
         Struct {
           structTag = Nothing,
@@ -102,9 +105,12 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 32,
               fieldType = TypPrim
-                (PrimInt Signed)},
+                (PrimIntegral
+                  (PrimInt Signed))},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypPointer
-                (TypPrim (PrimInt Signed))}]}])
+                (TypPrim
+                  (PrimIntegral
+                    (PrimInt Signed)))}]}])

@@ -193,16 +193,16 @@ primType (Right kind) =
       CXType_Char_S     -> Just $ PrimChar     Nothing
       CXType_SChar      -> Just $ PrimChar     (Just Signed)
       CXType_UChar      -> Just $ PrimChar     (Just Unsigned)
-      CXType_Short      -> Just $ PrimShort    Signed
-      CXType_UShort     -> Just $ PrimShort    Unsigned
-      CXType_Int        -> Just $ PrimInt      Signed
-      CXType_UInt       -> Just $ PrimInt      Unsigned
-      CXType_Long       -> Just $ PrimLong     Signed
-      CXType_ULong      -> Just $ PrimLong     Unsigned
-      CXType_LongLong   -> Just $ PrimLongLong Signed
-      CXType_ULongLong  -> Just $ PrimLongLong Unsigned
-      CXType_Float      -> Just $ PrimFloat
-      CXType_Double     -> Just $ PrimDouble
-      CXType_LongDouble -> Just $ PrimLongDouble
+      CXType_Short      -> Just $ PrimIntegral $ PrimShort    Signed
+      CXType_UShort     -> Just $ PrimIntegral $ PrimShort    Unsigned
+      CXType_Int        -> Just $ PrimIntegral $ PrimInt      Signed
+      CXType_UInt       -> Just $ PrimIntegral $ PrimInt      Unsigned
+      CXType_Long       -> Just $ PrimIntegral $ PrimLong     Signed
+      CXType_ULong      -> Just $ PrimIntegral $ PrimLong     Unsigned
+      CXType_LongLong   -> Just $ PrimIntegral $ PrimLongLong Signed
+      CXType_ULongLong  -> Just $ PrimIntegral $ PrimLongLong Unsigned
+      CXType_Float      -> Just $ PrimFloating $ PrimFloat
+      CXType_Double     -> Just $ PrimFloating $ PrimDouble
+      CXType_LongDouble -> Just $ PrimFloating $ PrimLongDouble
       _otherwise        -> Nothing
 

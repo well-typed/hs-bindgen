@@ -2,8 +2,8 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -17,10 +17,14 @@ WrapCHeader
             macroName = CName "M1",
             macroArgs = [],
             macroBody = MTerm
-              (MType (PrimInt Signed))}),
+              (MType
+                (PrimIntegral
+                  (PrimInt Signed)))},
+          macroDeclMacroTy = Just
+            "PrimTy"},
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -34,12 +38,15 @@ WrapCHeader
             macroName = CName "M2",
             macroArgs = [],
             macroBody = MTerm
-              (MType (PrimChar Nothing))}),
+              (MType (PrimChar Nothing))},
+          macroDeclMacroTy = Just
+            "PrimTy"},
       DeclTypedef
         Typedef {
           typedefName = CName "T1",
           typedefType = TypPrim
-            (PrimInt Signed)},
+            (PrimIntegral
+              (PrimInt Signed))},
       DeclTypedef
         Typedef {
           typedefName = CName "T2",

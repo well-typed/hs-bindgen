@@ -3,15 +3,20 @@ module HsBindgen.C.Fold.DeclState (
     -- * Construction
   , initDeclState
   , registerMacroExpansion
+  , registerMacroType
     -- * Query
   , containsMacroExpansion
   ) where
 
 import Data.Maybe (fromMaybe)
+import Data.Map.Strict (Map)
+import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
 import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.C.AST (CName)
+import HsBindgen.C.Tc.Macro (QuantTy)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -27,6 +32,7 @@ data DeclState = DeclState {
       -- for example, it can alert us to the fact that a struct field has a
       -- type which is macro defined.
       macroExpansions :: Set SingleLoc
+    , macroTypes      :: Map CName QuantTy
     }
 
 {-------------------------------------------------------------------------------
@@ -36,11 +42,17 @@ data DeclState = DeclState {
 initDeclState :: DeclState
 initDeclState = DeclState {
       macroExpansions = Set.empty
+    , macroTypes      = Map.empty
     }
 
 registerMacroExpansion :: MultiLoc -> DeclState -> DeclState
 registerMacroExpansion loc st = st{
       macroExpansions = Set.insert (multiLocExpansion loc) (macroExpansions st)
+    }
+
+registerMacroType :: CName -> QuantTy -> DeclState -> DeclState
+registerMacroType nm ty st = st{
+      macroTypes = Map.insert nm ty (macroTypes st)
     }
 
 {-------------------------------------------------------------------------------
