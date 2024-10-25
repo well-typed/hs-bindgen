@@ -26,8 +26,8 @@ import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal(..))
 import Text.Show.Pretty qualified as Pretty
 
-import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Name
+import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Type
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Pretty.Orphans
@@ -129,10 +129,10 @@ data MTerm =
     MEmpty
 
     -- | Integer literal
-  | MInt (Literal Integer) (Maybe PrimIntType)
+  | MInt IntegerLiteral
 
-    -- | Floating point literal
-  | MFloat Double
+    -- | Floating-point literal
+  | MFloat FloatingLiteral
 
     -- | Variable or function/macro call
     --
@@ -189,9 +189,12 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
         macroName `elem` includeGuards
       , null macroArgs
       , case macroBody of
-          MTerm MEmpty                           -> True
-          MTerm (MInt i _) | literalValue i == 1 -> True
-          _otherwise                             -> False
+          MTerm MEmpty
+            -> True
+          MTerm ( MInt IntegerLiteral { integerLiteralValue = 1 } )
+            -> True
+          _otherwise
+            -> False
       ]
   where
     sourcePath :: FilePath

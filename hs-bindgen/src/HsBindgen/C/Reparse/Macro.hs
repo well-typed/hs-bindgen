@@ -4,16 +4,13 @@ module HsBindgen.C.Reparse.Macro (
     reparseMacro
   ) where
 
-import Data.Text qualified as Text
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
-import Text.Read (readMaybe)
 
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
-import HsBindgen.C.AST.Type (PrimIntType)
 import HsBindgen.C.Reparse.Common
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
@@ -67,7 +64,7 @@ mTerm =
     term :: Reparse MTerm
     term = choice [
         MEmpty       <$  eof
-      , uncurry MInt <$> literalInteger
+      , MInt         <$> literalInteger
       , MFloat       <$> literalFloat
       , MVar         <$> var <*> option [] actualArgs
       , MType        <$> reparsePrimType
@@ -81,18 +78,27 @@ var :: Reparse CName
 var = reparseName
 
 -- | Parse integer literal
-literalInteger :: Reparse (Literal Integer, Maybe PrimIntType)
+literalInteger :: Reparse IntegerLiteral
 literalInteger = do
-  (txt, (lit, suffixes)) <-
+  (txt, (val, mbTy)) <-
     parseTokenOfKind CXToken_Literal reparseLiteralInteger
-  return $ (Literal txt lit, suffixes)
+  return $
+    IntegerLiteral
+      { integerLiteralText = txt
+      , integerLiteralType = mbTy
+      , integerLiteralValue = val }
 
 -- | Parse floating point literal
-literalFloat :: Reparse Double
-literalFloat = tokenOfKind CXToken_Literal (aux . Text.unpack)
-  where
-    aux :: String -> Maybe Double
-    aux = readMaybe
+literalFloat :: Reparse FloatingLiteral
+literalFloat = do
+  (txt, (fltVal, dblVal, mbTy)) <-
+    parseTokenOfKind CXToken_Literal reparseLiteralFloating
+  return $
+    FloatingLiteral
+      { floatingLiteralText = txt
+      , floatingLiteralType = mbTy
+      , floatingLiteralFloatValue = fltVal
+      , floatingLiteralDoubleValue = dblVal }
 
 actualArgs :: Reparse [MExpr]
 actualArgs = parens $ mExpr `sepBy` comma

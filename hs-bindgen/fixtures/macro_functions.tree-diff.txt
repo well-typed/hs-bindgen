@@ -22,10 +22,10 @@ WrapCHeader
                 MTerm (MVar (CName "x") []),
                 MTerm
                   (MInt
-                    Literal {
-                      literalText = "1",
-                      literalValue = 1}
-                    Nothing)]},
+                    IntegerLiteral {
+                      integerLiteralText = "1",
+                      integerLiteralType = Nothing,
+                      integerLiteralValue = 1})]},
           macroDeclMacroTy = Just
             "(forall a. Integral a => (a -> a))"},
       DeclMacro
@@ -142,10 +142,11 @@ WrapCHeader
                   [
                     MTerm
                       (MInt
-                        Literal {
-                          literalText = "12ull",
-                          literalValue = 12}
-                        (Just (PrimLongLong Unsigned))),
+                        IntegerLiteral {
+                          integerLiteralText = "12ull",
+                          integerLiteralType = Just
+                            (PrimLongLong Unsigned),
+                          integerLiteralValue = 12}),
                     MTerm (MVar (CName "Y") [])]]},
           macroDeclMacroTy = Just
             "(ULLong -> ULLong -> ULLong)"},
@@ -175,10 +176,11 @@ WrapCHeader
                   [
                     MTerm
                       (MInt
-                        Literal {
-                          literalText = "3ull",
-                          literalValue = 3}
-                        (Just (PrimLongLong Unsigned))),
+                        IntegerLiteral {
+                          integerLiteralText = "3ull",
+                          integerLiteralType = Just
+                            (PrimLongLong Unsigned),
+                          integerLiteralValue = 3}),
                     MTerm (MVar (CName "Y") [])]]},
           macroDeclMacroTy = Just
             "(forall a. Bits a => (a -> ULLong -> a))"},

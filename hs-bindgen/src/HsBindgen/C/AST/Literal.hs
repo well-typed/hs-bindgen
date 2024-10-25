@@ -1,27 +1,58 @@
 module HsBindgen.C.AST.Literal (
-    Literal(..)
+    IntegerLiteral(..), FloatingLiteral(..)
   ) where
 
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal)
 
+import HsBindgen.C.AST.Type
+
 {-------------------------------------------------------------------------------
-  Top-level
+  Integer literals
 -------------------------------------------------------------------------------}
 
--- | Literal
-data Literal a = Literal {
+-- | Integer literal
+data IntegerLiteral =
+  IntegerLiteral {
       -- | The representation of the literal in the original source
       --
       -- We include this to generate better bindings and better documentation.
       -- For example, flags specified in hexadecimal would become quite
       -- unreadable in decimal.
-      literalText  :: Text
+      integerLiteralText  :: Text
+
+      -- | The type of the integer literal, as determined from suffixes.
+    , integerLiteralType  :: Maybe PrimIntType
 
       -- | The (parsed) value of the literal
-    , literalValue :: a
+    , integerLiteralValue :: Integer
     }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
+  deriving stock ( Eq, Show, Generic )
+  deriving anyclass PrettyVal
 
+{-------------------------------------------------------------------------------
+  Floating-point literals
+-------------------------------------------------------------------------------}
+
+-- | Floating-point literal
+data FloatingLiteral =
+  FloatingLiteral {
+      -- | The representation of the literal in the original source
+      --
+      -- We include this to generate better bindings and better documentation.
+      floatingLiteralText  :: Text
+
+      -- | The type of the floating-point literal, as determined from suffixes.
+    , floatingLiteralType  :: Maybe PrimFloatType
+
+      -- | The (parsed) value of the literal, when parsed as a single precision
+      -- floating-point value.
+    , floatingLiteralFloatValue :: Float
+
+      -- | The (parsed) value of the literal, when parsed as a double precision
+      -- floating-point value.
+    , floatingLiteralDoubleValue :: Double
+    }
+  deriving stock ( Eq, Show, Generic )
+  deriving anyclass PrettyVal
