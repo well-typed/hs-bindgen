@@ -19,4 +19,5 @@ typedef struct {
 struct S4 {
     char b;
     int a;
+    int *c;
 };

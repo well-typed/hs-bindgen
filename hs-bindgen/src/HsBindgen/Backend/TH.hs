@@ -10,6 +10,7 @@ import Data.Kind (Type)
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
+import Foreign.Ptr qualified
 import Foreign.Storable qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
@@ -46,6 +47,7 @@ instance TH.Quote q => BackendRep (BE q) where
       Storable_pokeByteOff -> 'Foreign.Storable.pokeByteOff
       Storable_peek        -> 'Foreign.Storable.peek
       Storable_poke        -> 'Foreign.Storable.poke
+      Foreign_Ptr          -> ''Foreign.Ptr.Ptr
       PrimType t           -> resolveP t
     where
       resolveP HsPrimVoid    = ''Data.Void.Void

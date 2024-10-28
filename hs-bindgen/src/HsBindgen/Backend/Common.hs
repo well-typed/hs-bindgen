@@ -48,6 +48,7 @@ data Global =
   | Storable_pokeByteOff
   | Storable_peek
   | Storable_poke
+  | Foreign_Ptr
 
   | PrimType HsPrimType
 

@@ -90,8 +90,8 @@ WrapCHeader
       DeclStruct
         Struct {
           structTag = Just (CName "S4"),
-          structSizeof = 8,
-          structAlignment = 4,
+          structSizeof = 16,
+          structAlignment = 8,
           structFields = [
             StructField {
               fieldName = CName "b",
@@ -102,4 +102,9 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 32,
               fieldType = TypPrim
-                (PrimInt Signed)}]}])
+                (PrimInt Signed)},
+            StructField {
+              fieldName = CName "c",
+              fieldOffset = 64,
+              fieldType = TypPointer
+                (TypPrim (PrimInt Signed))}]}])

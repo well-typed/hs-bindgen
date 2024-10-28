@@ -22,11 +22,13 @@ instance Storable CX
            peek = \x_0 -> pure MkCX <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCX cX_a_3 -> pokeByteOff x_1 0 cX_a_3}}
-data CS4 = MkCS4 {cS4_b :: CChar, cS4_a :: CInt}
+data CS4
+    = MkCS4 {cS4_b :: CChar, cS4_a :: CInt, cS4_c :: (Ptr CInt)}
 instance Storable CS4
-    where {sizeOf = \_ -> 8;
-           alignment = \_ -> 4;
-           peek = \x_0 -> (pure MkCS4 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32;
+    where {sizeOf = \_ -> 16;
+           alignment = \_ -> 8;
+           peek = \x_0 -> ((pure MkCS4 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32) <*> peekByteOff x_0 64;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCS4 cS4_b_3
-                                         cS4_a_4 -> pokeByteOff x_1 0 cS4_b_3 >> pokeByteOff x_1 32 cS4_a_4}}
+                                         cS4_a_4
+                                         cS4_c_5 -> pokeByteOff x_1 0 cS4_b_3 >> (pokeByteOff x_1 32 cS4_a_4 >> pokeByteOff x_1 64 cS4_c_5)}}

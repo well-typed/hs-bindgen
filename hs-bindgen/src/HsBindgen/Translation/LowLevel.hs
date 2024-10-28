@@ -173,4 +173,4 @@ typ (C.TypPrim p)       = case p of
   C.PrimFloat                  -> Hs.HsPrimType HsPrimCFloat
   C.PrimDouble                 -> Hs.HsPrimType HsPrimCDouble
   C.PrimLongDouble             -> Hs.HsPrimType HsPrimCDouble -- not sure this is correct.
-typ (C.TypPointer _t)   = Hs.HsType "pointer" -- also wrong
+typ (C.TypPointer t)    = Hs.HsPtr (typ t)
