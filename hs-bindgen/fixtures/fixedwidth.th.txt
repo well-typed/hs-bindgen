@@ -1,5 +1,5 @@
 data CFoo
-    = MkCFoo {cFoo_sixty_four :: Void, cFoo_thirty_two :: Void}
+    = MkCFoo {cFoo_sixty_four :: CUint64T, cFoo_thirty_two :: CUint32T}
 instance Storable CFoo
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
