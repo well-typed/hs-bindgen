@@ -1,0 +1,28 @@
+# Check end of line and end of file whitespace
+name: Whitespace
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  whitespace:
+    name: "Check whitespace"
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download fix-whitespace
+        run: |
+            curl -L -o fix-whitespace https://github.com/agda/fix-whitespace/releases/download/v0.1/fix-whitespace-0.1-linux.binary
+            chmod a+x fix-whitespace
+
+      - name: Check whitespace
+        run: |
+            shopt -s globstar
+            ./fix-whitespace --verbose --check **/*.hs
