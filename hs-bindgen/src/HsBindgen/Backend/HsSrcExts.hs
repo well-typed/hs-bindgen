@@ -92,7 +92,7 @@ instance BackendRep BE where
                          map (\(x, f) -> simpleDecl (resolve be x) f) $
                            instanceDecs i
                      )
-       DData {} -> error "TODO"
+       _ -> error "TODO"
     where
       simpleDecl :: E.QName Ann -> SExpr BE -> E.Decl Ann
       simpleDecl x f =

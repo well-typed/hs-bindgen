@@ -54,7 +54,7 @@ instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
   type Rep be (Hs.WithStruct Hs.DataDecl) = SDecl be
 
   toBE _be (Hs.WithStruct struct Hs.MkDataDecl) = do
-    return $ DData $ Data
+    return $ DRecord $ Record
       { dataType = Hs.structName struct
       , dataCon  = Hs.structConstr struct
       , dataFields =

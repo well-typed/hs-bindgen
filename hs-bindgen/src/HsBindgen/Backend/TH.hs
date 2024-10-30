@@ -105,7 +105,7 @@ instance TH.Quote q => BackendRep (BE q) where
                     ( map (\(x, f) -> simpleDecl (resolve be x) f) $
                         instanceDecs i
                     )
-      DData d ->
+      DRecord d ->
         let fields :: [q TH.VarBangType]
             fields =
               [ TH.varBangType (hsNameToTH n) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be t)
