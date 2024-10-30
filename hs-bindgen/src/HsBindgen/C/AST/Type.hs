@@ -5,6 +5,8 @@ module HsBindgen.C.AST.Type (
     Typ(..)
     -- * Primitive types
   , PrimType(..)
+  , PrimIntType(..)
+  , PrimFloatType(..)
   , PrimSign(..)
     -- * Structs
   , Struct(..)
@@ -72,8 +74,21 @@ data PrimType =
     -- See also <https://eel.is/c++draft/basic#fundamental>.
     PrimChar (Maybe PrimSign)
 
+    -- | An integral type, such as @int@ or @unsigned long int@.
+  | PrimIntegral PrimIntType
+
+    -- | A floating-point type, such as @float@ or @long double@.
+  | PrimFloating PrimFloatType
+
+    -- | @void@
+  | PrimVoid
+  deriving stock (Show, Eq, Ord, Generic)
+  deriving anyclass (PrettyVal)
+
+-- | An integral type, such as @int@ or @unsigned long int@.
+data PrimIntType
     -- | @[signed | unsigned] short [int]@
-  | PrimShort PrimSign
+  = PrimShort PrimSign
 
     -- | @[signed | unsigned] int@
   | PrimInt PrimSign
@@ -83,24 +98,24 @@ data PrimType =
 
     -- | @[signed | unsigned] long long [int]@
   | PrimLongLong PrimSign
+  deriving stock (Show, Eq, Ord, Generic)
+  deriving anyclass (PrettyVal)
 
+data PrimFloatType
     -- | @float@
-  | PrimFloat
+  = PrimFloat
 
     -- | @double@
   | PrimDouble
 
     -- | @long double@
   | PrimLongDouble
-
-    -- | @void@
-  | PrimVoid
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
   deriving anyclass (PrettyVal)
 
 -- | Sign of a primitive type
 data PrimSign = Signed | Unsigned
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
   deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------

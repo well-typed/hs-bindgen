@@ -20,6 +20,7 @@ import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Patterns
 import HsBindgen.Util.Tracer
+import HsBindgen.C.Tc.Macro (tcMacro)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -48,8 +49,19 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
           TypedefElaborated mkTypedef ->
             return $ Recurse (foldTypeDecl unit) (Just . declTypedef mkTypedef)
       Right CXCursor_MacroDefinition -> do
-        decl <- declMacro <$> mkMacro unit current
-        return $ Continue (Just decl)
+        mbMExpr <- mkMacro unit current
+        macro <- case mbMExpr of
+          Left err -> return $ MacroReparseError err
+          Right macro@( Macro _ mVar mArgs mExpr ) -> do
+            macroTyEnv <- macroTypes <$> get
+            let tcRes = tcMacro macroTyEnv mVar mArgs mExpr
+            case tcRes of
+              Left err ->
+                return $ MacroTcError macro err
+              Right ty -> do
+                modify $ registerMacroType mVar ty
+                return $ MacroDecl macro ( Just ty )
+        return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
         loc <- liftIO $ HighLevel.clang_getCursorLocation current
         modify $ registerMacroExpansion loc
@@ -63,6 +75,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
       _otherwise -> do
         unrecognizedCursor current
+
 
 {-------------------------------------------------------------------------------
   Type declarations
@@ -81,9 +94,6 @@ declTypedef _       types = error $ "declTypedef: unexpected " ++ show types
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
-
-declMacro :: Either ReparseError Macro -> Decl
-declMacro = DeclMacro
 
 mkMacro ::
      MonadIO m

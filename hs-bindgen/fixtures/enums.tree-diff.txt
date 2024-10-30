@@ -2,8 +2,8 @@ WrapCHeader
   (Header
     [
       DeclMacro
-        (Right
-          Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion = SingleLoc {
                 singleLocPath = [
@@ -16,7 +16,9 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "ENUMS_H",
             macroArgs = [],
-            macroBody = MTerm MEmpty}),
+            macroBody = MTerm MEmpty},
+          macroDeclMacroTy = Just
+            "Empty"},
       DeclEnum
         Enu {
           enumTag = Just (CName "first"),

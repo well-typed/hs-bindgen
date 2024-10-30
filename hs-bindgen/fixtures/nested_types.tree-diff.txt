@@ -11,7 +11,8 @@ WrapCHeader
               fieldName = CName "i",
               fieldOffset = 0,
               fieldType = TypPrim
-                (PrimInt Signed)},
+                (PrimIntegral
+                  (PrimInt Signed))},
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,

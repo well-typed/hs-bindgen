@@ -1,13 +1,17 @@
 module HsBindgen.C.Reparse.Literal (
-    reparseLiteralInteger
+    IntSuffix(..)
+  , reparseLiteralInteger
   ) where
 
 import Data.Char (toLower, ord)
 import Data.Maybe (mapMaybe)
 import Text.Parsec
+import Text.Show.Pretty (PrettyVal)
+import GHC.Generics
 
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.Util.Parsec
+import HsBindgen.C.AST.Type
 
 {-------------------------------------------------------------------------------
   Parser for integer literals
@@ -20,7 +24,8 @@ data IntSuffix =
   | IntSuffixLong
   | IntSuffixLongLong
   | IntSuffixSize
-  deriving stock (Show)
+  deriving stock (Eq, Show, Generic)
+  deriving anyclass PrettyVal
 
 intSuffix :: TokenParser IntSuffix
 intSuffix = choice [
@@ -30,15 +35,32 @@ intSuffix = choice [
     , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
-reparseLiteralInteger :: TokenParser Integer
+reparseLiteralInteger :: TokenParser (Integer, Maybe PrimIntType)
 reparseLiteralInteger = do
-    -- TODO: Should we keep the suffices around?
-    (b, ds, _suffixes) <- aux
+    (b, ds, suffixes) <- aux
 
     let multipliers :: [Integer]
         multipliers = iterate (* baseToInt b) 1
 
-    return $ sum $ zipWith (*) (reverse $ mapMaybe getDigit ds) multipliers
+        val = sum $ zipWith (*) (reverse $ mapMaybe getDigit ds) multipliers
+
+        mbTy = case suffixes of
+          [] -> Nothing
+          _  ->
+            let sign = if any ( == IntSuffixUnsigned ) suffixes
+                       then Unsigned
+                       else Signed
+                long     = any ( == IntSuffixLong ) suffixes
+                longlong = any ( == IntSuffixLongLong ) suffixes
+             in Just $
+                  if | longlong
+                     -> PrimLongLong sign
+                     | long
+                     -> PrimLong sign
+                     | otherwise
+                     -> PrimInt sign
+
+    return (val, mbTy)
   where
     aux :: TokenParser (Base, [Digit], [IntSuffix])
     aux = do
