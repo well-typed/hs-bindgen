@@ -43,4 +43,5 @@ data HsPrimType
 data HsType =
     HsType String
   | HsPrimType HsPrimType
+  | HsPtr HsType
   deriving stock (Show)
