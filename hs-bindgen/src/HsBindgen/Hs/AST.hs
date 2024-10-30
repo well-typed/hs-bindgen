@@ -49,6 +49,7 @@ import GHC.Generics qualified as GHC
 import GHC.Show (appPrec1)
 
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
@@ -62,14 +63,6 @@ data Struct (n :: Nat) = Struct {
     }
 
 deriving stock instance Show (Struct n)
-
-{-------------------------------------------------------------------------------
-  Types
--------------------------------------------------------------------------------}
-
-data HsType =
-  HsType String
-  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Variable binding

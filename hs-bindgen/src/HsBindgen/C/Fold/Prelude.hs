@@ -125,4 +125,3 @@ unrecognized tracer current = liftIO $ do
     traceWith tracer Error $ UnrecognizedElement loc kind name
     return Nothing
 
-

@@ -1,4 +1,8 @@
 data CExampleStruct
+    = MkCExampleStruct {cExampleStruct_t1 :: Void,
+                        cExampleStruct_t2 :: Void,
+                        cExampleStruct_m1 :: Void,
+                        cExampleStruct_m2 :: Void}
 instance Storable CExampleStruct
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;

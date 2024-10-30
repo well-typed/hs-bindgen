@@ -25,5 +25,3 @@ data Literal a = Literal {
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
-
-

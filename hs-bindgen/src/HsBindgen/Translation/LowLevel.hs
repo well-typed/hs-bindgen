@@ -22,6 +22,7 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Util.PHOAS
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Type
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -86,7 +87,7 @@ structDecs struct fields = List
           mkField f =
             ( toHsName opts (FieldContext structName structConstr True) $
                 C.fieldName f
-            , Hs.HsType "StructFieldTypeTODO"
+            , typ (C.fieldType f)
             )
           structFields = Vec.map mkField fields
       in  Hs.Struct{..}
@@ -148,3 +149,28 @@ enumDecs e = List [
 
     poke :: f Bound -> f Bound -> Hs.PokeByteOff f
     poke ptr i = Hs.PokeByteOff ptr 0 i
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+typ :: C.Typ -> Hs.HsType
+typ (C.TypElaborated c) = Hs.HsType (show c) -- wrong
+typ (C.TypStruct s)     = Hs.HsType (show (C.structTag s)) -- also wrong
+typ (C.TypPrim p)       = case p of
+  C.PrimVoid                   -> Hs.HsPrimType HsPrimVoid
+  C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
+  C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar
+  C.PrimChar (Just C.Unsigned) -> Hs.HsPrimType HsPrimCSChar
+  C.PrimInt C.Signed           -> Hs.HsPrimType HsPrimCInt
+  C.PrimInt C.Unsigned         -> Hs.HsPrimType HsPrimCUInt
+  C.PrimShort C.Signed         -> Hs.HsPrimType HsPrimCShort
+  C.PrimShort C.Unsigned       -> Hs.HsPrimType HsPrimCUShort
+  C.PrimLong C.Signed          -> Hs.HsPrimType HsPrimCLong
+  C.PrimLong C.Unsigned        -> Hs.HsPrimType HsPrimCULong
+  C.PrimLongLong C.Signed      -> Hs.HsPrimType HsPrimCLLong
+  C.PrimLongLong C.Unsigned    -> Hs.HsPrimType HsPrimCULLong
+  C.PrimFloat                  -> Hs.HsPrimType HsPrimCFloat
+  C.PrimDouble                 -> Hs.HsPrimType HsPrimCDouble
+  C.PrimLongDouble             -> Hs.HsPrimType HsPrimCDouble -- not sure this is correct.
+typ (C.TypPointer _t)   = Hs.HsType "pointer" -- also wrong

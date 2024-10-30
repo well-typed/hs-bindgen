@@ -76,7 +76,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
         let decls :: forall f. List Hs.Decl f
             decls = genHsDecls header
 
-        return $ showClosed decls
+        return $ showClosed decls ++ "\n"
 
 withC ::
      Tracer IO String

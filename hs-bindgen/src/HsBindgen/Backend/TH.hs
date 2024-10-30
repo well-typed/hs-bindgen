@@ -8,12 +8,15 @@ module HsBindgen.Backend.TH (
 
 import Data.Kind (Type)
 import Data.Text qualified as Text
+import Data.Void qualified
+import Foreign.C.Types qualified
 import Foreign.Storable qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
 
 {-------------------------------------------------------------------------------
@@ -27,6 +30,7 @@ instance TH.Quote q => BackendRep (BE q) where
   type Name (BE q) = TH.Name
   type Expr (BE q) = q TH.Exp
   type Decl (BE q) = q TH.Dec
+  type Ty   (BE q) = q TH.Type
 
   resolve _ =  \case
       Unit_type            -> ''()
@@ -42,6 +46,23 @@ instance TH.Quote q => BackendRep (BE q) where
       Storable_pokeByteOff -> 'Foreign.Storable.pokeByteOff
       Storable_peek        -> 'Foreign.Storable.peek
       Storable_poke        -> 'Foreign.Storable.poke
+      PrimType t           -> resolveP t
+    where
+      resolveP HsPrimVoid    = ''Data.Void.Void
+      resolveP HsPrimCChar   = ''Foreign.C.Types.CChar
+      resolveP HsPrimCUChar  = ''Foreign.C.Types.CUChar
+      resolveP HsPrimCSChar  = ''Foreign.C.Types.CSChar
+      resolveP HsPrimCInt    = ''Foreign.C.Types.CInt
+      resolveP HsPrimCUInt   = ''Foreign.C.Types.CUInt
+      resolveP HsPrimCShort  = ''Foreign.C.Types.CShort
+      resolveP HsPrimCUShort = ''Foreign.C.Types.CUShort
+      resolveP HsPrimCLong   = ''Foreign.C.Types.CLong
+      resolveP HsPrimCULong  = ''Foreign.C.Types.CULong
+      resolveP HsPrimCLLong  = ''Foreign.C.Types.CLLong
+      resolveP HsPrimCULLong = ''Foreign.C.Types.CULLong
+      resolveP HsPrimCFloat  = ''Foreign.C.Types.CFloat
+      resolveP HsPrimCDouble = ''Foreign.C.Types.CDouble
+      resolveP HsPrimCBool   = ''Foreign.C.Types.CBool
 
   mkExpr be = \case
       EGlobal n     -> TH.varE (resolve be n)
@@ -65,6 +86,12 @@ instance TH.Quote q => BackendRep (BE q) where
                          ]
       EInj x        -> x
 
+  mkType :: BE q -> SType (BE q) -> Ty (BE q)
+  mkType be = \case
+      TGlobal n -> TH.conT (resolve be n)
+      TCon n    -> hsConT n
+      TApp f t  -> TH.appT (mkType be f) (mkType be t)
+
   mkDecl :: BE q -> SDecl (BE q) -> Decl (BE q)
   mkDecl be = \case
       DVar x f -> simpleDecl x f
@@ -76,10 +103,18 @@ instance TH.Quote q => BackendRep (BE q) where
                     ( map (\(x, f) -> simpleDecl (resolve be x) f) $
                         instanceDecs i
                     )
-      DData d -> TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [{- constructos -}] []
+      DData d ->
+        let fields :: [q TH.VarBangType]
+            fields =
+              [ TH.varBangType (hsNameToTH n) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be t)
+              | (n, t) <- dataFields d
+              ]
+        in TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
     where
       simpleDecl :: TH.Name -> SExpr (BE q) -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr be f) []
+
+
 
 instance TH.Quote q => Backend (BE q) where
   newtype M (BE q) a = Gen { unwrapGen :: q a }
@@ -119,7 +154,3 @@ hsConT = TH.conT . hsNameToTH
 
 hsNameToTH :: HsName ns -> TH.Name
 hsNameToTH = TH.mkName . Text.unpack  . getHsName
-
-
-
-

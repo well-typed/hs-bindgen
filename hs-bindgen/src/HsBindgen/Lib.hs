@@ -62,6 +62,9 @@ module HsBindgen.Lib (
     -- ** Usage
   , contramap
   , PrettyLogMsg(..)
+
+  -- * All-in-one functions
+  , templateHaskell
   ) where
 
 import Data.Text (Text)
@@ -187,3 +190,12 @@ prettyC = Pretty.dumpIO . unwrapCHeader
 prettyHs :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
 prettyHs opts fp = Backend.E.renderIO opts fp . unwrapHsModule
 
+{-------------------------------------------------------------------------------
+  All in one
+-------------------------------------------------------------------------------}
+
+templateHaskell :: FilePath -> TH.Q [TH.Dec]
+templateHaskell fp = do
+    cheader <- TH.runIO $ withTranslationUnit nullTracer defaultClangArgs fp $
+      parseCHeader nullTracer SelectFromMainFile
+    genTH cheader

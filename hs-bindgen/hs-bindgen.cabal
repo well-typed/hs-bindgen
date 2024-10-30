@@ -82,6 +82,7 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.Hs.AST.Name
+      HsBindgen.Hs.AST.Type
       HsBindgen.Translation.LowLevel
       HsBindgen.Util.Parsec
       HsBindgen.Util.Tracer
@@ -171,17 +172,19 @@ test-suite test-th
   other-extensions:
       TemplateHaskell
   other-modules:
-      HsBindgen.TestTH.Examples
       HsBindgen.TestTH.Spliced
+      Misc
   build-depends:
       -- Internal dependencies
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
-      fin
-    , vec
+    , template-haskell
   build-depends:
       -- External dependencies
-    , tasty >= 1.5 && < 1.6
+    , filepath
+    , directory
+    , tasty ^>= 1.5
+    , tasty-hunit ^>=0.10.2
 
 
