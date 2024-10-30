@@ -1,3 +1,4 @@
+newtype CMyEnum = MkCMyEnum {un_MyEnum :: Void}
 instance Storable CMyEnum
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;

@@ -20,6 +20,7 @@
 module HsBindgen.Hs.AST (
     -- * Information about generated code
     Struct(..)
+  , Newtype(..)
     -- * Types
   , HsType(..)
     -- * Variable binding
@@ -64,6 +65,15 @@ data Struct (n :: Nat) = Struct {
 
 deriving stock instance Show (Struct n)
 
+data Newtype = Newtype {
+      newtypeName   :: HsName NsTypeConstr
+    , newtypeConstr :: HsName NsConstr
+    , newtypeField  :: HsName NsVar
+    , newtypeType   :: HsType
+    }
+
+deriving stock instance Show Newtype
+
 {-------------------------------------------------------------------------------
   Variable binding
 -------------------------------------------------------------------------------}
@@ -88,6 +98,7 @@ data Ap a b f = Ap (b f) [a f]
 type Decl :: PHOAS
 data Decl f =
     DeclData (WithStruct DataDecl f)
+  | DeclNewtype Newtype
   | DeclInstance (InstanceDecl f)
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
@@ -208,3 +219,6 @@ instance
       . showOpen u appPrec1 struct
       . showString " "
       . showOpen u appPrec1 a
+
+instance ShowOpen Newtype where
+    showOpen _ = showsPrec

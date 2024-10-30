@@ -44,6 +44,7 @@ instance (DefToBE be a, DefToBE be b) => ToBE be (Hs.Ap a b) where
 instance Backend be => ToBE be Hs.Decl where
   type Rep be Hs.Decl = Decl be
   toBE be (Hs.DeclData d) = mkDecl be <$> toBE be d
+  toBE be (Hs.DeclNewtype n) = mkDecl be <$> return (newtypeToBE be n)
   toBE be (Hs.DeclInstance i) = inst be <$> toBE be i
 
 instance Backend be => ToBE be Hs.InstanceDecl where
@@ -54,7 +55,7 @@ instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
   type Rep be (Hs.WithStruct Hs.DataDecl) = SDecl be
 
   toBE _be (Hs.WithStruct struct Hs.MkDataDecl) = do
-    return $ DData $ Data
+    return $ DRecord $ Record
       { dataType = Hs.structName struct
       , dataCon  = Hs.structConstr struct
       , dataFields =
@@ -62,6 +63,15 @@ instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
           | (n, t) <- toList $ Hs.structFields struct
           ]
       }
+
+newtypeToBE :: be -> Hs.Newtype -> SDecl be
+newtypeToBE _ n =
+  DNewtype $ Newtype
+    { newtypeName  = Hs.newtypeName n
+    , newtypeCon   = Hs.newtypeConstr n
+    , newtypeField = Hs.newtypeField n
+    , newtypeType  = typeToBE (Hs.newtypeType n)
+    }
 
 {-------------------------------------------------------------------------------
   Types

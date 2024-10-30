@@ -7,7 +7,8 @@ module HsBindgen.Backend.Common (
   , SDecl(..)
   , SType(..)
   , Instance(..)
-  , Data(..)
+  , Record(..)
+  , Newtype(..)
     -- * Full backend
   , Backend(..)
   , Fresh(..)
@@ -68,7 +69,8 @@ data SExpr be =
 data SDecl be =
     DVar (Name be) (SExpr be)
   | DInst (Instance be)
-  | DData (Data be) -- TOOD: rename to Record
+  | DRecord (Record be)
+  | DNewtype (Newtype be)
 
 -- | Simple types
 data SType be =
@@ -82,11 +84,17 @@ data Instance be = Instance {
     , instanceDecs  :: [(Global, SExpr be)]
     }
 
--- TODO: rename to Record
-data Data be = Data {
+data Record be = Record {
       dataType   :: HsName NsTypeConstr
     , dataCon    :: HsName NsConstr
     , dataFields :: [(HsName NsVar, SType be)]
+    }
+
+data Newtype be = Newtype {
+      newtypeName   :: HsName NsTypeConstr
+    , newtypeCon    :: HsName NsConstr
+    , newtypeField  :: HsName NsVar
+    , newtypeType   :: SType be
     }
 
 {-------------------------------------------------------------------------------
