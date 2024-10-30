@@ -87,7 +87,7 @@ structDecs struct fields = List
           mkField f =
             ( toHsName opts (FieldContext structName structConstr True) $
                 C.fieldName f
-            , typ (C.fieldType f)
+            , typ opts (C.fieldType f)
             )
           structFields = Vec.map mkField fields
       in  Hs.Struct{..}
@@ -154,10 +154,11 @@ enumDecs e = List [
   Types
 -------------------------------------------------------------------------------}
 
-typ :: C.Typ -> Hs.HsType
-typ (C.TypElaborated c) = Hs.HsType (show c) -- wrong
-typ (C.TypStruct s)     = Hs.HsType (show (C.structTag s)) -- also wrong
-typ (C.TypPrim p)       = case p of
+typ :: NameManglingOptions -> C.Typ -> Hs.HsType
+typ opts (C.TypElaborated c) =
+  Hs.HsTypRef (toHsName opts EmptyNsTypeConstrContext c) -- wrong
+typ _     (C.TypStruct s)      =Hs.HsType (show (C.structTag s)) -- also wrong
+typ _     (C.TypPrim p)       = case p of
   C.PrimVoid                   -> Hs.HsPrimType HsPrimVoid
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
   C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar
@@ -173,4 +174,4 @@ typ (C.TypPrim p)       = case p of
   C.PrimFloat                  -> Hs.HsPrimType HsPrimCFloat
   C.PrimDouble                 -> Hs.HsPrimType HsPrimCDouble
   C.PrimLongDouble             -> Hs.HsPrimType HsPrimCDouble -- not sure this is correct.
-typ (C.TypPointer t)    = Hs.HsPtr (typ t)
+typ opts (C.TypPointer t)    = Hs.HsPtr (typ opts t)

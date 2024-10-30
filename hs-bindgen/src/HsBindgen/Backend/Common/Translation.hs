@@ -69,6 +69,7 @@ instance Backend be => ToBE be (Hs.WithStruct Hs.DataDecl) where
 
 typeToBE :: Hs.HsType -> SType be
 typeToBE (Hs.HsPrimType t) = TGlobal (PrimType t)
+typeToBE (Hs.HsTypRef r)   = TCon r
 typeToBE (Hs.HsPtr t)      = TApp (TGlobal Foreign_Ptr) (typeToBE t)
 typeToBE _                 = TGlobal (PrimType HsPrimVoid)
 
