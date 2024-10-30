@@ -47,7 +47,8 @@ instance ToExpr C.TokenSpelling
 instance ToExpr C.Typ
 instance ToExpr C.Typedef
 
-instance ToExpr a => ToExpr (C.Literal a)
+instance ToExpr C.IntegerLiteral
+instance ToExpr C.FloatingLiteral
 instance ToExpr a => ToExpr (C.Range a)
 instance ToExpr a => ToExpr (C.Token a)
 

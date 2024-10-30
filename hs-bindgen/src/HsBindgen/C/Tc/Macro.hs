@@ -104,13 +104,13 @@ import Data.Vec.Lazy qualified as Vec
 
 -- hs-bindgen
 import HsBindgen.C.AST.Literal
-  ( Literal(..) )
+  ( IntegerLiteral(..), FloatingLiteral(..) )
 import HsBindgen.C.AST.Macro
   ( MExpr(..), MFun(..), MTerm(..) )
 import HsBindgen.C.AST.Name
   ( CName(..) )
 import HsBindgen.C.AST.Type
-  ( PrimIntType(..), PrimSign(..) )
+  ( PrimIntType(..), PrimSign(..), PrimFloatType(..) )
 import HsBindgen.Pretty.Orphans
   ()
 import HsBindgen.Util.TestEquality
@@ -280,17 +280,17 @@ instance PrettyVal ( TyCon n k ) where
 type DataTyCon :: Nat -> Hs.Type
 data DataTyCon n where
   -- | Type constructor for Bool
-  BoolTyCon    :: DataTyCon Z
+  BoolTyCon      :: DataTyCon Z
   -- | Type constructor forString
-  StringTyCon  :: DataTyCon Z
+  StringTyCon    :: DataTyCon Z
   -- | Type constructors for integral types, such as 'Int' or 'UShort'.
-  IntLikeTyCon :: !PrimIntType -> DataTyCon Z
-  -- | Type constructor for Double
-  DoubleTyCon  :: DataTyCon Z
+  IntLikeTyCon   :: !PrimIntType -> DataTyCon Z
+  -- | Type constructor for floating-point types, such as 'Float' or 'Double'.
+  FloatLikeTyCon :: !PrimFloatType -> DataTyCon Z
   -- | Type constructor for the type of a 'PrimType' value.
-  PrimTyTyCon  :: DataTyCon Z
+  PrimTyTyCon    :: DataTyCon Z
   -- | Type constructor for the type of an empty macro.
-  EmptyTyCon   :: DataTyCon Z
+  EmptyTyCon     :: DataTyCon Z
 
 deriving stock instance Eq  ( DataTyCon n )
 deriving stock instance Ord ( DataTyCon n )
@@ -333,24 +333,29 @@ instance Show (DataTyCon n) where
   show = \case
     BoolTyCon -> "Bool"
     StringTyCon -> "String"
-    IntLikeTyCon inty -> case inty of
-      PrimShort s ->
-        case s of
-          Signed -> "Short"
-          Unsigned -> "UShort"
-      PrimInt s ->
-        case s of
-          Signed -> "Int"
-          Unsigned -> "UInt"
-      PrimLong s ->
-        case s of
-          Signed -> "Long"
-          Unsigned -> "ULong"
-      PrimLongLong s ->
-        case s of
-          Signed -> "LLong"
-          Unsigned -> "ULLong"
-    DoubleTyCon -> "Double"
+    IntLikeTyCon inty ->
+      case inty of
+        PrimShort s ->
+          case s of
+            Signed -> "Short"
+            Unsigned -> "UShort"
+        PrimInt s ->
+          case s of
+            Signed -> "Int"
+            Unsigned -> "UInt"
+        PrimLong s ->
+          case s of
+            Signed -> "Long"
+            Unsigned -> "ULong"
+        PrimLongLong s ->
+          case s of
+            Signed -> "LLong"
+            Unsigned -> "ULLong"
+    FloatLikeTyCon floaty ->
+      case floaty of
+        PrimFloat      -> "Float"
+        PrimDouble     -> "Double"
+        PrimLongDouble -> "LDouble"
     PrimTyTyCon -> "PrimTy"
     EmptyTyCon -> "Empty"
 instance Show (ClassTyCon n) where
@@ -498,8 +503,8 @@ instance PrettyVal FunName where
 data CtOrigin
   = AppOrigin !FunName
   | InstOrigin !FunName
-  | IntLitOrigin !( Literal Integer )
-  | FloatLitOrigin !Double
+  | IntLitOrigin !IntegerLiteral
+  | FloatLitOrigin !FloatingLiteral
   | DefaultingOrigin
   deriving stock ( Generic, Show )
   deriving anyclass PrettyVal
@@ -523,8 +528,8 @@ data MetaOrigin
   | ExpectedVarTy !CName
   | Inst { instFunName :: !FunName, instPos :: !Int }
   | FunArg !CName !( CName, Int )
-  | IntLitMeta !( Literal Integer )
-  | FloatLitMeta !Double
+  | IntLitMeta !IntegerLiteral
+  | FloatLitMeta !FloatingLiteral
   deriving stock ( Generic, Show )
   deriving anyclass PrettyVal
 
@@ -880,7 +885,7 @@ inferExpr = \case
 inferTerm :: MTerm -> TcGenM ( Type Ty )
 inferTerm = \case
   MEmpty -> return Empty
-  MInt i mbIntyTy ->
+  MInt i@( IntegerLiteral { integerLiteralType = mbIntyTy } ) ->
     case mbIntyTy of
       Just intyTy ->
         return $ IntLike intyTy
@@ -888,10 +893,14 @@ inferTerm = \case
         m <- liftTcM $ newMetaTyVarTy (IntLitMeta i) "i"
         Writer.tell [ ( Integral m, IntLitOrigin i ) ]
         return m
-  MFloat f -> do
-    m <- liftTcM $ newMetaTyVarTy (FloatLitMeta f) "f"
-    Writer.tell [ ( Fractional m , FloatLitOrigin f ) ]
-    return m
+  MFloat f@( FloatingLiteral { floatingLiteralType = mbFloatyTy }) ->
+    case mbFloatyTy of
+      Just floatyTy ->
+        return $ FloatLike floatyTy
+      Nothing -> do
+        m <- liftTcM $ newMetaTyVarTy (FloatLitMeta f) "f"
+        Writer.tell [ ( Fractional m , FloatLitOrigin f ) ]
+        return m
   MVar fun args -> inferApp ( FunName $ Left fun ) args
   MType {} -> return PrimTy
   MAttr _attr tm -> inferTerm tm
@@ -996,8 +1005,8 @@ pattern Bool :: Type Ty
 pattern Bool = TyConAppTy (DataTyCon BoolTyCon) VNil
 pattern IntLike :: PrimIntType -> Type Ty
 pattern IntLike intLike = TyConAppTy (DataTyCon (IntLikeTyCon intLike)) VNil
-pattern Double :: Type Ty
-pattern Double = TyConAppTy (DataTyCon DoubleTyCon) VNil
+pattern FloatLike :: PrimFloatType -> Type Ty
+pattern FloatLike floatLike = TyConAppTy (DataTyCon (FloatLikeTyCon floatLike)) VNil
 pattern String :: Type Ty
 pattern String = TyConAppTy (DataTyCon StringTyCon) VNil
 pattern PrimTy :: Type Ty
@@ -1061,14 +1070,15 @@ of the constructor tags of the type constructors at the head of the instance.
 -- See Note [Class instances and DataTyConTag].
 classInstancesWithDefaults :: ClassTyCon n -> Map ( Vec n DataTyConTag ) ( Vec n ( Type Ty ) )
 classInstancesWithDefaults = Map.fromList . \case
-  EqTyCon         -> mkUnaryInsts [ intTy, Double, String, Bool ]
-  OrdTyCon        -> mkUnaryInsts [ intTy, Double, String, Bool ]
-  NumTyCon        -> mkUnaryInsts [ intTy, Double ]
+  EqTyCon         -> mkUnaryInsts [ intTy, doubleTy, String, Bool ]
+  OrdTyCon        -> mkUnaryInsts [ intTy, doubleTy, String, Bool ]
+  NumTyCon        -> mkUnaryInsts [ intTy, doubleTy ]
   IntegralTyCon   -> mkUnaryInsts [ intTy ]
-  FractionalTyCon -> mkUnaryInsts [ Double ]
+  FractionalTyCon -> mkUnaryInsts [ doubleTy ]
   BitsTyCon       -> mkUnaryInsts [ intTy ]
   where
     intTy = IntLike ( PrimInt Signed )
+    doubleTy = FloatLike PrimDouble
     mkUnaryInsts :: [ Type Ty ] -> [ ( Vec ( S Z ) DataTyConTag, Vec ( S Z ) ( Type Ty ) ) ]
     mkUnaryInsts = map ( \ ty -> ( getTag ty ::: VNil, ty ::: VNil ) )
     getTag :: Type Ty -> DataTyConTag

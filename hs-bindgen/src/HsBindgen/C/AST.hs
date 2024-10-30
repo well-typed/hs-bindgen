@@ -34,7 +34,8 @@ module HsBindgen.C.AST (
   , MExpr(..)
   , MFun(..)
   , MTerm(..)
-  , Literal(..)
+  , IntegerLiteral(..)
+  , FloatingLiteral(..)
     -- ** Attributes
   , Attribute(..)
     -- ** Classification

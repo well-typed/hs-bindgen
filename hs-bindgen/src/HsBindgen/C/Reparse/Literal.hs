@@ -1,10 +1,13 @@
 module HsBindgen.C.Reparse.Literal (
     IntSuffix(..)
   , reparseLiteralInteger
+  , reparseLiteralFloating
   ) where
 
+import Control.Monad (void)
 import Data.Char (toLower, ord)
-import Data.Maybe (mapMaybe)
+import Data.Maybe (fromMaybe, mapMaybe)
+import Data.Scientific qualified as Scientific
 import Text.Parsec
 import Text.Show.Pretty (PrettyVal)
 import GHC.Generics
@@ -39,10 +42,7 @@ reparseLiteralInteger :: TokenParser (Integer, Maybe PrimIntType)
 reparseLiteralInteger = do
     (b, ds, suffixes) <- aux
 
-    let multipliers :: [Integer]
-        multipliers = iterate (* baseToInt b) 1
-
-        val = sum $ zipWith (*) (reverse $ mapMaybe getDigit ds) multipliers
+    let val = readInBase b ds
 
         mbTy = case suffixes of
           [] -> Nothing
@@ -68,6 +68,79 @@ reparseLiteralInteger = do
         ds <- many1 $ digitInBase b
         ss <- many intSuffix
         return (b, ds, ss)
+
+readInBase :: Base -> [Digit] -> Integer
+readInBase b ds =
+  let
+    multipliers = iterate (* baseToInt b) 1
+  in
+    sum $ zipWith (*) (reverse $ mapMaybe getDigit ds) multipliers
+
+{-------------------------------------------------------------------------------
+  Parser for floating-point literals
+
+  Reference: <https://en.cppreference.com/w/cpp/language/floating_literal>
+-------------------------------------------------------------------------------}
+
+
+reparseLiteralFloating :: TokenParser (Float, Double, Maybe PrimFloatType)
+reparseLiteralFloating = do
+
+  b     <- option BaseDec (BaseHex <$ caseInsensitive' "0x")
+  as    <- many (digitInBase b)
+  mbXs  <- optionMaybe $ do { void (char '.') ; many (digitInBase b) }
+  mbExp <-
+    case b of
+      -- Exponent is non-optional with hexadecimal base
+      BaseHex -> Just <$> parseExponent b
+      _       -> optionMaybe (parseExponent b)
+
+  if
+    | Nothing <- mbXs
+    , Nothing <- mbExp
+    -> fail $ "cannot parse floating-point value: expected either '.' or '" ++ exponentText b ++ "'"
+    | null as
+    , case mbXs of { Nothing -> True; Just [] -> True; _ -> False }
+    -> fail $ "cannot parse floating-point value without any digits"
+    | otherwise
+    -> do mbTy <- choice
+            [ Just PrimFloat      <$ caseInsensitive' "f"
+            , Just PrimLongDouble <$ caseInsensitive' "l"
+            , return Nothing
+            ]
+          let m :: Integer
+              m = readInBase b (as ++ fromMaybe [] mbXs)
+              e :: Int
+              e = fromMaybe 0 mbExp - maybe 0 length mbXs
+          return (fromScientific m e, fromScientific m e, mbTy)
+
+fromScientific :: forall a. RealFloat a => Integer -> Int -> a
+fromScientific m e = Scientific.toRealFloat $ Scientific.scientific m e
+
+parseExponent :: Base -> TokenParser Int
+parseExponent b = do
+  void (caseInsensitive' $ exponentText b)
+  s <- parseSign
+  ds <- many digit
+  return $ applySign s ( read ds )
+
+exponentText :: Base -> String
+exponentText BaseHex = "p"
+exponentText _ = "e"
+
+data Sign = Neg | Pos
+  deriving stock ( Eq, Ord, Show )
+
+parseSign :: TokenParser Sign
+parseSign = choice
+  [ Pos <$ char '+'
+  , Neg <$ char '-'
+  , return Pos
+  ]
+
+applySign :: Num a => Sign -> a -> a
+applySign Neg x = negate x
+applySign Pos x = x
 
 {-------------------------------------------------------------------------------
   Auxiliary: integer representations in different bases
