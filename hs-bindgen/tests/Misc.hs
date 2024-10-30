@@ -21,12 +21,15 @@ import HsBindgen.Lib (ClangArgs (..), defaultClangArgs, CStandard (..))
 
 -- | Like goldenVsString but using our own diff function.
 goldenVsStringDiff_ :: TestName -> FilePath -> ((String -> IO ()) -> IO String) -> TestTree
-goldenVsStringDiff_ name fp action = goldenTestSteps name correct action cmp update
+goldenVsStringDiff_ name fp action = goldenTestSteps name correct action' cmp update
   where
     correct :: IO String
     correct = do
         contents <- BS.readFile fp
-        return $ UTF8.toString contents
+        return $ normalise $ UTF8.toString contents
+
+    action' :: (String -> IO ()) -> IO String
+    action' step = normalise <$> action step
 
     update :: String -> IO ()
     update s = BS.writeFile fp (UTF8.fromString s)
@@ -35,6 +38,11 @@ goldenVsStringDiff_ name fp action = goldenTestSteps name correct action cmp upd
     cmp xss yss
         | xss == yss = return Nothing
         | otherwise  = return $ Just $ ansidiff xss yss
+
+    normalise :: String -> String
+    normalise [] = []
+    normalise ('\r':'\n':r) = '\n' : normalise r
+    normalise (x:xs) = x : normalise xs
 
 -------------------------------------------------------------------------------
 -- package directory
