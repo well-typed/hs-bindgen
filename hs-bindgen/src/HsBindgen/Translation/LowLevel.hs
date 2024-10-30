@@ -117,9 +117,20 @@ structDecs struct fields = List
 enumDecs :: forall f.
   C.Enu -> List Hs.Decl f
 enumDecs e = List [
-      Hs.DeclInstance $ Hs.InstanceStorable storable
+      Hs.DeclNewtype newtype_
+    , Hs.DeclInstance $ Hs.InstanceStorable storable
     ]
   where
+    newtype_ :: Hs.Newtype
+    newtype_ =
+      let cEnumName = fromMaybe "X" $ C.enumTag e
+          opts = defaultNameManglingOptions
+          newtypeName = toHsName opts EmptyNsTypeConstrContext cEnumName
+          newtypeConstr = toHsName opts (NsConstrContext newtypeName) cEnumName
+          newtypeField   = toHsName opts (EnumContext newtypeName) cEnumName
+          newtypeType    = Hs.HsType "EnumTypeTODO"
+      in Hs.Newtype {..}
+
     hs :: Hs.Struct (S Z)
     hs =
       let cEnumName = fromMaybe "X" $ C.enumTag e
