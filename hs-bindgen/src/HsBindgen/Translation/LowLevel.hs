@@ -124,24 +124,24 @@ enumDecs e = List [
     newtype_ :: Hs.Newtype
     newtype_ =
       let cEnumName = fromMaybe "X" $ C.enumTag e
-          NameMangler{..} = defaultNameMangler
+          nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cEnumName
           newtypeName = mangleTypeConstrName typeConstrCtx
           newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
           newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-          newtypeType = Hs.HsType "EnumTypeTODO"
+          newtypeType    = typ nm (C.enumType e)
       in Hs.Newtype {..}
 
     hs :: Hs.Struct (S Z)
     hs =
       let cEnumName = fromMaybe "X" $ C.enumTag e
-          NameMangler{..} = defaultNameMangler
+          nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cEnumName
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           structFields = Vec.singleton
             ( mangleVarName $ EnumVarContext typeConstrCtx
-            , Hs.HsType "EnumTypeTODO"
+            , typ nm (C.enumType e)
             )
       in  Hs.Struct{..}
 

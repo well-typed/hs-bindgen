@@ -1,25 +1,25 @@
-newtype CFirst = MkCFirst {unCFirst :: Void}
+newtype CFirst = MkCFirst {unCFirst :: CUInt}
 instance Storable CFirst
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
            peek = \x_0 -> pure MkCFirst <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCFirst unCFirst_3 -> pokeByteOff x_1 0 unCFirst_3}}
-newtype CSecond = MkCSecond {unCSecond :: Void}
+newtype CSecond = MkCSecond {unCSecond :: CInt}
 instance Storable CSecond
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
            peek = \x_0 -> pure MkCSecond <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCSecond unCSecond_3 -> pokeByteOff x_1 0 unCSecond_3}}
-newtype CSame = MkCSame {unCSame :: Void}
+newtype CSame = MkCSame {unCSame :: CUInt}
 instance Storable CSame
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
            peek = \x_0 -> pure MkCSame <*> peekByteOff x_0 0;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCSame unCSame_3 -> pokeByteOff x_1 0 unCSame_3}}
-newtype CPackad = MkCPackad {unCPackad :: Void}
+newtype CPackad = MkCPackad {unCPackad :: CSChar}
 instance Storable CPackad
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
