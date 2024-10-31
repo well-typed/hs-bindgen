@@ -34,12 +34,9 @@ module HsBindgen.Hs.AST.Name (
     -- ** Defaults
   , defaultNameManglingOptions
   , haskellNameManglingOptions
-    -- * Conversion
-  , toHsName
   ) where
 
 import Data.Char qualified as Char
-import Data.Kind
 import Data.String
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -597,43 +594,3 @@ haskellNameManglingOptions = NameManglingOptions {
           []
           handleReservedNone
 }
-
-{-------------------------------------------------------------------------------
-  Conversion
--------------------------------------------------------------------------------}
-
--- | Name mangling
-class ToHsName (ns :: Namespace) where
-  type ToHsNameContext ns :: Type
-
-  toHsName :: NameManglingOptions -> ToHsNameContext ns -> CName -> HsName ns
-
-instance ToHsName NsVar where
-  type ToHsNameContext NsVar = NsVarContext
-
-  toHsName NameManglingOptions{nameManglingVar} = nameManglingVar
-
-instance ToHsName NsConstr where
-  type ToHsNameContext NsConstr = NsConstrContext
-
-  toHsName NameManglingOptions{nameManglingConstr} = nameManglingConstr
-
-instance ToHsName NsTypeVar where
-  type ToHsNameContext NsTypeVar = NsTypeVarContext
-
-  toHsName NameManglingOptions{nameManglingTypeVar} = nameManglingTypeVar
-
-instance ToHsName NsTypeConstr where
-  type ToHsNameContext NsTypeConstr = NsTypeConstrContext
-
-  toHsName NameManglingOptions{nameManglingTypeConstr} = nameManglingTypeConstr
-
-instance ToHsName NsTypeClass where
-  type ToHsNameContext NsTypeClass = NsTypeClassContext
-
-  toHsName NameManglingOptions{nameManglingTypeClass} = nameManglingTypeClass
-
-instance ToHsName NsModuleName where
-  type ToHsNameContext NsModuleName = NsModuleNameContext
-
-  toHsName NameManglingOptions{nameManglingModule} = nameManglingModule
