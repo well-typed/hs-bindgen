@@ -13,8 +13,8 @@ module HsBindgen.Hs.AST.Name (
   , NsTypeConstrContext(..)
   , NsTypeClassContext(..)
   , NsModuleNameContext(..)
-    -- * Options
-  , NameManglingOptions(..)
+    -- * NameMangler
+  , NameMangler(..)
     -- ** DSL
   , translateName
   , maintainCName
@@ -32,8 +32,8 @@ module HsBindgen.Hs.AST.Name (
   , typeVarReservedNames
   , handleModuleNameParent
     -- ** Defaults
-  , defaultNameManglingOptions
-  , haskellNameManglingOptions
+  , defaultNameMangler
+  , haskellNameMangler
   ) where
 
 import Data.Char qualified as Char
@@ -164,43 +164,43 @@ newtype NsModuleNameContext = NsModuleNameContext {
   deriving stock (Eq, Show)
 
 {-------------------------------------------------------------------------------
-  Options
+  NameMangler
 -------------------------------------------------------------------------------}
 
--- | Name mangling options
-data NameManglingOptions = NameManglingOptions {
+-- | Name mangler functions
+data NameMangler = NameMangler {
       -- | Create a Haskell module name
-      nameManglingModule ::
+      mangleModuleName ::
            NsModuleNameContext
         -> CName
         -> HsName NsModuleName
 
       -- | Create a Haskell type class name
-    , nameManglingTypeClass ::
+    , mangleTypeClassName ::
            NsTypeClassContext
         -> CName
         -> HsName NsTypeClass
 
       -- | Create a Haskell type constructor name
-    , nameManglingTypeConstr ::
+    , mangleTypeConstrName ::
            NsTypeConstrContext
         -> CName
         -> HsName NsTypeConstr
 
       -- | Create a Haskell type variable name
-    , nameManglingTypeVar ::
+    , mangleTypeVarName ::
            NsTypeVarContext
         -> CName
         -> HsName NsTypeVar
 
       -- | Create a Haskell constructor name
-    , nameManglingConstr ::
+    , mangleConstrName ::
            NsConstrContext
         -> CName
         -> HsName NsConstr
 
       -- | Create a Haskell variable name
-    , nameManglingVar ::
+    , mangleVarName ::
            NsVarContext
         -> CName
         -> HsName NsVar
@@ -416,12 +416,12 @@ handleModuleNameParent NsModuleNameContext{..} name =
       Nothing         -> name
 
 {-------------------------------------------------------------------------------
-  Options: Defaults
+  Default Name Manglers
 -------------------------------------------------------------------------------}
 
--- | Default name mangling options
+-- | Default name mangler
 --
--- These options attempt to provide a balance between safety and taste.
+-- This default attempts to provide a balance between safety and taste.
 --
 -- * Module names are transformed to @PascalCase@, dropping invalid characters.
 -- * Type class names are transformed to @PascalCase@, escaping invalid
@@ -437,16 +437,16 @@ handleModuleNameParent NsModuleNameContext{..} name =
 --   escaping invalid characters.
 -- * Other variables have invalid characters escaped, and single quotes are
 --   appended to reserved names.
-defaultNameManglingOptions :: NameManglingOptions
-defaultNameManglingOptions = NameManglingOptions {
-    nameManglingModule = \ctx -> handleModuleNameParent ctx .
+defaultNameMangler :: NameMangler
+defaultNameMangler = NameMangler {
+    mangleModuleName = \ctx -> handleModuleNameParent ctx .
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithConcat -- not used (no prefixes/suffixes)
         []
         []
         handleReservedNone
-  , nameManglingTypeClass = \EmptyNsTypeClassContext ->
+  , mangleTypeClassName = \EmptyNsTypeClassContext ->
       translateName
         (camelCaseCName escapeInvalidChar)
         joinWithConcat -- not used (no prefixes/suffixes)
@@ -454,7 +454,7 @@ defaultNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingTypeConstr = \EmptyNsTypeConstrContext ->
+  , mangleTypeConstrName = \EmptyNsTypeConstrContext ->
       translateName
         (camelCaseCName escapeInvalidChar)
         joinWithCamelCase
@@ -462,7 +462,7 @@ defaultNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingTypeVar = \NsTypeVarContext{} ->
+  , mangleTypeVarName = \NsTypeVarContext{} ->
       translateName
         (maintainCName escapeInvalidChar)
         joinWithSnakeCase -- not used (no prefixes/suffixes)
@@ -470,7 +470,7 @@ defaultNameManglingOptions = NameManglingOptions {
         []
         (handleReservedNames appendSingleQuote typeVarReservedNames)
 
-  , nameManglingConstr = \NsConstrContext{} ->
+  , mangleConstrName = \NsConstrContext{} ->
       translateName
         (camelCaseCName escapeInvalidChar)
         joinWithCamelCase
@@ -478,7 +478,7 @@ defaultNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingVar = \case
+  , mangleVarName = \case
       EmptyNsVarContext ->
         translateName
           (maintainCName escapeInvalidChar)
@@ -505,9 +505,9 @@ defaultNameManglingOptions = NameManglingOptions {
           handleReservedNone
 }
 
--- | Haskell-style name mangling options
+-- | Haskell-style name mangler
 --
--- These options provide Haskell-style names with a higher risk of name
+-- This default provides Haskell-style names with a higher risk of name
 -- collision.
 --
 -- * Module names are transformed to @PascalCase@, dropping invalid characters.
@@ -526,9 +526,9 @@ defaultNameManglingOptions = NameManglingOptions {
 --   dropping invalid characters.
 -- * Other variables have invalid characters dropped, and single quotes are
 --   appended to reserved names.
-haskellNameManglingOptions :: NameManglingOptions
-haskellNameManglingOptions = NameManglingOptions {
-    nameManglingModule = \ctx -> handleModuleNameParent ctx .
+haskellNameMangler :: NameMangler
+haskellNameMangler = NameMangler {
+    mangleModuleName = \ctx -> handleModuleNameParent ctx .
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithCamelCase -- not used (no prefixes/suffixes)
@@ -536,7 +536,7 @@ haskellNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingTypeClass = \EmptyNsTypeClassContext ->
+  , mangleTypeClassName = \EmptyNsTypeClassContext ->
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithCamelCase -- not used (no prefixes/suffixes)
@@ -544,7 +544,7 @@ haskellNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingTypeConstr = \EmptyNsTypeConstrContext ->
+  , mangleTypeConstrName = \EmptyNsTypeConstrContext ->
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithCamelCase
@@ -552,7 +552,7 @@ haskellNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingTypeVar = \NsTypeVarContext{} ->
+  , mangleTypeVarName = \NsTypeVarContext{} ->
       translateName
         (maintainCName dropInvalidChar)
         joinWithSnakeCase -- not used (no prefixes/suffixes)
@@ -560,7 +560,7 @@ haskellNameManglingOptions = NameManglingOptions {
         []
         (handleReservedNames appendSingleQuote typeVarReservedNames)
 
-  , nameManglingConstr = \NsConstrContext{} ->
+  , mangleConstrName = \NsConstrContext{} ->
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithCamelCase
@@ -568,7 +568,7 @@ haskellNameManglingOptions = NameManglingOptions {
         []
         handleReservedNone
 
-  , nameManglingVar = \case
+  , mangleVarName = \case
       EmptyNsVarContext ->
         translateName
           (camelCaseCName dropInvalidChar)

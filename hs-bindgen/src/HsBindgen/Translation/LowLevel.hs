@@ -81,15 +81,15 @@ structDecs struct fields = List
     hs :: Hs.Struct n
     hs =
       let cStructName = fromMaybe "X" $ C.structTag struct
-          opts@NameManglingOptions{..} = defaultNameManglingOptions
+          nm@NameMangler{..} = defaultNameMangler
           structName =
-            nameManglingTypeConstr EmptyNsTypeConstrContext cStructName
+            mangleTypeConstrName EmptyNsTypeConstrContext cStructName
           structConstr =
-            nameManglingConstr (NsConstrContext structName) cStructName
+            mangleConstrName (NsConstrContext structName) cStructName
           mkField f =
-            ( nameManglingVar (FieldContext structName structConstr True) $
+            ( mangleVarName (FieldContext structName structConstr True) $
                 C.fieldName f
-            , typ opts (C.fieldType f)
+            , typ nm (C.fieldType f)
             )
           structFields = Vec.map mkField fields
       in  Hs.Struct{..}
@@ -126,26 +126,26 @@ enumDecs e = List [
     newtype_ :: Hs.Newtype
     newtype_ =
       let cEnumName = fromMaybe "X" $ C.enumTag e
-          NameManglingOptions{..} = defaultNameManglingOptions
+          NameMangler{..} = defaultNameMangler
           newtypeName =
-            nameManglingTypeConstr EmptyNsTypeConstrContext cEnumName
+            mangleTypeConstrName EmptyNsTypeConstrContext cEnumName
           newtypeConstr =
-            nameManglingConstr (NsConstrContext newtypeName) cEnumName
+            mangleConstrName (NsConstrContext newtypeName) cEnumName
           newtypeField =
-            nameManglingVar (EnumContext newtypeName) cEnumName
+            mangleVarName (EnumContext newtypeName) cEnumName
           newtypeType = Hs.HsType "EnumTypeTODO"
       in Hs.Newtype {..}
 
     hs :: Hs.Struct (S Z)
     hs =
       let cEnumName = fromMaybe "X" $ C.enumTag e
-          NameManglingOptions{..} = defaultNameManglingOptions
+          NameMangler{..} = defaultNameMangler
           structName =
-            nameManglingTypeConstr EmptyNsTypeConstrContext cEnumName
+            mangleTypeConstrName EmptyNsTypeConstrContext cEnumName
           structConstr =
-            nameManglingConstr (NsConstrContext structName) cEnumName
+            mangleConstrName (NsConstrContext structName) cEnumName
           structFields = Vec.singleton
-            ( nameManglingVar (EnumContext structName) cEnumName
+            ( mangleVarName (EnumContext structName) cEnumName
             , Hs.HsType "EnumTypeTODO"
             )
       in  Hs.Struct{..}
@@ -172,9 +172,9 @@ enumDecs e = List [
   Types
 -------------------------------------------------------------------------------}
 
-typ :: NameManglingOptions -> C.Typ -> Hs.HsType
-typ NameManglingOptions{..} (C.TypElaborated c) =
-  Hs.HsTypRef (nameManglingTypeConstr EmptyNsTypeConstrContext c) -- wrong
+typ :: NameMangler -> C.Typ -> Hs.HsType
+typ NameMangler{..} (C.TypElaborated c) =
+  Hs.HsTypRef (mangleTypeConstrName EmptyNsTypeConstrContext c) -- wrong
 typ _     (C.TypStruct s)      =Hs.HsType (show (C.structTag s)) -- also wrong
 typ _     (C.TypPrim p)       = case p of
   C.PrimVoid                   -> Hs.HsPrimType HsPrimVoid
@@ -196,4 +196,4 @@ typ _     (C.TypPrim p)       = case p of
       C.PrimFloat              -> Hs.HsPrimType HsPrimCFloat
       C.PrimDouble             -> Hs.HsPrimType HsPrimCDouble
       C.PrimLongDouble         -> Hs.HsPrimType HsPrimCDouble -- wrong (see #247)
-typ opts (C.TypPointer t)    = Hs.HsPtr (typ opts t)
+typ nm (C.TypPointer t)    = Hs.HsPtr (typ nm t)
