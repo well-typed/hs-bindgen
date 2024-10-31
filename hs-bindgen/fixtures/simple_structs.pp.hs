@@ -2,6 +2,7 @@
 
 module Example where
 
+import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
@@ -59,6 +60,10 @@ instance F.Storable CS2 where
             >> F.pokeByteOff x0 32 cS2_b3
             >> F.pokeByteOff x0 64 cS2_c4
 
+newtype CS2T = MkCS2T
+  { unCS2T :: Void
+  }
+
 data CX = MkCX
   { cX_a :: FC.CChar
   }
@@ -79,6 +84,10 @@ instance F.Storable CX where
       \x1 ->
         case x1 of
           MkCX cX_a2 -> F.pokeByteOff x0 0 cX_a2
+
+newtype CS3T = MkCS3T
+  { unCS3T :: Void
+  }
 
 data CS4 = MkCS4
   { cS4_b :: FC.CChar

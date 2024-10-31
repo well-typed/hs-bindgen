@@ -47,7 +47,7 @@ instance ToHs C.Decl where
   type InHs C.Decl = List Hs.Decl
   toHs (C.DeclStruct struct) = reifyStructFields struct $ structDecs struct
   toHs (C.DeclEnum e)        = enumDecs e
-  toHs (C.DeclTypedef _)     = List [] -- TODO
+  toHs (C.DeclTypedef d)     = typedefDecs d
   toHs (C.DeclMacro _)       = List [] -- TODO
 
 {-------------------------------------------------------------------------------
@@ -163,6 +163,27 @@ enumDecs e = List [
 
     poke :: f Bound -> f Bound -> Hs.PokeByteOff f
     poke ptr i = Hs.PokeByteOff ptr 0 i
+
+{-------------------------------------------------------------------------------
+  Typedef
+-------------------------------------------------------------------------------}
+
+typedefDecs :: C.Typedef -> List Hs.Decl f
+typedefDecs d = List [
+      Hs.DeclNewtype newtype_
+    -- TODO: Storable instance. Should it be newtype derived?
+    ]
+  where
+    newtype_ :: Hs.Newtype
+    newtype_ =
+      let cName = C.typedefName d
+          nm@NameMangler{..} = defaultNameMangler
+          typeConstrCtx = TypeConstrContext cName
+          newtypeName = mangleTypeConstrName typeConstrCtx
+          newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+          newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
+          newtypeType    = typ nm (C.typedefType d)
+      in Hs.Newtype {..}
 
 {-------------------------------------------------------------------------------
   Types
