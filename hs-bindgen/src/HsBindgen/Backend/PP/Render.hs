@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module HsBindgen.Backend.PP.Render.Simple (
+module HsBindgen.Backend.PP.Render (
     HsRenderOpts(..)
   , render
   , renderIO
@@ -15,9 +15,9 @@ import System.IO
 
 import HsBindgen.Backend.Common
 import HsBindgen.Backend.PP
+import HsBindgen.Backend.PP.Render.Internal
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.Hs.AST.Name
-import HsBindgen.Backend.PP.Render.Simple.Internal
 
 {-------------------------------------------------------------------------------
   Options

@@ -66,8 +66,8 @@ library
       HsBindgen.Backend.HsSrcExts.Render
       HsBindgen.Backend.HsSrcExts.Translation
       HsBindgen.Backend.PP
-      HsBindgen.Backend.PP.Render.Simple
-      HsBindgen.Backend.PP.Render.Simple.Internal
+      HsBindgen.Backend.PP.Render
+      HsBindgen.Backend.PP.Render.Internal
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH
       HsBindgen.C.Fold
