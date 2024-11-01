@@ -133,10 +133,17 @@ instance Pretty (SExpr BE) where
       ]
 
     ECase x ms -> hang (hsep ["case", pretty x, "of"]) 2 $
-      vcat . flip map ms $ \(cnst, params, body) -> fsep
-        [ hsep $ pretty cnst : map (prettyPrec 3 . getFresh) params ++ ["->"]
-        , nest 2 $ pretty body
-        ]
+      vcat . flip map ms $ \(cnst, params, body) ->
+        let l = hsep $
+              pretty cnst : map (prettyPrec 3 . getFresh) params ++ ["->"]
+        in  ifFits l (fsep [l, nest 2 (pretty body)]) $
+              case unsnoc params of
+                Nothing -> fsep [l, nest 2 (pretty body)]
+                Just (lParams, rParam) -> vcat $
+                    pretty cnst
+                  : [nest 2 (prettyPrec 3 (getFresh param)) | param <- lParams]
+                  ++ [nest 2 ((prettyPrec 3 (getFresh rParam)) <+> "->")]
+                  ++ [nest 4 (pretty body)]
 
     EInj x -> prettyPrec prec x
 
@@ -166,3 +173,12 @@ ppInfix :: ResolvedName -> CtxDoc
 ppInfix = \case
     ResolvedIdent s    -> hcat [char '`', string s, char '`']
     ResolvedOperator s -> string s
+
+{-------------------------------------------------------------------------------
+  Auxiliary Functions
+-------------------------------------------------------------------------------}
+
+-- | In "Data.List" from @base-4.19.0.0@
+unsnoc :: [a] -> Maybe ([a], a)
+unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
+{-# INLINABLE unsnoc #-}

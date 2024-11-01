@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module HsBindgen.Backend.PP.Translation (
     HsModuleOpts(..)
   , Module(..)
@@ -26,7 +28,6 @@ data Module = Module {
 
 translate :: HsModuleOpts -> C.Header -> Module
 translate opts header =
-    let (decls', _st) = runM $ mapM (toBE BE) (generateDeclarations header)
-    in Module
-         (hsModuleName opts)
-         decls'
+    let moduleName = hsModuleName opts
+        (moduleDecls, _) = runM $ mapM (toBE BE) (generateDeclarations header)
+    in  Module{..}

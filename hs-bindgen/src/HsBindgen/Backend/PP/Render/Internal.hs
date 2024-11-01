@@ -220,6 +220,15 @@ nest n d = CtxDoc $ \ctx ->
 hang :: CtxDoc -> Int -> CtxDoc -> CtxDoc
 hang dA n dB = dA $$ nest n dB
 
+-- | Select a 'CtxDoc' depending on if a rendered 'CtxDoc' fits within the
+-- maximum line length
+ifFits :: CtxDoc -> CtxDoc -> CtxDoc -> CtxDoc
+ifFits condD thenD elseD = CtxDoc $ \ctx@Context{..} ->
+    -- TODO compute column width, do not just count chars with length
+    if length (renderCtxDoc ctx condD) <= ctxMaxLineCols
+      then runCtxDoc ctx thenD
+      else runCtxDoc ctx elseD
+
 -- | Create a document with rendered lines
 --
 -- The function is passed the maximum width of each line, computed as the
