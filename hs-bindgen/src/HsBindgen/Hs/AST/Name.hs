@@ -7,14 +7,14 @@ module HsBindgen.Hs.AST.Name (
   , HsName(..)
   , MkHsName(..)
     -- * Contexts
-  , NsVarContext(..)
-  , NsConstrContext(..)
-  , NsTypeVarContext(..)
-  , NsTypeConstrContext(..)
-  , NsTypeClassContext(..)
-  , NsModuleNameContext(..)
-    -- * Options
-  , NameManglingOptions(..)
+  , ModuleNameContext(..)
+  , TypeClassContext(..)
+  , TypeConstrContext(..)
+  , TypeVarContext(..)
+  , ConstrContext(..)
+  , VarContext(..)
+    -- * NameMangler
+  , NameMangler(..)
     -- ** DSL
   , translateName
   , maintainCName
@@ -32,14 +32,11 @@ module HsBindgen.Hs.AST.Name (
   , typeVarReservedNames
   , handleModuleNameParent
     -- ** Defaults
-  , defaultNameManglingOptions
-  , haskellNameManglingOptions
-    -- * Conversion
-  , toHsName
+  , defaultNameMangler
+  , haskellNameMangler
   ) where
 
 import Data.Char qualified as Char
-import Data.Kind
 import Data.String
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -56,12 +53,12 @@ import HsBindgen.C.AST (CName(..))
 -- See section 1.4, "Namespaces" of the Haskell report
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch1.html#x6-130001.4>
 data Namespace =
-    NsVar
-  | NsConstr
-  | NsTypeVar
-  | NsTypeConstr
+    NsModuleName
   | NsTypeClass
-  | NsModuleName
+  | NsTypeConstr
+  | NsTypeVar
+  | NsConstr
+  | NsVar
 
 -- | Haskell name in namespace @ns@
 newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
@@ -82,23 +79,23 @@ class MkHsName (ns :: Namespace) where
   -- no letters, then name @x@ (or @X@) is returned as a default.
   mkHsName :: Text -> HsName ns
 
-instance MkHsName NsVar where
-  mkHsName = mkHsName' Char.toLower
-
-instance MkHsName NsConstr where
-  mkHsName = mkHsName' Char.toUpper
-
-instance MkHsName NsTypeVar where
-  mkHsName = mkHsName' Char.toLower
-
-instance MkHsName NsTypeConstr where
+instance MkHsName NsModuleName where
   mkHsName = mkHsName' Char.toUpper
 
 instance MkHsName NsTypeClass where
   mkHsName = mkHsName' Char.toUpper
 
-instance MkHsName NsModuleName where
+instance MkHsName NsTypeConstr where
   mkHsName = mkHsName' Char.toUpper
+
+instance MkHsName NsTypeVar where
+  mkHsName = mkHsName' Char.toLower
+
+instance MkHsName NsConstr where
+  mkHsName = mkHsName' Char.toUpper
+
+instance MkHsName NsVar where
+  mkHsName = mkHsName' Char.toLower
 
 mkHsName' :: (Char -> Char) -> Text -> HsName ns
 mkHsName' f = HsName . aux
@@ -114,99 +111,100 @@ mkHsName' f = HsName . aux
   Contexts
 -------------------------------------------------------------------------------}
 
--- | Local context for translating Haskell names in the 'NsVar' namespace
-data NsVarContext =
-    -- | No context provided
-    EmptyNsVarContext
-    -- | Context for @enum@ fields (accessors)
-  | EnumContext {
-      ctxEnumTypeName :: HsName NsTypeConstr
-    }
-  | -- | Context for record fields (accessors)
-    FieldContext {
-      -- | Name of the record type
-      ctxFieldTypeName :: HsName NsTypeConstr
-      -- | Name of the constructor
-    , ctxFieldConstrName :: HsName NsConstr
-      -- | Record type has a single constructor?
-    , ctxFieldConstrSingle :: Bool
-    }
-  deriving stock (Eq, Show)
-
--- | Local context for translating Haskell names in the 'NsConstr' namespace
-newtype NsConstrContext = NsConstrContext {
-      -- | Name of the type that the constructor is for
-      ctxConstrTypeName :: HsName NsTypeConstr
-    }
-  deriving stock (Eq, Show)
-
--- | Local context for translating Haskell names in the 'NsTypeVar' namespace
-newtype NsTypeVarContext = NsTypeVarContext {
-      -- | Name of the type that the type variable is for
-      ctxTypeVarTypeName :: HsName NsTypeConstr
-    }
-  deriving stock (Eq, Show)
-
--- | Local context for translating Haskell names in the 'NsTypeConstr' namespace
-data NsTypeConstrContext =
-    -- | No context provided
-    EmptyNsTypeConstrContext
-  deriving stock (Eq, Show)
-
--- | Local context for translating Haskell names in the 'NsTypeClass' namespace
-data NsTypeClassContext =
-    -- | No context provided
-    EmptyNsTypeClassContext
-  deriving stock (Eq, Show)
-
--- | Local context for translating Haskell names in the 'NsModuleName' namespace
-newtype NsModuleNameContext = NsModuleNameContext {
+-- | Context for creating Haskell module names
+data ModuleNameContext = ModuleNameContext {
       -- | Name of the parent module
-      ctxModuleParentName :: Maybe (HsName NsModuleName)
+      ctxModuleNameParentName :: Maybe (HsName NsModuleName)
+    , -- | Module name source (perhaps from file name?)
+      ctxModuleNameCName :: CName
+    }
+  deriving stock (Eq, Show)
+
+-- | Context for creating Haskell type class names
+newtype TypeClassContext = TypeClassContext {
+      -- | Type class name source
+      ctxTypeClassCName :: CName
+    }
+  deriving stock (Eq, Show)
+
+-- | Context for creating Haskell type constructor names
+data TypeConstrContext =
+    -- | Context for general cases
+    TypeConstrContext {
+      -- | C name for the type
+      ctxTypeConstrCName :: CName
+    }
+  | -- | Context for anonymous structures/unions for named fields
+    AnonNamedFieldTypeConstrContext {
+      -- | Closest named ancestor type context
+      ctxAnonNamedFieldTypeConstrAncestorCtx :: TypeConstrContext
+    , -- | C field name
+      ctxAnonNamedFieldTypeConstrFieldName :: CName
+    }
+  deriving stock (Eq, Show)
+
+-- | Context for creating Haskell type variable names
+data TypeVarContext = TypeVarContext {
+      -- | Type that the type variable is for
+      ctxTypeVarTypeCtx :: TypeConstrContext
+    , -- | Type variable name source
+      ctxTypeVarCName :: CName
+    }
+  deriving stock (Eq, Show)
+
+-- | Context for creating Haskell constructor names
+newtype ConstrContext = ConstrContext {
+      -- | Type that the constructor is for
+      ctxConstrTypeCtx :: TypeConstrContext
+    }
+  deriving stock (Eq, Show)
+
+-- | Context for creating Haskell variable names
+data VarContext =
+    -- | Context for general cases
+    VarContext {
+      -- | C variable name
+      ctxVarCName :: CName
+    }
+  | -- | Context for enumeration fields
+    EnumVarContext {
+      -- | Enumeration type context
+      ctxEnumVarTypeCtx :: TypeConstrContext
+    }
+  | -- | Context for record fields
+    FieldVarContext {
+      -- | Record type context
+      ctxFieldVarTypeCtx :: TypeConstrContext
+    , -- | Record type has a single constructor?
+      ctxFieldVarSingleConstr :: Bool
+    , -- | C field name
+      ctxFieldVarCName :: CName
     }
   deriving stock (Eq, Show)
 
 {-------------------------------------------------------------------------------
-  Options
+  NameMangler
 -------------------------------------------------------------------------------}
 
--- | Name mangling options
-data NameManglingOptions = NameManglingOptions {
+-- | Name mangler functions
+data NameMangler = NameMangler {
       -- | Create a Haskell module name
-      nameManglingModule ::
-           NsModuleNameContext
-        -> CName
-        -> HsName NsModuleName
+      mangleModuleName :: ModuleNameContext -> HsName NsModuleName
 
-      -- | Create a Haskell type class name
-    , nameManglingTypeClass ::
-           NsTypeClassContext
-        -> CName
-        -> HsName NsTypeClass
+    , -- | Create a Haskell type class name
+      mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
 
-      -- | Create a Haskell type constructor name
-    , nameManglingTypeConstr ::
-           NsTypeConstrContext
-        -> CName
-        -> HsName NsTypeConstr
+    , -- | Create a Haskell type constructor name
+      mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
 
-      -- | Create a Haskell type variable name
-    , nameManglingTypeVar ::
-           NsTypeVarContext
-        -> CName
-        -> HsName NsTypeVar
+    , -- | Create a Haskell type variable name
+      mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
 
       -- | Create a Haskell constructor name
-    , nameManglingConstr ::
-           NsConstrContext
-        -> CName
-        -> HsName NsConstr
+    , mangleConstrName :: ConstrContext -> HsName NsConstr
 
       -- | Create a Haskell variable name
-    , nameManglingVar ::
-           NsVarContext
-        -> CName
-        -> HsName NsVar
+    , mangleVarName :: VarContext -> HsName NsVar
     }
 
 {-------------------------------------------------------------------------------
@@ -410,21 +408,21 @@ typeVarReservedNames = "role" : varReservedNames
 -- | Prepend the parent module name, joining using a @.@, if one is provided in
 -- the context
 handleModuleNameParent ::
-     NsModuleNameContext
+     ModuleNameContext
   -> HsName NsModuleName
   -> HsName NsModuleName
-handleModuleNameParent NsModuleNameContext{..} name =
-    case ctxModuleParentName of
+handleModuleNameParent ModuleNameContext{..} name =
+    case ctxModuleNameParentName of
       Just parentName -> HsName $ getHsName parentName <> "." <> getHsName name
       Nothing         -> name
 
 {-------------------------------------------------------------------------------
-  Options: Defaults
+  Default Name Manglers
 -------------------------------------------------------------------------------}
 
--- | Default name mangling options
+-- | Default name mangler
 --
--- These options attempt to provide a balance between safety and taste.
+-- This default attempts to provide a balance between safety and taste.
 --
 -- * Module names are transformed to @PascalCase@, dropping invalid characters.
 -- * Type class names are transformed to @PascalCase@, escaping invalid
@@ -432,85 +430,99 @@ handleModuleNameParent NsModuleNameContext{..} name =
 -- * Type constructors are prefixed with @C@, escaping invalid characters.
 -- * Type variables have invalid characters escaped, and single quotes are
 --   appended to reserved names.
--- * Constructors are prefixed with @MkC@, escaping invalid characters.
+-- * Constructors are prefixed with @Mk@, escaping invalid characters.
 -- * Record fields are prefixed with the type name if the data type has a single
 --   constructor or the constructor name otherwise, joined using an underscore,
 --   escaping invalid characters.
--- * Enumeration fields are prefixed with @un@, joined using an underscore,
---   escaping invalid characters.
+-- * Enumeration fields are prefixed with @un@, escaping invalid characters.
 -- * Other variables have invalid characters escaped, and single quotes are
 --   appended to reserved names.
-defaultNameManglingOptions :: NameManglingOptions
-defaultNameManglingOptions = NameManglingOptions {
-    nameManglingModule = \ctx -> handleModuleNameParent ctx .
+defaultNameMangler :: NameMangler
+defaultNameMangler = NameMangler{..}
+  where
+    mangleModuleName :: ModuleNameContext -> HsName NsModuleName
+    mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithConcat -- not used (no prefixes/suffixes)
         []
         []
         handleReservedNone
-  , nameManglingTypeClass = \EmptyNsTypeClassContext ->
+        ctxModuleNameCName
+
+    mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
+    mangleTypeClassName TypeClassContext{..} =
       translateName
         (camelCaseCName escapeInvalidChar)
         joinWithConcat -- not used (no prefixes/suffixes)
         []
         []
         handleReservedNone
+        ctxTypeClassCName
 
-  , nameManglingTypeConstr = \EmptyNsTypeConstrContext ->
-      translateName
-        (camelCaseCName escapeInvalidChar)
-        joinWithCamelCase
-        ["C"]
-        []
-        handleReservedNone
+    mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
+    mangleTypeConstrName = \case
+      TypeConstrContext{..} ->
+        translateName
+          (camelCaseCName escapeInvalidChar)
+          joinWithCamelCase
+          ["C"]
+          []
+          handleReservedNone
+          ctxTypeConstrCName
+      AnonNamedFieldTypeConstrContext{..} ->
+        translateName
+          (camelCaseCName escapeInvalidChar)
+          joinWithCamelCase
+          [ getHsName $
+              mangleTypeConstrName ctxAnonNamedFieldTypeConstrAncestorCtx
+          ]
+          []
+          handleReservedNone
+          ctxAnonNamedFieldTypeConstrFieldName
 
-  , nameManglingTypeVar = \NsTypeVarContext{} ->
+    mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
+    mangleTypeVarName TypeVarContext{..} =
       translateName
         (maintainCName escapeInvalidChar)
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
         (handleReservedNames appendSingleQuote typeVarReservedNames)
+        ctxTypeVarCName
 
-  , nameManglingConstr = \NsConstrContext{} ->
-      translateName
-        (camelCaseCName escapeInvalidChar)
-        joinWithCamelCase
-        ["MkC"]
-        []
-        handleReservedNone
+    mangleConstrName :: ConstrContext -> HsName NsConstr
+    mangleConstrName ConstrContext{..} =
+      HsName $ "Mk" <> getHsName (mangleTypeConstrName ctxConstrTypeCtx)
 
-  , nameManglingVar = \case
-      EmptyNsVarContext ->
+    mangleVarName :: VarContext -> HsName NsVar
+    mangleVarName = \case
+      VarContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
           joinWithSnakeCase -- not used (no prefixes/suffixes)
           []
           []
           (handleReservedNames appendSingleQuote varReservedNames)
-      EnumContext{} ->
+          ctxVarCName
+      EnumVarContext{..} ->
+        HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
+      FieldVarContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
           joinWithSnakeCase
-          ["un"]
-          []
-          handleReservedNone
-      FieldContext{..} ->
-        translateName
-          (maintainCName escapeInvalidChar)
-          joinWithSnakeCase
-          [ if ctxFieldConstrSingle
-              then getHsName ctxFieldTypeName
-              else getHsName ctxFieldConstrName
+          [ if ctxFieldVarSingleConstr
+              then getHsName $ mangleTypeConstrName ctxFieldVarTypeCtx
+              else
+                getHsName $ mangleConstrName (ConstrContext ctxFieldVarTypeCtx)
           ]
           []
           handleReservedNone
-}
+          ctxFieldVarCName
 
--- | Haskell-style name mangling options
+-- | Haskell-style name mangler
 --
--- These options provide Haskell-style names with a higher risk of name
+-- This default provides Haskell-style names with a higher risk of name
 -- collision.
 --
 -- * Module names are transformed to @PascalCase@, dropping invalid characters.
@@ -520,120 +532,93 @@ defaultNameManglingOptions = NameManglingOptions {
 --   escaping invalid characters.
 -- * Type variables have invalid characters dropped, and single quotes are
 --   appended to reserved names.
--- * Constructors are are transformed to @PascalCase@ and prefixed with @MkC@,
+-- * Constructors are are transformed to @PascalCase@ and prefixed with @Mk@,
 --   escaping invalid characters.
 -- * Record fields are prefixed with the type name if the data type has a single
 --   constructor or the constructor name otherwise, joined using @camelCase@,
 --   dropping invalid characters.
--- * Enumeration fields are prefixed with @un@, joined using @camelCase@,
---   dropping invalid characters.
+-- * Enumeration fields are prefixed with @un@, dropping invalid characters.
 -- * Other variables have invalid characters dropped, and single quotes are
 --   appended to reserved names.
-haskellNameManglingOptions :: NameManglingOptions
-haskellNameManglingOptions = NameManglingOptions {
-    nameManglingModule = \ctx -> handleModuleNameParent ctx .
+haskellNameMangler :: NameMangler
+haskellNameMangler = NameMangler{..}
+  where
+    mangleModuleName :: ModuleNameContext -> HsName NsModuleName
+    mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithCamelCase -- not used (no prefixes/suffixes)
         []
         []
         handleReservedNone
+        ctxModuleNameCName
 
-  , nameManglingTypeClass = \EmptyNsTypeClassContext ->
+    mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
+    mangleTypeClassName TypeClassContext{..} =
       translateName
         (camelCaseCName dropInvalidChar)
         joinWithCamelCase -- not used (no prefixes/suffixes)
         []
         []
         handleReservedNone
+        ctxTypeClassCName
 
-  , nameManglingTypeConstr = \EmptyNsTypeConstrContext ->
-      translateName
-        (camelCaseCName dropInvalidChar)
-        joinWithCamelCase
-        ["C"]
-        []
-        handleReservedNone
+    mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
+    mangleTypeConstrName = \case
+      TypeConstrContext{..} ->
+        translateName
+          (camelCaseCName dropInvalidChar)
+          joinWithCamelCase
+          ["C"]
+          []
+          handleReservedNone
+          ctxTypeConstrCName
+      AnonNamedFieldTypeConstrContext{..} ->
+        translateName
+          (camelCaseCName dropInvalidChar)
+          joinWithCamelCase
+          [ getHsName $
+              mangleTypeConstrName ctxAnonNamedFieldTypeConstrAncestorCtx
+          ]
+          []
+          handleReservedNone
+          ctxAnonNamedFieldTypeConstrFieldName
 
-  , nameManglingTypeVar = \NsTypeVarContext{} ->
+    mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
+    mangleTypeVarName TypeVarContext{..} =
       translateName
         (maintainCName dropInvalidChar)
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
         (handleReservedNames appendSingleQuote typeVarReservedNames)
+        ctxTypeVarCName
 
-  , nameManglingConstr = \NsConstrContext{} ->
-      translateName
-        (camelCaseCName dropInvalidChar)
-        joinWithCamelCase
-        ["MkC"]
-        []
-        handleReservedNone
+    mangleConstrName :: ConstrContext -> HsName NsConstr
+    mangleConstrName ConstrContext{..} =
+      HsName $ "Mk" <> getHsName (mangleTypeConstrName ctxConstrTypeCtx)
 
-  , nameManglingVar = \case
-      EmptyNsVarContext ->
+    mangleVarName :: VarContext -> HsName NsVar
+    mangleVarName = \case
+      VarContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase -- not used (no prefixes/suffixes)
           []
           []
           (handleReservedNames appendSingleQuote varReservedNames)
-      EnumContext{} ->
+          ctxVarCName
+      EnumVarContext{..} ->
+        HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
+      FieldVarContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase
-          ["un"]
-          []
-          handleReservedNone
-      FieldContext{..} ->
-        translateName
-          (camelCaseCName dropInvalidChar)
-          joinWithCamelCase
-          [ if ctxFieldConstrSingle
-              then getHsName ctxFieldTypeName
-              else getHsName ctxFieldConstrName
+          [ if ctxFieldVarSingleConstr
+              then getHsName $ mangleTypeConstrName ctxFieldVarTypeCtx
+              else
+                getHsName $ mangleConstrName (ConstrContext ctxFieldVarTypeCtx)
           ]
           []
           handleReservedNone
-}
-
-{-------------------------------------------------------------------------------
-  Conversion
--------------------------------------------------------------------------------}
-
--- | Name mangling
-class ToHsName (ns :: Namespace) where
-  type ToHsNameContext ns :: Type
-
-  toHsName :: NameManglingOptions -> ToHsNameContext ns -> CName -> HsName ns
-
-instance ToHsName NsVar where
-  type ToHsNameContext NsVar = NsVarContext
-
-  toHsName NameManglingOptions{nameManglingVar} = nameManglingVar
-
-instance ToHsName NsConstr where
-  type ToHsNameContext NsConstr = NsConstrContext
-
-  toHsName NameManglingOptions{nameManglingConstr} = nameManglingConstr
-
-instance ToHsName NsTypeVar where
-  type ToHsNameContext NsTypeVar = NsTypeVarContext
-
-  toHsName NameManglingOptions{nameManglingTypeVar} = nameManglingTypeVar
-
-instance ToHsName NsTypeConstr where
-  type ToHsNameContext NsTypeConstr = NsTypeConstrContext
-
-  toHsName NameManglingOptions{nameManglingTypeConstr} = nameManglingTypeConstr
-
-instance ToHsName NsTypeClass where
-  type ToHsNameContext NsTypeClass = NsTypeClassContext
-
-  toHsName NameManglingOptions{nameManglingTypeClass} = nameManglingTypeClass
-
-instance ToHsName NsModuleName where
-  type ToHsNameContext NsModuleName = NsModuleNameContext
-
-  toHsName NameManglingOptions{nameManglingModule} = nameManglingModule
+          ctxFieldVarCName
