@@ -132,18 +132,23 @@ instance Pretty (SExpr BE) where
       , nest 2 $ pretty body
       ]
 
-    ECase x ms -> hang (hsep ["case", pretty x, "of"]) 2 $
-      vcat . flip map ms $ \(cnst, params, body) ->
-        let l = hsep $
-              pretty cnst : map (prettyPrec 3 . getFresh) params ++ ["->"]
-        in  ifFits l (fsep [l, nest 2 (pretty body)]) $
-              case unsnoc params of
-                Nothing -> fsep [l, nest 2 (pretty body)]
-                Just (lParams, rParam) -> vcat $
-                    pretty cnst
-                  : [nest 2 (prettyPrec 3 (getFresh param)) | param <- lParams]
-                  ++ [nest 2 ((prettyPrec 3 (getFresh rParam)) <+> "->")]
-                  ++ [nest 4 (pretty body)]
+    ECase x ms -> vparensWhen (prec > 1) $
+      if null ms
+        then hsep ["case", pretty x, "of", "{}"]
+        else hang (hsep ["case", pretty x, "of"]) 2 $
+          vcat . flip map ms $ \(cnst, params, body) ->
+            let l = hsep $
+                  pretty cnst : map (prettyPrec 3 . getFresh) params ++ ["->"]
+            in  ifFits l (fsep [l, nest 2 (pretty body)]) $
+                  case unsnoc params of
+                    Nothing -> fsep [l, nest 2 (pretty body)]
+                    Just (lParams, rParam) -> vcat $
+                        pretty cnst
+                      : [ nest 2 (prettyPrec 3 (getFresh param))
+                        | param <- lParams
+                        ]
+                      ++ [nest 2 ((prettyPrec 3 (getFresh rParam)) <+> "->")]
+                      ++ [nest 4 (pretty body)]
 
     EInj x -> prettyPrec prec x
 

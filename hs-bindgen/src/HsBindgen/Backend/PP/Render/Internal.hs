@@ -192,15 +192,25 @@ sep ds = CtxDoc $ \ctx -> PP.sep $ map (runCtxDoc ctx) ds
 fsep :: [CtxDoc] -> CtxDoc
 fsep ds = CtxDoc $ \ctx -> PP.fsep $ map (runCtxDoc ctx) ds
 
--- | Wrap a document in parenthesis
+-- | Parenthesize a document horizontally
 parens :: CtxDoc -> CtxDoc
 parens d = hcat [char '(', d, char ')']
 
--- | Apply parens when true
+-- | Parenthesize a document horizontally when true
 parensWhen :: Bool -> CtxDoc -> CtxDoc
 parensWhen = \case
     False -> id
     True  -> parens
+
+-- | Parenthesize a document vertically
+vparens :: CtxDoc -> CtxDoc
+vparens d = nest 2 (char '(' <+> d) $$ char ')'
+
+-- | Parenthesize a document vertically when true
+vparensWhen :: Bool -> CtxDoc -> CtxDoc
+vparensWhen = \case
+    False -> id
+    True  -> vparens
 
 -- | Format a list vertically (one item per line)
 vlist :: Char -> Char -> [CtxDoc] -> CtxDoc
