@@ -69,15 +69,13 @@ module HsBindgen.Lib (
 
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Language.Haskell.Exts qualified as E
 import Language.Haskell.TH qualified as TH
 import Text.Show.Pretty qualified as Pretty
 
-import HsBindgen.Backend.HsSrcExts (Ann)
-import HsBindgen.Backend.HsSrcExts.Render (HsRenderOpts(..))
-import HsBindgen.Backend.HsSrcExts.Render qualified as Backend.E
-import HsBindgen.Backend.HsSrcExts.Translation (HsModuleOpts(..))
-import HsBindgen.Backend.HsSrcExts.Translation qualified as Backend.E
+import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
+import HsBindgen.Backend.PP.Render qualified as Backend.PP
+import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
+import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
@@ -105,7 +103,7 @@ newtype CHeader = WrapCHeader {
   deriving (Eq, Generic)
 
 newtype HsModule = WrapHsModule {
-      unwrapHsModule :: E.Module Ann
+      unwrapHsModule :: Backend.PP.Module
     }
 
 {-------------------------------------------------------------------------------
@@ -169,7 +167,7 @@ getTargetTriple = C.getTranslationUnitTargetTriple
 -------------------------------------------------------------------------------}
 
 genModule :: HsModuleOpts -> CHeader -> HsModule
-genModule opts = WrapHsModule . Backend.E.translate opts . unwrapCHeader
+genModule opts = WrapHsModule . Backend.PP.translate opts . unwrapCHeader
 
 genTH :: TH.Quote q => CHeader -> q [TH.Dec]
 genTH = Backend.TH.translateC . unwrapCHeader
@@ -188,7 +186,7 @@ prettyC :: CHeader -> IO ()
 prettyC = Pretty.dumpIO . unwrapCHeader
 
 prettyHs :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
-prettyHs opts fp = Backend.E.renderIO opts fp . unwrapHsModule
+prettyHs opts fp = Backend.PP.renderIO opts fp . unwrapHsModule
 
 {-------------------------------------------------------------------------------
   All in one
