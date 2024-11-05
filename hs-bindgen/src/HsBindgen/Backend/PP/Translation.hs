@@ -6,6 +6,8 @@ module HsBindgen.Backend.PP.Translation (
   , translate
   ) where
 
+import Data.Set qualified as Set
+
 import HsBindgen.Backend.Common
 import HsBindgen.Backend.Common.Translation
 import HsBindgen.Backend.PP
@@ -22,12 +24,15 @@ newtype HsModuleOpts = HsModuleOpts {
   deriving (Show)
 
 data Module = Module {
-      moduleName  :: String
-    , moduleDecls :: [SDecl BE]
+      moduleName    :: String
+    , moduleImports :: [QualifiedImport]
+    , moduleDecls   :: [SDecl BE]
     }
 
 translate :: HsModuleOpts -> C.Header -> Module
 translate opts header =
     let moduleName = hsModuleName opts
         (moduleDecls, _) = runM $ mapM (toBE BE) (generateDeclarations header)
+        moduleImports =
+          Set.toAscList . mconcat $ map getDeclQualifiedImports moduleDecls
     in  Module{..}

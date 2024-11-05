@@ -54,7 +54,9 @@ renderIO opts (Just fp) modl = withFile fp WriteMode $ \h ->
 
 instance Pretty Module where
   pretty Module{..} = vsep $
-      hsep ["module", string moduleName, "where"]
+      "{-# LANGUAGE NoImplicitPrelude #-}"
+    : hsep ["module", string moduleName, "where"]
+    : vcat ["import qualified" <+> pretty im | im <- moduleImports]
     : map pretty moduleDecls
 
 {-------------------------------------------------------------------------------
@@ -166,6 +168,13 @@ ppInfix :: ResolvedName -> CtxDoc
 ppInfix = \case
     ResolvedIdent s    -> hcat [char '`', string s, char '`']
     ResolvedOperator s -> string s
+
+{-------------------------------------------------------------------------------
+  Import instance
+-------------------------------------------------------------------------------}
+
+instance Pretty QualifiedImport where
+  pretty (QualifiedImport s) = string s
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions
