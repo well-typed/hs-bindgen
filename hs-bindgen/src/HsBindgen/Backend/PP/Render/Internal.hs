@@ -123,10 +123,10 @@ showToCtxDoc = string . show
 -- | Horizontally join two documents
 --
 -- Note that 'Semigroup' '(<>)' is /not/ used because it is right-associative.
+infixl 6 ><
 (><) :: CtxDoc -> CtxDoc -> CtxDoc
 dL >< dR = CtxDoc $ \ctx ->
     runCtxDoc ctx dL PP.<> runCtxDoc ctx dR
-infixl 6 ><
 
 -- | Horizontally join documents
 hcat :: [CtxDoc] -> CtxDoc
@@ -134,10 +134,10 @@ hcat ds = CtxDoc $ \ctx ->
     PP.hcat $ map (runCtxDoc ctx) ds
 
 -- | Horizontally join two documents, separating by space
+infixl 6 <+>
 (<+>) :: CtxDoc -> CtxDoc -> CtxDoc
 dL <+> dR = CtxDoc $ \ctx ->
     runCtxDoc ctx dL PP.<+> runCtxDoc ctx dR
-infixl 6 <+>
 
 -- | Horizontally join documents, separating by space
 hsep :: [CtxDoc] -> CtxDoc
@@ -145,10 +145,10 @@ hsep ds = CtxDoc $ \ctx ->
     PP.hsep $ map (runCtxDoc ctx) ds
 
 -- | Vertically join two documents
+infixl 5 $$
 ($$) :: CtxDoc -> CtxDoc -> CtxDoc
 dL $$ dR = CtxDoc $ \ctx ->
     runCtxDoc ctx dL PP.$+$ runCtxDoc ctx dR
-infixl 5 $$
 
 -- | Vertically join documents
 vcat :: [CtxDoc] -> CtxDoc
@@ -157,10 +157,10 @@ vcat = \case
     ds -> CtxDoc $ \ctx -> foldl1 (PP.$+$) $ map (runCtxDoc ctx) ds
 
 -- | Vertically join two documents, separating by a blank line
+infixl 5 $+$
 ($+$) :: CtxDoc -> CtxDoc -> CtxDoc
 dL $+$ dR = CtxDoc $ \ctx ->
     runCtxDoc ctx dL PP.$+$ "" PP.$+$ runCtxDoc ctx dR
-infixl 5 $+$
 
 -- | Vertically join documents, separating by blank lines
 vsep :: [CtxDoc] -> CtxDoc
