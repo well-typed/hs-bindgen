@@ -71,9 +71,14 @@ instance Pretty (SDecl BE) where
       ]
 
     DInst Instance{..} -> vsep $
-        hsep ["instance", pretty instanceClass, pretty instanceType, "where"]
+        hsep
+          [ "instance"
+          , pretty (resolve BE instanceClass)
+          , pretty instanceType
+          , "where"
+          ]
       : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ pretty name <+> char '='
+            [ ppUnqual (resolve BE name) <+> char '='
             , nest 2 $ pretty expr
             ]
         )
@@ -144,7 +149,7 @@ instance Pretty (SExpr BE) where
                       : [ nest 2 (prettyPrec 3 (getFresh param))
                         | param <- lParams
                         ]
-                      ++ [nest 2 ((prettyPrec 3 (getFresh rParam)) <+> "->")]
+                      ++ [nest 2 (prettyPrec 3 (getFresh rParam) <+> "->")]
                       ++ [nest 4 (pretty body)]
 
     EInj x -> prettyPrec prec x
@@ -153,21 +158,31 @@ instance Pretty (SExpr BE) where
   Name instances
 -------------------------------------------------------------------------------}
 
-instance Pretty Global where
-  pretty = pretty . resolve BE
-
-instance Pretty ResolvedName where
-  pretty = \case
-    ResolvedIdent s    -> string s
-    ResolvedOperator s -> parens $ string s
-
 instance Pretty (HsName ns) where
   pretty = string . Text.unpack . getHsName
 
+instance Pretty ResolvedName where
+  pretty ResolvedName{..} =
+    parensWhen (resolvedNameType == ResolvedNameOperator) . string $
+      case resolvedNameQualifier of
+        Just (QualifiedImport q) -> q ++ '.' : resolvedNameString
+        Nothing                  -> resolvedNameString
+
 ppInfix :: ResolvedName -> CtxDoc
-ppInfix = \case
-    ResolvedIdent s    -> hcat [char '`', string s, char '`']
-    ResolvedOperator s -> string s
+ppInfix ResolvedName{..} =
+    bticksWhen (resolvedNameType == ResolvedNameIdentifier) . string $
+      case resolvedNameQualifier of
+        Just (QualifiedImport q) -> q ++ '.' : resolvedNameString
+        Nothing                  -> resolvedNameString
+  where
+    bticksWhen :: Bool -> CtxDoc -> CtxDoc
+    bticksWhen False d = d
+    bticksWhen True  d = hcat [char '`', d, char '`']
+
+ppUnqual :: ResolvedName -> CtxDoc
+ppUnqual ResolvedName{..} =
+    parensWhen (resolvedNameType == ResolvedNameOperator) $
+      string resolvedNameString
 
 {-------------------------------------------------------------------------------
   Import instance
