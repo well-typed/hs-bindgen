@@ -117,15 +117,10 @@ instance Pretty (SExpr BE) where
 
     EApp f x -> parensWhen (prec > 3) $ prettyPrec 3 f <+> prettyPrec 4 x
 
-    e@(EInfix _op x EInfix{}) | prec <= 2 ->
-      hang (prettyPrec 1 x) 2 $ vcat (getInfixes e)
-    EInfix op x y
-      | prec > 2 -> parens $
-          hsep [prettyPrec 1 x, ppInfix (resolve BE op), prettyPrec 1 y]
-      | otherwise -> fsep
-          [ prettyPrec 1 x
-          , nest 2 $ ppInfix (resolve BE op) <+> prettyPrec 1 y
-          ]
+    -- aggressively parenthesize so that we do not have to worry about operator
+    -- fixity and precedence
+    EInfix op x y -> parensWhen (prec > 0) $
+      prettyPrec 1 x <+> ppInfix (resolve BE op) <+> prettyPrec 1 y
 
     ELam mPat body -> parensWhen (prec > 1) $ fsep
       [ char '\\' >< maybe "_" (pretty . getFresh) mPat <+> "->"
@@ -151,13 +146,6 @@ instance Pretty (SExpr BE) where
                       ++ [nest 4 (pretty body)]
 
     EInj x -> prettyPrec prec x
-
-getInfixes :: SExpr BE -> [CtxDoc]
-getInfixes = \case
-    EInfix op _x y@(EInfix _op x _y) ->
-      ppInfix (resolve BE op) <+> prettyPrec 1 x : getInfixes y
-    EInfix op _x y -> [ppInfix (resolve BE op) <+> prettyPrec 1 y]
-    _otherwise -> []
 
 {-------------------------------------------------------------------------------
   Name instances
