@@ -1,8 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module HsBindgen.Backend.PP (
-    -- * Resolved Name
+    -- * ResolvedName
     ResolvedName(..)
+    -- * Backend definition
   , BE(..)
     -- * Backend monad
   , M
@@ -22,7 +23,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
 {-------------------------------------------------------------------------------
-  Backend definition
+  ResolvedName
 -------------------------------------------------------------------------------}
 
 data ResolvedName = ResolvedIdent String | ResolvedOperator String
@@ -35,6 +36,10 @@ instance IsString ResolvedName where
     where
       isIdentChar :: Char -> Bool
       isIdentChar c = Char.isAlphaNum c || c == '_' || c == '\''
+
+{-------------------------------------------------------------------------------
+  Backend definition
+-------------------------------------------------------------------------------}
 
 data BE = BE
 
