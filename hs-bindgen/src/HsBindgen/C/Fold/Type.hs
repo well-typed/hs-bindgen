@@ -131,11 +131,13 @@ mkEnumHeader current = liftIO $ do
     cursorType    <- clang_getCursorType current
     enumTag       <- fmap CName . getUserProvided <$>
                        HighLevel.clang_getCursorSpelling current
+    enumType      <- mkTypeUse =<< clang_getEnumDeclIntegerType current
     enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
     enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
 
     return $ \enumValues -> Enu{
         enumTag
+      , enumType
       , enumSizeof
       , enumAlignment
       , enumValues

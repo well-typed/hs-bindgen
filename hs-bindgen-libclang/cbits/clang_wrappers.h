@@ -262,6 +262,10 @@ static inline void wrap_getTypedefDeclUnderlyingType(const CXCursor* C, CXType* 
     *result = clang_getTypedefDeclUnderlyingType(*C);
 }
 
+static inline void wrap_getEnumDeclIntegerType(const CXCursor* C, CXType* result) {
+    *result = clang_getEnumDeclIntegerType(*C);
+}
+
 static inline void wrap_getPointeeType(const CXType* T, CXType* result) {
     *result = clang_getPointeeType(*T);
 }

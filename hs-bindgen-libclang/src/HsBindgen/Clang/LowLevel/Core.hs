@@ -121,6 +121,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_getTypeKindSpelling
   , clang_getTypeSpelling
   , clang_getTypedefDeclUnderlyingType
+  , clang_getEnumDeclIntegerType
   , clang_getPointeeType
   , clang_Type_getSizeOf
   , clang_Type_getAlignOf
@@ -980,6 +981,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_getTypeSpelling"
 foreign import capi unsafe "clang_wrappers.h wrap_getTypedefDeclUnderlyingType"
   wrap_getTypedefDeclUnderlyingType :: R CXCursor_ -> W CXType_ -> IO ()
 
+foreign import capi unsafe "clang_wrappers.h wrap_getEnumDeclIntegerType"
+  wrap_getEnumDeclIntegerType :: R CXCursor_ -> W CXType_ -> IO ()
+
 foreign import capi unsafe "clang_wrappers.h wrap_getPointeeType"
   wrap_getPointeeType :: R CXType_ -> W CXType_ -> IO ()
 
@@ -1065,6 +1069,14 @@ clang_getTypedefDeclUnderlyingType :: CXCursor -> IO CXType
 clang_getTypedefDeclUnderlyingType cursor = ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getTypedefDeclUnderlyingType cursor'
+
+-- | Retrieve the integer type of an enum declaration.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0f5f950bee4e1828b51a41f0eaa951c4>
+clang_getEnumDeclIntegerType :: CXCursor -> IO CXType
+clang_getEnumDeclIntegerType cursor = ensureValidType $
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate_ $ wrap_getEnumDeclIntegerType cursor'
 
 -- | For pointer types, returns the type of the pointee.
 --

@@ -146,6 +146,7 @@ data StructField = StructField {
 
 data Enu = Enu {
       enumTag       :: Maybe CName
+    , enumType      :: Typ
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]

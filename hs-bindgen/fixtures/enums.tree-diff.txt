@@ -22,6 +22,9 @@ WrapCHeader
       DeclEnum
         Enu {
           enumTag = Just (CName "first"),
+          enumType = TypPrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -34,6 +37,8 @@ WrapCHeader
       DeclEnum
         Enu {
           enumTag = Just (CName "second"),
+          enumType = TypPrim
+            (PrimIntegral (PrimInt Signed)),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -49,6 +54,9 @@ WrapCHeader
       DeclEnum
         Enu {
           enumTag = Just (CName "same"),
+          enumType = TypPrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -61,6 +69,8 @@ WrapCHeader
       DeclEnum
         Enu {
           enumTag = Just (CName "packad"),
+          enumType = TypPrim
+            (PrimChar (Just Unsigned)),
           enumSizeof = 1,
           enumAlignment = 1,
           enumValues = [
