@@ -56,7 +56,7 @@ instance Pretty Module where
   pretty Module{..} = vsep $
       "{-# LANGUAGE NoImplicitPrelude #-}"
     : hsep ["module", string moduleName, "where"]
-    : vcat ["import qualified" <+> pretty im | im <- moduleImports]
+    : vcat (map pretty moduleImports)
     : map pretty moduleDecls
 
 {-------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ instance Pretty (SDecl BE) where
           , "where"
           ]
       : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ ppUnqual (resolve BE name) <+> char '='
+            [ ppUnqualResolvedName (resolve BE name) <+> char '='
             , nest 2 $ pretty expr
             ]
         )
@@ -127,7 +127,7 @@ instance Pretty (SExpr BE) where
     -- aggressively parenthesize so that we do not have to worry about operator
     -- fixity and precedence
     EInfix op x y -> parensWhen (prec > 0) $
-      prettyPrec 1 x <+> ppInfix (resolve BE op) <+> prettyPrec 1 y
+      prettyPrec 1 x <+> ppInfixResolvedName (resolve BE op) <+> prettyPrec 1 y
 
     ELam mPat body -> parensWhen (prec > 1) $ fsep
       [ char '\\' >< maybe "_" (pretty . getFresh) mPat <+> "->"
@@ -161,35 +161,55 @@ instance Pretty (SExpr BE) where
 instance Pretty (HsName ns) where
   pretty = string . Text.unpack . getHsName
 
+-- | Pretty-print a 'ResolvedName' in prefix notation
+--
+-- Operators are parenthesized.
 instance Pretty ResolvedName where
-  pretty ResolvedName{..} =
-    parensWhen (resolvedNameType == ResolvedNameOperator) . string $
-      case resolvedNameQualifier of
-        Just (QualifiedImport q) -> q ++ '.' : resolvedNameString
-        Nothing                  -> resolvedNameString
+  pretty n@ResolvedName{..} =
+    parensWhen (resolvedNameType == ResolvedNameOperator) $ ppResolvedName' n
 
-ppInfix :: ResolvedName -> CtxDoc
-ppInfix ResolvedName{..} =
-    bticksWhen (resolvedNameType == ResolvedNameIdentifier) . string $
-      case resolvedNameQualifier of
-        Just (QualifiedImport q) -> q ++ '.' : resolvedNameString
-        Nothing                  -> resolvedNameString
+-- | Pretty-print a 'ResolvedName'
+--
+-- This auxialary function pretty-prints without parenthesizing operators or
+-- surrounding identifiers with backticks.
+ppResolvedName' :: ResolvedName -> CtxDoc
+ppResolvedName' ResolvedName{..} = string $
+    case resolvedNameQualifier of
+      Just QualifiedImport{..} ->
+        case qualifiedImportAlias of
+          Just q  -> q ++ '.' : resolvedNameString
+          Nothing -> qualifiedImportModule ++ '.' : resolvedNameString
+      Nothing -> resolvedNameString
+
+-- | Pretty-print a 'ResolvedName' unqualified, for use in instance
+-- declarations
+ppUnqualResolvedName :: ResolvedName -> CtxDoc
+ppUnqualResolvedName ResolvedName{..} =
+    parensWhen (resolvedNameType == ResolvedNameOperator) $
+      string resolvedNameString
+
+-- | Pretty-print a 'ResolvedName' in infix notation
+--
+-- Identifiers are surrounded by backticks.
+ppInfixResolvedName :: ResolvedName -> CtxDoc
+ppInfixResolvedName n@ResolvedName{..} =
+    bticksWhen (resolvedNameType == ResolvedNameIdentifier) $ ppResolvedName' n
   where
     bticksWhen :: Bool -> CtxDoc -> CtxDoc
     bticksWhen False d = d
     bticksWhen True  d = hcat [char '`', d, char '`']
-
-ppUnqual :: ResolvedName -> CtxDoc
-ppUnqual ResolvedName{..} =
-    parensWhen (resolvedNameType == ResolvedNameOperator) $
-      string resolvedNameString
 
 {-------------------------------------------------------------------------------
   Import instance
 -------------------------------------------------------------------------------}
 
 instance Pretty QualifiedImport where
-  pretty (QualifiedImport s) = string s
+  pretty QualifiedImport{..} =
+    case qualifiedImportAlias of
+      Just q ->
+        hsep ["import qualified", string qualifiedImportModule, "as", string q]
+      Nothing ->
+        hsep ["import qualified", string qualifiedImportModule]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

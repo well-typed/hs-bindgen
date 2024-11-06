@@ -27,26 +27,27 @@ import HsBindgen.Hs.AST.Type
 -------------------------------------------------------------------------------}
 
 -- | Qualified import
---
--- All qualified imports use the full module name.
-newtype QualifiedImport = QualifiedImport String
+data QualifiedImport = QualifiedImport {
+    qualifiedImportModule :: String
+  , qualifiedImportAlias  :: Maybe String
+  }
   deriving (Eq, Ord, Show)
 
 -- | @Data.Void@ qualified import
 qiDataVoid :: QualifiedImport
-qiDataVoid = QualifiedImport "Data.Void"
+qiDataVoid = QualifiedImport "Data.Void" Nothing
 
 -- | @Foreign.C@ qualified import
 qiForeignC :: QualifiedImport
-qiForeignC = QualifiedImport "Foreign.C"
+qiForeignC = QualifiedImport "Foreign.C" $ Just "FC"
 
 -- | @Foreign@ qualified import
 qiForeign :: QualifiedImport
-qiForeign = QualifiedImport "Foreign"
+qiForeign = QualifiedImport "Foreign" $ Just "F"
 
 -- | @Prelude@ qualified import
 qiPrelude :: QualifiedImport
-qiPrelude = QualifiedImport "Prelude"
+qiPrelude = QualifiedImport "Prelude" $ Just "P"
 
 {-------------------------------------------------------------------------------
   ResolvedName
