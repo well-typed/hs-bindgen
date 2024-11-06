@@ -47,7 +47,8 @@ instance ToHs C.Decl where
   type InHs C.Decl = List Hs.Decl
   toHs (C.DeclStruct struct) = reifyStructFields struct $ structDecs struct
   toHs (C.DeclEnum e)        = enumDecs e
-  toHs _otherwise = List [] -- TODO
+  toHs (C.DeclTypedef _)     = List [] -- TODO
+  toHs (C.DeclMacro _)       = List [] -- TODO
 
 {-------------------------------------------------------------------------------
   Structs
