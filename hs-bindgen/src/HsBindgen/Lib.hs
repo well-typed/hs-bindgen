@@ -103,7 +103,7 @@ newtype CHeader = WrapCHeader {
   deriving (Eq, Generic)
 
 newtype HsModule = WrapHsModule {
-      unwrapHsModule :: Backend.PP.Module
+      unwrapHsModule :: Backend.PP.HsModule
     }
 
 {-------------------------------------------------------------------------------

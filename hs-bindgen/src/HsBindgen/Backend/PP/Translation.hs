@@ -1,11 +1,17 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module HsBindgen.Backend.PP.Translation (
-    HsModuleOpts(..)
-  , Module(..)
+    -- * ImportListItem
+    ImportListItem(..)
+    -- * HsModule
+  , HsModule(..)
+    -- * Translation
+  , HsModuleOpts(..)
   , translate
   ) where
 
+import Data.Map.Strict (Map)
+import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
@@ -16,66 +22,111 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.Translation.LowLevel
 
 {-------------------------------------------------------------------------------
-  Generate top-level module
+  ImportListItem
+-------------------------------------------------------------------------------}
+
+-- | Import list item
+data ImportListItem =
+    UnqualifiedImportListItem HsImport [ResolvedName]
+  | QualifiedImportListItem   HsImport
+  -- NOTE constructor order affects order of imports in generated code
+  deriving (Eq, Ord)
+
+{-------------------------------------------------------------------------------
+  HsModule
+-------------------------------------------------------------------------------}
+
+-- | Haskell module
+data HsModule = HsModule {
+      hsModuleName    :: String
+    , hsModuleImports :: [ImportListItem]
+    , hsModuleDecls   :: [SDecl BE]
+    }
+
+{-------------------------------------------------------------------------------
+  Translation
 -------------------------------------------------------------------------------}
 
 newtype HsModuleOpts = HsModuleOpts {
-      hsModuleName :: String
+      hsModuleOptsName :: String
     }
   deriving (Show)
 
-data Module = Module {
-      moduleName    :: String
-    , moduleImports :: [QualifiedImport]
-    , moduleDecls   :: [SDecl BE]
-    }
-
-translate :: HsModuleOpts -> C.Header -> Module
-translate opts header =
-    let moduleName = hsModuleName opts
-        (moduleDecls, _) = runM $ mapM (toBE BE) (generateDeclarations header)
-        moduleImports =
-          Set.toAscList . mconcat $ map getDeclQualifiedImports moduleDecls
-    in  Module{..}
+translate :: HsModuleOpts -> C.Header -> HsModule
+translate HsModuleOpts{..} header =
+    let hsModuleName = hsModuleOptsName
+        (hsModuleDecls, _) = runM $ mapM (toBE BE) (generateDeclarations header)
+        hsModuleImports = resolveImports hsModuleDecls
+    in  HsModule{..}
 
 {-------------------------------------------------------------------------------
-  Auxilliary: imports
+  Auxiliary: Import resolution
 -------------------------------------------------------------------------------}
 
-getDeclQualifiedImports :: SDecl BE -> Set QualifiedImport
-getDeclQualifiedImports = \case
-    DVar _name e -> getExprQualifiedImports e
+-- | Resolve imports in a list of declarations
+resolveImports :: [SDecl BE] -> [ImportListItem]
+resolveImports ds =
+    let (qs, us) = unImportAcc . mconcat $ map resolveDeclImports ds
+    in  Set.toAscList . mconcat $
+            Set.map QualifiedImportListItem qs
+          : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
+  where
+    mkUImportListItem :: HsImport -> Set ResolvedName -> ImportListItem
+    mkUImportListItem imp = UnqualifiedImportListItem imp . Set.toAscList
+
+-- | Accumulator for resolving imports
+--
+-- Both qualified imports and unqualified imports are accumulated.
+newtype ImportAcc = ImportAcc {
+      unImportAcc :: (Set HsImport, Map HsImport (Set ResolvedName))
+    }
+
+instance Semigroup ImportAcc where
+  ImportAcc (qL, uL) <> ImportAcc (qR, uR) =
+    ImportAcc (qL <> qR, Map.unionWith (<>) uL uR)
+
+instance Monoid ImportAcc where
+  mempty = ImportAcc (mempty, mempty)
+
+-- | Resolve imports in a declaration
+resolveDeclImports :: SDecl BE -> ImportAcc
+resolveDeclImports = \case
+    DVar _name e -> resolveExprImports e
     DInst Instance{..} -> mconcat $
-        getGlobalQualifiedImports instanceClass
-      : map (getGlobalQualifiedImports . fst) instanceDecs
-      ++ map (getExprQualifiedImports . snd) instanceDecs
+        resolveGlobalImports instanceClass
+      : map (resolveGlobalImports . fst) instanceDecs
+      ++ map (resolveExprImports . snd) instanceDecs
     DRecord Record{..} -> mconcat $
-      map (getTypeQualifiedImports . snd) dataFields
-    DNewtype Newtype{..} -> getTypeQualifiedImports newtypeType
+      map (resolveTypeImports . snd) dataFields
+    DNewtype Newtype{..} -> resolveTypeImports newtypeType
 
-getGlobalQualifiedImports :: Global -> Set QualifiedImport
-getGlobalQualifiedImports =
-    maybe Set.empty Set.singleton . resolvedNameQualifier . resolve BE
+-- | Resolve global imports
+resolveGlobalImports :: Global -> ImportAcc
+resolveGlobalImports g = ImportAcc $ case resolveGlobal g of
+    n@ResolvedName{..}
+      | resolvedNameQualify -> (Set.singleton resolvedNameImport, mempty)
+      | otherwise ->
+          (mempty, Map.singleton resolvedNameImport (Set.singleton n))
 
-getExprQualifiedImports :: SExpr BE -> Set QualifiedImport
-getExprQualifiedImports = \case
-    EGlobal g -> getGlobalQualifiedImports g
-    EVar _x -> Set.empty
-    ECon _n -> Set.empty
-    EInt _i -> Set.empty
-    EApp f x -> getExprQualifiedImports f <> getExprQualifiedImports x
+-- | Resolve imports in an expression
+resolveExprImports :: SExpr BE -> ImportAcc
+resolveExprImports = \case
+    EGlobal g -> resolveGlobalImports g
+    EVar _x -> mempty
+    ECon _n -> mempty
+    EInt _i -> mempty
+    EApp f x -> resolveExprImports f <> resolveExprImports x
     EInfix op x y ->
-      getGlobalQualifiedImports op
-        <> getExprQualifiedImports x
-        <> getExprQualifiedImports y
-    ELam _mPat body -> getExprQualifiedImports body
+      resolveGlobalImports op <> resolveExprImports x <> resolveExprImports y
+    ELam _mPat body -> resolveExprImports body
     ECase x ms -> mconcat $
-        getExprQualifiedImports x
-      : map (\(_, _, body) -> getExprQualifiedImports body) ms
-    EInj x -> getExprQualifiedImports x
+        resolveExprImports x
+      : map (\(_cnst, _params, body) -> resolveExprImports body) ms
+    EInj x -> resolveExprImports x
 
-getTypeQualifiedImports :: SType BE -> Set QualifiedImport
-getTypeQualifiedImports = \case
-    TGlobal g -> getGlobalQualifiedImports g
-    TCon _n -> Set.empty
-    TApp c x -> getTypeQualifiedImports c <> getTypeQualifiedImports x
+-- | Resolve imports in a type
+resolveTypeImports :: SType BE -> ImportAcc
+resolveTypeImports = \case
+    TGlobal g -> resolveGlobalImports g
+    TCon _n -> mempty
+    TApp c x -> resolveTypeImports c <> resolveTypeImports x

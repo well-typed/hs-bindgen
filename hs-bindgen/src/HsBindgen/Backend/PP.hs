@@ -1,9 +1,16 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module HsBindgen.Backend.PP (
-    -- * QualifiedImport
-    QualifiedImport(..)
+    -- * HsImport
+    HsImport(..)
+    -- * NameType
+  , NameType(..)
     -- * ResolvedName
   , ResolvedName(..)
-  , ResolvedNameType(..)
+    -- * Resolution
+  , resolveGlobal
+    -- * BackendName
+  , BackendName(..)
     -- * Backend definition
   , BE(..)
     -- * Backend monad
@@ -23,31 +30,39 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
 {-------------------------------------------------------------------------------
-  QualifiedImport
+  HsImport
 -------------------------------------------------------------------------------}
 
--- | Qualified import
-data QualifiedImport = QualifiedImport {
-    qualifiedImportModule :: String
-  , qualifiedImportAlias  :: Maybe String
-  }
+-- | An import with an optional alias
+data HsImport = HsImport {
+      hsImportModule :: String
+    , hsImportAlias  :: Maybe String
+    }
   deriving (Eq, Ord, Show)
 
--- | @Data.Void@ qualified import
-qiDataVoid :: QualifiedImport
-qiDataVoid = QualifiedImport "Data.Void" Nothing
+-- | @Data.Void@ import
+iDataVoid :: HsImport
+iDataVoid = HsImport "Data.Void" Nothing
 
--- | @Foreign.C@ qualified import
-qiForeignC :: QualifiedImport
-qiForeignC = QualifiedImport "Foreign.C" $ Just "FC"
+-- | @Foreign@ import
+iForeign :: HsImport
+iForeign = HsImport "Foreign" (Just "F")
 
--- | @Foreign@ qualified import
-qiForeign :: QualifiedImport
-qiForeign = QualifiedImport "Foreign" $ Just "F"
+-- | @Foreign.C@ import
+iForeignC :: HsImport
+iForeignC = HsImport "Foreign.C" (Just "FC")
 
--- | @Prelude@ qualified import
-qiPrelude :: QualifiedImport
-qiPrelude = QualifiedImport "Prelude" $ Just "P"
+-- | @Prelude@ import
+iPrelude :: HsImport
+iPrelude = HsImport "Prelude" (Just "P")
+
+{-------------------------------------------------------------------------------
+  NameType
+-------------------------------------------------------------------------------}
+
+-- | Name type
+data NameType = IdentifierName | OperatorName
+  deriving (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
   ResolvedName
@@ -55,40 +70,79 @@ qiPrelude = QualifiedImport "Prelude" $ Just "P"
 
 -- | Resolved name
 data ResolvedName = ResolvedName {
-      resolvedNameString :: String
-    , resolvedNameType :: !ResolvedNameType
-    , resolvedNameQualifier :: Maybe QualifiedImport
+      resolvedNameString  :: String
+    , resolvedNameImport  :: HsImport
+    , resolvedNameQualify :: Bool
+    , resolvedNameType    :: NameType
     }
-
--- | Type of resolved name
-data ResolvedNameType = ResolvedNameIdentifier | ResolvedNameOperator
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | Construct a 'ResolvedName'
---
--- This function is used for globals, which are always qualified.
-mkResolvedName :: QualifiedImport -> String -> ResolvedName
-mkResolvedName qi s = ResolvedName {
-      resolvedNameString = s
-    , resolvedNameType =
-        if all isIdentChar s
-          then ResolvedNameIdentifier
-          else ResolvedNameOperator
-    , resolvedNameQualifier = Just qi
-    }
+mkResolvedName :: Bool -> HsImport -> String -> ResolvedName
+mkResolvedName resolvedNameQualify resolvedNameImport resolvedNameString =
+    let resolvedNameType
+          | all isIdentChar resolvedNameString = IdentifierName
+          | otherwise                          = OperatorName
+    in  ResolvedName{..}
   where
     isIdentChar :: Char -> Bool
     isIdentChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
--- | Construct a unqualified identifier 'ResolvedName'
---
--- This function is used for fresh variables, which are unqualified identifiers.
-mkIdentifier :: String -> ResolvedName
-mkIdentifier s = ResolvedName {
-      resolvedNameString    = s
-    , resolvedNameType      = ResolvedNameIdentifier
-    , resolvedNameQualifier = Nothing
-    }
+{-------------------------------------------------------------------------------
+  Resolution
+-------------------------------------------------------------------------------}
+
+-- | Resolve a 'Global'
+resolveGlobal :: Global -> ResolvedName
+resolveGlobal = \case
+    -- When adding a new global that resolves to a non-qualified identifier, be
+    -- sure to reserve the name in "HsBindgen.Hs.AST.Name".
+    Unit_type            -> import_ iPrelude "()"
+    Unit_constructor     -> import_ iPrelude "()"
+    Applicative_pure     -> import_ iPrelude "pure"
+    Applicative_seq      -> import_ iPrelude "<*>"
+    Monad_return         -> import_ iPrelude "return"
+    Monad_seq            -> import_ iPrelude ">>"
+    Storable_Storable    -> importQ iForeign "Storable"
+    Storable_sizeOf      -> importQ iForeign "sizeOf"
+    Storable_alignment   -> importQ iForeign "alignment"
+    Storable_peekByteOff -> importQ iForeign "peekByteOff"
+    Storable_pokeByteOff -> importQ iForeign "pokeByteOff"
+    Storable_peek        -> importQ iForeign "peek"
+    Storable_poke        -> importQ iForeign "poke"
+    Foreign_Ptr          -> importQ iForeign "Ptr"
+    PrimType hsPrimType  -> case hsPrimType of
+      HsPrimVoid    -> import_ iDataVoid "Void"
+      HsPrimCChar   -> importQ iForeignC "CChar"
+      HsPrimCSChar  -> importQ iForeignC "CSChar"
+      HsPrimCUChar  -> importQ iForeignC "CUChar"
+      HsPrimCInt    -> importQ iForeignC "CInt"
+      HsPrimCUInt   -> importQ iForeignC "CUInt"
+      HsPrimCShort  -> importQ iForeignC "CShort"
+      HsPrimCUShort -> importQ iForeignC "CUShort"
+      HsPrimCLong   -> importQ iForeignC "CLong"
+      HsPrimCULong  -> importQ iForeignC "CULong"
+      HsPrimCLLong  -> importQ iForeignC "CLLong"
+      HsPrimCULLong -> importQ iForeignC "CULLong"
+      HsPrimCBool   -> importQ iForeignC "CBool"
+      HsPrimCFloat  -> importQ iForeignC "CFloat"
+      HsPrimCDouble -> importQ iForeignC "CDouble"
+  where
+    import_, importQ :: HsImport -> String -> ResolvedName
+    import_ = mkResolvedName False
+    importQ = mkResolvedName True
+
+{-------------------------------------------------------------------------------
+  BackendName
+-------------------------------------------------------------------------------}
+
+-- | Backend name representation
+data BackendName =
+    -- | Local (not imported) name
+    LocalBackendName NameType String
+  | -- | Resolved name
+    ResolvedBackendName ResolvedName
+  deriving (Eq, Show)
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -97,46 +151,15 @@ mkIdentifier s = ResolvedName {
 data BE = BE
 
 instance BackendRep BE where
-  type Name BE = ResolvedName
+  type Name BE = BackendName
   type Expr BE = SExpr BE
   type Decl BE = SDecl BE
   type Ty   BE = SType BE
 
-  resolve BE = \case
-    Unit_type            -> mkResolvedName qiPrelude "()"
-    Unit_constructor     -> mkResolvedName qiPrelude "()"
-    Applicative_pure     -> mkResolvedName qiPrelude "pure"
-    Applicative_seq      -> mkResolvedName qiPrelude "<*>"
-    Monad_return         -> mkResolvedName qiPrelude "return"
-    Monad_seq            -> mkResolvedName qiPrelude ">>"
-    Storable_Storable    -> mkResolvedName qiForeign "Storable"
-    Storable_sizeOf      -> mkResolvedName qiForeign "sizeOf"
-    Storable_alignment   -> mkResolvedName qiForeign "alignment"
-    Storable_peekByteOff -> mkResolvedName qiForeign "peekByteOff"
-    Storable_pokeByteOff -> mkResolvedName qiForeign "pokeByteOff"
-    Storable_peek        -> mkResolvedName qiForeign "peek"
-    Storable_poke        -> mkResolvedName qiForeign "poke"
-    Foreign_Ptr          -> mkResolvedName qiForeign "Ptr"
-    PrimType hsPrimType  -> case hsPrimType of
-      HsPrimVoid    -> mkResolvedName qiDataVoid "Void"
-      HsPrimCChar   -> mkResolvedName qiForeignC "CChar"
-      HsPrimCSChar  -> mkResolvedName qiForeignC "CSChar"
-      HsPrimCUChar  -> mkResolvedName qiForeignC "CUChar"
-      HsPrimCInt    -> mkResolvedName qiForeignC "CInt"
-      HsPrimCUInt   -> mkResolvedName qiForeignC "CUInt"
-      HsPrimCShort  -> mkResolvedName qiForeignC "CShort"
-      HsPrimCUShort -> mkResolvedName qiForeignC "CUShort"
-      HsPrimCLong   -> mkResolvedName qiForeignC "CLong"
-      HsPrimCULong  -> mkResolvedName qiForeignC "CULong"
-      HsPrimCLLong  -> mkResolvedName qiForeignC "CLLong"
-      HsPrimCULLong -> mkResolvedName qiForeignC "CULLong"
-      HsPrimCBool   -> mkResolvedName qiForeignC "CBool"
-      HsPrimCFloat  -> mkResolvedName qiForeignC "CFloat"
-      HsPrimCDouble -> mkResolvedName qiForeignC "CDouble"
-
-  mkExpr BE = id
-  mkDecl BE = id
-  mkType BE = id
+  resolve BE = ResolvedBackendName . resolveGlobal
+  mkExpr  BE = id
+  mkDecl  BE = id
+  mkType  BE = id
 
 instance Backend BE where
   newtype M BE a = Gen { unwrapGen :: ReaderT Int (State GenState) a }
@@ -147,7 +170,8 @@ instance Backend BE where
       , MonadState GenState
       )
 
-  fresh _ = \x k -> withFreshName x $ k . Fresh . mkIdentifier . Text.unpack
+  fresh _ = \x k -> withFreshName x $
+    k . Fresh . LocalBackendName IdentifierName . Text.unpack
 
 {-------------------------------------------------------------------------------
   Generation state

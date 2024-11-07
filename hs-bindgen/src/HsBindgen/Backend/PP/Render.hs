@@ -1,15 +1,17 @@
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module HsBindgen.Backend.PP.Render (
+    -- * Rendering
     HsRenderOpts(..)
   , render
   , renderIO
   ) where
 
 import Data.Default
+import Data.List qualified as List
+import Data.Maybe
 import Data.Text qualified as Text
 import System.IO
 
@@ -20,7 +22,7 @@ import HsBindgen.Backend.PP.Translation
 import HsBindgen.Hs.AST.Name
 
 {-------------------------------------------------------------------------------
-  Options
+  Rendering
 -------------------------------------------------------------------------------}
 
 -- | Rendering options
@@ -34,33 +36,44 @@ instance Default HsRenderOpts where
       hsLineLength = 80
     }
 
-{-------------------------------------------------------------------------------
-  Rendering
--------------------------------------------------------------------------------}
-
 -- | Render generated bindings
-render :: HsRenderOpts -> Module -> String
+render :: HsRenderOpts -> HsModule -> String
 render HsRenderOpts{..} = renderPretty (mkContext hsLineLength)
 
 -- | Write rendered bindings to the specified file (or @stdout@)
-renderIO :: HsRenderOpts -> Maybe FilePath -> Module -> IO ()
+renderIO :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
 renderIO opts Nothing   modl = putStrLn $ render opts modl
 renderIO opts (Just fp) modl = withFile fp WriteMode $ \h ->
     hPutStrLn h $ render opts modl
 
 {-------------------------------------------------------------------------------
-  Module instance
+  Module pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty Module where
-  pretty Module{..} = vsep $
+instance Pretty HsModule where
+  pretty HsModule{..} = vsep $
       "{-# LANGUAGE NoImplicitPrelude #-}"
-    : hsep ["module", string moduleName, "where"]
-    : vcat (map pretty moduleImports)
-    : map pretty moduleDecls
+    : hsep ["module", string hsModuleName, "where"]
+    : vcat (map pretty hsModuleImports)
+    : map pretty hsModuleDecls
 
 {-------------------------------------------------------------------------------
-  SDecl instance
+  Import pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty ImportListItem where
+  pretty = \case
+    UnqualifiedImportListItem HsImport{..} ns -> hsep
+      [ "import"
+      , string hsImportModule
+      , parens . hcat . List.intersperse ", " $ map pretty ns
+      ]
+    QualifiedImportListItem HsImport{..} -> case hsImportAlias of
+      Just q -> hsep ["import qualified", string hsImportModule, "as", string q]
+      Nothing -> hsep ["import qualified", string hsImportModule]
+
+{-------------------------------------------------------------------------------
+  Declaration pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty (SDecl BE) where
@@ -78,7 +91,7 @@ instance Pretty (SDecl BE) where
           , "where"
           ]
       : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ ppUnqualResolvedName (resolve BE name) <+> char '='
+            [ ppUnqualBackendName (resolve BE name) <+> char '='
             , nest 2 $ pretty expr
             ]
         )
@@ -97,7 +110,7 @@ instance Pretty (SDecl BE) where
             ]
 
 {-------------------------------------------------------------------------------
-  SType instance
+  Type pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty (SType BE) where
@@ -109,7 +122,7 @@ instance Pretty (SType BE) where
     TApp c x -> parensWhen (prec > 0) $ prettyPrec 1 c <+> prettyPrec 1 x
 
 {-------------------------------------------------------------------------------
-  SExpr instance
+  Expression pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty (SExpr BE) where
@@ -127,7 +140,7 @@ instance Pretty (SExpr BE) where
     -- aggressively parenthesize so that we do not have to worry about operator
     -- fixity and precedence
     EInfix op x y -> parensWhen (prec > 0) $
-      prettyPrec 1 x <+> ppInfixResolvedName (resolve BE op) <+> prettyPrec 1 y
+      prettyPrec 1 x <+> ppInfixBackendName (resolve BE op) <+> prettyPrec 1 y
 
     ELam mPat body -> parensWhen (prec > 1) $ fsep
       [ char '\\' >< maybe "_" (pretty . getFresh) mPat <+> "->"
@@ -155,61 +168,71 @@ instance Pretty (SExpr BE) where
     EInj x -> prettyPrec prec x
 
 {-------------------------------------------------------------------------------
-  Name instances
+  HsName pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty (HsName ns) where
   pretty = string . Text.unpack . getHsName
+
+{-------------------------------------------------------------------------------
+  ResolvedName pretty-printing
+-------------------------------------------------------------------------------}
 
 -- | Pretty-print a 'ResolvedName' in prefix notation
 --
 -- Operators are parenthesized.
 instance Pretty ResolvedName where
   pretty n@ResolvedName{..} =
-    parensWhen (resolvedNameType == ResolvedNameOperator) $ ppResolvedName' n
+    parensWhen (resolvedNameType == OperatorName) $ ppResolvedName n
 
 -- | Pretty-print a 'ResolvedName'
 --
 -- This auxialary function pretty-prints without parenthesizing operators or
 -- surrounding identifiers with backticks.
-ppResolvedName' :: ResolvedName -> CtxDoc
-ppResolvedName' ResolvedName{..} = string $
-    case resolvedNameQualifier of
-      Just QualifiedImport{..} ->
-        case qualifiedImportAlias of
-          Just q  -> q ++ '.' : resolvedNameString
-          Nothing -> qualifiedImportModule ++ '.' : resolvedNameString
-      Nothing -> resolvedNameString
+ppResolvedName :: ResolvedName -> CtxDoc
+ppResolvedName ResolvedName{..}
+    | resolvedNameQualify =
+        let q = fromMaybe (hsImportModule resolvedNameImport) $
+              hsImportAlias resolvedNameImport
+        in  string $ q ++ '.' : resolvedNameString
+    | otherwise = string resolvedNameString
 
--- | Pretty-print a 'ResolvedName' unqualified, for use in instance
--- declarations
-ppUnqualResolvedName :: ResolvedName -> CtxDoc
-ppUnqualResolvedName ResolvedName{..} =
-    parensWhen (resolvedNameType == ResolvedNameOperator) $
-      string resolvedNameString
+{-------------------------------------------------------------------------------
+  BackendName pretty-printing
+-------------------------------------------------------------------------------}
 
--- | Pretty-print a 'ResolvedName' in infix notation
+-- | Pretty-print a 'BackendName' in prefix notation
+--
+-- Operators are parenthesized.
+instance Pretty BackendName where
+  pretty = \case
+    LocalBackendName nameType s ->
+      parensWhen (nameType == OperatorName) $ string s
+    ResolvedBackendName n -> pretty n
+
+-- | Pretty-print a 'BackendName' unqualified
+--
+-- This is needed in instance declarations.
+ppUnqualBackendName :: BackendName -> CtxDoc
+ppUnqualBackendName = \case
+    LocalBackendName nameType s ->
+      parensWhen (nameType == OperatorName) $ string s
+    ResolvedBackendName ResolvedName{..} ->
+      parensWhen (resolvedNameType == OperatorName) $ string resolvedNameString
+
+-- | Pretty-print a 'BackendName' in infix notation
 --
 -- Identifiers are surrounded by backticks.
-ppInfixResolvedName :: ResolvedName -> CtxDoc
-ppInfixResolvedName n@ResolvedName{..} =
-    bticksWhen (resolvedNameType == ResolvedNameIdentifier) $ ppResolvedName' n
+ppInfixBackendName :: BackendName -> CtxDoc
+ppInfixBackendName = \case
+    LocalBackendName nameType s ->
+      bticksWhen (nameType == IdentifierName) $ string s
+    ResolvedBackendName n@ResolvedName{..} ->
+      bticksWhen (resolvedNameType == IdentifierName) $ ppResolvedName n
   where
     bticksWhen :: Bool -> CtxDoc -> CtxDoc
     bticksWhen False d = d
     bticksWhen True  d = hcat [char '`', d, char '`']
-
-{-------------------------------------------------------------------------------
-  Import instance
--------------------------------------------------------------------------------}
-
-instance Pretty QualifiedImport where
-  pretty QualifiedImport{..} =
-    case qualifiedImportAlias of
-      Just q ->
-        hsep ["import qualified", string qualifiedImportModule, "as", string q]
-      Nothing ->
-        hsep ["import qualified", string qualifiedImportModule]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

@@ -389,8 +389,10 @@ varReservedNames =
     , "of"
     , "pattern"
     , "proc"
+    , "pure" -- reserved by us
     , "qualified"
     , "rec"
+    , "return" -- reserved by us
     , "static"
     , "then"
     , "type"
