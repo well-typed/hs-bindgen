@@ -29,8 +29,22 @@ import HsBindgen.Translation.LowLevel
 data ImportListItem =
     UnqualifiedImportListItem HsImport [ResolvedName]
   | QualifiedImportListItem   HsImport
-  -- NOTE constructor order affects order of imports in generated code
-  deriving (Eq, Ord)
+  deriving stock (Eq)
+
+instance Ord ImportListItem where
+  compare l r = case l of
+    UnqualifiedImportListItem iL nsL -> case r of
+      UnqualifiedImportListItem iR nsR -> case compare iL iR of
+        EQ -> compare nsL nsR
+        o  -> o
+      QualifiedImportListItem iR -> case compare iL iR of
+        EQ -> LT
+        o  -> o
+    QualifiedImportListItem iL -> case r of
+      UnqualifiedImportListItem iR _nsR -> case compare iL iR of
+        EQ -> GT
+        o  -> o
+      QualifiedImportListItem iR -> compare iL iR
 
 {-------------------------------------------------------------------------------
   HsModule
@@ -50,7 +64,7 @@ data HsModule = HsModule {
 newtype HsModuleOpts = HsModuleOpts {
       hsModuleOptsName :: String
     }
-  deriving (Show)
+  deriving stock (Show)
 
 translate :: HsModuleOpts -> C.Header -> HsModule
 translate HsModuleOpts{..} header =
