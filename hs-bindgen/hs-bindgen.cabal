@@ -59,11 +59,11 @@ library
       HsBindgen.Hs.AST
       HsBindgen.Util.PHOAS
       HsBindgen.Backend.TH.Translation
+      HsBindgen.Backend.PP.Render
   other-modules:
       HsBindgen.Backend.Common
       HsBindgen.Backend.Common.Translation
       HsBindgen.Backend.PP
-      HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Render.Internal
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH

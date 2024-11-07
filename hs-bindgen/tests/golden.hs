@@ -5,7 +5,7 @@ module Main (main) where
 
 import Data.TreeDiff.Golden (ediffGolden1)
 import System.FilePath ((</>))
-import Test.Tasty (defaultMain, testGroup)
+import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 
 import TastyGolden (goldenTestSteps)
@@ -19,6 +19,7 @@ import TH
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
 import HsBindgen.Util.PHOAS
+import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
 main :: IO ()
 main = findPackageDirectory "hs-bindgen" >>= main'
@@ -53,6 +54,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
 #if __GLASGOW_HASKELL__ >=904
         , goldenTh packageRoot name
 #endif
+        , goldenPP name
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do
@@ -77,6 +79,30 @@ main' packageRoot = defaultMain $ testGroup "golden"
             decls = genHsDecls header
 
         return $ showClosed decls ++ "\n"
+
+    goldenPP :: TestName -> TestTree
+    goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
+        -- -<.> does weird stuff for filenames with multiple dots;
+        -- I usually simply avoid using it.
+        let fp = "examples" </> (name ++ ".h")
+            args = clangArgs packageRoot
+
+        let tracer = mkTracer report report report False
+
+        header <- parseC tracer args fp
+
+        -- TODO: PP.render should add trailing '\n' itself.
+        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule moduleOpts header) ++ "\n"
+      where
+        moduleOpts :: HsModuleOpts
+        moduleOpts = HsModuleOpts
+            { hsModuleOptsName = "Example"
+            }
+
+        renderOpts :: HsRenderOpts
+        renderOpts = HsRenderOpts
+            { hsLineLength = 120
+            }
 
 withC ::
      Tracer IO String
