@@ -38,7 +38,7 @@ module HsBindgen.Lib (
 
     -- * Translation
   , HsModuleOpts(..)
-  , HsModule -- opaque
+  , HsModule(..) -- opaque, TODO: but needed to be unwrapped by rendering functions
   , genModule
   , genTH
 
@@ -65,6 +65,7 @@ module HsBindgen.Lib (
 
   -- * All-in-one functions
   , templateHaskell
+  , preprocessor
   ) where
 
 import Data.Text (Text)
@@ -197,3 +198,20 @@ templateHaskell fp = do
     cheader <- TH.runIO $ withTranslationUnit nullTracer defaultClangArgs fp $
       parseCHeader nullTracer SelectFromMainFile
     genTH cheader
+
+
+preprocessor :: FilePath -> IO String
+preprocessor fp = do
+    cheader <- withTranslationUnit nullTracer defaultClangArgs fp $
+      parseCHeader nullTracer SelectFromMainFile
+    return $ Backend.PP.render renderOpts $ unwrapHsModule $ genModule moduleOpts cheader
+  where
+    moduleOpts :: HsModuleOpts
+    moduleOpts = HsModuleOpts
+      { hsModuleOptsName = "Example"
+      }
+
+    renderOpts :: HsRenderOpts
+    renderOpts = HsRenderOpts
+      { hsLineLength = 120
+      }
