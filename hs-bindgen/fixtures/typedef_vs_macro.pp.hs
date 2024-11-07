@@ -6,6 +6,14 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
 
+newtype CM1 = MkCM1
+  { unCM1 :: FC.CInt
+  }
+
+newtype CM2 = MkCM2
+  { unCM2 :: FC.CChar
+  }
+
 newtype CT1 = MkCT1
   { unCT1 :: FC.CInt
   }
