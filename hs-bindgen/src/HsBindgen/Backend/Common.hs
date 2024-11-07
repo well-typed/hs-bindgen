@@ -52,6 +52,7 @@ data Global =
   | Foreign_Ptr
 
   | PrimType HsPrimType
+  deriving stock (Eq)
 
 -- | Simple expressions
 data SExpr be =
