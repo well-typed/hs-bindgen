@@ -137,10 +137,17 @@ instance Pretty (SExpr BE) where
 
     EApp f x -> parensWhen (prec > 3) $ prettyPrec 3 f <+> prettyPrec 4 x
 
-    -- aggressively parenthesize so that we do not have to worry about operator
-    -- fixity and precedence
-    EInfix op x y -> parensWhen (prec > 0) $
-      prettyPrec 1 x <+> ppInfixBackendName (resolve BE op) <+> prettyPrec 1 y
+    e@(EInfix op x y) -> case (prec, getInfixSpecialCase e) of
+      -- Handle special cases only at precedence 0.
+      (0, Just ds) -> vcat ds
+      -- Sub-expressions are aggresively parenthesized so that we do not have to
+      -- worry about operator fixity/precedence.
+      _otherwise ->
+        parens $ hsep
+          [ prettyPrec 1 x
+          , ppInfixBackendName (resolve BE op)
+          , prettyPrec 1 y
+          ]
 
     ELam mPat body -> parensWhen (prec > 1) $ fsep
       [ char '\\' >< maybe "_" (pretty . getFresh) mPat <+> "->"
@@ -166,6 +173,48 @@ instance Pretty (SExpr BE) where
                       ++ [nest 4 (pretty body)]
 
     EInj x -> prettyPrec prec x
+
+getInfixSpecialCase :: SExpr BE -> Maybe [CtxDoc]
+getInfixSpecialCase = \case
+    EInfix op x y ->
+      let opDoc = ppInfixBackendName $ resolve BE op
+      in  case op of
+            Applicative_seq -> auxl op opDoc [opDoc <+> prettyPrec 1 y] x
+            Monad_seq       -> auxr op opDoc [sp opDoc <+> prettyPrec 1 x] y
+            _otherwise      -> Nothing
+    _otherwise -> Nothing
+  where
+    -- | Handle left-associative special cases
+    auxl ::
+         Global   -- ^ operator
+      -> CtxDoc   -- ^ operator document
+      -> [CtxDoc] -- ^ accumulated lines
+      -> SExpr BE -- ^ left expression
+      -> Maybe [CtxDoc]
+    auxl op opDoc acc = \case
+      EInfix op' x y
+        | op' == op -> auxl op opDoc (opDoc <+> prettyPrec 1 y : acc) x
+        | otherwise -> Nothing
+      e -> Just $ sp opDoc <+> prettyPrec 1 e : acc
+
+    -- | Handle right-associative special cases
+    auxr ::
+         Global   -- ^ operator
+      -> CtxDoc   -- ^ operator document
+      -> [CtxDoc] -- ^ accumulated lines in reverse order
+      -> SExpr BE -- ^ right expression
+      -> Maybe [CtxDoc]
+    auxr op opDoc acc = \case
+      EInfix op' x y
+        | op' == op -> auxr op opDoc (opDoc <+> prettyPrec 1 x : acc) y
+        | otherwise -> Nothing
+      e -> Just . reverse $ opDoc <+> prettyPrec 1 e : acc
+
+    -- | Create document of spaces that has same width as passed document
+    sp :: CtxDoc -> CtxDoc
+    sp =
+      -- TODO compute column width, do not just count chars with length
+      string . flip List.replicate ' ' . length . renderCtxDoc defaultContext
 
 {-------------------------------------------------------------------------------
   HsName pretty-printing
