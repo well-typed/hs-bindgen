@@ -1,9 +1,17 @@
 /**
  * Distillation of some test cases from a proprietary C library
- *
- * TODO: This will need some adjustments before it can compile, it's just
- * an illustration of required features for now.
  */
+
+/* amendmends */
+#include <stdint.h>
+#include <stdbool.h>
+typedef struct { int foo; char bar; } another_typedef_struct_t;
+typedef enum { FOO, BAR } another_typedef_enum_e;
+#define A 5
+#define B 3
+#define SOME_DEFINED_CONSTANT 4
+typedef int a_type_t;
+typedef int var_t;
 
 #ifdef __GNUC__
 #define PACK_START     _Pragma("pack(1)")
@@ -31,7 +39,7 @@ typedef struct a_typedef_struct
     uint32_t                  field_3;    /* field 3 comment */
     another_typedef_struct_t  field_4;    /* struct field */
     another_typedef_struct_t *field_5;    /* struct pointer */
-    void                     *field_6;    /* void pointer
+    void                     *field_6;    /* void pointer */
     uint32_t                  field_7[7]; /* an array field */
     another_typedef_enum_e    field_8;    /* an enum field */
     another_typedef_enum_e    field_9[SOME_DEFINED_CONSTANT]; /* an enum array field */
