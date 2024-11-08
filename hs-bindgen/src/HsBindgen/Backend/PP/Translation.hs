@@ -32,6 +32,7 @@ data ImportListItem =
   deriving stock (Eq)
 
 instance Ord ImportListItem where
+  compare :: ImportListItem -> ImportListItem -> Ordering
   compare l r = case l of
     UnqualifiedImportListItem iL nsL -> case r of
       UnqualifiedImportListItem iR nsR -> case compare iL iR of
@@ -113,6 +114,7 @@ resolveDeclImports = \case
     DRecord Record{..} -> mconcat $
       map (resolveTypeImports . snd) dataFields
     DNewtype Newtype{..} -> resolveTypeImports newtypeType
+    DDerivingNewtypeInstance ty -> resolveTypeImports ty
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc

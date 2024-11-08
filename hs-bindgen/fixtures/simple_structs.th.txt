@@ -16,6 +16,7 @@ instance Storable CS2
                                          cS2_b_4
                                          cS2_c_5 -> pokeByteOff x_1 0 cS2_a_3 >> (pokeByteOff x_1 32 cS2_b_4 >> pokeByteOff x_1 64 cS2_c_5)}}
 newtype CS2T = MkCS2T {unCS2T :: Void}
+deriving newtype instance Storable CS2T
 data CX = MkCX {cX_a :: CChar}
 instance Storable CX
     where {sizeOf = \_ -> 1;
@@ -24,6 +25,7 @@ instance Storable CX
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCX cX_a_3 -> pokeByteOff x_1 0 cX_a_3}}
 newtype CS3T = MkCS3T {unCS3T :: Void}
+deriving newtype instance Storable CS3T
 data CS4
     = MkCS4 {cS4_b :: CChar, cS4_a :: CInt, cS4_c :: (Ptr CInt)}
 instance Storable CS4

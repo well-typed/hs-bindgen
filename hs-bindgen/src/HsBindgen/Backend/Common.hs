@@ -72,6 +72,7 @@ data SDecl be =
   | DInst (Instance be)
   | DRecord (Record be)
   | DNewtype (Newtype be)
+  | DDerivingNewtypeInstance (SType be)
 
 -- | Simple types
 data SType be =

@@ -172,19 +172,20 @@ enumDecs e = List [
 typedefDecs :: C.Typedef -> List Hs.Decl f
 typedefDecs d = List [
       Hs.DeclNewtype newtype_
-    -- TODO: Storable instance. Should it be newtype derived?
+    , Hs.DeclNewtypeInstance Hs.Storable newtypeName
     ]
   where
+    cName              = C.typedefName d
+    nm@NameMangler{..} = defaultNameMangler
+    typeConstrCtx      = TypeConstrContext cName
+    newtypeName        = mangleTypeConstrName typeConstrCtx
+
     newtype_ :: Hs.Newtype
-    newtype_ =
-      let cName = C.typedefName d
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cName
-          newtypeName = mangleTypeConstrName typeConstrCtx
-          newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-          newtypeType    = typ nm (C.typedefType d)
-      in Hs.Newtype {..}
+    newtype_ = Hs.Newtype {..}
+      where
+        newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+        newtypeField  = mangleVarName $ EnumVarContext typeConstrCtx
+        newtypeType   = typ nm (C.typedefType d)
 
 {-------------------------------------------------------------------------------
   Macros

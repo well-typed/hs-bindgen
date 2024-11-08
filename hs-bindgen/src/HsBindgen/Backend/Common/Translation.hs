@@ -46,6 +46,7 @@ instance Backend be => ToBE be Hs.Decl where
   toBE be (Hs.DeclData d) = mkDecl be <$> toBE be d
   toBE be (Hs.DeclNewtype n) = mkDecl be <$> return (newtypeToBE be n)
   toBE be (Hs.DeclInstance i) = inst be <$> toBE be i
+  toBE be (Hs.DeclNewtypeInstance tc c) = mkDecl be <$> return (newtypeInstance be tc c)
 
 instance Backend be => ToBE be Hs.InstanceDecl where
   type Rep be Hs.InstanceDecl = Instance be
@@ -72,6 +73,12 @@ newtypeToBE _ n =
     , newtypeField = Hs.newtypeField n
     , newtypeType  = typeToBE (Hs.newtypeType n)
     }
+
+newtypeInstance :: be -> Hs.TypeClass -> HsName NsTypeConstr -> SDecl be
+newtypeInstance be tc n = DDerivingNewtypeInstance $ TApp (typeclass be tc) (TCon n)
+
+typeclass :: be -> Hs.TypeClass -> SType be
+typeclass _ Hs.Storable = TGlobal Storable_Storable
 
 {-------------------------------------------------------------------------------
   Types

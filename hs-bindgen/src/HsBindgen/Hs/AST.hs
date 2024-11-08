@@ -30,6 +30,8 @@ module HsBindgen.Hs.AST (
   , Decl(..)
   , InstanceDecl(..)
   , DataDecl(..)
+    -- ** Newtype instances
+  , TypeClass (..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -100,8 +102,14 @@ data Decl f =
     DeclData (WithStruct DataDecl f)
   | DeclNewtype Newtype
   | DeclInstance (InstanceDecl f)
+  | DeclNewtypeInstance TypeClass (HsName NsTypeConstr)
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+-- | Class instance names
+data TypeClass =
+    Storable
+  deriving stock (Show)
 
 -- | Class instance declaration
 type InstanceDecl :: PHOAS
@@ -221,4 +229,7 @@ instance
       . showOpen u appPrec1 a
 
 instance ShowOpen Newtype where
+    showOpen _ = showsPrec
+
+instance ShowOpen TypeClass where
     showOpen _ = showsPrec
