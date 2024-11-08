@@ -3,7 +3,16 @@
 module Example where
 
 import qualified Foreign as F
+import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
+
+newtype CT1 = MkCT1
+  { unCT1 :: FC.CInt
+  }
+
+newtype CT2 = MkCT2
+  { unCT2 :: FC.CChar
+  }
 
 data CExampleStruct = MkCExampleStruct
   { cExampleStruct_t1 :: CT1
