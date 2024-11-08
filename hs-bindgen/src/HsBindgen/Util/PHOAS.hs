@@ -44,7 +44,16 @@ newtype List a f = List { getList :: [a f] }
   deriving stock (GHC.Generic)
   deriving anyclass (Generic, HasDatatypeInfo)
 
-deriving anyclass instance ShowOpen (a Unique) => ShowOpen (List a Unique)
+instance ShowOpen (a f) => ShowOpen (List a f) where
+  showOpen u _ (List l) = showListWith (showOpen u 0) l
+
+-- | Like Text.Show.showListWith, but also inserts \n between elements
+showListWith :: (a -> ShowS) ->  [a] -> ShowS
+showListWith _     []     s = "[]" ++ s
+showListWith showx (x:xs) s = '[' : showx x (showl xs)
+  where
+    showl []     = '\n' : ']' : s
+    showl (y:ys) = '\n' : ',' : showx y (showl ys)
 
 {-------------------------------------------------------------------------------
   Showing PHOAS types
