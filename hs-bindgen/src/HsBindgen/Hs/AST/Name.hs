@@ -28,15 +28,23 @@ module HsBindgen.Hs.AST.Name (
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
-  , varReservedNames
-  , typeVarReservedNames
   , handleModuleNameParent
-    -- ** Defaults
+    -- ** Reserved Names
+    -- $ReservedNames
+  , haskellKeywords
+  , ghcExtensionKeywords
+  , hsBindgenReservedTypeNames
+  , hsBindgenReservedVarNames
+  , sanityReservedTypeNames
+  , sanityReservedVarNames
+    -- ** Default Name Manglers
   , defaultNameMangler
   , haskellNameMangler
   ) where
 
 import Data.Char qualified as Char
+import Data.Set (Set)
+import Data.Set qualified as Set
 import Data.String
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -339,73 +347,18 @@ joinWithCamelCase = \case
 handleReservedNone :: HsName ns -> HsName ns
 handleReservedNone = id
 
--- | If a name is in a list of reserved names, transform it
+-- | If a name is in a set of reserved names, transform it
 --
 -- The transformation function must return a valid Haskell name.  One
 -- transformation function is provided in this module: 'appendSingleQuote'.
---
--- For example, 'varReservedNames' and 'typeVarReservedNames' may be used to
--- avoid using reserved names for variables and type variables, respectively.
-handleReservedNames :: (Text -> Text) -> [Text] -> HsName ns -> HsName ns
+handleReservedNames :: (Text -> Text) -> Set Text -> HsName ns -> HsName ns
 handleReservedNames f reserved name@(HsName t)
-    | t `elem` reserved = HsName $ f t
-    | otherwise         = name
+    | t `Set.member` reserved = HsName $ f t
+    | otherwise               = name
 
 -- | Append a single quote (@'@) to a name
 appendSingleQuote :: Text -> Text
 appendSingleQuote = (<> "'")
-
--- | Reserved names in the Haskell variable namespace
---
--- Reference:
---
--- * [Keywords](https://wiki.haskell.org/Keywords)
--- * [Stolen Syntax](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/stolen_syntax.html)
-varReservedNames :: [Text]
-varReservedNames =
-    [ "as"
-    , "case"
-    , "class"
-    , "data"
-    , "default"
-    , "deriving"
-    , "do"
-    , "else"
-    , "family"
-    , "forall"
-    , "foreign"
-    , "hiding"
-    , "if"
-    , "import"
-    , "in"
-    , "infix"
-    , "infixl"
-    , "infixr"
-    , "instance"
-    , "let"
-    , "mdo"
-    , "module"
-    , "newtype"
-    , "of"
-    , "pattern"
-    , "proc"
-    , "pure" -- reserved by us
-    , "qualified"
-    , "rec"
-    , "return" -- reserved by us
-    , "static"
-    , "then"
-    , "type"
-    , "where"
-    ]
-
--- | Reserved names in the Haskell type variable namespace
---
--- Reference:
---
--- * [`role`](https://gitlab.haskell.org/ghc/ghc/-/issues/18941)
-typeVarReservedNames :: [Text]
-typeVarReservedNames = "role" : varReservedNames
 
 -- | Prepend the parent module name, joining using a @.@, if one is provided in
 -- the context
@@ -417,6 +370,157 @@ handleModuleNameParent ModuleNameContext{..} name =
     case ctxModuleNameParentName of
       Just parentName -> HsName $ getHsName parentName <> "." <> getHsName name
       Nothing         -> name
+
+{-------------------------------------------------------------------------------
+  Reserved Names
+-------------------------------------------------------------------------------}
+
+{- $ReservedNames
+
+This module defines various sets of reserved names that are used by the default
+name manglers.
+
+Users who create their own name manglers must consider the names that may be
+created.  For example, the default name manglers prefix types with @C@, so name
+@CInt@ is reserved to avoid confusion if C code defines an @Int@ type, while
+name @Int@ does not need to be reserved because the default name manglers will
+never create that name.  These sets are exported for convenience, but it is the
+responsibility of users who create their own name manglers to reserve names to
+work with the implementation of their name manglers.
+
+-}
+
+-- | Haskell keywords
+--
+-- * [Source](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L781-805)
+haskellKeywords :: [Text]
+haskellKeywords =
+    [ "as"
+    , "case"
+    , "class"
+    , "data"
+    , "default"
+    , "deriving"
+    , "do"
+    , "else"
+    , "hiding"
+    , "foreign"
+    , "if"
+    , "import"
+    , "in"
+    , "infix"
+    , "infixl"
+    , "infixr"
+    , "instance"
+    , "let"
+    , "module"
+    , "newtype"
+    , "of"
+    , "qualified"
+    , "then"
+    , "type"
+    , "where"
+    ]
+
+-- | GHC extension keywords
+--
+-- * [Source](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L807-829)
+-- * [Arrow notation](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L964-966)
+-- * [cases](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L871)
+-- * [role](https://gitlab.haskell.org/ghc/ghc/-/issues/18941)
+ghcExtensionKeywords :: [Text]
+ghcExtensionKeywords =
+    [ "anyclass"
+    , "by"
+    , "capi"
+    , "cases"
+    , "ccall"
+    , "dynamic"
+    , "export"
+    , "family"
+    , "forall"
+    , "group"
+    , "interruptible"
+    , "javascript"
+    , "label"
+    , "mdo"
+    , "pattern"
+    , "prim"
+    , "proc"
+    , "rec"
+    , "role"
+    , "safe"
+    , "static"
+    , "stdcall"
+    , "stock"
+    , "unsafe"
+    , "using"
+    , "via"
+    ]
+
+-- | Names in the type namespace that @hs-bindgen@ may use unqualified
+--
+-- * (None)
+hsBindgenReservedTypeNames :: [Text]
+hsBindgenReservedTypeNames =
+    [
+    ]
+
+-- | Names in the variable namespace that @hs-bindgen@ may use unqualified
+--
+-- * 'pure'
+-- * 'return'
+hsBindgenReservedVarNames :: [Text]
+hsBindgenReservedVarNames =
+    [ "pure"
+    , "return"
+    ]
+
+-- | Names in the type namespace that are reserved because using them could
+-- cause confusion
+--
+-- * "Foreign.C.Types"
+sanityReservedTypeNames :: [Text]
+sanityReservedTypeNames =
+    [ "CBool"
+    , "CChar"
+    , "CClock"
+    , "CDouble"
+    , "CFile"
+    , "CFloat"
+    , "CFpos"
+    , "CInt"
+    , "CIntMax"
+    , "CIntPtr"
+    , "CJmpBuf"
+    , "CLLong"
+    , "CLong"
+    , "CPtrdiff"
+    , "CSChar"
+    , "CSUSeconds"
+    , "CShort"
+    , "CSigAtomic"
+    , "CSize"
+    , "CTime"
+    , "CUChar"
+    , "CUInt"
+    , "CUIntMax"
+    , "CUIntPtr"
+    , "CULLong"
+    , "CULong"
+    , "CUSeconds"
+    , "CUShort"
+    , "CWchar"
+    ]
+
+-- | Names in the variable namespace that are reserved because using them could
+-- cause confusion
+--
+-- * (None)
+sanityReservedVarNames :: [Text]
+sanityReservedVarNames =
+    [
+    ]
 
 {-------------------------------------------------------------------------------
   Default Name Manglers
@@ -442,6 +546,15 @@ handleModuleNameParent ModuleNameContext{..} name =
 defaultNameMangler :: NameMangler
 defaultNameMangler = NameMangler{..}
   where
+    reservedTypeNames, reservedVarNames :: Set Text
+    reservedTypeNames = Set.fromList $
+      hsBindgenReservedTypeNames ++ sanityReservedTypeNames
+    reservedVarNames = Set.fromList $
+         haskellKeywords
+      ++ ghcExtensionKeywords
+      ++ hsBindgenReservedVarNames
+      ++ sanityReservedVarNames
+
     mangleModuleName :: ModuleNameContext -> HsName NsModuleName
     mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
       translateName
@@ -470,7 +583,7 @@ defaultNameMangler = NameMangler{..}
           joinWithCamelCase
           ["C"]
           []
-          handleReservedNone
+          (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxTypeConstrCName
       AnonNamedFieldTypeConstrContext{..} ->
         translateName
@@ -490,7 +603,7 @@ defaultNameMangler = NameMangler{..}
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        (handleReservedNames appendSingleQuote typeVarReservedNames)
+        (handleReservedNames appendSingleQuote reservedVarNames)
         ctxTypeVarCName
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
@@ -505,7 +618,7 @@ defaultNameMangler = NameMangler{..}
           joinWithSnakeCase -- not used (no prefixes/suffixes)
           []
           []
-          (handleReservedNames appendSingleQuote varReservedNames)
+          (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
       EnumVarContext{..} ->
         HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
@@ -545,6 +658,15 @@ defaultNameMangler = NameMangler{..}
 haskellNameMangler :: NameMangler
 haskellNameMangler = NameMangler{..}
   where
+    reservedTypeNames, reservedVarNames :: Set Text
+    reservedTypeNames = Set.fromList $
+      hsBindgenReservedTypeNames ++ sanityReservedTypeNames
+    reservedVarNames = Set.fromList $
+         haskellKeywords
+      ++ ghcExtensionKeywords
+      ++ hsBindgenReservedVarNames
+      ++ sanityReservedVarNames
+
     mangleModuleName :: ModuleNameContext -> HsName NsModuleName
     mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
       translateName
@@ -573,7 +695,7 @@ haskellNameMangler = NameMangler{..}
           joinWithCamelCase
           ["C"]
           []
-          handleReservedNone
+          (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxTypeConstrCName
       AnonNamedFieldTypeConstrContext{..} ->
         translateName
@@ -593,7 +715,7 @@ haskellNameMangler = NameMangler{..}
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        (handleReservedNames appendSingleQuote typeVarReservedNames)
+        (handleReservedNames appendSingleQuote reservedVarNames)
         ctxTypeVarCName
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
@@ -608,7 +730,7 @@ haskellNameMangler = NameMangler{..}
           joinWithCamelCase -- not used (no prefixes/suffixes)
           []
           []
-          (handleReservedNames appendSingleQuote varReservedNames)
+          (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
       EnumVarContext{..} ->
         HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
