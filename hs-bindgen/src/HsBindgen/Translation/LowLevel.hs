@@ -11,13 +11,11 @@
 --   <https://github.com/well-typed/hs-bindgen/milestone/3>
 module HsBindgen.Translation.LowLevel (generateDeclarations) where
 
-import Data.Foldable
-import Data.Kind
-import Data.Maybe
 import Data.Type.Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
 
+import HsBindgen.Imports
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Util.PHOAS
@@ -36,7 +34,7 @@ generateDeclarations = getList . toHs
   Translation
 -------------------------------------------------------------------------------}
 
-class ToHs (a :: Type) where
+class ToHs (a :: Star) where
   type InHs a :: PHOAS
   toHs :: a -> InHs a f
 

@@ -12,12 +12,10 @@ module HsBindgen.C.Fold.Common (
   , continue
   ) where
 
-import Control.Exception
-import Control.Monad.IO.Class
-import Data.Text (Text)
-import Data.Tree
+import Data.Tree (Tree (Node))
 import GHC.Stack
 
+import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate

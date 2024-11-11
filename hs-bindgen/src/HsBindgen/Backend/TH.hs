@@ -6,7 +6,6 @@ module HsBindgen.Backend.TH (
   , runM
   ) where
 
-import Data.Kind (Type)
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
@@ -16,6 +15,7 @@ import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
+import HsBindgen.Imports
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
@@ -24,7 +24,7 @@ import HsBindgen.Util.PHOAS
   Backend definition
 -------------------------------------------------------------------------------}
 
-type BE :: (Type -> Type) -> Type
+type BE :: (Star -> Star) -> Star
 data BE q = BE
 
 instance TH.Quote q => BackendRep (BE q) where

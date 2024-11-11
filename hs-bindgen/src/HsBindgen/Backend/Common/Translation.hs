@@ -4,7 +4,6 @@
 module HsBindgen.Backend.Common.Translation (toBE) where
 
 import Data.Foldable
-import Data.Kind
 import Data.Vec.Lazy (Vec(..))
 
 import HsBindgen.Backend.Common
@@ -12,13 +11,14 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Translate to backend-specific type
 -------------------------------------------------------------------------------}
 
 class Backend be => ToBE be (a :: PHOAS) where
-  type Rep be a :: Type
+  type Rep be a :: Star
   type Rep be a = Expr be
 
   toBE :: be -> a (Fresh be) -> M be (Rep be a)

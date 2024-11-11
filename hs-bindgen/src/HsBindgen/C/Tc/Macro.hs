@@ -28,22 +28,14 @@ module HsBindgen.C.Tc.Macro
   where
 
 -- base
-import Control.Arrow
-  ( first )
-import Control.Monad
-  ( ap )
 import Control.Monad.ST
   ( ST, runST )
-import Data.Coerce
-  ( coerce )
-import Data.Foldable
-  ( toList, traverse_ )
 import Data.Kind qualified as Hs
 import Data.List
   ( intercalate, intersect )
 import Data.List.NonEmpty qualified as NE
 import Data.Maybe
-  ( fromJust, catMaybes )
+  ( fromJust )
 import Data.Monoid
   ( Any (..), Ap(..) )
 import Data.STRef
@@ -60,14 +52,8 @@ import GHC.Exts
   ( Int(I#), dataToTag# )
 
 -- containers
-import Data.IntMap.Strict
-  ( IntMap )
 import Data.IntMap.Strict qualified as IntMap
-import Data.IntSet
-  ( IntSet )
 import Data.IntSet qualified as IntSet
-import Data.Map.Strict
-  ( Map )
 import Data.Map.Strict qualified as Map
 
 -- fin
@@ -94,8 +80,6 @@ import Text.Show.Pretty
 import Text.Show.Pretty qualified as Pretty
 
 -- text
-import Data.Text
-  ( Text )
 import Data.Text qualified as Text
 
 -- vec
@@ -104,6 +88,7 @@ import Data.Vec.Lazy
 import Data.Vec.Lazy qualified as Vec
 
 -- hs-bindgen
+import HsBindgen.Imports
 import HsBindgen.C.AST.Literal
   ( IntegerLiteral(..), FloatingLiteral(..) )
 import HsBindgen.C.AST.Macro

@@ -12,11 +12,9 @@ module HsBindgen.C.Parser (
   , foldTranslationUnitWith
   ) where
 
-import Control.Exception
-import Control.Monad
 import Data.List (partition)
-import Data.Text (Text)
 
+import HsBindgen.Imports
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types

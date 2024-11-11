@@ -4,12 +4,9 @@ module HsBindgen.C.Fold.Prelude (
   , foldPrelude
   ) where
 
-import Control.Exception
-import Control.Monad.Identity
-import Control.Monad.IO.Class
-import Data.Text (Text)
 import Data.Text qualified as Text
 
+import HsBindgen.Imports
 import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types

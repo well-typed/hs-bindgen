@@ -8,12 +8,10 @@ module HsBindgen.C.Fold.DeclState (
   , containsMacroExpansion
   ) where
 
-import Data.Maybe (fromMaybe)
-import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
-import Data.Set (Set)
 import Data.Set qualified as Set
 
+import HsBindgen.Imports
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.C.AST (CName)
 import HsBindgen.C.Tc.Macro (QuantTy)
