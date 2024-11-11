@@ -7,12 +7,12 @@
 ,PokeByteOff x0 32 x2
 ,PokeByteOff x0 64 x3
 ])))})))
-,DeclNewtype (Newtype {newtypeName = "CS2T", newtypeConstr = "MkCS2T", newtypeField = "unCS2T", newtypeType = HsType "Just \"S2\""})
+,DeclNewtype (Newtype {newtypeName = "CS2T", newtypeConstr = "MkCS2T", newtypeField = "unCS2T", newtypeType = HsTypRef "CStruct'0020S2"})
 ,DeclNewtypeInstance Storable "CS2T"
 ,DeclData (WithStruct (Struct {structName = "CX", structConstr = "MkCX", structFields = ("cX_a",HsPrimType HsPrimCChar) ::: VNil}) (MkDataDecl))
 ,DeclInstance (InstanceStorable (WithStruct (Struct {structName = "CX", structConstr = "MkCX", structFields = ("cX_a",HsPrimType HsPrimCChar) ::: VNil}) (StorableInstance {storableSizeOf = 1, storableAlignment = 1, storablePeek = Lambda (\x0 -> Ap (IntroStruct (Struct {structName = "CX", structConstr = "MkCX", structFields = ("cX_a",HsPrimType HsPrimCChar) ::: VNil})) [PeekByteOff x0 0]), storablePoke = Lambda (\x0 -> ElimStruct (Struct {structName = "CX", structConstr = "MkCX", structFields = ("cX_a",HsPrimType HsPrimCChar) ::: VNil}) (\(x1 ::: VNil) -> (Seq [PokeByteOff x0 0 x1
 ])))})))
-,DeclNewtype (Newtype {newtypeName = "CS3T", newtypeConstr = "MkCS3T", newtypeField = "unCS3T", newtypeType = HsType "Nothing"})
+,DeclNewtype (Newtype {newtypeName = "CS3T", newtypeConstr = "MkCS3T", newtypeField = "unCS3T", newtypeType = HsTypRef "CStruct'0020S3T"})
 ,DeclNewtypeInstance Storable "CS3T"
 ,DeclData (WithStruct (Struct {structName = "CS4", structConstr = "MkCS4", structFields = ("cS4_b",HsPrimType HsPrimCChar) ::: ("cS4_a",HsPrimType HsPrimCInt) ::: ("cS4_c",HsPtr (HsPrimType HsPrimCInt)) ::: VNil}) (MkDataDecl))
 ,DeclInstance (InstanceStorable (WithStruct (Struct {structName = "CS4", structConstr = "MkCS4", structFields = ("cS4_b",HsPrimType HsPrimCChar) ::: ("cS4_a",HsPrimType HsPrimCInt) ::: ("cS4_c",HsPtr (HsPrimType HsPrimCInt)) ::: VNil}) (StorableInstance {storableSizeOf = 16, storableAlignment = 8, storablePeek = Lambda (\x0 -> Ap (IntroStruct (Struct {structName = "CS4", structConstr = "MkCS4", structFields = ("cS4_b",HsPrimType HsPrimCChar) ::: ("cS4_a",HsPrimType HsPrimCInt) ::: ("cS4_c",HsPtr (HsPrimType HsPrimCInt)) ::: VNil})) [PeekByteOff x0 0, PeekByteOff x0 32, PeekByteOff x0 64]), storablePoke = Lambda (\x0 -> ElimStruct (Struct {structName = "CS4", structConstr = "MkCS4", structFields = ("cS4_b",HsPrimType HsPrimCChar) ::: ("cS4_a",HsPrimType HsPrimCInt) ::: ("cS4_c",HsPtr (HsPrimType HsPrimCInt)) ::: VNil}) (\(x1 ::: x2 ::: x3 ::: VNil) -> (Seq [PokeByteOff x0 0 x1

@@ -1,0 +1,4 @@
+newtype CMyint = MkCMyint {unCMyint :: CInt}
+deriving newtype instance Storable CMyint
+newtype CIntptr = MkCIntptr {unCIntptr :: (Ptr CInt)}
+deriving newtype instance Storable CIntptr

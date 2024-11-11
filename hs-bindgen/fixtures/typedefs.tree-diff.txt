@@ -1,0 +1,16 @@
+WrapCHeader
+  (Header
+    [
+      DeclTypedef
+        Typedef {
+          typedefName = CName "myint",
+          typedefType = TypPrim
+            (PrimIntegral
+              (PrimInt Signed))},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "intptr",
+          typedefType = TypPointer
+            (TypPrim
+              (PrimIntegral
+                (PrimInt Signed)))}])
