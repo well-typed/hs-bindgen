@@ -19,8 +19,7 @@
 -- If we would like to have better indentation, we should either switch to a
 -- different underlying library or write our own.
 module HsBindgen.Backend.PP.Render.Internal where
-
-import Data.String
+import HsBindgen.Imports
 import Text.PrettyPrint.HughesPJ qualified as PP
 
 {-------------------------------------------------------------------------------
@@ -95,6 +94,9 @@ class Pretty a where
   prettyPrec _prec = pretty
 
   {-# MINIMAL pretty | prettyPrec #-}
+
+instance Pretty Natural where
+  pretty = string . show
 
 -- | Render a 'Pretty' value
 renderPretty :: Pretty a => Context -> a -> String

@@ -3,6 +3,7 @@ module HsBindgen.Hs.AST.Type (
   HsType (..),
 ) where
 
+import HsBindgen.Imports
 import HsBindgen.Hs.AST.Name
 
 {-------------------------------------------------------------------------------
@@ -46,5 +47,6 @@ data HsType =
     HsType String
   | HsPrimType HsPrimType
   | HsTypRef (HsName NsTypeConstr)
+  | HsConstArray Natural HsType
   | HsPtr HsType
   deriving stock (Show)

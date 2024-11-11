@@ -46,6 +46,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
     , golden "typedef_vs_macro"
     , golden "headers"
     , golden "fixedwidth"
+    , golden "fixedarray"
     ]
   where
     golden name = testGroup name

@@ -145,4 +145,5 @@ resolveTypeImports :: SType BE -> ImportAcc
 resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
     TCon _n -> mempty
+    TLit _n -> mempty
     TApp c x -> resolveTypeImports c <> resolveTypeImports x

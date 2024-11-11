@@ -19,6 +19,7 @@ import HsBindgen.Imports
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
+import HsBindgen.ConstantArray qualified
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -48,6 +49,7 @@ instance TH.Quote q => BackendRep (BE q) where
       Storable_peek        -> 'Foreign.Storable.peek
       Storable_poke        -> 'Foreign.Storable.poke
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
+      ConstantArray        -> ''HsBindgen.ConstantArray.ConstantArray
       PrimType t           -> resolveP t
     where
       resolveP HsPrimVoid    = ''Data.Void.Void
@@ -92,6 +94,7 @@ instance TH.Quote q => BackendRep (BE q) where
   mkType be = \case
       TGlobal n -> TH.conT (resolve be n)
       TCon n    -> hsConT n
+      TLit n    -> TH.litT (TH.numTyLit (toInteger n))
       TApp f t  -> TH.appT (mkType be f) (mkType be t)
 
   mkDecl :: BE q -> SDecl (BE q) -> Decl (BE q)

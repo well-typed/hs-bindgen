@@ -85,10 +85,11 @@ typeclass _ Hs.Storable = TGlobal Storable_Storable
 -------------------------------------------------------------------------------}
 
 typeToBE :: Hs.HsType -> SType be
-typeToBE (Hs.HsPrimType t) = TGlobal (PrimType t)
-typeToBE (Hs.HsTypRef r)   = TCon r
-typeToBE (Hs.HsPtr t)      = TApp (TGlobal Foreign_Ptr) (typeToBE t)
-typeToBE _                 = TGlobal (PrimType HsPrimVoid)
+typeToBE (Hs.HsPrimType t)     = TGlobal (PrimType t)
+typeToBE (Hs.HsTypRef r)       = TCon r
+typeToBE (Hs.HsPtr t)          = TApp (TGlobal Foreign_Ptr) (typeToBE t)
+typeToBE (Hs.HsConstArray n t) = TGlobal ConstantArray `TApp` TLit n `TApp` (typeToBE t)
+typeToBE (Hs.HsType _)         = TGlobal (PrimType HsPrimVoid)
 
 {-------------------------------------------------------------------------------
   'Storable'

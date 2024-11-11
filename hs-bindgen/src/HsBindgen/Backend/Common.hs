@@ -49,6 +49,7 @@ data Global =
   | Storable_peek
   | Storable_poke
   | Foreign_Ptr
+  | ConstantArray
 
   | PrimType HsPrimType
   deriving stock (Eq)
@@ -77,6 +78,7 @@ data SDecl be =
 data SType be =
     TGlobal Global
   | TCon (HsName NsTypeConstr)
+  | TLit Natural
   | TApp (SType be) (SType be)
 
 data Instance be = Instance {

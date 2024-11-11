@@ -250,3 +250,4 @@ typ _     (C.TypPrim p)       = case p of
       C.PrimDouble             -> Hs.HsPrimType HsPrimCDouble
       C.PrimLongDouble         -> Hs.HsPrimType HsPrimCDouble -- wrong (see #247)
 typ nm (C.TypPointer t)    = Hs.HsPtr (typ nm t)
+typ nm (C.TypConstArray n ty) = Hs.HsConstArray n (typ nm ty)
