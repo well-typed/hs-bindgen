@@ -83,6 +83,7 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.C.Tc.Macro
+      HsBindgen.Imports
       HsBindgen.Pretty.Orphans
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type

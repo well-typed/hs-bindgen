@@ -14,8 +14,7 @@ module HsBindgen.Backend.Common (
   , Fresh(..)
   ) where
 
-import Data.Kind
-
+import HsBindgen.Imports
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
@@ -25,10 +24,10 @@ import HsBindgen.Util.PHOAS
 -------------------------------------------------------------------------------}
 
 class BackendRep be where
-  type Name be :: Type
-  type Expr be :: Type
-  type Decl be :: Type
-  type Ty   be :: Type
+  type Name be :: Star
+  type Expr be :: Star
+  type Decl be :: Star
+  type Ty   be :: Star -- TOOD: rename Ty to Type
 
   resolve :: be -> Global   -> Name be  -- ^ Resolve name
   mkExpr  :: be -> SExpr be -> Expr be  -- ^ Construct expression
@@ -104,7 +103,7 @@ data Newtype be = Newtype {
 -------------------------------------------------------------------------------}
 
 class (BackendRep be, Monad (M be)) => Backend be where
-  data M be :: Type -> Type
+  data M be :: Star -> Star
 
   -- | Pick fresh variable
   --

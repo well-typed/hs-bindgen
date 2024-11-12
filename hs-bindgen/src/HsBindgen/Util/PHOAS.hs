@@ -17,7 +17,6 @@ module HsBindgen.Util.PHOAS (
 
 import Data.Fin qualified as Fin
 import Data.Foldable
-import Data.Kind
 import Data.List (intersperse)
 import Data.Type.Nat
 import Data.Vec.Lazy (Vec(..))
@@ -26,11 +25,13 @@ import Generics.SOP
 import GHC.Generics qualified as GHC
 import GHC.Show
 
+import HsBindgen.Imports
+
 {-------------------------------------------------------------------------------
   Main definitions
 -------------------------------------------------------------------------------}
 
-type PHOAS = (Type -> Type) -> Type
+type PHOAS = (Star -> Star) -> Star
 
 -- | Bound name
 data Bound
@@ -65,7 +66,7 @@ newtype Unique a = Unique Int
 showUnique :: Unique a -> ShowS
 showUnique (Unique u) = showString "x" . showsPrec 0 u
 
-class ShowOpen (term :: Type) where
+class ShowOpen (term :: Star) where
   -- | Show open term
   --
   -- Precondition: all bound variables already present in the term must be

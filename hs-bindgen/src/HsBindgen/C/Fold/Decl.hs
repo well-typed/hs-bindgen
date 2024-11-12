@@ -6,9 +6,9 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
-import Data.Maybe (catMaybes)
 import GHC.Stack
 
+import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState

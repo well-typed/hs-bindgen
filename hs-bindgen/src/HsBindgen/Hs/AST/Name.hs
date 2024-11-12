@@ -43,13 +43,12 @@ module HsBindgen.Hs.AST.Name (
   ) where
 
 import Data.Char qualified as Char
-import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.String
-import Data.Text (Text)
 import Data.Text qualified as T
-import Numeric
+import Numeric (showHex)
 
+import HsBindgen.Imports
 import HsBindgen.C.AST (CName(..))
 import HsBindgen.Util.PHOAS (ShowOpen (..))
 

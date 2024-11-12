@@ -9,12 +9,11 @@ module HsBindgen.Backend.PP.Render (
   , renderIO
   ) where
 
-import Data.Default
 import Data.List qualified as List
-import Data.Maybe
 import Data.Text qualified as Text
 import System.IO
 
+import HsBindgen.Imports
 import HsBindgen.Backend.Common
 import HsBindgen.Backend.PP
 import HsBindgen.Backend.PP.Render.Internal
