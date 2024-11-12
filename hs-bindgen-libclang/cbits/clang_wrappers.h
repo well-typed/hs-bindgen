@@ -266,6 +266,14 @@ static inline void wrap_getEnumDeclIntegerType(const CXCursor* C, CXType* result
     *result = clang_getEnumDeclIntegerType(*C);
 }
 
+static inline unsigned wrap_Cursor_isBitField(const CXCursor* C) {
+    return clang_Cursor_isBitField(*C);
+}
+
+static inline int wrap_getFieldDeclBitWidth(const CXCursor* C) {
+    return clang_getFieldDeclBitWidth(*C);
+}
+
 static inline void wrap_getPointeeType(const CXType* T, CXType* result) {
     *result = clang_getPointeeType(*T);
 }
