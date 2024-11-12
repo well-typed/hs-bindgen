@@ -11,8 +11,7 @@ module HsBindgen.C.Fold.Type (
   , mkStructField
   , mkEnumHeader
   , mkEnumValue
-  , TypedefHeader(..)
-  , mkTypedefHeader
+  , mkTypedef
   ) where
 
 import Control.Monad.State
@@ -163,26 +162,13 @@ mkEnumValue current = liftIO $ do
   Typedefs
 -------------------------------------------------------------------------------}
 
-data TypedefHeader =
-    -- | Typedef around a primitive type. No further parsing required
-    TypedefPrim Typedef
-
-    -- | Typedef around an elaborated type such as a struct.
-  | TypedefElaborated (Typ -> Typedef)
-
-mkTypedefHeader :: MonadIO m => CXCursor -> m TypedefHeader
-mkTypedefHeader current = liftIO $ do
+mkTypedef :: MonadIO m => CXCursor -> m Typedef
+mkTypedef current = liftIO $ do
     typedefName <- CName <$> clang_getCursorDisplayName current
-    let mkTypedef typedefType = Typedef{typedefName, typedefType}
 
     underlyingType <- clang_getTypedefDeclUnderlyingType current
-    case fromSimpleEnum (cxtKind underlyingType) of
-      typ | Just prim <- primType typ ->
-        return $ TypedefPrim $ mkTypedef (TypPrim prim)
-      Right CXType_Elaborated -> do
-        return $ TypedefElaborated mkTypedef
-      typ ->
-        error $ "mkTypedefHeader: unexpected " ++ show typ
+    typedefType <- mkTypeUse underlyingType
+    return Typedef {typedefName,typedefType}
 
 {-------------------------------------------------------------------------------
   Primitive types

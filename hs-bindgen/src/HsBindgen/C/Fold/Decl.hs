@@ -42,12 +42,8 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         decl <- declEnum <$> mkEnumHeader current
         return $ Recurse (continue mkEnumValue) (Just . decl)
       Right CXCursor_TypedefDecl -> do
-        typedefHeader <- mkTypedefHeader current
-        case typedefHeader of
-          TypedefPrim typedef ->
-            return $ Continue $ Just $ DeclTypedef typedef
-          TypedefElaborated mkTypedef ->
-            return $ Recurse (foldTypeDecl unit) (Just . declTypedef mkTypedef)
+        typedef <- mkTypedef current
+        return $ Continue (Just (DeclTypedef typedef))
       Right CXCursor_MacroDefinition -> do
         mbMExpr <- mkMacro unit current
         macro <- case mbMExpr of
@@ -86,10 +82,6 @@ declStruct partial = DeclStruct . partial
 
 declEnum :: ([EnumValue] -> Enu) -> [Maybe EnumValue] -> Decl
 declEnum partial = DeclEnum . partial . catMaybes
-
-declTypedef :: (Typ -> Typedef) -> [Typ] -> Decl
-declTypedef partial [typ] = DeclTypedef $ partial typ
-declTypedef _       types = error $ "declTypedef: unexpected " ++ show types
 
 {-------------------------------------------------------------------------------
   Macros

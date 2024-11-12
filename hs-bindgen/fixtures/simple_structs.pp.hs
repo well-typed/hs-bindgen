@@ -2,7 +2,6 @@
 
 module Example where
 
-import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
@@ -61,7 +60,7 @@ instance F.Storable CS2 where
             >> F.pokeByteOff x0 64 cS2_c4
 
 newtype CS2T = MkCS2T
-  { unCS2T :: Void
+  { unCS2T :: CStruct'0020S2
   }
 
 deriving newtype instance F.Storable CS2T
@@ -88,7 +87,7 @@ instance F.Storable CX where
           MkCX cX_a2 -> F.pokeByteOff x0 0 cX_a2
 
 newtype CS3T = MkCS3T
-  { unCS3T :: Void
+  { unCS3T :: CStruct'0020S3T
   }
 
 deriving newtype instance F.Storable CS3T

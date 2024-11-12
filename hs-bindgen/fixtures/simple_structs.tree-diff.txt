@@ -43,28 +43,8 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
-          typedefType = TypStruct
-            Struct {
-              structTag = Just (CName "S2"),
-              structSizeof = 12,
-              structAlignment = 4,
-              structFields = [
-                StructField {
-                  fieldName = CName "a",
-                  fieldOffset = 0,
-                  fieldType = TypPrim
-                    (PrimChar Nothing)},
-                StructField {
-                  fieldName = CName "b",
-                  fieldOffset = 32,
-                  fieldType = TypPrim
-                    (PrimIntegral
-                      (PrimInt Signed))},
-                StructField {
-                  fieldName = CName "c",
-                  fieldOffset = 64,
-                  fieldType = TypPrim
-                    (PrimFloating PrimFloat)}]}},
+          typedefType = TypElaborated
+            (CName "struct S2")},
       DeclStruct
         Struct {
           structTag = Nothing,
@@ -79,17 +59,8 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "S3_t",
-          typedefType = TypStruct
-            Struct {
-              structTag = Nothing,
-              structSizeof = 1,
-              structAlignment = 1,
-              structFields = [
-                StructField {
-                  fieldName = CName "a",
-                  fieldOffset = 0,
-                  fieldType = TypPrim
-                    (PrimChar Nothing)}]}},
+          typedefType = TypElaborated
+            (CName "struct S3_t")},
       DeclStruct
         Struct {
           structTag = Just (CName "S4"),
