@@ -35,8 +35,8 @@ library
       lang
   exposed-modules:
       HsBindgen.Patterns
-  other-modules:
       HsBindgen.ConstantArray
+  other-modules:
       HsBindgen.Patterns.Backtrace
       HsBindgen.Patterns.Enum.Bitfield
       HsBindgen.Patterns.Enum.Simple

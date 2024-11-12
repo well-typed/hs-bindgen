@@ -270,6 +270,14 @@ static inline void wrap_getPointeeType(const CXType* T, CXType* result) {
     *result = clang_getPointeeType(*T);
 }
 
+static inline void wrap_getArrayElementType(const CXType* T, CXType* result) {
+    *result = clang_getArrayElementType(*T);
+}
+
+static inline long long wrap_getArraySize(const CXType* T) {
+    return clang_getArraySize(*T);
+}
+
 static inline long long wrap_Type_getSizeOf(const CXType* T) {
     return clang_Type_getSizeOf(*T);
 }

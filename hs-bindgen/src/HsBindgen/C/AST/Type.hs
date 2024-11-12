@@ -21,6 +21,7 @@ module HsBindgen.C.AST.Type (
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
 
+import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 
 {-------------------------------------------------------------------------------
@@ -31,6 +32,7 @@ data Typ =
     TypPrim PrimType
   | TypStruct Struct
   | TypPointer Typ
+  | TypConstArray Natural Typ
   | TypElaborated Symbol
   -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)

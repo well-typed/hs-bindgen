@@ -62,6 +62,11 @@ mkTypeUse = go
             ty' <- clang_getPointeeType ty
             TypPointer <$> go ty'
 
+          Right CXType_ConstantArray -> do
+            n   <- clang_getArraySize ty
+            ty' <- clang_getArrayElementType ty
+            TypConstArray (fromIntegral n) <$> go ty'
+
           Right CXType_Elaborated -> do
             name <- CName <$> clang_getTypeSpelling ty
             return $ TypElaborated name

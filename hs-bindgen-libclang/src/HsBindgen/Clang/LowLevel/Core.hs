@@ -123,6 +123,8 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_getTypedefDeclUnderlyingType
   , clang_getEnumDeclIntegerType
   , clang_getPointeeType
+  , clang_getArrayElementType
+  , clang_getArraySize
   , clang_Type_getSizeOf
   , clang_Type_getAlignOf
   , clang_Type_isTransparentTagTypedef
@@ -987,6 +989,12 @@ foreign import capi unsafe "clang_wrappers.h wrap_getEnumDeclIntegerType"
 foreign import capi unsafe "clang_wrappers.h wrap_getPointeeType"
   wrap_getPointeeType :: R CXType_ -> W CXType_ -> IO ()
 
+foreign import capi unsafe "clang_wrappers.h wrap_getArrayElementType"
+  wrap_getArrayElementType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h wrap_getArraySize"
+  wrap_getArraySize :: R CXType_ -> IO CLLong
+
 foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
   wrap_Type_getSizeOf :: R CXType_ -> IO CLLong
 
@@ -1085,6 +1093,22 @@ clang_getPointeeType :: CXType -> IO CXType
 clang_getPointeeType typ =
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getPointeeType typ'
+
+-- | Return the element type of an array type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga718591f4b07d9d4861557a3ed8b29713>
+clang_getArrayElementType :: CXType -> IO CXType
+clang_getArrayElementType typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getArrayElementType typ'
+
+-- | Return the array size of a constant array.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga91521260817054f153b5f1295056192d>
+clang_getArraySize :: HasCallStack => CXType -> IO CLLong
+clang_getArraySize typ =
+    onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
+      wrap_getArraySize typ'
 
 -- | Return the size of a type in bytes as per @C++[expr.sizeof]@ standard.
 --

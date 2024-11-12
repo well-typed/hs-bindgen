@@ -1,0 +1,11 @@
+WrapCHeader
+  (Header
+    [
+      DeclTypedef
+        Typedef {
+          typedefName = CName "triple",
+          typedefType = TypConstArray
+            3
+            (TypPrim
+              (PrimIntegral
+                (PrimInt Signed)))}])

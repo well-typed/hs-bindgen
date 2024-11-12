@@ -117,9 +117,8 @@ instance Pretty (SDecl BE) where
 instance Pretty (SType BE) where
   prettyPrec prec = \case
     TGlobal g -> pretty $ resolve BE g
-
     TCon n -> pretty n
-
+    TLit n -> pretty n
     TApp c x -> parensWhen (prec > 0) $ prettyPrec 1 c <+> prettyPrec 1 x
 
 {-------------------------------------------------------------------------------

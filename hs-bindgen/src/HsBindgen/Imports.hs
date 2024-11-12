@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
 -- | Common imports
 module HsBindgen.Imports (
     module X,
@@ -16,6 +17,7 @@ import Data.Default as X (Default (def))
 import Data.Foldable as X (Foldable (foldl', toList), traverse_)
 import Data.Maybe as X (catMaybes, mapMaybe, fromMaybe)
 import Data.String as X (IsString (fromString))
+import Numeric.Natural as X (Natural)
 
 -- types
 import Data.IntMap.Strict as X (IntMap)
@@ -28,9 +30,13 @@ import Data.Text as X (Text)
 -- without needing to add/remove imports.
 import Debug.Trace as X (traceShowId, traceShow, traceM)
 
+import Text.Show.Pretty (PrettyVal(..))
+
 -- | @Type@ is very clashy name: there's TH.Type, we may want to use Type for
 -- representation of C types, etc.
 --
 -- Let's use Star to refer to Haskell's kind.
 type Star = Data.Kind.Type
 
+instance PrettyVal Natural where
+    prettyVal = prettyVal . toInteger

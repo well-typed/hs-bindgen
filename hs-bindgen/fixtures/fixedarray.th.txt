@@ -1,0 +1,2 @@
+newtype CTriple = MkCTriple {unCTriple :: (ConstantArray 3 CInt)}
+deriving newtype instance Storable CTriple
