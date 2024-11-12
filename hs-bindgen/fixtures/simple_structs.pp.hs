@@ -18,18 +18,18 @@ instance F.Storable CS1 where
   alignment = \_ -> 4
 
   peek =
-    \x0 ->
+    \ptr0 ->
           pure MkCS1
-      <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 4
+      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 4
 
   poke =
-    \x0 ->
-      \x1 ->
-        case x1 of
+    \ptr0 ->
+      \s1 ->
+        case s1 of
           MkCS1 cS1_a2 cS1_b3 ->
-               F.pokeByteOff x0 0 cS1_a2
-            >> F.pokeByteOff x0 4 cS1_b3
+               F.pokeByteOff ptr0 0 cS1_a2
+            >> F.pokeByteOff ptr0 4 cS1_b3
 
 data CS2 = MkCS2
   { cS2_a :: FC.CChar
@@ -44,20 +44,20 @@ instance F.Storable CS2 where
   alignment = \_ -> 4
 
   peek =
-    \x0 ->
+    \ptr0 ->
           pure MkCS2
-      <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 4
-      <*> F.peekByteOff x0 8
+      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 4
+      <*> F.peekByteOff ptr0 8
 
   poke =
-    \x0 ->
-      \x1 ->
-        case x1 of
+    \ptr0 ->
+      \s1 ->
+        case s1 of
           MkCS2 cS2_a2 cS2_b3 cS2_c4 ->
-               F.pokeByteOff x0 0 cS2_a2
-            >> F.pokeByteOff x0 4 cS2_b3
-            >> F.pokeByteOff x0 8 cS2_c4
+               F.pokeByteOff ptr0 0 cS2_a2
+            >> F.pokeByteOff ptr0 4 cS2_b3
+            >> F.pokeByteOff ptr0 8 cS2_c4
 
 newtype CS2T = MkCS2T
   { unCS2T :: CStruct'0020S2
@@ -76,15 +76,15 @@ instance F.Storable CX where
   alignment = \_ -> 1
 
   peek =
-    \x0 ->
+    \ptr0 ->
           pure MkCX
-      <*> F.peekByteOff x0 0
+      <*> F.peekByteOff ptr0 0
 
   poke =
-    \x0 ->
-      \x1 ->
-        case x1 of
-          MkCX cX_a2 -> F.pokeByteOff x0 0 cX_a2
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCX cX_a2 -> F.pokeByteOff ptr0 0 cX_a2
 
 newtype CS3T = MkCS3T
   { unCS3T :: CStruct'0020S3T
@@ -105,17 +105,17 @@ instance F.Storable CS4 where
   alignment = \_ -> 8
 
   peek =
-    \x0 ->
+    \ptr0 ->
           pure MkCS4
-      <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 4
-      <*> F.peekByteOff x0 8
+      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 4
+      <*> F.peekByteOff ptr0 8
 
   poke =
-    \x0 ->
-      \x1 ->
-        case x1 of
+    \ptr0 ->
+      \s1 ->
+        case s1 of
           MkCS4 cS4_b2 cS4_a3 cS4_c4 ->
-               F.pokeByteOff x0 0 cS4_b2
-            >> F.pokeByteOff x0 4 cS4_a3
-            >> F.pokeByteOff x0 8 cS4_c4
+               F.pokeByteOff ptr0 0 cS4_b2
+            >> F.pokeByteOff ptr0 4 cS4_a3
+            >> F.pokeByteOff ptr0 8 cS4_c4

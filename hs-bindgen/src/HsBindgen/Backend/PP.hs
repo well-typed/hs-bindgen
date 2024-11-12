@@ -11,22 +11,11 @@ module HsBindgen.Backend.PP (
   , resolveGlobal
     -- * BackendName
   , BackendName(..)
-    -- * Backend definition
-  , BE(..)
-    -- * Backend monad
-  , M
-  , runM
-  , GenState(..)
   ) where
 
-import Control.Monad.Reader
-import Control.Monad.State
 import Data.Char qualified as Char
-import Data.Text (Text)
-import Data.Text qualified as Text
 
-import HsBindgen.Backend.Common
-import HsBindgen.Hs.AST.Name
+import HsBindgen.SHs.AST
 import HsBindgen.Hs.AST.Type
 
 {-------------------------------------------------------------------------------
@@ -195,53 +184,3 @@ data BackendName =
   | -- | Resolved name
     ResolvedBackendName ResolvedName
   deriving (Eq, Show)
-
-{-------------------------------------------------------------------------------
-  Backend definition
--------------------------------------------------------------------------------}
-
-data BE = BE
-
-instance BackendRep BE where
-  type Name BE = BackendName
-  type Expr BE = SExpr BE
-  type Decl BE = SDecl BE
-  type Ty   BE = SType BE
-
-  resolve BE = ResolvedBackendName . resolveGlobal
-  mkExpr  BE = id
-  mkDecl  BE = id
-  mkType  BE = id
-
-instance Backend BE where
-  newtype M BE a = Gen { unwrapGen :: ReaderT Int (State GenState) a }
-    deriving newtype (
-        Functor
-      , Applicative
-      , Monad
-      , MonadState GenState
-      )
-
-  fresh _ = \x k -> withFreshName x $
-    k . Fresh . LocalBackendName IdentifierName . Text.unpack
-
-{-------------------------------------------------------------------------------
-  Generation state
--------------------------------------------------------------------------------}
-
-data GenState = GenState
-
-initGenState :: GenState
-initGenState = GenState
-
-{-------------------------------------------------------------------------------
-  Monad functionality
--------------------------------------------------------------------------------}
-
-runM :: M BE a -> (a, GenState)
-runM = flip runState initGenState . flip runReaderT 0 . unwrapGen
-
-withFreshName :: HsName NsVar -> (Text -> M BE a) -> M BE a
-withFreshName x k = Gen $ do
-    i <- ask
-    local succ $ unwrapGen (k (getHsName x <> Text.pack (show i)))

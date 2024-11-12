@@ -15,11 +15,11 @@ import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.Backend.Common
-import HsBindgen.Backend.Common.Translation
+import HsBindgen.SHs.AST
+import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Backend.PP
 import HsBindgen.C.AST qualified as C
-import HsBindgen.Translation.LowLevel
+import HsBindgen.Hs.Translation
 
 {-------------------------------------------------------------------------------
   ImportListItem
@@ -55,7 +55,7 @@ instance Ord ImportListItem where
 data HsModule = HsModule {
       hsModuleName    :: String
     , hsModuleImports :: [ImportListItem]
-    , hsModuleDecls   :: [SDecl BE]
+    , hsModuleDecls   :: [SDecl]
     }
 
 {-------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ newtype HsModuleOpts = HsModuleOpts {
 translate :: HsModuleOpts -> C.Header -> HsModule
 translate HsModuleOpts{..} header =
     let hsModuleName = hsModuleOptsName
-        (hsModuleDecls, _) = runM $ mapM (toBE BE) (generateDeclarations header)
+        hsModuleDecls = map SHs.translateDecl (generateDeclarations header)
         hsModuleImports = resolveImports hsModuleDecls
     in  HsModule{..}
 
@@ -79,7 +79,7 @@ translate HsModuleOpts{..} header =
 -------------------------------------------------------------------------------}
 
 -- | Resolve imports in a list of declarations
-resolveImports :: [SDecl BE] -> [ImportListItem]
+resolveImports :: [SDecl] -> [ImportListItem]
 resolveImports ds =
     let (qs, us) = unImportAcc . mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
@@ -104,7 +104,7 @@ instance Monoid ImportAcc where
   mempty = ImportAcc (mempty, mempty)
 
 -- | Resolve imports in a declaration
-resolveDeclImports :: SDecl BE -> ImportAcc
+resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
     DVar _name mbTy e ->
       maybe mempty resolveTypeImports mbTy <> resolveExprImports e
@@ -126,11 +126,11 @@ resolveGlobalImports g = ImportAcc $ case resolveGlobal g of
           (mempty, Map.singleton resolvedNameImport (Set.singleton n))
 
 -- | Resolve imports in an expression
-resolveExprImports :: SExpr BE -> ImportAcc
+resolveExprImports :: SExpr ctx -> ImportAcc
 resolveExprImports = \case
     EGlobal g -> resolveGlobalImports g
-    EVar _x -> mempty
-    EFreeVar {} -> mempty
+    EBound _x -> mempty
+    EFree {} -> mempty
     ECon _n -> mempty
     EIntegral {} -> mempty
     EFloat    {} -> mempty
@@ -139,19 +139,21 @@ resolveExprImports = \case
     EInfix op x y ->
       resolveGlobalImports op <> resolveExprImports x <> resolveExprImports y
     ELam _mPat body -> resolveExprImports body
-    ECase x ms -> mconcat $
+    EUnusedLam body -> resolveExprImports body
+    ECase x alts -> mconcat $
         resolveExprImports x
-      : map (\(_cnst, _params, body) -> resolveExprImports body) ms
-    EInj x -> resolveExprImports x
+      : [ resolveExprImports body
+        | SAlt _con _add _hints body <- alts
+        ]
 
 -- | Resolve imports in a type
-resolveTypeImports :: SType BE -> ImportAcc
+resolveTypeImports :: SType ctx -> ImportAcc
 resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
     TCon _n -> mempty
     TLit _n -> mempty
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
-    TFunTy a b -> foldMap resolveTypeImports [a,b]
-    TTyVar {} -> mempty
-    TForall _qtvs ctxt body ->
+    TFun a b -> resolveTypeImports a <> resolveTypeImports b
+    TBound {} -> mempty
+    TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)

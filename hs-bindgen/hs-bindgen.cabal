@@ -41,10 +41,12 @@ common lang
       DisambiguateRecordFields
       LambdaCase
       MultiWayIf
+      PatternSynonyms
       QuantifiedConstraints
       TypeApplications
       TypeFamilies
       UndecidableInstances
+      ViewPatterns
   if impl(ghc >= 9.8)
     default-extensions:
       TypeAbstractions
@@ -62,16 +64,14 @@ library
       -- TODO: We should reconsider the proper way to export these.
       HsBindgen.C.AST
       HsBindgen.Hs.AST
-      HsBindgen.Util.PHOAS
       HsBindgen.Backend.TH.Translation
       HsBindgen.Backend.PP.Render
   other-modules:
-      HsBindgen.Backend.Common
-      HsBindgen.Backend.Common.Translation
       HsBindgen.Backend.PP
       HsBindgen.Backend.PP.Render.Internal
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH
+      HsBindgen.NameHint
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
@@ -92,10 +92,12 @@ library
       HsBindgen.Pretty.Orphans
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
-      HsBindgen.Translation.LowLevel
+      HsBindgen.Hs.Translation
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer
+      HsBindgen.SHs.AST
+      HsBindgen.SHs.Translation
   other-modules:
       -- Re-exported through HsBindgen.C.AST
       HsBindgen.C.AST.Literal
@@ -113,9 +115,9 @@ library
     , containers         >= 0.6.5.1 && < 0.8
     , contra-tracer      >= 0.2     && < 0.3
     , data-default       >= 0.8     && < 0.9
+    , debruijn           ^>=0.2
     , filepath           >= 1.4     && < 1.6
-    , fin                >= 0.3     && < 0.4
-    , generics-sop       >= 0.5     && < 0.6
+    , fin                >= 0.3.2   && < 0.4
     , mtl                >= 2.2     && < 2.4
     , parsec             >= 3.1     && < 3.2
     , pretty             >= 1.1     && < 1.2
@@ -125,6 +127,7 @@ library
     , template-haskell   >= 2.18    && < 2.23
     , text               >= 1.2     && < 2.2
     , vec                >= 0.5     && < 0.6
+    , some
 
 executable hs-bindgen
   import:         lang

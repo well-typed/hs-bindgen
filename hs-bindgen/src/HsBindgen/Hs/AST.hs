@@ -26,11 +26,9 @@ module HsBindgen.Hs.AST (
     -- * Variable binding
   , Lambda(..)
   , Ap(..)
-  , Forall(..)
     -- * Declarations
   , Decl(..)
   , InstanceDecl(..)
-  , DataDecl(..)
     -- ** Variable declarations
   , VarDecl(..)
   , SigmaType(..)
@@ -49,23 +47,21 @@ module HsBindgen.Hs.AST (
     -- ** Statements
   , Seq(..)
     -- ** Structs
-  , WithStruct(..)
-  , IntroStruct(..)
+  , StructCon (..)
   , ElimStruct(..)
+  , makeElimStruct
   ) where
-
-import Data.Nat
-import Data.Type.Nat
-import Data.Vec.Lazy (Vec(..), toList)
-import Generics.SOP qualified as SOP
-import GHC.Generics qualified as GHC
-import GHC.Show (appPrec1)
 
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as C
+import Data.Type.Nat as Nat
+
+import HsBindgen.Imports
+import HsBindgen.NameHint
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
-import HsBindgen.Util.PHOAS
+
+import DeBruijn
 
 {-------------------------------------------------------------------------------
   Information about generated code
@@ -93,37 +89,32 @@ deriving stock instance Show Newtype
 -------------------------------------------------------------------------------}
 
 -- | Lambda abstraction
-type Lambda :: PHOAS -> PHOAS
-data Lambda a f = Lambda (f Bound -> a f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type Lambda :: (Ctx -> Star) -> (Ctx -> Star)
+data Lambda t ctx = Lambda
+    NameHint  -- ^ name suggestion
+    (t (S ctx)) -- ^ body
 
--- | Forall
-type Forall :: Nat -> PHOAS -> PHOAS
-data Forall n a f = Forall (Vec n (f Bound) -> a f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+deriving instance Show (t (S ctx)) => Show (Lambda t ctx)
 
 -- | Applicative structure
-type Ap :: PHOAS -> PHOAS -> PHOAS
-data Ap a b f = Ap (b f) [a f]
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
+  deriving Show
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
 -- | Top-level declaration
-type Decl :: PHOAS
-data Decl f =
-    DeclData (WithStruct DataDecl f)
-  | DeclNewtype Newtype
-  | DeclInstance (InstanceDecl f)
-  | DeclNewtypeInstance TypeClass (HsName NsTypeConstr)
-  | DeclVar (VarDecl f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type Decl :: Star
+data Decl where
+    DeclData            :: SNatI n => Struct n -> Decl
+    DeclNewtype         :: Newtype -> Decl
+    DeclInstance        :: InstanceDecl -> Decl
+    DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
+    DeclVar             :: VarDecl -> Decl
+
+deriving instance Show Decl
 
 -- | Class instance names
 data TypeClass =
@@ -131,76 +122,77 @@ data TypeClass =
   deriving stock (Show)
 
 -- | Class instance declaration
-type InstanceDecl :: PHOAS
-data InstanceDecl f =
-    InstanceStorable (WithStruct StorableInstance f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type InstanceDecl :: Star
+data InstanceDecl where
+    InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
 
-type DataDecl :: Nat -> PHOAS
-data DataDecl n f = MkDataDecl
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+deriving instance Show InstanceDecl
 
 -- | Variable or function declaration.
-type VarDecl :: PHOAS
-data VarDecl f =
+type VarDecl :: Star
+data VarDecl =
   VarDecl
     -- | Name of variable/function.
     { varDeclName :: HsName NsVar
     -- | Type of variable/function.
-    , varDeclType :: SigmaType f
+    , varDeclType :: SigmaType
     -- | RHS of variable/function.
-    , varDeclBody :: VarDeclRHS f
+    , varDeclBody :: VarDeclRHS EmptyCtx
     }
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+  deriving Show
 
 -- | A σ-type, of the form @forall tvs. ctxt => body@.
-type SigmaType :: PHOAS
-data SigmaType f
-  = forall n. SNatI n
-  => ForallTy
-      { forallTyBinders :: Vec n (HsName NsTypeVar)
-      , forallTy :: Forall n PhiType f
+type SigmaType :: Star
+data SigmaType where
+  ForallTy ::
+      { forallTySize    :: Size n
+      , forallTyBinders :: Vec n NameHint
+      , forallTy        :: PhiType n
       }
+    -> SigmaType
+
+deriving stock instance Show SigmaType
 
 -- | A φ-type, of the form @ctxt => body@.
-type PhiType :: PHOAS
-data PhiType f
+type PhiType :: Ctx -> Star
+data PhiType ctx
   = QuantTy
-  { quantTyCts  :: [ClassTy f]
-  , quantTyBody :: TauType f
+  { quantTyCts  :: [ClassTy ctx]
+  , quantTyBody :: TauType ctx
   }
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+deriving stock instance Show (PhiType ctx)
 
 -- | A τ-type: no quantification or contexts (i.e. no @forall@, no @=>@ arrows).
-type TauType :: PHOAS
-data TauType f
-  = FunTy (TauType f) (TauType f)
-  | TyVarTy (f Bound)
-  | TyConAppTy (TyConAppTy f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type TauType :: Ctx -> Star
+data TauType ctx
+  = FunTy (TauType ctx) (TauType ctx)
+  | TyVarTy (Idx ctx)
+  | TyConAppTy (TyConAppTy ctx)
 
-data TyConAppTy f where
-  TyConApp :: C.DataTyCon n -> Vec n (TauType f) -> TyConAppTy f
+deriving stock instance Show (TauType ctx)
 
-data ClassTy f where
-  ClassTy :: C.ClassTyCon n -> Vec n (TauType f) -> ClassTy f
+data TyConAppTy ctx where
+  TyConApp :: C.DataTyCon arity -> Vec arity (TauType ctx) -> TyConAppTy ctx
+
+deriving stock instance Show (TyConAppTy ctx)
+
+data ClassTy ctx where
+  ClassTy :: C.ClassTyCon arity -> Vec arity (TauType ctx) -> ClassTy ctx
+
+deriving stock instance Show (ClassTy ctx)
 
 -- | RHS of a variable or function declaration.
-type VarDeclRHS :: PHOAS
-data VarDeclRHS f
+type VarDeclRHS :: Ctx -> Star
+data VarDeclRHS ctx
   = VarDeclIntegral Integer HsPrimType
   | VarDeclFloat Float
   | VarDeclDouble Double
-  | VarDeclLambda (HsName NsVar) (Lambda VarDeclRHS f)
-  | VarDeclApp VarDeclRHSAppHead [VarDeclRHS f]
-  | VarDeclVar (f Bound)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+  | VarDeclLambda (Lambda VarDeclRHS ctx)
+  | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
+  | VarDeclVar (Idx ctx)
+
+deriving stock instance Show (VarDeclRHS ctx)
 
 -- | The function at the head of an application in the Haskell translation
 -- of a C macro.
@@ -209,6 +201,8 @@ data VarDeclRHSAppHead
   = forall arity. InfixAppHead (C.MFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (HsName NsVar)
+
+deriving stock instance Show VarDeclRHSAppHead
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -219,189 +213,66 @@ data VarDeclRHSAppHead
 -- Currently this models storable instances for structs /only/.
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#t:Storable>
-type StorableInstance :: Nat -> PHOAS
-data StorableInstance n f where
-    StorableInstance ::
-         { storableSizeOf    :: Int
-         , storableAlignment :: Int
-         , storablePeek      :: Lambda (Ap PeekByteOff (IntroStruct n)) f
-         , storablePoke      :: Lambda (ElimStruct n (Seq PokeByteOff)) f
-         }
-      -> StorableInstance n f
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type StorableInstance :: Star
+data StorableInstance = StorableInstance
+    { storableSizeOf    :: Int
+    , storableAlignment :: Int
+    , storablePeek      :: Lambda (Ap StructCon PeekByteOff) EmptyCtx
+    , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeByteOff))) EmptyCtx
+    }
+
+deriving instance Show StorableInstance
 
 -- | Call to 'peekByteOff'
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:peekByteOff>
-type PeekByteOff :: PHOAS
-data PeekByteOff f = PeekByteOff (f Bound) Int
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type PeekByteOff :: Ctx -> Star
+data PeekByteOff ctx = PeekByteOff
+    (Idx ctx)
+    Int
+  deriving Show
 
 -- | Call to 'pokeByteOff'
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:pokeByteOff>
-type PokeByteOff :: PHOAS
-data PokeByteOff f = PokeByteOff (f Bound) Int (f Bound)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+type PokeByteOff :: Ctx -> Star
+data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
+  deriving Show
 
 {-------------------------------------------------------------------------------
   Statements
 -------------------------------------------------------------------------------}
 
 -- | Simple sequential composition (no bindings)
-type Seq :: PHOAS -> PHOAS
-newtype Seq a f = Seq (List a f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+newtype Seq t ctx = Seq [t ctx]
+  deriving Show
 
 {-------------------------------------------------------------------------------
   Structs
 -------------------------------------------------------------------------------}
 
-type WithStruct :: (Nat -> PHOAS) -> PHOAS
-data WithStruct a f where
-  WithStruct :: SNatI n => Struct n -> a n f -> WithStruct a f
+type StructCon :: Ctx -> Star
+data StructCon ctx where
+    StructCon :: Struct n -> StructCon ctx
 
--- | Construct value of a struct
-type IntroStruct :: Nat -> PHOAS
-data IntroStruct n f = IntroStruct (Struct n)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+deriving instance Show (StructCon ctx)
 
--- | Lambda-case for a struct
-type ElimStruct :: Nat -> PHOAS -> PHOAS
-data ElimStruct n a f = ElimStruct (Struct n) (Vec n (f Bound) -> a f)
-  deriving stock (GHC.Generic)
-  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+-- | Case split for a struct
+type ElimStruct :: (Ctx -> Star) -> (Ctx -> Star)
+data ElimStruct t ctx where
+    ElimStruct :: Idx ctx -> Struct n -> Add n ctx ctx' -> t ctx' -> ElimStruct t ctx
 
-{-------------------------------------------------------------------------------
-  Show instances
+deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 
-  These generate valid Haskell code.
--------------------------------------------------------------------------------}
+-- | Create 'ElimStruct' using kind-of HOAS interface.
+--
+makeElimStruct :: forall n ctx t. SNatI n => Idx ctx -> Struct n -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx') -> ElimStruct t ctx
+makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
+    ElimStruct s struct add (kont wk xs)
 
-deriving anyclass instance ShowOpen (Decl Unique)
-deriving anyclass instance SNatI n => ShowOpen (DataDecl n Unique)
-deriving anyclass instance ShowOpen (InstanceDecl Unique)
-deriving anyclass instance ShowOpen (PeekByteOff Unique)
-deriving anyclass instance ShowOpen (PokeByteOff Unique)
-
-deriving anyclass instance SNatI n => ShowOpen (IntroStruct n Unique)
-deriving anyclass instance SNatI n => ShowOpen (StorableInstance n Unique)
-
-deriving anyclass instance ShowOpen (a Unique) => ShowOpen (Lambda a Unique)
-deriving anyclass instance (SNatI n, ShowOpen (a Unique)) => ShowOpen (Forall n a Unique)
-deriving anyclass instance ShowOpen (a Unique) => ShowOpen (Seq a Unique)
-
-deriving anyclass instance
-     (ShowOpen (a Unique), ShowOpen (b Unique))
-  => ShowOpen (Ap a b Unique)
-
-deriving anyclass instance
-     (ShowOpen (a Unique), SNatI n)
-  => ShowOpen (ElimStruct n a Unique)
-
-deriving via Degenerate (Struct n) instance ShowOpen (Struct n)
-
--- Handwritten instance (generics don't play nice with existentials)
-instance
-       (forall n. SNatI n => ShowOpen (a n Unique))
-    => ShowOpen (WithStruct a Unique) where
-  showOpen u p (WithStruct struct a) = showParen (p >= appPrec1) $
-        showString "WithStruct "
-      . showOpen u appPrec1 struct
-      . showString " "
-      . showOpen u appPrec1 a
-
-instance ShowOpen Newtype where
-    showOpen _ = showsPrec
-
-instance ShowOpen TypeClass where
-    showOpen _ = showsPrec
-
-instance ShowOpen (VarDecl Unique) where
-    showOpen u p (VarDecl nm ty rhs) = showParen (p >= appPrec1) $
-        showString "VarDecl "
-      . showsPrec appPrec1 nm
-      . showString " "
-      . showOpen u appPrec1 ty
-      . showString " "
-      . showOpen u appPrec1 rhs
-
-instance ShowOpen (SigmaType Unique) where
-    showOpen u p = showParen (p >= appPrec1) . \case
-      ForallTy tvs f ->
-          showString "ForallTy "
-        . showsPrec appPrec1 tvs
-        . showString " "
-        . showOpen u appPrec1 f
-deriving anyclass instance ShowOpen (PhiType Unique)
-
-
-instance ShowOpen (TyConAppTy Unique) where
-    showOpen u p = showParen (p >= appPrec1) . \case
-      TyConApp tc args ->
-          showString "TyConApp "
-        . showsPrec appPrec1 tc
-        . showString " "
-        . showOpen u appPrec1 (toList args)
-instance ShowOpen (ClassTy Unique) where
-    showOpen u p = showParen (p >= appPrec1) . \case
-      ClassTy tc args ->
-          showString "ClassTy "
-        . showsPrec appPrec1 tc
-        . showString " "
-        . showOpen u appPrec1 (toList args)
-
-instance ShowOpen (TauType Unique) where
-    showOpen u p = showParen (p >= appPrec1) . \case
-      FunTy arg res ->
-          showString "FunTy "
-        . showOpen u appPrec1 arg
-        . showString " "
-        . showOpen u appPrec1 res
-      TyVarTy tv ->
-          showString "TyVarTy "
-        . showOpen u appPrec1 tv
-      TyConAppTy tcApp ->
-          showString "TyConAppTy "
-        . showOpen u appPrec1 tcApp
-
-instance ShowOpen (VarDeclRHS Unique) where
-    showOpen u p = showParen (p >= appPrec1) . \case
-      VarDeclIntegral i ty ->
-          showString "VarDeclIntegral "
-        . showsPrec appPrec1 i
-        . showString " "
-        . showsPrec appPrec1 ty
-      VarDeclFloat f ->
-          showString "VarDeclFloat "
-        . showsPrec appPrec1 f
-      VarDeclDouble d ->
-          showString "VarDeclDouble "
-        . showsPrec appPrec1 d
-      VarDeclLambda nm k ->
-          showString "VarDeclLambda "
-        . showsPrec appPrec1 nm
-        . showString " "
-        . showOpen u appPrec1 k
-      VarDeclApp f as ->
-          showString "VarDeclApp "
-        . showsPrec appPrec1 f
-        . showString " "
-        . showOpen u appPrec1 as
-      VarDeclVar var ->
-          showString "VarDeclVar "
-        . showOpen u appPrec1 var
-
-instance Show VarDeclRHSAppHead where
-    showsPrec p = showParen (p >= appPrec1) . \case
-      InfixAppHead mfun ->
-          showString "InfixAppHead "
-        . showsPrec appPrec1 mfun
-      VarAppHead macroNm ->
-          showString "VarApphead "
-        . showsPrec appPrec1 macroNm
+--
+-- TODO: use Data.Type.Nat.induction instead of explicit recursion.
+-- TODO: verify that we bind fields in right order.
+makeElimStruct' :: forall m ctx t. SNat m -> (forall ctx'. Add m ctx ctx' -> Wk ctx ctx' -> Vec m (Idx ctx') -> ElimStruct t ctx) -> ElimStruct t ctx
+makeElimStruct' Nat.SZ      kont = kont AZ IdWk VNil
+makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs -> kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)

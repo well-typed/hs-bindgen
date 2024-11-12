@@ -12,9 +12,9 @@ data CExampleStruct
 instance Storable CExampleStruct
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;
-           peek = \x_0 -> (((pure MkCExampleStruct <*> peekByteOff x_0 0) <*> peekByteOff x_0 4) <*> peekByteOff x_0 8) <*> peekByteOff x_0 12;
-           poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCExampleStruct cExampleStruct_t1_3
-                                                    cExampleStruct_t2_4
-                                                    cExampleStruct_m1_5
-                                                    cExampleStruct_m2_6 -> pokeByteOff x_1 0 cExampleStruct_t1_3 >> (pokeByteOff x_1 4 cExampleStruct_t2_4 >> (pokeByteOff x_1 8 cExampleStruct_m1_5 >> pokeByteOff x_1 12 cExampleStruct_m2_6))}}
+           peek = \ptr_0 -> (((pure MkCExampleStruct <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8) <*> peekByteOff ptr_0 12;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCExampleStruct cExampleStruct_t1_3
+                                                      cExampleStruct_t2_4
+                                                      cExampleStruct_m1_5
+                                                      cExampleStruct_m2_6 -> pokeByteOff ptr_1 0 cExampleStruct_t1_3 >> (pokeByteOff ptr_1 4 cExampleStruct_t2_4 >> (pokeByteOff ptr_1 8 cExampleStruct_m1_5 >> pokeByteOff ptr_1 12 cExampleStruct_m2_6))}}

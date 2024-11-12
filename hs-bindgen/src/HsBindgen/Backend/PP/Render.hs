@@ -16,13 +16,16 @@ import GHC.Float (castFloatToWord32, castDoubleToWord64)
 import System.IO
 
 import HsBindgen.Imports
-import HsBindgen.Backend.Common
+import HsBindgen.NameHint
+import HsBindgen.SHs.AST
 import HsBindgen.Backend.PP
 import HsBindgen.Backend.PP.Render.Internal
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type (HsPrimType(..))
+
+import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
 
 {-------------------------------------------------------------------------------
   Rendering
@@ -64,6 +67,9 @@ instance Pretty HsModule where
   Import pretty-printing
 -------------------------------------------------------------------------------}
 
+resolve :: Global -> BackendName
+resolve = ResolvedBackendName . resolveGlobal
+
 instance Pretty ImportListItem where
   pretty = \case
     UnqualifiedImportListItem HsImport{..} ns -> hsep
@@ -79,7 +85,7 @@ instance Pretty ImportListItem where
   Declaration pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty (SDecl BE) where
+instance Pretty SDecl where
   pretty = \case
     DVar name mbTy expr ->
       fsep
@@ -94,12 +100,12 @@ instance Pretty (SDecl BE) where
     DInst Instance{..} -> vsep $
         hsep
           [ "instance"
-          , pretty (resolve BE instanceClass)
+          , pretty (resolve instanceClass)
           , pretty instanceType
           , "where"
           ]
       : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ ppUnqualBackendName (resolve BE name) <+> char '='
+            [ ppUnqualBackendName (resolve name) <+> char '='
             , nest 2 $ pretty expr
             ]
         )
@@ -123,34 +129,40 @@ instance Pretty (SDecl BE) where
   Type pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty (SType BE) where
-  prettyPrec prec = \case
+instance ctx ~ EmptyCtx => Pretty (SType ctx) where
+  prettyPrec = prettyType EmptyEnv
 
-    TGlobal g -> pretty $ resolve BE g
+prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
+prettyType env prec = \case
+    TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
     TLit n -> pretty n
     TApp c x -> parensWhen (prec > 0) $
-      prettyPrec 1 c <+> prettyPrec 1 x
-    TFunTy a b -> parensWhen (prec > 0) $
-      prettyPrec 1 a <+> "->" <+> prettyPrec 0 b
-    TForall qtvs ctxt body -> parensWhen (null qtvs && prec > 0) $
-      (if null qtvs
-       then id
-       else ( ( string "forall" <+> hsep (map pretty qtvs) >< string ".") <+> )
-      ) $ hsep (map (\ ct -> pretty ct <+> "=> ") ctxt) >< pretty body
-    TTyVar tv -> pretty $ getFresh tv
+      prettyType env 1 c <+> prettyType env 1 x
+    TFun a b -> parensWhen (prec > 0) $
+      prettyType env 1 a <+> "->" <+> prettyType env 0 b
+    TBound x -> lookupEnv x env
+    TForall hints add ctxt body ->
+      case add of
+        AZ -> hsep (map (\ ct -> prettyType env 0 ct <+> "=> ") ctxt) >< prettyType env 0 body
+        _  -> withFreshNames env add hints $ \env' params ->
+          "forall" <+> hsep params >< "." <+>
+          hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
 
 {-------------------------------------------------------------------------------
   Expression pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty (SExpr BE) where
-  prettyPrec prec = \case
-    EGlobal g -> pretty $ resolve BE g
+instance ctx ~ EmptyCtx => Pretty (SExpr ctx) where
+  prettyPrec = prettyExpr EmptyEnv
 
-    EVar x -> pretty $ getFresh x
-    EFreeVar x -> pretty x
-    ECon n -> pretty n
+prettyExpr :: Env ctx CtxDoc -> Int -> SExpr ctx -> CtxDoc
+prettyExpr env prec = \case
+    EGlobal g -> pretty $ resolve g
+
+    EBound x -> lookupEnv x env
+    EFree x  -> pretty x
+    ECon n   -> pretty n
 
     EIntegral i _ -> showToCtxDoc i
     EFloat f
@@ -158,7 +170,7 @@ instance Pretty (SExpr BE) where
       -> showToCtxDoc f
       | otherwise
       ->
-        prettyPrec @(SExpr BE) prec $
+        prettyExpr env prec $
           EApp (EGlobal CFloat_constructor) $
             EApp (EGlobal GHC_Float_castWord32ToFloat) $
               EIntegral (toInteger $ castFloatToWord32 f) HsPrimCUInt
@@ -167,57 +179,68 @@ instance Pretty (SExpr BE) where
       -> showToCtxDoc f
       | otherwise
       ->
-        prettyPrec @(SExpr BE)  prec $
+        prettyExpr env  prec $
           EApp (EGlobal CDouble_constructor) $
             EApp (EGlobal GHC_Float_castWord64ToDouble) $
               EIntegral (toInteger $ castDoubleToWord64 f) HsPrimCULong
 
-    EApp f x -> parensWhen (prec > 3) $ prettyPrec 3 f <+> prettyPrec 4 x
+    EApp f x -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
 
-    e@(EInfix op x y) -> case (prec, getInfixSpecialCase e) of
+    e@(EInfix op x y) -> case (prec, getInfixSpecialCase env e) of
       -- Handle special cases only at precedence 0.
       (0, Just ds) -> vcat ds
       -- Sub-expressions are aggresively parenthesized so that we do not have to
       -- worry about operator fixity/precedence.
       _otherwise ->
         parens $ hsep
-          [ prettyPrec 1 x
-          , ppInfixBackendName (resolve BE op)
-          , prettyPrec 1 y
+          [ prettyExpr env 1 x
+          , ppInfixBackendName (resolve op)
+          , prettyExpr env 1 y
           ]
 
-    ELam mPat body -> parensWhen (prec > 1) $ fsep
-      [ char '\\' >< maybe "_" (pretty . getFresh) mPat <+> "->"
-      , nest 2 $ pretty body
+    ELam mPat body -> withFreshName mPat $ \x -> parensWhen (prec > 1) $ fsep
+      [ char '\\' >< x <+> "->"
+      , nest 2 $ prettyExpr (env :> x) 0 body
       ]
 
-    ECase x ms -> vparensWhen (prec > 1) $
-      if null ms
-        then hsep ["case", pretty x, "of", "{}"]
-        else hang (hsep ["case", pretty x, "of"]) 2 $
-          vcat . flip map ms $ \(cnst, params, body) ->
-            let l = hsep $
-                  pretty cnst : map (prettyPrec 3 . getFresh) params ++ ["->"]
-            in  ifFits l (fsep [l, nest 2 (pretty body)]) $
-                  case unsnoc params of
-                    Nothing -> fsep [l, nest 2 (pretty body)]
-                    Just (lParams, rParam) -> vcat $
-                        pretty cnst
-                      : [ nest 2 (prettyPrec 3 (getFresh param))
-                        | param <- lParams
-                        ]
-                      ++ [nest 2 (prettyPrec 3 (getFresh rParam) <+> "->")]
-                      ++ [nest 4 (pretty body)]
+    EUnusedLam body -> parensWhen (prec > 1) $ fsep
+      [ char '\\' >< "_" <+> "->"
+      , nest 2 $ prettyExpr env 0 body
+      ]
 
-    EInj x -> prettyPrec prec x
+    ECase x alts -> vparensWhen (prec > 1) $
+      if null alts
+        then hsep ["case", prettyExpr env 0 x, "of", "{}"]
+        else hang (hsep ["case", prettyExpr env 0 x, "of"]) 2 $ vcat
+            [ withFreshNames env add hints $ \env' params ->
 
-getInfixSpecialCase :: SExpr BE -> Maybe [CtxDoc]
-getInfixSpecialCase = \case
+                let l = hsep $ pretty cnst : params ++ ["->"]
+                in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
+                    case unsnoc params of
+                      Nothing -> fsep [l, nest 2 (prettyExpr env' 0 body)]
+                      Just (lParams, rParam) -> vcat $
+                          pretty cnst
+                        : [ nest 2 param
+                          | param <- lParams
+                          ]
+                        ++ [nest 2 (rParam <+> "->")]
+                        ++ [nest 4 (prettyExpr env' 0 body)]
+
+            | SAlt cnst add hints body <- alts
+            ]
+
+withFreshNames :: Env ctx CtxDoc -> Add n ctx ctx' -> Vec n NameHint -> (Env ctx' CtxDoc -> [CtxDoc] -> CtxDoc) -> CtxDoc
+withFreshNames env AZ     _                kont = kont env []
+withFreshNames env (AS a) (hint ::: hints) kont = withFreshName hint $ \name ->
+    withFreshNames env a hints $ \env' names -> kont (env' :> name) (name : names)
+
+getInfixSpecialCase :: forall ctx. Env ctx CtxDoc -> SExpr ctx -> Maybe [CtxDoc]
+getInfixSpecialCase env = \case
     EInfix op x y ->
-      let opDoc = ppInfixBackendName $ resolve BE op
+      let opDoc = ppInfixBackendName $ resolve op
       in  case op of
-            Applicative_seq -> auxl op opDoc [opDoc <+> prettyPrec 1 y] x
-            Monad_seq       -> auxr op opDoc [sp opDoc <+> prettyPrec 1 x] y
+            Applicative_seq -> auxl op opDoc [opDoc <+> prettyExpr env 1 y] x
+            Monad_seq       -> auxr op opDoc [sp opDoc <+> prettyExpr env 1 x] y
             _otherwise      -> Nothing
     _otherwise -> Nothing
   where
@@ -226,26 +249,26 @@ getInfixSpecialCase = \case
          Global   -- ^ operator
       -> CtxDoc   -- ^ operator document
       -> [CtxDoc] -- ^ accumulated lines
-      -> SExpr BE -- ^ left expression
+      -> SExpr ctx -- ^ left expression
       -> Maybe [CtxDoc]
     auxl op opDoc acc = \case
       EInfix op' x y
-        | op' == op -> auxl op opDoc (opDoc <+> prettyPrec 1 y : acc) x
+        | op' == op -> auxl op opDoc (opDoc <+> prettyExpr env 1 y : acc) x
         | otherwise -> Nothing
-      e -> Just $ sp opDoc <+> prettyPrec 1 e : acc
+      e -> Just $ sp opDoc <+> prettyExpr env 1 e : acc
 
     -- | Handle right-associative special cases
     auxr ::
          Global   -- ^ operator
       -> CtxDoc   -- ^ operator document
       -> [CtxDoc] -- ^ accumulated lines in reverse order
-      -> SExpr BE -- ^ right expression
+      -> SExpr ctx -- ^ right expression
       -> Maybe [CtxDoc]
     auxr op opDoc acc = \case
       EInfix op' x y
-        | op' == op -> auxr op opDoc (opDoc <+> prettyPrec 1 x : acc) y
+        | op' == op -> auxr op opDoc (opDoc <+> prettyExpr env 1 x : acc) y
         | otherwise -> Nothing
-      e -> Just . reverse $ opDoc <+> prettyPrec 1 e : acc
+      e -> Just . reverse $ opDoc <+> prettyExpr env 1 e : acc
 
     -- | Create document of spaces that has same width as passed document
     sp :: CtxDoc -> CtxDoc
