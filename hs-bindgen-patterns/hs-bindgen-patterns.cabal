@@ -23,8 +23,10 @@ common lang
   default-language:
       GHC2021
   default-extensions:
+      DataKinds
       DeriveAnyClass
       DerivingStrategies
+      RoleAnnotations
   other-extensions:
       CPP
 
@@ -34,6 +36,7 @@ library
   exposed-modules:
       HsBindgen.Patterns
   other-modules:
+      HsBindgen.ConstantArray
       HsBindgen.Patterns.Backtrace
       HsBindgen.Patterns.Enum.Bitfield
       HsBindgen.Patterns.Enum.Simple
@@ -41,3 +44,4 @@ library
       src
   build-depends:
     , pretty-show >= 1.10 && < 1.11
+    , vector ^>=0.13.2.0
