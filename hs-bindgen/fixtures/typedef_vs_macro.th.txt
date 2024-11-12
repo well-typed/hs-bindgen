@@ -1,7 +1,9 @@
 newtype CM1 = MkCM1 {unCM1 :: CInt}
 newtype CM2 = MkCM2 {unCM2 :: CChar}
 newtype CT1 = MkCT1 {unCT1 :: CInt}
+deriving newtype instance Storable CT1
 newtype CT2 = MkCT2 {unCT2 :: CChar}
+deriving newtype instance Storable CT2
 data CExampleStruct
     = MkCExampleStruct {cExampleStruct_t1 :: CT1,
                         cExampleStruct_t2 :: CT2,

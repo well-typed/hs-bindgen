@@ -43,6 +43,7 @@ import Data.Text qualified as T
 import Numeric
 
 import HsBindgen.C.AST (CName(..))
+import HsBindgen.Util.PHOAS (ShowOpen (..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -64,6 +65,9 @@ data Namespace =
 newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Show, Eq, Ord, IsString, Semigroup)
+
+instance ShowOpen (HsName ns) where
+    showOpen _ = showsPrec
 
 -- | Construct an 'HsName' in namespace @ns@
 class MkHsName (ns :: Namespace) where

@@ -18,9 +18,13 @@ newtype CT1 = MkCT1
   { unCT1 :: FC.CInt
   }
 
+deriving newtype instance F.Storable CT1
+
 newtype CT2 = MkCT2
   { unCT2 :: FC.CChar
   }
+
+deriving newtype instance F.Storable CT2
 
 data CExampleStruct = MkCExampleStruct
   { cExampleStruct_t1 :: CT1

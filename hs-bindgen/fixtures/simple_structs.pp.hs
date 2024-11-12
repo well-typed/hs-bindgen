@@ -64,6 +64,8 @@ newtype CS2T = MkCS2T
   { unCS2T :: Void
   }
 
+deriving newtype instance F.Storable CS2T
+
 data CX = MkCX
   { cX_a :: FC.CChar
   }
@@ -88,6 +90,8 @@ instance F.Storable CX where
 newtype CS3T = MkCS3T
   { unCS3T :: Void
   }
+
+deriving newtype instance F.Storable CS3T
 
 data CS4 = MkCS4
   { cS4_b :: FC.CChar

@@ -109,6 +109,8 @@ instance Pretty (SDecl BE) where
             [ hsep [pretty newtypeField, "::", pretty newtypeType]
             ]
 
+    DDerivingNewtypeInstance t -> "deriving newtype instance" <+> pretty t
+
 {-------------------------------------------------------------------------------
   Type pretty-printing
 -------------------------------------------------------------------------------}

@@ -117,11 +117,12 @@ instance TH.Quote q => BackendRep (BE q) where
         let field :: q TH.VarBangType
             field = TH.varBangType (hsNameToTH (newtypeField n)) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be (newtypeType n))
         in TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
+
+      DDerivingNewtypeInstance ty ->
+          TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType be ty)
     where
       simpleDecl :: TH.Name -> SExpr (BE q) -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr be f) []
-
-
 
 instance TH.Quote q => Backend (BE q) where
   newtype M (BE q) a = Gen { unwrapGen :: q a }
