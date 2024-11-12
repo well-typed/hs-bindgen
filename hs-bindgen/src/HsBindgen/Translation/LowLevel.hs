@@ -15,7 +15,7 @@ import Data.Foldable
 import Data.Kind
 import Data.Maybe
 import Data.Type.Nat
-import Data.Vec.Lazy (Vec)
+import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.C.AST qualified as C
@@ -23,6 +23,7 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Util.PHOAS
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.C.Tc.Macro qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -48,7 +49,7 @@ instance ToHs C.Decl where
   toHs (C.DeclStruct struct) = reifyStructFields struct $ structDecs struct
   toHs (C.DeclEnum e)        = enumDecs e
   toHs (C.DeclTypedef d)     = typedefDecs d
-  toHs (C.DeclMacro _)       = List [] -- TODO
+  toHs (C.DeclMacro m)       = macroDecs m
 
 {-------------------------------------------------------------------------------
   Structs
@@ -183,6 +184,42 @@ typedefDecs d = List [
           newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
           newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
           newtypeType    = typ nm (C.typedefType d)
+      in Hs.Newtype {..}
+
+{-------------------------------------------------------------------------------
+  Macros
+-------------------------------------------------------------------------------}
+
+macroDecs :: C.MacroDecl -> List Hs.Decl f
+macroDecs C.MacroDecl {..}
+    | Just (C.QuantTy bf) <- macroDeclMacroTy
+    , C.isPrimTy bf
+    = macroDecsTypedef macroDeclMacro
+
+    | otherwise = List []
+
+macroDecs C.MacroReparseError {} = List []
+macroDecs C.MacroTcError {}      = List []
+
+macroDecsTypedef :: C.Macro -> List Hs.Decl f
+macroDecsTypedef m = List [
+        Hs.DeclNewtype newtype_
+      ]
+  where
+    newtype_ :: Hs.Newtype
+    newtype_ =
+      let cName = C.macroName m
+          nm@NameMangler{..} = defaultNameMangler
+          typeConstrCtx = TypeConstrContext cName
+          newtypeName = mangleTypeConstrName typeConstrCtx
+          newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+          newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
+
+          -- TODO: this type conversion is very simple, but works for now.
+          newtypeType    = typ nm $ case C.macroBody m of
+              C.MTerm (C.MType pt) -> C.TypPrim pt
+              _                    -> C.TypPrim C.PrimVoid --
+
       in Hs.Newtype {..}
 
 {-------------------------------------------------------------------------------

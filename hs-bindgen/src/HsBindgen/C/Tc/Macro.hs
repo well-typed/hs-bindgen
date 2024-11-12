@@ -15,6 +15,7 @@ module HsBindgen.C.Tc.Macro
   , Type(..), Kind(..)
   , TyCon(..), DataTyCon(..), ClassTyCon(..)
   , QuantTy(..)
+  , isPrimTy
 
     -- ** Macro typechecking monads
   , TcM, runTcM, TcGenM
@@ -1013,6 +1014,15 @@ pattern PrimTy :: Type Ty
 pattern PrimTy = TyConAppTy (DataTyCon PrimTyTyCon) VNil
 pattern Empty :: Type Ty
 pattern Empty = TyConAppTy (DataTyCon EmptyTyCon) VNil
+
+isPrimTy :: forall n. Nat.SNatI n => (Vec n (Type Ty) -> QuantTyBody) -> Bool
+isPrimTy bf = case Nat.snat @n of
+    Nat.SZ -> isPrimTy' (bf VNil)
+    Nat.SS -> False
+
+isPrimTy' :: QuantTyBody -> Bool
+isPrimTy' (QuantTyBody [] PrimTy) = True
+isPrimTy' _                       = False
 
 {-------------------------------------------------------------------------------
   Typechecking macros: classes
