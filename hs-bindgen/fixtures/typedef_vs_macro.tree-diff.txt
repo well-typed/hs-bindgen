@@ -20,8 +20,7 @@ WrapCHeader
               (MType
                 (PrimIntegral
                   (PrimInt Signed)))},
-          macroDeclMacroTy = Just
-            "PrimTy"},
+          macroDeclMacroTy = "PrimTy"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -39,8 +38,7 @@ WrapCHeader
             macroArgs = [],
             macroBody = MTerm
               (MType (PrimChar Nothing))},
-          macroDeclMacroTy = Just
-            "PrimTy"},
+          macroDeclMacroTy = "PrimTy"},
       DeclTypedef
         Typedef {
           typedefName = CName "T1",

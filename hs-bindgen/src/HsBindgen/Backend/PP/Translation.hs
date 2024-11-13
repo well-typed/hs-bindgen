@@ -106,7 +106,8 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl BE -> ImportAcc
 resolveDeclImports = \case
-    DVar _name e -> resolveExprImports e
+    DVar _name mbTy e ->
+      maybe mempty resolveTypeImports mbTy <> resolveExprImports e
     DInst Instance{..} -> mconcat $
         resolveGlobalImports instanceClass
       : map (resolveGlobalImports . fst) instanceDecs
@@ -129,8 +130,11 @@ resolveExprImports :: SExpr BE -> ImportAcc
 resolveExprImports = \case
     EGlobal g -> resolveGlobalImports g
     EVar _x -> mempty
+    EFreeVar {} -> mempty
     ECon _n -> mempty
-    EInt _i -> mempty
+    EIntegral {} -> mempty
+    EFloat    {} -> mempty
+    EDouble   {} -> mempty
     EApp f x -> resolveExprImports f <> resolveExprImports x
     EInfix op x y ->
       resolveGlobalImports op <> resolveExprImports x <> resolveExprImports y
@@ -147,3 +151,7 @@ resolveTypeImports = \case
     TCon _n -> mempty
     TLit _n -> mempty
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
+    TFunTy a b -> foldMap resolveTypeImports [a,b]
+    TTyVar {} -> mempty
+    TForall _qtvs ctxt body ->
+      foldMap resolveTypeImports (body:ctxt)

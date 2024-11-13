@@ -3,6 +3,7 @@ module HsBindgen.Backend.TH.Translation (
   , translateHs
   ) where
 
+import Control.Monad (join)
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Common
@@ -23,6 +24,6 @@ translateHs :: forall q. TH.Quote q => [Hs.Decl (Fresh (BE q))] -> q [TH.Dec]
 translateHs =
     aux . runM . mapM (toBE BE)
   where
-    aux :: q ([q TH.Dec]) -> q [TH.Dec]
-    aux = (>>= sequence)
+    aux :: q [q [TH.Dec]] -> q [TH.Dec]
+    aux = join . fmap ( fmap concat . sequence )
 

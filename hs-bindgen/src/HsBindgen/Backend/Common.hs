@@ -1,9 +1,12 @@
+{-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE ViewPatterns #-}
+
 -- | Common backend functionality
 module HsBindgen.Backend.Common (
     -- * Representation
     BackendRep(..)
   , Global(..)
-  , SExpr(..)
+  , SExpr(.., EInt)
   , SDecl(..)
   , SType(..)
   , Instance(..)
@@ -29,10 +32,14 @@ class BackendRep be where
   type Decl be :: Star
   type Ty   be :: Star -- TOOD: rename Ty to Type
 
-  resolve :: be -> Global   -> Name be  -- ^ Resolve name
-  mkExpr  :: be -> SExpr be -> Expr be  -- ^ Construct expression
-  mkDecl  :: be -> SDecl be -> Decl be  -- ^ Construct declaration
-  mkType  :: be -> SType be -> Ty   be  -- ^ Construct type
+  -- | Resolve a global name.
+  resolve      :: be -> Global -> Name be
+  -- | Construct an expression.
+  mkExpr       :: be -> SExpr be -> Expr be
+  -- | Construct a declaration.
+  mkDecl       :: be -> SDecl be -> Decl be
+  -- | Construct a type.
+  mkType       :: be -> SType be -> Ty   be
 
 data Global =
     Unit_type
@@ -51,6 +58,41 @@ data Global =
   | Foreign_Ptr
   | ConstantArray
 
+  | Eq_class
+  | Ord_class
+  | Num_class
+  | Integral_class
+  | Fractional_class
+  | Bits_class
+
+  | Eq_eq
+  | Eq_uneq
+  | Ord_lt
+  | Ord_le
+  | Ord_gt
+  | Ord_ge
+  | Base_identity
+  | Base_not
+  | Base_and
+  | Base_or
+  | Bits_shiftL
+  | Bits_shiftR
+  | Bits_and
+  | Bits_xor
+  | Bits_or
+  | Bits_complement
+  | Num_negate
+  | Num_add
+  | Num_minus
+  | Num_times
+  | Fractional_div
+  | Integral_rem
+
+  | CFloat_constructor
+  | CDouble_constructor
+  | GHC_Float_castWord32ToFloat
+  | GHC_Float_castWord64ToDouble
+
   | PrimType HsPrimType
   deriving stock (Eq)
 
@@ -58,17 +100,25 @@ data Global =
 data SExpr be =
     EGlobal Global
   | EVar (Fresh be Bound)
+  | EFreeVar (HsName NsVar)
   | ECon (HsName NsConstr)
-  | EInt Int
+  | EIntegral Integer HsPrimType
+  | EFloat Float
+  | EDouble Double
   | EApp (SExpr be) (SExpr be)
   | EInfix Global (SExpr be) (SExpr be)
   | ELam (Maybe (Fresh be Bound)) (SExpr be)
   | ECase (SExpr be) [(HsName NsConstr, [Fresh be Bound], SExpr be)]
   | EInj (Expr be)
 
+pattern EInt :: Int -> SExpr be
+pattern EInt i <- EIntegral (fromInteger -> i) HsPrimCInt
+  where
+    EInt i = EIntegral (fromIntegral i) HsPrimCInt
+
 -- | Simple declarations
 data SDecl be =
-    DVar (Name be) (SExpr be)
+    DVar (HsName NsVar) (Maybe (SType be)) (SExpr be)
   | DInst (Instance be)
   | DRecord (Record be)
   | DNewtype (Newtype be)
@@ -79,7 +129,14 @@ data SType be =
     TGlobal Global
   | TCon (HsName NsTypeConstr)
   | TLit Natural
+  | TFunTy (SType be) (SType be)
   | TApp (SType be) (SType be)
+  | TTyVar (Fresh be Bound)
+  | TForall
+     { tforall_qtvs :: [Name be]
+     , tforall_ctxt :: [SType be]
+     , tforall_body :: SType be
+     }
 
 data Instance be = Instance {
       instanceClass :: Global

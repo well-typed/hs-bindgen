@@ -161,6 +161,10 @@ data TypeVarContext = TypeVarContext {
     , -- | Type variable name source
       ctxTypeVarCName :: CName
     }
+  | MacroTypeVarContext {
+      -- | Type variable name source
+      ctxTypeVarCName :: CName
+  }
   deriving stock (Eq, Show)
 
 -- | Context for creating Haskell constructor names
@@ -600,14 +604,14 @@ defaultNameMangler = NameMangler{..}
           ctxAnonNamedFieldTypeConstrFieldName
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
-    mangleTypeVarName TypeVarContext{..} =
+    mangleTypeVarName ctxt =
       translateName
         (maintainCName escapeInvalidChar)
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
         (handleReservedNames appendSingleQuote reservedVarNames)
-        ctxTypeVarCName
+        (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
     mangleConstrName ConstrContext{..} =
@@ -712,14 +716,14 @@ haskellNameMangler = NameMangler{..}
           ctxAnonNamedFieldTypeConstrFieldName
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
-    mangleTypeVarName TypeVarContext{..} =
+    mangleTypeVarName ctxt =
       translateName
         (maintainCName dropInvalidChar)
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
         (handleReservedNames appendSingleQuote reservedVarNames)
-        ctxTypeVarCName
+        (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
     mangleConstrName ConstrContext{..} =

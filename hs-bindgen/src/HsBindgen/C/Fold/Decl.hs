@@ -56,7 +56,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
                 return $ MacroTcError macro err
               Right ty -> do
                 modify $ registerMacroType mVar ty
-                return $ MacroDecl macro ( Just ty )
+                return $ MacroDecl macro ty
         return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
         loc <- liftIO $ HighLevel.clang_getCursorLocation current

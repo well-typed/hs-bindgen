@@ -3,13 +3,18 @@
 -- | Translation from the Haskell AST to the backend representation
 module HsBindgen.Backend.Common.Translation (toBE) where
 
+import Data.Coerce
 import Data.Foldable
 import Data.Vec.Lazy (Vec(..))
 
 import HsBindgen.Backend.Common
+import HsBindgen.C.AST qualified as C (MFun(..))
+import HsBindgen.C.Tc.Macro (DataTyCon(..), ClassTyCon(..))
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Translation.LowLevel
+  (integralTyp, floatingTyp)
 import HsBindgen.Util.PHOAS
 import HsBindgen.Imports
 
@@ -47,6 +52,7 @@ instance Backend be => ToBE be Hs.Decl where
   toBE be (Hs.DeclNewtype n) = mkDecl be <$> return (newtypeToBE be n)
   toBE be (Hs.DeclInstance i) = inst be <$> toBE be i
   toBE be (Hs.DeclNewtypeInstance tc c) = mkDecl be <$> return (newtypeInstance be tc c)
+  toBE be (Hs.DeclVar v) = var be v
 
 instance Backend be => ToBE be Hs.InstanceDecl where
   type Rep be Hs.InstanceDecl = Instance be
@@ -153,6 +159,13 @@ instance DefToBE be a => ToBE be (Hs.ElimStruct n a) where
       fieldNames = fst <$> Hs.structFields struct
 
 {-------------------------------------------------------------------------------
+  Variable declarations
+-------------------------------------------------------------------------------}
+
+instance Backend be => ToBE be (Hs.VarDeclRHS) where
+  toBE be = fmap (mkExpr be) . varRHS be
+
+{-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality
 -------------------------------------------------------------------------------}
 
@@ -175,6 +188,101 @@ lambda be x = mkExpr be . ELam x . EInj
 -- | Simple instance declaration
 inst :: Backend be => be -> Instance be -> Decl be
 inst be i = mkDecl be $ DInst i
+
+-- | Simple variable declaration
+var :: Backend be => be -> Hs.VarDecl (Fresh be) -> M be (Decl be)
+var be (Hs.VarDecl nm ty rhs) = do
+  ty'  <- varType be ty
+  rhs' <- varRHS be rhs
+  return $
+    mkDecl be $ DVar nm (Just ty') rhs'
+
+varType :: forall be. Backend be => be -> Hs.SigmaType (Fresh be) -> M be (SType be)
+varType be (Hs.ForallTy qtvs (Hs.Forall k)) =
+  -- TODO: hacky coerce :: HsName 'NsTypeVar -> HsName 'NsVar
+  freshVec be (coerce qtvs) $ \ tvs -> do
+    let Hs.QuantTy ctxt body = k tvs
+    return $
+      TForall (toList $ fmap getFresh tvs) (map goCt ctxt) (goTy body)
+  where
+    goTy :: Hs.TauType (Fresh be) -> SType be
+    goTy = \case
+      Hs.FunTy a b -> TFunTy (goTy a) (goTy b)
+      Hs.TyVarTy tv -> TTyVar tv
+      Hs.TyConAppTy (Hs.TyConApp tc args) ->
+        foldl' ( \ a b -> TApp a ( goTy b ) ) (tyConGlobal tc) args
+    goCt :: Hs.ClassTy (Fresh be) -> SType be
+    goCt (Hs.ClassTy cls args) =
+      foldl' ( \ a b -> TApp a ( goTy b ) ) (TGlobal $ classGlobal cls) args
+
+tyConGlobal :: DataTyCon n -> SType be
+tyConGlobal = \case
+  BoolTyCon             -> mkPrimTy HsPrimCBool
+  StringTyCon           -> TApp (TGlobal Foreign_Ptr) (mkPrimTy HsPrimCChar)
+  IntLikeTyCon   inty   -> mkPrimTy $ integralTyp inty
+  FloatLikeTyCon floaty -> mkPrimTy $ floatingTyp floaty
+  PrimTyTyCon           -> error "tyConGlobal PrimTyTyCon"
+  EmptyTyCon            -> error "tyConGlobal EmptyTyCon"
+  where
+    mkPrimTy = TGlobal . PrimType
+
+classGlobal :: ClassTyCon n -> Global
+classGlobal = \case
+  EqTyCon         -> Eq_class
+  OrdTyCon        -> Ord_class
+  NumTyCon        -> Num_class
+  IntegralTyCon   -> Integral_class
+  FractionalTyCon -> Fractional_class
+  BitsTyCon       -> Bits_class
+
+varRHS :: Backend be => be -> Hs.VarDeclRHS (Fresh be) -> M be (SExpr be)
+varRHS be = \case
+  Hs.VarDeclIntegral i ty ->
+    return $ EIntegral i ty
+  Hs.VarDeclFloat f ->
+    return $ EFloat f
+  Hs.VarDeclDouble d ->
+    return $ EDouble d
+  Hs.VarDeclLambda nm (Hs.Lambda k) ->
+    fresh be nm $ \ v -> do
+      a <- varRHS be $ k v
+      return $ ELam (Just v) a
+  Hs.VarDeclApp f as ->
+    foldl' EApp <$> return (appHead f) <*> traverse (varRHS be) as
+  Hs.VarDeclVar varNm ->
+    return $ EVar varNm
+
+appHead :: Hs.VarDeclRHSAppHead -> SExpr be
+appHead = \case
+  Hs.InfixAppHead mfun ->
+    EGlobal $ mfunGlobal mfun
+  Hs.VarAppHead macroNm -> do
+    EFreeVar macroNm
+
+mfunGlobal :: C.MFun arity -> Global
+mfunGlobal = \case
+  C.MUnaryPlus  -> Base_identity -- TODO: want some function like `numId :: forall a. Num a => a -> a; numId x = x`
+  C.MUnaryMinus -> Num_negate
+  C.MLogicalNot -> Base_not
+  C.MBitwiseNot -> Bits_complement
+  C.MMult       -> Num_times
+  C.MDiv        -> Fractional_div
+  C.MRem        -> Integral_rem
+  C.MAdd        -> Num_add
+  C.MSub        -> Num_minus
+  C.MShiftLeft  -> Bits_shiftL
+  C.MShiftRight -> Bits_shiftR
+  C.MRelLT      -> Ord_lt
+  C.MRelLE      -> Ord_le
+  C.MRelGT      -> Ord_gt
+  C.MRelGE      -> Ord_ge
+  C.MRelEQ      -> Eq_eq
+  C.MRelNE      -> Eq_uneq
+  C.MBitwiseAnd -> Bits_and
+  C.MBitwiseXor -> Bits_xor
+  C.MBitwiseOr  -> Bits_or
+  C.MLogicalAnd -> Base_and
+  C.MLogicalOr  -> Base_or
 
 -- | Monad sequencing
 doAll :: Backend be => be -> [Expr be] -> Expr be

@@ -22,8 +22,8 @@ WrapCHeader
                   integerLiteralText = "1",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 1})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -45,8 +45,8 @@ WrapCHeader
                   integerLiteralText = "2",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 2})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -77,8 +77,8 @@ WrapCHeader
                       integerLiteralText = "3",
                       integerLiteralType = Nothing,
                       integerLiteralValue = 3})]},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -109,8 +109,8 @@ WrapCHeader
                       integerLiteralText = "4",
                       integerLiteralType = Nothing,
                       integerLiteralValue = 4})]},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -133,8 +133,8 @@ WrapCHeader
                   integerLiteralText = "42",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -157,8 +157,8 @@ WrapCHeader
                   integerLiteralText = "052",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -181,8 +181,8 @@ WrapCHeader
                   integerLiteralText = "0x2a",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -205,8 +205,8 @@ WrapCHeader
                   integerLiteralText = "0X2A",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -229,8 +229,8 @@ WrapCHeader
                   integerLiteralText = "0b101010",
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
-          macroDeclMacroTy = Just
-            "(forall a. Integral a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -256,8 +256,7 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = Just
-            "ULLong"},
+          macroDeclMacroTy = "ULLong"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -283,8 +282,7 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = Just
-            "ULLong"},
+          macroDeclMacroTy = "ULLong"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -310,8 +308,7 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = Just
-            "ULLong"},
+          macroDeclMacroTy = "ULLong"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -337,8 +334,7 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = Just
-            "ULLong"},
+          macroDeclMacroTy = "ULLong"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -363,8 +359,8 @@ WrapCHeader
                   110000.0,
                   floatingLiteralDoubleValue =
                   110000.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -389,8 +385,8 @@ WrapCHeader
                   1.2e-2,
                   floatingLiteralDoubleValue =
                   1.2e-2})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -416,8 +412,7 @@ WrapCHeader
                   1.3e-2,
                   floatingLiteralDoubleValue =
                   1.3e-2})},
-          macroDeclMacroTy = Just
-            "Float"},
+          macroDeclMacroTy = "Float"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -442,8 +437,8 @@ WrapCHeader
                   21.0,
                   floatingLiteralDoubleValue =
                   21.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -468,8 +463,8 @@ WrapCHeader
                   2200.0,
                   floatingLiteralDoubleValue =
                   2200.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -495,8 +490,7 @@ WrapCHeader
                   23.0,
                   floatingLiteralDoubleValue =
                   23.0})},
-          macroDeclMacroTy = Just
-            "Float"},
+          macroDeclMacroTy = "Float"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -521,8 +515,8 @@ WrapCHeader
                   31.0,
                   floatingLiteralDoubleValue =
                   31.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -547,8 +541,8 @@ WrapCHeader
                   0.32,
                   floatingLiteralDoubleValue =
                   0.32})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -573,8 +567,8 @@ WrapCHeader
                   33.0,
                   floatingLiteralDoubleValue =
                   33.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -600,8 +594,7 @@ WrapCHeader
                   3.4e-3,
                   floatingLiteralDoubleValue =
                   3.4e-3})},
-          macroDeclMacroTy = Just
-            "Float"},
+          macroDeclMacroTy = "Float"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -626,8 +619,8 @@ WrapCHeader
                   650000.0,
                   floatingLiteralDoubleValue =
                   650000.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -652,8 +645,8 @@ WrapCHeader
                   6.6e-2,
                   floatingLiteralDoubleValue =
                   6.6e-2})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -680,8 +673,7 @@ WrapCHeader
                   6.7e-2,
                   floatingLiteralDoubleValue =
                   6.7e-2})},
-          macroDeclMacroTy = Just
-            "Float"},
+          macroDeclMacroTy = "Float"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -706,8 +698,8 @@ WrapCHeader
                   81.0,
                   floatingLiteralDoubleValue =
                   81.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -734,8 +726,7 @@ WrapCHeader
                   82.0,
                   floatingLiteralDoubleValue =
                   82.0})},
-          macroDeclMacroTy = Just
-            "Float"},
+          macroDeclMacroTy = "Float"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -761,8 +752,8 @@ WrapCHeader
                   15520.0,
                   floatingLiteralDoubleValue =
                   15520.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -787,8 +778,8 @@ WrapCHeader
                   98.0,
                   floatingLiteralDoubleValue =
                   98.0})},
-          macroDeclMacroTy = Just
-            "(forall a. Fractional a => a)"},
+          macroDeclMacroTy =
+          "(forall a. Fractional a => a)"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -815,8 +806,7 @@ WrapCHeader
                   9.9e-3,
                   floatingLiteralDoubleValue =
                   9.9e-3})},
-          macroDeclMacroTy = Just
-            "Float"},
+          macroDeclMacroTy = "Float"},
       DeclMacro
         MacroTcError {
           macroTcErrorMacro = Macro {

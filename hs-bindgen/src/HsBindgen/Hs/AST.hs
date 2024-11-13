@@ -26,10 +26,20 @@ module HsBindgen.Hs.AST (
     -- * Variable binding
   , Lambda(..)
   , Ap(..)
+  , Forall(..)
     -- * Declarations
   , Decl(..)
   , InstanceDecl(..)
   , DataDecl(..)
+    -- ** Variable declarations
+  , VarDecl(..)
+  , SigmaType(..)
+  , PhiType(..)
+  , TauType(..)
+  , TyConAppTy(..)
+  , ClassTy(..)
+  , VarDeclRHS(..)
+  , VarDeclRHSAppHead(..)
     -- ** Newtype instances
   , TypeClass (..)
     -- ** 'Storable'
@@ -46,11 +56,13 @@ module HsBindgen.Hs.AST (
 
 import Data.Nat
 import Data.Type.Nat
-import Data.Vec.Lazy (Vec(..))
+import Data.Vec.Lazy (Vec(..), toList)
 import Generics.SOP qualified as SOP
 import GHC.Generics qualified as GHC
 import GHC.Show (appPrec1)
 
+import HsBindgen.C.AST qualified as C (MFun(..))
+import HsBindgen.C.Tc.Macro qualified as C
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
@@ -86,6 +98,12 @@ data Lambda a f = Lambda (f Bound -> a f)
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
 
+-- | Forall
+type Forall :: Nat -> PHOAS -> PHOAS
+data Forall n a f = Forall (Vec n (f Bound) -> a f)
+  deriving stock (GHC.Generic)
+  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
 -- | Applicative structure
 type Ap :: PHOAS -> PHOAS -> PHOAS
 data Ap a b f = Ap (b f) [a f]
@@ -103,6 +121,7 @@ data Decl f =
   | DeclNewtype Newtype
   | DeclInstance (InstanceDecl f)
   | DeclNewtypeInstance TypeClass (HsName NsTypeConstr)
+  | DeclVar (VarDecl f)
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
 
@@ -122,6 +141,74 @@ type DataDecl :: Nat -> PHOAS
 data DataDecl n f = MkDataDecl
   deriving stock (GHC.Generic)
   deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+-- | Variable or function declaration.
+type VarDecl :: PHOAS
+data VarDecl f =
+  VarDecl
+    -- | Name of variable/function.
+    { varDeclName :: HsName NsVar
+    -- | Type of variable/function.
+    , varDeclType :: SigmaType f
+    -- | RHS of variable/function.
+    , varDeclBody :: VarDeclRHS f
+    }
+  deriving stock (GHC.Generic)
+  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+-- | A σ-type, of the form @forall tvs. ctxt => body@.
+type SigmaType :: PHOAS
+data SigmaType f
+  = forall n. SNatI n
+  => ForallTy
+      { forallTyBinders :: Vec n (HsName NsTypeVar)
+      , forallTy :: Forall n PhiType f
+      }
+
+-- | A φ-type, of the form @ctxt => body@.
+type PhiType :: PHOAS
+data PhiType f
+  = QuantTy
+  { quantTyCts  :: [ClassTy f]
+  , quantTyBody :: TauType f
+  }
+  deriving stock (GHC.Generic)
+  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+-- | A τ-type: no quantification or contexts (i.e. no @forall@, no @=>@ arrows).
+type TauType :: PHOAS
+data TauType f
+  = FunTy (TauType f) (TauType f)
+  | TyVarTy (f Bound)
+  | TyConAppTy (TyConAppTy f)
+  deriving stock (GHC.Generic)
+  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+data TyConAppTy f where
+  TyConApp :: C.DataTyCon n -> Vec n (TauType f) -> TyConAppTy f
+
+data ClassTy f where
+  ClassTy :: C.ClassTyCon n -> Vec n (TauType f) -> ClassTy f
+
+-- | RHS of a variable or function declaration.
+type VarDeclRHS :: PHOAS
+data VarDeclRHS f
+  = VarDeclIntegral Integer HsPrimType
+  | VarDeclFloat Float
+  | VarDeclDouble Double
+  | VarDeclLambda (HsName NsVar) (Lambda VarDeclRHS f)
+  | VarDeclApp VarDeclRHSAppHead [VarDeclRHS f]
+  | VarDeclVar (f Bound)
+  deriving stock (GHC.Generic)
+  deriving anyclass (SOP.Generic, SOP.HasDatatypeInfo)
+
+-- | The function at the head of an application in the Haskell translation
+-- of a C macro.
+data VarDeclRHSAppHead
+  -- | The translation of a built-in C infix function such as @*@ or @&&@.
+  = forall arity. InfixAppHead (C.MFun arity)
+  -- | A function name, or the name of a function-like macro.
+  | VarAppHead (HsName NsVar)
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -206,6 +293,7 @@ deriving anyclass instance SNatI n => ShowOpen (IntroStruct n Unique)
 deriving anyclass instance SNatI n => ShowOpen (StorableInstance n Unique)
 
 deriving anyclass instance ShowOpen (a Unique) => ShowOpen (Lambda a Unique)
+deriving anyclass instance (SNatI n, ShowOpen (a Unique)) => ShowOpen (Forall n a Unique)
 deriving anyclass instance ShowOpen (a Unique) => ShowOpen (Seq a Unique)
 
 deriving anyclass instance
@@ -233,3 +321,87 @@ instance ShowOpen Newtype where
 
 instance ShowOpen TypeClass where
     showOpen _ = showsPrec
+
+instance ShowOpen (VarDecl Unique) where
+    showOpen u p (VarDecl nm ty rhs) = showParen (p >= appPrec1) $
+        showString "VarDecl "
+      . showsPrec appPrec1 nm
+      . showString " "
+      . showOpen u appPrec1 ty
+      . showString " "
+      . showOpen u appPrec1 rhs
+
+instance ShowOpen (SigmaType Unique) where
+    showOpen u p = showParen (p >= appPrec1) . \case
+      ForallTy tvs f ->
+          showString "ForallTy "
+        . showsPrec appPrec1 tvs
+        . showString " "
+        . showOpen u appPrec1 f
+deriving anyclass instance ShowOpen (PhiType Unique)
+
+
+instance ShowOpen (TyConAppTy Unique) where
+    showOpen u p = showParen (p >= appPrec1) . \case
+      TyConApp tc args ->
+          showString "TyConApp "
+        . showsPrec appPrec1 tc
+        . showString " "
+        . showOpen u appPrec1 (toList args)
+instance ShowOpen (ClassTy Unique) where
+    showOpen u p = showParen (p >= appPrec1) . \case
+      ClassTy tc args ->
+          showString "ClassTy "
+        . showsPrec appPrec1 tc
+        . showString " "
+        . showOpen u appPrec1 (toList args)
+
+instance ShowOpen (TauType Unique) where
+    showOpen u p = showParen (p >= appPrec1) . \case
+      FunTy arg res ->
+          showString "FunTy "
+        . showOpen u appPrec1 arg
+        . showString " "
+        . showOpen u appPrec1 res
+      TyVarTy tv ->
+          showString "TyVarTy "
+        . showOpen u appPrec1 tv
+      TyConAppTy tcApp ->
+          showString "TyConAppTy "
+        . showOpen u appPrec1 tcApp
+
+instance ShowOpen (VarDeclRHS Unique) where
+    showOpen u p = showParen (p >= appPrec1) . \case
+      VarDeclIntegral i ty ->
+          showString "VarDeclIntegral "
+        . showsPrec appPrec1 i
+        . showString " "
+        . showsPrec appPrec1 ty
+      VarDeclFloat f ->
+          showString "VarDeclFloat "
+        . showsPrec appPrec1 f
+      VarDeclDouble d ->
+          showString "VarDeclDouble "
+        . showsPrec appPrec1 d
+      VarDeclLambda nm k ->
+          showString "VarDeclLambda "
+        . showsPrec appPrec1 nm
+        . showString " "
+        . showOpen u appPrec1 k
+      VarDeclApp f as ->
+          showString "VarDeclApp "
+        . showsPrec appPrec1 f
+        . showString " "
+        . showOpen u appPrec1 as
+      VarDeclVar var ->
+          showString "VarDeclVar "
+        . showOpen u appPrec1 var
+
+instance Show VarDeclRHSAppHead where
+    showsPrec p = showParen (p >= appPrec1) . \case
+      InfixAppHead mfun ->
+          showString "InfixAppHead "
+        . showsPrec appPrec1 mfun
+      VarAppHead macroNm ->
+          showString "VarApphead "
+        . showsPrec appPrec1 macroNm
