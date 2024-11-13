@@ -2,19 +2,19 @@ data CS1 = MkCS1 {cS1_a :: CInt, cS1_b :: CChar}
 instance Storable CS1
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \x_0 -> (pure MkCS1 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32;
+           peek = \x_0 -> (pure MkCS1 <*> peekByteOff x_0 0) <*> peekByteOff x_0 4;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCS1 cS1_a_3
-                                         cS1_b_4 -> pokeByteOff x_1 0 cS1_a_3 >> pokeByteOff x_1 32 cS1_b_4}}
+                                         cS1_b_4 -> pokeByteOff x_1 0 cS1_a_3 >> pokeByteOff x_1 4 cS1_b_4}}
 data CS2 = MkCS2 {cS2_a :: CChar, cS2_b :: CInt, cS2_c :: CFloat}
 instance Storable CS2
     where {sizeOf = \_ -> 12;
            alignment = \_ -> 4;
-           peek = \x_0 -> ((pure MkCS2 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32) <*> peekByteOff x_0 64;
+           peek = \x_0 -> ((pure MkCS2 <*> peekByteOff x_0 0) <*> peekByteOff x_0 4) <*> peekByteOff x_0 8;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCS2 cS2_a_3
                                          cS2_b_4
-                                         cS2_c_5 -> pokeByteOff x_1 0 cS2_a_3 >> (pokeByteOff x_1 32 cS2_b_4 >> pokeByteOff x_1 64 cS2_c_5)}}
+                                         cS2_c_5 -> pokeByteOff x_1 0 cS2_a_3 >> (pokeByteOff x_1 4 cS2_b_4 >> pokeByteOff x_1 8 cS2_c_5)}}
 newtype CS2T = MkCS2T {unCS2T :: CStruct'0020S2}
 deriving newtype instance Storable CS2T
 data CX = MkCX {cX_a :: CChar}
@@ -31,8 +31,8 @@ data CS4
 instance Storable CS4
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \x_0 -> ((pure MkCS4 <*> peekByteOff x_0 0) <*> peekByteOff x_0 32) <*> peekByteOff x_0 64;
+           peek = \x_0 -> ((pure MkCS4 <*> peekByteOff x_0 0) <*> peekByteOff x_0 4) <*> peekByteOff x_0 8;
            poke = \x_1 -> \x_2 -> case x_2 of
                                   {MkCS4 cS4_b_3
                                          cS4_a_4
-                                         cS4_c_5 -> pokeByteOff x_1 0 cS4_b_3 >> (pokeByteOff x_1 32 cS4_a_4 >> pokeByteOff x_1 64 cS4_c_5)}}
+                                         cS4_c_5 -> pokeByteOff x_1 0 cS4_b_3 >> (pokeByteOff x_1 4 cS4_a_4 >> pokeByteOff x_1 8 cS4_c_5)}}

@@ -48,34 +48,34 @@ instance F.Storable CPrimitive where
     \x0 ->
           pure MkCPrimitive
       <*> F.peekByteOff x0 0
+      <*> F.peekByteOff x0 1
+      <*> F.peekByteOff x0 2
+      <*> F.peekByteOff x0 4
+      <*> F.peekByteOff x0 6
       <*> F.peekByteOff x0 8
+      <*> F.peekByteOff x0 10
+      <*> F.peekByteOff x0 12
+      <*> F.peekByteOff x0 14
       <*> F.peekByteOff x0 16
+      <*> F.peekByteOff x0 20
+      <*> F.peekByteOff x0 24
+      <*> F.peekByteOff x0 28
       <*> F.peekByteOff x0 32
+      <*> F.peekByteOff x0 40
       <*> F.peekByteOff x0 48
+      <*> F.peekByteOff x0 56
       <*> F.peekByteOff x0 64
+      <*> F.peekByteOff x0 72
       <*> F.peekByteOff x0 80
+      <*> F.peekByteOff x0 88
       <*> F.peekByteOff x0 96
+      <*> F.peekByteOff x0 104
       <*> F.peekByteOff x0 112
+      <*> F.peekByteOff x0 120
       <*> F.peekByteOff x0 128
+      <*> F.peekByteOff x0 136
+      <*> F.peekByteOff x0 144
       <*> F.peekByteOff x0 160
-      <*> F.peekByteOff x0 192
-      <*> F.peekByteOff x0 224
-      <*> F.peekByteOff x0 256
-      <*> F.peekByteOff x0 320
-      <*> F.peekByteOff x0 384
-      <*> F.peekByteOff x0 448
-      <*> F.peekByteOff x0 512
-      <*> F.peekByteOff x0 576
-      <*> F.peekByteOff x0 640
-      <*> F.peekByteOff x0 704
-      <*> F.peekByteOff x0 768
-      <*> F.peekByteOff x0 832
-      <*> F.peekByteOff x0 896
-      <*> F.peekByteOff x0 960
-      <*> F.peekByteOff x0 1024
-      <*> F.peekByteOff x0 1088
-      <*> F.peekByteOff x0 1152
-      <*> F.peekByteOff x0 1280
 
   poke =
     \x0 ->
@@ -112,31 +112,31 @@ instance F.Storable CPrimitive where
             cPrimitive_d29
             cPrimitive_ld30 ->
                  F.pokeByteOff x0 0 cPrimitive_c2
-              >> F.pokeByteOff x0 8 cPrimitive_sc3
-              >> F.pokeByteOff x0 16 cPrimitive_uc4
-              >> F.pokeByteOff x0 32 cPrimitive_s5
-              >> F.pokeByteOff x0 48 cPrimitive_si6
-              >> F.pokeByteOff x0 64 cPrimitive_ss7
-              >> F.pokeByteOff x0 80 cPrimitive_ssi8
-              >> F.pokeByteOff x0 96 cPrimitive_us9
-              >> F.pokeByteOff x0 112 cPrimitive_usi10
-              >> F.pokeByteOff x0 128 cPrimitive_i11
-              >> F.pokeByteOff x0 160 cPrimitive_s212
-              >> F.pokeByteOff x0 192 cPrimitive_si213
-              >> F.pokeByteOff x0 224 cPrimitive_u14
-              >> F.pokeByteOff x0 256 cPrimitive_ui15
-              >> F.pokeByteOff x0 320 cPrimitive_l16
-              >> F.pokeByteOff x0 384 cPrimitive_li17
-              >> F.pokeByteOff x0 448 cPrimitive_sl18
-              >> F.pokeByteOff x0 512 cPrimitive_sli19
-              >> F.pokeByteOff x0 576 cPrimitive_ul20
-              >> F.pokeByteOff x0 640 cPrimitive_uli21
-              >> F.pokeByteOff x0 704 cPrimitive_ll22
-              >> F.pokeByteOff x0 768 cPrimitive_lli23
-              >> F.pokeByteOff x0 832 cPrimitive_sll24
-              >> F.pokeByteOff x0 896 cPrimitive_slli25
-              >> F.pokeByteOff x0 960 cPrimitive_ull26
-              >> F.pokeByteOff x0 1024 cPrimitive_ulli27
-              >> F.pokeByteOff x0 1088 cPrimitive_f28
-              >> F.pokeByteOff x0 1152 cPrimitive_d29
-              >> F.pokeByteOff x0 1280 cPrimitive_ld30
+              >> F.pokeByteOff x0 1 cPrimitive_sc3
+              >> F.pokeByteOff x0 2 cPrimitive_uc4
+              >> F.pokeByteOff x0 4 cPrimitive_s5
+              >> F.pokeByteOff x0 6 cPrimitive_si6
+              >> F.pokeByteOff x0 8 cPrimitive_ss7
+              >> F.pokeByteOff x0 10 cPrimitive_ssi8
+              >> F.pokeByteOff x0 12 cPrimitive_us9
+              >> F.pokeByteOff x0 14 cPrimitive_usi10
+              >> F.pokeByteOff x0 16 cPrimitive_i11
+              >> F.pokeByteOff x0 20 cPrimitive_s212
+              >> F.pokeByteOff x0 24 cPrimitive_si213
+              >> F.pokeByteOff x0 28 cPrimitive_u14
+              >> F.pokeByteOff x0 32 cPrimitive_ui15
+              >> F.pokeByteOff x0 40 cPrimitive_l16
+              >> F.pokeByteOff x0 48 cPrimitive_li17
+              >> F.pokeByteOff x0 56 cPrimitive_sl18
+              >> F.pokeByteOff x0 64 cPrimitive_sli19
+              >> F.pokeByteOff x0 72 cPrimitive_ul20
+              >> F.pokeByteOff x0 80 cPrimitive_uli21
+              >> F.pokeByteOff x0 88 cPrimitive_ll22
+              >> F.pokeByteOff x0 96 cPrimitive_lli23
+              >> F.pokeByteOff x0 104 cPrimitive_sll24
+              >> F.pokeByteOff x0 112 cPrimitive_slli25
+              >> F.pokeByteOff x0 120 cPrimitive_ull26
+              >> F.pokeByteOff x0 128 cPrimitive_ulli27
+              >> F.pokeByteOff x0 136 cPrimitive_f28
+              >> F.pokeByteOff x0 144 cPrimitive_d29
+              >> F.pokeByteOff x0 160 cPrimitive_ld30

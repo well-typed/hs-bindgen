@@ -105,10 +105,10 @@ structDecs struct fields = List
         }
 
     peek :: f Bound -> C.StructField -> Hs.PeekByteOff f
-    peek ptr f = Hs.PeekByteOff ptr (C.fieldOffset f)
+    peek ptr f = Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
 
     poke :: f Bound -> C.StructField -> f Bound -> Hs.PokeByteOff f
-    poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f) i
+    poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
 
 {-------------------------------------------------------------------------------
   Enum

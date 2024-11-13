@@ -20,7 +20,7 @@ instance F.Storable CFoo where
     \x0 ->
           pure MkCFoo
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 64
+      <*> F.peekByteOff x0 8
 
   poke =
     \x0 ->
@@ -28,4 +28,4 @@ instance F.Storable CFoo where
         case x1 of
           MkCFoo cFoo_sixty_four2 cFoo_thirty_two3 ->
                F.pokeByteOff x0 0 cFoo_sixty_four2
-            >> F.pokeByteOff x0 64 cFoo_thirty_two3
+            >> F.pokeByteOff x0 8 cFoo_thirty_two3

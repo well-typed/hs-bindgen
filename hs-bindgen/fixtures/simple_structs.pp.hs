@@ -21,7 +21,7 @@ instance F.Storable CS1 where
     \x0 ->
           pure MkCS1
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 32
+      <*> F.peekByteOff x0 4
 
   poke =
     \x0 ->
@@ -29,7 +29,7 @@ instance F.Storable CS1 where
         case x1 of
           MkCS1 cS1_a2 cS1_b3 ->
                F.pokeByteOff x0 0 cS1_a2
-            >> F.pokeByteOff x0 32 cS1_b3
+            >> F.pokeByteOff x0 4 cS1_b3
 
 data CS2 = MkCS2
   { cS2_a :: FC.CChar
@@ -47,8 +47,8 @@ instance F.Storable CS2 where
     \x0 ->
           pure MkCS2
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 32
-      <*> F.peekByteOff x0 64
+      <*> F.peekByteOff x0 4
+      <*> F.peekByteOff x0 8
 
   poke =
     \x0 ->
@@ -56,8 +56,8 @@ instance F.Storable CS2 where
         case x1 of
           MkCS2 cS2_a2 cS2_b3 cS2_c4 ->
                F.pokeByteOff x0 0 cS2_a2
-            >> F.pokeByteOff x0 32 cS2_b3
-            >> F.pokeByteOff x0 64 cS2_c4
+            >> F.pokeByteOff x0 4 cS2_b3
+            >> F.pokeByteOff x0 8 cS2_c4
 
 newtype CS2T = MkCS2T
   { unCS2T :: CStruct'0020S2
@@ -108,8 +108,8 @@ instance F.Storable CS4 where
     \x0 ->
           pure MkCS4
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 32
-      <*> F.peekByteOff x0 64
+      <*> F.peekByteOff x0 4
+      <*> F.peekByteOff x0 8
 
   poke =
     \x0 ->
@@ -117,5 +117,5 @@ instance F.Storable CS4 where
         case x1 of
           MkCS4 cS4_b2 cS4_a3 cS4_c4 ->
                F.pokeByteOff x0 0 cS4_b2
-            >> F.pokeByteOff x0 32 cS4_a3
-            >> F.pokeByteOff x0 64 cS4_c4
+            >> F.pokeByteOff x0 4 cS4_a3
+            >> F.pokeByteOff x0 8 cS4_c4

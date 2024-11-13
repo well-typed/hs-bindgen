@@ -21,7 +21,7 @@ instance F.Storable CFoo where
     \x0 ->
           pure MkCFoo
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 32
+      <*> F.peekByteOff x0 4
 
   poke =
     \x0 ->
@@ -29,7 +29,7 @@ instance F.Storable CFoo where
         case x1 of
           MkCFoo cFoo_i2 cFoo_c3 ->
                F.pokeByteOff x0 0 cFoo_i2
-            >> F.pokeByteOff x0 32 cFoo_c3
+            >> F.pokeByteOff x0 4 cFoo_c3
 
 data CBar = MkCBar
   { cBar_foo1 :: CStruct'0020foo
@@ -46,7 +46,7 @@ instance F.Storable CBar where
     \x0 ->
           pure MkCBar
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 64
+      <*> F.peekByteOff x0 8
 
   poke =
     \x0 ->
@@ -54,4 +54,4 @@ instance F.Storable CBar where
         case x1 of
           MkCBar cBar_foo12 cBar_foo23 ->
                F.pokeByteOff x0 0 cBar_foo12
-            >> F.pokeByteOff x0 64 cBar_foo23
+            >> F.pokeByteOff x0 8 cBar_foo23

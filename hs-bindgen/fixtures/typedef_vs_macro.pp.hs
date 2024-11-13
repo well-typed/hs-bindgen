@@ -43,9 +43,9 @@ instance F.Storable CExampleStruct where
     \x0 ->
           pure MkCExampleStruct
       <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 32
-      <*> F.peekByteOff x0 64
-      <*> F.peekByteOff x0 96
+      <*> F.peekByteOff x0 4
+      <*> F.peekByteOff x0 8
+      <*> F.peekByteOff x0 12
 
   poke =
     \x0 ->
@@ -53,6 +53,6 @@ instance F.Storable CExampleStruct where
         case x1 of
           MkCExampleStruct cExampleStruct_t12 cExampleStruct_t23 cExampleStruct_m14 cExampleStruct_m25 ->
                F.pokeByteOff x0 0 cExampleStruct_t12
-            >> F.pokeByteOff x0 32 cExampleStruct_t23
-            >> F.pokeByteOff x0 64 cExampleStruct_m14
-            >> F.pokeByteOff x0 96 cExampleStruct_m25
+            >> F.pokeByteOff x0 4 cExampleStruct_t23
+            >> F.pokeByteOff x0 8 cExampleStruct_m14
+            >> F.pokeByteOff x0 12 cExampleStruct_m25

@@ -90,6 +90,35 @@ foldDecls opts@Options{..} cursor = do
       traceU 3 "spelling" =<< liftIO (clang_getTypeKindSpelling typeKind)
       traceU 2 "canonical"
         =<< liftIO (clang_getTypeSpelling =<< clang_getCanonicalType cursorType)
+      traceU 2 "sizeof" =<< liftIO (clang_Type_getSizeOf cursorType)
+      traceU 2 "alignment" =<< liftIO (clang_Type_getAlignOf cursorType)
+
+    isRecurse <- case fromSimpleEnum cursorKind of
+      Right CXCursor_StructDecl ->
+        pure True
+      Right CXCursor_EnumDecl -> do
+        traceU 1 "integer type" =<< liftIO (clang_getEnumDeclIntegerType cursor)
+        pure True
+      Right CXCursor_FieldDecl -> do
+        traceU 1 "field offset"
+          =<< liftIO (clang_Cursor_getOffsetOfField cursor)
+        isBitField <- liftIO $ clang_Cursor_isBitField cursor
+        when isBitField $
+          traceU 1 "bit width"
+            =<< liftIO (clang_getFieldDeclBitWidth cursor)
+        pure False -- leaf
+      Right CXCursor_EnumConstantDecl -> do
+        traceU 1 "integer value"
+          =<< liftIO (clang_getEnumConstantDeclValue cursor)
+        pure False -- leaf
+      Right CXCursor_TypedefDecl -> do
+        traceU 1 "typedef name" =<< liftIO (clang_getTypedefName cursorType)
+        pure True -- results in repeated information unless typedef is decl
+      Right CXCursor_MacroDefinition ->
+        -- TODO not defined yet
+        pure True
+      Right{} -> False <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
+      Left n  -> False <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
 
     when (isDecl && optComments) $ do
       commentText <- liftIO $ clang_Cursor_getRawCommentText cursor
@@ -98,15 +127,9 @@ foldDecls opts@Options{..} cursor = do
         traceU 2 "brief" =<< liftIO (clang_Cursor_getBriefCommentText cursor)
         liftIO $ dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
 
-    let doRecurse  = pure $ Recurse (foldDecls opts) (const Nothing)
-        --doContinue = pure $ Continue Nothing
-    case fromSimpleEnum cursorKind of
-      Right CXCursor_StructDecl      -> doRecurse
-      Right CXCursor_EnumDecl        -> doRecurse
-      Right CXCursor_TypedefDecl     -> doRecurse
-      Right CXCursor_MacroDefinition -> doRecurse
-      Right{} -> Continue Nothing <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
-      Left n  -> Continue Nothing <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
+    pure $ if isRecurse
+      then Recurse (foldDecls opts) (const Nothing)
+      else Continue Nothing
 
 dumpComment :: Int -> Maybe CUInt -> CXComment -> IO ()
 dumpComment level mIdx comment = do

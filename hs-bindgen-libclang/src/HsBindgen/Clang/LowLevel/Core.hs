@@ -122,6 +122,8 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_getTypeSpelling
   , clang_getTypedefDeclUnderlyingType
   , clang_getEnumDeclIntegerType
+  , clang_Cursor_isBitField
+  , clang_getFieldDeclBitWidth
   , clang_getPointeeType
   , clang_getArrayElementType
   , clang_getArraySize
@@ -986,6 +988,12 @@ foreign import capi unsafe "clang_wrappers.h wrap_getTypedefDeclUnderlyingType"
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumDeclIntegerType"
   wrap_getEnumDeclIntegerType :: R CXCursor_ -> W CXType_ -> IO ()
 
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isBitField"
+  wrap_Cursor_isBitField :: R CXCursor_ -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h wrap_getFieldDeclBitWidth"
+  wrap_getFieldDeclBitWidth :: R CXCursor_ -> IO CInt
+
 foreign import capi unsafe "clang_wrappers.h wrap_getPointeeType"
   wrap_getPointeeType :: R CXType_ -> W CXType_ -> IO ()
 
@@ -1086,6 +1094,25 @@ clang_getEnumDeclIntegerType cursor = ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getEnumDeclIntegerType cursor'
 
+-- | Determine if the cursor specifies a record member that is a bit-field.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga750705f6b418b25ca00495b7392c740d>
+clang_Cursor_isBitField :: CXCursor -> IO Bool
+clang_Cursor_isBitField cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      cToBool <$> wrap_Cursor_isBitField cursor'
+
+-- | Return the bit width of a bit-field declaration as an iteger.
+--
+-- If the cursor does not reference a bit-field, or if the bit-field's width
+-- expression cannot be evaluated, -1 is returned.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga80bbb872dde5b2f26964081338108f91>
+clang_getFieldDeclBitWidth :: CXCursor -> IO CInt
+clang_getFieldDeclBitWidth cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getFieldDeclBitWidth cursor'
+
 -- | For pointer types, returns the type of the pointee.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaafa3eb34932d8da1358d50ed949ff3ee>
@@ -1143,6 +1170,8 @@ clang_Type_isTransparentTagTypedef typ =
       cToBool <$> wrap_Type_isTransparentTagTypedef typ'
 
 -- | Return the offset of the field represented by the Cursor.
+--
+-- Unit: bits
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaa7e0f0ec320c645e971168ac39aa0cab>
 clang_Cursor_getOffsetOfField :: CXCursor -> IO CLLong
