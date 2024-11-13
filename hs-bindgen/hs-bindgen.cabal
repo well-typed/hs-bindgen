@@ -42,8 +42,13 @@ common lang
       LambdaCase
       MultiWayIf
       QuantifiedConstraints
+      TypeApplications
       TypeFamilies
       UndecidableInstances
+  if impl(ghc >= 9.8)
+    default-extensions:
+      TypeAbstractions
+
 
 library
   import:         lang

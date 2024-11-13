@@ -2,6 +2,7 @@
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 -- | Type inference for simple function-like C macros.
 module HsBindgen.C.Tc.Macro
@@ -14,7 +15,8 @@ module HsBindgen.C.Tc.Macro
     -- ** Macro type-system
   , Type(..), Kind(..)
   , TyCon(..), DataTyCon(..), ClassTyCon(..)
-  , QuantTy(..)
+  , QuantTy(..), QuantTyBody(..)
+  , tyVarName, tyVarNames, mkQuantTyBody
   , isPrimTy
 
     -- ** Macro typechecking monads
@@ -131,9 +133,7 @@ data QuantTy where
     -> QuantTy
 
 instance Eq QuantTy where
-  qty1@( QuantTy ( _ :: ( Vec n ( Type Ty ) -> QuantTyBody ) ) )
-    ==
-      qty2@( QuantTy ( _ :: ( Vec m ( Type Ty ) -> QuantTyBody ) ) ) =
+  qty1@( QuantTy @n _ ) == qty2@( QuantTy @m _ ) =
     case Nat.eqNat @n @m of
       Nothing -> False
       Just Refl ->
@@ -172,7 +172,7 @@ instance PrettyVal ( Type ki ) where
     FunTy args res -> Pretty.Con "FunTy" [ prettyVal args, prettyVal res ]
 
 instance Show QuantTy where
-  showsPrec p0 quantTy@(QuantTy ( _ :: ( Vec n ( Type Ty ) -> QuantTyBody ) ) ) =
+  showsPrec p0 quantTy@(QuantTy @n _ ) =
     showParen ( p0 >= 0 && not ( null qtvs && null cts ) ) $
         ( if null qtvs
           then id else
@@ -186,7 +186,7 @@ instance Show QuantTy where
       qtvs = tyVarNames @n
       QuantTyBody cts body = mkQuantTyBody quantTy
 
-tyVarNames :: forall n. Nat.SNatI n => Vec n ( Text )
+tyVarNames :: forall n. Nat.SNatI n => Vec n Text
 tyVarNames = fromJust $ Vec.fromListPrefix nms
   where
     n = Nat.snatToNat ( Nat.snat @n )

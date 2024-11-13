@@ -1,0 +1,62 @@
+oBJECTLIKE1 :: forall a_0 . Integral a_0 => a_0
+oBJECTLIKE1 = 1
+oBJECTLIKE2 :: forall a_0 . Integral a_0 => a_0
+oBJECTLIKE2 = 2
+oBJECTLIKE3 :: forall a_0 . Integral a_0 => a_0
+oBJECTLIKE3 = (+) 3 3
+oBJECTLIKE4 :: forall a_0 . Integral a_0 => a_0
+oBJECTLIKE4 = (+) 4 4
+mEANING_OF_LIFE1 :: forall a_0 . Integral a_0 => a_0
+mEANING_OF_LIFE1 = 42
+mEANING_OF_LIFE2 :: forall a_0 . Integral a_0 => a_0
+mEANING_OF_LIFE2 = 42
+mEANING_OF_LIFE3 :: forall a_0 . Integral a_0 => a_0
+mEANING_OF_LIFE3 = 42
+mEANING_OF_LIFE4 :: forall a_0 . Integral a_0 => a_0
+mEANING_OF_LIFE4 = 42
+mEANING_OF_LIFE5 :: forall a_0 . Integral a_0 => a_0
+mEANING_OF_LIFE5 = 42
+lONG_INT_TOKEN1 :: CULLong
+lONG_INT_TOKEN1 = 18446744073709550592
+lONG_INT_TOKEN2 :: CULLong
+lONG_INT_TOKEN2 = 18446744073709550592
+lONG_INT_TOKEN3 :: CULLong
+lONG_INT_TOKEN3 = 18446744073709550592
+lONG_INT_TOKEN4 :: CULLong
+lONG_INT_TOKEN4 = 18446744073709550592
+fLT1_1 :: forall a_0 . Fractional a_0 => a_0
+fLT1_1 = 110000.0
+fLT1_2 :: forall a_0 . Fractional a_0 => a_0
+fLT1_2 = 0.0120000000000000002498001805406602215953171253204345703125
+fLT1_3 :: CFloat
+fLT1_3 = 0.0130000002682209014892578125
+fLT2_1 :: forall a_0 . Fractional a_0 => a_0
+fLT2_1 = 21.0
+fLT2_2 :: forall a_0 . Fractional a_0 => a_0
+fLT2_2 = 2200.0
+fLT2_3 :: CFloat
+fLT2_3 = 23.0
+fLT3_1 :: forall a_0 . Fractional a_0 => a_0
+fLT3_1 = 31.0
+fLT3_2 :: forall a_0 . Fractional a_0 => a_0
+fLT3_2 = 0.320000000000000006661338147750939242541790008544921875
+fLT3_3 :: forall a_0 . Fractional a_0 => a_0
+fLT3_3 = 33.0
+fLT3_4 :: CFloat
+fLT3_4 = 3.40000004507601261138916015625e-3
+fLT4_1 :: forall a_0 . Fractional a_0 => a_0
+fLT4_1 = 650000.0
+fLT4_2 :: forall a_0 . Fractional a_0 => a_0
+fLT4_2 = 0.066000000000000003108624468950438313186168670654296875
+fLT4_3 :: CFloat
+fLT4_3 = 0.0670000016689300537109375
+fLT5_1 :: forall a_0 . Fractional a_0 => a_0
+fLT5_1 = 81.0
+fLT5_2 :: CFloat
+fLT5_2 = 82.0
+fLT6_1 :: forall a_0 . Fractional a_0 => a_0
+fLT6_1 = 15520.0
+fLT6_2 :: forall a_0 . Fractional a_0 => a_0
+fLT6_2 = 98.0
+fLT6_3 :: CFloat
+fLT6_3 = 9.8999999463558197021484375e-3

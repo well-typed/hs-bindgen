@@ -1,6 +1,6 @@
 module HsBindgen.Hs.AST.Type (
   HsPrimType (..),
-  HsType (..),
+  HsType (..)
 ) where
 
 import HsBindgen.Imports
@@ -50,3 +50,4 @@ data HsType =
   | HsConstArray Natural HsType
   | HsPtr HsType
   deriving stock (Show)
+

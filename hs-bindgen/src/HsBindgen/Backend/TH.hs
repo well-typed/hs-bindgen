@@ -6,6 +6,7 @@ module HsBindgen.Backend.TH (
   , runM
   ) where
 
+import Data.Bits qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
@@ -13,6 +14,11 @@ import Foreign.Ptr qualified
 import Foreign.Storable qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
+import Language.Haskell.TH.Syntax qualified as TH
+
+import GHC.Float
+  ( castWord64ToDouble, castDoubleToWord64
+  , castWord32ToFloat , castFloatToWord32 )
 
 import HsBindgen.Backend.Common
 import HsBindgen.Imports
@@ -20,6 +26,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Util.PHOAS
 import HsBindgen.ConstantArray qualified
+import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -31,7 +38,7 @@ data BE q = BE
 instance TH.Quote q => BackendRep (BE q) where
   type Name (BE q) = TH.Name
   type Expr (BE q) = q TH.Exp
-  type Decl (BE q) = q TH.Dec
+  type Decl (BE q) = q [TH.Dec]
   type Ty   (BE q) = q TH.Type
 
   resolve _ =  \case
@@ -50,6 +57,41 @@ instance TH.Quote q => BackendRep (BE q) where
       Storable_poke        -> 'Foreign.Storable.poke
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
       ConstantArray        -> ''HsBindgen.ConstantArray.ConstantArray
+
+      Eq_class             -> ''Eq
+      Ord_class            -> ''Ord
+      Num_class            -> ''Num
+      Integral_class       -> ''Integral
+      Fractional_class     -> ''Fractional
+      Bits_class           -> ''Data.Bits.Bits
+
+      Eq_eq                -> '(==)
+      Eq_uneq              -> '(/=)
+      Ord_lt               -> '(<)
+      Ord_le               -> '(<=)
+      Ord_gt               -> '(>)
+      Ord_ge               -> '(>=)
+      Base_identity        -> 'id
+      Base_not             -> 'not
+      Base_and             -> '(&&)
+      Base_or              -> '(||)
+      Bits_shiftL          -> 'Data.Bits.shiftL
+      Bits_shiftR          -> 'Data.Bits.shiftR
+      Bits_and             -> '(Data.Bits..&.)
+      Bits_xor             -> 'Data.Bits.xor
+      Bits_or              -> '(Data.Bits..|.)
+      Bits_complement      -> 'Data.Bits.complement
+      Num_negate           -> 'negate
+      Num_add              -> '(+)
+      Num_minus            -> '(-)
+      Num_times            -> '(*)
+      Fractional_div       -> '(/)
+      Integral_rem         -> 'rem
+      GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
+      GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
+      CFloat_constructor  -> 'Foreign.C.Types.CFloat
+      CDouble_constructor -> 'Foreign.C.Types.CDouble
+
       PrimType t           -> resolveP t
     where
       resolveP HsPrimVoid    = ''Data.Void.Void
@@ -71,8 +113,24 @@ instance TH.Quote q => BackendRep (BE q) where
   mkExpr be = \case
       EGlobal n     -> TH.varE (resolve be n)
       EVar x        -> TH.varE (getFresh x)
+      EFreeVar x    -> TH.varE $ TH.mkName (Text.unpack $ getHsName x)
       ECon n        -> hsConE n
-      EInt i        -> TH.litE (TH.IntegerL $ fromIntegral i)
+      EIntegral i _ -> TH.litE (TH.IntegerL i)
+      -- TH doesn't have floating-point literals, because it represents them
+      -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
+      --
+      -- To work around this problem, we cast floating-point numbers to
+      -- Word32/Word64 and then cast back.
+      EFloat f
+        | canBeRepresentedAsRational f
+        -> [| f |]
+        | otherwise
+        -> [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
+      EDouble d
+        | canBeRepresentedAsRational d
+        -> [| d |]
+        | otherwise
+        -> [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
       EApp f x      -> TH.appE (mkExpr be f) (mkExpr be x)
       EInfix op x y -> TH.infixE
                          (Just $ mkExpr be x)
@@ -92,15 +150,29 @@ instance TH.Quote q => BackendRep (BE q) where
 
   mkType :: BE q -> SType (BE q) -> Ty (BE q)
   mkType be = \case
-      TGlobal n -> TH.conT (resolve be n)
-      TCon n    -> hsConT n
-      TLit n    -> TH.litT (TH.numTyLit (toInteger n))
-      TApp f t  -> TH.appT (mkType be f) (mkType be t)
+      TGlobal n  -> TH.conT (resolve be n)
+      TCon n     -> hsConT n
+      TLit n     -> TH.litT (TH.numTyLit (toInteger n))
+      TApp f t   -> TH.appT (mkType be f) (mkType be t)
+      TFunTy a b -> TH.appT (TH.appT TH.arrowT (mkType be a)) (mkType be b)
+      TForall qtvs ctxt body ->
+        let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
+        in  TH.forallT
+              (map bndr qtvs)
+              (traverse (mkType be) ctxt)
+              (mkType be body)
+      TTyVar tv     -> TH.varT $ getFresh tv
 
   mkDecl :: BE q -> SDecl (BE q) -> Decl (BE q)
   mkDecl be = \case
-      DVar x f -> simpleDecl x f
-      DInst i  -> TH.instanceD
+      DVar hsNm mbTy f -> do
+        let nm = TH.mkName $ Text.unpack $ getHsName hsNm
+        addSigs <-
+          case mbTy of
+            Just ty -> (:) <$> TH.sigD nm (mkType be ty)
+            Nothing -> return id
+        addSigs . (:[]) <$> simpleDecl nm f
+      DInst i  -> (:[]) <$> TH.instanceD
                     (return [])
                     [t| $(TH.conT $ resolve be $ instanceClass i)
                         $(hsConT  $ instanceType i)
@@ -114,15 +186,16 @@ instance TH.Quote q => BackendRep (BE q) where
               [ TH.varBangType (hsNameToTH n) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be t)
               | (n, t) <- dataFields d
               ]
-        in TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
+        in (:[]) <$>
+          TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
 
       DNewtype n ->
         let field :: q TH.VarBangType
             field = TH.varBangType (hsNameToTH (newtypeField n)) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be (newtypeType n))
-        in TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
+        in (:[]) <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
 
       DDerivingNewtypeInstance ty ->
-          TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType be ty)
+          (:[]) <$> TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType be ty)
     where
       simpleDecl :: TH.Name -> SExpr (BE q) -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr be f) []

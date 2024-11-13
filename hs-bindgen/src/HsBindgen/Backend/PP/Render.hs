@@ -9,8 +9,10 @@ module HsBindgen.Backend.PP.Render (
   , renderIO
   ) where
 
+import Data.Maybe (maybeToList)
 import Data.List qualified as List
 import Data.Text qualified as Text
+import GHC.Float (castFloatToWord32, castDoubleToWord64)
 import System.IO
 
 import HsBindgen.Imports
@@ -18,7 +20,9 @@ import HsBindgen.Backend.Common
 import HsBindgen.Backend.PP
 import HsBindgen.Backend.PP.Render.Internal
 import HsBindgen.Backend.PP.Translation
+import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.AST.Type (HsPrimType(..))
 
 {-------------------------------------------------------------------------------
   Rendering
@@ -77,10 +81,15 @@ instance Pretty ImportListItem where
 
 instance Pretty (SDecl BE) where
   pretty = \case
-    DVar name expr -> fsep
-      [ pretty name <+> char '='
-      , nest 2 $ pretty expr
-      ]
+    DVar name mbTy expr ->
+      fsep
+        [ pretty name <+> string "::" <+> pretty ty
+        | ty <- maybeToList mbTy ]
+      $$
+      fsep
+        [ pretty name <+> char '='
+        , nest 2 $ pretty expr
+        ]
 
     DInst Instance{..} -> vsep $
         hsep
@@ -116,10 +125,20 @@ instance Pretty (SDecl BE) where
 
 instance Pretty (SType BE) where
   prettyPrec prec = \case
+
     TGlobal g -> pretty $ resolve BE g
     TCon n -> pretty n
     TLit n -> pretty n
-    TApp c x -> parensWhen (prec > 0) $ prettyPrec 1 c <+> prettyPrec 1 x
+    TApp c x -> parensWhen (prec > 0) $
+      prettyPrec 1 c <+> prettyPrec 1 x
+    TFunTy a b -> parensWhen (prec > 0) $
+      prettyPrec 1 a <+> "->" <+> prettyPrec 0 b
+    TForall qtvs ctxt body -> parensWhen (null qtvs && prec > 0) $
+      (if null qtvs
+       then id
+       else ( ( string "forall" <+> hsep (map pretty qtvs) >< string ".") <+> )
+      ) $ hsep (map (\ ct -> pretty ct <+> "=> ") ctxt) >< pretty body
+    TTyVar tv -> pretty $ getFresh tv
 
 {-------------------------------------------------------------------------------
   Expression pretty-printing
@@ -130,10 +149,28 @@ instance Pretty (SExpr BE) where
     EGlobal g -> pretty $ resolve BE g
 
     EVar x -> pretty $ getFresh x
-
+    EFreeVar x -> pretty x
     ECon n -> pretty n
 
-    EInt i -> showToCtxDoc i
+    EIntegral i _ -> showToCtxDoc i
+    EFloat f
+      | canBeRepresentedAsRational f
+      -> showToCtxDoc f
+      | otherwise
+      ->
+        prettyPrec @(SExpr BE) prec $
+          EApp (EGlobal CFloat_constructor) $
+            EApp (EGlobal GHC_Float_castWord32ToFloat) $
+              EIntegral (toInteger $ castFloatToWord32 f) HsPrimCUInt
+    EDouble f
+      | canBeRepresentedAsRational f
+      -> showToCtxDoc f
+      | otherwise
+      ->
+        prettyPrec @(SExpr BE)  prec $
+          EApp (EGlobal CDouble_constructor) $
+            EApp (EGlobal GHC_Float_castWord64ToDouble) $
+              EIntegral (toInteger $ castDoubleToWord64 f) HsPrimCULong
 
     EApp f x -> parensWhen (prec > 3) $ prettyPrec 3 f <+> prettyPrec 4 x
 

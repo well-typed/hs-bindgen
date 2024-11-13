@@ -17,8 +17,7 @@ WrapCHeader
             macroName = CName "USES_UTF8_H",
             macroArgs = [],
             macroBody = MTerm MEmpty},
-          macroDeclMacroTy = Just
-            "Empty"},
+          macroDeclMacroTy = "Empty"},
       DeclEnum
         Enu {
           enumTag = Just (CName "MyEnum"),

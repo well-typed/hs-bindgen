@@ -56,6 +56,14 @@ iForeignC = HsImport "Foreign.C" (Just "FC")
 iPrelude :: HsImport
 iPrelude = HsImport "Prelude" (Just "P")
 
+-- | @Data.Bits@ import
+iBits :: HsImport
+iBits = HsImport "Data.Bits" (Just "DB")
+
+-- | @GHC.Float@ import
+iGHCFloat :: HsImport
+iGHCFloat = HsImport "GHC.Float" (Just "GHC.Float")
+
 {-------------------------------------------------------------------------------
   NameType
 -------------------------------------------------------------------------------}
@@ -80,10 +88,13 @@ data ResolvedName = ResolvedName {
 -- | Construct a 'ResolvedName'
 mkResolvedName :: Bool -> HsImport -> String -> ResolvedName
 mkResolvedName resolvedNameQualify resolvedNameImport resolvedNameString =
-    let resolvedNameType
-          | all isIdentChar resolvedNameString = IdentifierName
-          | otherwise                          = OperatorName
-    in  ResolvedName{..}
+  let resolvedNameType = nameType resolvedNameString
+  in  ResolvedName{..}
+
+nameType :: String -> NameType
+nameType nm
+  | all isIdentChar nm = IdentifierName
+  | otherwise          = OperatorName
   where
     isIdentChar :: Char -> Bool
     isIdentChar c = Char.isAlphaNum c || c == '_' || c == '\''
@@ -112,6 +123,41 @@ resolveGlobal = \case
     Storable_poke        -> importQ iForeign "poke"
     Foreign_Ptr          -> importQ iForeign "Ptr"
     ConstantArray        -> importQ (HsImport "HsBindgen.ConstantArray" Nothing) "ConstantArray"
+
+    Eq_class         -> importQ iPrelude "Eq"
+    Ord_class        -> importQ iPrelude "Ord"
+    Num_class        -> importQ iPrelude "Num"
+    Integral_class   -> importQ iPrelude "Integral"
+    Fractional_class -> importQ iPrelude "Fractional"
+    Bits_class       -> importQ iBits    "Bits"
+
+    Eq_eq           -> importQ iPrelude "=="
+    Eq_uneq         -> importQ iPrelude "/="
+    Ord_lt          -> importQ iPrelude "<"
+    Ord_le          -> importQ iPrelude "<="
+    Ord_gt          -> importQ iPrelude ">"
+    Ord_ge          -> importQ iPrelude ">="
+    Base_identity   -> importQ iPrelude "id"
+    Base_not        -> importQ iPrelude "not"
+    Base_and        -> importQ iPrelude "&&"
+    Base_or         -> importQ iPrelude "||"
+    Bits_shiftL     -> importQ iBits    "shiftL"
+    Bits_shiftR     -> importQ iBits    "shiftR"
+    Bits_and        -> importQ iBits    ".&."
+    Bits_xor        -> importQ iBits    "xor"
+    Bits_or         -> importQ iBits    ".|."
+    Bits_complement -> importQ iBits    "complement"
+    Num_negate      -> importQ iPrelude "negate"
+    Num_add         -> importQ iPrelude "+"
+    Num_minus       -> importQ iPrelude "-"
+    Num_times       -> importQ iPrelude "*"
+    Fractional_div  -> importQ iPrelude "/"
+    Integral_rem    -> importQ iPrelude "rem"
+    GHC_Float_castWord32ToFloat -> importQ iGHCFloat "castWord32ToFloat"
+    GHC_Float_castWord64ToDouble -> importQ iGHCFloat "castWord64ToDouble"
+    CFloat_constructor -> importQ iForeignC "CFloat"
+    CDouble_constructor -> importQ iForeignC "CDouble"
+
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid    -> import_ iDataVoid "Void"
       HsPrimCChar   -> importQ iForeignC "CChar"

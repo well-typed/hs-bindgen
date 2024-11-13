@@ -90,6 +90,6 @@ data Decl =
 data MacroDecl
   = MacroReparseError ReparseError
   | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: TcMacroError }
-  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: Maybe QuantTy }
+  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: QuantTy }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
