@@ -9,3 +9,6 @@
 #define FUN2(X,Y) X << ( 3ull * Y )
 
 #define G(X,Y) CONST(INCR(Y),ID(X))
+
+#define DIV1(X,Y) X / ( Y + 12u )
+#define DIV2(X,Y) 10.0f * X / Y

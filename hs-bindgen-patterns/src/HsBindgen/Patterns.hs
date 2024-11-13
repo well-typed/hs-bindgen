@@ -29,8 +29,11 @@ module HsBindgen.Patterns (
   , collectBacktrace
   , prettyBacktrace
   , CollectedBacktrace(..)
+    -- * Arithmetic
+  , Div(..)
   ) where
 
+import HsBindgen.Patterns.Arithmetic
 import HsBindgen.Patterns.Backtrace
 import HsBindgen.Patterns.Enum.Bitfield
 import HsBindgen.Patterns.Enum.Simple
