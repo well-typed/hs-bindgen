@@ -136,7 +136,7 @@ data Struct = Struct {
 
 data StructField = StructField {
       fieldName   :: CName
-    , fieldOffset :: Int
+    , fieldOffset :: Int -- ^ Offset in bits
     , fieldType   :: Typ
     }
   deriving stock (Show, Eq, Generic)

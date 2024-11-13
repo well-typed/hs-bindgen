@@ -14,6 +14,7 @@ module HsBindgen.C.Fold.Type (
   , mkTypedef
   ) where
 
+import Control.Monad
 import Control.Monad.State
 import Foreign.C
 import GHC.Stack
@@ -115,6 +116,8 @@ mkStructField unit current = do
           error $ "mkStructField: " ++ show err
         Right (fieldType, fieldName) -> do
           fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
+          unless (fieldOffset `mod` 8 == 0) $
+            error "bit-fields not supported yet"
           return StructField{fieldName, fieldOffset, fieldType}
 
     else liftIO $ do
@@ -123,6 +126,8 @@ mkStructField unit current = do
       fieldType   <- mkTypeUse ty
       fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
       fieldName   <- CName <$> clang_getCursorDisplayName current
+
+      unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
 
       return StructField{fieldName, fieldOffset, fieldType}
 
