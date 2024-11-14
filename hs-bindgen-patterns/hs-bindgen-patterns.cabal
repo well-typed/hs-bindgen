@@ -37,6 +37,7 @@ library
       HsBindgen.Patterns
       HsBindgen.ConstantArray
   other-modules:
+      HsBindgen.Patterns.Arithmetic
       HsBindgen.Patterns.Backtrace
       HsBindgen.Patterns.Enum.Bitfield
       HsBindgen.Patterns.Enum.Simple

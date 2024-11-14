@@ -233,6 +233,7 @@ classGlobal = \case
   NumTyCon        -> Num_class
   IntegralTyCon   -> Integral_class
   FractionalTyCon -> Fractional_class
+  DivTyCon        -> Div_class
   BitsTyCon       -> Bits_class
 
 varRHS :: Backend be => be -> Hs.VarDeclRHS (Fresh be) -> M be (SExpr be)
@@ -266,7 +267,7 @@ mfunGlobal = \case
   C.MLogicalNot -> Base_not
   C.MBitwiseNot -> Bits_complement
   C.MMult       -> Num_times
-  C.MDiv        -> Fractional_div
+  C.MDiv        -> Div_div
   C.MRem        -> Integral_rem
   C.MAdd        -> Num_add
   C.MSub        -> Num_minus

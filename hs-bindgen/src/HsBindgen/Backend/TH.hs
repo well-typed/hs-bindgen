@@ -28,6 +28,8 @@ import HsBindgen.Util.PHOAS
 import HsBindgen.ConstantArray qualified
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 
+import HsBindgen.Patterns qualified (Div(..))
+
 {-------------------------------------------------------------------------------
   Backend definition
 -------------------------------------------------------------------------------}
@@ -63,6 +65,7 @@ instance TH.Quote q => BackendRep (BE q) where
       Num_class            -> ''Num
       Integral_class       -> ''Integral
       Fractional_class     -> ''Fractional
+      Div_class            -> ''HsBindgen.Patterns.Div
       Bits_class           -> ''Data.Bits.Bits
 
       Eq_eq                -> '(==)
@@ -85,7 +88,7 @@ instance TH.Quote q => BackendRep (BE q) where
       Num_add              -> '(+)
       Num_minus            -> '(-)
       Num_times            -> '(*)
-      Fractional_div       -> '(/)
+      Div_div              -> '(HsBindgen.Patterns./)
       Integral_rem         -> 'rem
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble

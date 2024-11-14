@@ -216,4 +216,75 @@ WrapCHeader
                         MTerm
                           (MVar (CName "X") [])])])},
           macroDeclMacroTy =
-          "(forall a b. Integral b => (a -> b -> b))"}])
+          "(forall a b. Integral b => (a -> b -> b))"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 13,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "DIV1",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MApp
+              MDiv
+              [
+                MTerm (MVar (CName "X") []),
+                MApp
+                  MAdd
+                  [
+                    MTerm (MVar (CName "Y") []),
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "12u",
+                          integerLiteralType = Just
+                            (PrimInt Unsigned),
+                          integerLiteralValue = 12})]]},
+          macroDeclMacroTy =
+          "(UInt -> UInt -> UInt)"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "macro_functions.h"],
+                singleLocLine = 14,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "DIV2",
+            macroArgs = [
+              CName "X",
+              CName "Y"],
+            macroBody = MApp
+              MDiv
+              [
+                MApp
+                  MMult
+                  [
+                    MTerm
+                      (MFloat
+                        FloatingLiteral {
+                          floatingLiteralText = "10.0f",
+                          floatingLiteralType = Just
+                            PrimFloat,
+                          floatingLiteralFloatValue =
+                          10.0,
+                          floatingLiteralDoubleValue =
+                          10.0}),
+                    MTerm (MVar (CName "X") [])],
+                MTerm (MVar (CName "Y") [])]},
+          macroDeclMacroTy =
+          "(Float -> Float -> Float)"}])

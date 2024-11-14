@@ -63,6 +63,7 @@ data Global =
   | Num_class
   | Integral_class
   | Fractional_class
+  | Div_class
   | Bits_class
 
   | Eq_eq
@@ -85,7 +86,7 @@ data Global =
   | Num_add
   | Num_minus
   | Num_times
-  | Fractional_div
+  | Div_div
   | Integral_rem
 
   | CFloat_constructor

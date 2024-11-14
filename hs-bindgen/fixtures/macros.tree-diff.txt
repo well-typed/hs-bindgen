@@ -884,39 +884,4 @@ WrapCHeader
               "  - Long\n",
               "because the type constructors are different.\n",
               "In an application of 'MMult'.\n",
-              "\n"]},
-      DeclMacro
-        MacroTcError {
-          macroTcErrorMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 47,
-                singleLocColumn = 9},
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "BAD3",
-            macroArgs = [],
-            macroBody = MApp
-              MDiv
-              [
-                MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "3",
-                      integerLiteralType = Nothing,
-                      integerLiteralValue = 3}),
-                MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "7",
-                      integerLiteralType = Nothing,
-                      integerLiteralValue = 7})]},
-          macroTcError = T.concat
-            [
-              "Failed to typecheck macro:\n",
-              "Inconsistent pairs of constraints:\n",
-              "  - 'Fractional a_0[tau]' and Integral a_0[tau]\n"]}])
+              "\n"]}])

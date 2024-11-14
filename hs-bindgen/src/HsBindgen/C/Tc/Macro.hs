@@ -296,6 +296,8 @@ data ClassTyCon n where
   IntegralTyCon   :: ClassTyCon ( S Z )
   -- | Class type constructor for Fractional
   FractionalTyCon :: ClassTyCon ( S Z )
+  -- | Class type constructor for Div
+  DivTyCon        :: ClassTyCon ( S Z )
   -- | Class type constructor for Bits
   BitsTyCon       :: ClassTyCon ( S Z )
 deriving stock instance Eq  ( ClassTyCon n )
@@ -308,6 +310,7 @@ instance PrettyVal ( ClassTyCon n ) where
     NumTyCon        -> Pretty.Con "NumTyCon"        []
     IntegralTyCon   -> Pretty.Con "IntegralTyCon"   []
     FractionalTyCon -> Pretty.Con "FractionalTyCon" []
+    DivTyCon        -> Pretty.Con "DivTyCon"        []
     BitsTyCon       -> Pretty.Con "BitsTyCon"       []
 
 instance Show (TyCon n ki) where
@@ -351,6 +354,7 @@ instance Show (ClassTyCon n) where
     NumTyCon        -> "Num"
     IntegralTyCon   -> "Integral"
     FractionalTyCon -> "Fractional"
+    DivTyCon        -> "Div"
     BitsTyCon       -> "Bits"
 
 -- | On-the-nose type equality.
@@ -948,7 +952,7 @@ inferMFun = \case
   MLogicalNot -> q0 $          QuantTyBody []                   ( funTy [Bool]       Bool )
   MBitwiseNot -> q1 $ \ a   -> QuantTyBody [Bits a]             ( funTy [a]          a )
   MMult       -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a,a]        a )
-  MDiv        -> q1 $ \ a   -> QuantTyBody [Fractional a]       ( funTy [a,a]        a )
+  MDiv        -> q1 $ \ a   -> QuantTyBody [Div a]              ( funTy [a,a]        a )
   MRem        -> q1 $ \ a   -> QuantTyBody [Integral a]         ( funTy [a,a]        a )
   MAdd        -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a,a]        a )
   MSub        -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a,a]        a )
@@ -984,6 +988,8 @@ pattern Integral :: Type Ty -> Type Ct
 pattern Integral a = TyConAppTy (ClassTyCon IntegralTyCon) ( a ::: VNil )
 pattern Fractional :: Type Ty -> Type Ct
 pattern Fractional a = TyConAppTy (ClassTyCon FractionalTyCon) ( a ::: VNil )
+pattern Div :: Type Ty -> Type Ct
+pattern Div a = TyConAppTy (ClassTyCon DivTyCon) ( a ::: VNil )
 pattern Bits :: Type Ty -> Type Ct
 pattern Bits a = TyConAppTy (ClassTyCon BitsTyCon) ( a ::: VNil )
 
@@ -1034,6 +1040,9 @@ classImplies :: ClassTyCon n -> ClassTyCon n -> Bool
 classImplies OrdTyCon EqTyCon = True
 classImplies IntegralTyCon NumTyCon = True
 classImplies FractionalTyCon NumTyCon = True
+classImplies DivTyCon NumTyCon = True
+classImplies IntegralTyCon DivTyCon = True
+classImplies FractionalTyCon DivTyCon = True
 classImplies cls1 cls2 = cls1 == cls2
 
 -- | The data constructor tag of a 'DataTyCon', used as an identifier for
@@ -1070,6 +1079,7 @@ classInstancesWithDefaults = Map.fromList . \case
   NumTyCon        -> mkUnaryInsts [ intTy, doubleTy ]
   IntegralTyCon   -> mkUnaryInsts [ intTy ]
   FractionalTyCon -> mkUnaryInsts [ doubleTy ]
+  DivTyCon        -> mkUnaryInsts [ intTy, doubleTy ]
   BitsTyCon       -> mkUnaryInsts [ intTy ]
   where
     intTy = IntLike ( PrimInt Signed )

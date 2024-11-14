@@ -44,4 +44,3 @@
 
 #define BAD1 0.1 + 1
 #define BAD2 2l * 2ul
-#define BAD3 3 / 7
