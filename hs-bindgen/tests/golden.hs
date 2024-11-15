@@ -48,6 +48,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
     , golden "fixedwidth"
     , golden "fixedarray"
     , golden "unnamed-struct"
+    , golden "weird01.h"
     ]
   where
     golden name = testGroup name
