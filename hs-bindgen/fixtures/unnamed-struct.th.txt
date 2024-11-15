@@ -1,0 +1,8 @@
+data CX = MkCX {cX_foo :: CInt, cX_bar :: CInt}
+instance Storable CX
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> (pure MkCX <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCX cX_foo_3
+                                          cX_bar_4 -> pokeByteOff ptr_1 0 cX_foo_3 >> pokeByteOff ptr_1 4 cX_bar_4}}
