@@ -1,0 +1,53 @@
+WrapCHeader
+  (Header
+    [
+      DeclFunction
+        Function {
+          functionName = CName "func",
+          functionType = TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  (DeclPathStruct
+                    (DeclNameTag (CName "bar"))
+                    DeclPathTop))]
+            (TypePrim PrimVoid),
+          functionHeader = "weird01.h",
+          functionSourceLoc =
+          "examples/weird01.h:8:6"},
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "foo"))
+            DeclPathTop,
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "z",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc =
+              "examples/weird01.h:2:13"}],
+          structFlam = Nothing,
+          structSourceLoc =
+          "examples/weird01.h:1:8"},
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "bar"))
+            DeclPathTop,
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc =
+              "examples/weird01.h:4:21"}],
+          structFlam = Nothing,
+          structSourceLoc =
+          "examples/weird01.h:3:16"}])
