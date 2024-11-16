@@ -14,6 +14,10 @@
 #define LONG_INT_TOKEN3 1844'6744'0737'0955'0592uLL
 #define LONG_INT_TOKEN4 184467'440737'0'95505'92LLU
 
+#define TUPLE1 ( 1 , 2 )
+#define TUPLE2 3 , 4
+#define TUPLE3 5, 6
+
 // ---
 // https://en.cppreference.com/w/cpp/language/floating_literal
 // (1)

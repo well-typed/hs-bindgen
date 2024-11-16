@@ -965,6 +965,7 @@ inferMFun = \case
   MBitwiseOr  -> q1 $ \ a   -> QuantTyBody [Bits a]             ( funTy [a,a]        a )
   MLogicalAnd -> q0 $          QuantTyBody []                   ( funTy [Bool, Bool] Bool )
   MLogicalOr  -> q0 $          QuantTyBody []                   ( funTy [Bool, Bool] Bool )
+  _otherwise  -> QuantTy @Z $ \VNil -> QuantTyBody [] Empty -- TODO
   where
     q0 body = QuantTy @Z             $ \ VNil -> body
     q1 body = QuantTy @( S Z )       $ \ (a ::: VNil) -> body a

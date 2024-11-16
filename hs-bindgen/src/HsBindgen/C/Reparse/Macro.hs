@@ -4,6 +4,7 @@ module HsBindgen.C.Reparse.Macro (
     reparseMacro
   ) where
 
+import Data.Type.Nat
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
@@ -17,7 +18,6 @@ import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Reparse.Type
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -113,7 +113,7 @@ actualArgs = parens $ mExpr `sepBy` comma
 
 mExpr :: Reparse MExpr
 mExpr =
-    buildExpressionParser ops term <?> "expression"
+    (tup <$> buildExpressionParser ops term `sepBy1` comma) <?> "expression"
   where
     term :: Reparse MExpr
     term = choice [
@@ -169,5 +169,14 @@ mExpr =
       , [ Infix (ap2 MLogicalOr  <$ punctuation "||") AssocLeft ]
       ]
 
+    ap1 :: MFun (S Z) -> MExpr -> MExpr
     ap1 op arg = MApp op ( arg ::: VNil )
+
+    ap2 :: MFun (S (S Z)) -> MExpr -> MExpr -> MExpr
     ap2 op arg1 arg2 = MApp op ( arg1 ::: arg2 ::: VNil )
+
+    tup :: [MExpr] -> MExpr
+    tup []  = error "apSN: empty list" -- sepBy1 should give us @NonEmpty@
+    tup [e] = e
+    tup (e1 : e2 : es) = reifyList es $ \es' -> MApp MTuple (e1 ::: e2 ::: es')
+
