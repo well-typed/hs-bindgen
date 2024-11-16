@@ -1,0 +1,21 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Nothing,
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "foo",
+              fieldOffset = 0,
+              fieldType = TypPrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "bar",
+              fieldOffset = 32,
+              fieldType = TypPrim
+                (PrimIntegral
+                  (PrimInt Signed))}]}])
