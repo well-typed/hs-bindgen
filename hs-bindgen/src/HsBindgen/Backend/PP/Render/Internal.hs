@@ -21,6 +21,7 @@
 module HsBindgen.Backend.PP.Render.Internal where
 import HsBindgen.Imports
 import Text.PrettyPrint.HughesPJ qualified as PP
+import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
   Context
@@ -32,6 +33,9 @@ data Context = Context {
       ctxIndentation :: !Int
       -- | Maximum number of columns per line, when possible
     , ctxMaxLineCols :: !Int
+
+      -- | Name unique
+    , ctxNameUnique :: !Int
     }
 
 -- | Construct an initial 'Context' with the specified line length
@@ -39,6 +43,7 @@ mkContext :: Int -> Context
 mkContext maxLineCols = Context {
       ctxIndentation = 0
     , ctxMaxLineCols = maxLineCols
+    , ctxNameUnique = 0
     }
 
 -- | Default pretty-printing context
@@ -69,6 +74,12 @@ instance Show CtxDoc where
 -- | Run a 'CtxDoc' with the specified context
 runCtxDoc :: Context -> CtxDoc -> PP.Doc
 runCtxDoc ctx (CtxDoc f) = f ctx
+
+withFreshName :: NameHint -> (CtxDoc -> CtxDoc) -> CtxDoc
+withFreshName (NameHint n) k = CtxDoc $ \ctx -> do
+    let i = ctxNameUnique ctx
+    let CtxDoc next = k (CtxDoc $ \_ -> PP.text (n ++ show i))
+    next ctx { ctxNameUnique = i + 1 }
 
 -- | Render a 'CtxDoc'
 renderCtxDoc :: Context -> CtxDoc -> String

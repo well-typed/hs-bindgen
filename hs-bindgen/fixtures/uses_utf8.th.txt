@@ -2,6 +2,6 @@ newtype CMyEnum = MkCMyEnum {unCMyEnum :: CUInt}
 instance Storable CMyEnum
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \x_0 -> pure MkCMyEnum <*> peekByteOff x_0 0;
-           poke = \x_1 -> \x_2 -> case x_2 of
-                                  {MkCMyEnum unCMyEnum_3 -> pokeByteOff x_1 0 unCMyEnum_3}}
+           peek = \ptr_0 -> pure MkCMyEnum <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCMyEnum unCMyEnum_3 -> pokeByteOff ptr_1 0 unCMyEnum_3}}

@@ -17,12 +17,12 @@ instance F.Storable CMyEnum where
   alignment = \_ -> 4
 
   peek =
-    \x0 ->
+    \ptr0 ->
           pure MkCMyEnum
-      <*> F.peekByteOff x0 0
+      <*> F.peekByteOff ptr0 0
 
   poke =
-    \x0 ->
-      \x1 ->
-        case x1 of
-          MkCMyEnum unCMyEnum2 -> F.pokeByteOff x0 0 unCMyEnum2
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCMyEnum unCMyEnum2 -> F.pokeByteOff ptr0 0 unCMyEnum2

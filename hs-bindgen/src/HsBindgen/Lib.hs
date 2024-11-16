@@ -87,8 +87,7 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Translation.LowLevel qualified as LowLevel
-import HsBindgen.Util.PHOAS
+import HsBindgen.Hs.Translation qualified as LowLevel
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -173,8 +172,8 @@ genModule opts = WrapHsModule . Backend.PP.translate opts . unwrapCHeader
 genTH :: TH.Quote q => CHeader -> q [TH.Dec]
 genTH = Backend.TH.translateC . unwrapCHeader
 
-genHsDecls :: CHeader -> List Hs.Decl f
-genHsDecls = List . LowLevel.generateDeclarations . unwrapCHeader
+genHsDecls :: CHeader -> [Hs.Decl]
+genHsDecls = LowLevel.generateDeclarations . unwrapCHeader
 
 {-------------------------------------------------------------------------------
   Processing output

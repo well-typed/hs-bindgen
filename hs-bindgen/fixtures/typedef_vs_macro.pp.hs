@@ -40,19 +40,19 @@ instance F.Storable CExampleStruct where
   alignment = \_ -> 4
 
   peek =
-    \x0 ->
+    \ptr0 ->
           pure MkCExampleStruct
-      <*> F.peekByteOff x0 0
-      <*> F.peekByteOff x0 4
-      <*> F.peekByteOff x0 8
-      <*> F.peekByteOff x0 12
+      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 4
+      <*> F.peekByteOff ptr0 8
+      <*> F.peekByteOff ptr0 12
 
   poke =
-    \x0 ->
-      \x1 ->
-        case x1 of
+    \ptr0 ->
+      \s1 ->
+        case s1 of
           MkCExampleStruct cExampleStruct_t12 cExampleStruct_t23 cExampleStruct_m14 cExampleStruct_m25 ->
-               F.pokeByteOff x0 0 cExampleStruct_t12
-            >> F.pokeByteOff x0 4 cExampleStruct_t23
-            >> F.pokeByteOff x0 8 cExampleStruct_m14
-            >> F.pokeByteOff x0 12 cExampleStruct_m25
+               F.pokeByteOff ptr0 0 cExampleStruct_t12
+            >> F.pokeByteOff ptr0 4 cExampleStruct_t23
+            >> F.pokeByteOff ptr0 8 cExampleStruct_m14
+            >> F.pokeByteOff ptr0 12 cExampleStruct_m25

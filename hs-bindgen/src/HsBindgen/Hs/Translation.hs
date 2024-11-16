@@ -9,48 +9,50 @@
 --   <https://github.com/well-typed/hs-bindgen/milestone/2>
 -- * Milestone 2: Low-level API
 --   <https://github.com/well-typed/hs-bindgen/milestone/3>
-module HsBindgen.Translation.LowLevel
-  ( generateDeclarations
-  , integralTyp, floatingTyp
-  ) where
+module HsBindgen.Hs.Translation (
+    generateDeclarations,
+    -- * leaky exports:
+    --   perfectly, translation will happen in *this* module.
+    integralType,
+    floatingType,
+) where
 
-import Data.Foldable
-import Data.Maybe
+import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
-import Data.Set qualified as Set
-import Data.Type.Nat
-import Data.Vec.Lazy (Vec (..))
+import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Imports
+import HsBindgen.NameHint
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Util.PHOAS
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+
+import DeBruijn (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx, Size (..))
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-generateDeclarations :: C.Header -> [Hs.Decl f]
-generateDeclarations = getList . toHs
+generateDeclarations :: C.Header -> [Hs.Decl]
+generateDeclarations = toHs
 
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
 class ToHs (a :: Star) where
-  type InHs a :: PHOAS
-  toHs :: a -> InHs a f
+  type InHs a :: Star
+  toHs :: a -> InHs a
 
 instance ToHs C.Header where
-  type InHs C.Header = List Hs.Decl
-  toHs (C.Header decs) = List $ concatMap getList (map toHs decs)
+  type InHs C.Header = [Hs.Decl]
+  toHs (C.Header decs) = concatMap toHs decs
 
 instance ToHs C.Decl where
-  type InHs C.Decl = List Hs.Decl
+  type InHs C.Decl = [Hs.Decl]
   toHs (C.DeclStruct struct) = reifyStructFields struct $ structDecs struct
   toHs (C.DeclEnum e)        = enumDecs e
   toHs (C.DeclTypedef d)     = typedefDecs d
@@ -77,12 +79,12 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 -- * Name mangling
 -- * Deal with untagged structs.
 -- * ..
-structDecs :: forall n f.
+structDecs :: forall n.
      SNatI n
-  => C.Struct -> Vec n C.StructField -> List Hs.Decl f
-structDecs struct fields = List
-    [ Hs.DeclData $ Hs.WithStruct hs Hs.MkDataDecl
-    , Hs.DeclInstance $ Hs.InstanceStorable storable
+  => C.Struct -> Vec n C.StructField -> [Hs.Decl]
+structDecs struct fields =
+    [ Hs.DeclData hs
+    , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ]
   where
     hs :: Hs.Struct n
@@ -99,33 +101,30 @@ structDecs struct fields = List
           structFields = Vec.map mkField fields
       in  Hs.Struct{..}
 
-    storable :: Hs.WithStruct Hs.StorableInstance f
-    storable = Hs.WithStruct hs $ Hs.StorableInstance {
+    storable :: Hs.StorableInstance
+    storable = Hs.StorableInstance {
           Hs.storableSizeOf    = C.structSizeof struct
         , Hs.storableAlignment = C.structAlignment struct
-        , Hs.storablePeek      = Hs.Lambda $ \ptr ->
-                                  Hs.Ap (Hs.IntroStruct hs) $
-                                    map (peek ptr) (C.structFields struct)
-        , Hs.storablePoke      = Hs.Lambda $ \ptr ->
-                                   Hs.ElimStruct hs $ \xs -> Hs.Seq . List $
-                                     toList $ Vec.zipWith (poke ptr) fields xs
+        , Hs.storablePeek      = Hs.Lambda "ptr" $
+            Hs.Ap (Hs.StructCon hs) $ map (peek IZ) (C.structFields struct)
+        , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+            Hs.makeElimStruct IZ hs $ \wk xs -> Hs.Seq $ toList $ Vec.zipWith (poke (weaken wk I1)) fields xs
         }
 
-    peek :: f Bound -> C.StructField -> Hs.PeekByteOff f
+    peek :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
     peek ptr f = Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
 
-    poke :: f Bound -> C.StructField -> f Bound -> Hs.PokeByteOff f
+    poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
 
 {-------------------------------------------------------------------------------
   Enum
 -------------------------------------------------------------------------------}
 
-enumDecs :: forall f.
-  C.Enu -> List Hs.Decl f
-enumDecs e = List [
+enumDecs :: C.Enu -> [Hs.Decl]
+enumDecs e = [
       Hs.DeclNewtype newtype_
-    , Hs.DeclInstance $ Hs.InstanceStorable storable
+    , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ]
   where
     newtype_ :: Hs.Newtype
@@ -152,30 +151,28 @@ enumDecs e = List [
             )
       in  Hs.Struct{..}
 
-    storable :: Hs.WithStruct Hs.StorableInstance f
-    storable = Hs.WithStruct hs $ Hs.StorableInstance {
+    storable :: Hs.StorableInstance
+    storable = Hs.StorableInstance {
           Hs.storableSizeOf    = C.enumSizeof e
         , Hs.storableAlignment = C.enumAlignment e
-        , Hs.storablePeek      = Hs.Lambda $ \ptr ->
-                                  Hs.Ap (Hs.IntroStruct hs) $
-                                    [ peek ptr ]
-        , Hs.storablePoke      = Hs.Lambda $ \ptr ->
-                                   Hs.ElimStruct hs $ \xs -> Hs.Seq . List $
-                                     [ poke ptr (Vec.head xs) ]
+        , Hs.storablePeek      = Hs.Lambda "ptr" $
+            Hs.Ap (Hs.StructCon hs) [ peek IZ 0 ]
+        , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+            Hs.ElimStruct IZ hs (AS AZ) $ Hs.Seq [ poke I2 0 IZ ]
         }
 
-    peek :: f Bound -> Hs.PeekByteOff f
-    peek ptr = Hs.PeekByteOff ptr 0
+    peek :: Idx ctx -> Int -> Hs.PeekByteOff ctx
+    peek = Hs.PeekByteOff
 
-    poke :: f Bound -> f Bound -> Hs.PokeByteOff f
-    poke ptr i = Hs.PokeByteOff ptr 0 i
+    poke :: Idx ctx -> Int -> Idx ctx -> Hs.PokeByteOff ctx
+    poke = Hs.PokeByteOff
 
 {-------------------------------------------------------------------------------
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs :: C.Typedef -> List Hs.Decl f
-typedefDecs d = List [
+typedefDecs :: C.Typedef -> [Hs.Decl]
+typedefDecs d = [
       Hs.DeclNewtype newtype_
     , Hs.DeclNewtypeInstance Hs.Storable newtypeName
     ]
@@ -196,7 +193,7 @@ typedefDecs d = List [
   Macros
 -------------------------------------------------------------------------------}
 
-macroDecs :: C.MacroDecl -> List Hs.Decl f
+macroDecs :: C.MacroDecl -> [Hs.Decl]
 macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | C.QuantTy bf <- ty
     , C.isPrimTy bf
@@ -206,11 +203,11 @@ macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     = macroVarDecs m ty
     where
 
-macroDecs C.MacroReparseError {} = List []
-macroDecs C.MacroTcError {}      = List []
+macroDecs C.MacroReparseError {} = []
+macroDecs C.MacroTcError {}      = []
 
-macroDecsTypedef :: C.Macro -> List Hs.Decl f
-macroDecsTypedef m = List [
+macroDecsTypedef :: C.Macro -> [Hs.Decl]
+macroDecsTypedef m = [
         Hs.DeclNewtype newtype_
       ]
   where
@@ -243,13 +240,13 @@ typ _     (C.TypPrim p)       = case p of
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
   C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar
   C.PrimChar (Just C.Unsigned) -> Hs.HsPrimType HsPrimCSChar
-  C.PrimIntegral i -> Hs.HsPrimType $ integralTyp i
-  C.PrimFloating f -> Hs.HsPrimType $ floatingTyp f
+  C.PrimIntegral i -> Hs.HsPrimType $ integralType i
+  C.PrimFloating f -> Hs.HsPrimType $ floatingType f
 typ nm (C.TypPointer t)    = Hs.HsPtr (typ nm t)
 typ nm (C.TypConstArray n ty) = Hs.HsConstArray n (typ nm ty)
 
-integralTyp :: C.PrimIntType -> HsPrimType
-integralTyp = \case
+integralType :: C.PrimIntType -> HsPrimType
+integralType = \case
   C.PrimInt C.Signed        -> HsPrimCInt
   C.PrimInt C.Unsigned      -> HsPrimCUInt
   C.PrimShort C.Signed      -> HsPrimCShort
@@ -259,8 +256,8 @@ integralTyp = \case
   C.PrimLongLong C.Signed   -> HsPrimCLLong
   C.PrimLongLong C.Unsigned -> HsPrimCULLong
 
-floatingTyp :: C.PrimFloatType -> HsPrimType
-floatingTyp = \case
+floatingType :: C.PrimFloatType -> HsPrimType
+floatingType = \case
   C.PrimFloat      -> HsPrimCFloat
   C.PrimDouble     -> HsPrimCDouble
   C.PrimLongDouble -> HsPrimCDouble -- wrong (see #247)
@@ -269,105 +266,104 @@ floatingTyp = \case
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.Macro -> C.QuantTy -> List Hs.Decl f
+macroVarDecs :: C.Macro -> C.QuantTy -> [Hs.Decl]
 macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
-  List [
+  [
     Hs.DeclVar $
       Hs.VarDecl
         { varDeclName = hsVarName
         , varDeclType = quantTyHsTy qty
         , varDeclBody = hsBody
         }
-  | hsBody <- maybeToList $ macroLamHsExpr cVarNm args body
+  | hsBody <- toList $ macroLamHsExpr cVarNm args body
   ]
   where
     hsVarName = mangleVarName defaultNameMangler $ VarContext cVarNm
 
-quantTyHsTy :: C.QuantTy -> Hs.SigmaType f
-quantTyHsTy qty@( C.QuantTy @n _ ) =
+quantTyHsTy :: C.QuantTy -> Hs.SigmaType
+quantTyHsTy qty@(C.QuantTy @n _) =
   case C.mkQuantTyBody qty of
     C.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
       goForallTy (C.tyVarNames @n) cts ty
   where
-    goTy :: Map Text ( f Bound ) -> C.Type C.Ty -> Hs.TauType f
-    goTy bound = \case
-      C.TyVarTy tv -> Hs.TyVarTy $ bound Map.! ( C.tyVarName tv )
-      C.FunTy as r ->
-        foldr (Hs.FunTy . goTy bound) (goTy bound r) as
-      C.TyConAppTy ( C.DataTyCon tc ) as ->
-        Hs.TyConAppTy ( Hs.TyConApp tc $ fmap ( goTy bound ) as )
-    goCt :: Map Text ( f Bound ) -> C.Type C.Ct -> Hs.ClassTy f
-    goCt bound = \case
-      C.TyConAppTy ( C.ClassTyCon tc ) as ->
-        Hs.ClassTy tc ( fmap ( goTy bound ) as )
-    goForallTy :: Vec n Text -> [ C.Type C.Ct ] -> C.Type C.Ty -> Hs.SigmaType f
-    goForallTy args cts body =
-      Hs.ForallTy (fmap mkHsName args) $ Hs.Forall $ \ qtvs ->
-        let bound = Map.fromList $ toList $ Vec.zipWith (,) args qtvs
-        in  Hs.QuantTy ( fmap ( goCt bound ) cts ) ( goTy bound body )
+    size :: Size n
+    size = induction SZ SS
 
-macroLamHsExpr :: C.CName -> [C.CName] -> C.MExpr -> Maybe (Hs.VarDeclRHS f)
-macroLamHsExpr macroNm macroArgs expr = ($ Map.empty) <$> go Set.empty macroArgs
-  where
-    go :: Set C.CName -> [C.CName] -> Maybe (Map C.CName (f Bound) -> Hs.VarDeclRHS f)
-    go varSet [] = ( . (Map.!) ) <$> macroExprHsExpr macroNm varSet expr
-    go varSet (argNm:args) =
-      case go (Set.insert argNm varSet) args of
-        Nothing -> Nothing
-        Just e ->
-          Just $ \ bound0 ->
-            let hsArgNm = mangleVarName defaultNameMangler $ VarContext argNm
-            in
-              Hs.VarDeclLambda hsArgNm $
-                Hs.Lambda $ \ bound ->
-                  e (Map.insert argNm bound bound0)
+    goCt :: Map Text (Idx ctx) -> C.Type C.Ct -> Hs.ClassTy ctx
+    goCt env (C.TyConAppTy (C.ClassTyCon tc) as) = Hs.ClassTy tc (fmap (goTy env) as)
 
-macroExprHsExpr :: C.CName -> Set C.CName -> C.MExpr -> Maybe ((C.CName -> f Bound) -> Hs.VarDeclRHS f)
-macroExprHsExpr macroNm macroArgs = goExpr
+    goTy :: Map Text (Idx ctx) -> C.Type C.Ty -> Hs.TauType ctx
+    goTy env (C.TyVarTy tv) = Hs.TyVarTy (env Map.! C.tyVarName tv) -- XXX: partial Map.!
+    goTy env (C.FunTy as r) =
+      foldr (Hs.FunTy . goTy env) (goTy env r) as
+    goTy env (C.TyConAppTy (C.DataTyCon tc) as) =
+      Hs.TyConAppTy (Hs.TyConApp tc $ fmap (goTy env) as)
+
+    goForallTy :: Vec n Text -> [ C.Type C.Ct ] -> C.Type C.Ty -> Hs.SigmaType
+    goForallTy args cts body = Hs.ForallTy
+        { forallTySize    = size
+        , forallTyBinders = fmap (fromString . T.unpack) args
+        , forallTy        = Hs.QuantTy
+            { quantTyCts  = fmap (goCt env) cts
+            , quantTyBody = goTy env body
+            }
+        }
+      where
+        env :: Map Text (Idx n)
+        env = Map.fromList $ toList $ Vec.zipWith (,) args qtvs
+
+        qtvs :: Vec n (Idx n)
+        qtvs = unU (induction (U VNil) (\(U v) -> U (IZ ::: fmap IS v)))
+
+newtype U n = U { unU :: Vec n (Idx n) }
+
+macroLamHsExpr :: C.CName -> [C.CName] -> C.MExpr -> Maybe (Hs.VarDeclRHS EmptyCtx)
+macroLamHsExpr _macroName macroArgs expr =
+    makeNames macroArgs Map.empty
   where
-    goExpr :: C.MExpr -> Maybe ((C.CName -> f Bound) -> Hs.VarDeclRHS f)
-    goExpr = \case
-      C.MTerm tm -> goTerm tm
+    makeNames :: [C.CName] -> Map C.CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+    makeNames []     env = macroExprHsExpr env expr
+    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
+
+cnameToHint :: C.CName -> NameHint
+cnameToHint (C.CName t) = fromString (T.unpack t)
+
+macroExprHsExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
+macroExprHsExpr = goExpr where
+    goExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
+    goExpr env = \case
+      C.MTerm tm -> goTerm env tm
       C.MApp fun args ->
-        goApp (Hs.InfixAppHead fun) (toList args)
+        goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: C.MTerm -> Maybe ((C.CName -> f Bound) -> Hs.VarDeclRHS f)
-    goTerm = \case
+    goTerm :: Map C.CName (Idx ctx) -> C.MTerm -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm env = \case
       C.MEmpty -> Nothing
-      C.MInt i -> fmap const $ goInt i
-      C.MFloat f -> fmap const $ goFloat f
-      varApp@(C.MVar nm args) ->
-        if nm `Set.member` macroArgs
-        then
-          if null args
-          then
-            return $
-              \ lk -> Hs.VarDeclVar (lk nm)
-          else
-            error $ unlines
-              [ "'macroExprHsExpr': macro argument used as a function"
-              , "     macro: " ++ show macroNm
-              , "  argument: " ++ show varApp
-              ]
-        else
-          let hsVar = mangleVarName defaultNameMangler $ VarContext nm
-          in  goApp (Hs.VarAppHead hsVar) args
+      C.MInt i -> goInt i
+      C.MFloat f -> goFloat f
+      C.MVar nm args ->
+        --  TODO: removed the macro arguement used as a function check.
+        case Map.lookup nm env of
+          Just i  -> return (Hs.VarDeclVar i)
+          Nothing ->
+            let hsVar = mangleVarName defaultNameMangler $ VarContext nm
+            in  goApp env (Hs.VarAppHead hsVar) args
 
       C.MType {} -> Nothing
-      C.MAttr _attr tm' -> goTerm tm'
+      C.MAttr _attr tm' -> goTerm env tm'
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 
-    goApp :: Hs.VarDeclRHSAppHead -> [C.MExpr] -> Maybe ((C.CName -> f Bound) -> Hs.VarDeclRHS f)
-    goApp appHead args = do
-      args' <- traverse goExpr args
-      return $ \ lk -> Hs.VarDeclApp appHead (map ( $ lk ) args')
+    goApp :: Map C.CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp env appHead args = do
+      args' <- traverse (goExpr env) args
+      return $ Hs.VarDeclApp appHead args'
 
-    goInt :: C.IntegerLiteral -> Maybe (Hs.VarDeclRHS f)
+    goInt :: C.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goInt (C.IntegerLiteral { integerLiteralType = mbIntTy, integerLiteralValue = i }) =
-      Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt integralTyp mbIntTy)
+      Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt integralType mbIntTy)
 
-    goFloat :: C.FloatingLiteral -> Maybe (Hs.VarDeclRHS f)
+    goFloat :: C.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goFloat flt@(C.FloatingLiteral { floatingLiteralType = mbFty }) =
       case mbFty of
         Nothing -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)

@@ -1,10 +1,8 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
 
 module HsBindgen.Backend.TH (
-    BE(..)
-  , M
-  , runM
-  ) where
+    mkDecl,
+) where
 
 import Data.Bits qualified
 import Data.Text qualified as Text
@@ -20,30 +18,23 @@ import GHC.Float
   ( castWord64ToDouble, castDoubleToWord64
   , castWord32ToFloat , castFloatToWord32 )
 
-import HsBindgen.Backend.Common
-import HsBindgen.Imports
+import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
+import HsBindgen.ConstantArray qualified
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
-import HsBindgen.Util.PHOAS
-import HsBindgen.ConstantArray qualified
-import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
-
+import HsBindgen.Imports
+import HsBindgen.NameHint
 import HsBindgen.Patterns qualified (Div(..))
+import HsBindgen.SHs.AST
+
+import DeBruijn
 
 {-------------------------------------------------------------------------------
   Backend definition
 -------------------------------------------------------------------------------}
 
-type BE :: (Star -> Star) -> Star
-data BE q = BE
-
-instance TH.Quote q => BackendRep (BE q) where
-  type Name (BE q) = TH.Name
-  type Expr (BE q) = q TH.Exp
-  type Decl (BE q) = q [TH.Dec]
-  type Ty   (BE q) = q TH.Type
-
-  resolve _ =  \case
+mkGlobal :: Global -> TH.Name
+mkGlobal =  \case
       Unit_type            -> ''()
       Unit_constructor     -> '()
       Applicative_pure     -> 'pure
@@ -95,24 +86,25 @@ instance TH.Quote q => BackendRep (BE q) where
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
-      PrimType t           -> resolveP t
+      PrimType t           -> mkGlobalP t
     where
-      resolveP HsPrimVoid    = ''Data.Void.Void
-      resolveP HsPrimCChar   = ''Foreign.C.Types.CChar
-      resolveP HsPrimCUChar  = ''Foreign.C.Types.CUChar
-      resolveP HsPrimCSChar  = ''Foreign.C.Types.CSChar
-      resolveP HsPrimCInt    = ''Foreign.C.Types.CInt
-      resolveP HsPrimCUInt   = ''Foreign.C.Types.CUInt
-      resolveP HsPrimCShort  = ''Foreign.C.Types.CShort
-      resolveP HsPrimCUShort = ''Foreign.C.Types.CUShort
-      resolveP HsPrimCLong   = ''Foreign.C.Types.CLong
-      resolveP HsPrimCULong  = ''Foreign.C.Types.CULong
-      resolveP HsPrimCLLong  = ''Foreign.C.Types.CLLong
-      resolveP HsPrimCULLong = ''Foreign.C.Types.CULLong
-      resolveP HsPrimCFloat  = ''Foreign.C.Types.CFloat
-      resolveP HsPrimCDouble = ''Foreign.C.Types.CDouble
-      resolveP HsPrimCBool   = ''Foreign.C.Types.CBool
+      mkGlobalP HsPrimVoid    = ''Data.Void.Void
+      mkGlobalP HsPrimCChar   = ''Foreign.C.Types.CChar
+      mkGlobalP HsPrimCUChar  = ''Foreign.C.Types.CUChar
+      mkGlobalP HsPrimCSChar  = ''Foreign.C.Types.CSChar
+      mkGlobalP HsPrimCInt    = ''Foreign.C.Types.CInt
+      mkGlobalP HsPrimCUInt   = ''Foreign.C.Types.CUInt
+      mkGlobalP HsPrimCShort  = ''Foreign.C.Types.CShort
+      mkGlobalP HsPrimCUShort = ''Foreign.C.Types.CUShort
+      mkGlobalP HsPrimCLong   = ''Foreign.C.Types.CLong
+      mkGlobalP HsPrimCULong  = ''Foreign.C.Types.CULong
+      mkGlobalP HsPrimCLLong  = ''Foreign.C.Types.CLLong
+      mkGlobalP HsPrimCULLong = ''Foreign.C.Types.CULLong
+      mkGlobalP HsPrimCFloat  = ''Foreign.C.Types.CFloat
+      mkGlobalP HsPrimCDouble = ''Foreign.C.Types.CDouble
+      mkGlobalP HsPrimCBool   = ''Foreign.C.Types.CBool
 
+{-
   mkExpr be = \case
       EGlobal n     -> TH.varE (resolve be n)
       EVar x        -> TH.varE (getFresh x)
@@ -135,99 +127,104 @@ instance TH.Quote q => BackendRep (BE q) where
         | otherwise
         -> [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
       EApp f x      -> TH.appE (mkExpr be f) (mkExpr be x)
+-}
+
+mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
+mkExpr env = \case
+      EGlobal n     -> TH.varE (mkGlobal n)
+      EFree n       -> hsVarE n
+      EBound x      -> TH.varE (lookupEnv x env)
+      ECon n        -> hsConE n
+      EIntegral i _ -> TH.litE (TH.IntegerL i)
+      -- TH doesn't have floating-point literals, because it represents them
+      -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
+      --
+      -- To work around this problem, we cast floating-point numbers to
+      -- Word32/Word64 and then cast back.
+      EFloat f
+        | canBeRepresentedAsRational f
+        -> [| f |]
+        | otherwise
+        -> [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
+      EDouble d
+        | canBeRepresentedAsRational d
+        -> [| d |]
+        | otherwise
+        -> [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
+      EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
       EInfix op x y -> TH.infixE
-                         (Just $ mkExpr be x)
-                         (TH.varE $ resolve be op)
-                         (Just $ mkExpr be y)
-      ELam x f      -> TH.lamE
-                         [maybe TH.wildP (TH.varP . getFresh) x]
-                         (mkExpr be f)
-      ECase x ms    -> TH.caseE (mkExpr be x) [
-                           TH.match
-                             (hsConP c $ map (TH.varP . getFresh) xs)
-                             (TH.normalB $ mkExpr be b)
-                             []
-                         | (c, xs, b) <- ms
+                         (Just $ mkExpr env x)
+                         (TH.varE $ mkGlobal op)
+                         (Just $ mkExpr env y)
+      ELam (NameHint x) f      -> do
+          x' <- TH.newName x
+          TH.lamE [TH.varP x'] (mkExpr (env :> x') f)
+      EUnusedLam f ->
+          TH.lamE [TH.wildP] (mkExpr env f)
+      ECase x alts  -> TH.caseE (mkExpr env x)
+                         [ do
+                              (xs, env') <- newNames env add hints
+                              TH.match
+                                 (hsConP c $ map TH.varP xs)
+                                 (TH.normalB $ mkExpr env' b)
+                                 []
+                         | SAlt c add hints b <- alts
                          ]
-      EInj x        -> x
 
-  mkType :: BE q -> SType (BE q) -> Ty (BE q)
-  mkType be = \case
-      TGlobal n  -> TH.conT (resolve be n)
-      TCon n     -> hsConT n
-      TLit n     -> TH.litT (TH.numTyLit (toInteger n))
-      TApp f t   -> TH.appT (mkType be f) (mkType be t)
-      TFunTy a b -> TH.appT (TH.appT TH.arrowT (mkType be a)) (mkType be b)
-      TForall qtvs ctxt body ->
+mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
+mkType env = \case
+    TGlobal n -> TH.conT (mkGlobal n)
+    TBound x  -> TH.varT (lookupEnv x env)
+    TCon n    -> hsConT n
+    TLit n    -> TH.litT (TH.numTyLit (toInteger n))
+    TFun a b  -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
+    TApp f t  -> TH.appT (mkType env f) (mkType env t)
+    TForall hints add ctxt body -> do
         let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
-        in  TH.forallT
-              (map bndr qtvs)
-              (traverse (mkType be) ctxt)
-              (mkType be body)
-      TTyVar tv     -> TH.varT $ getFresh tv
+        (xs, env') <- newNames env add hints
+        TH.forallT
+            (map bndr xs)
+            (traverse (mkType env') ctxt)
+            (mkType env' body)
 
-  mkDecl :: BE q -> SDecl (BE q) -> Decl (BE q)
-  mkDecl be = \case
-      DVar hsNm mbTy f -> do
-        let nm = TH.mkName $ Text.unpack $ getHsName hsNm
-        addSigs <-
-          case mbTy of
-            Just ty -> (:) <$> TH.sigD nm (mkType be ty)
-            Nothing -> return id
-        addSigs . (:[]) <$> simpleDecl nm f
-      DInst i  -> (:[]) <$> TH.instanceD
+mkDecl :: forall q. Quote q => SDecl -> q [TH.Dec]
+mkDecl = \case
+      DVar x Nothing   f -> singleton <$> simpleDecl (hsNameToTH x) f
+      DVar x (Just ty) f -> sequence
+          [ TH.sigD (hsNameToTH x) (mkType EmptyEnv ty)
+          , simpleDecl (hsNameToTH x) f
+          ]
+
+      DInst i  -> singleton <$> TH.instanceD
                     (return [])
-                    [t| $(TH.conT $ resolve be $ instanceClass i)
+                    [t| $(TH.conT $ mkGlobal $ instanceClass i)
                         $(hsConT  $ instanceType i)
                     |]
-                    ( map (\(x, f) -> simpleDecl (resolve be x) f) $
+                    ( map (\(x, f) -> simpleDecl (mkGlobal x) f) $
                         instanceDecs i
                     )
       DRecord d ->
         let fields :: [q TH.VarBangType]
             fields =
-              [ TH.varBangType (hsNameToTH n) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be t)
+              [ TH.varBangType (hsNameToTH n) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType EmptyEnv t)
               | (n, t) <- dataFields d
               ]
-        in (:[]) <$>
+        in singleton <$>
           TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
 
       DNewtype n ->
         let field :: q TH.VarBangType
-            field = TH.varBangType (hsNameToTH (newtypeField n)) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType be (newtypeType n))
-        in (:[]) <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
+            field = TH.varBangType (hsNameToTH (newtypeField n)) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType EmptyEnv (newtypeType n))
+        in singleton <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
 
       DDerivingNewtypeInstance ty ->
-          (:[]) <$> TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType be ty)
+          singleton <$> TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType EmptyEnv ty)
     where
-      simpleDecl :: TH.Name -> SExpr (BE q) -> q TH.Dec
-      simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr be f) []
-
-instance TH.Quote q => Backend (BE q) where
-  newtype M (BE q) a = Gen { unwrapGen :: q a }
-    deriving newtype (
-        Functor
-      , Applicative
-      , Monad
-      , TH.Quote
-      )
-
-  fresh ::
-       BE q
-    -> HsName NsVar
-    -> (Fresh (BE q) Bound -> M (BE q) a)
-    -> M (BE q) a
-  fresh _ = \x k -> TH.newName (Text.unpack (getHsName x)) >>= k . Fresh
+      simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
+      simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
 
 {-------------------------------------------------------------------------------
   Monad functionality
--------------------------------------------------------------------------------}
-
-runM :: M (BE q) a -> q a
-runM = unwrapGen
-
-{-------------------------------------------------------------------------------
-  Dealing with names
 -------------------------------------------------------------------------------}
 
 hsConE :: Quote m => HsName NsConstr -> m TH.Exp
@@ -239,5 +236,15 @@ hsConP = TH.conP . hsNameToTH
 hsConT :: Quote m => HsName NsTypeConstr -> m TH.Type
 hsConT = TH.conT . hsNameToTH
 
+hsVarE :: Quote m => HsName NsVar -> m TH.Exp
+hsVarE = TH.varE . hsNameToTH
+
 hsNameToTH :: HsName ns -> TH.Name
 hsNameToTH = TH.mkName . Text.unpack  . getHsName
+
+newNames :: Quote q => Env ctx TH.Name -> Add n ctx ctx' -> Vec n NameHint -> q ([TH.Name], Env ctx' TH.Name)
+newNames env AZ _ = return ([], env)
+newNames env (AS n) (NameHint hint ::: hints) = do
+    (xs, env') <- newNames env n hints
+    x <- TH.newName hint
+    return (x : xs, env' :> x)

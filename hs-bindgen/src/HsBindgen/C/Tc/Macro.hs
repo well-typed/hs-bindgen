@@ -61,8 +61,6 @@ import Data.Map.Strict qualified as Map
 -- fin
 import Data.Fin qualified as Fin
   ( toNatural )
-import Data.Nat
-  ( Nat(..) )
 import Data.Type.Nat qualified as Nat
 
 -- mtl
@@ -85,8 +83,6 @@ import Text.Show.Pretty qualified as Pretty
 import Data.Text qualified as Text
 
 -- vec
-import Data.Vec.Lazy
-  ( Vec(..) )
 import Data.Vec.Lazy qualified as Vec
 
 -- hs-bindgen

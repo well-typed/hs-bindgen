@@ -18,7 +18,6 @@ import TH
 
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
-import HsBindgen.Util.PHOAS
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
 main :: IO ()
@@ -77,10 +76,10 @@ main' packageRoot = defaultMain $ testGroup "golden"
         let tracer = mkTracer report report report False
 
         header <- parseC tracer args fp
-        let decls :: forall f. List Hs.Decl f
+        let decls :: [Hs.Decl]
             decls = genHsDecls header
 
-        return $ showClosed decls ++ "\n"
+        return $ unlines $ map show decls
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
