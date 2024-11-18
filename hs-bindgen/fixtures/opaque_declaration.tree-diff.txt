@@ -1,0 +1,29 @@
+WrapCHeader
+  (Header
+    [
+      DeclOpaqueStruct (CName "foo"),
+      DeclOpaqueStruct (CName "foo"),
+      DeclStruct
+        Struct {
+          structTag = Just (CName "bar"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "ptrA",
+              fieldOffset = 0,
+              fieldType = TypPointer
+                (TypElaborated
+                  (CName "struct foo"))},
+            StructField {
+              fieldName = CName "ptrB",
+              fieldOffset = 64,
+              fieldType = TypPointer
+                (TypElaborated
+                  (CName "struct bar"))}]},
+      DeclStruct
+        Struct {
+          structTag = Just (CName "baz"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = []}])

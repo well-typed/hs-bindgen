@@ -1,0 +1,19 @@
+data CFoo
+data CFoo
+data CBar
+    = MkCBar {cBar_ptrA :: (Ptr CStruct'0020foo),
+              cBar_ptrB :: (Ptr CStruct'0020bar)}
+instance Storable CBar
+    where {sizeOf = \_ -> 16;
+           alignment = \_ -> 8;
+           peek = \ptr_0 -> (pure MkCBar <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCBar cBar_ptrA_3
+                                            cBar_ptrB_4 -> pokeByteOff ptr_1 0 cBar_ptrA_3 >> pokeByteOff ptr_1 8 cBar_ptrB_4}}
+data CBaz = MkCBaz {}
+instance Storable CBaz
+    where {sizeOf = \_ -> 0;
+           alignment = \_ -> 1;
+           peek = \ptr_0 -> pure MkCBaz;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCBaz -> return ()}}

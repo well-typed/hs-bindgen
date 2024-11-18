@@ -118,6 +118,7 @@ data SDecl =
   | DInst Instance
   | DRecord Record
   | DNewtype Newtype
+  | DEmptyData (HsName NsTypeConstr)
   | DDerivingNewtypeInstance ClosedType
   deriving stock (Show)
 

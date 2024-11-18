@@ -27,6 +27,7 @@ import DeBruijn (rzeroAdd)
 
 translateDecl :: Hs.Decl -> SDecl
 translateDecl (Hs.DeclData d) = translateDeclData d
+translateDecl (Hs.DeclEmpty n) = translateDeclEmpty n
 translateDecl (Hs.DeclNewtype n) = translateNewtype n
 translateDecl (Hs.DeclInstance i) = translateInstanceDecl i
 translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
@@ -45,6 +46,9 @@ translateDeclData struct = DRecord $ Record
         | (n, t) <- toList $ Hs.structFields struct
         ]
     }
+
+translateDeclEmpty :: HsName NsTypeConstr -> SDecl
+translateDeclEmpty n = DEmptyData n
 
 translateNewtype :: Hs.Newtype -> SDecl
 translateNewtype n = DNewtype $ Newtype

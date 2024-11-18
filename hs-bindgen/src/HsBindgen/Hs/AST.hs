@@ -109,6 +109,7 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 type Decl :: Star
 data Decl where
     DeclData            :: SNatI n => Struct n -> Decl
+    DeclEmpty           :: HsName NsTypeConstr -> Decl
     DeclNewtype         :: Newtype -> Decl
     DeclInstance        :: InstanceDecl -> Decl
     DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl

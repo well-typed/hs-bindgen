@@ -81,6 +81,7 @@ data Header = Header {
 -- | Top-level declaration
 data Decl =
     DeclStruct Struct
+  | DeclOpaqueStruct CName
   | DeclTypedef Typedef
   | DeclEnum Enu
   | DeclMacro MacroDecl
