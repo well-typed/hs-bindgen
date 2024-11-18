@@ -174,6 +174,10 @@ static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
     return clang_getCursorKind(*cursor);
 }
 
+static inline void wrap_getNullCursor(CXCursor *result) {
+	*result = clang_getNullCursor();
+}
+
 static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* result) {
     *result = clang_getCursorKindSpelling(Kind);
 }
