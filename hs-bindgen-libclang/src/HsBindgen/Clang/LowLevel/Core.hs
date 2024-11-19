@@ -115,6 +115,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_isCursorDefinition
     -- * Type information for CXCursors
   , CXTypeKind(..)
+  , CXTypeLayoutError(..)
   , CXType
   , cxtKind
   , clang_getCursorType
