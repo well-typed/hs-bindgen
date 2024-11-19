@@ -1,12 +1,6 @@
 WrapCHeader
   (Header
     [
-      DeclStruct
-        Struct {
-          structTag = Just (CName "S1"),
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = []},
       DeclTypedef
         Typedef {
           typedefName = CName "S1_t",
@@ -24,12 +18,6 @@ WrapCHeader
               fieldType = TypPrim
                 (PrimIntegral
                   (PrimInt Signed))}]},
-      DeclStruct
-        Struct {
-          structTag = Just (CName "S2"),
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = []},
       DeclStruct
         Struct {
           structTag = Just (CName "S2"),
