@@ -114,6 +114,7 @@ resolveDeclImports = \case
       ++ map (resolveExprImports . snd) instanceDecs
     DRecord Record{..} -> mconcat $
       map (resolveTypeImports . snd) dataFields
+    DEmptyData _name -> mempty
     DNewtype Newtype{..} -> resolveTypeImports newtypeType
     DDerivingNewtypeInstance ty -> resolveTypeImports ty
 

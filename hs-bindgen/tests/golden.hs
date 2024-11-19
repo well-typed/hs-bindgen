@@ -48,6 +48,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
     , golden "fixedarray"
     , golden "unnamed-struct"
     , golden "forward_declaration"
+    , golden "opaque_declaration"
     ]
   where
     golden name = testGroup name

@@ -53,10 +53,11 @@ instance ToHs C.Header where
 
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
-  toHs (C.DeclStruct struct) = reifyStructFields struct $ structDecs struct
-  toHs (C.DeclEnum e)        = enumDecs e
-  toHs (C.DeclTypedef d)     = typedefDecs d
-  toHs (C.DeclMacro m)       = macroDecs m
+  toHs (C.DeclStruct struct)  = reifyStructFields struct $ structDecs struct
+  toHs (C.DeclOpaqueStruct n) = opaqueStructDecs n
+  toHs (C.DeclEnum e)         = enumDecs e
+  toHs (C.DeclTypedef d)      = typedefDecs d
+  toHs (C.DeclMacro m)        = macroDecs m
 
 {-------------------------------------------------------------------------------
   Structs
@@ -116,6 +117,19 @@ structDecs struct fields =
 
     poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
+
+{-------------------------------------------------------------------------------
+  Opaque struct
+-------------------------------------------------------------------------------}
+
+opaqueStructDecs :: C.CName -> [Hs.Decl]
+opaqueStructDecs cname =
+    [ Hs.DeclEmpty hsName
+    ]
+  where
+    NameMangler{..} = defaultNameMangler
+    typeConstrCtx = TypeConstrContext cname
+    hsName = mangleTypeConstrName typeConstrCtx
 
 {-------------------------------------------------------------------------------
   Enum

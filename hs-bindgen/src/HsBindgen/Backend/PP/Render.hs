@@ -117,6 +117,9 @@ instance Pretty SDecl where
             | (fld, typ) <- dataFields
             ]
 
+    DEmptyData n ->
+      hsep ["data", pretty n]
+
     DNewtype Newtype{..} ->
       let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]
       in  hang d 2 $ vlist '{' '}'

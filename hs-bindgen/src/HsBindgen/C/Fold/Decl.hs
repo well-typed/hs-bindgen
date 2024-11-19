@@ -40,7 +40,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         defn <- liftIO $ clang_getCursorDefinition current
         isNull <- liftIO $ clang_equalCursors defn nullCursor
         if isNull
-        then return $ Continue Nothing -- TODO: opaque definition
+        then do
+          mtag <- liftIO $ fmap CName . getUserProvided <$> HighLevel.clang_getCursorSpelling current
+          return $ Continue $ case mtag of
+            Nothing -> Nothing
+            Just tag -> Just (DeclOpaqueStruct tag)
         else do
           isDefn <- liftIO $ clang_equalCursors current defn
           if isDefn
