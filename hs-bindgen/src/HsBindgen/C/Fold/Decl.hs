@@ -36,8 +36,21 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
-        decl <- declStruct <$> mkStructHeader current
-        return $ Recurse (continue $ mkStructField unit) (Just . decl)
+        -- Emit struct declration only if it's the definition.
+        defn <- liftIO $ clang_getCursorDefinition current
+        isNull <- liftIO $ clang_equalCursors defn nullCursor
+        if isNull
+        then return $ Continue Nothing -- TODO: opaque definition
+        else do
+          isDefn <- liftIO $ clang_equalCursors current defn
+          if isDefn
+          then do
+            decl <- declStruct <$> mkStructHeader current
+            return $ Recurse (continue $ mkStructField unit) (Just . decl)
+          else do
+            -- not a definition declaration, skip.
+            return $ Continue Nothing
+
       Right CXCursor_EnumDecl -> do
         decl <- declEnum <$> mkEnumHeader current
         return $ Recurse (continue mkEnumValue) (Just . decl)
