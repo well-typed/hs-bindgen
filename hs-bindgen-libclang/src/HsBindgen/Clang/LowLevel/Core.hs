@@ -96,6 +96,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_equalCursors
   , clang_getCursorSemanticParent
   , clang_getCursorLexicalParent
+  , clang_getNullCursor
   , clang_getCursorKind
   , clang_getCursorKindSpelling
   , clang_Cursor_getTranslationUnit
@@ -176,6 +177,8 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_breakpoint
     -- * Exceptions
   , CallFailed(..)
+    -- * Auxiliary
+  , nullCursor
   ) where
 
 import Control.Monad
@@ -605,7 +608,7 @@ clang_TargetInfo_getTriple info = ensure (not . Text.null) $
 --
 -- <https://clang.llvm.org/doxygen/structCXCursor.html>
 newtype CXCursor = CXCursor (OnHaskellHeap CXCursor_)
-  deriving newtype (LivesOnHaskellHeap, Preallocate)
+  deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
 
 foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
   wrap_getTranslationUnitCursor :: CXTranslationUnit -> W CXCursor_ -> IO ()
@@ -621,6 +624,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_getCursorLexicalParent"
 
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorKind"
   wrap_getCursorKind :: R CXCursor_ -> IO (SimpleEnum CXCursorKind)
+
+foreign import capi unsafe "clang_wrappers.h wrap_getNullCursor"
+  wrap_getNullCursor :: W CXCursor_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
   wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()
@@ -723,6 +729,10 @@ clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
 clang_getCursorLexicalParent cursor =
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLexicalParent cursor'
+
+-- | Retrieve the NULL cursor, which represents no entity.
+clang_getNullCursor :: IO CXCursor
+clang_getNullCursor = preallocate_ wrap_getNullCursor
 
 -- | Retrieve the kind of the given cursor.
 --
@@ -1828,3 +1838,7 @@ ensureValidType = ensure (aux . fromSimpleEnum . cxtKind)
     aux (Right CXType_Invalid) = False
     aux _otherwise             = True
 
+-- | Memoised call to 'clang_getNullCursor'.
+nullCursor :: CXCursor
+nullCursor = unsafePerformIO clang_getNullCursor
+{-# NOINLINE nullCursor #-}
