@@ -3,9 +3,12 @@
 
 module Main (main) where
 
+import Control.Exception
 import Control.Monad
 import Control.Monad.IO.Class
+import Data.Bifunctor
 import Data.Functor.Identity
+import Data.Typeable
 import Foreign.C.Types (CUInt)
 
 import Data.Text qualified as T
@@ -90,8 +93,14 @@ foldDecls opts@Options{..} cursor = do
       traceU 3 "spelling" =<< liftIO (clang_getTypeKindSpelling typeKind)
       traceU 2 "canonical"
         =<< liftIO (clang_getTypeSpelling =<< clang_getCanonicalType cursorType)
-      traceU 2 "sizeof" =<< liftIO (clang_Type_getSizeOf cursorType)
-      traceU 2 "alignment" =<< liftIO (clang_Type_getAlignOf cursorType)
+      traceU 2 "sizeof"
+        =<< handleCallFailed
+              @(SimpleEnum CXTypeLayoutError)
+              (clang_Type_getSizeOf cursorType)
+      traceU 2 "alignment"
+        =<< handleCallFailed
+              @(SimpleEnum CXTypeLayoutError)
+              (clang_Type_getAlignOf cursorType)
 
     isRecurse <- case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl ->
@@ -228,6 +237,20 @@ dumpComment level mIdx comment = do
     level1 = level + 1
     level2 = level + 2
     level3 = level + 3
+
+{-------------------------------------------------------------------------------
+  Error handling
+-------------------------------------------------------------------------------}
+
+-- | Handle 'CallFailed' exceptions, returning the hint on error
+handleCallFailed :: forall e a m.
+     (MonadIO m, Show e, Typeable e)
+  => IO a
+  -> m (Either e a)
+handleCallFailed action = liftIO $ first getHint <$> try action
+  where
+    getHint :: CallFailed e -> e
+    getHint (CallFailed hint _backtrace) = hint
 
 {-------------------------------------------------------------------------------
   Trace Functions
