@@ -80,23 +80,23 @@ var = reparseName
 -- | Parse integer literal
 literalInteger :: Reparse IntegerLiteral
 literalInteger = do
-  (txt, (val, mbTy)) <-
+  (txt, (val, ty)) <-
     parseTokenOfKind CXToken_Literal reparseLiteralInteger
   return $
     IntegerLiteral
       { integerLiteralText = txt
-      , integerLiteralType = mbTy
+      , integerLiteralType = Just ty
       , integerLiteralValue = val }
 
 -- | Parse floating point literal
 literalFloat :: Reparse FloatingLiteral
 literalFloat = do
-  (txt, (fltVal, dblVal, mbTy)) <-
+  (txt, (fltVal, dblVal, ty)) <-
     parseTokenOfKind CXToken_Literal reparseLiteralFloating
   return $
     FloatingLiteral
       { floatingLiteralText = txt
-      , floatingLiteralType = mbTy
+      , floatingLiteralType = Just ty
       , floatingLiteralFloatValue = fltVal
       , floatingLiteralDoubleValue = dblVal }
 

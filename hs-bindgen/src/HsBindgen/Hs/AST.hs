@@ -34,8 +34,9 @@ module HsBindgen.Hs.AST (
   , SigmaType(..)
   , PhiType(..)
   , TauType(..)
-  , TyConAppTy(..)
-  , ClassTy(..)
+  , PredType(..)
+  , ATyCon(..)
+  , AClass(..)
   , VarDeclRHS(..)
   , VarDeclRHSAppHead(..)
     -- ** Newtype instances
@@ -146,8 +147,7 @@ data VarDecl =
 type SigmaType :: Star
 data SigmaType where
   ForallTy ::
-      { forallTySize    :: Size n
-      , forallTyBinders :: Vec n NameHint
+      { forallTyBinders :: Vec n NameHint
       , forallTy        :: PhiType n
       }
     -> SigmaType
@@ -158,7 +158,7 @@ deriving stock instance Show SigmaType
 type PhiType :: Ctx -> Star
 data PhiType ctx
   = QuantTy
-  { quantTyCts  :: [ClassTy ctx]
+  { quantTyCts  :: [PredType ctx]
   , quantTyBody :: TauType ctx
   }
 
@@ -169,19 +169,24 @@ type TauType :: Ctx -> Star
 data TauType ctx
   = FunTy (TauType ctx) (TauType ctx)
   | TyVarTy (Idx ctx)
-  | TyConAppTy (TyConAppTy ctx)
+  | TyConAppTy ATyCon [TauType ctx]
+  deriving stock Show
 
-deriving stock instance Show (TauType ctx)
+-- | A predicate/constraint τ-type.
+type PredType :: Ctx -> Star
+data PredType ctx
+  = DictTy AClass [TauType ctx]
+  | NomEqTy (TauType ctx) (TauType ctx)
+  deriving stock Show
 
-data TyConAppTy ctx where
-  TyConApp :: C.DataTyCon arity -> Vec arity (TauType ctx) -> TyConAppTy ctx
-
-deriving stock instance Show (TyConAppTy ctx)
-
-data ClassTy ctx where
-  ClassTy :: C.ClassTyCon arity -> Vec arity (TauType ctx) -> ClassTy ctx
-
-deriving stock instance Show (ClassTy ctx)
+data ATyCon where
+  ATyCon :: C.TyCon args C.Ty -> ATyCon
+instance Show ATyCon where
+  show ( ATyCon tc ) = show tc
+data AClass where
+  AClass :: C.TyCon args C.Ct -> AClass
+instance Show AClass where
+  show ( AClass tc ) = show tc
 
 -- | RHS of a variable or function declaration.
 type VarDeclRHS :: Ctx -> Star

@@ -69,7 +69,7 @@ instance ToExpr C.MExpr where
 instance ToExpr ( C.MFun arity ) where
   toExpr f = Expr.App (show f) []
 
-instance ToExpr C.QuantTy where
+instance ToExpr ( C.Quant ki ) where
   toExpr quantTy = toExpr $ show quantTy
 
 {-------------------------------------------------------------------------------

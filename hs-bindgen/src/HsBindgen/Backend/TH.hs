@@ -24,7 +24,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.Patterns qualified (Div(..))
+import HsBindgen.Patterns qualified
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -51,13 +51,16 @@ mkGlobal =  \case
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
       ConstantArray        -> ''HsBindgen.ConstantArray.ConstantArray
 
+      NomEq_class          -> ''(~)
       Eq_class             -> ''Eq
       Ord_class            -> ''Ord
       Num_class            -> ''Num
       Integral_class       -> ''Integral
-      Fractional_class     -> ''Fractional
       Div_class            -> ''HsBindgen.Patterns.Div
       Bits_class           -> ''Data.Bits.Bits
+
+      IntLike_tycon        -> ''HsBindgen.Patterns.IntLike
+      FloatLike_tycon      -> ''HsBindgen.Patterns.FloatLike
 
       Eq_eq                -> '(==)
       Eq_uneq              -> '(/=)
@@ -81,6 +84,7 @@ mkGlobal =  \case
       Num_times            -> '(*)
       Div_div              -> '(HsBindgen.Patterns./)
       Integral_rem         -> 'rem
+      Unary_plus           -> 'HsBindgen.Patterns.unaryPlus
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
       CFloat_constructor  -> 'Foreign.C.Types.CFloat

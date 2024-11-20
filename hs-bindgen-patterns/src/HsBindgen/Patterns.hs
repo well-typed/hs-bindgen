@@ -30,7 +30,9 @@ module HsBindgen.Patterns (
   , prettyBacktrace
   , CollectedBacktrace(..)
     -- * Arithmetic
+  , unaryPlus
   , Div(..)
+  , IntLike, FloatLike
   ) where
 
 import HsBindgen.Patterns.Arithmetic

@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 -- | Low-level translation of the C header to a Haskell module
 --
@@ -30,7 +31,8 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
-import DeBruijn (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx, Size (..))
+import DeBruijn
+  (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -209,7 +211,7 @@ typedefDecs d = [
 
 macroDecs :: C.MacroDecl -> [Hs.Decl]
 macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
-    | C.QuantTy bf <- ty
+    | C.Quant bf <- ty
     , C.isPrimTy bf
     = macroDecsTypedef m
 
@@ -280,7 +282,7 @@ floatingType = \case
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.Macro -> C.QuantTy -> [Hs.Decl]
+macroVarDecs :: C.Macro -> C.Quant C.Ty -> [Hs.Decl]
 macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
   [
     Hs.DeclVar $
@@ -294,40 +296,44 @@ macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body }
   where
     hsVarName = mangleVarName defaultNameMangler $ VarContext cVarNm
 
-quantTyHsTy :: C.QuantTy -> Hs.SigmaType
-quantTyHsTy qty@(C.QuantTy @n _) =
+quantTyHsTy :: C.Quant C.Ty -> Hs.SigmaType
+quantTyHsTy qty@(C.Quant @kis _) =
   case C.mkQuantTyBody qty of
     C.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
-      goForallTy (C.tyVarNames @n) cts ty
+      goForallTy (C.tyVarNames @kis) cts ty
   where
-    size :: Size n
-    size = induction SZ SS
 
-    goCt :: Map Text (Idx ctx) -> C.Type C.Ct -> Hs.ClassTy ctx
-    goCt env (C.TyConAppTy (C.ClassTyCon tc) as) = Hs.ClassTy tc (fmap (goTy env) as)
+    goCt :: Map Text (Idx ctx) -> C.Type C.Ct -> Hs.PredType ctx
+    goCt env (C.TyConAppTy cls as) =
+      Hs.DictTy (Hs.AClass cls) (goTys env as)
+    goCt env (C.NomEqPred a b) =
+      Hs.NomEqTy (goTy env a) (goTy env b)
 
     goTy :: Map Text (Idx ctx) -> C.Type C.Ty -> Hs.TauType ctx
     goTy env (C.TyVarTy tv) = Hs.TyVarTy (env Map.! C.tyVarName tv) -- XXX: partial Map.!
     goTy env (C.FunTy as r) =
       foldr (Hs.FunTy . goTy env) (goTy env r) as
-    goTy env (C.TyConAppTy (C.DataTyCon tc) as) =
-      Hs.TyConAppTy (Hs.TyConApp tc $ fmap (goTy env) as)
+    goTy env (C.TyConAppTy tc as) =
+      Hs.TyConAppTy (Hs.ATyCon tc) (goTys env as)
 
-    goForallTy :: Vec n Text -> [ C.Type C.Ct ] -> C.Type C.Ty -> Hs.SigmaType
-    goForallTy args cts body = Hs.ForallTy
-        { forallTySize    = size
-        , forallTyBinders = fmap (fromString . T.unpack) args
-        , forallTy        = Hs.QuantTy
-            { quantTyCts  = fmap (goCt env) cts
-            , quantTyBody = goTy env body
+    goTys :: Map Text (Idx ctx) -> Vec n ( C.Type C.Ty ) -> [ Hs.TauType ctx ]
+    goTys env as = toList $ fmap (goTy env) as
+
+    goForallTy :: forall n. SNatI n => Vec n (Int, Text) -> [ C.Type C.Ct ] -> C.Type C.Ty -> Hs.SigmaType
+    goForallTy args cts body =
+        let
+          env :: Map Text (Idx n)
+          env = Map.fromList $ toList $ Vec.zipWith (,) ( fmap snd args ) qtvs
+          qtvs :: Vec n (Idx n)
+          qtvs = unU (induction (U VNil) (\(U v) -> U (IZ ::: fmap IS v)))
+        in
+          Hs.ForallTy
+            { forallTyBinders = fmap (fromString . T.unpack . snd) args
+            , forallTy        = Hs.QuantTy
+                { quantTyCts  = fmap (goCt env) cts
+                , quantTyBody = goTy env body
+                }
             }
-        }
-      where
-        env :: Map Text (Idx n)
-        env = Map.fromList $ toList $ Vec.zipWith (,) args qtvs
-
-        qtvs :: Vec n (Idx n)
-        qtvs = unU (induction (U VNil) (\(U v) -> U (IZ ::: fmap IS v)))
 
 newtype U n = U { unU :: Vec n (Idx n) }
 

@@ -53,6 +53,10 @@ iBits = HsImport "Data.Bits" (Just "DB")
 iGHCFloat :: HsImport
 iGHCFloat = HsImport "GHC.Float" (Just "GHC.Float")
 
+-- | @Data.Type.Equality@ import
+iDataTypeEquality :: HsImport
+iDataTypeEquality = HsImport "Data.Type.Equality" Nothing
+
 -- | @HsBindgen.Patterns@ import
 iHsBindgenPatterns :: HsImport
 iHsBindgenPatterns = HsImport "HsBindgen.Patterns" (Just "HsBindgen")
@@ -117,13 +121,16 @@ resolveGlobal = \case
     Foreign_Ptr          -> importQ iForeign "Ptr"
     ConstantArray        -> importQ (HsImport "HsBindgen.ConstantArray" Nothing) "ConstantArray"
 
+    NomEq_class      -> import_ iDataTypeEquality  "~"
     Eq_class         -> importQ iPrelude           "Eq"
     Ord_class        -> importQ iPrelude           "Ord"
     Num_class        -> importQ iPrelude           "Num"
     Integral_class   -> importQ iPrelude           "Integral"
-    Fractional_class -> importQ iPrelude           "Fractional"
     Div_class        -> importQ iHsBindgenPatterns "Div"
     Bits_class       -> importQ iBits              "Bits"
+
+    IntLike_tycon    -> importQ iHsBindgenPatterns "IntLike"
+    FloatLike_tycon  -> importQ iHsBindgenPatterns "FloatLike"
 
     Eq_eq           -> importQ iPrelude           "=="
     Eq_uneq         -> importQ iPrelude           "/="
@@ -147,6 +154,7 @@ resolveGlobal = \case
     Num_times       -> importQ iPrelude           "*"
     Div_div         -> importQ iHsBindgenPatterns "/"
     Integral_rem    -> importQ iPrelude           "rem"
+    Unary_plus      -> importQ iHsBindgenPatterns "unaryPlus"
     GHC_Float_castWord32ToFloat -> importQ iGHCFloat "castWord32ToFloat"
     GHC_Float_castWord64ToDouble -> importQ iGHCFloat "castWord64ToDouble"
     CFloat_constructor -> importQ iForeignC "CFloat"

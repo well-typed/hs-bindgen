@@ -1,14 +1,27 @@
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module HsBindgen.Patterns.Arithmetic
-  ( Div(..) ) where
+  ( unaryPlus
+  , Div(..)
+  , IntLike, FloatLike
+  )
+  where
 
 import Data.Kind
 import Foreign.C.Types
+import Data.Bits
 import Data.Int
 import Data.Word
 
 --------------------------------------------------------------------------------
+
+unaryPlus :: Num a => a -> a
+unaryPlus = id
+{-# INLINEABLE unaryPlus #-}
+
+--------------------------------------------------------------------------------
+
 
 infixl 7 /
 class Div a where
@@ -49,3 +62,8 @@ deriving newtype instance Div CULLong
 
 deriving newtype instance Div CFloat
 deriving newtype instance Div CDouble
+
+--------------------------------------------------------------------------------
+
+type IntLike   a = (Integral a, Bits a) => a
+type FloatLike a = Fractional a => a

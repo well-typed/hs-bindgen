@@ -43,13 +43,16 @@ data Global =
   | Foreign_Ptr
   | ConstantArray
 
+  | NomEq_class
   | Eq_class
   | Ord_class
   | Num_class
   | Integral_class
-  | Fractional_class
   | Bits_class
   | Div_class
+
+  | IntLike_tycon
+  | FloatLike_tycon
 
   | Eq_eq
   | Eq_uneq
@@ -73,6 +76,7 @@ data Global =
   | Num_times
   | Div_div
   | Integral_rem
+  | Unary_plus
 
   | CFloat_constructor
   | CDouble_constructor
@@ -134,6 +138,8 @@ data SType ctx =
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
+
+infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
 

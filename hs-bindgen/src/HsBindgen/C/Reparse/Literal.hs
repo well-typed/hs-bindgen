@@ -37,29 +37,29 @@ intSuffix = choice [
     , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
-reparseLiteralInteger :: TokenParser (Integer, Maybe PrimIntType)
+reparseLiteralInteger :: TokenParser (Integer, PrimIntType)
 reparseLiteralInteger = do
     (b, ds, suffixes) <- aux
 
     let val = readInBase b ds
 
-        mbTy = case suffixes of
-          [] -> Nothing
+        ty = case suffixes of
+          [] -> PrimInt Signed
           _  ->
             let sign = if any ( == IntSuffixUnsigned ) suffixes
                        then Unsigned
                        else Signed
                 long     = any ( == IntSuffixLong ) suffixes
                 longlong = any ( == IntSuffixLongLong ) suffixes
-             in Just $
-                  if | longlong
-                     -> PrimLongLong sign
-                     | long
-                     -> PrimLong sign
-                     | otherwise
-                     -> PrimInt sign
+             in
+                if | longlong
+                   -> PrimLongLong sign
+                   | long
+                   -> PrimLong sign
+                   | otherwise
+                   -> PrimInt sign
 
-    return (val, mbTy)
+    return (val, ty)
   where
     aux :: TokenParser (Base, [Digit], [IntSuffix])
     aux = do
@@ -82,7 +82,7 @@ readInBase b ds =
 -------------------------------------------------------------------------------}
 
 
-reparseLiteralFloating :: TokenParser (Float, Double, Maybe PrimFloatType)
+reparseLiteralFloating :: TokenParser (Float, Double, PrimFloatType)
 reparseLiteralFloating = do
 
   b     <- option BaseDec (BaseHex <$ caseInsensitive' "0x")
@@ -102,16 +102,16 @@ reparseLiteralFloating = do
     , case mbXs of { Nothing -> True; Just [] -> True; _ -> False }
     -> fail $ "cannot parse floating-point value without any digits"
     | otherwise
-    -> do mbTy <- choice
-            [ Just PrimFloat      <$ caseInsensitive' "f"
-            , Just PrimLongDouble <$ caseInsensitive' "l"
-            , return Nothing
+    -> do ty <- choice
+            [ PrimFloat      <$ caseInsensitive' "f"
+            , PrimLongDouble <$ caseInsensitive' "l"
+            , pure PrimDouble
             ]
           let m :: Integer
               m = readInBase b (as ++ fromMaybe [] mbXs)
               e :: Int
               e = fromMaybe 0 mbExp - maybe 0 length mbXs
-          return (fromScientific m e, fromScientific m e, mbTy)
+          return (fromScientific m e, fromScientific m e, ty)
 
 fromScientific :: forall a. RealFloat a => Integer -> Int -> a
 fromScientific m e = Scientific.toRealFloat $ Scientific.scientific m e
