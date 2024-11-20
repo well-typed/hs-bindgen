@@ -8,7 +8,6 @@ import Control.Monad
 import Control.Monad.IO.Class
 import Data.Bifunctor
 import Data.Functor.Identity
-import Data.Typeable
 import Foreign.C.Types (CUInt)
 
 import Data.Text qualified as T
@@ -95,11 +94,9 @@ foldDecls opts@Options{..} cursor = do
         =<< liftIO (clang_getTypeSpelling =<< clang_getCanonicalType cursorType)
       traceU 2 "sizeof"
         =<< handleCallFailed
-              @(SimpleEnum CXTypeLayoutError)
               (clang_Type_getSizeOf cursorType)
       traceU 2 "alignment"
         =<< handleCallFailed
-              @(SimpleEnum CXTypeLayoutError)
               (clang_Type_getAlignOf cursorType)
 
     isRecurse <- case fromSimpleEnum cursorKind of
@@ -243,13 +240,13 @@ dumpComment level mIdx comment = do
 -------------------------------------------------------------------------------}
 
 -- | Handle 'CallFailed' exceptions, returning the hint on error
-handleCallFailed :: forall e a m.
-     (MonadIO m, Show e, Typeable e)
+handleCallFailed :: forall a m.
+     MonadIO m
   => IO a
-  -> m (Either e a)
+  -> m (Either String a)
 handleCallFailed action = liftIO $ first getHint <$> try action
   where
-    getHint :: CallFailed e -> e
+    getHint :: CallFailed -> String
     getHint (CallFailed hint _backtrace) = hint
 
 {-------------------------------------------------------------------------------
