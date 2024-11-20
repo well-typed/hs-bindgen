@@ -2,13 +2,22 @@
 module HsBindgen.TestLib.Transform (
     -- * Transform
     Transform(..)
+    -- * Properties
+  , prop_XvNotRepEqV
+  , assertXvNotRepEqV
+  , prop_XHsRepEqXC
+  , assertXHsRepEqXC
   ) where
 
 import Data.Bits qualified as Bits
 import Data.Word (Word32, Word64)
 import Foreign.C.Types qualified as FC
+import Test.QuickCheck.Monadic qualified as QCM
+import Test.Tasty.HUnit (Assertion)
+import Test.Tasty.QuickCheck (Property)
 
 import HsBindgen.TestLib.RealFloat qualified as RF
+import HsBindgen.TestLib.RepEq ((@!=?), (@!/=?), RepEq(repEq))
 
 {-------------------------------------------------------------------------------
   Transform
@@ -23,7 +32,77 @@ class Transform a where
 instance Transform FC.CChar where
   transform = (+ 1)
 
+instance Transform FC.CSChar where
+  transform = (+ 1)
+
+instance Transform FC.CUChar where
+  transform = (+ 1)
+
+instance Transform FC.CShort where
+  transform = (+ 1)
+
+instance Transform FC.CUShort where
+  transform = (+ 1)
+
 instance Transform FC.CInt where
+  transform = (+ 1)
+
+instance Transform FC.CUInt where
+  transform = (+ 1)
+
+instance Transform FC.CLong where
+  transform = (+ 1)
+
+instance Transform FC.CULong where
+  transform = (+ 1)
+
+instance Transform FC.CPtrdiff where
+  transform = (+ 1)
+
+instance Transform FC.CSize where
+  transform = (+ 1)
+
+instance Transform FC.CWchar where
+  transform = (+ 1)
+
+instance Transform FC.CSigAtomic where
+  transform = (+ 1)
+
+instance Transform FC.CLLong where
+  transform = (+ 1)
+
+instance Transform FC.CULLong where
+  transform = (+ 1)
+
+instance Transform FC.CBool where
+  transform b
+    | b == 0    = 1
+    | otherwise = 0
+
+instance Transform FC.CIntPtr where
+  transform = (+ 1)
+
+instance Transform FC.CUIntPtr where
+  transform = (+ 1)
+
+instance Transform FC.CIntMax where
+  transform = (+ 1)
+
+instance Transform FC.CUIntMax where
+  transform = (+ 1)
+
+instance Transform FC.CClock where
+  transform = (+ 1)
+
+instance Transform FC.CTime where
+  transform = (+ 1)
+
+{- TODO remove or fix
+instance Transform FC.CUSeconds where
+  transform = (+ 1)
+-}
+
+instance Transform FC.CSUSeconds where
   transform = (+ 1)
 
 instance Transform FC.CFloat where
@@ -31,6 +110,34 @@ instance Transform FC.CFloat where
 
 instance Transform FC.CDouble where
   transform (FC.CDouble x) = FC.CDouble $ transformDouble x
+
+{-------------------------------------------------------------------------------
+  Properties
+-------------------------------------------------------------------------------}
+
+-- | A transformed value is not representationally equal to the value
+prop_XvNotRepEqV :: (RepEq a, Transform a) => a -> Bool
+prop_XvNotRepEqV x = not $ transform x `repEq` x
+
+-- | A transformed value is not representationally equal to the value
+assertXvNotRepEqV :: (RepEq a, Show a, Transform a) => a -> Assertion
+assertXvNotRepEqV x = transform x @!/=? x
+
+-- | Values transformed using C and Haskell are representationally equal
+prop_XHsRepEqXC :: (RepEq a, Transform a) => (a -> IO a) -> a -> Property
+prop_XHsRepEqXC cTransform x = QCM.monadicIO $ do
+    x' <- QCM.run $ cTransform x
+    QCM.assert $ transform x `repEq` x'
+
+-- | Values transformed using C and Haskell are representationally equal
+assertXHsRepEqXC ::
+     (RepEq a, Show a, Transform a)
+  => (a -> IO a)
+  -> a
+  -> Assertion
+assertXHsRepEqXC cTransform x = do
+    x' <- cTransform x
+    transform x @!=? x'
 
 {-------------------------------------------------------------------------------
   Auxilliary functions

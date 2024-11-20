@@ -52,15 +52,21 @@ library
   import: lang
   hs-source-dirs: src
   exposed-modules:
+      HsBindgen.TestLib.Arbitrary
       HsBindgen.TestLib.CLib
+      HsBindgen.TestLib.GenSeq
       HsBindgen.TestLib.RealFloat
       HsBindgen.TestLib.RepEq
+      HsBindgen.TestLib.RepZero
+      HsBindgen.TestLib.Storable
       HsBindgen.TestLib.Transform
   include-dirs: clib
   install-includes: hs_bindgen_testlib.h
   c-sources: clib/hs_bindgen_testlib.c
   build-depends:
+    , QuickCheck >= 2.14.3 && <2.16
     , tasty-hunit ^>= 0.10.2
+    , tasty-quickcheck >= 0.10.2 && <0.12
 
 test-suite test-hs-bindgen-testlib
   import: lang
@@ -68,13 +74,16 @@ test-suite test-hs-bindgen-testlib
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules:
+      HsBindgen.TestLib.RepEq.Test
+      HsBindgen.TestLib.Storable.Test
       HsBindgen.TestLib.Transform.Test
   build-depends:
       -- Internal dependencies
     , hs-bindgen-testlib
   build-depends:
+      -- Inherited dependencies
+    , tasty-hunit
+    , tasty-quickcheck
+  build-depends:
       -- External dependencies
-    , QuickCheck >= 2.14.3 && <2.16
     , tasty >= 1.4.3 && < 1.6
-    , tasty-hunit ^>= 0.10.2
-    , tasty-quickcheck >= 0.10.2 && <0.12
