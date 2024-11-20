@@ -1,3 +1,7 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+
 -- | Low-level translation of the C header to a Haskell module
 --
 -- TODO: This module is intended to implement the following milestones:
@@ -27,7 +31,8 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
-import DeBruijn (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx, Size (..))
+import DeBruijn
+  (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -218,7 +223,7 @@ typedefDecs d = [
 
 macroDecs :: C.MacroDecl -> [Hs.Decl]
 macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
-    | Macro.QuantTy bf <- ty
+    | Macro.Quant bf <- ty
     , Macro.isPrimTy bf
     = macroDecsTypedef m
 
@@ -303,7 +308,7 @@ functionDecs _ = [] -- TODO
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.Macro -> C.QuantTy -> [Hs.Decl]
+macroVarDecs :: C.Macro -> C.Quant C.Ty -> [Hs.Decl]
 macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
   [
     Hs.DeclVar $
@@ -317,40 +322,44 @@ macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body }
   where
     hsVarName = mangleVarName defaultNameMangler $ VarContext cVarNm
 
-quantTyHsTy :: Macro.QuantTy -> Hs.SigmaType
-quantTyHsTy qty@(Macro.QuantTy @n _) =
+quantTyHsTy :: Macro.Quant Macro.Ty -> Hs.SigmaType
+quantTyHsTy qty@(Macro.Quant @kis _) =
   case Macro.mkQuantTyBody qty of
     Macro.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
-      goForallTy (Macro.tyVarNames @n) cts ty
+      goForallTy (Macro.tyVarNames @kis) cts ty
   where
-    size :: Size n
-    size = induction SZ SS
 
-    goCt :: Map Text (Idx ctx) -> Macro.Type Macro.Ct -> Hs.ClassTy ctx
-    goCt env (Macro.TyConAppTy (Macro.ClassTyCon tc) as) = Hs.ClassTy tc (fmap (goTy env) as)
+    goCt :: Map Text (Idx ctx) -> Macro.Type Macro.Ct -> Hs.PredType ctx
+    goCt env (Macro.TyConAppTy cls as) =
+      Hs.DictTy (Hs.AClass cls) (goTys env as)
+    goCt env (Macro.NomEqPred a b) =
+      Hs.NomEqTy (goTy env a) (goTy env b)
 
     goTy :: Map Text (Idx ctx) -> Macro.Type Macro.Ty -> Hs.TauType ctx
     goTy env (Macro.TyVarTy tv) = Hs.TyVarTy (env Map.! Macro.tyVarName tv) -- XXX: partial Map.!
     goTy env (Macro.FunTy as r) =
       foldr (Hs.FunTy . goTy env) (goTy env r) as
-    goTy env (Macro.TyConAppTy (Macro.DataTyCon tc) as) =
-      Hs.TyConAppTy (Hs.TyConApp tc $ fmap (goTy env) as)
+    goTy env (Macro.TyConAppTy tc as) =
+      Hs.TyConAppTy (Hs.ATyCon tc) (goTys env as)
 
-    goForallTy :: Vec n Text -> [ Macro.Type Macro.Ct ] -> Macro.Type Macro.Ty -> Hs.SigmaType
-    goForallTy args cts body = Hs.ForallTy
-        { forallTySize    = size
-        , forallTyBinders = fmap (fromString . T.unpack) args
-        , forallTy        = Hs.QuantTy
-            { quantTyCts  = fmap (goCt env) cts
-            , quantTyBody = goTy env body
+    goTys :: Map Text (Idx ctx) -> Vec n ( Macro.Type Macro.Ty ) -> [ Hs.TauType ctx ]
+    goTys env as = toList $ fmap (goTy env) as
+
+    goForallTy :: forall n. SNatI n => Vec n (Int, Text) -> [ Macro.Type Macro.Ct ] -> Macro.Type Macro.Ty -> Hs.SigmaType
+    goForallTy args cts body =
+        let
+          env :: Map Text (Idx n)
+          env = Map.fromList $ toList $ Vec.zipWith (,) ( fmap snd args ) qtvs
+          qtvs :: Vec n (Idx n)
+          qtvs = unU (induction (U VNil) (\(U v) -> U (IZ ::: fmap IS v)))
+        in
+          Hs.ForallTy
+            { forallTyBinders = fmap (fromString . T.unpack . snd) args
+            , forallTy        = Hs.QuantTy
+                { quantTyCts  = fmap (goCt env) cts
+                , quantTyBody = goTy env body
+                }
             }
-        }
-      where
-        env :: Map Text (Idx n)
-        env = Map.fromList $ toList $ Vec.zipWith (,) args qtvs
-
-        qtvs :: Vec n (Idx n)
-        qtvs = unU (induction (U VNil) (\(U v) -> U (IZ ::: fmap IS v)))
 
 newtype U n = U { unU :: Vec n (Idx n) }
 
