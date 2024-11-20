@@ -22,7 +22,7 @@ import HsBindgen.C.Reparse.Common
 reparseTypeUse :: Reparse Type
 reparseTypeUse = choice [
       TypePrim <$> reparsePrimType
-    , TypeElaborated <$> reparseName
+    , TypeTypedef <$> reparseName
     ]
 
 {-------------------------------------------------------------------------------

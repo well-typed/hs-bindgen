@@ -26,3 +26,4 @@ const _: () = {
     ["Size of baz"][::std::mem::size_of::<baz>() - 0usize];
     ["Alignment of baz"][::std::mem::align_of::<baz>() - 1usize];
 };
+pub type quu = i32;

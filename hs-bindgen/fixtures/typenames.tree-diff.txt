@@ -3,7 +3,7 @@ WrapCHeader
     [
       DeclEnum
         Enu {
-          enumTag = Just (CName "foo"),
+          enumTag = CName "foo",
           enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),

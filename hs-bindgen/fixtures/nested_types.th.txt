@@ -6,9 +6,7 @@ instance Storable CFoo
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCFoo cFoo_i_3
                                             cFoo_c_4 -> pokeByteOff ptr_1 0 cFoo_i_3 >> pokeByteOff ptr_1 4 cFoo_c_4}}
-data CBar
-    = MkCBar {cBar_foo1 :: CStruct'0020foo,
-              cBar_foo2 :: CStruct'0020foo}
+data CBar = MkCBar {cBar_foo1 :: CFoo, cBar_foo2 :: CFoo}
 instance Storable CBar
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;

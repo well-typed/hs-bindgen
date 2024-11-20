@@ -1,5 +1,6 @@
 module HsBindgen.C.Fold.DeclState (
     DeclState(..)
+  , TypeDecl (..)
     -- * Construction
   , initDeclState
   , registerMacroExpansion
@@ -8,13 +9,14 @@ module HsBindgen.C.Fold.DeclState (
   , containsMacroExpansion
   ) where
 
+import Data.Map.Ordered.Strict qualified as OMap
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Imports
+import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.C.AST (CName)
-import HsBindgen.C.Tc.Macro (QuantTy)
+import HsBindgen.C.AST
 
 {-------------------------------------------------------------------------------
   Definition
@@ -29,9 +31,20 @@ data DeclState = DeclState {
       -- expanded. We keep track of these, so that we know to look out for them;
       -- for example, it can alert us to the fact that a struct field has a
       -- type which is macro defined.
-      macroExpansions :: Set SingleLoc
-    , macroTypes      :: Map CName QuantTy
+      macroExpansions  :: !(Set SingleLoc)
+    , macroTypes       :: !(Map CName QuantTy)
+    -- | Type declarations
+    --
+    -- We accumulate type declarations in (insert)ordered map,
+    -- so the ordering resembles the one in the header.
+    , typeDeclarations :: !(OMap.OMap CXType TypeDecl)
     }
+
+data TypeDecl
+    = TypeDeclProcessing Type  -- ^ the type is processing (recursive definitions)
+    | TypeDeclAlias Type       -- ^ an alias, for typedefs etc.
+    | TypeDecl Type Decl
+  deriving Show
 
 {-------------------------------------------------------------------------------
   Construction
@@ -41,6 +54,7 @@ initDeclState :: DeclState
 initDeclState = DeclState {
       macroExpansions = Set.empty
     , macroTypes      = Map.empty
+    , typeDeclarations = OMap.empty
     }
 
 registerMacroExpansion :: MultiLoc -> DeclState -> DeclState

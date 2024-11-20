@@ -26,3 +26,33 @@ instance Storable CPackad
            peek = \ptr_0 -> pure MkCPackad <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCPackad unCPackad_3 -> pokeByteOff ptr_1 0 unCPackad_3}}
+newtype CEnumA = MkCEnumA {unCEnumA :: CUInt}
+instance Storable CEnumA
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure MkCEnumA <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCEnumA unCEnumA_3 -> pokeByteOff ptr_1 0 unCEnumA_3}}
+newtype CEnumB = MkCEnumB {unCEnumB :: CUInt}
+instance Storable CEnumB
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure MkCEnumB <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCEnumB unCEnumB_3 -> pokeByteOff ptr_1 0 unCEnumB_3}}
+newtype CEnumC = MkCEnumC {unCEnumC :: CUInt}
+instance Storable CEnumC
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure MkCEnumC <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCEnumC unCEnumC_3 -> pokeByteOff ptr_1 0 unCEnumC_3}}
+newtype CEnumD = MkCEnumD {unCEnumD :: CUInt}
+instance Storable CEnumD
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure MkCEnumD <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCEnumD unCEnumD_3 -> pokeByteOff ptr_1 0 unCEnumD_3}}
+newtype CEnumDT = MkCEnumDT {unCEnumDT :: CEnumD}
+deriving newtype instance Storable CEnumDT

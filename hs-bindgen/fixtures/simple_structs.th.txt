@@ -15,17 +15,15 @@ instance Storable CS2
                                     {MkCS2 cS2_a_3
                                            cS2_b_4
                                            cS2_c_5 -> pokeByteOff ptr_1 0 cS2_a_3 >> (pokeByteOff ptr_1 4 cS2_b_4 >> pokeByteOff ptr_1 8 cS2_c_5)}}
-newtype CS2T = MkCS2T {unCS2T :: CStruct'0020S2}
+newtype CS2T = MkCS2T {unCS2T :: CS2}
 deriving newtype instance Storable CS2T
-data CX = MkCX {cX_a :: CChar}
-instance Storable CX
+data CS3T = MkCS3T {cS3T_a :: CChar}
+instance Storable CS3T
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> pure MkCX <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure MkCS3T <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCX cX_a_3 -> pokeByteOff ptr_1 0 cX_a_3}}
-newtype CS3T = MkCS3T {unCS3T :: CStruct'0020S3T}
-deriving newtype instance Storable CS3T
+                                    {MkCS3T cS3T_a_3 -> pokeByteOff ptr_1 0 cS3T_a_3}}
 data CS4
     = MkCS4 {cS4_b :: CChar, cS4_a :: CInt, cS4_c :: (Ptr CInt)}
 instance Storable CS4
@@ -36,3 +34,19 @@ instance Storable CS4
                                     {MkCS4 cS4_b_3
                                            cS4_a_4
                                            cS4_c_5 -> pokeByteOff ptr_1 0 cS4_b_3 >> (pokeByteOff ptr_1 4 cS4_a_4 >> pokeByteOff ptr_1 8 cS4_c_5)}}
+data CS5 = MkCS5 {cS5_a :: CChar, cS5_b :: CInt}
+instance Storable CS5
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> (pure MkCS5 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCS5 cS5_a_3
+                                           cS5_b_4 -> pokeByteOff ptr_1 0 cS5_a_3 >> pokeByteOff ptr_1 4 cS5_b_4}}
+data CS6 = MkCS6 {cS6_a :: CChar, cS6_b :: CInt}
+instance Storable CS6
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> (pure MkCS6 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCS6 cS6_a_3
+                                           cS6_b_4 -> pokeByteOff ptr_1 0 cS6_a_3 >> pokeByteOff ptr_1 4 cS6_b_4}}

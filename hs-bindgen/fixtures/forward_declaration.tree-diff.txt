@@ -1,14 +1,10 @@
 WrapCHeader
   (Header
     [
-      DeclTypedef
-        Typedef {
-          typedefName = CName "S1_t",
-          typedefType = TypeElaborated
-            (CName "struct S1")},
       DeclStruct
         Struct {
-          structTag = Just (CName "S1"),
+          structTag = DefnName
+            (CName "S1"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -18,9 +14,15 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "S1_t",
+          typedefType = TypeStruct
+            (DefnName (CName "S1"))},
       DeclStruct
         Struct {
-          structTag = Just (CName "S2"),
+          structTag = DefnName
+            (CName "S2"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [

@@ -35,30 +35,10 @@ foldDecls ::
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
-      Right CXCursor_StructDecl -> do
-        -- Emit struct declration only if it's the definition.
-        defn <- liftIO $ clang_getCursorDefinition current
-        if defn == nullCursor
-        then do
-          mtag <- liftIO $ fmap CName . getUserProvided <$> HighLevel.clang_getCursorSpelling current
-          return $ Continue $ case mtag of
-            Nothing -> Nothing
-            Just tag -> Just (DeclOpaqueStruct tag)
-        else do
-          if current == defn
-          then do
-            decl <- declStruct <$> mkStructHeader current
-            return $ Recurse (continue $ mkStructField unit) (Just . decl)
-          else do
-            -- not a definition declaration, skip.
-            return $ Continue Nothing
+      Right CXCursor_TypedefDecl -> typeDecl current
+      Right CXCursor_StructDecl  -> typeDecl current
+      Right CXCursor_EnumDecl    -> typeDecl current
 
-      Right CXCursor_EnumDecl -> do
-        decl <- declEnum <$> mkEnumHeader current
-        return $ Recurse (continue mkEnumValue) (Just . decl)
-      Right CXCursor_TypedefDecl -> do
-        typedef <- mkTypedef current
-        return $ Continue (Just (DeclTypedef typedef))
       Right CXCursor_MacroDefinition -> do
         mbMExpr <- mkMacro unit current
         macro <- case mbMExpr of
@@ -95,17 +75,13 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
 
       _otherwise -> do
         unrecognizedCursor current
-
-
-{-------------------------------------------------------------------------------
-  Type declarations
--------------------------------------------------------------------------------}
-
-declStruct :: ([StructField] -> Struct) -> [Maybe StructField] -> Decl
-declStruct partial = DeclStruct . partial . catMaybes
-
-declEnum :: ([EnumValue] -> Enu) -> [Maybe EnumValue] -> Decl
-declEnum partial = DeclEnum . partial . catMaybes
+  where
+    typeDecl :: CXCursor -> Eff (State DeclState) (Next m a)
+    typeDecl current = do
+      ty <- liftIO $ clang_getCursorType current
+      -- TODO: add assert at ty is not invalid type.
+      processTypeDecl unit ty
+      return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Macros

@@ -503,7 +503,9 @@ WrapCHeader
           "(forall a. Integral a => a)"},
       DeclStruct
         Struct {
-          structTag = Nothing,
+          structTag = DefnName
+            (CName
+              "another_typedef_struct_t"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -518,16 +520,10 @@ WrapCHeader
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing)}]},
-      DeclTypedef
-        Typedef {
-          typedefName = CName
-            "another_typedef_struct_t",
-          typedefType = TypeElaborated
-            (CName
-              "struct another_typedef_struct_t")},
       DeclEnum
         Enu {
-          enumTag = Nothing,
+          enumTag = CName
+            "another_typedef_enum_e",
           enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
@@ -542,13 +538,6 @@ WrapCHeader
               valueValue = 1}]},
       DeclTypedef
         Typedef {
-          typedefName = CName
-            "another_typedef_enum_e",
-          typedefType = TypeElaborated
-            (CName
-              "enum another_typedef_enum_e")},
-      DeclTypedef
-        Typedef {
           typedefName = CName "a_type_t",
           typedefType = TypePrim
             (PrimIntegral
@@ -559,9 +548,26 @@ WrapCHeader
           typedefType = TypePrim
             (PrimIntegral
               (PrimInt Signed))},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "uint8_t",
+          typedefType = TypePrim
+            (PrimChar (Just Unsigned))},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "uint16_t",
+          typedefType = TypePrim
+            (PrimIntegral
+              (PrimShort Unsigned))},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "uint32_t",
+          typedefType = TypePrim
+            (PrimIntegral
+              (PrimInt Unsigned))},
       DeclStruct
         Struct {
-          structTag = Just
+          structTag = DefnName
             (CName "a_typedef_struct"),
           structSizeof = 140,
           structAlignment = 1,
@@ -569,36 +575,38 @@ WrapCHeader
             StructField {
               fieldName = CName "field_0",
               fieldOffset = 0,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "bool")},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "uint8_t")},
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "uint16_t")},
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "uint32_t")},
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
-              fieldType = TypeElaborated
-                (CName
-                  "another_typedef_struct_t")},
+              fieldType = TypeStruct
+                (DefnName
+                  (CName
+                    "another_typedef_struct_t"))},
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
               fieldType = TypePointer
-                (TypeElaborated
-                  (CName
-                    "another_typedef_struct_t"))},
+                (TypeStruct
+                  (DefnName
+                    (CName
+                      "another_typedef_struct_t")))},
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
@@ -609,36 +617,37 @@ WrapCHeader
               fieldOffset = 256,
               fieldType = TypeConstArray
                 7
-                (TypeElaborated
+                (TypeTypedef
                   (CName "uint32_t"))},
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
-              fieldType = TypeElaborated
+              fieldType = TypeEnum
                 (CName
                   "another_typedef_enum_e")},
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e")},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e")}]},
       DeclTypedef
         Typedef {
           typedefName = CName
             "a_typedef_struct_t",
-          typedefType = TypeElaborated
-            (CName
-              "struct a_typedef_struct")},
+          typedefType = TypeStruct
+            (DefnName
+              (CName "a_typedef_struct"))},
       DeclEnum
         Enu {
-          enumTag = Nothing,
+          enumTag = CName
+            "a_typedef_enum_e",
           enumType = TypePrim
             (PrimChar (Just Unsigned)),
           enumSizeof = 1,
@@ -656,13 +665,6 @@ WrapCHeader
             EnumValue {
               valueName = CName "ENUM_CASE_3",
               valueValue = 3}]},
-      DeclTypedef
-        Typedef {
-          typedefName = CName
-            "a_typedef_enum_e",
-          typedefType = TypeElaborated
-            (CName
-              "enum a_typedef_enum_e")},
       DeclTypedef
         Typedef {
           typedefName = CName

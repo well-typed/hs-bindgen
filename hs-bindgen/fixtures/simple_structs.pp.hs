@@ -60,16 +60,16 @@ instance F.Storable CS2 where
             >> F.pokeByteOff ptr0 8 cS2_c4
 
 newtype CS2T = MkCS2T
-  { unCS2T :: CStruct'0020S2
+  { unCS2T :: CS2
   }
 
 deriving newtype instance F.Storable CS2T
 
-data CX = MkCX
-  { cX_a :: FC.CChar
+data CS3T = MkCS3T
+  { cS3T_a :: FC.CChar
   }
 
-instance F.Storable CX where
+instance F.Storable CS3T where
 
   sizeOf = \_ -> 1
 
@@ -77,20 +77,14 @@ instance F.Storable CX where
 
   peek =
     \ptr0 ->
-          pure MkCX
+          pure MkCS3T
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCX cX_a2 -> F.pokeByteOff ptr0 0 cX_a2
-
-newtype CS3T = MkCS3T
-  { unCS3T :: CStruct'0020S3T
-  }
-
-deriving newtype instance F.Storable CS3T
+          MkCS3T cS3T_a2 -> F.pokeByteOff ptr0 0 cS3T_a2
 
 data CS4 = MkCS4
   { cS4_b :: FC.CChar
@@ -119,3 +113,53 @@ instance F.Storable CS4 where
                F.pokeByteOff ptr0 0 cS4_b2
             >> F.pokeByteOff ptr0 4 cS4_a3
             >> F.pokeByteOff ptr0 8 cS4_c4
+
+data CS5 = MkCS5
+  { cS5_a :: FC.CChar
+  , cS5_b :: FC.CInt
+  }
+
+instance F.Storable CS5 where
+
+  sizeOf = \_ -> 8
+
+  alignment = \_ -> 4
+
+  peek =
+    \ptr0 ->
+          pure MkCS5
+      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 4
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCS5 cS5_a2 cS5_b3 ->
+               F.pokeByteOff ptr0 0 cS5_a2
+            >> F.pokeByteOff ptr0 4 cS5_b3
+
+data CS6 = MkCS6
+  { cS6_a :: FC.CChar
+  , cS6_b :: FC.CInt
+  }
+
+instance F.Storable CS6 where
+
+  sizeOf = \_ -> 8
+
+  alignment = \_ -> 4
+
+  peek =
+    \ptr0 ->
+          pure MkCS6
+      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 4
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCS6 cS6_a2 cS6_b3 ->
+               F.pokeByteOff ptr0 0 cS6_a2
+            >> F.pokeByteOff ptr0 4 cS6_b3

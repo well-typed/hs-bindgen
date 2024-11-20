@@ -310,6 +310,10 @@ static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
     return clang_Cursor_isAnonymous(*C);
 }
 
+static inline unsigned wrap_Cursor_isAnonymousRecordDecl(const CXCursor *C) {
+    return clang_Cursor_isAnonymousRecordDecl(*C);
+}
+
 static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
     return clang_getEnumConstantDeclValue(*C);
 }

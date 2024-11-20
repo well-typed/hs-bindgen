@@ -1,0 +1,50 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "linked_list_A_s"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "next",
+              fieldOffset = 64,
+              fieldType = TypePointer
+                (TypeStruct
+                  (DefnName
+                    (CName "linked_list_A_s")))}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName
+            "linked_list_A_t",
+          typedefType = TypeStruct
+            (DefnName
+              (CName "linked_list_A_s"))},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "linked_list_B_t"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "next",
+              fieldOffset = 64,
+              fieldType = TypePointer
+                (TypeStruct
+                  (DefnName
+                    (CName "linked_list_B_t")))}]}])

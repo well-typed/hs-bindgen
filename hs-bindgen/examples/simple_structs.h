@@ -21,3 +21,12 @@ struct S4 {
     int a;
     int *c;
 };
+
+// matching tags
+typedef struct S5 {
+    char a;
+    int b;
+} S5;
+
+struct S6 { char a; int b; };
+typedef struct S6 S6;

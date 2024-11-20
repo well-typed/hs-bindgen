@@ -1,8 +1,6 @@
 data CFoo
-data CFoo
 data CBar
-    = MkCBar {cBar_ptrA :: (Ptr CStruct'0020foo),
-              cBar_ptrB :: (Ptr CStruct'0020bar)}
+    = MkCBar {cBar_ptrA :: (Ptr CFoo), cBar_ptrB :: (Ptr CBar)}
 instance Storable CBar
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
@@ -17,3 +15,4 @@ instance Storable CBaz
            peek = \ptr_0 -> pure MkCBaz;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCBaz -> return ()}}
+data CQuu

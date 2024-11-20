@@ -9,6 +9,7 @@ module HsBindgen.C.AST.Type (
   , PrimFloatType(..)
   , PrimSign(..)
     -- * Structs
+  , DefnName (..)
   , Struct(..)
   , StructField(..)
     -- * Enums
@@ -28,18 +29,13 @@ import HsBindgen.C.AST.Name
 -- | Type representing /usage/ of a type: field type, argument or result type etc.
 data Type =
     TypePrim PrimType
-  | TypeStruct Struct
+  | TypeStruct DefnName
+  | TypeEnum CName
+  | TypeTypedef CName
   | TypePointer Type
   | TypeConstArray Natural Type
-  | TypeElaborated Symbol
-  -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
-
--- | Reference into the type symbol table
---
--- TODO: for now this is simply the name of the C type.
-type Symbol = CName
 
 {-------------------------------------------------------------------------------
   Primitives types
@@ -122,9 +118,17 @@ data PrimSign = Signed | Unsigned
   Structs
 -------------------------------------------------------------------------------}
 
+-- TODO: how to name this type?
+--
+data DefnName
+    = DefnName CName  -- ^ top level definition: @struct foo@, @typedef ... foo@
+    -- TODO: add names for structs defined for fields.
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
 -- | Definition of a struct
 data Struct = Struct {
-      structTag       :: Maybe CName
+      structTag       :: DefnName
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -145,7 +149,7 @@ data StructField = StructField {
 -------------------------------------------------------------------------------}
 
 data Enu = Enu {
-      enumTag       :: Maybe CName
+      enumTag       :: CName
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int

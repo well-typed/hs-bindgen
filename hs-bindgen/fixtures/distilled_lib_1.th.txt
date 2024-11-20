@@ -12,31 +12,34 @@ a_DEFINE_2 :: forall a_0 . Integral a_0 => a_0
 a_DEFINE_2 = 2
 tWO_ARGS :: forall a_0 . Integral a_0 => a_0
 tWO_ARGS = 13398
-data CX = MkCX {cX_foo :: CInt, cX_bar :: CChar}
-instance Storable CX
+data CAnotherTypedefStructT
+    = MkCAnotherTypedefStructT {cAnotherTypedefStructT_foo :: CInt,
+                                cAnotherTypedefStructT_bar :: CChar}
+instance Storable CAnotherTypedefStructT
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCX <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure MkCAnotherTypedefStructT <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCX cX_foo_3
-                                          cX_bar_4 -> pokeByteOff ptr_1 0 cX_foo_3 >> pokeByteOff ptr_1 4 cX_bar_4}}
-newtype CAnotherTypedefStructT
-    = MkCAnotherTypedefStructT {unCAnotherTypedefStructT :: CStruct'0020anotherTypedefStructT}
-deriving newtype instance Storable CAnotherTypedefStructT
-newtype CX = MkCX {unCX :: CUInt}
-instance Storable CX
+                                    {MkCAnotherTypedefStructT cAnotherTypedefStructT_foo_3
+                                                              cAnotherTypedefStructT_bar_4 -> pokeByteOff ptr_1 0 cAnotherTypedefStructT_foo_3 >> pokeByteOff ptr_1 4 cAnotherTypedefStructT_bar_4}}
+newtype CAnotherTypedefEnumE
+    = MkCAnotherTypedefEnumE {unCAnotherTypedefEnumE :: CUInt}
+instance Storable CAnotherTypedefEnumE
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCX <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure MkCAnotherTypedefEnumE <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCX unCX_3 -> pokeByteOff ptr_1 0 unCX_3}}
-newtype CAnotherTypedefEnumE
-    = MkCAnotherTypedefEnumE {unCAnotherTypedefEnumE :: CEnum'0020anotherTypedefEnumE}
-deriving newtype instance Storable CAnotherTypedefEnumE
+                                    {MkCAnotherTypedefEnumE unCAnotherTypedefEnumE_3 -> pokeByteOff ptr_1 0 unCAnotherTypedefEnumE_3}}
 newtype CATypeT = MkCATypeT {unCATypeT :: CInt}
 deriving newtype instance Storable CATypeT
 newtype CVarT = MkCVarT {unCVarT :: CInt}
 deriving newtype instance Storable CVarT
+newtype CUint8T = MkCUint8T {unCUint8T :: CSChar}
+deriving newtype instance Storable CUint8T
+newtype CUint16T = MkCUint16T {unCUint16T :: CUShort}
+deriving newtype instance Storable CUint16T
+newtype CUint32T = MkCUint32T {unCUint32T :: CUInt}
+deriving newtype instance Storable CUint32T
 data CATypedefStruct
     = MkCATypedefStruct {cATypedefStruct_field_0 :: CBool',
                          cATypedefStruct_field_1 :: CUint8T,
@@ -66,17 +69,15 @@ instance Storable CATypedefStruct
                                                        cATypedefStruct_field_9_12
                                                        cATypedefStruct_field_10_13 -> pokeByteOff ptr_1 0 cATypedefStruct_field_0_3 >> (pokeByteOff ptr_1 1 cATypedefStruct_field_1_4 >> (pokeByteOff ptr_1 2 cATypedefStruct_field_2_5 >> (pokeByteOff ptr_1 4 cATypedefStruct_field_3_6 >> (pokeByteOff ptr_1 8 cATypedefStruct_field_4_7 >> (pokeByteOff ptr_1 16 cATypedefStruct_field_5_8 >> (pokeByteOff ptr_1 24 cATypedefStruct_field_6_9 >> (pokeByteOff ptr_1 32 cATypedefStruct_field_7_10 >> (pokeByteOff ptr_1 60 cATypedefStruct_field_8_11 >> (pokeByteOff ptr_1 64 cATypedefStruct_field_9_12 >> pokeByteOff ptr_1 80 cATypedefStruct_field_10_13)))))))))}}
 newtype CATypedefStructT
-    = MkCATypedefStructT {unCATypedefStructT :: CStruct'0020aTypedefStruct}
+    = MkCATypedefStructT {unCATypedefStructT :: CATypedefStruct}
 deriving newtype instance Storable CATypedefStructT
-newtype CX = MkCX {unCX :: CSChar}
-instance Storable CX
+newtype CATypedefEnumE
+    = MkCATypedefEnumE {unCATypedefEnumE :: CSChar}
+instance Storable CATypedefEnumE
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> pure MkCX <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure MkCATypedefEnumE <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCX unCX_3 -> pokeByteOff ptr_1 0 unCX_3}}
-newtype CATypedefEnumE
-    = MkCATypedefEnumE {unCATypedefEnumE :: CEnum'0020aTypedefEnumE}
-deriving newtype instance Storable CATypedefEnumE
+                                    {MkCATypedefEnumE unCATypedefEnumE_3 -> pokeByteOff ptr_1 0 unCATypedefEnumE_3}}
 newtype CCallbackT = MkCCallbackT {unCCallbackT :: (Ptr Void)}
 deriving newtype instance Storable CCallbackT

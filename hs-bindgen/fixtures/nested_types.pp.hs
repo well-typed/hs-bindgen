@@ -32,8 +32,8 @@ instance F.Storable CFoo where
             >> F.pokeByteOff ptr0 4 cFoo_c3
 
 data CBar = MkCBar
-  { cBar_foo1 :: CStruct'0020foo
-  , cBar_foo2 :: CStruct'0020foo
+  { cBar_foo1 :: CFoo
+  , cBar_foo2 :: CFoo
   }
 
 instance F.Storable CBar where
