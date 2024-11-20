@@ -16,7 +16,6 @@ module HsBindgen.Clang.Internal.Results (
 
 import Control.Exception
 import Data.Coerce
-import Data.Typeable
 import Foreign
 import GHC.Stack
 
@@ -32,14 +31,14 @@ import HsBindgen.Patterns
 -- In @libclang@, being a C framework, errors are returned as values; in order
 -- to ensure that we don't forget to check for these error values, we turn them
 -- into 'CallFailed' exceptions.
-data CallFailed hint = CallFailed hint Backtrace
+data CallFailed = CallFailed String Backtrace
   deriving stock (Show)
-  deriving Exception via CollectedBacktrace (CallFailed hint)
+  deriving Exception via CollectedBacktrace CallFailed
 
-callFailed :: (Typeable hint, Show hint, HasCallStack) => hint -> IO a
+callFailed :: (Show hint, HasCallStack) => hint -> IO a
 callFailed hint = do
     stack <- collectBacktrace
-    throwIO $ CallFailed hint stack
+    throwIO $ CallFailed (show hint) stack
 
 {-------------------------------------------------------------------------------
   Specific conditions
@@ -50,14 +49,14 @@ cToBool 0 = False
 cToBool _ = True
 
 -- | Check result for error value
-ensure :: (HasCallStack, Typeable a, Show a) => (a -> Bool) -> IO a -> IO a
+ensure :: (HasCallStack, Show a) => (a -> Bool) -> IO a -> IO a
 ensure = ensureOn id
 
 -- | Generalization of 'ensure' with an additional translation step
 --
 -- This is useful in cases where the value that should be included in the
 -- exception should not be the original value but the translated one.
-ensureOn :: (HasCallStack, Typeable b, Show b)
+ensureOn :: (HasCallStack, Show b)
   => (a -> b)
   -> (b -> Bool)
   -> IO a -> IO a
@@ -69,7 +68,7 @@ ensureOn f p call = do
 
 -- | Ensure that a function did not return 'nullPtr' (indicating error)
 ensureNotNull ::
-     (HasCallStack, Coercible a (Ptr x), Typeable a, Show a)
+     (HasCallStack, Coercible a (Ptr x), Show a)
   => IO a -> IO a
 ensureNotNull = ensure (not . isNullPtr)
 
