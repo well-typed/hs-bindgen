@@ -8,8 +8,8 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
 import HsBindgen.TestLib.Arbitrary ()
-import HsBindgen.TestLib.RepEq (RepEq)
-import HsBindgen.TestLib.Storable (prop_PokePeekRepEq)
+import HsBindgen.TestLib.SameSemantics (SameSemantics)
+import HsBindgen.TestLib.Storable (prop_PokePeekSameSemantics)
 
 {-------------------------------------------------------------------------------
   Tests
@@ -17,12 +17,12 @@ import HsBindgen.TestLib.Storable (prop_PokePeekRepEq)
 
 -- | Test a general type
 testGeneral :: forall a.
-     (Arbitrary a, F.Storable a, RepEq a, Show a, Typeable a)
+     (Arbitrary a, F.Storable a, SameSemantics a, Show a, Typeable a)
   => Proxy a
   -> TestTree
 testGeneral proxy = testGroup (show (typeRep proxy))
-    [ testGroup "PokePeekRepEq"
-        [ testProperty "random" $ prop_PokePeekRepEq @a
+    [ testGroup "PokePeekSameSemantics"
+        [ testProperty "random" $ prop_PokePeekSameSemantics @a
         ]
     ]
 

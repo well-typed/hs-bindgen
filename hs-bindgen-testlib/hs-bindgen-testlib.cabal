@@ -56,8 +56,8 @@ library
       HsBindgen.TestLib.CLib
       HsBindgen.TestLib.GenSeq
       HsBindgen.TestLib.RealFloat
-      HsBindgen.TestLib.RepEq
       HsBindgen.TestLib.RepZero
+      HsBindgen.TestLib.SameSemantics
       HsBindgen.TestLib.Storable
       HsBindgen.TestLib.Transform
   include-dirs: clib
@@ -74,7 +74,7 @@ test-suite test-hs-bindgen-testlib
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules:
-      HsBindgen.TestLib.RepEq.Test
+      HsBindgen.TestLib.SameSemantics.Test
       HsBindgen.TestLib.Storable.Test
       HsBindgen.TestLib.Transform.Test
   build-depends:
