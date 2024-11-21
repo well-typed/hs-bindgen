@@ -1,12 +1,11 @@
--- TODO documentation
 module HsBindgen.TestLib.Transform (
     -- * Transform
     Transform(..)
     -- * Properties
-  , prop_XvNotRepEqV
-  , assertXvNotRepEqV
-  , prop_XHsRepEqXC
-  , assertXHsRepEqXC
+  , prop_TransformVNotSameSemanticsV
+  , assertTransformVNotSameSemanticsV
+  , prop_TransformHsSameSemanticsC
+  , assertTransformHsSameSemanticsC
   ) where
 
 import Data.Bits qualified as Bits
@@ -17,7 +16,9 @@ import Test.Tasty.HUnit (Assertion)
 import Test.Tasty.QuickCheck (Property)
 
 import HsBindgen.TestLib.RealFloat qualified as RF
-import HsBindgen.TestLib.RepEq ((@!=?), (@!/=?), RepEq(repEq))
+import HsBindgen.TestLib.SameSemantics
+  ( (@=~?), (@/=~?), SameSemantics(sameSemantics)
+  )
 
 {-------------------------------------------------------------------------------
   Transform
@@ -25,7 +26,7 @@ import HsBindgen.TestLib.RepEq ((@!=?), (@!/=?), RepEq(repEq))
 
 -- | Transform a value to a different value
 --
--- prop> not (transform x `repEq` x)
+-- prop> not (transform x `sameSemantics` x)
 class Transform a where
   transform :: a -> a
 
@@ -115,29 +116,40 @@ instance Transform FC.CDouble where
   Properties
 -------------------------------------------------------------------------------}
 
--- | A transformed value is not representationally equal to the value
-prop_XvNotRepEqV :: (RepEq a, Transform a) => a -> Bool
-prop_XvNotRepEqV x = not $ transform x `repEq` x
+-- | A transformed value does /not/ have the same semantics as the original
+-- value
+prop_TransformVNotSameSemanticsV :: (SameSemantics a, Transform a) => a -> Bool
+prop_TransformVNotSameSemanticsV x = not $ transform x `sameSemantics` x
 
--- | A transformed value is not representationally equal to the value
-assertXvNotRepEqV :: (RepEq a, Show a, Transform a) => a -> Assertion
-assertXvNotRepEqV x = transform x @!/=? x
+-- | A transformed value does /not/ have the same semantics as the original
+-- value
+assertTransformVNotSameSemanticsV ::
+     (SameSemantics a, Show a, Transform a)
+  => a
+  -> Assertion
+assertTransformVNotSameSemanticsV x = transform x @/=~? x
 
--- | Values transformed using C and Haskell are representationally equal
-prop_XHsRepEqXC :: (RepEq a, Transform a) => (a -> IO a) -> a -> Property
-prop_XHsRepEqXC cTransform x = QCM.monadicIO $ do
+-- | A value transformed using Haskell has the same semantics as the value
+-- transformed using C
+prop_TransformHsSameSemanticsC ::
+     (SameSemantics a, Transform a)
+  => (a -> IO a)
+  -> a
+  -> Property
+prop_TransformHsSameSemanticsC cTransform x = QCM.monadicIO $ do
     x' <- QCM.run $ cTransform x
-    QCM.assert $ transform x `repEq` x'
+    QCM.assert $ transform x `sameSemantics` x'
 
--- | Values transformed using C and Haskell are representationally equal
-assertXHsRepEqXC ::
-     (RepEq a, Show a, Transform a)
+-- | A value transformed using Haskell has the same semantics as the value
+-- transformed using C
+assertTransformHsSameSemanticsC ::
+     (SameSemantics a, Show a, Transform a)
   => (a -> IO a)
   -> a
   -> Assertion
-assertXHsRepEqXC cTransform x = do
+assertTransformHsSameSemanticsC cTransform x = do
     x' <- cTransform x
-    transform x @!=? x'
+    transform x @=~? x'
 
 {-------------------------------------------------------------------------------
   Auxilliary functions
