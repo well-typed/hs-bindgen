@@ -36,8 +36,11 @@ module HsBindgen.Clang.HighLevel (
   , clang_visitChildren
     -- * User-provided names
   , clang_getCursorSpelling
+    -- * Declaration classification
+  , classifyDeclaration
   ) where
 
+import HsBindgen.Clang.HighLevel.Declaration
 import HsBindgen.Clang.HighLevel.Diagnostics
 import HsBindgen.Clang.HighLevel.Fold
 import HsBindgen.Clang.HighLevel.SourceLoc

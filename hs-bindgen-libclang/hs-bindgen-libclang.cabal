@@ -73,6 +73,7 @@ library
       HsBindgen.Clang.Internal.CXString
       HsBindgen.Clang.Internal.FFI
       HsBindgen.Clang.Internal.Results
+      HsBindgen.Clang.HighLevel.Declaration
       HsBindgen.Clang.HighLevel.Diagnostics
       HsBindgen.Clang.HighLevel.Documentation
       HsBindgen.Clang.HighLevel.Fold
