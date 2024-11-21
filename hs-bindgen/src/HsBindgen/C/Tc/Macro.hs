@@ -35,22 +35,28 @@ import Control.Applicative
 #endif
 import Control.Monad.ST
   ( ST, runST )
+import Data.Either
+  ( partitionEithers )
 import Data.Kind qualified as Hs
 import Data.List
   ( intercalate )
 import Data.List.NonEmpty qualified as NE
 import Data.Foldable
   ( for_ )
+import Data.Functor
+  ( (<&>) )
 import Data.Maybe
   ( fromJust )
 import Data.Monoid
-  ( Any(..) )
+  ( Any(..), Endo(..) )
 import Data.Proxy
   ( Proxy(..) )
 import Data.STRef
-  ( STRef, newSTRef, readSTRef, modifySTRef', writeSTRef )
+  ( STRef, newSTRef, readSTRef, writeSTRef )
 import Data.Traversable
   ( for )
+import Data.Typeable
+  ( Typeable, eqT )
 import Data.Type.Equality
   ( type (:~:)(..) )
 import GHC.Generics
@@ -83,7 +89,6 @@ import Control.Monad.State.Strict qualified as State
 import Control.Monad.Writer
   ( WriterT )
 import Control.Monad.Writer qualified as Writer
-  ( tell, runWriterT )
 import Control.Monad.Trans
   ( lift )
 
@@ -280,13 +285,13 @@ data MetaTyVar
 
 type TyCon :: Nat -> Kind -> Hs.Type
 data TyCon nbArgs res where
-  DataTyCon      :: !( DataTyCon  nbArgs ) -> TyCon nbArgs Ty
-  ClassTyCon     :: !( ClassTyCon nbArgs ) -> TyCon nbArgs Ct
+  DataTyCon      :: !( DataTyCon   nbArgs ) -> TyCon nbArgs Ty
+  ClassTyCon     :: !( ClassTyCon  nbArgs ) -> TyCon nbArgs Ct
 deriving stock instance Eq ( TyCon nbArgs res )
 
 instance PrettyVal ( TyCon nbArgs k ) where
-  prettyVal ( DataTyCon  dc  ) = Pretty.Con  "DataTyCon" [ prettyVal dc     ]
-  prettyVal ( ClassTyCon cls ) = Pretty.Con "ClassTyCon" [ prettyVal cls    ]
+  prettyVal ( DataTyCon   dc  ) = Pretty.Con   "DataTyCon" [ prettyVal dc     ]
+  prettyVal ( ClassTyCon  cls ) = Pretty.Con  "ClassTyCon" [ prettyVal cls    ]
 
 type DataTyCon :: Nat -> Hs.Type
 data DataTyCon nbArgs where
@@ -345,8 +350,8 @@ instance PrettyVal ( ClassTyCon nbArgs ) where
 
 instance Show ( TyCon n ki ) where
   showsPrec p = \case
-    DataTyCon  tc -> showsPrec p tc
-    ClassTyCon tc -> showsPrec p tc
+    DataTyCon   tc -> showsPrec p tc
+    ClassTyCon  tc -> showsPrec p tc
 
 instance Show ( DataTyCon n ) where
   showsPrec p = \case
@@ -421,7 +426,7 @@ noBoundVars = IntSet.empty
 
 freeTyVarsOfType :: Type ki -> State FVs ()
 freeTyVarsOfType = \case
-  TyVarTy tv -> State.modify $ insertFV tv
+  TyVarTy tv -> State.modify' $ insertFV tv
   FunTy args res -> goFunTy args res
   TyConAppTy _tc tys -> freeTyVarsOfTypes tys
   NomEqPred a b -> freeTyVarsOfTypes ( a ::: b ::: VNil )
@@ -583,23 +588,39 @@ speakNth n = Text.pack ( show n ) <> suffix
     lastDigit = n `rem` 10
 
 data TcError
-  = forall k1 k2
-  . CouldNotUnify CouldNotUnifyReason CtOrigin ( Type k1 ) ( Type k2 )
-  | UnexpectedMTerm !MTerm
-  | UnboundVariable !CName
-deriving stock instance Show TcError
+  = UnificationError !UnificationError
+  | UnexpectedMTerm  !MTerm
+  | UnboundVariable  !CName
+  deriving stock Show
+
+data UnificationError
+  = forall k. Typeable k => CouldNotUnify !CouldNotUnifyReason !CtOrigin !( Type k ) !( Type k )
+deriving stock instance Show UnificationError
 
 instance PrettyVal TcError where
   prettyVal = \case
-    CouldNotUnify rea orig ty1 ty2 ->
-      Pretty.Con "CouldNotUnify" [ prettyVal rea, prettyVal orig, prettyVal ty1, prettyVal ty2 ]
+    UnificationError err ->
+      Pretty.Con "UnificationError" [ prettyVal err ]
     UnexpectedMTerm mTerm ->
       Pretty.Con "UnexpectedMTerm" [ prettyVal mTerm ]
     UnboundVariable nm ->
       Pretty.Con "UnboundVariable" [ prettyVal nm ]
+instance PrettyVal UnificationError where
+  prettyVal = \case
+    CouldNotUnify rea orig ty1 ty2 ->
+      Pretty.Con "CouldNotUnify" [ prettyVal rea, prettyVal orig, prettyVal ty1, prettyVal ty2 ]
 
 pprTcError :: TcError -> Text
 pprTcError = \case
+  UnificationError err ->
+    pprUnificationError err
+  UnexpectedMTerm tm ->
+    "Unexpected MTerm: " <> Text.pack ( show tm )
+  UnboundVariable ( CName nm ) ->
+    "Unbound variable: '" <> nm <> "'"
+
+pprUnificationError :: UnificationError -> Text
+pprUnificationError = \case
   CouldNotUnify rea orig ty1 ty2 ->
     Text.unlines
       [ "Could not unify:"
@@ -607,10 +628,6 @@ pprTcError = \case
       , "  - " <> Text.pack ( show ty2 )
       , "because " <> pprCouldNotUnifyReason rea <> "."
       , pprCtOrigin orig ]
-  UnexpectedMTerm tm ->
-    "Unexpected MTerm: " <> Text.pack ( show tm )
-  UnboundVariable ( CName nm ) ->
-    "Unbound variable: '" <> nm <> "'"
 
 data CouldNotUnifyReason
   -- | Trying to unify incompatible types, e.g. a 'PiTy' with a 'TyConAppTy'.
@@ -661,7 +678,6 @@ type VarEnv  = Map CName ( Type Ty )
 data TcGblEnv s
   = TcGblEnv
       { tcUnique  :: !( STRef s Unique )
-      , tcErrs    :: !( STRef s [ ( TcError, SrcSpan ) ] )
       , tcTypeEnv :: !( STRef s TypeEnv )
       }
 
@@ -689,25 +705,16 @@ runTcM initTyEnv ( TcM f ) = runST $ do
   tcErrs    <- newSTRef []
   tcTypeEnv <- newSTRef initTyEnv
   let
-    tcGblEnv = TcGblEnv { tcUnique, tcErrs, tcTypeEnv }
+    tcGblEnv = TcGblEnv { tcUnique, tcTypeEnv }
     tcLclEnv = TcLclEnv { tcSrcSpan = SrcSpan, tcVarEnv = Map.empty }
   res <- f ( TcEnv { tcGblEnv, tcLclEnv } )
   errs <- readSTRef tcErrs
   return ( res, errs )
 
-addErrTcM :: TcError -> TcM ()
-addErrTcM err = TcM $ \ ( TcEnv ( TcGblEnv { tcErrs } ) ( TcLclEnv { tcSrcSpan } ) ) ->
-  modifySTRef' tcErrs ( \ errs -> ( ( err, tcSrcSpan ) : errs ) )
-
-captureErrsTcM :: TcM a -> TcM ( a, [ ( TcError, SrcSpan ) ] )
-captureErrsTcM ( TcM f ) = TcM $ \ ( TcEnv gbl0 lcl0 ) -> do
-  errsRef1 <- newSTRef []
-  let env1 = TcEnv ( gbl0 { tcErrs = errsRef1 } ) lcl0
-  a <- f env1
-  errs <- readSTRef errsRef1
-  -- NB: we are capturing errors, so we don't add them back
-  -- to the original STRef.
-  return ( a, errs )
+getSrcSpan :: TcM SrcSpan
+getSrcSpan =
+  TcM $ \ ( TcEnv _gbl ( TcLclEnv { tcSrcSpan } ) ) ->
+    return tcSrcSpan
 
 stateSTRef :: STRef s a -> ( a -> ( b, a ) ) -> ST s b
 stateSTRef ref f = do
@@ -750,13 +757,13 @@ declareLocalVars vs ( TcM f ) = TcM $ \ ( TcEnv gbl lcl ) ->
 -------------------------------------------------------------------------------}
 
 -- | Monad for unification.
-type TcUnifyM = StateT ( Subst TyVar ) TcM
+type TcUnifyM = WriterT UnifyResult ( StateT ( Subst TyVar ) TcM )
 
 -- | A collection of constraints (with their origin).
 type Cts = [ ( Type Ct, CtOrigin ) ]
 
 -- | Monad for generating constraints.
-type TcGenM = WriterT Cts ( StateT ( Subst TyVar ) TcM )
+type TcGenM = WriterT ( Cts, [ ( TcError, SrcSpan ) ] ) ( StateT ( Subst TyVar ) TcM )
 
 liftTcM :: TcM a -> TcGenM a
 liftTcM = lift . lift
@@ -770,34 +777,59 @@ liftBaseTcM morph g = do
   Writer.tell cts
   return a
 
-runTcGenMTcM :: TcGenM a -> TcM ( ( a, Cts ), Subst TyVar )
-runTcGenMTcM x = ( `State.runStateT` mempty ) $ Writer.runWriterT x
+liftUnifyM :: TcUnifyM a -> TcGenM a
+liftUnifyM = Writer.mapWriterT ( fmap ( second deferredEqs ) )
+  where
+    deferredEqs :: UnifyResult -> ( Cts, [ ( TcError, SrcSpan ) ] )
+    deferredEqs ( UnifyResult { deferredEqualities = eqs, unifyErrors = errs } ) =
+      ( eqs, map ( first UnificationError ) errs )
+
+addErrTcGenM :: TcError -> TcGenM ()
+addErrTcGenM err = do
+  srcSpan <- lift $ lift getSrcSpan
+  Writer.tell ( [], [ ( err, srcSpan ) ] )
+
+
+runTcGenMTcM :: TcGenM a -> TcM ( ( a, ( Cts, [ ( TcError, SrcSpan ) ] ) ), Subst TyVar )
+runTcGenMTcM = ( `State.runStateT` mempty ) . Writer.runWriterT
+
 
 -- | Run a 'TcUnifyM' action and retrieve the underlying 'Subst'
--- when there were no errors.
-runTcUnifyMSubst :: Subst TyVar -> TcUnifyM a -> TcM ( Maybe ( a, Subst TyVar ) )
-runTcUnifyMSubst subst0 = fmap noErrs . captureErrsTcM . ( `State.runStateT` subst0 )
-  where
-    noErrs ( res, errs ) =
-      if null errs
-      then Just res
-      else Nothing
+-- when unification succeeded without deferring any equalities.
+runTcUnifyMSubst :: forall a. Subst TyVar -> TcUnifyM a -> TcM ( Maybe ( a, Subst TyVar ) )
+runTcUnifyMSubst subst0 =
+  fmap unifySuccess . ( `State.runStateT` subst0 ) . Writer.runWriterT
+    where
+      unifySuccess ( ( a, UnifyResult { deferredEqualities = eqs, unifyErrors = errs } ), subst )
+        | null eqs && null errs
+        = Just ( a, subst )
+        | otherwise
+        = Nothing
 
 -- | Run a 'TcGenM' action and retrieve the underlying 'Subst'
 -- when there were no errors.
 runTcGenMSubst :: TcGenM a -> TcM ( Maybe ( ( Cts, Subst TyVar ), a ) )
-runTcGenMSubst = fmap ( fmap aux . noErrs ) . captureErrsTcM . runTcGenMTcM
+runTcGenMSubst = fmap noErrs . runTcGenMTcM
   where
-    aux :: ( ( a, Cts ), Subst TyVar ) -> ( ( Cts, Subst TyVar ), a )
-    aux ( ( a, cts ), subst ) = ( ( cts, subst ), a )
-    noErrs ( res, errs ) =
-      if null errs
-      then Just res
+    noErrs ( ( a, ( cts, mbErrs ) ), subst ) =
+      if null mbErrs
+      then Just ( ( cts, subst ), a )
       else Nothing
 
 {-------------------------------------------------------------------------------
   Typechecking macros: unification & constraint generation
 -------------------------------------------------------------------------------}
+
+data UnifyResult =
+  UnifyResult
+    { deferredEqualities :: [ ( Type Ct, CtOrigin ) ]
+    , unifyErrors        :: [ ( UnificationError, SrcSpan ) ] }
+  deriving stock Show
+instance Semigroup UnifyResult where
+  UnifyResult d1 e1 <> UnifyResult d2 e2 =
+    UnifyResult ( d1 ++ d2 ) ( e1 ++ e2 )
+instance Monoid UnifyResult where
+  mempty = UnifyResult [] []
 
 data SwapFlag = NotSwapped | Swapped
   deriving stock ( Eq, Ord, Show )
@@ -807,7 +839,7 @@ swap = \case
   NotSwapped -> Swapped
   Swapped -> NotSwapped
 
-unifyType :: CtOrigin -> SwapFlag -> Type ki -> Type ki -> TcUnifyM ()
+unifyType :: Typeable ki => CtOrigin -> SwapFlag -> Type ki -> Type ki -> TcUnifyM ()
 unifyType orig swapped ty1 ty2
   | TyVarTy tv1 <- ty1
   = unifyTyVar orig swapped tv1 ty2
@@ -823,11 +855,12 @@ unifyType orig swapped ty1 ty2
   = couldNotUnify IncompatibleTypes orig swapped ty1 ty2
 
 unifyTyConApp
-  :: forall nbArgs1 resKi1 nbArgs2 resKi2
-  .  CtOrigin
+  :: forall nbArgs1 nbArgs2 resKi
+  .  Typeable resKi
+  => CtOrigin
   -> SwapFlag
-  -> ( TyCon nbArgs1 resKi1, Vec nbArgs1 ( Type Ty ) )
-  -> ( TyCon nbArgs2 resKi2, Vec nbArgs2 ( Type Ty ) )
+  -> ( TyCon nbArgs1 resKi, Vec nbArgs1 ( Type Ty ) )
+  -> ( TyCon nbArgs2 resKi, Vec nbArgs2 ( Type Ty ) )
   -> TcUnifyM ()
 unifyTyConApp orig swapped ( tc1, args1 ) ( tc2, args2 )
   | Just Refl <- tcOK
@@ -835,7 +868,7 @@ unifyTyConApp orig swapped ( tc1, args1 ) ( tc2, args2 )
   | otherwise
   = couldNotUnify TyConAppDifferentTyCon orig swapped ( TyConAppTy tc1 args1 ) ( TyConAppTy tc2 args2 )
   where
-    tcOK :: Maybe ( '( nbArgs1, resKi1 ) :~: '( nbArgs2, resKi2 ) )
+    tcOK :: Maybe ( nbArgs1 :~: nbArgs2 )
     tcOK =
       case ( tc1, tc2 ) of
         ( DataTyCon  dc1 , DataTyCon  dc2  ) ->
@@ -846,9 +879,8 @@ unifyTyConApp orig swapped ( tc1, args1 ) ( tc2, args2 )
           case cls1 `equals` cls2 of
             Just Refl -> Just Refl
             Nothing   -> Nothing
-        _ -> Nothing
 
-unifyTypes :: CtOrigin -> SwapFlag -> Vec n ( Type ki ) -> Vec n ( Type ki ) -> TcUnifyM ()
+unifyTypes :: Typeable ki => CtOrigin -> SwapFlag -> Vec n ( Type ki ) -> Vec n ( Type ki ) -> TcUnifyM ()
 unifyTypes orig swapped as bs = sequence_ $ Vec.zipWith ( unifyType orig swapped ) as bs
 {-# INLINEABLE unifyTypes #-}
 
@@ -891,9 +923,13 @@ unifyFunTys orig swapped ( arg1 NE.:| args1 ) res1 ( arg2 NE.:| args2 ) res2 = d
      | otherwise
      -> unifyType orig swapped res1 res2
 
-couldNotUnify :: CouldNotUnifyReason -> CtOrigin -> SwapFlag -> Type k1 -> Type k2 -> TcUnifyM ()
-couldNotUnify rea orig swapped ty1 ty2 =
-  lift . addErrTcM $
+couldNotUnify :: Typeable ki => CouldNotUnifyReason -> CtOrigin -> SwapFlag -> Type ki -> Type ki -> TcUnifyM ()
+couldNotUnify rea orig swapped ty1 ty2 = do
+  srcSpan <- lift $ lift getSrcSpan
+  let
+    oneErrorHere :: UnificationError -> UnifyResult
+    oneErrorHere err = UnifyResult [] [ ( err, srcSpan ) ]
+  Writer.tell $ oneErrorHere $
     case swapped of
       NotSwapped -> CouldNotUnify rea orig ty1 ty2
       Swapped    -> CouldNotUnify rea orig ty2 ty1
@@ -909,7 +945,7 @@ instantiate ctOrig instOrig ( Quant @nbBinders body ) = do
       for ( tyVarNames @nbBinders ) $ \ ( i, tvName ) ->
         newMetaTyVarTy ( Inst { instOrigin = instOrig, instPos = i } ) tvName
   let QuantTyBody cts bodyTy = body tvs
-  Writer.tell $ map (, ctOrig ) cts
+  Writer.tell $ ( map (, ctOrig ) cts, mempty )
   return bodyTy
 
 {-------------------------------------------------------------------------------
@@ -917,13 +953,14 @@ instantiate ctOrig instOrig ( Quant @nbBinders body ) = do
 -------------------------------------------------------------------------------}
 
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: CName -> [ CName ] -> MExpr -> TcM ( Type Ty, Cts )
+inferTop :: CName -> [ CName ] -> MExpr -> TcM ( ( Type Ty, Cts ), [ ( TcError, SrcSpan ) ] )
 inferTop funNm argsList body =
   Vec.reifyList argsList $ \ args -> do
-    ( ( ( argTys, bodyTy ), cts ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
-    let macroTy = case NE.nonEmpty $ toList argTys of
-          Nothing -> bodyTy
-          Just argTysNE -> FunTy argTysNE bodyTy
+    ( ( ( argTys, bodyTy ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
+    let macroTy =
+          case NE.nonEmpty $ toList argTys of
+            Nothing -> bodyTy
+            Just argTysNE -> FunTy argTysNE bodyTy
         macroTy' = applySubst subst macroTy
         cts' = map ( first ( applySubst subst ) ) cts
     debugTraceM $ unlines
@@ -932,7 +969,7 @@ inferTop funNm argsList body =
       , "cts: " ++ show cts'
       , "final subst: " ++ show subst
       ]
-    return ( macroTy', cts' )
+    return ( ( macroTy', cts' ), mbErrs )
 
 inferExpr :: MExpr -> TcGenM ( Type Ty )
 inferExpr = \case
@@ -966,8 +1003,8 @@ inferTerm = \case
     ty1 <- inferTerm a1
     ty2 <- inferTerm a2
     let orig = AppOrigin ( FunName ( Left "##" ) )
-    lift $ unifyType orig NotSwapped ty1 String
-    lift $ unifyType orig NotSwapped ty2 String
+    liftUnifyM $ unifyType orig NotSwapped ty1 String
+    liftUnifyM $ unifyType orig NotSwapped ty2 String
     return String
 
 inferApp :: FunName -> [ MExpr ] -> TcGenM ( Type Ty )
@@ -980,7 +1017,7 @@ inferApp fun mbArgs = do
       argTys <- traverse inferExpr args
       resTy <- liftTcM $ newMetaTyVarTy ( ExpectedFunTyResTy fun ) "r"
       let actualTy = FunTy argTys resTy
-      lift $ unifyType ( AppOrigin fun ) NotSwapped actualTy funTy
+      liftUnifyM $ unifyType ( AppOrigin fun ) NotSwapped actualTy funTy
       return resTy
 
 inferFun :: FunName -> TcGenM ( Type Ty )
@@ -995,9 +1032,9 @@ inferFun funNm@( FunName fun ) =
           case mbQTy of
             Just funQTy ->
               instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
-            Nothing -> liftTcM $ do
-              addErrTcM $ UnboundVariable varNm
-              newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
+            Nothing -> do
+              addErrTcGenM $ UnboundVariable varNm
+              liftTcM $ newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
     Right mFun  -> do
       let funQTy = inferMFun mFun
       instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
@@ -1141,10 +1178,10 @@ data Instance where
 -- | A trie, used to look up class instances.
 data TrieMap k a =
   Trie
-    { value    :: [a]
+    { value    :: [ a ]
     , children :: Map ( Maybe k ) ( TrieMap k a )
     }
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Functor, Foldable, Traversable )
 
 instance Ord k => Semigroup ( TrieMap k a ) where
   Trie v1 c1 <> Trie v2 c2 = Trie ( v1 ++ v2 ) ( c1 <> c2 )
@@ -1169,8 +1206,18 @@ lookupTrie ( p : ps ) ( Trie _ cs ) =
         maybe [] ( lookupTrie ps ) ( Map.lookup p       cs )
      ++ maybe [] ( lookupTrie ps ) ( Map.lookup Nothing cs )
 
+isEmptyTrie :: TrieMap k a -> Bool
+isEmptyTrie ( Trie vs cs ) = null vs && null cs
+
 trieFromList :: Ord k => [ ( [ Maybe k ], v ) ] -> TrieMap k v
 trieFromList = foldl' ( \ t ( k, v ) -> insertTrie k v t ) mempty
+
+mapMaybeATrie :: ( Ord k, Applicative f ) => ( a -> f ( Maybe b ) ) -> TrieMap k a -> f ( TrieMap k b )
+mapMaybeATrie f ( Trie vs cs ) =
+  Trie
+    <$> mapMaybeA f vs
+    <*> ( `Map.traverseMaybeWithKey` cs )
+         ( \ _key -> fmap ( guarded ( not . isEmptyTrie ) ) . mapMaybeATrie f )
 
 type InstanceKey = [ Maybe TypeHead ]
 
@@ -1189,8 +1236,10 @@ typeHead :: Type Ty -> Maybe TypeHead
 typeHead = \case
   FunTy {} ->
     Just FunTyHead
-  TyConAppTy ( DataTyCon tc ) _ ->
-    Just $ TyConHead $ dataTyConTag tc
+  TyConAppTy tc _ ->
+    case tc of
+      DataTyCon dc ->
+        Just $ TyConHead $ dataTyConTag dc
   TyVarTy {} ->
     Nothing
 
@@ -1269,12 +1318,62 @@ classTyConTag cls = TyConTag $ I# ( dataToTag# cls )
   Typechecking macros: constraint solving monad
 -------------------------------------------------------------------------------}
 
+data Solubility
+  = Soluble
+  | Insoluble
+  deriving stock ( Eq, Ord, Show )
+data InertSet =
+  InertSet
+    { inertDicts :: !( Map ClassTyConTag ( TrieMap TypeHead ( ( Type Ct, CtOrigin ), Solubility ) ) )
+    , inertEqs   :: ![ ( ( Type Ct, CtOrigin ), Solubility ) ]
+    }
+  deriving stock Show
+
+emptyInertSet :: InertSet
+emptyInertSet =
+  InertSet { inertDicts = Map.empty, inertEqs = [] }
+
+modifyingInerts :: ( InertSet -> InertSet ) -> TcSolveM ()
+modifyingInerts f =
+  State.modify' $
+    \ st@( SolverState { solverInerts = inerts } ) ->
+       st { solverInerts = f inerts }
+
+inertCts :: InertSet -> ( Cts, Cts )
+inertCts ( InertSet { inertDicts = dicts, inertEqs = eqs } ) =
+  partitionEithers ( concatMap ( fmap classify . toList ) $ dicts )
+    <>
+  partitionEithers ( map classify eqs )
+  where
+    classify ( a, sol ) =
+      case sol of
+        Soluble   -> Right a
+        Insoluble -> Left a
+
+mapMaybeInerts :: ( Type Ct -> Maybe ( Type Ct ) ) -> InertSet -> ( InertSet, Cts )
+mapMaybeInerts f inerts@( InertSet { inertDicts = dicts, inertEqs = eqs } ) =
+  let kick :: ( ( Type Ct, CtOrigin ), Solubility ) -> Writer.Writer Cts ( Maybe ( ( Type Ct, CtOrigin ), Solubility ) )
+      kick ct@( ( ctPred, ctOrig ), _ ) =
+        case f ctPred of
+          Just ctPred' -> do
+            Writer.tell [ ( ctPred', ctOrig ) ]
+            return Nothing
+          Nothing ->
+            return $ Just ct
+      ( keptDicts, kickedDicts ) =
+        Writer.runWriter $
+          ( `Map.traverseMaybeWithKey` dicts ) $ \ _key ->
+            fmap ( guarded ( not . isEmptyTrie ) ) . mapMaybeATrie kick
+      ( keptEqs  , kickedEqs   ) = Writer.runWriter $ mapMaybeA kick eqs
+   in ( inerts { inertDicts = keptDicts, inertEqs = keptEqs }
+      , kickedDicts ++ kickedEqs
+      )
+
 -- | State for the 'TcSolveM' constraint solving monad.
 data SolverState
   = SolverState
   { solverSubst    :: !( Subst TyVar )
-  , solverInerts   :: !( Map ClassTyConTag Cts )
-  , solverInsols   :: !( Map ClassTyConTag Cts )
+  , solverInerts   :: !InertSet
   , solverWorkList :: !Cts
   }
   deriving stock Show
@@ -1286,26 +1385,13 @@ initSolverState :: Cts -> SolverState
 initSolverState cts0 =
   SolverState
     { solverSubst    = mempty
-    , solverInerts   = Map.empty
-    , solverInsols   = Map.empty
+    , solverInerts   = emptyInertSet
     , solverWorkList = cts0
     }
 
-liftTcGenM :: TcGenM a -> TcSolveM ( Either ( NE.NonEmpty ( TcError, SrcSpan ) ) ( Subst TyVar, a ) )
-liftTcGenM x = do
-  st0@( SolverState { solverSubst = subst0, solverWorkList = wl0 } ) <- State.get
-  ( ( ( a, newCts ), subst1 ), mbErrs ) <- lift . captureErrsTcM $ ( `State.runStateT` mempty ) $ Writer.runWriterT x
-  case NE.nonEmpty mbErrs of
-    Nothing -> do
-      State.put $
-        st0 { solverSubst = subst0 <> subst1, solverWorkList = wl0 ++ newCts }
-      return $ Right ( subst1, a )
-    Just errs ->
-      return $ Left errs
-
 emitWork :: Subst TyVar -> Cts -> TcSolveM ()
 emitWork subst newCts = do
-  State.modify $
+  State.modify' $
     \ st@( SolverState
           { solverSubst    = subst0
           , solverWorkList = wl0 } ) ->
@@ -1315,23 +1401,19 @@ emitWork subst newCts = do
           }
   kickOut subst
 
-addInertCt :: ( ( ClassTyCon nbArgs, Vec nbArgs ( Type Ty ) ), CtOrigin ) -> TcSolveM ()
-addInertCt ( ( cls, args ), ctOrig ) = State.modify $
-    \ st@( SolverState { solverInerts = inerts } ) ->
-        st
-          { solverInerts = Map.insertWith (++) ( classTyConTag cls ) [ ( ct, ctOrig ) ] inerts
-          }
-  where
-    ct = TyConAppTy ( ClassTyCon cls ) args
+addInertDict :: Solubility
+             -> ( ( ClassTyCon nbArgs, Vec nbArgs ( Type Ty ) ), CtOrigin )
+             -> InertSet -> InertSet
+addInertDict sol ( ( cls, args ), ctOrig ) inerts@( InertSet { inertDicts = dicts } ) =
+  inerts { inertDicts = Map.alter doInsert ( classTyConTag cls ) dicts }
+    where
+      ct = TyConAppTy ( ClassTyCon cls ) args
+      key = argsTypeHeads args
+      doInsert = Just . insertTrie key ( ( ct, ctOrig ), sol ) . fromMaybe mempty
 
-addInsolubleCt :: ( ( ClassTyCon nbArgs, Vec nbArgs ( Type Ty ) ), CtOrigin ) -> TcSolveM ()
-addInsolubleCt ( ( cls, args ), ctOrig ) = State.modify $
-    \ st@( SolverState { solverInsols = insols } ) ->
-        st
-          { solverInsols = Map.insertWith (++) ( classTyConTag cls ) [ ( ct, ctOrig ) ] insols
-          }
-  where
-    ct = TyConAppTy ( ClassTyCon cls ) args
+addInertEq :: Solubility -> ( Type Ct, CtOrigin ) -> InertSet -> InertSet
+addInertEq sol eq inerts@( InertSet { inertEqs = eqs } ) =
+  inerts { inertEqs = eqs ++ [ ( eq, sol ) ] }
 
 nextWorkItem :: TcSolveM ( Maybe ( Type Ct, CtOrigin ) )
 nextWorkItem = do
@@ -1356,7 +1438,8 @@ solvingLoop solveOne cts = finish <$> ( `State.execStateT` initSolverState cts )
         solveOne workItem
         loop ( iter + 1 )
     finish :: SolverState -> ( Subst TyVar, ( Cts, Cts ) )
-    finish st = ( solverSubst st, ( concat $ solverInsols st, concat $ solverInerts st ) )
+    finish st =
+      ( solverSubst st, inertCts ( solverInerts st ) )
 
 {-------------------------------------------------------------------------------
   Typechecking macros: constraint solving
@@ -1373,57 +1456,83 @@ solveCt handleOverlap defaulting instEnv ( ct, ctOrig ) =
       solveDictCt handleOverlap defaulting ctOrig cls ( instEnv cls ) args
 
 -- | Solve an equality constraint.
-solveEqCt :: CtOrigin -> Type ki -> Type ki -> TcSolveM ()
+solveEqCt :: CtOrigin -> Type Ty -> Type Ty -> TcSolveM ()
 solveEqCt ctOrig lhs rhs = do
-  res <-
-    fmap ( fmap fst ) $ liftTcGenM . lift $ do
+  ( ( (), UnifyResult eqs errs ), innerSubst ) <-
+    lift $ ( `State.runStateT` mempty ) $ Writer.runWriterT $
       unifyType ctOrig NotSwapped lhs rhs
-  case res of
-    Right subst -> kickOut subst
-    Left {}     -> return ()
+  let
+    sameOld other =
+      case other of
+        NomEqPred lhs' rhs'
+          |  lhs `eqType` lhs' && rhs `eqType` rhs'
+          || lhs `eqType` rhs' && rhs `eqType` lhs'
+          -> Left ()
+        _ -> Right other
+    ( noProgress, progress ) =
+      partitionEithers $
+        map
+          ( \ ( ct, orig ) -> ( , orig ) <$> sameOld ct )
+          eqs
+    mkInsol :: UnificationError -> Maybe ( Type Ct, CtOrigin )
+    mkInsol ( CouldNotUnify @ki _rea ctOrig' lhs' rhs' ) =
+      ( eqT @ki @Ty ) <&> \ Refl ->
+        ( NomEqPred lhs' rhs', ctOrig' )
 
--- | Look up a class constraint in the inert set of the solver.
-lookupDict :: ( ClassTyCon nbArgs, Vec nbArgs ( Type Ty ) ) -> TcSolveM ( Maybe Bool )
-lookupDict ( cls, args ) = do
-  SolverState { solverInerts = inerts, solverInsols = insols } <- State.get
+  modifyingInerts $
+      ( appEndo $ foldMap ( Endo . addInertEq Insoluble ) $ mapMaybe ( mkInsol . fst ) errs )
+    . ( if null noProgress then id else addInertEq Soluble ( NomEqPred lhs rhs, ctOrig ) )
+  emitWork innerSubst progress
+
+-- | Look up a constraint in the inert set of the solver.
+lookupCt :: Type Ct -> TcSolveM ( Maybe Bool )
+lookupCt ct = do
+  SolverState { solverInerts = inerts } <- State.get
   return $
-    case Map.lookup ( classTyConTag cls ) inerts of
-      Just dicts ->
-        if any ( matchWithSCs . fst ) dicts
-        then Just True
-        else Nothing
-      Nothing    ->
-        case Map.lookup ( classTyConTag cls ) insols of
-          Just dicts ->
-            if any ( matchWithSCs . fst ) dicts
-            then Just False
-            else Nothing
-          Nothing ->
-            Nothing
+    case ct of
+      TyConAppTy ( ClassTyCon cls ) args -> do
+        dicts <- Map.lookup ( classTyConTag cls ) $ inertDicts inerts
+        finish $ mapMaybe ( matchWithSCs . first fst )
+               $ lookupTrie ( argsTypeHeads args ) dicts
+      NomEqPred {} ->
+        finish $ mapMaybe ( matchEq . first fst )
+               $ inertEqs inerts
   where
-    ty = TyConAppTy ( ClassTyCon cls ) args
-    matchWithSCs :: Type Ct -> Bool
-    matchWithSCs pty = case pty of
-      NomEqPred {} -> False
-      TyConAppTy ( ClassTyCon cls' ) args' ->
-        any ( eqType ty ) ( pty : classSuperclasses cls' args' )
+    finish :: [ Solubility ] -> Maybe Bool
+    finish []   = Nothing
+    finish sols = Just $ any ( == Soluble ) sols
+    matchEq :: ( Type Ct, Solubility ) -> Maybe Solubility
+    matchEq ( pty, sol ) =
+      case pty of
+        TyConAppTy {} -> Nothing
+        NomEqPred lhs rhs -> do
+          guard $
+            any ( eqType ct ) [ pty, NomEqPred rhs lhs ]
+          return sol
+    matchWithSCs :: ( Type Ct, Solubility ) -> Maybe Solubility
+    matchWithSCs ( pty, sol ) =
+      case pty of
+        NomEqPred {} -> Nothing
+        TyConAppTy ( ClassTyCon cls' ) args' -> do
+          guard $
+            any ( eqType ct ) ( pty : classSuperclasses cls' args' )
+          return sol
 
 -- | Kick out constraints which mention variables from the domain of the
 -- new substitution.
 kickOut :: Subst TyVar -> TcSolveM ()
 kickOut subst = do
   st@( SolverState { solverInerts = inerts, solverWorkList = wl0 } ) <- State.get
-  let okInerts     = mapMaybeCts mbKeep    inerts
-      kickedInerts = mapMaybeCts mbKickOut inerts
+  let ( okInerts, kickedInerts ) = mapMaybeInerts mbKickOut inerts
   debugTraceM $ unlines
     [ "kickOut"
     , "subst: " ++ show subst
     , "inerts kicked out: " ++ show kickedInerts
     ]
   State.put $
-    st { solverInerts = okInerts, solverWorkList = wl0 ++ ( concat $ Map.elems kickedInerts ) }
+    st { solverInerts = okInerts, solverWorkList = wl0 ++ kickedInerts }
   where
-    mbKickOut, mbKeep :: Type Ct -> Maybe ( Type Ct )
+    mbKickOut :: Type Ct -> Maybe ( Type Ct )
     mbKickOut ct =
       let
         ctFVs = getFVs noBoundVars $ freeTyVarsOfType ct
@@ -1433,18 +1542,6 @@ kickOut subst = do
           Nothing
         else
           Just $ applySubst subst ct
-    mbKeep ct =
-      case mbKickOut ct of
-        Nothing -> Just ct
-        Just {} -> Nothing
-
-mapMaybeCts :: ( Type Ct -> Maybe ( Type Ct ) ) -> Map k Cts -> Map k Cts
-mapMaybeCts f =
-  Map.mapMaybe $ ne . mapMaybe ( \ ( ct, orig ) -> ( , orig ) <$> f ct )
-    where
-      ne :: [ a ] -> Maybe [ a ]
-      ne [] = Nothing
-      ne as = Just as
 
 -- | Whether to do defaulting or not.
 data Defaulting
@@ -1473,7 +1570,7 @@ solveDictCt
   -> Vec nbArgs ( Type Ty )
   -> TcSolveM ()
 solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
-  matchingDict <- lookupDict ( cls, args )
+  matchingDict <- lookupCt ct
   case matchingDict of
     Just {} -> do
       debugTraceM $ unlines
@@ -1485,14 +1582,10 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
       case matches of
         [] -> do
           debugTraceM $ unlines
-            [ "solveDictCt: no solutions; adding constraint to inert set"
+            [ "solveDictCt: insoluble; adding constraint to inert set"
             , "ct: " ++ show ct ]
-          case handleOverlap of
-            Defer ->
-              -- We might want to quantify over this constraint.
-              addInertCt     ( ( cls, args ), ctOrig )
-            PickFirst ->
-              addInsolubleCt ( ( cls, args ), ctOrig )
+          modifyingInerts $
+            addInertDict Insoluble ( ( cls, args ), ctOrig )
         ( newCts, subst ) : rest
           | null rest || handleOverlap == PickFirst
           -> do
@@ -1506,9 +1599,10 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
           debugTraceM $ unlines
             [ "solveDictCt: multiple solutions; adding constraint to inert set"
             , "ct: " ++ show ct ]
-          addInertCt ( ( cls, args ), ctOrig )
+          modifyingInerts $
+            addInertDict Soluble ( ( cls, args ), ctOrig )
     where
-      ct = TyConAppTy (ClassTyCon cls) args
+      ct = TyConAppTy ( ClassTyCon cls ) args
       matcher :: Instance -> TcM ( Maybe ( Cts, Subst TyVar ) )
       matcher inst = do
         matchRes <- matchOneInst ctOrig cls inst args
@@ -1538,8 +1632,8 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                         matchNoDefault
                       Just dfltSubst -> do
                         let mbSubst
-                              -- Only do defaulting when there no candidate
-                              -- type variables for quantification are involved.
+                              -- Only do defaulting when no candidate type variables
+                              -- for quantification are involved.
                               -- (Alternatively we could choose to default only
                               -- a subset of the type variables, but we don't do so for now.)
                               | IntSet.null $ IntSet.intersection ( domain dfltSubst ) qtvs
@@ -1602,7 +1696,7 @@ matchOneInst ctOrig cls ( Instance { instanceQuantTy = iqty, instanceDefaults = 
         qty = Quant iqty
         orig = ClassInstMetaOrigin qty
     instTy <- instantiate ctOrig orig qty
-    lift $ unifyType ctOrig NotSwapped
+    liftUnifyM $ unifyType ctOrig NotSwapped
       instTy
       ( TyConAppTy ( ClassTyCon cls ) args )
     subst0 <- State.get
@@ -1642,7 +1736,7 @@ tcMacro :: Map CName ( Quant Ty ) -> CName -> [ CName ] -> MExpr -> Either TcMac
 tcMacro tyEnv macroNm args body = throwErrors $ runTcM tyEnv $ Except.runExceptT $ do
 
   -- Step 1: infer the type.
-  ( ( ty, ctsOrigs ), mbErrs ) <- lift $ captureErrsTcM $ inferTop macroNm args body
+  ( ( ty, ctsOrigs ), mbErrs ) <- lift $ inferTop macroNm args body
   traverse_ ( Except.throwError . TcErrors ) ( NE.nonEmpty mbErrs )
 
   -- Step 2: compute the set of metavariables that are candidates for quantification.
@@ -1709,6 +1803,11 @@ mapMaybeA :: Applicative m => ( a -> m ( Maybe b ) ) -> [ a ] -> m [ b ]
 mapMaybeA f =
   foldr ( liftA2 ( maybe id (:) ) . f ) ( pure [] )
 {-# INLINEABLE mapMaybeA #-}
+
+guarded :: ( m -> Bool ) -> m -> Maybe m
+guarded cond m = do
+  guard $ cond m
+  return m
 
 {-------------------------------------------------------------------------------
   Quick & dirty testing framework
