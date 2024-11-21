@@ -18,8 +18,11 @@
 --
 -- > import HsBindgen.Hs.AST qualified as Hs
 module HsBindgen.Hs.AST (
+    -- * Passes and Annotations
+    Pass(..)
+  , Ann
     -- * Information about generated code
-    Struct(..)
+  , Struct(..)
   , Newtype(..)
     -- * Types
   , HsType(..)
@@ -52,10 +55,11 @@ module HsBindgen.Hs.AST (
   , makeElimStruct
   ) where
 
+import Data.Type.Nat as Nat
+import GHC.Base (Symbol)
+
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as C
-import Data.Type.Nat as Nat
-
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Hs.AST.Name
@@ -64,25 +68,52 @@ import HsBindgen.Hs.AST.Type
 import DeBruijn
 
 {-------------------------------------------------------------------------------
+  Passes and annotations
+-------------------------------------------------------------------------------}
+
+-- | Passes for the Haskell AST phase
+data Pass = Placeholder
+
+-- | Symbol-indexed annotations for a given pass
+type family Ann (pass :: Pass) (s :: Symbol) where
+  Ann Placeholder s = AnnPlaceholder s
+
+-- | Symbol-indexed annotations for the 'Placeholder' pass
+type family AnnPlaceholder (s :: Symbol) where
+  AnnPlaceholder s = ()
+
+-- Class alias to work around GHC limitation that type family synonym
+-- applications cannot be used in quantified constraints
+class    Show (Ann pass s) => ShowAnn pass s
+instance Show (Ann pass s) => ShowAnn pass s
+
+-- All annotations must have a 'Show' instance (quantified constraint)
+class    (forall s. ShowAnn pass s) => AllAnnShow pass
+instance (forall s. ShowAnn pass s) => AllAnnShow pass
+
+{-------------------------------------------------------------------------------
   Information about generated code
 -------------------------------------------------------------------------------}
 
-data Struct (n :: Nat) = Struct {
-      structName   :: HsName NsTypeConstr
+data Struct (pass :: Pass) (n :: Nat) = Struct {
+      structAnn    :: Ann pass "Struct"
+    , structName   :: HsName NsTypeConstr
     , structConstr :: HsName NsConstr
-    , structFields :: Vec n (HsName NsVar, HsType)
+    , structFields :: Vec n (Ann pass "StructField", (HsName NsVar, HsType))
     }
 
-deriving stock instance Show (Struct n)
+deriving stock instance AllAnnShow pass => Show (Struct pass n)
 
-data Newtype = Newtype {
-      newtypeName   :: HsName NsTypeConstr
-    , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
-    , newtypeType   :: HsType
+data Newtype (pass :: Pass) = Newtype {
+      newtypeAnn      :: Ann pass "Newtype"
+    , newtypeName     :: HsName NsTypeConstr
+    , newtypeConstr   :: HsName NsConstr
+    , newtypeFieldAnn :: Ann pass "NewtypeField"
+    , newtypeField    :: HsName NsVar
+    , newtypeType     :: HsType
     }
 
-deriving stock instance Show Newtype
+deriving stock instance AllAnnShow pass => Show (Newtype pass)
 
 {-------------------------------------------------------------------------------
   Variable binding
@@ -106,16 +137,16 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 -------------------------------------------------------------------------------}
 
 -- | Top-level declaration
-type Decl :: Star
-data Decl where
-    DeclData            :: SNatI n => Struct n -> Decl
-    DeclEmpty           :: HsName NsTypeConstr -> Decl
-    DeclNewtype         :: Newtype -> Decl
-    DeclInstance        :: InstanceDecl -> Decl
-    DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
-    DeclVar             :: VarDecl -> Decl
+type Decl :: Pass -> Star
+data Decl pass where
+    DeclData            :: SNatI n => Struct pass n -> Decl pass
+    DeclEmpty           :: HsName NsTypeConstr -> Decl pass
+    DeclNewtype         :: Newtype pass -> Decl pass
+    DeclInstance        :: InstanceDecl pass -> Decl pass
+    DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl pass
+    DeclVar             :: VarDecl -> Decl pass
 
-deriving instance Show Decl
+deriving instance AllAnnShow pass => Show (Decl pass)
 
 -- | Class instance names
 data TypeClass =
@@ -123,11 +154,14 @@ data TypeClass =
   deriving stock (Show)
 
 -- | Class instance declaration
-type InstanceDecl :: Star
-data InstanceDecl where
-    InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
+type InstanceDecl :: Pass -> Star
+data InstanceDecl pass where
+    InstanceStorable ::
+         Struct pass n
+      -> StorableInstance pass
+      -> InstanceDecl pass
 
-deriving instance Show InstanceDecl
+deriving instance AllAnnShow pass => Show (InstanceDecl pass)
 
 -- | Variable or function declaration.
 type VarDecl :: Star
@@ -214,15 +248,16 @@ deriving stock instance Show VarDeclRHSAppHead
 -- Currently this models storable instances for structs /only/.
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#t:Storable>
-type StorableInstance :: Star
-data StorableInstance = StorableInstance
+type StorableInstance :: Pass -> Star
+data StorableInstance pass = StorableInstance
     { storableSizeOf    :: Int
     , storableAlignment :: Int
-    , storablePeek      :: Lambda (Ap StructCon PeekByteOff) EmptyCtx
-    , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeByteOff))) EmptyCtx
+    , storablePeek      :: Lambda (Ap (StructCon pass) PeekByteOff) EmptyCtx
+    , storablePoke      ::
+        Lambda (Lambda (ElimStruct pass (Seq PokeByteOff))) EmptyCtx
     }
 
-deriving instance Show StorableInstance
+deriving instance AllAnnShow pass => Show (StorableInstance pass)
 
 -- | Call to 'peekByteOff'
 --
@@ -252,28 +287,48 @@ newtype Seq t ctx = Seq [t ctx]
   Structs
 -------------------------------------------------------------------------------}
 
-type StructCon :: Ctx -> Star
-data StructCon ctx where
-    StructCon :: Struct n -> StructCon ctx
+type StructCon :: Pass -> Ctx -> Star
+data StructCon pass ctx where
+    StructCon :: Struct pass n -> StructCon pass ctx
 
-deriving instance Show (StructCon ctx)
+deriving instance AllAnnShow pass => Show (StructCon pass ctx)
 
 -- | Case split for a struct
-type ElimStruct :: (Ctx -> Star) -> (Ctx -> Star)
-data ElimStruct t ctx where
-    ElimStruct :: Idx ctx -> Struct n -> Add n ctx ctx' -> t ctx' -> ElimStruct t ctx
+type ElimStruct :: Pass -> (Ctx -> Star) -> (Ctx -> Star)
+data ElimStruct pass t ctx where
+    ElimStruct ::
+         Idx ctx
+      -> Struct pass n
+      -> Add n ctx ctx'
+      -> t ctx'
+      -> ElimStruct pass t ctx
 
-deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
+deriving instance
+     (AllAnnShow pass, forall ctx'. Show (t ctx'))
+  => Show (ElimStruct pass t ctx)
 
 -- | Create 'ElimStruct' using kind-of HOAS interface.
 --
-makeElimStruct :: forall n ctx t. SNatI n => Idx ctx -> Struct n -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx') -> ElimStruct t ctx
+makeElimStruct :: forall n ctx t pass.
+     SNatI n
+  => Idx ctx
+  -> Struct pass n
+  -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx')
+  -> ElimStruct pass t ctx
 makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
     ElimStruct s struct add (kont wk xs)
 
 --
 -- TODO: use Data.Type.Nat.induction instead of explicit recursion.
 -- TODO: verify that we bind fields in right order.
-makeElimStruct' :: forall m ctx t. SNat m -> (forall ctx'. Add m ctx ctx' -> Wk ctx ctx' -> Vec m (Idx ctx') -> ElimStruct t ctx) -> ElimStruct t ctx
+makeElimStruct' :: forall m ctx t pass.
+     SNat m
+  -> ( forall ctx'.
+            Add m ctx ctx'
+         -> Wk ctx ctx'
+         -> Vec m (Idx ctx')
+         -> ElimStruct pass t ctx
+     )
+  -> ElimStruct pass t ctx
 makeElimStruct' Nat.SZ      kont = kont AZ IdWk VNil
 makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs -> kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)

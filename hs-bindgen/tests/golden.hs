@@ -85,7 +85,7 @@ main' packageRoot bg = testGroup "golden"
         let tracer = mkTracer report report report False
 
         header <- parseC tracer args fp
-        let decls :: [Hs.Decl]
+        let decls :: [Hs.Decl Hs.Placeholder]
             decls = genHsDecls header
 
         return $ unlines $ map show decls

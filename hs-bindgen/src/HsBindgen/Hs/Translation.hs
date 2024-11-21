@@ -33,7 +33,7 @@ import DeBruijn (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx, S
   Top-level
 -------------------------------------------------------------------------------}
 
-generateDeclarations :: C.Header -> [Hs.Decl]
+generateDeclarations :: C.Header -> [Hs.Decl Hs.Placeholder]
 generateDeclarations = toHs
 
 {-------------------------------------------------------------------------------
@@ -45,11 +45,11 @@ class ToHs (a :: Star) where
   toHs :: a -> InHs a
 
 instance ToHs C.Header where
-  type InHs C.Header = [Hs.Decl]
+  type InHs C.Header = [Hs.Decl Hs.Placeholder]
   toHs (C.Header decs) = concatMap toHs decs
 
 instance ToHs C.Decl where
-  type InHs C.Decl = [Hs.Decl]
+  type InHs C.Decl = [Hs.Decl Hs.Placeholder]
   toHs (C.DeclStruct struct)  = reifyStructFields struct $ structDecs struct
   toHs (C.DeclOpaqueStruct n) = opaqueStructDecs n
   toHs (C.DeclEnum e)         = enumDecs e
@@ -79,27 +79,28 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 -- * ..
 structDecs :: forall n.
      SNatI n
-  => C.Struct -> Vec n C.StructField -> [Hs.Decl]
+  => C.Struct -> Vec n C.StructField -> [Hs.Decl Hs.Placeholder]
 structDecs struct fields =
     [ Hs.DeclData hs
     , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ]
   where
-    hs :: Hs.Struct n
+    hs :: Hs.Struct Hs.Placeholder n
     hs =
       let cStructName = fromMaybe "X" $ C.structTag struct
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cStructName
+          structAnn = ()
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          mkField f =
+          mkField f = (,) () $
             ( mangleVarName $ FieldVarContext typeConstrCtx True (C.fieldName f)
             , typ nm (C.fieldType f)
             )
           structFields = Vec.map mkField fields
       in  Hs.Struct{..}
 
-    storable :: Hs.StorableInstance
+    storable :: Hs.StorableInstance Hs.Placeholder
     storable = Hs.StorableInstance {
           Hs.storableSizeOf    = C.structSizeof struct
         , Hs.storableAlignment = C.structAlignment struct
@@ -119,7 +120,7 @@ structDecs struct fields =
   Opaque struct
 -------------------------------------------------------------------------------}
 
-opaqueStructDecs :: C.CName -> [Hs.Decl]
+opaqueStructDecs :: C.CName -> [Hs.Decl Hs.Placeholder]
 opaqueStructDecs cname =
     [ Hs.DeclEmpty hsName
     ]
@@ -132,37 +133,40 @@ opaqueStructDecs cname =
   Enum
 -------------------------------------------------------------------------------}
 
-enumDecs :: C.Enu -> [Hs.Decl]
+enumDecs :: C.Enu -> [Hs.Decl Hs.Placeholder]
 enumDecs e = [
       Hs.DeclNewtype newtype_
     , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ]
   where
-    newtype_ :: Hs.Newtype
+    newtype_ :: Hs.Newtype Hs.Placeholder
     newtype_ =
       let cEnumName = fromMaybe "X" $ C.enumTag e
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cEnumName
+          newtypeAnn = ()
           newtypeName = mangleTypeConstrName typeConstrCtx
           newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+          newtypeFieldAnn = ()
           newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
           newtypeType    = typ nm (C.enumType e)
       in Hs.Newtype {..}
 
-    hs :: Hs.Struct (S Z)
+    hs :: Hs.Struct Hs.Placeholder (S Z)
     hs =
       let cEnumName = fromMaybe "X" $ C.enumTag e
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cEnumName
+          structAnn = ()
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          structFields = Vec.singleton
+          structFields = Vec.singleton . (,) () $
             ( mangleVarName $ EnumVarContext typeConstrCtx
             , typ nm (C.enumType e)
             )
       in  Hs.Struct{..}
 
-    storable :: Hs.StorableInstance
+    storable :: Hs.StorableInstance Hs.Placeholder
     storable = Hs.StorableInstance {
           Hs.storableSizeOf    = C.enumSizeof e
         , Hs.storableAlignment = C.enumAlignment e
@@ -182,7 +186,7 @@ enumDecs e = [
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs :: C.Typedef -> [Hs.Decl]
+typedefDecs :: C.Typedef -> [Hs.Decl Hs.Placeholder]
 typedefDecs d = [
       Hs.DeclNewtype newtype_
     , Hs.DeclNewtypeInstance Hs.Storable newtypeName
@@ -191,9 +195,11 @@ typedefDecs d = [
     cName              = C.typedefName d
     nm@NameMangler{..} = defaultNameMangler
     typeConstrCtx      = TypeConstrContext cName
+    newtypeAnn         = ()
     newtypeName        = mangleTypeConstrName typeConstrCtx
+    newtypeFieldAnn    = ()
 
-    newtype_ :: Hs.Newtype
+    newtype_ :: Hs.Newtype Hs.Placeholder
     newtype_ = Hs.Newtype {..}
       where
         newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
@@ -204,7 +210,7 @@ typedefDecs d = [
   Macros
 -------------------------------------------------------------------------------}
 
-macroDecs :: C.MacroDecl -> [Hs.Decl]
+macroDecs :: C.MacroDecl -> [Hs.Decl Hs.Placeholder]
 macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | Macro.QuantTy bf <- ty
     , Macro.isPrimTy bf
@@ -217,18 +223,20 @@ macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
 macroDecs C.MacroReparseError {} = []
 macroDecs C.MacroTcError {}      = []
 
-macroDecsTypedef :: C.Macro -> [Hs.Decl]
+macroDecsTypedef :: C.Macro -> [Hs.Decl Hs.Placeholder]
 macroDecsTypedef m = [
         Hs.DeclNewtype newtype_
       ]
   where
-    newtype_ :: Hs.Newtype
+    newtype_ :: Hs.Newtype Hs.Placeholder
     newtype_ =
       let cName = C.macroName m
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cName
+          newtypeAnn = ()
           newtypeName = mangleTypeConstrName typeConstrCtx
           newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+          newtypeFieldAnn = ()
           newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
 
           -- TODO: this type conversion is very simple, but works for now.
@@ -277,7 +285,7 @@ floatingType = \case
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.Macro -> C.QuantTy -> [Hs.Decl]
+macroVarDecs :: C.Macro -> C.QuantTy -> [Hs.Decl Hs.Placeholder]
 macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
   [
     Hs.DeclVar $
