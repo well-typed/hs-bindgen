@@ -38,16 +38,14 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       Right CXCursor_StructDecl -> do
         -- Emit struct declration only if it's the definition.
         defn <- liftIO $ clang_getCursorDefinition current
-        isNull <- liftIO $ clang_equalCursors defn nullCursor
-        if isNull
+        if defn == nullCursor
         then do
           mtag <- liftIO $ fmap CName . getUserProvided <$> HighLevel.clang_getCursorSpelling current
           return $ Continue $ case mtag of
             Nothing -> Nothing
             Just tag -> Just (DeclOpaqueStruct tag)
         else do
-          isDefn <- liftIO $ clang_equalCursors current defn
-          if isDefn
+          if current == defn
           then do
             decl <- declStruct <$> mkStructHeader current
             return $ Recurse (continue $ mkStructField unit) (Just . decl)
