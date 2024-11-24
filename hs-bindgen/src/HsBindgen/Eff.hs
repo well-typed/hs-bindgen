@@ -1,6 +1,6 @@
 module HsBindgen.Eff (
-  -- * FoldM
-  FoldM,
+  -- * Eff
+  Eff,
   runFoldIdentity,
   runFoldReader,
   runFoldState,
@@ -16,22 +16,23 @@ import Data.Tuple (swap)
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
-  'FoldM' monad
+  'Eff' monad
 
-  We are limited by the type of 'clang_visitChildren' to functions in @IO@,
-  but we can mimick other monads through the @ReaderT IO@ pattern.
+  We work mostly in @IO@, and limited by @MonadUnliftIO@,
+  but sometimes we need more effects: @Eff@ wrapping @ReaderT r IO@
+  pattern can mimick many other monads.
 -------------------------------------------------------------------------------}
 
-newtype FoldM m a = FoldM {
-      getFoldM :: ReaderT (Support m) IO a
+newtype Eff m a = Eff {
+      getEff :: ReaderT (Support m) IO a
     }
   deriving newtype (Functor, Applicative, Monad, MonadIO, MonadUnliftIO)
 
-wrapFoldM :: (Support m -> IO a) -> FoldM m a
-wrapFoldM = FoldM . ReaderT
+wrapEff :: (Support m -> IO a) -> Eff m a
+wrapEff = Eff . ReaderT
 
-unwrapFoldM :: FoldM m a -> Support m -> IO a
-unwrapFoldM = runReaderT . getFoldM
+unwrapEff :: Eff m a -> Support m -> IO a
+unwrapEff = runReaderT . getEff
 
 -- | 'ReaderT' argument required to support @m@
 type family Support (m :: Star -> Star) :: Star
@@ -42,8 +43,8 @@ type family Support (m :: Star -> Star) :: Star
 
 type instance Support Identity = ()
 
-runFoldIdentity :: FoldM Identity a -> IO a
-runFoldIdentity = ($ ()) . unwrapFoldM
+runFoldIdentity :: Eff Identity a -> IO a
+runFoldIdentity = ($ ()) . unwrapEff
 
 --
 -- 'Reader'
@@ -51,10 +52,10 @@ runFoldIdentity = ($ ()) . unwrapFoldM
 
 type instance Support (Reader r) = r
 
-deriving newtype instance MonadReader r (FoldM (Reader r))
+deriving newtype instance MonadReader r (Eff (Reader r))
 
-runFoldReader :: r -> FoldM (Reader r) a -> IO a
-runFoldReader env = ($ env) . unwrapFoldM
+runFoldReader :: r -> Eff (Reader r) a -> IO a
+runFoldReader env = ($ env) . unwrapEff
 
 --
 -- 'State'
@@ -62,12 +63,12 @@ runFoldReader env = ($ env) . unwrapFoldM
 
 type instance Support (State s) = IORef s
 
-instance MonadState s (FoldM (State s)) where
-  state f = wrapFoldM $ \ref -> atomicModifyIORef ref (swap . f)
+instance MonadState s (Eff (State s)) where
+  state f = wrapEff $ \ref -> atomicModifyIORef ref (swap . f)
 
-runFoldState :: s -> FoldM (State s) a -> IO (a, s)
+runFoldState :: s -> Eff (State s) a -> IO (a, s)
 runFoldState s f = do
     ref <- newIORef s
-    a   <- unwrapFoldM f ref
+    a   <- unwrapEff f ref
     (a,) <$> readIORef ref
 

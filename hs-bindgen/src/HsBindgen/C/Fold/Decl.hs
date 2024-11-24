@@ -32,7 +32,7 @@ foldDecls ::
   => Tracer IO Skipped
   -> Predicate
   -> CXTranslationUnit
-  -> Fold (FoldM (State DeclState)) Decl
+  -> Fold (Eff (State DeclState)) Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of

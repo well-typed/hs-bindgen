@@ -35,7 +35,7 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Fold type /declaration/
-foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (FoldM (State DeclState)) Typ
+foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (Eff (State DeclState)) Typ
 foldTypeDecl unit current = do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
@@ -112,7 +112,7 @@ mkStructHeader current = liftIO $ do
 mkStructField ::
      CXTranslationUnit
   -> CXCursor
-  -> FoldM (State DeclState) (Maybe StructField)
+  -> Eff (State DeclState) (Maybe StructField)
 mkStructField unit current = do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
