@@ -19,6 +19,7 @@ import Data.Foldable as X (Foldable (foldl', toList), traverse_)
 import Data.Maybe as X (catMaybes, mapMaybe, fromMaybe)
 import Data.Some as X (Some (..))
 import Data.String as X (IsString (fromString))
+import GHC.Stack as X (HasCallStack)
 import Numeric.Natural as X (Natural)
 
 -- types

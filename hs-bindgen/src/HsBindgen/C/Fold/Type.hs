@@ -17,8 +17,8 @@ module HsBindgen.C.Fold.Type (
 import Control.Monad
 import Control.Monad.State
 import Foreign.C
-import GHC.Stack
 
+import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
