@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Translation from the Haskell AST to the backend representation
 module HsBindgen.Backend.Common.Translation (toBE) where
 

@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module HsBindgen.C.Reparse.Type (
     reparseTypeUse
   , reparsePrimType

@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Common parsers (for values throughout the AST)
 module HsBindgen.C.Reparse.Common (
     reparseName

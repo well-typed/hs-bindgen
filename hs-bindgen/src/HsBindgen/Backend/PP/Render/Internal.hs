@@ -1,6 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
-
 -- | Simple pretty-printing library
 --
 -- This library wraps the @pretty@ library.  Instead of using 'PP.Doc' directly,

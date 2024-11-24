@@ -1,6 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
-
 module HsBindgen.Hs.AST.Name (
     -- * Definition
     Namespace(..)

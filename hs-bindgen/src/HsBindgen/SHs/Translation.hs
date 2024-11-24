@@ -1,5 +1,3 @@
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE OverloadedStrings #-}
 -- | Simplified HS translation (from high level HS)
 module HsBindgen.SHs.Translation (
     translateDecl,
