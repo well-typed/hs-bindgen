@@ -6,11 +6,9 @@ module HsBindgen.Eff (
   runFoldState,
 ) where
 
-import Control.Monad.Identity
-import Control.Monad.Reader
-import Control.Monad.State
-import Control.Monad.IO.Unlift
-import Data.IORef
+import Control.Monad.Reader (Reader, ReaderT (..), MonadReader)
+import Control.Monad.State (State, MonadState (state))
+import Data.IORef (IORef, newIORef, readIORef, atomicModifyIORef)
 import Data.Tuple (swap)
 
 import HsBindgen.Imports
@@ -71,4 +69,3 @@ runFoldState s f = do
     ref <- newIORef s
     a   <- unwrapEff f ref
     (a,) <$> readIORef ref
-
