@@ -86,6 +86,15 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         -- are anyway told from which file it originates, which we use for
         -- filtering).
         return $ Continue Nothing
+
+      Right CXCursor_FunctionDecl -> do
+        -- TODO: function declaration
+        return $ Continue Nothing
+
+      Right CXCursor_VarDecl -> do
+        -- TODO: extern int i;
+        return $ Continue Nothing
+
       _otherwise -> do
         unrecognizedCursor current
 
@@ -94,8 +103,8 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
   Type declarations
 -------------------------------------------------------------------------------}
 
-declStruct :: ([StructField] -> Struct) -> [StructField] -> Decl
-declStruct partial = DeclStruct . partial
+declStruct :: ([StructField] -> Struct) -> [Maybe StructField] -> Decl
+declStruct partial = DeclStruct . partial . catMaybes
 
 declEnum :: ([EnumValue] -> Enu) -> [Maybe EnumValue] -> Decl
 declEnum partial = DeclEnum . partial . catMaybes

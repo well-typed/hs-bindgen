@@ -19,6 +19,7 @@ import Control.Monad.State
 import Foreign.C
 import GHC.Stack
 
+import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
@@ -39,8 +40,8 @@ foldTypeDecl unit current = do
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         mkStruct <- mkStructHeader current
-        let mkDecl :: [StructField] -> Maybe Typ
-            mkDecl = Just . TypStruct . mkStruct
+        let mkDecl :: [Maybe StructField] -> Maybe Typ
+            mkDecl = Just . TypStruct . mkStruct . catMaybes
         return $ Recurse (continue $ mkStructField unit) mkDecl
       _otherwise ->
         unrecognizedCursor current
@@ -50,7 +51,7 @@ foldTypeDecl unit current = do
 -------------------------------------------------------------------------------}
 
 -- | Parse type /use site/
-mkTypeUse :: CXType -> IO Typ
+mkTypeUse :: HasCallStack => CXType -> IO Typ
 mkTypeUse = go
   where
     go :: CXType -> IO Typ
@@ -78,6 +79,13 @@ mkTypeUse = go
             name <- CName <$> clang_getTypeSpelling ty
             return $ TypElaborated name
 
+          Right CXType_Void -> do
+            return $ TypPrim PrimVoid
+
+          Right CXType_FunctionProto -> do
+            -- TODO: for now we represent function types as Void
+            return $ TypPrim PrimVoid
+
           _otherwise ->
             unrecognizedType ty
 
@@ -103,33 +111,41 @@ mkStructHeader current = liftIO $ do
 mkStructField ::
      CXTranslationUnit
   -> CXCursor
-  -> FoldM (State DeclState) StructField
+  -> FoldM (State DeclState) (Maybe StructField)
 mkStructField unit current = do
-    extent   <- liftIO $ HighLevel.clang_getCursorExtent current
-    hasMacro <- gets $ containsMacroExpansion extent
+    cursorKind <- liftIO $ clang_getCursorKind current
+    case fromSimpleEnum cursorKind of
+      Right CXCursor_UnexposedAttr ->
+        return Nothing
 
-    if hasMacro then liftIO $ do
+      Right CXCursor_FieldDecl -> do
+        extent   <- liftIO $ HighLevel.clang_getCursorExtent current
+        hasMacro <- gets $ containsMacroExpansion extent
 
-      tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
-      case reparseWith reparseFieldDecl tokens of
-        Left err ->
-          error $ "mkStructField: " ++ show err
-        Right (fieldType, fieldName) -> do
+        if hasMacro then liftIO $ do
+
+          tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+          case reparseWith reparseFieldDecl tokens of
+            Left err ->
+              error $ "mkStructField: " ++ show err
+            Right (fieldType, fieldName) -> do
+              fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
+              unless (fieldOffset `mod` 8 == 0) $
+                error "bit-fields not supported yet"
+              return $ Just StructField{fieldName, fieldOffset, fieldType}
+
+        else liftIO $ do
+          fieldName   <- CName <$> clang_getCursorDisplayName current
+          ty          <- clang_getCursorType current
+          fieldType   <- mkTypeUse ty
           fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-          unless (fieldOffset `mod` 8 == 0) $
-            error "bit-fields not supported yet"
-          return StructField{fieldName, fieldOffset, fieldType}
 
-    else liftIO $ do
+          unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
 
-      ty          <- clang_getCursorType current
-      fieldType   <- mkTypeUse ty
-      fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-      fieldName   <- CName <$> clang_getCursorDisplayName current
+          return $ Just StructField{fieldName, fieldOffset, fieldType}
 
-      unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
-
-      return StructField{fieldName, fieldOffset, fieldType}
+      _other ->
+        unrecognizedCursor current
 
 {-------------------------------------------------------------------------------
   Enums
