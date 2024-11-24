@@ -9,7 +9,7 @@ module HsBindgen.Imports (
 import Data.Kind qualified
 
 import Control.Exception as X (Exception, throwIO, bracket)
-import Control.Monad as X (void, ap, forM_, guard)
+import Control.Monad as X (void, ap, forM, forM_, guard)
 import Control.Monad.Identity as X (Identity (..))
 import Control.Monad.IO.Class as X (MonadIO (liftIO))
 import Data.Bifunctor as X (Bifunctor (bimap, first, second))
