@@ -9,6 +9,7 @@ import Control.Monad.State
 import GHC.Stack
 
 import HsBindgen.Imports
+import HsBindgen.Eff
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
@@ -31,7 +32,7 @@ foldDecls ::
   => Tracer IO Skipped
   -> Predicate
   -> CXTranslationUnit
-  -> Fold (State DeclState) Decl
+  -> Fold (FoldM (State DeclState)) Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of

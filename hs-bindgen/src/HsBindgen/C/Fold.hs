@@ -21,6 +21,7 @@ module HsBindgen.C.Fold (
   , Skipped
   ) where
 
+import HsBindgen.Eff
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.Decl
 import HsBindgen.C.Fold.Prelude

@@ -19,7 +19,6 @@ import Control.Monad.State
 import Foreign.C
 import GHC.Stack
 
-import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
@@ -27,6 +26,8 @@ import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Eff
+import HsBindgen.Imports
 import HsBindgen.Patterns
 
 {-------------------------------------------------------------------------------
@@ -34,7 +35,7 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Fold type /declaration/
-foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (State DeclState) Typ
+foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (FoldM (State DeclState)) Typ
 foldTypeDecl unit current = do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of

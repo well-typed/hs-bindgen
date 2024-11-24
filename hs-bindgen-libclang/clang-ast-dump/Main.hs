@@ -7,7 +7,6 @@ import Control.Exception
 import Control.Monad
 import Control.Monad.IO.Class
 import Data.Bifunctor
-import Data.Functor.Identity
 import Foreign.C.Types (CUInt)
 
 import Data.Text qualified as T
@@ -45,7 +44,7 @@ clangAstDump opts@Options{..} = do
     let clangOpts = bitfieldEnum [CXTranslationUnit_None]
     unit <- clang_parseTranslationUnit index optFile defaultClangArgs clangOpts
     rootCursor <- clang_getTranslationUnitCursor unit
-    void . runFoldIdentity . HighLevel.clang_visitChildren rootCursor $
+    void . HighLevel.clang_visitChildren rootCursor $
       \cursor -> do
         (cursorFile, _, _) <- liftIO $
           clang_getPresumedLocation =<< clang_getCursorLocation cursor
@@ -53,7 +52,7 @@ clangAstDump opts@Options{..} = do
           then pure $ Continue Nothing
           else foldDecls opts cursor
 
-foldDecls :: Options -> CXCursor -> FoldM Identity (Next Identity ())
+foldDecls :: Options -> CXCursor -> IO (Next IO ())
 foldDecls opts@Options{..} cursor = do
     traceU_ 0 =<< liftIO (clang_getCursorDisplayName cursor)
 

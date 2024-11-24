@@ -84,9 +84,9 @@ getTranslationUnitTargetTriple unit =
         clang_TargetInfo_dispose
         clang_TargetInfo_getTriple
 
-foldTranslationUnitWith ::
+foldTranslationUnitWith :: MonadUnliftIO m =>
      CXTranslationUnit
-  -> (FoldM m [a] -> IO b)
+  -> (m [a] -> IO b)
   -> Fold m a
   -> IO b
 foldTranslationUnitWith unit runFold fold = do

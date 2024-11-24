@@ -45,7 +45,7 @@ instance PrettyLogMsg Skipped where
       , skippedReason
       ]
 
-checkPredicate :: Tracer IO Skipped -> Predicate -> Fold m a -> Fold m a
+checkPredicate :: MonadIO m => Tracer IO Skipped -> Predicate -> Fold m a -> Fold m a
 checkPredicate tracer p k current = do
     isMatch <- liftIO $ Predicate.match current p
     case isMatch of
@@ -99,11 +99,11 @@ unrecognizedType typ = liftIO $ do
   Simple folds
 -------------------------------------------------------------------------------}
 
-recurse :: forall m a. (CXCursor -> FoldM m a) -> Fold m (Tree a)
+recurse :: forall m a. Monad m => (CXCursor -> m a) -> Fold m (Tree a)
 recurse f = go
   where
     go :: Fold m (Tree a)
     go current = f current >>= \x -> return (Recurse go $ Just . Node x)
 
-continue :: (CXCursor -> FoldM m a) -> Fold m a
+continue :: Monad m => (CXCursor -> m a) -> Fold m a
 continue f current = f current >>= \x -> return (Continue $ Just x)
