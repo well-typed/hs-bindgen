@@ -45,8 +45,6 @@ import Data.Traversable
   ( for )
 import Data.Type.Equality
   ( type (:~:)(..) )
-import GHC.Generics
-  ( Generic )
 import GHC.Show
   ( showSpace )
 import GHC.Exts

@@ -18,9 +18,6 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
   ) where
 
-import GHC.Generics (Generic)
-import Text.Show.Pretty (PrettyVal(..))
-
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 

@@ -25,11 +25,9 @@ module HsBindgen.C.Reparse.Infra (
 
 import Data.List (intercalate)
 import Data.Text qualified as Text
-import GHC.Generics (Generic)
 import Text.Parsec hiding (token, tokens)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos
-import Text.Show.Pretty (PrettyVal)
 
 import HsBindgen.Imports
 import HsBindgen.Clang.HighLevel.Types

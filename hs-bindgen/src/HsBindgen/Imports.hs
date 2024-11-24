@@ -19,8 +19,10 @@ import Data.Foldable as X (Foldable (foldl', toList), traverse_)
 import Data.Maybe as X (catMaybes, mapMaybe, fromMaybe)
 import Data.Some as X (Some (..))
 import Data.String as X (IsString (fromString))
+import GHC.Generics as X (Generic)
 import GHC.Stack as X (HasCallStack)
 import Numeric.Natural as X (Natural)
+import Text.Show.Pretty as X (PrettyVal)
 
 -- types
 import Data.IntMap.Strict as X (IntMap)
