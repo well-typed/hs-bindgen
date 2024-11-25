@@ -127,6 +127,7 @@ instance Preturb FC.CDouble where
   Properties
 -------------------------------------------------------------------------------}
 
+-- | A value preturbed with size 0 has the same semantics as the original value
 namePreturb0XSameSemanticsX :: String
 namePreturb0XSameSemanticsX = "Preturb0XSameSemanticsX"
 
@@ -144,6 +145,8 @@ assertPreturb0XSameSemanticsX ::
   -> Assertion
 assertPreturb0XSameSemanticsX x = preturb 0 x @==~? x
 
+-- | A value preturbed with size 1 does /not/ have the same semantics as the
+-- original value
 nameNotPreturb1XSameSemanticsX :: String
 nameNotPreturb1XSameSemanticsX = "NotPreturb1XSameSemanticsX"
 
@@ -163,6 +166,12 @@ assertNotPreturb1XSameSemanticsX ::
   -> Assertion
 assertNotPreturb1XSameSemanticsX x = preturb 1 x @/=~? x
 
+-- | A value preturbed with a size and the negated size has the same semantics
+-- as the original value
+--
+-- In other words, @'preturb' (negate size)@ is the inverse of @'preturb' size@.
+--
+-- This property does not apply when the size is @0@ or @minBound@.
 namePreturbNegateNPreturbNXSameSemanticsX :: String
 namePreturbNegateNPreturbNXSameSemanticsX =
     "PreturbNegateNPreturbNXSameSemanticsX"
@@ -198,6 +207,8 @@ assertPreturbNegateNPreturbNXSameSemanticsX size x =
     unless (size == 0 || size == minBound) $
       preturb (negate size) (preturb size x) @==~? x
 
+-- | A value preturbed using Haskell has the same semantics as the value
+-- preturbed using C (using the same size)
 nameHsPreturbNXSameSemanticsCPreturbNX :: String
 nameHsPreturbNXSameSemanticsCPreturbNX = "HsPreturbNXSameSemanticsCPreturbNX"
 
