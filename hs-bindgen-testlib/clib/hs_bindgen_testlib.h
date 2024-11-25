@@ -115,52 +115,52 @@ size_t hsbg_alignof_CDouble(void);
   Preturb
 *******************************************************************************/
 
-char hsbg_preturb_CChar(char);
+char hsbg_preturb_CChar(long, char);
 
-signed char hsbg_preturb_CSChar(signed char);
+signed char hsbg_preturb_CSChar(long, signed char);
 
-unsigned char hsbg_preturb_CUChar(unsigned char);
+unsigned char hsbg_preturb_CUChar(long, unsigned char);
 
-short hsbg_preturb_CShort(short);
+short hsbg_preturb_CShort(long, short);
 
-unsigned short hsbg_preturb_CUShort(unsigned short);
+unsigned short hsbg_preturb_CUShort(long, unsigned short);
 
-int hsbg_preturb_CInt(int);
+int hsbg_preturb_CInt(long, int);
 
-unsigned int hsbg_preturb_CUInt(unsigned int);
+unsigned int hsbg_preturb_CUInt(long, unsigned int);
 
-long hsbg_preturb_CLong(long);
+long hsbg_preturb_CLong(long, long);
 
-unsigned long hsbg_preturb_CULong(unsigned long);
+unsigned long hsbg_preturb_CULong(long, unsigned long);
 
-ptrdiff_t hsbg_preturb_CPtrdiff(ptrdiff_t);
+ptrdiff_t hsbg_preturb_CPtrdiff(long, ptrdiff_t);
 
-size_t hsbg_preturb_CSize(size_t);
+size_t hsbg_preturb_CSize(long, size_t);
 
-wchar_t hsbg_preturb_CWchar(wchar_t);
+wchar_t hsbg_preturb_CWchar(long, wchar_t);
 
-sig_atomic_t hsbg_preturb_CSigAtomic(sig_atomic_t);
+sig_atomic_t hsbg_preturb_CSigAtomic(long, sig_atomic_t);
 
-long long hsbg_preturb_CLLong(long long);
+long long hsbg_preturb_CLLong(long, long long);
 
-unsigned long long hsbg_preturb_CULLong(unsigned long long);
+unsigned long long hsbg_preturb_CULLong(long, unsigned long long);
 
-bool hsbg_preturb_CBool(bool);
+bool hsbg_preturb_CBool(long, bool);
 
-intptr_t hsbg_preturb_CIntPtr(intptr_t);
+intptr_t hsbg_preturb_CIntPtr(long, intptr_t);
 
-uintptr_t hsbg_preturb_CUIntPtr(uintptr_t);
+uintptr_t hsbg_preturb_CUIntPtr(long, uintptr_t);
 
-intmax_t hsbg_preturb_CIntMax(intmax_t);
+intmax_t hsbg_preturb_CIntMax(long, intmax_t);
 
-uintmax_t hsbg_preturb_CUIntMax(uintmax_t);
+uintmax_t hsbg_preturb_CUIntMax(long, uintmax_t);
 
-clock_t hsbg_preturb_CClock(clock_t);
+clock_t hsbg_preturb_CClock(long, clock_t);
 
-time_t hsbg_preturb_CTime(time_t);
+time_t hsbg_preturb_CTime(long, time_t);
 
-float hsbg_preturb_CFloat(float);
+float hsbg_preturb_CFloat(long, float);
 
-double hsbg_preturb_CDouble(double);
+double hsbg_preturb_CDouble(long, double);
 
 #endif // HS_BINDGEN_TESTLIB_H
