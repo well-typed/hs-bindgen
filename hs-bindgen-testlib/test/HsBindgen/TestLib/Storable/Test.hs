@@ -9,6 +9,7 @@ import Test.Tasty.HUnit (testCase)
 import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
 import HsBindgen.TestLib.Arbitrary ()
+import HsBindgen.TestLib.CLib qualified as CLib
 import HsBindgen.TestLib.RealFloat qualified as RF
 import HsBindgen.TestLib.SameSemantics (SameSemantics)
 import HsBindgen.TestLib.Storable qualified as Storable
@@ -21,9 +22,15 @@ import HsBindgen.TestLib.Storable qualified as Storable
 testNum :: forall a.
      (Arbitrary a, F.Storable a, Num a, SameSemantics a, Show a, Typeable a)
   => Proxy a
+  -> IO FC.CSize
+  -> IO FC.CSize
   -> TestTree
-testNum proxy = testGroup (show (typeRep proxy))
-    [ testGroup Storable.namePokePeekXSameSemanticsX
+testNum proxy cSizeOf cAlignOf = testGroup (show (typeRep proxy))
+    [ testCase Storable.nameHsSizeOfXEqCSizeOfX $
+        Storable.assertHsSizeOfXEqCSizeOfX proxy cSizeOf
+    , testCase Storable.nameHsAlignOfXEqCAlignOfX $
+        Storable.assertHsAlignOfXEqCAlignOfX proxy cAlignOf
+    , testGroup Storable.namePokePeekXSameSemanticsX
         [ testCase "zero" $ Storable.assertPokePeekXSameSemanticsX @a 0
         , testProperty "random" $ Storable.prop_PokePeekXSameSemanticsX @a
         ]
@@ -40,9 +47,15 @@ testBoundedNum :: forall a.
      , Typeable a
      )
   => Proxy a
+  -> IO FC.CSize
+  -> IO FC.CSize
   -> TestTree
-testBoundedNum proxy = testGroup (show (typeRep proxy))
-    [ testGroup Storable.namePokePeekXSameSemanticsX
+testBoundedNum proxy cSizeOf cAlignOf = testGroup (show (typeRep proxy))
+    [ testCase Storable.nameHsSizeOfXEqCSizeOfX $
+        Storable.assertHsSizeOfXEqCSizeOfX proxy cSizeOf
+    , testCase Storable.nameHsAlignOfXEqCAlignOfX $
+        Storable.assertHsAlignOfXEqCAlignOfX proxy cAlignOf
+    , testGroup Storable.namePokePeekXSameSemanticsX
         [ testCase "zero" $ Storable.assertPokePeekXSameSemanticsX @a 0
         , testCase "min" $ Storable.assertPokePeekXSameSemanticsX @a minBound
         , testCase "max" $ Storable.assertPokePeekXSameSemanticsX @a maxBound
@@ -60,9 +73,15 @@ testRealFloat :: forall a.
      , Typeable a
      )
   => Proxy a
+  -> IO FC.CSize
+  -> IO FC.CSize
   -> TestTree
-testRealFloat proxy = testGroup (show (typeRep proxy))
-    [ testGroup Storable.namePokePeekXSameSemanticsX
+testRealFloat proxy cSizeOf cAlignOf = testGroup (show (typeRep proxy))
+    [ testCase Storable.nameHsSizeOfXEqCSizeOfX $
+        Storable.assertHsSizeOfXEqCSizeOfX proxy cSizeOf
+    , testCase Storable.nameHsAlignOfXEqCAlignOfX $
+        Storable.assertHsAlignOfXEqCAlignOfX proxy cAlignOf
+    , testGroup Storable.namePokePeekXSameSemanticsX
         [ testCase "zero" $ Storable.assertPokePeekXSameSemanticsX @a RF.zero
         , testCase "-zero" $
             Storable.assertPokePeekXSameSemanticsX @a RF.negZero
@@ -81,30 +100,34 @@ testRealFloat proxy = testGroup (show (typeRep proxy))
 
 tests :: TestTree
 tests = testGroup "HsBindgen.TestLib.Storable"
-    [ testBoundedNum (Proxy @FC.CChar)
-    , testBoundedNum (Proxy @FC.CSChar)
-    , testBoundedNum (Proxy @FC.CUChar)
-    , testBoundedNum (Proxy @FC.CShort)
-    , testBoundedNum (Proxy @FC.CUShort)
-    , testBoundedNum (Proxy @FC.CInt)
-    , testBoundedNum (Proxy @FC.CUInt)
-    , testBoundedNum (Proxy @FC.CLong)
-    , testBoundedNum (Proxy @FC.CULong)
-    , testBoundedNum (Proxy @FC.CPtrdiff)
-    , testBoundedNum (Proxy @FC.CSize)
-    , testBoundedNum (Proxy @FC.CWchar)
-    , testBoundedNum (Proxy @FC.CSigAtomic)
-    , testBoundedNum (Proxy @FC.CLLong)
-    , testBoundedNum (Proxy @FC.CULLong)
-    , testBoundedNum (Proxy @FC.CBool)
-    , testBoundedNum (Proxy @FC.CIntPtr)
-    , testBoundedNum (Proxy @FC.CUIntPtr)
-    , testBoundedNum (Proxy @FC.CIntMax)
-    , testBoundedNum (Proxy @FC.CUIntMax)
-    , testNum        (Proxy @FC.CClock)
-    , testNum        (Proxy @FC.CTime)
-    -- , testNum        (Proxy @FC.CUSeconds)
-    , testNum        (Proxy @FC.CSUSeconds)
-    , testRealFloat  (Proxy @FC.CFloat)
-    , testRealFloat  (Proxy @FC.CDouble)
+    [ testBoundedNum @FC.CChar Proxy CLib.sizeofCChar CLib.alignofCChar
+    , testBoundedNum @FC.CSChar Proxy CLib.sizeofCSChar CLib.alignofCSChar
+    , testBoundedNum @FC.CUChar Proxy CLib.sizeofCUChar CLib.alignofCUChar
+    , testBoundedNum @FC.CShort Proxy CLib.sizeofCShort CLib.alignofCShort
+    , testBoundedNum @FC.CUShort Proxy CLib.sizeofCUShort CLib.alignofCUShort
+    , testBoundedNum @FC.CInt Proxy CLib.sizeofCInt CLib.alignofCInt
+    , testBoundedNum @FC.CUInt Proxy CLib.sizeofCUInt CLib.alignofCUInt
+    , testBoundedNum @FC.CLong Proxy CLib.sizeofCLong CLib.alignofCLong
+    , testBoundedNum @FC.CULong Proxy CLib.sizeofCULong CLib.alignofCULong
+    , testBoundedNum @FC.CPtrdiff Proxy CLib.sizeofCPtrdiff CLib.alignofCPtrdiff
+    , testBoundedNum @FC.CSize Proxy CLib.sizeofCSize CLib.alignofCSize
+    , testBoundedNum @FC.CWchar Proxy CLib.sizeofCWchar CLib.alignofCWchar
+    , testBoundedNum
+        @FC.CSigAtomic
+        Proxy
+        CLib.sizeofCSigAtomic
+        CLib.alignofCSigAtomic
+    , testBoundedNum @FC.CLLong Proxy CLib.sizeofCLLong CLib.alignofCLLong
+    , testBoundedNum @FC.CULLong Proxy CLib.sizeofCULLong CLib.alignofCULLong
+    , testBoundedNum @FC.CBool Proxy CLib.sizeofCBool CLib.alignofCBool
+    , testBoundedNum @FC.CIntPtr Proxy CLib.sizeofCIntPtr CLib.alignofCIntPtr
+    , testBoundedNum @FC.CUIntPtr Proxy CLib.sizeofCUIntPtr CLib.alignofCUIntPtr
+    , testBoundedNum @FC.CIntMax Proxy CLib.sizeofCIntMax CLib.alignofCIntMax
+    , testBoundedNum @FC.CUIntMax Proxy CLib.sizeofCUIntMax CLib.alignofCUIntMax
+    , testNum @FC.CClock Proxy CLib.sizeofCClock CLib.alignofCClock
+    , testNum @FC.CTime Proxy CLib.sizeofCTime CLib.alignofCTime
+    -- , testNum @FC.CUSeconds Proxy CLib.sizeofCUSeconds CLib.alignofCUSeconds
+    , testNum @FC.CSUSeconds Proxy CLib.sizeofCSUSeconds CLib.alignofCSUSeconds
+    , testRealFloat @FC.CFloat Proxy CLib.sizeofCFloat CLib.alignofCFloat
+    , testRealFloat @FC.CDouble Proxy CLib.sizeofCDouble CLib.alignofCDouble
     ]

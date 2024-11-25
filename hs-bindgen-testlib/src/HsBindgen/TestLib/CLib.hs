@@ -1,8 +1,63 @@
 {-# LANGUAGE CApiFFI #-}
 
 module HsBindgen.TestLib.CLib (
+    -- * Storable
+    -- ** sizeof
+    sizeofCChar
+  , sizeofCSChar
+  , sizeofCUChar
+  , sizeofCShort
+  , sizeofCUShort
+  , sizeofCInt
+  , sizeofCUInt
+  , sizeofCLong
+  , sizeofCULong
+  , sizeofCPtrdiff
+  , sizeofCSize
+  , sizeofCWchar
+  , sizeofCSigAtomic
+  , sizeofCLLong
+  , sizeofCULLong
+  , sizeofCBool
+  , sizeofCIntPtr
+  , sizeofCUIntPtr
+  , sizeofCIntMax
+  , sizeofCUIntMax
+  , sizeofCClock
+  , sizeofCTime
+  -- , sizeofCUSeconds
+  , sizeofCSUSeconds
+  , sizeofCFloat
+  , sizeofCDouble
+    -- ** alignof
+  , alignofCChar
+  , alignofCSChar
+  , alignofCUChar
+  , alignofCShort
+  , alignofCUShort
+  , alignofCInt
+  , alignofCUInt
+  , alignofCLong
+  , alignofCULong
+  , alignofCPtrdiff
+  , alignofCSize
+  , alignofCWchar
+  , alignofCSigAtomic
+  , alignofCLLong
+  , alignofCULLong
+  , alignofCBool
+  , alignofCIntPtr
+  , alignofCUIntPtr
+  , alignofCIntMax
+  , alignofCUIntMax
+  , alignofCClock
+  , alignofCTime
+  -- , alignofCUSeconds
+  , alignofCSUSeconds
+  , alignofCFloat
+  , alignofCDouble
     -- * Transform
-    transformCChar
+  , transformCChar
   , transformCSChar
   , transformCUChar
   , transformCShort
@@ -31,6 +86,174 @@ module HsBindgen.TestLib.CLib (
   ) where
 
 import Foreign.C qualified as FC
+
+{-------------------------------------------------------------------------------
+  Storable: sizeof
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CChar"
+  sizeofCChar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CSChar"
+  sizeofCSChar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUChar"
+  sizeofCUChar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CShort"
+  sizeofCShort :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUShort"
+  sizeofCUShort :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CInt"
+  sizeofCInt :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUInt"
+  sizeofCUInt :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CLong"
+  sizeofCLong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CULong"
+  sizeofCULong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CPtrdiff"
+  sizeofCPtrdiff :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CSize"
+  sizeofCSize :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CWchar"
+  sizeofCWchar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CSigAtomic"
+  sizeofCSigAtomic :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CLLong"
+  sizeofCLLong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CULLong"
+  sizeofCULLong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CBool"
+  sizeofCBool :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CIntPtr"
+  sizeofCIntPtr :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUIntPtr"
+  sizeofCUIntPtr :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CIntMax"
+  sizeofCIntMax :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUIntMax"
+  sizeofCUIntMax :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CClock"
+  sizeofCClock :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CTime"
+  sizeofCTime :: IO FC.CSize
+
+{- TODO remove or fix
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUSeconds"
+  sizeofCUSeconds :: IO FC.CSize
+-}
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CSUSeconds"
+  sizeofCSUSeconds :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CFloat"
+  sizeofCFloat :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CDouble"
+  sizeofCDouble :: IO FC.CSize
+
+{-------------------------------------------------------------------------------
+  Storable: alignof
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CChar"
+  alignofCChar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CSChar"
+  alignofCSChar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUChar"
+  alignofCUChar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CShort"
+  alignofCShort :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUShort"
+  alignofCUShort :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CInt"
+  alignofCInt :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUInt"
+  alignofCUInt :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CLong"
+  alignofCLong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CULong"
+  alignofCULong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CPtrdiff"
+  alignofCPtrdiff :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CSize"
+  alignofCSize :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CWchar"
+  alignofCWchar :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CSigAtomic"
+  alignofCSigAtomic :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CLLong"
+  alignofCLLong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CULLong"
+  alignofCULLong :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CBool"
+  alignofCBool :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CIntPtr"
+  alignofCIntPtr :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUIntPtr"
+  alignofCUIntPtr :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CIntMax"
+  alignofCIntMax :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUIntMax"
+  alignofCUIntMax :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CClock"
+  alignofCClock :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CTime"
+  alignofCTime :: IO FC.CSize
+
+{- TODO remove or fix
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUSeconds"
+  alignofCUSeconds :: IO FC.CSize
+-}
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CSUSeconds"
+  alignofCSUSeconds :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CFloat"
+  alignofCFloat :: IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CDouble"
+  alignofCDouble :: IO FC.CSize
 
 {-------------------------------------------------------------------------------
   Transform

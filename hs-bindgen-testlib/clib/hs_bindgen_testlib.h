@@ -8,7 +8,123 @@
 #include <time.h>
 
 /*******************************************************************************
-  HsBindgen.TestLib.Transform
+  Storable: sizeof
+*******************************************************************************/
+
+size_t hsbg_sizeof_CChar(void);
+
+size_t hsbg_sizeof_CSChar(void);
+
+size_t hsbg_sizeof_CUChar(void);
+
+size_t hsbg_sizeof_CShort(void);
+
+size_t hsbg_sizeof_CUShort(void);
+
+size_t hsbg_sizeof_CInt(void);
+
+size_t hsbg_sizeof_CUInt(void);
+
+size_t hsbg_sizeof_CLong(void);
+
+size_t hsbg_sizeof_CULong(void);
+
+size_t hsbg_sizeof_CPtrdiff(void);
+
+size_t hsbg_sizeof_CSize(void);
+
+size_t hsbg_sizeof_CWchar(void);
+
+size_t hsbg_sizeof_CSigAtomic(void);
+
+size_t hsbg_sizeof_CLLong(void);
+
+size_t hsbg_sizeof_CULLong(void);
+
+size_t hsbg_sizeof_CBool(void);
+
+size_t hsbg_sizeof_CIntPtr(void);
+
+size_t hsbg_sizeof_CUIntPtr(void);
+
+size_t hsbg_sizeof_CIntMax(void);
+
+size_t hsbg_sizeof_CUIntMax(void);
+
+size_t hsbg_sizeof_CClock(void);
+
+size_t hsbg_sizeof_CTime(void);
+
+/* TODO remove or fix
+size_t hsbg_sizeof_CUSeconds(void);
+*/
+
+size_t hsbg_sizeof_CSUSeconds(void);
+
+size_t hsbg_sizeof_CFloat(void);
+
+size_t hsbg_sizeof_CDouble(void);
+
+/*******************************************************************************
+  Storable: alignof
+*******************************************************************************/
+
+size_t hsbg_alignof_CChar(void);
+
+size_t hsbg_alignof_CSChar(void);
+
+size_t hsbg_alignof_CUChar(void);
+
+size_t hsbg_alignof_CShort(void);
+
+size_t hsbg_alignof_CUShort(void);
+
+size_t hsbg_alignof_CInt(void);
+
+size_t hsbg_alignof_CUInt(void);
+
+size_t hsbg_alignof_CLong(void);
+
+size_t hsbg_alignof_CULong(void);
+
+size_t hsbg_alignof_CPtrdiff(void);
+
+size_t hsbg_alignof_CSize(void);
+
+size_t hsbg_alignof_CWchar(void);
+
+size_t hsbg_alignof_CSigAtomic(void);
+
+size_t hsbg_alignof_CLLong(void);
+
+size_t hsbg_alignof_CULLong(void);
+
+size_t hsbg_alignof_CBool(void);
+
+size_t hsbg_alignof_CIntPtr(void);
+
+size_t hsbg_alignof_CUIntPtr(void);
+
+size_t hsbg_alignof_CIntMax(void);
+
+size_t hsbg_alignof_CUIntMax(void);
+
+size_t hsbg_alignof_CClock(void);
+
+size_t hsbg_alignof_CTime(void);
+
+/* TODO remove or fix
+size_t hsbg_alignof_CUSeconds(void);
+*/
+
+size_t hsbg_alignof_CSUSeconds(void);
+
+size_t hsbg_alignof_CFloat(void);
+
+size_t hsbg_alignof_CDouble(void);
+
+/*******************************************************************************
+  Transform
 *******************************************************************************/
 
 char hsbg_transform_CChar(char);

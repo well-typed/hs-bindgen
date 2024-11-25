@@ -1,13 +1,19 @@
 module HsBindgen.TestLib.Storable (
     -- * Properties
-    namePokePeekXSameSemanticsX
+    nameHsSizeOfXEqCSizeOfX
+  , assertHsSizeOfXEqCSizeOfX
+  , nameHsAlignOfXEqCAlignOfX
+  , assertHsAlignOfXEqCAlignOfX
+  , namePokePeekXSameSemanticsX
   , prop_PokePeekXSameSemanticsX
   , assertPokePeekXSameSemanticsX
   ) where
 
+import Data.Proxy (Proxy)
 import Foreign qualified as F
+import Foreign.C qualified as FC
 import Test.QuickCheck.Monadic qualified as QCM
-import Test.Tasty.HUnit (Assertion)
+import Test.Tasty.HUnit ((@=?), Assertion)
 import Test.Tasty.QuickCheck (Property)
 
 import HsBindgen.TestLib.SameSemantics ((@==~?), SameSemantics(sameSemantics))
@@ -15,6 +21,34 @@ import HsBindgen.TestLib.SameSemantics ((@==~?), SameSemantics(sameSemantics))
 {-------------------------------------------------------------------------------
   Properties
 -------------------------------------------------------------------------------}
+
+-- | The size of a type is the same in Haskell and C
+nameHsSizeOfXEqCSizeOfX :: String
+nameHsSizeOfXEqCSizeOfX = "HsSizeOfXEqCSizeOfX"
+
+-- | The size of a type is the same in Haskell and C
+assertHsSizeOfXEqCSizeOfX :: forall a.
+     F.Storable a
+  => Proxy a
+  -> IO FC.CSize
+  -> Assertion
+assertHsSizeOfXEqCSizeOfX _proxy cSizeOfX = do
+    cSizeOf <- fromIntegral <$> cSizeOfX
+    F.sizeOf @a undefined @=? cSizeOf
+
+-- | The alignment of a type is the same in Haskell and C
+nameHsAlignOfXEqCAlignOfX :: String
+nameHsAlignOfXEqCAlignOfX = "HsAlignOfXEqCAlignOfX"
+
+-- | The alignment of a type is the same in Haskell and C
+assertHsAlignOfXEqCAlignOfX :: forall a.
+     F.Storable a
+  => Proxy a
+  -> IO FC.CSize
+  -> Assertion
+assertHsAlignOfXEqCAlignOfX _proxy cAlignOfX = do
+    cAlignOf <- fromIntegral <$> cAlignOfX
+    F.alignment @a undefined @=? cAlignOf
 
 -- | The 'F.poke' then 'F.peek' of a value is semantically equal to the value
 namePokePeekXSameSemanticsX :: String
