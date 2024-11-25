@@ -75,14 +75,6 @@ instance RepZero FC.CClock where
 instance RepZero FC.CTime where
   repZero = FC.CTime 0
 
-{- TODO remove or fix
-instance RepZero FC.CUSeconds where
-  repZero = FC.CUSeconds 0
--}
-
-instance RepZero FC.CSUSeconds where
-  repZero = FC.CSUSeconds 0
-
 instance RepZero FC.CFloat where
   repZero = FC.CFloat 0
 

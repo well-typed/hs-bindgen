@@ -4,7 +4,7 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <sys/types.h>
+#include <stdint.h>
 #include <time.h>
 
 /*******************************************************************************
@@ -54,12 +54,6 @@ size_t hsbg_sizeof_CUIntMax(void);
 size_t hsbg_sizeof_CClock(void);
 
 size_t hsbg_sizeof_CTime(void);
-
-/* TODO remove or fix
-size_t hsbg_sizeof_CUSeconds(void);
-*/
-
-size_t hsbg_sizeof_CSUSeconds(void);
 
 size_t hsbg_sizeof_CFloat(void);
 
@@ -113,12 +107,6 @@ size_t hsbg_alignof_CClock(void);
 
 size_t hsbg_alignof_CTime(void);
 
-/* TODO remove or fix
-size_t hsbg_alignof_CUSeconds(void);
-*/
-
-size_t hsbg_alignof_CSUSeconds(void);
-
 size_t hsbg_alignof_CFloat(void);
 
 size_t hsbg_alignof_CDouble(void);
@@ -159,23 +147,17 @@ unsigned long long hsbg_transform_CULLong(unsigned long long);
 
 bool hsbg_transform_CBool(bool);
 
-long hsbg_transform_CIntPtr(long);
+intptr_t hsbg_transform_CIntPtr(intptr_t);
 
-unsigned long hsbg_transform_CUIntPtr(unsigned long);
+uintptr_t hsbg_transform_CUIntPtr(uintptr_t);
 
-long hsbg_transform_CIntMax(long);
+intmax_t hsbg_transform_CIntMax(intmax_t);
 
-unsigned long hsbg_transform_CUIntMax(unsigned long);
+uintmax_t hsbg_transform_CUIntMax(uintmax_t);
 
 clock_t hsbg_transform_CClock(clock_t);
 
 time_t hsbg_transform_CTime(time_t);
-
-/* TODO remove or fix
-useconds_t hsbg_transform_CUSeconds(useconds_t);
-*/
-
-suseconds_t hsbg_transform_CSUSeconds(suseconds_t);
 
 float hsbg_transform_CFloat(float);
 

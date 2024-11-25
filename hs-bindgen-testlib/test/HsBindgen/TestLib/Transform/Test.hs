@@ -128,8 +128,6 @@ tests = testGroup "HsBindgen.TestLib.Transform"
     , testBoundedNum CLib.transformCUIntMax
     , testNum        CLib.transformCClock
     , testNum        CLib.transformCTime
-    -- , testNum        CLib.transformCUSeconds
-    , testNum        CLib.transformCSUSeconds
     , testRealFloat  CLib.transformCFloat
     , testRealFloat  CLib.transformCDouble
     ]

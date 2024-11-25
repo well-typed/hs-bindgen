@@ -89,12 +89,6 @@ instance SameSemantics FC.CClock
 
 instance SameSemantics FC.CTime
 
-{- TODO remove or fix
-instance SameSemantics FC.CUSeconds
--}
-
-instance SameSemantics FC.CSUSeconds
-
 instance SameSemantics FC.CFloat where
   sameSemantics l r = l == r || (isNaN l && isNaN r)
 
