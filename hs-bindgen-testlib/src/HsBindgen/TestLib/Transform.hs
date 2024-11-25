@@ -17,7 +17,7 @@ import Test.Tasty.QuickCheck (Property)
 
 import HsBindgen.TestLib.RealFloat qualified as RF
 import HsBindgen.TestLib.SameSemantics
-  ( (@=~?), (@/=~?), SameSemantics(sameSemantics)
+  ( (@==~?), (@/=~?), SameSemantics(sameSemantics)
   )
 
 {-------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ assertTransformHsSameSemanticsC ::
   -> Assertion
 assertTransformHsSameSemanticsC cTransform x = do
     x' <- cTransform x
-    transform x @=~? x'
+    transform x @==~? x'
 
 {-------------------------------------------------------------------------------
   Auxilliary functions

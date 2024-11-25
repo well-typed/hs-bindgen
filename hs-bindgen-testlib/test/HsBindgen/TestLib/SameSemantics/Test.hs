@@ -9,9 +9,8 @@ import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
 import HsBindgen.TestLib.Arbitrary ()
 import HsBindgen.TestLib.RealFloat qualified as RF
-import HsBindgen.TestLib.SameSemantics
-  ( SameSemantics, assertSameSemanticsRefl, prop_SameSemanticsRefl
-  )
+import HsBindgen.TestLib.SameSemantics (SameSemantics)
+import HsBindgen.TestLib.SameSemantics qualified as SameSemantics
 
 {-------------------------------------------------------------------------------
   Tests
@@ -23,9 +22,9 @@ testNum :: forall a.
   => Proxy a
   -> TestTree
 testNum proxy = testGroup (show (typeRep proxy))
-    [ testGroup "Reflexive"
-        [ testCase     "zero"   $ assertSameSemanticsRefl @a 0
-        , testProperty "random" $ prop_SameSemanticsRefl  @a
+    [ testGroup SameSemantics.nameXSameSemanticsX
+        [ testCase "zero" $ SameSemantics.assertXSameSemanticsX @a 0
+        , testProperty "random" $ SameSemantics.prop_XSameSemanticsX  @a
         ]
     ]
 
@@ -35,11 +34,11 @@ testBoundedNum :: forall a.
   => Proxy a
   -> TestTree
 testBoundedNum proxy = testGroup (show (typeRep proxy))
-    [ testGroup "Reflexive"
-        [ testCase     "zero"   $ assertSameSemanticsRefl @a 0
-        , testCase     "min"    $ assertSameSemanticsRefl @a minBound
-        , testCase     "max"    $ assertSameSemanticsRefl @a maxBound
-        , testProperty "random" $ prop_SameSemanticsRefl  @a
+    [ testGroup SameSemantics.nameXSameSemanticsX
+        [ testCase "zero" $ SameSemantics.assertXSameSemanticsX @a 0
+        , testCase "min"  $ SameSemantics.assertXSameSemanticsX @a minBound
+        , testCase "max"  $ SameSemantics.assertXSameSemanticsX @a maxBound
+        , testProperty "random" $ SameSemantics.prop_XSameSemanticsX  @a
         ]
     ]
 
@@ -49,15 +48,15 @@ testRealFloat :: forall a.
   => Proxy a
   -> TestTree
 testRealFloat proxy = testGroup (show (typeRep proxy))
-    [ testGroup "Reflexive"
-        [ testCase     "zero"   $ assertSameSemanticsRefl @a RF.zero
-        , testCase     "-zero"  $ assertSameSemanticsRefl @a RF.negZero
-        , testCase     "min"    $ assertSameSemanticsRefl @a RF.minValue
-        , testCase     "max"    $ assertSameSemanticsRefl @a RF.maxValue
-        , testCase     "inf"    $ assertSameSemanticsRefl @a RF.inf
-        , testCase     "-inf"   $ assertSameSemanticsRefl @a RF.negInf
-        , testCase     "NaN"    $ assertSameSemanticsRefl @a RF.nan
-        , testProperty "random" $ prop_SameSemanticsRefl  @a
+    [ testGroup SameSemantics.nameXSameSemanticsX
+        [ testCase "zero"  $ SameSemantics.assertXSameSemanticsX @a RF.zero
+        , testCase "-zero" $ SameSemantics.assertXSameSemanticsX @a RF.negZero
+        , testCase "min"   $ SameSemantics.assertXSameSemanticsX @a RF.minValue
+        , testCase "max"   $ SameSemantics.assertXSameSemanticsX @a RF.maxValue
+        , testCase "inf"   $ SameSemantics.assertXSameSemanticsX @a RF.inf
+        , testCase "-inf"  $ SameSemantics.assertXSameSemanticsX @a RF.negInf
+        , testCase "NaN"   $ SameSemantics.assertXSameSemanticsX @a RF.nan
+        , testProperty "random" $ SameSemantics.prop_XSameSemanticsX  @a
         ]
     ]
 
