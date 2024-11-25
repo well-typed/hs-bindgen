@@ -98,14 +98,6 @@ instance Transform FC.CClock where
 instance Transform FC.CTime where
   transform = (+ 1)
 
-{- TODO remove or fix
-instance Transform FC.CUSeconds where
-  transform = (+ 1)
--}
-
-instance Transform FC.CSUSeconds where
-  transform = (+ 1)
-
 instance Transform FC.CFloat where
   transform (FC.CFloat x) = FC.CFloat $ transformFloat x
 

@@ -126,8 +126,6 @@ tests = testGroup "HsBindgen.TestLib.Storable"
     , testBoundedNum @FC.CUIntMax Proxy CLib.sizeofCUIntMax CLib.alignofCUIntMax
     , testNum @FC.CClock Proxy CLib.sizeofCClock CLib.alignofCClock
     , testNum @FC.CTime Proxy CLib.sizeofCTime CLib.alignofCTime
-    -- , testNum @FC.CUSeconds Proxy CLib.sizeofCUSeconds CLib.alignofCUSeconds
-    , testNum @FC.CSUSeconds Proxy CLib.sizeofCSUSeconds CLib.alignofCSUSeconds
     , testRealFloat @FC.CFloat Proxy CLib.sizeofCFloat CLib.alignofCFloat
     , testRealFloat @FC.CDouble Proxy CLib.sizeofCDouble CLib.alignofCDouble
     ]

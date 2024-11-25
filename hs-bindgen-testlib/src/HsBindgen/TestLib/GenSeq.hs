@@ -87,14 +87,6 @@ instance GenSeq FC.CClock where
 instance GenSeq FC.CTime where
   genSeqStep w = (fromIntegral w, w + 1)
 
-{- TODO remove or fix
-instance GenSeq FC.CUSeconds where
-  genSeqStep w = (fromIntegral w, w + 1)
--}
-
-instance GenSeq FC.CSUSeconds where
-  genSeqStep w = (fromIntegral w, w + 1)
-
 instance GenSeq FC.CFloat where
   genSeqStep w = (fromIntegral w, w + 1)
 

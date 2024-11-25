@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <sys/types.h>
 #include <time.h>
 
 #include "hs_bindgen_testlib.h"
@@ -78,19 +77,19 @@ size_t hsbg_sizeof_CBool(void) {
 }
 
 size_t hsbg_sizeof_CIntPtr(void) {
-  return sizeof (int*);
+  return sizeof (intptr_t);
 }
 
 size_t hsbg_sizeof_CUIntPtr(void) {
-  return sizeof (unsigned int*);
+  return sizeof (uintptr_t);
 }
 
 size_t hsbg_sizeof_CIntMax(void) {
-  return sizeof (long);
+  return sizeof (intmax_t);
 }
 
 size_t hsbg_sizeof_CUIntMax(void) {
-  return sizeof (unsigned long);
+  return sizeof (uintmax_t);
 }
 
 size_t hsbg_sizeof_CClock(void) {
@@ -99,16 +98,6 @@ size_t hsbg_sizeof_CClock(void) {
 
 size_t hsbg_sizeof_CTime(void) {
   return sizeof (time_t);
-}
-
-/* TODO remove or fix
-size_t hsbg_sizeof_CUSeconds(void) {
-  return sizeof (useconds_t);
-}
-*/
-
-size_t hsbg_sizeof_CSUSeconds(void) {
-  return sizeof (suseconds_t);
 }
 
 size_t hsbg_sizeof_CFloat(void) {
@@ -188,19 +177,19 @@ size_t hsbg_alignof_CBool(void) {
 }
 
 size_t hsbg_alignof_CIntPtr(void) {
-  return alignof(int*);
+  return alignof(intptr_t);
 }
 
 size_t hsbg_alignof_CUIntPtr(void) {
-  return alignof(unsigned int*);
+  return alignof(uintptr_t);
 }
 
 size_t hsbg_alignof_CIntMax(void) {
-  return alignof(long);
+  return alignof(intmax_t);
 }
 
 size_t hsbg_alignof_CUIntMax(void) {
-  return alignof(unsigned long);
+  return alignof(uintmax_t);
 }
 
 size_t hsbg_alignof_CClock(void) {
@@ -209,16 +198,6 @@ size_t hsbg_alignof_CClock(void) {
 
 size_t hsbg_alignof_CTime(void) {
   return alignof(time_t);
-}
-
-/* TODO remove or fix
-size_t hsbg_alignof_CUSeconds(void) {
-  return alignof(useconds_t);
-}
-*/
-
-size_t hsbg_alignof_CSUSeconds(void) {
-  return alignof(suseconds_t);
 }
 
 size_t hsbg_alignof_CFloat(void) {
@@ -297,19 +276,19 @@ bool hsbg_transform_CBool(bool b) {
   return !b;
 }
 
-long hsbg_transform_CIntPtr(long n) {
+intptr_t hsbg_transform_CIntPtr(intptr_t n) {
   return n + 1;
 }
 
-unsigned long hsbg_transform_CUIntPtr(unsigned long n) {
+uintptr_t hsbg_transform_CUIntPtr(uintptr_t n) {
   return n + 1;
 }
 
-long hsbg_transform_CIntMax(long n) {
+intmax_t hsbg_transform_CIntMax(intmax_t n) {
   return n + 1;
 }
 
-unsigned long hsbg_transform_CUIntMax(unsigned long n) {
+uintmax_t hsbg_transform_CUIntMax(uintmax_t n) {
   return n + 1;
 }
 
@@ -319,16 +298,6 @@ clock_t hsbg_transform_CClock(clock_t c) {
 
 time_t hsbg_transform_CTime(time_t t) {
   return t + 1;
-}
-
-/* TODO remove or fix
-useconds_t hsbg_transform_CUSeconds(useconds_t s) {
-  return s + 1;
-}
-*/
-
-suseconds_t hsbg_transform_CSUSeconds(suseconds_t s) {
-  return s + 1;
 }
 
 float hsbg_transform_CFloat(float x) {

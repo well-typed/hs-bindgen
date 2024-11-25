@@ -25,8 +25,6 @@ module HsBindgen.TestLib.CLib (
   , sizeofCUIntMax
   , sizeofCClock
   , sizeofCTime
-  -- , sizeofCUSeconds
-  , sizeofCSUSeconds
   , sizeofCFloat
   , sizeofCDouble
     -- ** alignof
@@ -52,8 +50,6 @@ module HsBindgen.TestLib.CLib (
   , alignofCUIntMax
   , alignofCClock
   , alignofCTime
-  -- , alignofCUSeconds
-  , alignofCSUSeconds
   , alignofCFloat
   , alignofCDouble
     -- * Transform
@@ -79,8 +75,6 @@ module HsBindgen.TestLib.CLib (
   , transformCUIntMax
   , transformCClock
   , transformCTime
-  -- , transformCUSeconds
-  , transformCSUSeconds
   , transformCFloat
   , transformCDouble
   ) where
@@ -156,14 +150,6 @@ foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CClock"
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CTime"
   sizeofCTime :: IO FC.CSize
-
-{- TODO remove or fix
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CUSeconds"
-  sizeofCUSeconds :: IO FC.CSize
--}
-
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CSUSeconds"
-  sizeofCSUSeconds :: IO FC.CSize
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_sizeof_CFloat"
   sizeofCFloat :: IO FC.CSize
@@ -241,14 +227,6 @@ foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CClock"
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CTime"
   alignofCTime :: IO FC.CSize
 
-{- TODO remove or fix
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CUSeconds"
-  alignofCUSeconds :: IO FC.CSize
--}
-
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CSUSeconds"
-  alignofCSUSeconds :: IO FC.CSize
-
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CFloat"
   alignofCFloat :: IO FC.CSize
 
@@ -324,14 +302,6 @@ foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CClock"
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CTime"
   transformCTime :: FC.CTime -> IO FC.CTime
-
-{- TODO remove or fix
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CUSeconds"
-  transformCUSeconds :: FC.CUSeconds -> IO FC.CUSeconds
--}
-
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CSUSeconds"
-  transformCSUSeconds :: FC.CSUSeconds -> IO FC.CSUSeconds
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CFloat"
   transformCFloat :: FC.CFloat -> IO FC.CFloat

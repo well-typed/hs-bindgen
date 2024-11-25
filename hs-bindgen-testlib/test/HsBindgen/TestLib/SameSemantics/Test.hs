@@ -88,8 +88,6 @@ tests = testGroup "HsBindgen.TestLib.SameSemantics"
     , testBoundedNum (Proxy @FC.CUIntMax)
     , testNum        (Proxy @FC.CClock)
     , testNum        (Proxy @FC.CTime)
-    -- , testNum        (Proxy @FC.CUSeconds)
-    , testNum        (Proxy @FC.CSUSeconds)
     , testRealFloat  (Proxy @FC.CFloat)
     , testRealFloat  (Proxy @FC.CDouble)
     ]
