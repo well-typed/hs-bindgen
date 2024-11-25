@@ -238,73 +238,73 @@ foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CDouble"
 -------------------------------------------------------------------------------}
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CChar"
-  preturbCChar :: FC.CChar -> IO FC.CChar
+  preturbCChar :: FC.CLong -> FC.CChar -> IO FC.CChar
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CSChar"
-  preturbCSChar :: FC.CSChar -> IO FC.CSChar
+  preturbCSChar :: FC.CLong -> FC.CSChar -> IO FC.CSChar
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUChar"
-  preturbCUChar :: FC.CUChar -> IO FC.CUChar
+  preturbCUChar :: FC.CLong -> FC.CUChar -> IO FC.CUChar
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CShort"
-  preturbCShort :: FC.CShort -> IO FC.CShort
+  preturbCShort :: FC.CLong -> FC.CShort -> IO FC.CShort
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUShort"
-  preturbCUShort :: FC.CUShort -> IO FC.CUShort
+  preturbCUShort :: FC.CLong -> FC.CUShort -> IO FC.CUShort
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CInt"
-  preturbCInt :: FC.CInt -> IO FC.CInt
+  preturbCInt :: FC.CLong -> FC.CInt -> IO FC.CInt
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUInt"
-  preturbCUInt :: FC.CUInt -> IO FC.CUInt
+  preturbCUInt :: FC.CLong -> FC.CUInt -> IO FC.CUInt
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CLong"
-  preturbCLong :: FC.CLong -> IO FC.CLong
+  preturbCLong :: FC.CLong -> FC.CLong -> IO FC.CLong
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CULong"
-  preturbCULong :: FC.CULong -> IO FC.CULong
+  preturbCULong :: FC.CLong -> FC.CULong -> IO FC.CULong
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CPtrdiff"
-  preturbCPtrdiff :: FC.CPtrdiff -> IO FC.CPtrdiff
+  preturbCPtrdiff :: FC.CLong -> FC.CPtrdiff -> IO FC.CPtrdiff
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CSize"
-  preturbCSize :: FC.CSize -> IO FC.CSize
+  preturbCSize :: FC.CLong -> FC.CSize -> IO FC.CSize
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CWchar"
-  preturbCWchar :: FC.CWchar -> IO FC.CWchar
+  preturbCWchar :: FC.CLong -> FC.CWchar -> IO FC.CWchar
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CSigAtomic"
-  preturbCSigAtomic :: FC.CSigAtomic -> IO FC.CSigAtomic
+  preturbCSigAtomic :: FC.CLong -> FC.CSigAtomic -> IO FC.CSigAtomic
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CLLong"
-  preturbCLLong :: FC.CLLong -> IO FC.CLLong
+  preturbCLLong :: FC.CLong -> FC.CLLong -> IO FC.CLLong
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CULLong"
-  preturbCULLong :: FC.CULLong -> IO FC.CULLong
+  preturbCULLong :: FC.CLong -> FC.CULLong -> IO FC.CULLong
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CBool"
-  preturbCBool :: FC.CBool -> IO FC.CBool
+  preturbCBool :: FC.CLong -> FC.CBool -> IO FC.CBool
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CIntPtr"
-  preturbCIntPtr :: FC.CIntPtr -> IO FC.CIntPtr
+  preturbCIntPtr :: FC.CLong -> FC.CIntPtr -> IO FC.CIntPtr
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUIntPtr"
-  preturbCUIntPtr :: FC.CUIntPtr -> IO FC.CUIntPtr
+  preturbCUIntPtr :: FC.CLong -> FC.CUIntPtr -> IO FC.CUIntPtr
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CIntMax"
-  preturbCIntMax :: FC.CIntMax -> IO FC.CIntMax
+  preturbCIntMax :: FC.CLong -> FC.CIntMax -> IO FC.CIntMax
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUIntMax"
-  preturbCUIntMax :: FC.CUIntMax -> IO FC.CUIntMax
+  preturbCUIntMax :: FC.CLong -> FC.CUIntMax -> IO FC.CUIntMax
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CClock"
-  preturbCClock :: FC.CClock -> IO FC.CClock
+  preturbCClock :: FC.CLong -> FC.CClock -> IO FC.CClock
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CTime"
-  preturbCTime :: FC.CTime -> IO FC.CTime
+  preturbCTime :: FC.CLong -> FC.CTime -> IO FC.CTime
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CFloat"
-  preturbCFloat :: FC.CFloat -> IO FC.CFloat
+  preturbCFloat :: FC.CLong -> FC.CFloat -> IO FC.CFloat
 
 foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CDouble"
-  preturbCDouble :: FC.CDouble -> IO FC.CDouble
+  preturbCDouble :: FC.CLong -> FC.CDouble -> IO FC.CDouble

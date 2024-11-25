@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include "hs_bindgen_testlib.h"
@@ -212,184 +213,186 @@ size_t hsbg_alignof_CDouble(void) {
   Preturb
 *******************************************************************************/
 
-char hsbg_preturb_CChar(char c) {
-  return c + 1;
+char hsbg_preturb_CChar(long size, char c) {
+  return c + size;
 }
 
-signed char hsbg_preturb_CSChar(signed char c) {
-  return c + 1;
+signed char hsbg_preturb_CSChar(long size, signed char c) {
+  return c + size;
 }
 
-unsigned char hsbg_preturb_CUChar(unsigned char c) {
-  return c + 1;
+unsigned char hsbg_preturb_CUChar(long size, unsigned char c) {
+  return c + size;
 }
 
-short hsbg_preturb_CShort(short n) {
-  return n + 1;
+short hsbg_preturb_CShort(long size, short n) {
+  return n + size;
 }
 
-unsigned short hsbg_preturb_CUShort(unsigned short n) {
-  return n + 1;
+unsigned short hsbg_preturb_CUShort(long size, unsigned short n) {
+  return n + size;
 }
 
-int hsbg_preturb_CInt(int n) {
-  return n + 1;
+int hsbg_preturb_CInt(long size, int n) {
+  return n + size;
 }
 
-unsigned int hsbg_preturb_CUInt(unsigned int n) {
-  return n + 1;
+unsigned int hsbg_preturb_CUInt(long size, unsigned int n) {
+  return n + size;
 }
 
-long hsbg_preturb_CLong(long n) {
-  return n + 1;
+long hsbg_preturb_CLong(long size, long n) {
+  return n + size;
 }
 
-unsigned long hsbg_preturb_CULong(unsigned long n) {
-  return n + 1;
+unsigned long hsbg_preturb_CULong(long size, unsigned long n) {
+  return n + size;
 }
 
-ptrdiff_t hsbg_preturb_CPtrdiff(ptrdiff_t n) {
-  return n + 1;
+ptrdiff_t hsbg_preturb_CPtrdiff(long size, ptrdiff_t n) {
+  return n + size;
 }
 
-size_t hsbg_preturb_CSize(size_t n) {
-  return n + 1;
+size_t hsbg_preturb_CSize(long size, size_t n) {
+  return n + size;
 }
 
-wchar_t hsbg_preturb_CWchar(wchar_t c) {
-  return c + 1;
+wchar_t hsbg_preturb_CWchar(long size, wchar_t c) {
+  return c + size;
 }
 
-sig_atomic_t hsbg_preturb_CSigAtomic(sig_atomic_t n) {
-  return n + 1;
+sig_atomic_t hsbg_preturb_CSigAtomic(long size, sig_atomic_t n) {
+  return n + size;
 }
 
-long long hsbg_preturb_CLLong(long long n) {
-  return n + 1;
+long long hsbg_preturb_CLLong(long size, long long n) {
+  return n + size;
 }
 
-unsigned long long hsbg_preturb_CULLong(unsigned long long n) {
-  return n + 1;
+unsigned long long hsbg_preturb_CULLong(long size, unsigned long long n) {
+  return n + size;
 }
 
-bool hsbg_preturb_CBool(bool b) {
-  return !b;
+bool hsbg_preturb_CBool(long size, bool b) {
+  return (abs(size) % 2 == 1) != b;
 }
 
-intptr_t hsbg_preturb_CIntPtr(intptr_t n) {
-  return n + 1;
+intptr_t hsbg_preturb_CIntPtr(long size, intptr_t n) {
+  return n + size;
 }
 
-uintptr_t hsbg_preturb_CUIntPtr(uintptr_t n) {
-  return n + 1;
+uintptr_t hsbg_preturb_CUIntPtr(long size, uintptr_t n) {
+  return n + size;
 }
 
-intmax_t hsbg_preturb_CIntMax(intmax_t n) {
-  return n + 1;
+intmax_t hsbg_preturb_CIntMax(long size, intmax_t n) {
+  return n + size;
 }
 
-uintmax_t hsbg_preturb_CUIntMax(uintmax_t n) {
-  return n + 1;
+uintmax_t hsbg_preturb_CUIntMax(long size, uintmax_t n) {
+  return n + size;
 }
 
-clock_t hsbg_preturb_CClock(clock_t c) {
-  return c + 1;
+clock_t hsbg_preturb_CClock(long size, clock_t c) {
+  return c + size;
 }
 
-time_t hsbg_preturb_CTime(time_t t) {
-  return t + 1;
+time_t hsbg_preturb_CTime(long size, time_t t) {
+  return t + size;
 }
 
-float hsbg_preturb_CFloat(float x) {
-  if (isnan(x))               return -0.0;
-  if (x == 0.0 && signbit(x)) return NAN;
-  if (isinf(x))               return -x;
-
-  uint32_t const*const w = (uint32_t*) &x;
-
-  size_t const e_idx = 23;
+float hsbg_preturb_CFloat(long size, float x) {
+  if (isnan(x)) {
+    if (abs(size) % 2 == 0) { return NAN;  } else { return -0.0; }
+  }
+  if (x == 0.0 && signbit(x)) {
+    if (abs(size) % 2 == 0) { return -0.0; } else { return NAN; }
+  }
+  if (isinf(x)) {
+    if (abs(size) % 2 == 0) { return x;    } else { return -x; }
+  }
 
   uint32_t const s_mask = 0x80000000;
   uint32_t const e_mask = 0xff;
   uint32_t const f_mask = 0x7fffff;
 
+  size_t const e_idx = 23;
+
+  long const e_size = e_mask - 1;
+  long const f_size = f_mask + 1;
+
+  uint32_t const*const w = (uint32_t*) &x;
   uint32_t const s = *w & s_mask;
   uint32_t const s_c = s ^ s_mask;
-
-  uint32_t const e_max = e_mask - 1;
-  uint32_t const e_min = f_mask + 1;
   uint32_t const e = (*w >> e_idx) & e_mask;
-  uint32_t const e1 = e + 1;
-
-  uint32_t const f_max = f_mask;
   uint32_t const f = *w & f_mask;
-  uint32_t const f1 = f + 1;
 
-  uint32_t w_r = *w;
-  if (isnormal(x)) {
-    if (f1 <= f_max) {
-      w_r += 1;
-    } else if (e1 <= e_max) {
-      w_r = s + (e1 << e_idx);
-    } else {
-      w_r = s_c + e_min;
-    }
+  ldiv_t const size_qr = ldiv(size, f_size);
+  long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
+  long const size_mod = size_qr.rem  + (size_qr.rem >= 0 ? 0 : f_size);
+
+  // positive => quot ~ div, rem ~ mod
+  ldiv_t const f_qr = ldiv(size_mod + f, f_size);
+
+  uint32_t w_r = 0;
+  if (e == 0) {
+    uint32_t const s_r = (size_div + f_qr.quot) % 2 == 0 ? s : s_c;
+    w_r = s_r + f_qr.rem;
   } else {
-    if (f1 <= f_max) {
-      w_r += 1;
-    } else if (s == 0) {
-      w_r = s_mask + 1;
-    } else {
-      w_r = 0;
-    }
+    ldiv_t const e_qr = ldiv(f_qr.quot + size_div + e - 1, e_size);
+    long const e_div = e_qr.quot - (e_qr.rem >= 0 ? 0 : 1);
+    uint32_t const e_mod = e_qr.rem + (e_qr.rem >= 0 ? 0 : e_size) + 1;
+    uint32_t const s_r = e_div % 2 == 0 ? s : s_c;
+    w_r = s_r + (e_mod << e_idx) + f_qr.rem;
   }
 
   float const*const x_r = (float*) &w_r;
   return *x_r;
 }
 
-double hsbg_preturb_CDouble(double x) {
-  if (isnan(x))               return -0.0;
-  if (x == 0.0 && signbit(x)) return NAN;
-  if (isinf(x))               return -x;
-
-  uint64_t const*const w = (uint64_t*) &x;
-
-  size_t const e_idx = 52;
+double hsbg_preturb_CDouble(long size, double x) {
+  if (isnan(x)) {
+    if (abs(size) % 2 == 0) { return NAN;  } else { return -0.0; }
+  }
+  if (x == 0.0 && signbit(x)) {
+    if (abs(size) % 2 == 0) { return -0.0; } else { return NAN; }
+  }
+  if (isinf(x)) {
+    if (abs(size) % 2 == 0) { return x;    } else { return -x; }
+  }
 
   uint64_t const s_mask = 0x8000000000000000;
   uint64_t const e_mask = 0x7ff;
   uint64_t const f_mask = 0xfffffffffffff;
 
+  size_t const e_idx = 52;
+
+  long const e_size = e_mask - 1;
+  long const f_size = f_mask + 1;
+
+  uint64_t const*const w = (uint64_t*) &x;
   uint64_t const s = *w & s_mask;
   uint64_t const s_c = s ^ s_mask;
-
-  uint64_t const e_max = e_mask - 1;
-  uint64_t const e_min = f_mask + 1;
   uint64_t const e = (*w >> e_idx) & e_mask;
-  uint64_t const e1 = e + 1;
-
-  uint64_t const f_max = f_mask;
   uint64_t const f = *w & f_mask;
-  uint64_t const f1 = f + 1;
 
-  uint64_t w_r = *w;
-  if (isnormal(x)) {
-    if (f1 <= f_max) {
-      w_r += 1;
-    } else if (e1 <= e_max) {
-      w_r = s + (e1 << e_idx);
-    } else {
-      w_r = s_c + e_min;
-    }
+  ldiv_t const size_qr = ldiv(size, f_size);
+  long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
+  long const size_mod = size_qr.rem  + (size_qr.rem >= 0 ? 0 : f_size);
+
+  // positive => quot ~ div, rem ~ mod
+  ldiv_t const f_qr = ldiv(size_mod + f, f_size);
+
+  uint64_t w_r = 0;
+  if (e == 0) {
+    uint64_t const s_r = (size_div + f_qr.quot) % 2 == 0 ? s : s_c;
+    w_r = s_r + f_qr.rem;
   } else {
-    if (f1 <= f_max) {
-      w_r += 1;
-    } else if (s == 0) {
-      w_r = s_mask + 1;
-    } else {
-      w_r = 0;
-    }
+    ldiv_t const e_qr = ldiv(f_qr.quot + size_div + e - 1, e_size);
+    long const e_div = e_qr.quot - (e_qr.rem >= 0 ? 0 : 1);
+    uint64_t const e_mod = e_qr.rem + (e_qr.rem >= 0 ? 0 : e_size) + 1;
+    uint64_t const s_r = e_div % 2 == 0 ? s : s_c;
+    w_r = s_r + (e_mod << e_idx) + f_qr.rem;
   }
 
   double const*const x_r = (double*) &w_r;

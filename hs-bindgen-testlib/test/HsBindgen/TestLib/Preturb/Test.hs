@@ -2,6 +2,7 @@ module HsBindgen.TestLib.Preturb.Test (tests) where
 
 import Data.Typeable (Typeable, typeRep)
 import Data.Proxy (Proxy(Proxy))
+import Foreign.C qualified as FC
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
 import Test.Tasty.QuickCheck (Arbitrary, testProperty)
@@ -10,11 +11,8 @@ import HsBindgen.TestLib.Arbitrary ()
 import HsBindgen.TestLib.CLib qualified as CLib
 import HsBindgen.TestLib.RealFloat qualified as RF
 import HsBindgen.TestLib.SameSemantics (SameSemantics)
-import HsBindgen.TestLib.Preturb
-  ( Preturb, assertPreturbHsSameSemanticsC
-  , assertPreturbVNotSameSemanticsV, prop_PreturbVNotSameSemanticsV
-  , prop_PreturbHsSameSemanticsC
-  )
+import HsBindgen.TestLib.Preturb (Preturb)
+import HsBindgen.TestLib.Preturb qualified as Preturb
 
 {-------------------------------------------------------------------------------
   Tests
@@ -23,45 +21,83 @@ import HsBindgen.TestLib.Preturb
 -- | Test a 'Num'
 testNum :: forall a.
      (Arbitrary a, Num a, Preturb a, SameSemantics a, Show a, Typeable a)
-  => (a -> IO a)
+  => (FC.CLong -> a -> IO a)
   -> TestTree
-testNum cPreturb = testGroup (show (typeRep (Proxy @a)))
-    [ testGroup "PreturbVNotSameSemanticsV"
-        [ testCase "zero" $ assertPreturbVNotSameSemanticsV @a 0
-        , testProperty "random" $ prop_PreturbVNotSameSemanticsV @a
+testNum cX = testGroup (show (typeRep (Proxy @a)))
+    [ testGroup Preturb.namePreturb0XSameSemanticsX
+        [ testCase "zero" $ Preturb.assertPreturb0XSameSemanticsX @a 0
+        , testProperty "random" $ Preturb.prop_Preturb0XSameSemanticsX @a
         ]
-    , testGroup "PreturbHsSameSemanticsC"
-        [ testCase "zero" $ assertPreturbHsSameSemanticsC cPreturb 0
-        , testProperty "random" $ prop_PreturbHsSameSemanticsC cPreturb
+    , testGroup Preturb.nameNotPreturb1XSameSemanticsX
+        [ testCase "zero" $ Preturb.assertNotPreturb1XSameSemanticsX @a 0
+        , testProperty "random" $ Preturb.prop_NotPreturb1XSameSemanticsX @a
+        ]
+    , testGroup Preturb.namePreturbNegateNPreturbNXSameSemanticsX
+        [ testProperty "random" $
+            Preturb.prop_PreturbNegateNPreturbNXSameSemanticsX @a
+        ]
+    , testGroup Preturb.nameHsPreturbNXSameSemanticsCPreturbNX
+        [ testCase "size:zero" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 0 x
+        , testProperty "random" $
+            Preturb.prop_HsPreturbNXSameSemanticsCPreturbNX cX
         ]
     ]
+  where
+    x :: a
+    x = 11
 
 -- | Test a 'Bounded' 'Num'
 testBoundedNum :: forall a.
      ( Arbitrary a
      , Bounded a
-     , Preturb a
      , Num a
+     , Preturb a
      , SameSemantics a
      , Show a
      , Typeable a
      )
-  => (a -> IO a)
+  => (FC.CLong -> a -> IO a)
   -> TestTree
-testBoundedNum cPreturb = testGroup (show (typeRep (Proxy @a)))
-    [ testGroup "PreturbVNotSameSemanticsV"
-        [ testCase "zero" $ assertPreturbVNotSameSemanticsV @a 0
-        , testCase "min"  $ assertPreturbVNotSameSemanticsV @a minBound
-        , testCase "max"  $ assertPreturbVNotSameSemanticsV @a maxBound
-        , testProperty "random" $ prop_PreturbVNotSameSemanticsV @a
+testBoundedNum cX = testGroup (show (typeRep (Proxy @a)))
+    [ testGroup Preturb.namePreturb0XSameSemanticsX
+        [ testCase "zero" $ Preturb.assertPreturb0XSameSemanticsX @a 0
+        , testCase "min" $ Preturb.assertPreturb0XSameSemanticsX @a minBound
+        , testCase "max" $ Preturb.assertPreturb0XSameSemanticsX @a maxBound
+        , testProperty "random" $ Preturb.prop_Preturb0XSameSemanticsX @a
         ]
-    , testGroup "PreturbHsSameSemanticsC"
-        [ testCase "zero" $ assertPreturbHsSameSemanticsC cPreturb 0
-        , testCase "min"  $ assertPreturbHsSameSemanticsC cPreturb minBound
-        , testCase "max"  $ assertPreturbHsSameSemanticsC cPreturb maxBound
-        , testProperty "random" $ prop_PreturbHsSameSemanticsC cPreturb
+    , testGroup Preturb.nameNotPreturb1XSameSemanticsX
+        [ testCase "zero" $ Preturb.assertNotPreturb1XSameSemanticsX @a 0
+        , testCase "min" $ Preturb.assertNotPreturb1XSameSemanticsX @a minBound
+        , testCase "max" $ Preturb.assertNotPreturb1XSameSemanticsX @a maxBound
+        , testProperty "random" $ Preturb.prop_NotPreturb1XSameSemanticsX @a
+        ]
+    , testGroup Preturb.namePreturbNegateNPreturbNXSameSemanticsX
+        [ testCase "size:max" $
+            Preturb.assertPreturbNegateNPreturbNXSameSemanticsX @a maxBound x
+        , testProperty "random" $
+            Preturb.prop_PreturbNegateNPreturbNXSameSemanticsX @a
+        ]
+    , testGroup Preturb.nameHsPreturbNXSameSemanticsCPreturbNX
+        [ testCase "zero" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 0
+        , testCase "min" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 minBound
+        , testCase "max" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 maxBound
+        , testCase "size:zero" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 0 x
+        , testCase "size:min" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX minBound x
+        , testCase "size:max" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX maxBound x
+        , testProperty "random" $
+            Preturb.prop_HsPreturbNXSameSemanticsCPreturbNX cX
         ]
     ]
+  where
+    x :: a
+    x = 11
 
 -- | Test a 'RealFloat'
 testRealFloat :: forall a.
@@ -72,33 +108,67 @@ testRealFloat :: forall a.
      , Show a
      , Typeable a
      )
-  => (a -> IO a)
+  => (FC.CLong -> a -> IO a)
   -> TestTree
-testRealFloat cPreturb = testGroup (show (typeRep (Proxy @a)))
-    [ testGroup "PreturbVNotSameSemanticsV"
-        [ testCase "zero"  $ assertPreturbVNotSameSemanticsV @a RF.zero
-        , testCase "-zero" $ assertPreturbVNotSameSemanticsV @a RF.negZero
-        , testCase "min"   $ assertPreturbVNotSameSemanticsV @a RF.minValue
-        , testCase "max"   $ assertPreturbVNotSameSemanticsV @a RF.maxValue
-        , testCase "inf"   $ assertPreturbVNotSameSemanticsV @a RF.inf
-        , testCase "-inf"  $ assertPreturbVNotSameSemanticsV @a RF.negInf
-        , testCase "NaN"   $ assertPreturbVNotSameSemanticsV @a RF.nan
-        , testProperty "random" $ prop_PreturbVNotSameSemanticsV @a
+testRealFloat cX = testGroup (show (typeRep (Proxy @a)))
+    [ testGroup Preturb.namePreturb0XSameSemanticsX
+        [ testCase "zero" $ Preturb.assertPreturb0XSameSemanticsX @a RF.zero
+        , testCase "-zero" $ Preturb.assertPreturb0XSameSemanticsX @a RF.negZero
+        , testCase "min" $ Preturb.assertPreturb0XSameSemanticsX @a RF.minValue
+        , testCase "max" $ Preturb.assertPreturb0XSameSemanticsX @a RF.maxValue
+        , testCase "inf" $ Preturb.assertPreturb0XSameSemanticsX @a RF.inf
+        , testCase "-inf" $ Preturb.assertPreturb0XSameSemanticsX @a RF.negInf
+        , testCase "NaN" $ Preturb.assertPreturb0XSameSemanticsX @a RF.nan
+        , testProperty "random" $ Preturb.prop_Preturb0XSameSemanticsX @a
         ]
-    , testGroup "PreturbHsSameSemanticsC"
-        [ testCase "zero" $ assertPreturbHsSameSemanticsC cPreturb RF.zero
+    , testGroup Preturb.nameNotPreturb1XSameSemanticsX
+        [ testCase "zero" $ Preturb.assertNotPreturb1XSameSemanticsX @a RF.zero
         , testCase "-zero" $
-            assertPreturbHsSameSemanticsC cPreturb RF.negZero
+            Preturb.assertNotPreturb1XSameSemanticsX @a RF.negZero
         , testCase "min" $
-            assertPreturbHsSameSemanticsC cPreturb RF.minValue
+            Preturb.assertNotPreturb1XSameSemanticsX @a RF.minValue
         , testCase "max" $
-            assertPreturbHsSameSemanticsC cPreturb RF.maxValue
-        , testCase "inf" $ assertPreturbHsSameSemanticsC cPreturb RF.inf
-        , testCase "-inf" $ assertPreturbHsSameSemanticsC cPreturb RF.negInf
-        , testCase "NaN" $ assertPreturbHsSameSemanticsC cPreturb RF.nan
-        , testProperty "random" $ prop_PreturbHsSameSemanticsC cPreturb
+            Preturb.assertNotPreturb1XSameSemanticsX @a RF.maxValue
+        , testCase "inf" $ Preturb.assertNotPreturb1XSameSemanticsX @a RF.inf
+        , testCase "-inf" $
+            Preturb.assertNotPreturb1XSameSemanticsX @a RF.negInf
+        , testCase "NaN" $ Preturb.assertNotPreturb1XSameSemanticsX @a RF.nan
+        , testProperty "random" $ Preturb.prop_NotPreturb1XSameSemanticsX @a
+        ]
+    , testGroup Preturb.namePreturbNegateNPreturbNXSameSemanticsX
+        [ testCase "size:max" $
+            Preturb.assertPreturbNegateNPreturbNXSameSemanticsX @a maxBound x
+        , testProperty "random" $
+            Preturb.prop_PreturbNegateNPreturbNXSameSemanticsX @a
+        ]
+    , testGroup Preturb.nameHsPreturbNXSameSemanticsCPreturbNX
+        [ testCase "zero" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.zero
+        , testCase "-zero" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.negZero
+        , testCase "min" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.minValue
+        , testCase "max" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.maxValue
+        , testCase "inf" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.inf
+        , testCase "-inf" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.negInf
+        , testCase "NaN" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 1 RF.nan
+        , testCase "size:zero" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX 0 x
+        , testCase "size:min" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX minBound x
+        , testCase "size:max" $
+            Preturb.assertHsPreturbNXSameSemanticsCPreturbNX cX maxBound x
+        , testProperty "random" $
+            Preturb.prop_HsPreturbNXSameSemanticsCPreturbNX cX
         ]
     ]
+  where
+    x :: a
+    x = 11
 
 {-------------------------------------------------------------------------------
   All tests

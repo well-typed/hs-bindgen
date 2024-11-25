@@ -2,144 +2,228 @@ module HsBindgen.TestLib.Preturb (
     -- * Preturb
     Preturb(..)
     -- * Properties
-  , prop_PreturbVNotSameSemanticsV
-  , assertPreturbVNotSameSemanticsV
-  , prop_PreturbHsSameSemanticsC
-  , assertPreturbHsSameSemanticsC
+  , namePreturb0XSameSemanticsX
+  , prop_Preturb0XSameSemanticsX
+  , assertPreturb0XSameSemanticsX
+  , nameNotPreturb1XSameSemanticsX
+  , prop_NotPreturb1XSameSemanticsX
+  , assertNotPreturb1XSameSemanticsX
+  , namePreturbNegateNPreturbNXSameSemanticsX
+  , prop_PreturbNegateNPreturbNXSameSemanticsX
+  , assertPreturbNegateNPreturbNXSameSemanticsX
+  , nameHsPreturbNXSameSemanticsCPreturbNX
+  , prop_HsPreturbNXSameSemanticsCPreturbNX
+  , assertHsPreturbNXSameSemanticsCPreturbNX
   ) where
 
+import Control.Monad (unless)
 import Data.Bits qualified as Bits
 import Data.Word (Word32, Word64)
 import Foreign.C.Types qualified as FC
 import Test.QuickCheck.Monadic qualified as QCM
 import Test.Tasty.HUnit (Assertion)
-import Test.Tasty.QuickCheck (Property)
+import Test.Tasty.QuickCheck (Property, discard)
 
 import HsBindgen.TestLib.RealFloat qualified as RF
 import HsBindgen.TestLib.SameSemantics
-  ( (@==~?), (@/=~?), SameSemantics(sameSemantics)
+  ( (==~), (/=~), (@==~?), (@/=~?), SameSemantics(sameSemantics)
   )
 
 {-------------------------------------------------------------------------------
   Preturb
 -------------------------------------------------------------------------------}
 
--- | Preturb a value to a different value
---
--- prop> not (preturb x `sameSemantics` x)
+-- | Preturb a value
 class Preturb a where
-  preturb :: a -> a
+  -- | Indexed perturbation
+  --
+  -- The @size@ is interpreted on a per-type basis.  Intuitively, smaller
+  -- perturbations should be easier to understand (to support shrinking).
+  --
+  -- Type 'FC.CLong' is used so that the Haskell implementation can match the C
+  -- implementation.
+  --
+  -- prop> preturb 0 x `sameSemantics` x
+  --
+  -- prop> not (preturb 1 x `sameSemantics` x)
+  --
+  -- prop> preturb (negate size) (preturb size x) `sameSemantics` x
+  preturb :: FC.CLong -> a -> a
 
 instance Preturb FC.CChar where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CSChar where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CUChar where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CShort where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CUShort where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CInt where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CUInt where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CLong where
-  preturb = (+ 1)
+  preturb size n = n + size
 
 instance Preturb FC.CULong where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CPtrdiff where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CSize where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CWchar where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CSigAtomic where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CLLong where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CULLong where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CBool where
-  preturb b
-    | b == 0    = 1
-    | otherwise = 0
+  preturb size (FC.CBool n) =
+    FC.CBool $ if (size `mod` 2 == 1) /= (n > 0) then 1 else 0
 
 instance Preturb FC.CIntPtr where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CUIntPtr where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CIntMax where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CUIntMax where
-  preturb = (+ 1)
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CClock where
-  preturb = (+ 1)
+  preturb size (FC.CClock n) = FC.CClock $ n + fromIntegral size
 
 instance Preturb FC.CTime where
-  preturb = (+ 1)
+  preturb size (FC.CTime n) = FC.CTime $ n + fromIntegral size
 
 instance Preturb FC.CFloat where
-  preturb (FC.CFloat x) = FC.CFloat $ preturbFloat x
+  preturb size (FC.CFloat x) = FC.CFloat $ preturbFloat size x
 
 instance Preturb FC.CDouble where
-  preturb (FC.CDouble x) = FC.CDouble $ preturbDouble x
+  preturb size (FC.CDouble x) = FC.CDouble $ preturbDouble size x
 
 {-------------------------------------------------------------------------------
   Properties
 -------------------------------------------------------------------------------}
 
--- | A preturbed value does /not/ have the same semantics as the original value
-prop_PreturbVNotSameSemanticsV :: (Preturb a, SameSemantics a) => a -> Bool
-prop_PreturbVNotSameSemanticsV x = not $ preturb x `sameSemantics` x
+namePreturb0XSameSemanticsX :: String
+namePreturb0XSameSemanticsX = "Preturb0XSameSemanticsX"
 
--- | A preturbed value does /not/ have the same semantics as the original value
-assertPreturbVNotSameSemanticsV ::
+-- | A value preturbed with size 0 has the same semantics as the original value
+prop_Preturb0XSameSemanticsX ::
+     (Preturb a, SameSemantics a, Show a)
+  => a
+  -> Property
+prop_Preturb0XSameSemanticsX x = preturb 0 x ==~ x
+
+-- | A value preturbed with size 0 has the same semantics as the original value
+assertPreturb0XSameSemanticsX ::
      (Preturb a, SameSemantics a, Show a)
   => a
   -> Assertion
-assertPreturbVNotSameSemanticsV x = preturb x @/=~? x
+assertPreturb0XSameSemanticsX x = preturb 0 x @==~? x
 
--- | A value preturbed using Haskell has the same semantics as the value
--- preturbed using C
-prop_PreturbHsSameSemanticsC ::
-     (Preturb a, SameSemantics a)
-  => (a -> IO a)
+nameNotPreturb1XSameSemanticsX :: String
+nameNotPreturb1XSameSemanticsX = "NotPreturb1XSameSemanticsX"
+
+-- | A value preturbed with size 1 does /not/ have the same semantics as the
+-- original value
+prop_NotPreturb1XSameSemanticsX ::
+     (Preturb a, SameSemantics a, Show a)
+  => a
+  -> Property
+prop_NotPreturb1XSameSemanticsX x = preturb 1 x /=~ x
+
+-- | A value preturbed with size 1 does /not/ have the same semantics as the
+-- original value
+assertNotPreturb1XSameSemanticsX ::
+     (Preturb a, SameSemantics a, Show a)
+  => a
+  -> Assertion
+assertNotPreturb1XSameSemanticsX x = preturb 1 x @/=~? x
+
+namePreturbNegateNPreturbNXSameSemanticsX :: String
+namePreturbNegateNPreturbNXSameSemanticsX =
+    "PreturbNegateNPreturbNXSameSemanticsX"
+
+-- | A value preturbed with a size and the negated size has the same semantics
+-- as the original value
+--
+-- In other words, @'preturb' (negate size)@ is the inverse of @'preturb' size@.
+--
+-- This property does not apply when the size is @0@ or @minBound@.
+prop_PreturbNegateNPreturbNXSameSemanticsX ::
+     (Preturb a, SameSemantics a, Show a)
+  => FC.CLong
   -> a
   -> Property
-prop_PreturbHsSameSemanticsC cPreturb x = QCM.monadicIO $ do
-    x' <- QCM.run $ cPreturb x
-    QCM.assert $ preturb x `sameSemantics` x'
+prop_PreturbNegateNPreturbNXSameSemanticsX size x
+  | size == 0        = discard
+  | size == minBound = discard
+  | otherwise        = preturb (negate size) (preturb size x) ==~ x
 
--- | A value preturbed using Haskell has the same semantics as the value
--- preturbed using C
-assertPreturbHsSameSemanticsC ::
+-- | A value preturbed with a size and the negated size has the same semantics
+-- as the original value
+--
+-- In other words, @'preturb' (negate size)@ is the inverse of @'preturb' size@.
+--
+-- This property does not apply when the size is @minBound@.
+assertPreturbNegateNPreturbNXSameSemanticsX ::
      (Preturb a, SameSemantics a, Show a)
-  => (a -> IO a)
+  => FC.CLong
   -> a
   -> Assertion
-assertPreturbHsSameSemanticsC cPreturb x = do
-    x' <- cPreturb x
-    preturb x @==~? x'
+assertPreturbNegateNPreturbNXSameSemanticsX size x =
+    unless (size == 0 || size == minBound) $
+      preturb (negate size) (preturb size x) @==~? x
+
+nameHsPreturbNXSameSemanticsCPreturbNX :: String
+nameHsPreturbNXSameSemanticsCPreturbNX = "HsPreturbNXSameSemanticsCPreturbNX"
+
+-- | A value preturbed using Haskell has the same semantics as the value
+-- preturbed using C (using the same size)
+prop_HsPreturbNXSameSemanticsCPreturbNX ::
+     (Preturb a, SameSemantics a)
+  => (FC.CLong -> a -> IO a)
+  -> FC.CLong
+  -> a
+  -> Property
+prop_HsPreturbNXSameSemanticsCPreturbNX cPreturb size x = QCM.monadicIO $ do
+    x' <- QCM.run $ cPreturb size x
+    QCM.assert $ preturb size x `sameSemantics` x'
+
+-- | A value preturbed using Haskell has the same semantics as the value
+-- preturbed using C (using the same size)
+assertHsPreturbNXSameSemanticsCPreturbNX ::
+     (Preturb a, SameSemantics a, Show a)
+  => (FC.CLong -> a -> IO a)
+  -> FC.CLong
+  -> a
+  -> Assertion
+assertHsPreturbNXSameSemanticsCPreturbNX cPreturb size x = do
+    x' <- cPreturb size x
+    preturb size x @==~? x'
 
 {-------------------------------------------------------------------------------
   Auxilliary functions
@@ -147,162 +231,168 @@ assertPreturbHsSameSemanticsC cPreturb x = do
 
 -- | Preturb a 'Float' value
 --
--- * NaN is preturbed to negative zero
--- * Negative zero is preturbed to NaN
--- * Infinity is preturbed to negative infinity
--- * Negative infinity is preturbed to infinity
--- * Denormalized values are cycled: from zero to maximum denormalized value,
---   then from smallest denormalized negative value to minimum denormalized
---   value, then from zero again
--- * Normalized values are cycled: fraction first, exponent second, sign third
-preturbFloat :: Float -> Float
-preturbFloat x
-    | isNaN x          = RF.negZero
-    | isNegativeZero x = RF.nan
-    | isInfinite x     = negate x
-    | isDenormalized x = RF.floatFromWord32 wRD
-    | otherwise        = RF.floatFromWord32 wRN
+-- Different kinds of values are preturbed separately:
+--
+-- * NaN and negative zero are preturbed to each other.
+-- * Positive and negative infinity are preturbed to each other.
+-- * Zero and subnormal values are preturbed as follows.
+--     1. Fraction
+--     2. Sign
+-- * Normal values are preturbed as follows.
+--     1. Fraction
+--     2. Exponent
+--     3. Sign
+preturbFloat :: FC.CLong -> Float -> Float
+-- Any changes to this implementation must also be made in the C implementation.
+-- Note that the @'@ character is not used in variable names so that variable
+-- names can be translated to C, making it easier to compare the two
+-- implementations.
+preturbFloat size x
+    | isNaN x          = if size `mod` 2 == 0 then RF.nan     else RF.negZero
+    | isNegativeZero x = if size `mod` 2 == 0 then RF.negZero else RF.nan
+    | isInfinite x     = if size `mod` 2 == 0 then x          else negate x
+    | e == 0 = RF.floatFromWord32 $
+        let sR = if (sizeDiv + fDiv) `mod` 2 == 0 then s else sC
+        in  sR + fromIntegral fMod
+    | otherwise = RF.floatFromWord32 $
+        let (eDiv, eMod) = fmap (+ 1) $
+              (fDiv + sizeDiv + fromIntegral e - 1) `divMod` eSize
+            sR = if eDiv `mod` 2 == 0 then s else sC
+        in  sR + Bits.shiftL (fromIntegral eMod) eIdx + fromIntegral fMod
   where
-    -- Value as a word to preturb at the representation level
-    w :: Word32
-    w = RF.floatToWord32 x
-
-    -- Index of exponent (least significant bit)
+    -- Single-precision floating-point values are represented as follows:
     --
     -- 3  2          1         0
     -- 1 09876543 21098765432109876543210
     -- s ---e8--- ----------f23----------
-    eIdx :: Int
-    eIdx = 23
+    --
+    -- There are three groups:
+    --
+    -- * 1 sign bit (0: negative, 1: positive)
+    -- * 8 exponent bits; special cases:
+    --     * All zero bits:
+    --         * Positive or negative zero when fraction is zero
+    --         * Subnormal number when fraction is non-zero
+    --     * All one bits
+    --         * Positive or negative infinity when fraction is zero
+    --         * NaN when fraction is non-zero
+    --     * All one bits: infinite of NaN
+    -- * 23 fraction (significand) bits
+    --
+    -- <https://en.wikipedia.org/wiki/Single-precision_floating-point_format>
 
-    -- Sign bit mask (not shifted), exponent mask (shifted), fraction mask
+    -- Sign bitmask (not shifted), eponent bitmask (shifted), fraction bitmask
     sMask, eMask, fMask :: Word32
     sMask = 0x80000000
     eMask = 0xff
     fMask = 0x7fffff
 
-    -- Sign bit (not shifted), complement (not shifted)
-    s, sC :: Word32
-    s = w Bits..&. sMask
+    -- Exponent index (least significant bit)
+    eIdx :: Int
+    eIdx = 23
+
+    -- Exponent size (not including special values), fraction size
+    eSize, fSize :: FC.CLong
+    eSize = fromIntegral $ eMask - 1
+    fSize = fromIntegral $ fMask + 1
+
+    -- w: passed value as a word to preturb at the representation level
+    -- s: masked sign bit (not shifted)
+    -- sC: complemented masked sign bit (not shifted)
+    -- e: exponent (shifted)
+    -- f: fraction
+    w, s, sC, e, f :: Word32
+    w  = RF.floatToWord32 x
+    s  = w Bits..&. sMask
     sC = Bits.xor s sMask
+    e  = Bits.shiftR w eIdx Bits..&. eMask
+    f  = w Bits..&. fMask
 
-    -- Max non-infinite exponent, min non-zero exponent, exponent, incremented
-    -- exponent
-    --
-    -- * All zero bits: denormalized form
-    -- * All one bits: infinite or NaN
-    eMax, eMin, e, e1 :: Word32
-    eMax = eMask - 1
-    eMin = fMask + 1
-    e = Bits.shiftR w eIdx Bits..&. eMask
-    e1 = e + 1
-
-    -- Max fraction, fraction, incremented fraction
-    fMax, f, f1 :: Word32
-    fMax = fMask
-    f = w Bits..&. fMask
-    f1 = f + 1
-
-    -- Denormalized word result
-    --
-    -- 1. If still room in fraction bits, return incremented
-    -- 2. If overflow positive, return smallest negative value
-    -- 3. If overflow negative, return zero
-    wRD :: Word32
-    wRD
-      | f1 <= fMax = w + 1
-      | s == 0     = sMask + 1
-      | otherwise  = 0
-
-    -- Normal word result
-    --
-    -- 1. If still room in fraction bits, return incremented
-    -- 2. If still room in exponent bits, return
-    --    sign + incremented exponent + zero fraction
-    -- 3. Return complemented sign, smallest exponent, zero fraction
-    wRN :: Word32
-    wRN
-      | f1 <= fMax = w + 1
-      | e1 <= eMax = s + Bits.shiftL e1 eIdx
-      | otherwise  = sC + eMin
+    -- Avoid overflow in CLong domain
+    sizeDiv, sizeMod, fDiv, fMod :: FC.CLong
+    (sizeDiv, sizeMod) = size `divMod` fSize
+    (fDiv, fMod) = (sizeMod + fromIntegral f) `divMod` fSize
 
 -- | Preturb a 'Double' value
 --
--- * NaN is preturbed to negative zero
--- * Negative zero is preturbed to NaN
--- * Infinity is preturbed to negative infinity
--- * Negative infinity is preturbed to infinity
--- * Denormalized values are cycled: from zero to maximum denormalized value,
---   then from smallest denormalized negative value to minimum denormalized
---   value, then from zero again
--- * Normalized values are cycled: fraction first, exponent second, sign third
-preturbDouble :: Double -> Double
-preturbDouble x
-    | isNaN x          = RF.negZero
-    | isNegativeZero x = RF.nan
-    | isInfinite x     = negate x
-    | isDenormalized x = RF.doubleFromWord64 wRD
-    | otherwise        = RF.doubleFromWord64 wRN
+-- Different kinds of values are preturbed separately:
+--
+-- * NaN and negative zero are preturbed to each other.
+-- * Positive and negative infinity are preturbed to each other.
+-- * Zero and subnormal values are preturbed as follows.
+--     1. Fraction
+--     2. Sign
+-- * Normal values are preturbed as follows.
+--     1. Fraction
+--     2. Exponent
+--     3. Sign
+preturbDouble :: FC.CLong -> Double -> Double
+-- Any changes to this implementation must also be made in the C implementation.
+-- Note that the @'@ character is not used in variable names so that variable
+-- names can be translated to C, making it easier to compare the two
+-- implementations.
+preturbDouble size x
+    | isNaN x          = if size `mod` 2 == 0 then RF.nan     else RF.negZero
+    | isNegativeZero x = if size `mod` 2 == 0 then RF.negZero else RF.nan
+    | isInfinite x     = if size `mod` 2 == 0 then x          else negate x
+    | e == 0 = RF.doubleFromWord64 $
+        let sR = if (sizeDiv + fDiv) `mod` 2 == 0 then s else sC
+        in  sR + fromIntegral fMod
+    | otherwise = RF.doubleFromWord64 $
+        let (eDiv, eMod) = fmap (+ 1) $
+              (fDiv + sizeDiv + fromIntegral e - 1) `divMod` eSize
+            sR = if eDiv `mod` 2 == 0 then s else sC
+        in  sR + Bits.shiftL (fromIntegral eMod) eIdx + fromIntegral fMod
   where
-    -- Value as a word to preturb at the representation level
-    w :: Word64
-    w = RF.doubleToWord64 x
-
-    -- Index of exponent (least significant bit)
+    -- Double-precision floating-point values are represented as follows:
     --
     -- 6    5          4         3         2         1         0
     -- 3 21098765432 1098765432109876543210987654321098765432109876543210
     -- s ----e11---- ------------------------f52-------------------------
-    eIdx :: Int
-    eIdx = 52
+    --
+    -- There are three groups:
+    --
+    -- * 1 sign bit (0: negative, 1: positive)
+    -- * 11 exponent bits; special cases:
+    --     * All zero bits:
+    --         * Positive or negative zero when fraction is zero
+    --         * Subnormal number when fraction is non-zero
+    --     * All one bits
+    --         * Positive or negative infinity when fraction is zero
+    --         * NaN when fraction is non-zero
+    --     * All one bits: infinite of NaN
+    -- * 52 fraction (significand) bits
+    --
+    -- <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>
 
-    -- Sign bit mask (not shifted), exponent mask (shifted), fraction mask
+    -- Sign bitmask (not shifted), eponent bitmask (shifted), fraction bitmask
     sMask, eMask, fMask :: Word64
     sMask = 0x8000000000000000
     eMask = 0x7ff
     fMask = 0xfffffffffffff
 
-    -- Sign bit (not shifted), complement (not shifted)
-    s, sC :: Word64
-    s = w Bits..&. sMask
+    -- Exponent index (least significant bit)
+    eIdx :: Int
+    eIdx = 52
+
+    -- Exponent size (not including special values), fraction size
+    eSize, fSize :: FC.CLong
+    eSize = fromIntegral $ eMask - 1
+    fSize = fromIntegral $ fMask + 1
+
+    -- w: passed value as a word to preturb at the representation level
+    -- s: masked sign bit (not shifted)
+    -- sC: complemented masked sign bit (not shifted)
+    -- e: exponent (shifted)
+    -- f: fraction
+    w, s, sC, e, f :: Word64
+    w  = RF.doubleToWord64 x
+    s  = w Bits..&. sMask
     sC = Bits.xor s sMask
+    e  = Bits.shiftR w eIdx Bits..&. eMask
+    f  = w Bits..&. fMask
 
-    -- Max non-infinite exponent, min non-zero exponent, exponent, incremented
-    -- exponent
-    --
-    -- * All zero bits: denormalized form
-    -- * All one bits: infinite or NaN
-    eMax, eMin, e, e1 :: Word64
-    eMax = eMask - 1
-    eMin = fMask + 1
-    e = Bits.shiftR w eIdx Bits..&. eMask
-    e1 = e + 1
-
-    -- Max fraction, fraction, incremented fraction
-    fMax, f, f1 :: Word64
-    fMax = fMask
-    f = w Bits..&. fMask
-    f1 = f + 1
-
-    -- Denormalized word result
-    --
-    -- 1. If still room in fraction bits, return incremented
-    -- 2. If overflow positive, return smallest negative value
-    -- 3. If overflow negative, return zero
-    wRD :: Word64
-    wRD
-      | f1 <= fMax = w + 1
-      | s == 0     = sMask + 1
-      | otherwise  = 0
-
-    -- Normal word result
-    --
-    -- 1. If still room in fraction bits, return incremented
-    -- 2. If still room in exponent bits, return
-    --    sign + incremented exponent + zero fraction
-    -- 3. Return complemented sign, smallest exponent, zero fraction
-    wRN :: Word64
-    wRN
-      | f1 <= fMax = w + 1
-      | e1 <= eMax = s + Bits.shiftL e1 eIdx
-      | otherwise  = sC + eMin
+    -- Avoid overflow in CLong domain
+    sizeDiv, sizeMod, fDiv, fMod :: FC.CLong
+    (sizeDiv, sizeMod) = size `divMod` fSize
+    (fDiv, fMod) = (sizeMod + fromIntegral f) `divMod` fSize
