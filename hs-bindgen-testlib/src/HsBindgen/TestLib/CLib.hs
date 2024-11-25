@@ -52,31 +52,31 @@ module HsBindgen.TestLib.CLib (
   , alignofCTime
   , alignofCFloat
   , alignofCDouble
-    -- * Transform
-  , transformCChar
-  , transformCSChar
-  , transformCUChar
-  , transformCShort
-  , transformCUShort
-  , transformCInt
-  , transformCUInt
-  , transformCLong
-  , transformCULong
-  , transformCPtrdiff
-  , transformCSize
-  , transformCWchar
-  , transformCSigAtomic
-  , transformCLLong
-  , transformCULLong
-  , transformCBool
-  , transformCIntPtr
-  , transformCUIntPtr
-  , transformCIntMax
-  , transformCUIntMax
-  , transformCClock
-  , transformCTime
-  , transformCFloat
-  , transformCDouble
+    -- * Preturb
+  , preturbCChar
+  , preturbCSChar
+  , preturbCUChar
+  , preturbCShort
+  , preturbCUShort
+  , preturbCInt
+  , preturbCUInt
+  , preturbCLong
+  , preturbCULong
+  , preturbCPtrdiff
+  , preturbCSize
+  , preturbCWchar
+  , preturbCSigAtomic
+  , preturbCLLong
+  , preturbCULLong
+  , preturbCBool
+  , preturbCIntPtr
+  , preturbCUIntPtr
+  , preturbCIntMax
+  , preturbCUIntMax
+  , preturbCClock
+  , preturbCTime
+  , preturbCFloat
+  , preturbCDouble
   ) where
 
 import Foreign.C qualified as FC
@@ -234,77 +234,77 @@ foreign import capi unsafe "hs_bindgen_testlib.h hsbg_alignof_CDouble"
   alignofCDouble :: IO FC.CSize
 
 {-------------------------------------------------------------------------------
-  Transform
+  Preturb
 -------------------------------------------------------------------------------}
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CChar"
-  transformCChar :: FC.CChar -> IO FC.CChar
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CChar"
+  preturbCChar :: FC.CChar -> IO FC.CChar
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CSChar"
-  transformCSChar :: FC.CSChar -> IO FC.CSChar
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CSChar"
+  preturbCSChar :: FC.CSChar -> IO FC.CSChar
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CUChar"
-  transformCUChar :: FC.CUChar -> IO FC.CUChar
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUChar"
+  preturbCUChar :: FC.CUChar -> IO FC.CUChar
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CShort"
-  transformCShort :: FC.CShort -> IO FC.CShort
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CShort"
+  preturbCShort :: FC.CShort -> IO FC.CShort
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CUShort"
-  transformCUShort :: FC.CUShort -> IO FC.CUShort
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUShort"
+  preturbCUShort :: FC.CUShort -> IO FC.CUShort
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CInt"
-  transformCInt :: FC.CInt -> IO FC.CInt
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CInt"
+  preturbCInt :: FC.CInt -> IO FC.CInt
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CUInt"
-  transformCUInt :: FC.CUInt -> IO FC.CUInt
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUInt"
+  preturbCUInt :: FC.CUInt -> IO FC.CUInt
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CLong"
-  transformCLong :: FC.CLong -> IO FC.CLong
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CLong"
+  preturbCLong :: FC.CLong -> IO FC.CLong
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CULong"
-  transformCULong :: FC.CULong -> IO FC.CULong
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CULong"
+  preturbCULong :: FC.CULong -> IO FC.CULong
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CPtrdiff"
-  transformCPtrdiff :: FC.CPtrdiff -> IO FC.CPtrdiff
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CPtrdiff"
+  preturbCPtrdiff :: FC.CPtrdiff -> IO FC.CPtrdiff
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CSize"
-  transformCSize :: FC.CSize -> IO FC.CSize
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CSize"
+  preturbCSize :: FC.CSize -> IO FC.CSize
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CWchar"
-  transformCWchar :: FC.CWchar -> IO FC.CWchar
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CWchar"
+  preturbCWchar :: FC.CWchar -> IO FC.CWchar
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CSigAtomic"
-  transformCSigAtomic :: FC.CSigAtomic -> IO FC.CSigAtomic
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CSigAtomic"
+  preturbCSigAtomic :: FC.CSigAtomic -> IO FC.CSigAtomic
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CLLong"
-  transformCLLong :: FC.CLLong -> IO FC.CLLong
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CLLong"
+  preturbCLLong :: FC.CLLong -> IO FC.CLLong
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CULLong"
-  transformCULLong :: FC.CULLong -> IO FC.CULLong
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CULLong"
+  preturbCULLong :: FC.CULLong -> IO FC.CULLong
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CBool"
-  transformCBool :: FC.CBool -> IO FC.CBool
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CBool"
+  preturbCBool :: FC.CBool -> IO FC.CBool
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CIntPtr"
-  transformCIntPtr :: FC.CIntPtr -> IO FC.CIntPtr
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CIntPtr"
+  preturbCIntPtr :: FC.CIntPtr -> IO FC.CIntPtr
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CUIntPtr"
-  transformCUIntPtr :: FC.CUIntPtr -> IO FC.CUIntPtr
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUIntPtr"
+  preturbCUIntPtr :: FC.CUIntPtr -> IO FC.CUIntPtr
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CIntMax"
-  transformCIntMax :: FC.CIntMax -> IO FC.CIntMax
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CIntMax"
+  preturbCIntMax :: FC.CIntMax -> IO FC.CIntMax
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CUIntMax"
-  transformCUIntMax :: FC.CUIntMax -> IO FC.CUIntMax
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CUIntMax"
+  preturbCUIntMax :: FC.CUIntMax -> IO FC.CUIntMax
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CClock"
-  transformCClock :: FC.CClock -> IO FC.CClock
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CClock"
+  preturbCClock :: FC.CClock -> IO FC.CClock
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CTime"
-  transformCTime :: FC.CTime -> IO FC.CTime
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CTime"
+  preturbCTime :: FC.CTime -> IO FC.CTime
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CFloat"
-  transformCFloat :: FC.CFloat -> IO FC.CFloat
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CFloat"
+  preturbCFloat :: FC.CFloat -> IO FC.CFloat
 
-foreign import capi unsafe "hs_bindgen_testlib.h hsbg_transform_CDouble"
-  transformCDouble :: FC.CDouble -> IO FC.CDouble
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_preturb_CDouble"
+  preturbCDouble :: FC.CDouble -> IO FC.CDouble

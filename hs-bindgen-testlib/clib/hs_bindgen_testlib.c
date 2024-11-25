@@ -209,98 +209,98 @@ size_t hsbg_alignof_CDouble(void) {
 }
 
 /*******************************************************************************
-  Transform
+  Preturb
 *******************************************************************************/
 
-char hsbg_transform_CChar(char c) {
+char hsbg_preturb_CChar(char c) {
   return c + 1;
 }
 
-signed char hsbg_transform_CSChar(signed char c) {
+signed char hsbg_preturb_CSChar(signed char c) {
   return c + 1;
 }
 
-unsigned char hsbg_transform_CUChar(unsigned char c) {
+unsigned char hsbg_preturb_CUChar(unsigned char c) {
   return c + 1;
 }
 
-short hsbg_transform_CShort(short n) {
+short hsbg_preturb_CShort(short n) {
   return n + 1;
 }
 
-unsigned short hsbg_transform_CUShort(unsigned short n) {
+unsigned short hsbg_preturb_CUShort(unsigned short n) {
   return n + 1;
 }
 
-int hsbg_transform_CInt(int n) {
+int hsbg_preturb_CInt(int n) {
   return n + 1;
 }
 
-unsigned int hsbg_transform_CUInt(unsigned int n) {
+unsigned int hsbg_preturb_CUInt(unsigned int n) {
   return n + 1;
 }
 
-long hsbg_transform_CLong(long n) {
+long hsbg_preturb_CLong(long n) {
   return n + 1;
 }
 
-unsigned long hsbg_transform_CULong(unsigned long n) {
+unsigned long hsbg_preturb_CULong(unsigned long n) {
   return n + 1;
 }
 
-ptrdiff_t hsbg_transform_CPtrdiff(ptrdiff_t n) {
+ptrdiff_t hsbg_preturb_CPtrdiff(ptrdiff_t n) {
   return n + 1;
 }
 
-size_t hsbg_transform_CSize(size_t n) {
+size_t hsbg_preturb_CSize(size_t n) {
   return n + 1;
 }
 
-wchar_t hsbg_transform_CWchar(wchar_t c) {
+wchar_t hsbg_preturb_CWchar(wchar_t c) {
   return c + 1;
 }
 
-sig_atomic_t hsbg_transform_CSigAtomic(sig_atomic_t n) {
+sig_atomic_t hsbg_preturb_CSigAtomic(sig_atomic_t n) {
   return n + 1;
 }
 
-long long hsbg_transform_CLLong(long long n) {
+long long hsbg_preturb_CLLong(long long n) {
   return n + 1;
 }
 
-unsigned long long hsbg_transform_CULLong(unsigned long long n) {
+unsigned long long hsbg_preturb_CULLong(unsigned long long n) {
   return n + 1;
 }
 
-bool hsbg_transform_CBool(bool b) {
+bool hsbg_preturb_CBool(bool b) {
   return !b;
 }
 
-intptr_t hsbg_transform_CIntPtr(intptr_t n) {
+intptr_t hsbg_preturb_CIntPtr(intptr_t n) {
   return n + 1;
 }
 
-uintptr_t hsbg_transform_CUIntPtr(uintptr_t n) {
+uintptr_t hsbg_preturb_CUIntPtr(uintptr_t n) {
   return n + 1;
 }
 
-intmax_t hsbg_transform_CIntMax(intmax_t n) {
+intmax_t hsbg_preturb_CIntMax(intmax_t n) {
   return n + 1;
 }
 
-uintmax_t hsbg_transform_CUIntMax(uintmax_t n) {
+uintmax_t hsbg_preturb_CUIntMax(uintmax_t n) {
   return n + 1;
 }
 
-clock_t hsbg_transform_CClock(clock_t c) {
+clock_t hsbg_preturb_CClock(clock_t c) {
   return c + 1;
 }
 
-time_t hsbg_transform_CTime(time_t t) {
+time_t hsbg_preturb_CTime(time_t t) {
   return t + 1;
 }
 
-float hsbg_transform_CFloat(float x) {
+float hsbg_preturb_CFloat(float x) {
   if (isnan(x))               return -0.0;
   if (x == 0.0 && signbit(x)) return NAN;
   if (isinf(x))               return -x;
@@ -348,7 +348,7 @@ float hsbg_transform_CFloat(float x) {
   return *x_r;
 }
 
-double hsbg_transform_CDouble(double x) {
+double hsbg_preturb_CDouble(double x) {
   if (isnan(x))               return -0.0;
   if (x == 0.0 && signbit(x)) return NAN;
   if (isinf(x))               return -x;

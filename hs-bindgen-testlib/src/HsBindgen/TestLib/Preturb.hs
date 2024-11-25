@@ -1,11 +1,11 @@
-module HsBindgen.TestLib.Transform (
-    -- * Transform
-    Transform(..)
+module HsBindgen.TestLib.Preturb (
+    -- * Preturb
+    Preturb(..)
     -- * Properties
-  , prop_TransformVNotSameSemanticsV
-  , assertTransformVNotSameSemanticsV
-  , prop_TransformHsSameSemanticsC
-  , assertTransformHsSameSemanticsC
+  , prop_PreturbVNotSameSemanticsV
+  , assertPreturbVNotSameSemanticsV
+  , prop_PreturbHsSameSemanticsC
+  , assertPreturbHsSameSemanticsC
   ) where
 
 import Data.Bits qualified as Bits
@@ -21,151 +21,149 @@ import HsBindgen.TestLib.SameSemantics
   )
 
 {-------------------------------------------------------------------------------
-  Transform
+  Preturb
 -------------------------------------------------------------------------------}
 
--- | Transform a value to a different value
+-- | Preturb a value to a different value
 --
--- prop> not (transform x `sameSemantics` x)
-class Transform a where
-  transform :: a -> a
+-- prop> not (preturb x `sameSemantics` x)
+class Preturb a where
+  preturb :: a -> a
 
-instance Transform FC.CChar where
-  transform = (+ 1)
+instance Preturb FC.CChar where
+  preturb = (+ 1)
 
-instance Transform FC.CSChar where
-  transform = (+ 1)
+instance Preturb FC.CSChar where
+  preturb = (+ 1)
 
-instance Transform FC.CUChar where
-  transform = (+ 1)
+instance Preturb FC.CUChar where
+  preturb = (+ 1)
 
-instance Transform FC.CShort where
-  transform = (+ 1)
+instance Preturb FC.CShort where
+  preturb = (+ 1)
 
-instance Transform FC.CUShort where
-  transform = (+ 1)
+instance Preturb FC.CUShort where
+  preturb = (+ 1)
 
-instance Transform FC.CInt where
-  transform = (+ 1)
+instance Preturb FC.CInt where
+  preturb = (+ 1)
 
-instance Transform FC.CUInt where
-  transform = (+ 1)
+instance Preturb FC.CUInt where
+  preturb = (+ 1)
 
-instance Transform FC.CLong where
-  transform = (+ 1)
+instance Preturb FC.CLong where
+  preturb = (+ 1)
 
-instance Transform FC.CULong where
-  transform = (+ 1)
+instance Preturb FC.CULong where
+  preturb = (+ 1)
 
-instance Transform FC.CPtrdiff where
-  transform = (+ 1)
+instance Preturb FC.CPtrdiff where
+  preturb = (+ 1)
 
-instance Transform FC.CSize where
-  transform = (+ 1)
+instance Preturb FC.CSize where
+  preturb = (+ 1)
 
-instance Transform FC.CWchar where
-  transform = (+ 1)
+instance Preturb FC.CWchar where
+  preturb = (+ 1)
 
-instance Transform FC.CSigAtomic where
-  transform = (+ 1)
+instance Preturb FC.CSigAtomic where
+  preturb = (+ 1)
 
-instance Transform FC.CLLong where
-  transform = (+ 1)
+instance Preturb FC.CLLong where
+  preturb = (+ 1)
 
-instance Transform FC.CULLong where
-  transform = (+ 1)
+instance Preturb FC.CULLong where
+  preturb = (+ 1)
 
-instance Transform FC.CBool where
-  transform b
+instance Preturb FC.CBool where
+  preturb b
     | b == 0    = 1
     | otherwise = 0
 
-instance Transform FC.CIntPtr where
-  transform = (+ 1)
+instance Preturb FC.CIntPtr where
+  preturb = (+ 1)
 
-instance Transform FC.CUIntPtr where
-  transform = (+ 1)
+instance Preturb FC.CUIntPtr where
+  preturb = (+ 1)
 
-instance Transform FC.CIntMax where
-  transform = (+ 1)
+instance Preturb FC.CIntMax where
+  preturb = (+ 1)
 
-instance Transform FC.CUIntMax where
-  transform = (+ 1)
+instance Preturb FC.CUIntMax where
+  preturb = (+ 1)
 
-instance Transform FC.CClock where
-  transform = (+ 1)
+instance Preturb FC.CClock where
+  preturb = (+ 1)
 
-instance Transform FC.CTime where
-  transform = (+ 1)
+instance Preturb FC.CTime where
+  preturb = (+ 1)
 
-instance Transform FC.CFloat where
-  transform (FC.CFloat x) = FC.CFloat $ transformFloat x
+instance Preturb FC.CFloat where
+  preturb (FC.CFloat x) = FC.CFloat $ preturbFloat x
 
-instance Transform FC.CDouble where
-  transform (FC.CDouble x) = FC.CDouble $ transformDouble x
+instance Preturb FC.CDouble where
+  preturb (FC.CDouble x) = FC.CDouble $ preturbDouble x
 
 {-------------------------------------------------------------------------------
   Properties
 -------------------------------------------------------------------------------}
 
--- | A transformed value does /not/ have the same semantics as the original
--- value
-prop_TransformVNotSameSemanticsV :: (SameSemantics a, Transform a) => a -> Bool
-prop_TransformVNotSameSemanticsV x = not $ transform x `sameSemantics` x
+-- | A preturbed value does /not/ have the same semantics as the original value
+prop_PreturbVNotSameSemanticsV :: (Preturb a, SameSemantics a) => a -> Bool
+prop_PreturbVNotSameSemanticsV x = not $ preturb x `sameSemantics` x
 
--- | A transformed value does /not/ have the same semantics as the original
--- value
-assertTransformVNotSameSemanticsV ::
-     (SameSemantics a, Show a, Transform a)
+-- | A preturbed value does /not/ have the same semantics as the original value
+assertPreturbVNotSameSemanticsV ::
+     (Preturb a, SameSemantics a, Show a)
   => a
   -> Assertion
-assertTransformVNotSameSemanticsV x = transform x @/=~? x
+assertPreturbVNotSameSemanticsV x = preturb x @/=~? x
 
--- | A value transformed using Haskell has the same semantics as the value
--- transformed using C
-prop_TransformHsSameSemanticsC ::
-     (SameSemantics a, Transform a)
+-- | A value preturbed using Haskell has the same semantics as the value
+-- preturbed using C
+prop_PreturbHsSameSemanticsC ::
+     (Preturb a, SameSemantics a)
   => (a -> IO a)
   -> a
   -> Property
-prop_TransformHsSameSemanticsC cTransform x = QCM.monadicIO $ do
-    x' <- QCM.run $ cTransform x
-    QCM.assert $ transform x `sameSemantics` x'
+prop_PreturbHsSameSemanticsC cPreturb x = QCM.monadicIO $ do
+    x' <- QCM.run $ cPreturb x
+    QCM.assert $ preturb x `sameSemantics` x'
 
--- | A value transformed using Haskell has the same semantics as the value
--- transformed using C
-assertTransformHsSameSemanticsC ::
-     (SameSemantics a, Show a, Transform a)
+-- | A value preturbed using Haskell has the same semantics as the value
+-- preturbed using C
+assertPreturbHsSameSemanticsC ::
+     (Preturb a, SameSemantics a, Show a)
   => (a -> IO a)
   -> a
   -> Assertion
-assertTransformHsSameSemanticsC cTransform x = do
-    x' <- cTransform x
-    transform x @==~? x'
+assertPreturbHsSameSemanticsC cPreturb x = do
+    x' <- cPreturb x
+    preturb x @==~? x'
 
 {-------------------------------------------------------------------------------
   Auxilliary functions
 -------------------------------------------------------------------------------}
 
--- | Transform a 'Float' value
+-- | Preturb a 'Float' value
 --
--- * NaN is transformed to negative zero
--- * Negative zero is transformed to NaN
--- * Infinity is transformed to negative infinity
--- * Negative infinity is transformed to infinity
+-- * NaN is preturbed to negative zero
+-- * Negative zero is preturbed to NaN
+-- * Infinity is preturbed to negative infinity
+-- * Negative infinity is preturbed to infinity
 -- * Denormalized values are cycled: from zero to maximum denormalized value,
 --   then from smallest denormalized negative value to minimum denormalized
 --   value, then from zero again
 -- * Normalized values are cycled: fraction first, exponent second, sign third
-transformFloat :: Float -> Float
-transformFloat x
+preturbFloat :: Float -> Float
+preturbFloat x
     | isNaN x          = RF.negZero
     | isNegativeZero x = RF.nan
     | isInfinite x     = negate x
     | isDenormalized x = RF.floatFromWord32 wRD
     | otherwise        = RF.floatFromWord32 wRN
   where
-    -- Value as a word to transform at the representation level
+    -- Value as a word to preturb at the representation level
     w :: Word32
     w = RF.floatToWord32 x
 
@@ -228,25 +226,25 @@ transformFloat x
       | e1 <= eMax = s + Bits.shiftL e1 eIdx
       | otherwise  = sC + eMin
 
--- | Transform a 'Double' value
+-- | Preturb a 'Double' value
 --
--- * NaN is transformed to negative zero
--- * Negative zero is transformed to NaN
--- * Infinity is transformed to negative infinity
--- * Negative infinity is transformed to infinity
+-- * NaN is preturbed to negative zero
+-- * Negative zero is preturbed to NaN
+-- * Infinity is preturbed to negative infinity
+-- * Negative infinity is preturbed to infinity
 -- * Denormalized values are cycled: from zero to maximum denormalized value,
 --   then from smallest denormalized negative value to minimum denormalized
 --   value, then from zero again
 -- * Normalized values are cycled: fraction first, exponent second, sign third
-transformDouble :: Double -> Double
-transformDouble x
+preturbDouble :: Double -> Double
+preturbDouble x
     | isNaN x          = RF.negZero
     | isNegativeZero x = RF.nan
     | isInfinite x     = negate x
     | isDenormalized x = RF.doubleFromWord64 wRD
     | otherwise        = RF.doubleFromWord64 wRN
   where
-    -- Value as a word to transform at the representation level
+    -- Value as a word to preturb at the representation level
     w :: Word64
     w = RF.doubleToWord64 x
 
