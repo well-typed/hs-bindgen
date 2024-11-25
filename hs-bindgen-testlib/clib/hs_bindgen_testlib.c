@@ -1,5 +1,6 @@
 #include <math.h>
 #include <signal.h>
+#include <stdalign.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -7,6 +8,226 @@
 #include <time.h>
 
 #include "hs_bindgen_testlib.h"
+
+/*******************************************************************************
+  Storable: sizeof
+*******************************************************************************/
+
+size_t hsbg_sizeof_CChar(void) {
+  return sizeof (char);
+}
+
+size_t hsbg_sizeof_CSChar(void) {
+  return sizeof (signed char);
+}
+
+size_t hsbg_sizeof_CUChar(void) {
+  return sizeof (unsigned char);
+}
+
+size_t hsbg_sizeof_CShort(void) {
+  return sizeof (short);
+}
+
+size_t hsbg_sizeof_CUShort(void) {
+  return sizeof (unsigned short);
+}
+
+size_t hsbg_sizeof_CInt(void) {
+  return sizeof (int);
+}
+
+size_t hsbg_sizeof_CUInt(void) {
+  return sizeof (unsigned int);
+}
+
+size_t hsbg_sizeof_CLong(void) {
+  return sizeof (long);
+}
+
+size_t hsbg_sizeof_CULong(void) {
+  return sizeof (unsigned long);
+}
+
+size_t hsbg_sizeof_CPtrdiff(void) {
+  return sizeof (ptrdiff_t);
+}
+
+size_t hsbg_sizeof_CSize(void) {
+  return sizeof (size_t);
+}
+
+size_t hsbg_sizeof_CWchar(void) {
+  return sizeof (wchar_t);
+}
+
+size_t hsbg_sizeof_CSigAtomic(void) {
+  return sizeof (sig_atomic_t);
+}
+
+size_t hsbg_sizeof_CLLong(void) {
+  return sizeof (long long);
+}
+
+size_t hsbg_sizeof_CULLong(void) {
+  return sizeof (unsigned long long);
+}
+
+size_t hsbg_sizeof_CBool(void) {
+  return sizeof (bool);
+}
+
+size_t hsbg_sizeof_CIntPtr(void) {
+  return sizeof (int*);
+}
+
+size_t hsbg_sizeof_CUIntPtr(void) {
+  return sizeof (unsigned int*);
+}
+
+size_t hsbg_sizeof_CIntMax(void) {
+  return sizeof (long);
+}
+
+size_t hsbg_sizeof_CUIntMax(void) {
+  return sizeof (unsigned long);
+}
+
+size_t hsbg_sizeof_CClock(void) {
+  return sizeof (clock_t);
+}
+
+size_t hsbg_sizeof_CTime(void) {
+  return sizeof (time_t);
+}
+
+/* TODO remove or fix
+size_t hsbg_sizeof_CUSeconds(void) {
+  return sizeof (useconds_t);
+}
+*/
+
+size_t hsbg_sizeof_CSUSeconds(void) {
+  return sizeof (suseconds_t);
+}
+
+size_t hsbg_sizeof_CFloat(void) {
+  return sizeof (float);
+}
+
+size_t hsbg_sizeof_CDouble(void) {
+  return sizeof (double);
+}
+
+/*******************************************************************************
+  Storable: alignof
+*******************************************************************************/
+
+size_t hsbg_alignof_CChar(void) {
+  return alignof(char);
+}
+
+size_t hsbg_alignof_CSChar(void) {
+  return alignof(signed char);
+}
+
+size_t hsbg_alignof_CUChar(void) {
+  return alignof(unsigned char);
+}
+
+size_t hsbg_alignof_CShort(void) {
+  return alignof(short);
+}
+
+size_t hsbg_alignof_CUShort(void) {
+  return alignof(unsigned short);
+}
+
+size_t hsbg_alignof_CInt(void) {
+  return alignof(int);
+}
+
+size_t hsbg_alignof_CUInt(void) {
+  return alignof(unsigned int);
+}
+
+size_t hsbg_alignof_CLong(void) {
+  return alignof(long);
+}
+
+size_t hsbg_alignof_CULong(void) {
+  return alignof(unsigned long);
+}
+
+size_t hsbg_alignof_CPtrdiff(void) {
+  return alignof(ptrdiff_t);
+}
+
+size_t hsbg_alignof_CSize(void) {
+  return alignof(size_t);
+}
+
+size_t hsbg_alignof_CWchar(void) {
+  return alignof(wchar_t);
+}
+
+size_t hsbg_alignof_CSigAtomic(void) {
+  return alignof(sig_atomic_t);
+}
+
+size_t hsbg_alignof_CLLong(void) {
+  return alignof(long long);
+}
+
+size_t hsbg_alignof_CULLong(void) {
+  return alignof(unsigned long long);
+}
+
+size_t hsbg_alignof_CBool(void) {
+  return alignof(bool);
+}
+
+size_t hsbg_alignof_CIntPtr(void) {
+  return alignof(int*);
+}
+
+size_t hsbg_alignof_CUIntPtr(void) {
+  return alignof(unsigned int*);
+}
+
+size_t hsbg_alignof_CIntMax(void) {
+  return alignof(long);
+}
+
+size_t hsbg_alignof_CUIntMax(void) {
+  return alignof(unsigned long);
+}
+
+size_t hsbg_alignof_CClock(void) {
+  return alignof(clock_t);
+}
+
+size_t hsbg_alignof_CTime(void) {
+  return alignof(time_t);
+}
+
+/* TODO remove or fix
+size_t hsbg_alignof_CUSeconds(void) {
+  return alignof(useconds_t);
+}
+*/
+
+size_t hsbg_alignof_CSUSeconds(void) {
+  return alignof(suseconds_t);
+}
+
+size_t hsbg_alignof_CFloat(void) {
+  return alignof(float);
+}
+
+size_t hsbg_alignof_CDouble(void) {
+  return alignof(double);
+}
 
 /*******************************************************************************
   Transform
