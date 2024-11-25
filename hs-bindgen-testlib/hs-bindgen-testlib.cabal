@@ -55,11 +55,11 @@ library
       HsBindgen.TestLib.Arbitrary
       HsBindgen.TestLib.CLib
       HsBindgen.TestLib.GenSeq
+      HsBindgen.TestLib.Preturb
       HsBindgen.TestLib.RealFloat
       HsBindgen.TestLib.RepZero
       HsBindgen.TestLib.SameSemantics
       HsBindgen.TestLib.Storable
-      HsBindgen.TestLib.Transform
   include-dirs: clib
   install-includes: hs_bindgen_testlib.h
   c-sources: clib/hs_bindgen_testlib.c
@@ -74,9 +74,9 @@ test-suite test-hs-bindgen-testlib
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules:
+      HsBindgen.TestLib.Preturb.Test
       HsBindgen.TestLib.SameSemantics.Test
       HsBindgen.TestLib.Storable.Test
-      HsBindgen.TestLib.Transform.Test
   build-depends:
       -- Internal dependencies
     , hs-bindgen-testlib
