@@ -1,8 +1,5 @@
 {-# LANGUAGE LexicalNegation #-}
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 
 -- | Type inference for simple function-like C macros.
 module HsBindgen.C.Tc.Macro

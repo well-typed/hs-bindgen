@@ -41,8 +41,10 @@ common lang
       DisambiguateRecordFields
       LambdaCase
       MultiWayIf
+      OverloadedStrings
       PatternSynonyms
       QuantifiedConstraints
+      RecordWildCards
       TypeApplications
       TypeFamilies
       UndecidableInstances

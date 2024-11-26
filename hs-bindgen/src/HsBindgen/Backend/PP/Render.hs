@@ -1,7 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
-
 module HsBindgen.Backend.PP.Render (
     -- * Rendering
     HsRenderOpts(..)

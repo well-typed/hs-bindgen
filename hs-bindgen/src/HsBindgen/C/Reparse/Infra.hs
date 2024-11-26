@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Infrastructure for reparsing
 module HsBindgen.C.Reparse.Infra (
     -- * Parser type
