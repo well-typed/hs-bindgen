@@ -1,3 +1,4 @@
+{-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 module Orphans where
 
@@ -5,6 +6,7 @@ import Data.Foldable (toList)
 import Data.Text qualified as Text
 import Data.TreeDiff.Class (ToExpr(..))
 import Data.TreeDiff.Expr qualified as Expr
+import Data.TreeDiff.OMap qualified as OMap
 import Foreign.C
 import System.FilePath (splitDirectories)
 
@@ -39,7 +41,6 @@ instance ToExpr C.PrimSign
 instance ToExpr C.PrimIntType
 instance ToExpr C.PrimFloatType
 instance ToExpr C.PrimType
-instance ToExpr C.ReparseError
 instance ToExpr C.SingleLoc
 instance ToExpr C.Struct
 instance ToExpr C.StructField
@@ -55,6 +56,19 @@ instance ToExpr a => ToExpr (C.Token a)
 -- Construct platform-independent expression
 instance ToExpr C.SourcePath where
   toExpr = toExpr . splitDirectories . Text.unpack . C.getSourcePath
+
+instance ToExpr C.ReparseError where
+  toExpr C.ReparseError {..} = Expr.Rec "ReparseError" $ OMap.fromList
+    [ ("reparseError", toExpr $ f reparseError)
+    , ("reparseErrorTokens", toExpr reparseErrorTokens)
+    ]
+    where
+      -- reparseError may contain paths
+      f :: String -> String
+      f ('\\' : '\\' : xs) = '/' : f xs
+      f ('\\' : xs)        = '/' : f xs
+      f (c : xs)           = c   : f xs
+      f []                 = []
 
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err

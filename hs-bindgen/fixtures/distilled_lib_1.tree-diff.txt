@@ -1,0 +1,671 @@
+WrapCHeader
+  (Header
+    [
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 10,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "A",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "5",
+                  integerLiteralType = Nothing,
+                  integerLiteralValue = 5})},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 11,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "B",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "3",
+                  integerLiteralType = Nothing,
+                  integerLiteralValue = 3})},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 12,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName
+              "SOME_DEFINED_CONSTANT",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "4",
+                  integerLiteralType = Nothing,
+                  integerLiteralValue = 4})},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
+      DeclMacro
+        (MacroReparseError
+          ReparseError {
+            reparseError =
+            concat
+              [
+                "\"examples/distilled_lib_1.h\" (line 17, column 32):\n",
+                "unexpected Token {tokenKind = simpleEnum CXToken_Literal, tokenSpelling = TokenSpelling {getTokenSpelling = \"/\"pack(1)/\"\"}, tokenExtent = \"<examples/distilled_lib_1.h:17:32-17:41>\", tokenCursorKind = simpleEnum CXCursor_MacroDefinition}\n",
+                "expecting expression"],
+            reparseErrorTokens = [
+              Token {
+                tokenKind = SimpleEnum 2,
+                tokenSpelling = TokenSpelling
+                  "PACK_START",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 9},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 19},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 2,
+                tokenSpelling = TokenSpelling
+                  "_Pragma",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 24},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 31},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 0,
+                tokenSpelling = TokenSpelling
+                  "(",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 31},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 32},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 3,
+                tokenSpelling = TokenSpelling
+                  "\"pack(1)\"",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 32},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 41},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 0,
+                tokenSpelling = TokenSpelling
+                  ")",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 41},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 17,
+                      singleLocColumn = 42},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501}]}),
+      DeclMacro
+        (MacroReparseError
+          ReparseError {
+            reparseError =
+            concat
+              [
+                "\"examples/distilled_lib_1.h\" (line 18, column 32):\n",
+                "unexpected Token {tokenKind = simpleEnum CXToken_Literal, tokenSpelling = TokenSpelling {getTokenSpelling = \"/\"pack()/\"\"}, tokenExtent = \"<examples/distilled_lib_1.h:18:32-18:40>\", tokenCursorKind = simpleEnum CXCursor_MacroDefinition}\n",
+                "expecting expression"],
+            reparseErrorTokens = [
+              Token {
+                tokenKind = SimpleEnum 2,
+                tokenSpelling = TokenSpelling
+                  "PACK_FINISH",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 9},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 20},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 2,
+                tokenSpelling = TokenSpelling
+                  "_Pragma",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 24},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 31},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 0,
+                tokenSpelling = TokenSpelling
+                  "(",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 31},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 32},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 3,
+                tokenSpelling = TokenSpelling
+                  "\"pack()\"",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 32},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 40},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 0,
+                tokenSpelling = TokenSpelling
+                  ")",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 40},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion = SingleLoc {
+                      singleLocPath = [
+                        "examples",
+                        "distilled_lib_1.h"],
+                      singleLocLine = 18,
+                      singleLocColumn = 41},
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501}]}),
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 25,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "PACK_ENUM",
+            macroArgs = [],
+            macroBody = MTerm
+              (MAttr
+                (Attribute
+                  [
+                    Token {
+                      tokenKind = SimpleEnum 2,
+                      tokenSpelling = TokenSpelling
+                        "packed",
+                      tokenExtent = Range {
+                        rangeStart = MultiLoc {
+                          multiLocExpansion = SingleLoc {
+                            singleLocPath = [
+                              "examples",
+                              "distilled_lib_1.h"],
+                            singleLocLine = 25,
+                            singleLocColumn = 34},
+                          multiLocPresumed = Nothing,
+                          multiLocSpelling = Nothing,
+                          multiLocFile = Nothing},
+                        rangeEnd = MultiLoc {
+                          multiLocExpansion = SingleLoc {
+                            singleLocPath = [
+                              "examples",
+                              "distilled_lib_1.h"],
+                            singleLocLine = 25,
+                            singleLocColumn = 40},
+                          multiLocPresumed = Nothing,
+                          multiLocSpelling = Nothing,
+                          multiLocFile = Nothing}},
+                      tokenCursorKind = SimpleEnum
+                        501}])
+                MEmpty)},
+          macroDeclMacroTy = "Empty"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 52,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "A_DEFINE_0",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "0x00",
+                  integerLiteralType = Nothing,
+                  integerLiteralValue = 0})},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 53,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "A_DEFINE_1",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "0x5050U",
+                  integerLiteralType = Just
+                    (PrimInt Unsigned),
+                  integerLiteralValue = 20560})},
+          macroDeclMacroTy = "UInt"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 54,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "A_DEFINE_2",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2",
+                  integerLiteralType = Nothing,
+                  integerLiteralValue = 2})},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 55,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "TWO_ARGS",
+            macroArgs = [],
+            macroBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "0x3456",
+                  integerLiteralType = Nothing,
+                  integerLiteralValue = 13398})},
+          macroDeclMacroTy =
+          "(forall a. Integral a => a)"},
+      DeclStruct
+        Struct {
+          structTag = Nothing,
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "foo",
+              fieldOffset = 0,
+              fieldType = TypPrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "bar",
+              fieldOffset = 32,
+              fieldType = TypPrim
+                (PrimChar Nothing)}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName
+            "another_typedef_struct_t",
+          typedefType = TypElaborated
+            (CName
+              "struct another_typedef_struct_t")},
+      DeclEnum
+        Enu {
+          enumTag = Nothing,
+          enumType = TypPrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "FOO",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "BAR",
+              valueValue = 1}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName
+            "another_typedef_enum_e",
+          typedefType = TypElaborated
+            (CName
+              "enum another_typedef_enum_e")},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "a_type_t",
+          typedefType = TypPrim
+            (PrimIntegral
+              (PrimInt Signed))},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "var_t",
+          typedefType = TypPrim
+            (PrimIntegral
+              (PrimInt Signed))},
+      DeclStruct
+        Struct {
+          structTag = Just
+            (CName "a_typedef_struct"),
+          structSizeof = 140,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              fieldName = CName "field_0",
+              fieldOffset = 0,
+              fieldType = TypElaborated
+                (CName "bool")},
+            StructField {
+              fieldName = CName "field_1",
+              fieldOffset = 8,
+              fieldType = TypElaborated
+                (CName "uint8_t")},
+            StructField {
+              fieldName = CName "field_2",
+              fieldOffset = 16,
+              fieldType = TypElaborated
+                (CName "uint16_t")},
+            StructField {
+              fieldName = CName "field_3",
+              fieldOffset = 32,
+              fieldType = TypElaborated
+                (CName "uint32_t")},
+            StructField {
+              fieldName = CName "field_4",
+              fieldOffset = 64,
+              fieldType = TypElaborated
+                (CName
+                  "another_typedef_struct_t")},
+            StructField {
+              fieldName = CName "field_5",
+              fieldOffset = 128,
+              fieldType = TypPointer
+                (TypElaborated
+                  (CName
+                    "another_typedef_struct_t"))},
+            StructField {
+              fieldName = CName "field_6",
+              fieldOffset = 192,
+              fieldType = TypPointer
+                (TypPrim PrimVoid)},
+            StructField {
+              fieldName = CName "field_7",
+              fieldOffset = 256,
+              fieldType = TypConstArray
+                7
+                (TypElaborated
+                  (CName "uint32_t"))},
+            StructField {
+              fieldName = CName "field_8",
+              fieldOffset = 480,
+              fieldType = TypElaborated
+                (CName
+                  "another_typedef_enum_e")},
+            StructField {
+              fieldName = CName "field_9",
+              fieldOffset = 512,
+              fieldType = TypElaborated
+                (CName
+                  "another_typedef_enum_e")},
+            StructField {
+              fieldName = CName "field_10",
+              fieldOffset = 640,
+              fieldType = TypElaborated
+                (CName
+                  "another_typedef_enum_e")}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName
+            "a_typedef_struct_t",
+          typedefType = TypElaborated
+            (CName
+              "struct a_typedef_struct")},
+      DeclEnum
+        Enu {
+          enumTag = Nothing,
+          enumType = TypPrim
+            (PrimChar (Just Unsigned)),
+          enumSizeof = 1,
+          enumAlignment = 1,
+          enumValues = [
+            EnumValue {
+              valueName = CName "ENUM_CASE_0",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "ENUM_CASE_1",
+              valueValue = 1},
+            EnumValue {
+              valueName = CName "ENUM_CASE_2",
+              valueValue = 2},
+            EnumValue {
+              valueName = CName "ENUM_CASE_3",
+              valueValue = 3}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName
+            "a_typedef_enum_e",
+          typedefType = TypElaborated
+            (CName
+              "enum a_typedef_enum_e")},
+      DeclTypedef
+        Typedef {
+          typedefName = CName
+            "callback_t",
+          typedefType = TypPointer
+            (TypPrim PrimVoid)}])

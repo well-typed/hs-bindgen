@@ -49,6 +49,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
     , golden "unnamed-struct"
     , golden "forward_declaration"
     , golden "opaque_declaration"
+    , golden "distilled_lib_1"
     ]
   where
     golden name = testGroup name
