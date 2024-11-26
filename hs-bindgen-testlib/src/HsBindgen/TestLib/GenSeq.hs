@@ -7,8 +7,8 @@ module HsBindgen.TestLib.GenSeq (
   , assertHsGenSeqNSameSemanticsCGenSeqN
   , nameHsGenSeq1CEq
   , assertHsGenSeq1CEq
-  , nameCGenSeq1HsEq
-  , assertCGenSeq1HsEq
+  , nameHsGenSeq1SameSemanticsCGenSeq1
+  , assertHsGenSeq1SameSemanticsCGenSeq1
   ) where
 
 import Control.Monad (unless)
@@ -149,11 +149,14 @@ assertHsGenSeq1CEq cAssert = do
     unless isSuccess . assertFailure $ show x
 
 -- | A value sequentially generated in C has the expected value in Haskell
-nameCGenSeq1HsEq :: String
-nameCGenSeq1HsEq = "CGenSeq1HsEq"
+nameHsGenSeq1SameSemanticsCGenSeq1 :: String
+nameHsGenSeq1SameSemanticsCGenSeq1 = "HsGenSeq1SameSemanticsCGenSeq1"
 
 -- | A value sequentially generated in C has the expected value in Haskell
-assertCGenSeq1HsEq :: (GenSeq a, SameSemantics a, Show a) => IO a -> Assertion
-assertCGenSeq1HsEq cSeqGen1 = do
+assertHsGenSeq1SameSemanticsCGenSeq1 ::
+     (GenSeq a, SameSemantics a, Show a)
+  => IO a
+  -> Assertion
+assertHsGenSeq1SameSemanticsCGenSeq1 cSeqGen1 = do
     x <- cSeqGen1
     genSeq 1 @==~? x
