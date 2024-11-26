@@ -188,7 +188,7 @@ import Data.Text qualified as Text
 import Foreign
 import Foreign.C
 import GHC.Stack
-import System.IO.Unsafe (unsafePerformIO)
+import System.IO.Unsafe (unsafePerformIO, unsafeDupablePerformIO)
 
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.LowLevel.Core.Enums
@@ -611,6 +611,13 @@ clang_TargetInfo_getTriple info = ensure (not . Text.null) $
 newtype CXCursor = CXCursor (OnHaskellHeap CXCursor_)
   deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
 
+-- |
+--
+-- Note: we cannot easily implement cursor comparison directly in Haskell, as it's slightly complicated:
+-- See https://github.com/llvm/llvm-project/blob/4872ecf1cc3cb9c4939a9e6210a9b9e9a9032e9f/clang/tools/libclang/CIndex.cpp#L6529
+instance Eq CXCursor where
+  x == y = unsafeDupablePerformIO $ clang_equalCursors x y
+
 foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
   wrap_getTranslationUnitCursor :: CXTranslationUnit -> W CXCursor_ -> IO ()
 
@@ -980,6 +987,13 @@ clang_isCursorDefinition cursor =
 -- <https://clang.llvm.org/doxygen/structCXType.html>
 newtype CXType = CXType (OnHaskellHeap CXType_)
   deriving newtype (LivesOnHaskellHeap, Preallocate, Eq, Ord, Show)
+  -- Note: Eq instance is doing more work then clang_equalTypes:
+  -- https://github.com/llvm/llvm-project/blob/4872ecf1cc3cb9c4939a9e6210a9b9e9a9032e9f/clang/tools/libclang/CXType.cpp#L642
+  -- equalTypes doesn't compare the kind; I think the kind is dependent field,
+  -- and comparing it shouldn't break thing on well-formed types.
+  --
+  -- As there aren't clang_hashType (c.f. clang_hashCursor), we cannot use libclang to implement an interface for associative arrays;
+  -- Thus we rely on our definitions.
 
 foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
   wrap_cxtKind :: R CXType_ -> IO (SimpleEnum CXTypeKind)
