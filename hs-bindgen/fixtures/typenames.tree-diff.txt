@@ -1,0 +1,23 @@
+WrapCHeader
+  (Header
+    [
+      DeclEnum
+        Enu {
+          enumTag = Just (CName "foo"),
+          enumType = TypPrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "FOO1",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "FOO2",
+              valueValue = 1}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "foo",
+          typedefType = TypPrim
+            (PrimFloating PrimDouble)}])

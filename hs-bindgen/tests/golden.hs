@@ -52,6 +52,7 @@ main' packageRoot bg = testGroup "golden"
     , golden "forward_declaration"
     , golden "opaque_declaration"
     , golden "distilled_lib_1"
+    , golden "typenames"
     ]
   where
     golden name = testGroup name
