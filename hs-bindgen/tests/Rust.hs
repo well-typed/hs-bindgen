@@ -92,7 +92,6 @@ goldenRust :: IO FilePath -> TestName -> TestTree
 goldenRust gb name =  goldenVsStringDiff_ "rust" ("fixtures" </> (name ++ ".rs")) $ \report -> do
     -- package root is not used as we don't specify the location of stdlib
     let fp = "examples" </> (name ++ ".h")
-    report fp
 
     bindgen <- gb
 
