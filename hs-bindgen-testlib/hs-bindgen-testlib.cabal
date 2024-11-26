@@ -74,6 +74,7 @@ test-suite test-hs-bindgen-testlib
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules:
+      HsBindgen.TestLib.GenSeq.Test
       HsBindgen.TestLib.Preturb.Test
       HsBindgen.TestLib.SameSemantics.Test
       HsBindgen.TestLib.Storable.Test

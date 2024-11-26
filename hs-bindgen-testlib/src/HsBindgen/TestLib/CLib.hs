@@ -1,9 +1,34 @@
 {-# LANGUAGE CApiFFI #-}
 
 module HsBindgen.TestLib.CLib (
+    -- * GenSeq
+    genSeqCChar
+  , genSeqCSChar
+  , genSeqCUChar
+  , genSeqCShort
+  , genSeqCUShort
+  , genSeqCInt
+  , genSeqCUInt
+  , genSeqCLong
+  , genSeqCULong
+  , genSeqCPtrdiff
+  , genSeqCSize
+  , genSeqCWchar
+  , genSeqCSigAtomic
+  , genSeqCLLong
+  , genSeqCULLong
+  , genSeqCBool
+  , genSeqCIntPtr
+  , genSeqCUIntPtr
+  , genSeqCIntMax
+  , genSeqCUIntMax
+  , genSeqCClock
+  , genSeqCTime
+  , genSeqCFloat
+  , genSeqCDouble
     -- * Storable
     -- ** sizeof
-    sizeofCChar
+  , sizeofCChar
   , sizeofCSChar
   , sizeofCUChar
   , sizeofCShort
@@ -80,6 +105,82 @@ module HsBindgen.TestLib.CLib (
   ) where
 
 import Foreign.C qualified as FC
+
+{-------------------------------------------------------------------------------
+  GenSeq
+-------------------------------------------------------------------------------}
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CChar"
+  genSeqCChar :: FC.CULong -> IO FC.CChar
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CSChar"
+  genSeqCSChar :: FC.CULong -> IO FC.CSChar
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CUChar"
+  genSeqCUChar :: FC.CULong -> IO FC.CUChar
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CShort"
+  genSeqCShort :: FC.CULong -> IO FC.CShort
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CUShort"
+  genSeqCUShort :: FC.CULong -> IO FC.CUShort
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CInt"
+  genSeqCInt :: FC.CULong -> IO FC.CInt
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CUInt"
+  genSeqCUInt :: FC.CULong -> IO FC.CUInt
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CLong"
+  genSeqCLong :: FC.CULong -> IO FC.CLong
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CULong"
+  genSeqCULong :: FC.CULong -> IO FC.CULong
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CPtrdiff"
+  genSeqCPtrdiff :: FC.CULong -> IO FC.CPtrdiff
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CSize"
+  genSeqCSize :: FC.CULong -> IO FC.CSize
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CWchar"
+  genSeqCWchar :: FC.CULong -> IO FC.CWchar
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CSigAtomic"
+  genSeqCSigAtomic :: FC.CULong -> IO FC.CSigAtomic
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CLLong"
+  genSeqCLLong :: FC.CULong -> IO FC.CLLong
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CULLong"
+  genSeqCULLong :: FC.CULong -> IO FC.CULLong
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CBool"
+  genSeqCBool :: FC.CULong -> IO FC.CBool
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CIntPtr"
+  genSeqCIntPtr :: FC.CULong -> IO FC.CIntPtr
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CUIntPtr"
+  genSeqCUIntPtr :: FC.CULong -> IO FC.CUIntPtr
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CIntMax"
+  genSeqCIntMax :: FC.CULong -> IO FC.CIntMax
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CUIntMax"
+  genSeqCUIntMax :: FC.CULong -> IO FC.CUIntMax
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CClock"
+  genSeqCClock :: FC.CULong -> IO FC.CClock
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CTime"
+  genSeqCTime :: FC.CULong -> IO FC.CTime
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CFloat"
+  genSeqCFloat :: FC.CULong -> IO FC.CFloat
+
+foreign import capi unsafe "hs_bindgen_testlib.h hsbg_genseq_CDouble"
+  genSeqCDouble :: FC.CULong -> IO FC.CDouble
 
 {-------------------------------------------------------------------------------
   Storable: sizeof

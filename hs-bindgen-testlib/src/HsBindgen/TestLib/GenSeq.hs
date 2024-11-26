@@ -1,17 +1,30 @@
 module HsBindgen.TestLib.GenSeq (
     -- * GenSeq
     GenSeq (..)
-  , genSeq
+    -- * Properties
+  , nameHsGenSeqNSameSemanticsCGenSeqN
+  , prop_HsGenSeqNSameSemanticsCGenSeqN
+  , assertHsGenSeqNSameSemanticsCGenSeqN
+  , nameHsGenSeq1CEq
+  , assertHsGenSeq1CEq
+  , nameCGenSeq1HsEq
+  , assertCGenSeq1HsEq
   ) where
 
+import Control.Monad (unless)
 import Foreign.C qualified as FC
+import Test.QuickCheck.Monadic qualified as QCM
+import Test.Tasty.HUnit (Assertion, assertFailure)
+import Test.Tasty.QuickCheck (Property)
+
+import HsBindgen.TestLib.SameSemantics ((@==~?), SameSemantics(sameSemantics))
 
 {-------------------------------------------------------------------------------
   Constants
 -------------------------------------------------------------------------------}
 
 -- | Ordinal value of the letter @A@
-ordA :: Word
+ordA :: FC.CULong
 ordA = 65
 
 {-------------------------------------------------------------------------------
@@ -19,79 +32,128 @@ ordA = 65
 -------------------------------------------------------------------------------}
 
 class GenSeq a where
-  genSeqStep :: Word -> (a, Word)
+  genSeq :: FC.CULong -> a
 
 instance GenSeq FC.CChar where
-  genSeqStep w = (fromIntegral (w + ordA), w + 1)
+  genSeq = fromIntegral . (+ ordA)
 
 instance GenSeq FC.CSChar where
-  genSeqStep w = (fromIntegral (w + ordA), w + 1)
+  genSeq = fromIntegral . (+ ordA)
 
 instance GenSeq FC.CUChar where
-  genSeqStep w = (fromIntegral (w + ordA), w + 1)
+  genSeq = fromIntegral . (+ ordA)
 
 instance GenSeq FC.CShort where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CUShort where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CInt where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CUInt where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CLong where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CULong where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = id
 
 instance GenSeq FC.CPtrdiff where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CSize where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CWchar where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral . (+ ordA)
 
 instance GenSeq FC.CSigAtomic where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CLLong where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CULLong where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CBool where
-  genSeqStep w = (fromIntegral (w `mod` 2), w + 1)
+  genSeq = fromIntegral . (`mod` 2)
 
 instance GenSeq FC.CIntPtr where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CUIntPtr where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CIntMax where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CUIntMax where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CClock where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CTime where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CFloat where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
 instance GenSeq FC.CDouble where
-  genSeqStep w = (fromIntegral w, w + 1)
+  genSeq = fromIntegral
 
-genSeq :: GenSeq a => a
-genSeq = fst $ genSeqStep 1
+{-------------------------------------------------------------------------------
+  Properties
+-------------------------------------------------------------------------------}
+
+-- | Values generated from the same sequential value in Haskell and C have the
+-- same semantics
+nameHsGenSeqNSameSemanticsCGenSeqN :: String
+nameHsGenSeqNSameSemanticsCGenSeqN = "HsGenSeqNSameSemanticsCGenSeqN"
+
+-- | Values generated from the same sequential value in Haskell and C have the
+-- same semantics
+prop_HsGenSeqNSameSemanticsCGenSeqN ::
+     (GenSeq a, SameSemantics a)
+  => (FC.CULong -> IO a)
+  -> FC.CULong
+  -> Property
+prop_HsGenSeqNSameSemanticsCGenSeqN cGenSeq n = QCM.monadicIO $ do
+    x <- QCM.run $ cGenSeq n
+    QCM.assert $ genSeq n `sameSemantics` x
+
+-- | Values generated from the same sequential value in Haskell and C have the
+-- same semantics
+assertHsGenSeqNSameSemanticsCGenSeqN ::
+     (GenSeq a, SameSemantics a, Show a)
+  => (FC.CULong -> IO a)
+  -> FC.CULong
+  -> Assertion
+assertHsGenSeqNSameSemanticsCGenSeqN cGenSeq n = do
+    x <- cGenSeq n
+    genSeq n @==~? x
+
+-- | A value sequentially generated in Haskell has the expected value in C
+nameHsGenSeq1CEq :: String
+nameHsGenSeq1CEq = "HsGenSeq1CEq"
+
+-- | A value sequentially generated in Haskell has the expected value in C
+assertHsGenSeq1CEq :: (GenSeq a, Show a) => (a -> IO Bool) -> Assertion
+assertHsGenSeq1CEq cAssert = do
+    let x = genSeq 1
+    isSuccess <- cAssert x
+    unless isSuccess . assertFailure $ show x
+
+-- | A value sequentially generated in C has the expected value in Haskell
+nameCGenSeq1HsEq :: String
+nameCGenSeq1HsEq = "CGenSeq1HsEq"
+
+-- | A value sequentially generated in C has the expected value in Haskell
+assertCGenSeq1HsEq :: (GenSeq a, SameSemantics a, Show a) => IO a -> Assertion
+assertCGenSeq1HsEq cSeqGen1 = do
+    x <- cSeqGen1
+    genSeq 1 @==~? x
