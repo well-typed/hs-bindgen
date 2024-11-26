@@ -6,20 +6,12 @@ module HsBindgen.Clang.HighLevel.Fold (
     Fold
   , Next(..)
   , clang_visitChildren
-    -- * FoldM
-  , FoldM
-  , runFoldIdentity
-  , runFoldReader
-  , runFoldState
   ) where
 
-import Control.Monad
-import Control.Monad.Identity
-import Control.Monad.Reader
-import Control.Monad.State
-import Data.IORef
-import Data.Kind
-import Data.Tuple (swap)
+import Control.Monad (forM_)
+import Control.Monad.IO.Class (liftIO)
+import Control.Monad.IO.Unlift (MonadUnliftIO (withRunInIO))
+import Data.IORef (IORef, writeIORef, readIORef, modifyIORef, newIORef)
 
 import HsBindgen.Clang.LowLevel.Core hiding (clang_visitChildren)
 import HsBindgen.Clang.LowLevel.Core qualified as Core
@@ -38,7 +30,7 @@ import HsBindgen.Patterns
 --   function
 --
 -- This provides for a much nicer user experience.
-type Fold m a = CXCursor -> FoldM m (Next m a)
+type Fold m a = CXCursor -> m (Next m a)
 
 -- | Result of visiting one node
 --
@@ -153,8 +145,8 @@ popUntil someStack newParent = do
 --
 -- * visitors can return results
 -- * we can specify different visitors at different levels of the AST
-clang_visitChildren :: forall m a. CXCursor -> Fold m a -> FoldM m [a]
-clang_visitChildren root topLevelFold = wrapFoldM $ \support -> do
+clang_visitChildren :: forall m a. MonadUnliftIO m => CXCursor -> Fold m a -> m [a]
+clang_visitChildren root topLevelFold = withRunInIO $ \support -> do
     stack     <- initStack root topLevelFold
     someStack <- newIORef $ SomeStack stack
     _terminatedEarly <- Core.clang_visitChildren root $ visitor support someStack
@@ -162,16 +154,16 @@ clang_visitChildren root topLevelFold = wrapFoldM $ \support -> do
     reverse <$> readIORef (topResults stack)
   where
     visitor ::
-         Support m
+         (forall b. m b -> IO b)
       -> IORef (SomeStack m)
       -> CXCursor
       -> CXCursor
       -> IO (SimpleEnum CXChildVisitResult)
-    visitor support someStack current parent = do
+    visitor runInIO someStack current parent = do
         popUntil someStack parent
         SomeStack stack <- readIORef someStack
         let p = topProcessing stack
-        next <- unwrapFoldM (currentFold p current) support
+        next <- runInIO $ currentFold p current
         case next of
           Break ma -> do
             forM_ ma $ modifyIORef (partialResults p) . (:)
@@ -183,60 +175,3 @@ clang_visitChildren root topLevelFold = wrapFoldM $ \support -> do
             stack' <- push current fold collect stack
             writeIORef someStack $ SomeStack stack'
             return $ simpleEnum CXChildVisit_Recurse
-
-{-------------------------------------------------------------------------------
-  'FoldM' monad
-
-  We are limited by the type of 'clang_visitChildren' to functions in @IO@,
-  but we can mimick other monads through the @ReaderT IO@ pattern.
--------------------------------------------------------------------------------}
-
-newtype FoldM m a = FoldM {
-      getFoldM :: ReaderT (Support m) IO a
-    }
-  deriving newtype (Functor, Applicative, Monad, MonadIO)
-
-wrapFoldM :: (Support m -> IO a) -> FoldM m a
-wrapFoldM = FoldM . ReaderT
-
-unwrapFoldM :: FoldM m a -> Support m -> IO a
-unwrapFoldM = runReaderT . getFoldM
-
--- | 'ReaderT' argument required to support @m@
-type family Support (m :: Type -> Type) :: Type
-
---
--- 'Identity'
---
-
-type instance Support Identity = ()
-
-runFoldIdentity :: FoldM Identity a -> IO a
-runFoldIdentity = ($ ()) . unwrapFoldM
-
---
--- 'Reader'
---
-
-type instance Support (Reader r) = r
-
-deriving newtype instance MonadReader r (FoldM (Reader r))
-
-runFoldReader :: r -> FoldM (Reader r) a -> IO a
-runFoldReader env = ($ env) . unwrapFoldM
-
---
--- 'State'
---
-
-type instance Support (State s) = IORef s
-
-instance MonadState s (FoldM (State s)) where
-  state f = wrapFoldM $ \ref -> atomicModifyIORef ref (swap . f)
-
-runFoldState :: s -> FoldM (State s) a -> IO (a, s)
-runFoldState s f = do
-    ref <- newIORef s
-    a   <- unwrapFoldM f ref
-    (a,) <$> readIORef ref
-

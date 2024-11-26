@@ -26,11 +26,6 @@ module HsBindgen.Clang.HighLevel.Types (
     -- * Folds
   , Fold
   , Next(..)
-    -- ** FoldM
-  , FoldM
-  , runFoldIdentity
-  , runFoldReader
-  , runFoldState
     -- * User-provided names
   , UserProvided
   , getUserProvided

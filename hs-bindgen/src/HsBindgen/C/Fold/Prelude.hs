@@ -25,17 +25,17 @@ data PreludeEntry
   Top-level
 -------------------------------------------------------------------------------}
 
-foldPrelude ::
+foldPrelude :: forall m. MonadIO m =>
      Tracer IO GenPreludeMsg
   -> CXTranslationUnit
-  -> Fold Identity PreludeEntry
+  -> Fold m PreludeEntry
 foldPrelude tracer unit = go
   where
-    go :: Fold Identity PreludeEntry
+    go :: Fold m PreludeEntry
     go = checkLoc $ \loc current -> do
         kind <- liftIO $ clang_getCursorKind current
 
-        let skip :: FoldM Identity (Next Identity a)
+        let skip :: m (Next m a)
             skip = liftIO $ do
                 traceWith tracer Info $ Skipping loc kind
                 return $ Continue Nothing
