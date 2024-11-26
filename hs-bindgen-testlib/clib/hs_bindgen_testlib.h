@@ -1,3 +1,5 @@
+// Copyright (c) 2024 Well-Typed LLP and Anduril Industries Inc.
+
 #ifndef HS_BINDGEN_TESTLIB_H
 #define HS_BINDGEN_TESTLIB_H
 
