@@ -1,3 +1,5 @@
+// Copyright (c) 2024 Well-Typed LLP and Anduril Industries Inc.
+
 #include <math.h>
 #include <signal.h>
 #include <stdalign.h>
@@ -209,7 +211,9 @@ unsigned long long hsbg_preturb_CULLong(long size, unsigned long long n) {
   return n + size;
 }
 
-bool hsbg_preturb_CBool(long size, bool b) { return (abs(size) % 2 == 1) != b; }
+bool hsbg_preturb_CBool(long size, bool b) {
+  return (labs(size) % 2 == 1) != b;
+}
 
 intptr_t hsbg_preturb_CIntPtr(long size, intptr_t n) { return n + size; }
 
@@ -225,13 +229,13 @@ time_t hsbg_preturb_CTime(long size, time_t t) { return t + size; }
 
 float hsbg_preturb_CFloat(long size, float x) {
   if (isnan(x)) {
-    return (abs(size) % 2 == 0) ? NAN : -0.0;
+    return (labs(size) % 2 == 0) ? NAN : -0.0;
   }
   if (x == 0.0 && signbit(x)) {
-    return (abs(size) % 2 == 0) ? -0.0 : NAN;
+    return (labs(size) % 2 == 0) ? -0.0 : NAN;
   }
   if (isinf(x)) {
-    return (abs(size) % 2 == 0) ? x : -x;
+    return (labs(size) % 2 == 0) ? x : -x;
   }
 
   uint32_t const s_mask = 0x80000000;
@@ -274,13 +278,13 @@ float hsbg_preturb_CFloat(long size, float x) {
 
 double hsbg_preturb_CDouble(long size, double x) {
   if (isnan(x)) {
-    return (abs(size) % 2 == 0) ? NAN : -0.0;
+    return (labs(size) % 2 == 0) ? NAN : -0.0;
   }
   if (x == 0.0 && signbit(x)) {
-    return (abs(size) % 2 == 0) ? -0.0 : NAN;
+    return (labs(size) % 2 == 0) ? -0.0 : NAN;
   }
   if (isinf(x)) {
-    return (abs(size) % 2 == 0) ? x : -x;
+    return (labs(size) % 2 == 0) ? x : -x;
   }
 
   uint64_t const s_mask = 0x8000000000000000;
