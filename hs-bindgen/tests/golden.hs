@@ -9,6 +9,7 @@ import Test.Tasty.HUnit (testCase, (@?=))
 
 import TastyGolden (goldenTestSteps)
 import Orphans ()
+import Rust
 import Misc
 
 #if __GLASGOW_HASKELL__ >=904
@@ -20,10 +21,12 @@ import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
 main :: IO ()
-main = findPackageDirectory "hs-bindgen" >>= main'
+main = do
+    packageRoot <- findPackageDirectory "hs-bindgen"
+    defaultMain $ withRustBindgen $ \bg -> main' packageRoot bg
 
-main' :: FilePath -> IO ()
-main' packageRoot = defaultMain $ testGroup "golden"
+main' :: FilePath -> IO FilePath -> TestTree
+main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
         let fp = "examples/simple_structs.h"
             args = clangArgs packageRoot
@@ -59,6 +62,7 @@ main' packageRoot = defaultMain $ testGroup "golden"
         , goldenTh packageRoot name
 #endif
         , goldenPP name
+        , goldenRust bg name
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do

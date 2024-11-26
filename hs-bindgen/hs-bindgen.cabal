@@ -17,6 +17,7 @@ tested-with:      , GHC==9.2.8
 extra-source-files: fixtures/*.txt
                     examples/*.h
                     fixtures/*.hs
+                    fixtures/*.rs
                     bootstrap/*.h
                     musl-include/**/*.h
 
@@ -158,7 +159,7 @@ test-suite golden
   type:           exitcode-stdio-1.0
   main-is:        golden.hs
   hs-source-dirs: tests
-  other-modules:  Orphans TH TastyGolden Misc
+  other-modules:  Orphans TH TastyGolden Misc Rust
   build-depends:
       -- Internal dependencies
     , hs-bindgen
@@ -180,6 +181,8 @@ test-suite golden
     , syb           ^>=0.7.2.4
     , ansi-diff
     , utf8-string   ^>=1.0.2
+    , process
+    , temporary
 
 test-suite test-th
   import:         lang
