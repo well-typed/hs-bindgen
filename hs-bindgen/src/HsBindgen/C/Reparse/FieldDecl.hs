@@ -9,5 +9,5 @@ import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Type
 
 -- | Field declaration (in a struct)
-reparseFieldDecl :: Reparse (Typ, CName)
+reparseFieldDecl :: Reparse (Type, CName)
 reparseFieldDecl = (,) <$> reparseTypeUse <*> reparseName

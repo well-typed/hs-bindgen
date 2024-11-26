@@ -10,10 +10,10 @@ WrapCHeader
             StructField {
               fieldName = CName "sixty_four",
               fieldOffset = 0,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "uint64_t")},
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "uint32_t")}]}])

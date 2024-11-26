@@ -45,7 +45,7 @@ instance ToExpr C.SingleLoc
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TokenSpelling
-instance ToExpr C.Typ
+instance ToExpr C.Type
 instance ToExpr C.Typedef
 
 instance ToExpr C.IntegerLiteral

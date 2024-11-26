@@ -10,13 +10,13 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimChar Nothing)}]},
       DeclStruct
         Struct {
@@ -27,23 +27,23 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimChar Nothing)},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimFloating PrimFloat)}]},
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName "struct S2")},
       DeclStruct
         Struct {
@@ -54,12 +54,12 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimChar Nothing)}]},
       DeclTypedef
         Typedef {
           typedefName = CName "S3_t",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName "struct S3_t")},
       DeclStruct
         Struct {
@@ -70,18 +70,18 @@ WrapCHeader
             StructField {
               fieldName = CName "b",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimChar Nothing)},
             StructField {
               fieldName = CName "a",
               fieldOffset = 32,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
-              fieldType = TypPointer
-                (TypPrim
+              fieldType = TypePointer
+                (TypePrim
                   (PrimIntegral
                     (PrimInt Signed)))}]}])

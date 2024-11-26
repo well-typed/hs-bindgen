@@ -10,13 +10,13 @@ WrapCHeader
             StructField {
               fieldName = CName "i",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))},
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimChar Nothing)}]},
       DeclStruct
         Struct {
@@ -27,10 +27,10 @@ WrapCHeader
             StructField {
               fieldName = CName "foo1",
               fieldOffset = 0,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "struct foo")},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "struct foo")}]}])

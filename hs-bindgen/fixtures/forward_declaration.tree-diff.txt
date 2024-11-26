@@ -4,7 +4,7 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "S1_t",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName "struct S1")},
       DeclStruct
         Struct {
@@ -15,7 +15,7 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))}]},
       DeclStruct
@@ -27,6 +27,6 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))}]}])

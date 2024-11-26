@@ -42,13 +42,13 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "T1",
-          typedefType = TypPrim
+          typedefType = TypePrim
             (PrimIntegral
               (PrimInt Signed))},
       DeclTypedef
         Typedef {
           typedefName = CName "T2",
-          typedefType = TypPrim
+          typedefType = TypePrim
             (PrimChar Nothing)},
       DeclStruct
         Struct {
@@ -60,20 +60,20 @@ WrapCHeader
             StructField {
               fieldName = CName "t1",
               fieldOffset = 0,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "T1")},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "T2")},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "M1")},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "M2")}]}])

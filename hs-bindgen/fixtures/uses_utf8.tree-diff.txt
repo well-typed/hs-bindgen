@@ -21,7 +21,7 @@ WrapCHeader
       DeclEnum
         Enu {
           enumTag = Just (CName "MyEnum"),
-          enumType = TypPrim
+          enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
           enumSizeof = 4,

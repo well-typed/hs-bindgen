@@ -510,25 +510,25 @@ WrapCHeader
             StructField {
               fieldName = CName "foo",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))},
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimChar Nothing)}]},
       DeclTypedef
         Typedef {
           typedefName = CName
             "another_typedef_struct_t",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName
               "struct another_typedef_struct_t")},
       DeclEnum
         Enu {
           enumTag = Nothing,
-          enumType = TypPrim
+          enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
           enumSizeof = 4,
@@ -544,19 +544,19 @@ WrapCHeader
         Typedef {
           typedefName = CName
             "another_typedef_enum_e",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName
               "enum another_typedef_enum_e")},
       DeclTypedef
         Typedef {
           typedefName = CName "a_type_t",
-          typedefType = TypPrim
+          typedefType = TypePrim
             (PrimIntegral
               (PrimInt Signed))},
       DeclTypedef
         Typedef {
           typedefName = CName "var_t",
-          typedefType = TypPrim
+          typedefType = TypePrim
             (PrimIntegral
               (PrimInt Signed))},
       DeclStruct
@@ -569,77 +569,77 @@ WrapCHeader
             StructField {
               fieldName = CName "field_0",
               fieldOffset = 0,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "bool")},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "uint8_t")},
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "uint16_t")},
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName "uint32_t")},
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName
                   "another_typedef_struct_t")},
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
-              fieldType = TypPointer
-                (TypElaborated
+              fieldType = TypePointer
+                (TypeElaborated
                   (CName
                     "another_typedef_struct_t"))},
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
-              fieldType = TypPointer
-                (TypPrim PrimVoid)},
+              fieldType = TypePointer
+                (TypePrim PrimVoid)},
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
-              fieldType = TypConstArray
+              fieldType = TypeConstArray
                 7
-                (TypElaborated
+                (TypeElaborated
                   (CName "uint32_t"))},
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName
                   "another_typedef_enum_e")},
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName
                   "another_typedef_enum_e")},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
-              fieldType = TypElaborated
+              fieldType = TypeElaborated
                 (CName
                   "another_typedef_enum_e")}]},
       DeclTypedef
         Typedef {
           typedefName = CName
             "a_typedef_struct_t",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName
               "struct a_typedef_struct")},
       DeclEnum
         Enu {
           enumTag = Nothing,
-          enumType = TypPrim
+          enumType = TypePrim
             (PrimChar (Just Unsigned)),
           enumSizeof = 1,
           enumAlignment = 1,
@@ -660,12 +660,12 @@ WrapCHeader
         Typedef {
           typedefName = CName
             "a_typedef_enum_e",
-          typedefType = TypElaborated
+          typedefType = TypeElaborated
             (CName
               "enum a_typedef_enum_e")},
       DeclTypedef
         Typedef {
           typedefName = CName
             "callback_t",
-          typedefType = TypPointer
-            (TypPrim PrimVoid)}])
+          typedefType = TypePointer
+            (TypePrim PrimVoid)}])

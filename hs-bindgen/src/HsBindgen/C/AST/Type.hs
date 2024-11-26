@@ -2,7 +2,7 @@
 --
 -- This is re-exported in "HsBindgen.C.AST".
 module HsBindgen.C.AST.Type (
-    Typ(..)
+    Type(..)
     -- * Primitive types
   , PrimType(..)
   , PrimIntType(..)
@@ -25,12 +25,13 @@ import HsBindgen.C.AST.Name
   Top-level
 -------------------------------------------------------------------------------}
 
-data Typ =
-    TypPrim PrimType
-  | TypStruct Struct
-  | TypPointer Typ
-  | TypConstArray Natural Typ
-  | TypElaborated Symbol
+-- | Type representing /usage/ of a type: field type, argument or result type etc.
+data Type =
+    TypePrim PrimType
+  | TypeStruct Struct
+  | TypePointer Type
+  | TypeConstArray Natural Type
+  | TypeElaborated Symbol
   -- todo | TypEnum Enum
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -134,7 +135,7 @@ data Struct = Struct {
 data StructField = StructField {
       fieldName   :: CName
     , fieldOffset :: Int -- ^ Offset in bits
-    , fieldType   :: Typ
+    , fieldType   :: Type
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -145,7 +146,7 @@ data StructField = StructField {
 
 data Enu = Enu {
       enumTag       :: Maybe CName
-    , enumType      :: Typ
+    , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]
@@ -166,7 +167,7 @@ data EnumValue = EnumValue {
 
 data Typedef = Typedef {
       typedefName :: CName
-    , typedefType :: Typ
+    , typedefType :: Type
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
