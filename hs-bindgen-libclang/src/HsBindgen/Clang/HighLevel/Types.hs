@@ -34,8 +34,11 @@ module HsBindgen.Clang.HighLevel.Types (
     -- * User-provided names
   , UserProvided
   , getUserProvided
+    -- * Declaration classification
+  , Declaration(..)
   ) where
 
+import HsBindgen.Clang.HighLevel.Declaration
 import HsBindgen.Clang.HighLevel.Diagnostics
 import HsBindgen.Clang.HighLevel.Fold
 import HsBindgen.Clang.HighLevel.SourceLoc

@@ -92,12 +92,19 @@ foldDecls opts@Options{..} cursor = do
       traceU 3 "spelling" =<< liftIO (clang_getTypeKindSpelling typeKind)
       traceU 2 "canonical"
         =<< liftIO (clang_getTypeSpelling =<< clang_getCanonicalType cursorType)
-      traceU 2 "sizeof"
-        =<< handleCallFailed
-              (clang_Type_getSizeOf cursorType)
-      traceU 2 "alignment"
-        =<< handleCallFailed
-              (clang_Type_getAlignOf cursorType)
+      when isDecl $ do
+        decl <- liftIO $ HighLevel.classifyDeclaration cursor
+        case decl of
+          DeclarationRegular -> do
+            traceU 2 "declaration type" "DeclarationRegular"
+            traceU 2 "sizeof"
+              =<< handleCallFailed (clang_Type_getSizeOf cursorType)
+            traceU 2 "alignment"
+              =<< handleCallFailed (clang_Type_getAlignOf cursorType)
+          DeclarationForward{} ->
+            traceU 2 "declaration type" "DeclarationForward"
+          DeclarationOpaque ->
+            traceU 2 "declaration type" "DeclarationOpaque"
 
     isRecurse <- case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl ->
