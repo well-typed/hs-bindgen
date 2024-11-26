@@ -8,6 +8,58 @@
 #include <time.h>
 
 /*******************************************************************************
+  GenSeq
+*******************************************************************************/
+
+char hsbg_genseq_CChar(unsigned long);
+
+signed char hsbg_genseq_CSChar(unsigned long);
+
+unsigned char hsbg_genseq_CUChar(unsigned long);
+
+short hsbg_genseq_CShort(unsigned long);
+
+unsigned short hsbg_genseq_CUShort(unsigned long);
+
+int hsbg_genseq_CInt(unsigned long);
+
+unsigned int hsbg_genseq_CUInt(unsigned long);
+
+long hsbg_genseq_CLong(unsigned long);
+
+unsigned long hsbg_genseq_CULong(unsigned long);
+
+ptrdiff_t hsbg_genseq_CPtrdiff(unsigned long);
+
+size_t hsbg_genseq_CSize(unsigned long);
+
+wchar_t hsbg_genseq_CWchar(unsigned long);
+
+sig_atomic_t hsbg_genseq_CSigAtomic(unsigned long);
+
+long long hsbg_genseq_CLLong(unsigned long);
+
+unsigned long long hsbg_genseq_CULLong(unsigned long);
+
+bool hsbg_genseq_CBool(unsigned long);
+
+intptr_t hsbg_genseq_CIntPtr(unsigned long);
+
+uintptr_t hsbg_genseq_CUIntPtr(unsigned long);
+
+intmax_t hsbg_genseq_CIntMax(unsigned long);
+
+uintmax_t hsbg_genseq_CUIntMax(unsigned long);
+
+clock_t hsbg_genseq_CClock(unsigned long);
+
+time_t hsbg_genseq_CTime(unsigned long);
+
+float hsbg_genseq_CFloat(unsigned long);
+
+double hsbg_genseq_CDouble(unsigned long);
+
+/*******************************************************************************
   Storable: sizeof
 *******************************************************************************/
 

@@ -10,6 +10,106 @@
 #include "hs_bindgen_testlib.h"
 
 /*******************************************************************************
+  GenSeq
+*******************************************************************************/
+
+char hsbg_genseq_CChar(unsigned long n) {
+  return n + 'A';
+}
+
+signed char hsbg_genseq_CSChar(unsigned long n) {
+  return n + 'A';
+}
+
+unsigned char hsbg_genseq_CUChar(unsigned long n) {
+  return n + 'A';
+}
+
+short hsbg_genseq_CShort(unsigned long n) {
+  return n;
+}
+
+unsigned short hsbg_genseq_CUShort(unsigned long n) {
+  return n;
+}
+
+int hsbg_genseq_CInt(unsigned long n) {
+  return n;
+}
+
+unsigned int hsbg_genseq_CUInt(unsigned long n) {
+  return n;
+}
+
+long hsbg_genseq_CLong(unsigned long n) {
+  return n;
+}
+
+unsigned long hsbg_genseq_CULong(unsigned long n) {
+  return n;
+}
+
+ptrdiff_t hsbg_genseq_CPtrdiff(unsigned long n) {
+  return n;
+}
+
+size_t hsbg_genseq_CSize(unsigned long n) {
+  return n;
+}
+
+wchar_t hsbg_genseq_CWchar(unsigned long n) {
+  return n + 'A';
+}
+
+sig_atomic_t hsbg_genseq_CSigAtomic(unsigned long n) {
+  return n;
+}
+
+long long hsbg_genseq_CLLong(unsigned long n) {
+  return n;
+}
+
+unsigned long long hsbg_genseq_CULLong(unsigned long n) {
+  return n;
+}
+
+bool hsbg_genseq_CBool(unsigned long n) {
+  return n % 2;
+}
+
+intptr_t hsbg_genseq_CIntPtr(unsigned long n) {
+  return n;
+}
+
+uintptr_t hsbg_genseq_CUIntPtr(unsigned long n) {
+  return n;
+}
+
+intmax_t hsbg_genseq_CIntMax(unsigned long n) {
+  return n;
+}
+
+uintmax_t hsbg_genseq_CUIntMax(unsigned long n) {
+  return n;
+}
+
+clock_t hsbg_genseq_CClock(unsigned long n) {
+  return n;
+}
+
+time_t hsbg_genseq_CTime(unsigned long n) {
+  return n;
+}
+
+float hsbg_genseq_CFloat(unsigned long n) {
+  return n;
+}
+
+double hsbg_genseq_CDouble(unsigned long n) {
+  return n;
+}
+
+/*******************************************************************************
   Storable: sizeof
 *******************************************************************************/
 
