@@ -17,7 +17,6 @@ module HsBindgen.C.Fold.Type (
 import Control.Monad
 import Control.Monad.State
 import Foreign.C
-import GHC.Stack
 
 import HsBindgen.Imports
 import HsBindgen.C.AST

@@ -6,7 +6,6 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
-import GHC.Stack
 
 import HsBindgen.Imports
 import HsBindgen.C.AST

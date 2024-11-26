@@ -13,7 +13,6 @@ module HsBindgen.C.Fold.Common (
   ) where
 
 import Data.Tree (Tree (Node))
-import GHC.Stack
 
 import HsBindgen.Imports
 import HsBindgen.C.AST

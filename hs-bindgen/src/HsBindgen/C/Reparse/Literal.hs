@@ -7,8 +7,6 @@ module HsBindgen.C.Reparse.Literal (
 import Data.Char (toLower, ord)
 import Data.Scientific qualified as Scientific
 import Text.Parsec
-import Text.Show.Pretty (PrettyVal)
-import GHC.Generics
 
 import HsBindgen.Imports
 import HsBindgen.C.Reparse.Infra
