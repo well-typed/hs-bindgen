@@ -90,6 +90,10 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.C.Tc.Macro
+      HsBindgen.GenTests
+      HsBindgen.GenTests.C
+      HsBindgen.GenTests.Hs
+      HsBindgen.GenTests.Readme
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
       HsBindgen.Hs.Translation
@@ -120,6 +124,7 @@ library
     , contra-tracer      >= 0.2     && < 0.3
     , data-default       >= 0.8     && < 0.9
     , debruijn           ^>=0.2
+    , directory          ^>=1.3
     , filepath           >= 1.4     && < 1.6
     , fin                >= 0.3.2   && < 0.4
     , mtl                >= 2.2     && < 2.4

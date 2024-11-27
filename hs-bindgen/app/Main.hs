@@ -22,6 +22,9 @@ execMode cmdline tracer = \case
       cHeader <- parseC cmdline tracer input
       let hsModl = genModule moduleOpts cHeader
       prettyHs renderOpts output hsModl
+    ModeGenTests{genTestsInput, genTestsModuleOpts, genTestsRenderOpts, genTestsOutput} -> do
+      cHeader <- parseC cmdline tracer genTestsInput
+      genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     Dev devMode ->
       execDevMode cmdline tracer devMode
 
