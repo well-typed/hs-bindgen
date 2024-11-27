@@ -1,10 +1,11 @@
 -- | Simple pretty-printing library
 --
 -- This library wraps the @pretty@ library.  Instead of using 'PP.Doc' directly,
--- type 'CtxDoc' threads a 'Context' that keeps track of the current indentation
--- and maximum line length.  This enables the implementation of 'renderedLines',
--- which can be used to format documentation comments for the current
--- indentation.
+-- type 'CtxDoc' threads a 'Context'.  Keeping track of the current indentation
+-- and maximum line length enables the implementation of 'renderedLines', which
+-- can be used to format documentation comments for the current indentation.
+-- Keeping track of a unique name index enables rendering of unique names with
+-- 'withFreshName'.
 --
 -- Some of the API functions provided by this library differ in behavior from
 -- @pretty@ API functions of similar/same names.  In particular, '($+$)'
@@ -16,9 +17,9 @@
 -- If we would like to have better indentation, we should either switch to a
 -- different underlying library or write our own.
 module Text.SimplePrettyPrint where
-import HsBindgen.Imports
+
+import Data.String (IsString(fromString))
 import Text.PrettyPrint.HughesPJ qualified as PP
-import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
   Context
@@ -30,17 +31,16 @@ data Context = Context {
       ctxIndentation :: !Int
       -- | Maximum number of columns per line, when possible
     , ctxMaxLineCols :: !Int
-
-      -- | Name unique
-    , ctxNameUnique :: !Int
+      -- | Unique name index
+    , ctxUniqueNameIdx :: !Int
     }
 
 -- | Construct an initial 'Context' with the specified line length
 mkContext :: Int -> Context
 mkContext maxLineCols = Context {
-      ctxIndentation = 0
-    , ctxMaxLineCols = maxLineCols
-    , ctxNameUnique = 0
+      ctxIndentation   = 0
+    , ctxMaxLineCols   = maxLineCols
+    , ctxUniqueNameIdx = 0
     }
 
 -- | Default pretty-printing context
@@ -52,6 +52,12 @@ indentContext :: Int -> Context -> Context
 indentContext n ctx = ctx {
       ctxIndentation = ctxIndentation ctx + n
     }
+
+-- | Get the next unique name index (and the updated context)
+getUniqueNameIdx :: Context -> (Int, Context)
+getUniqueNameIdx ctx =
+    let i = ctxUniqueNameIdx ctx
+    in  (i, ctx { ctxUniqueNameIdx = i + 1 })
 
 {-------------------------------------------------------------------------------
   CtxDoc
@@ -72,11 +78,11 @@ instance Show CtxDoc where
 runCtxDoc :: Context -> CtxDoc -> PP.Doc
 runCtxDoc ctx (CtxDoc f) = f ctx
 
-withFreshName :: NameHint -> (CtxDoc -> CtxDoc) -> CtxDoc
-withFreshName (NameHint n) k = CtxDoc $ \ctx -> do
-    let i = ctxNameUnique ctx
-    let CtxDoc next = k (CtxDoc $ \_ -> PP.text (n ++ show i))
-    next ctx { ctxNameUnique = i + 1 }
+-- | Create a unique name with the specified hint
+withFreshName :: String -> (CtxDoc -> CtxDoc) -> CtxDoc
+withFreshName nameHint k = CtxDoc $ \ctx ->
+    let (i, ctx') = getUniqueNameIdx ctx
+    in  runCtxDoc ctx' . k $ CtxDoc (\_ -> PP.text (nameHint ++ show i))
 
 -- | Render a 'CtxDoc'
 renderCtxDoc :: Context -> CtxDoc -> String
@@ -102,9 +108,6 @@ class Pretty a where
   prettyPrec _prec = pretty
 
   {-# MINIMAL pretty | prettyPrec #-}
-
-instance Pretty Natural where
-  pretty = string . show
 
 -- | Render a 'Pretty' value
 renderPretty :: Pretty a => Context -> a -> String

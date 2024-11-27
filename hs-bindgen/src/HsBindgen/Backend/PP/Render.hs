@@ -157,7 +157,7 @@ prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case
     TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
-    TLit n -> pretty n
+    TLit n -> showToCtxDoc n
     TApp c x -> parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
     TFun a b -> parensWhen (prec > 0) $
@@ -219,7 +219,7 @@ prettyExpr env prec = \case
           , prettyExpr env 1 y
           ]
 
-    ELam mPat body -> withFreshName mPat $ \x -> parensWhen (prec > 1) $ fsep
+    ELam (NameHint hint) body -> withFreshName hint $ \x -> parensWhen (prec > 1) $ fsep
       [ char '\\' >< x <+> "->"
       , nest 2 $ prettyExpr (env :> x) 0 body
       ]
@@ -250,9 +250,14 @@ prettyExpr env prec = \case
             | SAlt cnst add hints body <- alts
             ]
 
-withFreshNames :: Env ctx CtxDoc -> Add n ctx ctx' -> Vec n NameHint -> (Env ctx' CtxDoc -> [CtxDoc] -> CtxDoc) -> CtxDoc
-withFreshNames env AZ     _                kont = kont env []
-withFreshNames env (AS a) (hint ::: hints) kont = withFreshName hint $ \name ->
+withFreshNames ::
+     Env ctx CtxDoc
+  -> Add n ctx ctx'
+  -> Vec n NameHint
+  -> (Env ctx' CtxDoc -> [CtxDoc] -> CtxDoc)
+  -> CtxDoc
+withFreshNames env AZ     _                         kont = kont env []
+withFreshNames env (AS a) (NameHint hint ::: hints) kont = withFreshName hint $ \name ->
     withFreshNames env a hints $ \env' names -> kont (env' :> name) (name : names)
 
 getInfixSpecialCase :: forall ctx. Env ctx CtxDoc -> SExpr ctx -> Maybe [CtxDoc]
