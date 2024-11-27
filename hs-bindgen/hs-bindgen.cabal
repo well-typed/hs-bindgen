@@ -91,6 +91,10 @@ library
       HsBindgen.C.Reparse.Type
       HsBindgen.C.Tc.Macro
       HsBindgen.Debug
+      HsBindgen.GenTests
+      HsBindgen.GenTests.C
+      HsBindgen.GenTests.Hs
+      HsBindgen.GenTests.Readme
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
       HsBindgen.Hs.Translation
