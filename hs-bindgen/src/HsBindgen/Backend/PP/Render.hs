@@ -16,11 +16,11 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import HsBindgen.Backend.PP
-import HsBindgen.Backend.PP.Render.Internal
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type (HsPrimType(..))
+import Text.SimplePrettyPrint
 
 import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
 

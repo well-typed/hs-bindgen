@@ -73,7 +73,6 @@ library
   other-modules:
       HsBindgen.Debug
       HsBindgen.Backend.PP
-      HsBindgen.Backend.PP.Render.Internal
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH
       HsBindgen.NameHint
@@ -103,6 +102,7 @@ library
       HsBindgen.Util.Tracer
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
+      Text.SimplePrettyPrint
   other-modules:
       -- Re-exported through HsBindgen.C.AST
       HsBindgen.C.AST.Literal

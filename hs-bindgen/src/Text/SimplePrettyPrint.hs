@@ -15,7 +15,7 @@
 -- The underlying @pretty@ library gives very little control over indentation.
 -- If we would like to have better indentation, we should either switch to a
 -- different underlying library or write our own.
-module HsBindgen.Backend.PP.Render.Internal where
+module Text.SimplePrettyPrint where
 import HsBindgen.Imports
 import Text.PrettyPrint.HughesPJ qualified as PP
 import HsBindgen.NameHint
