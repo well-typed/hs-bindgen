@@ -4,7 +4,7 @@ WrapCHeader
       DeclEnum
         Enu {
           enumTag = Just (CName "foo"),
-          enumType = TypPrim
+          enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
           enumSizeof = 4,
@@ -19,5 +19,5 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "foo",
-          typedefType = TypPrim
+          typedefType = TypePrim
             (PrimFloating PrimDouble)}])
