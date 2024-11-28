@@ -175,7 +175,7 @@ static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
 }
 
 static inline void wrap_getNullCursor(CXCursor *result) {
-	*result = clang_getNullCursor();
+    *result = clang_getNullCursor();
 }
 
 static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* result) {
@@ -312,6 +312,26 @@ static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
 
 static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
     return clang_getEnumConstantDeclValue(*C);
+}
+
+static inline unsigned wrap_equalTypes(const CXType *A, const CXType *B) {
+    return clang_equalTypes(*A, *B);
+}
+
+static inline signed int wrap_compareTypes(const CXType *A, const CXType *B) {
+    if (A->data[0] < B->data[0]) {
+        return -1;
+    } else if (A->data[0] > B->data[0]) {
+        return +1;
+    } else {
+        if (A->data[1] < B->data[1]) {
+            return -1;
+        } else if(A->data[1] > B->data[1]) {
+            return +1;
+        } else {
+            return 0;
+        }
+    }
 }
 
 static inline void wrap_getCanonicalType(const CXType* T, CXType* result) {
