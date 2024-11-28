@@ -1,0 +1,16 @@
+data CBools1 = MkCBools1 {cBools1_x :: Void, cBools1_y :: Void}
+instance Storable CBools1
+    where {sizeOf = \_ -> 2;
+           alignment = \_ -> 1;
+           peek = \ptr_0 -> (pure MkCBools1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCBools1 cBools1_x_3
+                                               cBools1_y_4 -> pokeByteOff ptr_1 0 cBools1_x_3 >> pokeByteOff ptr_1 1 cBools1_y_4}}
+data CBools2 = MkCBools2 {cBools2_x :: CBool', cBools2_y :: CBool'}
+instance Storable CBools2
+    where {sizeOf = \_ -> 2;
+           alignment = \_ -> 1;
+           peek = \ptr_0 -> (pure MkCBools2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCBools2 cBools2_x_3
+                                               cBools2_y_4 -> pokeByteOff ptr_1 0 cBools2_x_3 >> pokeByteOff ptr_1 1 cBools2_y_4}}
