@@ -4,13 +4,13 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "myint",
-          typedefType = TypPrim
+          typedefType = TypePrim
             (PrimIntegral
               (PrimInt Signed))},
       DeclTypedef
         Typedef {
           typedefName = CName "intptr",
-          typedefType = TypPointer
-            (TypPrim
+          typedefType = TypePointer
+            (TypePrim
               (PrimIntegral
                 (PrimInt Signed)))}])

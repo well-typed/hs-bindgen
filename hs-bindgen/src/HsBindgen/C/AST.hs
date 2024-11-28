@@ -13,7 +13,7 @@ module HsBindgen.C.AST (
     -- * Names
   , CName(..)
     -- * Types
-  , Typ(..)
+  , Type(..)
     -- ** Primitive types
   , PrimType(..)
   , PrimIntType(..)

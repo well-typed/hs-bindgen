@@ -34,14 +34,14 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Fold type /declaration/
-foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (Eff (State DeclState)) Typ
+foldTypeDecl :: HasCallStack => CXTranslationUnit -> Fold (Eff (State DeclState)) Type
 foldTypeDecl unit current = do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_StructDecl -> do
         mkStruct <- mkStructHeader current
-        let mkDecl :: [Maybe StructField] -> Maybe Typ
-            mkDecl = Just . TypStruct . mkStruct . catMaybes
+        let mkDecl :: [Maybe StructField] -> Maybe Type
+            mkDecl = Just . TypeStruct . mkStruct . catMaybes
         return $ Recurse (continue $ mkStructField unit) mkDecl
       _otherwise ->
         unrecognizedCursor current
@@ -51,40 +51,40 @@ foldTypeDecl unit current = do
 -------------------------------------------------------------------------------}
 
 -- | Parse type /use site/
-mkTypeUse :: HasCallStack => CXType -> IO Typ
+mkTypeUse :: HasCallStack => CXType -> IO Type
 mkTypeUse = go
   where
-    go :: CXType -> IO Typ
+    go :: CXType -> IO Type
     go ty =
         case fromSimpleEnum $ cxtKind ty of
           kind | Just prim <- primType kind ->
-            return $ TypPrim prim
+            return $ TypePrim prim
 
           Right CXType_Pointer -> do
             ty' <- clang_getPointeeType ty
-            TypPointer <$> go ty'
+            TypePointer <$> go ty'
 
           Right CXType_ConstantArray -> do
             n   <- clang_getArraySize ty
             ty' <- clang_getArrayElementType ty
-            TypConstArray (fromIntegral n) <$> go ty'
+            TypeConstArray (fromIntegral n) <$> go ty'
 
           Right CXType_Elaborated -> do
             name <- CName <$> clang_getTypeSpelling ty
-            return $ TypElaborated name
+            return $ TypeElaborated name
 
           -- Older versions of libclang (e.g. clang-14) report 'CXType_Typedef'
           -- instead of 'CXType_Elaborated'.
           Right CXType_Typedef -> do
             name <- CName <$> clang_getTypeSpelling ty
-            return $ TypElaborated name
+            return $ TypeElaborated name
 
           Right CXType_Void -> do
-            return $ TypPrim PrimVoid
+            return $ TypePrim PrimVoid
 
           Right CXType_FunctionProto -> do
             -- TODO: for now we represent function types as Void
-            return $ TypPrim PrimVoid
+            return $ TypePrim PrimVoid
 
           _otherwise ->
             unrecognizedType ty

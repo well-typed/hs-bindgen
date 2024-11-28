@@ -22,7 +22,7 @@ import Data.Vec.Lazy qualified as Vec
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Tc.Macro qualified as C
+import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -206,8 +206,8 @@ typedefDecs d = [
 
 macroDecs :: C.MacroDecl -> [Hs.Decl]
 macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
-    | C.QuantTy bf <- ty
-    , C.isPrimTy bf
+    | Macro.QuantTy bf <- ty
+    , Macro.isPrimTy bf
     = macroDecsTypedef m
 
     | otherwise
@@ -233,8 +233,8 @@ macroDecsTypedef m = [
 
           -- TODO: this type conversion is very simple, but works for now.
           newtypeType    = typ nm $ case C.macroBody m of
-              C.MTerm (C.MType pt) -> C.TypPrim pt
-              _                    -> C.TypPrim C.PrimVoid --
+              C.MTerm (C.MType pt) -> C.TypePrim pt
+              _                    -> C.TypePrim C.PrimVoid --
 
       in Hs.Newtype {..}
 
@@ -242,19 +242,19 @@ macroDecsTypedef m = [
   Types
 -------------------------------------------------------------------------------}
 
-typ :: NameMangler -> C.Typ -> Hs.HsType
-typ NameMangler{..} (C.TypElaborated c) =
+typ :: NameMangler -> C.Type -> Hs.HsType
+typ NameMangler{..} (C.TypeElaborated c) =
   Hs.HsTypRef (mangleTypeConstrName (TypeConstrContext c)) -- wrong
-typ _     (C.TypStruct s)      =Hs.HsType (show (C.structTag s)) -- also wrong
-typ _     (C.TypPrim p)       = case p of
+typ _     (C.TypeStruct s)     = Hs.HsType (show (C.structTag s)) -- also wrong
+typ _     (C.TypePrim p)       = case p of
   C.PrimVoid                   -> Hs.HsPrimType HsPrimVoid
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
   C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar
   C.PrimChar (Just C.Unsigned) -> Hs.HsPrimType HsPrimCSChar
   C.PrimIntegral i -> Hs.HsPrimType $ integralType i
   C.PrimFloating f -> Hs.HsPrimType $ floatingType f
-typ nm (C.TypPointer t)    = Hs.HsPtr (typ nm t)
-typ nm (C.TypConstArray n ty) = Hs.HsConstArray n (typ nm ty)
+typ nm (C.TypePointer t)       = Hs.HsPtr (typ nm t)
+typ nm (C.TypeConstArray n ty) = Hs.HsConstArray n (typ nm ty)
 
 integralType :: C.PrimIntType -> HsPrimType
 integralType = \case
@@ -291,26 +291,26 @@ macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body }
   where
     hsVarName = mangleVarName defaultNameMangler $ VarContext cVarNm
 
-quantTyHsTy :: C.QuantTy -> Hs.SigmaType
-quantTyHsTy qty@(C.QuantTy @n _) =
-  case C.mkQuantTyBody qty of
-    C.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
-      goForallTy (C.tyVarNames @n) cts ty
+quantTyHsTy :: Macro.QuantTy -> Hs.SigmaType
+quantTyHsTy qty@(Macro.QuantTy @n _) =
+  case Macro.mkQuantTyBody qty of
+    Macro.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
+      goForallTy (Macro.tyVarNames @n) cts ty
   where
     size :: Size n
     size = induction SZ SS
 
-    goCt :: Map Text (Idx ctx) -> C.Type C.Ct -> Hs.ClassTy ctx
-    goCt env (C.TyConAppTy (C.ClassTyCon tc) as) = Hs.ClassTy tc (fmap (goTy env) as)
+    goCt :: Map Text (Idx ctx) -> Macro.Type Macro.Ct -> Hs.ClassTy ctx
+    goCt env (Macro.TyConAppTy (Macro.ClassTyCon tc) as) = Hs.ClassTy tc (fmap (goTy env) as)
 
-    goTy :: Map Text (Idx ctx) -> C.Type C.Ty -> Hs.TauType ctx
-    goTy env (C.TyVarTy tv) = Hs.TyVarTy (env Map.! C.tyVarName tv) -- XXX: partial Map.!
-    goTy env (C.FunTy as r) =
+    goTy :: Map Text (Idx ctx) -> Macro.Type Macro.Ty -> Hs.TauType ctx
+    goTy env (Macro.TyVarTy tv) = Hs.TyVarTy (env Map.! Macro.tyVarName tv) -- XXX: partial Map.!
+    goTy env (Macro.FunTy as r) =
       foldr (Hs.FunTy . goTy env) (goTy env r) as
-    goTy env (C.TyConAppTy (C.DataTyCon tc) as) =
+    goTy env (Macro.TyConAppTy (Macro.DataTyCon tc) as) =
       Hs.TyConAppTy (Hs.TyConApp tc $ fmap (goTy env) as)
 
-    goForallTy :: Vec n Text -> [ C.Type C.Ct ] -> C.Type C.Ty -> Hs.SigmaType
+    goForallTy :: Vec n Text -> [ Macro.Type Macro.Ct ] -> Macro.Type Macro.Ty -> Hs.SigmaType
     goForallTy args cts body = Hs.ForallTy
         { forallTySize    = size
         , forallTyBinders = fmap (fromString . T.unpack) args

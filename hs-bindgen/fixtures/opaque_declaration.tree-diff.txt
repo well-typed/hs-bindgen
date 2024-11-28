@@ -12,14 +12,14 @@ WrapCHeader
             StructField {
               fieldName = CName "ptrA",
               fieldOffset = 0,
-              fieldType = TypPointer
-                (TypElaborated
+              fieldType = TypePointer
+                (TypeElaborated
                   (CName "struct foo"))},
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
-              fieldType = TypPointer
-                (TypElaborated
+              fieldType = TypePointer
+                (TypeElaborated
                   (CName "struct bar"))}]},
       DeclStruct
         Struct {

@@ -4,8 +4,8 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "triple",
-          typedefType = TypConstArray
+          typedefType = TypeConstArray
             3
-            (TypPrim
+            (TypePrim
               (PrimIntegral
                 (PrimInt Signed)))}])

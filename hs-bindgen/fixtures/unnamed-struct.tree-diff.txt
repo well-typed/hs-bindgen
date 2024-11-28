@@ -10,12 +10,12 @@ WrapCHeader
             StructField {
               fieldName = CName "foo",
               fieldOffset = 0,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))},
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
-              fieldType = TypPrim
+              fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Signed))}]}])

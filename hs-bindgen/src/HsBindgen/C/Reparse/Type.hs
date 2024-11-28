@@ -19,10 +19,10 @@ import HsBindgen.C.Reparse.Common
 -- | Reparse type use
 --
 -- TODO: This parser is quite minimal at the moment.
-reparseTypeUse :: Reparse Typ
+reparseTypeUse :: Reparse Type
 reparseTypeUse = choice [
-      TypPrim <$> reparsePrimType
-    , TypElaborated <$> reparseName
+      TypePrim <$> reparsePrimType
+    , TypeElaborated <$> reparseName
     ]
 
 {-------------------------------------------------------------------------------
