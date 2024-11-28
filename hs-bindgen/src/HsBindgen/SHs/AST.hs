@@ -9,6 +9,7 @@ module HsBindgen.SHs.AST (
     ClosedType,
     SType (..),
     Instance (..),
+    Field (..),
     Record (..),
     Newtype (..),
     ForeignImport (..),
@@ -150,18 +151,23 @@ data Instance  = Instance {
     }
   deriving stock (Show)
 
+data Field = Field {
+      fieldName :: HsName NsVar
+    , fieldType :: ClosedType
+    }
+  deriving stock (Show)
+
 data Record = Record {
       dataType   :: HsName NsTypeConstr
     , dataCon    :: HsName NsConstr
-    , dataFields :: [(HsName NsVar, ClosedType)]
+    , dataFields :: [Field]
     }
   deriving stock (Show)
 
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeCon    :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
-    , newtypeType   :: ClosedType
+    , newtypeField  :: Field
     }
   deriving stock (Show)
 
