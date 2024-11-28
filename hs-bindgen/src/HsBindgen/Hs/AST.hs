@@ -19,7 +19,8 @@
 -- > import HsBindgen.Hs.AST qualified as Hs
 module HsBindgen.Hs.AST (
     -- * Information about generated code
-    Struct(..)
+    Field(..)
+  , Struct(..)
   , Newtype(..)
     -- * Types
   , HsType(..)
@@ -71,10 +72,17 @@ import DeBruijn
   Information about generated code
 -------------------------------------------------------------------------------}
 
+data Field = Field {
+      fieldName :: HsName NsVar
+    , fieldType :: HsType
+    }
+
+deriving stock instance Show Field
+
 data Struct (n :: Nat) = Struct {
       structName   :: HsName NsTypeConstr
     , structConstr :: HsName NsConstr
-    , structFields :: Vec n (HsName NsVar, HsType)
+    , structFields :: Vec n Field
     }
 
 deriving stock instance Show (Struct n)
@@ -82,8 +90,7 @@ deriving stock instance Show (Struct n)
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
-    , newtypeType   :: HsType
+    , newtypeField  :: Field
     }
 
 deriving stock instance Show Newtype

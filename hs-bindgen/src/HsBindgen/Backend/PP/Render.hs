@@ -118,8 +118,8 @@ instance Pretty SDecl where
     DRecord Record{..} ->
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
       in  hang d 2 $ vlist '{' '}'
-            [ hsep [pretty fld, "::", pretty typ]
-            | (fld, typ) <- dataFields
+            [ hsep [pretty (fieldName f), "::", pretty (fieldType f)]
+            | f <- dataFields
             ]
 
     DEmptyData n ->
@@ -128,7 +128,11 @@ instance Pretty SDecl where
     DNewtype Newtype{..} ->
       let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]
       in  hang d 2 $ vlist '{' '}'
-            [ hsep [pretty newtypeField, "::", pretty newtypeType]
+            [ hsep
+                [ pretty (fieldName newtypeField)
+                , "::"
+                , pretty (fieldType newtypeField)
+                ]
             ]
 
     DForeignImport ForeignImport{..} ->

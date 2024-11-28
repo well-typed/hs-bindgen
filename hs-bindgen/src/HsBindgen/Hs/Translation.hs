@@ -96,11 +96,11 @@ structDecs struct fields =
           typeConstrCtx = TypeConstrContext cStructName
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          mkField f =
-            ( mangleVarName $ FieldVarContext typeConstrCtx True (C.fieldName f)
-            , typ nm (C.fieldType f)
-            )
-          structFields = Vec.map mkField fields
+          structFields = flip Vec.map fields $ \f -> Hs.Field {
+              fieldName = mangleVarName $
+                FieldVarContext typeConstrCtx True (C.fieldName f)
+            , fieldType = typ nm (C.fieldType f)
+            }
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -146,7 +146,7 @@ opaqueStructDecs cname =
 
 enumDecs :: C.Enu -> [Hs.Decl]
 enumDecs e = [
-      Hs.DeclNewtype newtype_
+      Hs.DeclNewtype Hs.Newtype{..}
     , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ] ++ valueDecls
   where
@@ -155,21 +155,19 @@ enumDecs e = [
     typeConstrCtx      = TypeConstrContext cEnumName
     newtypeName        = mangleTypeConstrName typeConstrCtx
     newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
-    newtypeType        = typ nm (C.enumType e)
-
-    newtype_ :: Hs.Newtype
-    newtype_ =
-      let newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-      in Hs.Newtype {..}
+    newtypeField       = Hs.Field {
+        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType = typ nm (C.enumType e)
+      }
 
     hs :: Hs.Struct (S Z)
     hs =
       let structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          structFields = Vec.singleton
-            ( mangleVarName $ EnumVarContext typeConstrCtx
-            , typ nm (C.enumType e)
-            )
+          structFields = Vec.singleton $ Hs.Field {
+              fieldName = mangleVarName $ EnumVarContext typeConstrCtx
+            , fieldType = typ nm (C.enumType e)
+            }
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -206,7 +204,7 @@ enumDecs e = [
 
 typedefDecs :: C.Typedef -> [Hs.Decl]
 typedefDecs d = [
-      Hs.DeclNewtype newtype_
+      Hs.DeclNewtype Hs.Newtype{..}
     , Hs.DeclNewtypeInstance Hs.Storable newtypeName
     ]
   where
@@ -214,13 +212,11 @@ typedefDecs d = [
     nm@NameMangler{..} = defaultNameMangler
     typeConstrCtx      = TypeConstrContext cName
     newtypeName        = mangleTypeConstrName typeConstrCtx
-
-    newtype_ :: Hs.Newtype
-    newtype_ = Hs.Newtype {..}
-      where
-        newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-        newtypeField  = mangleVarName $ EnumVarContext typeConstrCtx
-        newtypeType   = typ nm (C.typedefType d)
+    newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField       = Hs.Field {
+        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType = typ nm (C.typedefType d)
+      }
 
 
 
@@ -243,24 +239,22 @@ macroDecs C.MacroTcError {}      = []
 
 macroDecsTypedef :: C.Macro -> [Hs.Decl]
 macroDecsTypedef m = [
-        Hs.DeclNewtype newtype_
-      ]
+      Hs.DeclNewtype Hs.Newtype{..}
+    ]
   where
-    newtype_ :: Hs.Newtype
-    newtype_ =
-      let cName = C.macroName m
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cName
-          newtypeName = mangleTypeConstrName typeConstrCtx
-          newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-
+    cName = C.macroName m
+    nm@NameMangler{..} = defaultNameMangler
+    typeConstrCtx = TypeConstrContext cName
+    newtypeName = mangleTypeConstrName typeConstrCtx
+    newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField = Hs.Field {
+        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType =
           -- TODO: this type conversion is very simple, but works for now.
-          newtypeType    = typ nm $ case C.macroBody m of
-              C.MTerm (C.MType pt) -> C.TypePrim pt
-              _                    -> C.TypePrim C.PrimVoid --
-
-      in Hs.Newtype {..}
+          typ nm $ case C.macroBody m of
+            C.MTerm (C.MType pt) -> C.TypePrim pt
+            _                    -> C.TypePrim C.PrimVoid
+      }
 
 {-------------------------------------------------------------------------------
   Types

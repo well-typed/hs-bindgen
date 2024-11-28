@@ -42,8 +42,11 @@ translateDeclData struct = DRecord $ Record
     { dataType = Hs.structName struct
     , dataCon  = Hs.structConstr struct
     , dataFields =
-        [ (n, translateType t)
-        | (n, t) <- toList $ Hs.structFields struct
+        [ Field {
+              fieldName = Hs.fieldName f
+            , fieldType = translateType $ Hs.fieldType f
+            }
+        | f <- toList $ Hs.structFields struct
         ]
     }
 
@@ -54,8 +57,10 @@ translateNewtype :: Hs.Newtype -> SDecl
 translateNewtype n = DNewtype $ Newtype
     { newtypeName  = Hs.newtypeName n
     , newtypeCon   = Hs.newtypeConstr n
-    , newtypeField = Hs.newtypeField n
-    , newtypeType  = translateType (Hs.newtypeType n)
+    , newtypeField = Field {
+          fieldName = Hs.fieldName $ Hs.newtypeField n
+        , fieldType = translateType . Hs.fieldType $ Hs.newtypeField n
+        }
     }
 
 translateNewtypeInstance :: Hs.TypeClass -> HsName NsTypeConstr -> SDecl
@@ -219,7 +224,7 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     (EBound x)
     [SAlt (Hs.structConstr struct) add hints (f k)]
   where
-    hints = fmap (toNameHint . fst) $ Hs.structFields struct
+    hints = fmap (toNameHint . Hs.fieldName) $ Hs.structFields struct
 
 toNameHint :: HsName 'NsVar -> NameHint
 toNameHint (HsName t) = NameHint (T.unpack t)
