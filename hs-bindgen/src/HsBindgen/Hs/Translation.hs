@@ -272,7 +272,7 @@ typ _     (C.TypePrim p)       = case p of
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
   C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar
   C.PrimChar (Just C.Unsigned) -> Hs.HsPrimType HsPrimCSChar
-  C.PrimIntegral i -> Hs.HsPrimType $ integralType i
+  C.PrimIntegral i s -> Hs.HsPrimType $ integralType i s
   C.PrimFloating f -> Hs.HsPrimType $ floatingType f
 typ nm (C.TypePointer t) = case t of
     C.TypeFun {} -> Hs.HsFunPtr (typ nm t)
@@ -280,16 +280,15 @@ typ nm (C.TypePointer t) = case t of
 typ nm (C.TypeConstArray n ty) = Hs.HsConstArray n (typ nm ty)
 typ nm (C.TypeFun xs y)        = foldr (\x res -> Hs.HsFun (typ nm x) res) (Hs.HsIO (typ nm y)) xs
 
-integralType :: C.PrimIntType -> HsPrimType
-integralType = \case
-  C.PrimInt C.Signed        -> HsPrimCInt
-  C.PrimInt C.Unsigned      -> HsPrimCUInt
-  C.PrimShort C.Signed      -> HsPrimCShort
-  C.PrimShort C.Unsigned    -> HsPrimCUShort
-  C.PrimLong C.Signed       -> HsPrimCLong
-  C.PrimLong C.Unsigned     -> HsPrimCULong
-  C.PrimLongLong C.Signed   -> HsPrimCLLong
-  C.PrimLongLong C.Unsigned -> HsPrimCULLong
+integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
+integralType C.PrimInt      C.Signed   = HsPrimCInt
+integralType C.PrimInt      C.Unsigned = HsPrimCUInt
+integralType C.PrimShort    C.Signed   = HsPrimCShort
+integralType C.PrimShort    C.Unsigned = HsPrimCUShort
+integralType C.PrimLong     C.Signed   = HsPrimCLong
+integralType C.PrimLong     C.Unsigned = HsPrimCULong
+integralType C.PrimLongLong C.Signed   = HsPrimCLLong
+integralType C.PrimLongLong C.Unsigned = HsPrimCULLong
 
 floatingType :: C.PrimFloatType -> HsPrimType
 floatingType = \case
@@ -308,7 +307,7 @@ functionDecs _ = [] -- TODO
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.Macro -> C.Quant C.Ty -> [Hs.Decl]
+macroVarDecs :: C.Macro -> Macro.Quant ( Macro.Type Macro.Ty ) -> [Hs.Decl]
 macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
   [
     Hs.DeclVar $
@@ -322,7 +321,7 @@ macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body }
   where
     hsVarName = mangleVarName defaultNameMangler $ VarContext cVarNm
 
-quantTyHsTy :: Macro.Quant Macro.Ty -> Hs.SigmaType
+quantTyHsTy :: Macro.Quant ( Macro.Type Macro.Ty ) -> Hs.SigmaType
 quantTyHsTy qty@(Macro.Quant @kis _) =
   case Macro.mkQuantTyBody qty of
     Macro.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
@@ -407,7 +406,7 @@ macroExprHsExpr = goExpr where
 
     goInt :: C.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goInt (C.IntegerLiteral { integerLiteralType = mbIntTy, integerLiteralValue = i }) =
-      Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt integralType mbIntTy)
+      Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt (uncurry integralType) mbIntTy)
 
     goFloat :: C.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goFloat flt@(C.FloatingLiteral { floatingLiteralType = mbFty }) =

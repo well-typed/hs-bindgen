@@ -45,10 +45,6 @@ iForeignC = HsImport "Foreign.C" (Just "FC")
 iPrelude :: HsImport
 iPrelude = HsImport "Prelude" (Just "P")
 
--- | @Data.Bits@ import
-iBits :: HsImport
-iBits = HsImport "Data.Bits" (Just "DB")
-
 -- | @GHC.Float@ import
 iGHCFloat :: HsImport
 iGHCFloat = HsImport "GHC.Float" (Just "GHC.Float")
@@ -57,9 +53,9 @@ iGHCFloat = HsImport "GHC.Float" (Just "GHC.Float")
 iDataTypeEquality :: HsImport
 iDataTypeEquality = HsImport "Data.Type.Equality" Nothing
 
--- | @HsBindgen.Patterns@ import
-iHsBindgenPatterns :: HsImport
-iHsBindgenPatterns = HsImport "HsBindgen.Patterns" (Just "HsBindgen")
+-- | @HsBindgen.Syntaxc@ import
+iHsBindgenSyntax :: HsImport
+iHsBindgenSyntax = HsImport "HsBindgen.Syntax" (Just "HsBindgen")
 
 {-------------------------------------------------------------------------------
   NameType
@@ -123,40 +119,60 @@ resolveGlobal = \case
     ConstantArray        -> importQ (HsImport "HsBindgen.ConstantArray" Nothing) "ConstantArray"
     IO_type              -> import_ iPrelude "IO"
 
-    NomEq_class      -> import_ iDataTypeEquality  "~"
-    Eq_class         -> importQ iPrelude           "Eq"
-    Ord_class        -> importQ iPrelude           "Ord"
-    Num_class        -> importQ iPrelude           "Num"
-    Integral_class   -> importQ iPrelude           "Integral"
-    Div_class        -> importQ iHsBindgenPatterns "Div"
-    Bits_class       -> importQ iBits              "Bits"
+    NomEq_class     -> import_ iDataTypeEquality  "~"
 
-    IntLike_tycon    -> importQ iHsBindgenPatterns "IntLike"
-    FloatLike_tycon  -> importQ iHsBindgenPatterns "FloatLike"
+    CNot_class             -> importQ iHsBindgenSyntax "CNot"
+    CNot_resTyCon          -> importQ iHsBindgenSyntax "NotRes"
+    CNot_not               -> importQ iHsBindgenSyntax "not"
+    CLogical_class         -> importQ iHsBindgenSyntax "CLogical"
+    CLogical_resTyCon      -> importQ iHsBindgenSyntax "LogicalRes"
+    CLogical_and           -> import_ iHsBindgenSyntax "&&"
+    CLogical_or            -> import_ iHsBindgenSyntax "||"
+    CEq_class              -> importQ iHsBindgenSyntax "CEq"
+    CEq_eq                 -> import_ iHsBindgenSyntax "=="
+    CEq_uneq               -> import_ iHsBindgenSyntax "/="
+    COrd_class             -> importQ iHsBindgenSyntax "COrd"
+    COrd_lt                -> import_ iHsBindgenSyntax "<"
+    COrd_le                -> import_ iHsBindgenSyntax "<="
+    COrd_gt                -> import_ iHsBindgenSyntax ">"
+    COrd_ge                -> import_ iHsBindgenSyntax ">="
+    CPlus_class            -> importQ iHsBindgenSyntax "CPlus"
+    CPlus_resTyCon         -> importQ iHsBindgenSyntax "PlusRes"
+    CPlus_plus             -> importQ iHsBindgenSyntax "plus"
+    CMinus_class           -> importQ iHsBindgenSyntax "CMinus"
+    CMinus_resTyCon        -> importQ iHsBindgenSyntax "MinusRes"
+    CMinus_negate          -> importQ iHsBindgenSyntax "negate"
+    CAdd_class             -> importQ iHsBindgenSyntax "CAdd"
+    CAdd_resTyCon          -> importQ iHsBindgenSyntax "AddRes"
+    CAdd_add               -> import_ iHsBindgenSyntax "+"
+    CSub_class             -> importQ iHsBindgenSyntax "CSub"
+    CSub_resTyCon          -> importQ iHsBindgenSyntax "SubRes"
+    CSub_minus             -> import_ iHsBindgenSyntax "-"
+    CMult_class            -> importQ iHsBindgenSyntax "CMult"
+    CMult_resTyCon         -> importQ iHsBindgenSyntax "MultRes"
+    CMult_mult             -> import_ iHsBindgenSyntax "*"
+    CDiv_class             -> importQ iHsBindgenSyntax "CDiv"
+    CDiv_resTyCon          -> importQ iHsBindgenSyntax "DivRes"
+    CDiv_div               -> import_ iHsBindgenSyntax "/"
+    CRem_class             -> importQ iHsBindgenSyntax "CRem"
+    CRem_resTyCon          -> importQ iHsBindgenSyntax "RemRes"
+    CRem_rem               -> import_ iHsBindgenSyntax "rem"
+    CComplement_class      -> importQ iHsBindgenSyntax "CComplement"
+    CComplement_resTyCon   -> importQ iHsBindgenSyntax "ComplementRes"
+    CComplement_complement -> importQ iHsBindgenSyntax "complement"
+    CBits_class            -> importQ iHsBindgenSyntax "CBits"
+    CBits_resTyCon         -> importQ iHsBindgenSyntax "BitsRes"
+    CBits_and              -> import_ iHsBindgenSyntax ".&."
+    CBits_or               -> import_ iHsBindgenSyntax ".|."
+    CBits_xor              -> import_ iHsBindgenSyntax "xor"
+    CShift_class           -> importQ iHsBindgenSyntax "CShift"
+    CShift_resTyCon        -> importQ iHsBindgenSyntax "ShiftRes"
+    CShift_shiftL          -> import_ iHsBindgenSyntax "shiftL"
+    CShift_shiftR          -> import_ iHsBindgenSyntax "shiftR"
 
-    Eq_eq           -> importQ iPrelude           "=="
-    Eq_uneq         -> importQ iPrelude           "/="
-    Ord_lt          -> importQ iPrelude           "<"
-    Ord_le          -> importQ iPrelude           "<="
-    Ord_gt          -> importQ iPrelude           ">"
-    Ord_ge          -> importQ iPrelude           ">="
-    Base_identity   -> importQ iPrelude           "id"
-    Base_not        -> importQ iPrelude           "not"
-    Base_and        -> importQ iPrelude           "&&"
-    Base_or         -> importQ iPrelude           "||"
-    Bits_shiftL     -> importQ iBits              "shiftL"
-    Bits_shiftR     -> importQ iBits              "shiftR"
-    Bits_and        -> importQ iBits              ".&."
-    Bits_xor        -> importQ iBits              "xor"
-    Bits_or         -> importQ iBits              ".|."
-    Bits_complement -> importQ iBits              "complement"
-    Num_negate      -> importQ iPrelude           "negate"
-    Num_add         -> importQ iPrelude           "+"
-    Num_minus       -> importQ iPrelude           "-"
-    Num_times       -> importQ iPrelude           "*"
-    Div_div         -> importQ iHsBindgenPatterns "/"
-    Integral_rem    -> importQ iPrelude           "rem"
-    Unary_plus      -> importQ iHsBindgenPatterns "unaryPlus"
+    IntLike_tycon    -> importQ iHsBindgenSyntax "IntLike"
+    FloatLike_tycon  -> importQ iHsBindgenSyntax "FloatLike"
+
     GHC_Float_castWord32ToFloat -> importQ iGHCFloat "castWord32ToFloat"
     GHC_Float_castWord64ToDouble -> importQ iGHCFloat "castWord64ToDouble"
     CFloat_constructor -> importQ iForeignC "CFloat"

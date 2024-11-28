@@ -4,7 +4,6 @@ module HsBindgen.Backend.TH (
     mkDecl,
 ) where
 
-import Data.Bits qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
@@ -24,7 +23,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.Patterns qualified
+import HsBindgen.Syntax qualified
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -54,39 +53,58 @@ mkGlobal =  \case
       IO_type              -> ''IO
 
       NomEq_class          -> ''(~)
-      Eq_class             -> ''Eq
-      Ord_class            -> ''Ord
-      Num_class            -> ''Num
-      Integral_class       -> ''Integral
-      Div_class            -> ''HsBindgen.Patterns.Div
-      Bits_class           -> ''Data.Bits.Bits
 
-      IntLike_tycon        -> ''HsBindgen.Patterns.IntLike
-      FloatLike_tycon      -> ''HsBindgen.Patterns.FloatLike
+      CNot_class             -> ''HsBindgen.Syntax.CNot
+      CNot_resTyCon          -> ''HsBindgen.Syntax.NotRes
+      CNot_not               -> 'HsBindgen.Syntax.not
+      CLogical_class         -> ''HsBindgen.Syntax.CLogical
+      CLogical_resTyCon      -> ''HsBindgen.Syntax.LogicalRes
+      CLogical_and           -> '(HsBindgen.Syntax.&&)
+      CLogical_or            -> '(HsBindgen.Syntax.||)
+      CEq_class              -> ''HsBindgen.Syntax.CEq
+      CEq_eq                 -> '(HsBindgen.Syntax.==)
+      CEq_uneq               -> '(HsBindgen.Syntax./=)
+      COrd_class             -> ''HsBindgen.Syntax.COrd
+      COrd_lt                -> '(HsBindgen.Syntax.<)
+      COrd_le                -> '(HsBindgen.Syntax.<=)
+      COrd_gt                -> '(HsBindgen.Syntax.>)
+      COrd_ge                -> '(HsBindgen.Syntax.>=)
+      CPlus_class            -> ''HsBindgen.Syntax.CPlus
+      CPlus_resTyCon         -> ''HsBindgen.Syntax.PlusRes
+      CPlus_plus             -> 'HsBindgen.Syntax.plus
+      CMinus_class           -> ''HsBindgen.Syntax.CMinus
+      CMinus_resTyCon        -> ''HsBindgen.Syntax.MinusRes
+      CMinus_negate          -> 'HsBindgen.Syntax.negate
+      CAdd_class             -> ''HsBindgen.Syntax.CAdd
+      CAdd_resTyCon          -> ''HsBindgen.Syntax.AddRes
+      CAdd_add               -> '(HsBindgen.Syntax.+)
+      CSub_class             -> ''HsBindgen.Syntax.CSub
+      CSub_resTyCon          -> ''HsBindgen.Syntax.SubRes
+      CSub_minus             -> '(HsBindgen.Syntax.-)
+      CMult_class            -> ''HsBindgen.Syntax.CMult
+      CMult_resTyCon         -> ''HsBindgen.Syntax.MultRes
+      CMult_mult             -> '(HsBindgen.Syntax.*)
+      CDiv_class             -> ''HsBindgen.Syntax.CDiv
+      CDiv_resTyCon          -> ''HsBindgen.Syntax.DivRes
+      CDiv_div               -> '(HsBindgen.Syntax./)
+      CRem_class             -> ''HsBindgen.Syntax.CRem
+      CRem_resTyCon          -> ''HsBindgen.Syntax.RemRes
+      CRem_rem               -> 'HsBindgen.Syntax.rem
+      CComplement_class      -> ''HsBindgen.Syntax.CComplement
+      CComplement_resTyCon   -> ''HsBindgen.Syntax.ComplementRes
+      CComplement_complement -> 'HsBindgen.Syntax.complement
+      CBits_class            -> ''HsBindgen.Syntax.CBits
+      CBits_resTyCon         -> ''HsBindgen.Syntax.BitsRes
+      CBits_and              -> '(HsBindgen.Syntax..&.)
+      CBits_or               -> '(HsBindgen.Syntax..|.)
+      CBits_xor              -> 'HsBindgen.Syntax.xor
+      CShift_class           -> ''HsBindgen.Syntax.CShift
+      CShift_resTyCon        -> ''HsBindgen.Syntax.ShiftRes
+      CShift_shiftL          -> 'HsBindgen.Syntax.shiftL
+      CShift_shiftR          -> 'HsBindgen.Syntax.shiftR
 
-      Eq_eq                -> '(==)
-      Eq_uneq              -> '(/=)
-      Ord_lt               -> '(<)
-      Ord_le               -> '(<=)
-      Ord_gt               -> '(>)
-      Ord_ge               -> '(>=)
-      Base_identity        -> 'id
-      Base_not             -> 'not
-      Base_and             -> '(&&)
-      Base_or              -> '(||)
-      Bits_shiftL          -> 'Data.Bits.shiftL
-      Bits_shiftR          -> 'Data.Bits.shiftR
-      Bits_and             -> '(Data.Bits..&.)
-      Bits_xor             -> 'Data.Bits.xor
-      Bits_or              -> '(Data.Bits..|.)
-      Bits_complement      -> 'Data.Bits.complement
-      Num_negate           -> 'negate
-      Num_add              -> '(+)
-      Num_minus            -> '(-)
-      Num_times            -> '(*)
-      Div_div              -> '(HsBindgen.Patterns./)
-      Integral_rem         -> 'rem
-      Unary_plus           -> 'HsBindgen.Patterns.unaryPlus
+      IntLike_tycon        -> ''HsBindgen.Syntax.IntLike
+      FloatLike_tycon      -> ''HsBindgen.Syntax.FloatLike
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
       CFloat_constructor  -> 'Foreign.C.Types.CFloat

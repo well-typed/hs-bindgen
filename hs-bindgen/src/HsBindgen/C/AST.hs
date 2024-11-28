@@ -48,7 +48,7 @@ module HsBindgen.C.AST (
   , Token(..)
   , TokenSpelling(..)
     -- * Macro type
-  , Quant, Kind(Ty)
+  , Macro.Quant(..)
   , TcMacroError(..)
   , pprTcMacroError
     -- * Source locations
@@ -67,7 +67,8 @@ import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Infra (ReparseError(..))
 import HsBindgen.C.Tc.Macro
-  ( Kind(Ty), Quant, TcMacroError(..), pprTcMacroError )
+  ( TcMacroError(..), pprTcMacroError )
+import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.HighLevel.Types
 
 {-------------------------------------------------------------------------------
@@ -95,8 +96,8 @@ data Decl =
 
 data MacroDecl
   = MacroReparseError ReparseError
-  | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: TcMacroError }
-  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: Quant Ty }
+  | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: Macro.TcMacroError }
+  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: Macro.Quant ( Macro.Type Macro.Ty ) }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

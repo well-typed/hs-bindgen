@@ -35,14 +35,14 @@ intSuffix = choice [
     , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
-reparseLiteralInteger :: TokenParser (Integer, PrimIntType)
+reparseLiteralInteger :: TokenParser (Integer, (PrimIntType, PrimSign))
 reparseLiteralInteger = do
     (b, ds, suffixes) <- aux
 
     let val = readInBase b ds
 
         ty = case suffixes of
-          [] -> PrimInt Signed
+          [] -> ( PrimInt, Signed )
           _  ->
             let sign = if any ( == IntSuffixUnsigned ) suffixes
                        then Unsigned
@@ -51,11 +51,11 @@ reparseLiteralInteger = do
                 longlong = any ( == IntSuffixLongLong ) suffixes
              in
                 if | longlong
-                   -> PrimLongLong sign
+                   -> ( PrimLongLong, sign )
                    | long
-                   -> PrimLong sign
+                   -> ( PrimLong, sign )
                    | otherwise
-                   -> PrimInt sign
+                   -> ( PrimInt, sign )
 
     return (val, ty)
   where

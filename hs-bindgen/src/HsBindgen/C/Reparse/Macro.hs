@@ -82,8 +82,8 @@ literalInteger = do
     parseTokenOfKind CXToken_Literal reparseLiteralInteger
   return $
     IntegerLiteral
-      { integerLiteralText = txt
-      , integerLiteralType = Just ty
+      { integerLiteralText  = txt
+      , integerLiteralType  = Just ty
       , integerLiteralValue = val }
 
 -- | Parse floating point literal

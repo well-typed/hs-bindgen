@@ -45,40 +45,60 @@ data Global =
   | ConstantArray
   | IO_type
 
+    -- | Primitive (unboxed) type equality
   | NomEq_class
-  | Eq_class
-  | Ord_class
-  | Num_class
-  | Integral_class
-  | Bits_class
-  | Div_class
+
+  | CNot_class
+  | CNot_resTyCon
+  | CNot_not
+  | CLogical_class
+  | CLogical_resTyCon
+  | CLogical_and
+  | CLogical_or
+  | CEq_class
+  | CEq_eq
+  | CEq_uneq
+  | COrd_class
+  | COrd_lt
+  | COrd_le
+  | COrd_gt
+  | COrd_ge
+  | CPlus_class
+  | CPlus_resTyCon
+  | CPlus_plus
+  | CMinus_class
+  | CMinus_resTyCon
+  | CMinus_negate
+  | CAdd_class
+  | CAdd_resTyCon
+  | CAdd_add
+  | CSub_class
+  | CSub_resTyCon
+  | CSub_minus
+  | CMult_class
+  | CMult_resTyCon
+  | CMult_mult
+  | CDiv_class
+  | CDiv_resTyCon
+  | CDiv_div
+  | CRem_class
+  | CRem_resTyCon
+  | CRem_rem
+  | CComplement_class
+  | CComplement_resTyCon
+  | CComplement_complement
+  | CBits_class
+  | CBits_resTyCon
+  | CBits_and
+  | CBits_or
+  | CBits_xor
+  | CShift_class
+  | CShift_resTyCon
+  | CShift_shiftL
+  | CShift_shiftR
 
   | IntLike_tycon
   | FloatLike_tycon
-
-  | Eq_eq
-  | Eq_uneq
-  | Ord_lt
-  | Ord_le
-  | Ord_gt
-  | Ord_ge
-  | Base_identity
-  | Base_not
-  | Base_and
-  | Base_or
-  | Bits_shiftL
-  | Bits_shiftR
-  | Bits_and
-  | Bits_xor
-  | Bits_or
-  | Bits_complement
-  | Num_negate
-  | Num_add
-  | Num_minus
-  | Num_times
-  | Div_div
-  | Integral_rem
-  | Unary_plus
 
   | CFloat_constructor
   | CDouble_constructor

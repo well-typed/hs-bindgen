@@ -1,5 +1,6 @@
 {-# LANGUAGE CPP #-}
 
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp #-}
@@ -12,15 +13,15 @@ module HsBindgen.C.Tc.Macro
   , TcMacroError(..)
   , pprTcMacroError
 
+  , TypeEnv
+
     -- ** Macro type-system
   , Type(..), Kind(..)
-  , TyCon(..), DataTyCon(..), ClassTyCon(..)
+  , TyCon(..), GenerativeTyCon(..), DataTyCon(..), ClassTyCon(..)
+  , FamilyTyCon(..)
   , Quant(..), QuantTyBody(..)
   , tyVarName, tyVarNames, mkQuantTyBody
   , isPrimTy
-
-    -- ** Macro typechecking monad
-  , TcM, runTcM, TypeEnv
 
     -- ** Macro typechecking errors
   , TcError(..), CtOrigin(..), MetaOrigin(..), CouldNotUnifyReason(..)
@@ -48,11 +49,11 @@ import Data.Functor
 import Data.Maybe
   ( fromJust )
 import Data.Monoid
-  ( Any(..), Endo(..) )
+  ( Endo(..) )
 import Data.Proxy
   ( Proxy(..) )
 import Data.STRef
-  ( STRef, newSTRef, readSTRef, writeSTRef )
+  ( STRef, newSTRef, readSTRef )
 import Data.Traversable
   ( for )
 import Data.Typeable
@@ -61,8 +62,6 @@ import Data.Type.Equality
   ( type (:~:)(..) )
 import GHC.Show
   ( showSpace )
-import GHC.Stack
-  ( HasCallStack )
 import GHC.Exts
   ( Int(I#), dataToTag# )
 
@@ -114,7 +113,7 @@ import HsBindgen.C.AST.Type
 import HsBindgen.Pretty.Orphans
   ()
 import HsBindgen.Util.TestEquality
-  ( equals )
+  ( equals2 )
 
 {-------------------------------------------------------------------------------
   Type system for macros
@@ -145,14 +144,22 @@ data Type ki where
   NomEqPred :: !( Type Ty ) -> !( Type Ty ) -> Type Ct
 
 -- | A qualified quantified type @forall tys. cts => args -> res@.
-data Quant resKi where
+type Quant :: Hs.Type -> Hs.Type
+data Quant res where
   Quant
-    :: forall nbBinders resKi
+    :: forall nbBinders res
     .  ( Nat.SNatI nbBinders )
-    => { quantTyBodyFn :: !( Vec nbBinders ( Type Ty ) -> QuantTyBody resKi ) }
-    -> Quant resKi
+    => { quantTyBodyFn :: !( Vec nbBinders ( Type Ty ) -> QuantTyBody res ) }
+    -> Quant res
 
-instance Eq ( Quant resKi ) where
+instance Eq ( Quant ( Type ki ) ) where
+  qty1@( Quant @n1 _ ) == qty2@( Quant @n2 _ ) =
+    case Nat.eqNat @n1 @n2 of
+      Nothing -> False
+      Just Refl ->
+        mkQuantTyBody qty1 == mkQuantTyBody qty2
+
+instance Eq ( Quant ( Vec n ( Type ki ) ) ) where
   qty1@( Quant @n1 _ ) == qty2@( Quant @n2 _ ) =
     case Nat.eqNat @n1 @n2 of
       Nothing -> False
@@ -160,19 +167,26 @@ instance Eq ( Quant resKi ) where
         mkQuantTyBody qty1 == mkQuantTyBody qty2
 
 -- | The body of a quantified type (what's under the forall).
-data QuantTyBody ki
+type QuantTyBody :: Hs.Type -> Hs.Type
+data QuantTyBody body
   = QuantTyBody
   { quantTyQuant :: ![ Type Ct ]
-  , quantTyBody  :: !( Type ki )
+  , quantTyBody  :: !body
   }
-  deriving stock ( Show, Generic )
+  deriving stock ( Show, Generic, Functor, Foldable, Traversable )
   deriving anyclass PrettyVal
 
-instance Eq ( QuantTyBody ki ) where
+instance Eq ( QuantTyBody ( Type ki ) ) where
   QuantTyBody cts1 body1 == QuantTyBody cts2 body2 =
     and [ length cts1 == length cts2
         , all ( uncurry eqType ) ( zip cts1 cts2 )
         , eqType body1 body2
+        ]
+instance Eq ( QuantTyBody ( Vec n ( Type ki ) ) ) where
+  QuantTyBody cts1 body1 == QuantTyBody cts2 body2 =
+    and [ length cts1 == length cts2
+        , all ( uncurry eqType ) ( zip cts1 cts2 )
+        , eqTypes body1 body2
         ]
 
 instance Show ( Type ki ) where
@@ -196,7 +210,7 @@ instance PrettyVal ( Type ki ) where
     FunTy args res -> Pretty.Con "FunTy" [ prettyVal args, prettyVal res ]
     NomEqPred a b -> Pretty.Con "NomEqPred" [ prettyVal a, prettyVal b ]
 
-instance Show ( Quant ki ) where
+instance Show body => Show ( Quant body ) where
   showsPrec p0 quantTy@( Quant @nbBinders _ ) =
     showParen ( p0 >= 0 && not ( null qtvs && null cts ) ) $
         ( if null qtvs
@@ -222,14 +236,14 @@ tyVarNames = fromJust $ Vec.fromListPrefix nms
       | otherwise
       = take n [ ( 1, "a" ), ( 2, "b" ), ( 3, "c" ) ]
 
-mkQuantTyBody :: Quant ki -> QuantTyBody ki
+mkQuantTyBody :: Quant body -> QuantTyBody body
 mkQuantTyBody ( Quant @nbBinders body ) =
   body $ fmap ( uncurry mkSkol ) $ tyVarNames @nbBinders
   where
     mkSkol :: Int -> Name -> Type Ty
     mkSkol i tv = TyVarTy $ SkolemTv $ SkolemTyVar tv ( Unique i )
 
-instance PrettyVal ( Quant ki ) where
+instance PrettyVal body => PrettyVal ( Quant body ) where
   prettyVal quantTy =
     Pretty.Con "Quant" [ prettyVal $ mkQuantTyBody quantTy ]
 
@@ -283,13 +297,23 @@ data MetaTyVar
 
 type TyCon :: Nat -> Kind -> Hs.Type
 data TyCon nbArgs res where
-  DataTyCon      :: !( DataTyCon   nbArgs ) -> TyCon nbArgs Ty
-  ClassTyCon     :: !( ClassTyCon  nbArgs ) -> TyCon nbArgs Ct
+  GenerativeTyCon :: !( GenerativeTyCon nbArgs ki ) -> TyCon nbArgs ki
+  FamilyTyCon     :: !( FamilyTyCon     nbArgs    ) -> TyCon nbArgs Ty
 deriving stock instance Eq ( TyCon nbArgs res )
 
+type GenerativeTyCon :: Nat -> Kind -> Hs.Type
+data GenerativeTyCon nbArgs res where
+  DataTyCon      :: !( DataTyCon   nbArgs ) -> GenerativeTyCon nbArgs Ty
+  ClassTyCon     :: !( ClassTyCon  nbArgs ) -> GenerativeTyCon nbArgs Ct
+deriving stock instance Eq ( GenerativeTyCon nbArgs res )
+
 instance PrettyVal ( TyCon nbArgs k ) where
-  prettyVal ( DataTyCon   dc  ) = Pretty.Con   "DataTyCon" [ prettyVal dc     ]
-  prettyVal ( ClassTyCon  cls ) = Pretty.Con  "ClassTyCon" [ prettyVal cls    ]
+  prettyVal ( GenerativeTyCon tc  ) = Pretty.Con "GenerativeTyCon" [ prettyVal tc  ]
+  prettyVal ( FamilyTyCon     fam ) = Pretty.Con     "FamilyTyCon" [ prettyVal fam ]
+
+instance PrettyVal ( GenerativeTyCon nbArgs k ) where
+  prettyVal ( DataTyCon   dc  ) = Pretty.Con   "DataTyCon" [ prettyVal dc  ]
+  prettyVal ( ClassTyCon  cls ) = Pretty.Con  "ClassTyCon" [ prettyVal cls ]
 
 type DataTyCon :: Nat -> Hs.Type
 data DataTyCon nbArgs where
@@ -304,7 +328,7 @@ data DataTyCon nbArgs where
 
   -- | Type constructor for the type of primitive integral types,
   -- which appear as arguments to 'IntLikeTyCon'.
-  PrimIntTyCon   :: PrimIntType -> DataTyCon Z
+  PrimIntTyCon   :: ( PrimIntType, PrimSign ) -> DataTyCon Z
   -- | Type constructor for the type of primitive  floating-point types,
   -- which appear as arguments to 'FloatLikeTyCon'.
   PrimFloatTyCon :: PrimFloatType -> DataTyCon Z
@@ -320,33 +344,83 @@ deriving stock instance Ord ( DataTyCon nbArgs )
 instance PrettyVal ( DataTyCon nbArgs ) where
   prettyVal c = Pretty.Con ( show c ) []
 
+type FamilyTyCon :: Nat -> Hs.Type
+data FamilyTyCon nbArgs where
+  -- | Return type of unary logical negation.
+  NotResTyCon        :: FamilyTyCon ( S Z )
+  -- | Return type of binary logical conjunction and disjunction.
+  LogicalResTyCon    :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of unary addition.
+  PlusResTyCon       :: FamilyTyCon ( S Z )
+  -- | Return type of unary negation.
+  MinusResTyCon      :: FamilyTyCon ( S Z )
+  -- | Return type of binary addition.
+  AddResTyCon        :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of binary subtraction.
+  SubResTyCon        :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of binary multiplication.
+  MultResTyCon       :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of binary division (or quotient).
+  DivResTyCon        :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of binary remainder operation.
+  RemResTyCon        :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of unary bitwise negation.
+  ComplementResTyCon :: FamilyTyCon ( S Z )
+  -- | Return type of binary bitwise logical operations.
+  BitsResTyCon       :: FamilyTyCon ( S ( S Z ) )
+  -- | Return type of binary bitwise shift operations,
+  -- as a function of the type of the argument being shifted.
+  ShiftResTyCon      :: FamilyTyCon ( S Z )
+
+deriving stock instance Eq  ( FamilyTyCon nbArgs )
+deriving stock instance Ord ( FamilyTyCon nbArgs )
+
+instance PrettyVal ( FamilyTyCon nbArgs ) where
+  prettyVal c = Pretty.Con ( show c ) []
+
 type ClassTyCon :: Nat -> Hs.Type
 data ClassTyCon nbArgs where
-  -- | Class type constructor for @Eq@
-  EqTyCon         :: ClassTyCon ( S Z )
-  -- | Class type constructor for @Ord@
-  OrdTyCon        :: ClassTyCon ( S Z )
-  -- | Class type constructor for @Num@
-  NumTyCon        :: ClassTyCon ( S Z )
-  -- | Class type constructor for @Integral@
-  IntegralTyCon   :: ClassTyCon ( S Z )
-  -- | Class type constructor for @Div@
-  DivTyCon        :: ClassTyCon ( S Z )
-  -- | Class type constructor for @Bits@
-  BitsTyCon       :: ClassTyCon ( S Z )
+  -- | Class type constructor for @CNot@
+  CNotTyCon        :: ClassTyCon ( S Z )
+  -- | Class type constructor for @CLogical@
+  CLogicalTyCon    :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CEq@
+  CEqTyCon         :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @COrd@
+  COrdTyCon        :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CPlus@ (unary plus)
+  CPlusTyCon       :: ClassTyCon ( S Z )
+  -- | Class type constructor for @CMinus (unary minus)
+  CMinusTyCon      :: ClassTyCon ( S Z )
+  -- | Class type constructor for @CAdd@
+  CAddTyCon        :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CSub@
+  CSubTyCon        :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CMult@
+  CMultTyCon       :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CDiv@
+  CDivTyCon        :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CRem@
+  CRemTyCon        :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CComplement@
+  CComplementTyCon :: ClassTyCon ( S Z )
+  -- | Class type constructor for @CBits@
+  CBitsTyCon       :: ClassTyCon ( S ( S Z ) )
+  -- | Class type constructor for @CShift@
+  CShiftTyCon      :: ClassTyCon ( S ( S Z ) )
+
 deriving stock instance Eq  ( ClassTyCon nbArgs )
 deriving stock instance Ord ( ClassTyCon nbArgs )
 
 instance PrettyVal ( ClassTyCon nbArgs ) where
-  prettyVal = \case
-    EqTyCon         -> Pretty.Con "EqTyCon"         []
-    OrdTyCon        -> Pretty.Con "OrdTyCon"        []
-    NumTyCon        -> Pretty.Con "NumTyCon"        []
-    IntegralTyCon   -> Pretty.Con "IntegralTyCon"   []
-    DivTyCon        -> Pretty.Con "DivTyCon"        []
-    BitsTyCon       -> Pretty.Con "BitsTyCon"       []
+  prettyVal con = Pretty.Con (show con) []
 
 instance Show ( TyCon n ki ) where
+  showsPrec p = \case
+    GenerativeTyCon tc -> showsPrec p tc
+    FamilyTyCon     tc -> showsPrec p tc
+
+instance Show ( GenerativeTyCon n ki ) where
   showsPrec p = \case
     DataTyCon   tc -> showsPrec p tc
     ClassTyCon  tc -> showsPrec p tc
@@ -361,25 +435,43 @@ instance Show ( DataTyCon n ) where
     PrimFloatTyCon floaty -> showsPrec p floaty
     PrimTyTyCon           -> showString "PrimTy"
     EmptyTyCon            -> showString "Empty"
+instance Show ( FamilyTyCon n ) where
+  show = \case
+    NotResTyCon        -> "NotRes"
+    LogicalResTyCon    -> "Logical"
+    PlusResTyCon       -> "PlusRes"
+    MinusResTyCon      -> "MinusRes"
+    AddResTyCon        -> "AddRes"
+    SubResTyCon        -> "SubRes"
+    MultResTyCon       -> "MultRes"
+    DivResTyCon        -> "DivRes"
+    RemResTyCon        -> "RemRes"
+    ComplementResTyCon -> "ComplementRes"
+    BitsResTyCon       -> "BitsRes"
+    ShiftResTyCon      -> "ShiftRes"
+
 instance Show ( ClassTyCon n ) where
   show = \case
-    EqTyCon         -> "Eq"
-    OrdTyCon        -> "Ord"
-    NumTyCon        -> "Num"
-    IntegralTyCon   -> "Integral"
-    DivTyCon        -> "Div"
-    BitsTyCon       -> "Bits"
+    CNotTyCon        -> "CNot"
+    CLogicalTyCon    -> "CLogical"
+    CEqTyCon         -> "CEq"
+    COrdTyCon        -> "COrd"
+    CPlusTyCon       -> "CPlus"
+    CMinusTyCon      -> "CMinus"
+    CAddTyCon        -> "CAdd"
+    CSubTyCon        -> "CSub"
+    CMultTyCon       -> "CMult"
+    CDivTyCon        -> "CDiv"
+    CRemTyCon        -> "CRem"
+    CComplementTyCon -> "CComplement"
+    CBitsTyCon       -> "CBits"
+    CShiftTyCon      -> "CShift"
 
 -- | On-the-nose type equality.
 eqType :: Type ki -> Type ki -> Bool
 eqType ( TyVarTy tv1 ) ( TyVarTy tv2 ) = tyVarUnique tv1 == tyVarUnique tv2
-eqType ( TyConAppTy ( DataTyCon tc1 ) args1 ) ( TyConAppTy ( DataTyCon tc2 ) args2 ) =
-  case tc1 `equals` tc2 of
-    Nothing -> False
-    Just Refl ->
-      eqTypes args1 args2
-eqType ( TyConAppTy ( ClassTyCon cls1 ) args1 ) ( TyConAppTy ( ClassTyCon cls2 ) args2 ) =
-  case cls1 `equals` cls2 of
+eqType ( TyConAppTy tc1 args1 ) ( TyConAppTy tc2 args2 ) =
+  case tc1 `equals2` tc2 of
     Nothing -> False
     Just Refl ->
       eqTypes args1 args2
@@ -460,6 +552,9 @@ instance Show tv => Show ( Subst tv ) where
     where
       f ( tv, ty ) = show tv ++ " |-> " ++ show ty
 
+isEmptySubst :: Subst tv -> Bool
+isEmptySubst ( Subst s ) = IntMap.null s
+
 domain :: Subst tv -> IntSet
 domain ( Subst s ) = IntMap.keysSet s
 
@@ -488,21 +583,21 @@ lookupSubst :: TyVar -> Subst tv -> Maybe ( Type Ty )
 lookupSubst tv ( Subst s ) =
   fmap snd $ IntMap.lookup ( uniqueInt $ tyVarUnique tv ) s
 
-applySubst :: forall ki tv. HasCallStack => Subst tv -> Type ki -> Type ki
-applySubst = goTy
+applySubst :: forall ki tv. Subst tv -> Type ki -> Type ki
+applySubst subst = goTy
   where
-    goTy :: forall ki'. Subst tv -> Type ki' -> Type ki'
-    goTy subst = \case
+    goTy :: forall ki'. Type ki' -> Type ki'
+    goTy = \case
       ty@( TyVarTy tv ) ->
         case lookupSubst tv subst of
           Nothing  -> ty
           Just ty' -> ty'
       FunTy args res ->
-        FunTy ( fmap ( applySubst subst ) args ) ( applySubst subst res )
+        FunTy ( fmap goTy args ) ( goTy res )
       TyConAppTy tc tys ->
-        TyConAppTy tc $ fmap ( applySubst subst ) tys
+        TyConAppTy tc $ fmap goTy tys
       NomEqPred a b ->
-        NomEqPred ( applySubst subst a ) ( applySubst subst b )
+        NomEqPred ( goTy a ) ( goTy b )
 
 {-------------------------------------------------------------------------------
   Constraints & errors
@@ -521,7 +616,7 @@ instance PrettyVal FunName where
 data CtOrigin
   = AppOrigin !FunName
   | FunInstOrigin !FunName
-  | ClassInstOrigin !(Quant Ct) !CtOrigin
+  | ClassInstOrigin !( Quant ( Type Ct ) ) !CtOrigin
   | DefaultingOrigin !CtOrigin
   deriving stock ( Generic, Show )
   deriving anyclass PrettyVal
@@ -555,7 +650,7 @@ data MetaOrigin
 
 data InstOrigin
   = FunInstMetaOrigin !FunName
-  | ClassInstMetaOrigin !( Quant Ct )
+  | ClassInstMetaOrigin !( Quant ( Type Ct ) )
   deriving stock ( Generic, Show )
   deriving anyclass PrettyVal
 
@@ -670,13 +765,12 @@ data TcEnv s =
     , tcLclEnv :: !TcLclEnv
     }
 
-type TypeEnv = Map CName ( Quant Ty )
+type TypeEnv = Map CName ( Quant ( Type Ty ) )
 type VarEnv  = Map CName ( Type Ty )
 
 data TcGblEnv s
   = TcGblEnv
-      { tcUnique  :: !( STRef s Unique )
-      , tcTypeEnv :: !( STRef s TypeEnv )
+      { tcTypeEnv :: !( STRef s TypeEnv )
       }
 
 data TcLclEnv
@@ -685,47 +779,76 @@ data TcLclEnv
       , tcVarEnv  :: !VarEnv
       }
 
-newtype TcM a = TcM ( forall s. TcEnv s -> ST s a )
-instance Functor TcM where
-  fmap f ( TcM g ) = TcM ( fmap f . g )
-instance Applicative TcM where
-  pure f = TcM $ \ _ -> pure f
+newtype TcPureM a = TcPureM ( forall s. TcEnv s -> ST s a )
+instance Functor TcPureM where
+  fmap f ( TcPureM g ) = TcPureM ( fmap f . g )
+instance Applicative TcPureM where
+  pure f = TcPureM \ _ -> pure f
   (<*>) = ap
-instance Monad TcM where
-  TcM ma >>= f = TcM $ \ env -> do
+instance Monad TcPureM where
+  TcPureM ma >>= f = TcPureM \ env -> do
     !a <- ma env
     case f a of
-      TcM g -> g env
+      TcPureM g -> g env
 
-runTcM :: Map CName ( Quant Ty ) -> TcM a -> ( a, [ ( TcError, SrcSpan ) ] )
-runTcM initTyEnv ( TcM f ) = runST $ do
-  tcUnique  <- newSTRef ( Unique 0 )
+runTcM :: Map CName ( Quant ( Type Ty ) ) -> TcPureM a -> ( a, [ ( TcError, SrcSpan ) ] )
+runTcM initTyEnv ( TcPureM f ) = runST do
   tcErrs    <- newSTRef []
   tcTypeEnv <- newSTRef initTyEnv
   let
-    tcGblEnv = TcGblEnv { tcUnique, tcTypeEnv }
+    tcGblEnv = TcGblEnv { tcTypeEnv }
     tcLclEnv = TcLclEnv { tcSrcSpan = SrcSpan, tcVarEnv = Map.empty }
   res <- f ( TcEnv { tcGblEnv, tcLclEnv } )
   errs <- readSTRef tcErrs
   return ( res, errs )
 
-getSrcSpan :: TcM SrcSpan
+getSrcSpan :: TcPureM SrcSpan
 getSrcSpan =
-  TcM $ \ ( TcEnv _gbl ( TcLclEnv { tcSrcSpan } ) ) ->
+  TcPureM \ ( TcEnv _gbl ( TcLclEnv { tcSrcSpan } ) ) ->
     return tcSrcSpan
 
-stateSTRef :: STRef s a -> ( a -> ( b, a ) ) -> ST s b
-stateSTRef ref f = do
-  a <- readSTRef ref
-  let !( !b, !a' ) = f a
-  writeSTRef ref a'
-  return b
 
-newUnique :: TcM Unique
-newUnique = TcM $ \ ( TcEnv ( TcGblEnv { tcUnique } ) _ ) ->
-  stateSTRef tcUnique ( \ old -> (old, succ old) )
+lookupTyEnv :: CName -> TcPureM ( Maybe ( Quant ( Type Ty ) ) )
+lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) -> do
+  tyEnv <- readSTRef tcTypeEnv
+  return $ Map.lookup varNm tyEnv
 
-newMetaTyVarTy :: MetaOrigin -> Name -> TcM ( Type Ty )
+lookupVarType :: CName -> TcPureM ( Maybe ( Type Ty ) )
+lookupVarType varNm = TcPureM \ ( TcEnv _ lcl ) ->
+  return $ Map.lookup varNm ( tcVarEnv lcl )
+
+declareLocalVars :: Map CName ( Type Ty ) -> TcPureM a -> TcPureM a
+declareLocalVars vs ( TcPureM f ) = TcPureM \ ( TcEnv gbl lcl ) ->
+  f ( TcEnv gbl ( lcl { tcVarEnv = tcVarEnv lcl <> vs } ) )
+
+{-------------------------------------------------------------------------------
+  Typechecking macros: constraint generation monad
+-------------------------------------------------------------------------------}
+
+-- | Monad for unique generation.
+type TcUniqueM = StateT Unique TcPureM
+
+-- | Monad for unification.
+type TcUnifyM = WriterT UnifyResult ( StateT ( Subst TyVar ) TcPureM )
+
+-- | A collection of constraints (with their origin).
+type Cts = [ ( Type Ct, CtOrigin ) ]
+
+-- | Monad for generating constraints.
+type TcGenM = WriterT ( Cts, [ ( TcError, SrcSpan ) ] ) ( StateT ( Subst TyVar ) TcUniqueM )
+
+liftTcPureM :: TcPureM a -> TcGenM a
+liftTcPureM = lift . lift . lift
+
+newUnique :: Monoid w => WriterT w ( StateT s TcUniqueM ) Unique
+newUnique = lift $ do
+  u <- lift $ State.get
+  let !u' = succ u
+  lift $ State.put u'
+  return u'
+{-# INLINEABLE newUnique #-}
+
+newMetaTyVarTy :: MetaOrigin -> Name -> TcGenM ( Type Ty )
 newMetaTyVarTy metaOrigin metaTyVarName = do
   metaTyVarUnique <- newUnique
   return $
@@ -737,46 +860,24 @@ newMetaTyVarTy metaOrigin metaTyVarName = do
           , metaOrigin
           }
 
-lookupTyEnv :: CName -> TcM ( Maybe ( Quant Ty ) )
-lookupTyEnv varNm = TcM $ \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) -> do
-  tyEnv <- readSTRef tcTypeEnv
-  return $ Map.lookup varNm tyEnv
-
-lookupVarType :: CName -> TcM ( Maybe ( Type Ty ) )
-lookupVarType varNm = TcM $ \ ( TcEnv _ lcl ) ->
-  return $ Map.lookup varNm ( tcVarEnv lcl )
-
-declareLocalVars :: Map CName ( Type Ty ) -> TcM a -> TcM a
-declareLocalVars vs ( TcM f ) = TcM $ \ ( TcEnv gbl lcl ) ->
-  f ( TcEnv gbl ( lcl { tcVarEnv = tcVarEnv lcl <> vs } ) )
-
-{-------------------------------------------------------------------------------
-  Typechecking macros: constraint generation monad
--------------------------------------------------------------------------------}
-
--- | Monad for unification.
-type TcUnifyM = WriterT UnifyResult ( StateT ( Subst TyVar ) TcM )
-
--- | A collection of constraints (with their origin).
-type Cts = [ ( Type Ct, CtOrigin ) ]
-
--- | Monad for generating constraints.
-type TcGenM = WriterT ( Cts, [ ( TcError, SrcSpan ) ] ) ( StateT ( Subst TyVar ) TcM )
-
-liftTcM :: TcM a -> TcGenM a
-liftTcM = lift . lift
-
--- | 'Control.Monad.Trans.Control.liftBaseWith' for 'TcM' and 'TcGenM'.
-liftBaseTcM :: ( forall x. TcM x -> TcM x ) -> TcGenM a -> TcGenM a
+-- | 'Control.Monad.Trans.Control.liftBaseWith' for 'TcPureM' and 'TcGenM'.
+liftBaseTcM :: ( forall x. TcPureM x -> TcPureM x ) -> TcGenM a -> TcGenM a
 liftBaseTcM morph g = do
-  s0 <- State.get
-  ( ( a, cts ), subst ) <- liftTcM $ morph $ ( `State.runStateT` s0 ) $ Writer.runWriterT g
-  State.put subst
-  Writer.tell cts
+  s0 <- lift $ State.get
+  u  <- lift $ lift $ State.get
+  ( ( ( a, ctsErrs ), subst ), u' ) <-
+    liftTcPureM
+      $ morph
+      $ ( `State.runStateT` u )
+      $ ( `State.runStateT` s0 )
+      $ Writer.runWriterT g
+  lift $ State.put subst
+  lift $ lift $ State.put u'
+  Writer.tell ctsErrs
   return a
 
 liftUnifyM :: TcUnifyM a -> TcGenM a
-liftUnifyM = Writer.mapWriterT ( fmap ( second deferredEqs ) )
+liftUnifyM = Writer.mapWriterT ( fmap ( second deferredEqs ) . State.mapStateT lift )
   where
     deferredEqs :: UnifyResult -> ( Cts, [ ( TcError, SrcSpan ) ] )
     deferredEqs ( UnifyResult { deferredEqualities = eqs, unifyErrors = errs } ) =
@@ -784,17 +885,20 @@ liftUnifyM = Writer.mapWriterT ( fmap ( second deferredEqs ) )
 
 addErrTcGenM :: TcError -> TcGenM ()
 addErrTcGenM err = do
-  srcSpan <- lift $ lift getSrcSpan
+  srcSpan <- liftTcPureM getSrcSpan
   Writer.tell ( [], [ ( err, srcSpan ) ] )
 
-
-runTcGenMTcM :: TcGenM a -> TcM ( ( a, ( Cts, [ ( TcError, SrcSpan ) ] ) ), Subst TyVar )
-runTcGenMTcM = ( `State.runStateT` mempty ) . Writer.runWriterT
-
+runTcGenMTcM :: TcGenM a -> TcUniqueM ( ( a, ( Cts, [ ( TcError, SrcSpan ) ] ) ), Subst TyVar )
+runTcGenMTcM = aux . Writer.runWriterT
+  where
+    aux :: StateT ( Subst TyVar ) TcUniqueM x -> TcUniqueM ( x, Subst TyVar )
+    aux ( State.StateT f ) =
+      State.StateT \ u ->
+        ( `State.runStateT` u ) $ f mempty
 
 -- | Run a 'TcUnifyM' action and retrieve the underlying 'Subst'
 -- when unification succeeded without deferring any equalities.
-runTcUnifyMSubst :: forall a. Subst TyVar -> TcUnifyM a -> TcM ( Maybe ( a, Subst TyVar ) )
+runTcUnifyMSubst :: forall a. Subst TyVar -> TcUnifyM a -> TcPureM ( Maybe ( a, Subst TyVar ) )
 runTcUnifyMSubst subst0 =
   fmap unifySuccess . ( `State.runStateT` subst0 ) . Writer.runWriterT
     where
@@ -806,7 +910,7 @@ runTcUnifyMSubst subst0 =
 
 -- | Run a 'TcGenM' action and retrieve the underlying 'Subst'
 -- when there were no errors.
-runTcGenMSubst :: TcGenM a -> TcM ( Maybe ( ( Cts, Subst TyVar ), a ) )
+runTcGenMSubst :: TcGenM a -> TcUniqueM ( Maybe ( ( Cts, Subst TyVar ), a ) )
 runTcGenMSubst = fmap noErrs . runTcGenMTcM
   where
     noErrs ( ( a, ( cts, mbErrs ) ), subst ) =
@@ -815,7 +919,7 @@ runTcGenMSubst = fmap noErrs . runTcGenMTcM
       else Nothing
 
 {-------------------------------------------------------------------------------
-  Typechecking macros: unification & constraint generation
+  Typechecking macros: unification
 -------------------------------------------------------------------------------}
 
 data UnifyResult =
@@ -837,7 +941,7 @@ swap = \case
   NotSwapped -> Swapped
   Swapped -> NotSwapped
 
-unifyType :: Typeable ki => CtOrigin -> SwapFlag -> Type ki -> Type ki -> TcUnifyM ()
+unifyType :: CtOrigin -> SwapFlag -> Type Ty -> Type Ty -> TcUnifyM ()
 unifyType orig swapped ty1 ty2
   | TyVarTy tv1 <- ty1
   = unifyTyVar orig swapped tv1 ty2
@@ -846,39 +950,48 @@ unifyType orig swapped ty1 ty2
   | FunTy args1 res1 <- ty1
   , FunTy args2 res2 <- ty2
   = unifyFunTys orig swapped args1 res1 args2 res2
-  | TyConAppTy tc1 as1 <- ty1
-  , TyConAppTy tc2 as2 <- ty2
+  | FamApp {} <- ty1
+  = defer
+  | FamApp {} <- ty2
+  = defer
+  | TyConAppTy ( GenerativeTyCon tc1 ) as1 <- ty1
+  , TyConAppTy ( GenerativeTyCon tc2 ) as2 <- ty2
   = unifyTyConApp orig swapped ( tc1, as1 ) ( tc2, as2 )
   | otherwise
   = couldNotUnify IncompatibleTypes orig swapped ty1 ty2
+  where
+    eq :: Type Ct
+    eq = case swapped of
+      NotSwapped -> NomEqPred ty1 ty2
+      Swapped    -> NomEqPred ty2 ty1
+    defer :: TcUnifyM ()
+    defer =
+      Writer.tell $
+        UnifyResult
+          { deferredEqualities = [ ( eq, orig ) ]
+          , unifyErrors = []
+          }
 
 unifyTyConApp
   :: forall nbArgs1 nbArgs2 resKi
   .  Typeable resKi
   => CtOrigin
   -> SwapFlag
-  -> ( TyCon nbArgs1 resKi, Vec nbArgs1 ( Type Ty ) )
-  -> ( TyCon nbArgs2 resKi, Vec nbArgs2 ( Type Ty ) )
+  -> ( GenerativeTyCon nbArgs1 resKi, Vec nbArgs1 ( Type Ty ) )
+  -> ( GenerativeTyCon nbArgs2 resKi, Vec nbArgs2 ( Type Ty ) )
   -> TcUnifyM ()
 unifyTyConApp orig swapped ( tc1, args1 ) ( tc2, args2 )
   | Just Refl <- tcOK
   = unifyTypes orig swapped args1 args2
   | otherwise
-  = couldNotUnify TyConAppDifferentTyCon orig swapped ( TyConAppTy tc1 args1 ) ( TyConAppTy tc2 args2 )
+  = couldNotUnify TyConAppDifferentTyCon orig swapped
+      ( TyConAppTy ( GenerativeTyCon tc1 ) args1 )
+      ( TyConAppTy ( GenerativeTyCon tc2 ) args2 )
   where
     tcOK :: Maybe ( nbArgs1 :~: nbArgs2 )
-    tcOK =
-      case ( tc1, tc2 ) of
-        ( DataTyCon  dc1 , DataTyCon  dc2  ) ->
-          case dc1 `equals` dc2  of
-            Just Refl -> Just Refl
-            Nothing   -> Nothing
-        ( ClassTyCon cls1, ClassTyCon cls2 ) ->
-          case cls1 `equals` cls2 of
-            Just Refl -> Just Refl
-            Nothing   -> Nothing
+    tcOK = fmap ( \ Refl -> Refl ) $ tc1 `equals2` tc2
 
-unifyTypes :: Typeable ki => CtOrigin -> SwapFlag -> Vec n ( Type ki ) -> Vec n ( Type ki ) -> TcUnifyM ()
+unifyTypes :: CtOrigin -> SwapFlag -> Vec n ( Type Ty ) -> Vec n ( Type Ty ) -> TcUnifyM ()
 unifyTypes orig swapped as bs = sequence_ $ Vec.zipWith ( unifyType orig swapped ) as bs
 {-# INLINEABLE unifyTypes #-}
 
@@ -888,7 +1001,7 @@ unifyTyVar _ _ tv1 ( TyVarTy tv2 )
   = return ()
 unifyTyVar orig swapped tv1 ty2' = do
   subst <- State.get
-  let ty2 = applySubst subst ty2'
+  let ty2 = normaliseType $ applySubst subst ty2'
   case lookupSubst tv1 subst of
     Just ty1 ->
       unifyType orig swapped ty1 ty2
@@ -933,34 +1046,81 @@ couldNotUnify rea orig swapped ty1 ty2 = do
       Swapped    -> CouldNotUnify rea orig ty2 ty1
 
 {-------------------------------------------------------------------------------
+  Typechecking macros: normalisation
+-------------------------------------------------------------------------------}
+
+-- | Normalise a type by reducing reducible type-family applications.
+normaliseType :: Type ki -> Type ki
+normaliseType ty =
+  case ty of
+    TyVarTy {} -> ty
+    FunTy args res ->
+      FunTy ( fmap normaliseType args ) ( normaliseType res )
+    NomEqPred lhs rhs ->
+      NomEqPred ( normaliseType lhs ) ( normaliseType rhs )
+    TyConAppTy tc args ->
+      let
+        args'  = fmap normaliseType args
+        tcApp' = TyConAppTy tc args'
+      in
+        case tc of
+          FamilyTyCon fam ->
+            fromMaybe tcApp' $ reduceTyFamApp fam args'
+          GenerativeTyCon {} ->
+            tcApp'
+
+reduceTyFamApp :: FamilyTyCon n -> Vec n ( Type Ty ) -> Maybe ( Type Ty )
+-- TODO
+reduceTyFamApp = \case
+  NotResTyCon        -> \ ( _a ::: VNil ) -> Nothing
+  LogicalResTyCon    -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  PlusResTyCon       -> \ ( _a ::: VNil ) -> Nothing
+  MinusResTyCon      -> \ ( _a ::: VNil ) -> Nothing
+  AddResTyCon        -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  SubResTyCon        -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  MultResTyCon       -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  DivResTyCon        -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  RemResTyCon        -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  ComplementResTyCon -> \ ( _a ::: VNil ) -> Nothing
+  BitsResTyCon       -> \ ( _a ::: _b ::: VNil ) -> Nothing
+  ShiftResTyCon      -> \ ( _a ::: VNil ) -> Nothing
+
+{-------------------------------------------------------------------------------
   Typechecking macros: instantiation
 -------------------------------------------------------------------------------}
 
-instantiate :: CtOrigin -> InstOrigin -> Quant ki -> TcGenM ( Type ki )
-instantiate ctOrig instOrig ( Quant @nbBinders body ) = do
+instantiate
+  :: forall nbBinders body
+  .  Nat.SNatI nbBinders
+  => CtOrigin -> InstOrigin
+  -> ( Vec nbBinders ( Type Ty ) -> QuantTyBody body )
+  -> TcGenM ( Vec nbBinders ( Type Ty ), body )
+instantiate ctOrig instOrig body = do
   tvs <-
-    liftTcM $
-      for ( tyVarNames @nbBinders ) $ \ ( i, tvName ) ->
-        newMetaTyVarTy ( Inst { instOrigin = instOrig, instPos = i } ) tvName
+    for ( tyVarNames @nbBinders ) \ ( i, tvName ) ->
+      newMetaTyVarTy ( Inst { instOrigin = instOrig, instPos = i } ) tvName
   let QuantTyBody cts bodyTy = body tvs
   Writer.tell $ ( map (, ctOrig ) cts, mempty )
-  return bodyTy
+  return ( tvs, bodyTy )
 
 {-------------------------------------------------------------------------------
   Typechecking macros: type inference
 -------------------------------------------------------------------------------}
 
+applySubstNormalise :: Subst tv -> Type ki -> Type ki
+applySubstNormalise subst = normaliseType . applySubst subst
+
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: CName -> [ CName ] -> MExpr -> TcM ( ( Type Ty, Cts ), [ ( TcError, SrcSpan ) ] )
+inferTop :: CName -> [ CName ] -> MExpr -> TcUniqueM ( ( Type Ty, Cts ), [ ( TcError, SrcSpan ) ] )
 inferTop funNm argsList body =
-  Vec.reifyList argsList $ \ args -> do
+  Vec.reifyList argsList \ args -> do
     ( ( ( argTys, bodyTy ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
     let macroTy =
           case NE.nonEmpty $ toList argTys of
             Nothing -> bodyTy
             Just argTysNE -> FunTy argTysNE bodyTy
-        macroTy' = applySubst subst macroTy
-        cts' = map ( first ( applySubst subst ) ) cts
+        macroTy' = applySubstNormalise subst macroTy
+        cts' = map ( first ( applySubstNormalise subst ) ) cts
     debugTraceM $ unlines
       [ "inferTop " ++ show funNm
       , "ty: " ++ show macroTy'
@@ -982,17 +1142,15 @@ inferTerm = \case
       case mbIntyTy of
         Just intyTy ->
           return $ PrimIntTy intyTy
-        Nothing -> do
-          m <- liftTcM $ newMetaTyVarTy (IntLitMeta i) "i"
-          return m
+        Nothing ->
+          newMetaTyVarTy (IntLitMeta i) "i"
   MFloat f@( FloatingLiteral { floatingLiteralType = mbFloatyTy }) ->
     FloatLike <$>
       case mbFloatyTy of
         Just floatyTy ->
           return $ PrimFloatTy floatyTy
-        Nothing -> do
-          m <- liftTcM $ newMetaTyVarTy (FloatLitMeta f) "f"
-          return m
+        Nothing ->
+          newMetaTyVarTy (FloatLitMeta f) "f"
   MVar fun args -> inferApp ( FunName $ Left fun ) args
   MType {} -> return PrimTy
   MAttr _attr tm -> inferTerm tm
@@ -1013,7 +1171,7 @@ inferApp fun mbArgs = do
       return funTy
     Just args -> do
       argTys <- traverse inferExpr args
-      resTy <- liftTcM $ newMetaTyVarTy ( ExpectedFunTyResTy fun ) "r"
+      resTy <- newMetaTyVarTy ( ExpectedFunTyResTy fun ) "r"
       let actualTy = FunTy argTys resTy
       liftUnifyM $ unifyType ( AppOrigin fun ) NotSwapped actualTy funTy
       return resTy
@@ -1022,100 +1180,170 @@ inferFun :: FunName -> TcGenM ( Type Ty )
 inferFun funNm@( FunName fun ) =
   case fun of
     Left varNm@( CName varStr ) -> do
-      mbTy <- liftTcM $ lookupVarType varNm
+      mbTy <- liftTcPureM $ lookupVarType varNm
       case mbTy of
         Just varTy -> return varTy
         Nothing -> do
-          mbQTy <- liftTcM $ lookupTyEnv varNm
+          mbQTy <- liftTcPureM $ lookupTyEnv varNm
           case mbQTy of
-            Just funQTy ->
-              instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
+            Just ( Quant funQTy ) ->
+              snd <$>
+                instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
             Nothing -> do
               addErrTcGenM $ UnboundVariable varNm
-              liftTcM $ newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
-    Right mFun  -> do
-      let funQTy = inferMFun mFun
-      instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
+              newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
+    Right mFun  ->
+      case inferMFun mFun of
+        Quant funQTy ->
+          snd <$>
+            instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
 
 inferLam :: forall n. CName -> Vec n CName -> MExpr -> TcGenM ( Vec n ( Type Ty ), Type Ty )
 inferLam _ VNil body = ( VNil, ) <$> inferExpr body
 inferLam funNm argNms@( _ ::: _ ) body = do
   let is = Vec.imap ( \ i _ -> fromIntegral ( Fin.toNatural i ) + 1 ) argNms
-  argTys <- liftTcM $
-    for ( Vec.zipWith (,) is argNms ) $ \ ( i, argNm@( CName argStr ) ) ->
+  argTys <-
+    for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( CName argStr ) ) ->
       newMetaTyVarTy ( FunArg funNm ( argNm, i ) ) ( "ty_" <> argStr )
   liftBaseTcM ( declareLocalVars ( Map.fromList $ toList $ Vec.zipWith (,) argNms argTys ) ) $
     ( argTys, ) <$> inferExpr body
 
-inferMFun :: MFun arity -> Quant Ty
+inferMFun :: MFun arity -> Quant ( Type Ty )
 inferMFun = \case
-  MUnaryPlus  -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a]          a )
-  MUnaryMinus -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a]          a )
-  MLogicalNot -> q0 $          QuantTyBody []                   ( funTy [Bool]       Bool )
-  MBitwiseNot -> q1 $ \ a   -> QuantTyBody [Bits a]             ( funTy [a]          a )
-  MMult       -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a,a]        a )
-  MDiv        -> q1 $ \ a   -> QuantTyBody [Div a]              ( funTy [a,a]        a )
-  MRem        -> q1 $ \ a   -> QuantTyBody [Integral a]         ( funTy [a,a]        a )
-  MAdd        -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a,a]        a )
-  MSub        -> q1 $ \ a   -> QuantTyBody [Num a]              ( funTy [a,a]        a )
-  MShiftLeft  -> q2 $ \ a i -> QuantTyBody [Bits a, Integral i] ( funTy [a,i]        a )
-  MShiftRight -> q2 $ \ a i -> QuantTyBody [Bits a, Integral i] ( funTy [a,i]        a )
-  MRelLT      -> q1 $ \ a   -> QuantTyBody [Ord a]              ( funTy [a,a]        Bool )
-  MRelLE      -> q1 $ \ a   -> QuantTyBody [Ord a]              ( funTy [a,a]        Bool )
-  MRelGT      -> q1 $ \ a   -> QuantTyBody [Ord a]              ( funTy [a,a]        Bool )
-  MRelGE      -> q1 $ \ a   -> QuantTyBody [Ord a]              ( funTy [a,a]        Bool )
-  MRelEQ      -> q1 $ \ a   -> QuantTyBody [Eq a]               ( funTy [a,a]        Bool )
-  MRelNE      -> q1 $ \ a   -> QuantTyBody [Eq a]               ( funTy [a,a]        Bool )
-  MBitwiseAnd -> q1 $ \ a   -> QuantTyBody [Bits a]             ( funTy [a,a]        a )
-  MBitwiseXor -> q1 $ \ a   -> QuantTyBody [Bits a]             ( funTy [a,a]        a )
-  MBitwiseOr  -> q1 $ \ a   -> QuantTyBody [Bits a]             ( funTy [a,a]        a )
-  MLogicalAnd -> q0 $          QuantTyBody []                   ( funTy [Bool, Bool] Bool )
-  MLogicalOr  -> q0 $          QuantTyBody []                   ( funTy [Bool, Bool] Bool )
+  -- Logical operators
+  MLogicalNot -> q1 \ a   -> QuantTyBody [CNot  a]      $ funTy [a]   ( NotRes  a )
+  MLogicalAnd -> q2 \ a b -> QuantTyBody [CLogical a b] $ funTy [a,b] ( LogicalRes a b )
+  MLogicalOr  -> q2 \ a b -> QuantTyBody [CLogical a b] $ funTy [a,b] ( LogicalRes a b )
+
+  -- Comparison operators
+  MRelEQ      -> q2 \ a b -> QuantTyBody [CEq a b]    $ funTy [a,b]        Bool
+  MRelNE      -> q2 \ a b -> QuantTyBody [CEq a b]    $ funTy [a,b]        Bool
+  MRelLT      -> q2 \ a b -> QuantTyBody [COrd a b]   $ funTy [a,b]        Bool
+  MRelLE      -> q2 \ a b -> QuantTyBody [COrd a b]   $ funTy [a,b]        Bool
+  MRelGT      -> q2 \ a b -> QuantTyBody [COrd a b]   $ funTy [a,b]        Bool
+  MRelGE      -> q2 \ a b -> QuantTyBody [COrd a b]   $ funTy [a,b]        Bool
+
+  -- Arithmetic operators
+
+    -- Unary
+  MUnaryPlus  -> q1 \ a   -> QuantTyBody [CPlus  a] $ funTy [a] ( PlusRes  a )
+  MUnaryMinus -> q1 \ a   -> QuantTyBody [CMinus a] $ funTy [a] ( MinusRes a )
+
+    -- Additive
+  MAdd        -> q2 \ a b -> QuantTyBody [CAdd a b] $ funTy [a,b] ( AddRes a b )
+  MSub        -> q2 \ a b -> QuantTyBody [CSub a b] $ funTy [a,b] ( SubRes a b )
+
+    -- Multiplicative
+  MMult       -> q2 \ a b -> QuantTyBody [CMult a b] $ funTy [a,b] ( MultRes a b )
+  MDiv        -> q2 \ a b -> QuantTyBody [CDiv  a b] $ funTy [a,b] ( DivRes  a b )
+  MRem        -> q2 \ a b -> QuantTyBody [CRem  a b] $ funTy [a,b] ( RemRes  a b )
+
+    -- Bit
+  MBitwiseNot -> q1 \ a   -> QuantTyBody [CComplement a] $ funTy [a]   ( ComplementRes a )
+  MBitwiseAnd -> q2 \ a b -> QuantTyBody [CBits a b]     $ funTy [a,b] ( BitsRes a b )
+  MBitwiseXor -> q2 \ a b -> QuantTyBody [CBits a b]     $ funTy [a,b] ( BitsRes a b )
+  MBitwiseOr  -> q2 \ a b -> QuantTyBody [CBits a b]     $ funTy [a,b] ( BitsRes a b )
+
+    -- Bit shift
+  MShiftLeft  -> q2 \ a i -> QuantTyBody [CShift a i] $ funTy [a,i] ( ShiftRes a )
+  MShiftRight -> q2 \ a i -> QuantTyBody [CShift a i] $ funTy [a,i] ( ShiftRes a )
   where
-    q0 body = Quant @Z             $ \ VNil -> body
-    q1 body = Quant @( S Z )       $ \ (a ::: VNil) -> body a
-    q2 body = Quant @( S ( S Z ) ) $ \ (a ::: i ::: VNil) -> body a i
+    q1 body = Quant @( S Z )       \ (a ::: VNil) -> body a
+    q2 body = Quant @( S ( S Z ) ) \ (a ::: i ::: VNil) -> body a i
     funTy mbArgs res =
       case NE.nonEmpty mbArgs of
         Just args -> FunTy args res
         Nothing   -> res
 
-pattern Eq :: Type Ty -> Type Ct
-pattern Eq a = TyConAppTy (ClassTyCon EqTyCon) ( a ::: VNil )
-pattern Ord :: Type Ty -> Type Ct
-pattern Ord a = TyConAppTy (ClassTyCon OrdTyCon) ( a ::: VNil )
-pattern Num :: Type Ty -> Type Ct
-pattern Num a = TyConAppTy (ClassTyCon NumTyCon) ( a ::: VNil )
-pattern Integral :: Type Ty -> Type Ct
-pattern Integral a = TyConAppTy (ClassTyCon IntegralTyCon) ( a ::: VNil )
-pattern Div :: Type Ty -> Type Ct
-pattern Div a = TyConAppTy (ClassTyCon DivTyCon) ( a ::: VNil )
-pattern Bits :: Type Ty -> Type Ct
-pattern Bits a = TyConAppTy (ClassTyCon BitsTyCon) ( a ::: VNil )
+pattern Class :: ClassTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ct
+pattern Class cls args = TyConAppTy ( GenerativeTyCon ( ClassTyCon cls ) ) args
+{-# COMPLETE Class, NomEqPred #-}
+
+pattern Data :: DataTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ty
+pattern Data tc args = TyConAppTy ( GenerativeTyCon ( DataTyCon tc ) ) args
+pattern FamApp :: FamilyTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ty
+pattern FamApp tc args = TyConAppTy ( FamilyTyCon tc ) args
+
+pattern CNot :: Type Ty -> Type Ct
+pattern CNot a = Class CNotTyCon ( a ::: VNil )
+pattern CPlus :: Type Ty -> Type Ct
+pattern CPlus a = Class CPlusTyCon ( a ::: VNil )
+pattern CMinus :: Type Ty -> Type Ct
+pattern CMinus a = Class CMinusTyCon ( a ::: VNil )
+pattern CComplement :: Type Ty -> Type Ct
+pattern CComplement a = Class CComplementTyCon ( a ::: VNil )
+
+pattern CLogical :: Type Ty -> Type Ty -> Type Ct
+pattern CLogical a b = Class CLogicalTyCon ( a ::: b ::: VNil )
+pattern CEq :: Type Ty -> Type Ty -> Type Ct
+pattern CEq a b = Class CEqTyCon ( a ::: b ::: VNil )
+pattern COrd :: Type Ty -> Type Ty -> Type Ct
+pattern COrd a b = Class COrdTyCon ( a ::: b ::: VNil )
+pattern CAdd :: Type Ty -> Type Ty -> Type Ct
+pattern CAdd a b = Class CAddTyCon ( a ::: b ::: VNil )
+pattern CSub :: Type Ty -> Type Ty -> Type Ct
+pattern CSub a b = Class CSubTyCon ( a ::: b ::: VNil )
+pattern CMult :: Type Ty -> Type Ty -> Type Ct
+pattern CMult a b = Class CMultTyCon ( a ::: b ::: VNil )
+pattern CDiv :: Type Ty -> Type Ty -> Type Ct
+pattern CDiv a b = Class CDivTyCon ( a ::: b ::: VNil )
+pattern CRem :: Type Ty -> Type Ty -> Type Ct
+pattern CRem a b = Class CRemTyCon ( a ::: b ::: VNil )
+pattern CBits :: Type Ty -> Type Ty -> Type Ct
+pattern CBits a b = Class CBitsTyCon ( a ::: b ::: VNil )
+pattern CShift :: Type Ty -> Type Ty -> Type Ct
+pattern CShift a b = Class CShiftTyCon ( a ::: b ::: VNil )
 
 pattern Bool :: Type Ty
-pattern Bool = TyConAppTy (DataTyCon BoolTyCon) VNil
-pattern PrimIntTy :: PrimIntType -> Type Ty
-pattern PrimIntTy inty = TyConAppTy (DataTyCon (PrimIntTyCon inty)) VNil
+pattern Bool = Data BoolTyCon VNil
+pattern PrimIntTy :: ( PrimIntType, PrimSign ) -> Type Ty
+pattern PrimIntTy inty = Data (PrimIntTyCon inty) VNil
 pattern PrimFloatTy :: PrimFloatType -> Type Ty
-pattern PrimFloatTy floaty = TyConAppTy (DataTyCon (PrimFloatTyCon floaty)) VNil
+pattern PrimFloatTy floaty = Data (PrimFloatTyCon floaty) VNil
 pattern IntLike :: Type Ty -> Type Ty
-pattern IntLike intLike = TyConAppTy (DataTyCon IntLikeTyCon) (intLike ::: VNil)
+pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
 pattern FloatLike :: Type Ty -> Type Ty
-pattern FloatLike floatLike = TyConAppTy (DataTyCon FloatLikeTyCon) (floatLike ::: VNil)
+pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
-pattern String = TyConAppTy (DataTyCon StringTyCon) VNil
+pattern String = Data StringTyCon VNil
 pattern PrimTy :: Type Ty
-pattern PrimTy = TyConAppTy (DataTyCon PrimTyTyCon) VNil
+pattern PrimTy = Data PrimTyTyCon VNil
 pattern Empty :: Type Ty
-pattern Empty = TyConAppTy (DataTyCon EmptyTyCon) VNil
+pattern Empty = Data EmptyTyCon VNil
 
-isPrimTy :: forall n. Nat.SNatI n => (Vec n (Type Ty) -> QuantTyBody Ty) -> Bool
+pattern PlusRes :: Type Ty -> Type Ty
+pattern PlusRes a = FamApp PlusResTyCon ( a ::: VNil )
+pattern MinusRes :: Type Ty -> Type Ty
+pattern MinusRes a = FamApp MinusResTyCon ( a ::: VNil )
+pattern AddRes :: Type Ty -> Type Ty -> Type Ty
+pattern AddRes a b = FamApp AddResTyCon ( a ::: b ::: VNil )
+pattern SubRes :: Type Ty -> Type Ty -> Type Ty
+pattern SubRes a b = FamApp SubResTyCon ( a ::: b ::: VNil )
+pattern MultRes :: Type Ty -> Type Ty -> Type Ty
+pattern MultRes a b = FamApp MultResTyCon ( a ::: b ::: VNil )
+pattern DivRes :: Type Ty -> Type Ty -> Type Ty
+pattern DivRes a b = FamApp DivResTyCon ( a ::: b ::: VNil )
+pattern RemRes :: Type Ty -> Type Ty -> Type Ty
+pattern RemRes a b = FamApp RemResTyCon ( a ::: b ::: VNil )
+pattern LogicalRes :: Type Ty -> Type Ty -> Type Ty
+pattern LogicalRes a b = FamApp LogicalResTyCon ( a ::: b ::: VNil )
+pattern NotRes :: Type Ty -> Type Ty
+pattern NotRes a = FamApp NotResTyCon ( a ::: VNil )
+pattern ComplementRes :: Type Ty -> Type Ty
+pattern ComplementRes a = FamApp ComplementResTyCon ( a ::: VNil )
+pattern BitsRes :: Type Ty -> Type Ty -> Type Ty
+pattern BitsRes a b = FamApp BitsResTyCon ( a ::: b ::: VNil )
+pattern ShiftRes :: Type Ty -> Type Ty
+pattern ShiftRes a = FamApp ShiftResTyCon ( a  ::: VNil )
+
+
+
+isPrimTy :: forall n. Nat.SNatI n => (Vec n (Type Ty) -> QuantTyBody ( Type Ty ) ) -> Bool
 isPrimTy bf = case Nat.snat @n of
     Nat.SZ -> isPrimTy' (bf VNil)
     Nat.SS -> False
 
-isPrimTy' :: QuantTyBody Ty -> Bool
+isPrimTy' :: QuantTyBody ( Type Ty ) -> Bool
 isPrimTy' (QuantTyBody [] PrimTy) = True
 isPrimTy' _                       = False
 
@@ -1154,6 +1382,11 @@ data TypeHead
   | TyConHead !DataTyConTag
   deriving stock ( Eq, Ord, Show )
 
+-- | A defaulting proposal, returning a collection of additional equalities
+-- between the input types.
+type DefaultingProposal nbBinders =
+  Vec nbBinders ( Type Ty ) -> NE.NonEmpty ( Type Ty, Type Ty )
+
 -- | An instance for a class constraint, corresponding to the quantified
 -- type at the head of the instance.
 --
@@ -1166,10 +1399,10 @@ data TypeHead
 -- @forall x y. ( x ~ y ) => Cls x y Int@.
 data Instance where
   Instance
-    :: forall nbBinders
-    .  ( Nat.SNatI nbBinders )
-    => { instanceQuantTy :: !( Vec nbBinders ( Type Ty ) -> QuantTyBody Ct )
-       , instanceDefaults :: !( Maybe ( Vec nbBinders ( Type Ty ) ) )
+    :: forall nbArgs nbBinders
+    .  ( Nat.SNatI nbArgs, Nat.SNatI nbBinders )
+    => { instanceQuantTy  :: !( Vec nbBinders ( Type Ty ) -> QuantTyBody ( Vec nbArgs ( Type Ty ) ) )
+       , instanceDefaults :: !( [ DefaultingProposal nbBinders ] )
        }
     -> Instance
 
@@ -1219,13 +1452,9 @@ mapMaybeATrie f ( Trie vs cs ) =
 
 type InstanceKey = [ Maybe TypeHead ]
 
-instanceKey :: HasCallStack => Instance -> InstanceKey
+instanceKey :: Instance -> InstanceKey
 instanceKey ( Instance { instanceQuantTy = qty } ) =
-  case quantTyBody ( mkQuantTyBody ( Quant qty ) ) of
-    TyConAppTy _cls args ->
-      argsTypeHeads args
-    NomEqPred {} ->
-      error "instanceKey called on 'NomEqPred'"
+  map typeHead $ Vec.toList $ quantTyBody ( mkQuantTyBody ( Quant qty ) )
 
 argsTypeHeads :: Vec n ( Type Ty ) -> [ Maybe TypeHead ]
 argsTypeHeads = toList . fmap typeHead
@@ -1236,8 +1465,10 @@ typeHead = \case
     Just FunTyHead
   TyConAppTy tc _ ->
     case tc of
-      DataTyCon dc ->
+      GenerativeTyCon ( DataTyCon dc ) ->
         Just $ TyConHead $ dataTyConTag dc
+      FamilyTyCon {} ->
+        Nothing
   TyVarTy {} ->
     Nothing
 
@@ -1248,12 +1479,20 @@ type InstEnv = forall nbArgs. ClassTyCon nbArgs -> TrieMap TypeHead Instance
 classSuperclasses :: forall nbArgs. ClassTyCon nbArgs -> ( Vec nbArgs ( Type Ty ) -> [ Type Ct ] )
 classSuperclasses cls =
   case cls of
-    EqTyCon         -> noSCs
-    OrdTyCon        -> \ ( a ::: VNil ) -> [ Eq a ]
-    NumTyCon        -> noSCs
-    IntegralTyCon   -> \ ( a ::: VNil ) -> [ Num a, Div a ]
-    DivTyCon        -> \ ( a ::: VNil ) -> [ Num a ]
-    BitsTyCon       -> noSCs
+    CNotTyCon        -> noSCs
+    CLogicalTyCon    -> noSCs
+    CEqTyCon         -> noSCs
+    COrdTyCon        -> \ ( a ::: b ::: VNil ) -> [ CEq a b ]
+    CPlusTyCon       -> noSCs
+    CMinusTyCon      -> noSCs
+    CAddTyCon        -> noSCs
+    CSubTyCon        -> noSCs
+    CMultTyCon       -> noSCs
+    CDivTyCon        -> noSCs
+    CRemTyCon        -> noSCs
+    CComplementTyCon -> noSCs
+    CBitsTyCon       -> noSCs
+    CShiftTyCon      -> noSCs
   where
     noSCs = const []
 
@@ -1262,45 +1501,61 @@ classInstancesWithDefaults :: forall nbClsArgs. ClassTyCon nbClsArgs -> TrieMap 
 classInstancesWithDefaults cls =
   trieFromList . map ( \ i -> ( instanceKey i, i ) ) $
     case cls of
-      EqTyCon         -> [inty1, floaty1] ++ map mkUnaryNoForall [ QuantTyBody [] String, QuantTyBody [] Bool ]
-      OrdTyCon        -> [inty1, floaty1] ++ map mkUnaryNoForall [ QuantTyBody [] String, QuantTyBody [] Bool ]
-      NumTyCon        -> [inty1, floaty1]
-      IntegralTyCon   -> [inty1]
-      DivTyCon        -> [inty1, floaty1]
-      BitsTyCon       -> [inty1]
+      CNotTyCon        -> [bool1]
+      CLogicalTyCon    -> [bool2]
+      CEqTyCon         -> [ii2, ff2, if2, fi2, str2, bool2]
+      COrdTyCon        -> [ii2, ff2, if2, fi2, str2, bool2]
+      CPlusTyCon       -> [i1, f1]
+      CMinusTyCon      -> [i1, f1]
+      CAddTyCon        -> [ii2, ff2, if2, fi2]
+      CSubTyCon        -> [ii2, ff2, if2, fi2]
+      CMultTyCon       -> [ii2, ff2, if2, fi2]
+      CDivTyCon        -> [ii2, ff2, if2, fi2]
+      CRemTyCon        -> [ii2]
+      CComplementTyCon -> [i1]
+      CBitsTyCon       -> [ii2]
+      CShiftTyCon      -> [ii2] -- TODO: default two arguments separately
   where
 
-    intTy    = PrimIntTy $ PrimInt Signed
-    doubleTy = PrimFloatTy PrimDouble
+    primIntTy    = PrimIntTy ( PrimInt, Signed )
+    primDoubleTy = PrimFloatTy PrimDouble
 
-    -- An instance of the form @forall inty. C (IntLike inty)@,
-    -- with defaulting assignment @inty := PrimInt Signed@.
-    inty1 :: nbClsArgs ~ S Z => Instance
-    inty1 = mkUnary @( S Z ) ( Just ( intTy ::: VNil ) ) $ \ ( inty ::: VNil ) ->
-      QuantTyBody [] $ IntLike inty
+    dfltToInt, dfltToDouble :: DefaultingProposal ( S Z )
+    dfltToInt    ( a ::: VNil ) = NE.singleton ( a, primIntTy    )
+    dfltToDouble ( a ::: VNil ) = NE.singleton ( a, primDoubleTy )
 
-    -- An instance of the form @forall floaty. C (FloatLike float)@,
-    -- with defaulting assignment @floaty := PrimDouble@.
-    floaty1 :: nbClsArgs ~ S Z => Instance
-    floaty1 = mkUnary @( S Z ) ( Just ( doubleTy ::: VNil ) ) $ \ ( floaty ::: VNil ) ->
-      QuantTyBody [] $ FloatLike floaty
+    dfltToEqual :: DefaultingProposal ( S ( S Z ) )
+    dfltToEqual ( a ::: b ::: VNil ) = NE.singleton ( a, b )
 
-    mkUnary :: forall instNbBinders
-            .  ( Nat.SNatI instNbBinders, nbClsArgs ~ S Z )
-            => Maybe ( Vec instNbBinders ( Type Ty ) )
-            -> ( Vec instNbBinders ( Type Ty ) -> QuantTyBody Ty )
-            -> Instance
-    mkUnary mbDflt unaryInst =
-      Instance
-        { instanceQuantTy  = mkUnaryQTy . unaryInst
-        , instanceDefaults = mbDflt
-        }
-    mkUnaryNoForall :: nbClsArgs ~ S Z => QuantTyBody Ty -> Instance
-    mkUnaryNoForall = mkUnary @Z ( Just VNil ) . const
+    i1, f1, ii2, ff2, if2, fi2, str2, bool1, bool2 :: Instance
+    i1    = mkNAry [ dfltToInt    ] ( IntLike   ::: VNil )
+    f1    = mkNAry [ dfltToDouble ] ( FloatLike ::: VNil )
+    ii2   = mkNAry [ dfltToEqual ] ( IntLike   ::: IntLike   ::: VNil )
+    ff2   = mkNAry [ dfltToEqual ] ( FloatLike ::: FloatLike ::: VNil )
+    if2   = mkNAry [ ] ( IntLike   ::: FloatLike ::: VNil )
+    fi2   = mkNAry [ ] ( FloatLike ::: IntLike   ::: VNil )
+    str2  = mkNAryNoForall ( String ::: String ::: VNil )
+    bool1 = mkNAryNoForall ( Bool ::: VNil )
+    bool2 = mkNAryNoForall ( Bool ::: Bool ::: VNil )
 
-    mkUnaryQTy :: nbClsArgs ~ S Z => QuantTyBody Ty -> QuantTyBody Ct
-    mkUnaryQTy ( QuantTyBody ctxt param ) =
-      QuantTyBody ctxt ( TyConAppTy ( ClassTyCon cls ) ( param ::: VNil ) )
+    mkNAryNoForall :: forall nbArgs. Vec nbArgs ( Type Ty ) -> Instance
+    mkNAryNoForall tys =
+      let qty :: Vec Z ( Type Ty ) -> QuantTyBody ( Vec nbArgs ( Type Ty ) )
+          qty _ = QuantTyBody [] tys
+      in
+        Vec.withDict tys $
+          Instance
+            { instanceQuantTy  = qty
+            , instanceDefaults = []
+            }
+
+    mkNAry :: [ DefaultingProposal nbArgs ] -> Vec nbArgs ( Type Ty -> Type Ty ) -> Instance
+    mkNAry dflts tcs =
+      Vec.withDict tcs $
+        Instance
+          { instanceQuantTy  = \ args -> QuantTyBody [] ( Vec.zipWith ($) tcs args )
+          , instanceDefaults = dflts
+          }
 
 -- | Get the 'DataTyConTag' associated with a type constructor.
 --
@@ -1326,6 +1581,21 @@ data InertSet =
     , inertEqs   :: ![ ( ( Type Ct, CtOrigin ), Solubility ) ]
     }
   deriving stock Show
+
+{-
+liftTcGenM :: TcGenM a -> TcUniqueM ( Maybe ( a, ( Subst TyVar, Cts ) ) )
+liftTcGenM ( Writer.WriterT ( State.StateT f ) ) =
+  State.StateT \ ( u, st ) ->
+    let
+      aux :: ( ( a, ( Cts, [ ( TcError, SrcSpan ) ] ) ), ( Unique, Subst TyVar ) )
+          -> ( Maybe ( a, ( Subst TyVar, Cts ) ), ( Unique, SolverState ) )
+      aux ( ( a, ( cts, errs ) ), ( u', subst' ) ) =
+        if null errs
+        then ( Just ( a, ( subst', cts ) ), ( u', st ) )
+        else ( Nothing, ( u, st ) )
+    in
+    fmap aux $ f ( u, solverSubst st )
+-}
 
 emptyInertSet :: InertSet
 emptyInertSet =
@@ -1360,7 +1630,7 @@ mapMaybeInerts f inerts@( InertSet { inertDicts = dicts, inertEqs = eqs } ) =
             return $ Just ct
       ( keptDicts, kickedDicts ) =
         Writer.runWriter $
-          ( `Map.traverseMaybeWithKey` dicts ) $ \ _key ->
+          ( `Map.traverseMaybeWithKey` dicts ) \ _key ->
             fmap ( guarded ( not . isEmptyTrie ) ) . mapMaybeATrie kick
       ( keptEqs  , kickedEqs   ) = Writer.runWriter $ mapMaybeA kick eqs
    in ( inerts { inertDicts = keptDicts, inertEqs = keptEqs }
@@ -1377,7 +1647,7 @@ data SolverState
   deriving stock Show
 
 -- | Monad for solving constraints.
-type TcSolveM = StateT SolverState TcM
+type TcSolveM = StateT SolverState TcUniqueM
 
 initSolverState :: Cts -> SolverState
 initSolverState cts0 =
@@ -1389,6 +1659,10 @@ initSolverState cts0 =
 
 emitWork :: Subst TyVar -> Cts -> TcSolveM ()
 emitWork subst newCts = do
+  unless ( null newCts ) $
+    debugTraceM $
+      unlines $
+        "emitting new work" : map ( ( " - " ++ ) . show ) newCts
   State.modify' $
     \ st@( SolverState
           { solverSubst    = subst0
@@ -1405,7 +1679,7 @@ addInertDict :: Solubility
 addInertDict sol ( ( cls, args ), ctOrig ) inerts@( InertSet { inertDicts = dicts } ) =
   inerts { inertDicts = Map.alter doInsert ( classTyConTag cls ) dicts }
     where
-      ct = TyConAppTy ( ClassTyCon cls ) args
+      ct = Class cls args
       key = argsTypeHeads args
       doInsert = Just . insertTrie key ( ( ct, ctOrig ), sol ) . fromMaybe mempty
 
@@ -1422,22 +1696,29 @@ nextWorkItem = do
       State.put $ st { solverWorkList = others }
       return $ Just ct
 
-solvingLoop :: ( ( Type Ct, CtOrigin ) -> TcSolveM () ) -> Cts -> TcM ( Subst TyVar, ( Cts, Cts ) )
-solvingLoop solveOne cts = finish <$> ( `State.execStateT` initSolverState cts ) ( loop 1 )
+solvingLoop :: ( ( Type Ct, CtOrigin ) -> TcSolveM () ) -> TcSolveM ()
+solvingLoop solveOne = loop 1
   where
     loop :: Int -> TcSolveM ()
     loop !iter = do
       mbWorkItem <- nextWorkItem
-      for_ mbWorkItem $ \ workItem -> do
+      for_ mbWorkItem \ workItem -> do
         debugTraceM $
-          unlines [ "solvingLoop: iteration #" ++ show iter
-                  , "work item: " ++ show workItem
-                  ]
+          unlines
+            [ "solvingLoop: iteration #" ++ show iter
+            , "work item: " ++ show workItem
+            ]
         solveOne workItem
         loop ( iter + 1 )
-    finish :: SolverState -> ( Subst TyVar, ( Cts, Cts ) )
-    finish st =
-      ( solverSubst st, inertCts ( solverInerts st ) )
+
+runTcSolveM :: Cts -> TcSolveM a -> TcUniqueM ( a, ( Subst TyVar, ( Cts, Cts ) ) )
+runTcSolveM cts ( State.StateT f ) =
+  fmap aux $ f ( initSolverState cts )
+
+  where
+    aux :: ( a, SolverState ) -> ( a, ( Subst TyVar, ( Cts, Cts ) ) )
+    aux ( a, st ) =
+      ( a, ( solverSubst st , inertCts ( solverInerts st ) ) )
 
 {-------------------------------------------------------------------------------
   Typechecking macros: constraint solving
@@ -1450,14 +1731,14 @@ solveCt handleOverlap defaulting instEnv ( ct, ctOrig ) =
   case ct of
     NomEqPred a b ->
       solveEqCt ctOrig a b
-    TyConAppTy ( ClassTyCon cls ) args ->
+    Class cls args ->
       solveDictCt handleOverlap defaulting ctOrig cls ( instEnv cls ) args
 
 -- | Solve an equality constraint.
 solveEqCt :: CtOrigin -> Type Ty -> Type Ty -> TcSolveM ()
 solveEqCt ctOrig lhs rhs = do
   ( ( (), UnifyResult eqs errs ), innerSubst ) <-
-    lift $ ( `State.runStateT` mempty ) $ Writer.runWriterT $
+    lift $ lift $ ( `State.runStateT` mempty ) $ Writer.runWriterT $
       unifyType ctOrig NotSwapped lhs rhs
   let
     sameOld other =
@@ -1488,7 +1769,7 @@ lookupCt ct = do
   SolverState { solverInerts = inerts } <- State.get
   return $
     case ct of
-      TyConAppTy ( ClassTyCon cls ) args -> do
+      Class cls args -> do
         dicts <- Map.lookup ( classTyConTag cls ) $ inertDicts inerts
         finish $ mapMaybe ( matchWithSCs . first fst )
                $ lookupTrie ( argsTypeHeads args ) dicts
@@ -1511,7 +1792,7 @@ lookupCt ct = do
     matchWithSCs ( pty, sol ) =
       case pty of
         NomEqPred {} -> Nothing
-        TyConAppTy ( ClassTyCon cls' ) args' -> do
+        Class cls' args' -> do
           guard $
             any ( eqType ct ) ( pty : classSuperclasses cls' args' )
           return sol
@@ -1519,16 +1800,18 @@ lookupCt ct = do
 -- | Kick out constraints which mention variables from the domain of the
 -- new substitution.
 kickOut :: Subst TyVar -> TcSolveM ()
-kickOut subst = do
-  st@( SolverState { solverInerts = inerts, solverWorkList = wl0 } ) <- State.get
-  let ( okInerts, kickedInerts ) = mapMaybeInerts mbKickOut inerts
-  debugTraceM $ unlines
-    [ "kickOut"
-    , "subst: " ++ show subst
-    , "inerts kicked out: " ++ show kickedInerts
-    ]
-  State.put $
-    st { solverInerts = okInerts, solverWorkList = wl0 ++ kickedInerts }
+kickOut subst =
+  unless ( isEmptySubst subst ) do
+    st@( SolverState { solverInerts = inerts, solverWorkList = wl0 } ) <- State.get
+    let ( okInerts, kickedInerts ) = mapMaybeInerts mbKickOut inerts
+    unless ( null kickedInerts ) do
+      debugTraceM $ unlines
+        [ "kickOut"
+        , "subst: " ++ show subst
+        , "inerts kicked out: " ++ show kickedInerts
+        ]
+      State.put $
+        st { solverInerts = okInerts, solverWorkList = wl0 ++ kickedInerts }
   where
     mbKickOut :: Type Ct -> Maybe ( Type Ct )
     mbKickOut ct =
@@ -1539,7 +1822,7 @@ kickOut subst = do
         then
           Nothing
         else
-          Just $ applySubst subst ct
+          Just $ applySubstNormalise subst ct
 
 -- | Whether to do defaulting or not.
 data Defaulting
@@ -1588,7 +1871,7 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
           | null rest || handleOverlap == PickFirst
           -> do
             debugTraceM $ unlines
-              [ "solveDictCt: solved constraint, emitting context"
+              [ "solveDictCt: solved constraint"
               , "ct: " ++ show ct
               , "context: " ++ show newCts
               , "subst: " ++ show subst ]
@@ -1600,8 +1883,8 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
           modifyingInerts $
             addInertDict Soluble ( ( cls, args ), ctOrig )
     where
-      ct = TyConAppTy ( ClassTyCon cls ) args
-      matcher :: Instance -> TcM ( Maybe ( Cts, Subst TyVar ) )
+      ct = Class cls args
+      matcher :: Instance -> TcUniqueM ( Maybe ( Cts, Subst TyVar ) )
       matcher inst = do
         matchRes <- matchOneInst ctOrig cls inst args
         case matchRes of
@@ -1612,47 +1895,51 @@ solveDictCt handleOverlap doDefault ctOrig cls instEnv args = do
                     , "ct: " ++ show ct
                     ]
                return Nothing
-          Just ( ( newCts, matchSubst ), doMbDflt ) -> do
-            let
-              matchNoDefault =
-                do
-                  debugTraceM $
-                    unlines
-                      [ "solveDictCt: matchOne SUCCESS (no defaulting)"
-                      , "ct: " ++ show ct
-                      ]
-                  return $ Just ( newCts, matchSubst )
-            if
-              | DefaultTyVarsExcept qtvs <- doDefault
-              -> do mbDflt <- doMbDflt
-                    case mbDflt of
-                      Nothing ->
-                        matchNoDefault
-                      Just dfltSubst -> do
-                        let mbSubst
-                              -- Only do defaulting when no candidate type variables
-                              -- for quantification are involved.
-                              -- (Alternatively we could choose to default only
-                              -- a subset of the type variables, but we don't do so for now.)
-                              | IntSet.null $ IntSet.intersection ( domain dfltSubst ) qtvs
-                              = combineSubsts matchSubst dfltSubst
-                              | otherwise
-                              = Just matchSubst
-                        debugTraceM $
-                          unlines
-                            [ "solveDictCt: matchOne with default"
-                            , "qtvs: " ++ show qtvs
-                            , "ct: " ++ show ct
-                            , "matchSubst: " ++ show matchSubst
-                            , "dfltSubst: " ++ show dfltSubst
-                            , "mbSubst: " ++ show mbSubst
-                            ]
-                        for mbSubst $ \ subst ->
-                          return
-                            ( map ( first $ applySubst subst ) newCts, subst )
-              | otherwise
-              -> matchNoDefault
+          Just ( ( newCts, matchSubst ), dfltCands ) -> fmap ( newCts, ) <$> do
+            case doDefault of
+              Don'tDefault -> do
+                debugTraceM $
+                  unlines
+                    [ "solveDictCt: matchOne SUCCESS (not defaulting)"
+                    , "ct: " ++ show ct
+                    , "subst: " ++ show matchSubst
+                    ]
+                return $ Just matchSubst
+              DefaultTyVarsExcept qtvs -> do
+                candSubsts <- lift dfltCands
+                  -- Only do defaulting when no candidate type variables
+                  -- for quantification are involved.
+                  -- (Alternatively we could choose to default only
+                  -- a subset of the type variables, but we don't do so for now.)
+                case filter ( doesNotRefine qtvs matchSubst ) candSubsts of
+                  [] -> do
+                    debugTraceM $
+                      unlines
+                        [ "solveDictCt: matchOne SUCCESS (no defaulting)"
+                        , "qtvs: " ++ show qtvs
+                        , "ct: " ++ show ct
+                        , "subst: " ++ show matchSubst
+                        ]
+                    return $ Just matchSubst
+                  dfltSubst1 : _ -> do
+                    debugTraceM $
+                      unlines
+                        [ "solveDictCt: matchOne SUCCESS (defaulting)"
+                        , "qtvs: " ++ show qtvs
+                        , "ct: " ++ show ct
+                        , "matchSubst: " ++ show matchSubst
+                        , "dfltSubst: " ++ show dfltSubst1
+                        ]
+                    return $ Just dfltSubst1
 
+doesNotRefine :: IntSet -> Subst tv -> Subst tv -> Bool
+doesNotRefine qtvs ( Subst matchSubst ) ( Subst dfltSubst ) =
+  and $
+    IntMap.intersectionWith ( \ ( _, ty1 ) ( _, ty2 ) -> ty1 `eqType` ty2 )
+      ( matchSubst `IntMap.restrictKeys` qtvs )
+      ( dfltSubst  `IntMap.restrictKeys` qtvs )
+
+{-
 -- | Combine two substitutions, if they are compatible.
 combineSubsts :: Subst tv -> Subst tv -> Maybe ( Subst tv )
 combineSubsts ( Subst s1 ) ( Subst s2 ) =
@@ -1677,49 +1964,57 @@ combineSubsts ( Subst s1 ) ( Subst s2 ) =
       if eqType ty1 ty2
       then Just tvTy1
       else Nothing
+-}
 
 -- | Match a constraint against an instance.
 --
 -- The returned first substitution does the matching, if that was possible.
 -- The second substitution is an optional defaulting substitution.
 matchOneInst
-  :: CtOrigin
+  :: forall nbArgs
+  .  CtOrigin
   -> ClassTyCon nbArgs
   -> Instance
   -> Vec nbArgs ( Type Ty )
-  -> TcM ( Maybe ( ( Cts, Subst TyVar ), TcM ( Maybe ( Subst TyVar ) ) ) )
-matchOneInst ctOrig cls ( Instance { instanceQuantTy = iqty, instanceDefaults = mbDflt } ) args =
-  runTcGenMSubst $ do
-    let qty :: Quant Ct
-        qty = Quant iqty
-        orig = ClassInstMetaOrigin qty
-    instTy <- instantiate ctOrig orig qty
-    liftUnifyM $ unifyType ctOrig NotSwapped
-      instTy
-      ( TyConAppTy ( ClassTyCon cls ) args )
-    subst0 <- State.get
+  -> TcUniqueM ( Maybe ( ( Cts, Subst TyVar ), TcPureM [ Subst TyVar ] ) )
+matchOneInst ctOrig cls
+  ( Instance
+    { instanceQuantTy = ( iqty :: Vec nbBinders ( Type Ty ) -> QuantTyBody ( Vec instNbArgs ( Type Ty ) ) )
+    , instanceDefaults = mbDflt }
+    ) args
+    | Just Refl <- Vec.withDict args $ Nat.eqNat @nbArgs @instNbArgs
+    =
+  runTcGenMSubst do
+    let orig = ClassInstMetaOrigin $ Quant $ fmap ( fmap ( Class cls ) ) iqty
+    ( instBndrs, instArgTys ) <- instantiate ctOrig orig iqty
+    liftUnifyM $
+      unifyTypes ctOrig NotSwapped instArgTys args
+    matchSubst <- State.get
     return $
-      case mbDflt of
-        Nothing ->
-          return Nothing
-        Just dflt ->
-          fmap ( fmap snd ) $ runTcUnifyMSubst subst0 $ do
-            unifyType ( DefaultingOrigin ctOrig ) NotSwapped
-              instTy
-              ( quantTyBody $ iqty dflt )
+      mapMaybeA ( tryDefault ctOrig matchSubst . ( $ instBndrs ) ) mbDflt
+  | otherwise
+  = error $ unlines
+      [ "matchOneInst: incorrect class arity"
+      , "class: " ++ show cls
+      ]
+
+tryDefault :: CtOrigin -> Subst TyVar -> NE.NonEmpty ( Type Ty, Type Ty ) -> TcPureM ( Maybe ( Subst TyVar ) )
+tryDefault ctOrig matchSubst dfltEqs =
+  fmap ( fmap snd ) $ runTcUnifyMSubst matchSubst $
+    traverse ( uncurry $ unifyType ( DefaultingOrigin ctOrig ) NotSwapped ) dfltEqs
 
 {-------------------------------------------------------------------------------
   Typechecking macros: top-level entry point to constraint solving
 -------------------------------------------------------------------------------}
 
 -- | Top-level type-checking monad.
-type TcTopM = ExceptT TcMacroError TcM
+type TcTopM = ExceptT TcMacroError TcUniqueM
 
 simplifyAndDefault :: IntSet -> Cts -> TcTopM ( Subst TyVar, Cts )
-simplifyAndDefault quantTvs cts0 =
+simplifyAndDefault quantTvs cts =
   do
-    ( subst, ( insols, inerts ) ) <- lift $ solvingLoop solveOne cts0
-    for_ ( NE.nonEmpty insols ) $ \ errs ->
+    ( (), ( subst, ( insols, inerts ) ) ) <- lift $ runTcSolveM cts $ solvingLoop solveOne
+    for_ ( NE.nonEmpty insols ) \ errs ->
       Except.throwError ( TcInconsistentConstraints $ NE.singleton ( NE.toList errs ) )
     return ( subst, inerts )
 
@@ -1730,42 +2025,43 @@ simplifyAndDefault quantTvs cts0 =
   Typechecking macros: generalisation
 -------------------------------------------------------------------------------}
 
-tcMacro :: Map CName ( Quant Ty ) -> CName -> [ CName ] -> MExpr -> Either TcMacroError ( Quant Ty )
-tcMacro tyEnv macroNm args body = throwErrors $ runTcM tyEnv $ Except.runExceptT $ do
+tcMacro :: Map CName ( Quant ( Type Ty ) ) -> CName -> [ CName ] -> MExpr -> Either TcMacroError ( Quant ( Type Ty ) )
+tcMacro tyEnv macroNm args body =
+  throwErrors $ runTcM tyEnv $ ( `State.evalStateT` Unique 0 ) $ Except.runExceptT do
 
-  -- Step 1: infer the type.
-  ( ( ty, ctsOrigs ), mbErrs ) <- lift $ inferTop macroNm args body
-  traverse_ ( Except.throwError . TcErrors ) ( NE.nonEmpty mbErrs )
+    -- Step 1: infer the type.
+    ( ( ty, ctsOrigs ), mbErrs ) <- lift $ inferTop macroNm args body
+    traverse_ ( Except.throwError . TcErrors ) ( NE.nonEmpty mbErrs )
 
-  -- Step 2: compute the set of metavariables that are candidates for quantification.
-  let
-    freeTvs = seenTvs $ getFVs noBoundVars $ freeTyVarsOfType ty
+    -- Step 2: compute the set of metavariables that are candidates for quantification.
+    let
+      freeTvs = seenTvs $ getFVs noBoundVars $ freeTyVarsOfType ty
 
-  -- Step 3: simplify and default constraints.
-  ( ctSubst, simpleCts ) <- simplifyAndDefault freeTvs ctsOrigs
+    -- Step 3: simplify and default constraints.
+    ( ctSubst, simpleCts ) <- simplifyAndDefault freeTvs ctsOrigs
 
-  -- Step 4: generalise.
-  let
-    qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $ freeTyVarsOfType ( applySubst ctSubst ty )
+    -- Step 4: generalise.
+    let
+      qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $ freeTyVarsOfType ( applySubstNormalise ctSubst ty )
 
-  debugTraceM $
-    unlines
-      [ "tcMacro"
-      , "ty: " ++ show ty
-      , "freeTvs: " ++ show freeTvs
-      , "ctSubst: " ++ show ctSubst
-      , "simpleCts: " ++ show simpleCts
-      , "qtvs: " ++ show qtvsList
-      ]
-  return $
-    Vec.reifyList qtvsList  $ \ qtvs ->
-      Quant $ \ tys ->
-        let quantSubst = mkSubst $ toList $ Vec.zipWith (,) qtvs tys
-            finalSubst = quantSubst <> ctSubst
-        in QuantTyBody
-            { quantTyQuant = map ( applySubst finalSubst ) ( fmap fst simpleCts )
-            , quantTyBody  =       applySubst finalSubst   ty
-            }
+    debugTraceM $
+      unlines
+        [ "tcMacro"
+        , "ty: " ++ show ty
+        , "freeTvs: " ++ show freeTvs
+        , "ctSubst: " ++ show ctSubst
+        , "simpleCts: " ++ show simpleCts
+        , "qtvs: " ++ show qtvsList
+        ]
+    return $
+      Vec.reifyList qtvsList \ qtvs ->
+        Quant \ tys ->
+          let quantSubst = mkSubst $ toList $ Vec.zipWith (,) qtvs tys
+              finalSubst = quantSubst <> ctSubst
+          in QuantTyBody
+              { quantTyQuant = map ( applySubstNormalise finalSubst ) ( fmap fst simpleCts )
+              , quantTyBody  =       applySubstNormalise finalSubst   ty
+              }
   where
     throwErrors ( _, ( err : errs ) ) = Left $ TcErrors ( err NE.:| errs )
     throwErrors ( res, [] ) = res
@@ -1774,8 +2070,7 @@ data TcMacroError
   -- | Errors in the constraint-generation phase,
   -- e.g. we failed to unify some types.
   = TcErrors !( NE.NonEmpty ( TcError, SrcSpan ) )
-  -- | A collection of class constraints was inconsistent,
-  -- based on model-checking.
+  -- | A collection of class constraints was inconsistent.
   | TcInconsistentConstraints !( NE.NonEmpty Cts )
   deriving stock ( Show, Generic )
   deriving anyclass PrettyVal
@@ -1834,7 +2129,7 @@ instance Num MExpr where
   abs = error "no"
   signum = error "no"
 
-testMacro :: forall n. Nat.SNatI n => ( Vec n MExpr -> MExpr ) -> Either TcMacroError ( Quant Ty )
+testMacro :: forall n. Nat.SNatI n => ( Vec n MExpr -> MExpr ) -> Either TcMacroError ( Quant ( Type Ty ) )
 testMacro f = tcMacro Map.empty "TEST" ( toList vars ) ( f $ fmap var vars )
   where
     vars :: Vec n CName
@@ -1842,9 +2137,9 @@ testMacro f = tcMacro Map.empty "TEST" ( toList vars ) ( f $ fmap var vars )
     n :: Int
     n = Nat.reflectToNum @n Proxy
 
-test1, test2, test3, test4 :: Either TcMacroError ( Quant Ty )
-test1 = testMacro @(S (S Z)) $ \ ( a ::: b ::: VNil ) -> a + b
-test2 = testMacro @(S Z) $ \ ( a ::: VNil ) -> a + 1
-test3 = testMacro @Z $ \ VNil -> 1
-test4 = testMacro @(S (S Z)) $ \ ( x ::: y ::: VNil ) -> x + ( 12 * y )
+test1, test2, test3, test4 :: Either TcMacroError ( Quant ( Type Ty ) )
+test1 = testMacro @(S (S Z)) \ ( a ::: b ::: VNil ) -> a + b
+test2 = testMacro @(S Z) \ ( a ::: VNil ) -> a + 1
+test3 = testMacro @Z \ VNil -> 1
+test4 = testMacro @(S (S Z)) \ ( x ::: y ::: VNil ) -> x + ( 12 * y )
 -}
