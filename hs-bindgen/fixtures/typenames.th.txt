@@ -1,0 +1,9 @@
+newtype CFoo = MkCFoo {unCFoo :: CUInt}
+instance Storable CFoo
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure MkCFoo <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {MkCFoo unCFoo_3 -> pokeByteOff ptr_1 0 unCFoo_3}}
+newtype CFoo = MkCFoo {unCFoo :: CDouble}
+deriving newtype instance Storable CFoo
