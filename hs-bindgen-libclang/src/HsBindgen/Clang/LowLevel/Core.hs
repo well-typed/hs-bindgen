@@ -986,14 +986,13 @@ clang_isCursorDefinition cursor =
 --
 -- <https://clang.llvm.org/doxygen/structCXType.html>
 newtype CXType = CXType (OnHaskellHeap CXType_)
-  deriving newtype (LivesOnHaskellHeap, Preallocate, Eq, Ord, Show)
-  -- Note: Eq instance is doing more work then clang_equalTypes:
-  -- https://github.com/llvm/llvm-project/blob/4872ecf1cc3cb9c4939a9e6210a9b9e9a9032e9f/clang/tools/libclang/CXType.cpp#L642
-  -- equalTypes doesn't compare the kind; I think the kind is dependent field,
-  -- and comparing it shouldn't break thing on well-formed types.
-  --
-  -- As there aren't clang_hashType (c.f. clang_hashCursor), we cannot use libclang to implement an interface for associative arrays;
-  -- Thus we rely on our definitions.
+  deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
+
+instance Eq CXType where
+  x == y = unsafeDupablePerformIO $ clang_equalTypes x y
+
+instance Ord CXType where
+    compare x y = compare 0 $ unsafeDupablePerformIO $ clang_compareTypes x y
 
 foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
   wrap_cxtKind :: R CXType_ -> IO (SimpleEnum CXTypeKind)
@@ -1045,6 +1044,12 @@ foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
 
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
   wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_equalTypes :: R CXType_ -> R CXType_ -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_compareTypes :: R CXType_ -> R CXType_ -> IO CInt
 
 foreign import capi unsafe "clang_wrappers.h"
   wrap_getCanonicalType :: R CXType_ -> W CXType_ -> IO ()
@@ -1234,6 +1239,19 @@ clang_getEnumConstantDeclValue cursor = do
 
     onHaskellHeap cursor $ \cursor' ->
       wrap_getEnumConstantDeclValue cursor'
+
+-- | Determine whether two CXTypes represent the same type.
+clang_equalTypes :: CXType -> CXType -> IO Bool
+clang_equalTypes a b =
+    onHaskellHeap a $ \a' ->
+    onHaskellHeap b $ \b' ->
+      cToBool <$> wrap_equalTypes a' b'
+
+clang_compareTypes :: CXType -> CXType -> IO CInt
+clang_compareTypes a b =
+    onHaskellHeap a $ \a' ->
+    onHaskellHeap b $ \b' ->
+      wrap_compareTypes a' b'
 
 -- | Return the canonical type for a CXType.
 --
