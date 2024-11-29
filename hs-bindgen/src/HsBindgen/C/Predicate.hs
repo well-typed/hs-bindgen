@@ -11,14 +11,12 @@ module HsBindgen.C.Predicate (
   , match
   ) where
 
-import Control.Monad
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
 import Control.Monad.IO.Class
-import Data.String
-import Data.Text (Text)
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text () -- instances only
 
+import HsBindgen.Imports
 import HsBindgen.Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
