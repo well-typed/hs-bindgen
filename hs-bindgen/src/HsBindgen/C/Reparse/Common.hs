@@ -22,10 +22,13 @@ reparseName = snd <$> reparseLocName
 
 reparseLocName :: Reparse (MultiLoc, CName)
 reparseLocName = token $ \t -> do
-    guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
+    let spelling = getTokenSpelling (tokenSpelling t)
+    let ki = fromSimpleEnum (tokenKind t)
+    -- bool become keyword in later LLVMs (not in 14, surely in 16)
+    guard $ (ki == Right CXToken_Keyword && spelling == "bool") || ki == Right CXToken_Identifier
     return (
         rangeStart $ tokenExtent t
-      , CName $ getTokenSpelling (tokenSpelling t)
+      , CName spelling
       )
 
 {-------------------------------------------------------------------------------

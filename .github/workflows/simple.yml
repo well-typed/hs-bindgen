@@ -10,12 +10,22 @@ on:
 
 jobs:
   native:
-    name: "Simple: GHC ${{ matrix.ghc }} on ${{ matrix.os }}"
+    name: "Simple: GHC ${{ matrix.ghc }} with LLVM ${{ matrix.llvm }} on ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
         ghc: ['9.4.8']
+        llvm: ['14']
+
+        # Build with newer LLVM on macOS only: less jobs, and windows misbehaves
+        include:
+          - os: macos-latest
+            ghc: '9.4.8'
+            llvm: '16'
+          - os: macos-latest
+            ghc: '9.4.8'
+            llvm: '18'
       fail-fast: false
     timeout-minutes:
       60
@@ -38,7 +48,7 @@ jobs:
       - name: Install LLVM and Clang
         uses: KyleMayes/install-llvm-action@v2
         with:
-          version: "14"
+          version: ${{ matrix.llvm }}
           directory: ${{ runner.temp }}/llvm
           env: false
 

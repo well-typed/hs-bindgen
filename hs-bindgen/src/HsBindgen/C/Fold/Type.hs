@@ -86,6 +86,10 @@ mkTypeUse = go
             -- TODO: for now we represent function types as Void
             return $ TypePrim PrimVoid
 
+          Right CXType_Bool -> do
+            -- TODO: https://github.com/well-typed/hs-bindgen/issues/317
+            return $ TypePrim PrimVoid
+
           _otherwise ->
             unrecognizedType ty
 

@@ -1,0 +1,36 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = Just
+            (CName "bools1"),
+          structSizeof = 2,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypePrim PrimVoid},
+            StructField {
+              fieldName = CName "y",
+              fieldOffset = 8,
+              fieldType = TypePrim
+                PrimVoid}]},
+      DeclStruct
+        Struct {
+          structTag = Just
+            (CName "bools2"),
+          structSizeof = 2,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypeElaborated
+                (CName "bool")},
+            StructField {
+              fieldName = CName "y",
+              fieldOffset = 8,
+              fieldType = TypeElaborated
+                (CName "bool")}]}])
