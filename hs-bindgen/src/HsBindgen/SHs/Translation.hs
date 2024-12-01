@@ -23,7 +23,7 @@ import DeBruijn (rzeroAdd)
   Declarations
 -------------------------------------------------------------------------------}
 
-translateDecl :: Hs.Decl -> SDecl
+translateDecl :: Hs.Decl Hs.Placeholder -> SDecl
 translateDecl (Hs.DeclData d) = translateDeclData d
 translateDecl (Hs.DeclEmpty n) = translateDeclEmpty n
 translateDecl (Hs.DeclNewtype n) = translateNewtype n
@@ -31,24 +31,24 @@ translateDecl (Hs.DeclInstance i) = translateInstanceDecl i
 translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
 
-translateInstanceDecl :: Hs.InstanceDecl -> SDecl
+translateInstanceDecl :: Hs.InstanceDecl Hs.Placeholder -> SDecl
 translateInstanceDecl (Hs.InstanceStorable struct i) =
     DInst $ translateStorableInstance struct i
 
-translateDeclData :: Hs.Struct n -> SDecl
+translateDeclData :: Hs.Struct Hs.Placeholder n -> SDecl
 translateDeclData struct = DRecord $ Record
     { dataType = Hs.structName struct
     , dataCon  = Hs.structConstr struct
     , dataFields =
         [ (n, translateType t)
-        | (n, t) <- toList $ Hs.structFields struct
+        | (_ann, (n, t)) <- toList $ Hs.structFields struct
         ]
     }
 
 translateDeclEmpty :: HsName NsTypeConstr -> SDecl
 translateDeclEmpty n = DEmptyData n
 
-translateNewtype :: Hs.Newtype -> SDecl
+translateNewtype :: Hs.Newtype Hs.Placeholder -> SDecl
 translateNewtype n = DNewtype $ Newtype
     { newtypeName  = Hs.newtypeName n
     , newtypeCon   = Hs.newtypeConstr n
@@ -169,7 +169,10 @@ translateAppHead = \case
   'Storable'
 -------------------------------------------------------------------------------}
 
-translateStorableInstance :: Hs.Struct n -> Hs.StorableInstance -> Instance
+translateStorableInstance ::
+     Hs.Struct Hs.Placeholder n
+  -> Hs.StorableInstance Hs.Placeholder
+  -> Instance
 translateStorableInstance struct Hs.StorableInstance{..} = do
     let peek = lambda (idiom structCon translatePeekByteOff) storablePeek
     let poke = lambda (lambda (translateElimStruct (doAll translatePokeByteOff))) storablePoke
@@ -194,12 +197,15 @@ translatePokeByteOff (Hs.PokeByteOff ptr i x) = appMany Storable_pokeByteOff [EB
   Structs
 -------------------------------------------------------------------------------}
 
-translateElimStruct :: (forall ctx'. t ctx' -> SExpr ctx') -> Hs.ElimStruct t ctx -> SExpr ctx
+translateElimStruct ::
+     (forall ctx'. t ctx' -> SExpr ctx')
+  -> Hs.ElimStruct Hs.Placeholder t ctx
+  -> SExpr ctx
 translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     (EBound x)
     [SAlt (Hs.structConstr struct) add hints (f k)]
   where
-    hints = fmap (toNameHint . fst) $ Hs.structFields struct
+    hints = fmap (toNameHint . fst . snd) $ Hs.structFields struct
 
 toNameHint :: HsName 'NsVar -> NameHint
 toNameHint (HsName t) = NameHint (T.unpack t)
@@ -213,7 +219,7 @@ appMany :: Global -> [SExpr ctx] -> SExpr ctx
 appMany = foldl' EApp . EGlobal
 
 -- | Struct constructor
-structCon :: Hs.StructCon ctx -> SExpr ctx
+structCon :: Hs.StructCon Hs.Placeholder ctx -> SExpr ctx
 structCon (Hs.StructCon s) = ECon (Hs.structConstr s)
 
 -- | Idiom brackets

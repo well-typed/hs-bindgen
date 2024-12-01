@@ -172,7 +172,7 @@ genModule opts = WrapHsModule . Backend.PP.translate opts . unwrapCHeader
 genTH :: TH.Quote q => CHeader -> q [TH.Dec]
 genTH = Backend.TH.translateC . unwrapCHeader
 
-genHsDecls :: CHeader -> [Hs.Decl]
+genHsDecls :: CHeader -> [Hs.Decl Hs.Placeholder]
 genHsDecls = LowLevel.generateDeclarations . unwrapCHeader
 
 {-------------------------------------------------------------------------------
