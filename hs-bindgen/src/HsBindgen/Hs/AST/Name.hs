@@ -40,6 +40,7 @@ module HsBindgen.Hs.AST.Name (
   ) where
 
 import Data.Char qualified as Char
+import Data.List qualified as List
 import Data.Set qualified as Set
 import Data.String
 import Data.Text qualified as T
@@ -278,8 +279,9 @@ maintainCName f = T.pack . aux . T.unpack . getCName
 -- | Translate a C name to a Haskell name, converting from @snake_case@ to
 -- @camelCase@
 --
--- Letters after underscores are changed to uppercase.  All underscores are
--- removed, aside from a single trailing underscore if one exists.
+-- Leading and trailing underscores are assumed to have special meaning and
+-- are preserved.  All other underscores are removed.  Letters following
+-- (preserved or removed) underscores are changed to uppercase.
 --
 -- The invalid character function must return a 'String' that only contains
 -- valid characters.  Two invalid character functions are provided in this
@@ -288,14 +290,23 @@ maintainCName f = T.pack . aux . T.unpack . getCName
 -- Note that a single quote (@'@) is not valid in C names, and it is handled
 -- specially.  Any single quotes in the input are treated as invalid.
 camelCaseCName :: (Char -> String) -> CName -> Text
-camelCaseCName f = T.pack . aux False . T.unpack . getCName
+camelCaseCName f = T.pack . start False . T.unpack . getCName
   where
-    aux :: Bool -> String -> String
-    aux isUp (c:cs)
-      | c == '_'      = aux True cs
-      | isValidChar c = (if isUp then Char.toUpper c else c) : aux False cs
-      | otherwise     = f c ++ aux isUp cs
-    aux isUp []       = if isUp then "_" else "" -- preserve trailing underscore
+    start :: Bool -> String -> String
+    start isUp = \case
+      c:cs
+        | c == '_'      -> c : start True cs
+        | isValidChar c -> (if isUp then Char.toUpper c else c) : aux 0 cs
+        | otherwise     -> f c ++ aux 0 cs
+      []                -> []
+
+    aux :: Int -> String -> String
+    aux !numUs = \case
+      c:cs
+        | c == '_'      -> aux (numUs + 1) cs
+        | isValidChar c -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
+        | otherwise     -> f c ++ aux 0 cs
+      []                -> List.replicate numUs '_'
 
 -- | Drop invalid characters
 dropInvalidChar :: Char -> String
