@@ -9,3 +9,10 @@ struct bools2 {
     bool x;
     bool y;
 };
+
+#define BOOL _Bool
+
+struct bools3 {
+    BOOL x;
+    BOOL y;
+};

@@ -575,8 +575,7 @@ WrapCHeader
             StructField {
               fieldName = CName "field_0",
               fieldOffset = 0,
-              fieldType = TypeTypedef
-                (CName "bool")},
+              fieldType = TypePrim PrimBool},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,

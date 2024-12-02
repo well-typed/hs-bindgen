@@ -261,6 +261,7 @@ typ nm    (C.TypeStruct name)     =
 typ nm    (C.TypeEnum name)     =
     Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
 typ _     (C.TypePrim p)       = case p of
+  C.PrimBool                   -> Hs.HsPrimType HsPrimCBool
   C.PrimVoid                   -> Hs.HsPrimType HsPrimVoid
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar
   C.PrimChar (Just C.Signed)   -> Hs.HsPrimType HsPrimCSChar

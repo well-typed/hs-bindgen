@@ -1,6 +1,24 @@
 WrapCHeader
   (Header
     [
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 13,
+                singleLocColumn = 9},
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "BOOL",
+            macroArgs = [],
+            macroBody = MTerm
+              (MType PrimBool)},
+          macroDeclMacroTy = "PrimTy"},
       DeclStruct
         Struct {
           structTag = DefnName
@@ -11,12 +29,12 @@ WrapCHeader
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
-              fieldType = TypePrim PrimVoid},
+              fieldType = TypePrim PrimBool},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypePrim
-                PrimVoid}]},
+                PrimBool}]},
       DeclStruct
         Struct {
           structTag = DefnName
@@ -27,10 +45,26 @@ WrapCHeader
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldType = TypePrim PrimBool},
+            StructField {
+              fieldName = CName "y",
+              fieldOffset = 8,
+              fieldType = TypePrim
+                PrimBool}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "bools3"),
+          structSizeof = 2,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
               fieldType = TypeTypedef
-                (CName "bool")},
+                (CName "BOOL")},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypeTypedef
-                (CName "bool")}]}])
+                (CName "BOOL")}]}])

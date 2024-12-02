@@ -78,6 +78,9 @@ data PrimType =
 
     -- | @void@
   | PrimVoid
+
+    -- | @_Bool@
+  | PrimBool
   deriving stock (Show, Eq, Ord, Generic)
   deriving anyclass (PrettyVal)
 

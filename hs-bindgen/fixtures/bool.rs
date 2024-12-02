@@ -26,3 +26,16 @@ const _: () = {
     ["Offset of field: bools2::x"][::std::mem::offset_of!(bools2, x) - 0usize];
     ["Offset of field: bools2::y"][::std::mem::offset_of!(bools2, y) - 1usize];
 };
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct bools3 {
+    pub x: bool,
+    pub y: bool,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of bools3"][::std::mem::size_of::<bools3>() - 2usize];
+    ["Alignment of bools3"][::std::mem::align_of::<bools3>() - 1usize];
+    ["Offset of field: bools3::x"][::std::mem::offset_of!(bools3, x) - 0usize];
+    ["Offset of field: bools3::y"][::std::mem::offset_of!(bools3, y) - 1usize];
+};

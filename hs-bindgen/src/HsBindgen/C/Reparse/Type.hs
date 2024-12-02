@@ -40,6 +40,10 @@ primTypeKeyword = choice [
     , keyword "signed"
     , keyword "unsigned"
     , keyword "void"
+    , keyword "_Bool"
+    -- TODO: check that "#define bool" is actually defined to _Bool
+    -- it would be better to not special-case this
+    , keyword "bool", identifier "bool" -- newer LLVM treat "bool" as keyword, older as identifier
     ]
 
 reparsePrimType :: Reparse PrimType
@@ -81,6 +85,9 @@ reparsePrimType = do
       ["long" , "double"] -> return $ PrimFloating PrimLongDouble
       -- void
       ["void"] -> return $ PrimVoid
+      -- bool
+      ["_Bool"] -> return PrimBool
+      ["bool"]  -> return PrimBool
       -- invalid
       _otherwise -> unexpected $ concat [
           "Unexpected primitive type "
