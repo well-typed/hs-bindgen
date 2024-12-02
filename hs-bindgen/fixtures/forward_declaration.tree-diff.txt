@@ -5,7 +5,8 @@ WrapCHeader
         Typedef {
           typedefName = CName "S1_t",
           typedefType = TypeElaborated
-            (CName "struct S1")},
+            (CName "struct S1"),
+          typedefTypeSpelling = "S1_t"},
       DeclStruct
         Struct {
           structTag = Just (CName "S1"),
@@ -17,7 +18,9 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral
-                  (PrimInt Signed))}]},
+                  (PrimInt Signed))}],
+          structTypeSpelling =
+          "struct S1"},
       DeclStruct
         Struct {
           structTag = Just (CName "S2"),
@@ -29,4 +32,6 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral
-                  (PrimInt Signed))}]}])
+                  (PrimInt Signed))}],
+          structTypeSpelling =
+          "struct S2"}])

@@ -99,17 +99,19 @@ mkTypeUse = go
 
 mkStructHeader :: MonadIO m => CXCursor -> m ([StructField] -> Struct)
 mkStructHeader current = liftIO $ do
-    cursorType      <- clang_getCursorType current
-    structTag       <- fmap CName . getUserProvided <$>
-                         HighLevel.clang_getCursorSpelling current
-    structSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
-    structAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
+    cursorType         <- clang_getCursorType current
+    structTag          <- fmap CName . getUserProvided <$>
+                            HighLevel.clang_getCursorSpelling current
+    structSizeof       <- fromIntegral <$> clang_Type_getSizeOf  cursorType
+    structAlignment    <- fromIntegral <$> clang_Type_getAlignOf cursorType
+    structTypeSpelling <- clang_getTypeSpelling cursorType
 
     return $ \structFields -> Struct{
         structTag
       , structSizeof
       , structAlignment
       , structFields
+      , structTypeSpelling
       }
 
 mkStructField ::
@@ -157,12 +159,13 @@ mkStructField unit current = do
 
 mkEnumHeader :: MonadIO m => CXCursor -> m ([EnumValue] -> Enu)
 mkEnumHeader current = liftIO $ do
-    cursorType    <- clang_getCursorType current
-    enumTag       <- fmap CName . getUserProvided <$>
-                       HighLevel.clang_getCursorSpelling current
-    enumType      <- mkTypeUse =<< clang_getEnumDeclIntegerType current
-    enumSizeof    <- fromIntegral <$> clang_Type_getSizeOf  cursorType
-    enumAlignment <- fromIntegral <$> clang_Type_getAlignOf cursorType
+    cursorType       <- clang_getCursorType current
+    enumTag          <- fmap CName . getUserProvided <$>
+                          HighLevel.clang_getCursorSpelling current
+    enumType         <- mkTypeUse =<< clang_getEnumDeclIntegerType current
+    enumSizeof       <- fromIntegral <$> clang_Type_getSizeOf  cursorType
+    enumAlignment    <- fromIntegral <$> clang_Type_getAlignOf cursorType
+    enumTypeSpelling <- clang_getTypeSpelling cursorType
 
     return $ \enumValues -> Enu{
         enumTag
@@ -170,6 +173,7 @@ mkEnumHeader current = liftIO $ do
       , enumSizeof
       , enumAlignment
       , enumValues
+      , enumTypeSpelling
       }
 
 mkEnumValue :: MonadIO m => CXCursor -> m (Maybe EnumValue)
@@ -198,7 +202,8 @@ mkTypedef current = liftIO $ do
 
     underlyingType <- clang_getTypedefDeclUnderlyingType current
     typedefType <- mkTypeUse underlyingType
-    return Typedef {typedefName,typedefType}
+    typedefTypeSpelling <- clang_getTypeSpelling =<< clang_getCursorType current
+    return Typedef {typedefName, typedefType, typedefTypeSpelling}
 
 {-------------------------------------------------------------------------------
   Primitive types

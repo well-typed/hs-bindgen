@@ -17,7 +17,9 @@ WrapCHeader
               fieldName = CName "c",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing)}],
+          structTypeSpelling =
+          "struct foo"},
       DeclStruct
         Struct {
           structTag = Just (CName "bar"),
@@ -33,4 +35,6 @@ WrapCHeader
               fieldName = CName "foo2",
               fieldOffset = 64,
               fieldType = TypeElaborated
-                (CName "struct foo")}]}])
+                (CName "struct foo")}],
+          structTypeSpelling =
+          "struct bar"}])

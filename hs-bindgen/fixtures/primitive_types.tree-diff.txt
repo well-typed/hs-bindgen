@@ -175,5 +175,6 @@ WrapCHeader
               fieldName = CName "ld",
               fieldOffset = 1280,
               fieldType = TypePrim
-                (PrimFloating
-                  PrimLongDouble)}]}])
+                (PrimFloating PrimLongDouble)}],
+          structTypeSpelling =
+          "struct primitive"}])

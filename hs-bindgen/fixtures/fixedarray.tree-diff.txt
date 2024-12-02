@@ -8,4 +8,6 @@ WrapCHeader
             3
             (TypePrim
               (PrimIntegral
-                (PrimInt Signed)))}])
+                (PrimInt Signed))),
+          typedefTypeSpelling =
+          "triple"}])

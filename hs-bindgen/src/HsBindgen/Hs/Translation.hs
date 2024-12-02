@@ -97,6 +97,7 @@ structDecs struct fields =
                 FieldVarContext typeConstrCtx True (C.fieldName f)
             , fieldType = typ nm (C.fieldType f)
             }
+          structTypeSpelling = Just $ C.structTypeSpelling struct
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -149,6 +150,7 @@ enumDecs e = [
               fieldName = mangleVarName $ EnumVarContext typeConstrCtx
             , fieldType = typ nm (C.enumType e)
             }
+          newtypeTypeSpelling = Just $ C.enumTypeSpelling e
       in Hs.Newtype {..}
 
     hs :: Hs.Struct (S Z)
@@ -162,6 +164,7 @@ enumDecs e = [
               fieldName = mangleVarName $ EnumVarContext typeConstrCtx
             , fieldType = typ nm (C.enumType e)
             }
+          structTypeSpelling = Just $ C.enumTypeSpelling e
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -190,15 +193,16 @@ typedefDecs d = [
     , Hs.DeclNewtypeInstance Hs.Storable newtypeName
     ]
   where
-    cName              = C.typedefName d
-    nm@NameMangler{..} = defaultNameMangler
-    typeConstrCtx      = TypeConstrContext cName
-    newtypeName        = mangleTypeConstrName typeConstrCtx
-    newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
-    newtypeField       = Hs.Field {
+    cName               = C.typedefName d
+    nm@NameMangler{..}  = defaultNameMangler
+    typeConstrCtx       = TypeConstrContext cName
+    newtypeName         = mangleTypeConstrName typeConstrCtx
+    newtypeConstr       = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField        = Hs.Field {
         fieldName = mangleVarName $ EnumVarContext typeConstrCtx
       , fieldType = typ nm (C.typedefType d)
       }
+    newtypeTypeSpelling = Just $ C.typedefTypeSpelling d
 
 {-------------------------------------------------------------------------------
   Macros
@@ -235,6 +239,7 @@ macroDecsTypedef m = [
             C.MTerm (C.MType pt) -> C.TypePrim pt
             _                    -> C.TypePrim C.PrimVoid
       }
+    newtypeTypeSpelling = Nothing
 
 {-------------------------------------------------------------------------------
   Types

@@ -76,17 +76,19 @@ data Field = Field {
 deriving stock instance Show Field
 
 data Struct (n :: Nat) = Struct {
-      structName   :: HsName NsTypeConstr
-    , structConstr :: HsName NsConstr
-    , structFields :: Vec n Field
+      structName         :: HsName NsTypeConstr
+    , structConstr       :: HsName NsConstr
+    , structFields       :: Vec n Field
+    , structTypeSpelling :: Maybe Text
     }
 
 deriving stock instance Show (Struct n)
 
 data Newtype = Newtype {
-      newtypeName   :: HsName NsTypeConstr
-    , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: Field
+      newtypeName         :: HsName NsTypeConstr
+    , newtypeConstr       :: HsName NsConstr
+    , newtypeField        :: Field
+    , newtypeTypeSpelling :: Maybe Text
     }
 
 deriving stock instance Show Newtype

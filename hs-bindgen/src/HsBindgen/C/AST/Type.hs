@@ -124,10 +124,11 @@ data PrimSign = Signed | Unsigned
 
 -- | Definition of a struct
 data Struct = Struct {
-      structTag       :: Maybe CName
-    , structSizeof    :: Int
-    , structAlignment :: Int
-    , structFields    :: [StructField]
+      structTag          :: Maybe CName
+    , structSizeof       :: Int
+    , structAlignment    :: Int
+    , structFields       :: [StructField]
+    , structTypeSpelling :: Text
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -145,11 +146,12 @@ data StructField = StructField {
 -------------------------------------------------------------------------------}
 
 data Enu = Enu {
-      enumTag       :: Maybe CName
-    , enumType      :: Type
-    , enumSizeof    :: Int
-    , enumAlignment :: Int
-    , enumValues    :: [EnumValue]
+      enumTag          :: Maybe CName
+    , enumType         :: Type
+    , enumSizeof       :: Int
+    , enumAlignment    :: Int
+    , enumValues       :: [EnumValue]
+    , enumTypeSpelling :: Text
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -166,8 +168,9 @@ data EnumValue = EnumValue {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefName :: CName
-    , typedefType :: Type
+      typedefName         :: CName
+    , typedefType         :: Type
+    , typedefTypeSpelling :: Text
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

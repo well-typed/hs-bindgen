@@ -34,4 +34,6 @@ WrapCHeader
             EnumValue {
               valueName = CName
                 "Say\25308\25308",
-              valueValue = 1}]}])
+              valueValue = 1}],
+          enumTypeSpelling =
+          "enum MyEnum"}])

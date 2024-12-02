@@ -32,7 +32,9 @@ WrapCHeader
               valueValue = 0},
             EnumValue {
               valueName = CName "FIRST2",
-              valueValue = 1}]},
+              valueValue = 1}],
+          enumTypeSpelling =
+          "enum first"},
       DeclEnum
         Enu {
           enumTag = Just (CName "second"),
@@ -49,7 +51,9 @@ WrapCHeader
               valueValue = 0},
             EnumValue {
               valueName = CName "SECOND_C",
-              valueValue = 1}]},
+              valueValue = 1}],
+          enumTypeSpelling =
+          "enum second"},
       DeclEnum
         Enu {
           enumTag = Just (CName "same"),
@@ -64,7 +68,8 @@ WrapCHeader
               valueValue = 1},
             EnumValue {
               valueName = CName "SAME_B",
-              valueValue = 1}]},
+              valueValue = 1}],
+          enumTypeSpelling = "enum same"},
       DeclEnum
         Enu {
           enumTag = Just (CName "packad"),
@@ -81,4 +86,6 @@ WrapCHeader
               valueValue = 1},
             EnumValue {
               valueName = CName "PACKED_C",
-              valueValue = 2}]}])
+              valueValue = 2}],
+          enumTypeSpelling =
+          "enum packad"}])

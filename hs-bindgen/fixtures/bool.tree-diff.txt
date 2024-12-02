@@ -15,8 +15,9 @@ WrapCHeader
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
-              fieldType = TypePrim
-                PrimVoid}]},
+              fieldType = TypePrim PrimVoid}],
+          structTypeSpelling =
+          "struct bools1"},
       DeclStruct
         Struct {
           structTag = Just
@@ -33,4 +34,6 @@ WrapCHeader
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypeElaborated
-                (CName "bool")}]}])
+                (CName "bool")}],
+          structTypeSpelling =
+          "struct bools2"}])

@@ -152,15 +152,17 @@ data Field = Field {
   deriving stock (Show)
 
 data Record = Record {
-      dataType   :: HsName NsTypeConstr
-    , dataCon    :: HsName NsConstr
-    , dataFields :: [Field]
+      dataType         :: HsName NsTypeConstr
+    , dataCon          :: HsName NsConstr
+    , dataFields       :: [Field]
+    , dataTypeSpelling :: Maybe Text
     }
   deriving stock (Show)
 
 data Newtype = Newtype {
-      newtypeName   :: HsName NsTypeConstr
-    , newtypeCon    :: HsName NsConstr
-    , newtypeField  :: Field
+      newtypeName         :: HsName NsTypeConstr
+    , newtypeCon          :: HsName NsConstr
+    , newtypeField        :: Field
+    , newtypeTypeSpelling :: Maybe Text
     }
   deriving stock (Show)

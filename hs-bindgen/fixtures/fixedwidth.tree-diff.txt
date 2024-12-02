@@ -16,4 +16,6 @@ WrapCHeader
               fieldName = CName "thirty_two",
               fieldOffset = 64,
               fieldType = TypeElaborated
-                (CName "uint32_t")}]}])
+                (CName "uint32_t")}],
+          structTypeSpelling =
+          "struct foo"}])

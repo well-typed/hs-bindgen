@@ -517,14 +517,18 @@ WrapCHeader
               fieldName = CName "bar",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing)}],
+          structTypeSpelling =
+          "another_typedef_struct_t"},
       DeclTypedef
         Typedef {
           typedefName = CName
             "another_typedef_struct_t",
           typedefType = TypeElaborated
             (CName
-              "struct another_typedef_struct_t")},
+              "struct another_typedef_struct_t"),
+          typedefTypeSpelling =
+          "another_typedef_struct_t"},
       DeclEnum
         Enu {
           enumTag = Nothing,
@@ -539,26 +543,31 @@ WrapCHeader
               valueValue = 0},
             EnumValue {
               valueName = CName "BAR",
-              valueValue = 1}]},
+              valueValue = 1}],
+          enumTypeSpelling =
+          "another_typedef_enum_e"},
       DeclTypedef
         Typedef {
           typedefName = CName
             "another_typedef_enum_e",
           typedefType = TypeElaborated
             (CName
-              "enum another_typedef_enum_e")},
+              "enum another_typedef_enum_e"),
+          typedefTypeSpelling =
+          "another_typedef_enum_e"},
       DeclTypedef
         Typedef {
           typedefName = CName "a_type_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefTypeSpelling =
+          "a_type_t"},
       DeclTypedef
         Typedef {
           typedefName = CName "var_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefTypeSpelling = "var_t"},
       DeclStruct
         Struct {
           structTag = Just
@@ -628,14 +637,18 @@ WrapCHeader
               fieldOffset = 640,
               fieldType = TypeElaborated
                 (CName
-                  "another_typedef_enum_e")}]},
+                  "another_typedef_enum_e")}],
+          structTypeSpelling =
+          "struct a_typedef_struct"},
       DeclTypedef
         Typedef {
           typedefName = CName
             "a_typedef_struct_t",
           typedefType = TypeElaborated
             (CName
-              "struct a_typedef_struct")},
+              "struct a_typedef_struct"),
+          typedefTypeSpelling =
+          "a_typedef_struct_t"},
       DeclEnum
         Enu {
           enumTag = Nothing,
@@ -655,17 +668,22 @@ WrapCHeader
               valueValue = 2},
             EnumValue {
               valueName = CName "ENUM_CASE_3",
-              valueValue = 3}]},
+              valueValue = 3}],
+          enumTypeSpelling =
+          "a_typedef_enum_e"},
       DeclTypedef
         Typedef {
           typedefName = CName
             "a_typedef_enum_e",
           typedefType = TypeElaborated
-            (CName
-              "enum a_typedef_enum_e")},
+            (CName "enum a_typedef_enum_e"),
+          typedefTypeSpelling =
+          "a_typedef_enum_e"},
       DeclTypedef
         Typedef {
           typedefName = CName
             "callback_t",
           typedefType = TypePointer
-            (TypePrim PrimVoid)}])
+            (TypePrim PrimVoid),
+          typedefTypeSpelling =
+          "callback_t"}])

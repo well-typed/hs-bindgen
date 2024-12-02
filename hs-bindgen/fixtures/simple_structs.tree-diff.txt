@@ -17,7 +17,9 @@ WrapCHeader
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing)}],
+          structTypeSpelling =
+          "struct S1"},
       DeclStruct
         Struct {
           structTag = Just (CName "S2"),
@@ -39,12 +41,15 @@ WrapCHeader
               fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimFloating PrimFloat)}]},
+                (PrimFloating PrimFloat)}],
+          structTypeSpelling =
+          "struct S2"},
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
           typedefType = TypeElaborated
-            (CName "struct S2")},
+            (CName "struct S2"),
+          typedefTypeSpelling = "S2_t"},
       DeclStruct
         Struct {
           structTag = Nothing,
@@ -55,12 +60,14 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing)}],
+          structTypeSpelling = "S3_t"},
       DeclTypedef
         Typedef {
           typedefName = CName "S3_t",
           typedefType = TypeElaborated
-            (CName "struct S3_t")},
+            (CName "struct S3_t"),
+          typedefTypeSpelling = "S3_t"},
       DeclStruct
         Struct {
           structTag = Just (CName "S4"),
@@ -84,4 +91,6 @@ WrapCHeader
               fieldType = TypePointer
                 (TypePrim
                   (PrimIntegral
-                    (PrimInt Signed)))}]}])
+                    (PrimInt Signed)))}],
+          structTypeSpelling =
+          "struct S4"}])

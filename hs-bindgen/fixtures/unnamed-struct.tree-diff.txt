@@ -18,4 +18,6 @@ WrapCHeader
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral
-                  (PrimInt Signed))}]}])
+                  (PrimInt Signed))}],
+          structTypeSpelling =
+          "struct (unnamed at examples/unnamed-struct.h:1:1)"}])

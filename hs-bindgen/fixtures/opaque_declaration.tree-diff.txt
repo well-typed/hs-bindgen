@@ -20,10 +20,14 @@ WrapCHeader
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeElaborated
-                  (CName "struct bar"))}]},
+                  (CName "struct bar"))}],
+          structTypeSpelling =
+          "struct bar"},
       DeclStruct
         Struct {
           structTag = Just (CName "baz"),
           structSizeof = 0,
           structAlignment = 1,
-          structFields = []}])
+          structFields = [],
+          structTypeSpelling =
+          "struct baz"}])

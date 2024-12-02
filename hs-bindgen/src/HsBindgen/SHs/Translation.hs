@@ -46,6 +46,7 @@ translateDeclData struct = DRecord $ Record
             }
         | f <- toList $ Hs.structFields struct
         ]
+    , dataTypeSpelling = Hs.structTypeSpelling struct
     }
 
 translateDeclEmpty :: HsName NsTypeConstr -> SDecl
@@ -53,12 +54,13 @@ translateDeclEmpty n = DEmptyData n
 
 translateNewtype :: Hs.Newtype -> SDecl
 translateNewtype n = DNewtype $ Newtype
-    { newtypeName  = Hs.newtypeName n
-    , newtypeCon   = Hs.newtypeConstr n
-    , newtypeField = Field {
+    { newtypeName         = Hs.newtypeName n
+    , newtypeCon          = Hs.newtypeConstr n
+    , newtypeField        = Field {
           fieldName = Hs.fieldName $ Hs.newtypeField n
         , fieldType = translateType . Hs.fieldType $ Hs.newtypeField n
         }
+    , newtypeTypeSpelling = Hs.newtypeTypeSpelling n
     }
 
 translateNewtypeInstance :: Hs.TypeClass -> HsName NsTypeConstr -> SDecl

@@ -15,9 +15,11 @@ WrapCHeader
               valueValue = 0},
             EnumValue {
               valueName = CName "FOO2",
-              valueValue = 1}]},
+              valueValue = 1}],
+          enumTypeSpelling = "enum foo"},
       DeclTypedef
         Typedef {
           typedefName = CName "foo",
           typedefType = TypePrim
-            (PrimFloating PrimDouble)}])
+            (PrimFloating PrimDouble),
+          typedefTypeSpelling = "foo"}])
