@@ -81,7 +81,7 @@ data Global =
   | GHC_Float_castWord64ToDouble
 
   | PrimType HsPrimType
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
 
 type ClosedExpr = SExpr EmptyCtx
 

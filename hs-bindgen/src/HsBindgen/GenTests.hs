@@ -10,6 +10,7 @@ import System.FilePath qualified as FilePath
 import HsBindgen.C.AST qualified as C
 import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
+import HsBindgen.GenTests.Internal
 import HsBindgen.GenTests.Readme (genTestsReadme)
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
@@ -42,6 +43,7 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
       cTestSourcePath
       lineLength
       cHeaderPath
+      testRecords
     genTestsHs
       hsTestPath
       decls
@@ -64,8 +66,11 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
     decls :: [SDecl]
     decls = map SHs.translateDecl $ Hs.generateDeclarations cHeader
 
+    testRecords :: [TestRecord]
+    testRecords = getTestRecords cHeader decls
+
 {-------------------------------------------------------------------------------
-  Auxilliary functions
+  Auxiliary functions
 -------------------------------------------------------------------------------}
 
 getModuleCFilenames ::

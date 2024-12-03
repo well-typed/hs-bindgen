@@ -237,7 +237,7 @@ assertHsPreturbNXSameSemanticsCPreturbNX cPreturb size x = do
     preturb size x @==~? x'
 
 {-------------------------------------------------------------------------------
-  Auxilliary functions
+  Auxiliary functions
 -------------------------------------------------------------------------------}
 
 -- | Preturb a 'Float' value

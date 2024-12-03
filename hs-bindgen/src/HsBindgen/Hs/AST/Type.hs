@@ -41,7 +41,7 @@ data HsPrimType
 
   -- Int8 Int16 Int32 Int64
   -- Word8 Word16 Word32 Word64
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
 
 data HsType =
     HsType String
