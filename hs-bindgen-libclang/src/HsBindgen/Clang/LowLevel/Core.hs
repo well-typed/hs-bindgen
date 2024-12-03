@@ -90,7 +90,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_TargetInfo_dispose
   , clang_TargetInfo_getTriple
     -- * Cursor manipulations
-  , CXCursor
+  , CXCursor(..)
   , CXCursorKind(..)
   , clang_getTranslationUnitCursor
   , clang_equalCursors
@@ -117,7 +117,7 @@ module HsBindgen.Clang.LowLevel.Core (
     -- * Type information for CXCursors
   , CXTypeKind(..)
   , CXTypeLayoutError(..)
-  , CXType
+  , CXType(..)
   , cxtKind
   , clang_getCursorType
   , clang_getTypeKindSpelling

@@ -31,8 +31,7 @@ import HsBindgen.Patterns
 -- | Process top-level (type) declration
 processTypeDecl :: CXTranslationUnit -> CXType -> Eff (State DeclState) ()
 processTypeDecl unit ty = do
-    -- name <- CName <$> liftIO (clang_getTypeSpelling ty)
-    -- liftIO $ putStrLn $ "processTypeDecl " ++ show (name, ty)
+    -- dtraceIO "processTypeDecl" ty
 
     s <- get
 
@@ -66,8 +65,7 @@ mkDefnName = DefnName . CName . go where
 
 processTypeDeclRec :: Path -> CXTranslationUnit -> CXType -> Eff (State DeclState) Type
 processTypeDeclRec path unit ty = do
-    -- name <- CName <$> liftIO (clang_getTypeSpelling ty)
-    -- liftIO $ putStrLn $ "processTypeDeclRec " ++ show (name, ty)
+    -- dtraceIO "processTypeDeclRec" ty
 
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
@@ -169,6 +167,8 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         tag <- liftIO (clang_getCursorSpelling decl)
         name <- liftIO (clang_getTypeSpelling ty)
         anon <- liftIO (clang_Cursor_isAnonymous decl)
+
+        -- dtraceIO "record" (decl, tag, name, anon)
 
         if anon && isPathTop path
         then do
