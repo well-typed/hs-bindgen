@@ -25,6 +25,8 @@ module HsBindgen.Hs.AST.Name (
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
+  , handleOverrideNone
+  , handleOverrideMap
   , handleModuleNameParent
     -- ** Reserved Names
     -- $ReservedNames
@@ -40,6 +42,8 @@ module HsBindgen.Hs.AST.Name (
   ) where
 
 import Data.Char qualified as Char
+import Data.List qualified as List
+import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.String
 import Data.Text qualified as T
@@ -63,6 +67,48 @@ data Namespace =
   | NsTypeVar
   | NsConstr
   | NsVar
+  deriving (Eq, Ord)
+
+-- | Namespace singleton
+data SNamespace :: Namespace -> Star where
+  SNsModuleName :: SNamespace 'NsModuleName
+  SNsTypeClass  :: SNamespace 'NsTypeClass
+  SNsTypeConstr :: SNamespace 'NsTypeConstr
+  SNsTypeVar    :: SNamespace 'NsTypeVar
+  SNsConstr     :: SNamespace 'NsConstr
+  SNsVar        :: SNamespace 'NsVar
+
+-- | Get the namespace of a namespace singleton
+namespaceOf :: SNamespace ns -> Namespace
+namespaceOf = \case
+    SNsModuleName -> NsModuleName
+    SNsTypeClass  -> NsTypeClass
+    SNsTypeConstr -> NsTypeConstr
+    SNsTypeVar    -> NsTypeVar
+    SNsConstr     -> NsConstr
+    SNsVar        -> NsVar
+
+-- | Namespace singleton class
+class SingNamespace ns where
+  singNamespace :: SNamespace ns
+
+instance SingNamespace 'NsModuleName where
+  singNamespace = SNsModuleName
+
+instance SingNamespace 'NsTypeClass where
+  singNamespace = SNsTypeClass
+
+instance SingNamespace 'NsTypeConstr where
+  singNamespace = SNsTypeConstr
+
+instance SingNamespace 'NsTypeVar where
+  singNamespace = SNsTypeVar
+
+instance SingNamespace 'NsConstr where
+  singNamespace = SNsConstr
+
+instance SingNamespace 'NsVar where
+  singNamespace = SNsVar
 
 -- | Haskell name in namespace @ns@
 newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
@@ -242,17 +288,32 @@ data NameMangler = NameMangler {
 -- The reserved name function may be used to change names that would cause a
 -- compilation error.  Two reserved name functions are provided in this module:
 -- 'handleReservedNone' and 'handleReservedNames'.
+--
+-- The override function may be used to specify translations of C names to
+-- Haskell names.  The Haskell name must be valid.  Two override functions are
+-- provided in this module: 'handleOverrideNone' and 'handleOverrideMap'.
 translateName :: forall ns. MkHsName ns
-  => (CName -> Text)          -- ^ translate a 'CName' to a generic Haskell name
-  -> ([Text] -> Text)         -- ^ join parts of a name
-  -> [Text]                   -- ^ prefixes
-  -> [Text]                   -- ^ suffixes
-  -> (HsName ns -> HsName ns) -- ^ handle reserved names
+  => (CName -> Text)              -- ^ translate a 'CName' to a Haskell name
+  -> ([Text] -> Text)             -- ^ join parts of a name
+  -> [Text]                       -- ^ prefixes
+  -> [Text]                       -- ^ suffixes
+  -> (HsName ns -> HsName ns)     -- ^ handle reserved names
+  -> (CName -> Maybe (HsName ns)) -- ^ override translation
   -> CName
   -> HsName ns
-translateName transCName joinParts prefixes suffixes handleReserved cname =
-    handleReserved . mkHsName @ns . joinParts $
-      prefixes ++ transCName cname : suffixes
+translateName
+  transCName
+  joinParts
+  prefixes
+  suffixes
+  handleReserved
+  handleOverride
+  cname =
+    case handleOverride cname of
+      Just hsName -> hsName
+      Nothing ->
+        handleReserved . mkHsName @ns . joinParts $
+          prefixes ++ transCName cname : suffixes
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible
@@ -278,8 +339,9 @@ maintainCName f = T.pack . aux . T.unpack . getCName
 -- | Translate a C name to a Haskell name, converting from @snake_case@ to
 -- @camelCase@
 --
--- Letters after underscores are changed to uppercase.  All underscores are
--- removed, aside from a single trailing underscore if one exists.
+-- Leading and trailing underscores are assumed to have special meaning and
+-- are preserved.  All other underscores are removed.  Letters following
+-- (preserved or removed) underscores are changed to uppercase.
 --
 -- The invalid character function must return a 'String' that only contains
 -- valid characters.  Two invalid character functions are provided in this
@@ -288,14 +350,23 @@ maintainCName f = T.pack . aux . T.unpack . getCName
 -- Note that a single quote (@'@) is not valid in C names, and it is handled
 -- specially.  Any single quotes in the input are treated as invalid.
 camelCaseCName :: (Char -> String) -> CName -> Text
-camelCaseCName f = T.pack . aux False . T.unpack . getCName
+camelCaseCName f = T.pack . start False . T.unpack . getCName
   where
-    aux :: Bool -> String -> String
-    aux isUp (c:cs)
-      | c == '_'      = aux True cs
-      | isValidChar c = (if isUp then Char.toUpper c else c) : aux False cs
-      | otherwise     = f c ++ aux isUp cs
-    aux isUp []       = if isUp then "_" else "" -- preserve trailing underscore
+    start :: Bool -> String -> String
+    start isUp = \case
+      c:cs
+        | c == '_'      -> c : start True cs
+        | isValidChar c -> (if isUp then Char.toUpper c else c) : aux 0 cs
+        | otherwise     -> f c ++ aux 0 cs
+      []                -> []
+
+    aux :: Int -> String -> String
+    aux !numUs = \case
+      c:cs
+        | c == '_'      -> aux (numUs + 1) cs
+        | isValidChar c -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
+        | otherwise     -> f c ++ aux 0 cs
+      []                -> List.replicate numUs '_'
 
 -- | Drop invalid characters
 dropInvalidChar :: Char -> String
@@ -359,6 +430,22 @@ handleReservedNames f reserved name@(HsName t)
 -- | Append a single quote (@'@) to a name
 appendSingleQuote :: Text -> Text
 appendSingleQuote = (<> "'")
+
+-- | Do not override any translations
+handleOverrideNone :: CName -> Maybe (HsName ns)
+handleOverrideNone = const Nothing
+
+-- | Override translations using a map from C names and namespaces to Haskell
+-- names
+handleOverrideMap :: forall ns.
+     SingNamespace ns
+  => Map CName (Map Namespace Text)
+  -> CName
+  -> Maybe (HsName ns)
+handleOverrideMap overrideMap name = do
+    nsMap <- Map.lookup name overrideMap
+    t <- Map.lookup (namespaceOf (singNamespace @ns)) nsMap
+    pure $ HsName t
 
 -- | Prepend the parent module name, joining using a @.@, if one is provided in
 -- the context
@@ -563,6 +650,7 @@ defaultNameMangler = NameMangler{..}
         []
         []
         handleReservedNone
+        handleOverrideNone
         ctxModuleNameCName
 
     mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
@@ -573,6 +661,7 @@ defaultNameMangler = NameMangler{..}
         []
         []
         handleReservedNone
+        handleOverrideNone
         ctxTypeClassCName
 
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
@@ -584,6 +673,7 @@ defaultNameMangler = NameMangler{..}
           ["C"]
           []
           (handleReservedNames appendSingleQuote reservedTypeNames)
+          handleOverrideNone
           ctxTypeConstrCName
       AnonNamedFieldTypeConstrContext{..} ->
         translateName
@@ -594,6 +684,7 @@ defaultNameMangler = NameMangler{..}
           ]
           []
           handleReservedNone
+          handleOverrideNone
           ctxAnonNamedFieldTypeConstrFieldName
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
@@ -604,6 +695,7 @@ defaultNameMangler = NameMangler{..}
         []
         []
         (handleReservedNames appendSingleQuote reservedVarNames)
+        handleOverrideNone
         (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
@@ -619,6 +711,7 @@ defaultNameMangler = NameMangler{..}
           []
           []
           (handleReservedNames appendSingleQuote reservedVarNames)
+          handleOverrideNone
           ctxVarCName
       EnumVarContext{..} ->
         HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
@@ -633,6 +726,7 @@ defaultNameMangler = NameMangler{..}
           ]
           []
           handleReservedNone
+          handleOverrideNone
           ctxFieldVarCName
 
 -- | Haskell-style name mangler
@@ -675,6 +769,7 @@ haskellNameMangler = NameMangler{..}
         []
         []
         handleReservedNone
+        handleOverrideNone
         ctxModuleNameCName
 
     mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
@@ -685,6 +780,7 @@ haskellNameMangler = NameMangler{..}
         []
         []
         handleReservedNone
+        handleOverrideNone
         ctxTypeClassCName
 
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
@@ -696,6 +792,7 @@ haskellNameMangler = NameMangler{..}
           ["C"]
           []
           (handleReservedNames appendSingleQuote reservedTypeNames)
+          handleOverrideNone
           ctxTypeConstrCName
       AnonNamedFieldTypeConstrContext{..} ->
         translateName
@@ -706,6 +803,7 @@ haskellNameMangler = NameMangler{..}
           ]
           []
           handleReservedNone
+          handleOverrideNone
           ctxAnonNamedFieldTypeConstrFieldName
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
@@ -716,6 +814,7 @@ haskellNameMangler = NameMangler{..}
         []
         []
         (handleReservedNames appendSingleQuote reservedVarNames)
+        handleOverrideNone
         (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
@@ -731,6 +830,7 @@ haskellNameMangler = NameMangler{..}
           []
           []
           (handleReservedNames appendSingleQuote reservedVarNames)
+          handleOverrideNone
           ctxVarCName
       EnumVarContext{..} ->
         HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
@@ -745,4 +845,5 @@ haskellNameMangler = NameMangler{..}
           ]
           []
           handleReservedNone
+          handleOverrideNone
           ctxFieldVarCName
