@@ -108,7 +108,7 @@ newtype CUint32T = MkCUint32T
 deriving newtype instance F.Storable CUint32T
 
 data CATypedefStruct = MkCATypedefStruct
-  { cATypedefStruct_field_0 :: CBool'
+  { cATypedefStruct_field_0 :: FC.CBool
   , cATypedefStruct_field_1 :: CUint8T
   , cATypedefStruct_field_2 :: CUint16T
   , cATypedefStruct_field_3 :: CUint32T

@@ -10,6 +10,7 @@ module HsBindgen.C.Reparse.Infra (
   , tokenOfKind
   , exact
   , keyword
+  , identifier
     -- * Punctuation
   , punctuation
   , parens
@@ -126,6 +127,9 @@ exact kind expected = tokenOfKind kind (\actual -> guard $ expected == actual)
 
 keyword :: Text -> Reparse Text
 keyword kw = kw <$ exact CXToken_Keyword kw
+
+identifier :: Text -> Reparse Text
+identifier i = i <$ exact CXToken_Identifier i
 
 {-------------------------------------------------------------------------------
   Punctuation

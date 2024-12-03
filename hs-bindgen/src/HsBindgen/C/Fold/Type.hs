@@ -251,8 +251,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         return $ TypePrim PrimVoid
 
     Right CXType_Bool -> do
-        -- TODO: https://github.com/well-typed/hs-bindgen/issues/317
-        return $ TypePrim PrimVoid
+        return $ TypePrim PrimBool
 
     Right CXType_FunctionProto -> do
         -- TODO: for now we represent function types as Void

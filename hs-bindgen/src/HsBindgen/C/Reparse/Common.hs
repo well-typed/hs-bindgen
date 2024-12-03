@@ -25,7 +25,7 @@ reparseLocName = token $ \t -> do
     let spelling = getTokenSpelling (tokenSpelling t)
     let ki = fromSimpleEnum (tokenKind t)
     -- bool become keyword in later LLVMs (not in 14, surely in 16)
-    guard $ (ki == Right CXToken_Keyword && spelling == "bool") || ki == Right CXToken_Identifier
+    guard $ ki == Right CXToken_Identifier
     return (
         rangeStart $ tokenExtent t
       , CName spelling
