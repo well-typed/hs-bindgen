@@ -5,5 +5,5 @@ struct S1 {
     int b;
   } c;
 
-  int c;
+  int d;
 };
