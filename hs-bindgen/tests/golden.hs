@@ -55,6 +55,7 @@ main' packageRoot bg = testGroup "golden"
     , golden "distilled_lib_1"
     , golden "typenames"
     , golden "bool"
+    , golden "anonymous"
     ]
   where
     golden name = testGroup name

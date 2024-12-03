@@ -44,8 +44,25 @@ processTypeDecl unit ty = do
 
 data Path
     = PathTop
-    -- TODO: field path.
+    | PathStruct (Maybe CName) Path
+    | PathField CName Path
+    -- TODO: | PathPtr Path
+    -- TODO: | PathConstArray Natural Path
   deriving Show
+
+isPathTop :: Path -> Bool
+isPathTop PathTop = True
+isPathTop _       = False
+
+-- | Make definition name for anonymous structures from their path
+mkDefnName :: Path -> DefnName
+mkDefnName = DefnName . CName . go where
+    -- TODO: temporary, expose name structure as is in DefnName
+    go :: Path -> Text
+    go PathTop = "ANONYMOUS" -- shouldn't happen
+    go (PathField n p) = go p <> getCName n
+    go (PathStruct Nothing p) = go p
+    go (PathStruct (Just n) _) = getCName n
 
 processTypeDeclRec :: Path -> CXTranslationUnit -> CXType -> Eff (State DeclState) Type
 processTypeDeclRec path unit ty = do
@@ -153,18 +170,22 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         name <- liftIO (clang_getTypeSpelling ty)
         anon <- liftIO (clang_Cursor_isAnonymous decl)
 
-        if anon
+        if anon && isPathTop path
         then do
             -- anonymous declration, nothing to do
-
-            -- TODO: check with struct foo { struct { ... } field; };
+            -- warn, we shouldn't reach that in "good" code.
             return $ TypePrim PrimVoid
 
         else do
-            let defnName :: DefnName
-                defnName = case structSpelling name of
-                    Left n -> DefnName (CName n)
-                    Right n -> DefnName (CName n)
+            let cname :: Maybe CName
+                defnName :: DefnName
+
+                (cname, defnName)
+                    | anon
+                    = (Nothing, mkDefnName path)
+
+                    | let n = CName (either id id $ structSpelling name)
+                    , otherwise = (Just n, DefnName n)
 
             addTypeDeclProcessing ty $ TypeStruct defnName
 
@@ -180,7 +201,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                     alignment <- liftIO (clang_Type_getAlignOf ty)
 
                     fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                        mfield <- mkStructField unit cursor
+                        mfield <- mkStructField unit (PathStruct cname path) cursor
                         return $ Continue mfield
 
                     addDecl ty $ DeclStruct Struct
@@ -316,9 +337,10 @@ omapInsertBack k v m = m OMap.>| (k, v)
 
 mkStructField ::
      CXTranslationUnit
+  -> Path
   -> CXCursor
   -> Eff (State DeclState) (Maybe StructField)
-mkStructField unit current = do
+mkStructField unit path current = do
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_UnexposedAttr ->
@@ -344,12 +366,20 @@ mkStructField unit current = do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
           ty          <- liftIO (clang_getCursorType current)
           -- TODO: correct path
-          fieldType   <- processTypeDeclRec PathTop unit ty
+          fieldType   <- processTypeDeclRec (PathField fieldName path) unit ty
           fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
           unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
 
           return $ Just StructField{fieldName, fieldOffset, fieldType}
+
+      -- inner structs, there are two approaches:
+      -- * process eagerly
+      -- * process when encountered in a field
+      --
+      -- For now we chose the latter.
+      Right CXCursor_StructDecl ->
+        return Nothing
 
       _other ->
         unrecognizedCursor current

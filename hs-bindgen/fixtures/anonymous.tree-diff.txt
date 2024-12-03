@@ -1,0 +1,90 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S1c"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "a",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "b",
+              fieldOffset = 32,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S1"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "c",
+              fieldOffset = 0,
+              fieldType = TypeStruct
+                (DefnName (CName "S1c"))},
+            StructField {
+              fieldName = CName "d",
+              fieldOffset = 64,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S2innerdeep"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "b",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S2inner"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "a",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "deep",
+              fieldOffset = 32,
+              fieldType = TypeStruct
+                (DefnName
+                  (CName "S2innerdeep"))}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S2"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "inner",
+              fieldOffset = 0,
+              fieldType = TypeStruct
+                (DefnName (CName "S2inner"))},
+            StructField {
+              fieldName = CName "d",
+              fieldOffset = 64,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))}]}])
