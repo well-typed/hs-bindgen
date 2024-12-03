@@ -7,3 +7,5 @@ struct bar {
 };
 
 struct baz {}; /* not opaque */
+
+enum quu;

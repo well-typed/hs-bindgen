@@ -7,11 +7,9 @@ import Prelude ((()), (<*>), (>>), pure, return)
 
 data CFoo
 
-data CFoo
-
 data CBar = MkCBar
-  { cBar_ptrA :: F.Ptr CStruct'0020foo
-  , cBar_ptrB :: F.Ptr CStruct'0020bar
+  { cBar_ptrA :: F.Ptr CFoo
+  , cBar_ptrB :: F.Ptr CBar
   }
 
 instance F.Storable CBar where
@@ -50,3 +48,5 @@ instance F.Storable CBaz where
       \s1 ->
         case s1 of
           MkCBaz -> return (())
+
+data CQuu

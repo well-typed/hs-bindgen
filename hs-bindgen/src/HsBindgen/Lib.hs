@@ -68,11 +68,10 @@ module HsBindgen.Lib (
   , preprocessor
   ) where
 
-import Data.Text (Text)
-import GHC.Generics (Generic)
 import Language.Haskell.TH qualified as TH
 import Text.Show.Pretty qualified as Pretty
 
+import HsBindgen.Imports
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
@@ -80,6 +79,7 @@ import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
+import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
@@ -137,12 +137,14 @@ parseCHeader ::
   -> CXTranslationUnit
   -> IO CHeader
 parseCHeader traceSkipped p unit = do
-    (decls, _finalDeclState) <-
+    (decls, finalDeclState) <-
       C.foldTranslationUnitWith
         unit
         (C.runFoldState C.initDeclState)
         (C.foldDecls traceSkipped p unit)
-    return $ WrapCHeader (C.Header decls)
+
+    let decls' = [ d | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState) ]
+    return $ WrapCHeader (C.Header $ decls ++ decls')
 
 bootstrapPrelude ::
      Tracer IO String   -- ^ Warnings

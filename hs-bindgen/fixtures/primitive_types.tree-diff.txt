@@ -3,7 +3,7 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just
+          structTag = DefnName
             (CName "primitive"),
           structSizeof = 176,
           structAlignment = 16,

@@ -3,7 +3,20 @@
 module Example where
 
 import qualified Foreign as F
+import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
+
+newtype CUint64T = MkCUint64T
+  { unCUint64T :: FC.CULong
+  }
+
+deriving newtype instance F.Storable CUint64T
+
+newtype CUint32T = MkCUint32T
+  { unCUint32T :: FC.CUInt
+  }
+
+deriving newtype instance F.Storable CUint32T
 
 data CFoo = MkCFoo
   { cFoo_sixty_four :: CUint64T

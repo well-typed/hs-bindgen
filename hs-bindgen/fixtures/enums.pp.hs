@@ -89,3 +89,93 @@ instance F.Storable CPackad where
       \s1 ->
         case s1 of
           MkCPackad unCPackad2 -> F.pokeByteOff ptr0 0 unCPackad2
+
+newtype CEnumA = MkCEnumA
+  { unCEnumA :: FC.CUInt
+  }
+
+instance F.Storable CEnumA where
+
+  sizeOf = \_ -> 4
+
+  alignment = \_ -> 4
+
+  peek =
+    \ptr0 ->
+          pure MkCEnumA
+      <*> F.peekByteOff ptr0 0
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCEnumA unCEnumA2 -> F.pokeByteOff ptr0 0 unCEnumA2
+
+newtype CEnumB = MkCEnumB
+  { unCEnumB :: FC.CUInt
+  }
+
+instance F.Storable CEnumB where
+
+  sizeOf = \_ -> 4
+
+  alignment = \_ -> 4
+
+  peek =
+    \ptr0 ->
+          pure MkCEnumB
+      <*> F.peekByteOff ptr0 0
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCEnumB unCEnumB2 -> F.pokeByteOff ptr0 0 unCEnumB2
+
+newtype CEnumC = MkCEnumC
+  { unCEnumC :: FC.CUInt
+  }
+
+instance F.Storable CEnumC where
+
+  sizeOf = \_ -> 4
+
+  alignment = \_ -> 4
+
+  peek =
+    \ptr0 ->
+          pure MkCEnumC
+      <*> F.peekByteOff ptr0 0
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCEnumC unCEnumC2 -> F.pokeByteOff ptr0 0 unCEnumC2
+
+newtype CEnumD = MkCEnumD
+  { unCEnumD :: FC.CUInt
+  }
+
+instance F.Storable CEnumD where
+
+  sizeOf = \_ -> 4
+
+  alignment = \_ -> 4
+
+  peek =
+    \ptr0 ->
+          pure MkCEnumD
+      <*> F.peekByteOff ptr0 0
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          MkCEnumD unCEnumD2 -> F.pokeByteOff ptr0 0 unCEnumD2
+
+newtype CEnumDT = MkCEnumDT
+  { unCEnumDT :: CEnumD
+  }
+
+deriving newtype instance F.Storable CEnumDT

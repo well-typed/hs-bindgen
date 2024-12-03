@@ -20,6 +20,7 @@ module HsBindgen.C.AST (
   , PrimFloatType(..)
   , PrimSign(..)
     -- ** Structs
+  , DefnName(..)
   , Struct(..)
   , StructField(..)
     -- ** Enums
@@ -84,6 +85,7 @@ data Decl =
   | DeclOpaqueStruct CName
   | DeclTypedef Typedef
   | DeclEnum Enu
+  | DeclOpaqueEnum CName
   | DeclMacro MacroDecl
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

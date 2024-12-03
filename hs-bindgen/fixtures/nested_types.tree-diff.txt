@@ -3,7 +3,8 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just (CName "foo"),
+          structTag = DefnName
+            (CName "foo"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -20,17 +21,18 @@ WrapCHeader
                 (PrimChar Nothing)}]},
       DeclStruct
         Struct {
-          structTag = Just (CName "bar"),
+          structTag = DefnName
+            (CName "bar"),
           structSizeof = 16,
           structAlignment = 4,
           structFields = [
             StructField {
               fieldName = CName "foo1",
               fieldOffset = 0,
-              fieldType = TypeElaborated
-                (CName "struct foo")},
+              fieldType = TypeStruct
+                (DefnName (CName "foo"))},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
-              fieldType = TypeElaborated
-                (CName "struct foo")}]}])
+              fieldType = TypeStruct
+                (DefnName (CName "foo"))}]}])

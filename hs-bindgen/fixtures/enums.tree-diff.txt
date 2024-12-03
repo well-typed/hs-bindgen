@@ -20,7 +20,7 @@ WrapCHeader
           macroDeclMacroTy = "Empty"},
       DeclEnum
         Enu {
-          enumTag = Just (CName "first"),
+          enumTag = CName "first",
           enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
@@ -35,7 +35,7 @@ WrapCHeader
               valueValue = 1}]},
       DeclEnum
         Enu {
-          enumTag = Just (CName "second"),
+          enumTag = CName "second",
           enumType = TypePrim
             (PrimIntegral (PrimInt Signed)),
           enumSizeof = 4,
@@ -52,7 +52,7 @@ WrapCHeader
               valueValue = 1}]},
       DeclEnum
         Enu {
-          enumTag = Just (CName "same"),
+          enumTag = CName "same",
           enumType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
@@ -67,7 +67,7 @@ WrapCHeader
               valueValue = 1}]},
       DeclEnum
         Enu {
-          enumTag = Just (CName "packad"),
+          enumTag = CName "packad",
           enumType = TypePrim
             (PrimChar (Just Unsigned)),
           enumSizeof = 1,
@@ -81,4 +81,69 @@ WrapCHeader
               valueValue = 1},
             EnumValue {
               valueName = CName "PACKED_C",
-              valueValue = 2}]}])
+              valueValue = 2}]},
+      DeclEnum
+        Enu {
+          enumTag = CName "enumA",
+          enumType = TypePrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "A_FOO",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "A_BAR",
+              valueValue = 1}]},
+      DeclEnum
+        Enu {
+          enumTag = CName "enumB",
+          enumType = TypePrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "B_FOO",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "B_BAR",
+              valueValue = 1}]},
+      DeclEnum
+        Enu {
+          enumTag = CName "enumC",
+          enumType = TypePrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "C_FOO",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "C_BAR",
+              valueValue = 1}]},
+      DeclEnum
+        Enu {
+          enumTag = CName "enumD",
+          enumType = TypePrim
+            (PrimIntegral
+              (PrimInt Unsigned)),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "D_FOO",
+              valueValue = 0},
+            EnumValue {
+              valueName = CName "D_BAR",
+              valueValue = 1}]},
+      DeclTypedef
+        Typedef {
+          typedefName = CName "enumD_t",
+          typedefType = TypeEnum
+            (CName "enumD")}])

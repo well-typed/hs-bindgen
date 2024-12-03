@@ -3,7 +3,8 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just (CName "S1"),
+          structTag = DefnName
+            (CName "S1"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -20,7 +21,8 @@ WrapCHeader
                 (PrimChar Nothing)}]},
       DeclStruct
         Struct {
-          structTag = Just (CName "S2"),
+          structTag = DefnName
+            (CName "S2"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -43,11 +45,12 @@ WrapCHeader
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
-          typedefType = TypeElaborated
-            (CName "struct S2")},
+          typedefType = TypeStruct
+            (DefnName (CName "S2"))},
       DeclStruct
         Struct {
-          structTag = Nothing,
+          structTag = DefnName
+            (CName "S3_t"),
           structSizeof = 1,
           structAlignment = 1,
           structFields = [
@@ -56,14 +59,10 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing)}]},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "S3_t",
-          typedefType = TypeElaborated
-            (CName "struct S3_t")},
       DeclStruct
         Struct {
-          structTag = Just (CName "S4"),
+          structTag = DefnName
+            (CName "S4"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -84,4 +83,40 @@ WrapCHeader
               fieldType = TypePointer
                 (TypePrim
                   (PrimIntegral
-                    (PrimInt Signed)))}]}])
+                    (PrimInt Signed)))}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S5"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "a",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimChar Nothing)},
+            StructField {
+              fieldName = CName "b",
+              fieldOffset = 32,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))}]},
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "S6"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "a",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimChar Nothing)},
+            StructField {
+              fieldName = CName "b",
+              fieldOffset = 32,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))}]}])

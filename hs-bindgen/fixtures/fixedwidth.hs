@@ -1,2 +1,6 @@
+DeclNewtype (Newtype {newtypeName = "CUint64T", newtypeConstr = "MkCUint64T", newtypeField = "unCUint64T", newtypeType = HsPrimType HsPrimCULong})
+DeclNewtypeInstance Storable "CUint64T"
+DeclNewtype (Newtype {newtypeName = "CUint32T", newtypeConstr = "MkCUint32T", newtypeField = "unCUint32T", newtypeType = HsPrimType HsPrimCUInt})
+DeclNewtypeInstance Storable "CUint32T"
 DeclData (Struct {structName = "CFoo", structConstr = "MkCFoo", structFields = ("cFoo_sixty_four",HsTypRef "CUint64T") ::: ("cFoo_thirty_two",HsTypRef "CUint32T") ::: VNil})
 DeclInstance (InstanceStorable (Struct {structName = "CFoo", structConstr = "MkCFoo", structFields = ("cFoo_sixty_four",HsTypRef "CUint64T") ::: ("cFoo_thirty_two",HsTypRef "CUint32T") ::: VNil}) (StorableInstance {storableSizeOf = 16, storableAlignment = 8, storablePeek = Lambda "ptr" (Ap (StructCon (Struct {structName = "CFoo", structConstr = "MkCFoo", structFields = ("cFoo_sixty_four",HsTypRef "CUint64T") ::: ("cFoo_thirty_two",HsTypRef "CUint32T") ::: VNil})) [PeekByteOff 0 0,PeekByteOff 0 8]), storablePoke = Lambda "ptr" (Lambda "s" (ElimStruct 0 (Struct {structName = "CFoo", structConstr = "MkCFoo", structFields = ("cFoo_sixty_four",HsTypRef "CUint64T") ::: ("cFoo_thirty_two",HsTypRef "CUint32T") ::: VNil}) 2 (Seq [PokeByteOff 3 0 0,PokeByteOff 3 8 1])))}))

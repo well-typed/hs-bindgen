@@ -1,5 +1,3 @@
-newtype CS1T = MkCS1T {unCS1T :: CStruct'0020S1}
-deriving newtype instance Storable CS1T
 data CS1 = MkCS1 {cS1_a :: CInt}
 instance Storable CS1
     where {sizeOf = \_ -> 4;
@@ -7,6 +5,8 @@ instance Storable CS1
            peek = \ptr_0 -> pure MkCS1 <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCS1 cS1_a_3 -> pokeByteOff ptr_1 0 cS1_a_3}}
+newtype CS1T = MkCS1T {unCS1T :: CS1}
+deriving newtype instance Storable CS1T
 data CS2 = MkCS2 {cS2_a :: CInt}
 instance Storable CS2
     where {sizeOf = \_ -> 4;

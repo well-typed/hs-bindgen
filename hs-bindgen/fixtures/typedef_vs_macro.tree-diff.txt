@@ -52,7 +52,7 @@ WrapCHeader
             (PrimChar Nothing)},
       DeclStruct
         Struct {
-          structTag = Just
+          structTag = DefnName
             (CName "ExampleStruct"),
           structSizeof = 16,
           structAlignment = 4,
@@ -60,20 +60,20 @@ WrapCHeader
             StructField {
               fieldName = CName "t1",
               fieldOffset = 0,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "T1")},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "T2")},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "M1")},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "M2")}]}])

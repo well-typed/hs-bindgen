@@ -37,6 +37,7 @@ main' packageRoot bg = testGroup "golden"
         triple @?= "x86_64-pc-linux-gnu"
 
     , golden "simple_structs"
+    , golden "recursive_struct"
     , golden "nested_types"
     , golden "enums"
     , golden "primitive_types"

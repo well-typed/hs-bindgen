@@ -134,6 +134,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_Type_isTransparentTagTypedef
   , clang_Cursor_getOffsetOfField
   , clang_Cursor_isAnonymous
+  , clang_Cursor_isAnonymousRecordDecl
   , clang_getEnumConstantDeclValue
   , clang_getCanonicalType
   , clang_getTypedefName
@@ -1042,6 +1043,9 @@ foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getOffsetOfField"
 foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
   wrap_Cursor_isAnonymous :: R CXCursor_ -> IO CUInt
 
+foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymousRecordDecl"
+  wrap_Cursor_isAnonymousRecordDecl :: R CXCursor_ -> IO CUInt
+
 foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
   wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
 
@@ -1217,6 +1221,14 @@ clang_Cursor_isAnonymous :: CXCursor -> IO Bool
 clang_Cursor_isAnonymous cursor =
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isAnonymous cursor'
+
+-- | Determine whether the given cursor represents an anonymous record declaration.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga59aaf3b8329a35e400ee3735229a8cb6>
+clang_Cursor_isAnonymousRecordDecl :: CXCursor -> IO Bool
+clang_Cursor_isAnonymousRecordDecl cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      cToBool <$> wrap_Cursor_isAnonymousRecordDecl cursor'
 
 -- | Retrieve the integer value of an enum constant declaration as a signed long
 -- long.

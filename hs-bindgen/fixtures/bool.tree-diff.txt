@@ -3,7 +3,7 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = Just
+          structTag = DefnName
             (CName "bools1"),
           structSizeof = 2,
           structAlignment = 1,
@@ -19,7 +19,7 @@ WrapCHeader
                 PrimVoid}]},
       DeclStruct
         Struct {
-          structTag = Just
+          structTag = DefnName
             (CName "bools2"),
           structSizeof = 2,
           structAlignment = 1,
@@ -27,10 +27,10 @@ WrapCHeader
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "bool")},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
-              fieldType = TypeElaborated
+              fieldType = TypeTypedef
                 (CName "bool")}]}])

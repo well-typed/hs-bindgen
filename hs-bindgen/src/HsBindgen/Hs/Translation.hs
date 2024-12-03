@@ -53,6 +53,7 @@ instance ToHs C.Decl where
   toHs (C.DeclStruct struct)  = reifyStructFields struct $ structDecs struct
   toHs (C.DeclOpaqueStruct n) = opaqueStructDecs n
   toHs (C.DeclEnum e)         = enumDecs e
+  toHs (C.DeclOpaqueEnum n)   = opaqueStructDecs n -- TODO?
   toHs (C.DeclTypedef d)      = typedefDecs d
   toHs (C.DeclMacro m)        = macroDecs m
 
@@ -87,7 +88,9 @@ structDecs struct fields =
   where
     hs :: Hs.Struct n
     hs =
-      let cStructName = fromMaybe "X" $ C.structTag struct
+      let cStructName = case C.structTag struct of
+            C.DefnName n -> n
+
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cStructName
           structName = mangleTypeConstrName typeConstrCtx
@@ -115,6 +118,14 @@ structDecs struct fields =
     poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
 
+translateDefnName :: NameMangler -> C.DefnName -> HsName NsTypeConstr
+translateDefnName nm tag = structName
+  where
+    cStructName = case tag of
+        C.DefnName n -> n
+    typeConstrCtx = TypeConstrContext cStructName
+    structName = mangleTypeConstrName nm typeConstrCtx
+
 {-------------------------------------------------------------------------------
   Opaque struct
 -------------------------------------------------------------------------------}
@@ -140,7 +151,7 @@ enumDecs e = [
   where
     newtype_ :: Hs.Newtype
     newtype_ =
-      let cEnumName = fromMaybe "X" $ C.enumTag e
+      let cEnumName = C.enumTag e
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cEnumName
           newtypeName = mangleTypeConstrName typeConstrCtx
@@ -151,7 +162,7 @@ enumDecs e = [
 
     hs :: Hs.Struct (S Z)
     hs =
-      let cEnumName = fromMaybe "X" $ C.enumTag e
+      let cEnumName = C.enumTag e
           nm@NameMangler{..} = defaultNameMangler
           typeConstrCtx = TypeConstrContext cEnumName
           structName = mangleTypeConstrName typeConstrCtx
@@ -243,9 +254,12 @@ macroDecsTypedef m = [
 -------------------------------------------------------------------------------}
 
 typ :: NameMangler -> C.Type -> Hs.HsType
-typ NameMangler{..} (C.TypeElaborated c) =
-  Hs.HsTypRef (mangleTypeConstrName (TypeConstrContext c)) -- wrong
-typ _     (C.TypeStruct s)     = Hs.HsType (show (C.structTag s)) -- also wrong
+typ nm (C.TypeTypedef c) =
+    Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext c)) -- wrong
+typ nm    (C.TypeStruct name)     =
+    Hs.HsTypRef (translateDefnName nm name)
+typ nm    (C.TypeEnum name)     =
+    Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
 typ _     (C.TypePrim p)       = case p of
   C.PrimVoid                   -> Hs.HsPrimType HsPrimVoid
   C.PrimChar Nothing           -> Hs.HsPrimType HsPrimCChar

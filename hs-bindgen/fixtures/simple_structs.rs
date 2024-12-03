@@ -55,3 +55,29 @@ const _: () = {
     ["Offset of field: S4::a"][::std::mem::offset_of!(S4, a) - 4usize];
     ["Offset of field: S4::c"][::std::mem::offset_of!(S4, c) - 8usize];
 };
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct S5 {
+    pub a: ::std::os::raw::c_char,
+    pub b: ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of S5"][::std::mem::size_of::<S5>() - 8usize];
+    ["Alignment of S5"][::std::mem::align_of::<S5>() - 4usize];
+    ["Offset of field: S5::a"][::std::mem::offset_of!(S5, a) - 0usize];
+    ["Offset of field: S5::b"][::std::mem::offset_of!(S5, b) - 4usize];
+};
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct S6 {
+    pub a: ::std::os::raw::c_char,
+    pub b: ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of S6"][::std::mem::size_of::<S6>() - 8usize];
+    ["Alignment of S6"][::std::mem::align_of::<S6>() - 4usize];
+    ["Offset of field: S6::a"][::std::mem::offset_of!(S6, a) - 0usize];
+    ["Offset of field: S6::b"][::std::mem::offset_of!(S6, b) - 4usize];
+};

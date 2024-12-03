@@ -30,6 +30,7 @@ instance ToExpr CHeader
 instance ToExpr C.Attribute
 instance ToExpr C.CName
 instance ToExpr C.Decl
+instance ToExpr C.DefnName
 instance ToExpr C.Enu
 instance ToExpr C.EnumValue
 instance ToExpr C.Header
@@ -37,9 +38,9 @@ instance ToExpr C.Macro
 instance ToExpr C.MacroDecl
 instance ToExpr C.MTerm
 instance ToExpr C.MultiLoc
-instance ToExpr C.PrimSign
-instance ToExpr C.PrimIntType
 instance ToExpr C.PrimFloatType
+instance ToExpr C.PrimIntType
+instance ToExpr C.PrimSign
 instance ToExpr C.PrimType
 instance ToExpr C.SingleLoc
 instance ToExpr C.Struct

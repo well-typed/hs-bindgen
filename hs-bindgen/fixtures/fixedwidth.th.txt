@@ -1,3 +1,7 @@
+newtype CUint64T = MkCUint64T {unCUint64T :: CULong}
+deriving newtype instance Storable CUint64T
+newtype CUint32T = MkCUint32T {unCUint32T :: CUInt}
+deriving newtype instance Storable CUint32T
 data CFoo
     = MkCFoo {cFoo_sixty_four :: CUint64T, cFoo_thirty_two :: CUint32T}
 instance Storable CFoo
