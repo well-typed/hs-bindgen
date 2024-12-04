@@ -34,6 +34,7 @@ data Type =
   | TypeTypedef CName
   | TypePointer Type
   | TypeConstArray Natural Type
+  | TypeFun [Type] Type
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

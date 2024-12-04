@@ -504,8 +504,15 @@ WrapCHeader
       DeclFunction
         Function {
           functionName = CName "some_fun",
-          functionType = TypePrim
-            PrimVoid},
+          functionType = TypeFun
+            [
+              TypePointer
+                (TypeTypedef
+                  (CName "a_type_t")),
+              TypeTypedef (CName "uint32_t"),
+              TypePrim PrimVoid]
+            (TypeTypedef
+              (CName "int32_t"))},
       DeclStruct
         Struct {
           structTag = DefnName
@@ -671,7 +678,18 @@ WrapCHeader
               valueValue = 3}]},
       DeclTypedef
         Typedef {
+          typedefName = CName "int32_t",
+          typedefType = TypePrim
+            (PrimIntegral
+              (PrimInt Signed))},
+      DeclTypedef
+        Typedef {
           typedefName = CName
             "callback_t",
           typedefType = TypePointer
-            (TypePrim PrimVoid)}])
+            (TypeFun
+              [
+                TypePointer (TypePrim PrimVoid),
+                TypeTypedef (CName "uint32_t")]
+              (TypeTypedef
+                (CName "uint32_t")))}])

@@ -79,5 +79,7 @@ instance Storable CATypedefEnumE
            peek = \ptr_0 -> pure MkCATypedefEnumE <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCATypedefEnumE unCATypedefEnumE_3 -> pokeByteOff ptr_1 0 unCATypedefEnumE_3}}
+newtype CInt32T = MkCInt32T {unCInt32T :: CInt}
+deriving newtype instance Storable CInt32T
 newtype CCallbackT = MkCCallbackT {unCCallbackT :: (Ptr Void)}
 deriving newtype instance Storable CCallbackT

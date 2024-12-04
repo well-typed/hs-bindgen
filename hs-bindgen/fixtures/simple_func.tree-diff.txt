@@ -4,10 +4,22 @@ WrapCHeader
       DeclFunction
         Function {
           functionName = CName "erf",
-          functionType = TypePrim
-            PrimVoid},
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimFloating PrimDouble)]
+            (TypePrim
+              (PrimFloating PrimDouble))},
       DeclFunction
         Function {
           functionName = CName "bad_fma",
-          functionType = TypePrim
-            PrimVoid}])
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimFloating PrimDouble),
+              TypePrim
+                (PrimFloating PrimDouble),
+              TypePrim
+                (PrimFloating PrimDouble)]
+            (TypePrim
+              (PrimFloating PrimDouble))}])

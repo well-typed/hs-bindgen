@@ -269,8 +269,9 @@ typ _     (C.TypePrim p)       = case p of
   C.PrimChar (Just C.Unsigned) -> Hs.HsPrimType HsPrimCSChar
   C.PrimIntegral i -> Hs.HsPrimType $ integralType i
   C.PrimFloating f -> Hs.HsPrimType $ floatingType f
-typ nm (C.TypePointer t)       = Hs.HsPtr (typ nm t)
+typ nm (C.TypePointer t)       = Hs.HsPtr (typ nm t) -- TODO: add FunPtr support
 typ nm (C.TypeConstArray n ty) = Hs.HsConstArray n (typ nm ty)
+typ _nm (C.TypeFun _ _)         = Hs.HsPrimType HsPrimVoid -- TODO
 
 integralType :: C.PrimIntType -> HsPrimType
 integralType = \case
