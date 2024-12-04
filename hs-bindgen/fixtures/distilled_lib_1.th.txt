@@ -81,5 +81,7 @@ instance Storable CATypedefEnumE
                                     {MkCATypedefEnumE unCATypedefEnumE_3 -> pokeByteOff ptr_1 0 unCATypedefEnumE_3}}
 newtype CInt32T = MkCInt32T {unCInt32T :: CInt}
 deriving newtype instance Storable CInt32T
-newtype CCallbackT = MkCCallbackT {unCCallbackT :: (Ptr Void)}
+newtype CCallbackT
+    = MkCCallbackT {unCCallbackT :: (FunPtr (Ptr Void ->
+                                             CUint32T -> IO CUint32T))}
 deriving newtype instance Storable CCallbackT

@@ -41,7 +41,9 @@ data Global =
   | Storable_peek
   | Storable_poke
   | Foreign_Ptr
+  | Foreign_FunPtr
   | ConstantArray
+  | IO_type
 
   | Eq_class
   | Ord_class

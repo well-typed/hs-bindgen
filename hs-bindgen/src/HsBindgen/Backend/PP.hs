@@ -115,7 +115,9 @@ resolveGlobal = \case
     Storable_peek        -> importQ iForeign "peek"
     Storable_poke        -> importQ iForeign "poke"
     Foreign_Ptr          -> importQ iForeign "Ptr"
+    Foreign_FunPtr       -> importQ iForeign "FunPtr"
     ConstantArray        -> importQ (HsImport "HsBindgen.ConstantArray" Nothing) "ConstantArray"
+    IO_type              -> import_ iPrelude "IO"
 
     Eq_class         -> importQ iPrelude           "Eq"
     Ord_class        -> importQ iPrelude           "Ord"
