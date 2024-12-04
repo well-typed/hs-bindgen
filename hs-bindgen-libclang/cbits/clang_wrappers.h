@@ -364,6 +364,18 @@ static inline void wrap_getTypeDeclaration(const CXType* T, CXCursor* result) {
     *result = clang_getTypeDeclaration(*T);
 }
 
+static inline void wrap_getResultType(const CXType *T, CXType *result) {
+    *result = clang_getResultType(*T);
+}
+
+static inline int wrap_getNumArgTypes(const CXType *T) {
+    return clang_getNumArgTypes(*T);
+}
+
+static inline void wrap_getArgType(const CXType *T, unsigned n, CXType *result) {
+    *result = clang_getArgType(*T, n);
+}
+
 static inline void wrap_Type_getNamedType(const CXType* T, CXType* result) {
     *result = clang_Type_getNamedType(*T);
 }

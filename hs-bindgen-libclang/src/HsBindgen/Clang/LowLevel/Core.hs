@@ -140,6 +140,11 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_getTypedefName
   , clang_getUnqualifiedType
   , clang_getTypeDeclaration
+  -- , clang_getFunctionTypeCallingConv
+  , clang_getResultType
+  , clang_getNumArgTypes
+  , clang_getArgType
+  -- , clang_isFunctionTypeVariadic
   , clang_Type_getNamedType
   , clang_Type_getModifiedType
   , clang_Type_getValueType
@@ -1068,6 +1073,15 @@ foreign import capi unsafe "clang_wrappers.h"
   wrap_getTypeDeclaration :: R CXType_ -> W CXCursor_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h"
+  wrap_getResultType :: R CXType_ -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getNumArgTypes :: R CXType_ -> IO CInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getArgType :: R CXType_ -> CUInt -> W CXType_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
   wrap_Type_getNamedType :: R CXType_ -> W CXType_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h"
@@ -1337,6 +1351,30 @@ clang_getTypeDeclaration :: CXType -> IO CXCursor
 clang_getTypeDeclaration typ =
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getTypeDeclaration typ'
+
+-- | Retrieve the return type associated with a function type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga39b4850746f39e17c6b8b4eef3154d85>
+clang_getResultType :: CXType -> IO CXType
+clang_getResultType typ =
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getResultType typ'
+
+-- | Retrieve the number of non-variadic parameters associated with a function type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga705e1a4ed7c7595606fc30ed5d2a6b5a>
+clang_getNumArgTypes :: CXType -> IO CInt
+clang_getNumArgTypes typ =
+    onHaskellHeap typ $ \typ' ->
+      wrap_getNumArgTypes typ'
+
+-- | Retrieve the type of a parameter of a function type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga67f60ba4831b1bfd90ab0c1c12adab27>
+clang_getArgType :: CXType -> CUInt -> IO CXType
+clang_getArgType typ n =
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getArgType typ' n
 
 -- | Retrieve the type named by the qualified-id.
 --
