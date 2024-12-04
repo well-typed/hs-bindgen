@@ -14,16 +14,13 @@ import Data.Text qualified as T
 import Data.Word (Word8)
 import GHC.Exts qualified
 import GHC.Generics (from, (:*:) (..), M1 (..), K1 (..))
-import GHC.Stack
 import HsBindgen.Clang.Internal.ByValue (OnHaskellHeap (..))
 import HsBindgen.Clang.LowLevel.Core (CXType (..), CXCursor (..), cxtKind, clang_getCursorKind)
 import HsBindgen.Patterns (fromSimpleEnum)
 
--- | Add debug trace
-dtraceIO :: (MonadIO m, Repr a, HasCallStack) => String -> a -> m ()
+dtraceIO :: (MonadIO m, Repr a) => String -> a -> m ()
 dtraceIO tag xs = liftIO $ do
     xs' <- repr xs
-    putStrLn $ prettyCallStack callStack
     putStrLn $ tag ++ ": " ++ unwords (xs' [])
 
 -- | Debug representation of a value.
@@ -37,14 +34,14 @@ class Repr a where
 -- | 'ReprShow' is usable for @DerivingVia@, but also to 'repr' things which don't have 'Repr' instance, but have 'Show' instance:
 --
 -- @
--- 'dtraceIO' (cursor, ReprShow something)
+-- dtraceIO (cursor, ReprShow something)
 -- @
 --
 newtype ReprShow a = ReprShow a
   deriving newtype Show
 
 instance Show a => Repr (ReprShow a) where
-    repr (ReprShow x) = return (\xs -> show x : xs)
+    repr (ReprShow x) = return (\xs -> showsPrec 11 x "" : xs)
 
 -------------------------------------------------------------------------------
 -- Repr tuples
@@ -72,6 +69,8 @@ instance (GProductRepr f, GProductRepr g) => GProductRepr (f :*: g) where
 
 deriving via ReprShow T.Text instance Repr T.Text
 deriving via ReprShow Bool instance Repr Bool
+deriving via ReprShow Int instance Repr Int
+deriving via ReprShow () instance Repr ()
 
 -------------------------------------------------------------------------------
 -- Repr libclang
