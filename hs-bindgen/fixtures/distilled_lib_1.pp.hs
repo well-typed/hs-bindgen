@@ -6,7 +6,7 @@ import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.ConstantArray
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), IO, pure)
 import qualified Prelude as P
 
 a :: forall a0. P.Integral a0 => a0
@@ -204,7 +204,7 @@ newtype CInt32T = MkCInt32T
 deriving newtype instance F.Storable CInt32T
 
 newtype CCallbackT = MkCCallbackT
-  { unCCallbackT :: F.Ptr Void
+  { unCCallbackT :: F.FunPtr ((F.Ptr Void) -> CUint32T -> IO CUint32T)
   }
 
 deriving newtype instance F.Storable CCallbackT

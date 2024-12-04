@@ -49,5 +49,8 @@ data HsType =
   | HsTypRef (HsName NsTypeConstr)
   | HsConstArray Natural HsType
   | HsPtr HsType
+  | HsFunPtr HsType
+  | HsIO HsType
+  | HsFun HsType HsType
   deriving stock (Show)
 

@@ -49,7 +49,9 @@ mkGlobal =  \case
       Storable_peek        -> 'Foreign.Storable.peek
       Storable_poke        -> 'Foreign.Storable.poke
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
+      Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
       ConstantArray        -> ''HsBindgen.ConstantArray.ConstantArray
+      IO_type              -> ''IO
 
       Eq_class             -> ''Eq
       Ord_class            -> ''Ord
