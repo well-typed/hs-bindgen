@@ -197,6 +197,12 @@ instance F.Storable CATypedefEnumE where
         case s1 of
           MkCATypedefEnumE unCATypedefEnumE2 -> F.pokeByteOff ptr0 0 unCATypedefEnumE2
 
+newtype CInt32T = MkCInt32T
+  { unCInt32T :: FC.CInt
+  }
+
+deriving newtype instance F.Storable CInt32T
+
 newtype CCallbackT = MkCCallbackT
   { unCCallbackT :: F.Ptr Void
   }

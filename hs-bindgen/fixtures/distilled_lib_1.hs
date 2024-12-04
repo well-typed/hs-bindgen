@@ -25,5 +25,7 @@ DeclNewtype (Newtype {newtypeName = "CATypedefStructT", newtypeConstr = "MkCATyp
 DeclNewtypeInstance Storable "CATypedefStructT"
 DeclNewtype (Newtype {newtypeName = "CATypedefEnumE", newtypeConstr = "MkCATypedefEnumE", newtypeField = "unCATypedefEnumE", newtypeType = HsPrimType HsPrimCSChar})
 DeclInstance (InstanceStorable (Struct {structName = "CATypedefEnumE", structConstr = "MkCATypedefEnumE", structFields = ("unCATypedefEnumE",HsPrimType HsPrimCSChar) ::: VNil}) (StorableInstance {storableSizeOf = 1, storableAlignment = 1, storablePeek = Lambda "ptr" (Ap (StructCon (Struct {structName = "CATypedefEnumE", structConstr = "MkCATypedefEnumE", structFields = ("unCATypedefEnumE",HsPrimType HsPrimCSChar) ::: VNil})) [PeekByteOff 0 0]), storablePoke = Lambda "ptr" (Lambda "s" (ElimStruct 0 (Struct {structName = "CATypedefEnumE", structConstr = "MkCATypedefEnumE", structFields = ("unCATypedefEnumE",HsPrimType HsPrimCSChar) ::: VNil}) 1 (Seq [PokeByteOff 2 0 0])))}))
+DeclNewtype (Newtype {newtypeName = "CInt32T", newtypeConstr = "MkCInt32T", newtypeField = "unCInt32T", newtypeType = HsPrimType HsPrimCInt})
+DeclNewtypeInstance Storable "CInt32T"
 DeclNewtype (Newtype {newtypeName = "CCallbackT", newtypeConstr = "MkCCallbackT", newtypeField = "unCCallbackT", newtypeType = HsPtr (HsPrimType HsPrimVoid)})
 DeclNewtypeInstance Storable "CCallbackT"

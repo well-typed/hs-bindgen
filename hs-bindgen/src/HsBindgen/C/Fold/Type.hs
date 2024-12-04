@@ -275,8 +275,27 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         return $ TypePrim PrimBool
 
     Right CXType_FunctionProto -> do
-        -- TODO: for now we represent function types as Void
-        return $ TypePrim PrimVoid
+        -- TODO: fail on variadic types, these don't have great FFI support anyway. clang_isFunctionTypeVariadic
+        -- TODO: we could record calling convention clang_getFunctionTypeCallingConv, but for CApiFFI it's irrelevant as it creates C wrappers with known convention
+        res <- liftIO $ clang_getResultType ty
+        res' <- processTypeDeclRec path unit res
+
+        nargs <- liftIO $ clang_getNumArgTypes ty
+        args' <- forM [0 .. fromIntegral nargs - 1] $ \i -> do
+            arg <- liftIO $ clang_getArgType ty i
+            processTypeDeclRec path unit arg
+
+        return $ TypeFun args' res'
+
+    Right CXType_IncompleteArray -> do
+        -- in distilled_lib_1.h we have:
+        --
+        -- int32_t some_fun(a_type_t *i, uint32_t j, uint8_t k[]);
+        --
+        -- I'm not sure what's an intention here. Should the k, have uint8_t *,
+        -- i.e. a pointer type instead?
+        --
+        return $ TypePrim PrimVoid -- TODO
 
     _ -> do
       name <- CName <$> liftIO (clang_getTypeSpelling ty)
