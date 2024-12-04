@@ -1,13 +1,33 @@
 module HsBindgen.GenTests.Internal where
 
+import Data.Char qualified as Char
+import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as T
+import System.FilePath qualified as FilePath
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Imports
 import HsBindgen.SHs.AST qualified as SHs
+import Text.SimplePrettyPrint
+
+{-------------------------------------------------------------------------------
+  C Function Prefix
+-------------------------------------------------------------------------------}
+
+type CFunPrefix = String
+
+getCFunPrefix ::
+     FilePath  -- ^ C test header filename
+  -> CFunPrefix
+getCFunPrefix = List.map aux . FilePath.dropExtension
+  where
+    aux :: Char -> Char
+    aux c
+      | Char.isAlphaNum c = Char.toLower c
+      | otherwise         = '_'
 
 {-------------------------------------------------------------------------------
   TestRecord
@@ -158,3 +178,10 @@ indexCHeader = foldr mkMap Map.empty . C.headerDecls
       C.DeclEnum enu ->
         Map.singleton (C.enumTypeSpelling enu) decl <> acc
       C.DeclMacro{} -> acc
+
+{-------------------------------------------------------------------------------
+  Pretty printing
+-------------------------------------------------------------------------------}
+
+prettyHsName :: HsName ns -> CtxDoc
+prettyHsName = string . T.unpack . getHsName

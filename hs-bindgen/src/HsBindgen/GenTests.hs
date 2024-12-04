@@ -46,7 +46,10 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
       testRecords
     genTestsHs
       hsTestPath
-      decls
+      moduleName
+      cTestHeaderPath
+      lineLength
+      testRecords
   where
     readmePath, cbitsPath, srcPath :: FilePath
     readmePath = FilePath.combine testSuitePath "README.md"

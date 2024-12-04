@@ -46,8 +46,8 @@ genTestsC
     cFunPrefix :: CFunPrefix
     cFunPrefix = getCFunPrefix cTestHeaderFilename
 
-    testRecords' :: [TestRecord]
-    testRecords' = filter isCReferenceable testRecords
+    testRecordsC :: [TestRecord]
+    testRecordsC = filter isCReferenceable testRecords
 
     cTestHeaderIncludeGuard :: IncludeGuard
     cTestHeaderIncludeGuard = getIncludeGuard cTestHeaderFilename
@@ -57,7 +57,7 @@ genTestsC
     cTestHeaderSysIncludes = ["stdbool.h", "stddef.h"]
 
     cTestHeaderDecls :: [CTestDecl]
-    cTestHeaderDecls = concatMap (getTestHeaderDecls cFunPrefix) testRecords'
+    cTestHeaderDecls = concatMap (getTestHeaderDecls cFunPrefix) testRecordsC
 
     cTestSourceUsrIncludes, cTestSourceSysIncludes :: [IncludeFile]
     cTestSourceUsrIncludes = List.sort
@@ -65,7 +65,7 @@ genTestsC
     cTestSourceSysIncludes = ["stdalign.h", "stdbool.h", "stddef.h"]
 
     cTestSourceDefns :: [CTestDefn]
-    cTestSourceDefns = concatMap (getTestSourceDefns cFunPrefix) testRecords'
+    cTestSourceDefns = concatMap (getTestSourceDefns cFunPrefix) testRecordsC
 
 getTestHeaderDecls :: CFunPrefix -> TestRecord -> [CTestDecl]
 getTestHeaderDecls cFunPrefix testRecord = case testRecord of
@@ -143,7 +143,6 @@ getFieldPairs cStruct eNR =
 
 type IncludeGuard  = String
 type IncludeFile   = String
-type CFunPrefix    = String
 type CTypeSpelling = Text
 type HsTypeName    = String
 type FieldPair     = (CName, HsTypeName)
@@ -321,24 +320,11 @@ getIncludeGuard = List.map aux
       | Char.isAlphaNum c = Char.toUpper c
       | otherwise         = '_'
 
-getCFunPrefix ::
-     FilePath  -- ^ C test header filename
-  -> CFunPrefix
-getCFunPrefix = List.map aux . FilePath.dropExtension
-  where
-    aux :: Char -> Char
-    aux c
-      | Char.isAlphaNum c = Char.toLower c
-      | otherwise         = '_'
-
 prettyCTS :: CTypeSpelling -> CtxDoc
 prettyCTS = string . T.unpack
 
 prettyCName :: CName -> CtxDoc
 prettyCName = string . T.unpack . getCName
-
-prettyHsName :: HsName ns -> CtxDoc
-prettyHsName = string . T.unpack . getHsName
 
 prettyFun ::
      CtxDoc    -- ^ part before opening paren
