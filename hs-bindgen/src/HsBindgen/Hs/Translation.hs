@@ -56,6 +56,7 @@ instance ToHs C.Decl where
   toHs (C.DeclOpaqueEnum n)   = opaqueStructDecs n -- TODO?
   toHs (C.DeclTypedef d)      = typedefDecs d
   toHs (C.DeclMacro m)        = macroDecs m
+  toHs (C.DeclFunction f)     = functionDecs f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -287,6 +288,13 @@ floatingType = \case
   C.PrimFloat      -> HsPrimCFloat
   C.PrimDouble     -> HsPrimCDouble
   C.PrimLongDouble -> HsPrimCDouble -- wrong (see #247)
+
+{-------------------------------------------------------------------------------
+  Function
+-------------------------------------------------------------------------------}
+
+functionDecs :: C.Function -> [Hs.Decl]
+functionDecs _ = [] -- TODO
 
 {-------------------------------------------------------------------------------
   Macro

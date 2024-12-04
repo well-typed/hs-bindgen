@@ -66,8 +66,16 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
-        -- TODO: function declaration
-        return $ Continue Nothing
+        spelling <- liftIO $ clang_getCursorSpelling current
+        ty <- liftIO $ clang_getCursorType current
+        ty' <- processTypeDecl unit ty
+
+        -- dtraceIO "fdecl" (current, spelling, ty, ReprShow ty')
+
+        return $ Continue $ Just $ DeclFunction $ Function
+          { functionName = CName spelling
+          , functionType = ty'
+          }
 
       Right CXCursor_VarDecl -> do
         -- TODO: extern int i;
@@ -80,7 +88,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     typeDecl current = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      processTypeDecl unit ty
+      void $ processTypeDecl unit ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
