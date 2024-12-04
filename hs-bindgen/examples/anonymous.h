@@ -7,3 +7,15 @@ struct S1 {
 
   int d;
 };
+
+// Struct containing nexted anonymous structs
+struct S2 {
+  struct {
+    int a;
+    struct {
+      int b;
+    } deep;
+  } inner;
+
+  int d;
+};
