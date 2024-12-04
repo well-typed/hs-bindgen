@@ -59,6 +59,7 @@ library
 
       HsBindgen.Clang.LowLevel.Core
       HsBindgen.Clang.LowLevel.Doxygen
+      HsBindgen.Clang.Internal.ByValue
 
       HsBindgen.Clang.HighLevel
       HsBindgen.Clang.HighLevel.Types
@@ -69,7 +70,6 @@ library
       HsBindgen.Clang.LowLevel.Doxygen.Enums
       HsBindgen.Clang.LowLevel.Doxygen.Instances
       HsBindgen.Clang.LowLevel.Doxygen.Structs
-      HsBindgen.Clang.Internal.ByValue
       HsBindgen.Clang.Internal.CXString
       HsBindgen.Clang.Internal.FFI
       HsBindgen.Clang.Internal.Results
