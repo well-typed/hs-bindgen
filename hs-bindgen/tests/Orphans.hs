@@ -33,6 +33,7 @@ instance ToExpr C.Decl
 instance ToExpr C.DefnName
 instance ToExpr C.Enu
 instance ToExpr C.EnumValue
+instance ToExpr C.Function
 instance ToExpr C.Header
 instance ToExpr C.Macro
 instance ToExpr C.MacroDecl

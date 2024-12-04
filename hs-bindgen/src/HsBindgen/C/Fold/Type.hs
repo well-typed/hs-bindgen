@@ -29,16 +29,16 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Process top-level (type) declration
-processTypeDecl :: CXTranslationUnit -> CXType -> Eff (State DeclState) ()
+processTypeDecl :: CXTranslationUnit -> CXType -> Eff (State DeclState) Type
 processTypeDecl unit ty = do
     -- dtraceIO "processTypeDecl" ty
 
     s <- get
 
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                      -> void $ processTypeDecl' PathTop unit ty
-        Just (TypeDecl _ _)          -> return ()
-        Just (TypeDeclAlias _)       -> return ()
+        Nothing                      -> processTypeDecl' PathTop unit ty
+        Just (TypeDecl t _)          -> return t
+        Just (TypeDeclAlias t)       -> return t
         Just (TypeDeclProcessing t') -> liftIO $ fail $ "Incomplete type declaration: " ++ show t'
 
 data Path

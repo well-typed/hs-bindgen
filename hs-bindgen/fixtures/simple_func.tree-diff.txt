@@ -1,0 +1,13 @@
+WrapCHeader
+  (Header
+    [
+      DeclFunction
+        Function {
+          functionName = CName "erf",
+          functionType = TypePrim
+            PrimVoid},
+      DeclFunction
+        Function {
+          functionName = CName "bad_fma",
+          functionType = TypePrim
+            PrimVoid}])

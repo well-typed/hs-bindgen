@@ -501,6 +501,11 @@ WrapCHeader
                   integerLiteralValue = 13398})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)"},
+      DeclFunction
+        Function {
+          functionName = CName "some_fun",
+          functionType = TypePrim
+            PrimVoid},
       DeclStruct
         Struct {
           structTag = DefnName

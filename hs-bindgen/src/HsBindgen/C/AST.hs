@@ -28,6 +28,8 @@ module HsBindgen.C.AST (
   , EnumValue(..)
     -- ** Typedefs
   , Typedef(..)
+    -- ** Functions
+  , Function(..)
     -- * Macros
   , Macro(..)
   , MacroDecl(..)
@@ -87,6 +89,7 @@ data Decl =
   | DeclEnum Enu
   | DeclOpaqueEnum CName
   | DeclMacro MacroDecl
+  | DeclFunction Function
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -94,5 +97,13 @@ data MacroDecl
   = MacroReparseError ReparseError
   | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: TcMacroError }
   | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: QuantTy }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+data Function = Function
+    { functionName :: CName
+    , functionType :: Type
+    -- TODO: add location
+    }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
