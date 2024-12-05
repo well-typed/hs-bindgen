@@ -98,7 +98,11 @@ data Decl =
 data MacroDecl
   = MacroReparseError ReparseError
   | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: TcMacroError }
-  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: QuantTy }
+  | MacroDecl {
+        macroDeclMacro     :: Macro
+      , macroDeclMacroTy   :: QuantTy
+      , macroDeclSourceLoc :: SingleLoc
+      }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -109,6 +113,7 @@ data Function = Function
     -- TODO: we might not need functionHeader field,
     -- https://github.com/well-typed/hs-bindgen/issues/333
     , functionHeader :: FilePath
+    , functionSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

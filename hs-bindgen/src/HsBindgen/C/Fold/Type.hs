@@ -130,6 +130,8 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         addTypeDeclProcessing ty ctype
 
         decl <- liftIO (clang_getTypeDeclaration ty)
+        sloc <- liftIO $
+          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
         tag <- CName <$> liftIO (clang_getCursorSpelling decl)
         ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
 
@@ -158,11 +160,17 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                 --
                 -- TODO: handle typedef struct|enum {..} ty; // pattern
 
-                addDecl ty $ DeclTypedef $ Typedef tag use
+                addDecl ty $ DeclTypedef Typedef {
+                    typedefName      = tag
+                  , typedefType      = use
+                  , typedefSourceLoc = sloc
+                  }
 
     -- structs
     Right CXType_Record -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
+        sloc <- liftIO $
+          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
         -- TODO: don't use getCursorSpelling.
         tag <- liftIO (clang_getCursorSpelling decl)
         name <- liftIO (clang_getTypeSpelling ty)
@@ -192,7 +200,10 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                 DeclarationOpaque ->
                     -- TODO: use defnname
-                    addDecl ty (DeclOpaqueStruct (OpaqueStruct (CName tag)))
+                    addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                        opaqueStructTag       = CName tag
+                      , opaqueStructSourceLoc = sloc
+                      }
 
                 DeclarationForward _defn -> do
                     liftIO $ fail "should not happen"
@@ -210,11 +221,14 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                         , structSizeof    = fromIntegral sizeof
                         , structAlignment = fromIntegral alignment
                         , structFields    = fields
+                        , structSourceLoc = sloc
                         }
 
     -- enum
     Right CXType_Enum -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
+        sloc <- liftIO $
+          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
         name <- liftIO (clang_getTypeSpelling ty)
         anon <- liftIO (clang_Cursor_isAnonymous decl)
 
@@ -235,7 +249,10 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                     DeclarationOpaque -> do
-                        addDecl ty (DeclOpaqueEnum (OpaqueEnum defnName))
+                        addDecl ty $ DeclOpaqueEnum OpaqueEnum {
+                            opaqueEnumTag       = defnName
+                          , opaqueEnumSourceLoc = sloc
+                          }
 
                     DeclarationForward _defn -> do
                         liftIO $ fail "should not happen"
@@ -255,6 +272,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                             , enumSizeof    = fromIntegral sizeof
                             , enumAlignment = fromIntegral alignment
                             , enumValues    = values
+                            , enumSourceLoc = sloc
                             }
 
     Right CXType_Pointer -> do
@@ -361,6 +379,8 @@ mkStructField ::
   -> CXCursor
   -> Eff (State DeclState) (Maybe StructField)
 mkStructField unit path current = do
+    fieldSourceLoc <- liftIO $
+      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_UnexposedAttr ->
@@ -380,7 +400,12 @@ mkStructField unit path current = do
               fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
               unless (fieldOffset `mod` 8 == 0) $
                 error "bit-fields not supported yet"
-              return $ Just StructField{fieldName, fieldOffset, fieldType}
+              return $ Just StructField {
+                  fieldName
+                , fieldOffset
+                , fieldType
+                , fieldSourceLoc
+                }
 
         else do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
@@ -391,7 +416,12 @@ mkStructField unit path current = do
 
           unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
 
-          return $ Just StructField{fieldName, fieldOffset, fieldType}
+          return $ Just StructField {
+              fieldName
+            , fieldOffset
+            , fieldType
+            , fieldSourceLoc
+            }
 
       -- inner structs, there are two approaches:
       -- * process eagerly
@@ -410,13 +440,15 @@ mkStructField unit path current = do
 
 mkEnumValue :: MonadIO m => CXCursor -> m (Maybe EnumValue)
 mkEnumValue current = liftIO $ do
+    valueSourceLoc <- liftIO $
+      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
 
     case fromSimpleEnum cursorKind of
       Right CXCursor_EnumConstantDecl -> do
         valueName  <- CName <$> clang_getCursorDisplayName current
         valueValue <- toInteger <$> clang_getEnumConstantDeclValue current
-        return $ Just EnumValue{valueName, valueValue}
+        return $ Just EnumValue{valueName, valueValue, valueSourceLoc}
       Right CXCursor_PackedAttr ->
         -- TODO: __attribute__(packed))
         return Nothing

@@ -5,12 +5,23 @@ WrapCHeader
         Typedef {
           typedefName = CName "myint",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedefs.h"],
+            singleLocLine = 1,
+            singleLocColumn = 13}},
       DeclTypedef
         Typedef {
           typedefName = CName "intptr",
           typedefType = TypePointer
             (TypePrim
               (PrimIntegral
-                (PrimInt Signed)))}])
+                (PrimInt Signed))),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedefs.h"],
+            singleLocLine = 2,
+            singleLocColumn = 15}}])

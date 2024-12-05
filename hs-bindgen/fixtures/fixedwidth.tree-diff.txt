@@ -6,13 +6,25 @@ WrapCHeader
           typedefName = CName "uint64_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimLong Unsigned))},
+              (PrimLong Unsigned)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "fixedwidth.h"],
+            singleLocLine = 4,
+            singleLocColumn = 11}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimInt Unsigned))},
+              (PrimInt Unsigned)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "fixedwidth.h"],
+            singleLocLine = 5,
+            singleLocColumn = 11}},
       DeclStruct
         Struct {
           structTag = DefnName
@@ -24,9 +36,27 @@ WrapCHeader
               fieldName = CName "sixty_four",
               fieldOffset = 0,
               fieldType = TypeTypedef
-                (CName "uint64_t")},
+                (CName "uint64_t"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "fixedwidth.h"],
+                singleLocLine = 4,
+                singleLocColumn = 11}},
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
               fieldType = TypeTypedef
-                (CName "uint32_t")}]}])
+                (CName "uint32_t"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "fixedwidth.h"],
+                singleLocLine = 5,
+                singleLocColumn = 11}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "fixedwidth.h"],
+            singleLocLine = 3,
+            singleLocColumn = 8}}])

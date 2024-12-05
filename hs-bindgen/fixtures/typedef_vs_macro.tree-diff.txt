@@ -20,7 +20,13 @@ WrapCHeader
               (MType
                 (PrimIntegral
                   (PrimInt Signed)))},
-          macroDeclMacroTy = "PrimTy"},
+          macroDeclMacroTy = "PrimTy",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedef_vs_macro.h"],
+            singleLocLine = 4,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -38,18 +44,35 @@ WrapCHeader
             macroArgs = [],
             macroBody = MTerm
               (MType (PrimChar Nothing))},
-          macroDeclMacroTy = "PrimTy"},
+          macroDeclMacroTy = "PrimTy",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedef_vs_macro.h"],
+            singleLocLine = 5,
+            singleLocColumn = 9}},
       DeclTypedef
         Typedef {
           typedefName = CName "T1",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedef_vs_macro.h"],
+            singleLocLine = 1,
+            singleLocColumn = 13}},
       DeclTypedef
         Typedef {
           typedefName = CName "T2",
           typedefType = TypePrim
-            (PrimChar Nothing)},
+            (PrimChar Nothing),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedef_vs_macro.h"],
+            singleLocLine = 2,
+            singleLocColumn = 14}},
       DeclStruct
         Struct {
           structTag = DefnName
@@ -61,19 +84,49 @@ WrapCHeader
               fieldName = CName "t1",
               fieldOffset = 0,
               fieldType = TypeTypedef
-                (CName "T1")},
+                (CName "T1"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typedef_vs_macro.h"],
+                singleLocLine = 8,
+                singleLocColumn = 6}},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
               fieldType = TypeTypedef
-                (CName "T2")},
+                (CName "T2"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typedef_vs_macro.h"],
+                singleLocLine = 9,
+                singleLocColumn = 6}},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
               fieldType = TypeTypedef
-                (CName "M1")},
+                (CName "M1"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typedef_vs_macro.h"],
+                singleLocLine = 10,
+                singleLocColumn = 6}},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
               fieldType = TypeTypedef
-                (CName "M2")}]}])
+                (CName "M2"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typedef_vs_macro.h"],
+                singleLocLine = 11,
+                singleLocColumn = 6}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedef_vs_macro.h"],
+            singleLocLine = 7,
+            singleLocColumn = 8}}])
