@@ -1,7 +1,8 @@
 WrapCHeader
   (Header
     [
-      DeclOpaqueStruct (CName "foo"),
+      DeclOpaqueStruct
+        (OpaqueStruct (CName "foo")),
       DeclStruct
         Struct {
           structTag = DefnName
@@ -28,4 +29,5 @@ WrapCHeader
           structSizeof = 0,
           structAlignment = 1,
           structFields = []},
-      DeclOpaqueEnum (CName "quu")])
+      DeclOpaqueEnum
+        (OpaqueEnum (CName "quu"))])

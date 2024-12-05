@@ -51,9 +51,9 @@ instance ToHs C.Header where
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
   toHs (C.DeclStruct struct)  = reifyStructFields struct $ structDecs struct
-  toHs (C.DeclOpaqueStruct n) = opaqueStructDecs n
+  toHs (C.DeclOpaqueStruct o) = opaqueStructDecs $ C.opaqueStructTag o
   toHs (C.DeclEnum e)         = enumDecs e
-  toHs (C.DeclOpaqueEnum n)   = opaqueStructDecs n -- TODO?
+  toHs (C.DeclOpaqueEnum o)   = opaqueStructDecs $ C.opaqueEnumTag o -- TODO?
   toHs (C.DeclTypedef d)      = typedefDecs d
   toHs (C.DeclMacro m)        = macroDecs m
   toHs (C.DeclFunction f)     = functionDecs f
