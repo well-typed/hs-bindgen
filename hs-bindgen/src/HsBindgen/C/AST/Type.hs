@@ -72,7 +72,7 @@ data PrimType =
     PrimChar (Maybe PrimSign)
 
     -- | An integral type, such as @int@ or @unsigned long int@.
-  | PrimIntegral PrimIntType
+  | PrimIntegral PrimIntType PrimSign
 
     -- | A floating-point type, such as @float@ or @long double@.
   | PrimFloating PrimFloatType
@@ -88,17 +88,17 @@ data PrimType =
 -- | An integral type, such as @int@ or @unsigned long int@.
 data PrimIntType
     -- | @[signed | unsigned] short [int]@
-  = PrimShort PrimSign
+  = PrimShort
 
     -- | @[signed | unsigned] int@
-  | PrimInt PrimSign
+  | PrimInt
 
     -- | @[signed | unsigned] long [int]@
-  | PrimLong PrimSign
+  | PrimLong
 
     -- | @[signed | unsigned] long long [int]@
-  | PrimLongLong PrimSign
-  deriving stock (Show, Eq, Ord, Generic)
+  | PrimLongLong
+  deriving stock (Show, Eq, Enum, Ord, Generic)
   deriving anyclass (PrettyVal)
 
 data PrimFloatType

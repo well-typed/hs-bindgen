@@ -36,11 +36,12 @@ library
   exposed-modules:
       HsBindgen.Patterns
       HsBindgen.ConstantArray
+      HsBindgen.Syntax
   other-modules:
-      HsBindgen.Patterns.Arithmetic
       HsBindgen.Patterns.Backtrace
       HsBindgen.Patterns.Enum.Bitfield
       HsBindgen.Patterns.Enum.Simple
+      HsBindgen.Syntax.Arithmetic
   hs-source-dirs:
       src
   build-depends:
