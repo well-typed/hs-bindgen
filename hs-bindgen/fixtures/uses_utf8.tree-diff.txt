@@ -17,7 +17,13 @@ WrapCHeader
             macroName = CName "USES_UTF8_H",
             macroArgs = [],
             macroBody = MTerm MEmpty},
-          macroDeclMacroTy = "Empty"},
+          macroDeclMacroTy = "Empty",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "uses_utf8.h"],
+            singleLocLine = 2,
+            singleLocColumn = 9}},
       DeclEnum
         Enu {
           enumTag = CName "MyEnum",
@@ -30,8 +36,26 @@ WrapCHeader
             EnumValue {
               valueName = CName
                 "Say\20320\22909",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "uses_utf8.h"],
+                singleLocLine = 5,
+                singleLocColumn = 9}},
             EnumValue {
               valueName = CName
                 "Say\25308\25308",
-              valueValue = 1}]}])
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "uses_utf8.h"],
+                singleLocLine = 6,
+                singleLocColumn = 9}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "uses_utf8.h"],
+            singleLocLine = 4,
+            singleLocColumn = 6}}])

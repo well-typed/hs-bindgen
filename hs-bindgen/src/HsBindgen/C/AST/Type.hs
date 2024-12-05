@@ -21,6 +21,7 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
   ) where
 
+import HsBindgen.Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 
@@ -138,14 +139,16 @@ data Struct = Struct {
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
+    , structSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
 data StructField = StructField {
-      fieldName   :: CName
-    , fieldOffset :: Int -- ^ Offset in bits
-    , fieldType   :: Type
+      fieldName      :: CName
+    , fieldOffset    :: Int -- ^ Offset in bits
+    , fieldType      :: Type
+    , fieldSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -157,7 +160,8 @@ data StructField = StructField {
 --
 -- > struct foo;
 data OpaqueStruct = OpaqueStruct {
-      opaqueStructTag :: CName
+      opaqueStructTag       :: CName
+    , opaqueStructSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -172,13 +176,15 @@ data Enu = Enu {
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]
+    , enumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
 data EnumValue = EnumValue {
-      valueName  :: CName
-    , valueValue :: Integer
+      valueName      :: CName
+    , valueValue     :: Integer
+    , valueSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -190,7 +196,8 @@ data EnumValue = EnumValue {
 --
 -- > enum foo;
 data OpaqueEnum = OpaqueEnum {
-      opaqueEnumTag :: CName
+      opaqueEnumTag       :: CName
+    , opaqueEnumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -200,8 +207,9 @@ data OpaqueEnum = OpaqueEnum {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefName :: CName
-    , typedefType :: Type
+      typedefName      :: CName
+    , typedefType      :: Type
+    , typedefSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

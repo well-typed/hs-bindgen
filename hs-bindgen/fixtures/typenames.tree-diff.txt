@@ -12,12 +12,36 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "FOO1",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typenames.h"],
+                singleLocLine = 15,
+                singleLocColumn = 2}},
             EnumValue {
               valueName = CName "FOO2",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "typenames.h"],
+                singleLocLine = 16,
+                singleLocColumn = 2}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typenames.h"],
+            singleLocLine = 14,
+            singleLocColumn = 6}},
       DeclTypedef
         Typedef {
           typedefName = CName "foo",
           typedefType = TypePrim
-            (PrimFloating PrimDouble)}])
+            (PrimFloating PrimDouble),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typenames.h"],
+            singleLocLine = 19,
+            singleLocColumn = 16}}])

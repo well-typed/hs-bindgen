@@ -35,6 +35,8 @@ foldDecls ::
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
+    loc <- liftIO $ clang_getCursorLocation current
+    sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_TypedefDecl -> typeDecl current
@@ -53,11 +55,15 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
                 return $ MacroTcError macro err
               Right ty -> do
                 modify $ registerMacroType mVar ty
-                return $ MacroDecl macro ty
+                return MacroDecl {
+                    macroDeclMacro     = macro
+                  , macroDeclMacroTy   = ty
+                  , macroDeclSourceLoc = sloc
+                  }
         return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
-        loc <- liftIO $ HighLevel.clang_getCursorLocation current
-        modify $ registerMacroExpansion loc
+        mloc <- liftIO $ HighLevel.clang_getCursorLocation current
+        modify $ registerMacroExpansion mloc
         return $ Continue Nothing
       Right CXCursor_InclusionDirective ->
         -- The inclusion directive merely tells us that we are now going to
@@ -71,13 +77,13 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
         ty' <- processTypeDecl unit ty
-        loc <- liftIO $ clang_getCursorLocation current
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
-          { functionName   = CName spelling
-          , functionType   = ty'
-          , functionHeader = takeFileName (Text.unpack path)
+          { functionName      = CName spelling
+          , functionType      = ty'
+          , functionHeader    = takeFileName (Text.unpack path)
+          , functionSourceLoc = sloc
           }
 
       Right CXCursor_VarDecl -> do
