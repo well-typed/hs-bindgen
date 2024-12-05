@@ -191,7 +191,8 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                 DeclarationOpaque ->
-                    addDecl ty (DeclOpaqueStruct (CName tag)) -- TODO: use defnname
+                    -- TODO: use defnname
+                    addDecl ty (DeclOpaqueStruct (OpaqueStruct (CName tag)))
 
                 DeclarationForward _defn -> do
                     liftIO $ fail "should not happen"
@@ -234,7 +235,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                     DeclarationOpaque -> do
-                        addDecl ty (DeclOpaqueEnum defnName)
+                        addDecl ty (DeclOpaqueEnum (OpaqueEnum defnName))
 
                     DeclarationForward _defn -> do
                         liftIO $ fail "should not happen"

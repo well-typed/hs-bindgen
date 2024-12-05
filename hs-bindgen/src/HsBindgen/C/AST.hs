@@ -23,9 +23,11 @@ module HsBindgen.C.AST (
   , DefnName(..)
   , Struct(..)
   , StructField(..)
+  , OpaqueStruct(..)
     -- ** Enums
   , Enu(..)
   , EnumValue(..)
+  , OpaqueEnum(..)
     -- ** Typedefs
   , Typedef(..)
     -- ** Functions
@@ -84,10 +86,10 @@ data Header = Header {
 -- | Top-level declaration
 data Decl =
     DeclStruct Struct
-  | DeclOpaqueStruct CName
+  | DeclOpaqueStruct OpaqueStruct
   | DeclTypedef Typedef
   | DeclEnum Enu
-  | DeclOpaqueEnum CName
+  | DeclOpaqueEnum OpaqueEnum
   | DeclMacro MacroDecl
   | DeclFunction Function
   deriving stock (Show, Eq, Generic)
