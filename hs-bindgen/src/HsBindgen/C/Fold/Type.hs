@@ -29,14 +29,18 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Process top-level (type) declration
-processTypeDecl :: CXTranslationUnit -> CXType -> Eff (State DeclState) Type
-processTypeDecl unit ty = do
+processTypeDecl ::
+     CXTranslationUnit
+  -> CXType
+  -> SingleLoc
+  -> Eff (State DeclState) Type
+processTypeDecl unit ty sloc = do
     -- dtraceIO "processTypeDecl" ty
 
     s <- get
 
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                      -> processTypeDecl' PathTop unit ty
+        Nothing                      -> processTypeDecl' PathTop unit ty sloc
         Just (TypeDecl t _)          -> return t
         Just (TypeDeclAlias t)       -> return t
         Just (TypeDeclProcessing t') -> liftIO $ fail $ "Incomplete type declaration: " ++ show t'
@@ -63,13 +67,18 @@ mkDefnName = DefnName . CName . go where
     go (PathStruct Nothing p) = go p
     go (PathStruct (Just n) _) = getCName n
 
-processTypeDeclRec :: Path -> CXTranslationUnit -> CXType -> Eff (State DeclState) Type
-processTypeDeclRec path unit ty = do
+processTypeDeclRec ::
+     Path
+  -> CXTranslationUnit
+  -> CXType
+  -> SingleLoc
+  -> Eff (State DeclState) Type
+processTypeDeclRec path unit ty sloc = do
     -- dtraceIO "processTypeDeclRec" ty
 
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                     -> processTypeDecl' path unit ty
+        Nothing                     -> processTypeDecl' path unit ty sloc
         Just (TypeDecl t _)         -> return t
         Just (TypeDeclAlias t)      -> return t
         Just (TypeDeclProcessing t) -> return t
@@ -112,15 +121,20 @@ processTypeDeclRec path unit ty = do
 -- https://github.com/well-typed/hs-bindgen/issues/306
 -- https://github.com/well-typed/hs-bindgen/issues/314
 --
-processTypeDecl' :: Path -> CXTranslationUnit -> CXType -> Eff (State DeclState) Type
-processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' ::
+     Path
+  -> CXTranslationUnit
+  -> CXType
+  -> SingleLoc
+  -> Eff (State DeclState) Type
+processTypeDecl' path unit ty sloc = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- liftIO $ clang_Type_getNamedType ty
-        processTypeDeclRec path unit ty'
+        processTypeDeclRec path unit ty' sloc
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -133,7 +147,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         tag <- CName <$> liftIO (clang_getCursorSpelling decl)
         ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
 
-        use <- processTypeDeclRec  PathTop unit ty'
+        use <- processTypeDeclRec PathTop unit ty' sloc
 
         -- we could check whether typedef has a transparent tag,
         -- like in case of `typedef struct foo { ..} foo;`
@@ -158,7 +172,11 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                 --
                 -- TODO: handle typedef struct|enum {..} ty; // pattern
 
-                addDecl ty $ DeclTypedef $ Typedef tag use
+                addDecl ty $ DeclTypedef Typedef {
+                    typedefName      = tag
+                  , typedefType      = use
+                  , typedefSourceLoc = sloc
+                  }
 
     -- structs
     Right CXType_Record -> do
@@ -192,7 +210,10 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                 DeclarationOpaque ->
                     -- TODO: use defnname
-                    addDecl ty (DeclOpaqueStruct (OpaqueStruct (CName tag)))
+                    addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                        opaqueStructTag       = CName tag
+                      , opaqueStructSourceLoc = sloc
+                      }
 
                 DeclarationForward _defn -> do
                     liftIO $ fail "should not happen"
@@ -210,6 +231,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                         , structSizeof    = fromIntegral sizeof
                         , structAlignment = fromIntegral alignment
                         , structFields    = fields
+                        , structSourceLoc = sloc
                         }
 
     -- enum
@@ -235,7 +257,10 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                     DeclarationOpaque -> do
-                        addDecl ty (DeclOpaqueEnum (OpaqueEnum defnName))
+                        addDecl ty $ DeclOpaqueEnum OpaqueEnum {
+                            opaqueEnumTag       = defnName
+                          , opaqueEnumSourceLoc = sloc
+                          }
 
                     DeclarationForward _defn -> do
                         liftIO $ fail "should not happen"
@@ -243,7 +268,9 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                     DeclarationRegular -> do
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                         alignment <- liftIO (clang_Type_getAlignOf ty)
-                        ety       <- liftIO (clang_getEnumDeclIntegerType decl) >>= processTypeDeclRec PathTop unit
+                        ety       <- do
+                          ety' <- liftIO (clang_getEnumDeclIntegerType decl)
+                          processTypeDeclRec PathTop unit ety' sloc
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -255,18 +282,19 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                             , enumSizeof    = fromIntegral sizeof
                             , enumAlignment = fromIntegral alignment
                             , enumValues    = values
+                            , enumSourceLoc = sloc
                             }
 
     Right CXType_Pointer -> do
         pointee <- liftIO $ clang_getPointeeType ty
         -- TOOD: think about what path should be
-        pointee' <- processTypeDeclRec path unit pointee
+        pointee' <- processTypeDeclRec path unit pointee sloc
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- liftIO $ clang_getArraySize ty
         e <- liftIO $ clang_getArrayElementType ty
-        e' <- processTypeDeclRec path unit e
+        e' <- processTypeDeclRec path unit e sloc
         return (TypeConstArray (fromIntegral n) e')
 
     Right CXType_Void -> do
@@ -279,12 +307,12 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         -- TODO: fail on variadic types, these don't have great FFI support anyway. clang_isFunctionTypeVariadic
         -- TODO: we could record calling convention clang_getFunctionTypeCallingConv, but for CApiFFI it's irrelevant as it creates C wrappers with known convention
         res <- liftIO $ clang_getResultType ty
-        res' <- processTypeDeclRec path unit res
+        res' <- processTypeDeclRec path unit res sloc
 
         nargs <- liftIO $ clang_getNumArgTypes ty
         args' <- forM [0 .. fromIntegral nargs - 1] $ \i -> do
             arg <- liftIO $ clang_getArgType ty i
-            processTypeDeclRec path unit arg
+            processTypeDeclRec path unit arg sloc
 
         return $ TypeFun args' res'
 
@@ -362,6 +390,8 @@ mkStructField ::
   -> Eff (State DeclState) (Maybe StructField)
 mkStructField unit path current = do
     cursorKind <- liftIO $ clang_getCursorKind current
+    sloc <- liftIO $
+      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     case fromSimpleEnum cursorKind of
       Right CXCursor_UnexposedAttr ->
         return Nothing
@@ -380,18 +410,28 @@ mkStructField unit path current = do
               fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
               unless (fieldOffset `mod` 8 == 0) $
                 error "bit-fields not supported yet"
-              return $ Just StructField{fieldName, fieldOffset, fieldType}
+              return $ Just StructField {
+                  fieldName
+                , fieldOffset
+                , fieldType
+                , fieldSourceLoc = sloc
+                }
 
         else do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
           ty          <- liftIO (clang_getCursorType current)
           -- TODO: correct path
-          fieldType   <- processTypeDeclRec (PathField fieldName path) unit ty
+          fieldType   <- processTypeDeclRec (PathField fieldName path) unit ty sloc
           fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
           unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
 
-          return $ Just StructField{fieldName, fieldOffset, fieldType}
+          return $ Just StructField {
+              fieldName
+            , fieldOffset
+            , fieldType
+            , fieldSourceLoc = sloc
+            }
 
       -- inner structs, there are two approaches:
       -- * process eagerly
@@ -411,12 +451,18 @@ mkStructField unit path current = do
 mkEnumValue :: MonadIO m => CXCursor -> m (Maybe EnumValue)
 mkEnumValue current = liftIO $ do
     cursorKind <- liftIO $ clang_getCursorKind current
+    sloc <- liftIO $
+      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
 
     case fromSimpleEnum cursorKind of
       Right CXCursor_EnumConstantDecl -> do
         valueName  <- CName <$> clang_getCursorDisplayName current
         valueValue <- toInteger <$> clang_getEnumConstantDeclValue current
-        return $ Just EnumValue{valueName, valueValue}
+        return $ Just EnumValue {
+            valueName
+          , valueValue
+          , valueSourceLoc = sloc
+          }
       Right CXCursor_PackedAttr ->
         -- TODO: __attribute__(packed))
         return Nothing

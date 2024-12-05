@@ -34,10 +34,12 @@ foldDecls ::
   -> Fold (Eff (State DeclState)) Decl
 foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     cursorKind <- liftIO $ clang_getCursorKind current
+    sloc <- liftIO $
+      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     case fromSimpleEnum cursorKind of
-      Right CXCursor_TypedefDecl -> typeDecl current
-      Right CXCursor_StructDecl  -> typeDecl current
-      Right CXCursor_EnumDecl    -> typeDecl current
+      Right CXCursor_TypedefDecl -> typeDecl current sloc
+      Right CXCursor_StructDecl  -> typeDecl current sloc
+      Right CXCursor_EnumDecl    -> typeDecl current sloc
 
       Right CXCursor_MacroDefinition -> do
         mbMExpr <- mkMacro unit current
@@ -51,11 +53,15 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
                 return $ MacroTcError macro err
               Right ty -> do
                 modify $ registerMacroType mVar ty
-                return $ MacroDecl macro ty
+                return MacroDecl {
+                    macroDeclMacro     = macro
+                  , macroDeclMacroTy   = ty
+                  , macroDeclSourceLoc = sloc
+                  }
         return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
-        loc <- liftIO $ HighLevel.clang_getCursorLocation current
-        modify $ registerMacroExpansion loc
+        mloc <- liftIO $ HighLevel.clang_getCursorLocation current
+        modify $ registerMacroExpansion mloc
         return $ Continue Nothing
       Right CXCursor_InclusionDirective ->
         -- The inclusion directive merely tells us that we are now going to
@@ -68,13 +74,14 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl unit ty
+        ty' <- processTypeDecl unit ty sloc
 
         -- dtraceIO "fdecl" (current, spelling, ty, ReprShow ty')
 
         return $ Continue $ Just $ DeclFunction $ Function
-          { functionName = CName spelling
-          , functionType = ty'
+          { functionName      = CName spelling
+          , functionType      = ty'
+          , functionSourceLoc = sloc
           }
 
       Right CXCursor_VarDecl -> do
@@ -84,11 +91,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       _otherwise -> do
         unrecognizedCursor current
   where
-    typeDecl :: CXCursor -> Eff (State DeclState) (Next m a)
-    typeDecl current = do
+    typeDecl :: CXCursor -> SingleLoc -> Eff (State DeclState) (Next m a)
+    typeDecl current sloc = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl unit ty
+      void $ processTypeDecl unit ty sloc
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------

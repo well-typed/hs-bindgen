@@ -9,7 +9,13 @@ WrapCHeader
               TypePrim
                 (PrimFloating PrimDouble)]
             (TypePrim
-              (PrimFloating PrimDouble))},
+              (PrimFloating PrimDouble)),
+          functionSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_func.h"],
+            singleLocLine = 1,
+            singleLocColumn = 8}},
       DeclFunction
         Function {
           functionName = CName "bad_fma",
@@ -22,4 +28,10 @@ WrapCHeader
               TypePrim
                 (PrimFloating PrimDouble)]
             (TypePrim
-              (PrimFloating PrimDouble))}])
+              (PrimFloating PrimDouble)),
+          functionSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_func.h"],
+            singleLocLine = 3,
+            singleLocColumn = 22}}])
