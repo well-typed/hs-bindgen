@@ -39,6 +39,8 @@ instance ToExpr C.Macro
 instance ToExpr C.MacroDecl
 instance ToExpr C.MTerm
 instance ToExpr C.MultiLoc
+instance ToExpr C.OpaqueEnum
+instance ToExpr C.OpaqueStruct
 instance ToExpr C.PrimFloatType
 instance ToExpr C.PrimIntType
 instance ToExpr C.PrimSign

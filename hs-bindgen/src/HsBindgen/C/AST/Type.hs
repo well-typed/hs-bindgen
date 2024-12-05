@@ -12,9 +12,11 @@ module HsBindgen.C.AST.Type (
   , DefnName (..)
   , Struct(..)
   , StructField(..)
+  , OpaqueStruct(..)
     -- * Enums
   , Enu(..)
   , EnumValue(..)
+  , OpaqueEnum(..)
     -- * Typedefs
   , Typedef(..)
   ) where
@@ -148,6 +150,18 @@ data StructField = StructField {
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
+-- | Opaque structure
+--
+-- An /opaque structure/ is a structure declaration that specifies neither
+-- members nor size.  Example:
+--
+-- > struct foo;
+data OpaqueStruct = OpaqueStruct {
+      opaqueStructTag :: CName
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
 {-------------------------------------------------------------------------------
   Enums
 -------------------------------------------------------------------------------}
@@ -165,6 +179,18 @@ data Enu = Enu {
 data EnumValue = EnumValue {
       valueName  :: CName
     , valueValue :: Integer
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+-- | Opaque enum
+--
+-- An /opaque enum/ is an enum declaration that specifies neither members nor
+-- size.  Example:
+--
+-- > enum foo;
+data OpaqueEnum = OpaqueEnum {
+      opaqueEnumTag :: CName
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
