@@ -1419,7 +1419,7 @@ clang_Type_getValueType typ = ensureValidType $
 --
 -- <https://clang.llvm.org/doxygen/structCXSourceRange.html>
 newtype CXSourceRange = CXSourceRange (OnHaskellHeap CXSourceRange_)
-  deriving newtype (LivesOnHaskellHeap, Preallocate)
+  deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
 
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorLocation"
   wrap_getCursorLocation :: R CXCursor_ -> W CXSourceLocation_ -> IO ()
@@ -1605,7 +1605,7 @@ index_CXCursorArray (CXCursorArray arr) i =
 --
 -- <https://clang.llvm.org/doxygen/structCXSourceLocation.html>
 newtype CXSourceLocation = CXSourceLocation (OnHaskellHeap CXSourceLocation_)
-  deriving newtype (LivesOnHaskellHeap, Preallocate)
+  deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
 
 -- | A particular source file that is part of a translation unit.
 --

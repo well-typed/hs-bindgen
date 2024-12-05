@@ -15,7 +15,7 @@ import Data.Word (Word8)
 import GHC.Exts qualified
 import GHC.Generics (from, (:*:) (..), M1 (..), K1 (..))
 import HsBindgen.Clang.Internal.ByValue (OnHaskellHeap (..))
-import HsBindgen.Clang.LowLevel.Core (CXType (..), CXCursor (..), cxtKind, clang_getCursorKind)
+import HsBindgen.Clang.LowLevel.Core (CXType (..), CXCursor (..), CXSourceLocation, clang_getPresumedLocation, cxtKind, clang_getCursorKind)
 import HsBindgen.Patterns (fromSimpleEnum)
 
 dtraceIO :: (MonadIO m, Repr a) => String -> a -> m ()
@@ -50,6 +50,8 @@ instance Show a => Repr (ReprShow a) where
 instance (Repr t1, Repr t2) => Repr (t1, t2) where repr = genericProductRepr . from
 instance (Repr t1, Repr t2, Repr t3) => Repr (t1, t2, t3) where repr = genericProductRepr . from
 instance (Repr t1, Repr t2, Repr t3, Repr t4) => Repr (t1, t2, t3, t4) where repr = genericProductRepr . from
+instance (Repr t1, Repr t2, Repr t3, Repr t4, Repr t5) => Repr (t1, t2, t3, t4, t5) where repr = genericProductRepr . from
+instance (Repr t1, Repr t2, Repr t3, Repr t4, Repr t5, Repr t6) => Repr (t1, t2, t3, t4, t5, t6) where repr = genericProductRepr . from
 
 -- | Generic @repr@ derivation for products, to help define tuple instances
 class GProductRepr f where genericProductRepr :: f a -> IO ([String] -> [String])
@@ -122,3 +124,9 @@ instance Repr CXType where
                 Left i  -> "CXType(" ++ show i ++")"
                 Right k' -> show k'
         return (\xs -> (r ++ "#" ++ reprOnHaskellHeap 8 bytes) : xs)
+
+instance Repr CXSourceLocation where
+    repr loc = do
+        (path, col, row) <- clang_getPresumedLocation loc
+        let r = shows path . showChar ':' . shows col . showChar ':' . shows row
+        return (\xs -> r "" : xs)
