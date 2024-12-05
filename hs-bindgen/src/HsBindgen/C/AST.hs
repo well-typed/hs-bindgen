@@ -103,7 +103,10 @@ data MacroDecl
 data Function = Function
     { functionName :: CName
     , functionType :: Type
-    -- TODO: add location
+
+    -- TODO: we might not need functionHeader field,
+    -- https://github.com/well-typed/hs-bindgen/issues/333
+    , functionHeader :: FilePath
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

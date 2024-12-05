@@ -9,7 +9,9 @@ WrapCHeader
               TypePrim
                 (PrimFloating PrimDouble)]
             (TypePrim
-              (PrimFloating PrimDouble))},
+              (PrimFloating PrimDouble)),
+          functionHeader =
+          "simple_func.h"},
       DeclFunction
         Function {
           functionName = CName "bad_fma",
@@ -22,4 +24,6 @@ WrapCHeader
               TypePrim
                 (PrimFloating PrimDouble)]
             (TypePrim
-              (PrimFloating PrimDouble))}])
+              (PrimFloating PrimDouble)),
+          functionHeader =
+          "simple_func.h"}])

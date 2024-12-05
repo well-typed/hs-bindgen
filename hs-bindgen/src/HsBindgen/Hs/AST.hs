@@ -40,6 +40,8 @@ module HsBindgen.Hs.AST (
   , VarDeclRHSAppHead(..)
     -- ** Newtype instances
   , TypeClass (..)
+    -- ** Foreign imports
+  , ForeignImportDecl (..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -84,6 +86,15 @@ data Newtype = Newtype {
 
 deriving stock instance Show Newtype
 
+data ForeignImportDecl = ForeignImportDecl
+    { foreignImportName     :: HsName NsVar
+    , foreignImportType     :: HsType
+    , foreignImportOrigName :: Text
+    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    }
+
+deriving stock instance Show ForeignImportDecl
+
 {-------------------------------------------------------------------------------
   Variable binding
 -------------------------------------------------------------------------------}
@@ -113,6 +124,7 @@ data Decl where
     DeclNewtype         :: Newtype -> Decl
     DeclInstance        :: InstanceDecl -> Decl
     DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
+    DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
 
 deriving instance Show Decl

@@ -12,6 +12,8 @@ a_DEFINE_2 :: forall a_0 . Integral a_0 => a_0
 a_DEFINE_2 = 2
 tWO_ARGS :: forall a_0 . Integral a_0 => a_0
 tWO_ARGS = 13398
+foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr CATypeT ->
+                                                                  CUint32T -> Void -> IO CInt32T
 data CAnotherTypedefStructT
     = MkCAnotherTypedefStructT {cAnotherTypedefStructT_foo :: CInt,
                                 cAnotherTypedefStructT_bar :: CChar}
