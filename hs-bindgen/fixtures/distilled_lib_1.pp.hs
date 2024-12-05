@@ -79,6 +79,12 @@ instance F.Storable CAnotherTypedefEnumE where
           MkCAnotherTypedefEnumE unCAnotherTypedefEnumE2 ->
             F.pokeByteOff ptr0 0 unCAnotherTypedefEnumE2
 
+pattern MkCFOO :: CAnotherTypedefEnumE
+pattern MkCFOO = MkCAnotherTypedefEnumE 0
+
+pattern MkCBAR :: CAnotherTypedefEnumE
+pattern MkCBAR = MkCAnotherTypedefEnumE 1
+
 newtype CATypeT = MkCATypeT
   { unCATypeT :: FC.CInt
   }
@@ -198,6 +204,18 @@ instance F.Storable CATypedefEnumE where
       \s1 ->
         case s1 of
           MkCATypedefEnumE unCATypedefEnumE2 -> F.pokeByteOff ptr0 0 unCATypedefEnumE2
+
+pattern MkCENUMCASE0 :: CATypedefEnumE
+pattern MkCENUMCASE0 = MkCATypedefEnumE 0
+
+pattern MkCENUMCASE1 :: CATypedefEnumE
+pattern MkCENUMCASE1 = MkCATypedefEnumE 1
+
+pattern MkCENUMCASE2 :: CATypedefEnumE
+pattern MkCENUMCASE2 = MkCATypedefEnumE 2
+
+pattern MkCENUMCASE3 :: CATypedefEnumE
+pattern MkCENUMCASE3 = MkCATypedefEnumE 3
 
 newtype CInt32T = MkCInt32T
   { unCInt32T :: FC.CInt

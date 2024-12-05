@@ -5,5 +5,9 @@ instance Storable CFoo
            peek = \ptr_0 -> pure MkCFoo <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCFoo unCFoo_3 -> pokeByteOff ptr_1 0 unCFoo_3}}
+pattern MkCFOO1 :: CFoo
+pattern MkCFOO1 = MkCFoo 0
+pattern MkCFOO2 :: CFoo
+pattern MkCFOO2 = MkCFoo 1
 newtype CFoo = MkCFoo {unCFoo :: CDouble}
 deriving newtype instance Storable CFoo

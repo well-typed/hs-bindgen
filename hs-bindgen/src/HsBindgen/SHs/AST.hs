@@ -12,6 +12,7 @@ module HsBindgen.SHs.AST (
     Record (..),
     Newtype (..),
     ForeignImport (..),
+    PatternSynonym (..),
 ) where
 
 import HsBindgen.Imports
@@ -94,7 +95,7 @@ data SExpr ctx =
   | EBound (Idx ctx)
   | EFree (HsName NsVar)
   | ECon (HsName NsConstr)
-  | EIntegral Integer HsPrimType
+  | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float
   | EDouble Double
   | EApp (SExpr ctx) (SExpr ctx)
@@ -105,9 +106,9 @@ data SExpr ctx =
   deriving stock (Show)
 
 pattern EInt :: Int -> SExpr be
-pattern EInt i <- EIntegral (fromInteger -> i) HsPrimCInt
+pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimCInt)
   where
-    EInt i = EIntegral (fromIntegral i) HsPrimCInt
+    EInt i = EIntegral (fromIntegral i) (Just HsPrimCInt)
 
 -- | Case alternatives
 data SAlt ctx where
@@ -124,6 +125,7 @@ data SDecl =
   | DEmptyData (HsName NsTypeConstr)
   | DDerivingNewtypeInstance ClosedType
   | DForeignImport ForeignImport
+  | DPatternSynonym PatternSynonym
   deriving stock (Show)
 
 type ClosedType = SType EmptyCtx
@@ -168,5 +170,12 @@ data ForeignImport = ForeignImport
     , foreignImportType     :: ClosedType
     , foreignImportOrigName :: Text
     , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    }
+  deriving stock (Show)
+
+data PatternSynonym = PatternSynonym
+    { patSynName :: HsName NsConstr
+    , patSynType :: ClosedType
+    , patSynRHS  :: ClosedExpr -- TODO: This should be Pat(tern)
     }
   deriving stock (Show)

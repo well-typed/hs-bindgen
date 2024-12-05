@@ -118,6 +118,9 @@ resolveDeclImports = \case
     DNewtype Newtype{..} -> resolveTypeImports newtypeType
     DDerivingNewtypeInstance ty -> resolveTypeImports ty
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
+    DPatternSynonym PatternSynonym {..} ->
+        resolveTypeImports patSynType <>
+        resolveExprImports patSynRHS
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc

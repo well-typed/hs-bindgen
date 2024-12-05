@@ -129,6 +129,11 @@ instance Pretty SDecl where
 
     DDerivingNewtypeInstance t -> "deriving newtype instance" <+> pretty t
 
+    DPatternSynonym PatternSynonym {..} -> vcat
+      [ "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
+      , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
+      ]
+
 {-------------------------------------------------------------------------------
   Type pretty-printing
 -------------------------------------------------------------------------------}
@@ -168,7 +173,7 @@ prettyExpr env prec = \case
     EFree x  -> pretty x
     ECon n   -> pretty n
 
-    EIntegral i _ -> showToCtxDoc i
+    EIntegral i _ -> showToCtxDoc i -- TODO: why we have type annotation if we don't use it?
     EFloat f
       | canBeRepresentedAsRational f
       -> showToCtxDoc f
@@ -177,7 +182,7 @@ prettyExpr env prec = \case
         prettyExpr env prec $
           EApp (EGlobal CFloat_constructor) $
             EApp (EGlobal GHC_Float_castWord32ToFloat) $
-              EIntegral (toInteger $ castFloatToWord32 f) HsPrimCUInt
+              EIntegral (toInteger $ castFloatToWord32 f) (Just HsPrimCUInt)
     EDouble f
       | canBeRepresentedAsRational f
       -> showToCtxDoc f
@@ -186,7 +191,7 @@ prettyExpr env prec = \case
         prettyExpr env  prec $
           EApp (EGlobal CDouble_constructor) $
             EApp (EGlobal GHC_Float_castWord64ToDouble) $
-              EIntegral (toInteger $ castDoubleToWord64 f) HsPrimCULong
+              EIntegral (toInteger $ castDoubleToWord64 f) (Just HsPrimCULong)
 
     EApp f x -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
 

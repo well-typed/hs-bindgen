@@ -5,3 +5,7 @@ instance Storable CMyEnum
            peek = \ptr_0 -> pure MkCMyEnum <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCMyEnum unCMyEnum_3 -> pokeByteOff ptr_1 0 unCMyEnum_3}}
+pattern MkCSay你好 :: CMyEnum
+pattern MkCSay你好 = MkCMyEnum 0
+pattern MkCSay拜拜 :: CMyEnum
+pattern MkCSay拜拜 = MkCMyEnum 1

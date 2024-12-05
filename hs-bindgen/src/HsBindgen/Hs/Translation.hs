@@ -148,25 +148,23 @@ enumDecs :: C.Enu -> [Hs.Decl]
 enumDecs e = [
       Hs.DeclNewtype newtype_
     , Hs.DeclInstance $ Hs.InstanceStorable hs storable
-    ]
+    ] ++ valueDecls
   where
+    cEnumName          = C.enumTag e
+    nm@NameMangler{..} = defaultNameMangler
+    typeConstrCtx      = TypeConstrContext cEnumName
+    newtypeName        = mangleTypeConstrName typeConstrCtx
+    newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeType        = typ nm (C.enumType e)
+
     newtype_ :: Hs.Newtype
     newtype_ =
-      let cEnumName = C.enumTag e
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cEnumName
-          newtypeName = mangleTypeConstrName typeConstrCtx
-          newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-          newtypeType    = typ nm (C.enumType e)
+      let newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
       in Hs.Newtype {..}
 
     hs :: Hs.Struct (S Z)
     hs =
-      let cEnumName = C.enumTag e
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cEnumName
-          structName = mangleTypeConstrName typeConstrCtx
+      let structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           structFields = Vec.singleton
             ( mangleVarName $ EnumVarContext typeConstrCtx
@@ -190,6 +188,18 @@ enumDecs e = [
     poke :: Idx ctx -> Int -> Idx ctx -> Hs.PokeByteOff ctx
     poke = Hs.PokeByteOff
 
+    valueDecls :: [Hs.Decl]
+    valueDecls =
+        [ Hs.DeclPatSyn Hs.PatSyn
+          { patSynName   = mangleConstrName $ ConstrContext $ TypeConstrContext valueName
+          , patSynType   = newtypeName
+          , patSynConstr = newtypeConstr
+          , patSynValue  = valueValue
+
+          }
+        | C.EnumValue {..} <- C.enumValues e
+        ]
+
 {-------------------------------------------------------------------------------
   Typedef
 -------------------------------------------------------------------------------}
@@ -211,6 +221,8 @@ typedefDecs d = [
         newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
         newtypeField  = mangleVarName $ EnumVarContext typeConstrCtx
         newtypeType   = typ nm (C.typedefType d)
+
+
 
 {-------------------------------------------------------------------------------
   Macros

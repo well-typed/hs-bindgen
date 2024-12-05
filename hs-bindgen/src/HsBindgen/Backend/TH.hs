@@ -173,6 +173,25 @@ mkExpr env = \case
                          | SAlt c add hints b <- alts
                          ]
 
+mkPat :: Quote q => SExpr EmptyCtx -> q TH.Pat
+mkPat = \case
+    EGlobal {}    -> error "unexpected"
+    EFree {}      -> error "cannot happen"
+    EBound {}     -> error "cannot happen"
+    EFloat {}     -> error "cannot happen"
+    EDouble {}    -> error "cannot happen"
+    EInfix {}     -> error "cannot happen"
+    ELam {}       -> error "cannot happen"
+    EUnusedLam {} -> error "cannot happen"
+    ECase {}      -> error "cannot happen"
+    EApp f t      -> liftA2 appP (mkPat f) (mkPat t)
+    ECon n        -> hsConP n []
+    EIntegral i _ -> TH.litP (TH.IntegerL i)
+  where
+    appP :: TH.Pat -> TH.Pat -> TH.Pat
+    appP (TH.ConP n ts xs) p = TH.ConP n ts (xs ++ [p])
+    appP _                 _ = error "cannot happen"
+
 mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkType env = \case
     TGlobal n -> TH.conT (mkGlobal n)
@@ -231,6 +250,17 @@ mkDecl = \case
               (hsNameToTH foreignImportName)
               <$>
               (mkType EmptyEnv foreignImportType)
+
+      DPatternSynonym ps -> sequence
+          [ TH.patSynSigD
+            (hsNameToTH (patSynName ps))
+            (mkType EmptyEnv (patSynType ps))
+          , TH.patSynD
+            (hsNameToTH (patSynName ps))
+            (TH.prefixPatSyn [])
+            TH.implBidir
+            (mkPat (patSynRHS ps))
+          ]
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
