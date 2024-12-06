@@ -224,6 +224,13 @@ mkDecl = \case
 
       DDerivingNewtypeInstance ty ->
           singleton <$> TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType EmptyEnv ty)
+
+      DForeignImport ForeignImport {..} ->
+           singleton . TH.ForeignD . TH.ImportF TH.CApi TH.Safe
+              (foreignImportHeader ++ " " ++ Text.unpack foreignImportOrigName) -- TODO: header
+              (hsNameToTH foreignImportName)
+              <$>
+              (mkType EmptyEnv foreignImportType)
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []

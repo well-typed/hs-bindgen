@@ -297,7 +297,16 @@ floatingType = \case
 -------------------------------------------------------------------------------}
 
 functionDecs :: C.Function -> [Hs.Decl]
-functionDecs _ = [] -- TODO
+functionDecs f =
+    [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
+        { foreignImportName     = mangleVarName nm $ VarContext $ C.functionName f
+        , foreignImportType     = typ nm $ C.functionType f
+        , foreignImportOrigName = C.getCName (C.functionName f)
+        , foreignImportHeader   = C.functionHeader f  -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+        }
+    ]
+  where
+    nm = defaultNameMangler
 
 {-------------------------------------------------------------------------------
   Macro

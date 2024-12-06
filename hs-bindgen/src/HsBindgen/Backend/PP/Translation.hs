@@ -117,6 +117,7 @@ resolveDeclImports = \case
     DEmptyData _name -> mempty
     DNewtype Newtype{..} -> resolveTypeImports newtypeType
     DDerivingNewtypeInstance ty -> resolveTypeImports ty
+    DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc

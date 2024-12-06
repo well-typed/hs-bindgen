@@ -123,6 +123,10 @@ instance Pretty SDecl where
             [ hsep [pretty newtypeField, "::", pretty newtypeType]
             ]
 
+    DForeignImport ForeignImport{..} ->
+      let importStr = foreignImportHeader ++ " " ++ Text.unpack foreignImportOrigName
+      in "foreign import capi safe" <+> fromString (show importStr) <+> pretty foreignImportName <+> "::" <+> pretty foreignImportType
+
     DDerivingNewtypeInstance t -> "deriving newtype instance" <+> pretty t
 
 {-------------------------------------------------------------------------------

@@ -511,8 +511,9 @@ WrapCHeader
                   (CName "a_type_t")),
               TypeTypedef (CName "uint32_t"),
               TypePrim PrimVoid]
-            (TypeTypedef
-              (CName "int32_t"))},
+            (TypeTypedef (CName "int32_t")),
+          functionHeader =
+          "distilled_lib_1.h"},
       DeclStruct
         Struct {
           structTag = DefnName

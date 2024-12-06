@@ -1,0 +1,2 @@
+DeclForeignImport (ForeignImportDecl {foreignImportName = "erf", foreignImportType = HsFun (HsPrimType HsPrimCDouble) (HsIO (HsPrimType HsPrimCDouble)), foreignImportOrigName = "erf", foreignImportHeader = "simple_func.h"})
+DeclForeignImport (ForeignImportDecl {foreignImportName = "bad_fma", foreignImportType = HsFun (HsPrimType HsPrimCDouble) (HsFun (HsPrimType HsPrimCDouble) (HsFun (HsPrimType HsPrimCDouble) (HsIO (HsPrimType HsPrimCDouble)))), foreignImportOrigName = "bad_fma", foreignImportHeader = "simple_func.h"})

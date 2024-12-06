@@ -30,6 +30,8 @@ a_DEFINE_2 = 2
 tWO_ARGS :: forall a0. P.Integral a0 => a0
 tWO_ARGS = 13398
 
+foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr CATypeT) -> CUint32T -> Void -> IO CInt32T
+
 data CAnotherTypedefStructT = MkCAnotherTypedefStructT
   { cAnotherTypedefStructT_foo :: FC.CInt
   , cAnotherTypedefStructT_bar :: FC.CChar

@@ -30,6 +30,7 @@ translateDecl (Hs.DeclNewtype n) = translateNewtype n
 translateDecl (Hs.DeclInstance i) = translateInstanceDecl i
 translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
+translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 
 translateInstanceDecl :: Hs.InstanceDecl -> SDecl
 translateInstanceDecl (Hs.InstanceStorable struct i) =
@@ -67,6 +68,14 @@ translateVarDecl Hs.VarDecl {..} = DVar
     varDeclName
     (Just (translateSigma varDeclType))
     (translateBody varDeclBody)
+
+translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
+translateForeignImportDecl Hs.ForeignImportDecl {..} = DForeignImport ForeignImport
+    { foreignImportName     = foreignImportName
+    , foreignImportType     = translateType foreignImportType
+    , foreignImportOrigName = foreignImportOrigName
+    , foreignImportHeader   = foreignImportHeader
+    }
 
 {-------------------------------------------------------------------------------
   Types

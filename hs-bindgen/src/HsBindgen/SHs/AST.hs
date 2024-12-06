@@ -11,6 +11,7 @@ module HsBindgen.SHs.AST (
     Instance (..),
     Record (..),
     Newtype (..),
+    ForeignImport (..),
 ) where
 
 import HsBindgen.Imports
@@ -122,6 +123,7 @@ data SDecl =
   | DNewtype Newtype
   | DEmptyData (HsName NsTypeConstr)
   | DDerivingNewtypeInstance ClosedType
+  | DForeignImport ForeignImport
   deriving stock (Show)
 
 type ClosedType = SType EmptyCtx
@@ -158,5 +160,13 @@ data Newtype = Newtype {
     , newtypeCon    :: HsName NsConstr
     , newtypeField  :: HsName NsVar
     , newtypeType   :: ClosedType
+    }
+  deriving stock (Show)
+
+data ForeignImport = ForeignImport
+    { foreignImportName     :: HsName NsVar
+    , foreignImportType     :: ClosedType
+    , foreignImportOrigName :: Text
+    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
     }
   deriving stock (Show)

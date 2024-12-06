@@ -6,6 +6,8 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
+import Data.Text qualified as Text
+import System.FilePath (takeFileName)
 
 import HsBindgen.Imports
 import HsBindgen.Eff
@@ -69,12 +71,13 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
         ty' <- processTypeDecl unit ty
-
-        -- dtraceIO "fdecl" (current, spelling, ty, ReprShow ty')
+        loc <- liftIO $ clang_getCursorLocation current
+        (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
-          { functionName = CName spelling
-          , functionType = ty'
+          { functionName   = CName spelling
+          , functionType   = ty'
+          , functionHeader = takeFileName (Text.unpack path)
           }
 
       Right CXCursor_VarDecl -> do
