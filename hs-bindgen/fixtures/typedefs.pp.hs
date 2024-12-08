@@ -8,14 +8,14 @@ module Example where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 
-newtype CMyint = MkCMyint
-  { unCMyint :: FC.CInt
+newtype Myint = Myint
+  { unMyint :: FC.CInt
   }
 
-deriving newtype instance F.Storable CMyint
+deriving newtype instance F.Storable Myint
 
-newtype CIntptr = MkCIntptr
-  { unCIntptr :: F.Ptr FC.CInt
+newtype Intptr = Intptr
+  { unIntptr :: F.Ptr FC.CInt
   }
 
-deriving newtype instance F.Storable CIntptr
+deriving newtype instance F.Storable Intptr

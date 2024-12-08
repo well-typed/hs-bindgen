@@ -1,20 +1,20 @@
-newtype CM1 = MkCM1 {unCM1 :: CInt}
-newtype CM2 = MkCM2 {unCM2 :: CChar}
-newtype CT1 = MkCT1 {unCT1 :: CInt}
-deriving newtype instance Storable CT1
-newtype CT2 = MkCT2 {unCT2 :: CChar}
-deriving newtype instance Storable CT2
-data CExampleStruct
-    = MkCExampleStruct {cExampleStruct_t1 :: CT1,
-                        cExampleStruct_t2 :: CT2,
-                        cExampleStruct_m1 :: CM1,
-                        cExampleStruct_m2 :: CM2}
-instance Storable CExampleStruct
+newtype M1 = M1 {unM1 :: CInt}
+newtype M2 = M2 {unM2 :: CChar}
+newtype T1 = T1 {unT1 :: CInt}
+deriving newtype instance Storable T1
+newtype T2 = T2 {unT2 :: CChar}
+deriving newtype instance Storable T2
+data ExampleStruct
+    = ExampleStruct {exampleStruct_t1 :: T1,
+                     exampleStruct_t2 :: T2,
+                     exampleStruct_m1 :: M1,
+                     exampleStruct_m2 :: M2}
+instance Storable ExampleStruct
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (((pure MkCExampleStruct <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8) <*> peekByteOff ptr_0 12;
+           peek = \ptr_0 -> (((pure ExampleStruct <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8) <*> peekByteOff ptr_0 12;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCExampleStruct cExampleStruct_t1_3
-                                                      cExampleStruct_t2_4
-                                                      cExampleStruct_m1_5
-                                                      cExampleStruct_m2_6 -> pokeByteOff ptr_1 0 cExampleStruct_t1_3 >> (pokeByteOff ptr_1 4 cExampleStruct_t2_4 >> (pokeByteOff ptr_1 8 cExampleStruct_m1_5 >> pokeByteOff ptr_1 12 cExampleStruct_m2_6))}}
+                                    {ExampleStruct exampleStruct_t1_3
+                                                   exampleStruct_t2_4
+                                                   exampleStruct_m1_5
+                                                   exampleStruct_m2_6 -> pokeByteOff ptr_1 0 exampleStruct_t1_3 >> (pokeByteOff ptr_1 4 exampleStruct_t2_4 >> (pokeByteOff ptr_1 8 exampleStruct_m1_5 >> pokeByteOff ptr_1 12 exampleStruct_m2_6))}}

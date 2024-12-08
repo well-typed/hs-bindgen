@@ -10,11 +10,11 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), pure)
 
-newtype CFirst = MkCFirst
-  { unCFirst :: FC.CUInt
+newtype First = First
+  { unFirst :: FC.CUInt
   }
 
-instance F.Storable CFirst where
+instance F.Storable First where
 
   sizeOf = \_ -> 4
 
@@ -22,26 +22,26 @@ instance F.Storable CFirst where
 
   peek =
     \ptr0 ->
-          pure MkCFirst
+          pure First
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCFirst unCFirst2 -> F.pokeByteOff ptr0 0 unCFirst2
+          First unFirst2 -> F.pokeByteOff ptr0 0 unFirst2
 
-pattern MkCFIRST1 :: CFirst
-pattern MkCFIRST1 = MkCFirst 0
+pattern FIRST1 :: First
+pattern FIRST1 = First 0
 
-pattern MkCFIRST2 :: CFirst
-pattern MkCFIRST2 = MkCFirst 1
+pattern FIRST2 :: First
+pattern FIRST2 = First 1
 
-newtype CSecond = MkCSecond
-  { unCSecond :: FC.CInt
+newtype Second = Second
+  { unSecond :: FC.CInt
   }
 
-instance F.Storable CSecond where
+instance F.Storable Second where
 
   sizeOf = \_ -> 4
 
@@ -49,29 +49,29 @@ instance F.Storable CSecond where
 
   peek =
     \ptr0 ->
-          pure MkCSecond
+          pure Second
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCSecond unCSecond2 -> F.pokeByteOff ptr0 0 unCSecond2
+          Second unSecond2 -> F.pokeByteOff ptr0 0 unSecond2
 
-pattern MkCSECONDA :: CSecond
-pattern MkCSECONDA = MkCSecond (-1)
+pattern SECOND_A :: Second
+pattern SECOND_A = Second (-1)
 
-pattern MkCSECONDB :: CSecond
-pattern MkCSECONDB = MkCSecond 0
+pattern SECOND_B :: Second
+pattern SECOND_B = Second 0
 
-pattern MkCSECONDC :: CSecond
-pattern MkCSECONDC = MkCSecond 1
+pattern SECOND_C :: Second
+pattern SECOND_C = Second 1
 
-newtype CSame = MkCSame
-  { unCSame :: FC.CUInt
+newtype Same = Same
+  { unSame :: FC.CUInt
   }
 
-instance F.Storable CSame where
+instance F.Storable Same where
 
   sizeOf = \_ -> 4
 
@@ -79,26 +79,26 @@ instance F.Storable CSame where
 
   peek =
     \ptr0 ->
-          pure MkCSame
+          pure Same
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCSame unCSame2 -> F.pokeByteOff ptr0 0 unCSame2
+          Same unSame2 -> F.pokeByteOff ptr0 0 unSame2
 
-pattern MkCSAMEA :: CSame
-pattern MkCSAMEA = MkCSame 1
+pattern SAME_A :: Same
+pattern SAME_A = Same 1
 
-pattern MkCSAMEB :: CSame
-pattern MkCSAMEB = MkCSame 1
+pattern SAME_B :: Same
+pattern SAME_B = Same 1
 
-newtype CPackad = MkCPackad
-  { unCPackad :: FC.CSChar
+newtype Packad = Packad
+  { unPackad :: FC.CSChar
   }
 
-instance F.Storable CPackad where
+instance F.Storable Packad where
 
   sizeOf = \_ -> 1
 
@@ -106,29 +106,29 @@ instance F.Storable CPackad where
 
   peek =
     \ptr0 ->
-          pure MkCPackad
+          pure Packad
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCPackad unCPackad2 -> F.pokeByteOff ptr0 0 unCPackad2
+          Packad unPackad2 -> F.pokeByteOff ptr0 0 unPackad2
 
-pattern MkCPACKEDA :: CPackad
-pattern MkCPACKEDA = MkCPackad 0
+pattern PACKED_A :: Packad
+pattern PACKED_A = Packad 0
 
-pattern MkCPACKEDB :: CPackad
-pattern MkCPACKEDB = MkCPackad 1
+pattern PACKED_B :: Packad
+pattern PACKED_B = Packad 1
 
-pattern MkCPACKEDC :: CPackad
-pattern MkCPACKEDC = MkCPackad 2
+pattern PACKED_C :: Packad
+pattern PACKED_C = Packad 2
 
-newtype CEnumA = MkCEnumA
-  { unCEnumA :: FC.CUInt
+newtype EnumA = EnumA
+  { unEnumA :: FC.CUInt
   }
 
-instance F.Storable CEnumA where
+instance F.Storable EnumA where
 
   sizeOf = \_ -> 4
 
@@ -136,26 +136,26 @@ instance F.Storable CEnumA where
 
   peek =
     \ptr0 ->
-          pure MkCEnumA
+          pure EnumA
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCEnumA unCEnumA2 -> F.pokeByteOff ptr0 0 unCEnumA2
+          EnumA unEnumA2 -> F.pokeByteOff ptr0 0 unEnumA2
 
-pattern MkCAFOO :: CEnumA
-pattern MkCAFOO = MkCEnumA 0
+pattern A_FOO :: EnumA
+pattern A_FOO = EnumA 0
 
-pattern MkCABAR :: CEnumA
-pattern MkCABAR = MkCEnumA 1
+pattern A_BAR :: EnumA
+pattern A_BAR = EnumA 1
 
-newtype CEnumB = MkCEnumB
-  { unCEnumB :: FC.CUInt
+newtype EnumB = EnumB
+  { unEnumB :: FC.CUInt
   }
 
-instance F.Storable CEnumB where
+instance F.Storable EnumB where
 
   sizeOf = \_ -> 4
 
@@ -163,26 +163,26 @@ instance F.Storable CEnumB where
 
   peek =
     \ptr0 ->
-          pure MkCEnumB
+          pure EnumB
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCEnumB unCEnumB2 -> F.pokeByteOff ptr0 0 unCEnumB2
+          EnumB unEnumB2 -> F.pokeByteOff ptr0 0 unEnumB2
 
-pattern MkCBFOO :: CEnumB
-pattern MkCBFOO = MkCEnumB 0
+pattern B_FOO :: EnumB
+pattern B_FOO = EnumB 0
 
-pattern MkCBBAR :: CEnumB
-pattern MkCBBAR = MkCEnumB 1
+pattern B_BAR :: EnumB
+pattern B_BAR = EnumB 1
 
-newtype CEnumC = MkCEnumC
-  { unCEnumC :: FC.CUInt
+newtype EnumC = EnumC
+  { unEnumC :: FC.CUInt
   }
 
-instance F.Storable CEnumC where
+instance F.Storable EnumC where
 
   sizeOf = \_ -> 4
 
@@ -190,26 +190,26 @@ instance F.Storable CEnumC where
 
   peek =
     \ptr0 ->
-          pure MkCEnumC
+          pure EnumC
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCEnumC unCEnumC2 -> F.pokeByteOff ptr0 0 unCEnumC2
+          EnumC unEnumC2 -> F.pokeByteOff ptr0 0 unEnumC2
 
-pattern MkCCFOO :: CEnumC
-pattern MkCCFOO = MkCEnumC 0
+pattern C_FOO :: EnumC
+pattern C_FOO = EnumC 0
 
-pattern MkCCBAR :: CEnumC
-pattern MkCCBAR = MkCEnumC 1
+pattern C_BAR :: EnumC
+pattern C_BAR = EnumC 1
 
-newtype CEnumD = MkCEnumD
-  { unCEnumD :: FC.CUInt
+newtype EnumD = EnumD
+  { unEnumD :: FC.CUInt
   }
 
-instance F.Storable CEnumD where
+instance F.Storable EnumD where
 
   sizeOf = \_ -> 4
 
@@ -217,23 +217,23 @@ instance F.Storable CEnumD where
 
   peek =
     \ptr0 ->
-          pure MkCEnumD
+          pure EnumD
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCEnumD unCEnumD2 -> F.pokeByteOff ptr0 0 unCEnumD2
+          EnumD unEnumD2 -> F.pokeByteOff ptr0 0 unEnumD2
 
-pattern MkCDFOO :: CEnumD
-pattern MkCDFOO = MkCEnumD 0
+pattern D_FOO :: EnumD
+pattern D_FOO = EnumD 0
 
-pattern MkCDBAR :: CEnumD
-pattern MkCDBAR = MkCEnumD 1
+pattern D_BAR :: EnumD
+pattern D_BAR = EnumD 1
 
-newtype CEnumDT = MkCEnumDT
-  { unCEnumDT :: CEnumD
+newtype EnumD_t = EnumD_t
+  { unEnumD_t :: EnumD
   }
 
-deriving newtype instance F.Storable CEnumDT
+deriving newtype instance F.Storable EnumD_t

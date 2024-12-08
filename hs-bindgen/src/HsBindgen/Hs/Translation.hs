@@ -98,7 +98,7 @@ structDecs struct fields =
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           structFields = flip Vec.map fields $ \f -> Hs.Field {
               fieldName = mangleVarName $
-                FieldVarContext typeConstrCtx True (C.fieldName f)
+                FieldVarContext typeConstrCtx (C.fieldName f)
             , fieldType = typ nm (C.fieldType f)
             }
       in  Hs.Struct{..}

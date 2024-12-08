@@ -1,16 +1,16 @@
-data CFoo = MkCFoo {cFoo_i :: CInt, cFoo_c :: CChar}
-instance Storable CFoo
+data Foo = Foo {foo_i :: CInt, foo_c :: CChar}
+instance Storable Foo
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCFoo <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCFoo cFoo_i_3
-                                            cFoo_c_4 -> pokeByteOff ptr_1 0 cFoo_i_3 >> pokeByteOff ptr_1 4 cFoo_c_4}}
-data CBar = MkCBar {cBar_foo1 :: CFoo, cBar_foo2 :: CFoo}
-instance Storable CBar
+                                    {Foo foo_i_3
+                                         foo_c_4 -> pokeByteOff ptr_1 0 foo_i_3 >> pokeByteOff ptr_1 4 foo_c_4}}
+data Bar = Bar {bar_foo1 :: Foo, bar_foo2 :: Foo}
+instance Storable Bar
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCBar <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCBar cBar_foo1_3
-                                            cBar_foo2_4 -> pokeByteOff ptr_1 0 cBar_foo1_3 >> pokeByteOff ptr_1 8 cBar_foo2_4}}
+                                    {Bar bar_foo1_3
+                                         bar_foo2_4 -> pokeByteOff ptr_1 0 bar_foo1_3 >> pokeByteOff ptr_1 8 bar_foo2_4}}

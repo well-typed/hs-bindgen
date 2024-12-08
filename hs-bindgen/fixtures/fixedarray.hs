@@ -1,2 +1,2 @@
-DeclNewtype (Newtype {newtypeName = "CTriple", newtypeConstr = "MkCTriple", newtypeField = Field {fieldName = "unCTriple", fieldType = HsConstArray 3 (HsPrimType HsPrimCInt)}})
-DeclNewtypeInstance Storable "CTriple"
+DeclNewtype (Newtype {newtypeName = "Triple", newtypeConstr = "Triple", newtypeField = Field {fieldName = "unTriple", fieldType = HsConstArray 3 (HsPrimType HsPrimCInt)}})
+DeclNewtypeInstance Storable "Triple"
