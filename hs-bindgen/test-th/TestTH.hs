@@ -11,7 +11,7 @@ import Foreign
 main :: IO ()
 main = defaultMain $ testGroup "test-th"
     [ testCase "constants" $ do
-        sizeOf (undefined :: CMyStruct) @?= 8
-        alignment (undefined :: CMyStruct) @?= 4
+        sizeOf (undefined :: MyStruct) @?= 8
+        alignment (undefined :: MyStruct) @?= 4
     ]
 

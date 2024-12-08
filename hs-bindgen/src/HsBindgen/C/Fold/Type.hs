@@ -60,7 +60,7 @@ mkDefnName = DefnName . CName . go where
     -- TODO: temporary, expose name structure as is in DefnName
     go :: Path -> Text
     go PathTop = "ANONYMOUS" -- shouldn't happen
-    go (PathField n p) = go p <> getCName n
+    go (PathField n p) = go p <> "_" <> getCName n
     go (PathStruct Nothing p) = go p
     go (PathStruct (Just n) _) = getCName n
 

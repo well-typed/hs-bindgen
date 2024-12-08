@@ -1,40 +1,40 @@
-data CS1c = MkCS1c {cS1c_a :: CInt, cS1c_b :: CInt}
-instance Storable CS1c
+data S1_c = S1_c {s1_c_a :: CInt, s1_c_b :: CInt}
+instance Storable S1_c
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS1c <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure S1_c <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS1c cS1c_a_3
-                                            cS1c_b_4 -> pokeByteOff ptr_1 0 cS1c_a_3 >> pokeByteOff ptr_1 4 cS1c_b_4}}
-data CS1 = MkCS1 {cS1_c :: CS1c, cS1_d :: CInt}
-instance Storable CS1
+                                    {S1_c s1_c_a_3
+                                          s1_c_b_4 -> pokeByteOff ptr_1 0 s1_c_a_3 >> pokeByteOff ptr_1 4 s1_c_b_4}}
+data S1 = S1 {s1_c :: S1_c, s1_d :: CInt}
+instance Storable S1
     where {sizeOf = \_ -> 12;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure S1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS1 cS1_c_3
-                                           cS1_d_4 -> pokeByteOff ptr_1 0 cS1_c_3 >> pokeByteOff ptr_1 8 cS1_d_4}}
-data CS2innerdeep = MkCS2innerdeep {cS2innerdeep_b :: CInt}
-instance Storable CS2innerdeep
+                                    {S1 s1_c_3
+                                        s1_d_4 -> pokeByteOff ptr_1 0 s1_c_3 >> pokeByteOff ptr_1 8 s1_d_4}}
+data S2_inner_deep = S2_inner_deep {s2_inner_deep_b :: CInt}
+instance Storable S2_inner_deep
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCS2innerdeep <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure S2_inner_deep <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS2innerdeep cS2innerdeep_b_3 -> pokeByteOff ptr_1 0 cS2innerdeep_b_3}}
-data CS2inner
-    = MkCS2inner {cS2inner_a :: CInt, cS2inner_deep :: CS2innerdeep}
-instance Storable CS2inner
+                                    {S2_inner_deep s2_inner_deep_b_3 -> pokeByteOff ptr_1 0 s2_inner_deep_b_3}}
+data S2_inner
+    = S2_inner {s2_inner_a :: CInt, s2_inner_deep :: S2_inner_deep}
+instance Storable S2_inner
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS2inner <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure S2_inner <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS2inner cS2inner_a_3
-                                                cS2inner_deep_4 -> pokeByteOff ptr_1 0 cS2inner_a_3 >> pokeByteOff ptr_1 4 cS2inner_deep_4}}
-data CS2 = MkCS2 {cS2_inner :: CS2inner, cS2_d :: CInt}
-instance Storable CS2
+                                    {S2_inner s2_inner_a_3
+                                              s2_inner_deep_4 -> pokeByteOff ptr_1 0 s2_inner_a_3 >> pokeByteOff ptr_1 4 s2_inner_deep_4}}
+data S2 = S2 {s2_inner :: S2_inner, s2_d :: CInt}
+instance Storable S2
     where {sizeOf = \_ -> 12;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure S2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS2 cS2_inner_3
-                                           cS2_d_4 -> pokeByteOff ptr_1 0 cS2_inner_3 >> pokeByteOff ptr_1 8 cS2_d_4}}
+                                    {S2 s2_inner_3
+                                        s2_d_4 -> pokeByteOff ptr_1 0 s2_inner_3 >> pokeByteOff ptr_1 8 s2_d_4}}
