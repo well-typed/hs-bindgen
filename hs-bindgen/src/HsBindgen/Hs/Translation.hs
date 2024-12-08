@@ -97,7 +97,7 @@ structDecs struct fields =
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           mkField f =
-            ( mangleVarName $ FieldVarContext typeConstrCtx True (C.fieldName f)
+            ( mangleVarName $ FieldVarContext typeConstrCtx (C.fieldName f)
             , typ nm (C.fieldType f)
             )
           structFields = Vec.map mkField fields

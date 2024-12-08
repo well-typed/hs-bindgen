@@ -1,25 +1,25 @@
-newtype CBOOL = MkCBOOL {unCBOOL :: CBool}
-data CBools1 = MkCBools1 {cBools1_x :: CBool, cBools1_y :: CBool}
-instance Storable CBools1
+newtype BOOL = BOOL {unBOOL :: CBool}
+data Bools1 = Bools1 {bools1_x :: CBool, bools1_y :: CBool}
+instance Storable Bools1
     where {sizeOf = \_ -> 2;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> (pure MkCBools1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
+           peek = \ptr_0 -> (pure Bools1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCBools1 cBools1_x_3
-                                               cBools1_y_4 -> pokeByteOff ptr_1 0 cBools1_x_3 >> pokeByteOff ptr_1 1 cBools1_y_4}}
-data CBools2 = MkCBools2 {cBools2_x :: CBool, cBools2_y :: CBool}
-instance Storable CBools2
+                                    {Bools1 bools1_x_3
+                                            bools1_y_4 -> pokeByteOff ptr_1 0 bools1_x_3 >> pokeByteOff ptr_1 1 bools1_y_4}}
+data Bools2 = Bools2 {bools2_x :: CBool, bools2_y :: CBool}
+instance Storable Bools2
     where {sizeOf = \_ -> 2;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> (pure MkCBools2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
+           peek = \ptr_0 -> (pure Bools2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCBools2 cBools2_x_3
-                                               cBools2_y_4 -> pokeByteOff ptr_1 0 cBools2_x_3 >> pokeByteOff ptr_1 1 cBools2_y_4}}
-data CBools3 = MkCBools3 {cBools3_x :: CBOOL, cBools3_y :: CBOOL}
-instance Storable CBools3
+                                    {Bools2 bools2_x_3
+                                            bools2_y_4 -> pokeByteOff ptr_1 0 bools2_x_3 >> pokeByteOff ptr_1 1 bools2_y_4}}
+data Bools3 = Bools3 {bools3_x :: BOOL, bools3_y :: BOOL}
+instance Storable Bools3
     where {sizeOf = \_ -> 2;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> (pure MkCBools3 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
+           peek = \ptr_0 -> (pure Bools3 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCBools3 cBools3_x_3
-                                               cBools3_y_4 -> pokeByteOff ptr_1 0 cBools3_x_3 >> pokeByteOff ptr_1 1 cBools3_y_4}}
+                                    {Bools3 bools3_x_3
+                                            bools3_y_4 -> pokeByteOff ptr_1 0 bools3_x_3 >> pokeByteOff ptr_1 1 bools3_y_4}}

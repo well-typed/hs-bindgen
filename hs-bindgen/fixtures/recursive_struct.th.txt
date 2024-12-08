@@ -1,23 +1,23 @@
-data CLinkedListAS
-    = MkCLinkedListAS {cLinkedListAS_x :: CInt,
-                       cLinkedListAS_next :: (Ptr CLinkedListAS)}
-instance Storable CLinkedListAS
+data Linked_list_A_s
+    = Linked_list_A_s {linked_list_A_s_x :: CInt,
+                       linked_list_A_s_next :: (Ptr Linked_list_A_s)}
+instance Storable Linked_list_A_s
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> (pure MkCLinkedListAS <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure Linked_list_A_s <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCLinkedListAS cLinkedListAS_x_3
-                                                     cLinkedListAS_next_4 -> pokeByteOff ptr_1 0 cLinkedListAS_x_3 >> pokeByteOff ptr_1 8 cLinkedListAS_next_4}}
-newtype CLinkedListAT
-    = MkCLinkedListAT {unCLinkedListAT :: CLinkedListAS}
-deriving newtype instance Storable CLinkedListAT
-data CLinkedListBT
-    = MkCLinkedListBT {cLinkedListBT_x :: CInt,
-                       cLinkedListBT_next :: (Ptr CLinkedListBT)}
-instance Storable CLinkedListBT
+                                    {Linked_list_A_s linked_list_A_s_x_3
+                                                     linked_list_A_s_next_4 -> pokeByteOff ptr_1 0 linked_list_A_s_x_3 >> pokeByteOff ptr_1 8 linked_list_A_s_next_4}}
+newtype Linked_list_A_t
+    = Linked_list_A_t {unLinked_list_A_t :: Linked_list_A_s}
+deriving newtype instance Storable Linked_list_A_t
+data Linked_list_B_t
+    = Linked_list_B_t {linked_list_B_t_x :: CInt,
+                       linked_list_B_t_next :: (Ptr Linked_list_B_t)}
+instance Storable Linked_list_B_t
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> (pure MkCLinkedListBT <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure Linked_list_B_t <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCLinkedListBT cLinkedListBT_x_3
-                                                     cLinkedListBT_next_4 -> pokeByteOff ptr_1 0 cLinkedListBT_x_3 >> pokeByteOff ptr_1 8 cLinkedListBT_next_4}}
+                                    {Linked_list_B_t linked_list_B_t_x_3
+                                                     linked_list_B_t_next_4 -> pokeByteOff ptr_1 0 linked_list_B_t_x_3 >> pokeByteOff ptr_1 8 linked_list_B_t_next_4}}

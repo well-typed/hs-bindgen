@@ -1,18 +1,17 @@
-data CFoo
-data CBar
-    = MkCBar {cBar_ptrA :: (Ptr CFoo), cBar_ptrB :: (Ptr CBar)}
-instance Storable CBar
+data Foo
+data Bar = Bar {bar_ptrA :: (Ptr Foo), bar_ptrB :: (Ptr Bar)}
+instance Storable Bar
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> (pure MkCBar <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCBar cBar_ptrA_3
-                                            cBar_ptrB_4 -> pokeByteOff ptr_1 0 cBar_ptrA_3 >> pokeByteOff ptr_1 8 cBar_ptrB_4}}
-data CBaz = MkCBaz {}
-instance Storable CBaz
+                                    {Bar bar_ptrA_3
+                                         bar_ptrB_4 -> pokeByteOff ptr_1 0 bar_ptrA_3 >> pokeByteOff ptr_1 8 bar_ptrB_4}}
+data Baz = Baz {}
+instance Storable Baz
     where {sizeOf = \_ -> 0;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> pure MkCBaz;
+           peek = \ptr_0 -> pure Baz;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCBaz -> return ()}}
-data CQuu
+                                    {Baz -> return ()}}
+data Quu
