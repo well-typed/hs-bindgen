@@ -1,4 +1,4 @@
-DeclNewtype (Newtype {newtypeName = "CMyint", newtypeConstr = "MkCMyint", newtypeField = "unCMyint", newtypeType = HsPrimType HsPrimCInt})
-DeclNewtypeInstance Storable "CMyint"
-DeclNewtype (Newtype {newtypeName = "CIntptr", newtypeConstr = "MkCIntptr", newtypeField = "unCIntptr", newtypeType = HsPtr (HsPrimType HsPrimCInt)})
-DeclNewtypeInstance Storable "CIntptr"
+DeclNewtype (Newtype {newtypeName = "Myint", newtypeConstr = "Myint", newtypeField = "unMyint", newtypeType = HsPrimType HsPrimCInt})
+DeclNewtypeInstance Storable "Myint"
+DeclNewtype (Newtype {newtypeName = "Intptr", newtypeConstr = "Intptr", newtypeField = "unIntptr", newtypeType = HsPtr (HsPrimType HsPrimCInt)})
+DeclNewtypeInstance Storable "Intptr"

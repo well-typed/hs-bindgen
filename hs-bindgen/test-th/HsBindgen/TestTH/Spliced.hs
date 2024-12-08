@@ -13,11 +13,11 @@ $(runIO (findPackageDirectory "hs-bindgen") >>= \dir -> templateHaskell (dir </>
 
 -- usage
 
-val :: CMyStruct
-val = MkCMyStruct
-    { cMyStruct_field1 = 0
-    , cMyStruct_field2 = 1
+val :: MyStruct
+val = MyStruct
+    { myStruct_field1 = 0
+    , myStruct_field2 = 1
     }
 
-pokeVal :: Ptr CMyStruct -> IO ()
+pokeVal :: Ptr MyStruct -> IO ()
 pokeVal ptr = poke ptr val

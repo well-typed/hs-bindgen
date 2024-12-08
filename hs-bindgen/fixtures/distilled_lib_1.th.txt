@@ -12,90 +12,90 @@ a_DEFINE_2 :: forall a_0 . Integral a_0 => a_0
 a_DEFINE_2 = 2
 tWO_ARGS :: forall a_0 . Integral a_0 => a_0
 tWO_ARGS = 13398
-foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr CATypeT ->
-                                                                  CUint32T -> Void -> IO CInt32T
-data CAnotherTypedefStructT
-    = MkCAnotherTypedefStructT {cAnotherTypedefStructT_foo :: CInt,
-                                cAnotherTypedefStructT_bar :: CChar}
-instance Storable CAnotherTypedefStructT
+foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr A_type_t ->
+                                                                  Uint32_t -> Void -> IO Int32_t
+data Another_typedef_struct_t
+    = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
+                                another_typedef_struct_t_bar :: CChar}
+instance Storable Another_typedef_struct_t
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCAnotherTypedefStructT <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCAnotherTypedefStructT cAnotherTypedefStructT_foo_3
-                                                              cAnotherTypedefStructT_bar_4 -> pokeByteOff ptr_1 0 cAnotherTypedefStructT_foo_3 >> pokeByteOff ptr_1 4 cAnotherTypedefStructT_bar_4}}
-newtype CAnotherTypedefEnumE
-    = MkCAnotherTypedefEnumE {unCAnotherTypedefEnumE :: CUInt}
-instance Storable CAnotherTypedefEnumE
+                                    {Another_typedef_struct_t another_typedef_struct_t_foo_3
+                                                              another_typedef_struct_t_bar_4 -> pokeByteOff ptr_1 0 another_typedef_struct_t_foo_3 >> pokeByteOff ptr_1 4 another_typedef_struct_t_bar_4}}
+newtype Another_typedef_enum_e
+    = Another_typedef_enum_e {unAnother_typedef_enum_e :: CUInt}
+instance Storable Another_typedef_enum_e
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCAnotherTypedefEnumE <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCAnotherTypedefEnumE unCAnotherTypedefEnumE_3 -> pokeByteOff ptr_1 0 unCAnotherTypedefEnumE_3}}
-pattern MkCFOO :: CAnotherTypedefEnumE
-pattern MkCFOO = MkCAnotherTypedefEnumE 0
-pattern MkCBAR :: CAnotherTypedefEnumE
-pattern MkCBAR = MkCAnotherTypedefEnumE 1
-newtype CATypeT = MkCATypeT {unCATypeT :: CInt}
-deriving newtype instance Storable CATypeT
-newtype CVarT = MkCVarT {unCVarT :: CInt}
-deriving newtype instance Storable CVarT
-newtype CUint8T = MkCUint8T {unCUint8T :: CSChar}
-deriving newtype instance Storable CUint8T
-newtype CUint16T = MkCUint16T {unCUint16T :: CUShort}
-deriving newtype instance Storable CUint16T
-newtype CUint32T = MkCUint32T {unCUint32T :: CUInt}
-deriving newtype instance Storable CUint32T
-data CATypedefStruct
-    = MkCATypedefStruct {cATypedefStruct_field_0 :: CBool,
-                         cATypedefStruct_field_1 :: CUint8T,
-                         cATypedefStruct_field_2 :: CUint16T,
-                         cATypedefStruct_field_3 :: CUint32T,
-                         cATypedefStruct_field_4 :: CAnotherTypedefStructT,
-                         cATypedefStruct_field_5 :: (Ptr CAnotherTypedefStructT),
-                         cATypedefStruct_field_6 :: (Ptr Void),
-                         cATypedefStruct_field_7 :: (ConstantArray 7 CUint32T),
-                         cATypedefStruct_field_8 :: CAnotherTypedefEnumE,
-                         cATypedefStruct_field_9 :: CAnotherTypedefEnumE,
-                         cATypedefStruct_field_10 :: CAnotherTypedefEnumE}
-instance Storable CATypedefStruct
+                                    {Another_typedef_enum_e unAnother_typedef_enum_e_3 -> pokeByteOff ptr_1 0 unAnother_typedef_enum_e_3}}
+pattern FOO :: Another_typedef_enum_e
+pattern FOO = Another_typedef_enum_e 0
+pattern BAR :: Another_typedef_enum_e
+pattern BAR = Another_typedef_enum_e 1
+newtype A_type_t = A_type_t {unA_type_t :: CInt}
+deriving newtype instance Storable A_type_t
+newtype Var_t = Var_t {unVar_t :: CInt}
+deriving newtype instance Storable Var_t
+newtype Uint8_t = Uint8_t {unUint8_t :: CSChar}
+deriving newtype instance Storable Uint8_t
+newtype Uint16_t = Uint16_t {unUint16_t :: CUShort}
+deriving newtype instance Storable Uint16_t
+newtype Uint32_t = Uint32_t {unUint32_t :: CUInt}
+deriving newtype instance Storable Uint32_t
+data A_typedef_struct
+    = A_typedef_struct {a_typedef_struct_field_0 :: CBool,
+                        a_typedef_struct_field_1 :: Uint8_t,
+                        a_typedef_struct_field_2 :: Uint16_t,
+                        a_typedef_struct_field_3 :: Uint32_t,
+                        a_typedef_struct_field_4 :: Another_typedef_struct_t,
+                        a_typedef_struct_field_5 :: (Ptr Another_typedef_struct_t),
+                        a_typedef_struct_field_6 :: (Ptr Void),
+                        a_typedef_struct_field_7 :: (ConstantArray 7 Uint32_t),
+                        a_typedef_struct_field_8 :: Another_typedef_enum_e,
+                        a_typedef_struct_field_9 :: Another_typedef_enum_e,
+                        a_typedef_struct_field_10 :: Another_typedef_enum_e}
+instance Storable A_typedef_struct
     where {sizeOf = \_ -> 140;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> ((((((((((pure MkCATypedefStruct <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1) <*> peekByteOff ptr_0 2) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8) <*> peekByteOff ptr_0 16) <*> peekByteOff ptr_0 24) <*> peekByteOff ptr_0 32) <*> peekByteOff ptr_0 60) <*> peekByteOff ptr_0 64) <*> peekByteOff ptr_0 80;
+           peek = \ptr_0 -> ((((((((((pure A_typedef_struct <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 1) <*> peekByteOff ptr_0 2) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8) <*> peekByteOff ptr_0 16) <*> peekByteOff ptr_0 24) <*> peekByteOff ptr_0 32) <*> peekByteOff ptr_0 60) <*> peekByteOff ptr_0 64) <*> peekByteOff ptr_0 80;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCATypedefStruct cATypedefStruct_field_0_3
-                                                       cATypedefStruct_field_1_4
-                                                       cATypedefStruct_field_2_5
-                                                       cATypedefStruct_field_3_6
-                                                       cATypedefStruct_field_4_7
-                                                       cATypedefStruct_field_5_8
-                                                       cATypedefStruct_field_6_9
-                                                       cATypedefStruct_field_7_10
-                                                       cATypedefStruct_field_8_11
-                                                       cATypedefStruct_field_9_12
-                                                       cATypedefStruct_field_10_13 -> pokeByteOff ptr_1 0 cATypedefStruct_field_0_3 >> (pokeByteOff ptr_1 1 cATypedefStruct_field_1_4 >> (pokeByteOff ptr_1 2 cATypedefStruct_field_2_5 >> (pokeByteOff ptr_1 4 cATypedefStruct_field_3_6 >> (pokeByteOff ptr_1 8 cATypedefStruct_field_4_7 >> (pokeByteOff ptr_1 16 cATypedefStruct_field_5_8 >> (pokeByteOff ptr_1 24 cATypedefStruct_field_6_9 >> (pokeByteOff ptr_1 32 cATypedefStruct_field_7_10 >> (pokeByteOff ptr_1 60 cATypedefStruct_field_8_11 >> (pokeByteOff ptr_1 64 cATypedefStruct_field_9_12 >> pokeByteOff ptr_1 80 cATypedefStruct_field_10_13)))))))))}}
-newtype CATypedefStructT
-    = MkCATypedefStructT {unCATypedefStructT :: CATypedefStruct}
-deriving newtype instance Storable CATypedefStructT
-newtype CATypedefEnumE
-    = MkCATypedefEnumE {unCATypedefEnumE :: CSChar}
-instance Storable CATypedefEnumE
+                                    {A_typedef_struct a_typedef_struct_field_0_3
+                                                      a_typedef_struct_field_1_4
+                                                      a_typedef_struct_field_2_5
+                                                      a_typedef_struct_field_3_6
+                                                      a_typedef_struct_field_4_7
+                                                      a_typedef_struct_field_5_8
+                                                      a_typedef_struct_field_6_9
+                                                      a_typedef_struct_field_7_10
+                                                      a_typedef_struct_field_8_11
+                                                      a_typedef_struct_field_9_12
+                                                      a_typedef_struct_field_10_13 -> pokeByteOff ptr_1 0 a_typedef_struct_field_0_3 >> (pokeByteOff ptr_1 1 a_typedef_struct_field_1_4 >> (pokeByteOff ptr_1 2 a_typedef_struct_field_2_5 >> (pokeByteOff ptr_1 4 a_typedef_struct_field_3_6 >> (pokeByteOff ptr_1 8 a_typedef_struct_field_4_7 >> (pokeByteOff ptr_1 16 a_typedef_struct_field_5_8 >> (pokeByteOff ptr_1 24 a_typedef_struct_field_6_9 >> (pokeByteOff ptr_1 32 a_typedef_struct_field_7_10 >> (pokeByteOff ptr_1 60 a_typedef_struct_field_8_11 >> (pokeByteOff ptr_1 64 a_typedef_struct_field_9_12 >> pokeByteOff ptr_1 80 a_typedef_struct_field_10_13)))))))))}}
+newtype A_typedef_struct_t
+    = A_typedef_struct_t {unA_typedef_struct_t :: A_typedef_struct}
+deriving newtype instance Storable A_typedef_struct_t
+newtype A_typedef_enum_e
+    = A_typedef_enum_e {unA_typedef_enum_e :: CSChar}
+instance Storable A_typedef_enum_e
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> pure MkCATypedefEnumE <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCATypedefEnumE unCATypedefEnumE_3 -> pokeByteOff ptr_1 0 unCATypedefEnumE_3}}
-pattern MkCENUMCASE0 :: CATypedefEnumE
-pattern MkCENUMCASE0 = MkCATypedefEnumE 0
-pattern MkCENUMCASE1 :: CATypedefEnumE
-pattern MkCENUMCASE1 = MkCATypedefEnumE 1
-pattern MkCENUMCASE2 :: CATypedefEnumE
-pattern MkCENUMCASE2 = MkCATypedefEnumE 2
-pattern MkCENUMCASE3 :: CATypedefEnumE
-pattern MkCENUMCASE3 = MkCATypedefEnumE 3
-newtype CInt32T = MkCInt32T {unCInt32T :: CInt}
-deriving newtype instance Storable CInt32T
-newtype CCallbackT
-    = MkCCallbackT {unCCallbackT :: (FunPtr (Ptr Void ->
-                                             CUint32T -> IO CUint32T))}
-deriving newtype instance Storable CCallbackT
+                                    {A_typedef_enum_e unA_typedef_enum_e_3 -> pokeByteOff ptr_1 0 unA_typedef_enum_e_3}}
+pattern ENUM_CASE_0 :: A_typedef_enum_e
+pattern ENUM_CASE_0 = A_typedef_enum_e 0
+pattern ENUM_CASE_1 :: A_typedef_enum_e
+pattern ENUM_CASE_1 = A_typedef_enum_e 1
+pattern ENUM_CASE_2 :: A_typedef_enum_e
+pattern ENUM_CASE_2 = A_typedef_enum_e 2
+pattern ENUM_CASE_3 :: A_typedef_enum_e
+pattern ENUM_CASE_3 = A_typedef_enum_e 3
+newtype Int32_t = Int32_t {unInt32_t :: CInt}
+deriving newtype instance Storable Int32_t
+newtype Callback_t
+    = Callback_t {unCallback_t :: (FunPtr (Ptr Void ->
+                                           Uint32_t -> IO Uint32_t))}
+deriving newtype instance Storable Callback_t
