@@ -31,6 +31,7 @@ translateDecl (Hs.DeclInstance i) = translateInstanceDecl i
 translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
+translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
 
 translateInstanceDecl :: Hs.InstanceDecl -> SDecl
 translateInstanceDecl (Hs.InstanceStorable struct i) =
@@ -75,6 +76,13 @@ translateForeignImportDecl Hs.ForeignImportDecl {..} = DForeignImport ForeignImp
     , foreignImportType     = translateType foreignImportType
     , foreignImportOrigName = foreignImportOrigName
     , foreignImportHeader   = foreignImportHeader
+    }
+
+translatePatSyn :: Hs.PatSyn -> SDecl
+translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym
+    { patSynName = patSynName
+    , patSynType = TCon patSynType
+    , patSynRHS  = EApp (ECon patSynConstr) (EIntegral patSynValue Nothing)
     }
 
 {-------------------------------------------------------------------------------
@@ -166,7 +174,7 @@ translateBody :: Hs.VarDeclRHS ctx -> SExpr ctx
 translateBody (Hs.VarDeclVar x)                     = EBound x
 translateBody (Hs.VarDeclFloat f)                   = EFloat f
 translateBody (Hs.VarDeclDouble d)                  = EDouble d
-translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i ty
+translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i (Just ty)
 translateBody (Hs.VarDeclLambda (Hs.Lambda hint b)) = ELam hint (translateBody b)
 translateBody (Hs.VarDeclApp f as)                  = foldl' EApp (translateAppHead f) (map translateBody as)
 

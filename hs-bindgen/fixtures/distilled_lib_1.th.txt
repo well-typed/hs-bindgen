@@ -32,6 +32,10 @@ instance Storable CAnotherTypedefEnumE
            peek = \ptr_0 -> pure MkCAnotherTypedefEnumE <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCAnotherTypedefEnumE unCAnotherTypedefEnumE_3 -> pokeByteOff ptr_1 0 unCAnotherTypedefEnumE_3}}
+pattern MkCFOO :: CAnotherTypedefEnumE
+pattern MkCFOO = MkCAnotherTypedefEnumE 0
+pattern MkCBAR :: CAnotherTypedefEnumE
+pattern MkCBAR = MkCAnotherTypedefEnumE 1
 newtype CATypeT = MkCATypeT {unCATypeT :: CInt}
 deriving newtype instance Storable CATypeT
 newtype CVarT = MkCVarT {unCVarT :: CInt}
@@ -81,6 +85,14 @@ instance Storable CATypedefEnumE
            peek = \ptr_0 -> pure MkCATypedefEnumE <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCATypedefEnumE unCATypedefEnumE_3 -> pokeByteOff ptr_1 0 unCATypedefEnumE_3}}
+pattern MkCENUMCASE0 :: CATypedefEnumE
+pattern MkCENUMCASE0 = MkCATypedefEnumE 0
+pattern MkCENUMCASE1 :: CATypedefEnumE
+pattern MkCENUMCASE1 = MkCATypedefEnumE 1
+pattern MkCENUMCASE2 :: CATypedefEnumE
+pattern MkCENUMCASE2 = MkCATypedefEnumE 2
+pattern MkCENUMCASE3 :: CATypedefEnumE
+pattern MkCENUMCASE3 = MkCATypedefEnumE 3
 newtype CInt32T = MkCInt32T {unCInt32T :: CInt}
 deriving newtype instance Storable CInt32T
 newtype CCallbackT

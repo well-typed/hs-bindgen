@@ -27,6 +27,12 @@ instance F.Storable CFoo where
         case s1 of
           MkCFoo unCFoo2 -> F.pokeByteOff ptr0 0 unCFoo2
 
+pattern MkCFOO1 :: CFoo
+pattern MkCFOO1 = MkCFoo 0
+
+pattern MkCFOO2 :: CFoo
+pattern MkCFOO2 = MkCFoo 1
+
 newtype CFoo = MkCFoo
   { unCFoo :: FC.CDouble
   }

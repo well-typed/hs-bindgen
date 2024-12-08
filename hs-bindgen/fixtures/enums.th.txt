@@ -5,6 +5,10 @@ instance Storable CFirst
            peek = \ptr_0 -> pure MkCFirst <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCFirst unCFirst_3 -> pokeByteOff ptr_1 0 unCFirst_3}}
+pattern MkCFIRST1 :: CFirst
+pattern MkCFIRST1 = MkCFirst 0
+pattern MkCFIRST2 :: CFirst
+pattern MkCFIRST2 = MkCFirst 1
 newtype CSecond = MkCSecond {unCSecond :: CInt}
 instance Storable CSecond
     where {sizeOf = \_ -> 4;
@@ -12,6 +16,12 @@ instance Storable CSecond
            peek = \ptr_0 -> pure MkCSecond <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCSecond unCSecond_3 -> pokeByteOff ptr_1 0 unCSecond_3}}
+pattern MkCSECONDA :: CSecond
+pattern MkCSECONDA = MkCSecond (-1)
+pattern MkCSECONDB :: CSecond
+pattern MkCSECONDB = MkCSecond 0
+pattern MkCSECONDC :: CSecond
+pattern MkCSECONDC = MkCSecond 1
 newtype CSame = MkCSame {unCSame :: CUInt}
 instance Storable CSame
     where {sizeOf = \_ -> 4;
@@ -19,6 +29,10 @@ instance Storable CSame
            peek = \ptr_0 -> pure MkCSame <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCSame unCSame_3 -> pokeByteOff ptr_1 0 unCSame_3}}
+pattern MkCSAMEA :: CSame
+pattern MkCSAMEA = MkCSame 1
+pattern MkCSAMEB :: CSame
+pattern MkCSAMEB = MkCSame 1
 newtype CPackad = MkCPackad {unCPackad :: CSChar}
 instance Storable CPackad
     where {sizeOf = \_ -> 1;
@@ -26,6 +40,12 @@ instance Storable CPackad
            peek = \ptr_0 -> pure MkCPackad <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCPackad unCPackad_3 -> pokeByteOff ptr_1 0 unCPackad_3}}
+pattern MkCPACKEDA :: CPackad
+pattern MkCPACKEDA = MkCPackad 0
+pattern MkCPACKEDB :: CPackad
+pattern MkCPACKEDB = MkCPackad 1
+pattern MkCPACKEDC :: CPackad
+pattern MkCPACKEDC = MkCPackad 2
 newtype CEnumA = MkCEnumA {unCEnumA :: CUInt}
 instance Storable CEnumA
     where {sizeOf = \_ -> 4;
@@ -33,6 +53,10 @@ instance Storable CEnumA
            peek = \ptr_0 -> pure MkCEnumA <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCEnumA unCEnumA_3 -> pokeByteOff ptr_1 0 unCEnumA_3}}
+pattern MkCAFOO :: CEnumA
+pattern MkCAFOO = MkCEnumA 0
+pattern MkCABAR :: CEnumA
+pattern MkCABAR = MkCEnumA 1
 newtype CEnumB = MkCEnumB {unCEnumB :: CUInt}
 instance Storable CEnumB
     where {sizeOf = \_ -> 4;
@@ -40,6 +64,10 @@ instance Storable CEnumB
            peek = \ptr_0 -> pure MkCEnumB <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCEnumB unCEnumB_3 -> pokeByteOff ptr_1 0 unCEnumB_3}}
+pattern MkCBFOO :: CEnumB
+pattern MkCBFOO = MkCEnumB 0
+pattern MkCBBAR :: CEnumB
+pattern MkCBBAR = MkCEnumB 1
 newtype CEnumC = MkCEnumC {unCEnumC :: CUInt}
 instance Storable CEnumC
     where {sizeOf = \_ -> 4;
@@ -47,6 +75,10 @@ instance Storable CEnumC
            peek = \ptr_0 -> pure MkCEnumC <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCEnumC unCEnumC_3 -> pokeByteOff ptr_1 0 unCEnumC_3}}
+pattern MkCCFOO :: CEnumC
+pattern MkCCFOO = MkCEnumC 0
+pattern MkCCBAR :: CEnumC
+pattern MkCCBAR = MkCEnumC 1
 newtype CEnumD = MkCEnumD {unCEnumD :: CUInt}
 instance Storable CEnumD
     where {sizeOf = \_ -> 4;
@@ -54,5 +86,9 @@ instance Storable CEnumD
            peek = \ptr_0 -> pure MkCEnumD <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MkCEnumD unCEnumD_3 -> pokeByteOff ptr_1 0 unCEnumD_3}}
+pattern MkCDFOO :: CEnumD
+pattern MkCDFOO = MkCEnumD 0
+pattern MkCDBAR :: CEnumD
+pattern MkCDBAR = MkCEnumD 1
 newtype CEnumDT = MkCEnumDT {unCEnumDT :: CEnumD}
 deriving newtype instance Storable CEnumDT

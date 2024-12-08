@@ -8,6 +8,7 @@ module HsBindgen.Imports (
 
 import Data.Kind qualified
 
+import Control.Applicative as X (liftA2)
 import Control.Exception as X (Exception, throwIO, bracket)
 import Control.Monad as X (void, ap, forM, forM_, guard, when, unless)
 import Control.Monad.Identity as X (Identity (..))

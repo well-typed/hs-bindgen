@@ -26,3 +26,9 @@ instance F.Storable CMyEnum where
       \s1 ->
         case s1 of
           MkCMyEnum unCMyEnum2 -> F.pokeByteOff ptr0 0 unCMyEnum2
+
+pattern MkCSay你好 :: CMyEnum
+pattern MkCSay你好 = MkCMyEnum 0
+
+pattern MkCSay拜拜 :: CMyEnum
+pattern MkCSay拜拜 = MkCMyEnum 1

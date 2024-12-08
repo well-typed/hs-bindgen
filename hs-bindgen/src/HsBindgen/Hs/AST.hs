@@ -52,6 +52,8 @@ module HsBindgen.Hs.AST (
   , StructCon (..)
   , ElimStruct(..)
   , makeElimStruct
+    -- ** Pattern Synonyms
+  , PatSyn(..)
   ) where
 
 import HsBindgen.C.AST qualified as C (MFun(..))
@@ -122,6 +124,7 @@ data Decl where
     DeclData            :: SNatI n => Struct n -> Decl
     DeclEmpty           :: HsName NsTypeConstr -> Decl
     DeclNewtype         :: Newtype -> Decl
+    DeclPatSyn          :: PatSyn -> Decl
     DeclInstance        :: InstanceDecl -> Decl
     DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
@@ -216,6 +219,27 @@ data VarDeclRHSAppHead
   | VarAppHead (HsName NsVar)
 
 deriving stock instance Show VarDeclRHSAppHead
+
+{-------------------------------------------------------------------------------
+  Pattern Synonyms
+-------------------------------------------------------------------------------}
+
+-- | Pattern synonyms
+--
+-- For now only pattern synonyms of form
+--
+-- @
+-- pattern P :: T
+-- pattern P = C e
+-- @
+--
+data PatSyn = PatSyn
+    { patSynName   :: HsName NsConstr
+    , patSynType   :: HsName NsTypeConstr
+    , patSynConstr :: HsName NsConstr
+    , patSynValue  :: Integer
+    }
+  deriving Show
 
 {-------------------------------------------------------------------------------
   'Storable'
