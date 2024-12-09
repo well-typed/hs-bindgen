@@ -9,10 +9,11 @@ WrapCHeader
               (PrimLong Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "examples",
-              "fixedwidth.h"],
-            singleLocLine = 4,
-            singleLocColumn = 11}},
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 136,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
@@ -21,10 +22,11 @@ WrapCHeader
               (PrimInt Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "examples",
-              "fixedwidth.h"],
-            singleLocLine = 5,
-            singleLocColumn = 11}},
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 131,
+            singleLocColumn = 25}},
       DeclStruct
         Struct {
           structTag = DefnName
