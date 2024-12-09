@@ -170,6 +170,10 @@ static inline void wrap_getCursorLexicalParent(const CXCursor* cursor, CXCursor*
     *result = clang_getCursorLexicalParent(*cursor);
 }
 
+static inline void wrap_Cursor_getArgument(const CXCursor* cursor, unsigned int arg, CXCursor* result) {
+    *result = clang_Cursor_getArgument(*cursor, arg);
+}
+
 static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
     return clang_getCursorKind(*cursor);
 }

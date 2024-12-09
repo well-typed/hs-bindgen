@@ -11,6 +11,8 @@ import Foreign.C
 import System.FilePath (splitDirectories)
 
 import HsBindgen.C.AST qualified as C
+import HsBindgen.C.AST qualified as Macro
+  ( Quant )
 import HsBindgen.Lib
 import HsBindgen.Patterns
 
@@ -85,7 +87,7 @@ instance ToExpr C.MExpr where
 instance ToExpr ( C.MFun arity ) where
   toExpr f = Expr.App (show f) []
 
-instance ToExpr C.QuantTy where
+instance Show e => ToExpr ( Macro.Quant e ) where
   toExpr quantTy = toExpr $ show quantTy
 
 {-------------------------------------------------------------------------------

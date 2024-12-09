@@ -24,10 +24,11 @@ WrapCHeader
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "1",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (PrimInt Signed),
                       integerLiteralValue = 1})]},
           macroDeclMacroTy =
-          "(forall a. Integral a => (a -> a))"},
+          "(IntLike (PrimInt Signed) -> IntLike (PrimInt Signed))"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -149,7 +150,7 @@ WrapCHeader
                           integerLiteralValue = 12}),
                     MTerm (MVar (CName "Y") [])]]},
           macroDeclMacroTy =
-          "(ULLong -> ULLong -> ULLong)"},
+          "(IntLike (PrimLongLong Unsigned) -> IntLike (PrimLongLong Unsigned) -> IntLike (PrimLongLong Unsigned))"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -183,7 +184,7 @@ WrapCHeader
                           integerLiteralValue = 3}),
                     MTerm (MVar (CName "Y") [])]]},
           macroDeclMacroTy =
-          "(forall a. Bits a => (a -> ULLong -> a))"},
+          "(forall a. (IntLike a -> IntLike (PrimLongLong Unsigned) -> IntLike a))"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -216,7 +217,7 @@ WrapCHeader
                         MTerm
                           (MVar (CName "X") [])])])},
           macroDeclMacroTy =
-          "(forall a b. Integral b => (a -> b -> b))"},
+          "(forall a. (a -> IntLike (PrimInt Signed) -> IntLike (PrimInt Signed)))"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -250,7 +251,7 @@ WrapCHeader
                             (PrimInt Unsigned),
                           integerLiteralValue = 12})]]},
           macroDeclMacroTy =
-          "(UInt -> UInt -> UInt)"},
+          "(IntLike (PrimInt Unsigned) -> IntLike (PrimInt Unsigned) -> IntLike (PrimInt Unsigned))"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -287,4 +288,4 @@ WrapCHeader
                     MTerm (MVar (CName "X") [])],
                 MTerm (MVar (CName "Y") [])]},
           macroDeclMacroTy =
-          "(Float -> Float -> Float)"}])
+          "(FloatLike PrimFloat -> FloatLike PrimFloat -> FloatLike PrimFloat)"}])

@@ -1,6 +1,7 @@
 packages: hs-bindgen-patterns
 packages: hs-bindgen
 packages: hs-bindgen-libclang
+packages: typing-c
 packages: ansi-diff
 
 tests: True
