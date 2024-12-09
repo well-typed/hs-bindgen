@@ -667,10 +667,11 @@ WrapCHeader
             (PrimChar (Just Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 37,
-            singleLocColumn = 31}},
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 121,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint16_t",
@@ -679,10 +680,11 @@ WrapCHeader
               (PrimShort Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 38,
-            singleLocColumn = 31}},
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 126,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
@@ -691,10 +693,11 @@ WrapCHeader
               (PrimInt Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 39,
-            singleLocColumn = 31}},
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 131,
+            singleLocColumn = 25}},
       DeclStruct
         Struct {
           structTag = DefnName
@@ -909,10 +912,11 @@ WrapCHeader
             (PrimIntegral (PrimInt Signed)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 71,
-            singleLocColumn = 9}},
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 106,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName

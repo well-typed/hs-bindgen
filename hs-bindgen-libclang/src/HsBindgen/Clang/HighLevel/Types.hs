@@ -16,6 +16,8 @@ module HsBindgen.Clang.HighLevel.Types (
   , toRange
   , fromSingle
   , fromRange
+    -- ** Relative paths
+  , HasPath(..)
     -- * Tokens
   , Token(..)
   , TokenSpelling(..)
