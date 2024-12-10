@@ -130,7 +130,7 @@ ffiDecl (FunDecl (Var rtype name) args)
     | otherwise
     =
     [ "foreign import capi unsafe \"clang_wrappers.h\""
-    , "  " ++ name' ++ " :: " ++ foldr argumentTy ("IO " ++ toHaskellType Res rtype) args
+    , "  " ++ name' ++ " :: " ++ foldr argumentTy (ioType (toHaskellType Res rtype)) args
     , ""
     ]
   where
@@ -141,6 +141,9 @@ ffiDecl (FunDecl (Var rtype name) args)
 
     argumentTy :: Var -> String -> String
     argumentTy (Var ty _) rest = toHaskellType Arg ty ++ " -> " ++ rest
+
+ioType :: String -> String
+ioType ty = if any (== ' ') ty then "IO (" ++ ty ++ ")" else "IO " ++ ty
 
 -------------------------------------------------------------------------------
 -- (wrapper) Header generation
@@ -224,6 +227,8 @@ toHaskellType :: RA -> [String] -> String
 toHaskellType ra ["CXType"]                 = haskellRA ra ++ "CXType_"
 toHaskellType ra ["CXString"]               = haskellRA ra ++ "CXString_"
 toHaskellType ra ["CXCursor"]               = haskellRA ra ++ "CXCursor_"
+toHaskellType _  ["CXTranslationUnit"]      = "CXTranslationUnit" -- typedef to a pointer, not a struct.
+toHaskellType _  ["enum","CXCursorKind"]    = "SimpleEnum CXCursorKind"
 toHaskellType _  ["enum","CXTypeKind"]      = "SimpleEnum CXTypeKind"
 toHaskellType _  ["long","long"]            = "CLLong"
 toHaskellType _  ["unsigned","long","long"] = "CULLong"
@@ -239,6 +244,8 @@ toCType :: RA -> [String] -> String
 toCType ra ["CXType"]                 = cRA ra ++ "CXType*"
 toCType ra ["CXString"]               = cRA ra ++ "CXString*"
 toCType ra ["CXCursor"]               = cRA ra ++ "CXCursor*"
+toCType _  ["CXTranslationUnit"]      = "CXTranslationUnit"
+toCType _  ["enum","CXCursorKind"]    = "enum CXCursorKind"
 toCType _  ["enum","CXTypeKind"]      = "enum CXTypeKind"
 toCType _  ["long","long"]            = "long long"
 toCType _  ["unsigned","long","long"] = "unsigned long long"

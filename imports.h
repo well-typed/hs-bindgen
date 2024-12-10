@@ -75,3 +75,8 @@ unsigned clang_Cursor_isAnonymousRecordDecl (CXCursor C);
 
 // Cursor manipulations https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html
 CXCursor clang_getNullCursor ();
+// CXCursor clang_getTranslationUnitCursor (CXTranslationUnit unit); CXTranslationUnit is defined in LowLevel.Core
+unsigned clang_equalCursors (CXCursor A, CXCursor B);
+int clang_Cursor_isNull (CXCursor cursor);
+unsigned clang_hashCursor (CXCursor cursor);
+enum CXCursorKind clang_getCursorKind (CXCursor cursor);

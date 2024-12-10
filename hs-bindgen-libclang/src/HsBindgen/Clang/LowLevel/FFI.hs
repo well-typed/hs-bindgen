@@ -206,3 +206,17 @@ foreign import capi unsafe "clang_wrappers.h"
 foreign import capi unsafe "clang_wrappers.h"
   wrap_getNullCursor :: W CXCursor_ -> IO ()
 
+-- CXCursor clang_getTranslationUnitCursor (CXTranslationUnit unit); CXTranslationUnit is defined in LowLevel.Core
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_equalCursors :: R CXCursor_ -> R CXCursor_ -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Cursor_isNull :: R CXCursor_ -> IO CInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_hashCursor :: R CXCursor_ -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorKind :: R CXCursor_ -> IO (SimpleEnum CXCursorKind)
+

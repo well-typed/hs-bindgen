@@ -628,17 +628,11 @@ instance Eq CXCursor where
 foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
   wrap_getTranslationUnitCursor :: CXTranslationUnit -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
-  wrap_equalCursors :: R CXCursor_ -> R CXCursor_ -> IO CUInt
-
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorSemanticParent"
   wrap_getCursorSemanticParent :: R CXCursor_ -> W CXCursor_ -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorLexicalParent"
   wrap_getCursorLexicalParent :: R CXCursor_ -> W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorKind"
-  wrap_getCursorKind :: R CXCursor_ -> IO (SimpleEnum CXCursorKind)
 
 foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
   wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()

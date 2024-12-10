@@ -249,3 +249,21 @@ static inline void wrap_getNullCursor(CXCursor* result) {
   *result = clang_getNullCursor();
 }
 
+/* CXCursor clang_getTranslationUnitCursor (CXTranslationUnit unit); CXTranslationUnit is defined in LowLevel.Core */
+
+static inline unsigned wrap_equalCursors(const CXCursor* A, const CXCursor* B) {
+  return clang_equalCursors(*A, *B);
+}
+
+static inline int wrap_Cursor_isNull(const CXCursor* cursor) {
+  return clang_Cursor_isNull(*cursor);
+}
+
+static inline unsigned wrap_hashCursor(const CXCursor* cursor) {
+  return clang_hashCursor(*cursor);
+}
+
+static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
+  return clang_getCursorKind(*cursor);
+}
+
