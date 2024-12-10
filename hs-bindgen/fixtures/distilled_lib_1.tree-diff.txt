@@ -570,9 +570,11 @@ WrapCHeader
             singleLocColumn = 9}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName
-              "another_typedef_struct_t"),
+          structDeclPath = DeclPathStruct
+            (Just
+              (CName
+                "another_typedef_struct_t"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -700,8 +702,10 @@ WrapCHeader
             singleLocColumn = 25}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "a_typedef_struct"),
+          structDeclPath = DeclPathStruct
+            (Just
+              (CName "a_typedef_struct"))
+            DeclPathTop,
           structSizeof = 140,
           structAlignment = 1,
           structFields = [
@@ -752,9 +756,11 @@ WrapCHeader
               fieldName = CName "field_4",
               fieldOffset = 64,
               fieldType = TypeStruct
-                (DefnName
-                  (CName
-                    "another_typedef_struct_t")),
+                (DeclPathStruct
+                  (Just
+                    (CName
+                      "another_typedef_struct_t"))
+                  DeclPathTop),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",
@@ -766,9 +772,11 @@ WrapCHeader
               fieldOffset = 128,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName
-                    (CName
-                      "another_typedef_struct_t"))),
+                  (DeclPathStruct
+                    (Just
+                      (CName
+                        "another_typedef_struct_t"))
+                    DeclPathTop)),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",
@@ -846,8 +854,10 @@ WrapCHeader
           typedefName = CName
             "a_typedef_struct_t",
           typedefType = TypeStruct
-            (DefnName
-              (CName "a_typedef_struct")),
+            (DeclPathStruct
+              (Just
+                (CName "a_typedef_struct"))
+              DeclPathTop),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",

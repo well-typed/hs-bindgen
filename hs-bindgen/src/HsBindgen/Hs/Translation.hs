@@ -89,11 +89,8 @@ structDecs struct fields =
   where
     hs :: Hs.Struct n
     hs =
-      let cStructName = case C.structTag struct of
-            C.DefnName n -> n
-
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cStructName
+      let nm@NameMangler{..} = defaultNameMangler
+          typeConstrCtx = StructTypeConstrContext $ C.structDeclPath struct
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           structFields = flip Vec.map fields $ \f -> Hs.Field {
@@ -118,14 +115,6 @@ structDecs struct fields =
 
     poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
-
-translateDefnName :: NameMangler -> C.DefnName -> HsName NsTypeConstr
-translateDefnName nm tag = structName
-  where
-    cStructName = case tag of
-        C.DefnName n -> n
-    typeConstrCtx = TypeConstrContext cStructName
-    structName = mangleTypeConstrName nm typeConstrCtx
 
 {-------------------------------------------------------------------------------
   Opaque struct
@@ -263,8 +252,8 @@ macroDecsTypedef m = [
 typ :: NameMangler -> C.Type -> Hs.HsType
 typ nm (C.TypeTypedef c) =
     Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext c)) -- wrong
-typ nm    (C.TypeStruct name)     =
-    Hs.HsTypRef (translateDefnName nm name)
+typ nm (C.TypeStruct declPath) =
+    Hs.HsTypRef (mangleTypeConstrName nm (StructTypeConstrContext declPath))
 typ nm    (C.TypeEnum name)     =
     Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
 typ _     (C.TypePrim p)       = case p of

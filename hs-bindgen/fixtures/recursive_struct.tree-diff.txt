@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "linked_list_A_s"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "linked_list_A_s"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -24,8 +25,9 @@ WrapCHeader
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName
-                    (CName "linked_list_A_s"))),
+                  (DeclPathStruct
+                    (Just (CName "linked_list_A_s"))
+                    DeclPathTop)),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",
@@ -43,8 +45,9 @@ WrapCHeader
           typedefName = CName
             "linked_list_A_t",
           typedefType = TypeStruct
-            (DefnName
-              (CName "linked_list_A_s")),
+            (DeclPathStruct
+              (Just (CName "linked_list_A_s"))
+              DeclPathTop),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -53,8 +56,9 @@ WrapCHeader
             singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "linked_list_B_t"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "linked_list_B_t"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -74,8 +78,9 @@ WrapCHeader
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName
-                    (CName "linked_list_B_t"))),
+                  (DeclPathStruct
+                    (Just (CName "linked_list_B_t"))
+                    DeclPathTop)),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",

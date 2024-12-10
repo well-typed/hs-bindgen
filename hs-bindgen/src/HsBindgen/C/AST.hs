@@ -20,7 +20,6 @@ module HsBindgen.C.AST (
   , PrimFloatType(..)
   , PrimSign(..)
     -- ** Structs
-  , DefnName(..)
   , Struct(..)
   , StructField(..)
   , OpaqueStruct(..)
@@ -53,6 +52,8 @@ module HsBindgen.C.AST (
   , QuantTy
   , TcMacroError(..)
   , pprTcMacroError
+    -- * DeclPath
+  , DeclPath(..)
     -- * Source locations
   , SourcePath(..)
   , SingleLoc(..)
