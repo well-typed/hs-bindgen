@@ -75,8 +75,9 @@ WrapCHeader
             singleLocColumn = 14}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "ExampleStruct"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "ExampleStruct"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 4,
           structFields = [

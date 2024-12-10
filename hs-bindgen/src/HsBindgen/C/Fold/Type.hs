@@ -37,34 +37,16 @@ processTypeDecl unit ty = do
     s <- get
 
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                      -> processTypeDecl' PathTop unit ty
+        Nothing                      -> processTypeDecl' DeclPathTop unit ty
         Just (TypeDecl t _)          -> return t
         Just (TypeDeclAlias t)       -> return t
         Just (TypeDeclProcessing t') -> liftIO $ fail $ "Incomplete type declaration: " ++ show t'
 
-data Path
-    = PathTop
-    | PathStruct (Maybe CName) Path
-    | PathField CName Path
-    -- TODO: | PathPtr Path
-    -- TODO: | PathConstArray Natural Path
-  deriving Show
-
-isPathTop :: Path -> Bool
-isPathTop PathTop = True
-isPathTop _       = False
-
--- | Make definition name for anonymous structures from their path
-mkDefnName :: Path -> DefnName
-mkDefnName = DefnName . CName . go where
-    -- TODO: temporary, expose name structure as is in DefnName
-    go :: Path -> Text
-    go PathTop = "ANONYMOUS" -- shouldn't happen
-    go (PathField n p) = go p <> "_" <> getCName n
-    go (PathStruct Nothing p) = go p
-    go (PathStruct (Just n) _) = getCName n
-
-processTypeDeclRec :: Path -> CXTranslationUnit -> CXType -> Eff (State DeclState) Type
+processTypeDeclRec ::
+     DeclPath
+  -> CXTranslationUnit
+  -> CXType
+  -> Eff (State DeclState) Type
 processTypeDeclRec path unit ty = do
     -- dtraceIO "processTypeDeclRec" ty
 
@@ -113,7 +95,11 @@ processTypeDeclRec path unit ty = do
 -- https://github.com/well-typed/hs-bindgen/issues/306
 -- https://github.com/well-typed/hs-bindgen/issues/314
 --
-processTypeDecl' :: Path -> CXTranslationUnit -> CXType -> Eff (State DeclState) Type
+processTypeDecl' ::
+     DeclPath
+  -> CXTranslationUnit
+  -> CXType
+  -> Eff (State DeclState) Type
 processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
@@ -139,7 +125,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
           loc <- clang_getCursorLocation decl
           toRelative cwd <$> HighLevel.clang_getExpansionLocation loc
 
-        use <- processTypeDeclRec  PathTop unit ty'
+        use <- processTypeDeclRec DeclPathTop unit ty'
 
         -- we could check whether typedef has a transparent tag,
         -- like in case of `typedef struct foo { ..} foo;`
@@ -151,8 +137,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
             -- If names match, skip.
             -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
             -- in typedef struct { ... } foo; the typedef does not have transparent tag.
-            --
-            TypeStruct (DefnName n) | n == tag ->
+            TypeStruct (DeclPathStruct (Just n) _declPath) | n == tag ->
                 addAlias ty use
 
             TypeEnum n | n == tag ->
@@ -182,24 +167,19 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
         -- dtraceIO "record" (decl, tag, name, anon)
 
-        if anon && isPathTop path
+        let cname
+              | anon      = Nothing
+              | otherwise = Just . CName $ either id id (structSpelling name)
+            declPath = DeclPathStruct cname path
+
+        if declPath == DeclPathStruct Nothing DeclPathTop
         then do
-            -- anonymous declration, nothing to do
-            -- warn, we shouldn't reach that in "good" code.
+            -- Anonymous top-level declaration: nothing to do but warn, as there
+            -- shouldn't be one in "good" code.
             return $ TypePrim PrimVoid
 
         else do
-            let cname :: Maybe CName
-                defnName :: DefnName
-
-                (cname, defnName)
-                    | anon
-                    = (Nothing, mkDefnName path)
-
-                    | let n = CName (either id id $ structSpelling name)
-                    , otherwise = (Just n, DefnName n)
-
-            addTypeDeclProcessing ty $ TypeStruct defnName
+            addTypeDeclProcessing ty $ TypeStruct declPath
 
             liftIO (HighLevel.classifyDeclaration decl) >>= \case
                 DeclarationOpaque ->
@@ -217,11 +197,11 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                     alignment <- liftIO (clang_Type_getAlignOf ty)
 
                     fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                        mfield <- mkStructField unit (PathStruct cname path) cursor
+                        mfield <- mkStructField unit declPath cursor
                         return $ Continue mfield
 
                     addDecl ty $ DeclStruct Struct
-                        { structTag       = defnName
+                        { structDeclPath  = declPath
                         , structSizeof    = fromIntegral sizeof
                         , structAlignment = fromIntegral alignment
                         , structFields    = fields
@@ -264,7 +244,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                     DeclarationRegular -> do
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                         alignment <- liftIO (clang_Type_getAlignOf ty)
-                        ety       <- liftIO (clang_getEnumDeclIntegerType decl) >>= processTypeDeclRec PathTop unit
+                        ety       <- liftIO (clang_getEnumDeclIntegerType decl) >>= processTypeDeclRec DeclPathTop unit
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -379,7 +359,7 @@ omapInsertBack k v m = m OMap.>| (k, v)
 
 mkStructField ::
      CXTranslationUnit
-  -> Path
+  -> DeclPath
   -> CXCursor
   -> Eff (State DeclState) (Maybe StructField)
 mkStructField unit path current = do
@@ -415,7 +395,7 @@ mkStructField unit path current = do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
           ty          <- liftIO (clang_getCursorType current)
           -- TODO: correct path
-          fieldType   <- processTypeDeclRec (PathField fieldName path) unit ty
+          fieldType   <- processTypeDeclRec (DeclPathField fieldName path) unit ty
           fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
           unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"

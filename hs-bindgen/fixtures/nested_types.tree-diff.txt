@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "foo"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "foo"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -38,8 +39,9 @@ WrapCHeader
             singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "bar"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "bar"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 4,
           structFields = [
@@ -47,7 +49,9 @@ WrapCHeader
               fieldName = CName "foo1",
               fieldOffset = 0,
               fieldType = TypeStruct
-                (DefnName (CName "foo")),
+                (DeclPathStruct
+                  (Just (CName "foo"))
+                  DeclPathTop),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",
@@ -58,7 +62,9 @@ WrapCHeader
               fieldName = CName "foo2",
               fieldOffset = 64,
               fieldType = TypeStruct
-                (DefnName (CName "foo")),
+                (DeclPathStruct
+                  (Just (CName "foo"))
+                  DeclPathTop),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",

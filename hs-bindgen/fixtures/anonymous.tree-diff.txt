@@ -3,8 +3,13 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1_c"),
+          structDeclPath = DeclPathStruct
+            Nothing
+            (DeclPathField
+              (CName "c")
+              (DeclPathStruct
+                (Just (CName "S1"))
+                DeclPathTop)),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -38,8 +43,9 @@ WrapCHeader
             singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S1"))
+            DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -47,7 +53,13 @@ WrapCHeader
               fieldName = CName "c",
               fieldOffset = 0,
               fieldType = TypeStruct
-                (DefnName (CName "S1_c")),
+                (DeclPathStruct
+                  Nothing
+                  (DeclPathField
+                    (CName "c")
+                    (DeclPathStruct
+                      (Just (CName "S1"))
+                      DeclPathTop))),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",
@@ -73,8 +85,17 @@ WrapCHeader
             singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2_inner_deep"),
+          structDeclPath = DeclPathStruct
+            Nothing
+            (DeclPathField
+              (CName "deep")
+              (DeclPathStruct
+                Nothing
+                (DeclPathField
+                  (CName "inner")
+                  (DeclPathStruct
+                    (Just (CName "S2"))
+                    DeclPathTop)))),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -97,8 +118,13 @@ WrapCHeader
             singleLocColumn = 5}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2_inner"),
+          structDeclPath = DeclPathStruct
+            Nothing
+            (DeclPathField
+              (CName "inner")
+              (DeclPathStruct
+                (Just (CName "S2"))
+                DeclPathTop)),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -117,8 +143,17 @@ WrapCHeader
               fieldName = CName "deep",
               fieldOffset = 32,
               fieldType = TypeStruct
-                (DefnName
-                  (CName "S2_inner_deep")),
+                (DeclPathStruct
+                  Nothing
+                  (DeclPathField
+                    (CName "deep")
+                    (DeclPathStruct
+                      Nothing
+                      (DeclPathField
+                        (CName "inner")
+                        (DeclPathStruct
+                          (Just (CName "S2"))
+                          DeclPathTop))))),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",
@@ -133,8 +168,9 @@ WrapCHeader
             singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S2"))
+            DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -142,7 +178,13 @@ WrapCHeader
               fieldName = CName "inner",
               fieldOffset = 0,
               fieldType = TypeStruct
-                (DefnName (CName "S2_inner")),
+                (DeclPathStruct
+                  Nothing
+                  (DeclPathField
+                    (CName "inner")
+                    (DeclPathStruct
+                      (Just (CName "S2"))
+                      DeclPathTop))),
               fieldSourceLoc = SingleLoc {
                 singleLocPath = [
                   "examples",

@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S1"))
+            DeclPathTop,
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -29,7 +30,9 @@ WrapCHeader
         Typedef {
           typedefName = CName "S1_t",
           typedefType = TypeStruct
-            (DefnName (CName "S1")),
+            (DeclPathStruct
+              (Just (CName "S1"))
+              DeclPathTop),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -38,8 +41,9 @@ WrapCHeader
             singleLocColumn = 19}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S2"))
+            DeclPathTop,
           structSizeof = 4,
           structAlignment = 4,
           structFields = [

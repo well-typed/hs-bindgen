@@ -9,7 +9,6 @@ module HsBindgen.C.AST.Type (
   , PrimFloatType(..)
   , PrimSign(..)
     -- * Structs
-  , DefnName (..)
   , Struct(..)
   , StructField(..)
   , OpaqueStruct(..)
@@ -19,6 +18,8 @@ module HsBindgen.C.AST.Type (
   , OpaqueEnum(..)
     -- * Typedefs
   , Typedef(..)
+    -- * DeclPath
+  , DeclPath(..)
   ) where
 
 import HsBindgen.Clang.HighLevel.Types (SingleLoc)
@@ -32,7 +33,7 @@ import HsBindgen.C.AST.Name
 -- | Type representing /usage/ of a type: field type, argument or result type etc.
 data Type =
     TypePrim PrimType
-  | TypeStruct DefnName
+  | TypeStruct DeclPath
   | TypeEnum CName
   | TypeTypedef CName
   | TypePointer Type
@@ -125,17 +126,9 @@ data PrimSign = Signed | Unsigned
   Structs
 -------------------------------------------------------------------------------}
 
--- TODO: how to name this type?
---
-data DefnName
-    = DefnName CName  -- ^ top level definition: @struct foo@, @typedef ... foo@
-    -- TODO: add names for structs defined for fields.
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
 -- | Definition of a struct
 data Struct = Struct {
-      structTag       :: DefnName
+      structDeclPath  :: DeclPath
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -212,4 +205,29 @@ data Typedef = Typedef {
     , typedefSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  DeclPath
+-------------------------------------------------------------------------------}
+
+-- | Declaration path
+--
+-- This type tracks how declarations are defined.  This information is used to
+-- create Haskell names, and it is also used in test generation.
+--
+-- Syntax @struct {...}@ and @union {...}@ are /types/ that can be used in the
+-- definition of a variable or field.  They may even be nested.  When in a
+-- top-level declaration and given a name, like @struct foo {..}@ or
+-- @union bar {..}@, they /also/ act as declarations in the global scope.  When
+-- a @struct@ or @union@ is not given a name, the field name may be used in
+-- creation of the corresponding Haskell name.
+data DeclPath
+    = DeclPathTop
+    | DeclPathStruct (Maybe CName) DeclPath
+    -- TODO | DeclPathUnion (Maybe CName) DeclPath
+    | DeclPathField CName DeclPath
+    -- TODO | DeclPathPtr Path
+    -- TODO | DeclPathConstArray Natural Path
+  deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)

@@ -30,7 +30,7 @@ instance ToExpr CHeader
 instance ToExpr C.Attribute
 instance ToExpr C.CName
 instance ToExpr C.Decl
-instance ToExpr C.DefnName
+instance ToExpr C.DeclPath
 instance ToExpr C.Enu
 instance ToExpr C.EnumValue
 instance ToExpr C.Function

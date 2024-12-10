@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S1"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -38,8 +39,9 @@ WrapCHeader
             singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S2"))
+            DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -86,7 +88,9 @@ WrapCHeader
         Typedef {
           typedefName = CName "S2_t",
           typedefType = TypeStruct
-            (DefnName (CName "S2")),
+            (DeclPathStruct
+              (Just (CName "S2"))
+              DeclPathTop),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -95,8 +99,9 @@ WrapCHeader
             singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S3_t"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S3_t"))
+            DeclPathTop,
           structSizeof = 1,
           structAlignment = 1,
           structFields = [
@@ -119,8 +124,9 @@ WrapCHeader
             singleLocColumn = 9}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S4"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S4"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -167,8 +173,9 @@ WrapCHeader
             singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S5"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S5"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -202,8 +209,9 @@ WrapCHeader
             singleLocColumn = 16}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S6"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "S6"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [

@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "primitive"),
+          structDeclPath = DeclPathStruct
+            (Just (CName "primitive"))
+            DeclPathTop,
           structSizeof = 176,
           structAlignment = 16,
           structFields = [

@@ -16,6 +16,8 @@ module HsBindgen.Hs.AST.Name (
   , NameMangler(..)
     -- ** DSL
   , translateName
+  , translateDeclPath
+  , getDeclPathParts
   , maintainCName
   , camelCaseCName
   , dropInvalidChar
@@ -54,7 +56,7 @@ import Data.Text qualified as T
 import Numeric (showHex)
 
 import HsBindgen.Imports
-import HsBindgen.C.AST (CName(..))
+import HsBindgen.C.AST (CName(..), DeclPath(..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -146,12 +148,10 @@ data TypeConstrContext =
       -- | C name for the type
       ctxTypeConstrCName :: CName
     }
-  | -- | Context for anonymous structures/unions for named fields
-    AnonNamedFieldTypeConstrContext {
-      -- | Closest named ancestor type context
-      ctxAnonNamedFieldTypeConstrAncestorCtx :: TypeConstrContext
-    , -- | C field name
-      ctxAnonNamedFieldTypeConstrFieldName :: CName
+  | -- | Context for structures
+    StructTypeConstrContext {
+      -- | Structure declaration path
+      ctxStructTypeConstrDeclPath :: DeclPath
     }
   deriving stock (Eq, Show)
 
@@ -277,6 +277,48 @@ translateName
   cname =
     let name = mkHsName . joinParts $ prefixes ++ translate cname : suffixes
     in  handleReserved $ fromMaybe name (override name)
+
+-- | Translate a 'DeclPath' to an 'HsName'
+--
+-- The first parameter is a function that gets parts of a 'DeclPath' to include
+-- in the translation.  Default 'getDeclPathParts' is provided in this module.
+--
+-- See 'translateName' for documentation of the other parameters.
+translateDeclPath ::
+     (DeclPath -> [CName])            -- ^ Get parts from a 'DeclPath'
+  -> (CName -> Text)                  -- ^ Translate a 'CName'
+  -> ([Text] -> Text)                 -- ^ Join parts of a name
+  -> [Text]                           -- ^ Prefixes
+  -> [Text]                           -- ^ Suffixes
+  -> (Text -> HsName ns)              -- ^ Construct an 'HsName'
+  -> (HsName ns -> Maybe (HsName ns)) -- ^ Override translation
+  -> (HsName ns -> HsName ns)         -- ^ Handle reserved names
+  -> DeclPath
+  -> HsName ns
+translateDeclPath
+  getParts
+  translate
+  joinParts
+  prefixes
+  suffixes
+  mkHsName
+  override
+  handleReserved
+  declPath =
+    let name = mkHsName . joinParts $
+          prefixes ++ map translate (getParts declPath) ++ suffixes
+    in  handleReserved $ fromMaybe name (override name)
+
+-- | Default 'DeclPath' translation
+getDeclPathParts :: DeclPath -> [CName]
+getDeclPathParts = aux
+  where
+    aux :: DeclPath -> [CName]
+    aux = \case
+      DeclPathTop                   -> ["ANONYMOUS"] -- shouldn't happen
+      DeclPathStruct Nothing  path  -> aux path
+      DeclPathStruct (Just n) _path -> [n]
+      DeclPathField  n        path  -> aux path ++ [n]
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible
@@ -696,18 +738,17 @@ defaultNameMangler = NameMangler{..}
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxTypeConstrCName
-      AnonNamedFieldTypeConstrContext{..} ->
-        translateName
+      StructTypeConstrContext{..} ->
+        translateDeclPath
+          getDeclPathParts
           (maintainCName escapeInvalidChar)
           joinWithSnakeCase
-          [ getHsName $
-              mangleTypeConstrName ctxAnonNamedFieldTypeConstrAncestorCtx
-          ]
+          []
           []
           (mkHsNamePrefixInvalid "C")
           handleOverrideNone
-          handleReservedNone
-          ctxAnonNamedFieldTypeConstrFieldName
+          (handleReservedNames appendSingleQuote reservedTypeNames)
+          ctxStructTypeConstrDeclPath
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
     mangleTypeVarName ctxt =
@@ -819,18 +860,17 @@ haskellNameMangler = NameMangler{..}
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxTypeConstrCName
-      AnonNamedFieldTypeConstrContext{..} ->
-        translateName
+      StructTypeConstrContext{..} ->
+        translateDeclPath
+          getDeclPathParts
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase
-          [ getHsName $
-              mangleTypeConstrName ctxAnonNamedFieldTypeConstrAncestorCtx
-          ]
           []
-          mkHsNameDropInvalid
+          []
+          (mkHsNamePrefixInvalid "C")
           handleOverrideNone
-          handleReservedNone
-          ctxAnonNamedFieldTypeConstrFieldName
+          (handleReservedNames appendSingleQuote reservedTypeNames)
+          ctxStructTypeConstrDeclPath
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
     mangleTypeVarName ctxt =
