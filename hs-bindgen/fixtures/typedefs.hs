@@ -1,4 +1,4 @@
-DeclNewtype (Newtype {newtypeName = "Myint", newtypeConstr = "Myint", newtypeField = Field {fieldName = "unMyint", fieldType = HsPrimType HsPrimCInt}})
+DeclNewtype (Newtype {newtypeName = "Myint", newtypeConstr = "Myint", newtypeField = Field {fieldName = "unMyint", fieldType = HsPrimType HsPrimCInt, fieldOrigin = FieldOriginNone}, newtypeOrigin = NewtypeOriginTypedef (Typedef {typedefName = "myint", typedefType = TypePrim (PrimIntegral (PrimInt Signed)), typedefSourceLoc = "examples/typedefs.h:1:13"})})
 DeclNewtypeInstance Storable "Myint"
-DeclNewtype (Newtype {newtypeName = "Intptr", newtypeConstr = "Intptr", newtypeField = Field {fieldName = "unIntptr", fieldType = HsPtr (HsPrimType HsPrimCInt)}})
+DeclNewtype (Newtype {newtypeName = "Intptr", newtypeConstr = "Intptr", newtypeField = Field {fieldName = "unIntptr", fieldType = HsPtr (HsPrimType HsPrimCInt), fieldOrigin = FieldOriginNone}, newtypeOrigin = NewtypeOriginTypedef (Typedef {typedefName = "intptr", typedefType = TypePointer (TypePrim (PrimIntegral (PrimInt Signed))), typedefSourceLoc = "examples/typedefs.h:2:15"})})
 DeclNewtypeInstance Storable "Intptr"
