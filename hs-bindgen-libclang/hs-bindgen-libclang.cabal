@@ -64,6 +64,7 @@ library
       HsBindgen.Clang.HighLevel
       HsBindgen.Clang.HighLevel.Types
   other-modules:
+      HsBindgen.Clang.LowLevel.FFI
       HsBindgen.Clang.LowLevel.Core.Enums
       HsBindgen.Clang.LowLevel.Core.Instances
       HsBindgen.Clang.LowLevel.Core.Structs
