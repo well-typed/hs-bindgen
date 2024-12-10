@@ -94,10 +94,12 @@ structDecs struct fields =
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           structFields = flip Vec.map fields $ \f -> Hs.Field {
-              fieldName = mangleVarName $
+              fieldName   = mangleVarName $
                 FieldVarContext typeConstrCtx (C.fieldName f)
-            , fieldType = typ nm (C.fieldType f)
+            , fieldType   = typ nm (C.fieldType f)
+            , fieldOrigin = Hs.FieldOriginStructField f
             }
+          structOrigin = Hs.StructOriginStruct struct
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -145,18 +147,18 @@ enumDecs e = [
     newtypeName        = mangleTypeConstrName typeConstrCtx
     newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
     newtypeField       = Hs.Field {
-        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
-      , fieldType = typ nm (C.enumType e)
+        fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType   = typ nm (C.enumType e)
+      , fieldOrigin = Hs.FieldOriginNone
       }
+    newtypeOrigin      = Hs.NewtypeOriginEnum e
 
     hs :: Hs.Struct (S Z)
     hs =
       let structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          structFields = Vec.singleton $ Hs.Field {
-              fieldName = mangleVarName $ EnumVarContext typeConstrCtx
-            , fieldType = typ nm (C.enumType e)
-            }
+          structFields = Vec.singleton newtypeField
+          structOrigin = Hs.StructOriginEnum e
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -182,9 +184,9 @@ enumDecs e = [
           , patSynType   = newtypeName
           , patSynConstr = newtypeConstr
           , patSynValue  = valueValue
-
+          , patSynOrigin = Hs.PatSynOriginEnumValue enumValue
           }
-        | C.EnumValue {..} <- C.enumValues e
+        | enumValue@C.EnumValue{..} <- C.enumValues e
         ]
 
 {-------------------------------------------------------------------------------
@@ -203,11 +205,11 @@ typedefDecs d = [
     newtypeName        = mangleTypeConstrName typeConstrCtx
     newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
     newtypeField       = Hs.Field {
-        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
-      , fieldType = typ nm (C.typedefType d)
+        fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType   = typ nm (C.typedefType d)
+      , fieldOrigin = Hs.FieldOriginNone
       }
-
-
+    newtypeOrigin      = Hs.NewtypeOriginTypedef d
 
 {-------------------------------------------------------------------------------
   Macros
@@ -243,7 +245,9 @@ macroDecsTypedef m = [
           typ nm $ case C.macroBody m of
             C.MTerm (C.MType pt) -> C.TypePrim pt
             _                    -> C.TypePrim C.PrimVoid
+      , fieldOrigin = Hs.FieldOriginNone
       }
+    newtypeOrigin = Hs.NewtypeOriginMacro m
 
 {-------------------------------------------------------------------------------
   Types
@@ -294,10 +298,11 @@ floatingType = \case
 functionDecs :: C.Function -> [Hs.Decl]
 functionDecs f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = mangleVarName nm $ VarContext $ C.functionName f
-        , foreignImportType     = typ nm $ C.functionType f
-        , foreignImportOrigName = C.getCName (C.functionName f)
-        , foreignImportHeader   = C.functionHeader f  -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+        { foreignImportName       = mangleVarName nm $ VarContext $ C.functionName f
+        , foreignImportType       = typ nm $ C.functionType f
+        , foreignImportOrigName   = C.getCName (C.functionName f)
+        , foreignImportHeader     = C.functionHeader f  -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+        , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]
   where

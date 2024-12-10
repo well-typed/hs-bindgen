@@ -1,2 +1,2 @@
-DeclNewtype (Newtype {newtypeName = "Triple", newtypeConstr = "Triple", newtypeField = Field {fieldName = "unTriple", fieldType = HsConstArray 3 (HsPrimType HsPrimCInt)}})
+DeclNewtype (Newtype {newtypeName = "Triple", newtypeConstr = "Triple", newtypeField = Field {fieldName = "unTriple", fieldType = HsConstArray 3 (HsPrimType HsPrimCInt), fieldOrigin = FieldOriginNone}, newtypeOrigin = NewtypeOriginTypedef (Typedef {typedefName = "triple", typedefType = TypeConstArray 3 (TypePrim (PrimIntegral (PrimInt Signed))), typedefSourceLoc = "examples/fixedarray.h:1:13"})})
 DeclNewtypeInstance Storable "Triple"

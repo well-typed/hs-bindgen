@@ -20,8 +20,11 @@
 module HsBindgen.Hs.AST (
     -- * Information about generated code
     Field(..)
+  , FieldOrigin(..)
   , Struct(..)
+  , StructOrigin(..)
   , Newtype(..)
+  , NewtypeOrigin(..)
     -- * Types
   , HsType(..)
     -- * Variable binding
@@ -42,7 +45,8 @@ module HsBindgen.Hs.AST (
     -- ** Newtype instances
   , TypeClass (..)
     -- ** Foreign imports
-  , ForeignImportDecl (..)
+  , ForeignImportDecl(..)
+  , ForeignImportDeclOrigin(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -55,9 +59,10 @@ module HsBindgen.Hs.AST (
   , makeElimStruct
     -- ** Pattern Synonyms
   , PatSyn(..)
+  , PatSynOrigin(..)
   ) where
 
-import HsBindgen.C.AST qualified as C (MFun(..))
+import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
 import Data.Type.Nat as Nat
 
@@ -73,36 +78,60 @@ import DeBruijn
 -------------------------------------------------------------------------------}
 
 data Field = Field {
-      fieldName :: HsName NsVar
-    , fieldType :: HsType
+      fieldName   :: HsName NsVar
+    , fieldType   :: HsType
+    , fieldOrigin :: FieldOrigin
     }
 
 deriving stock instance Show Field
+
+data FieldOrigin =
+      FieldOriginNone
+    | FieldOriginStructField C.StructField
+  deriving Show
 
 data Struct (n :: Nat) = Struct {
       structName   :: HsName NsTypeConstr
     , structConstr :: HsName NsConstr
     , structFields :: Vec n Field
+    , structOrigin :: StructOrigin
     }
 
 deriving stock instance Show (Struct n)
+
+data StructOrigin =
+      StructOriginStruct C.Struct
+    | StructOriginEnum C.Enu
+  deriving Show
 
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeConstr :: HsName NsConstr
     , newtypeField  :: Field
+    , newtypeOrigin :: NewtypeOrigin
     }
 
 deriving stock instance Show Newtype
 
+data NewtypeOrigin =
+      NewtypeOriginEnum C.Enu
+    | NewtypeOriginTypedef C.Typedef
+    | NewtypeOriginMacro C.Macro
+  deriving Show
+
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName     :: HsName NsVar
-    , foreignImportType     :: HsType
-    , foreignImportOrigName :: Text
-    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    { foreignImportName       :: HsName NsVar
+    , foreignImportType       :: HsType
+    , foreignImportOrigName   :: Text
+    , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    , foreignImportDeclOrigin :: ForeignImportDeclOrigin
     }
 
 deriving stock instance Show ForeignImportDecl
+
+newtype ForeignImportDeclOrigin =
+      ForeignImportDeclOriginFunction C.Function
+  deriving Show
 
 {-------------------------------------------------------------------------------
   Variable binding
@@ -245,7 +274,12 @@ data PatSyn = PatSyn
     , patSynType   :: HsName NsTypeConstr
     , patSynConstr :: HsName NsConstr
     , patSynValue  :: Integer
+    , patSynOrigin :: PatSynOrigin
     }
+  deriving Show
+
+newtype PatSynOrigin =
+      PatSynOriginEnumValue C.EnumValue
   deriving Show
 
 {-------------------------------------------------------------------------------
