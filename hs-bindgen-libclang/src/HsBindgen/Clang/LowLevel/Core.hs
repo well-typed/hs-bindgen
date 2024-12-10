@@ -197,6 +197,7 @@ import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO, unsafeDupablePerformIO)
 
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.LowLevel.FFI
 import HsBindgen.Clang.LowLevel.Core.Enums
 import HsBindgen.Clang.LowLevel.Core.Instances ()
 import HsBindgen.Clang.LowLevel.Core.Structs
@@ -627,29 +628,8 @@ instance Eq CXCursor where
 foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
   wrap_getTranslationUnitCursor :: CXTranslationUnit -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_equalCursors"
-  wrap_equalCursors :: R CXCursor_ -> R CXCursor_ -> IO CUInt
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorSemanticParent"
-  wrap_getCursorSemanticParent :: R CXCursor_ -> W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorLexicalParent"
-  wrap_getCursorLexicalParent :: R CXCursor_ -> W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorKind"
-  wrap_getCursorKind :: R CXCursor_ -> IO (SimpleEnum CXCursorKind)
-
-foreign import capi unsafe "clang_wrappers.h wrap_getNullCursor"
-  wrap_getNullCursor :: W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
-  wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()
-
 foreign import capi unsafe "wrap_Cursor_getTranslationUnit"
   wrap_Cursor_getTranslationUnit :: R CXCursor_ -> IO CXTranslationUnit
-
-foreign import capi unsafe "clang-c/Index.h clang_isDeclaration"
-  nowrapper_isDeclaration :: SimpleEnum CXCursorKind -> IO CUInt
 
 -- | Retrieve the cursor that represents the given translation unit.
 --
@@ -1003,92 +983,11 @@ instance Ord CXType where
 foreign import capi unsafe "clang_wrappers.h wrap_cxtKind"
   wrap_cxtKind :: R CXType_ -> IO (SimpleEnum CXTypeKind)
 
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorType"
-  wrap_getCursorType :: R CXCursor_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getTypeKindSpelling"
-  wrap_getTypeKindSpelling :: SimpleEnum CXTypeKind -> W CXString_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getTypeSpelling"
-  wrap_getTypeSpelling :: R CXType_ -> W CXString_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getTypedefDeclUnderlyingType"
-  wrap_getTypedefDeclUnderlyingType :: R CXCursor_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getEnumDeclIntegerType"
-  wrap_getEnumDeclIntegerType :: R CXCursor_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isBitField"
-  wrap_Cursor_isBitField :: R CXCursor_ -> IO CUInt
-
-foreign import capi unsafe "clang_wrappers.h wrap_getFieldDeclBitWidth"
-  wrap_getFieldDeclBitWidth :: R CXCursor_ -> IO CInt
-
-foreign import capi unsafe "clang_wrappers.h wrap_getPointeeType"
-  wrap_getPointeeType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getArrayElementType"
-  wrap_getArrayElementType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getArraySize"
-  wrap_getArraySize :: R CXType_ -> IO CLLong
-
-foreign import capi unsafe "clang_wrappers.h wrap_Type_getSizeOf"
-  wrap_Type_getSizeOf :: R CXType_ -> IO CLLong
-
-foreign import capi unsafe "clang_wrappers.h wrap_Type_getAlignOf"
-  wrap_getAlignOf :: R CXType_ -> IO CLLong
-
-foreign import capi unsafe "clang_wrappers.h wrap_Type_isTransparentTagTypedef"
-  wrap_Type_isTransparentTagTypedef :: R CXType_ -> IO CUInt
-
-foreign import capi unsafe "clang_wrappers.h wrap_Cursor_getOffsetOfField"
-  wrap_Cursor_getOffsetOfField :: R CXCursor_ -> IO CLLong
-
-foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymous"
-  wrap_Cursor_isAnonymous :: R CXCursor_ -> IO CUInt
-
-foreign import capi unsafe "clang_wrappers.h wrap_Cursor_isAnonymousRecordDecl"
-  wrap_Cursor_isAnonymousRecordDecl :: R CXCursor_ -> IO CUInt
-
-foreign import capi unsafe "clang_wrappers.h wrap_getEnumConstantDeclValue"
-  wrap_getEnumConstantDeclValue :: R CXCursor_ -> IO CLLong
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_equalTypes :: R CXType_ -> R CXType_ -> IO CUInt
-
 foreign import capi unsafe "clang_wrappers.h"
   wrap_compareTypes :: R CXType_ -> R CXType_ -> IO CInt
 
 foreign import capi unsafe "clang_wrappers.h"
-  wrap_getCanonicalType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_getTypedefName :: R CXType_ -> W CXString_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
   wrap_getUnqualifiedType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_getTypeDeclaration :: R CXType_ -> W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_getResultType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_getNumArgTypes :: R CXType_ -> IO CInt
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_getArgType :: R CXType_ -> CUInt -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_Type_getNamedType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_Type_getModifiedType :: R CXType_ -> W CXType_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h"
-  wrap_Type_getValueType :: R CXType_ -> W CXType_ -> IO ()
 
 -- | Extract the @kind@ field from a @CXType@ struct
 --
@@ -1203,7 +1102,7 @@ clang_Type_getSizeOf typ =
 clang_Type_getAlignOf :: HasCallStack => CXType -> IO CLLong
 clang_Type_getAlignOf typ =
     onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
-      wrap_getAlignOf typ'
+      wrap_Type_getAlignOf typ'
 
 -- | Determine if a typedef is 'transparent' tag.
 --
