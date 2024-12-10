@@ -628,20 +628,8 @@ instance Eq CXCursor where
 foreign import capi unsafe "clang_wrappers.h wrap_getTranslationUnitCursor"
   wrap_getTranslationUnitCursor :: CXTranslationUnit -> W CXCursor_ -> IO ()
 
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorSemanticParent"
-  wrap_getCursorSemanticParent :: R CXCursor_ -> W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorLexicalParent"
-  wrap_getCursorLexicalParent :: R CXCursor_ -> W CXCursor_ -> IO ()
-
-foreign import capi unsafe "clang_wrappers.h wrap_getCursorKindSpelling"
-  wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()
-
 foreign import capi unsafe "wrap_Cursor_getTranslationUnit"
   wrap_Cursor_getTranslationUnit :: R CXCursor_ -> IO CXTranslationUnit
-
-foreign import capi unsafe "clang-c/Index.h clang_isDeclaration"
-  nowrapper_isDeclaration :: SimpleEnum CXCursorKind -> IO CUInt
 
 -- | Retrieve the cursor that represents the given translation unit.
 --

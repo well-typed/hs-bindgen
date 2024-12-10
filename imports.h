@@ -80,3 +80,40 @@ unsigned clang_equalCursors (CXCursor A, CXCursor B);
 int clang_Cursor_isNull (CXCursor cursor);
 unsigned clang_hashCursor (CXCursor cursor);
 enum CXCursorKind clang_getCursorKind (CXCursor cursor);
+unsigned clang_isDeclaration (enum CXCursorKind k);
+unsigned clang_isInvalidDeclaration (CXCursor cursor);
+unsigned clang_isReference (enum CXCursorKind k);
+unsigned clang_isExpression (enum CXCursorKind k);
+unsigned clang_isStatement (enum CXCursorKind k);
+unsigned clang_isAttribute (enum CXCursorKind k);
+unsigned clang_Cursor_hasAttrs (CXCursor C);
+unsigned clang_isInvalid (enum CXCursorKind k);
+unsigned clang_isTranslationUnit (enum CXCursorKind k);
+unsigned clang_isPreprocessing (enum CXCursorKind k);
+unsigned clang_isUnexposed (enum CXCursorKind k);
+// enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum
+// enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum
+// enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum
+// int clang_getCursorPlatformAvailability (CXCursor cursor, int *always_deprecated, CXString *deprecated_message, int *always_unavailable, CXString *unavailable_message, CXPlatformAvailability *availability, int availability_size);
+// void clang_disposeCXPlatformAvailability (CXPlatformAvailability *availability);
+CXCursor clang_Cursor_getVarDeclInitializer (CXCursor cursor);
+int clang_Cursor_hasVarDeclGlobalStorage (CXCursor cursor);
+ int clang_Cursor_hasVarDeclExternalStorage (CXCursor cursor);
+// enum CXLanguageKind clang_getCursorLanguage (CXCursor cursor); // no enum
+// enum CXTLSKind clang_getCursorTLSKind (CXCursor cursor); // no enum
+// CXTranslationUnit clang_Cursor_getTranslationUnit (CXCursor cursor); CXTranslationUnit is defined in LowLevel.Core
+// CXCursorSet clang_createCXCursorSet (void); // no cursor set
+// void clang_disposeCXCursorSet (CXCursorSet cset); // no cursor set
+// unsigned clang_CXCursorSet_contains (CXCursorSet cset, CXCursor cursor); // no cursor set
+// unsigned clang_CXCursorSet_insert (CXCursorSet cset, CXCursor cursor); // no cursor set
+CXCursor clang_getCursorSemanticParent (CXCursor cursor);
+CXCursor clang_getCursorLexicalParent (CXCursor cursor);
+// void clang_getOverriddenCursors (CXCursor cursor, CXCursor **overridden, unsigned *num_overridden); // C++?
+// void clang_disposeOverriddenCursors (CXCursor *overridden); // C++?
+// CXFile clang_getIncludedFile (CXCursor cursor); // CXFile is defined in LowLevel.Core
+
+// Debugging facilities https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html
+CXString clang_getCursorKindSpelling (enum CXCursorKind Kind);
+// void clang_getDefinitionSpellingAndExtent (CXCursor, const char **startBuf, const char **endBuf, unsigned *startLine, unsigned *startColumn, unsigned *endLine, unsigned *endColumn);
+// void clang_enableStackTraces (void);
+// void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size);

@@ -267,3 +267,73 @@ static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
   return clang_getCursorKind(*cursor);
 }
 
+static inline unsigned wrap_isInvalidDeclaration(const CXCursor* cursor) {
+  return clang_isInvalidDeclaration(*cursor);
+}
+
+static inline unsigned wrap_Cursor_hasAttrs(const CXCursor* C) {
+  return clang_Cursor_hasAttrs(*C);
+}
+
+/* enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum */
+
+/* enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum */
+
+/* enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum */
+
+/* int clang_getCursorPlatformAvailability (CXCursor cursor, int *always_deprecated, CXString *deprecated_message, int *always_unavailable, CXString *unavailable_message, CXPlatformAvailability *availability, int availability_size); */
+
+/* void clang_disposeCXPlatformAvailability (CXPlatformAvailability *availability); */
+
+static inline void wrap_Cursor_getVarDeclInitializer(const CXCursor* cursor, CXCursor* result) {
+  *result = clang_Cursor_getVarDeclInitializer(*cursor);
+}
+
+static inline int wrap_Cursor_hasVarDeclGlobalStorage(const CXCursor* cursor) {
+  return clang_Cursor_hasVarDeclGlobalStorage(*cursor);
+}
+
+static inline int wrap_Cursor_hasVarDeclExternalStorage(const CXCursor* cursor) {
+  return clang_Cursor_hasVarDeclExternalStorage(*cursor);
+}
+
+/* enum CXLanguageKind clang_getCursorLanguage (CXCursor cursor); // no enum */
+
+/* enum CXTLSKind clang_getCursorTLSKind (CXCursor cursor); // no enum */
+
+/* CXTranslationUnit clang_Cursor_getTranslationUnit (CXCursor cursor); CXTranslationUnit is defined in LowLevel.Core */
+
+/* CXCursorSet clang_createCXCursorSet (void); // no cursor set */
+
+/* void clang_disposeCXCursorSet (CXCursorSet cset); // no cursor set */
+
+/* unsigned clang_CXCursorSet_contains (CXCursorSet cset, CXCursor cursor); // no cursor set */
+
+/* unsigned clang_CXCursorSet_insert (CXCursorSet cset, CXCursor cursor); // no cursor set */
+
+static inline void wrap_getCursorSemanticParent(const CXCursor* cursor, CXCursor* result) {
+  *result = clang_getCursorSemanticParent(*cursor);
+}
+
+static inline void wrap_getCursorLexicalParent(const CXCursor* cursor, CXCursor* result) {
+  *result = clang_getCursorLexicalParent(*cursor);
+}
+
+/* void clang_getOverriddenCursors (CXCursor cursor, CXCursor **overridden, unsigned *num_overridden); // C++? */
+
+/* void clang_disposeOverriddenCursors (CXCursor *overridden); // C++? */
+
+/* CXFile clang_getIncludedFile (CXCursor cursor); // CXFile is defined in LowLevel.Core */
+
+/* Debugging facilities https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html */
+
+static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* result) {
+  *result = clang_getCursorKindSpelling(Kind);
+}
+
+/* void clang_getDefinitionSpellingAndExtent (CXCursor, const char **startBuf, const char **endBuf, unsigned *startLine, unsigned *startColumn, unsigned *endLine, unsigned *endColumn); */
+
+/* void clang_enableStackTraces (void); */
+
+/* void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size); */
+

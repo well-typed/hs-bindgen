@@ -220,3 +220,92 @@ foreign import capi unsafe "clang_wrappers.h"
 foreign import capi unsafe "clang_wrappers.h"
   wrap_getCursorKind :: R CXCursor_ -> IO (SimpleEnum CXCursorKind)
 
+foreign import capi unsafe "clang_wrappers.h clang_isDeclaration"
+  nowrapper_isDeclaration :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_isInvalidDeclaration :: R CXCursor_ -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isReference"
+  nowrapper_isReference :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isExpression"
+  nowrapper_isExpression :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isStatement"
+  nowrapper_isStatement :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isAttribute"
+  nowrapper_isAttribute :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Cursor_hasAttrs :: R CXCursor_ -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isInvalid"
+  nowrapper_isInvalid :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isTranslationUnit"
+  nowrapper_isTranslationUnit :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isPreprocessing"
+  nowrapper_isPreprocessing :: SimpleEnum CXCursorKind -> IO CUInt
+
+foreign import capi unsafe "clang_wrappers.h clang_isUnexposed"
+  nowrapper_isUnexposed :: SimpleEnum CXCursorKind -> IO CUInt
+
+-- enum CXLinkageKind clang_getCursorLinkage (CXCursor cursor); // no enum
+
+-- enum CXVisibilityKind clang_getCursorVisibility (CXCursor cursor); // no enum
+
+-- enum CXAvailabilityKind clang_getCursorAvailability (CXCursor cursor); // no enum
+
+-- int clang_getCursorPlatformAvailability (CXCursor cursor, int *always_deprecated, CXString *deprecated_message, int *always_unavailable, CXString *unavailable_message, CXPlatformAvailability *availability, int availability_size);
+
+-- void clang_disposeCXPlatformAvailability (CXPlatformAvailability *availability);
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Cursor_getVarDeclInitializer :: R CXCursor_ -> W CXCursor_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Cursor_hasVarDeclGlobalStorage :: R CXCursor_ -> IO CInt
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_Cursor_hasVarDeclExternalStorage :: R CXCursor_ -> IO CInt
+
+-- enum CXLanguageKind clang_getCursorLanguage (CXCursor cursor); // no enum
+
+-- enum CXTLSKind clang_getCursorTLSKind (CXCursor cursor); // no enum
+
+-- CXTranslationUnit clang_Cursor_getTranslationUnit (CXCursor cursor); CXTranslationUnit is defined in LowLevel.Core
+
+-- CXCursorSet clang_createCXCursorSet (void); // no cursor set
+
+-- void clang_disposeCXCursorSet (CXCursorSet cset); // no cursor set
+
+-- unsigned clang_CXCursorSet_contains (CXCursorSet cset, CXCursor cursor); // no cursor set
+
+-- unsigned clang_CXCursorSet_insert (CXCursorSet cset, CXCursor cursor); // no cursor set
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorSemanticParent :: R CXCursor_ -> W CXCursor_ -> IO ()
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorLexicalParent :: R CXCursor_ -> W CXCursor_ -> IO ()
+
+-- void clang_getOverriddenCursors (CXCursor cursor, CXCursor **overridden, unsigned *num_overridden); // C++?
+
+-- void clang_disposeOverriddenCursors (CXCursor *overridden); // C++?
+
+-- CXFile clang_getIncludedFile (CXCursor cursor); // CXFile is defined in LowLevel.Core
+
+-- Debugging facilities https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getCursorKindSpelling :: SimpleEnum CXCursorKind -> W CXString_ -> IO ()
+
+-- void clang_getDefinitionSpellingAndExtent (CXCursor, const char **startBuf, const char **endBuf, unsigned *startLine, unsigned *startColumn, unsigned *endLine, unsigned *endColumn);
+
+-- void clang_enableStackTraces (void);
+
+-- void clang_executeOnThread (void(*fn)(void *), void *user_data, unsigned stack_size);
+

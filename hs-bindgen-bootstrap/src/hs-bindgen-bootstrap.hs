@@ -122,22 +122,37 @@ ffiDecl (Comment comment) =
 ffiDecl (FunDecl (Var rtype name) args)
     | isStruct rtype
     =
-    [ "foreign import capi unsafe \"clang_wrappers.h\""
+    [ "foreign import capi unsafe \"clang_wrappers.h" ++ ffiName ++ "\""
     , "  " ++ name' ++ " :: " ++ foldr argumentTy (toHaskellType Res rtype) args ++ " -> IO ()"
     , ""
     ]
 
     | otherwise
     =
-    [ "foreign import capi unsafe \"clang_wrappers.h\""
+    [ "foreign import capi unsafe \"clang_wrappers.h" ++ ffiName ++ "\""
     , "  " ++ name' ++ " :: " ++ foldr argumentTy (ioType (toHaskellType Res rtype)) args
     , ""
     ]
   where
-    -- TODO: we don't mangle names if there aren't struct resutls args
-    name' = case stripPrefix "clang_" name of
-        Nothing  -> error $ name ++ " doesn't start with clang_"
-        Just sfx -> "wrap_" ++ sfx
+    -- name in C
+    ffiName
+        | isStruct rtype || any isStructVar args
+        = ""
+
+        | otherwise
+        = " " ++ name
+
+    -- name in Haskell
+    name'
+        | isStruct rtype || any isStructVar args
+        = case stripPrefix "clang_" name of
+            Nothing  -> error $ name ++ " doesn't start with clang_"
+            Just sfx -> "wrap_" ++ sfx
+
+        | otherwise
+        =  case stripPrefix "clang_" name of
+            Nothing  -> error $ name ++ " doesn't start with clang_"
+            Just sfx -> "nowrapper_" ++ sfx
 
     argumentTy :: Var -> String -> String
     argumentTy (Var ty _) rest = toHaskellType Arg ty ++ " -> " ++ rest
@@ -164,7 +179,7 @@ wrapDecl (Comment comment) =
     [ "/*" ++ comment ++ " */"
     , ""
     ]
-wrapDecl decl@(FunDecl (Var rtype rname) args)
+wrapDecl (FunDecl (Var rtype rname) args)
     | isStruct rtype
     =
     [ "static inline void " ++ rname' ++ "(" ++ foldr argumentTy (toCType Res rtype ++ " result") args ++ ") {"
@@ -183,9 +198,7 @@ wrapDecl decl@(FunDecl (Var rtype rname) args)
 
     | otherwise
     =
-    [ "/* " ++ show decl ++ " */"
-    , ""
-    ]
+    []
   where
     rname' = case stripPrefix "clang_" rname of
         Nothing  -> error $ rname ++ " doesn't start with clang_"

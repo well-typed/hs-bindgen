@@ -158,18 +158,6 @@ static inline void wrap_getTranslationUnitCursor (CXTranslationUnit unit, CXCurs
     *result = clang_getTranslationUnitCursor(unit);
 }
 
-static inline void wrap_getCursorSemanticParent(const CXCursor* cursor, CXCursor* result) {
-    *result = clang_getCursorSemanticParent(*cursor);
-}
-
-static inline void wrap_getCursorLexicalParent(const CXCursor* cursor, CXCursor* result) {
-    *result = clang_getCursorLexicalParent(*cursor);
-}
-
-static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* result) {
-    *result = clang_getCursorKindSpelling(Kind);
-}
-
 static inline CXTranslationUnit wrap_Cursor_getTranslationUnit(const CXCursor* cursor) {
     return clang_Cursor_getTranslationUnit(*cursor);
 }
