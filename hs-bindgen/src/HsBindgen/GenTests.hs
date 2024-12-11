@@ -11,10 +11,9 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
 import HsBindgen.GenTests.Readme (genTestsReadme)
+import HsBindgen.Hs.AST (Decl)
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
-import HsBindgen.SHs.AST (SDecl)
-import HsBindgen.SHs.Translation qualified as SHs
 
 {-------------------------------------------------------------------------------
   Generation
@@ -42,8 +41,12 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
       cTestSourcePath
       lineLength
       cHeaderPath
+      decls
     genTestsHs
       hsTestPath
+      moduleName
+      cTestHeaderPath
+      lineLength
       decls
   where
     readmePath, cbitsPath, srcPath :: FilePath
@@ -61,8 +64,8 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
     (modulePath, modulePaths) = getModuleDirectories srcPath moduleName
     hsTestPath                = FilePath.combine modulePath "Test.hs"
 
-    decls :: [SDecl]
-    decls = map SHs.translateDecl $ Hs.generateDeclarations cHeader
+    decls :: [Decl]
+    decls = Hs.generateDeclarations cHeader
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

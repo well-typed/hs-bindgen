@@ -6,6 +6,7 @@ import Data.Char qualified as Char
 import Data.List qualified as List
 import System.FilePath qualified as FilePath
 
+import HsBindgen.Hs.AST (Decl)
 import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
@@ -17,8 +18,9 @@ genTestsC ::
   -> FilePath  -- ^ C test source file path
   -> Int       -- ^ Maximum line length
   -> FilePath  -- ^ C header path
+  -> [Decl]    -- ^ Declarations
   -> IO ()
-genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath = do
+genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath _decls = do
     writeFile cTestHeaderPath . renderPretty (mkContext lineLength) $
       CTestHeader {
           cTestHeaderIncludeGuard = getIncludeGuard cTestHeaderFilename

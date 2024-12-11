@@ -2,7 +2,7 @@ module HsBindgen.GenTests.Hs (
     genTestsHs
   ) where
 
-import HsBindgen.SHs.AST (SDecl)
+import HsBindgen.Hs.AST (Decl)
 
 {-------------------------------------------------------------------------------
   Generation
@@ -10,7 +10,10 @@ import HsBindgen.SHs.AST (SDecl)
 
 genTestsHs ::
      FilePath  -- ^ Test module path
-  -> [SDecl]
+  -> String    -- ^ Generated Haskell module name
+  -> FilePath  -- ^ C test header file path
+  -> Int       -- ^ Maximum line length
+  -> [Decl]    -- ^ Declarations
   -> IO ()
-genTestsHs hsTestPath _decls =
+genTestsHs hsTestPath _moduleName _cTestHeaderPath _lineLength _decls =
     writeFile hsTestPath "TODO"
