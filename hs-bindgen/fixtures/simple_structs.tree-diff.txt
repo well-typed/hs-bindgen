@@ -4,7 +4,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "S1"))
+            (DeclNameTag (CName "S1"))
             DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
@@ -40,7 +40,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "S2"))
+            (DeclNameTag (CName "S2"))
             DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
@@ -89,7 +89,7 @@ WrapCHeader
           typedefName = CName "S2_t",
           typedefType = TypeStruct
             (DeclPathStruct
-              (Just (CName "S2"))
+              (DeclNameTag (CName "S2"))
               DeclPathTop),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
@@ -100,7 +100,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "S3_t"))
+            (DeclNameTypedef (CName "S3_t"))
             DeclPathTop,
           structSizeof = 1,
           structAlignment = 1,
@@ -125,7 +125,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "S4"))
+            (DeclNameTag (CName "S4"))
             DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
@@ -174,7 +174,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "S5"))
+            (DeclNameTag (CName "S5"))
             DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
@@ -210,7 +210,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "S6"))
+            (DeclNameTag (CName "S6"))
             DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,

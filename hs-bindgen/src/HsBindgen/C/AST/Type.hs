@@ -20,6 +20,7 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
     -- * DeclPath
   , DeclPath(..)
+  , DeclName(..)
   ) where
 
 import HsBindgen.Clang.HighLevel.Types (SingleLoc)
@@ -224,10 +225,21 @@ data Typedef = Typedef {
 -- creation of the corresponding Haskell name.
 data DeclPath
     = DeclPathTop
-    | DeclPathStruct (Maybe CName) DeclPath
+    | DeclPathStruct DeclName DeclPath
     -- TODO | DeclPathUnion (Maybe CName) DeclPath
     | DeclPathField CName DeclPath
     -- TODO | DeclPathPtr Path
     -- TODO | DeclPathConstArray Natural Path
+  deriving stock (Eq, Generic, Show)
+  deriving anyclass (PrettyVal)
+
+-- | Declaration name
+data DeclName
+    = -- No name specified (anonymous)
+      DeclNameNone
+    | -- Structure/union tag specified
+      DeclNameTag CName
+    | -- Typedef name specified
+      DeclNameTypedef CName
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)

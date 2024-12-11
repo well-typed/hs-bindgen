@@ -571,7 +571,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just
+            (DeclNameTypedef
               (CName
                 "another_typedef_struct_t"))
             DeclPathTop,
@@ -703,7 +703,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just
+            (DeclNameTag
               (CName "a_typedef_struct"))
             DeclPathTop,
           structSizeof = 140,
@@ -757,7 +757,7 @@ WrapCHeader
               fieldOffset = 64,
               fieldType = TypeStruct
                 (DeclPathStruct
-                  (Just
+                  (DeclNameTypedef
                     (CName
                       "another_typedef_struct_t"))
                   DeclPathTop),
@@ -773,7 +773,7 @@ WrapCHeader
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
-                    (Just
+                    (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
                     DeclPathTop)),
@@ -855,7 +855,7 @@ WrapCHeader
             "a_typedef_struct_t",
           typedefType = TypeStruct
             (DeclPathStruct
-              (Just
+              (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop),
           typedefSourceLoc = SingleLoc {

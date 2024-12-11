@@ -30,7 +30,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "foo"))
+            (DeclNameTag (CName "foo"))
             DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,

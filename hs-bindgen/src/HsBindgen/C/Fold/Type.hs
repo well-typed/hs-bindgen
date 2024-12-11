@@ -137,8 +137,9 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
             -- If names match, skip.
             -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
             -- in typedef struct { ... } foo; the typedef does not have transparent tag.
-            TypeStruct (DeclPathStruct (Just n) _declPath) | n == tag ->
-                addAlias ty use
+            TypeStruct (DeclPathStruct declName _declPath)
+              | declName == DeclNameTag tag -> addAlias ty use
+              | declName == DeclNameTypedef tag -> addAlias ty use
 
             TypeEnum n | n == tag ->
                 addAlias ty use
@@ -167,12 +168,13 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
         -- dtraceIO "record" (decl, tag, name, anon)
 
-        let cname
-              | anon      = Nothing
-              | otherwise = Just . CName $ either id id (structSpelling name)
-            declPath = DeclPathStruct cname path
+        let declPath
+              | anon      = DeclPathStruct DeclNameNone path
+              | otherwise = case T.stripPrefix "struct " name of
+                  Just n  -> DeclPathStruct (DeclNameTag (CName n))        path
+                  Nothing -> DeclPathStruct (DeclNameTypedef (CName name)) path
 
-        if declPath == DeclPathStruct Nothing DeclPathTop
+        if declPath == DeclPathStruct DeclNameNone DeclPathTop
         then do
             -- Anonymous top-level declaration: nothing to do but warn, as there
             -- shouldn't be one in "good" code.
@@ -304,11 +306,6 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
       name <- CName <$> liftIO (clang_getTypeSpelling ty)
       liftIO $ print name
       unrecognizedType ty
-
-structSpelling :: Text -> Either Text Text
-structSpelling n
-    | Just sfx <- T.stripPrefix "struct " n = Left sfx
-    | otherwise                             = Right n
 
 enumSpelling :: Text -> Either Text Text
 enumSpelling n

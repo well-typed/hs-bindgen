@@ -56,7 +56,7 @@ import Data.Text qualified as T
 import Numeric (showHex)
 
 import HsBindgen.Imports
-import HsBindgen.C.AST (CName(..), DeclPath(..))
+import HsBindgen.C.AST (CName(..), DeclName(..), DeclPath(..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -315,10 +315,12 @@ getDeclPathParts = aux
   where
     aux :: DeclPath -> [CName]
     aux = \case
-      DeclPathTop                   -> ["ANONYMOUS"] -- shouldn't happen
-      DeclPathStruct Nothing  path  -> aux path
-      DeclPathStruct (Just n) _path -> [n]
-      DeclPathField  n        path  -> aux path ++ [n]
+      DeclPathTop -> ["ANONYMOUS"] -- shouldn't happen
+      DeclPathStruct declName path -> case declName of
+        DeclNameNone      -> aux path
+        DeclNameTag n     -> [n]
+        DeclNameTypedef n -> [n]
+      DeclPathField n path -> aux path ++ [n]
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible

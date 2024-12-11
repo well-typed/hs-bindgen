@@ -28,7 +28,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "bools1"))
+            (DeclNameTag (CName "bools1"))
             DeclPathTop,
           structSizeof = 2,
           structAlignment = 1,
@@ -62,7 +62,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "bools2"))
+            (DeclNameTag (CName "bools2"))
             DeclPathTop,
           structSizeof = 2,
           structAlignment = 1,
@@ -96,7 +96,7 @@ WrapCHeader
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (Just (CName "bools3"))
+            (DeclNameTag (CName "bools3"))
             DeclPathTop,
           structSizeof = 2,
           structAlignment = 1,
