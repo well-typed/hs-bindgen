@@ -65,7 +65,7 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
     decls = map SHs.translateDecl $ Hs.generateDeclarations cHeader
 
 {-------------------------------------------------------------------------------
-  Auxilliary functions
+  Auxiliary functions
 -------------------------------------------------------------------------------}
 
 getModuleCFilenames ::
