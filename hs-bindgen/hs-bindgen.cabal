@@ -14,11 +14,11 @@ tested-with:      , GHC==9.2.8
                   , GHC==9.6.6
                   , GHC==9.8.2
                   , GHC==9.10.1
-extra-source-files: fixtures/*.txt
+extra-source-files: bootstrap/*.h
                     examples/*.h
                     fixtures/*.hs
                     fixtures/*.rs
-                    bootstrap/*.h
+                    fixtures/*.txt
                     musl-include/**/*.h
 
 common lang
@@ -65,17 +65,15 @@ library
   exposed-modules:
       -- Exposed for the sake of tests
       -- TODO: We should reconsider the proper way to export these.
-      HsBindgen.C.AST
-      HsBindgen.Hs.AST
-      HsBindgen.Backend.TH.Translation
       HsBindgen.Backend.PP.Render
+      HsBindgen.Backend.TH.Translation
+      HsBindgen.C.AST
       HsBindgen.Eff
+      HsBindgen.Hs.AST
   other-modules:
-      HsBindgen.Debug
       HsBindgen.Backend.PP
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH
-      HsBindgen.NameHint
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
@@ -92,16 +90,18 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.C.Tc.Macro
-      HsBindgen.Imports
-      HsBindgen.Pretty.Orphans
+      HsBindgen.Debug
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
       HsBindgen.Hs.Translation
+      HsBindgen.Imports
+      HsBindgen.NameHint
+      HsBindgen.Pretty.Orphans
+      HsBindgen.SHs.AST
+      HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer
-      HsBindgen.SHs.AST
-      HsBindgen.SHs.Translation
       Text.SimplePrettyPrint
   other-modules:
       -- Re-exported through HsBindgen.C.AST
@@ -113,8 +113,8 @@ library
       TemplateHaskellQuotes
   build-depends:
       -- Internal dependencies
-    , hs-bindgen-patterns
     , hs-bindgen-libclang
+    , hs-bindgen-patterns
   build-depends:
       -- External dependencies
     , containers         >= 0.6.5.1 && < 0.8
@@ -125,17 +125,17 @@ library
     , filepath           >= 1.4     && < 1.6
     , fin                >= 0.3.2   && < 0.4
     , mtl                >= 2.2     && < 2.4
+    , ordered-containers ^>=0.2.4
     , parsec             >= 3.1     && < 3.2
     , pretty             >= 1.1     && < 1.2
     , pretty-show        >= 1.10    && < 1.11
     , regex-pcre-builtin >= 0.95    && < 0.96
     , scientific         >= 0.3.7   && < 0.4
+    , some
     , template-haskell   >= 2.18    && < 2.23
     , text               >= 1.2     && < 2.2
-    , vec                >= 0.5     && < 0.6
-    , some
     , unliftio-core      ^>=0.2.1.0
-    , ordered-containers ^>=0.2.4
+    , vec                >= 0.5     && < 0.6
 
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
@@ -178,17 +178,17 @@ test-suite golden
     , text
   build-depends:
       -- External dependencies
+    , ansi-diff
     , deepseq
     , directory     ^>=1.3.6.2
     , filepath      ^>=1.4.2.2 || ^>=1.5.2.0
+    , process
+    , syb           ^>=0.7.2.4
     , tasty         ^>=1.5
     , tasty-hunit   ^>=0.10.2
-    , tree-diff     ^>=0.3.2
-    , syb           ^>=0.7.2.4
-    , ansi-diff
-    , utf8-string   ^>=1.0.2
-    , process
     , temporary
+    , tree-diff     ^>=0.3.2
+    , utf8-string   ^>=1.0.2
 
 test-suite test-th
   import:         lang
@@ -209,9 +209,7 @@ test-suite test-th
     , template-haskell
   build-depends:
       -- External dependencies
-    , filepath
     , directory
+    , filepath
     , tasty ^>= 1.5
     , tasty-hunit ^>=0.10.2
-
-
