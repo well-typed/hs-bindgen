@@ -44,6 +44,8 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
       decls
     genTestsHs
       hsTestPath
+      hsSpecPath
+      hsMainPath
       moduleName
       cTestHeaderPath
       lineLength
@@ -59,10 +61,12 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
       bimap (FilePath.combine cbitsPath) (FilePath.combine cbitsPath) $
         getModuleCFilenames moduleName
 
-    modulePath, hsTestPath :: FilePath
+    modulePath, hsTestPath, hsSpecPath, hsMainPath :: FilePath
     modulePaths :: [FilePath]
     (modulePath, modulePaths) = getModuleDirectories srcPath moduleName
     hsTestPath                = FilePath.combine modulePath "Test.hs"
+    hsSpecPath                = FilePath.combine srcPath "Spec.hs"
+    hsMainPath                = FilePath.combine srcPath "Main.hs"
 
     decls :: [Decl]
     decls = Hs.generateDeclarations cHeader

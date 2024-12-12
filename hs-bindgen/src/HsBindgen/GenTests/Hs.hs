@@ -18,14 +18,25 @@ import Text.SimplePrettyPrint
 
 genTestsHs ::
      FilePath  -- ^ Test module path
+  -> FilePath  -- ^ Spec module path
+  -> FilePath  -- ^ Main module path
   -> String    -- ^ Generated Haskell module name
   -> FilePath  -- ^ C test header file path
   -> Int       -- ^ Maximum line length
   -> [Hs.Decl]    -- ^ Declarations
   -> IO ()
-genTestsHs hsTestPath moduleName cTestHeaderPath lineLength decls =
-    writeFile hsTestPath $
-      renderPretty (mkContext lineLength) HsTestModule{..}
+genTestsHs
+  hsTestPath
+  hsSpecPath
+  hsMainPath
+  moduleName
+  cTestHeaderPath
+  lineLength
+  decls = do
+    let ctx = mkContext lineLength
+    writeFile hsTestPath $ renderPretty ctx HsTestModule{..}
+    writeFile hsSpecPath $ renderPretty ctx (HsSpecModule hsTestModuleName)
+    writeFile hsMainPath $ renderPretty ctx HsMainModule
   where
     cTestHeaderFilename :: FilePath
     cTestHeaderFilename = FilePath.takeFileName cTestHeaderPath
@@ -173,6 +184,10 @@ data OrphanInstance =
 newtype TypeTest = TypeTest (HsName NsTypeConstr)
 
 data TestsFun = TestsFun ModuleName [HsName NsTypeConstr]
+
+newtype HsSpecModule = HsSpecModule ModuleName
+
+data HsMainModule = HsMainModule
 
 {-------------------------------------------------------------------------------
   Pretty printing
@@ -481,6 +496,29 @@ prettyTestsFun moduleName typeNames =
           | typeName <- typeNames
           ]
       )
+
+instance Pretty HsSpecModule where
+  pretty (HsSpecModule moduleName) = vsep
+    [ "module Spec (tests) where"
+    , "import Test.Tasty (TestTree, testGroup)"
+    , "import qualified" <+> string moduleName
+    , vcat
+        [ "tests :: TestTree"
+        , "tests = testGroup \"test-hs-bindgen\""
+        , nest 4 $ vlist '[' ']' [string moduleName >< ".tests"]
+        ]
+    ]
+
+instance Pretty HsMainModule where
+  pretty HsMainModule = vsep
+    [ "module Main (main) where"
+    , "import Test.Tasty (defaultMain)"
+    , "import qualified Spec"
+    , vcat
+        [ "main :: IO ()"
+        , "main = defaultMain Spec.tests"
+        ]
+    ]
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
