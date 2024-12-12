@@ -80,18 +80,37 @@ newtype HsModuleOpts = HsModuleOpts {
 
 translate :: HsModuleOpts -> C.Header -> HsModule
 translate HsModuleOpts{..} header =
-    let hsModulePragmas =
-          -- TODO determine pragmas based on need
-          [ "LANGUAGE DerivingStrategies"
-          , "LANGUAGE GeneralizedNewtypeDeriving"
-          , "LANGUAGE NoImplicitPrelude"
-          , "LANGUAGE PatternSynonyms"
-          , "LANGUAGE StandaloneDeriving"
-          ]
-        hsModuleName = hsModuleOptsName
-        hsModuleDecls = map SHs.translateDecl (generateDeclarations header)
+    let hsModulePragmas = resolvePragmas hsModuleDecls
         hsModuleImports = resolveImports hsModuleDecls
+        hsModuleName    = hsModuleOptsName
+        hsModuleDecls   = map SHs.translateDecl (generateDeclarations header)
     in  HsModule{..}
+
+{-------------------------------------------------------------------------------
+  Auxiliary: Pragma resolution
+-------------------------------------------------------------------------------}
+
+resolvePragmas :: [SDecl] -> [GhcPragma]
+resolvePragmas ds =
+    Set.toAscList . mconcat $ constPragmas : map resolveDeclPragmas ds
+  where
+    constPragmas :: Set GhcPragma
+    constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
+
+resolveDeclPragmas :: SDecl -> Set GhcPragma
+resolveDeclPragmas = \case
+    DVar{} -> Set.empty
+    DInst{} -> Set.empty
+    DRecord{} -> Set.empty
+    DNewtype{} -> Set.empty
+    DEmptyData{} -> Set.empty
+    DDerivingNewtypeInstance{} -> Set.fromList
+      [ "LANGUAGE DerivingStrategies"
+      , "LANGUAGE GeneralizedNewtypeDeriving"
+      , "LANGUAGE StandaloneDeriving"
+      ]
+    DForeignImport{} -> Set.singleton "LANGUAGE CApiFFI"
+    DPatternSynonym{} -> Set.singleton "LANGUAGE PatternSynonyms"
 
 {-------------------------------------------------------------------------------
   Auxiliary: Import resolution
