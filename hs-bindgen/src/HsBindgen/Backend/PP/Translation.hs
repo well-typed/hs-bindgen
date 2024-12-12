@@ -1,8 +1,10 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module HsBindgen.Backend.PP.Translation (
+    -- * GhcPragma
+    GhcPragma
     -- * ImportListItem
-    ImportListItem(..)
+  , ImportListItem(..)
     -- * HsModule
   , HsModule(..)
     -- * Translation
@@ -10,16 +12,24 @@ module HsBindgen.Backend.PP.Translation (
   , translate
   ) where
 
-import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
-import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.SHs.AST
-import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Backend.PP
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.Translation
+import HsBindgen.Imports
+import HsBindgen.SHs.AST
+import HsBindgen.SHs.Translation qualified as SHs
+
+{-------------------------------------------------------------------------------
+  GhcPragma
+-------------------------------------------------------------------------------}
+
+-- | GHC Pragma
+--
+-- Example: @LANGUAGE NoImplicitPrelude@
+type GhcPragma = String
 
 {-------------------------------------------------------------------------------
   ImportListItem
@@ -53,7 +63,8 @@ instance Ord ImportListItem where
 
 -- | Haskell module
 data HsModule = HsModule {
-      hsModuleName    :: String
+      hsModulePragmas :: [GhcPragma]
+    , hsModuleName    :: String
     , hsModuleImports :: [ImportListItem]
     , hsModuleDecls   :: [SDecl]
     }
@@ -69,7 +80,15 @@ newtype HsModuleOpts = HsModuleOpts {
 
 translate :: HsModuleOpts -> C.Header -> HsModule
 translate HsModuleOpts{..} header =
-    let hsModuleName = hsModuleOptsName
+    let hsModulePragmas =
+          -- TODO determine pragmas based on need
+          [ "LANGUAGE DerivingStrategies"
+          , "LANGUAGE GeneralizedNewtypeDeriving"
+          , "LANGUAGE NoImplicitPrelude"
+          , "LANGUAGE PatternSynonyms"
+          , "LANGUAGE StandaloneDeriving"
+          ]
+        hsModuleName = hsModuleOptsName
         hsModuleDecls = map SHs.translateDecl (generateDeclarations header)
         hsModuleImports = resolveImports hsModuleDecls
     in  HsModule{..}

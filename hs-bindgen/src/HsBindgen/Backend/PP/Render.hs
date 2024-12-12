@@ -55,10 +55,17 @@ renderIO opts (Just fp) modl = withFile fp WriteMode $ \h ->
 
 instance Pretty HsModule where
   pretty HsModule{..} = vsep $
-      "{-# LANGUAGE NoImplicitPrelude #-}"
+      vcat (map pretty hsModulePragmas)
     : hsep ["module", string hsModuleName, "where"]
     : vcat (map pretty hsModuleImports)
     : map pretty hsModuleDecls
+
+{-------------------------------------------------------------------------------
+  GhcPragma pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty GhcPragma where
+  pretty ghcPragma = hsep ["{-#", string ghcPragma, "#-}"]
 
 {-------------------------------------------------------------------------------
   Import pretty-printing
