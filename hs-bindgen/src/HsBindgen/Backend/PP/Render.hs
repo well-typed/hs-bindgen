@@ -180,7 +180,8 @@ prettyExpr env prec = \case
     EFree x  -> pretty x
     ECon n   -> pretty n
 
-    EIntegral i _ -> showToCtxDoc i -- TODO: why we have type annotation if we don't use it?
+    -- TODO: why we have type annotation if we don't use it?
+    EIntegral i _ -> parensWhen (i < 0) (showToCtxDoc i)
     EFloat f
       | canBeRepresentedAsRational f
       -> showToCtxDoc f
