@@ -28,11 +28,12 @@ genTestsC ::
   -> [Hs.Decl] -- ^ Declarations
   -> IO ()
 genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
-    writeFile cTestHeaderPath $
-      renderPretty (mkContext lineLength) CTestHeader{..}
-    writeFile cTestSourcePath $
-      renderPretty (mkContext lineLength) CTestSource{..}
+    writeFile cTestHeaderPath $ renderPretty ctx CTestHeader{..}
+    writeFile cTestSourcePath $ renderPretty ctx CTestSource{..}
   where
+    ctx :: Context
+    ctx = mkContext lineLength
+
     cTestHeaderFilename, cHeaderFilename :: FilePath
     cTestHeaderFilename = FilePath.takeFileName cTestHeaderPath
     cHeaderFilename     = FilePath.takeFileName cHeaderPath

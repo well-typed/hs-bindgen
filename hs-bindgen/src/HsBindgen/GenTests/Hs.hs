@@ -33,11 +33,13 @@ genTestsHs
   cTestHeaderPath
   lineLength
   decls = do
-    let ctx = mkContext lineLength
     writeFile hsTestPath $ renderPretty ctx HsTestModule{..}
     writeFile hsSpecPath $ renderPretty ctx (HsSpecModule hsTestModuleName)
     writeFile hsMainPath $ renderPretty ctx HsMainModule
   where
+    ctx :: Context
+    ctx = mkContext lineLength
+
     cTestHeaderFilename :: FilePath
     cTestHeaderFilename = FilePath.takeFileName cTestHeaderPath
 
