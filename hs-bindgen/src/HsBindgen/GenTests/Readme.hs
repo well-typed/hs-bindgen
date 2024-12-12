@@ -34,6 +34,7 @@ genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
       , "  main-is: Main.hs"
       , "  other-modules:"
       , "      " ++ moduleName ++ ".Test"
+      , "      Main"
       , "      Spec"
       , "  include-dirs:"
       , "      " ++ testSuite ++ "/cbits"
