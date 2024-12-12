@@ -19,6 +19,7 @@ import HsBindgen.Imports
   Generation
 -------------------------------------------------------------------------------}
 
+-- | Generate test suite
 genTests ::
      FilePath  -- ^ C header file path
   -> C.Header

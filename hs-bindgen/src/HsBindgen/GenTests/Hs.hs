@@ -16,6 +16,7 @@ import Text.SimplePrettyPrint
   Generation
 -------------------------------------------------------------------------------}
 
+-- | Generate Haskell test modules
 genTestsHs ::
      FilePath  -- ^ Test module path
   -> FilePath  -- ^ Spec module path
@@ -23,7 +24,7 @@ genTestsHs ::
   -> String    -- ^ Generated Haskell module name
   -> FilePath  -- ^ C test header file path
   -> Int       -- ^ Maximum line length
-  -> [Hs.Decl]    -- ^ Declarations
+  -> [Hs.Decl] -- ^ Declarations
   -> IO ()
 genTestsHs
   hsTestPath

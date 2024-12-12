@@ -20,6 +20,7 @@ import Text.SimplePrettyPrint
   Generation
 -------------------------------------------------------------------------------}
 
+-- | Generate C test header and source files
 genTestsC ::
      FilePath  -- ^ C test header file path
   -> FilePath  -- ^ C test source file path
