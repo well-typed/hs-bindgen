@@ -1,12 +1,10 @@
-{-# LANGUAGE RecordWildCards #-}
-
 module HsBindgen.Backend.PP (
-    -- * HsImport
-    HsImport(..)
-    -- * NameType
-  , NameType(..)
+    -- * Imports
+    HsImportModule(..)
+  , HsImport(..)
     -- * ResolvedName
   , ResolvedName(..)
+  , NameType(..)
     -- * Resolution
   , resolveGlobal
     -- * BackendName
@@ -19,50 +17,52 @@ import HsBindgen.SHs.AST
 import HsBindgen.Hs.AST.Type
 
 {-------------------------------------------------------------------------------
-  HsImport
+  Imports
 -------------------------------------------------------------------------------}
 
--- | An import with an optional alias
-data HsImport = HsImport {
-      hsImportModule :: String
-    , hsImportAlias  :: Maybe String
+-- | An import module with an optional alias
+data HsImportModule = HsImportModule {
+      hsImportModuleName  :: String
+    , hsImportModuleAlias :: Maybe String
     }
   deriving (Eq, Ord, Show)
 
--- | @Data.Void@ import
-iDataVoid :: HsImport
-iDataVoid = HsImport "Data.Void" Nothing
+-- | @Data.Bits@ import module
+iBits :: HsImportModule
+iBits = HsImportModule "Data.Bits" (Just "DB")
 
--- | @Foreign@ import
-iForeign :: HsImport
-iForeign = HsImport "Foreign" (Just "F")
+-- | @HsBindgen.ConstantArray@ import module
+iConstantArray :: HsImportModule
+iConstantArray = HsImportModule "HsBindgen.ConstantArray" Nothing
 
--- | @Foreign.C@ import
-iForeignC :: HsImport
-iForeignC = HsImport "Foreign.C" (Just "FC")
+-- | @Data.Void@ import module
+iDataVoid :: HsImportModule
+iDataVoid = HsImportModule "Data.Void" Nothing
 
--- | @Prelude@ import
-iPrelude :: HsImport
-iPrelude = HsImport "Prelude" (Just "P")
+-- | @Foreign@ import module
+iForeign :: HsImportModule
+iForeign = HsImportModule "Foreign" (Just "F")
 
--- | @Data.Bits@ import
-iBits :: HsImport
-iBits = HsImport "Data.Bits" (Just "DB")
+-- | @Foreign.C@ import module
+iForeignC :: HsImportModule
+iForeignC = HsImportModule "Foreign.C" (Just "FC")
 
--- | @GHC.Float@ import
-iGHCFloat :: HsImport
-iGHCFloat = HsImport "GHC.Float" (Just "GHC.Float")
+-- | @GHC.Float@ import module
+iGHCFloat :: HsImportModule
+iGHCFloat = HsImportModule "GHC.Float" (Just "GHC.Float")
 
--- | @HsBindgen.Patterns@ import
-iHsBindgenPatterns :: HsImport
-iHsBindgenPatterns = HsImport "HsBindgen.Patterns" (Just "HsBindgen")
+-- | @HsBindgen.Patterns@ import module
+iHsBindgenPatterns :: HsImportModule
+iHsBindgenPatterns = HsImportModule "HsBindgen.Patterns" (Just "HsBindgen")
 
-{-------------------------------------------------------------------------------
-  NameType
--------------------------------------------------------------------------------}
+-- | @Prelude@ import module
+iPrelude :: HsImportModule
+iPrelude = HsImportModule "Prelude" (Just "P")
 
--- | Name type
-data NameType = IdentifierName | OperatorName
+-- | A qualified or unqualified import of a module
+data HsImport =
+    QualifiedHsImport   HsImportModule
+  | UnqualifiedHsImport HsImportModule
   deriving (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
@@ -71,18 +71,38 @@ data NameType = IdentifierName | OperatorName
 
 -- | Resolved name
 data ResolvedName = ResolvedName {
-      resolvedNameString  :: String
-    , resolvedNameImport  :: HsImport
-    , resolvedNameQualify :: Bool
-    , resolvedNameType    :: NameType
+      resolvedNameString :: String
+    , resolvedNameType   :: NameType
+    , resolvedNameImport :: Maybe HsImport
     }
   deriving (Eq, Ord, Show)
 
--- | Construct a 'ResolvedName'
-mkResolvedName :: Bool -> HsImport -> String -> ResolvedName
-mkResolvedName resolvedNameQualify resolvedNameImport resolvedNameString =
-  let resolvedNameType = nameType resolvedNameString
-  in  ResolvedName{..}
+-- | Construct a `ResvoledName` with no import
+noImport :: String -> ResolvedName
+noImport s = ResolvedName {
+      resolvedNameString = s
+    , resolvedNameType   = nameType s
+    , resolvedNameImport = Nothing
+    }
+
+-- | Construct a `ResolvedName` with qualified import
+importQ :: HsImportModule -> String -> ResolvedName
+importQ hsImportModule s = ResolvedName {
+      resolvedNameString = s
+    , resolvedNameType   = nameType s
+    , resolvedNameImport = Just $ QualifiedHsImport hsImportModule
+    }
+
+importU :: HsImportModule -> String -> ResolvedName
+importU hsImportModule s = ResolvedName {
+      resolvedNameString = s
+    , resolvedNameType   = nameType s
+    , resolvedNameImport = Just $ UnqualifiedHsImport hsImportModule
+    }
+
+-- | Name type
+data NameType = IdentifierName | OperatorName
+  deriving (Eq, Ord, Show)
 
 nameType :: String -> NameType
 nameType nm
@@ -101,12 +121,12 @@ resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Hs.AST.Name".
-    Unit_type            -> import_ iPrelude "()"
-    Unit_constructor     -> import_ iPrelude "()"
-    Applicative_pure     -> import_ iPrelude "pure"
-    Applicative_seq      -> import_ iPrelude "<*>"
-    Monad_return         -> import_ iPrelude "return"
-    Monad_seq            -> import_ iPrelude ">>"
+    Unit_type            -> noImport "()"
+    Unit_constructor     -> noImport "()"
+    Applicative_pure     -> importU iPrelude "pure"
+    Applicative_seq      -> importU iPrelude "<*>"
+    Monad_return         -> importU iPrelude "return"
+    Monad_seq            -> importU iPrelude ">>"
     Storable_Storable    -> importQ iForeign "Storable"
     Storable_sizeOf      -> importQ iForeign "sizeOf"
     Storable_alignment   -> importQ iForeign "alignment"
@@ -116,8 +136,8 @@ resolveGlobal = \case
     Storable_poke        -> importQ iForeign "poke"
     Foreign_Ptr          -> importQ iForeign "Ptr"
     Foreign_FunPtr       -> importQ iForeign "FunPtr"
-    ConstantArray        -> importQ (HsImport "HsBindgen.ConstantArray" Nothing) "ConstantArray"
-    IO_type              -> import_ iPrelude "IO"
+    ConstantArray        -> importQ iConstantArray "ConstantArray"
+    IO_type              -> importU iPrelude "IO"
 
     Eq_class         -> importQ iPrelude           "Eq"
     Ord_class        -> importQ iPrelude           "Ord"
@@ -155,7 +175,7 @@ resolveGlobal = \case
     CDouble_constructor -> importQ iForeignC "CDouble"
 
     PrimType hsPrimType  -> case hsPrimType of
-      HsPrimVoid    -> import_ iDataVoid "Void"
+      HsPrimVoid    -> importU iDataVoid "Void"
       HsPrimCChar   -> importQ iForeignC "CChar"
       HsPrimCSChar  -> importQ iForeignC "CSChar"
       HsPrimCUChar  -> importQ iForeignC "CUChar"
@@ -170,10 +190,6 @@ resolveGlobal = \case
       HsPrimCBool   -> importQ iForeignC "CBool"
       HsPrimCFloat  -> importQ iForeignC "CFloat"
       HsPrimCDouble -> importQ iForeignC "CDouble"
-  where
-    import_, importQ :: HsImport -> String -> ResolvedName
-    import_ = mkResolvedName False
-    importQ = mkResolvedName True
 
 {-------------------------------------------------------------------------------
   BackendName

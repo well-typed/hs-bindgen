@@ -76,14 +76,15 @@ resolve = ResolvedBackendName . resolveGlobal
 
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem HsImport{..} ns -> hsep
+    UnqualifiedImportListItem HsImportModule{..} ns -> hsep
       [ "import"
-      , string hsImportModule
+      , string hsImportModuleName
       , parens . hcat . List.intersperse ", " $ map pretty ns
       ]
-    QualifiedImportListItem HsImport{..} -> case hsImportAlias of
-      Just q -> hsep ["import qualified", string hsImportModule, "as", string q]
-      Nothing -> hsep ["import qualified", string hsImportModule]
+    QualifiedImportListItem HsImportModule{..} -> case hsImportModuleAlias of
+      Just q ->
+        hsep ["import qualified", string hsImportModuleName, "as", string q]
+      Nothing -> hsep ["import qualified", string hsImportModuleName]
 
 {-------------------------------------------------------------------------------
   Declaration pretty-printing
@@ -316,12 +317,11 @@ instance Pretty ResolvedName where
 -- This auxialary function pretty-prints without parenthesizing operators or
 -- surrounding identifiers with backticks.
 ppResolvedName :: ResolvedName -> CtxDoc
-ppResolvedName ResolvedName{..}
-    | resolvedNameQualify =
-        let q = fromMaybe (hsImportModule resolvedNameImport) $
-              hsImportAlias resolvedNameImport
-        in  string $ q ++ '.' : resolvedNameString
-    | otherwise = string resolvedNameString
+ppResolvedName ResolvedName{..} = case resolvedNameImport of
+    Just (QualifiedHsImport HsImportModule{..}) ->
+      let q = fromMaybe hsImportModuleName hsImportModuleAlias
+      in  string $ q ++ '.' : resolvedNameString
+    _otherwise -> string resolvedNameString
 
 {-------------------------------------------------------------------------------
   BackendName pretty-printing

@@ -3,7 +3,7 @@
 module Example where
 
 import qualified Foreign as F
-import Prelude ((()), (<*>), (>>), pure, return)
+import Prelude ((<*>), (>>), pure, return)
 
 data CFoo
 

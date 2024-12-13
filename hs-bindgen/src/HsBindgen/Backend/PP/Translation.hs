@@ -37,8 +37,8 @@ type GhcPragma = String
 
 -- | Import list item
 data ImportListItem =
-    UnqualifiedImportListItem HsImport [ResolvedName]
-  | QualifiedImportListItem   HsImport
+    UnqualifiedImportListItem HsImportModule [ResolvedName]
+  | QualifiedImportListItem   HsImportModule
   deriving stock (Eq)
 
 instance Ord ImportListItem where
@@ -124,14 +124,14 @@ resolveImports ds =
             Set.map QualifiedImportListItem qs
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
   where
-    mkUImportListItem :: HsImport -> Set ResolvedName -> ImportListItem
+    mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
     mkUImportListItem imp = UnqualifiedImportListItem imp . Set.toAscList
 
 -- | Accumulator for resolving imports
 --
 -- Both qualified imports and unqualified imports are accumulated.
 newtype ImportAcc = ImportAcc {
-      unImportAcc :: (Set HsImport, Map HsImport (Set ResolvedName))
+      unImportAcc :: (Set HsImportModule, Map HsImportModule (Set ResolvedName))
     }
 
 instance Semigroup ImportAcc where
@@ -163,10 +163,12 @@ resolveDeclImports = \case
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc
 resolveGlobalImports g = ImportAcc $ case resolveGlobal g of
-    n@ResolvedName{..}
-      | resolvedNameQualify -> (Set.singleton resolvedNameImport, mempty)
-      | otherwise ->
-          (mempty, Map.singleton resolvedNameImport (Set.singleton n))
+    n@ResolvedName{..} -> case resolvedNameImport of
+      Nothing -> (mempty, mempty)
+      Just (QualifiedHsImport hsImportModule) ->
+        (Set.singleton hsImportModule, mempty)
+      Just (UnqualifiedHsImport hsImportModule) ->
+        (mempty, Map.singleton hsImportModule (Set.singleton n))
 
 -- | Resolve imports in an expression
 resolveExprImports :: SExpr ctx -> ImportAcc
