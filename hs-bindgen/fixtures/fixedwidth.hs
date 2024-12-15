@@ -23,7 +23,8 @@
               (PrimLong Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "musl-include",
+              "musl",
+              "include",
               "bits",
               "alltypes.h"],
             singleLocLine = 136,
@@ -57,7 +58,8 @@
               (PrimInt Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "musl-include",
+              "musl",
+              "include",
               "bits",
               "alltypes.h"],
             singleLocLine = 131,

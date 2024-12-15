@@ -68,5 +68,5 @@ clangArgs :: FilePath -> ClangArgs
 clangArgs packageRoot = defaultClangArgs{
      clangTarget = Just "x86_64-pc-linux-gnu"
    , clangCStandard = Just C23
-   , clangOtherArgs = ["-nostdinc", "-isystem" ++ (packageRoot </> "musl-include")]
+   , clangOtherArgs = ["-nostdinc", "-isystem" ++ (packageRoot </> "musl/include")]
    }
