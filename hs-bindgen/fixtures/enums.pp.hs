@@ -1,4 +1,8 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
@@ -55,7 +59,7 @@ instance F.Storable CSecond where
           MkCSecond unCSecond2 -> F.pokeByteOff ptr0 0 unCSecond2
 
 pattern MkCSECONDA :: CSecond
-pattern MkCSECONDA = MkCSecond -1
+pattern MkCSECONDA = MkCSecond (-1)
 
 pattern MkCSECONDB :: CSecond
 pattern MkCSECONDB = MkCSecond 0

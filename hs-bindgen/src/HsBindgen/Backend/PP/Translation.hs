@@ -1,8 +1,10 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module HsBindgen.Backend.PP.Translation (
+    -- * GhcPragma
+    GhcPragma
     -- * ImportListItem
-    ImportListItem(..)
+  , ImportListItem(..)
     -- * HsModule
   , HsModule(..)
     -- * Translation
@@ -10,16 +12,24 @@ module HsBindgen.Backend.PP.Translation (
   , translate
   ) where
 
-import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
-import Data.Set (Set)
 import Data.Set qualified as Set
 
-import HsBindgen.SHs.AST
-import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Backend.PP
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Hs.Translation
+import HsBindgen.Imports
+import HsBindgen.SHs.AST
+import HsBindgen.SHs.Translation qualified as SHs
+
+{-------------------------------------------------------------------------------
+  GhcPragma
+-------------------------------------------------------------------------------}
+
+-- | GHC Pragma
+--
+-- Example: @LANGUAGE NoImplicitPrelude@
+type GhcPragma = String
 
 {-------------------------------------------------------------------------------
   ImportListItem
@@ -27,8 +37,8 @@ import HsBindgen.Hs.Translation
 
 -- | Import list item
 data ImportListItem =
-    UnqualifiedImportListItem HsImport [ResolvedName]
-  | QualifiedImportListItem   HsImport
+    UnqualifiedImportListItem HsImportModule [ResolvedName]
+  | QualifiedImportListItem   HsImportModule
   deriving stock (Eq)
 
 instance Ord ImportListItem where
@@ -53,7 +63,8 @@ instance Ord ImportListItem where
 
 -- | Haskell module
 data HsModule = HsModule {
-      hsModuleName    :: String
+      hsModulePragmas :: [GhcPragma]
+    , hsModuleName    :: String
     , hsModuleImports :: [ImportListItem]
     , hsModuleDecls   :: [SDecl]
     }
@@ -69,10 +80,37 @@ newtype HsModuleOpts = HsModuleOpts {
 
 translate :: HsModuleOpts -> C.Header -> HsModule
 translate HsModuleOpts{..} header =
-    let hsModuleName = hsModuleOptsName
-        hsModuleDecls = map SHs.translateDecl (generateDeclarations header)
+    let hsModulePragmas = resolvePragmas hsModuleDecls
         hsModuleImports = resolveImports hsModuleDecls
+        hsModuleName    = hsModuleOptsName
+        hsModuleDecls   = map SHs.translateDecl (generateDeclarations header)
     in  HsModule{..}
+
+{-------------------------------------------------------------------------------
+  Auxiliary: Pragma resolution
+-------------------------------------------------------------------------------}
+
+resolvePragmas :: [SDecl] -> [GhcPragma]
+resolvePragmas ds =
+    Set.toAscList . mconcat $ constPragmas : map resolveDeclPragmas ds
+  where
+    constPragmas :: Set GhcPragma
+    constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
+
+resolveDeclPragmas :: SDecl -> Set GhcPragma
+resolveDeclPragmas = \case
+    DVar{} -> Set.empty
+    DInst{} -> Set.empty
+    DRecord{} -> Set.empty
+    DNewtype{} -> Set.empty
+    DEmptyData{} -> Set.empty
+    DDerivingNewtypeInstance{} -> Set.fromList
+      [ "LANGUAGE DerivingStrategies"
+      , "LANGUAGE GeneralizedNewtypeDeriving"
+      , "LANGUAGE StandaloneDeriving"
+      ]
+    DForeignImport{} -> Set.singleton "LANGUAGE CApiFFI"
+    DPatternSynonym{} -> Set.singleton "LANGUAGE PatternSynonyms"
 
 {-------------------------------------------------------------------------------
   Auxiliary: Import resolution
@@ -86,14 +124,14 @@ resolveImports ds =
             Set.map QualifiedImportListItem qs
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
   where
-    mkUImportListItem :: HsImport -> Set ResolvedName -> ImportListItem
+    mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
     mkUImportListItem imp = UnqualifiedImportListItem imp . Set.toAscList
 
 -- | Accumulator for resolving imports
 --
 -- Both qualified imports and unqualified imports are accumulated.
 newtype ImportAcc = ImportAcc {
-      unImportAcc :: (Set HsImport, Map HsImport (Set ResolvedName))
+      unImportAcc :: (Set HsImportModule, Map HsImportModule (Set ResolvedName))
     }
 
 instance Semigroup ImportAcc where
@@ -125,10 +163,12 @@ resolveDeclImports = \case
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc
 resolveGlobalImports g = ImportAcc $ case resolveGlobal g of
-    n@ResolvedName{..}
-      | resolvedNameQualify -> (Set.singleton resolvedNameImport, mempty)
-      | otherwise ->
-          (mempty, Map.singleton resolvedNameImport (Set.singleton n))
+    n@ResolvedName{..} -> case resolvedNameImport of
+      Nothing -> (mempty, mempty)
+      Just (QualifiedHsImport hsImportModule) ->
+        (Set.singleton hsImportModule, mempty)
+      Just (UnqualifiedHsImport hsImportModule) ->
+        (mempty, Map.singleton hsImportModule (Set.singleton n))
 
 -- | Resolve imports in an expression
 resolveExprImports :: SExpr ctx -> ImportAcc

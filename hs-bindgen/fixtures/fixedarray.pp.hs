@@ -1,4 +1,7 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 

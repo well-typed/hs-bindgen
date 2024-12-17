@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE PatternSynonyms #-}
 
 module Example where
 

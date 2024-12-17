@@ -55,10 +55,17 @@ renderIO opts (Just fp) modl = withFile fp WriteMode $ \h ->
 
 instance Pretty HsModule where
   pretty HsModule{..} = vsep $
-      "{-# LANGUAGE NoImplicitPrelude #-}"
+      vcat (map pretty hsModulePragmas)
     : hsep ["module", string hsModuleName, "where"]
     : vcat (map pretty hsModuleImports)
     : map pretty hsModuleDecls
+
+{-------------------------------------------------------------------------------
+  GhcPragma pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty GhcPragma where
+  pretty ghcPragma = hsep ["{-#", string ghcPragma, "#-}"]
 
 {-------------------------------------------------------------------------------
   Import pretty-printing
@@ -69,14 +76,15 @@ resolve = ResolvedBackendName . resolveGlobal
 
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem HsImport{..} ns -> hsep
+    UnqualifiedImportListItem HsImportModule{..} ns -> hsep
       [ "import"
-      , string hsImportModule
+      , string hsImportModuleName
       , parens . hcat . List.intersperse ", " $ map pretty ns
       ]
-    QualifiedImportListItem HsImport{..} -> case hsImportAlias of
-      Just q -> hsep ["import qualified", string hsImportModule, "as", string q]
-      Nothing -> hsep ["import qualified", string hsImportModule]
+    QualifiedImportListItem HsImportModule{..} -> case hsImportModuleAlias of
+      Just q ->
+        hsep ["import qualified", string hsImportModuleName, "as", string q]
+      Nothing -> hsep ["import qualified", string hsImportModuleName]
 
 {-------------------------------------------------------------------------------
   Declaration pretty-printing
@@ -173,7 +181,7 @@ prettyExpr env prec = \case
     EFree x  -> pretty x
     ECon n   -> pretty n
 
-    EIntegral i _ -> showToCtxDoc i -- TODO: why we have type annotation if we don't use it?
+    EIntegral i _ -> parensWhen (i < 0) (showToCtxDoc i) -- TODO: why we have type annotation if we don't use it?
     EFloat f
       | canBeRepresentedAsRational f
       -> showToCtxDoc f
@@ -308,12 +316,11 @@ instance Pretty ResolvedName where
 -- This auxialary function pretty-prints without parenthesizing operators or
 -- surrounding identifiers with backticks.
 ppResolvedName :: ResolvedName -> CtxDoc
-ppResolvedName ResolvedName{..}
-    | resolvedNameQualify =
-        let q = fromMaybe (hsImportModule resolvedNameImport) $
-              hsImportAlias resolvedNameImport
-        in  string $ q ++ '.' : resolvedNameString
-    | otherwise = string resolvedNameString
+ppResolvedName ResolvedName{..} = case resolvedNameImport of
+    Just (QualifiedHsImport HsImportModule{..}) ->
+      let q = fromMaybe hsImportModuleName hsImportModuleAlias
+      in  string $ q ++ '.' : resolvedNameString
+    _otherwise -> string resolvedNameString
 
 {-------------------------------------------------------------------------------
   BackendName pretty-printing
