@@ -1,5 +1,7 @@
 module Main (main) where
 
+import System.IO qualified as IO
+
 import HsBindgen.App.Cmdline
 import HsBindgen.Lib
 
@@ -29,9 +31,22 @@ execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode cmdline tracer = \case
     DevModeParseCHeader fp ->
       prettyC =<< parseC cmdline tracer fp
-    DevModePrelude fp -> do
-      _entries <- withC cmdline tracer fp $ bootstrapPrelude tracer
-      return ()
+    DevModePrelude fp ->
+      IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
+        _entries <- withC cmdline tracer fp $
+          bootstrapPrelude tracer (preludeLogTracer logHandle)
+        return ()
+  where
+    preludeLogPath :: FilePath
+    preludeLogPath = "macros-recognized.log"
+
+    preludeLogTracer :: IO.Handle -> Tracer IO String
+    preludeLogTracer logHandle =
+      mkTracer
+        (IO.hPutStrLn logHandle . ("Error: "   ++))
+        (IO.hPutStrLn logHandle . ("Warning: " ++))
+        (IO.hPutStrLn logHandle)
+        True
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
