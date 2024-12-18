@@ -5,7 +5,9 @@ module HsBindgen.App.Cmdline (
   , getCmdline
   ) where
 
+import Data.Char qualified as Char
 import Data.Default
+import Data.List qualified as List
 import Options.Applicative
 import System.FilePath
 
@@ -157,13 +159,54 @@ parseVerbosity =
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs =
-    fmap aux . many $ strOption $ mconcat [
+    ClangArgs
+      <$> pure Nothing
+      <*> fmap Just parseCStandard
+      <*> parseOtherArgs
+  where
+    parseCStandard :: Parser CStandard
+    parseCStandard = option (eitherReader readCStandard) $ mconcat [
+        long "standard"
+      , metavar "STD"
+      , value defaultCStandard
+      , help $ concat [
+            "C standard (default: "
+          , renderCStandard defaultCStandard
+          , "; supported: "
+          , List.intercalate ", " (map fst cStandards)
+          , ")"
+          ]
+      ]
+
+    defaultCStandard :: CStandard
+    defaultCStandard = C17
+
+    renderCStandard :: CStandard -> String
+    renderCStandard = map Char.toLower . show
+
+    cStandards :: [(String, CStandard)]
+    cStandards = [
+        (renderCStandard cStandard, cStandard)
+      | cStandard <- [minBound ..]
+      ]
+
+    readCStandard :: String -> Either String CStandard
+    readCStandard s = case List.lookup s cStandards of
+      Just cStandard -> Right cStandard
+      Nothing -> Left $ "unknown C standard: " ++ s
+
+    parseOtherArgs :: Parser [String]
+    parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
         long "clang-option"
+      , metavar "OPT"
       , help "Pass option to libclang"
       ]
-  where
-    aux :: [String] -> ClangArgs
-    aux args = defaultClangArgs{clangOtherArgs = args}
+
+    readOtherArg :: String -> Either String String
+    readOtherArg s
+      | s == "-std" || "-std=" `List.isPrefixOf` s =
+          Left "C standard must be set using --standard option"
+      | otherwise = Right s
 
 parseInput :: Maybe FilePath -> Parser FilePath
 parseInput mDefault =

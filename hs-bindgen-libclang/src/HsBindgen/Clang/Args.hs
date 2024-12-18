@@ -43,12 +43,12 @@ data ClangArgs = ClangArgs {
 -- We don't currently support @C2y@ because it requires @clang-19@ or later and
 -- we have no reliable way to test for that (see 'ClangVersion').
 data CStandard =
-    C23
-  | C17
-  | C11
+    C89
   | C99
-  | C89
-  deriving stock (Show, Eq)
+  | C11
+  | C17
+  | C23
+  deriving stock (Bounded, Enum, Eq, Ord, Show)
 
 defaultClangArgs :: ClangArgs
 defaultClangArgs = ClangArgs {
