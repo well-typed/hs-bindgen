@@ -2,8 +2,8 @@
 #define CLANG_WRAPPERS_H
 
 #include <clang-c/Index.h>
-
 #include <stdio.h>
+#include "clang_wrappers_ffi.h"
 
 /**
  * Versioning
@@ -158,30 +158,6 @@ static inline void wrap_getTranslationUnitCursor (CXTranslationUnit unit, CXCurs
     *result = clang_getTranslationUnitCursor(unit);
 }
 
-static inline unsigned wrap_equalCursors(const CXCursor* a, const CXCursor* b) {
-    return clang_equalCursors(*a, *b);
-}
-
-static inline void wrap_getCursorSemanticParent(const CXCursor* cursor, CXCursor* result) {
-    *result = clang_getCursorSemanticParent(*cursor);
-}
-
-static inline void wrap_getCursorLexicalParent(const CXCursor* cursor, CXCursor* result) {
-    *result = clang_getCursorLexicalParent(*cursor);
-}
-
-static inline enum CXCursorKind wrap_getCursorKind(const CXCursor* cursor) {
-    return clang_getCursorKind(*cursor);
-}
-
-static inline void wrap_getNullCursor(CXCursor *result) {
-    *result = clang_getNullCursor();
-}
-
-static inline void wrap_getCursorKindSpelling(enum CXCursorKind Kind, CXString* result) {
-    *result = clang_getCursorKindSpelling(Kind);
-}
-
 static inline CXTranslationUnit wrap_Cursor_getTranslationUnit(const CXCursor* cursor) {
     return clang_Cursor_getTranslationUnit(*cursor);
 }
@@ -250,78 +226,6 @@ static inline enum CXTypeKind wrap_cxtKind(const CXType* type) {
     return type->kind;
 }
 
-static inline void wrap_getCursorType(const CXCursor* C, CXType* result) {
-    *result = clang_getCursorType(*C);
-}
-
-static inline void wrap_getTypeKindSpelling(enum CXTypeKind K, CXString* result) {
-    *result = clang_getTypeKindSpelling(K);
-}
-
-static inline void wrap_getTypeSpelling(const CXType* CT, CXString* result) {
-    *result = clang_getTypeSpelling(*CT);
-}
-
-static inline void wrap_getTypedefDeclUnderlyingType(const CXCursor* C, CXType* result) {
-    *result = clang_getTypedefDeclUnderlyingType(*C);
-}
-
-static inline void wrap_getEnumDeclIntegerType(const CXCursor* C, CXType* result) {
-    *result = clang_getEnumDeclIntegerType(*C);
-}
-
-static inline unsigned wrap_Cursor_isBitField(const CXCursor* C) {
-    return clang_Cursor_isBitField(*C);
-}
-
-static inline int wrap_getFieldDeclBitWidth(const CXCursor* C) {
-    return clang_getFieldDeclBitWidth(*C);
-}
-
-static inline void wrap_getPointeeType(const CXType* T, CXType* result) {
-    *result = clang_getPointeeType(*T);
-}
-
-static inline void wrap_getArrayElementType(const CXType* T, CXType* result) {
-    *result = clang_getArrayElementType(*T);
-}
-
-static inline long long wrap_getArraySize(const CXType* T) {
-    return clang_getArraySize(*T);
-}
-
-static inline long long wrap_Type_getSizeOf(const CXType* T) {
-    return clang_Type_getSizeOf(*T);
-}
-
-static inline long long wrap_Type_getAlignOf(const CXType* T) {
-    return clang_Type_getAlignOf(*T);
-}
-
-static inline unsigned wrap_Type_isTransparentTagTypedef(const CXType *T) {
-    return clang_Type_isTransparentTagTypedef(*T);
-}
-
-static inline long long wrap_Cursor_getOffsetOfField(const CXCursor* C) {
-    return clang_Cursor_getOffsetOfField(*C);
-}
-
-static inline unsigned wrap_Cursor_isAnonymous(const CXCursor* C) {
-    return clang_Cursor_isAnonymous(*C);
-}
-
-static inline unsigned wrap_Cursor_isAnonymousRecordDecl(const CXCursor *C) {
-    return clang_Cursor_isAnonymousRecordDecl(*C);
-}
-
-static inline long long wrap_getEnumConstantDeclValue(const CXCursor *C) {
-    return clang_getEnumConstantDeclValue(*C);
-}
-
-static inline unsigned wrap_equalTypes(const CXType *A, const CXType *B) {
-    return clang_equalTypes(*A, *B);
-}
-
 static inline signed int wrap_compareTypes(const CXType *A, const CXType *B) {
     if (A->data[0] < B->data[0]) {
         return -1;
@@ -338,14 +242,6 @@ static inline signed int wrap_compareTypes(const CXType *A, const CXType *B) {
     }
 }
 
-static inline void wrap_getCanonicalType(const CXType* T, CXType* result) {
-    *result = clang_getCanonicalType(*T);
-}
-
-static inline void wrap_getTypedefName(const CXType* CT, CXString* result) {
-    *result = clang_getTypedefName(*CT);
-}
-
 /**
  * Call `clang_getUnqualifiedType`
  *
@@ -358,34 +254,6 @@ static inline void wrap_getUnqualifiedType(const CXType* CT, CXType* result) {
     #if CINDEX_VERSION_MINOR >= 63
         *result = clang_getUnqualifiedType(*CT);
     #endif
-}
-
-static inline void wrap_getTypeDeclaration(const CXType* T, CXCursor* result) {
-    *result = clang_getTypeDeclaration(*T);
-}
-
-static inline void wrap_getResultType(const CXType *T, CXType *result) {
-    *result = clang_getResultType(*T);
-}
-
-static inline int wrap_getNumArgTypes(const CXType *T) {
-    return clang_getNumArgTypes(*T);
-}
-
-static inline void wrap_getArgType(const CXType *T, unsigned n, CXType *result) {
-    *result = clang_getArgType(*T, n);
-}
-
-static inline void wrap_Type_getNamedType(const CXType* T, CXType* result) {
-    *result = clang_Type_getNamedType(*T);
-}
-
-static inline void wrap_Type_getModifiedType(const CXType* T, CXType* result) {
-    *result = clang_Type_getModifiedType(*T);
-}
-
-static inline void wrap_Type_getValueType(const CXType* CT, CXType* result) {
-    *result = clang_Type_getValueType(*CT);
 }
 
 /**
