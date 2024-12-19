@@ -11,7 +11,6 @@ import Control.Monad.State (State, get, put, gets)
 import Foreign.C
 import Data.Map.Ordered.Strict qualified as OMap
 import Data.Text qualified as T
-import System.Directory qualified as Dir
 
 import HsBindgen.C.AST
 
@@ -120,10 +119,8 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         tag <- CName <$> liftIO (clang_getCursorSpelling decl)
         ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
 
-        sloc <- liftIO $ do
-          cwd <- Dir.getCurrentDirectory
-          loc <- clang_getCursorLocation decl
-          toRelative cwd <$> HighLevel.clang_getExpansionLocation loc
+        sloc <- liftIO $
+          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
 
         use <- processTypeDeclRec DeclPathTop unit ty'
 

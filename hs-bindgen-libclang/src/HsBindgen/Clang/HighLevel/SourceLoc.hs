@@ -29,8 +29,6 @@ module HsBindgen.Clang.HighLevel.SourceLoc (
   , clang_Cursor_getSpellingNameRange
   , clang_getCursorExtent
   , clang_getTokenExtent
-    -- * Relative paths
-  , HasPath(..)
   ) where
 
 import Control.Monad
@@ -39,7 +37,6 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign.C
 import GHC.Generics (Generic)
-import System.FilePath qualified as FilePath
 import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
@@ -382,41 +379,6 @@ clang_getTokenExtent ::
   -> IO (Range MultiLoc)
 clang_getTokenExtent unit token =
     toRange =<< Core.clang_getTokenExtent unit token
-
-{-------------------------------------------------------------------------------
-  Relative paths
--------------------------------------------------------------------------------}
-
--- | Make paths relative to the specified root directory
-class HasPath a where
-  toRelative :: FilePath -> a -> a
-
-instance HasPath SourcePath where
-  toRelative root =
-      SourcePath
-    . Text.pack
-    . FilePath.makeRelative root
-    . Text.unpack
-    . getSourcePath
-
-instance HasPath SingleLoc where
-  toRelative root sloc = sloc {
-      singleLocPath = toRelative root $ singleLocPath sloc
-    }
-
-instance HasPath MultiLoc where
-  toRelative root mloc = mloc {
-      multiLocExpansion = toRelative root  $  multiLocExpansion mloc
-    , multiLocPresumed  = toRelative root <$> multiLocPresumed  mloc
-    , multiLocSpelling  = toRelative root <$> multiLocSpelling  mloc
-    , multiLocFile      = toRelative root <$> multiLocFile      mloc
-    }
-
-instance HasPath a => HasPath (Range a) where
-  toRelative root range = range {
-      rangeStart = toRelative root $ rangeStart range
-    , rangeEnd   = toRelative root $ rangeEnd   range
-    }
 
 {-------------------------------------------------------------------------------
   Auxiliary
