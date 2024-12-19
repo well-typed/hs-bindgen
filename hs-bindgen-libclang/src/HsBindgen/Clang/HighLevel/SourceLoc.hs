@@ -37,6 +37,7 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign.C
 import GHC.Generics (Generic)
+import System.FilePath qualified as FilePath
 import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
@@ -262,9 +263,12 @@ instance Show a => PrettyVal (Range a) where
   Conversion
 -------------------------------------------------------------------------------}
 
-toMulti :: Core.CXSourceLocation -> IO MultiLoc
-toMulti location = do
-    expansion <- clang_getExpansionLocation location
+toMulti ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXSourceLocation
+  -> IO MultiLoc
+toMulti relPath location = do
+    expansion <- clang_getExpansionLocation relPath location
 
     let unlessIsExpanion :: SingleLoc -> Maybe SingleLoc
         unlessIsExpanion loc = do
@@ -272,12 +276,15 @@ toMulti location = do
             return loc
 
     MultiLoc expansion
-      <$> (unlessIsExpanion <$> clang_getPresumedLocation location)
-      <*> (unlessIsExpanion <$> clang_getSpellingLocation location)
-      <*> (unlessIsExpanion <$> clang_getFileLocation     location)
+      <$> (unlessIsExpanion <$> clang_getPresumedLocation relPath location)
+      <*> (unlessIsExpanion <$> clang_getSpellingLocation relPath location)
+      <*> (unlessIsExpanion <$> clang_getFileLocation     relPath location)
 
-toRange :: Core.CXSourceRange -> IO (Range MultiLoc)
-toRange = toRangeWith toMulti
+toRange ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXSourceRange
+  -> IO (Range MultiLoc)
+toRange = toRangeWith . toMulti
 
 fromSingle :: Core.CXTranslationUnit -> SingleLoc -> IO Core.CXSourceLocation
 fromSingle unit SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
@@ -298,59 +305,86 @@ fromRange unit Range{rangeStart, rangeEnd} = do
   Get single location
 -------------------------------------------------------------------------------}
 
-clang_getExpansionLocation :: Core.CXSourceLocation -> IO SingleLoc
-clang_getExpansionLocation location =
-    toSingle' =<< Core.clang_getExpansionLocation location
+clang_getExpansionLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXSourceLocation
+  -> IO SingleLoc
+clang_getExpansionLocation relPath location =
+    toSingle' relPath =<< Core.clang_getExpansionLocation location
 
-clang_getPresumedLocation :: Core.CXSourceLocation -> IO SingleLoc
-clang_getPresumedLocation location =
-    toSingle <$> Core.clang_getPresumedLocation location
+clang_getPresumedLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXSourceLocation
+  -> IO SingleLoc
+clang_getPresumedLocation relPath location =
+    toSingle relPath <$> Core.clang_getPresumedLocation location
 
-clang_getSpellingLocation :: Core.CXSourceLocation -> IO SingleLoc
-clang_getSpellingLocation location =
-    toSingle' =<< Core.clang_getSpellingLocation location
+clang_getSpellingLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXSourceLocation
+  -> IO SingleLoc
+clang_getSpellingLocation relPath location =
+    toSingle' relPath =<< Core.clang_getSpellingLocation location
 
-clang_getFileLocation :: Core.CXSourceLocation -> IO SingleLoc
-clang_getFileLocation location =
-    toSingle' =<< Core.clang_getFileLocation location
+clang_getFileLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXSourceLocation
+  -> IO SingleLoc
+clang_getFileLocation relPath location =
+    toSingle' relPath =<< Core.clang_getFileLocation location
 
 {-------------------------------------------------------------------------------
   Convenience wrappers for @CXSourceLocation@
 -------------------------------------------------------------------------------}
 
 -- | Retrieve the source location of the given diagnostic.
-clang_getDiagnosticLocation :: Core.CXDiagnostic -> IO MultiLoc
-clang_getDiagnosticLocation diagnostic =
-    toMulti =<< Core.clang_getDiagnosticLocation diagnostic
+clang_getDiagnosticLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXDiagnostic
+  -> IO MultiLoc
+clang_getDiagnosticLocation relPath diagnostic =
+    toMulti relPath =<< Core.clang_getDiagnosticLocation diagnostic
 
 -- | Retrieve the physical location of the source constructor referenced by the
 -- given cursor.
-clang_getCursorLocation :: Core.CXCursor -> IO MultiLoc
-clang_getCursorLocation cursor =
-    toMulti =<< Core.clang_getCursorLocation cursor
+clang_getCursorLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXCursor
+  -> IO MultiLoc
+clang_getCursorLocation relPath cursor =
+    toMulti relPath =<< Core.clang_getCursorLocation cursor
 
 -- | Retrieve the source location of the given token.
-clang_getTokenLocation :: Core.CXTranslationUnit -> Core.CXToken -> IO MultiLoc
-clang_getTokenLocation unit token =
-    toMulti =<< Core.clang_getTokenLocation unit token
+clang_getTokenLocation ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXTranslationUnit
+  -> Core.CXToken
+  -> IO MultiLoc
+clang_getTokenLocation relPath unit token =
+    toMulti relPath =<< Core.clang_getTokenLocation unit token
 
 {-------------------------------------------------------------------------------
   Convenience wrappers for @CXSourceRange@
 -------------------------------------------------------------------------------}
 
 -- | Retrieve a source range associated with the diagnostic.
-clang_getDiagnosticRange :: Core.CXDiagnostic -> CUInt -> IO (Range MultiLoc)
-clang_getDiagnosticRange diagnostic range =
-    toRange =<< Core.clang_getDiagnosticRange diagnostic range
+clang_getDiagnosticRange ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXDiagnostic
+  -> CUInt
+  -> IO (Range MultiLoc)
+clang_getDiagnosticRange relPath diagnostic range =
+    toRange relPath =<< Core.clang_getDiagnosticRange diagnostic range
 
 -- | Retrieve the replacement information for a given fix-it.
 clang_getDiagnosticFixIt ::
-     Core.CXDiagnostic
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXDiagnostic
   -> CUInt
   -> IO (Range MultiLoc, Text)
-clang_getDiagnosticFixIt diagnostic fixit = do
+clang_getDiagnosticFixIt relPath diagnostic fixit = do
     (range, replacement) <- Core.clang_getDiagnosticFixIt diagnostic fixit
-    (, replacement) <$> toRange range
+    (, replacement) <$> toRange relPath range
 
 -- | Retrieve a range for a piece that forms the cursors spelling name.
 --
@@ -358,43 +392,57 @@ clang_getDiagnosticFixIt diagnostic fixit = do
 -- relevant part of the returned range is the /spelling/ location. That
 -- assumption may be false.
 clang_Cursor_getSpellingNameRange ::
-     Core.CXCursor
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXCursor
   -> CUInt
   -> CUInt
   -> IO (Range SingleLoc)
-clang_Cursor_getSpellingNameRange cursor pieceIndex options = do
+clang_Cursor_getSpellingNameRange relPath cursor pieceIndex options = do
     range <- Core.clang_Cursor_getSpellingNameRange cursor pieceIndex options
-    toRangeWith clang_getSpellingLocation range
+    toRangeWith (clang_getSpellingLocation relPath) range
 
 -- | Retrieve the physical extent of the source construct referenced by the
 -- given cursor.
-clang_getCursorExtent :: Core.CXCursor -> IO (Range MultiLoc)
-clang_getCursorExtent cursor =
-    toRange =<< Core.clang_getCursorExtent cursor
+clang_getCursorExtent ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXCursor
+  -> IO (Range MultiLoc)
+clang_getCursorExtent relPath cursor =
+    toRange relPath =<< Core.clang_getCursorExtent cursor
 
 -- | Retrieve a source range that covers the given token.
 clang_getTokenExtent ::
-     Core.CXTranslationUnit
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Core.CXTranslationUnit
   -> Core.CXToken
   -> IO (Range MultiLoc)
-clang_getTokenExtent unit token =
-    toRange =<< Core.clang_getTokenExtent unit token
+clang_getTokenExtent relPath unit token =
+    toRange relPath =<< Core.clang_getTokenExtent unit token
 
 {-------------------------------------------------------------------------------
   Auxiliary
 -------------------------------------------------------------------------------}
 
-toSingle :: (Text, CUInt, CUInt) -> SingleLoc
-toSingle (singleLocPath, singleLocLine, singleLocColumn) = SingleLoc{
-      singleLocPath   = SourcePath singleLocPath
+toSingle ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> (Text, CUInt, CUInt)
+  -> SingleLoc
+toSingle relPath (singleLocPath, singleLocLine, singleLocColumn) = SingleLoc{
+      singleLocPath   = SourcePath $ maybe id makeRelative relPath singleLocPath
     , singleLocLine   = fromIntegral singleLocLine
     , singleLocColumn = fromIntegral singleLocColumn
     }
+  where
+    makeRelative :: FilePath -> Text -> Text
+    makeRelative path = Text.pack . FilePath.makeRelative path . Text.unpack
 
-toSingle' :: (Core.CXFile, CUInt, CUInt, CUInt) -> IO SingleLoc
-toSingle' (file, singleLocLine, singleLocColumn, _offset) = do
+toSingle' ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> (Core.CXFile, CUInt, CUInt, CUInt)
+  -> IO SingleLoc
+toSingle' relPath (file, singleLocLine, singleLocColumn, _offset) = do
     singleLocPath <- Core.clang_getFileName file
-    return $ toSingle (singleLocPath, singleLocLine, singleLocColumn)
+    return $ toSingle relPath (singleLocPath, singleLocLine, singleLocColumn)
 
 toRangeWith ::
     (Core.CXSourceLocation -> IO a)

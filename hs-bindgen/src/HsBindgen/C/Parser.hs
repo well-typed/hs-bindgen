@@ -41,15 +41,16 @@ data CErrors = CErrors [Text]
 --
 -- Throws 'CErrors' if @libclang@ reported any errors in the C file.
 withTranslationUnit ::
-     Tracer IO Diagnostic  -- ^ Tracer for warnings
+     Maybe FilePath        -- ^ Directory to make paths relative to
+  -> Tracer IO Diagnostic  -- ^ Tracer for warnings
   -> ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withTranslationUnit tracer args fp k = do
+withTranslationUnit relPath tracer args fp k = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit index fp args flags
-    diags  <- HighLevel.clang_getDiagnostics unit Nothing
+    diags  <- HighLevel.clang_getDiagnostics relPath unit Nothing
 
     let errors, warnings :: [Diagnostic]
         (errors, warnings) = partition diagnosticIsError diags

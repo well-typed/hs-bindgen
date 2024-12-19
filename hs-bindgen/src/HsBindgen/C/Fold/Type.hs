@@ -29,29 +29,34 @@ import HsBindgen.Patterns
 -------------------------------------------------------------------------------}
 
 -- | Process top-level (type) declration
-processTypeDecl :: CXTranslationUnit -> CXType -> Eff (State DeclState) Type
-processTypeDecl unit ty = do
+processTypeDecl ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> CXTranslationUnit
+  -> CXType
+  -> Eff (State DeclState) Type
+processTypeDecl relPath unit ty = do
     -- dtraceIO "processTypeDecl" ty
 
     s <- get
 
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                      -> processTypeDecl' DeclPathTop unit ty
+        Nothing                      -> processTypeDecl' relPath DeclPathTop unit ty
         Just (TypeDecl t _)          -> return t
         Just (TypeDeclAlias t)       -> return t
         Just (TypeDeclProcessing t') -> liftIO $ fail $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
-     DeclPath
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> DeclPath
   -> CXTranslationUnit
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDeclRec path unit ty = do
+processTypeDeclRec relPath path unit ty = do
     -- dtraceIO "processTypeDeclRec" ty
 
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                     -> processTypeDecl' path unit ty
+        Nothing                     -> processTypeDecl' relPath path unit ty
         Just (TypeDecl t _)         -> return t
         Just (TypeDeclAlias t)      -> return t
         Just (TypeDeclProcessing t) -> return t
@@ -95,18 +100,19 @@ processTypeDeclRec path unit ty = do
 -- https://github.com/well-typed/hs-bindgen/issues/314
 --
 processTypeDecl' ::
-     DeclPath
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> DeclPath
   -> CXTranslationUnit
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- liftIO $ clang_Type_getNamedType ty
-        processTypeDeclRec path unit ty'
+        processTypeDeclRec relPath path unit ty'
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -120,9 +126,10 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
 
         sloc <- liftIO $
-          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
+          HighLevel.clang_getExpansionLocation relPath
+            =<< clang_getCursorLocation decl
 
-        use <- processTypeDeclRec DeclPathTop unit ty'
+        use <- processTypeDeclRec relPath DeclPathTop unit ty'
 
         -- we could check whether typedef has a transparent tag,
         -- like in case of `typedef struct foo { ..} foo;`
@@ -156,14 +163,16 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
     -- structs
     Right CXType_Record -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
-        sloc <- liftIO $
-          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
         -- TODO: don't use getCursorSpelling.
         tag <- liftIO (clang_getCursorSpelling decl)
         name <- liftIO (clang_getTypeSpelling ty)
         anon <- liftIO (clang_Cursor_isAnonymous decl)
 
         -- dtraceIO "record" (decl, tag, name, anon)
+
+        sloc <- liftIO $
+          HighLevel.clang_getExpansionLocation relPath
+            =<< clang_getCursorLocation decl
 
         let declPath
               | anon      = DeclPathStruct DeclNameNone path
@@ -196,7 +205,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                     alignment <- liftIO (clang_Type_getAlignOf ty)
 
                     fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                        mfield <- mkStructField unit declPath cursor
+                        mfield <- mkStructField relPath unit declPath cursor
                         return $ Continue mfield
 
                     addDecl ty $ DeclStruct Struct
@@ -211,7 +220,8 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
     Right CXType_Enum -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
         sloc <- liftIO $
-          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
+          HighLevel.clang_getExpansionLocation relPath
+            =<< clang_getCursorLocation decl
         name <- liftIO (clang_getTypeSpelling ty)
         anon <- liftIO (clang_Cursor_isAnonymous decl)
 
@@ -243,10 +253,11 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                     DeclarationRegular -> do
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                         alignment <- liftIO (clang_Type_getAlignOf ty)
-                        ety       <- liftIO (clang_getEnumDeclIntegerType decl) >>= processTypeDeclRec DeclPathTop unit
+                        ety       <- liftIO (clang_getEnumDeclIntegerType decl)
+                          >>= processTypeDeclRec relPath DeclPathTop unit
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                            mvalue <- mkEnumValue cursor
+                            mvalue <- mkEnumValue relPath cursor
                             return $ Continue mvalue
 
                         addDecl ty $ DeclEnum $ Enu
@@ -261,13 +272,13 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
     Right CXType_Pointer -> do
         pointee <- liftIO $ clang_getPointeeType ty
         -- TOOD: think about what path should be
-        pointee' <- processTypeDeclRec path unit pointee
+        pointee' <- processTypeDeclRec relPath path unit pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- liftIO $ clang_getArraySize ty
         e <- liftIO $ clang_getArrayElementType ty
-        e' <- processTypeDeclRec path unit e
+        e' <- processTypeDeclRec relPath path unit e
         return (TypeConstArray (fromIntegral n) e')
 
     Right CXType_Void -> do
@@ -280,12 +291,12 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         -- TODO: fail on variadic types, these don't have great FFI support anyway. clang_isFunctionTypeVariadic
         -- TODO: we could record calling convention clang_getFunctionTypeCallingConv, but for CApiFFI it's irrelevant as it creates C wrappers with known convention
         res <- liftIO $ clang_getResultType ty
-        res' <- processTypeDeclRec path unit res
+        res' <- processTypeDeclRec relPath path unit res
 
         nargs <- liftIO $ clang_getNumArgTypes ty
         args' <- forM [0 .. fromIntegral nargs - 1] $ \i -> do
             arg <- liftIO $ clang_getArgType ty i
-            processTypeDeclRec path unit arg
+            processTypeDeclRec relPath path unit arg
 
         return $ TypeFun args' res'
 
@@ -352,25 +363,27 @@ omapInsertBack k v m = m OMap.>| (k, v)
 -------------------------------------------------------------------------------}
 
 mkStructField ::
-     CXTranslationUnit
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> CXTranslationUnit
   -> DeclPath
   -> CXCursor
   -> Eff (State DeclState) (Maybe StructField)
-mkStructField unit path current = do
+mkStructField relPath unit path current = do
     fieldSourceLoc <- liftIO $
-      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
+      HighLevel.clang_getExpansionLocation relPath
+        =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_UnexposedAttr ->
         return Nothing
 
       Right CXCursor_FieldDecl -> do
-        extent   <- liftIO $ HighLevel.clang_getCursorExtent current
+        extent   <- liftIO $ HighLevel.clang_getCursorExtent relPath current
         hasMacro <- gets $ containsMacroExpansion extent
 
         if hasMacro then liftIO $ do
 
-          tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+          tokens <- HighLevel.clang_tokenize relPath unit (multiLocExpansion <$> extent)
           case reparseWith reparseFieldDecl tokens of
             Left err ->
               error $ "mkStructField: " ++ show err
@@ -389,7 +402,7 @@ mkStructField unit path current = do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
           ty          <- liftIO (clang_getCursorType current)
           -- TODO: correct path
-          fieldType   <- processTypeDeclRec (DeclPathField fieldName path) unit ty
+          fieldType   <- processTypeDeclRec relPath (DeclPathField fieldName path) unit ty
           fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
           unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
@@ -410,16 +423,21 @@ mkStructField unit path current = do
         return Nothing
 
       _other ->
-        unrecognizedCursor current
+        unrecognizedCursor relPath current
 
 {-------------------------------------------------------------------------------
   Enums
 -------------------------------------------------------------------------------}
 
-mkEnumValue :: MonadIO m => CXCursor -> m (Maybe EnumValue)
-mkEnumValue current = liftIO $ do
+mkEnumValue ::
+     MonadIO m
+  => Maybe FilePath -- ^ Directory to make paths relative to
+  -> CXCursor
+  -> m (Maybe EnumValue)
+mkEnumValue relPath current = liftIO $ do
     valueSourceLoc <- liftIO $
-      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
+      HighLevel.clang_getExpansionLocation relPath
+        =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
 
     case fromSimpleEnum cursorKind of
@@ -432,7 +450,7 @@ mkEnumValue current = liftIO $ do
         return Nothing
       _otherwise ->
         -- there could be attributes, e.g. packed
-        unrecognizedCursor current
+        unrecognizedCursor relPath current
 
 {-------------------------------------------------------------------------------
   Primitive types

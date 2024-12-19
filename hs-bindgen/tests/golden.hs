@@ -5,6 +5,7 @@ module Main (main) where
 import Data.TreeDiff.Class (ToExpr(toExpr))
 import Data.TreeDiff.Golden (ediffGolden1)
 import Data.TreeDiff.Pretty (prettyExpr)
+import System.Directory qualified as Dir
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
@@ -33,7 +34,8 @@ main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
         let fp = "examples/simple_structs.h"
             args = clangArgs packageRoot
-        triple <- withC nullTracer args fp $ getTargetTriple
+        relPath <- Just <$> Dir.getCurrentDirectory
+        triple <- withC relPath nullTracer args fp $ getTargetTriple
 
         -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
         -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -79,7 +81,8 @@ main' packageRoot bg = testGroup "golden"
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
+        relPath <- Just <$> Dir.getCurrentDirectory
+        header <- parseC relPath tracer args fp
         return header
 
     goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
@@ -90,7 +93,8 @@ main' packageRoot bg = testGroup "golden"
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
+        relPath <- Just <$> Dir.getCurrentDirectory
+        header <- parseC relPath tracer args fp
         let decls :: [Hs.Decl]
             decls = genHsDecls header
 
@@ -105,7 +109,8 @@ main' packageRoot bg = testGroup "golden"
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
+        relPath <- Just <$> Dir.getCurrentDirectory
+        header <- parseC relPath tracer args fp
 
         -- TODO: PP.render should add trailing '\n' itself.
         return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule moduleOpts header) ++ "\n"
@@ -121,22 +126,25 @@ main' packageRoot bg = testGroup "golden"
             }
 
 withC ::
-     Tracer IO String
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO String
   -> ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC tracer args fp =
-    withTranslationUnit tracerD args fp
+withC relPath tracer args fp =
+    withTranslationUnit relPath tracerD args fp
   where
     tracerD = contramap show tracer
 
 parseC ::
-     Tracer IO String
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO String
   -> ClangArgs
   -> FilePath
   -> IO CHeader
-parseC tracer args fp =
-    withC tracer args fp $ parseCHeader tracerP SelectFromMainFile
+parseC relPath tracer args fp =
+    withC relPath tracer args fp $
+      parseCHeader relPath tracerP SelectFromMainFile
   where
     tracerP = contramap prettyLogMsg tracer

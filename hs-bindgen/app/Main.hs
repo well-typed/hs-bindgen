@@ -1,5 +1,7 @@
 module Main (main) where
 
+import System.Directory qualified as Dir
+
 import HsBindgen.App.Cmdline
 import HsBindgen.Lib
 
@@ -14,26 +16,39 @@ main = do
     let tracer :: Tracer IO String
         tracer = mkTracerIO cmdVerbosity
 
-    execMode cmdline tracer (cmdMode)
+    relPath <- Just <$> Dir.getCurrentDirectory
 
-execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
-execMode cmdline tracer = \case
+    execMode relPath cmdline tracer (cmdMode)
+
+execMode ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Cmdline
+  -> Tracer IO String
+  -> Mode
+  -> IO ()
+execMode relPath cmdline tracer = \case
     ModePreprocess{input, moduleOpts, renderOpts, output} -> do
-      cHeader <- parseC cmdline tracer input
+      cHeader <- parseC relPath cmdline tracer input
       let hsModl = genModule moduleOpts cHeader
       prettyHs renderOpts output hsModl
     ModeGenTests{genTestsInput, genTestsModuleOpts, genTestsRenderOpts, genTestsOutput} -> do
-      cHeader <- parseC cmdline tracer genTestsInput
+      cHeader <- parseC relPath cmdline tracer genTestsInput
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     Dev devMode ->
-      execDevMode cmdline tracer devMode
+      execDevMode relPath cmdline tracer devMode
 
-execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
-execDevMode cmdline tracer = \case
+execDevMode ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Cmdline
+  -> Tracer IO String
+  -> DevMode
+  -> IO ()
+execDevMode relPath cmdline tracer = \case
     DevModeParseCHeader fp ->
-      prettyC =<< parseC cmdline tracer fp
+      prettyC =<< parseC relPath cmdline tracer fp
     DevModePrelude fp -> do
-      _entries <- withC cmdline tracer fp $ bootstrapPrelude tracer
+      _entries <- withC relPath cmdline tracer fp $
+        bootstrapPrelude relPath tracer
       return ()
 
 {-------------------------------------------------------------------------------
@@ -41,25 +56,27 @@ execDevMode cmdline tracer = \case
 -------------------------------------------------------------------------------}
 
 withC ::
-     Cmdline
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Cmdline
   -> Tracer IO String
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC cmdline tracer fp =
-    withTranslationUnit traceWarnings (cmdClangArgs cmdline) fp
+withC relPath cmdline tracer fp =
+    withTranslationUnit relPath traceWarnings (cmdClangArgs cmdline) fp
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show tracer
 
 parseC ::
-     Cmdline
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Cmdline
   -> Tracer IO String
   -> FilePath
   -> IO CHeader
-parseC cmdline tracer fp =
-    withC cmdline tracer fp $
-      parseCHeader traceSkipped (cmdPredicate cmdline)
+parseC relPath cmdline tracer fp =
+    withC relPath cmdline tracer fp $
+      parseCHeader relPath traceSkipped (cmdPredicate cmdline)
   where
     traceSkipped :: Tracer IO Skipped
     traceSkipped = (contramap prettyLogMsg tracer)
