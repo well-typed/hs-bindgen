@@ -82,13 +82,12 @@ data Field = Field {
     , fieldType   :: HsType
     , fieldOrigin :: FieldOrigin
     }
-
-deriving stock instance Show Field
+  deriving stock (Generic, Show)
 
 data FieldOrigin =
       FieldOriginNone
     | FieldOriginStructField C.StructField
-  deriving Show
+  deriving stock (Generic, Show)
 
 data Struct (n :: Nat) = Struct {
       structName   :: HsName NsTypeConstr
@@ -96,13 +95,12 @@ data Struct (n :: Nat) = Struct {
     , structFields :: Vec n Field
     , structOrigin :: StructOrigin
     }
-
-deriving stock instance Show (Struct n)
+  deriving stock (Generic, Show)
 
 data StructOrigin =
       StructOriginStruct C.Struct
     | StructOriginEnum C.Enu
-  deriving Show
+  deriving stock (Generic, Show)
 
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
@@ -110,14 +108,13 @@ data Newtype = Newtype {
     , newtypeField  :: Field
     , newtypeOrigin :: NewtypeOrigin
     }
-
-deriving stock instance Show Newtype
+  deriving stock (Generic, Show)
 
 data NewtypeOrigin =
       NewtypeOriginEnum C.Enu
     | NewtypeOriginTypedef C.Typedef
     | NewtypeOriginMacro C.Macro
-  deriving Show
+  deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
     { foreignImportName       :: HsName NsVar
@@ -126,12 +123,11 @@ data ForeignImportDecl = ForeignImportDecl
     , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
     , foreignImportDeclOrigin :: ForeignImportDeclOrigin
     }
-
-deriving stock instance Show ForeignImportDecl
+  deriving stock (Generic, Show)
 
 newtype ForeignImportDeclOrigin =
       ForeignImportDeclOriginFunction C.Function
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Variable binding
@@ -148,7 +144,7 @@ deriving instance Show (t (S ctx)) => Show (Lambda t ctx)
 -- | Applicative structure
 
 data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -171,7 +167,7 @@ deriving instance Show Decl
 -- | Class instance names
 data TypeClass =
     Storable
-  deriving stock (Show)
+  deriving stock (Generic, Show)
 
 -- | Class instance declaration
 type InstanceDecl :: Star
@@ -191,7 +187,7 @@ data VarDecl =
     -- | RHS of variable/function.
     , varDeclBody :: VarDeclRHS EmptyCtx
     }
-  deriving Show
+  deriving stock (Generic, Show)
 
 -- | A σ-type, of the form @forall tvs. ctxt => body@.
 type SigmaType :: Star
@@ -212,8 +208,7 @@ data PhiType ctx
   { quantTyCts  :: [ClassTy ctx]
   , quantTyBody :: TauType ctx
   }
-
-deriving stock instance Show (PhiType ctx)
+  deriving stock (Generic, Show)
 
 -- | A τ-type: no quantification or contexts (i.e. no @forall@, no @=>@ arrows).
 type TauType :: Ctx -> Star
@@ -221,8 +216,7 @@ data TauType ctx
   = FunTy (TauType ctx) (TauType ctx)
   | TyVarTy (Idx ctx)
   | TyConAppTy (TyConAppTy ctx)
-
-deriving stock instance Show (TauType ctx)
+  deriving stock (Generic, Show)
 
 data TyConAppTy ctx where
   TyConApp :: C.DataTyCon arity -> Vec arity (TauType ctx) -> TyConAppTy ctx
@@ -243,8 +237,7 @@ data VarDeclRHS ctx
   | VarDeclLambda (Lambda VarDeclRHS ctx)
   | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
   | VarDeclVar (Idx ctx)
-
-deriving stock instance Show (VarDeclRHS ctx)
+  deriving stock (Generic, Show)
 
 -- | The function at the head of an application in the Haskell translation
 -- of a C macro.
@@ -276,11 +269,11 @@ data PatSyn = PatSyn
     , patSynValue  :: Integer
     , patSynOrigin :: PatSynOrigin
     }
-  deriving Show
+  deriving stock (Generic, Show)
 
 newtype PatSynOrigin =
       PatSynOriginEnumValue C.EnumValue
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -298,8 +291,7 @@ data StorableInstance = StorableInstance
     , storablePeek      :: Lambda (Ap StructCon PeekByteOff) EmptyCtx
     , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeByteOff))) EmptyCtx
     }
-
-deriving instance Show StorableInstance
+  deriving stock (Generic, Show)
 
 -- | Call to 'peekByteOff'
 --
@@ -308,14 +300,14 @@ type PeekByteOff :: Ctx -> Star
 data PeekByteOff ctx = PeekByteOff
     (Idx ctx)
     Int
-  deriving Show
+  deriving stock (Generic, Show)
 
 -- | Call to 'pokeByteOff'
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:pokeByteOff>
 type PokeByteOff :: Ctx -> Star
 data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Statements
@@ -323,7 +315,7 @@ data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
 
 -- | Simple sequential composition (no bindings)
 newtype Seq t ctx = Seq [t ctx]
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Structs

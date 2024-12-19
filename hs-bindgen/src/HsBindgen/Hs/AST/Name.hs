@@ -73,7 +73,7 @@ data Namespace =
   | NsTypeVar
   | NsConstr
   | NsVar
-  deriving (Eq, Ord)
+  deriving (Eq, Ord, Show)
 
 -- | Namespace singleton
 data SNamespace :: Namespace -> Star where

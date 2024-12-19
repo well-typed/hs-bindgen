@@ -68,8 +68,12 @@ library
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.TH.Translation
       HsBindgen.C.AST
+      HsBindgen.C.Tc.Macro
       HsBindgen.Eff
       HsBindgen.Hs.AST
+      HsBindgen.Hs.AST.Name
+      HsBindgen.Hs.AST.Type
+      HsBindgen.NameHint
   other-modules:
       HsBindgen.Backend.PP
       HsBindgen.Backend.PP.Translation
@@ -89,18 +93,14 @@ library
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
-      HsBindgen.C.Tc.Macro
       HsBindgen.Debug
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
-      HsBindgen.Hs.AST.Name
-      HsBindgen.Hs.AST.Type
       HsBindgen.Hs.Translation
       HsBindgen.Imports
-      HsBindgen.NameHint
       HsBindgen.Pretty.Orphans
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
@@ -178,9 +178,12 @@ test-suite golden
   build-depends:
       -- Inherited dependencies
     , bytestring
+    , debruijn
     , mtl
+    , pretty
     , template-haskell
     , text
+    , vec
   build-depends:
       -- External dependencies
     , ansi-diff

@@ -1,6 +1,221 @@
-DeclNewtype (Newtype {newtypeName = "Foo", newtypeConstr = "Foo", newtypeField = Field {fieldName = "unFoo", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone}, newtypeOrigin = NewtypeOriginEnum (Enu {enumTag = "foo", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "FOO1", valueValue = 0, valueSourceLoc = "examples/typenames.h:15:2"},EnumValue {valueName = "FOO2", valueValue = 1, valueSourceLoc = "examples/typenames.h:16:2"}], enumSourceLoc = "examples/typenames.h:14:6"})})
-DeclInstance (InstanceStorable (Struct {structName = "Foo", structConstr = "Foo", structFields = Field {fieldName = "unFoo", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone} ::: VNil, structOrigin = StructOriginEnum (Enu {enumTag = "foo", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "FOO1", valueValue = 0, valueSourceLoc = "examples/typenames.h:15:2"},EnumValue {valueName = "FOO2", valueValue = 1, valueSourceLoc = "examples/typenames.h:16:2"}], enumSourceLoc = "examples/typenames.h:14:6"})}) (StorableInstance {storableSizeOf = 4, storableAlignment = 4, storablePeek = Lambda "ptr" (Ap (StructCon (Struct {structName = "Foo", structConstr = "Foo", structFields = Field {fieldName = "unFoo", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone} ::: VNil, structOrigin = StructOriginEnum (Enu {enumTag = "foo", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "FOO1", valueValue = 0, valueSourceLoc = "examples/typenames.h:15:2"},EnumValue {valueName = "FOO2", valueValue = 1, valueSourceLoc = "examples/typenames.h:16:2"}], enumSourceLoc = "examples/typenames.h:14:6"})})) [PeekByteOff 0 0]), storablePoke = Lambda "ptr" (Lambda "s" (ElimStruct 0 (Struct {structName = "Foo", structConstr = "Foo", structFields = Field {fieldName = "unFoo", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone} ::: VNil, structOrigin = StructOriginEnum (Enu {enumTag = "foo", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "FOO1", valueValue = 0, valueSourceLoc = "examples/typenames.h:15:2"},EnumValue {valueName = "FOO2", valueValue = 1, valueSourceLoc = "examples/typenames.h:16:2"}], enumSourceLoc = "examples/typenames.h:14:6"})}) 1 (Seq [PokeByteOff 2 0 0])))}))
-DeclPatSyn (PatSyn {patSynName = "FOO1", patSynType = "Foo", patSynConstr = "Foo", patSynValue = 0, patSynOrigin = PatSynOriginEnumValue (EnumValue {valueName = "FOO1", valueValue = 0, valueSourceLoc = "examples/typenames.h:15:2"})})
-DeclPatSyn (PatSyn {patSynName = "FOO2", patSynType = "Foo", patSynConstr = "Foo", patSynValue = 1, patSynOrigin = PatSynOriginEnumValue (EnumValue {valueName = "FOO2", valueValue = 1, valueSourceLoc = "examples/typenames.h:16:2"})})
-DeclNewtype (Newtype {newtypeName = "Foo", newtypeConstr = "Foo", newtypeField = Field {fieldName = "unFoo", fieldType = HsPrimType HsPrimCDouble, fieldOrigin = FieldOriginNone}, newtypeOrigin = NewtypeOriginTypedef (Typedef {typedefName = "foo", typedefType = TypePrim (PrimFloating PrimDouble), typedefSourceLoc = "examples/typenames.h:19:16"})})
-DeclNewtypeInstance Storable "Foo"
+DeclNewtype
+  Newtype {
+    newtypeName = HsName "@NsTypeConstr" "Foo",
+    newtypeConstr = HsName "@NsConstr" "Foo",
+    newtypeField =
+    Field {
+      fieldName = HsName "@NsVar" "unFoo",
+      fieldType = HsPrimType HsPrimCUInt,
+      fieldOrigin = FieldOriginNone},
+    newtypeOrigin =
+    NewtypeOriginEnum
+      Enu {
+        enumTag = CName "foo",
+        enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues =
+        [ EnumValue {
+            valueName = CName "FOO1",
+            valueValue = 0,
+            valueSourceLoc =
+            SingleLoc {
+              singleLocPath = ["examples", "typenames.h"],
+              singleLocLine = 15,
+              singleLocColumn = 2}},
+          EnumValue {
+            valueName = CName "FOO2",
+            valueValue = 1,
+            valueSourceLoc =
+            SingleLoc {
+              singleLocPath = ["examples", "typenames.h"],
+              singleLocLine = 16,
+              singleLocColumn = 2}}],
+        enumSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "typenames.h"],
+          singleLocLine = 14,
+          singleLocColumn = 6}}}
+DeclInstance
+  (InstanceStorable
+     Struct {
+       structName = HsName "@NsTypeConstr" "Foo",
+       structConstr = HsName "@NsConstr" "Foo",
+       structFields =
+       [ Field {
+           fieldName = HsName "@NsVar" "unFoo",
+           fieldType = HsPrimType HsPrimCUInt,
+           fieldOrigin = FieldOriginNone}],
+       structOrigin =
+       StructOriginEnum
+         Enu {
+           enumTag = CName "foo",
+           enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+           enumSizeof = 4,
+           enumAlignment = 4,
+           enumValues =
+           [ EnumValue {
+               valueName = CName "FOO1",
+               valueValue = 0,
+               valueSourceLoc =
+               SingleLoc {
+                 singleLocPath = ["examples", "typenames.h"],
+                 singleLocLine = 15,
+                 singleLocColumn = 2}},
+             EnumValue {
+               valueName = CName "FOO2",
+               valueValue = 1,
+               valueSourceLoc =
+               SingleLoc {
+                 singleLocPath = ["examples", "typenames.h"],
+                 singleLocLine = 16,
+                 singleLocColumn = 2}}],
+           enumSourceLoc =
+           SingleLoc {
+             singleLocPath = ["examples", "typenames.h"],
+             singleLocLine = 14,
+             singleLocColumn = 6}}}
+     StorableInstance {
+       storableSizeOf = 4,
+       storableAlignment = 4,
+       storablePeek =
+       Lambda
+         (NameHint "ptr")
+         (Ap
+            (StructCon
+               Struct {
+                 structName = HsName "@NsTypeConstr" "Foo",
+                 structConstr = HsName "@NsConstr" "Foo",
+                 structFields =
+                 [ Field {
+                     fieldName = HsName "@NsVar" "unFoo",
+                     fieldType = HsPrimType HsPrimCUInt,
+                     fieldOrigin = FieldOriginNone}],
+                 structOrigin =
+                 StructOriginEnum
+                   Enu {
+                     enumTag = CName "foo",
+                     enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+                     enumSizeof = 4,
+                     enumAlignment = 4,
+                     enumValues =
+                     [ EnumValue {
+                         valueName = CName "FOO1",
+                         valueValue = 0,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "typenames.h"],
+                           singleLocLine = 15,
+                           singleLocColumn = 2}},
+                       EnumValue {
+                         valueName = CName "FOO2",
+                         valueValue = 1,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "typenames.h"],
+                           singleLocLine = 16,
+                           singleLocColumn = 2}}],
+                     enumSourceLoc =
+                     SingleLoc {
+                       singleLocPath = ["examples", "typenames.h"],
+                       singleLocLine = 14,
+                       singleLocColumn = 6}}})
+            [PeekByteOff (Idx 0) 0]),
+       storablePoke =
+       Lambda
+         (NameHint "ptr")
+         (Lambda
+            (NameHint "s")
+            (ElimStruct
+               (Idx 0)
+               Struct {
+                 structName = HsName "@NsTypeConstr" "Foo",
+                 structConstr = HsName "@NsConstr" "Foo",
+                 structFields =
+                 [ Field {
+                     fieldName = HsName "@NsVar" "unFoo",
+                     fieldType = HsPrimType HsPrimCUInt,
+                     fieldOrigin = FieldOriginNone}],
+                 structOrigin =
+                 StructOriginEnum
+                   Enu {
+                     enumTag = CName "foo",
+                     enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+                     enumSizeof = 4,
+                     enumAlignment = 4,
+                     enumValues =
+                     [ EnumValue {
+                         valueName = CName "FOO1",
+                         valueValue = 0,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "typenames.h"],
+                           singleLocLine = 15,
+                           singleLocColumn = 2}},
+                       EnumValue {
+                         valueName = CName "FOO2",
+                         valueValue = 1,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "typenames.h"],
+                           singleLocLine = 16,
+                           singleLocColumn = 2}}],
+                     enumSourceLoc =
+                     SingleLoc {
+                       singleLocPath = ["examples", "typenames.h"],
+                       singleLocLine = 14,
+                       singleLocColumn = 6}}}
+               (Add 1)
+               (Seq [PokeByteOff (Idx 2) 0 (Idx 0)])))})
+DeclPatSyn
+  PatSyn {
+    patSynName = HsName "@NsConstr" "FOO1",
+    patSynType = HsName "@NsTypeConstr" "Foo",
+    patSynConstr = HsName "@NsConstr" "Foo",
+    patSynValue = 0,
+    patSynOrigin =
+    PatSynOriginEnumValue
+      EnumValue {
+        valueName = CName "FOO1",
+        valueValue = 0,
+        valueSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "typenames.h"],
+          singleLocLine = 15,
+          singleLocColumn = 2}}}
+DeclPatSyn
+  PatSyn {
+    patSynName = HsName "@NsConstr" "FOO2",
+    patSynType = HsName "@NsTypeConstr" "Foo",
+    patSynConstr = HsName "@NsConstr" "Foo",
+    patSynValue = 1,
+    patSynOrigin =
+    PatSynOriginEnumValue
+      EnumValue {
+        valueName = CName "FOO2",
+        valueValue = 1,
+        valueSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "typenames.h"],
+          singleLocLine = 16,
+          singleLocColumn = 2}}}
+DeclNewtype
+  Newtype {
+    newtypeName = HsName "@NsTypeConstr" "Foo",
+    newtypeConstr = HsName "@NsConstr" "Foo",
+    newtypeField =
+    Field {
+      fieldName = HsName "@NsVar" "unFoo",
+      fieldType = HsPrimType HsPrimCDouble,
+      fieldOrigin = FieldOriginNone},
+    newtypeOrigin =
+    NewtypeOriginTypedef
+      Typedef {
+        typedefName = CName "foo",
+        typedefType = TypePrim (PrimFloating PrimDouble),
+        typedefSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "typenames.h"],
+          singleLocLine = 19,
+          singleLocColumn = 16}}}
+DeclNewtypeInstance Storable (HsName "@NsTypeConstr" "Foo")

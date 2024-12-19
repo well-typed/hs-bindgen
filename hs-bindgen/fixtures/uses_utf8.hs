@@ -1,4 +1,201 @@
-DeclNewtype (Newtype {newtypeName = "MyEnum", newtypeConstr = "MyEnum", newtypeField = Field {fieldName = "unMyEnum", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone}, newtypeOrigin = NewtypeOriginEnum (Enu {enumTag = "MyEnum", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "Say\20320\22909", valueValue = 0, valueSourceLoc = "examples/uses_utf8.h:5:9"},EnumValue {valueName = "Say\25308\25308", valueValue = 1, valueSourceLoc = "examples/uses_utf8.h:6:9"}], enumSourceLoc = "examples/uses_utf8.h:4:6"})})
-DeclInstance (InstanceStorable (Struct {structName = "MyEnum", structConstr = "MyEnum", structFields = Field {fieldName = "unMyEnum", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone} ::: VNil, structOrigin = StructOriginEnum (Enu {enumTag = "MyEnum", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "Say\20320\22909", valueValue = 0, valueSourceLoc = "examples/uses_utf8.h:5:9"},EnumValue {valueName = "Say\25308\25308", valueValue = 1, valueSourceLoc = "examples/uses_utf8.h:6:9"}], enumSourceLoc = "examples/uses_utf8.h:4:6"})}) (StorableInstance {storableSizeOf = 4, storableAlignment = 4, storablePeek = Lambda "ptr" (Ap (StructCon (Struct {structName = "MyEnum", structConstr = "MyEnum", structFields = Field {fieldName = "unMyEnum", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone} ::: VNil, structOrigin = StructOriginEnum (Enu {enumTag = "MyEnum", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "Say\20320\22909", valueValue = 0, valueSourceLoc = "examples/uses_utf8.h:5:9"},EnumValue {valueName = "Say\25308\25308", valueValue = 1, valueSourceLoc = "examples/uses_utf8.h:6:9"}], enumSourceLoc = "examples/uses_utf8.h:4:6"})})) [PeekByteOff 0 0]), storablePoke = Lambda "ptr" (Lambda "s" (ElimStruct 0 (Struct {structName = "MyEnum", structConstr = "MyEnum", structFields = Field {fieldName = "unMyEnum", fieldType = HsPrimType HsPrimCUInt, fieldOrigin = FieldOriginNone} ::: VNil, structOrigin = StructOriginEnum (Enu {enumTag = "MyEnum", enumType = TypePrim (PrimIntegral (PrimInt Unsigned)), enumSizeof = 4, enumAlignment = 4, enumValues = [EnumValue {valueName = "Say\20320\22909", valueValue = 0, valueSourceLoc = "examples/uses_utf8.h:5:9"},EnumValue {valueName = "Say\25308\25308", valueValue = 1, valueSourceLoc = "examples/uses_utf8.h:6:9"}], enumSourceLoc = "examples/uses_utf8.h:4:6"})}) 1 (Seq [PokeByteOff 2 0 0])))}))
-DeclPatSyn (PatSyn {patSynName = "Say\20320\22909", patSynType = "MyEnum", patSynConstr = "MyEnum", patSynValue = 0, patSynOrigin = PatSynOriginEnumValue (EnumValue {valueName = "Say\20320\22909", valueValue = 0, valueSourceLoc = "examples/uses_utf8.h:5:9"})})
-DeclPatSyn (PatSyn {patSynName = "Say\25308\25308", patSynType = "MyEnum", patSynConstr = "MyEnum", patSynValue = 1, patSynOrigin = PatSynOriginEnumValue (EnumValue {valueName = "Say\25308\25308", valueValue = 1, valueSourceLoc = "examples/uses_utf8.h:6:9"})})
+DeclNewtype
+  Newtype {
+    newtypeName = HsName "@NsTypeConstr" "MyEnum",
+    newtypeConstr = HsName "@NsConstr" "MyEnum",
+    newtypeField =
+    Field {
+      fieldName = HsName "@NsVar" "unMyEnum",
+      fieldType = HsPrimType HsPrimCUInt,
+      fieldOrigin = FieldOriginNone},
+    newtypeOrigin =
+    NewtypeOriginEnum
+      Enu {
+        enumTag = CName "MyEnum",
+        enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues =
+        [ EnumValue {
+            valueName = CName "Say\20320\22909",
+            valueValue = 0,
+            valueSourceLoc =
+            SingleLoc {
+              singleLocPath = ["examples", "uses_utf8.h"],
+              singleLocLine = 5,
+              singleLocColumn = 9}},
+          EnumValue {
+            valueName = CName "Say\25308\25308",
+            valueValue = 1,
+            valueSourceLoc =
+            SingleLoc {
+              singleLocPath = ["examples", "uses_utf8.h"],
+              singleLocLine = 6,
+              singleLocColumn = 9}}],
+        enumSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "uses_utf8.h"],
+          singleLocLine = 4,
+          singleLocColumn = 6}}}
+DeclInstance
+  (InstanceStorable
+     Struct {
+       structName = HsName "@NsTypeConstr" "MyEnum",
+       structConstr = HsName "@NsConstr" "MyEnum",
+       structFields =
+       [ Field {
+           fieldName = HsName "@NsVar" "unMyEnum",
+           fieldType = HsPrimType HsPrimCUInt,
+           fieldOrigin = FieldOriginNone}],
+       structOrigin =
+       StructOriginEnum
+         Enu {
+           enumTag = CName "MyEnum",
+           enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+           enumSizeof = 4,
+           enumAlignment = 4,
+           enumValues =
+           [ EnumValue {
+               valueName = CName "Say\20320\22909",
+               valueValue = 0,
+               valueSourceLoc =
+               SingleLoc {
+                 singleLocPath = ["examples", "uses_utf8.h"],
+                 singleLocLine = 5,
+                 singleLocColumn = 9}},
+             EnumValue {
+               valueName = CName "Say\25308\25308",
+               valueValue = 1,
+               valueSourceLoc =
+               SingleLoc {
+                 singleLocPath = ["examples", "uses_utf8.h"],
+                 singleLocLine = 6,
+                 singleLocColumn = 9}}],
+           enumSourceLoc =
+           SingleLoc {
+             singleLocPath = ["examples", "uses_utf8.h"],
+             singleLocLine = 4,
+             singleLocColumn = 6}}}
+     StorableInstance {
+       storableSizeOf = 4,
+       storableAlignment = 4,
+       storablePeek =
+       Lambda
+         (NameHint "ptr")
+         (Ap
+            (StructCon
+               Struct {
+                 structName = HsName "@NsTypeConstr" "MyEnum",
+                 structConstr = HsName "@NsConstr" "MyEnum",
+                 structFields =
+                 [ Field {
+                     fieldName = HsName "@NsVar" "unMyEnum",
+                     fieldType = HsPrimType HsPrimCUInt,
+                     fieldOrigin = FieldOriginNone}],
+                 structOrigin =
+                 StructOriginEnum
+                   Enu {
+                     enumTag = CName "MyEnum",
+                     enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+                     enumSizeof = 4,
+                     enumAlignment = 4,
+                     enumValues =
+                     [ EnumValue {
+                         valueName = CName "Say\20320\22909",
+                         valueValue = 0,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "uses_utf8.h"],
+                           singleLocLine = 5,
+                           singleLocColumn = 9}},
+                       EnumValue {
+                         valueName = CName "Say\25308\25308",
+                         valueValue = 1,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "uses_utf8.h"],
+                           singleLocLine = 6,
+                           singleLocColumn = 9}}],
+                     enumSourceLoc =
+                     SingleLoc {
+                       singleLocPath = ["examples", "uses_utf8.h"],
+                       singleLocLine = 4,
+                       singleLocColumn = 6}}})
+            [PeekByteOff (Idx 0) 0]),
+       storablePoke =
+       Lambda
+         (NameHint "ptr")
+         (Lambda
+            (NameHint "s")
+            (ElimStruct
+               (Idx 0)
+               Struct {
+                 structName = HsName "@NsTypeConstr" "MyEnum",
+                 structConstr = HsName "@NsConstr" "MyEnum",
+                 structFields =
+                 [ Field {
+                     fieldName = HsName "@NsVar" "unMyEnum",
+                     fieldType = HsPrimType HsPrimCUInt,
+                     fieldOrigin = FieldOriginNone}],
+                 structOrigin =
+                 StructOriginEnum
+                   Enu {
+                     enumTag = CName "MyEnum",
+                     enumType = TypePrim (PrimIntegral (PrimInt Unsigned)),
+                     enumSizeof = 4,
+                     enumAlignment = 4,
+                     enumValues =
+                     [ EnumValue {
+                         valueName = CName "Say\20320\22909",
+                         valueValue = 0,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "uses_utf8.h"],
+                           singleLocLine = 5,
+                           singleLocColumn = 9}},
+                       EnumValue {
+                         valueName = CName "Say\25308\25308",
+                         valueValue = 1,
+                         valueSourceLoc =
+                         SingleLoc {
+                           singleLocPath = ["examples", "uses_utf8.h"],
+                           singleLocLine = 6,
+                           singleLocColumn = 9}}],
+                     enumSourceLoc =
+                     SingleLoc {
+                       singleLocPath = ["examples", "uses_utf8.h"],
+                       singleLocLine = 4,
+                       singleLocColumn = 6}}}
+               (Add 1)
+               (Seq [PokeByteOff (Idx 2) 0 (Idx 0)])))})
+DeclPatSyn
+  PatSyn {
+    patSynName = HsName "@NsConstr" "Say\20320\22909",
+    patSynType = HsName "@NsTypeConstr" "MyEnum",
+    patSynConstr = HsName "@NsConstr" "MyEnum",
+    patSynValue = 0,
+    patSynOrigin =
+    PatSynOriginEnumValue
+      EnumValue {
+        valueName = CName "Say\20320\22909",
+        valueValue = 0,
+        valueSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "uses_utf8.h"],
+          singleLocLine = 5,
+          singleLocColumn = 9}}}
+DeclPatSyn
+  PatSyn {
+    patSynName = HsName "@NsConstr" "Say\25308\25308",
+    patSynType = HsName "@NsTypeConstr" "MyEnum",
+    patSynConstr = HsName "@NsConstr" "MyEnum",
+    patSynValue = 1,
+    patSynOrigin =
+    PatSynOriginEnumValue
+      EnumValue {
+        valueName = CName "Say\25308\25308",
+        valueValue = 1,
+        valueSourceLoc =
+        SingleLoc {
+          singleLocPath = ["examples", "uses_utf8.h"],
+          singleLocLine = 6,
+          singleLocColumn = 9}}}
