@@ -249,21 +249,21 @@ data NameMangler = NameMangler {
 -- 'mkHsNamePrefixInvalid' and 'mkHsNameDropInvalid'.
 --
 -- The override function may be used to override translations of Haskell names.
--- The Haskell name must be valid for the specified namespace.  Two override
--- functions are provided in this module: 'handleOverrideNone' and
+-- The returned Haskell name must be valid for the specified namespace.  Two
+-- override functions are provided in this module: 'handleOverrideNone' and
 -- 'handleOverrideMap'.
 --
 -- The reserved name function may be used to change names that would cause
 -- confusion or a compilation error.  Two reserved name functions are provided
 -- in this module: 'handleReservedNone' and 'handleReservedNames'.
 translateName ::
-     (CName -> Text)                  -- ^ Translate a 'CName'
-  -> ([Text] -> Text)                 -- ^ Join parts of a name
-  -> [Text]                           -- ^ Prefixes
-  -> [Text]                           -- ^ Suffixes
-  -> (Text -> HsName ns)              -- ^ Construct an 'HsName'
-  -> (HsName ns -> Maybe (HsName ns)) -- ^ Override translation
-  -> (HsName ns -> HsName ns)         -- ^ Handle reserved names
+     (CName -> Text)                                 -- ^ Translate a 'CName'
+  -> ([Text] -> Text)                                -- ^ Join parts of a name
+  -> [Text]                                          -- ^ Prefixes
+  -> [Text]                                          -- ^ Suffixes
+  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
+  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
+  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
   -> CName
   -> HsName ns
 translateName
@@ -276,7 +276,7 @@ translateName
   handleReserved
   cname =
     let name = mkHsName . joinParts $ prefixes ++ translate cname : suffixes
-    in  handleReserved $ fromMaybe name (override name)
+    in  handleReserved $ fromMaybe name (override (Just cname) name)
 
 -- | Translate a 'DeclPath' to an 'HsName'
 --
@@ -285,14 +285,14 @@ translateName
 --
 -- See 'translateName' for documentation of the other parameters.
 translateDeclPath ::
-     (DeclPath -> [CName])            -- ^ Get parts from a 'DeclPath'
-  -> (CName -> Text)                  -- ^ Translate a 'CName'
-  -> ([Text] -> Text)                 -- ^ Join parts of a name
-  -> [Text]                           -- ^ Prefixes
-  -> [Text]                           -- ^ Suffixes
-  -> (Text -> HsName ns)              -- ^ Construct an 'HsName'
-  -> (HsName ns -> Maybe (HsName ns)) -- ^ Override translation
-  -> (HsName ns -> HsName ns)         -- ^ Handle reserved names
+     (DeclPath -> [CName])                           -- ^ Get parts from a 'DeclPath'
+  -> (CName -> Text)                                 -- ^ Translate a 'CName'
+  -> ([Text] -> Text)                                -- ^ Join parts of a name
+  -> [Text]                                          -- ^ Prefixes
+  -> [Text]                                          -- ^ Suffixes
+  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
+  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
+  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
   -> DeclPath
   -> HsName ns
 translateDeclPath
@@ -307,7 +307,16 @@ translateDeclPath
   declPath =
     let name = mkHsName . joinParts $
           prefixes ++ map translate (getParts declPath) ++ suffixes
-    in  handleReserved $ fromMaybe name (override name)
+    in  handleReserved $ fromMaybe name (override (getCName' declPath) name)
+  where
+    getCName' :: DeclPath -> Maybe CName
+    getCName' = \case
+      DeclPathTop -> Nothing
+      DeclPathStruct declName _declPath -> case declName of
+        DeclNameNone         -> Nothing
+        DeclNameTag name     -> Just name
+        DeclNameTypedef name -> Just name
+      DeclPathField{} -> Nothing
 
 -- | Default 'DeclPath' translation
 getDeclPathParts :: DeclPath -> [CName]
@@ -476,18 +485,25 @@ mkHsNameDropInvalid = HsName . case singNamespace @ns of
       Nothing      -> "x"
 
 -- | Do not override any translations
-handleOverrideNone :: HsName ns -> Maybe (HsName ns)
-handleOverrideNone = const Nothing
+handleOverrideNone :: Maybe CName -> HsName ns -> Maybe (HsName ns)
+handleOverrideNone _cname _name = Nothing
 
 -- | Override translations of Haskell names using a map
+--
+-- Since not all generated Haskell names have corresponding C names, overriding
+-- is primarily done based on the generated Haskell name.  You can optionally
+-- specify a C name to create overrides in cases where more than one C name is
+-- being translated to the same Haskell name.
 handleOverrideMap :: forall ns.
      SingNamespace ns
-  => Map Namespace (Map Text Text)
+  => Map Namespace (Map Text (Map (Maybe CName) Text))
+  -> Maybe CName
   -> HsName ns
   -> Maybe (HsName ns)
-handleOverrideMap overrideMap name = do
+handleOverrideMap overrideMap cname name = do
     nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
-    HsName <$> Map.lookup (getHsName name) nsMap
+    nMap  <- Map.lookup (getHsName name) nsMap
+    HsName <$> Map.lookup cname nMap
 
 -- | Do not handle reserved names
 handleReservedNone :: HsName ns -> HsName ns
