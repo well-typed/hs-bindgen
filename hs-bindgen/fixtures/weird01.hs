@@ -69,7 +69,8 @@
               "examples/weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:1:8"}},
+          "examples/weird01.h:1:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -113,7 +114,8 @@
                 "examples/weird01.h:2:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/weird01.h:1:8"}}
+            "examples/weird01.h:1:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -162,7 +164,8 @@
                         "examples/weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:1:8"}})
+                    "examples/weird01.h:1:8",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -211,7 +214,8 @@
                         "examples/weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:1:8"}}
+                    "examples/weird01.h:1:8",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [
@@ -261,7 +265,8 @@
               "examples/weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:3:16"}},
+          "examples/weird01.h:3:16",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -305,7 +310,8 @@
                 "examples/weird01.h:4:21"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/weird01.h:3:16"}}
+            "examples/weird01.h:3:16",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -354,7 +360,8 @@
                         "examples/weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:3:16"}})
+                    "examples/weird01.h:3:16",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -403,7 +410,8 @@
                         "examples/weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:3:16"}}
+                    "examples/weird01.h:3:16",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [

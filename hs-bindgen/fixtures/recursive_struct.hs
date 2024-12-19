@@ -75,7 +75,8 @@
               "examples/recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:1:16"}},
+          "examples/recursive_struct.h:1:16",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -153,7 +154,8 @@
                 "examples/recursive_struct.h:3:27"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/recursive_struct.h:1:16"}}
+            "examples/recursive_struct.h:1:16",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -236,7 +238,8 @@
                         "examples/recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:1:16"}})
+                    "examples/recursive_struct.h:1:16",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -321,7 +324,8 @@
                         "examples/recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:1:16"}}
+                    "examples/recursive_struct.h:1:16",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -440,7 +444,8 @@
               "examples/recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:9:8"}},
+          "examples/recursive_struct.h:9:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -518,7 +523,8 @@
                 "examples/recursive_struct.h:11:20"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/recursive_struct.h:9:8"}}
+            "examples/recursive_struct.h:9:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -601,7 +607,8 @@
                         "examples/recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:9:8"}})
+                    "examples/recursive_struct.h:9:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -686,7 +693,8 @@
                         "examples/recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:9:8"}}
+                    "examples/recursive_struct.h:9:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [

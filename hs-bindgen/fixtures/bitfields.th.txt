@@ -1,0 +1,50 @@
+data Flags = Flags {flags_fieldX :: CChar, flags_fieldY :: CChar}
+instance Storable Flags
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> (pure Flags <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 2;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Flags flags_fieldX_3
+                                           flags_fieldY_4 -> pokeByteOff ptr_1 0 flags_fieldX_3 >> pokeByteOff ptr_1 2 flags_fieldY_4}}
+data Overflow32 = Overflow32 {}
+instance Storable Overflow32
+    where {sizeOf = \_ -> 12;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure Overflow32;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Overflow32 -> return ()}}
+data Overflow32b = Overflow32b {}
+instance Storable Overflow32b
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 8;
+           peek = \ptr_0 -> pure Overflow32b;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Overflow32b -> return ()}}
+data Overflow32c = Overflow32c {}
+instance Storable Overflow32c
+    where {sizeOf = \_ -> 16;
+           alignment = \_ -> 8;
+           peek = \ptr_0 -> pure Overflow32c;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Overflow32c -> return ()}}
+data Overflow64 = Overflow64 {}
+instance Storable Overflow64
+    where {sizeOf = \_ -> 16;
+           alignment = \_ -> 8;
+           peek = \ptr_0 -> pure Overflow64;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Overflow64 -> return ()}}
+data AlignA = AlignA {}
+instance Storable AlignA
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure AlignA;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {AlignA -> return ()}}
+data AlignB = AlignB {}
+instance Storable AlignB
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure AlignB;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {AlignB -> return ()}}

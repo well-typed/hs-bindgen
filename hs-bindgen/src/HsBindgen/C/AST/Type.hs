@@ -138,6 +138,7 @@ data Struct = Struct {
     , structFields    :: [StructField]
     , structFlam      :: Maybe StructField -- ^ Note: type is the type of elements of flexible array.
     , structSourceLoc :: SingleLoc
+    , structBitfields :: [(StructField, Int)] -- ^ we store all bitfields separately, even if they are interspersed with other fields in C definition.
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

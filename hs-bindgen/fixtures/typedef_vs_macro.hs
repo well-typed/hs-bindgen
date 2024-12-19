@@ -219,7 +219,8 @@
               "examples/typedef_vs_macro.h:11:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/typedef_vs_macro.h:7:8"}},
+          "examples/typedef_vs_macro.h:7:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -330,7 +331,8 @@
                 "examples/typedef_vs_macro.h:11:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/typedef_vs_macro.h:7:8"}}
+            "examples/typedef_vs_macro.h:7:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -446,7 +448,8 @@
                         "examples/typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/typedef_vs_macro.h:7:8"}})
+                    "examples/typedef_vs_macro.h:7:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -566,7 +569,8 @@
                         "examples/typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/typedef_vs_macro.h:7:8"}}
+                    "examples/typedef_vs_macro.h:7:8",
+                    structBitfields = []}}
               (Add 4)
               (Seq
                 [

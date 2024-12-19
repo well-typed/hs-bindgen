@@ -48,7 +48,8 @@
               fieldSourceLoc =
               "examples/flam.h:4:10"},
           structSourceLoc =
-          "examples/flam.h:2:8"}},
+          "examples/flam.h:2:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -99,7 +100,8 @@
                 fieldSourceLoc =
                 "examples/flam.h:4:10"},
             structSourceLoc =
-            "examples/flam.h:2:8"}}
+            "examples/flam.h:2:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -155,7 +157,8 @@
                         fieldSourceLoc =
                         "examples/flam.h:4:10"},
                     structSourceLoc =
-                    "examples/flam.h:2:8"}})
+                    "examples/flam.h:2:8",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -211,7 +214,8 @@
                         fieldSourceLoc =
                         "examples/flam.h:4:10"},
                     structSourceLoc =
-                    "examples/flam.h:2:8"}}
+                    "examples/flam.h:2:8",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [
@@ -269,7 +273,8 @@
                 fieldSourceLoc =
                 "examples/flam.h:4:10"},
             structSourceLoc =
-            "examples/flam.h:2:8"}}
+            "examples/flam.h:2:8",
+            structBitfields = []}}
       (HsPrimType HsPrimCChar)
       4),
   DeclData
@@ -340,7 +345,8 @@
               "examples/flam.h:12:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/flam.h:10:2"}},
+          "examples/flam.h:10:2",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -410,7 +416,8 @@
                 "examples/flam.h:12:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/flam.h:10:2"}}
+            "examples/flam.h:10:2",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -485,7 +492,8 @@
                         "examples/flam.h:12:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/flam.h:10:2"}})
+                    "examples/flam.h:10:2",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -562,7 +570,8 @@
                         "examples/flam.h:12:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/flam.h:10:2"}}
+                    "examples/flam.h:10:2",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -626,7 +635,8 @@
               fieldSourceLoc =
               "examples/flam.h:13:4"},
           structSourceLoc =
-          "examples/flam.h:8:8"}},
+          "examples/flam.h:8:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -683,7 +693,8 @@
                 fieldSourceLoc =
                 "examples/flam.h:13:4"},
             structSourceLoc =
-            "examples/flam.h:8:8"}}
+            "examples/flam.h:8:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -745,7 +756,8 @@
                         fieldSourceLoc =
                         "examples/flam.h:13:4"},
                     structSourceLoc =
-                    "examples/flam.h:8:8"}})
+                    "examples/flam.h:8:8",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -807,7 +819,8 @@
                         fieldSourceLoc =
                         "examples/flam.h:13:4"},
                     structSourceLoc =
-                    "examples/flam.h:8:8"}}
+                    "examples/flam.h:8:8",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [
@@ -871,7 +884,8 @@
                 fieldSourceLoc =
                 "examples/flam.h:13:4"},
             structSourceLoc =
-            "examples/flam.h:8:8"}}
+            "examples/flam.h:8:8",
+            structBitfields = []}}
       (HsTypRef
         (HsName
           "@NsTypeConstr"
@@ -948,7 +962,8 @@
               fieldSourceLoc =
               "examples/flam.h:20:7"},
           structSourceLoc =
-          "examples/flam.h:17:8"}},
+          "examples/flam.h:17:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1021,7 +1036,8 @@
                 fieldSourceLoc =
                 "examples/flam.h:20:7"},
             structSourceLoc =
-            "examples/flam.h:17:8"}}
+            "examples/flam.h:17:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1099,7 +1115,8 @@
                         fieldSourceLoc =
                         "examples/flam.h:20:7"},
                     structSourceLoc =
-                    "examples/flam.h:17:8"}})
+                    "examples/flam.h:17:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1179,7 +1196,8 @@
                         fieldSourceLoc =
                         "examples/flam.h:20:7"},
                     structSourceLoc =
-                    "examples/flam.h:17:8"}}
+                    "examples/flam.h:17:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -1260,6 +1278,7 @@
                 fieldSourceLoc =
                 "examples/flam.h:20:7"},
             structSourceLoc =
-            "examples/flam.h:17:8"}}
+            "examples/flam.h:17:8",
+            structBitfields = []}}
       (HsPrimType HsPrimCChar)
       9)]

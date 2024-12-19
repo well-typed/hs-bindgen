@@ -32,7 +32,8 @@ WrapCHeader
               "examples/weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:1:8"},
+          "examples/weird01.h:1:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -50,4 +51,5 @@ WrapCHeader
               "examples/weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:3:16"}])
+          "examples/weird01.h:3:16",
+          structBitfields = []}])

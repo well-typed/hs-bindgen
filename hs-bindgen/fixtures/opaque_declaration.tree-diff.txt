@@ -36,7 +36,8 @@ WrapCHeader
               "examples/opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:4:8"},
+          "examples/opaque_declaration.h:4:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -47,7 +48,8 @@ WrapCHeader
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:9:8"},
+          "examples/opaque_declaration.h:9:8",
+          structBitfields = []},
       DeclOpaqueEnum
         OpaqueEnum {
           opaqueEnumTag = CName "quu",

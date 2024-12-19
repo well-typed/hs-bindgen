@@ -8,7 +8,6 @@ module HsBindgen.C.Fold.Type (
 ) where
 
 import Control.Monad.State (State, get, put, gets)
-import Data.Either (partitionEithers)
 import Data.Map.Ordered.Strict qualified as OMap
 import Data.Text qualified as T
 import Foreign.C
@@ -209,10 +208,7 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
                         mfield <- mkStructField relPath unit declPath cursor
                         return $ Continue mfield
 
-                    (flam, fields) <- case partitionEithers fields' of
-                        ([],     fields) -> return (Nothing, fields)
-                        ([flam], fields) -> return (Just flam, fields)
-                        (_, _)           -> fail "Multiple flexible array members"
+                    (fields, bitfields, flam) <- partitionFields fields'
 
                     addDecl ty $ DeclStruct Struct
                         { structDeclPath  = declPath
@@ -221,6 +217,7 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
                         , structFields    = fields
                         , structFlam      = flam
                         , structSourceLoc = sloc
+                        , structBitfields = bitfields
                         }
 
     -- enum
@@ -369,12 +366,29 @@ omapInsertBack k v m = m OMap.>| (k, v)
   Structs
 -------------------------------------------------------------------------------}
 
+data Field
+    = Normal !StructField
+    | IncompleteArray !StructField
+    | BitField !StructField !Int
+  deriving Show
+
+type DList a = [a] -> [a]
+
+partitionFields :: [Field] -> Eff m ([StructField], [(StructField, Int)], Maybe StructField)
+partitionFields = go id id where
+    go :: DList StructField -> DList (StructField, Int) -> [Field] -> Eff m ([StructField], [(StructField, Int)], Maybe StructField)
+    go !fs !gs []                       = return (fs [], gs [], Nothing)
+    go !fs !gs (IncompleteArray f : []) = return (fs [], gs [], Just f)
+    go !_  !_  (IncompleteArray _ : _)  = fail "incomplete array is not a last field"
+    go !fs !gs (Normal f : xs)          = go (fs . (f :)) gs xs
+    go !fs !gs (BitField f w : xs)      = go fs (gs . ((f, w) :)) xs
+
 mkStructField ::
      Maybe FilePath -- ^ Directory to make paths relative to
   -> CXTranslationUnit
   -> DeclPath
   -> CXCursor
-  -> Eff (State DeclState) (Maybe (Either StructField StructField)) -- ^ Left values are flexible array members.
+  -> Eff (State DeclState) (Maybe Field) -- ^ Left values are flexible array members.
 mkStructField relPath unit path current = do
     fieldSourceLoc <- liftIO $
       HighLevel.clang_getExpansionLocation relPath
@@ -417,17 +431,16 @@ mkStructField relPath unit path current = do
         if isIncompleteArray
         then do
           assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
-          return $ Just $ Left StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+          return $ Just $ IncompleteArray StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
         else do
           isBitField <- liftIO $ clang_Cursor_isBitField current
           if isBitField
           then do
             width <- liftIO $ clang_getFieldDeclBitWidth current
-            dtraceIO "bitfield" (fieldOffset, width)
-            return Nothing
+            return $ Just $ BitField StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc} (fromIntegral width)
           else do
             assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
-            return $ Just $ Right StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+            return $ Just $ Normal StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
 
       -- inner structs, there are two approaches:
       -- * process eagerly

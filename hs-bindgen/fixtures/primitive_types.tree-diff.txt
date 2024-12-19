@@ -235,4 +235,5 @@ WrapCHeader
               "examples/primitive_types.h:39:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/primitive_types.h:1:8"}])
+          "examples/primitive_types.h:1:8",
+          structBitfields = []}])

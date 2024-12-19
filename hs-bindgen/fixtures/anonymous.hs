@@ -67,7 +67,8 @@
               "examples/anonymous.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:3:3"}},
+          "examples/anonymous.h:3:3",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -137,7 +138,8 @@
                 "examples/anonymous.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:3:3"}}
+            "examples/anonymous.h:3:3",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -212,7 +214,8 @@
                         "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:3:3"}})
+                    "examples/anonymous.h:3:3",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -289,7 +292,8 @@
                         "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:3:3"}}
+                    "examples/anonymous.h:3:3",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -374,7 +378,8 @@
               "examples/anonymous.h:8:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:2:8"}},
+          "examples/anonymous.h:2:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -452,7 +457,8 @@
                 "examples/anonymous.h:8:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:2:8"}}
+            "examples/anonymous.h:2:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -535,7 +541,8 @@
                         "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:2:8"}})
+                    "examples/anonymous.h:2:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -620,7 +627,8 @@
                         "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:2:8"}}
+                    "examples/anonymous.h:2:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -679,7 +687,8 @@
               "examples/anonymous.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:15:5"}},
+          "examples/anonymous.h:15:5",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -731,7 +740,8 @@
                 "examples/anonymous.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:15:5"}}
+            "examples/anonymous.h:15:5",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -788,7 +798,8 @@
                         "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:15:5"}})
+                    "examples/anonymous.h:15:5",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -845,7 +856,8 @@
                         "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:15:5"}}
+                    "examples/anonymous.h:15:5",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [
@@ -943,7 +955,8 @@
               "examples/anonymous.h:17:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:13:3"}},
+          "examples/anonymous.h:13:3",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1035,7 +1048,8 @@
                 "examples/anonymous.h:17:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:13:3"}}
+            "examples/anonymous.h:13:3",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1132,7 +1146,8 @@
                         "examples/anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:13:3"}})
+                    "examples/anonymous.h:13:3",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1231,7 +1246,8 @@
                         "examples/anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:13:3"}}
+                    "examples/anonymous.h:13:3",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -1318,7 +1334,8 @@
               "examples/anonymous.h:20:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:12:8"}},
+          "examples/anonymous.h:12:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1398,7 +1415,8 @@
                 "examples/anonymous.h:20:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:12:8"}}
+            "examples/anonymous.h:12:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1483,7 +1501,8 @@
                         "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:12:8"}})
+                    "examples/anonymous.h:12:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1570,7 +1589,8 @@
                         "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:12:8"}}
+                    "examples/anonymous.h:12:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [

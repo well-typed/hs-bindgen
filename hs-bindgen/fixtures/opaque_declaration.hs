@@ -79,7 +79,8 @@
               "examples/opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:4:8"}},
+          "examples/opaque_declaration.h:4:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -159,7 +160,8 @@
                 "examples/opaque_declaration.h:6:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/opaque_declaration.h:4:8"}}
+            "examples/opaque_declaration.h:4:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -244,7 +246,8 @@
                         "examples/opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:4:8"}})
+                    "examples/opaque_declaration.h:4:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -331,7 +334,8 @@
                         "examples/opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:4:8"}}
+                    "examples/opaque_declaration.h:4:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -360,7 +364,8 @@
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:9:8"}},
+          "examples/opaque_declaration.h:9:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -382,7 +387,8 @@
             structFields = [],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/opaque_declaration.h:9:8"}}
+            "examples/opaque_declaration.h:9:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
@@ -409,7 +415,8 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:9:8"}})
+                    "examples/opaque_declaration.h:9:8",
+                    structBitfields = []}})
             []),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -436,7 +443,8 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:9:8"}}
+                    "examples/opaque_declaration.h:9:8",
+                    structBitfields = []}}
               (Add 0)
               (Seq [])))}),
   DeclEmpty

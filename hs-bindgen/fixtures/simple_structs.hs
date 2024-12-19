@@ -63,7 +63,8 @@
               "examples/simple_structs.h:4:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:2:8"}},
+          "examples/simple_structs.h:2:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -129,7 +130,8 @@
                 "examples/simple_structs.h:4:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/simple_structs.h:2:8"}}
+            "examples/simple_structs.h:2:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -200,7 +202,8 @@
                         "examples/simple_structs.h:4:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:2:8"}})
+                    "examples/simple_structs.h:2:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -273,7 +276,8 @@
                         "examples/simple_structs.h:4:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:2:8"}}
+                    "examples/simple_structs.h:2:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -368,7 +372,8 @@
               "examples/simple_structs.h:11:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:8:16"}},
+          "examples/simple_structs.h:8:16",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -456,7 +461,8 @@
                 "examples/simple_structs.h:11:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/simple_structs.h:8:16"}}
+            "examples/simple_structs.h:8:16",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -549,7 +555,8 @@
                         "examples/simple_structs.h:11:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:8:16"}})
+                    "examples/simple_structs.h:8:16",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -645,7 +652,8 @@
                         "examples/simple_structs.h:11:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:8:16"}}
+                    "examples/simple_structs.h:8:16",
+                    structBitfields = []}}
               (Add 3)
               (Seq
                 [
@@ -725,7 +733,8 @@
               "examples/simple_structs.h:16:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:15:9"}},
+          "examples/simple_structs.h:15:9",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -769,7 +778,8 @@
                 "examples/simple_structs.h:16:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/simple_structs.h:15:9"}}
+            "examples/simple_structs.h:15:9",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -818,7 +828,8 @@
                         "examples/simple_structs.h:16:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:15:9"}})
+                    "examples/simple_structs.h:15:9",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -867,7 +878,8 @@
                         "examples/simple_structs.h:16:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:15:9"}}
+                    "examples/simple_structs.h:15:9",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [
@@ -963,7 +975,8 @@
               "examples/simple_structs.h:22:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:19:8"}},
+          "examples/simple_structs.h:19:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1053,7 +1066,8 @@
                 "examples/simple_structs.h:22:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/simple_structs.h:19:8"}}
+            "examples/simple_structs.h:19:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1148,7 +1162,8 @@
                         "examples/simple_structs.h:22:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:19:8"}})
+                    "examples/simple_structs.h:19:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -1246,7 +1261,8 @@
                         "examples/simple_structs.h:22:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:19:8"}}
+                    "examples/simple_structs.h:19:8",
+                    structBitfields = []}}
               (Add 3)
               (Seq
                 [
@@ -1320,7 +1336,8 @@
               "examples/simple_structs.h:28:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:26:16"}},
+          "examples/simple_structs.h:26:16",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1386,7 +1403,8 @@
                 "examples/simple_structs.h:28:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/simple_structs.h:26:16"}}
+            "examples/simple_structs.h:26:16",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1457,7 +1475,8 @@
                         "examples/simple_structs.h:28:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:26:16"}})
+                    "examples/simple_structs.h:26:16",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1530,7 +1549,8 @@
                         "examples/simple_structs.h:28:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:26:16"}}
+                    "examples/simple_structs.h:26:16",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -1603,7 +1623,8 @@
               "examples/simple_structs.h:31:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:31:8"}},
+          "examples/simple_structs.h:31:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1669,7 +1690,8 @@
                 "examples/simple_structs.h:31:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/simple_structs.h:31:8"}}
+            "examples/simple_structs.h:31:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1740,7 +1762,8 @@
                         "examples/simple_structs.h:31:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:31:8"}})
+                    "examples/simple_structs.h:31:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1813,7 +1836,8 @@
                         "examples/simple_structs.h:31:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/simple_structs.h:31:8"}}
+                    "examples/simple_structs.h:31:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [

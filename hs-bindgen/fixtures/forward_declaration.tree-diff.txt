@@ -18,7 +18,8 @@ WrapCHeader
               "examples/forward_declaration.h:4:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/forward_declaration.h:3:8"},
+          "examples/forward_declaration.h:3:8",
+          structBitfields = []},
       DeclTypedef
         Typedef {
           typedefName = CName "S1_t",
@@ -45,4 +46,5 @@ WrapCHeader
               "examples/forward_declaration.h:10:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/forward_declaration.h:9:8"}])
+          "examples/forward_declaration.h:9:8",
+          structBitfields = []}])

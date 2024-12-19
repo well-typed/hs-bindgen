@@ -41,4 +41,5 @@ WrapCHeader
               "examples/fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/fixedwidth.h:3:8"}])
+          "examples/fixedwidth.h:3:8",
+          structBitfields = []}])
