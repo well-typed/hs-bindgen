@@ -3,8 +3,10 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "linked_list_A_s"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag
+              (CName "linked_list_A_s"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -12,26 +14,55 @@ WrapCHeader
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "recursive_struct.h"],
+                singleLocLine = 2,
+                singleLocColumn = 7}},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName
-                    (CName "linked_list_A_s")))}]},
+                  (DeclPathStruct
+                    (DeclNameTag
+                      (CName "linked_list_A_s"))
+                    DeclPathTop)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "recursive_struct.h"],
+                singleLocLine = 3,
+                singleLocColumn = 27}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "recursive_struct.h"],
+            singleLocLine = 1,
+            singleLocColumn = 16}},
       DeclTypedef
         Typedef {
           typedefName = CName
             "linked_list_A_t",
           typedefType = TypeStruct
-            (DefnName
-              (CName "linked_list_A_s"))},
+            (DeclPathStruct
+              (DeclNameTag
+                (CName "linked_list_A_s"))
+              DeclPathTop),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "recursive_struct.h"],
+            singleLocLine = 4,
+            singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "linked_list_B_t"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag
+              (CName "linked_list_B_t"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -39,12 +70,31 @@ WrapCHeader
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "recursive_struct.h"],
+                singleLocLine = 10,
+                singleLocColumn = 7}},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName
-                    (CName "linked_list_B_t")))}]}])
+                  (DeclPathStruct
+                    (DeclNameTag
+                      (CName "linked_list_B_t"))
+                    DeclPathTop)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "recursive_struct.h"],
+                singleLocLine = 11,
+                singleLocColumn = 20}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "recursive_struct.h"],
+            singleLocLine = 9,
+            singleLocColumn = 8}}])

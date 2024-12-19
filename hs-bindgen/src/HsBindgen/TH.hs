@@ -10,10 +10,13 @@ import HsBindgen.Lib
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/11>
 -- We need to think about how we want to handle configuration in TH mode.
-generateBindingsFor :: FilePath -> Q [Dec]
-generateBindingsFor fp = do
-    cHeader <- liftIO $ withTranslationUnit traceWarnings args fp $
-                          parseCHeader traceSkipped p
+generateBindingsFor ::
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> FilePath       -- ^ C header
+  -> Q [Dec]
+generateBindingsFor relPath fp = do
+    cHeader <- liftIO $ withTranslationUnit relPath traceWarnings args fp $
+                          parseCHeader relPath traceSkipped p
     genTH cHeader
   where
     traceWarnings :: Tracer IO Diagnostic

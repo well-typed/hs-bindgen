@@ -6,12 +6,12 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
 
-data CFoo = MkCFoo
-  { cFoo_i :: FC.CInt
-  , cFoo_c :: FC.CChar
+data Foo = Foo
+  { foo_i :: FC.CInt
+  , foo_c :: FC.CChar
   }
 
-instance F.Storable CFoo where
+instance F.Storable Foo where
 
   sizeOf = \_ -> 8
 
@@ -19,7 +19,7 @@ instance F.Storable CFoo where
 
   peek =
     \ptr0 ->
-          pure MkCFoo
+          pure Foo
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 4
 
@@ -27,16 +27,16 @@ instance F.Storable CFoo where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCFoo cFoo_i2 cFoo_c3 ->
-               F.pokeByteOff ptr0 0 cFoo_i2
-            >> F.pokeByteOff ptr0 4 cFoo_c3
+          Foo foo_i2 foo_c3 ->
+               F.pokeByteOff ptr0 0 foo_i2
+            >> F.pokeByteOff ptr0 4 foo_c3
 
-data CBar = MkCBar
-  { cBar_foo1 :: CFoo
-  , cBar_foo2 :: CFoo
+data Bar = Bar
+  { bar_foo1 :: Foo
+  , bar_foo2 :: Foo
   }
 
-instance F.Storable CBar where
+instance F.Storable Bar where
 
   sizeOf = \_ -> 16
 
@@ -44,7 +44,7 @@ instance F.Storable CBar where
 
   peek =
     \ptr0 ->
-          pure MkCBar
+          pure Bar
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 8
 
@@ -52,6 +52,6 @@ instance F.Storable CBar where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCBar cBar_foo12 cBar_foo23 ->
-               F.pokeByteOff ptr0 0 cBar_foo12
-            >> F.pokeByteOff ptr0 8 cBar_foo23
+          Bar bar_foo12 bar_foo23 ->
+               F.pokeByteOff ptr0 0 bar_foo12
+            >> F.pokeByteOff ptr0 8 bar_foo23

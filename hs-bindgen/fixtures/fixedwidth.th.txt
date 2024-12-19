@@ -1,13 +1,13 @@
-newtype CUint64T = MkCUint64T {unCUint64T :: CULong}
-deriving newtype instance Storable CUint64T
-newtype CUint32T = MkCUint32T {unCUint32T :: CUInt}
-deriving newtype instance Storable CUint32T
-data CFoo
-    = MkCFoo {cFoo_sixty_four :: CUint64T, cFoo_thirty_two :: CUint32T}
-instance Storable CFoo
+newtype Uint64_t = Uint64_t {unUint64_t :: CULong}
+deriving newtype instance Storable Uint64_t
+newtype Uint32_t = Uint32_t {unUint32_t :: CUInt}
+deriving newtype instance Storable Uint32_t
+data Foo
+    = Foo {foo_sixty_four :: Uint64_t, foo_thirty_two :: Uint32_t}
+instance Storable Foo
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> (pure MkCFoo <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCFoo cFoo_sixty_four_3
-                                            cFoo_thirty_two_4 -> pokeByteOff ptr_1 0 cFoo_sixty_four_3 >> pokeByteOff ptr_1 8 cFoo_thirty_two_4}}
+                                    {Foo foo_sixty_four_3
+                                         foo_thirty_two_4 -> pokeByteOff ptr_1 0 foo_sixty_four_3 >> pokeByteOff ptr_1 8 foo_thirty_two_4}}

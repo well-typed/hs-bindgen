@@ -23,7 +23,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 5})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 10,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -46,7 +52,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 3})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 11,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -70,7 +82,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 4})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 12,
+            singleLocColumn = 9}},
       DeclMacro
         (MacroReparseError
           ReparseError {
@@ -408,7 +426,13 @@ WrapCHeader
                       tokenCursorKind = SimpleEnum
                         501}])
                 MEmpty)},
-          macroDeclMacroTy = "Empty"},
+          macroDeclMacroTy = "Empty",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 25,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -431,7 +455,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 0})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 52,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -454,7 +484,13 @@ WrapCHeader
                   integerLiteralType = Just
                     (PrimInt Unsigned),
                   integerLiteralValue = 20560})},
-          macroDeclMacroTy = "UInt"},
+          macroDeclMacroTy = "UInt",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 53,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -477,7 +513,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 54,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -500,7 +542,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 13398})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 55,
+            singleLocColumn = 9}},
       DeclFunction
         Function {
           functionName = CName "some_fun",
@@ -513,12 +561,20 @@ WrapCHeader
               TypePrim PrimVoid]
             (TypeTypedef (CName "int32_t")),
           functionHeader =
-          "distilled_lib_1.h"},
+          "distilled_lib_1.h",
+          functionSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 71,
+            singleLocColumn = 9}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName
-              "another_typedef_struct_t"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTypedef
+              (CName
+                "another_typedef_struct_t"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -526,13 +582,30 @@ WrapCHeader
               fieldName = CName "foo",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 8,
+                singleLocColumn = 22}},
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 8,
+                singleLocColumn = 32}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 8,
+            singleLocColumn = 9}},
       DeclEnum
         Enu {
           enumTag = CName
@@ -545,117 +618,252 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "FOO",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 9,
+                singleLocColumn = 16}},
             EnumValue {
               valueName = CName "BAR",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 9,
+                singleLocColumn = 21}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 9,
+            singleLocColumn = 9}},
       DeclTypedef
         Typedef {
           typedefName = CName "a_type_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 13,
+            singleLocColumn = 13}},
       DeclTypedef
         Typedef {
           typedefName = CName "var_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 14,
+            singleLocColumn = 13}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint8_t",
           typedefType = TypePrim
-            (PrimChar (Just Unsigned))},
+            (PrimChar (Just Unsigned)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 121,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint16_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimShort Unsigned))},
+              (PrimShort Unsigned)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 126,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimInt Unsigned))},
+              (PrimInt Unsigned)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 131,
+            singleLocColumn = 25}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "a_typedef_struct"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag
+              (CName "a_typedef_struct"))
+            DeclPathTop,
           structSizeof = 140,
           structAlignment = 1,
           structFields = [
             StructField {
               fieldName = CName "field_0",
               fieldOffset = 0,
-              fieldType = TypePrim PrimBool},
+              fieldType = TypePrim PrimBool,
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 36,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
               fieldType = TypeTypedef
-                (CName "uint8_t")},
+                (CName "uint8_t"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 37,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
               fieldType = TypeTypedef
-                (CName "uint16_t")},
+                (CName "uint16_t"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 38,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
               fieldType = TypeTypedef
-                (CName "uint32_t")},
+                (CName "uint32_t"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 39,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
               fieldType = TypeStruct
-                (DefnName
-                  (CName
-                    "another_typedef_struct_t"))},
+                (DeclPathStruct
+                  (DeclNameTypedef
+                    (CName
+                      "another_typedef_struct_t"))
+                  DeclPathTop),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 40,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName
-                    (CName
-                      "another_typedef_struct_t")))},
+                  (DeclPathStruct
+                    (DeclNameTypedef
+                      (CName
+                        "another_typedef_struct_t"))
+                    DeclPathTop)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 41,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
               fieldType = TypePointer
-                (TypePrim PrimVoid)},
+                (TypePrim PrimVoid),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 42,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
               fieldType = TypeConstArray
                 7
                 (TypeTypedef
-                  (CName "uint32_t"))},
+                  (CName "uint32_t")),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 43,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
               fieldType = TypeEnum
                 (CName
-                  "another_typedef_enum_e")},
+                  "another_typedef_enum_e"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 44,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
               fieldType = TypeTypedef
                 (CName
-                  "another_typedef_enum_e")},
+                  "another_typedef_enum_e"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 45,
+                singleLocColumn = 31}},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
               fieldType = TypeTypedef
                 (CName
-                  "another_typedef_enum_e")}]},
+                  "another_typedef_enum_e"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 46,
+                singleLocColumn = 31}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 34,
+            singleLocColumn = 16}},
       DeclTypedef
         Typedef {
           typedefName = CName
             "a_typedef_struct_t",
           typedefType = TypeStruct
-            (DefnName
-              (CName "a_typedef_struct"))},
+            (DeclPathStruct
+              (DeclNameTag
+                (CName "a_typedef_struct"))
+              DeclPathTop),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 47,
+            singleLocColumn = 3}},
       DeclEnum
         Enu {
           enumTag = CName
@@ -667,22 +875,58 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "ENUM_CASE_0",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 62,
+                singleLocColumn = 3}},
             EnumValue {
               valueName = CName "ENUM_CASE_1",
-              valueValue = 1},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 63,
+                singleLocColumn = 3}},
             EnumValue {
               valueName = CName "ENUM_CASE_2",
-              valueValue = 2},
+              valueValue = 2,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 64,
+                singleLocColumn = 3}},
             EnumValue {
               valueName = CName "ENUM_CASE_3",
-              valueValue = 3}]},
+              valueValue = 3,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "distilled_lib_1.h"],
+                singleLocLine = 65,
+                singleLocColumn = 3}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 60,
+            singleLocColumn = 9}},
       DeclTypedef
         Typedef {
           typedefName = CName "int32_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Signed))},
+            (PrimIntegral (PrimInt Signed)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "musl-include",
+              "bits",
+              "alltypes.h"],
+            singleLocLine = 106,
+            singleLocColumn = 25}},
       DeclTypedef
         Typedef {
           typedefName = CName
@@ -693,4 +937,10 @@ WrapCHeader
                 TypePointer (TypePrim PrimVoid),
                 TypeTypedef (CName "uint32_t")]
               (TypeTypedef
-                (CName "uint32_t")))}])
+                (CName "uint32_t"))),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "distilled_lib_1.h"],
+            singleLocLine = 76,
+            singleLocColumn = 19}}])

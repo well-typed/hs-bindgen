@@ -18,43 +18,86 @@ WrapCHeader
             macroArgs = [],
             macroBody = MTerm
               (MType PrimBool)},
-          macroDeclMacroTy = "PrimTy"},
+          macroDeclMacroTy = "PrimTy",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "bool.h"],
+            singleLocLine = 13,
+            singleLocColumn = 9}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "bools1"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "bools1"))
+            DeclPathTop,
           structSizeof = 2,
           structAlignment = 1,
           structFields = [
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
-              fieldType = TypePrim PrimBool},
+              fieldType = TypePrim PrimBool,
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 2,
+                singleLocColumn = 11}},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
-              fieldType = TypePrim
-                PrimBool}]},
+              fieldType = TypePrim PrimBool,
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 3,
+                singleLocColumn = 11}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "bool.h"],
+            singleLocLine = 1,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "bools2"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "bools2"))
+            DeclPathTop,
           structSizeof = 2,
           structAlignment = 1,
           structFields = [
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
-              fieldType = TypePrim PrimBool},
+              fieldType = TypePrim PrimBool,
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 9,
+                singleLocColumn = 10}},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
-              fieldType = TypePrim
-                PrimBool}]},
+              fieldType = TypePrim PrimBool,
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 10,
+                singleLocColumn = 10}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "bool.h"],
+            singleLocLine = 8,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "bools3"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "bools3"))
+            DeclPathTop,
           structSizeof = 2,
           structAlignment = 1,
           structFields = [
@@ -62,9 +105,27 @@ WrapCHeader
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypeTypedef
-                (CName "BOOL")},
+                (CName "BOOL"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 16,
+                singleLocColumn = 10}},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypeTypedef
-                (CName "BOOL")}]}])
+                (CName "BOOL"),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "bool.h"],
+                singleLocLine = 17,
+                singleLocColumn = 10}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "bool.h"],
+            singleLocLine = 15,
+            singleLocColumn = 8}}])

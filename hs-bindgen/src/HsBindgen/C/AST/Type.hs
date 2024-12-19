@@ -9,16 +9,21 @@ module HsBindgen.C.AST.Type (
   , PrimFloatType(..)
   , PrimSign(..)
     -- * Structs
-  , DefnName (..)
   , Struct(..)
   , StructField(..)
+  , OpaqueStruct(..)
     -- * Enums
   , Enu(..)
   , EnumValue(..)
+  , OpaqueEnum(..)
     -- * Typedefs
   , Typedef(..)
+    -- * DeclPath
+  , DeclPath(..)
+  , DeclName(..)
   ) where
 
+import HsBindgen.Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 
@@ -29,7 +34,7 @@ import HsBindgen.C.AST.Name
 -- | Type representing /usage/ of a type: field type, argument or result type etc.
 data Type =
     TypePrim PrimType
-  | TypeStruct DefnName
+  | TypeStruct DeclPath
   | TypeEnum CName
   | TypeTypedef CName
   | TypePointer Type
@@ -122,28 +127,35 @@ data PrimSign = Signed | Unsigned
   Structs
 -------------------------------------------------------------------------------}
 
--- TODO: how to name this type?
---
-data DefnName
-    = DefnName CName  -- ^ top level definition: @struct foo@, @typedef ... foo@
-    -- TODO: add names for structs defined for fields.
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
-
 -- | Definition of a struct
 data Struct = Struct {
-      structTag       :: DefnName
+      structDeclPath  :: DeclPath
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
+    , structSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
 data StructField = StructField {
-      fieldName   :: CName
-    , fieldOffset :: Int -- ^ Offset in bits
-    , fieldType   :: Type
+      fieldName      :: CName
+    , fieldOffset    :: Int -- ^ Offset in bits
+    , fieldType      :: Type
+    , fieldSourceLoc :: SingleLoc
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+-- | Opaque structure
+--
+-- An /opaque structure/ is a structure declaration that specifies neither
+-- members nor size.  Example:
+--
+-- > struct foo;
+data OpaqueStruct = OpaqueStruct {
+      opaqueStructTag       :: CName
+    , opaqueStructSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -158,13 +170,28 @@ data Enu = Enu {
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]
+    , enumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
 data EnumValue = EnumValue {
-      valueName  :: CName
-    , valueValue :: Integer
+      valueName      :: CName
+    , valueValue     :: Integer
+    , valueSourceLoc :: SingleLoc
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+-- | Opaque enum
+--
+-- An /opaque enum/ is an enum declaration that specifies neither members nor
+-- size.  Example:
+--
+-- > enum foo;
+data OpaqueEnum = OpaqueEnum {
+      opaqueEnumTag       :: CName
+    , opaqueEnumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
@@ -174,8 +201,45 @@ data EnumValue = EnumValue {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefName :: CName
-    , typedefType :: Type
+      typedefName      :: CName
+    , typedefType      :: Type
+    , typedefSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  DeclPath
+-------------------------------------------------------------------------------}
+
+-- | Declaration path
+--
+-- This type tracks how declarations are defined.  This information is used to
+-- create Haskell names, and it is also used in test generation.
+--
+-- Syntax @struct {...}@ and @union {...}@ are /types/ that can be used in the
+-- definition of a variable or field.  They may even be nested.  When in a
+-- top-level declaration and given a name, like @struct foo {..}@ or
+-- @union bar {..}@, they /also/ act as declarations in the global scope.  When
+-- a @struct@ or @union@ is not given a name, the field name may be used in
+-- creation of the corresponding Haskell name.
+data DeclPath
+    = DeclPathTop
+    | DeclPathStruct DeclName DeclPath
+    -- TODO | DeclPathUnion (Maybe CName) DeclPath
+    | DeclPathField CName DeclPath
+    -- TODO | DeclPathPtr Path
+    -- TODO | DeclPathConstArray Natural Path
+  deriving stock (Eq, Generic, Show)
+  deriving anyclass (PrettyVal)
+
+-- | Declaration name
+data DeclName
+    = -- No name specified (anonymous)
+      DeclNameNone
+    | -- Structure/union tag specified
+      DeclNameTag CName
+    | -- Typedef name specified
+      DeclNameTypedef CName
+  deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)

@@ -9,24 +9,24 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
 
-newtype CUint64T = MkCUint64T
-  { unCUint64T :: FC.CULong
+newtype Uint64_t = Uint64_t
+  { unUint64_t :: FC.CULong
   }
 
-deriving newtype instance F.Storable CUint64T
+deriving newtype instance F.Storable Uint64_t
 
-newtype CUint32T = MkCUint32T
-  { unCUint32T :: FC.CUInt
+newtype Uint32_t = Uint32_t
+  { unUint32_t :: FC.CUInt
   }
 
-deriving newtype instance F.Storable CUint32T
+deriving newtype instance F.Storable Uint32_t
 
-data CFoo = MkCFoo
-  { cFoo_sixty_four :: CUint64T
-  , cFoo_thirty_two :: CUint32T
+data Foo = Foo
+  { foo_sixty_four :: Uint64_t
+  , foo_thirty_two :: Uint32_t
   }
 
-instance F.Storable CFoo where
+instance F.Storable Foo where
 
   sizeOf = \_ -> 16
 
@@ -34,7 +34,7 @@ instance F.Storable CFoo where
 
   peek =
     \ptr0 ->
-          pure MkCFoo
+          pure Foo
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 8
 
@@ -42,6 +42,6 @@ instance F.Storable CFoo where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCFoo cFoo_sixty_four2 cFoo_thirty_two3 ->
-               F.pokeByteOff ptr0 0 cFoo_sixty_four2
-            >> F.pokeByteOff ptr0 8 cFoo_thirty_two3
+          Foo foo_sixty_four2 foo_thirty_two3 ->
+               F.pokeByteOff ptr0 0 foo_sixty_four2
+            >> F.pokeByteOff ptr0 8 foo_thirty_two3
