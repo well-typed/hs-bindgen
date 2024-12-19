@@ -2,7 +2,9 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 module Orphans where
 
+import Data.Char qualified as Char
 import Data.Foldable (toList)
+import Data.List qualified as List
 import Data.Text qualified as Text
 import Data.TreeDiff.Class (ToExpr(..))
 import Data.TreeDiff.Expr qualified as Expr
@@ -69,7 +71,25 @@ instance ToExpr a => ToExpr (C.Token a)
 
 -- Construct platform-independent expression
 instance ToExpr C.SourcePath where
-  toExpr = toExpr . splitDirectories . Text.unpack . C.getSourcePath
+  toExpr = toExpr . mkRel . splitDirectories . Text.unpack . C.getSourcePath
+    where
+      -- This searches for our package directories from the right so that we do
+      -- not make any assumptions about the project directory name or parent
+      -- directories.  It therefore works with Git worktrees where the project
+      -- directory is the branch name.
+      mkRel :: [FilePath] -> [FilePath]
+      mkRel ps = case List.break (List.isPrefixOf "hs-bindgen") (reverse ps) of
+        (rs,  l:_ls) -> normalizeProjectDir l : reverse rs
+        (_rs, [])    -> ps
+
+      -- Remove version appended to project directory name if Cabal added one.
+      normalizeProjectDir :: FilePath -> FilePath
+      normalizeProjectDir p = case List.break (== '-') (reverse p) of
+        (r, '-':l) | List.all isVersionChar r -> reverse l
+        _otherwise                            -> p
+
+      isVersionChar :: Char -> Bool
+      isVersionChar c = Char.isDigit c || c == '.'
 
 instance ToExpr C.ReparseError where
   toExpr C.ReparseError {..} = Expr.Rec "ReparseError" $ OMap.fromList

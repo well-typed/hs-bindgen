@@ -669,6 +669,7 @@ WrapCHeader
             (PrimChar (Just Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
+              "hs-bindgen",
               "musl-include",
               "bits",
               "alltypes.h"],
@@ -682,6 +683,7 @@ WrapCHeader
               (PrimShort Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
+              "hs-bindgen",
               "musl-include",
               "bits",
               "alltypes.h"],
@@ -695,6 +697,7 @@ WrapCHeader
               (PrimInt Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
+              "hs-bindgen",
               "musl-include",
               "bits",
               "alltypes.h"],
@@ -922,6 +925,7 @@ WrapCHeader
             (PrimIntegral (PrimInt Signed)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
+              "hs-bindgen",
               "musl-include",
               "bits",
               "alltypes.h"],

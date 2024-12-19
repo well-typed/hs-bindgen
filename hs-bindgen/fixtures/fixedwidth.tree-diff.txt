@@ -9,6 +9,7 @@ WrapCHeader
               (PrimLong Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
+              "hs-bindgen",
               "musl-include",
               "bits",
               "alltypes.h"],
@@ -22,6 +23,7 @@ WrapCHeader
               (PrimInt Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
+              "hs-bindgen",
               "musl-include",
               "bits",
               "alltypes.h"],

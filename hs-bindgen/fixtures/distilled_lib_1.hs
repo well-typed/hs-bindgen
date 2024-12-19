@@ -647,7 +647,8 @@ DeclNewtype
         typedefType = TypePrim (PrimChar (Just Unsigned)),
         typedefSourceLoc =
         SingleLoc {
-          singleLocPath = ["musl-include", "bits", "alltypes.h"],
+          singleLocPath =
+          ["hs-bindgen", "musl-include", "bits", "alltypes.h"],
           singleLocLine = 121,
           singleLocColumn = 25}}}
 DeclNewtypeInstance Storable (HsName "@NsTypeConstr" "Uint8_t")
@@ -667,7 +668,8 @@ DeclNewtype
         typedefType = TypePrim (PrimIntegral (PrimShort Unsigned)),
         typedefSourceLoc =
         SingleLoc {
-          singleLocPath = ["musl-include", "bits", "alltypes.h"],
+          singleLocPath =
+          ["hs-bindgen", "musl-include", "bits", "alltypes.h"],
           singleLocLine = 126,
           singleLocColumn = 25}}}
 DeclNewtypeInstance Storable (HsName "@NsTypeConstr" "Uint16_t")
@@ -687,7 +689,8 @@ DeclNewtype
         typedefType = TypePrim (PrimIntegral (PrimInt Unsigned)),
         typedefSourceLoc =
         SingleLoc {
-          singleLocPath = ["musl-include", "bits", "alltypes.h"],
+          singleLocPath =
+          ["hs-bindgen", "musl-include", "bits", "alltypes.h"],
           singleLocLine = 131,
           singleLocColumn = 25}}}
 DeclNewtypeInstance Storable (HsName "@NsTypeConstr" "Uint32_t")
@@ -2238,7 +2241,8 @@ DeclNewtype
         typedefType = TypePrim (PrimIntegral (PrimInt Signed)),
         typedefSourceLoc =
         SingleLoc {
-          singleLocPath = ["musl-include", "bits", "alltypes.h"],
+          singleLocPath =
+          ["hs-bindgen", "musl-include", "bits", "alltypes.h"],
           singleLocLine = 106,
           singleLocColumn = 25}}}
 DeclNewtypeInstance Storable (HsName "@NsTypeConstr" "Int32_t")
