@@ -19,8 +19,12 @@
 -- > import HsBindgen.Hs.AST qualified as Hs
 module HsBindgen.Hs.AST (
     -- * Information about generated code
-    Struct(..)
+    Field(..)
+  , FieldOrigin(..)
+  , Struct(..)
+  , StructOrigin(..)
   , Newtype(..)
+  , NewtypeOrigin(..)
     -- * Types
   , HsType(..)
     -- * Variable binding
@@ -41,7 +45,8 @@ module HsBindgen.Hs.AST (
     -- ** Newtype instances
   , TypeClass (..)
     -- ** Foreign imports
-  , ForeignImportDecl (..)
+  , ForeignImportDecl(..)
+  , ForeignImportDeclOrigin(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -54,9 +59,10 @@ module HsBindgen.Hs.AST (
   , makeElimStruct
     -- ** Pattern Synonyms
   , PatSyn(..)
+  , PatSynOrigin(..)
   ) where
 
-import HsBindgen.C.AST qualified as C (MFun(..))
+import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
 import Data.Type.Nat as Nat
 
@@ -71,31 +77,57 @@ import DeBruijn
   Information about generated code
 -------------------------------------------------------------------------------}
 
+data Field = Field {
+      fieldName   :: HsName NsVar
+    , fieldType   :: HsType
+    , fieldOrigin :: FieldOrigin
+    }
+  deriving stock (Generic, Show)
+
+data FieldOrigin =
+      FieldOriginNone
+    | FieldOriginStructField C.StructField
+  deriving stock (Generic, Show)
+
 data Struct (n :: Nat) = Struct {
       structName   :: HsName NsTypeConstr
     , structConstr :: HsName NsConstr
-    , structFields :: Vec n (HsName NsVar, HsType)
+    , structFields :: Vec n Field
+    , structOrigin :: StructOrigin
     }
+  deriving stock (Generic, Show)
 
-deriving stock instance Show (Struct n)
+data StructOrigin =
+      StructOriginStruct C.Struct
+    | StructOriginEnum C.Enu
+  deriving stock (Generic, Show)
 
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
-    , newtypeType   :: HsType
+    , newtypeField  :: Field
+    , newtypeOrigin :: NewtypeOrigin
     }
+  deriving stock (Generic, Show)
 
-deriving stock instance Show Newtype
+data NewtypeOrigin =
+      NewtypeOriginEnum C.Enu
+    | NewtypeOriginTypedef C.Typedef
+    | NewtypeOriginMacro C.Macro
+  deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName     :: HsName NsVar
-    , foreignImportType     :: HsType
-    , foreignImportOrigName :: Text
-    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    { foreignImportName       :: HsName NsVar
+    , foreignImportType       :: HsType
+    , foreignImportOrigName   :: Text
+    , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    , foreignImportDeclOrigin :: ForeignImportDeclOrigin
     }
+  deriving stock (Generic, Show)
 
-deriving stock instance Show ForeignImportDecl
+newtype ForeignImportDeclOrigin =
+      ForeignImportDeclOriginFunction C.Function
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Variable binding
@@ -112,7 +144,7 @@ deriving instance Show (t (S ctx)) => Show (Lambda t ctx)
 -- | Applicative structure
 
 data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -135,7 +167,7 @@ deriving instance Show Decl
 -- | Class instance names
 data TypeClass =
     Storable
-  deriving stock (Show)
+  deriving stock (Generic, Show)
 
 -- | Class instance declaration
 type InstanceDecl :: Star
@@ -155,7 +187,7 @@ data VarDecl =
     -- | RHS of variable/function.
     , varDeclBody :: VarDeclRHS EmptyCtx
     }
-  deriving Show
+  deriving stock (Generic, Show)
 
 -- | A σ-type, of the form @forall tvs. ctxt => body@.
 type SigmaType :: Star
@@ -176,8 +208,7 @@ data PhiType ctx
   { quantTyCts  :: [ClassTy ctx]
   , quantTyBody :: TauType ctx
   }
-
-deriving stock instance Show (PhiType ctx)
+  deriving stock (Generic, Show)
 
 -- | A τ-type: no quantification or contexts (i.e. no @forall@, no @=>@ arrows).
 type TauType :: Ctx -> Star
@@ -185,8 +216,7 @@ data TauType ctx
   = FunTy (TauType ctx) (TauType ctx)
   | TyVarTy (Idx ctx)
   | TyConAppTy (TyConAppTy ctx)
-
-deriving stock instance Show (TauType ctx)
+  deriving stock (Generic, Show)
 
 data TyConAppTy ctx where
   TyConApp :: C.DataTyCon arity -> Vec arity (TauType ctx) -> TyConAppTy ctx
@@ -207,8 +237,7 @@ data VarDeclRHS ctx
   | VarDeclLambda (Lambda VarDeclRHS ctx)
   | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
   | VarDeclVar (Idx ctx)
-
-deriving stock instance Show (VarDeclRHS ctx)
+  deriving stock (Generic, Show)
 
 -- | The function at the head of an application in the Haskell translation
 -- of a C macro.
@@ -238,8 +267,13 @@ data PatSyn = PatSyn
     , patSynType   :: HsName NsTypeConstr
     , patSynConstr :: HsName NsConstr
     , patSynValue  :: Integer
+    , patSynOrigin :: PatSynOrigin
     }
-  deriving Show
+  deriving stock (Generic, Show)
+
+newtype PatSynOrigin =
+      PatSynOriginEnumValue C.EnumValue
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -257,8 +291,7 @@ data StorableInstance = StorableInstance
     , storablePeek      :: Lambda (Ap StructCon PeekByteOff) EmptyCtx
     , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeByteOff))) EmptyCtx
     }
-
-deriving instance Show StorableInstance
+  deriving stock (Generic, Show)
 
 -- | Call to 'peekByteOff'
 --
@@ -267,14 +300,14 @@ type PeekByteOff :: Ctx -> Star
 data PeekByteOff ctx = PeekByteOff
     (Idx ctx)
     Int
-  deriving Show
+  deriving stock (Generic, Show)
 
 -- | Call to 'pokeByteOff'
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:pokeByteOff>
 type PokeByteOff :: Ctx -> Star
 data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Statements
@@ -282,7 +315,7 @@ data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
 
 -- | Simple sequential composition (no bindings)
 newtype Seq t ctx = Seq [t ctx]
-  deriving Show
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   Structs

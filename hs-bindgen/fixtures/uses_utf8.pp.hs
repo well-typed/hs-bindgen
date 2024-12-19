@@ -7,11 +7,11 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), pure)
 
-newtype CMyEnum = MkCMyEnum
-  { unCMyEnum :: FC.CUInt
+newtype MyEnum = MyEnum
+  { unMyEnum :: FC.CUInt
   }
 
-instance F.Storable CMyEnum where
+instance F.Storable MyEnum where
 
   sizeOf = \_ -> 4
 
@@ -19,17 +19,17 @@ instance F.Storable CMyEnum where
 
   peek =
     \ptr0 ->
-          pure MkCMyEnum
+          pure MyEnum
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCMyEnum unCMyEnum2 -> F.pokeByteOff ptr0 0 unCMyEnum2
+          MyEnum unMyEnum2 -> F.pokeByteOff ptr0 0 unMyEnum2
 
-pattern MkCSay你好 :: CMyEnum
-pattern MkCSay你好 = MkCMyEnum 0
+pattern Say你好 :: MyEnum
+pattern Say你好 = MyEnum 0
 
-pattern MkCSay拜拜 :: CMyEnum
-pattern MkCSay拜拜 = MkCMyEnum 1
+pattern Say拜拜 :: MyEnum
+pattern Say拜拜 = MyEnum 1

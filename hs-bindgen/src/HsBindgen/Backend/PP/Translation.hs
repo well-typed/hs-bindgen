@@ -151,9 +151,9 @@ resolveDeclImports = \case
       : map (resolveGlobalImports . fst) instanceDecs
       ++ map (resolveExprImports . snd) instanceDecs
     DRecord Record{..} -> mconcat $
-      map (resolveTypeImports . snd) dataFields
+      map (resolveTypeImports . fieldType) dataFields
     DEmptyData _name -> mempty
-    DNewtype Newtype{..} -> resolveTypeImports newtypeType
+    DNewtype Newtype{..} -> resolveTypeImports $ fieldType newtypeField
     DDerivingNewtypeInstance ty -> resolveTypeImports ty
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
     DPatternSynonym PatternSynonym {..} ->

@@ -9,12 +9,12 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
 
-data CLinkedListAS = MkCLinkedListAS
-  { cLinkedListAS_x :: FC.CInt
-  , cLinkedListAS_next :: F.Ptr CLinkedListAS
+data Linked_list_A_s = Linked_list_A_s
+  { linked_list_A_s_x :: FC.CInt
+  , linked_list_A_s_next :: F.Ptr Linked_list_A_s
   }
 
-instance F.Storable CLinkedListAS where
+instance F.Storable Linked_list_A_s where
 
   sizeOf = \_ -> 16
 
@@ -22,7 +22,7 @@ instance F.Storable CLinkedListAS where
 
   peek =
     \ptr0 ->
-          pure MkCLinkedListAS
+          pure Linked_list_A_s
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 8
 
@@ -30,22 +30,22 @@ instance F.Storable CLinkedListAS where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCLinkedListAS cLinkedListAS_x2 cLinkedListAS_next3 ->
-               F.pokeByteOff ptr0 0 cLinkedListAS_x2
-            >> F.pokeByteOff ptr0 8 cLinkedListAS_next3
+          Linked_list_A_s linked_list_A_s_x2 linked_list_A_s_next3 ->
+               F.pokeByteOff ptr0 0 linked_list_A_s_x2
+            >> F.pokeByteOff ptr0 8 linked_list_A_s_next3
 
-newtype CLinkedListAT = MkCLinkedListAT
-  { unCLinkedListAT :: CLinkedListAS
+newtype Linked_list_A_t = Linked_list_A_t
+  { unLinked_list_A_t :: Linked_list_A_s
   }
 
-deriving newtype instance F.Storable CLinkedListAT
+deriving newtype instance F.Storable Linked_list_A_t
 
-data CLinkedListBT = MkCLinkedListBT
-  { cLinkedListBT_x :: FC.CInt
-  , cLinkedListBT_next :: F.Ptr CLinkedListBT
+data Linked_list_B_t = Linked_list_B_t
+  { linked_list_B_t_x :: FC.CInt
+  , linked_list_B_t_next :: F.Ptr Linked_list_B_t
   }
 
-instance F.Storable CLinkedListBT where
+instance F.Storable Linked_list_B_t where
 
   sizeOf = \_ -> 16
 
@@ -53,7 +53,7 @@ instance F.Storable CLinkedListBT where
 
   peek =
     \ptr0 ->
-          pure MkCLinkedListBT
+          pure Linked_list_B_t
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 8
 
@@ -61,6 +61,6 @@ instance F.Storable CLinkedListBT where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCLinkedListBT cLinkedListBT_x2 cLinkedListBT_next3 ->
-               F.pokeByteOff ptr0 0 cLinkedListBT_x2
-            >> F.pokeByteOff ptr0 8 cLinkedListBT_next3
+          Linked_list_B_t linked_list_B_t_x2 linked_list_B_t_next3 ->
+               F.pokeByteOff ptr0 0 linked_list_B_t_x2
+            >> F.pokeByteOff ptr0 8 linked_list_B_t_next3

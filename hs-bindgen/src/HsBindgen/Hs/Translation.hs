@@ -51,9 +51,9 @@ instance ToHs C.Header where
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
   toHs (C.DeclStruct struct)  = reifyStructFields struct $ structDecs struct
-  toHs (C.DeclOpaqueStruct n) = opaqueStructDecs n
+  toHs (C.DeclOpaqueStruct o) = opaqueStructDecs $ C.opaqueStructTag o
   toHs (C.DeclEnum e)         = enumDecs e
-  toHs (C.DeclOpaqueEnum n)   = opaqueStructDecs n -- TODO?
+  toHs (C.DeclOpaqueEnum o)   = opaqueStructDecs $ C.opaqueEnumTag o -- TODO?
   toHs (C.DeclTypedef d)      = typedefDecs d
   toHs (C.DeclMacro m)        = macroDecs m
   toHs (C.DeclFunction f)     = functionDecs f
@@ -89,18 +89,17 @@ structDecs struct fields =
   where
     hs :: Hs.Struct n
     hs =
-      let cStructName = case C.structTag struct of
-            C.DefnName n -> n
-
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cStructName
+      let nm@NameMangler{..} = defaultNameMangler
+          typeConstrCtx = StructTypeConstrContext $ C.structDeclPath struct
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          mkField f =
-            ( mangleVarName $ FieldVarContext typeConstrCtx True (C.fieldName f)
-            , typ nm (C.fieldType f)
-            )
-          structFields = Vec.map mkField fields
+          structFields = flip Vec.map fields $ \f -> Hs.Field {
+              fieldName   = mangleVarName $
+                FieldVarContext typeConstrCtx (C.fieldName f)
+            , fieldType   = typ nm (C.fieldType f)
+            , fieldOrigin = Hs.FieldOriginStructField f
+            }
+          structOrigin = Hs.StructOriginStruct struct
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -118,14 +117,6 @@ structDecs struct fields =
 
     poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
-
-translateDefnName :: NameMangler -> C.DefnName -> HsName NsTypeConstr
-translateDefnName nm tag = structName
-  where
-    cStructName = case tag of
-        C.DefnName n -> n
-    typeConstrCtx = TypeConstrContext cStructName
-    structName = mangleTypeConstrName nm typeConstrCtx
 
 {-------------------------------------------------------------------------------
   Opaque struct
@@ -146,7 +137,7 @@ opaqueStructDecs cname =
 
 enumDecs :: C.Enu -> [Hs.Decl]
 enumDecs e = [
-      Hs.DeclNewtype newtype_
+      Hs.DeclNewtype Hs.Newtype{..}
     , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ] ++ valueDecls
   where
@@ -155,21 +146,19 @@ enumDecs e = [
     typeConstrCtx      = TypeConstrContext cEnumName
     newtypeName        = mangleTypeConstrName typeConstrCtx
     newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
-    newtypeType        = typ nm (C.enumType e)
-
-    newtype_ :: Hs.Newtype
-    newtype_ =
-      let newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-      in Hs.Newtype {..}
+    newtypeField       = Hs.Field {
+        fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType   = typ nm (C.enumType e)
+      , fieldOrigin = Hs.FieldOriginNone
+      }
+    newtypeOrigin      = Hs.NewtypeOriginEnum e
 
     hs :: Hs.Struct (S Z)
     hs =
       let structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          structFields = Vec.singleton
-            ( mangleVarName $ EnumVarContext typeConstrCtx
-            , typ nm (C.enumType e)
-            )
+          structFields = Vec.singleton newtypeField
+          structOrigin = Hs.StructOriginEnum e
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -195,9 +184,9 @@ enumDecs e = [
           , patSynType   = newtypeName
           , patSynConstr = newtypeConstr
           , patSynValue  = valueValue
-
+          , patSynOrigin = Hs.PatSynOriginEnumValue enumValue
           }
-        | C.EnumValue {..} <- C.enumValues e
+        | enumValue@C.EnumValue{..} <- C.enumValues e
         ]
 
 {-------------------------------------------------------------------------------
@@ -206,7 +195,7 @@ enumDecs e = [
 
 typedefDecs :: C.Typedef -> [Hs.Decl]
 typedefDecs d = [
-      Hs.DeclNewtype newtype_
+      Hs.DeclNewtype Hs.Newtype{..}
     , Hs.DeclNewtypeInstance Hs.Storable newtypeName
     ]
   where
@@ -214,15 +203,13 @@ typedefDecs d = [
     nm@NameMangler{..} = defaultNameMangler
     typeConstrCtx      = TypeConstrContext cName
     newtypeName        = mangleTypeConstrName typeConstrCtx
-
-    newtype_ :: Hs.Newtype
-    newtype_ = Hs.Newtype {..}
-      where
-        newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-        newtypeField  = mangleVarName $ EnumVarContext typeConstrCtx
-        newtypeType   = typ nm (C.typedefType d)
-
-
+    newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField       = Hs.Field {
+        fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType   = typ nm (C.typedefType d)
+      , fieldOrigin = Hs.FieldOriginNone
+      }
+    newtypeOrigin      = Hs.NewtypeOriginTypedef d
 
 {-------------------------------------------------------------------------------
   Macros
@@ -243,24 +230,24 @@ macroDecs C.MacroTcError {}      = []
 
 macroDecsTypedef :: C.Macro -> [Hs.Decl]
 macroDecsTypedef m = [
-        Hs.DeclNewtype newtype_
-      ]
+      Hs.DeclNewtype Hs.Newtype{..}
+    ]
   where
-    newtype_ :: Hs.Newtype
-    newtype_ =
-      let cName = C.macroName m
-          nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = TypeConstrContext cName
-          newtypeName = mangleTypeConstrName typeConstrCtx
-          newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-          newtypeField = mangleVarName $ EnumVarContext typeConstrCtx
-
+    cName = C.macroName m
+    nm@NameMangler{..} = defaultNameMangler
+    typeConstrCtx = TypeConstrContext cName
+    newtypeName = mangleTypeConstrName typeConstrCtx
+    newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField = Hs.Field {
+        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
+      , fieldType =
           -- TODO: this type conversion is very simple, but works for now.
-          newtypeType    = typ nm $ case C.macroBody m of
-              C.MTerm (C.MType pt) -> C.TypePrim pt
-              _                    -> C.TypePrim C.PrimVoid --
-
-      in Hs.Newtype {..}
+          typ nm $ case C.macroBody m of
+            C.MTerm (C.MType pt) -> C.TypePrim pt
+            _                    -> C.TypePrim C.PrimVoid
+      , fieldOrigin = Hs.FieldOriginNone
+      }
+    newtypeOrigin = Hs.NewtypeOriginMacro m
 
 {-------------------------------------------------------------------------------
   Types
@@ -269,8 +256,8 @@ macroDecsTypedef m = [
 typ :: NameMangler -> C.Type -> Hs.HsType
 typ nm (C.TypeTypedef c) =
     Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext c)) -- wrong
-typ nm    (C.TypeStruct name)     =
-    Hs.HsTypRef (translateDefnName nm name)
+typ nm (C.TypeStruct declPath) =
+    Hs.HsTypRef (mangleTypeConstrName nm (StructTypeConstrContext declPath))
 typ nm    (C.TypeEnum name)     =
     Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
 typ _     (C.TypePrim p)       = case p of
@@ -311,10 +298,11 @@ floatingType = \case
 functionDecs :: C.Function -> [Hs.Decl]
 functionDecs f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = mangleVarName nm $ VarContext $ C.functionName f
-        , foreignImportType     = typ nm $ C.functionType f
-        , foreignImportOrigName = C.getCName (C.functionName f)
-        , foreignImportHeader   = C.functionHeader f  -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+        { foreignImportName       = mangleVarName nm $ VarContext $ C.functionName f
+        , foreignImportType       = typ nm $ C.functionType f
+        , foreignImportOrigName   = C.getCName (C.functionName f)
+        , foreignImportHeader     = C.functionHeader f  -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+        , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]
   where

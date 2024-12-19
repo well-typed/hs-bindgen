@@ -227,8 +227,11 @@ mkDecl = \case
       DRecord d ->
         let fields :: [q TH.VarBangType]
             fields =
-              [ TH.varBangType (hsNameToTH n) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType EmptyEnv t)
-              | (n, t) <- dataFields d
+              [ TH.varBangType (hsNameToTH (fieldName f)) $
+                  TH.bangType
+                    (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
+                    (mkType EmptyEnv (fieldType f))
+              | f <- dataFields d
               ]
         in singleton <$>
           TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
@@ -238,7 +241,10 @@ mkDecl = \case
 
       DNewtype n ->
         let field :: q TH.VarBangType
-            field = TH.varBangType (hsNameToTH (newtypeField n)) $ TH.bangType (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness) (mkType EmptyEnv (newtypeType n))
+            field = TH.varBangType (hsNameToTH (fieldName (newtypeField n))) $
+              TH.bangType
+                (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
+                (mkType EmptyEnv (fieldType (newtypeField n)))
         in singleton <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
 
       DDerivingNewtypeInstance ty ->

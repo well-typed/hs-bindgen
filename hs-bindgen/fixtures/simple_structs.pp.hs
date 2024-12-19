@@ -9,12 +9,12 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
 
-data CS1 = MkCS1
-  { cS1_a :: FC.CInt
-  , cS1_b :: FC.CChar
+data S1 = S1
+  { s1_a :: FC.CInt
+  , s1_b :: FC.CChar
   }
 
-instance F.Storable CS1 where
+instance F.Storable S1 where
 
   sizeOf = \_ -> 8
 
@@ -22,7 +22,7 @@ instance F.Storable CS1 where
 
   peek =
     \ptr0 ->
-          pure MkCS1
+          pure S1
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 4
 
@@ -30,17 +30,17 @@ instance F.Storable CS1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS1 cS1_a2 cS1_b3 ->
-               F.pokeByteOff ptr0 0 cS1_a2
-            >> F.pokeByteOff ptr0 4 cS1_b3
+          S1 s1_a2 s1_b3 ->
+               F.pokeByteOff ptr0 0 s1_a2
+            >> F.pokeByteOff ptr0 4 s1_b3
 
-data CS2 = MkCS2
-  { cS2_a :: FC.CChar
-  , cS2_b :: FC.CInt
-  , cS2_c :: FC.CFloat
+data S2 = S2
+  { s2_a :: FC.CChar
+  , s2_b :: FC.CInt
+  , s2_c :: FC.CFloat
   }
 
-instance F.Storable CS2 where
+instance F.Storable S2 where
 
   sizeOf = \_ -> 12
 
@@ -48,7 +48,7 @@ instance F.Storable CS2 where
 
   peek =
     \ptr0 ->
-          pure MkCS2
+          pure S2
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 4
       <*> F.peekByteOff ptr0 8
@@ -57,22 +57,22 @@ instance F.Storable CS2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS2 cS2_a2 cS2_b3 cS2_c4 ->
-               F.pokeByteOff ptr0 0 cS2_a2
-            >> F.pokeByteOff ptr0 4 cS2_b3
-            >> F.pokeByteOff ptr0 8 cS2_c4
+          S2 s2_a2 s2_b3 s2_c4 ->
+               F.pokeByteOff ptr0 0 s2_a2
+            >> F.pokeByteOff ptr0 4 s2_b3
+            >> F.pokeByteOff ptr0 8 s2_c4
 
-newtype CS2T = MkCS2T
-  { unCS2T :: CS2
+newtype S2_t = S2_t
+  { unS2_t :: S2
   }
 
-deriving newtype instance F.Storable CS2T
+deriving newtype instance F.Storable S2_t
 
-data CS3T = MkCS3T
-  { cS3T_a :: FC.CChar
+data S3_t = S3_t
+  { s3_t_a :: FC.CChar
   }
 
-instance F.Storable CS3T where
+instance F.Storable S3_t where
 
   sizeOf = \_ -> 1
 
@@ -80,22 +80,22 @@ instance F.Storable CS3T where
 
   peek =
     \ptr0 ->
-          pure MkCS3T
+          pure S3_t
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS3T cS3T_a2 -> F.pokeByteOff ptr0 0 cS3T_a2
+          S3_t s3_t_a2 -> F.pokeByteOff ptr0 0 s3_t_a2
 
-data CS4 = MkCS4
-  { cS4_b :: FC.CChar
-  , cS4_a :: FC.CInt
-  , cS4_c :: F.Ptr FC.CInt
+data S4 = S4
+  { s4_b :: FC.CChar
+  , s4_a :: FC.CInt
+  , s4_c :: F.Ptr FC.CInt
   }
 
-instance F.Storable CS4 where
+instance F.Storable S4 where
 
   sizeOf = \_ -> 16
 
@@ -103,7 +103,7 @@ instance F.Storable CS4 where
 
   peek =
     \ptr0 ->
-          pure MkCS4
+          pure S4
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 4
       <*> F.peekByteOff ptr0 8
@@ -112,17 +112,17 @@ instance F.Storable CS4 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS4 cS4_b2 cS4_a3 cS4_c4 ->
-               F.pokeByteOff ptr0 0 cS4_b2
-            >> F.pokeByteOff ptr0 4 cS4_a3
-            >> F.pokeByteOff ptr0 8 cS4_c4
+          S4 s4_b2 s4_a3 s4_c4 ->
+               F.pokeByteOff ptr0 0 s4_b2
+            >> F.pokeByteOff ptr0 4 s4_a3
+            >> F.pokeByteOff ptr0 8 s4_c4
 
-data CS5 = MkCS5
-  { cS5_a :: FC.CChar
-  , cS5_b :: FC.CInt
+data S5 = S5
+  { s5_a :: FC.CChar
+  , s5_b :: FC.CInt
   }
 
-instance F.Storable CS5 where
+instance F.Storable S5 where
 
   sizeOf = \_ -> 8
 
@@ -130,7 +130,7 @@ instance F.Storable CS5 where
 
   peek =
     \ptr0 ->
-          pure MkCS5
+          pure S5
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 4
 
@@ -138,16 +138,16 @@ instance F.Storable CS5 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS5 cS5_a2 cS5_b3 ->
-               F.pokeByteOff ptr0 0 cS5_a2
-            >> F.pokeByteOff ptr0 4 cS5_b3
+          S5 s5_a2 s5_b3 ->
+               F.pokeByteOff ptr0 0 s5_a2
+            >> F.pokeByteOff ptr0 4 s5_b3
 
-data CS6 = MkCS6
-  { cS6_a :: FC.CChar
-  , cS6_b :: FC.CInt
+data S6 = S6
+  { s6_a :: FC.CChar
+  , s6_b :: FC.CInt
   }
 
-instance F.Storable CS6 where
+instance F.Storable S6 where
 
   sizeOf = \_ -> 8
 
@@ -155,7 +155,7 @@ instance F.Storable CS6 where
 
   peek =
     \ptr0 ->
-          pure MkCS6
+          pure S6
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 4
 
@@ -163,6 +163,6 @@ instance F.Storable CS6 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS6 cS6_a2 cS6_b3 ->
-               F.pokeByteOff ptr0 0 cS6_a2
-            >> F.pokeByteOff ptr0 4 cS6_b3
+          S6 s6_a2 s6_b3 ->
+               F.pokeByteOff ptr0 0 s6_a2
+            >> F.pokeByteOff ptr0 4 s6_b3

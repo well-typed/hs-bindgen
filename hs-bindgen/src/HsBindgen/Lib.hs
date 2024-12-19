@@ -50,6 +50,9 @@ module HsBindgen.Lib (
   , prettyHs
   , prettyC
 
+    -- * Test generation
+  , genTests
+
     -- * Logging
   , Tracer
 
@@ -86,6 +89,7 @@ import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
 import HsBindgen.Util.Tracer
@@ -189,6 +193,28 @@ prettyC = Pretty.dumpIO . unwrapCHeader
 
 prettyHs :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
 prettyHs opts fp = Backend.PP.renderIO opts fp . unwrapHsModule
+
+{-------------------------------------------------------------------------------
+  Test generation
+-------------------------------------------------------------------------------}
+
+genTests ::
+     FilePath      -- ^ C header file path
+  -> CHeader
+  -> HsModuleOpts
+  -> HsRenderOpts
+  -> FilePath      -- ^ Test suite directory path
+  -> IO ()
+genTests
+  cHeaderPath
+  cHeader
+  HsModuleOpts{hsModuleOptsName}
+  HsRenderOpts{hsLineLength} =
+    GenTests.genTests
+      cHeaderPath
+      (unwrapCHeader cHeader)
+      hsModuleOptsName
+      hsLineLength
 
 {-------------------------------------------------------------------------------
   All in one
