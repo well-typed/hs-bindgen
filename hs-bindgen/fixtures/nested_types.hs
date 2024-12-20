@@ -77,6 +77,7 @@
                   "nested_types.h"],
                 singleLocLine = 3,
                 singleLocColumn = 10}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -162,6 +163,7 @@
                     "nested_types.h"],
                   singleLocLine = 3,
                   singleLocColumn = 10}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -252,6 +254,7 @@
                             "nested_types.h"],
                           singleLocLine = 3,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -344,6 +347,7 @@
                             "nested_types.h"],
                           singleLocLine = 3,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -444,6 +448,7 @@
                   "nested_types.h"],
                 singleLocLine = 8,
                 singleLocColumn = 16}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -537,6 +542,7 @@
                     "nested_types.h"],
                   singleLocLine = 8,
                   singleLocColumn = 16}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -635,6 +641,7 @@
                             "nested_types.h"],
                           singleLocLine = 8,
                           singleLocColumn = 16}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -735,6 +742,7 @@
                             "nested_types.h"],
                           singleLocLine = 8,
                           singleLocColumn = 16}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

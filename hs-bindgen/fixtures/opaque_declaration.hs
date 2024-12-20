@@ -93,6 +93,7 @@
                   "opaque_declaration.h"],
                 singleLocLine = 6,
                 singleLocColumn = 17}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -192,6 +193,7 @@
                     "opaque_declaration.h"],
                   singleLocLine = 6,
                   singleLocColumn = 17}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -296,6 +298,7 @@
                             "opaque_declaration.h"],
                           singleLocLine = 6,
                           singleLocColumn = 17}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -402,6 +405,7 @@
                             "opaque_declaration.h"],
                           singleLocLine = 6,
                           singleLocColumn = 17}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -434,6 +438,7 @@
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -459,6 +464,7 @@
             structSizeof = 0,
             structAlignment = 1,
             structFields = [],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -489,6 +495,7 @@
                     structSizeof = 0,
                     structAlignment = 1,
                     structFields = [],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -519,6 +526,7 @@
                     structSizeof = 0,
                     structAlignment = 1,
                     structFields = [],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

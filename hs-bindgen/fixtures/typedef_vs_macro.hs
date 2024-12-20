@@ -264,6 +264,7 @@
                   "typedef_vs_macro.h"],
                 singleLocLine = 11,
                 singleLocColumn = 6}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -410,6 +411,7 @@
                     "typedef_vs_macro.h"],
                   singleLocLine = 11,
                   singleLocColumn = 6}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -561,6 +563,7 @@
                             "typedef_vs_macro.h"],
                           singleLocLine = 11,
                           singleLocColumn = 6}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -716,6 +719,7 @@
                             "typedef_vs_macro.h"],
                           singleLocLine = 11,
                           singleLocColumn = 6}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

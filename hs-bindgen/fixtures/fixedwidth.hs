@@ -149,6 +149,7 @@
                   "fixedwidth.h"],
                 singleLocLine = 5,
                 singleLocColumn = 11}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -238,6 +239,7 @@
                     "fixedwidth.h"],
                   singleLocLine = 5,
                   singleLocColumn = 11}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -332,6 +334,7 @@
                             "fixedwidth.h"],
                           singleLocLine = 5,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -428,6 +431,7 @@
                             "fixedwidth.h"],
                           singleLocLine = 5,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

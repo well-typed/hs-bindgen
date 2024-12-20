@@ -928,6 +928,7 @@
                   "primitive_types.h"],
                 singleLocLine = 39,
                 singleLocColumn = 17}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -1864,6 +1865,7 @@
                     "primitive_types.h"],
                   singleLocLine = 39,
                   singleLocColumn = 17}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -2805,6 +2807,7 @@
                             "primitive_types.h"],
                           singleLocLine = 39,
                           singleLocColumn = 17}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -3775,6 +3778,7 @@
                             "primitive_types.h"],
                           singleLocLine = 39,
                           singleLocColumn = 17}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

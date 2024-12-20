@@ -1,0 +1,124 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "pascal"))
+            DeclPathTop,
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "len",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "flam.h"],
+                singleLocLine = 3,
+                singleLocColumn = 9}}],
+          structFlam = Just
+            StructField {
+              fieldName = CName "data",
+              fieldOffset = 32,
+              fieldType = TypePrim
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "flam.h"],
+                singleLocLine = 4,
+                singleLocColumn = 10}},
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "flam.h"],
+            singleLocLine = 2,
+            singleLocColumn = 8}},
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            DeclNameNone
+            (DeclPathField
+              (CName "bar")
+              (DeclPathStruct
+                (DeclNameTag (CName "foo"))
+                DeclPathTop)),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "x",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "flam.h"],
+                singleLocLine = 11,
+                singleLocColumn = 7}},
+            StructField {
+              fieldName = CName "y",
+              fieldOffset = 32,
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "flam.h"],
+                singleLocLine = 12,
+                singleLocColumn = 7}}],
+          structFlam = Nothing,
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "flam.h"],
+            singleLocLine = 10,
+            singleLocColumn = 2}},
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "foo"))
+            DeclPathTop,
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "len",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "flam.h"],
+                singleLocLine = 9,
+                singleLocColumn = 6}}],
+          structFlam = Just
+            StructField {
+              fieldName = CName "bar",
+              fieldOffset = 32,
+              fieldType = TypeStruct
+                (DeclPathStruct
+                  DeclNameNone
+                  (DeclPathField
+                    (CName "bar")
+                    (DeclPathStruct
+                      (DeclNameTag (CName "foo"))
+                      DeclPathTop))),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "flam.h"],
+                singleLocLine = 13,
+                singleLocColumn = 4}},
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "flam.h"],
+            singleLocLine = 8,
+            singleLocColumn = 8}}])

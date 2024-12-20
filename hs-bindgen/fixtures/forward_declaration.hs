@@ -47,6 +47,7 @@
                   "forward_declaration.h"],
                 singleLocLine = 4,
                 singleLocColumn = 7}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -102,6 +103,7 @@
                     "forward_declaration.h"],
                   singleLocLine = 4,
                   singleLocColumn = 7}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -162,6 +164,7 @@
                             "forward_declaration.h"],
                           singleLocLine = 4,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -222,6 +225,7 @@
                             "forward_declaration.h"],
                           singleLocLine = 4,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -315,6 +319,7 @@
                   "forward_declaration.h"],
                 singleLocLine = 10,
                 singleLocColumn = 7}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -370,6 +375,7 @@
                     "forward_declaration.h"],
                   singleLocLine = 10,
                   singleLocColumn = 7}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -430,6 +436,7 @@
                             "forward_declaration.h"],
                           singleLocLine = 10,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -490,6 +497,7 @@
                             "forward_declaration.h"],
                           singleLocLine = 10,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

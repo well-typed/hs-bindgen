@@ -81,6 +81,7 @@
                   "anonymous.h"],
                 singleLocLine = 5,
                 singleLocColumn = 9}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -170,6 +171,7 @@
                     "anonymous.h"],
                   singleLocLine = 5,
                   singleLocColumn = 9}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -264,6 +266,7 @@
                             "anonymous.h"],
                           singleLocLine = 5,
                           singleLocColumn = 9}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -360,6 +363,7 @@
                             "anonymous.h"],
                           singleLocLine = 5,
                           singleLocColumn = 9}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -464,6 +468,7 @@
                   "anonymous.h"],
                 singleLocLine = 8,
                 singleLocColumn = 7}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -561,6 +566,7 @@
                     "anonymous.h"],
                   singleLocLine = 8,
                   singleLocColumn = 7}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -663,6 +669,7 @@
                             "anonymous.h"],
                           singleLocLine = 8,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -767,6 +774,7 @@
                             "anonymous.h"],
                           singleLocLine = 8,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -837,6 +845,7 @@
                   "anonymous.h"],
                 singleLocLine = 16,
                 singleLocColumn = 11}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -900,6 +909,7 @@
                     "anonymous.h"],
                   singleLocLine = 16,
                   singleLocColumn = 11}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -968,6 +978,7 @@
                             "anonymous.h"],
                           singleLocLine = 16,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1036,6 +1047,7 @@
                             "anonymous.h"],
                           singleLocLine = 16,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1153,6 +1165,7 @@
                   "anonymous.h"],
                 singleLocLine = 17,
                 singleLocColumn = 7}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -1264,6 +1277,7 @@
                     "anonymous.h"],
                   singleLocLine = 17,
                   singleLocColumn = 7}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -1380,6 +1394,7 @@
                             "anonymous.h"],
                           singleLocLine = 17,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1498,6 +1513,7 @@
                             "anonymous.h"],
                           singleLocLine = 17,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1604,6 +1620,7 @@
                   "anonymous.h"],
                 singleLocLine = 20,
                 singleLocColumn = 7}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -1703,6 +1720,7 @@
                     "anonymous.h"],
                   singleLocLine = 20,
                   singleLocColumn = 7}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -1807,6 +1825,7 @@
                             "anonymous.h"],
                           singleLocLine = 20,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1913,6 +1932,7 @@
                             "anonymous.h"],
                           singleLocLine = 20,
                           singleLocColumn = 7}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

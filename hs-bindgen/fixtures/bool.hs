@@ -105,6 +105,7 @@
                   "bool.h"],
                 singleLocLine = 3,
                 singleLocColumn = 11}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -186,6 +187,7 @@
                     "bool.h"],
                   singleLocLine = 3,
                   singleLocColumn = 11}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -272,6 +274,7 @@
                             "bool.h"],
                           singleLocLine = 3,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -360,6 +363,7 @@
                             "bool.h"],
                           singleLocLine = 3,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -448,6 +452,7 @@
                   "bool.h"],
                 singleLocLine = 10,
                 singleLocColumn = 10}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -529,6 +534,7 @@
                     "bool.h"],
                   singleLocLine = 10,
                   singleLocColumn = 10}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -615,6 +621,7 @@
                             "bool.h"],
                           singleLocLine = 10,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -703,6 +710,7 @@
                             "bool.h"],
                           singleLocLine = 10,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -795,6 +803,7 @@
                   "bool.h"],
                 singleLocLine = 17,
                 singleLocColumn = 10}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -880,6 +889,7 @@
                     "bool.h"],
                   singleLocLine = 17,
                   singleLocColumn = 10}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -970,6 +980,7 @@
                             "bool.h"],
                           singleLocLine = 17,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1062,6 +1073,7 @@
                             "bool.h"],
                           singleLocLine = 17,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

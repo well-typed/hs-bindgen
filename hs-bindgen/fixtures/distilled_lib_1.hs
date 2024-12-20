@@ -252,6 +252,7 @@
                   "distilled_lib_1.h"],
                 singleLocLine = 8,
                 singleLocColumn = 32}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -339,6 +340,7 @@
                     "distilled_lib_1.h"],
                   singleLocLine = 8,
                   singleLocColumn = 32}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -431,6 +433,7 @@
                             "distilled_lib_1.h"],
                           singleLocLine = 8,
                           singleLocColumn = 32}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -525,6 +528,7 @@
                             "distilled_lib_1.h"],
                           singleLocLine = 8,
                           singleLocColumn = 32}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1366,6 +1370,7 @@
                   "distilled_lib_1.h"],
                 singleLocLine = 46,
                 singleLocColumn = 31}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -1769,6 +1774,7 @@
                     "distilled_lib_1.h"],
                   singleLocLine = 46,
                   singleLocColumn = 31}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -2177,6 +2183,7 @@
                             "distilled_lib_1.h"],
                           singleLocLine = 46,
                           singleLocColumn = 31}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -2596,6 +2603,7 @@
                             "distilled_lib_1.h"],
                           singleLocLine = 46,
                           singleLocColumn = 31}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

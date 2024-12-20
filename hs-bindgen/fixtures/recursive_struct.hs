@@ -89,6 +89,7 @@
                   "recursive_struct.h"],
                 singleLocLine = 3,
                 singleLocColumn = 27}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -186,6 +187,7 @@
                     "recursive_struct.h"],
                   singleLocLine = 3,
                   singleLocColumn = 27}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -288,6 +290,7 @@
                             "recursive_struct.h"],
                           singleLocLine = 3,
                           singleLocColumn = 27}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -392,6 +395,7 @@
                             "recursive_struct.h"],
                           singleLocLine = 3,
                           singleLocColumn = 27}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -534,6 +538,7 @@
                   "recursive_struct.h"],
                 singleLocLine = 11,
                 singleLocColumn = 20}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -631,6 +636,7 @@
                     "recursive_struct.h"],
                   singleLocLine = 11,
                   singleLocColumn = 20}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -733,6 +739,7 @@
                             "recursive_struct.h"],
                           singleLocLine = 11,
                           singleLocColumn = 20}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -837,6 +844,7 @@
                             "recursive_struct.h"],
                           singleLocLine = 11,
                           singleLocColumn = 20}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",

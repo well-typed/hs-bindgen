@@ -77,6 +77,7 @@
                   "simple_structs.h"],
                 singleLocLine = 4,
                 singleLocColumn = 10}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -162,6 +163,7 @@
                     "simple_structs.h"],
                   singleLocLine = 4,
                   singleLocColumn = 10}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -252,6 +254,7 @@
                             "simple_structs.h"],
                           singleLocLine = 4,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -344,6 +347,7 @@
                             "simple_structs.h"],
                           singleLocLine = 4,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -466,6 +470,7 @@
                   "simple_structs.h"],
                 singleLocLine = 11,
                 singleLocColumn = 11}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -581,6 +586,7 @@
                     "simple_structs.h"],
                   singleLocLine = 11,
                   singleLocColumn = 11}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -701,6 +707,7 @@
                             "simple_structs.h"],
                           singleLocLine = 11,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -824,6 +831,7 @@
                             "simple_structs.h"],
                           singleLocLine = 11,
                           singleLocColumn = 11}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -919,6 +927,7 @@
                   "simple_structs.h"],
                 singleLocLine = 16,
                 singleLocColumn = 10}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -974,6 +983,7 @@
                     "simple_structs.h"],
                   singleLocLine = 16,
                   singleLocColumn = 10}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -1034,6 +1044,7 @@
                             "simple_structs.h"],
                           singleLocLine = 16,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1094,6 +1105,7 @@
                             "simple_structs.h"],
                           singleLocLine = 16,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1219,6 +1231,7 @@
                   "simple_structs.h"],
                 singleLocLine = 22,
                 singleLocColumn = 10}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -1338,6 +1351,7 @@
                     "simple_structs.h"],
                   singleLocLine = 22,
                   singleLocColumn = 10}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -1462,6 +1476,7 @@
                             "simple_structs.h"],
                           singleLocLine = 22,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1589,6 +1604,7 @@
                             "simple_structs.h"],
                           singleLocLine = 22,
                           singleLocColumn = 10}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1682,6 +1698,7 @@
                   "simple_structs.h"],
                 singleLocLine = 28,
                 singleLocColumn = 9}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -1767,6 +1784,7 @@
                     "simple_structs.h"],
                   singleLocLine = 28,
                   singleLocColumn = 9}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -1857,6 +1875,7 @@
                             "simple_structs.h"],
                           singleLocLine = 28,
                           singleLocColumn = 9}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -1949,6 +1968,7 @@
                             "simple_structs.h"],
                           singleLocLine = 28,
                           singleLocColumn = 9}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -2041,6 +2061,7 @@
                   "simple_structs.h"],
                 singleLocLine = 31,
                 singleLocColumn = 25}}],
+          structFlam = Nothing,
           structSourceLoc = SingleLoc {
             singleLocPath = [
               "examples",
@@ -2126,6 +2147,7 @@
                     "simple_structs.h"],
                   singleLocLine = 31,
                   singleLocColumn = 25}}],
+            structFlam = Nothing,
             structSourceLoc = SingleLoc {
               singleLocPath = [
                 "examples",
@@ -2216,6 +2238,7 @@
                             "simple_structs.h"],
                           singleLocLine = 31,
                           singleLocColumn = 25}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
@@ -2308,6 +2331,7 @@
                             "simple_structs.h"],
                           singleLocLine = 31,
                           singleLocColumn = 25}}],
+                    structFlam = Nothing,
                     structSourceLoc = SingleLoc {
                       singleLocPath = [
                         "examples",
