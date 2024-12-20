@@ -4,6 +4,8 @@ packages: hs-bindgen-libclang
 packages: hs-bindgen-bootstrap
 packages: ansi-diff
 
+-- packages: /home/phadej/tree-diff
+
 tests: True
 benchmarks: True
 
