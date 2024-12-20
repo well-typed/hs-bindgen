@@ -1,0 +1,21 @@
+WrapCHeader
+  (Header
+    [
+      DeclStruct
+        Struct {
+          structTag = DefnName
+            (CName "pascal"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "len",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimInt Signed))},
+            StructField {
+              fieldName = CName "data",
+              fieldOffset = 32,
+              fieldType = TypePrim
+                PrimVoid}]}])
