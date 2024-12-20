@@ -79,6 +79,8 @@ runGoldenSteps (GoldenSteps getGolden getTested cmp update) progress opts = do
     mbNew <- try $ getTested stepFn
     msgs <- readIORef msgsRef <&> reverse
 
+    print $ either (const 'x') (const 'y') mbNew
+
     case mbNew of
         Left e
             | Just _ <- fromException @AsyncException e -> throwIO e
