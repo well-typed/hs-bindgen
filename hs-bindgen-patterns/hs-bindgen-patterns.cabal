@@ -26,7 +26,9 @@ common lang
       DataKinds
       DeriveAnyClass
       DerivingStrategies
+      FunctionalDependencies
       RoleAnnotations
+      ScopedTypeVariables
   other-extensions:
       CPP
 
@@ -36,6 +38,7 @@ library
   exposed-modules:
       HsBindgen.Patterns
       HsBindgen.ConstantArray
+      HsBindgen.Patterns.FlexibleArrayMember
   other-modules:
       HsBindgen.Patterns.Arithmetic
       HsBindgen.Patterns.Backtrace

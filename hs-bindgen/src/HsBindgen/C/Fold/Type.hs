@@ -384,13 +384,16 @@ mkStructField unit path current = do
         else do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
           ty          <- liftIO (clang_getCursorType current)
-          -- TODO: correct path
-          fieldType   <- processTypeDeclRec (PathField fieldName path) unit ty
-          fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
-          unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
+          case fromSimpleEnum $ cxtKind ty of
+            Right CXType_IncompleteArray -> return Nothing -- TODO: flexible array member
+            _ -> do
+                fieldType   <- processTypeDeclRec (PathField fieldName path) unit ty
+                fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
-          return $ Just StructField{fieldName, fieldOffset, fieldType}
+                unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
+
+                return $ Just StructField{fieldName, fieldOffset, fieldType}
 
       -- inner structs, there are two approaches:
       -- * process eagerly
