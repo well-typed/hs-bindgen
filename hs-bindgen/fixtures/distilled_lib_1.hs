@@ -896,8 +896,8 @@
             (PrimChar (Just Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "musl",
-              "include",
+              "musl-include",
+              "x86_64",
               "bits",
               "alltypes.h"],
             singleLocLine = 121,
@@ -931,8 +931,8 @@
               (PrimShort Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "musl",
-              "include",
+              "musl-include",
+              "x86_64",
               "bits",
               "alltypes.h"],
             singleLocLine = 126,
@@ -966,8 +966,8 @@
               (PrimInt Unsigned)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "musl",
-              "include",
+              "musl-include",
+              "x86_64",
               "bits",
               "alltypes.h"],
             singleLocLine = 131,
@@ -3071,8 +3071,8 @@
             (PrimIntegral (PrimInt Signed)),
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
-              "musl",
-              "include",
+              "musl-include",
+              "x86_64",
               "bits",
               "alltypes.h"],
             singleLocLine = 106,
