@@ -2,14 +2,11 @@
 
 module Main (main) where
 
-import Data.TreeDiff.Class (ToExpr(toExpr))
 import Data.TreeDiff.Golden (ediffGolden1)
-import Data.TreeDiff.Pretty (prettyExpr)
 import System.Directory qualified as Dir
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
-import Text.PrettyPrint qualified as Pretty
 
 import TastyGolden (goldenTestSteps)
 import Orphans ()
@@ -20,7 +17,6 @@ import Misc
 import TH
 #endif
 
-import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
@@ -85,7 +81,7 @@ main' packageRoot bg = testGroup "golden"
         header <- parseC relPath tracer args fp
         return header
 
-    goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
+    goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
@@ -95,10 +91,7 @@ main' packageRoot bg = testGroup "golden"
 
         relPath <- Just <$> Dir.getCurrentDirectory
         header <- parseC relPath tracer args fp
-        let decls :: [Hs.Decl]
-            decls = genHsDecls header
-
-        return $ unlines $ map (Pretty.render . prettyExpr . toExpr) decls
+        return $ genHsDecls header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do

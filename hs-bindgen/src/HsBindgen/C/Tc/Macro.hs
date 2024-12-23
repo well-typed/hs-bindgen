@@ -246,8 +246,8 @@ data MetaTyVar
 
 type TyCon :: Nat -> Kind -> Hs.Type
 data TyCon n k where
-  DataTyCon  :: !( DataTyCon  n ) -> TyCon n Ty
-  ClassTyCon :: !( ClassTyCon n ) -> TyCon n Ct
+  DataTyCon  :: Nat.SNatI n => !( DataTyCon  n ) -> TyCon n Ty
+  ClassTyCon :: Nat.SNatI n => !( ClassTyCon n ) -> TyCon n Ct
 
 instance PrettyVal ( TyCon n k ) where
   prettyVal ( DataTyCon dc ) = Pretty.Con "DataTyCon" [ prettyVal dc ]

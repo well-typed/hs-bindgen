@@ -181,7 +181,6 @@ test-suite golden
     , bytestring
     , debruijn
     , mtl
-    , pretty
     , template-haskell
     , text
     , vec

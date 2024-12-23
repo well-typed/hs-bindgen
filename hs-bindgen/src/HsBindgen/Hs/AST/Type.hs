@@ -52,5 +52,5 @@ data HsType =
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
-  deriving stock (Generic, Show)
+  deriving stock (Eq, Generic, Show)
 
