@@ -1,11 +1,21 @@
 WrapCHeader
   (Header
     [
-      DeclOpaqueStruct (CName "foo"),
+      DeclOpaqueStruct
+        OpaqueStruct {
+          opaqueStructTag = CName "foo",
+          opaqueStructSourceLoc =
+          SingleLoc {
+            singleLocPath = [
+              "examples",
+              "opaque_declaration.h"],
+            singleLocLine = 1,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "bar"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "bar"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -14,18 +24,56 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName (CName "foo")))},
+                  (DeclPathStruct
+                    (DeclNameTag (CName "foo"))
+                    DeclPathTop)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "opaque_declaration.h"],
+                singleLocLine = 5,
+                singleLocColumn = 17}},
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
-                  (DefnName (CName "bar")))}]},
+                  (DeclPathStruct
+                    (DeclNameTag (CName "bar"))
+                    DeclPathTop)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "opaque_declaration.h"],
+                singleLocLine = 6,
+                singleLocColumn = 17}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "opaque_declaration.h"],
+            singleLocLine = 4,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "baz"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "baz"))
+            DeclPathTop,
           structSizeof = 0,
           structAlignment = 1,
-          structFields = []},
-      DeclOpaqueEnum (CName "quu")])
+          structFields = [],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "opaque_declaration.h"],
+            singleLocLine = 9,
+            singleLocColumn = 8}},
+      DeclOpaqueEnum
+        OpaqueEnum {
+          opaqueEnumTag = CName "quu",
+          opaqueEnumSourceLoc =
+          SingleLoc {
+            singleLocPath = [
+              "examples",
+              "opaque_declaration.h"],
+            singleLocLine = 11,
+            singleLocColumn = 6}}])

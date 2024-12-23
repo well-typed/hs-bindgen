@@ -1,8 +1,10 @@
 module HsBindgen.Hs.AST.Name (
     -- * Definition
     Namespace(..)
+  , SNamespace(..)
+  , namespaceOf
+  , SingNamespace(..)
   , HsName(..)
-  , MkHsName(..)
     -- * Contexts
   , ModuleNameContext(..)
   , TypeClassContext(..)
@@ -14,6 +16,8 @@ module HsBindgen.Hs.AST.Name (
   , NameMangler(..)
     -- ** DSL
   , translateName
+  , translateDeclPath
+  , getDeclPathParts
   , maintainCName
   , camelCaseCName
   , dropInvalidChar
@@ -22,11 +26,13 @@ module HsBindgen.Hs.AST.Name (
   , joinWithConcat
   , joinWithSnakeCase
   , joinWithCamelCase
+  , mkHsNamePrefixInvalid
+  , mkHsNameDropInvalid
+  , handleOverrideNone
+  , handleOverrideMap
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
-  , handleOverrideNone
-  , handleOverrideMap
   , handleModuleNameParent
     -- ** Reserved Names
     -- $ReservedNames
@@ -50,7 +56,7 @@ import Data.Text qualified as T
 import Numeric (showHex)
 
 import HsBindgen.Imports
-import HsBindgen.C.AST (CName(..))
+import HsBindgen.C.AST (CName(..), DeclName(..), DeclPath(..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -67,7 +73,7 @@ data Namespace =
   | NsTypeVar
   | NsConstr
   | NsVar
-  deriving (Eq, Ord)
+  deriving (Eq, Ord, Show)
 
 -- | Namespace singleton
 data SNamespace :: Namespace -> Star where
@@ -115,48 +121,6 @@ newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Show, Eq, Ord, IsString, Semigroup)
 
--- | Construct an 'HsName' in namespace @ns@
-class MkHsName (ns :: Namespace) where
-
-  -- | Construct an 'HsName' in namespace @ns@
-  --
-  -- Haskell identifiers must begin with an uppercase or lowercase letter,
-  -- according to the type of identifier (namespace).  This function changes
-  -- the case of the first letter of the passed name.
-  --
-  -- If the passed name starts with non-letter characters, those characters
-  -- are dropped and the case of the first letter is changed.  If there are
-  -- no letters, then name @x@ (or @X@) is returned as a default.
-  mkHsName :: Text -> HsName ns
-
-instance MkHsName NsModuleName where
-  mkHsName = mkHsName' Char.toUpper
-
-instance MkHsName NsTypeClass where
-  mkHsName = mkHsName' Char.toUpper
-
-instance MkHsName NsTypeConstr where
-  mkHsName = mkHsName' Char.toUpper
-
-instance MkHsName NsTypeVar where
-  mkHsName = mkHsName' Char.toLower
-
-instance MkHsName NsConstr where
-  mkHsName = mkHsName' Char.toUpper
-
-instance MkHsName NsVar where
-  mkHsName = mkHsName' Char.toLower
-
-mkHsName' :: (Char -> Char) -> Text -> HsName ns
-mkHsName' f = HsName . aux
-  where
-    aux :: Text -> Text
-    aux t = case T.uncons t of
-      Just (c, t')
-        | Char.isLetter c -> T.cons (f c) t'
-        | otherwise       -> aux t'
-      Nothing             -> T.pack [f 'x']
-
 {-------------------------------------------------------------------------------
   Contexts
 -------------------------------------------------------------------------------}
@@ -184,12 +148,10 @@ data TypeConstrContext =
       -- | C name for the type
       ctxTypeConstrCName :: CName
     }
-  | -- | Context for anonymous structures/unions for named fields
-    AnonNamedFieldTypeConstrContext {
-      -- | Closest named ancestor type context
-      ctxAnonNamedFieldTypeConstrAncestorCtx :: TypeConstrContext
-    , -- | C field name
-      ctxAnonNamedFieldTypeConstrFieldName :: CName
+  | -- | Context for structures
+    StructTypeConstrContext {
+      -- | Structure declaration path
+      ctxStructTypeConstrDeclPath :: DeclPath
     }
   deriving stock (Eq, Show)
 
@@ -229,8 +191,6 @@ data VarContext =
     FieldVarContext {
       -- | Record type context
       ctxFieldVarTypeCtx :: TypeConstrContext
-    , -- | Record type has a single constructor?
-      ctxFieldVarSingleConstr :: Bool
     , -- | C field name
       ctxFieldVarCName :: CName
     }
@@ -267,9 +227,6 @@ data NameMangler = NameMangler {
 
 -- | Translate a 'CName' to an 'HsName'
 --
--- Namespace @ns@ determines the case of the first letter of the name, which is
--- converted automatically.
---
 -- The translation function must return a 'Text' that only contains the
 -- following (valid) characters:
 --
@@ -285,35 +242,94 @@ data NameMangler = NameMangler {
 -- Three join functions are provided in this module: 'joinWithConcat',
 -- 'joinWithSnakeCase', and 'joinWithCamelCase'.
 --
--- The reserved name function may be used to change names that would cause a
--- compilation error.  Two reserved name functions are provided in this module:
--- 'handleReservedNone' and 'handleReservedNames'.
+-- Any prefixes and suffixes specified must result in a valid name.
 --
--- The override function may be used to specify translations of C names to
--- Haskell names.  The Haskell name must be valid.  Two override functions are
--- provided in this module: 'handleOverrideNone' and 'handleOverrideMap'.
-translateName :: forall ns. MkHsName ns
-  => (CName -> Text)              -- ^ translate a 'CName' to a Haskell name
-  -> ([Text] -> Text)             -- ^ join parts of a name
-  -> [Text]                       -- ^ prefixes
-  -> [Text]                       -- ^ suffixes
-  -> (HsName ns -> HsName ns)     -- ^ handle reserved names
-  -> (CName -> Maybe (HsName ns)) -- ^ override translation
+-- The constructor function must return an 'HsName' that is valid for the
+-- specified namespace.  Two constructor functions are provided in this module:
+-- 'mkHsNamePrefixInvalid' and 'mkHsNameDropInvalid'.
+--
+-- The override function may be used to override translations of Haskell names.
+-- The returned Haskell name must be valid for the specified namespace.  Two
+-- override functions are provided in this module: 'handleOverrideNone' and
+-- 'handleOverrideMap'.
+--
+-- The reserved name function may be used to change names that would cause
+-- confusion or a compilation error.  Two reserved name functions are provided
+-- in this module: 'handleReservedNone' and 'handleReservedNames'.
+translateName ::
+     (CName -> Text)                                 -- ^ Translate a 'CName'
+  -> ([Text] -> Text)                                -- ^ Join parts of a name
+  -> [Text]                                          -- ^ Prefixes
+  -> [Text]                                          -- ^ Suffixes
+  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
+  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
+  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
   -> CName
   -> HsName ns
 translateName
-  transCName
+  translate
   joinParts
   prefixes
   suffixes
+  mkHsName
+  override
   handleReserved
-  handleOverride
   cname =
-    case handleOverride cname of
-      Just hsName -> hsName
-      Nothing ->
-        handleReserved . mkHsName @ns . joinParts $
-          prefixes ++ transCName cname : suffixes
+    let name = mkHsName . joinParts $ prefixes ++ translate cname : suffixes
+    in  handleReserved $ fromMaybe name (override (Just cname) name)
+
+-- | Translate a 'DeclPath' to an 'HsName'
+--
+-- The first parameter is a function that gets parts of a 'DeclPath' to include
+-- in the translation.  Default 'getDeclPathParts' is provided in this module.
+--
+-- See 'translateName' for documentation of the other parameters.
+translateDeclPath ::
+     (DeclPath -> [CName])                           -- ^ Get parts from a 'DeclPath'
+  -> (CName -> Text)                                 -- ^ Translate a 'CName'
+  -> ([Text] -> Text)                                -- ^ Join parts of a name
+  -> [Text]                                          -- ^ Prefixes
+  -> [Text]                                          -- ^ Suffixes
+  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
+  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
+  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
+  -> DeclPath
+  -> HsName ns
+translateDeclPath
+  getParts
+  translate
+  joinParts
+  prefixes
+  suffixes
+  mkHsName
+  override
+  handleReserved
+  declPath =
+    let name = mkHsName . joinParts $
+          prefixes ++ map translate (getParts declPath) ++ suffixes
+    in  handleReserved $ fromMaybe name (override (getCName' declPath) name)
+  where
+    getCName' :: DeclPath -> Maybe CName
+    getCName' = \case
+      DeclPathTop -> Nothing
+      DeclPathStruct declName _declPath -> case declName of
+        DeclNameNone         -> Nothing
+        DeclNameTag name     -> Just name
+        DeclNameTypedef name -> Just name
+      DeclPathField{} -> Nothing
+
+-- | Default 'DeclPath' translation
+getDeclPathParts :: DeclPath -> [CName]
+getDeclPathParts = aux
+  where
+    aux :: DeclPath -> [CName]
+    aux = \case
+      DeclPathTop -> ["ANONYMOUS"] -- shouldn't happen
+      DeclPathStruct declName path -> case declName of
+        DeclNameNone      -> aux path
+        DeclNameTag n     -> [n]
+        DeclNameTypedef n -> [n]
+      DeclPathField n path -> aux path ++ [n]
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible
@@ -414,6 +430,81 @@ joinWithCamelCase = \case
       Just (c, t') -> T.cons (Char.toUpper c) t'
       Nothing      -> t
 
+-- | Construct an 'HsName', changing the case of the first character or adding a
+-- prefix if the first character is invalid
+--
+-- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
+-- "C_foo"
+mkHsNamePrefixInvalid :: forall ns.
+     SingNamespace ns
+  => Text  -- ^ Prefix to use when first character invalid
+  -> Text
+  -> HsName ns
+mkHsNamePrefixInvalid prefix = HsName . case singNamespace @ns of
+    SNsModuleName -> auxU
+    SNsTypeClass  -> auxU
+    SNsTypeConstr -> auxU
+    SNsTypeVar    -> auxL
+    SNsConstr     -> auxU
+    SNsVar        -> auxL
+  where
+    auxU :: Text -> Text
+    auxU t = case T.uncons t of
+      Just (c, t')
+        | Char.isLetter c -> T.cons (Char.toUpper c) t'
+        | otherwise       -> prefix <> t
+      Nothing             -> prefix
+
+    auxL :: Text -> Text
+    auxL t = case T.uncons t of
+      Just (c, t') -> T.cons (Char.toLower c) t'
+      Nothing      -> prefix
+
+-- | Construct an 'HsName', changing the case of the first character after
+-- dropping any invalid first characters
+--
+-- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
+-- "Foo"
+mkHsNameDropInvalid :: forall ns. SingNamespace ns => Text -> HsName ns
+mkHsNameDropInvalid = HsName . case singNamespace @ns of
+    SNsModuleName -> auxU
+    SNsTypeClass  -> auxU
+    SNsTypeConstr -> auxU
+    SNsTypeVar    -> auxL
+    SNsConstr     -> auxU
+    SNsVar        -> auxL
+  where
+    auxU :: Text -> Text
+    auxU t = case T.uncons (T.dropWhile (not . Char.isLetter) t) of
+      Just (c, t') -> T.cons (Char.toUpper c) t'
+      Nothing      -> "X"
+
+    auxL :: Text -> Text
+    auxL t = case T.uncons t of
+      Just (c, t') -> T.cons (Char.toLower c) t'
+      Nothing      -> "x"
+
+-- | Do not override any translations
+handleOverrideNone :: Maybe CName -> HsName ns -> Maybe (HsName ns)
+handleOverrideNone _cname _name = Nothing
+
+-- | Override translations of Haskell names using a map
+--
+-- Since not all generated Haskell names have corresponding C names, overriding
+-- is primarily done based on the generated Haskell name.  You can optionally
+-- specify a C name to create overrides in cases where more than one C name is
+-- being translated to the same Haskell name.
+handleOverrideMap :: forall ns.
+     SingNamespace ns
+  => Map Namespace (Map Text (Map (Maybe CName) Text))
+  -> Maybe CName
+  -> HsName ns
+  -> Maybe (HsName ns)
+handleOverrideMap overrideMap cname name = do
+    nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
+    nMap  <- Map.lookup (getHsName name) nsMap
+    HsName <$> Map.lookup cname nMap
+
 -- | Do not handle reserved names
 handleReservedNone :: HsName ns -> HsName ns
 handleReservedNone = id
@@ -430,22 +521,6 @@ handleReservedNames f reserved name@(HsName t)
 -- | Append a single quote (@'@) to a name
 appendSingleQuote :: Text -> Text
 appendSingleQuote = (<> "'")
-
--- | Do not override any translations
-handleOverrideNone :: CName -> Maybe (HsName ns)
-handleOverrideNone = const Nothing
-
--- | Override translations using a map from C names and namespaces to Haskell
--- names
-handleOverrideMap :: forall ns.
-     SingNamespace ns
-  => Map CName (Map Namespace Text)
-  -> CName
-  -> Maybe (HsName ns)
-handleOverrideMap overrideMap name = do
-    nsMap <- Map.lookup name overrideMap
-    t <- Map.lookup (namespaceOf (singNamespace @ns)) nsMap
-    pure $ HsName t
 
 -- | Prepend the parent module name, joining using a @.@, if one is provided in
 -- the context
@@ -615,21 +690,24 @@ sanityReservedVarNames =
 
 -- | Default name mangler
 --
--- This default attempts to provide a balance between safety and taste.
+-- With this name mangler, names are changed as little as possible.  In general,
+-- any invalid characters are escaped, and the first character is converted to
+-- uppercase/lowercase as needed for the namespace.  Collision with a reserved
+-- word is resolved by appending a @'@ character.
 --
--- * Module names are transformed to @PascalCase@, dropping invalid characters.
--- * Type class names are transformed to @PascalCase@, escaping invalid
---   characters.
--- * Type constructors are prefixed with @C@, escaping invalid characters.
--- * Type variables have invalid characters escaped, and single quotes are
---   appended to reserved names.
--- * Constructors are prefixed with @Mk@, escaping invalid characters.
--- * Record fields are prefixed with the type name if the data type has a single
---   constructor or the constructor name otherwise, joined using an underscore,
---   escaping invalid characters.
--- * Enumeration fields are prefixed with @un@, escaping invalid characters.
--- * Other variables have invalid characters escaped, and single quotes are
---   appended to reserved names.
+-- Details:
+--
+-- * Module, type class, type constructor, and constructor names must start with
+--   an uppercase letter.  Prefix @C@ is added if the first character is not a
+--   letter.
+-- * The type constructor name for an anonymous structure/union for a named
+--   field is the name of the type and the name of the field joined by
+--   underscore.
+-- * A constructor name is always the same as the type constructor name.
+-- * The accessor name for a @newtype@ wrapper created for an enumeration is
+--   @un@ concatenated to the type name.
+-- * The accessor name for a structure/union field is the type name and the
+--   field name, joined by underscore.
 defaultNameMangler :: NameMangler
 defaultNameMangler = NameMangler{..}
   where
@@ -645,47 +723,50 @@ defaultNameMangler = NameMangler{..}
     mangleModuleName :: ModuleNameContext -> HsName NsModuleName
     mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
       translateName
-        (camelCaseCName dropInvalidChar)
-        joinWithConcat -- not used (no prefixes/suffixes)
+        (maintainCName escapeInvalidChar)
+        joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        handleReservedNone
+        (mkHsNamePrefixInvalid "C")
         handleOverrideNone
+        handleReservedNone
         ctxModuleNameCName
 
     mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
     mangleTypeClassName TypeClassContext{..} =
       translateName
-        (camelCaseCName escapeInvalidChar)
-        joinWithConcat -- not used (no prefixes/suffixes)
+        (maintainCName escapeInvalidChar)
+        joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        handleReservedNone
+        (mkHsNamePrefixInvalid "C")
         handleOverrideNone
+        handleReservedNone
         ctxTypeClassCName
 
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
         translateName
-          (camelCaseCName escapeInvalidChar)
-          joinWithCamelCase
-          ["C"]
+          (maintainCName escapeInvalidChar)
+          joinWithSnakeCase -- not used (no prefixes/suffixes)
           []
+          []
+          (mkHsNamePrefixInvalid "C")
+          handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
-          handleOverrideNone
           ctxTypeConstrCName
-      AnonNamedFieldTypeConstrContext{..} ->
-        translateName
-          (camelCaseCName escapeInvalidChar)
-          joinWithCamelCase
-          [ getHsName $
-              mangleTypeConstrName ctxAnonNamedFieldTypeConstrAncestorCtx
-          ]
+      StructTypeConstrContext{..} ->
+        translateDeclPath
+          getDeclPathParts
+          (maintainCName escapeInvalidChar)
+          joinWithSnakeCase
           []
-          handleReservedNone
+          []
+          (mkHsNamePrefixInvalid "C")
           handleOverrideNone
-          ctxAnonNamedFieldTypeConstrFieldName
+          (handleReservedNames appendSingleQuote reservedTypeNames)
+          ctxStructTypeConstrDeclPath
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
     mangleTypeVarName ctxt =
@@ -694,13 +775,14 @@ defaultNameMangler = NameMangler{..}
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        (handleReservedNames appendSingleQuote reservedVarNames)
+        mkHsNameDropInvalid
         handleOverrideNone
+        (handleReservedNames appendSingleQuote reservedVarNames)
         (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
     mangleConstrName ConstrContext{..} =
-      HsName $ "Mk" <> getHsName (mangleTypeConstrName ctxConstrTypeCtx)
+      HsName $ getHsName (mangleTypeConstrName ctxConstrTypeCtx)
 
     mangleVarName :: VarContext -> HsName NsVar
     mangleVarName = \case
@@ -710,8 +792,9 @@ defaultNameMangler = NameMangler{..}
           joinWithSnakeCase -- not used (no prefixes/suffixes)
           []
           []
-          (handleReservedNames appendSingleQuote reservedVarNames)
+          mkHsNameDropInvalid
           handleOverrideNone
+          (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
       EnumVarContext{..} ->
         HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
@@ -719,14 +802,12 @@ defaultNameMangler = NameMangler{..}
         translateName
           (maintainCName escapeInvalidChar)
           joinWithSnakeCase
-          [ if ctxFieldVarSingleConstr
-              then getHsName $ mangleTypeConstrName ctxFieldVarTypeCtx
-              else
-                getHsName $ mangleConstrName (ConstrContext ctxFieldVarTypeCtx)
+          [ getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)
           ]
           []
-          handleReservedNone
+          mkHsNameDropInvalid
           handleOverrideNone
+          handleReservedNone  -- not needed since contains underscore
           ctxFieldVarCName
 
 -- | Haskell-style name mangler
@@ -768,8 +849,9 @@ haskellNameMangler = NameMangler{..}
         joinWithCamelCase -- not used (no prefixes/suffixes)
         []
         []
-        handleReservedNone
+        mkHsNameDropInvalid
         handleOverrideNone
+        handleReservedNone
         ctxModuleNameCName
 
     mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
@@ -779,8 +861,9 @@ haskellNameMangler = NameMangler{..}
         joinWithCamelCase -- not used (no prefixes/suffixes)
         []
         []
-        handleReservedNone
+        mkHsNameDropInvalid
         handleOverrideNone
+        handleReservedNone
         ctxTypeClassCName
 
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
@@ -791,20 +874,21 @@ haskellNameMangler = NameMangler{..}
           joinWithCamelCase
           ["C"]
           []
-          (handleReservedNames appendSingleQuote reservedTypeNames)
+          mkHsNameDropInvalid
           handleOverrideNone
+          (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxTypeConstrCName
-      AnonNamedFieldTypeConstrContext{..} ->
-        translateName
+      StructTypeConstrContext{..} ->
+        translateDeclPath
+          getDeclPathParts
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase
-          [ getHsName $
-              mangleTypeConstrName ctxAnonNamedFieldTypeConstrAncestorCtx
-          ]
           []
-          handleReservedNone
+          []
+          (mkHsNamePrefixInvalid "C")
           handleOverrideNone
-          ctxAnonNamedFieldTypeConstrFieldName
+          (handleReservedNames appendSingleQuote reservedTypeNames)
+          ctxStructTypeConstrDeclPath
 
     mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
     mangleTypeVarName ctxt =
@@ -813,8 +897,9 @@ haskellNameMangler = NameMangler{..}
         joinWithSnakeCase -- not used (no prefixes/suffixes)
         []
         []
-        (handleReservedNames appendSingleQuote reservedVarNames)
+        mkHsNameDropInvalid
         handleOverrideNone
+        (handleReservedNames appendSingleQuote reservedVarNames)
         (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
@@ -829,8 +914,9 @@ haskellNameMangler = NameMangler{..}
           joinWithCamelCase -- not used (no prefixes/suffixes)
           []
           []
-          (handleReservedNames appendSingleQuote reservedVarNames)
+          mkHsNameDropInvalid
           handleOverrideNone
+          (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
       EnumVarContext{..} ->
         HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
@@ -838,12 +924,10 @@ haskellNameMangler = NameMangler{..}
         translateName
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase
-          [ if ctxFieldVarSingleConstr
-              then getHsName $ mangleTypeConstrName ctxFieldVarTypeCtx
-              else
-                getHsName $ mangleConstrName (ConstrContext ctxFieldVarTypeCtx)
+          [ getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)
           ]
           []
-          handleReservedNone
+          mkHsNameDropInvalid
           handleOverrideNone
+          handleReservedNone
           ctxFieldVarCName

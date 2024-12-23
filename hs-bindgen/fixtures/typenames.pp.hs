@@ -10,11 +10,11 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), pure)
 
-newtype CFoo = MkCFoo
-  { unCFoo :: FC.CUInt
+newtype Foo = Foo
+  { unFoo :: FC.CUInt
   }
 
-instance F.Storable CFoo where
+instance F.Storable Foo where
 
   sizeOf = \_ -> 4
 
@@ -22,23 +22,23 @@ instance F.Storable CFoo where
 
   peek =
     \ptr0 ->
-          pure MkCFoo
+          pure Foo
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCFoo unCFoo2 -> F.pokeByteOff ptr0 0 unCFoo2
+          Foo unFoo2 -> F.pokeByteOff ptr0 0 unFoo2
 
-pattern MkCFOO1 :: CFoo
-pattern MkCFOO1 = MkCFoo 0
+pattern FOO1 :: Foo
+pattern FOO1 = Foo 0
 
-pattern MkCFOO2 :: CFoo
-pattern MkCFOO2 = MkCFoo 1
+pattern FOO2 :: Foo
+pattern FOO2 = Foo 1
 
-newtype CFoo = MkCFoo
-  { unCFoo :: FC.CDouble
+newtype Foo = Foo
+  { unFoo :: FC.CDouble
   }
 
-deriving newtype instance F.Storable CFoo
+deriving newtype instance F.Storable Foo

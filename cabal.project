@@ -2,6 +2,7 @@ packages: hs-bindgen-patterns
 packages: hs-bindgen
 packages: hs-bindgen-libclang
 packages: hs-bindgen-bootstrap
+packages: hs-bindgen-testlib
 packages: ansi-diff
 
 tests: True
@@ -12,3 +13,5 @@ package hs-bindgen
 package hs-bindgen-libclang
 
 package hs-bindgen-patterns
+
+package hs-bindgen-testlib

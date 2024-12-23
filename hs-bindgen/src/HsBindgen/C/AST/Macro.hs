@@ -21,6 +21,7 @@ import Data.String
 import Data.Text qualified as Text
 import Data.Type.Equality
   ( type (:~:)(..) )
+import Data.Type.Nat qualified as Nat
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal(..))
@@ -56,7 +57,7 @@ data Macro = Macro {
 data MExpr =
     MTerm MTerm
   -- | Exactly saturated non-nullary function application.
-  | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
+  | forall n. Nat.SNatI n => MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
 deriving stock instance Show MExpr
 instance PrettyVal MExpr where
   prettyVal = \case

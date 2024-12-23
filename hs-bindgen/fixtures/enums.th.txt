@@ -1,94 +1,94 @@
-newtype CFirst = MkCFirst {unCFirst :: CUInt}
-instance Storable CFirst
+newtype First = First {unFirst :: CUInt}
+instance Storable First
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCFirst <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCFirst unCFirst_3 -> pokeByteOff ptr_1 0 unCFirst_3}}
-pattern MkCFIRST1 :: CFirst
-pattern MkCFIRST1 = MkCFirst 0
-pattern MkCFIRST2 :: CFirst
-pattern MkCFIRST2 = MkCFirst 1
-newtype CSecond = MkCSecond {unCSecond :: CInt}
-instance Storable CSecond
+                                    {First unFirst_3 -> pokeByteOff ptr_1 0 unFirst_3}}
+pattern FIRST1 :: First
+pattern FIRST1 = First 0
+pattern FIRST2 :: First
+pattern FIRST2 = First 1
+newtype Second = Second {unSecond :: CInt}
+instance Storable Second
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCSecond <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCSecond unCSecond_3 -> pokeByteOff ptr_1 0 unCSecond_3}}
-pattern MkCSECONDA :: CSecond
-pattern MkCSECONDA = MkCSecond (-1)
-pattern MkCSECONDB :: CSecond
-pattern MkCSECONDB = MkCSecond 0
-pattern MkCSECONDC :: CSecond
-pattern MkCSECONDC = MkCSecond 1
-newtype CSame = MkCSame {unCSame :: CUInt}
-instance Storable CSame
+                                    {Second unSecond_3 -> pokeByteOff ptr_1 0 unSecond_3}}
+pattern SECOND_A :: Second
+pattern SECOND_A = Second (-1)
+pattern SECOND_B :: Second
+pattern SECOND_B = Second 0
+pattern SECOND_C :: Second
+pattern SECOND_C = Second 1
+newtype Same = Same {unSame :: CUInt}
+instance Storable Same
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCSame <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCSame unCSame_3 -> pokeByteOff ptr_1 0 unCSame_3}}
-pattern MkCSAMEA :: CSame
-pattern MkCSAMEA = MkCSame 1
-pattern MkCSAMEB :: CSame
-pattern MkCSAMEB = MkCSame 1
-newtype CPackad = MkCPackad {unCPackad :: CSChar}
-instance Storable CPackad
+                                    {Same unSame_3 -> pokeByteOff ptr_1 0 unSame_3}}
+pattern SAME_A :: Same
+pattern SAME_A = Same 1
+pattern SAME_B :: Same
+pattern SAME_B = Same 1
+newtype Packad = Packad {unPackad :: CSChar}
+instance Storable Packad
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> pure MkCPackad <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure Packad <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCPackad unCPackad_3 -> pokeByteOff ptr_1 0 unCPackad_3}}
-pattern MkCPACKEDA :: CPackad
-pattern MkCPACKEDA = MkCPackad 0
-pattern MkCPACKEDB :: CPackad
-pattern MkCPACKEDB = MkCPackad 1
-pattern MkCPACKEDC :: CPackad
-pattern MkCPACKEDC = MkCPackad 2
-newtype CEnumA = MkCEnumA {unCEnumA :: CUInt}
-instance Storable CEnumA
+                                    {Packad unPackad_3 -> pokeByteOff ptr_1 0 unPackad_3}}
+pattern PACKED_A :: Packad
+pattern PACKED_A = Packad 0
+pattern PACKED_B :: Packad
+pattern PACKED_B = Packad 1
+pattern PACKED_C :: Packad
+pattern PACKED_C = Packad 2
+newtype EnumA = EnumA {unEnumA :: CUInt}
+instance Storable EnumA
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCEnumA <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCEnumA unCEnumA_3 -> pokeByteOff ptr_1 0 unCEnumA_3}}
-pattern MkCAFOO :: CEnumA
-pattern MkCAFOO = MkCEnumA 0
-pattern MkCABAR :: CEnumA
-pattern MkCABAR = MkCEnumA 1
-newtype CEnumB = MkCEnumB {unCEnumB :: CUInt}
-instance Storable CEnumB
+                                    {EnumA unEnumA_3 -> pokeByteOff ptr_1 0 unEnumA_3}}
+pattern A_FOO :: EnumA
+pattern A_FOO = EnumA 0
+pattern A_BAR :: EnumA
+pattern A_BAR = EnumA 1
+newtype EnumB = EnumB {unEnumB :: CUInt}
+instance Storable EnumB
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCEnumB <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCEnumB unCEnumB_3 -> pokeByteOff ptr_1 0 unCEnumB_3}}
-pattern MkCBFOO :: CEnumB
-pattern MkCBFOO = MkCEnumB 0
-pattern MkCBBAR :: CEnumB
-pattern MkCBBAR = MkCEnumB 1
-newtype CEnumC = MkCEnumC {unCEnumC :: CUInt}
-instance Storable CEnumC
+                                    {EnumB unEnumB_3 -> pokeByteOff ptr_1 0 unEnumB_3}}
+pattern B_FOO :: EnumB
+pattern B_FOO = EnumB 0
+pattern B_BAR :: EnumB
+pattern B_BAR = EnumB 1
+newtype EnumC = EnumC {unEnumC :: CUInt}
+instance Storable EnumC
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCEnumC <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCEnumC unCEnumC_3 -> pokeByteOff ptr_1 0 unCEnumC_3}}
-pattern MkCCFOO :: CEnumC
-pattern MkCCFOO = MkCEnumC 0
-pattern MkCCBAR :: CEnumC
-pattern MkCCBAR = MkCEnumC 1
-newtype CEnumD = MkCEnumD {unCEnumD :: CUInt}
-instance Storable CEnumD
+                                    {EnumC unEnumC_3 -> pokeByteOff ptr_1 0 unEnumC_3}}
+pattern C_FOO :: EnumC
+pattern C_FOO = EnumC 0
+pattern C_BAR :: EnumC
+pattern C_BAR = EnumC 1
+newtype EnumD = EnumD {unEnumD :: CUInt}
+instance Storable EnumD
     where {sizeOf = \_ -> 4;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MkCEnumD <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure EnumD <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCEnumD unCEnumD_3 -> pokeByteOff ptr_1 0 unCEnumD_3}}
-pattern MkCDFOO :: CEnumD
-pattern MkCDFOO = MkCEnumD 0
-pattern MkCDBAR :: CEnumD
-pattern MkCDBAR = MkCEnumD 1
-newtype CEnumDT = MkCEnumDT {unCEnumDT :: CEnumD}
-deriving newtype instance Storable CEnumDT
+                                    {EnumD unEnumD_3 -> pokeByteOff ptr_1 0 unEnumD_3}}
+pattern D_FOO :: EnumD
+pattern D_FOO = EnumD 0
+pattern D_BAR :: EnumD
+pattern D_BAR = EnumD 1
+newtype EnumD_t = EnumD_t {unEnumD_t :: EnumD}
+deriving newtype instance Storable EnumD_t

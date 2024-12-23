@@ -23,7 +23,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 1})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 1,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -46,7 +52,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 2,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -78,7 +90,13 @@ WrapCHeader
                       integerLiteralType = Nothing,
                       integerLiteralValue = 3})]},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 3,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -110,7 +128,13 @@ WrapCHeader
                       integerLiteralType = Nothing,
                       integerLiteralValue = 4})]},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 4,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -134,7 +158,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 6,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -158,7 +188,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 7,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -182,7 +218,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 8,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -206,7 +248,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 9,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -230,7 +278,13 @@ WrapCHeader
                   integerLiteralType = Nothing,
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)"},
+          "(forall a. Integral a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 10,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -256,7 +310,13 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong"},
+          macroDeclMacroTy = "ULLong",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 12,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -282,7 +342,13 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong"},
+          macroDeclMacroTy = "ULLong",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 13,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -308,7 +374,13 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong"},
+          macroDeclMacroTy = "ULLong",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 14,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -334,7 +406,13 @@ WrapCHeader
                     (PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong"},
+          macroDeclMacroTy = "ULLong",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 15,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -360,7 +438,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   110000.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 20,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -386,7 +470,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   1.2e-2})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 21,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -412,7 +502,13 @@ WrapCHeader
                   1.3e-2,
                   floatingLiteralDoubleValue =
                   1.3e-2})},
-          macroDeclMacroTy = "Float"},
+          macroDeclMacroTy = "Float",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 22,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -438,7 +534,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   21.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 24,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -464,7 +566,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   2200.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 25,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -490,7 +598,13 @@ WrapCHeader
                   23.0,
                   floatingLiteralDoubleValue =
                   23.0})},
-          macroDeclMacroTy = "Float"},
+          macroDeclMacroTy = "Float",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 26,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -516,7 +630,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   31.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 28,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -542,7 +662,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   0.32})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 29,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -568,7 +694,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   33.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 30,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -594,7 +726,13 @@ WrapCHeader
                   3.4e-3,
                   floatingLiteralDoubleValue =
                   3.4e-3})},
-          macroDeclMacroTy = "Float"},
+          macroDeclMacroTy = "Float",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 31,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -620,7 +758,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   650000.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 33,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -646,7 +790,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   6.6e-2})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 34,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -673,7 +823,13 @@ WrapCHeader
                   6.7e-2,
                   floatingLiteralDoubleValue =
                   6.7e-2})},
-          macroDeclMacroTy = "Float"},
+          macroDeclMacroTy = "Float",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 35,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -699,7 +855,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   81.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 37,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -726,7 +888,13 @@ WrapCHeader
                   82.0,
                   floatingLiteralDoubleValue =
                   82.0})},
-          macroDeclMacroTy = "Float"},
+          macroDeclMacroTy = "Float",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 38,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -753,7 +921,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   15520.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 40,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -779,7 +953,13 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   98.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)"},
+          "(forall a. Fractional a => a)",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 41,
+            singleLocColumn = 9}},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -806,7 +986,13 @@ WrapCHeader
                   9.9e-3,
                   floatingLiteralDoubleValue =
                   9.9e-3})},
-          macroDeclMacroTy = "Float"},
+          macroDeclMacroTy = "Float",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "macros.h"],
+            singleLocLine = 42,
+            singleLocColumn = 9}},
       DeclMacro
         MacroTcError {
           macroTcErrorMacro = Macro {

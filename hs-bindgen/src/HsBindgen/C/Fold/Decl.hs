@@ -30,11 +30,14 @@ import HsBindgen.C.Tc.Macro (tcMacro)
 
 foldDecls ::
      HasCallStack
-  => Tracer IO Skipped
+  => Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO Skipped
   -> Predicate
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
+foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> do
+    loc <- liftIO $ clang_getCursorLocation current
+    sloc <- liftIO $ HighLevel.clang_getExpansionLocation relPath loc
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_TypedefDecl -> typeDecl current
@@ -42,7 +45,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       Right CXCursor_EnumDecl    -> typeDecl current
 
       Right CXCursor_MacroDefinition -> do
-        mbMExpr <- mkMacro unit current
+        mbMExpr <- mkMacro relPath unit current
         macro <- case mbMExpr of
           Left err -> return $ MacroReparseError err
           Right macro@( Macro _ mVar mArgs mExpr ) -> do
@@ -53,11 +56,15 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
                 return $ MacroTcError macro err
               Right ty -> do
                 modify $ registerMacroType mVar ty
-                return $ MacroDecl macro ty
+                return MacroDecl {
+                    macroDeclMacro     = macro
+                  , macroDeclMacroTy   = ty
+                  , macroDeclSourceLoc = sloc
+                  }
         return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
-        loc <- liftIO $ HighLevel.clang_getCursorLocation current
-        modify $ registerMacroExpansion loc
+        mloc <- liftIO $ HighLevel.clang_getCursorLocation relPath current
+        modify $ registerMacroExpansion mloc
         return $ Continue Nothing
       Right CXCursor_InclusionDirective ->
         -- The inclusion directive merely tells us that we are now going to
@@ -70,14 +77,14 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl unit ty
-        loc <- liftIO $ clang_getCursorLocation current
+        ty' <- processTypeDecl relPath unit ty
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
-          { functionName   = CName spelling
-          , functionType   = ty'
-          , functionHeader = takeFileName (Text.unpack path)
+          { functionName      = CName spelling
+          , functionType      = ty'
+          , functionHeader    = takeFileName (Text.unpack path)
+          , functionSourceLoc = sloc
           }
 
       Right CXCursor_VarDecl -> do
@@ -85,13 +92,13 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       _otherwise -> do
-        unrecognizedCursor current
+        unrecognizedCursor relPath current
   where
     typeDecl :: CXCursor -> Eff (State DeclState) (Next m a)
     typeDecl current = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl unit ty
+      void $ processTypeDecl relPath unit ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -100,8 +107,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
 
 mkMacro ::
      MonadIO m
-  => CXTranslationUnit -> CXCursor -> m (Either ReparseError Macro)
-mkMacro unit current = liftIO $ do
-    range  <- HighLevel.clang_getCursorExtent current
-    tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
+  => Maybe FilePath -- ^ Directory to make paths relative to
+  -> CXTranslationUnit
+  -> CXCursor
+  -> m (Either ReparseError Macro)
+mkMacro relPath unit current = liftIO $ do
+    range  <- HighLevel.clang_getCursorExtent relPath current
+    tokens <- HighLevel.clang_tokenize relPath unit (multiLocExpansion <$> range)
     return $ reparseWith reparseMacro tokens

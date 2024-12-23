@@ -17,7 +17,13 @@ WrapCHeader
             macroName = CName "ENUMS_H",
             macroArgs = [],
             macroBody = MTerm MEmpty},
-          macroDeclMacroTy = "Empty"},
+          macroDeclMacroTy = "Empty",
+          macroDeclSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 2,
+            singleLocColumn = 9}},
       DeclEnum
         Enu {
           enumTag = CName "first",
@@ -29,10 +35,28 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "FIRST1",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 5,
+                singleLocColumn = 5}},
             EnumValue {
               valueName = CName "FIRST2",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 6,
+                singleLocColumn = 5}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 4,
+            singleLocColumn = 6}},
       DeclEnum
         Enu {
           enumTag = CName "second",
@@ -43,13 +67,37 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "SECOND_A",
-              valueValue = `-1`},
+              valueValue = `-1`,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 10,
+                singleLocColumn = 5}},
             EnumValue {
               valueName = CName "SECOND_B",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 11,
+                singleLocColumn = 5}},
             EnumValue {
               valueName = CName "SECOND_C",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 12,
+                singleLocColumn = 5}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 9,
+            singleLocColumn = 6}},
       DeclEnum
         Enu {
           enumTag = CName "same",
@@ -61,10 +109,28 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "SAME_A",
-              valueValue = 1},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 16,
+                singleLocColumn = 5}},
             EnumValue {
               valueName = CName "SAME_B",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 17,
+                singleLocColumn = 5}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 15,
+            singleLocColumn = 6}},
       DeclEnum
         Enu {
           enumTag = CName "packad",
@@ -75,13 +141,37 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "PACKED_A",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 21,
+                singleLocColumn = 5}},
             EnumValue {
               valueName = CName "PACKED_B",
-              valueValue = 1},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 21,
+                singleLocColumn = 15}},
             EnumValue {
               valueName = CName "PACKED_C",
-              valueValue = 2}]},
+              valueValue = 2,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 21,
+                singleLocColumn = 25}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 20,
+            singleLocColumn = 6}},
       DeclEnum
         Enu {
           enumTag = CName "enumA",
@@ -93,10 +183,28 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "A_FOO",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 24,
+                singleLocColumn = 16}},
             EnumValue {
               valueName = CName "A_BAR",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 24,
+                singleLocColumn = 23}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 24,
+            singleLocColumn = 9}},
       DeclEnum
         Enu {
           enumTag = CName "enumB",
@@ -108,10 +216,28 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "B_FOO",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 26,
+                singleLocColumn = 22}},
             EnumValue {
               valueName = CName "B_BAR",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 26,
+                singleLocColumn = 29}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 26,
+            singleLocColumn = 14}},
       DeclEnum
         Enu {
           enumTag = CName "enumC",
@@ -123,10 +249,28 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "C_FOO",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 28,
+                singleLocColumn = 14}},
             EnumValue {
               valueName = CName "C_BAR",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 28,
+                singleLocColumn = 21}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 28,
+            singleLocColumn = 6}},
       DeclEnum
         Enu {
           enumTag = CName "enumD",
@@ -138,12 +282,36 @@ WrapCHeader
           enumValues = [
             EnumValue {
               valueName = CName "D_FOO",
-              valueValue = 0},
+              valueValue = 0,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 31,
+                singleLocColumn = 14}},
             EnumValue {
               valueName = CName "D_BAR",
-              valueValue = 1}]},
+              valueValue = 1,
+              valueSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "enums.h"],
+                singleLocLine = 31,
+                singleLocColumn = 21}}],
+          enumSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 31,
+            singleLocColumn = 6}},
       DeclTypedef
         Typedef {
           typedefName = CName "enumD_t",
           typedefType = TypeEnum
-            (CName "enumD")}])
+            (CName "enumD"),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "enums.h"],
+            singleLocLine = 32,
+            singleLocColumn = 20}}])

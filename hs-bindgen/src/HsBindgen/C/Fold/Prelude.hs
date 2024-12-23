@@ -25,11 +25,13 @@ data PreludeEntry
   Top-level
 -------------------------------------------------------------------------------}
 
-foldPrelude :: forall m. MonadIO m =>
-     Tracer IO GenPreludeMsg
+foldPrelude :: forall m.
+     MonadIO m
+  => Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO GenPreludeMsg
   -> CXTranslationUnit
   -> Fold m PreludeEntry
-foldPrelude tracer unit = go
+foldPrelude relPath tracer unit = go
   where
     go :: Fold m PreludeEntry
     go = checkLoc $ \loc current -> do
@@ -45,15 +47,15 @@ foldPrelude tracer unit = go
           Right CXCursor_MacroExpansion     -> skip
 
           Right CXCursor_MacroDefinition -> do
-            processMacro tracer unit loc current
+            processMacro relPath tracer unit loc current
             return $ Continue Nothing
 
           _otherwise ->
-            Continue <$> unrecognized tracer current
+            Continue <$> unrecognized relPath tracer current
 
     checkLoc :: (MultiLoc -> Fold m a) -> Fold m a
     checkLoc k current = do
-        loc <- liftIO $ HighLevel.clang_getCursorLocation current
+        loc <- liftIO $ HighLevel.clang_getCursorLocation relPath current
         let fp :: FilePath
             fp = Text.unpack . getSourcePath . singleLocPath $
                    multiLocExpansion loc
@@ -69,13 +71,15 @@ foldPrelude tracer unit = go
 
 processMacro ::
      MonadIO m
-  => Tracer IO GenPreludeMsg
+  => Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO GenPreludeMsg
   -> CXTranslationUnit
   -> MultiLoc
   -> CXCursor -> m ()
-processMacro tracer unit loc current = liftIO $ do
-    cursorExtent <- HighLevel.clang_getCursorExtent current
+processMacro relPath tracer unit loc current = liftIO $ do
+    cursorExtent <- HighLevel.clang_getCursorExtent relPath current
     tokens       <- HighLevel.clang_tokenize
+                      relPath
                       unit
                       (multiLocExpansion <$> cursorExtent)
     case reparseWith reparseMacro tokens of
@@ -114,9 +118,14 @@ instance PrettyLogMsg GenPreludeMsg where
   prettyLogMsg (UnrecognizedMacro err) =
       prettyLogMsg err
 
-unrecognized :: MonadIO m => Tracer IO GenPreludeMsg -> CXCursor -> m (Maybe a)
-unrecognized tracer current = liftIO $ do
-    loc  <- HighLevel.clang_getCursorLocation current
+unrecognized ::
+     MonadIO m
+  => Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO GenPreludeMsg
+  -> CXCursor
+  -> m (Maybe a)
+unrecognized relPath tracer current = liftIO $ do
+    loc  <- HighLevel.clang_getCursorLocation relPath current
     kind <- clang_getCursorKind current
     name <- clang_getCursorSpelling current
     traceWith tracer Error $ UnrecognizedElement loc kind name

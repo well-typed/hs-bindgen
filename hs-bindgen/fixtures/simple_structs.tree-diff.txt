@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S1"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -12,17 +13,35 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 3,
+                singleLocColumn = 9}},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 4,
+                singleLocColumn = 10}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 2,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S2"))
+            DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -30,27 +49,59 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimChar Nothing)},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 9,
+                singleLocColumn = 10}},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 10,
+                singleLocColumn = 9}},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimFloating PrimFloat)}]},
+                (PrimFloating PrimFloat),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 11,
+                singleLocColumn = 11}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 8,
+            singleLocColumn = 16}},
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
           typedefType = TypeStruct
-            (DefnName (CName "S2"))},
+            (DeclPathStruct
+              (DeclNameTag (CName "S2"))
+              DeclPathTop),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 12,
+            singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S3_t"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTypedef (CName "S3_t"))
+            DeclPathTop,
           structSizeof = 1,
           structAlignment = 1,
           structFields = [
@@ -58,11 +109,24 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 16,
+                singleLocColumn = 10}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 15,
+            singleLocColumn = 9}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S4"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S4"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -70,24 +134,48 @@ WrapCHeader
               fieldName = CName "b",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimChar Nothing)},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 20,
+                singleLocColumn = 10}},
             StructField {
               fieldName = CName "a",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 21,
+                singleLocColumn = 9}},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypePrim
                   (PrimIntegral
-                    (PrimInt Signed)))}]},
+                    (PrimInt Signed))),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 22,
+                singleLocColumn = 10}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 19,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S5"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S5"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -95,17 +183,35 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimChar Nothing)},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 27,
+                singleLocColumn = 10}},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))}]},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 28,
+                singleLocColumn = 9}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 26,
+            singleLocColumn = 16}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S6"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S6"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -113,10 +219,27 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimChar Nothing)},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 31,
+                singleLocColumn = 18}},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))}]}])
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "simple_structs.h"],
+                singleLocLine = 31,
+                singleLocColumn = 25}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "simple_structs.h"],
+            singleLocLine = 31,
+            singleLocColumn = 8}}])

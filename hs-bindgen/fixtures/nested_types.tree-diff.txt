@@ -3,8 +3,9 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "foo"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "foo"))
+            DeclPathTop,
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -12,17 +13,35 @@ WrapCHeader
               fieldName = CName "i",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "nested_types.h"],
+                singleLocLine = 2,
+                singleLocColumn = 9}},
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimChar Nothing)}]},
+                (PrimChar Nothing),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "nested_types.h"],
+                singleLocLine = 3,
+                singleLocColumn = 10}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "nested_types.h"],
+            singleLocLine = 1,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "bar"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "bar"))
+            DeclPathTop,
           structSizeof = 16,
           structAlignment = 4,
           structFields = [
@@ -30,9 +49,31 @@ WrapCHeader
               fieldName = CName "foo1",
               fieldOffset = 0,
               fieldType = TypeStruct
-                (DefnName (CName "foo"))},
+                (DeclPathStruct
+                  (DeclNameTag (CName "foo"))
+                  DeclPathTop),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "nested_types.h"],
+                singleLocLine = 7,
+                singleLocColumn = 16}},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
               fieldType = TypeStruct
-                (DefnName (CName "foo"))}]}])
+                (DeclPathStruct
+                  (DeclNameTag (CName "foo"))
+                  DeclPathTop),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "nested_types.h"],
+                singleLocLine = 8,
+                singleLocColumn = 16}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "nested_types.h"],
+            singleLocLine = 6,
+            singleLocColumn = 8}}])

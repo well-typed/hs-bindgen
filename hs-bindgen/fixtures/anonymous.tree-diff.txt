@@ -3,8 +3,13 @@ WrapCHeader
     [
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1c"),
+          structDeclPath = DeclPathStruct
+            DeclNameNone
+            (DeclPathField
+              (CName "c")
+              (DeclPathStruct
+                (DeclNameTag (CName "S1"))
+                DeclPathTop)),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -12,18 +17,35 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 4,
+                singleLocColumn = 9}},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))}]},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 5,
+                singleLocColumn = 9}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "anonymous.h"],
+            singleLocLine = 3,
+            singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S1"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S1"))
+            DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -31,17 +53,49 @@ WrapCHeader
               fieldName = CName "c",
               fieldOffset = 0,
               fieldType = TypeStruct
-                (DefnName (CName "S1c"))},
+                (DeclPathStruct
+                  DeclNameNone
+                  (DeclPathField
+                    (CName "c")
+                    (DeclPathStruct
+                      (DeclNameTag (CName "S1"))
+                      DeclPathTop))),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 6,
+                singleLocColumn = 5}},
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))}]},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 8,
+                singleLocColumn = 7}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "anonymous.h"],
+            singleLocLine = 2,
+            singleLocColumn = 8}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2innerdeep"),
+          structDeclPath = DeclPathStruct
+            DeclNameNone
+            (DeclPathField
+              (CName "deep")
+              (DeclPathStruct
+                DeclNameNone
+                (DeclPathField
+                  (CName "inner")
+                  (DeclPathStruct
+                    (DeclNameTag (CName "S2"))
+                    DeclPathTop)))),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -49,12 +103,28 @@ WrapCHeader
               fieldName = CName "b",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))}]},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 16,
+                singleLocColumn = 11}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "anonymous.h"],
+            singleLocLine = 15,
+            singleLocColumn = 5}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2inner"),
+          structDeclPath = DeclPathStruct
+            DeclNameNone
+            (DeclPathField
+              (CName "inner")
+              (DeclPathStruct
+                (DeclNameTag (CName "S2"))
+                DeclPathTop)),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -62,18 +132,45 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))},
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 14,
+                singleLocColumn = 9}},
             StructField {
               fieldName = CName "deep",
               fieldOffset = 32,
               fieldType = TypeStruct
-                (DefnName
-                  (CName "S2innerdeep"))}]},
+                (DeclPathStruct
+                  DeclNameNone
+                  (DeclPathField
+                    (CName "deep")
+                    (DeclPathStruct
+                      DeclNameNone
+                      (DeclPathField
+                        (CName "inner")
+                        (DeclPathStruct
+                          (DeclNameTag (CName "S2"))
+                          DeclPathTop))))),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 17,
+                singleLocColumn = 7}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "anonymous.h"],
+            singleLocLine = 13,
+            singleLocColumn = 3}},
       DeclStruct
         Struct {
-          structTag = DefnName
-            (CName "S2"),
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "S2"))
+            DeclPathTop,
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -81,10 +178,33 @@ WrapCHeader
               fieldName = CName "inner",
               fieldOffset = 0,
               fieldType = TypeStruct
-                (DefnName (CName "S2inner"))},
+                (DeclPathStruct
+                  DeclNameNone
+                  (DeclPathField
+                    (CName "inner")
+                    (DeclPathStruct
+                      (DeclNameTag (CName "S2"))
+                      DeclPathTop))),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 18,
+                singleLocColumn = 5}},
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral
-                  (PrimInt Signed))}]}])
+                (PrimIntegral (PrimInt Signed)),
+              fieldSourceLoc = SingleLoc {
+                singleLocPath = [
+                  "examples",
+                  "anonymous.h"],
+                singleLocLine = 20,
+                singleLocColumn = 7}}],
+          structSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "anonymous.h"],
+            singleLocLine = 12,
+            singleLocColumn = 8}}])

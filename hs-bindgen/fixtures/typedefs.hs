@@ -1,4 +1,67 @@
-DeclNewtype (Newtype {newtypeName = "CMyint", newtypeConstr = "MkCMyint", newtypeField = "unCMyint", newtypeType = HsPrimType HsPrimCInt})
-DeclNewtypeInstance Storable "CMyint"
-DeclNewtype (Newtype {newtypeName = "CIntptr", newtypeConstr = "MkCIntptr", newtypeField = "unCIntptr", newtypeType = HsPtr (HsPrimType HsPrimCInt)})
-DeclNewtypeInstance Storable "CIntptr"
+[
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Myint",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Myint",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unMyint",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "myint",
+          typedefType = TypePrim
+            (PrimIntegral (PrimInt Signed)),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedefs.h"],
+            singleLocLine = 1,
+            singleLocColumn = 13}}},
+  DeclNewtypeInstance
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Myint"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Intptr",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Intptr",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unIntptr",
+        fieldType = HsPtr
+          (HsPrimType HsPrimCInt),
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "intptr",
+          typedefType = TypePointer
+            (TypePrim
+              (PrimIntegral
+                (PrimInt Signed))),
+          typedefSourceLoc = SingleLoc {
+            singleLocPath = [
+              "examples",
+              "typedefs.h"],
+            singleLocLine = 2,
+            singleLocColumn = 15}}},
+  DeclNewtypeInstance
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Intptr")]

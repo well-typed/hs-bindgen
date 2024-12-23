@@ -6,16 +6,16 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), pure)
 
-newtype CBOOL = MkCBOOL
-  { unCBOOL :: FC.CBool
+newtype BOOL = BOOL
+  { unBOOL :: FC.CBool
   }
 
-data CBools1 = MkCBools1
-  { cBools1_x :: FC.CBool
-  , cBools1_y :: FC.CBool
+data Bools1 = Bools1
+  { bools1_x :: FC.CBool
+  , bools1_y :: FC.CBool
   }
 
-instance F.Storable CBools1 where
+instance F.Storable Bools1 where
 
   sizeOf = \_ -> 2
 
@@ -23,7 +23,7 @@ instance F.Storable CBools1 where
 
   peek =
     \ptr0 ->
-          pure MkCBools1
+          pure Bools1
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 1
 
@@ -31,16 +31,16 @@ instance F.Storable CBools1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCBools1 cBools1_x2 cBools1_y3 ->
-               F.pokeByteOff ptr0 0 cBools1_x2
-            >> F.pokeByteOff ptr0 1 cBools1_y3
+          Bools1 bools1_x2 bools1_y3 ->
+               F.pokeByteOff ptr0 0 bools1_x2
+            >> F.pokeByteOff ptr0 1 bools1_y3
 
-data CBools2 = MkCBools2
-  { cBools2_x :: FC.CBool
-  , cBools2_y :: FC.CBool
+data Bools2 = Bools2
+  { bools2_x :: FC.CBool
+  , bools2_y :: FC.CBool
   }
 
-instance F.Storable CBools2 where
+instance F.Storable Bools2 where
 
   sizeOf = \_ -> 2
 
@@ -48,7 +48,7 @@ instance F.Storable CBools2 where
 
   peek =
     \ptr0 ->
-          pure MkCBools2
+          pure Bools2
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 1
 
@@ -56,16 +56,16 @@ instance F.Storable CBools2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCBools2 cBools2_x2 cBools2_y3 ->
-               F.pokeByteOff ptr0 0 cBools2_x2
-            >> F.pokeByteOff ptr0 1 cBools2_y3
+          Bools2 bools2_x2 bools2_y3 ->
+               F.pokeByteOff ptr0 0 bools2_x2
+            >> F.pokeByteOff ptr0 1 bools2_y3
 
-data CBools3 = MkCBools3
-  { cBools3_x :: CBOOL
-  , cBools3_y :: CBOOL
+data Bools3 = Bools3
+  { bools3_x :: BOOL
+  , bools3_y :: BOOL
   }
 
-instance F.Storable CBools3 where
+instance F.Storable Bools3 where
 
   sizeOf = \_ -> 2
 
@@ -73,7 +73,7 @@ instance F.Storable CBools3 where
 
   peek =
     \ptr0 ->
-          pure MkCBools3
+          pure Bools3
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 1
 
@@ -81,6 +81,6 @@ instance F.Storable CBools3 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCBools3 cBools3_x2 cBools3_y3 ->
-               F.pokeByteOff ptr0 0 cBools3_x2
-            >> F.pokeByteOff ptr0 1 cBools3_y3
+          Bools3 bools3_x2 bools3_y3 ->
+               F.pokeByteOff ptr0 0 bools3_x2
+            >> F.pokeByteOff ptr0 1 bools3_y3

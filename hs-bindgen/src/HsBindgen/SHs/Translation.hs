@@ -42,9 +42,14 @@ translateDeclData struct = DRecord $ Record
     { dataType = Hs.structName struct
     , dataCon  = Hs.structConstr struct
     , dataFields =
-        [ (n, translateType t)
-        | (n, t) <- toList $ Hs.structFields struct
+        [ Field {
+              fieldName   = Hs.fieldName f
+            , fieldType   = translateType $ Hs.fieldType f
+            , fieldOrigin = Hs.fieldOrigin f
+            }
+        | f <- toList $ Hs.structFields struct
         ]
+    , dataOrigin = Hs.structOrigin struct
     }
 
 translateDeclEmpty :: HsName NsTypeConstr -> SDecl
@@ -52,10 +57,14 @@ translateDeclEmpty n = DEmptyData n
 
 translateNewtype :: Hs.Newtype -> SDecl
 translateNewtype n = DNewtype $ Newtype
-    { newtypeName  = Hs.newtypeName n
-    , newtypeCon   = Hs.newtypeConstr n
-    , newtypeField = Hs.newtypeField n
-    , newtypeType  = translateType (Hs.newtypeType n)
+    { newtypeName   = Hs.newtypeName n
+    , newtypeCon    = Hs.newtypeConstr n
+    , newtypeField  = Field {
+          fieldName   = Hs.fieldName $ Hs.newtypeField n
+        , fieldType   = translateType . Hs.fieldType $ Hs.newtypeField n
+        , fieldOrigin = Hs.fieldOrigin $ Hs.newtypeField n
+        }
+    , newtypeOrigin = Hs.newtypeOrigin n
     }
 
 translateNewtypeInstance :: Hs.TypeClass -> HsName NsTypeConstr -> SDecl
@@ -76,13 +85,15 @@ translateForeignImportDecl Hs.ForeignImportDecl {..} = DForeignImport ForeignImp
     , foreignImportType     = translateType foreignImportType
     , foreignImportOrigName = foreignImportOrigName
     , foreignImportHeader   = foreignImportHeader
+    , foreignImportOrigin   = foreignImportDeclOrigin
     }
 
 translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym
-    { patSynName = patSynName
-    , patSynType = TCon patSynType
-    , patSynRHS  = EApp (ECon patSynConstr) (EIntegral patSynValue Nothing)
+    { patSynName   = patSynName
+    , patSynType   = TCon patSynType
+    , patSynRHS    = EApp (ECon patSynConstr) (EIntegral patSynValue Nothing)
+    , patSynOrigin = patSynOrigin
     }
 
 {-------------------------------------------------------------------------------
@@ -219,7 +230,7 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     (EBound x)
     [SAlt (Hs.structConstr struct) add hints (f k)]
   where
-    hints = fmap (toNameHint . fst) $ Hs.structFields struct
+    hints = fmap (toNameHint . Hs.fieldName) $ Hs.structFields struct
 
 toNameHint :: HsName 'NsVar -> NameHint
 toNameHint (HsName t) = NameHint (T.unpack t)

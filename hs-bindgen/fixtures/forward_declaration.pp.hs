@@ -9,11 +9,11 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), pure)
 
-data CS1 = MkCS1
-  { cS1_a :: FC.CInt
+data S1 = S1
+  { s1_a :: FC.CInt
   }
 
-instance F.Storable CS1 where
+instance F.Storable S1 where
 
   sizeOf = \_ -> 4
 
@@ -21,26 +21,26 @@ instance F.Storable CS1 where
 
   peek =
     \ptr0 ->
-          pure MkCS1
+          pure S1
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS1 cS1_a2 -> F.pokeByteOff ptr0 0 cS1_a2
+          S1 s1_a2 -> F.pokeByteOff ptr0 0 s1_a2
 
-newtype CS1T = MkCS1T
-  { unCS1T :: CS1
+newtype S1_t = S1_t
+  { unS1_t :: S1
   }
 
-deriving newtype instance F.Storable CS1T
+deriving newtype instance F.Storable S1_t
 
-data CS2 = MkCS2
-  { cS2_a :: FC.CInt
+data S2 = S2
+  { s2_a :: FC.CInt
   }
 
-instance F.Storable CS2 where
+instance F.Storable S2 where
 
   sizeOf = \_ -> 4
 
@@ -48,11 +48,11 @@ instance F.Storable CS2 where
 
   peek =
     \ptr0 ->
-          pure MkCS2
+          pure S2
       <*> F.peekByteOff ptr0 0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCS2 cS2_a2 -> F.pokeByteOff ptr0 0 cS2_a2
+          S2 s2_a2 -> F.pokeByteOff ptr0 0 s2_a2

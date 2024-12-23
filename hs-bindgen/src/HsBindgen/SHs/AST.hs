@@ -9,6 +9,7 @@ module HsBindgen.SHs.AST (
     ClosedType,
     SType (..),
     Instance (..),
+    Field (..),
     Record (..),
     Newtype (..),
     ForeignImport (..),
@@ -17,6 +18,7 @@ module HsBindgen.SHs.AST (
 
 import HsBindgen.Imports
 import HsBindgen.NameHint
+import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
@@ -150,18 +152,26 @@ data Instance  = Instance {
     }
   deriving stock (Show)
 
+data Field = Field {
+      fieldName   :: HsName NsVar
+    , fieldType   :: ClosedType
+    , fieldOrigin :: Hs.FieldOrigin
+    }
+  deriving stock (Show)
+
 data Record = Record {
       dataType   :: HsName NsTypeConstr
     , dataCon    :: HsName NsConstr
-    , dataFields :: [(HsName NsVar, ClosedType)]
+    , dataFields :: [Field]
+    , dataOrigin :: Hs.StructOrigin
     }
   deriving stock (Show)
 
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeCon    :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
-    , newtypeType   :: ClosedType
+    , newtypeField  :: Field
+    , newtypeOrigin :: Hs.NewtypeOrigin
     }
   deriving stock (Show)
 
@@ -170,12 +180,14 @@ data ForeignImport = ForeignImport
     , foreignImportType     :: ClosedType
     , foreignImportOrigName :: Text
     , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    , foreignImportOrigin   :: Hs.ForeignImportDeclOrigin
     }
   deriving stock (Show)
 
 data PatternSynonym = PatternSynonym
-    { patSynName :: HsName NsConstr
-    , patSynType :: ClosedType
-    , patSynRHS  :: ClosedExpr -- TODO: This should be Pat(tern)
+    { patSynName   :: HsName NsConstr
+    , patSynType   :: ClosedType
+    , patSynRHS    :: ClosedExpr -- TODO: This should be Pat(tern)
+    , patSynOrigin :: Hs.PatSynOrigin
     }
   deriving stock (Show)

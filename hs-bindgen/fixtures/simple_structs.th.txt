@@ -1,52 +1,51 @@
-data CS1 = MkCS1 {cS1_a :: CInt, cS1_b :: CChar}
-instance Storable CS1
+data S1 = S1 {s1_a :: CInt, s1_b :: CChar}
+instance Storable S1
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure S1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS1 cS1_a_3
-                                           cS1_b_4 -> pokeByteOff ptr_1 0 cS1_a_3 >> pokeByteOff ptr_1 4 cS1_b_4}}
-data CS2 = MkCS2 {cS2_a :: CChar, cS2_b :: CInt, cS2_c :: CFloat}
-instance Storable CS2
+                                    {S1 s1_a_3
+                                        s1_b_4 -> pokeByteOff ptr_1 0 s1_a_3 >> pokeByteOff ptr_1 4 s1_b_4}}
+data S2 = S2 {s2_a :: CChar, s2_b :: CInt, s2_c :: CFloat}
+instance Storable S2
     where {sizeOf = \_ -> 12;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> ((pure MkCS2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> ((pure S2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS2 cS2_a_3
-                                           cS2_b_4
-                                           cS2_c_5 -> pokeByteOff ptr_1 0 cS2_a_3 >> (pokeByteOff ptr_1 4 cS2_b_4 >> pokeByteOff ptr_1 8 cS2_c_5)}}
-newtype CS2T = MkCS2T {unCS2T :: CS2}
-deriving newtype instance Storable CS2T
-data CS3T = MkCS3T {cS3T_a :: CChar}
-instance Storable CS3T
+                                    {S2 s2_a_3
+                                        s2_b_4
+                                        s2_c_5 -> pokeByteOff ptr_1 0 s2_a_3 >> (pokeByteOff ptr_1 4 s2_b_4 >> pokeByteOff ptr_1 8 s2_c_5)}}
+newtype S2_t = S2_t {unS2_t :: S2}
+deriving newtype instance Storable S2_t
+data S3_t = S3_t {s3_t_a :: CChar}
+instance Storable S3_t
     where {sizeOf = \_ -> 1;
            alignment = \_ -> 1;
-           peek = \ptr_0 -> pure MkCS3T <*> peekByteOff ptr_0 0;
+           peek = \ptr_0 -> pure S3_t <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS3T cS3T_a_3 -> pokeByteOff ptr_1 0 cS3T_a_3}}
-data CS4
-    = MkCS4 {cS4_b :: CChar, cS4_a :: CInt, cS4_c :: (Ptr CInt)}
-instance Storable CS4
+                                    {S3_t s3_t_a_3 -> pokeByteOff ptr_1 0 s3_t_a_3}}
+data S4 = S4 {s4_b :: CChar, s4_a :: CInt, s4_c :: (Ptr CInt)}
+instance Storable S4
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> ((pure MkCS4 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> ((pure S4 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS4 cS4_b_3
-                                           cS4_a_4
-                                           cS4_c_5 -> pokeByteOff ptr_1 0 cS4_b_3 >> (pokeByteOff ptr_1 4 cS4_a_4 >> pokeByteOff ptr_1 8 cS4_c_5)}}
-data CS5 = MkCS5 {cS5_a :: CChar, cS5_b :: CInt}
-instance Storable CS5
+                                    {S4 s4_b_3
+                                        s4_a_4
+                                        s4_c_5 -> pokeByteOff ptr_1 0 s4_b_3 >> (pokeByteOff ptr_1 4 s4_a_4 >> pokeByteOff ptr_1 8 s4_c_5)}}
+data S5 = S5 {s5_a :: CChar, s5_b :: CInt}
+instance Storable S5
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS5 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure S5 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS5 cS5_a_3
-                                           cS5_b_4 -> pokeByteOff ptr_1 0 cS5_a_3 >> pokeByteOff ptr_1 4 cS5_b_4}}
-data CS6 = MkCS6 {cS6_a :: CChar, cS6_b :: CInt}
-instance Storable CS6
+                                    {S5 s5_a_3
+                                        s5_b_4 -> pokeByteOff ptr_1 0 s5_a_3 >> pokeByteOff ptr_1 4 s5_b_4}}
+data S6 = S6 {s6_a :: CChar, s6_b :: CInt}
+instance Storable S6
     where {sizeOf = \_ -> 8;
            alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure MkCS6 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           peek = \ptr_0 -> (pure S6 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MkCS6 cS6_a_3
-                                           cS6_b_4 -> pokeByteOff ptr_1 0 cS6_a_3 >> pokeByteOff ptr_1 4 cS6_b_4}}
+                                    {S6 s6_a_3
+                                        s6_b_4 -> pokeByteOff ptr_1 0 s6_a_3 >> pokeByteOff ptr_1 4 s6_b_4}}

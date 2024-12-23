@@ -49,7 +49,13 @@ data Mode =
       , renderOpts :: HsRenderOpts
       , output     :: Maybe FilePath
       }
-
+    -- | Generate tests for generated Haskell code
+  | ModeGenTests {
+        genTestsInput      :: FilePath
+      , genTestsModuleOpts :: HsModuleOpts
+      , genTestsRenderOpts :: HsRenderOpts
+      , genTestsOutput     :: FilePath
+      }
   | Dev DevMode
   deriving (Show)
 
@@ -82,6 +88,9 @@ parseMode dataDir = subparser $ mconcat [
       cmd "preprocess" parseModePreprocess $ mconcat [
           progDesc "Generate Haskell module from C header"
         ]
+    , cmd "gentests" parseModeGenTests $ mconcat [
+          progDesc "Generate tests for generated Haskell code"
+        ]
     , cmd "dev" (parseDevMode dataDir) $ mconcat [
           progDesc "Tools for the development of hs-bindgen itself"
         ]
@@ -108,6 +117,14 @@ parseModePreprocess =
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseOutput
+
+parseModeGenTests :: Parser Mode
+parseModeGenTests =
+    ModeGenTests
+      <$> parseInput Nothing
+      <*> parseHsModuleOpts
+      <*> parseHsRenderOpts
+      <*> parseGenTestsOutput
 
 {-------------------------------------------------------------------------------
   Dev modes
@@ -223,6 +240,17 @@ parseOutput =
       , metavar "PATH"
       , long "output"
       , short 'o'
+      ]
+
+parseGenTestsOutput :: Parser FilePath
+parseGenTestsOutput =
+    strOption $ mconcat [
+        help "Output directory for the test suite"
+      , metavar "PATH"
+      , long "output"
+      , short 'o'
+      , showDefault
+      , value "test-hs-bindgen"
       ]
 
 {-------------------------------------------------------------------------------

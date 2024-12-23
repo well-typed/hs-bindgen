@@ -19,8 +19,12 @@
 -- > import HsBindgen.Hs.AST qualified as Hs
 module HsBindgen.Hs.AST (
     -- * Information about generated code
-    Struct(..)
+    Field(..)
+  , FieldOrigin(..)
+  , Struct(..)
+  , StructOrigin(..)
   , Newtype(..)
+  , NewtypeOrigin(..)
     -- * Types
   , HsType(..)
     -- * Variable binding
@@ -41,7 +45,8 @@ module HsBindgen.Hs.AST (
     -- ** Newtype instances
   , TypeClass (..)
     -- ** Foreign imports
-  , ForeignImportDecl (..)
+  , ForeignImportDecl(..)
+  , ForeignImportDeclOrigin(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -54,10 +59,12 @@ module HsBindgen.Hs.AST (
   , makeElimStruct
     -- ** Pattern Synonyms
   , PatSyn(..)
+  , PatSynOrigin(..)
   ) where
 
-import HsBindgen.C.AST qualified as C (MFun(..))
+import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
+import Data.Type.Equality ((:~:)(Refl))
 import Data.Type.Nat as Nat
 
 import HsBindgen.Imports
@@ -71,31 +78,57 @@ import DeBruijn
   Information about generated code
 -------------------------------------------------------------------------------}
 
+data Field = Field {
+      fieldName   :: HsName NsVar
+    , fieldType   :: HsType
+    , fieldOrigin :: FieldOrigin
+    }
+  deriving stock (Eq, Generic, Show)
+
+data FieldOrigin =
+      FieldOriginNone
+    | FieldOriginStructField C.StructField
+  deriving stock (Eq, Generic, Show)
+
 data Struct (n :: Nat) = Struct {
       structName   :: HsName NsTypeConstr
     , structConstr :: HsName NsConstr
-    , structFields :: Vec n (HsName NsVar, HsType)
+    , structFields :: Vec n Field
+    , structOrigin :: StructOrigin
     }
+  deriving stock (Eq, Generic, Show)
 
-deriving stock instance Show (Struct n)
+data StructOrigin =
+      StructOriginStruct C.Struct
+    | StructOriginEnum C.Enu
+  deriving stock (Eq, Generic, Show)
 
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
-    , newtypeType   :: HsType
+    , newtypeField  :: Field
+    , newtypeOrigin :: NewtypeOrigin
     }
+  deriving stock (Eq, Generic, Show)
 
-deriving stock instance Show Newtype
+data NewtypeOrigin =
+      NewtypeOriginEnum C.Enu
+    | NewtypeOriginTypedef C.Typedef
+    | NewtypeOriginMacro C.Macro
+  deriving stock (Eq, Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName     :: HsName NsVar
-    , foreignImportType     :: HsType
-    , foreignImportOrigName :: Text
-    , foreignImportHeader   :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    { foreignImportName       :: HsName NsVar
+    , foreignImportType       :: HsType
+    , foreignImportOrigName   :: Text
+    , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+    , foreignImportDeclOrigin :: ForeignImportDeclOrigin
     }
+  deriving stock (Eq, Generic, Show)
 
-deriving stock instance Show ForeignImportDecl
+newtype ForeignImportDeclOrigin =
+      ForeignImportDeclOriginFunction C.Function
+  deriving stock (Eq, Generic, Show)
 
 {-------------------------------------------------------------------------------
   Variable binding
@@ -107,12 +140,13 @@ data Lambda t ctx = Lambda
     NameHint  -- ^ name suggestion
     (t (S ctx)) -- ^ body
 
+deriving instance Eq   (t (S ctx)) => Eq   (Lambda t ctx)
 deriving instance Show (t (S ctx)) => Show (Lambda t ctx)
 
 -- | Applicative structure
 
 data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
-  deriving Show
+  deriving stock (Eq, Generic, Show)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -132,17 +166,33 @@ data Decl where
 
 deriving instance Show Decl
 
+instance Eq Decl where
+  DeclData l == DeclData r = l `eqFSNatI` r
+  DeclEmpty l == DeclEmpty r = l == r
+  DeclNewtype l == DeclNewtype r = l == r
+  DeclPatSyn l == DeclPatSyn r = l == r
+  DeclInstance l == DeclInstance r = l == r
+  DeclNewtypeInstance tcL nameL == DeclNewtypeInstance tcR nameR =
+    tcL == tcR && nameL == nameR
+  DeclForeignImport l == DeclForeignImport r = l == r
+  DeclVar l == DeclVar r = l == r
+  _l == _r = False
+
 -- | Class instance names
 data TypeClass =
     Storable
-  deriving stock (Show)
+  deriving stock (Eq, Generic, Show)
 
 -- | Class instance declaration
 type InstanceDecl :: Star
 data InstanceDecl where
-    InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
+    InstanceStorable :: SNatI n => Struct n -> StorableInstance -> InstanceDecl
 
 deriving instance Show InstanceDecl
+
+instance Eq InstanceDecl where
+  InstanceStorable sL iL == InstanceStorable sR iR =
+    sL `eqFSNatI` sR && iL == iR
 
 -- | Variable or function declaration.
 type VarDecl :: Star
@@ -155,19 +205,24 @@ data VarDecl =
     -- | RHS of variable/function.
     , varDeclBody :: VarDeclRHS EmptyCtx
     }
-  deriving Show
+  deriving stock (Eq, Generic, Show)
 
 -- | A σ-type, of the form @forall tvs. ctxt => body@.
 type SigmaType :: Star
 data SigmaType where
   ForallTy ::
-      { forallTySize    :: Size n
-      , forallTyBinders :: Vec n NameHint
-      , forallTy        :: PhiType n
-      }
+       SNatI n
+    => { forallTySize    :: Size n
+       , forallTyBinders :: Vec n NameHint
+       , forallTy        :: PhiType n
+       }
     -> SigmaType
 
 deriving stock instance Show SigmaType
+
+instance Eq SigmaType where
+  ForallTy sL bL pL == ForallTy sR bR pR =
+    sL `eqFSNatI` sR && bL `eqVec` bR && pL `eqFSNatI` pR
 
 -- | A φ-type, of the form @ctxt => body@.
 type PhiType :: Ctx -> Star
@@ -176,8 +231,7 @@ data PhiType ctx
   { quantTyCts  :: [ClassTy ctx]
   , quantTyBody :: TauType ctx
   }
-
-deriving stock instance Show (PhiType ctx)
+  deriving stock (Eq, Generic, Show)
 
 -- | A τ-type: no quantification or contexts (i.e. no @forall@, no @=>@ arrows).
 type TauType :: Ctx -> Star
@@ -185,18 +239,33 @@ data TauType ctx
   = FunTy (TauType ctx) (TauType ctx)
   | TyVarTy (Idx ctx)
   | TyConAppTy (TyConAppTy ctx)
-
-deriving stock instance Show (TauType ctx)
+  deriving stock (Eq, Generic, Show)
 
 data TyConAppTy ctx where
-  TyConApp :: C.DataTyCon arity -> Vec arity (TauType ctx) -> TyConAppTy ctx
+  TyConApp ::
+       SNatI arity
+    => C.DataTyCon arity
+    -> Vec arity (TauType ctx)
+    -> TyConAppTy ctx
 
 deriving stock instance Show (TyConAppTy ctx)
 
+instance Eq (TyConAppTy ctx) where
+  TyConApp conL vecL == TyConApp conR vecR =
+    conL `eqFSNatI` conR && vecL `eqVec` vecR
+
 data ClassTy ctx where
-  ClassTy :: C.ClassTyCon arity -> Vec arity (TauType ctx) -> ClassTy ctx
+  ClassTy ::
+       SNatI arity
+    => C.ClassTyCon arity
+    -> Vec arity (TauType ctx)
+    -> ClassTy ctx
 
 deriving stock instance Show (ClassTy ctx)
+
+instance Eq (ClassTy ctx) where
+  ClassTy conL vecL == ClassTy conR vecR =
+    conL `eqFSNatI` conR && vecL `eqVec` vecR
 
 -- | RHS of a variable or function declaration.
 type VarDeclRHS :: Ctx -> Star
@@ -207,18 +276,22 @@ data VarDeclRHS ctx
   | VarDeclLambda (Lambda VarDeclRHS ctx)
   | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
   | VarDeclVar (Idx ctx)
-
-deriving stock instance Show (VarDeclRHS ctx)
+  deriving stock (Eq, Generic, Show)
 
 -- | The function at the head of an application in the Haskell translation
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (C.MFun arity)
+  = forall arity. SNatI arity => InfixAppHead (C.MFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (HsName NsVar)
 
 deriving stock instance Show VarDeclRHSAppHead
+
+instance Eq VarDeclRHSAppHead where
+  InfixAppHead l == InfixAppHead r = l `eqFSNatI` r
+  VarAppHead l == VarAppHead r = l == r
+  _l == _r = False
 
 {-------------------------------------------------------------------------------
   Pattern Synonyms
@@ -238,8 +311,13 @@ data PatSyn = PatSyn
     , patSynType   :: HsName NsTypeConstr
     , patSynConstr :: HsName NsConstr
     , patSynValue  :: Integer
+    , patSynOrigin :: PatSynOrigin
     }
-  deriving Show
+  deriving stock (Eq, Generic, Show)
+
+newtype PatSynOrigin =
+      PatSynOriginEnumValue C.EnumValue
+  deriving stock (Eq, Generic, Show)
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -257,8 +335,7 @@ data StorableInstance = StorableInstance
     , storablePeek      :: Lambda (Ap StructCon PeekByteOff) EmptyCtx
     , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeByteOff))) EmptyCtx
     }
-
-deriving instance Show StorableInstance
+  deriving stock (Eq, Generic, Show)
 
 -- | Call to 'peekByteOff'
 --
@@ -267,14 +344,14 @@ type PeekByteOff :: Ctx -> Star
 data PeekByteOff ctx = PeekByteOff
     (Idx ctx)
     Int
-  deriving Show
+  deriving stock (Eq, Generic, Show)
 
 -- | Call to 'pokeByteOff'
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:pokeByteOff>
 type PokeByteOff :: Ctx -> Star
 data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
-  deriving Show
+  deriving stock (Eq, Generic, Show)
 
 {-------------------------------------------------------------------------------
   Statements
@@ -282,7 +359,7 @@ data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
 
 -- | Simple sequential composition (no bindings)
 newtype Seq t ctx = Seq [t ctx]
-  deriving Show
+  deriving stock (Eq, Generic, Show)
 
 {-------------------------------------------------------------------------------
   Structs
@@ -290,26 +367,81 @@ newtype Seq t ctx = Seq [t ctx]
 
 type StructCon :: Ctx -> Star
 data StructCon ctx where
-    StructCon :: Struct n -> StructCon ctx
+    StructCon :: SNatI n => Struct n -> StructCon ctx
 
 deriving instance Show (StructCon ctx)
+
+instance Eq (StructCon ctx) where
+  StructCon sL == StructCon sR = sL `eqFSNatI` sR
 
 -- | Case split for a struct
 type ElimStruct :: (Ctx -> Star) -> (Ctx -> Star)
 data ElimStruct t ctx where
-    ElimStruct :: Idx ctx -> Struct n -> Add n ctx ctx' -> t ctx' -> ElimStruct t ctx
+    ElimStruct ::
+         (SNatI ctx, SNatI ctx', SNatI n)
+      => Idx ctx
+      -> Struct n
+      -> Add n ctx ctx'
+      -> t ctx'
+      -> ElimStruct t ctx
 
 deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 
+instance (forall ctx'. (Eq (t ctx'))) => Eq (ElimStruct t ctx) where
+  ElimStruct idxL sL addL tL == ElimStruct idxR sR addR tR =
+    fromMaybe False $ do
+      Refl <- propEqFSNatI sL sR
+      guard $ sL == sR
+      Refl <- propEqFSNatI idxL idxR
+      pure $ case eqAdds addL addR of
+        Refl -> tL == tR
+
 -- | Create 'ElimStruct' using kind-of HOAS interface.
---
-makeElimStruct :: forall n ctx t. SNatI n => Idx ctx -> Struct n -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx') -> ElimStruct t ctx
+makeElimStruct :: forall n ctx t.
+     (SNatI n, SNatI ctx)
+  => Idx ctx
+  -> Struct n
+  -> (forall ctx'. SNatI ctx' => Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx')
+  -> ElimStruct t ctx
 makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
     ElimStruct s struct add (kont wk xs)
 
---
 -- TODO: use Data.Type.Nat.induction instead of explicit recursion.
 -- TODO: verify that we bind fields in right order.
-makeElimStruct' :: forall m ctx t. SNat m -> (forall ctx'. Add m ctx ctx' -> Wk ctx ctx' -> Vec m (Idx ctx') -> ElimStruct t ctx) -> ElimStruct t ctx
+makeElimStruct' :: forall m ctx t.
+     SNatI ctx
+  => SNat m
+  -> ( forall ctx'.
+             SNatI ctx'
+          => Add m ctx ctx'
+          -> Wk ctx ctx'
+          -> Vec m (Idx ctx')
+          -> ElimStruct t ctx
+     )
+  -> ElimStruct t ctx
 makeElimStruct' Nat.SZ      kont = kont AZ IdWk VNil
-makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs -> kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)
+makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs ->
+    kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+propEqFSNatI :: (SNatI n, SNatI m) => f n -> f m -> Maybe (n :~: m)
+propEqFSNatI _l _r = Nat.eqNat
+
+eqFSNatI :: (Eq (f n), SNatI n, SNatI m) => f n -> f m -> Bool
+eqFSNatI l r = case propEqFSNatI l r of
+    Just Refl -> l == r
+    Nothing   -> False
+
+eqAdds :: (nL ~ nR, mL ~ mR) => Add nL mL pL -> Add nR mR pR -> (pL :~: pR)
+eqAdds l r = case (l, r) of
+    (AS l', AS r') -> case eqAdds l' r' of
+      Refl -> Refl
+    (AZ, AZ) -> Refl
+
+eqVec :: forall n m a. (Eq a, SNatI n, SNatI m) => Vec n a -> Vec m a -> Bool
+eqVec l r = case (Nat.eqNat :: Maybe (n :~: m)) of
+    Just Refl -> l == r
+    Nothing   -> False

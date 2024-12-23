@@ -3,6 +3,7 @@
 module Main (main) where
 
 import Data.TreeDiff.Golden (ediffGolden1)
+import System.Directory qualified as Dir
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
@@ -16,7 +17,6 @@ import Misc
 import TH
 #endif
 
-import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
@@ -30,7 +30,8 @@ main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
         let fp = "examples/simple_structs.h"
             args = clangArgs packageRoot
-        triple <- withC nullTracer args fp $ getTargetTriple
+        relPath <- Just <$> Dir.getCurrentDirectory
+        triple <- withC relPath nullTracer args fp $ getTargetTriple
 
         -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
         -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -76,10 +77,11 @@ main' packageRoot bg = testGroup "golden"
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
+        relPath <- Just <$> Dir.getCurrentDirectory
+        header <- parseC relPath tracer args fp
         return header
 
-    goldenHs name = goldenVsStringDiff_ "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
+    goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
         let fp = "examples" </> (name ++ ".h")
@@ -87,11 +89,9 @@ main' packageRoot bg = testGroup "golden"
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
-        let decls :: [Hs.Decl]
-            decls = genHsDecls header
-
-        return $ unlines $ map show decls
+        relPath <- Just <$> Dir.getCurrentDirectory
+        header <- parseC relPath tracer args fp
+        return $ genHsDecls header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
@@ -102,7 +102,8 @@ main' packageRoot bg = testGroup "golden"
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
+        relPath <- Just <$> Dir.getCurrentDirectory
+        header <- parseC relPath tracer args fp
 
         -- TODO: PP.render should add trailing '\n' itself.
         return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule moduleOpts header) ++ "\n"
@@ -118,22 +119,25 @@ main' packageRoot bg = testGroup "golden"
             }
 
 withC ::
-     Tracer IO String
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO String
   -> ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC tracer args fp =
-    withTranslationUnit tracerD args fp
+withC relPath tracer args fp =
+    withTranslationUnit relPath tracerD args fp
   where
     tracerD = contramap show tracer
 
 parseC ::
-     Tracer IO String
+     Maybe FilePath -- ^ Directory to make paths relative to
+  -> Tracer IO String
   -> ClangArgs
   -> FilePath
   -> IO CHeader
-parseC tracer args fp =
-    withC tracer args fp $ parseCHeader tracerP SelectFromMainFile
+parseC relPath tracer args fp =
+    withC relPath tracer args fp $
+      parseCHeader relPath tracerP SelectFromMainFile
   where
     tracerP = contramap prettyLogMsg tracer

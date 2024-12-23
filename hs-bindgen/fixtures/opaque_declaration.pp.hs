@@ -5,14 +5,14 @@ module Example where
 import qualified Foreign as F
 import Prelude ((<*>), (>>), pure, return)
 
-data CFoo
+data Foo
 
-data CBar = MkCBar
-  { cBar_ptrA :: F.Ptr CFoo
-  , cBar_ptrB :: F.Ptr CBar
+data Bar = Bar
+  { bar_ptrA :: F.Ptr Foo
+  , bar_ptrB :: F.Ptr Bar
   }
 
-instance F.Storable CBar where
+instance F.Storable Bar where
 
   sizeOf = \_ -> 16
 
@@ -20,7 +20,7 @@ instance F.Storable CBar where
 
   peek =
     \ptr0 ->
-          pure MkCBar
+          pure Bar
       <*> F.peekByteOff ptr0 0
       <*> F.peekByteOff ptr0 8
 
@@ -28,25 +28,25 @@ instance F.Storable CBar where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCBar cBar_ptrA2 cBar_ptrB3 ->
-               F.pokeByteOff ptr0 0 cBar_ptrA2
-            >> F.pokeByteOff ptr0 8 cBar_ptrB3
+          Bar bar_ptrA2 bar_ptrB3 ->
+               F.pokeByteOff ptr0 0 bar_ptrA2
+            >> F.pokeByteOff ptr0 8 bar_ptrB3
 
-data CBaz = MkCBaz
+data Baz = Baz
   {}
 
-instance F.Storable CBaz where
+instance F.Storable Baz where
 
   sizeOf = \_ -> 0
 
   alignment = \_ -> 1
 
-  peek = \ptr0 -> pure MkCBaz
+  peek = \ptr0 -> pure Baz
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          MkCBaz -> return (())
+          Baz -> return (())
 
-data CQuu
+data Quu

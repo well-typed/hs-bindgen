@@ -20,12 +20,13 @@ module HsBindgen.C.AST (
   , PrimFloatType(..)
   , PrimSign(..)
     -- ** Structs
-  , DefnName(..)
   , Struct(..)
   , StructField(..)
+  , OpaqueStruct(..)
     -- ** Enums
   , Enu(..)
   , EnumValue(..)
+  , OpaqueEnum(..)
     -- ** Typedefs
   , Typedef(..)
     -- ** Functions
@@ -51,6 +52,9 @@ module HsBindgen.C.AST (
   , QuantTy
   , TcMacroError(..)
   , pprTcMacroError
+    -- * DeclPath
+  , DeclPath(..)
+  , DeclName(..)
     -- * Source locations
   , SourcePath(..)
   , SingleLoc(..)
@@ -84,10 +88,10 @@ data Header = Header {
 -- | Top-level declaration
 data Decl =
     DeclStruct Struct
-  | DeclOpaqueStruct CName
+  | DeclOpaqueStruct OpaqueStruct
   | DeclTypedef Typedef
   | DeclEnum Enu
-  | DeclOpaqueEnum CName
+  | DeclOpaqueEnum OpaqueEnum
   | DeclMacro MacroDecl
   | DeclFunction Function
   deriving stock (Show, Eq, Generic)
@@ -96,7 +100,11 @@ data Decl =
 data MacroDecl
   = MacroReparseError ReparseError
   | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: TcMacroError }
-  | MacroDecl { macroDeclMacro :: Macro, macroDeclMacroTy :: QuantTy }
+  | MacroDecl {
+        macroDeclMacro     :: Macro
+      , macroDeclMacroTy   :: QuantTy
+      , macroDeclSourceLoc :: SingleLoc
+      }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 
@@ -107,6 +115,7 @@ data Function = Function
     -- TODO: we might not need functionHeader field,
     -- https://github.com/well-typed/hs-bindgen/issues/333
     , functionHeader :: FilePath
+    , functionSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
