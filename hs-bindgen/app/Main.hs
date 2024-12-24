@@ -2,6 +2,7 @@
 
 module Main (main) where
 
+import Control.Monad (void)
 import System.Directory qualified as Dir
 import System.IO qualified as IO
 
@@ -49,11 +50,11 @@ execDevMode ::
 execDevMode relPath cmdline tracer = \case
     DevModeParseCHeader{..} ->
       prettyC =<< parseC relPath cmdline tracer parseCHeaderInput
-    DevModePrelude{..} ->
+    DevModePrelude{..} -> do
+      let cmdline' = preludeCmdline preludeIncludeDir
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
-        _entries <- withC relPath cmdline tracer preludeInput $
+        void . withC relPath cmdline' tracer preludeInput $
           bootstrapPrelude relPath tracer (preludeLogTracer logHandle)
-        return ()
   where
     preludeLogPath :: FilePath
     preludeLogPath = "macros-recognized.log"
@@ -65,6 +66,21 @@ execDevMode relPath cmdline tracer = \case
         (IO.hPutStrLn logHandle . ("Warning: " ++))
         (IO.hPutStrLn logHandle)
         True
+
+    preludeCmdline :: FilePath -> Cmdline
+    preludeCmdline includeDir = cmdline {
+        cmdClangArgs = preludeClangArgs includeDir $ cmdClangArgs cmdline
+      }
+
+    preludeClangArgs :: FilePath -> ClangArgs -> ClangArgs
+    preludeClangArgs includeDir clangArgs = clangArgs {
+        clangOtherArgs =
+          preludeClangOtherArgs includeDir $ clangOtherArgs clangArgs
+      }
+
+    preludeClangOtherArgs :: FilePath -> [String] -> [String]
+    preludeClangOtherArgs includeDir args =
+        "-nostdinc" : "-isystem" : includeDir : args
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

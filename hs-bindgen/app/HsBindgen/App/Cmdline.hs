@@ -10,6 +10,7 @@ import Data.Default
 import Data.List qualified as List
 import Options.Applicative
 import System.FilePath
+import System.Info qualified
 
 import HsBindgen.Lib
 
@@ -68,7 +69,8 @@ data DevMode =
       }
     -- | Generate prelude (bootstrap)
   | DevModePrelude {
-        preludeInput :: FilePath
+        preludeInput      :: FilePath
+      , preludeIncludeDir :: FilePath
       }
   deriving (Show)
 
@@ -142,11 +144,19 @@ parseDevModeParseCHeader =
 
 parseDevModePrelude :: FilePath -> Parser DevMode
 parseDevModePrelude dataDir =
-     DevModePrelude
-       <$> parseInput (Just stdHeaders)
+    DevModePrelude
+      <$> parseInput (Just stdHeaders)
+      <*> parseIncludeDir includeDir
   where
     stdHeaders :: FilePath
     stdHeaders = dataDir </> "bootstrap" </> "standard_headers.h"
+
+    includeDir :: Maybe FilePath
+    includeDir = case System.Info.arch of
+      "aarch64" -> Just $ dataDir </> "musl-include" </> "aarch64"
+      "i386"    -> Just $ dataDir </> "musl-include" </> "i386"
+      "x86_64"  -> Just $ dataDir </> "musl-include" </> "x86_64"
+      _other    -> Nothing
 
 {-------------------------------------------------------------------------------
   Prepare input
@@ -234,6 +244,21 @@ parseInput mDefault =
          , metavar "PATH"
          , long "input"
          , short 'i'
+         ]
+      ++ case mDefault of
+           Nothing -> []
+           Just d  -> [
+               showDefault
+             , value d
+             ]
+
+parseIncludeDir :: Maybe FilePath -> Parser FilePath
+parseIncludeDir mDefault =
+    strOption $ mconcat $ [
+           help "Include directory"
+         , metavar "PATH"
+         , long "include"
+         , short 'I'
          ]
       ++ case mDefault of
            Nothing -> []
