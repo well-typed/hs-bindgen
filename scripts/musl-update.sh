@@ -20,7 +20,7 @@ declare tmp_dir=''
 
 declare yolo=false
 declare musl_tarball="musl-${MUSL_VER}.tar.gz"
-declare targets=('x86_64' 'i386' 'aarch64')
+declare targets=('x86_64' 'i386' 'aarch64' 'arm')
 
 
 ##############################################################################
