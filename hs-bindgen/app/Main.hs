@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Main (main) where
 
 import System.Directory qualified as Dir
@@ -12,7 +14,7 @@ import HsBindgen.Lib
 
 main :: IO ()
 main = do
-    cmdline@Cmdline{cmdVerbosity, cmdMode} <- getCmdline
+    cmdline@Cmdline{..} <- getCmdline
 
     let tracer :: Tracer IO String
         tracer = mkTracerIO cmdVerbosity
@@ -28,11 +30,11 @@ execMode ::
   -> Mode
   -> IO ()
 execMode relPath cmdline tracer = \case
-    ModePreprocess{input, moduleOpts, renderOpts, output} -> do
-      cHeader <- parseC relPath cmdline tracer input
-      let hsModl = genModule moduleOpts cHeader
-      prettyHs renderOpts output hsModl
-    ModeGenTests{genTestsInput, genTestsModuleOpts, genTestsRenderOpts, genTestsOutput} -> do
+    ModePreprocess{..} -> do
+      cHeader <- parseC relPath cmdline tracer preprocessInput
+      let hsModl = genModule preprocessModuleOpts cHeader
+      prettyHs preprocessRenderOpts preprocessOutput hsModl
+    ModeGenTests{..} -> do
       cHeader <- parseC relPath cmdline tracer genTestsInput
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     Dev devMode ->
@@ -45,11 +47,11 @@ execDevMode ::
   -> DevMode
   -> IO ()
 execDevMode relPath cmdline tracer = \case
-    DevModeParseCHeader fp ->
-      prettyC =<< parseC relPath cmdline tracer fp
-    DevModePrelude fp ->
+    DevModeParseCHeader{..} ->
+      prettyC =<< parseC relPath cmdline tracer parseCHeaderInput
+    DevModePrelude{..} ->
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
-        _entries <- withC relPath cmdline tracer fp $
+        _entries <- withC relPath cmdline tracer preludeInput $
           bootstrapPrelude relPath tracer (preludeLogTracer logHandle)
         return ()
   where

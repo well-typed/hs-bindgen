@@ -46,10 +46,10 @@ data Cmdline = Cmdline {
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
     ModePreprocess {
-        input      :: FilePath
-      , moduleOpts :: HsModuleOpts
-      , renderOpts :: HsRenderOpts
-      , output     :: Maybe FilePath
+        preprocessInput      :: FilePath
+      , preprocessModuleOpts :: HsModuleOpts
+      , preprocessRenderOpts :: HsRenderOpts
+      , preprocessOutput     :: Maybe FilePath
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
@@ -63,10 +63,13 @@ data Mode =
 
 data DevMode =
     -- | Just parse the C header
-    DevModeParseCHeader FilePath
-
+    DevModeParseCHeader {
+        parseCHeaderInput :: FilePath
+      }
     -- | Generate prelude (bootstrap)
-  | DevModePrelude FilePath
+  | DevModePrelude {
+        preludeInput :: FilePath
+      }
   deriving (Show)
 
 {-------------------------------------------------------------------------------
