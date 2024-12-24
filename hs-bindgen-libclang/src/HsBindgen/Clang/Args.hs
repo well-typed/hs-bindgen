@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 module HsBindgen.Clang.Args (
     ClangArgs(..)
   , CStandard(..)
@@ -15,6 +17,9 @@ import HsBindgen.Clang.Version
 
 -- | @libclang@ command line arguments
 --
+-- The default standard when one is not specified depends on the Clang version
+-- and has GNU extensions enabled.
+--
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/83> (also #10 and #71).
 -- We should support more of the command line arguments of @clang@.
 data ClangArgs = ClangArgs {
@@ -23,6 +28,9 @@ data ClangArgs = ClangArgs {
 
       -- | C standard
     , clangCStandard :: Maybe CStandard
+
+      -- | Enable GNU extensions when 'True'
+    , clangEnableGnu :: Bool
 
       -- | Other arguments
       --
@@ -54,6 +62,7 @@ defaultClangArgs :: ClangArgs
 defaultClangArgs = ClangArgs {
       clangTarget    = Nothing
     , clangCStandard = Nothing
+    , clangEnableGnu = False
     , clangOtherArgs = []
     }
 
@@ -66,21 +75,33 @@ fromClangArgs args = aux [
       ifGiven clangTarget $ \target ->
         return ["-target", target]
 
-    , ifGiven clangCStandard $ \cStandard ->
-        case cStandard of
-          C23 -> -- We can use @-std=c23@ in @clang-18@ or later, but we have no
-                 -- reliable way of testing for that.
-                 if clangVersion >= Clang9_or_10
-                   then return ["-std=c2x"]
-                   else throwError "C23 requires clang-9 or later"
-          C17 -> if clangVersion >= Clang6
-                   then return ["-std=c17"]
-                   else throwError "C17 requires clang-6 or later"
-          C11 -> if clangVersion == ClangOlderThan3_2
-                   then return ["-std=c1x"]
-                   else return ["-std=c11"]
-          C99 -> return ["-std=c99"]
-          C89 -> return ["-std=c89"]
+    , ifGiven clangCStandard $ \case
+        C89
+          | clangEnableGnu -> return ["-std=gnu89"]
+          | otherwise      -> return ["-std=c89"]
+        C99
+          | clangEnableGnu -> return ["-std=gnu99"]
+          | otherwise      -> return ["-std=c99"]
+        C11
+          | clangEnableGnu -> return $
+              if clangVersion == ClangOlderThan3_2
+                then ["-std=gnu1x"]
+                else ["-std=gnu11"]
+          | otherwise      -> return $
+              if clangVersion == ClangOlderThan3_2
+                then ["-std=c1x"]
+                else ["-std=c11"]
+        C17
+          | clangVersion < Clang6 -> throwError "C17 requires clang-6 or later"
+          | clangEnableGnu -> return ["-std=gnu17"]
+          | otherwise      -> return ["-std=c17"]
+        -- We can use @-std=c23@ in @clang-18@ or later, but we have no reliable
+        -- way of testing for that.
+        C23
+          | clangVersion < Clang9_or_10 ->
+              throwError "C23 requires clang-9 or later"
+          | clangEnableGnu -> return ["-std=gnu2x"]
+          | otherwise      -> return ["-std=c2x"]
 
     , return clangOtherArgs
     ]
@@ -88,6 +109,7 @@ fromClangArgs args = aux [
     ClangArgs{
         clangTarget
       , clangCStandard
+      , clangEnableGnu
       , clangOtherArgs
       } = args
 

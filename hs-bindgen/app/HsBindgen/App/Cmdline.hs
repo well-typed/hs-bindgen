@@ -162,6 +162,7 @@ parseClangArgs =
     ClangArgs
       <$> pure Nothing
       <*> fmap Just parseCStandard
+      <*> parseGnuOption
       <*> parseOtherArgs
   where
     parseCStandard :: Parser CStandard
@@ -194,6 +195,12 @@ parseClangArgs =
     readCStandard s = case List.lookup s cStandards of
       Just cStandard -> Right cStandard
       Nothing -> Left $ "unknown C standard: " ++ s
+
+    parseGnuOption :: Parser Bool
+    parseGnuOption = switch $ mconcat [
+        long "gnu"
+      , help "Enable GNU extensions"
+      ]
 
     parseOtherArgs :: Parser [String]
     parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
