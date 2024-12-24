@@ -160,15 +160,22 @@ parseVerbosity =
 parseClangArgs :: Parser ClangArgs
 parseClangArgs =
     ClangArgs
-      <$> pure Nothing
+      <$> parseTarget
       <*> fmap Just parseCStandard
       <*> parseGnuOption
       <*> parseOtherArgs
   where
+    parseTarget :: Parser (Maybe String)
+    parseTarget = optional . strOption $ mconcat [
+        long "target"
+      , metavar "TARGET"
+      , help "Target architecture (triplet)"
+      ]
+
     parseCStandard :: Parser CStandard
     parseCStandard = option (eitherReader readCStandard) $ mconcat [
         long "standard"
-      , metavar "STD"
+      , metavar "STANDARD"
       , value defaultCStandard
       , help $ concat [
             "C standard (default: "
@@ -205,14 +212,16 @@ parseClangArgs =
     parseOtherArgs :: Parser [String]
     parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
         long "clang-option"
-      , metavar "OPT"
+      , metavar "OPTION"
       , help "Pass option to libclang"
       ]
 
     readOtherArg :: String -> Either String String
     readOtherArg s
       | s == "-std" || "-std=" `List.isPrefixOf` s =
-          Left "C standard must be set using --standard option"
+          Left "C standard must be set using hs-bindgen --standard option"
+      | s == "--target" || "--target=" `List.isPrefixOf` s =
+          Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
 
 parseInput :: Maybe FilePath -> Parser FilePath
