@@ -68,13 +68,17 @@ import Data.GADT.Compare (GEq(geq), defaultEq)
 import Data.Type.Equality ((:~:)(Refl))
 import Data.Type.Nat as Nat
 import Data.Vec.Lazy qualified as Vec
+import Unsafe.Coerce (unsafeCoerce)
 
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Orphans ()
+import HsBindgen.Util.TestEquality
 
 import DeBruijn
+import DeBruijn.Internal.Add (Add(UnsafeAdd))
 
 {-------------------------------------------------------------------------------
   Information about generated code
@@ -99,15 +103,7 @@ data Struct (n :: Nat) = Struct {
     , structOrigin :: StructOrigin
     }
   deriving stock (Eq, Generic, Show)
-
-instance GEq Struct where
-  geq :: forall n m. Struct n -> Struct m -> Maybe (n :~: m)
-  geq sL sR = Vec.withDict (structFields sL) $ Vec.withDict (structFields sR) $
-    case Nat.eqNat @n @m of
-      Just Refl
-        | sL == sR  -> Just Refl
-        | otherwise -> Nothing
-      Nothing       -> Nothing
+  deriving GEq via ApEq Struct
 
 data StructOrigin =
       StructOriginStruct C.Struct
@@ -231,20 +227,10 @@ data SigmaType where
 deriving stock instance Show SigmaType
 
 instance Eq SigmaType where
-  ForallTy sL' vL' pL' == ForallTy sR' vR' pR' = aux sL' vL' pL' sR' vR' pR'
-    where
-      aux :: forall nL nR.
-           Size nL
-        -> Vec nL NameHint
-        -> PhiType nL
-        -> Size nR
-        -> Vec nR NameHint
-        -> PhiType nR
-        -> Bool
-      aux sL vL pL sR vR pR = Vec.withDict vL $ Vec.withDict vR $
-        case Nat.eqNat @nL @nR of
-          Just Refl -> sL == sR && vL == vR && pL == pR
-          Nothing   -> False
+  ForallTy sL vL pL == ForallTy sR vR pR =
+    fromMaybe False $ do
+      Refl <- geqVec vL vR
+      return $ sL == sR && pL == pR
 
 -- | A φ-type, of the form @ctxt => body@.
 type PhiType :: Ctx -> Star
@@ -269,18 +255,10 @@ data TyConAppTy ctx where
 deriving stock instance Show (TyConAppTy ctx)
 
 instance Eq (TauType ctx) => Eq (TyConAppTy ctx) where
-  TyConApp dL' vL' == TyConApp dR' vR' = aux dL' vL' dR' vR'
-    where
-      aux :: forall nL nR.
-           C.DataTyCon nL
-        -> Vec nL (TauType ctx)
-        -> C.DataTyCon nR
-        -> Vec nR (TauType ctx)
-        -> Bool
-      aux dL vL dR vR = Vec.withDict vL $ Vec.withDict vR $
-        case Nat.eqNat @nL @nR of
-          Just Refl -> dL == dR && vL == vR
-          Nothing   -> False
+  TyConApp dL vL == TyConApp dR vR =
+    fromMaybe False $ do
+      Refl <- geqVec vL vR
+      return $ dL == dR
 
 data ClassTy ctx where
   ClassTy :: C.ClassTyCon arity -> Vec arity (TauType ctx) -> ClassTy ctx
@@ -288,18 +266,10 @@ data ClassTy ctx where
 deriving stock instance Show (ClassTy ctx)
 
 instance Eq (TauType ctx) => Eq (ClassTy ctx) where
-  ClassTy cL' vL' == ClassTy cR' vR' = aux cL' vL' cR' vR'
-    where
-      aux :: forall nL nR.
-           C.ClassTyCon nL
-        -> Vec nL (TauType ctx)
-        -> C.ClassTyCon nR
-        -> Vec nR (TauType ctx)
-        -> Bool
-      aux cL vL cR vR = Vec.withDict vL $ Vec.withDict vR $
-        case Nat.eqNat @nL @nR of
-          Just Refl -> cL == cR && vL == vR
-          Nothing   -> False
+  ClassTy cL vL == ClassTy cR vR =
+    fromMaybe False $ do
+      Refl <- geqVec vL vR
+      return $ cL == cR
 
 -- | RHS of a variable or function declaration.
 type VarDeclRHS :: Ctx -> Star
@@ -421,35 +391,15 @@ data ElimStruct t ctx where
 deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 
 instance (forall ctx'. (Eq (t ctx'))) => Eq (ElimStruct t ctx) where
-  ElimStruct idxL' sL' addL' tL' == ElimStruct idxR' sR' addR' tR' =
-      aux idxL' sL' addL' tL' idxR' sR' addR' tR'
+  ElimStruct idxL sL addL tL == ElimStruct idxR sR addR tR =
+      fromMaybe False $ do
+        Refl <- geq (ApEq sL) (ApEq sR)
+        Refl <- geq idxL idxR
+        case eqAdds addL addR of
+          Refl -> return $ tL == tR
     where
-      aux :: forall ctxL' nL ctxR' nR.
-           Idx ctx
-        -> Struct nL
-        -> Add nL ctx ctxL'
-        -> t ctxL'
-        -> Idx ctx
-        -> Struct nR
-        -> Add nR ctx ctxR'
-        -> t ctxR'
-        -> Bool
-      aux idxL sL addL tL idxR sR addR tR =
-        Vec.withDict (structFields sL) $ Vec.withDict (structFields sR) $
-          case Nat.eqNat @nL @nR of
-            Nothing   -> False
-            Just Refl -> case eqAdds addL addR of
-              Refl -> idxL == idxR && sL == sR && tL == tR
-
-      eqAdds ::
-           (nL ~ nR, mL ~ mR)
-        => Add nL mL pL
-        -> Add nR mR pR
-        -> (pL :~: pR)
-      eqAdds l r = case (l, r) of
-          (AS l', AS r') -> case eqAdds l' r' of
-            Refl -> Refl
-          (AZ, AZ) -> Refl
+      eqAdds :: Add n m pL -> Add n m pR -> pL :~: pR
+      eqAdds (UnsafeAdd !_) (UnsafeAdd !_) = unsafeCoerce Refl
 
 -- | Create 'ElimStruct' using kind-of HOAS interface.
 makeElimStruct :: forall n ctx t.
@@ -475,3 +425,15 @@ makeElimStruct' :: forall m ctx t.
 makeElimStruct' Nat.SZ      kont = kont AZ IdWk VNil
 makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs ->
     kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+geqVec :: forall n m a. Eq a => Vec n a -> Vec m a -> Maybe (n :~: m)
+geqVec l r = Vec.withDict l $ Vec.withDict r $
+    case Nat.eqNat @n @m of
+      Just Refl
+        | l == r    -> Just Refl
+        | otherwise -> Nothing
+      Nothing       -> Nothing

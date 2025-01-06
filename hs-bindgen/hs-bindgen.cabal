@@ -101,6 +101,7 @@ library
       HsBindgen.GenTests.Readme
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.Orphans
       HsBindgen.Pretty.Orphans
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation

@@ -3,7 +3,7 @@
 {-# LANGUAGE PolyKinds #-}
 
 module HsBindgen.Util.TestEquality
-  ( equals )
+  ( equals, ApEq(..) )
   where
 
 -- base
@@ -17,6 +17,10 @@ import GHC.Exts
   )
 import Unsafe.Coerce
   ( unsafeCoerce )
+
+import Data.GADT.Compare (GEq(geq))
+
+import HsBindgen.Imports
 
 --------------------------------------------------------------------------------
 
@@ -45,3 +49,17 @@ equals k1 k2
   = Just $ unsafeCoerce Refl
   | otherwise
   = Nothing
+
+--------------------------------------------------------------------------------
+
+-- | Wrapper that provides a 'GEq' instance definition using 'equals'
+type ApEq :: ( k -> Star ) -> k -> Star
+newtype ApEq f a = ApEq ( f a )
+
+instance forall f.
+  ( forall tag. Eq ( f tag )
+#if MIN_VERSION_base(4,20,0)
+  , forall tag. DataToTag (f tag )
+#endif
+  ) => GEq ( ApEq f ) where
+  geq ( ApEq k1 ) ( ApEq k2 ) = equals k1 k2
