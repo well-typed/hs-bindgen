@@ -64,8 +64,10 @@ module HsBindgen.Hs.AST (
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
+import Data.GADT.Compare (GEq(geq), defaultEq)
 import Data.Type.Equality ((:~:)(Refl))
 import Data.Type.Nat as Nat
+import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Imports
 import HsBindgen.NameHint
@@ -97,6 +99,15 @@ data Struct (n :: Nat) = Struct {
     , structOrigin :: StructOrigin
     }
   deriving stock (Eq, Generic, Show)
+
+instance GEq Struct where
+  geq :: forall n m. Struct n -> Struct m -> Maybe (n :~: m)
+  geq sL sR = Vec.withDict (structFields sL) $ Vec.withDict (structFields sR) $
+    case Nat.eqNat @n @m of
+      Just Refl
+        | sL == sR  -> Just Refl
+        | otherwise -> Nothing
+      Nothing       -> Nothing
 
 data StructOrigin =
       StructOriginStruct C.Struct
@@ -167,7 +178,7 @@ data Decl where
 deriving instance Show Decl
 
 instance Eq Decl where
-  DeclData l == DeclData r = l `eqFSNatI` r
+  DeclData l == DeclData r = l `defaultEq` r
   DeclEmpty l == DeclEmpty r = l == r
   DeclNewtype l == DeclNewtype r = l == r
   DeclPatSyn l == DeclPatSyn r = l == r
@@ -186,13 +197,13 @@ data TypeClass =
 -- | Class instance declaration
 type InstanceDecl :: Star
 data InstanceDecl where
-    InstanceStorable :: SNatI n => Struct n -> StorableInstance -> InstanceDecl
+    InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
 
 deriving instance Show InstanceDecl
 
 instance Eq InstanceDecl where
   InstanceStorable sL iL == InstanceStorable sR iR =
-    sL `eqFSNatI` sR && iL == iR
+    sL `defaultEq` sR && iL == iR
 
 -- | Variable or function declaration.
 type VarDecl :: Star
@@ -211,8 +222,7 @@ data VarDecl =
 type SigmaType :: Star
 data SigmaType where
   ForallTy ::
-       SNatI n
-    => { forallTySize    :: Size n
+       { forallTySize    :: Size n
        , forallTyBinders :: Vec n NameHint
        , forallTy        :: PhiType n
        }
@@ -221,8 +231,20 @@ data SigmaType where
 deriving stock instance Show SigmaType
 
 instance Eq SigmaType where
-  ForallTy sL bL pL == ForallTy sR bR pR =
-    sL `eqFSNatI` sR && bL `eqVec` bR && pL `eqFSNatI` pR
+  ForallTy sL' vL' pL' == ForallTy sR' vR' pR' = aux sL' vL' pL' sR' vR' pR'
+    where
+      aux :: forall nL nR.
+           Size nL
+        -> Vec nL NameHint
+        -> PhiType nL
+        -> Size nR
+        -> Vec nR NameHint
+        -> PhiType nR
+        -> Bool
+      aux sL vL pL sR vR pR = Vec.withDict vL $ Vec.withDict vR $
+        case Nat.eqNat @nL @nR of
+          Just Refl -> sL == sR && vL == vR && pL == pR
+          Nothing   -> False
 
 -- | A φ-type, of the form @ctxt => body@.
 type PhiType :: Ctx -> Star
@@ -242,30 +264,42 @@ data TauType ctx
   deriving stock (Eq, Generic, Show)
 
 data TyConAppTy ctx where
-  TyConApp ::
-       SNatI arity
-    => C.DataTyCon arity
-    -> Vec arity (TauType ctx)
-    -> TyConAppTy ctx
+  TyConApp :: C.DataTyCon arity -> Vec arity (TauType ctx) -> TyConAppTy ctx
 
 deriving stock instance Show (TyConAppTy ctx)
 
-instance Eq (TyConAppTy ctx) where
-  TyConApp conL vecL == TyConApp conR vecR =
-    conL `eqFSNatI` conR && vecL `eqVec` vecR
+instance Eq (TauType ctx) => Eq (TyConAppTy ctx) where
+  TyConApp dL' vL' == TyConApp dR' vR' = aux dL' vL' dR' vR'
+    where
+      aux :: forall nL nR.
+           C.DataTyCon nL
+        -> Vec nL (TauType ctx)
+        -> C.DataTyCon nR
+        -> Vec nR (TauType ctx)
+        -> Bool
+      aux dL vL dR vR = Vec.withDict vL $ Vec.withDict vR $
+        case Nat.eqNat @nL @nR of
+          Just Refl -> dL == dR && vL == vR
+          Nothing   -> False
 
 data ClassTy ctx where
-  ClassTy ::
-       SNatI arity
-    => C.ClassTyCon arity
-    -> Vec arity (TauType ctx)
-    -> ClassTy ctx
+  ClassTy :: C.ClassTyCon arity -> Vec arity (TauType ctx) -> ClassTy ctx
 
 deriving stock instance Show (ClassTy ctx)
 
-instance Eq (ClassTy ctx) where
-  ClassTy conL vecL == ClassTy conR vecR =
-    conL `eqFSNatI` conR && vecL `eqVec` vecR
+instance Eq (TauType ctx) => Eq (ClassTy ctx) where
+  ClassTy cL' vL' == ClassTy cR' vR' = aux cL' vL' cR' vR'
+    where
+      aux :: forall nL nR.
+           C.ClassTyCon nL
+        -> Vec nL (TauType ctx)
+        -> C.ClassTyCon nR
+        -> Vec nR (TauType ctx)
+        -> Bool
+      aux cL vL cR vR = Vec.withDict vL $ Vec.withDict vR $
+        case Nat.eqNat @nL @nR of
+          Just Refl -> cL == cR && vL == vR
+          Nothing   -> False
 
 -- | RHS of a variable or function declaration.
 type VarDeclRHS :: Ctx -> Star
@@ -282,14 +316,14 @@ data VarDeclRHS ctx
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. SNatI arity => InfixAppHead (C.MFun arity)
+  = forall arity. InfixAppHead (C.MFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (HsName NsVar)
 
 deriving stock instance Show VarDeclRHSAppHead
 
 instance Eq VarDeclRHSAppHead where
-  InfixAppHead l == InfixAppHead r = l `eqFSNatI` r
+  InfixAppHead l == InfixAppHead r = l `defaultEq` r
   VarAppHead l == VarAppHead r = l == r
   _l == _r = False
 
@@ -367,19 +401,18 @@ newtype Seq t ctx = Seq [t ctx]
 
 type StructCon :: Ctx -> Star
 data StructCon ctx where
-    StructCon :: SNatI n => Struct n -> StructCon ctx
+    StructCon :: Struct n -> StructCon ctx
 
 deriving instance Show (StructCon ctx)
 
 instance Eq (StructCon ctx) where
-  StructCon sL == StructCon sR = sL `eqFSNatI` sR
+  StructCon sL == StructCon sR = sL `defaultEq` sR
 
 -- | Case split for a struct
 type ElimStruct :: (Ctx -> Star) -> (Ctx -> Star)
 data ElimStruct t ctx where
     ElimStruct ::
-         (SNatI ctx, SNatI ctx', SNatI n)
-      => Idx ctx
+         Idx ctx
       -> Struct n
       -> Add n ctx ctx'
       -> t ctx'
@@ -388,20 +421,42 @@ data ElimStruct t ctx where
 deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 
 instance (forall ctx'. (Eq (t ctx'))) => Eq (ElimStruct t ctx) where
-  ElimStruct idxL sL addL tL == ElimStruct idxR sR addR tR =
-    fromMaybe False $ do
-      Refl <- propEqFSNatI sL sR
-      guard $ sL == sR
-      Refl <- propEqFSNatI idxL idxR
-      pure $ case eqAdds addL addR of
-        Refl -> tL == tR
+  ElimStruct idxL' sL' addL' tL' == ElimStruct idxR' sR' addR' tR' =
+      aux idxL' sL' addL' tL' idxR' sR' addR' tR'
+    where
+      aux :: forall ctxL' nL ctxR' nR.
+           Idx ctx
+        -> Struct nL
+        -> Add nL ctx ctxL'
+        -> t ctxL'
+        -> Idx ctx
+        -> Struct nR
+        -> Add nR ctx ctxR'
+        -> t ctxR'
+        -> Bool
+      aux idxL sL addL tL idxR sR addR tR =
+        Vec.withDict (structFields sL) $ Vec.withDict (structFields sR) $
+          case Nat.eqNat @nL @nR of
+            Nothing   -> False
+            Just Refl -> case eqAdds addL addR of
+              Refl -> idxL == idxR && sL == sR && tL == tR
+
+      eqAdds ::
+           (nL ~ nR, mL ~ mR)
+        => Add nL mL pL
+        -> Add nR mR pR
+        -> (pL :~: pR)
+      eqAdds l r = case (l, r) of
+          (AS l', AS r') -> case eqAdds l' r' of
+            Refl -> Refl
+          (AZ, AZ) -> Refl
 
 -- | Create 'ElimStruct' using kind-of HOAS interface.
 makeElimStruct :: forall n ctx t.
-     (SNatI n, SNatI ctx)
+     SNatI n
   => Idx ctx
   -> Struct n
-  -> (forall ctx'. SNatI ctx' => Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx')
+  -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx')
   -> ElimStruct t ctx
 makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
     ElimStruct s struct add (kont wk xs)
@@ -409,39 +464,14 @@ makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
 -- TODO: use Data.Type.Nat.induction instead of explicit recursion.
 -- TODO: verify that we bind fields in right order.
 makeElimStruct' :: forall m ctx t.
-     SNatI ctx
-  => SNat m
+     SNat m
   -> ( forall ctx'.
-             SNatI ctx'
-          => Add m ctx ctx'
-          -> Wk ctx ctx'
-          -> Vec m (Idx ctx')
-          -> ElimStruct t ctx
+            Add m ctx ctx'
+         -> Wk ctx ctx'
+         -> Vec m (Idx ctx')
+         -> ElimStruct t ctx
      )
   -> ElimStruct t ctx
 makeElimStruct' Nat.SZ      kont = kont AZ IdWk VNil
 makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs ->
     kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)
-
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
-
-propEqFSNatI :: (SNatI n, SNatI m) => f n -> f m -> Maybe (n :~: m)
-propEqFSNatI _l _r = Nat.eqNat
-
-eqFSNatI :: (Eq (f n), SNatI n, SNatI m) => f n -> f m -> Bool
-eqFSNatI l r = case propEqFSNatI l r of
-    Just Refl -> l == r
-    Nothing   -> False
-
-eqAdds :: (nL ~ nR, mL ~ mR) => Add nL mL pL -> Add nR mR pR -> (pL :~: pR)
-eqAdds l r = case (l, r) of
-    (AS l', AS r') -> case eqAdds l' r' of
-      Refl -> Refl
-    (AZ, AZ) -> Refl
-
-eqVec :: forall n m a. (Eq a, SNatI n, SNatI m) => Vec n a -> Vec m a -> Bool
-eqVec l r = case (Nat.eqNat :: Maybe (n :~: m)) of
-    Just Refl -> l == r
-    Nothing   -> False
