@@ -133,6 +133,7 @@ data Struct = Struct {
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
+    , structFlam      :: Maybe StructField -- ^ Note: type is the type of elements of flexible array.
     , structSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)

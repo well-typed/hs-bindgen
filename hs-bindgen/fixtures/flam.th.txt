@@ -1,0 +1,22 @@
+data Pascal = Pascal {pascal_len :: CInt}
+instance Storable Pascal
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure Pascal <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Pascal pascal_len_3 -> pokeByteOff ptr_1 0 pascal_len_3}}
+data Foo_bar = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
+instance Storable Foo_bar
+    where {sizeOf = \_ -> 8;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> (pure Foo_bar <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Foo_bar foo_bar_x_3
+                                             foo_bar_y_4 -> pokeByteOff ptr_1 0 foo_bar_x_3 >> pokeByteOff ptr_1 4 foo_bar_y_4}}
+data Foo = Foo {foo_len :: CInt}
+instance Storable Foo
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Foo foo_len_3 -> pokeByteOff ptr_1 0 foo_len_3}}

@@ -8,9 +8,10 @@ module HsBindgen.C.Fold.Type (
 ) where
 
 import Control.Monad.State (State, get, put, gets)
-import Foreign.C
+import Data.Either (partitionEithers)
 import Data.Map.Ordered.Strict qualified as OMap
 import Data.Text qualified as T
+import Foreign.C
 
 import HsBindgen.C.AST
 
@@ -204,15 +205,21 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
                     sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                     alignment <- liftIO (clang_Type_getAlignOf ty)
 
-                    fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                    fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
                         mfield <- mkStructField relPath unit declPath cursor
                         return $ Continue mfield
+
+                    (flam, fields) <- case partitionEithers fields' of
+                        ([],     fields) -> return (Nothing, fields)
+                        ([flam], fields) -> return (Just flam, fields)
+                        (_, _)           -> fail "Multiple flexible array members"
 
                     addDecl ty $ DeclStruct Struct
                         { structDeclPath  = declPath
                         , structSizeof    = fromIntegral sizeof
                         , structAlignment = fromIntegral alignment
                         , structFields    = fields
+                        , structFlam      = flam
                         , structSourceLoc = sloc
                         }
 
@@ -367,7 +374,7 @@ mkStructField ::
   -> CXTranslationUnit
   -> DeclPath
   -> CXCursor
-  -> Eff (State DeclState) (Maybe StructField)
+  -> Eff (State DeclState) (Maybe (Either StructField StructField)) -- ^ Left values are flexible array members.
 mkStructField relPath unit path current = do
     fieldSourceLoc <- liftIO $
       HighLevel.clang_getExpansionLocation relPath
@@ -391,7 +398,8 @@ mkStructField relPath unit path current = do
               fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
               unless (fieldOffset `mod` 8 == 0) $
                 fail "bit-fields not supported yet"
-              return $ Just StructField {
+
+              return $ Just $ Right StructField {
                   fieldName
                 , fieldOffset
                 , fieldType
@@ -401,18 +409,22 @@ mkStructField relPath unit path current = do
         else do
           fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
           ty          <- liftIO (clang_getCursorType current)
-          -- TODO: correct path
-          fieldType   <- processTypeDeclRec relPath (DeclPathField fieldName path) unit ty
-          fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
-          unless (fieldOffset `mod` 8 == 0) $ fail "bit-fields not supported yet"
+          case fromSimpleEnum $ cxtKind ty of
+            Right CXType_IncompleteArray -> do
+                e <- liftIO $ clang_getArrayElementType ty
+                fieldType <- processTypeDeclRec relPath (DeclPathField fieldName path) unit e
+                fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
-          return $ Just StructField {
-              fieldName
-            , fieldOffset
-            , fieldType
-            , fieldSourceLoc
-            }
+                return $ Just $ Left  StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+
+            _ -> do
+                fieldType   <- processTypeDeclRec relPath (DeclPathField fieldName path) unit ty
+                fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
+
+                unless (fieldOffset `mod` 8 == 0) $ fail "bit-fields not supported yet"
+
+                return $ Just $ Right StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
 
       -- inner structs, there are two approaches:
       -- * process eagerly
