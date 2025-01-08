@@ -104,7 +104,7 @@ import HsBindgen.Util.Tracer
 newtype CHeader = WrapCHeader {
       unwrapCHeader :: C.Header
     }
-  deriving (Eq, Generic)
+  deriving (Generic)
 
 newtype HsModule = WrapHsModule {
       unwrapHsModule :: Backend.PP.HsModule
