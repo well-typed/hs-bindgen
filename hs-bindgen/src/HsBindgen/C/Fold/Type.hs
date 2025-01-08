@@ -386,11 +386,11 @@ mkStructField relPath unit path current = do
           tokens <- HighLevel.clang_tokenize relPath unit (multiLocExpansion <$> extent)
           case reparseWith reparseFieldDecl tokens of
             Left err ->
-              error $ "mkStructField: " ++ show err
+              fail $ "mkStructField: " ++ show err
             Right (fieldType, fieldName) -> do
               fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
               unless (fieldOffset `mod` 8 == 0) $
-                error "bit-fields not supported yet"
+                fail "bit-fields not supported yet"
               return $ Just StructField {
                   fieldName
                 , fieldOffset
@@ -405,7 +405,7 @@ mkStructField relPath unit path current = do
           fieldType   <- processTypeDeclRec relPath (DeclPathField fieldName path) unit ty
           fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
-          unless (fieldOffset `mod` 8 == 0) $ error "bit-fields not supported yet"
+          unless (fieldOffset `mod` 8 == 0) $ fail "bit-fields not supported yet"
 
           return $ Just StructField {
               fieldName
