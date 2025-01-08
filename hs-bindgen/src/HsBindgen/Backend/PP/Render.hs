@@ -104,11 +104,12 @@ instance Pretty SDecl where
 
     DInst Instance{..} -> vsep $
         hsep
-          [ "instance"
+          ([ "instance"
           , pretty (resolve instanceClass)
-          , pretty instanceType
-          , "where"
-          ]
+          ] ++
+          map pretty instanceArgs ++
+          [ "where"
+          ])
       : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
             [ ppUnqualBackendName (resolve name) <+> char '='
             , nest 2 $ pretty expr

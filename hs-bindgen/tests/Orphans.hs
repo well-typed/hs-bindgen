@@ -178,6 +178,8 @@ instance ToExpr Hs.InstanceDecl where
   toExpr = \case
     Hs.InstanceStorable struct inst ->
       Expr.App "InstanceStorable" [toExpr struct, toExpr inst]
+    Hs.InstanceHasFLAM struct fty i ->
+      Expr.App "InstanceHasFLAM" [toExpr struct, toExpr fty, toExpr i]
 
 instance ToExpr (t (S ctx)) => ToExpr (Hs.Lambda t ctx) where
   toExpr (Hs.Lambda name body) = Expr.App "Lambda" [toExpr name, toExpr body]

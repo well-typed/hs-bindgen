@@ -25,6 +25,7 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.Arithmetic qualified (Div(..))
+import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -52,6 +53,8 @@ mkGlobal =  \case
       Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
       ConstantArray        -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IO_type              -> ''IO
+      HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
+      HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
 
       Eq_class             -> ''Eq
       Ord_class            -> ''Ord
@@ -218,9 +221,8 @@ mkDecl = \case
 
       DInst i  -> singleton <$> TH.instanceD
                     (return [])
-                    [t| $(TH.conT $ mkGlobal $ instanceClass i)
-                        $(hsConT  $ instanceType i)
-                    |]
+                    (appsT (TH.conT $ mkGlobal $ instanceClass i)
+                        (map (mkType EmptyEnv) $ instanceArgs i))
                     ( map (\(x, f) -> simpleDecl (mkGlobal x) f) $
                         instanceDecs i
                     )
@@ -274,6 +276,9 @@ mkDecl = \case
 {-------------------------------------------------------------------------------
   Monad functionality
 -------------------------------------------------------------------------------}
+
+appsT :: Quote q => q TH.Type -> [q TH.Type] -> q TH.Type
+appsT = foldl' TH.appT
 
 hsConE :: Quote m => HsName NsConstr -> m TH.Exp
 hsConE = TH.conE . hsNameToTH

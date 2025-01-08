@@ -35,6 +35,9 @@ iBits = HsImportModule "Data.Bits" (Just "DB")
 iConstantArray :: HsImportModule
 iConstantArray = HsImportModule "HsBindgen.ConstantArray" Nothing
 
+iFlexibleArrayMember :: HsImportModule
+iFlexibleArrayMember = HsImportModule "HsBindgen.Patterns.FlexibleArrayMember" Nothing
+
 -- | @Data.Void@ import module
 iDataVoid :: HsImportModule
 iDataVoid = HsImportModule "Data.Void" Nothing
@@ -138,6 +141,8 @@ resolveGlobal = \case
     Foreign_FunPtr       -> importQ iForeign "FunPtr"
     ConstantArray        -> importQ iConstantArray "ConstantArray"
     IO_type              -> importU iPrelude "IO"
+    HasFlexibleArrayMember_class -> importQ iFlexibleArrayMember "HasFlexibleArrayMember"
+    HasFlexibleArrayMember_offset -> importQ iFlexibleArrayMember "flexibleArrayMemberOffset"
 
     Eq_class         -> importQ iPrelude           "Eq"
     Ord_class        -> importQ iPrelude           "Ord"

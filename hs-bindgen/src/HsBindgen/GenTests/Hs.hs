@@ -104,6 +104,7 @@ getFfiFunctions includeFile cFunPrefix = \case
         , FfiGenSeqC  includeFile cFunPrefix structName
         , FfiPreturb  includeFile cFunPrefix structName
         ]
+      Hs.InstanceHasFLAM {} -> []
     Hs.DeclNewtypeInstance{} -> []
     Hs.DeclForeignImport{} -> []
     Hs.DeclVar{} -> []
@@ -122,6 +123,7 @@ getOrphanInstances = \case
             , PreturbInstance       structName structConstr fieldNames
             , SameSemanticsInstance structName              fieldNames
             ]
+      Hs.InstanceHasFLAM {} -> []
     Hs.DeclNewtypeInstance{} -> []
     Hs.DeclForeignImport{} -> []
     Hs.DeclVar{} -> []
@@ -135,6 +137,7 @@ getTypeTests = \case
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         [TypeTest structName]
+      Hs.InstanceHasFLAM {} -> []
     Hs.DeclNewtypeInstance{} -> []
     Hs.DeclForeignImport{} -> []
     Hs.DeclVar{} -> []
@@ -147,6 +150,7 @@ getTestsFunNames = \case
     Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance -> [structName]
+      Hs.InstanceHasFLAM {} -> []
     Hs.DeclNewtypeInstance{} -> []
     Hs.DeclForeignImport{} -> []
     Hs.DeclVar{} -> []

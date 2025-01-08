@@ -36,6 +36,12 @@ translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
 translateInstanceDecl :: Hs.InstanceDecl -> SDecl
 translateInstanceDecl (Hs.InstanceStorable struct i) =
     DInst $ translateStorableInstance struct i
+translateInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
+    DInst Instance
+      { instanceClass = HasFlexibleArrayMember_class
+      , instanceArgs  = [TCon $ Hs.structName struct, translateType fty ]
+      , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
+      }
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord $ Record
@@ -206,7 +212,7 @@ translateStorableInstance struct Hs.StorableInstance{..} = do
     let poke = lambda (lambda (translateElimStruct (doAll translatePokeByteOff))) storablePoke
     Instance
       { instanceClass = Storable_Storable
-      , instanceType  = Hs.structName struct
+      , instanceArgs  = [TCon $ Hs.structName struct]
       , instanceDecs  = [
             (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
           , (Storable_alignment , EUnusedLam $ EInt storableAlignment)
