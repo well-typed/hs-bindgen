@@ -15,13 +15,13 @@ module HsBindgen.C.AST.Macro (
   ) where
 
 import Data.Char (toUpper)
+import Data.GADT.Compare (GEq(geq))
 import Data.Nat (Nat(..))
 import Data.Vec.Lazy (Vec(..))
 import Data.String
 import Data.Text qualified as Text
 import Data.Type.Equality
   ( type (:~:)(..) )
-import Data.Type.Nat qualified as Nat
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal(..))
@@ -57,7 +57,7 @@ data Macro = Macro {
 data MExpr =
     MTerm MTerm
   -- | Exactly saturated non-nullary function application.
-  | forall n. Nat.SNatI n => MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
+  | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
 deriving stock instance Show MExpr
 instance PrettyVal MExpr where
   prettyVal = \case
@@ -121,6 +121,31 @@ data MFun arity where
 
 deriving stock instance Show ( MFun arity )
 deriving stock instance Eq   ( MFun arity )
+
+instance GEq MFun where
+  geq MUnaryPlus  MUnaryPlus  = Just Refl
+  geq MUnaryMinus MUnaryMinus = Just Refl
+  geq MLogicalNot MLogicalNot = Just Refl
+  geq MBitwiseNot MBitwiseNot = Just Refl
+  geq MMult       MMult       = Just Refl
+  geq MDiv        MDiv        = Just Refl
+  geq MRem        MRem        = Just Refl
+  geq MAdd        MAdd        = Just Refl
+  geq MSub        MSub        = Just Refl
+  geq MShiftLeft  MShiftLeft  = Just Refl
+  geq MShiftRight MShiftRight = Just Refl
+  geq MRelLT      MRelLT      = Just Refl
+  geq MRelLE      MRelLE      = Just Refl
+  geq MRelGT      MRelGT      = Just Refl
+  geq MRelGE      MRelGE      = Just Refl
+  geq MRelEQ      MRelEQ      = Just Refl
+  geq MRelNE      MRelNE      = Just Refl
+  geq MBitwiseAnd MBitwiseAnd = Just Refl
+  geq MBitwiseXor MBitwiseXor = Just Refl
+  geq MBitwiseOr  MBitwiseOr  = Just Refl
+  geq MLogicalAnd MLogicalAnd = Just Refl
+  geq MLogicalOr  MLogicalOr  = Just Refl
+  geq _           _           = Nothing
 
 instance PrettyVal ( MFun arity ) where
   prettyVal f = Pretty.Con (show f) []
