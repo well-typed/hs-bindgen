@@ -196,7 +196,7 @@ test-suite golden
     , tasty         ^>=1.5
     , tasty-hunit   ^>=0.10.2
     , temporary
-    , tree-diff     ^>=0.3.2
+    , tree-diff     ^>=0.3.4
     , utf8-string   ^>=1.0.2
 
 test-suite test-th
