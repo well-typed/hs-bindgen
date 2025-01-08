@@ -761,4 +761,323 @@
                   PokeByteOff
                     (Idx 2)
                     0
-                    (Idx 0)])))})]
+                    (Idx 0)])))}),
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "Diff",
+      structConstr = HsName
+        "@NsConstr"
+        "Diff",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "diff_first",
+          fieldType = HsPrimType
+            HsPrimCLong,
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "first",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimLong Signed)),
+              fieldSourceLoc =
+              "examples/flam.h:18:7"}},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "diff_second",
+          fieldType = HsPrimType
+            HsPrimCChar,
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "second",
+              fieldOffset = 64,
+              fieldType = TypePrim
+                (PrimChar Nothing),
+              fieldSourceLoc =
+              "examples/flam.h:19:7"}}],
+      structOrigin =
+      StructOriginStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "diff"))
+            DeclPathTop,
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "first",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimLong Signed)),
+              fieldSourceLoc =
+              "examples/flam.h:18:7"},
+            StructField {
+              fieldName = CName "second",
+              fieldOffset = 64,
+              fieldType = TypePrim
+                (PrimChar Nothing),
+              fieldSourceLoc =
+              "examples/flam.h:19:7"}],
+          structFlam = Just
+            StructField {
+              fieldName = CName "flam",
+              fieldOffset = 72,
+              fieldType = TypePrim
+                (PrimChar Nothing),
+              fieldSourceLoc =
+              "examples/flam.h:20:7"},
+          structSourceLoc =
+          "examples/flam.h:17:8"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Diff",
+        structConstr = HsName
+          "@NsConstr"
+          "Diff",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "diff_first",
+            fieldType = HsPrimType
+              HsPrimCLong,
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "first",
+                fieldOffset = 0,
+                fieldType = TypePrim
+                  (PrimIntegral
+                    (PrimLong Signed)),
+                fieldSourceLoc =
+                "examples/flam.h:18:7"}},
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "diff_second",
+            fieldType = HsPrimType
+              HsPrimCChar,
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "second",
+                fieldOffset = 64,
+                fieldType = TypePrim
+                  (PrimChar Nothing),
+                fieldSourceLoc =
+                "examples/flam.h:19:7"}}],
+        structOrigin =
+        StructOriginStruct
+          Struct {
+            structDeclPath = DeclPathStruct
+              (DeclNameTag (CName "diff"))
+              DeclPathTop,
+            structSizeof = 16,
+            structAlignment = 8,
+            structFields = [
+              StructField {
+                fieldName = CName "first",
+                fieldOffset = 0,
+                fieldType = TypePrim
+                  (PrimIntegral
+                    (PrimLong Signed)),
+                fieldSourceLoc =
+                "examples/flam.h:18:7"},
+              StructField {
+                fieldName = CName "second",
+                fieldOffset = 64,
+                fieldType = TypePrim
+                  (PrimChar Nothing),
+                fieldSourceLoc =
+                "examples/flam.h:19:7"}],
+            structFlam = Just
+              StructField {
+                fieldName = CName "flam",
+                fieldOffset = 72,
+                fieldType = TypePrim
+                  (PrimChar Nothing),
+                fieldSourceLoc =
+                "examples/flam.h:20:7"},
+            structSourceLoc =
+            "examples/flam.h:17:8"}}
+      StorableInstance {
+        storableSizeOf = 16,
+        storableAlignment = 8,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Diff",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Diff",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "diff_first",
+                    fieldType = HsPrimType
+                      HsPrimCLong,
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "first",
+                        fieldOffset = 0,
+                        fieldType = TypePrim
+                          (PrimIntegral
+                            (PrimLong Signed)),
+                        fieldSourceLoc =
+                        "examples/flam.h:18:7"}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "diff_second",
+                    fieldType = HsPrimType
+                      HsPrimCChar,
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "second",
+                        fieldOffset = 64,
+                        fieldType = TypePrim
+                          (PrimChar Nothing),
+                        fieldSourceLoc =
+                        "examples/flam.h:19:7"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathStruct
+                      (DeclNameTag (CName "diff"))
+                      DeclPathTop,
+                    structSizeof = 16,
+                    structAlignment = 8,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "first",
+                        fieldOffset = 0,
+                        fieldType = TypePrim
+                          (PrimIntegral
+                            (PrimLong Signed)),
+                        fieldSourceLoc =
+                        "examples/flam.h:18:7"},
+                      StructField {
+                        fieldName = CName "second",
+                        fieldOffset = 64,
+                        fieldType = TypePrim
+                          (PrimChar Nothing),
+                        fieldSourceLoc =
+                        "examples/flam.h:19:7"}],
+                    structFlam = Just
+                      StructField {
+                        fieldName = CName "flam",
+                        fieldOffset = 72,
+                        fieldType = TypePrim
+                          (PrimChar Nothing),
+                        fieldSourceLoc =
+                        "examples/flam.h:20:7"},
+                    structSourceLoc =
+                    "examples/flam.h:17:8"}})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 8]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Diff",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Diff",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "diff_first",
+                    fieldType = HsPrimType
+                      HsPrimCLong,
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "first",
+                        fieldOffset = 0,
+                        fieldType = TypePrim
+                          (PrimIntegral
+                            (PrimLong Signed)),
+                        fieldSourceLoc =
+                        "examples/flam.h:18:7"}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "diff_second",
+                    fieldType = HsPrimType
+                      HsPrimCChar,
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "second",
+                        fieldOffset = 64,
+                        fieldType = TypePrim
+                          (PrimChar Nothing),
+                        fieldSourceLoc =
+                        "examples/flam.h:19:7"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathStruct
+                      (DeclNameTag (CName "diff"))
+                      DeclPathTop,
+                    structSizeof = 16,
+                    structAlignment = 8,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "first",
+                        fieldOffset = 0,
+                        fieldType = TypePrim
+                          (PrimIntegral
+                            (PrimLong Signed)),
+                        fieldSourceLoc =
+                        "examples/flam.h:18:7"},
+                      StructField {
+                        fieldName = CName "second",
+                        fieldOffset = 64,
+                        fieldType = TypePrim
+                          (PrimChar Nothing),
+                        fieldSourceLoc =
+                        "examples/flam.h:19:7"}],
+                    structFlam = Just
+                      StructField {
+                        fieldName = CName "flam",
+                        fieldOffset = 72,
+                        fieldType = TypePrim
+                          (PrimChar Nothing),
+                        fieldSourceLoc =
+                        "examples/flam.h:20:7"},
+                    structSourceLoc =
+                    "examples/flam.h:17:8"}}
+              (Add 2)
+              (Seq
+                [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
+                  PokeByteOff
+                    (Idx 3)
+                    8
+                    (Idx 1)])))})]

@@ -20,3 +20,11 @@ instance Storable Foo
            peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo foo_len_3 -> pokeByteOff ptr_1 0 foo_len_3}}
+data Diff = Diff {diff_first :: CLong, diff_second :: CChar}
+instance Storable Diff
+    where {sizeOf = \_ -> 16;
+           alignment = \_ -> 8;
+           peek = \ptr_0 -> (pure Diff <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Diff diff_first_3
+                                          diff_second_4 -> pokeByteOff ptr_1 0 diff_first_3 >> pokeByteOff ptr_1 8 diff_second_4}}
