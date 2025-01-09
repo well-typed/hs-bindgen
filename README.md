@@ -137,13 +137,13 @@ When hand-writing high-level bindings, there are undoubtedly a lot of patterns
 that emerge. We should [capture these as Haskell functions or type
 classes](https://github.com/well-typed/hs-bindgen/issues/27) and [release this
 as a separate library
-`hs-bindgen-patterns`](https://github.com/well-typed/hs-bindgen/issues/28).
+`hs-bindgen-runtime`](https://github.com/well-typed/hs-bindgen/issues/28).
 
 ### [Milestone 3: High-level API](https://github.com/well-typed/hs-bindgen/milestone/4)
 
 Even in the ideal case that _all_ patterns that are used in the construction
 of the high-level bindings can be expressed using the patterns provided by the
-`hs-bindgen-patterns` library from milestone 2.5, it might still be cumbersome
+`hs-bindgen-runtime` library from milestone 2.5, it might still be cumbersome
 to have to write them all out, and so some generation might still be useful.
 
 This is all the more important for data type declarations (as opposed to
@@ -161,7 +161,7 @@ files themselves, or through using `hs-bindgen` as a library with customizations
 as regular Haskell code. It is conceivable that in cases that would require
 extensive customization, perhaps the most direct way to do that customization is
 not to use generation at all, but simply write bindings manually, provided that
-the `hs-bindgen-patterns` library provides sufficient support.
+the `hs-bindgen-runtime` library provides sufficient support.
 
 Nonetheless, there will probably be scenarios where a [set of defaults and
 heuristics](https://github.com/well-typed/hs-bindgen/issues/32) can do a good

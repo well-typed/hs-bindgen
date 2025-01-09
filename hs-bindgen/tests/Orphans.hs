@@ -213,7 +213,7 @@ instance ToExpr (Hs.TyConAppTy ctx) where
     Expr.App "TyConApp" [toExpr tycon, toExpr args]
 
 {-------------------------------------------------------------------------------
-  hs-bindgen-patterns
+  hs-bindgen-runtime
 -------------------------------------------------------------------------------}
 
 instance ToExpr (SimpleEnum hs)
