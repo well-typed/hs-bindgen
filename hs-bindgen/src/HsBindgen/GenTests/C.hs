@@ -77,6 +77,7 @@ getTestHeaderDecls cFunPrefix = \case
             , CTestPreturbDecl  cFunPrefix structName cts
             ]
           Nothing -> []
+      Hs.InstanceHasFLAM {} -> []
     Hs.DeclNewtypeInstance{} -> []
     Hs.DeclForeignImport{} -> []
     Hs.DeclVar{} -> []
@@ -99,6 +100,7 @@ getTestSourceDefns cFunPrefix = \case
                 , CTestPreturbDefn  cFunPrefix structName cts fieldPs
                 ]
           Nothing -> []
+      Hs.InstanceHasFLAM {} -> []
     Hs.DeclNewtypeInstance{} -> []
     Hs.DeclForeignImport{} -> []
     Hs.DeclVar{} -> []

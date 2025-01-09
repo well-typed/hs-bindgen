@@ -174,6 +174,7 @@ data TypeClass =
 type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
+    InstanceHasFLAM  :: Struct n -> HsType -> Int -> InstanceDecl
 
 deriving instance Show InstanceDecl
 

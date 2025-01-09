@@ -85,4 +85,37 @@ WrapCHeader
               fieldSourceLoc =
               "examples/flam.h:13:4"},
           structSourceLoc =
-          "examples/flam.h:8:8"}])
+          "examples/flam.h:8:8"},
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "diff"))
+            DeclPathTop,
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "first",
+              fieldOffset = 0,
+              fieldType = TypePrim
+                (PrimIntegral
+                  (PrimLong Signed)),
+              fieldSourceLoc =
+              "examples/flam.h:18:7"},
+            StructField {
+              fieldName = CName "second",
+              fieldOffset = 64,
+              fieldType = TypePrim
+                (PrimChar Nothing),
+              fieldSourceLoc =
+              "examples/flam.h:19:7"}],
+          structFlam = Just
+            StructField {
+              fieldName = CName "flam",
+              fieldOffset = 72,
+              fieldType = TypePrim
+                (PrimChar Nothing),
+              fieldSourceLoc =
+              "examples/flam.h:20:7"},
+          structSourceLoc =
+          "examples/flam.h:17:8"}])

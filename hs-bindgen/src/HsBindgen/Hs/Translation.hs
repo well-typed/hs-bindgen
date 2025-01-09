@@ -86,11 +86,13 @@ structDecs struct fields =
     [ Hs.DeclData hs
     , Hs.DeclInstance $ Hs.InstanceStorable hs storable
     ]
+    ++ flamInstance
   where
+    nm@NameMangler{..} = defaultNameMangler
+
     hs :: Hs.Struct n
     hs =
-      let nm@NameMangler{..} = defaultNameMangler
-          typeConstrCtx = StructTypeConstrContext $ C.structDeclPath struct
+      let typeConstrCtx = StructTypeConstrContext $ C.structDeclPath struct
           structName = mangleTypeConstrName typeConstrCtx
           structConstr = mangleConstrName $ ConstrContext typeConstrCtx
           structFields = flip Vec.map fields $ \f -> Hs.Field {
@@ -117,6 +119,14 @@ structDecs struct fields =
 
     poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
     poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
+
+    flamInstance :: [Hs.Decl]
+    flamInstance = case C.structFlam struct of
+      Nothing  -> []
+      Just flam -> singleton $ Hs.DeclInstance $ Hs.InstanceHasFLAM
+        hs
+        (typ nm (C.fieldType flam))
+        (C.fieldOffset flam `div` 8)
 
 {-------------------------------------------------------------------------------
   Opaque struct

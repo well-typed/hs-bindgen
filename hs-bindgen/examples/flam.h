@@ -12,3 +12,10 @@ struct foo {
 		int y;
 	} bar[];
 };
+
+// offset and sizeof not the same
+struct diff {
+	long first;
+	char second;
+	char flam[];
+};

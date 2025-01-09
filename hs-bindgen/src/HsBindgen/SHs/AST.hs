@@ -48,6 +48,8 @@ data Global =
   | Foreign_FunPtr
   | ConstantArray
   | IO_type
+  | HasFlexibleArrayMember_class
+  | HasFlexibleArrayMember_offset
 
   | Eq_class
   | Ord_class
@@ -147,7 +149,7 @@ deriving stock instance Show (SType ctx)
 
 data Instance  = Instance {
       instanceClass :: Global
-    , instanceType  :: HsName NsTypeConstr
+    , instanceArgs  :: [ClosedType]
     , instanceDecs  :: [(Global, ClosedExpr)]
     }
   deriving stock (Show)

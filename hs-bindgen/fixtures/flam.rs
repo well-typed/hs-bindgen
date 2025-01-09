@@ -75,3 +75,18 @@ const _: () = {
     ["Offset of field: foo::len"][::std::mem::offset_of!(foo, len) - 0usize];
     ["Offset of field: foo::bar"][::std::mem::offset_of!(foo, bar) - 4usize];
 };
+#[repr(C)]
+#[derive(Debug)]
+pub struct diff {
+    pub first: ::std::os::raw::c_long,
+    pub second: ::std::os::raw::c_char,
+    pub flam: __IncompleteArrayField<::std::os::raw::c_char>,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of diff"][::std::mem::size_of::<diff>() - 16usize];
+    ["Alignment of diff"][::std::mem::align_of::<diff>() - 8usize];
+    ["Offset of field: diff::first"][::std::mem::offset_of!(diff, first) - 0usize];
+    ["Offset of field: diff::second"][::std::mem::offset_of!(diff, second) - 8usize];
+    ["Offset of field: diff::flam"][::std::mem::offset_of!(diff, flam) - 9usize];
+};
