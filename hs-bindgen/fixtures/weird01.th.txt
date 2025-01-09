@@ -1,0 +1,16 @@
+foreign import capi safe "weird01.h func" func :: Ptr Bar ->
+                                                  IO Void
+data Foo = Foo {foo_z :: CInt}
+instance Storable Foo
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Foo foo_z_3 -> pokeByteOff ptr_1 0 foo_z_3}}
+data Bar = Bar {bar_x :: CInt}
+instance Storable Bar
+    where {sizeOf = \_ -> 4;
+           alignment = \_ -> 4;
+           peek = \ptr_0 -> pure Bar <*> peekByteOff ptr_0 0;
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Bar bar_x_3 -> pokeByteOff ptr_1 0 bar_x_3}}
