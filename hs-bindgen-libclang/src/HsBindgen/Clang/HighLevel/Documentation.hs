@@ -19,7 +19,7 @@ import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 {-------------------------------------------------------------------------------
   Definition

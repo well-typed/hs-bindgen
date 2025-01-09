@@ -1,12 +1,7 @@
 -- | Design patterns for writing high-level FFI bindings
 --
--- This is the only exported module in this library. It is intended to be
--- imported unqualified.
---
--- __NOTE__: This library is little more than an experiment in its current form,
--- with some patterns to support the FFI bindings that @hs-bindgen@ itself needs
--- (for the @libclang@ bindings).
-module HsBindgen.Patterns (
+-- This module is intended to be imported unqualified.
+module HsBindgen.Runtime.Patterns (
     -- * Enums
     -- ** Simple
     SimpleEnum(..)
@@ -33,7 +28,7 @@ module HsBindgen.Patterns (
   , Div(..)
   ) where
 
-import HsBindgen.Patterns.Arithmetic
-import HsBindgen.Patterns.Backtrace
-import HsBindgen.Patterns.Enum.Bitfield
-import HsBindgen.Patterns.Enum.Simple
+import HsBindgen.Runtime.Patterns.Arithmetic
+import HsBindgen.Runtime.Patterns.Backtrace
+import HsBindgen.Runtime.Patterns.Enum.Bitfield
+import HsBindgen.Runtime.Patterns.Enum.Simple

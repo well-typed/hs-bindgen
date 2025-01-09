@@ -1,5 +1,5 @@
 cabal-version:      3.0
-name:               hs-bindgen-patterns
+name:               hs-bindgen-runtime
 version:            0.1.0
 synopsis:           Design patterns for writing high-level FFI bindings
 license:            BSD-3-Clause
@@ -36,16 +36,16 @@ library
   import:
       lang
   exposed-modules:
-      HsBindgen.ConstantArray
-      HsBindgen.Patterns
-      HsBindgen.Patterns.FlexibleArrayMember
-      HsBindgen.Patterns.LibC
+      HsBindgen.Runtime.ConstantArray
+      HsBindgen.Runtime.FlexibleArrayMember
+      HsBindgen.Runtime.LibC
+      HsBindgen.Runtime.Patterns
   other-modules:
-      HsBindgen.Patterns.Arithmetic
-      HsBindgen.Patterns.Backtrace
-      HsBindgen.Patterns.Enum.Bitfield
-      HsBindgen.Patterns.Enum.Simple
-      HsBindgen.Patterns.LibC.Arch
+      HsBindgen.Runtime.LibC.Arch
+      HsBindgen.Runtime.Patterns.Arithmetic
+      HsBindgen.Runtime.Patterns.Backtrace
+      HsBindgen.Runtime.Patterns.Enum.Bitfield
+      HsBindgen.Runtime.Patterns.Enum.Simple
   hs-source-dirs:
       src
   if arch(x86_64)

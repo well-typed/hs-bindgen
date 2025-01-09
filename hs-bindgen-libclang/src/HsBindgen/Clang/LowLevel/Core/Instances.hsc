@@ -15,7 +15,7 @@ module HsBindgen.Clang.LowLevel.Core.Instances () where
 import HsBindgen.Clang.LowLevel.Core.Enums
 import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 #include <clang-c/Index.h>
 #include "clang_wrappers.h"

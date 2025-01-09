@@ -1,4 +1,4 @@
-packages: hs-bindgen-patterns
+packages: hs-bindgen-runtime
 packages: hs-bindgen
 packages: hs-bindgen-libclang
 packages: ansi-diff
@@ -9,7 +9,7 @@ package hs-bindgen
 package hs-bindgen-libclang
   ghc-options: -Werror
 
-package hs-bindgen-patterns
+package hs-bindgen-runtime
   ghc-options: -Werror
 
 package ansi-diff

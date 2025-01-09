@@ -206,7 +206,7 @@ import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.FFI
 import HsBindgen.Clang.Internal.Results
 import HsBindgen.Clang.Version
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 {-------------------------------------------------------------------------------
   Top-level

@@ -20,7 +20,7 @@ import Foreign
 import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core.Instances ()
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 {-------------------------------------------------------------------------------
   Failed calls

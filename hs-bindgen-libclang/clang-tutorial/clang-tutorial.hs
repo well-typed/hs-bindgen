@@ -8,7 +8,7 @@ import System.Environment
 
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 {-------------------------------------------------------------------------------
   Reproduce the clang tutorial in Haskell

@@ -16,7 +16,7 @@ import GHC.Exts qualified
 import GHC.Generics (from, (:*:) (..), M1 (..), K1 (..))
 import HsBindgen.Clang.Internal.ByValue (OnHaskellHeap (..))
 import HsBindgen.Clang.LowLevel.Core (CXType (..), CXCursor (..), CXSourceLocation, clang_getPresumedLocation, cxtKind, clang_getCursorKind)
-import HsBindgen.Patterns (fromSimpleEnum)
+import HsBindgen.Runtime.Patterns (fromSimpleEnum)
 
 dtraceIO :: (MonadIO m, Repr a) => String -> a -> m ()
 dtraceIO tag xs = liftIO $ do

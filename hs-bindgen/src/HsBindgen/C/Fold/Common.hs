@@ -21,7 +21,7 @@ import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

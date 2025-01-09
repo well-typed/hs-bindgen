@@ -1,6 +1,6 @@
 {-# LANGUAGE DerivingVia #-}
 
-module HsBindgen.Patterns.Arithmetic
+module HsBindgen.Runtime.Patterns.Arithmetic
   ( Div(..) ) where
 
 import Data.Kind

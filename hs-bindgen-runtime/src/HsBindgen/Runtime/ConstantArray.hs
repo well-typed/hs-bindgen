@@ -1,4 +1,4 @@
-module HsBindgen.ConstantArray (
+module HsBindgen.Runtime.ConstantArray (
     ConstantArray,
 ) where
 

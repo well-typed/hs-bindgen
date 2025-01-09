@@ -23,7 +23,7 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Eff
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 {-------------------------------------------------------------------------------
   Top-level

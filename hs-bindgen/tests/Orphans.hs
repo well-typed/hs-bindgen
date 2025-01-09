@@ -19,7 +19,7 @@ import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
 import HsBindgen.Lib
 import HsBindgen.NameHint
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 import DeBruijn
 

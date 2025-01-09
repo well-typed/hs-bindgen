@@ -1,4 +1,4 @@
-module HsBindgen.Patterns.Enum.Bitfield (
+module HsBindgen.Runtime.Patterns.Enum.Bitfield (
     BitfieldEnum(..)
   , IsSingleFlag(..)
     -- * API

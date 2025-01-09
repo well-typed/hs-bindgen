@@ -1,4 +1,4 @@
-# Revision history for hs-bindgen-patterns
+# Revision history for hs-bindgen-runtime
 
 ## 0.1.0 -- YYYY-mm-dd
 

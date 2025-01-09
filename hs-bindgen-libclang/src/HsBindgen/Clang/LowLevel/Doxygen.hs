@@ -69,7 +69,7 @@ import HsBindgen.Clang.LowLevel.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.Results
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 {-------------------------------------------------------------------------------
   Top-level

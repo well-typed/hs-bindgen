@@ -16,7 +16,7 @@ import Text.Show.Pretty (PrettyVal)
 import System.IO.Unsafe (unsafePerformIO)
 
 import HsBindgen.Clang.Internal.Results (callFailed)
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 #include "clang_wrappers.h"
 

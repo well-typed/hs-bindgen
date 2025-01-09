@@ -5,7 +5,7 @@ module HsBindgen.Clang.LowLevel.Doxygen.Instances () where
 import HsBindgen.Clang.LowLevel.Doxygen.Enums
 import HsBindgen.Clang.LowLevel.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Patterns
 
 #include <clang-c/Documentation.h>
 
