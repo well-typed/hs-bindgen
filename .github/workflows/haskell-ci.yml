@@ -150,7 +150,7 @@ jobs:
       - name: initial cabal.project for sdist
         run: |
           touch cabal.project
-          echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-patterns" >> cabal.project
+          echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-runtime" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-libclang" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/ansi-diff" >> cabal.project
@@ -165,8 +165,8 @@ jobs:
           find sdist -maxdepth 1 -type f -name '*.tar.gz' -exec tar -C $GITHUB_WORKSPACE/unpacked -xzvf {} \;
       - name: generate cabal.project
         run: |
-          PKGDIR_hs_bindgen_patterns="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-patterns-[0-9.]*')"
-          echo "PKGDIR_hs_bindgen_patterns=${PKGDIR_hs_bindgen_patterns}" >> "$GITHUB_ENV"
+          PKGDIR_hs_bindgen_runtime="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-runtime-[0-9.]*')"
+          echo "PKGDIR_hs_bindgen_runtime=${PKGDIR_hs_bindgen_runtime}" >> "$GITHUB_ENV"
           PKGDIR_hs_bindgen="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-[0-9.]*')"
           echo "PKGDIR_hs_bindgen=${PKGDIR_hs_bindgen}" >> "$GITHUB_ENV"
           PKGDIR_hs_bindgen_libclang="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-libclang-[0-9.]*')"
@@ -176,11 +176,11 @@ jobs:
           rm -f cabal.project cabal.project.local
           touch cabal.project
           touch cabal.project.local
-          echo "packages: ${PKGDIR_hs_bindgen_patterns}" >> cabal.project
+          echo "packages: ${PKGDIR_hs_bindgen_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen_libclang}" >> cabal.project
           echo "packages: ${PKGDIR_ansi_diff}" >> cabal.project
-          echo "package hs-bindgen-patterns" >> cabal.project
+          echo "package hs-bindgen-runtime" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package hs-bindgen" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
@@ -195,13 +195,13 @@ jobs:
           package hs-bindgen-libclang
             ghc-options: -Werror
 
-          package hs-bindgen-patterns
+          package hs-bindgen-runtime
             ghc-options: -Werror
 
           package ansi-diff
             ghc-options: -Werror
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|hs-bindgen|hs-bindgen-libclang|hs-bindgen-patterns)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|hs-bindgen|hs-bindgen-libclang|hs-bindgen-runtime)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -229,7 +229,7 @@ jobs:
           $CABAL v2-test $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --test-show-details=direct
       - name: cabal check
         run: |
-          cd ${PKGDIR_hs_bindgen_patterns} || false
+          cd ${PKGDIR_hs_bindgen_runtime} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_hs_bindgen} || false
           ${CABAL} -vnormal check

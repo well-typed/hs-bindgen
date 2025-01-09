@@ -20,7 +20,7 @@ import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
 import HsBindgen.Lib
 import HsBindgen.NameHint
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Enum.Simple
 
 import DeBruijn
 
@@ -217,7 +217,7 @@ instance ToExpr (Hs.TyConAppTy ctx) where
     Expr.App "TyConApp" [toExpr tycon, toExpr args]
 
 {-------------------------------------------------------------------------------
-  hs-bindgen-patterns
+  hs-bindgen-runtime
 -------------------------------------------------------------------------------}
 
 instance ToExpr (SimpleEnum hs)

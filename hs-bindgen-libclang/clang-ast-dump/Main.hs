@@ -17,7 +17,8 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Enum.Bitfield
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Options

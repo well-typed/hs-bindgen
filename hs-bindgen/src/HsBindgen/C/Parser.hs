@@ -19,7 +19,7 @@ import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

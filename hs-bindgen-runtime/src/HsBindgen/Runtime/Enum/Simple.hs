@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 
-module HsBindgen.Patterns.Enum.Simple (
+module HsBindgen.Runtime.Enum.Simple (
     SimpleEnum(..)
   , IsSimpleEnum(..)
   , SimpleEnumOutOfRange(..)

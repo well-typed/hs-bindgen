@@ -4,7 +4,7 @@ import Foreign.C.Types
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.LowLevel.Core.Enums
 import HsBindgen.Clang.LowLevel.Core.Structs
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Enum.Simple
 -- Type information for CXCursors https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html
 
 foreign import capi unsafe "clang_wrappers.h"

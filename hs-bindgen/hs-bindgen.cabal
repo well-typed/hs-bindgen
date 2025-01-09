@@ -120,7 +120,7 @@ library
   build-depends:
       -- Internal dependencies
     , hs-bindgen-libclang
-    , hs-bindgen-patterns
+    , hs-bindgen-runtime
   build-depends:
       -- External dependencies
     , containers         >= 0.6.5.1 && < 0.8
@@ -176,7 +176,7 @@ test-suite golden
   build-depends:
       -- Internal dependencies
     , hs-bindgen
-    , hs-bindgen-patterns
+    , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
     , bytestring

@@ -1,5 +1,5 @@
 {-# LANGUAGE MagicHash #-}
-module HsBindgen.Patterns.FlexibleArrayMember (
+module HsBindgen.Runtime.FlexibleArrayMember (
     HasFlexibleArrayMember (..),
     HasFlexibleArrayLength (..),
     WithFlexbileArrayMember (..),

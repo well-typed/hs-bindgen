@@ -1,4 +1,4 @@
-module HsBindgen.Patterns.LibC (
+module HsBindgen.Runtime.LibC (
     -- * Primitive Types
     -- $PrimitiveTypes
     -- * Boolean Types
@@ -39,7 +39,7 @@ import Foreign.Storable (Storable)
 -- Architecture-dependent definitions are defined in the following /internal/
 -- module.  Cabal conditionals are used to select the source corresponding to
 -- the host architecture.
-import HsBindgen.Patterns.LibC.Arch ()
+import HsBindgen.Runtime.LibC.Arch ()
 
 {-------------------------------------------------------------------------------
   Primitive Types

@@ -11,7 +11,7 @@ import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Identifiers

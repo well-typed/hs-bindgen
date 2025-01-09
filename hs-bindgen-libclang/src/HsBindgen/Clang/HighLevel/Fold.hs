@@ -15,7 +15,7 @@ import Data.IORef (IORef, writeIORef, readIORef, modifyIORef, newIORef)
 
 import HsBindgen.Clang.LowLevel.Core hiding (clang_visitChildren)
 import HsBindgen.Clang.LowLevel.Core qualified as Core
-import HsBindgen.Patterns
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Definition

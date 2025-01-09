@@ -19,12 +19,12 @@ import GHC.Float
   , castWord32ToFloat , castFloatToWord32 )
 
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
-import HsBindgen.ConstantArray qualified
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.Patterns qualified (Div(..))
+import HsBindgen.Runtime.ConstantArray qualified
+import HsBindgen.Runtime.Arithmetic qualified (Div(..))
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -50,7 +50,7 @@ mkGlobal =  \case
       Storable_poke        -> 'Foreign.Storable.poke
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
       Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
-      ConstantArray        -> ''HsBindgen.ConstantArray.ConstantArray
+      ConstantArray        -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IO_type              -> ''IO
 
       Eq_class             -> ''Eq
@@ -58,7 +58,7 @@ mkGlobal =  \case
       Num_class            -> ''Num
       Integral_class       -> ''Integral
       Fractional_class     -> ''Fractional
-      Div_class            -> ''HsBindgen.Patterns.Div
+      Div_class            -> ''HsBindgen.Runtime.Arithmetic.Div
       Bits_class           -> ''Data.Bits.Bits
 
       Eq_eq                -> '(==)
@@ -81,7 +81,7 @@ mkGlobal =  \case
       Num_add              -> '(+)
       Num_minus            -> '(-)
       Num_times            -> '(*)
-      Div_div              -> '(HsBindgen.Patterns./)
+      Div_div              -> '(HsBindgen.Runtime.Arithmetic./)
       Integral_rem         -> 'rem
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble

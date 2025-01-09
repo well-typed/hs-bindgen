@@ -83,7 +83,7 @@ library
       HsBindgen.Clang.HighLevel.UserProvided
   build-depends:
       -- Internal dependencies
-    , hs-bindgen-patterns
+    , hs-bindgen-runtime
   build-depends:
       -- External dependencies
     , filepath      >= 1.4.2.2 && < 1.6
@@ -110,7 +110,7 @@ executable clang-ast-dump
   build-depends:
       -- Internal dependencies
     , hs-bindgen-libclang
-    , hs-bindgen-patterns
+    , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
     , text
@@ -127,4 +127,4 @@ test-suite clang-tutorial
   build-depends:
       -- Internal dependencies
     , hs-bindgen-libclang
-    , hs-bindgen-patterns
+    , hs-bindgen-runtime
