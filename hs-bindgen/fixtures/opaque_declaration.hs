@@ -27,12 +27,8 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "opaque_declaration.h"],
-                singleLocLine = 5,
-                singleLocColumn = 17}}},
+              fieldSourceLoc =
+              "examples/opaque_declaration.h:5:17"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -50,12 +46,8 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "opaque_declaration.h"],
-                singleLocLine = 6,
-                singleLocColumn = 17}}}],
+              fieldSourceLoc =
+              "examples/opaque_declaration.h:6:17"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -73,12 +65,8 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "opaque_declaration.h"],
-                singleLocLine = 5,
-                singleLocColumn = 17}},
+              fieldSourceLoc =
+              "examples/opaque_declaration.h:5:17"},
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
@@ -87,19 +75,11 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "opaque_declaration.h"],
-                singleLocLine = 6,
-                singleLocColumn = 17}}],
+              fieldSourceLoc =
+              "examples/opaque_declaration.h:6:17"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "opaque_declaration.h"],
-            singleLocLine = 4,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/opaque_declaration.h:4:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -127,12 +107,8 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "opaque_declaration.h"],
-                  singleLocLine = 5,
-                  singleLocColumn = 17}}},
+                fieldSourceLoc =
+                "examples/opaque_declaration.h:5:17"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -150,12 +126,8 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "opaque_declaration.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 17}}}],
+                fieldSourceLoc =
+                "examples/opaque_declaration.h:6:17"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -173,12 +145,8 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "opaque_declaration.h"],
-                  singleLocLine = 5,
-                  singleLocColumn = 17}},
+                fieldSourceLoc =
+                "examples/opaque_declaration.h:5:17"},
               StructField {
                 fieldName = CName "ptrB",
                 fieldOffset = 64,
@@ -187,19 +155,11 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "opaque_declaration.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 17}}],
+                fieldSourceLoc =
+                "examples/opaque_declaration.h:6:17"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "opaque_declaration.h"],
-              singleLocLine = 4,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/opaque_declaration.h:4:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -232,12 +192,8 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 17}}},
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:5:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -255,12 +211,8 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 17}}}],
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:6:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -278,12 +230,8 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 17}},
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:5:17"},
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
@@ -292,19 +240,11 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 17}}],
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "opaque_declaration.h"],
-                      singleLocLine = 4,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/opaque_declaration.h:4:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -339,12 +279,8 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 17}}},
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:5:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -362,12 +298,8 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 17}}}],
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:6:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -385,12 +317,8 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 17}},
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:5:17"},
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
@@ -399,19 +327,11 @@
                             (DeclPathStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "opaque_declaration.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 17}}],
+                        fieldSourceLoc =
+                        "examples/opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "opaque_declaration.h"],
-                      singleLocLine = 4,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/opaque_declaration.h:4:8"}}
               (Add 2)
               (Seq
                 [
@@ -439,12 +359,8 @@
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "opaque_declaration.h"],
-            singleLocLine = 9,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/opaque_declaration.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -465,12 +381,8 @@
             structAlignment = 1,
             structFields = [],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "opaque_declaration.h"],
-              singleLocLine = 9,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/opaque_declaration.h:9:8"}}
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
@@ -496,12 +408,8 @@
                     structAlignment = 1,
                     structFields = [],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "opaque_declaration.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/opaque_declaration.h:9:8"}})
             []),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -527,12 +435,8 @@
                     structAlignment = 1,
                     structFields = [],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "opaque_declaration.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/opaque_declaration.h:9:8"}}
               (Add 0)
               (Seq [])))}),
   DeclEmpty

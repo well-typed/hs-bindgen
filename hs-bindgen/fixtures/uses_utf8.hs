@@ -28,28 +28,16 @@
               valueName = CName
                 "Say\20320\22909",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "uses_utf8.h"],
-                singleLocLine = 5,
-                singleLocColumn = 9}},
+              valueSourceLoc =
+              "examples/uses_utf8.h:5:9"},
             EnumValue {
               valueName = CName
                 "Say\25308\25308",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "uses_utf8.h"],
-                singleLocLine = 6,
-                singleLocColumn = 9}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "uses_utf8.h"],
-            singleLocLine = 4,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/uses_utf8.h:6:9"}],
+          enumSourceLoc =
+          "examples/uses_utf8.h:4:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -80,28 +68,16 @@
                 valueName = CName
                   "Say\20320\22909",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "uses_utf8.h"],
-                  singleLocLine = 5,
-                  singleLocColumn = 9}},
+                valueSourceLoc =
+                "examples/uses_utf8.h:5:9"},
               EnumValue {
                 valueName = CName
                   "Say\25308\25308",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "uses_utf8.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 9}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "uses_utf8.h"],
-              singleLocLine = 4,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/uses_utf8.h:6:9"}],
+            enumSourceLoc =
+            "examples/uses_utf8.h:4:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -137,28 +113,16 @@
                         valueName = CName
                           "Say\20320\22909",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "uses_utf8.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 9}},
+                        valueSourceLoc =
+                        "examples/uses_utf8.h:5:9"},
                       EnumValue {
                         valueName = CName
                           "Say\25308\25308",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "uses_utf8.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 9}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "uses_utf8.h"],
-                      singleLocLine = 4,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/uses_utf8.h:6:9"}],
+                    enumSourceLoc =
+                    "examples/uses_utf8.h:4:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -194,28 +158,16 @@
                         valueName = CName
                           "Say\20320\22909",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "uses_utf8.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 9}},
+                        valueSourceLoc =
+                        "examples/uses_utf8.h:5:9"},
                       EnumValue {
                         valueName = CName
                           "Say\25308\25308",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "uses_utf8.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 9}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "uses_utf8.h"],
-                      singleLocLine = 4,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/uses_utf8.h:6:9"}],
+                    enumSourceLoc =
+                    "examples/uses_utf8.h:4:6"}}
               (Add 1)
               (Seq
                 [
@@ -241,12 +193,8 @@
           valueName = CName
             "Say\20320\22909",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "uses_utf8.h"],
-            singleLocLine = 5,
-            singleLocColumn = 9}}},
+          valueSourceLoc =
+          "examples/uses_utf8.h:5:9"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -265,9 +213,5 @@
           valueName = CName
             "Say\25308\25308",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "uses_utf8.h"],
-            singleLocLine = 6,
-            singleLocColumn = 9}}}]
+          valueSourceLoc =
+          "examples/uses_utf8.h:6:9"}}]

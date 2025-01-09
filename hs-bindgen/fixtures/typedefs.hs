@@ -20,12 +20,8 @@
           typedefName = CName "myint",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typedefs.h"],
-            singleLocLine = 1,
-            singleLocColumn = 13}}},
+          typedefSourceLoc =
+          "examples/typedefs.h:1:13"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -54,12 +50,8 @@
             (TypePrim
               (PrimIntegral
                 (PrimInt Signed))),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typedefs.h"],
-            singleLocLine = 2,
-            singleLocColumn = 15}}},
+          typedefSourceLoc =
+          "examples/typedefs.h:2:15"}},
   DeclNewtypeInstance
     Storable
     (HsName

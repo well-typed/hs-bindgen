@@ -24,12 +24,8 @@
             (TypePrim
               (PrimIntegral
                 (PrimInt Signed))),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "fixedarray.h"],
-            singleLocLine = 1,
-            singleLocColumn = 13}}},
+          typedefSourceLoc =
+          "examples/fixedarray.h:1:13"}},
   DeclNewtypeInstance
     Storable
     (HsName

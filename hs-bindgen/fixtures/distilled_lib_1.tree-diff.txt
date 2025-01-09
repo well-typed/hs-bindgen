@@ -5,12 +5,8 @@ WrapCHeader
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 10,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:10:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -24,22 +20,14 @@ WrapCHeader
                   integerLiteralValue = 5})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 10,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:10:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 11,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:11:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -53,22 +41,14 @@ WrapCHeader
                   integerLiteralValue = 3})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 11,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:11:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 12,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:12:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -83,12 +63,8 @@ WrapCHeader
                   integerLiteralValue = 4})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 12,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:12:9"},
       DeclMacro
         (MacroReparseError
           ReparseError {
@@ -105,22 +81,14 @@ WrapCHeader
                   "PACK_START",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 9},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:9",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 19},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:19",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -132,22 +100,14 @@ WrapCHeader
                   "_Pragma",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 24},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:24",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 31},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:31",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -159,22 +119,14 @@ WrapCHeader
                   "(",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 31},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:31",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 32},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:32",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -186,22 +138,14 @@ WrapCHeader
                   "\"pack(1)\"",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 32},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:32",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 41},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:41",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -213,22 +157,14 @@ WrapCHeader
                   ")",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 41},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:41",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 17,
-                      singleLocColumn = 42},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:17:42",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -250,22 +186,14 @@ WrapCHeader
                   "PACK_FINISH",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 9},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:9",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 20},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:20",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -277,22 +205,14 @@ WrapCHeader
                   "_Pragma",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 24},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:24",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 31},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:31",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -304,22 +224,14 @@ WrapCHeader
                   "(",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 31},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:31",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 32},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:32",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -331,22 +243,14 @@ WrapCHeader
                   "\"pack()\"",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 32},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:32",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 40},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:40",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -358,22 +262,14 @@ WrapCHeader
                   ")",
                 tokenExtent = Range {
                   rangeStart = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 40},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:40",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing},
                   rangeEnd = MultiLoc {
-                    multiLocExpansion = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 18,
-                      singleLocColumn = 41},
+                    multiLocExpansion =
+                    "examples/distilled_lib_1.h:18:41",
                     multiLocPresumed = Nothing,
                     multiLocSpelling = Nothing,
                     multiLocFile = Nothing}},
@@ -383,12 +279,8 @@ WrapCHeader
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 25,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:25:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -404,22 +296,14 @@ WrapCHeader
                         "packed",
                       tokenExtent = Range {
                         rangeStart = MultiLoc {
-                          multiLocExpansion = SingleLoc {
-                            singleLocPath = [
-                              "examples",
-                              "distilled_lib_1.h"],
-                            singleLocLine = 25,
-                            singleLocColumn = 34},
+                          multiLocExpansion =
+                          "examples/distilled_lib_1.h:25:34",
                           multiLocPresumed = Nothing,
                           multiLocSpelling = Nothing,
                           multiLocFile = Nothing},
                         rangeEnd = MultiLoc {
-                          multiLocExpansion = SingleLoc {
-                            singleLocPath = [
-                              "examples",
-                              "distilled_lib_1.h"],
-                            singleLocLine = 25,
-                            singleLocColumn = 40},
+                          multiLocExpansion =
+                          "examples/distilled_lib_1.h:25:40",
                           multiLocPresumed = Nothing,
                           multiLocSpelling = Nothing,
                           multiLocFile = Nothing}},
@@ -427,22 +311,14 @@ WrapCHeader
                         501}])
                 MEmpty)},
           macroDeclMacroTy = "Empty",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 25,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:25:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 52,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:52:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -456,22 +332,14 @@ WrapCHeader
                   integerLiteralValue = 0})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 52,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:52:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 53,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:53:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -485,22 +353,14 @@ WrapCHeader
                     (PrimInt Unsigned),
                   integerLiteralValue = 20560})},
           macroDeclMacroTy = "UInt",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 53,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:53:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 54,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:54:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -514,22 +374,14 @@ WrapCHeader
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 54,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:54:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 55,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/distilled_lib_1.h:55:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -543,12 +395,8 @@ WrapCHeader
                   integerLiteralValue = 13398})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 55,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/distilled_lib_1.h:55:9"},
       DeclFunction
         Function {
           functionName = CName "some_fun",
@@ -562,12 +410,8 @@ WrapCHeader
             (TypeTypedef (CName "int32_t")),
           functionHeader =
           "distilled_lib_1.h",
-          functionSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 71,
-            singleLocColumn = 9}},
+          functionSourceLoc =
+          "examples/distilled_lib_1.h:71:9"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -583,30 +427,18 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 8,
-                singleLocColumn = 22}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:8:22"},
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 8,
-                singleLocColumn = 32}}],
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 8,
-            singleLocColumn = 9}},
+          structSourceLoc =
+          "examples/distilled_lib_1.h:8:9"},
       DeclEnum
         Enu {
           enumTag = CName
@@ -620,90 +452,52 @@ WrapCHeader
             EnumValue {
               valueName = CName "FOO",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 9,
-                singleLocColumn = 16}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:9:16"},
             EnumValue {
               valueName = CName "BAR",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 9,
-                singleLocColumn = 21}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 9,
-            singleLocColumn = 9}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:9:21"}],
+          enumSourceLoc =
+          "examples/distilled_lib_1.h:9:9"},
       DeclTypedef
         Typedef {
           typedefName = CName "a_type_t",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 13,
-            singleLocColumn = 13}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:13:13"},
       DeclTypedef
         Typedef {
           typedefName = CName "var_t",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 14,
-            singleLocColumn = 13}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:14:13"},
       DeclTypedef
         Typedef {
           typedefName = CName "uint8_t",
           typedefType = TypePrim
             (PrimChar (Just Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 121,
-            singleLocColumn = 25}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:121:25"},
       DeclTypedef
         Typedef {
           typedefName = CName "uint16_t",
           typedefType = TypePrim
             (PrimIntegral
               (PrimShort Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 126,
-            singleLocColumn = 25}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:126:25"},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 131,
-            singleLocColumn = 25}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:131:25"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -717,45 +511,29 @@ WrapCHeader
               fieldName = CName "field_0",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 36,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:36:31"},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
               fieldType = TypeTypedef
                 (CName "uint8_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 37,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:37:31"},
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
               fieldType = TypeTypedef
                 (CName "uint16_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 38,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:38:31"},
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 39,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:39:31"},
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
@@ -765,12 +543,8 @@ WrapCHeader
                     (CName
                       "another_typedef_struct_t"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 40,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:40:31"},
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
@@ -781,23 +555,15 @@ WrapCHeader
                       (CName
                         "another_typedef_struct_t"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 41,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:41:31"},
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
               fieldType = TypePointer
                 (TypePrim PrimVoid),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 42,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:42:31"},
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
@@ -805,55 +571,35 @@ WrapCHeader
                 7
                 (TypeTypedef
                   (CName "uint32_t")),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 43,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:43:31"},
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
               fieldType = TypeEnum
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 44,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:44:31"},
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 45,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:45:31"},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 46,
-                singleLocColumn = 31}}],
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 34,
-            singleLocColumn = 16}},
+          structSourceLoc =
+          "examples/distilled_lib_1.h:34:16"},
       DeclTypedef
         Typedef {
           typedefName = CName
@@ -863,12 +609,8 @@ WrapCHeader
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 47,
-            singleLocColumn = 3}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:47:3"},
       DeclEnum
         Enu {
           enumTag = CName
@@ -881,58 +623,32 @@ WrapCHeader
             EnumValue {
               valueName = CName "ENUM_CASE_0",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 62,
-                singleLocColumn = 3}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:62:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_1",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 63,
-                singleLocColumn = 3}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:63:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_2",
               valueValue = 2,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 64,
-                singleLocColumn = 3}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:64:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_3",
               valueValue = 3,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 65,
-                singleLocColumn = 3}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 60,
-            singleLocColumn = 9}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:65:3"}],
+          enumSourceLoc =
+          "examples/distilled_lib_1.h:60:9"},
       DeclTypedef
         Typedef {
           typedefName = CName "int32_t",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 106,
-            singleLocColumn = 25}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:106:25"},
       DeclTypedef
         Typedef {
           typedefName = CName
@@ -944,9 +660,5 @@ WrapCHeader
                 TypeTypedef (CName "uint32_t")]
               (TypeTypedef
                 (CName "uint32_t"))),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 76,
-            singleLocColumn = 19}}])
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:76:19"}])

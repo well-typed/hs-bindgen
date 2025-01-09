@@ -18,12 +18,8 @@
       NewtypeOriginMacro
         Macro {
           macroLoc = MultiLoc {
-            multiLocExpansion = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "bool.h"],
-              singleLocLine = 13,
-              singleLocColumn = 9},
+            multiLocExpansion =
+            "examples/bool.h:13:9",
             multiLocPresumed = Nothing,
             multiLocSpelling = Nothing,
             multiLocFile = Nothing},
@@ -52,12 +48,8 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 2,
-                singleLocColumn = 11}}},
+              fieldSourceLoc =
+              "examples/bool.h:2:11"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -70,12 +62,8 @@
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 3,
-                singleLocColumn = 11}}}],
+              fieldSourceLoc =
+              "examples/bool.h:3:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -89,29 +77,17 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 2,
-                singleLocColumn = 11}},
+              fieldSourceLoc =
+              "examples/bool.h:2:11"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 3,
-                singleLocColumn = 11}}],
+              fieldSourceLoc =
+              "examples/bool.h:3:11"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "bool.h"],
-            singleLocLine = 1,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/bool.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -134,12 +110,8 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 11}}},
+                fieldSourceLoc =
+                "examples/bool.h:2:11"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -152,12 +124,8 @@
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 11}}}],
+                fieldSourceLoc =
+                "examples/bool.h:3:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -171,29 +139,17 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 11}},
+                fieldSourceLoc =
+                "examples/bool.h:2:11"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 11}}],
+                fieldSourceLoc =
+                "examples/bool.h:3:11"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "bool.h"],
-              singleLocLine = 1,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/bool.h:1:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -221,12 +177,8 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 11}}},
+                        fieldSourceLoc =
+                        "examples/bool.h:2:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -239,12 +191,8 @@
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 11}}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:3:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -258,29 +206,17 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 11}},
+                        fieldSourceLoc =
+                        "examples/bool.h:2:11"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 11}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "bool.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/bool.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -310,12 +246,8 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 11}}},
+                        fieldSourceLoc =
+                        "examples/bool.h:2:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -328,12 +260,8 @@
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 11}}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:3:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -347,29 +275,17 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 11}},
+                        fieldSourceLoc =
+                        "examples/bool.h:2:11"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 11}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "bool.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/bool.h:1:8"}}
               (Add 2)
               (Seq
                 [
@@ -399,12 +315,8 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 9,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/bool.h:9:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -417,12 +329,8 @@
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 10,
-                singleLocColumn = 10}}}],
+              fieldSourceLoc =
+              "examples/bool.h:10:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -436,29 +344,17 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 9,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/bool.h:9:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 10,
-                singleLocColumn = 10}}],
+              fieldSourceLoc =
+              "examples/bool.h:10:10"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "bool.h"],
-            singleLocLine = 8,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/bool.h:8:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -481,12 +377,8 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/bool.h:9:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -499,12 +391,8 @@
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 10}}}],
+                fieldSourceLoc =
+                "examples/bool.h:10:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -518,29 +406,17 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/bool.h:9:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 10}}],
+                fieldSourceLoc =
+                "examples/bool.h:10:10"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "bool.h"],
-              singleLocLine = 8,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/bool.h:8:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -568,12 +444,8 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/bool.h:9:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -586,12 +458,8 @@
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:10:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -605,29 +473,17 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/bool.h:9:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "bool.h"],
-                      singleLocLine = 8,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/bool.h:8:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -657,12 +513,8 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/bool.h:9:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -675,12 +527,8 @@
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:10:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -694,29 +542,17 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/bool.h:9:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "bool.h"],
-                      singleLocLine = 8,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/bool.h:8:8"}}
               (Add 2)
               (Seq
                 [
@@ -747,12 +583,8 @@
               fieldOffset = 0,
               fieldType = TypeTypedef
                 (CName "BOOL"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 16,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/bool.h:16:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -766,12 +598,8 @@
               fieldOffset = 8,
               fieldType = TypeTypedef
                 (CName "BOOL"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 17,
-                singleLocColumn = 10}}}],
+              fieldSourceLoc =
+              "examples/bool.h:17:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -786,30 +614,18 @@
               fieldOffset = 0,
               fieldType = TypeTypedef
                 (CName "BOOL"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 16,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/bool.h:16:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldType = TypeTypedef
                 (CName "BOOL"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "bool.h"],
-                singleLocLine = 17,
-                singleLocColumn = 10}}],
+              fieldSourceLoc =
+              "examples/bool.h:17:10"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "bool.h"],
-            singleLocLine = 15,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/bool.h:15:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -833,12 +649,8 @@
                 fieldOffset = 0,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/bool.h:16:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -852,12 +664,8 @@
                 fieldOffset = 8,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 17,
-                  singleLocColumn = 10}}}],
+                fieldSourceLoc =
+                "examples/bool.h:17:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -872,30 +680,18 @@
                 fieldOffset = 0,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/bool.h:16:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "bool.h"],
-                  singleLocLine = 17,
-                  singleLocColumn = 10}}],
+                fieldSourceLoc =
+                "examples/bool.h:17:10"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "bool.h"],
-              singleLocLine = 15,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/bool.h:15:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -924,12 +720,8 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/bool.h:16:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -943,12 +735,8 @@
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:17:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -963,30 +751,18 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/bool.h:16:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:17:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "bool.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/bool.h:15:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -1017,12 +793,8 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/bool.h:16:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1036,12 +808,8 @@
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:17:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1056,30 +824,18 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/bool.h:16:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "bool.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/bool.h:17:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "bool.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/bool.h:15:8"}}
               (Add 2)
               (Seq
                 [

@@ -166,12 +166,8 @@
             (TypeTypedef (CName "int32_t")),
           functionHeader =
           "distilled_lib_1.h",
-          functionSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 71,
-            singleLocColumn = 9}}},
+          functionSourceLoc =
+          "examples/distilled_lib_1.h:71:9"}},
   DeclData
     Struct {
       structName = HsName
@@ -194,12 +190,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 8,
-                singleLocColumn = 22}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:8:22"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -213,12 +205,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 8,
-                singleLocColumn = 32}}}],
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:8:32"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -235,30 +223,18 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 8,
-                singleLocColumn = 22}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:8:22"},
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 8,
-                singleLocColumn = 32}}],
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 8,
-            singleLocColumn = 9}}},
+          structSourceLoc =
+          "examples/distilled_lib_1.h:8:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -282,12 +258,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 22}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:8:22"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -301,12 +273,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 32}}}],
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:8:32"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -323,30 +291,18 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 22}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:8:22"},
               StructField {
                 fieldName = CName "bar",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 32}}],
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:8:32"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "distilled_lib_1.h"],
-              singleLocLine = 8,
-              singleLocColumn = 9}}}
+            structSourceLoc =
+            "examples/distilled_lib_1.h:8:9"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -375,12 +331,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 22}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -394,12 +346,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 32}}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:32"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -416,30 +364,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 22}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:22"},
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 32}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 8,
-                      singleLocColumn = 9}}})
+                    structSourceLoc =
+                    "examples/distilled_lib_1.h:8:9"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -470,12 +406,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 22}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -489,12 +421,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 32}}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:32"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -511,30 +439,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 22}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:22"},
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 32}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 8,
-                      singleLocColumn = 9}}}
+                    structSourceLoc =
+                    "examples/distilled_lib_1.h:8:9"}}
               (Add 2)
               (Seq
                 [
@@ -572,27 +488,15 @@
             EnumValue {
               valueName = CName "FOO",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 9,
-                singleLocColumn = 16}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:9:16"},
             EnumValue {
               valueName = CName "BAR",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 9,
-                singleLocColumn = 21}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 9,
-            singleLocColumn = 9}}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:9:21"}],
+          enumSourceLoc =
+          "examples/distilled_lib_1.h:9:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -623,27 +527,15 @@
               EnumValue {
                 valueName = CName "FOO",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 16}},
+                valueSourceLoc =
+                "examples/distilled_lib_1.h:9:16"},
               EnumValue {
                 valueName = CName "BAR",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 21}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "distilled_lib_1.h"],
-              singleLocLine = 9,
-              singleLocColumn = 9}}}
+                valueSourceLoc =
+                "examples/distilled_lib_1.h:9:21"}],
+            enumSourceLoc =
+            "examples/distilled_lib_1.h:9:9"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -679,27 +571,15 @@
                       EnumValue {
                         valueName = CName "FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 16}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:9:16"},
                       EnumValue {
                         valueName = CName "BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 21}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 9}}})
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:9:21"}],
+                    enumSourceLoc =
+                    "examples/distilled_lib_1.h:9:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -735,27 +615,15 @@
                       EnumValue {
                         valueName = CName "FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 16}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:9:16"},
                       EnumValue {
                         valueName = CName "BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 21}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 9}}}
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:9:21"}],
+                    enumSourceLoc =
+                    "examples/distilled_lib_1.h:9:9"}}
               (Add 1)
               (Seq
                 [
@@ -780,12 +648,8 @@
         EnumValue {
           valueName = CName "FOO",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 9,
-            singleLocColumn = 16}}},
+          valueSourceLoc =
+          "examples/distilled_lib_1.h:9:16"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -803,12 +667,8 @@
         EnumValue {
           valueName = CName "BAR",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 9,
-            singleLocColumn = 21}}},
+          valueSourceLoc =
+          "examples/distilled_lib_1.h:9:21"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -830,12 +690,8 @@
           typedefName = CName "a_type_t",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 13,
-            singleLocColumn = 13}}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:13:13"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -862,12 +718,8 @@
           typedefName = CName "var_t",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 14,
-            singleLocColumn = 13}}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:14:13"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -894,14 +746,8 @@
           typedefName = CName "uint8_t",
           typedefType = TypePrim
             (PrimChar (Just Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 121,
-            singleLocColumn = 25}}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:121:25"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -929,14 +775,8 @@
           typedefType = TypePrim
             (PrimIntegral
               (PrimShort Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 126,
-            singleLocColumn = 25}}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:126:25"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -964,14 +804,8 @@
           typedefType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 131,
-            singleLocColumn = 25}}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:131:25"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -998,12 +832,8 @@
               fieldName = CName "field_0",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 36,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:36:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1019,12 +849,8 @@
               fieldOffset = 8,
               fieldType = TypeTypedef
                 (CName "uint8_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 37,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:37:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1040,12 +866,8 @@
               fieldOffset = 16,
               fieldType = TypeTypedef
                 (CName "uint16_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 38,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:38:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1061,12 +883,8 @@
               fieldOffset = 32,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 39,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:39:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1086,12 +904,8 @@
                     (CName
                       "another_typedef_struct_t"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 40,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:40:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1113,12 +927,8 @@
                       (CName
                         "another_typedef_struct_t"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 41,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:41:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1132,12 +942,8 @@
               fieldOffset = 192,
               fieldType = TypePointer
                 (TypePrim PrimVoid),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 42,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:42:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1157,12 +963,8 @@
                 7
                 (TypeTypedef
                   (CName "uint32_t")),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 43,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:43:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1179,12 +981,8 @@
               fieldType = TypeEnum
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 44,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:44:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1201,12 +999,8 @@
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 45,
-                singleLocColumn = 31}}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:45:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1223,12 +1017,8 @@
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 46,
-                singleLocColumn = 31}}}],
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:46:31"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1243,45 +1033,29 @@
               fieldName = CName "field_0",
               fieldOffset = 0,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 36,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:36:31"},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
               fieldType = TypeTypedef
                 (CName "uint8_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 37,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:37:31"},
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
               fieldType = TypeTypedef
                 (CName "uint16_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 38,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:38:31"},
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 39,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:39:31"},
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
@@ -1291,12 +1065,8 @@
                     (CName
                       "another_typedef_struct_t"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 40,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:40:31"},
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
@@ -1307,23 +1077,15 @@
                       (CName
                         "another_typedef_struct_t"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 41,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:41:31"},
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
               fieldType = TypePointer
                 (TypePrim PrimVoid),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 42,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:42:31"},
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
@@ -1331,55 +1093,35 @@
                 7
                 (TypeTypedef
                   (CName "uint32_t")),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 43,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:43:31"},
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
               fieldType = TypeEnum
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 44,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:44:31"},
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 45,
-                singleLocColumn = 31}},
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:45:31"},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 46,
-                singleLocColumn = 31}}],
+              fieldSourceLoc =
+              "examples/distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 34,
-            singleLocColumn = 16}}},
+          structSourceLoc =
+          "examples/distilled_lib_1.h:34:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1402,12 +1144,8 @@
                 fieldName = CName "field_0",
                 fieldOffset = 0,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 36,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:36:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1423,12 +1161,8 @@
                 fieldOffset = 8,
                 fieldType = TypeTypedef
                   (CName "uint8_t"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 37,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:37:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1444,12 +1178,8 @@
                 fieldOffset = 16,
                 fieldType = TypeTypedef
                   (CName "uint16_t"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 38,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:38:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1465,12 +1195,8 @@
                 fieldOffset = 32,
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 39,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:39:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1490,12 +1216,8 @@
                       (CName
                         "another_typedef_struct_t"))
                     DeclPathTop),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 40,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:40:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1517,12 +1239,8 @@
                         (CName
                           "another_typedef_struct_t"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 41,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:41:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1536,12 +1254,8 @@
                 fieldOffset = 192,
                 fieldType = TypePointer
                   (TypePrim PrimVoid),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 42,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:42:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1561,12 +1275,8 @@
                   7
                   (TypeTypedef
                     (CName "uint32_t")),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 43,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:43:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1583,12 +1293,8 @@
                 fieldType = TypeEnum
                   (CName
                     "another_typedef_enum_e"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 44,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:44:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1605,12 +1311,8 @@
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 45,
-                  singleLocColumn = 31}}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:45:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1627,12 +1329,8 @@
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 46,
-                  singleLocColumn = 31}}}],
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:46:31"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1647,45 +1345,29 @@
                 fieldName = CName "field_0",
                 fieldOffset = 0,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 36,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:36:31"},
               StructField {
                 fieldName = CName "field_1",
                 fieldOffset = 8,
                 fieldType = TypeTypedef
                   (CName "uint8_t"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 37,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:37:31"},
               StructField {
                 fieldName = CName "field_2",
                 fieldOffset = 16,
                 fieldType = TypeTypedef
                   (CName "uint16_t"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 38,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:38:31"},
               StructField {
                 fieldName = CName "field_3",
                 fieldOffset = 32,
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 39,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:39:31"},
               StructField {
                 fieldName = CName "field_4",
                 fieldOffset = 64,
@@ -1695,12 +1377,8 @@
                       (CName
                         "another_typedef_struct_t"))
                     DeclPathTop),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 40,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:40:31"},
               StructField {
                 fieldName = CName "field_5",
                 fieldOffset = 128,
@@ -1711,23 +1389,15 @@
                         (CName
                           "another_typedef_struct_t"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 41,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:41:31"},
               StructField {
                 fieldName = CName "field_6",
                 fieldOffset = 192,
                 fieldType = TypePointer
                   (TypePrim PrimVoid),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 42,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:42:31"},
               StructField {
                 fieldName = CName "field_7",
                 fieldOffset = 256,
@@ -1735,55 +1405,35 @@
                   7
                   (TypeTypedef
                     (CName "uint32_t")),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 43,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:43:31"},
               StructField {
                 fieldName = CName "field_8",
                 fieldOffset = 480,
                 fieldType = TypeEnum
                   (CName
                     "another_typedef_enum_e"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 44,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:44:31"},
               StructField {
                 fieldName = CName "field_9",
                 fieldOffset = 512,
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 45,
-                  singleLocColumn = 31}},
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:45:31"},
               StructField {
                 fieldName = CName "field_10",
                 fieldOffset = 640,
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 46,
-                  singleLocColumn = 31}}],
+                fieldSourceLoc =
+                "examples/distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "distilled_lib_1.h"],
-              singleLocLine = 34,
-              singleLocColumn = 16}}}
+            structSourceLoc =
+            "examples/distilled_lib_1.h:34:16"}}
       StorableInstance {
         storableSizeOf = 140,
         storableAlignment = 1,
@@ -1811,12 +1461,8 @@
                         fieldName = CName "field_0",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 36,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:36:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1832,12 +1478,8 @@
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:37:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1853,12 +1495,8 @@
                         fieldOffset = 16,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:38:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1874,12 +1512,8 @@
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:39:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1899,12 +1533,8 @@
                               (CName
                                 "another_typedef_struct_t"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 40,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:40:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1926,12 +1556,8 @@
                                 (CName
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 41,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:41:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1945,12 +1571,8 @@
                         fieldOffset = 192,
                         fieldType = TypePointer
                           (TypePrim PrimVoid),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 42,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:42:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1970,12 +1592,8 @@
                           7
                           (TypeTypedef
                             (CName "uint32_t")),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 43,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:43:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1992,12 +1610,8 @@
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 44,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:44:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2014,12 +1628,8 @@
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 45,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:45:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2036,12 +1646,8 @@
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 46,
-                          singleLocColumn = 31}}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:46:31"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2056,45 +1662,29 @@
                         fieldName = CName "field_0",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 36,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:36:31"},
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:37:31"},
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:38:31"},
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:39:31"},
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
@@ -2104,12 +1694,8 @@
                               (CName
                                 "another_typedef_struct_t"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 40,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:40:31"},
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
@@ -2120,23 +1706,15 @@
                                 (CName
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 41,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:41:31"},
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
                         fieldType = TypePointer
                           (TypePrim PrimVoid),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 42,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:42:31"},
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
@@ -2144,55 +1722,35 @@
                           7
                           (TypeTypedef
                             (CName "uint32_t")),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 43,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:43:31"},
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 44,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:44:31"},
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 45,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:45:31"},
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 46,
-                          singleLocColumn = 31}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 34,
-                      singleLocColumn = 16}}})
+                    structSourceLoc =
+                    "examples/distilled_lib_1.h:34:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2231,12 +1789,8 @@
                         fieldName = CName "field_0",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 36,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:36:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2252,12 +1806,8 @@
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:37:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2273,12 +1823,8 @@
                         fieldOffset = 16,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:38:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2294,12 +1840,8 @@
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:39:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2319,12 +1861,8 @@
                               (CName
                                 "another_typedef_struct_t"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 40,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:40:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2346,12 +1884,8 @@
                                 (CName
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 41,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:41:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2365,12 +1899,8 @@
                         fieldOffset = 192,
                         fieldType = TypePointer
                           (TypePrim PrimVoid),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 42,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:42:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2390,12 +1920,8 @@
                           7
                           (TypeTypedef
                             (CName "uint32_t")),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 43,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:43:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2412,12 +1938,8 @@
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 44,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:44:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2434,12 +1956,8 @@
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 45,
-                          singleLocColumn = 31}}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:45:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2456,12 +1974,8 @@
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 46,
-                          singleLocColumn = 31}}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:46:31"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2476,45 +1990,29 @@
                         fieldName = CName "field_0",
                         fieldOffset = 0,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 36,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:36:31"},
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:37:31"},
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:38:31"},
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:39:31"},
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
@@ -2524,12 +2022,8 @@
                               (CName
                                 "another_typedef_struct_t"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 40,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:40:31"},
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
@@ -2540,23 +2034,15 @@
                                 (CName
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 41,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:41:31"},
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
                         fieldType = TypePointer
                           (TypePrim PrimVoid),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 42,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:42:31"},
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
@@ -2564,55 +2050,35 @@
                           7
                           (TypeTypedef
                             (CName "uint32_t")),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 43,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:43:31"},
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 44,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:44:31"},
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 45,
-                          singleLocColumn = 31}},
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:45:31"},
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 46,
-                          singleLocColumn = 31}}],
+                        fieldSourceLoc =
+                        "examples/distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 34,
-                      singleLocColumn = 16}}}
+                    structSourceLoc =
+                    "examples/distilled_lib_1.h:34:16"}}
               (Add 11)
               (Seq
                 [
@@ -2657,12 +2123,8 @@
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 47,
-            singleLocColumn = 3}}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:47:3"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -2696,45 +2158,25 @@
             EnumValue {
               valueName = CName "ENUM_CASE_0",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 62,
-                singleLocColumn = 3}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:62:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_1",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 63,
-                singleLocColumn = 3}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:63:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_2",
               valueValue = 2,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 64,
-                singleLocColumn = 3}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:64:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_3",
               valueValue = 3,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "distilled_lib_1.h"],
-                singleLocLine = 65,
-                singleLocColumn = 3}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 60,
-            singleLocColumn = 9}}},
+              valueSourceLoc =
+              "examples/distilled_lib_1.h:65:3"}],
+          enumSourceLoc =
+          "examples/distilled_lib_1.h:60:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2764,45 +2206,25 @@
               EnumValue {
                 valueName = CName "ENUM_CASE_0",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 62,
-                  singleLocColumn = 3}},
+                valueSourceLoc =
+                "examples/distilled_lib_1.h:62:3"},
               EnumValue {
                 valueName = CName "ENUM_CASE_1",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 63,
-                  singleLocColumn = 3}},
+                valueSourceLoc =
+                "examples/distilled_lib_1.h:63:3"},
               EnumValue {
                 valueName = CName "ENUM_CASE_2",
                 valueValue = 2,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 64,
-                  singleLocColumn = 3}},
+                valueSourceLoc =
+                "examples/distilled_lib_1.h:64:3"},
               EnumValue {
                 valueName = CName "ENUM_CASE_3",
                 valueValue = 3,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "distilled_lib_1.h"],
-                  singleLocLine = 65,
-                  singleLocColumn = 3}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "distilled_lib_1.h"],
-              singleLocLine = 60,
-              singleLocColumn = 9}}}
+                valueSourceLoc =
+                "examples/distilled_lib_1.h:65:3"}],
+            enumSourceLoc =
+            "examples/distilled_lib_1.h:60:9"}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -2837,45 +2259,25 @@
                       EnumValue {
                         valueName = CName "ENUM_CASE_0",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 62,
-                          singleLocColumn = 3}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:62:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_1",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 63,
-                          singleLocColumn = 3}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:63:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_2",
                         valueValue = 2,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 64,
-                          singleLocColumn = 3}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:64:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_3",
                         valueValue = 3,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 65,
-                          singleLocColumn = 3}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 60,
-                      singleLocColumn = 9}}})
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:65:3"}],
+                    enumSourceLoc =
+                    "examples/distilled_lib_1.h:60:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2910,45 +2312,25 @@
                       EnumValue {
                         valueName = CName "ENUM_CASE_0",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 62,
-                          singleLocColumn = 3}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:62:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_1",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 63,
-                          singleLocColumn = 3}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:63:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_2",
                         valueValue = 2,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 64,
-                          singleLocColumn = 3}},
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:64:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_3",
                         valueValue = 3,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "distilled_lib_1.h"],
-                          singleLocLine = 65,
-                          singleLocColumn = 3}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "distilled_lib_1.h"],
-                      singleLocLine = 60,
-                      singleLocColumn = 9}}}
+                        valueSourceLoc =
+                        "examples/distilled_lib_1.h:65:3"}],
+                    enumSourceLoc =
+                    "examples/distilled_lib_1.h:60:9"}}
               (Add 1)
               (Seq
                 [
@@ -2973,12 +2355,8 @@
         EnumValue {
           valueName = CName "ENUM_CASE_0",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 62,
-            singleLocColumn = 3}}},
+          valueSourceLoc =
+          "examples/distilled_lib_1.h:62:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2996,12 +2374,8 @@
         EnumValue {
           valueName = CName "ENUM_CASE_1",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 63,
-            singleLocColumn = 3}}},
+          valueSourceLoc =
+          "examples/distilled_lib_1.h:63:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3019,12 +2393,8 @@
         EnumValue {
           valueName = CName "ENUM_CASE_2",
           valueValue = 2,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 64,
-            singleLocColumn = 3}}},
+          valueSourceLoc =
+          "examples/distilled_lib_1.h:64:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3042,12 +2412,8 @@
         EnumValue {
           valueName = CName "ENUM_CASE_3",
           valueValue = 3,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 65,
-            singleLocColumn = 3}}},
+          valueSourceLoc =
+          "examples/distilled_lib_1.h:65:3"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -3069,14 +2435,8 @@
           typedefName = CName "int32_t",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 106,
-            singleLocColumn = 25}}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:106:25"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -3120,12 +2480,8 @@
                 TypeTypedef (CName "uint32_t")]
               (TypeTypedef
                 (CName "uint32_t"))),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "distilled_lib_1.h"],
-            singleLocLine = 76,
-            singleLocColumn = 19}}},
+          typedefSourceLoc =
+          "examples/distilled_lib_1.h:76:19"}},
   DeclNewtypeInstance
     Storable
     (HsName

@@ -27,27 +27,15 @@
             EnumValue {
               valueName = CName "FIRST1",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 5,
-                singleLocColumn = 5}},
+              valueSourceLoc =
+              "examples/enums.h:5:5"},
             EnumValue {
               valueName = CName "FIRST2",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 6,
-                singleLocColumn = 5}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 4,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/enums.h:6:5"}],
+          enumSourceLoc =
+          "examples/enums.h:4:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -77,27 +65,15 @@
               EnumValue {
                 valueName = CName "FIRST1",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 5,
-                  singleLocColumn = 5}},
+                valueSourceLoc =
+                "examples/enums.h:5:5"},
               EnumValue {
                 valueName = CName "FIRST2",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 5}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 4,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/enums.h:6:5"}],
+            enumSourceLoc =
+            "examples/enums.h:4:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -132,27 +108,15 @@
                       EnumValue {
                         valueName = CName "FIRST1",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:5:5"},
                       EnumValue {
                         valueName = CName "FIRST2",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 5}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 4,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/enums.h:6:5"}],
+                    enumSourceLoc =
+                    "examples/enums.h:4:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -187,27 +151,15 @@
                       EnumValue {
                         valueName = CName "FIRST1",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:5:5"},
                       EnumValue {
                         valueName = CName "FIRST2",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 5}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 4,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/enums.h:6:5"}],
+                    enumSourceLoc =
+                    "examples/enums.h:4:6"}}
               (Add 1)
               (Seq
                 [
@@ -232,12 +184,8 @@
         EnumValue {
           valueName = CName "FIRST1",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 5,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:5:5"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -255,12 +203,8 @@
         EnumValue {
           valueName = CName "FIRST2",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 6,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:6:5"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -288,36 +232,20 @@
             EnumValue {
               valueName = CName "SECOND_A",
               valueValue = `-1`,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 10,
-                singleLocColumn = 5}},
+              valueSourceLoc =
+              "examples/enums.h:10:5"},
             EnumValue {
               valueName = CName "SECOND_B",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 11,
-                singleLocColumn = 5}},
+              valueSourceLoc =
+              "examples/enums.h:11:5"},
             EnumValue {
               valueName = CName "SECOND_C",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 12,
-                singleLocColumn = 5}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 9,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/enums.h:12:5"}],
+          enumSourceLoc =
+          "examples/enums.h:9:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -346,36 +274,20 @@
               EnumValue {
                 valueName = CName "SECOND_A",
                 valueValue = `-1`,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 5}},
+                valueSourceLoc =
+                "examples/enums.h:10:5"},
               EnumValue {
                 valueName = CName "SECOND_B",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 5}},
+                valueSourceLoc =
+                "examples/enums.h:11:5"},
               EnumValue {
                 valueName = CName "SECOND_C",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 12,
-                  singleLocColumn = 5}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 9,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/enums.h:12:5"}],
+            enumSourceLoc =
+            "examples/enums.h:9:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -409,36 +321,20 @@
                       EnumValue {
                         valueName = CName "SECOND_A",
                         valueValue = `-1`,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:10:5"},
                       EnumValue {
                         valueName = CName "SECOND_B",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:11:5"},
                       EnumValue {
                         valueName = CName "SECOND_C",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 12,
-                          singleLocColumn = 5}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/enums.h:12:5"}],
+                    enumSourceLoc =
+                    "examples/enums.h:9:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -472,36 +368,20 @@
                       EnumValue {
                         valueName = CName "SECOND_A",
                         valueValue = `-1`,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:10:5"},
                       EnumValue {
                         valueName = CName "SECOND_B",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:11:5"},
                       EnumValue {
                         valueName = CName "SECOND_C",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 12,
-                          singleLocColumn = 5}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/enums.h:12:5"}],
+                    enumSourceLoc =
+                    "examples/enums.h:9:6"}}
               (Add 1)
               (Seq
                 [
@@ -526,12 +406,8 @@
         EnumValue {
           valueName = CName "SECOND_A",
           valueValue = `-1`,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 10,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:10:5"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -549,12 +425,8 @@
         EnumValue {
           valueName = CName "SECOND_B",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 11,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:11:5"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -572,12 +444,8 @@
         EnumValue {
           valueName = CName "SECOND_C",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 12,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:12:5"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -606,27 +474,15 @@
             EnumValue {
               valueName = CName "SAME_A",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 16,
-                singleLocColumn = 5}},
+              valueSourceLoc =
+              "examples/enums.h:16:5"},
             EnumValue {
               valueName = CName "SAME_B",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 17,
-                singleLocColumn = 5}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 15,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/enums.h:17:5"}],
+          enumSourceLoc =
+          "examples/enums.h:15:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -656,27 +512,15 @@
               EnumValue {
                 valueName = CName "SAME_A",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 5}},
+                valueSourceLoc =
+                "examples/enums.h:16:5"},
               EnumValue {
                 valueName = CName "SAME_B",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 17,
-                  singleLocColumn = 5}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 15,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/enums.h:17:5"}],
+            enumSourceLoc =
+            "examples/enums.h:15:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -711,27 +555,15 @@
                       EnumValue {
                         valueName = CName "SAME_A",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:16:5"},
                       EnumValue {
                         valueName = CName "SAME_B",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 5}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/enums.h:17:5"}],
+                    enumSourceLoc =
+                    "examples/enums.h:15:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -766,27 +598,15 @@
                       EnumValue {
                         valueName = CName "SAME_A",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:16:5"},
                       EnumValue {
                         valueName = CName "SAME_B",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 5}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/enums.h:17:5"}],
+                    enumSourceLoc =
+                    "examples/enums.h:15:6"}}
               (Add 1)
               (Seq
                 [
@@ -811,12 +631,8 @@
         EnumValue {
           valueName = CName "SAME_A",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 16,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:16:5"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -834,12 +650,8 @@
         EnumValue {
           valueName = CName "SAME_B",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 17,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:17:5"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -867,36 +679,20 @@
             EnumValue {
               valueName = CName "PACKED_A",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 21,
-                singleLocColumn = 5}},
+              valueSourceLoc =
+              "examples/enums.h:21:5"},
             EnumValue {
               valueName = CName "PACKED_B",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 21,
-                singleLocColumn = 15}},
+              valueSourceLoc =
+              "examples/enums.h:21:15"},
             EnumValue {
               valueName = CName "PACKED_C",
               valueValue = 2,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 21,
-                singleLocColumn = 25}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 20,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/enums.h:21:25"}],
+          enumSourceLoc =
+          "examples/enums.h:20:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -925,36 +721,20 @@
               EnumValue {
                 valueName = CName "PACKED_A",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 5}},
+                valueSourceLoc =
+                "examples/enums.h:21:5"},
               EnumValue {
                 valueName = CName "PACKED_B",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 15}},
+                valueSourceLoc =
+                "examples/enums.h:21:15"},
               EnumValue {
                 valueName = CName "PACKED_C",
                 valueValue = 2,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 25}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 20,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/enums.h:21:25"}],
+            enumSourceLoc =
+            "examples/enums.h:20:6"}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -988,36 +768,20 @@
                       EnumValue {
                         valueName = CName "PACKED_A",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:21:5"},
                       EnumValue {
                         valueName = CName "PACKED_B",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 15}},
+                        valueSourceLoc =
+                        "examples/enums.h:21:15"},
                       EnumValue {
                         valueName = CName "PACKED_C",
                         valueValue = 2,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 25}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 20,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/enums.h:21:25"}],
+                    enumSourceLoc =
+                    "examples/enums.h:20:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1051,36 +815,20 @@
                       EnumValue {
                         valueName = CName "PACKED_A",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 5}},
+                        valueSourceLoc =
+                        "examples/enums.h:21:5"},
                       EnumValue {
                         valueName = CName "PACKED_B",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 15}},
+                        valueSourceLoc =
+                        "examples/enums.h:21:15"},
                       EnumValue {
                         valueName = CName "PACKED_C",
                         valueValue = 2,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 25}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 20,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/enums.h:21:25"}],
+                    enumSourceLoc =
+                    "examples/enums.h:20:6"}}
               (Add 1)
               (Seq
                 [
@@ -1105,12 +853,8 @@
         EnumValue {
           valueName = CName "PACKED_A",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 21,
-            singleLocColumn = 5}}},
+          valueSourceLoc =
+          "examples/enums.h:21:5"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1128,12 +872,8 @@
         EnumValue {
           valueName = CName "PACKED_B",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 21,
-            singleLocColumn = 15}}},
+          valueSourceLoc =
+          "examples/enums.h:21:15"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1151,12 +891,8 @@
         EnumValue {
           valueName = CName "PACKED_C",
           valueValue = 2,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 21,
-            singleLocColumn = 25}}},
+          valueSourceLoc =
+          "examples/enums.h:21:25"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1185,27 +921,15 @@
             EnumValue {
               valueName = CName "A_FOO",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 24,
-                singleLocColumn = 16}},
+              valueSourceLoc =
+              "examples/enums.h:24:16"},
             EnumValue {
               valueName = CName "A_BAR",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 24,
-                singleLocColumn = 23}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 24,
-            singleLocColumn = 9}}},
+              valueSourceLoc =
+              "examples/enums.h:24:23"}],
+          enumSourceLoc =
+          "examples/enums.h:24:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1235,27 +959,15 @@
               EnumValue {
                 valueName = CName "A_FOO",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 24,
-                  singleLocColumn = 16}},
+                valueSourceLoc =
+                "examples/enums.h:24:16"},
               EnumValue {
                 valueName = CName "A_BAR",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 24,
-                  singleLocColumn = 23}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 24,
-              singleLocColumn = 9}}}
+                valueSourceLoc =
+                "examples/enums.h:24:23"}],
+            enumSourceLoc =
+            "examples/enums.h:24:9"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1290,27 +1002,15 @@
                       EnumValue {
                         valueName = CName "A_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 16}},
+                        valueSourceLoc =
+                        "examples/enums.h:24:16"},
                       EnumValue {
                         valueName = CName "A_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 23}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 24,
-                      singleLocColumn = 9}}})
+                        valueSourceLoc =
+                        "examples/enums.h:24:23"}],
+                    enumSourceLoc =
+                    "examples/enums.h:24:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1345,27 +1045,15 @@
                       EnumValue {
                         valueName = CName "A_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 16}},
+                        valueSourceLoc =
+                        "examples/enums.h:24:16"},
                       EnumValue {
                         valueName = CName "A_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 23}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 24,
-                      singleLocColumn = 9}}}
+                        valueSourceLoc =
+                        "examples/enums.h:24:23"}],
+                    enumSourceLoc =
+                    "examples/enums.h:24:9"}}
               (Add 1)
               (Seq
                 [
@@ -1390,12 +1078,8 @@
         EnumValue {
           valueName = CName "A_FOO",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 24,
-            singleLocColumn = 16}}},
+          valueSourceLoc =
+          "examples/enums.h:24:16"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1413,12 +1097,8 @@
         EnumValue {
           valueName = CName "A_BAR",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 24,
-            singleLocColumn = 23}}},
+          valueSourceLoc =
+          "examples/enums.h:24:23"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1447,27 +1127,15 @@
             EnumValue {
               valueName = CName "B_FOO",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 26,
-                singleLocColumn = 22}},
+              valueSourceLoc =
+              "examples/enums.h:26:22"},
             EnumValue {
               valueName = CName "B_BAR",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 26,
-                singleLocColumn = 29}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 26,
-            singleLocColumn = 14}}},
+              valueSourceLoc =
+              "examples/enums.h:26:29"}],
+          enumSourceLoc =
+          "examples/enums.h:26:14"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1497,27 +1165,15 @@
               EnumValue {
                 valueName = CName "B_FOO",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 26,
-                  singleLocColumn = 22}},
+                valueSourceLoc =
+                "examples/enums.h:26:22"},
               EnumValue {
                 valueName = CName "B_BAR",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 26,
-                  singleLocColumn = 29}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 26,
-              singleLocColumn = 14}}}
+                valueSourceLoc =
+                "examples/enums.h:26:29"}],
+            enumSourceLoc =
+            "examples/enums.h:26:14"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1552,27 +1208,15 @@
                       EnumValue {
                         valueName = CName "B_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 22}},
+                        valueSourceLoc =
+                        "examples/enums.h:26:22"},
                       EnumValue {
                         valueName = CName "B_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 29}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 26,
-                      singleLocColumn = 14}}})
+                        valueSourceLoc =
+                        "examples/enums.h:26:29"}],
+                    enumSourceLoc =
+                    "examples/enums.h:26:14"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1607,27 +1251,15 @@
                       EnumValue {
                         valueName = CName "B_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 22}},
+                        valueSourceLoc =
+                        "examples/enums.h:26:22"},
                       EnumValue {
                         valueName = CName "B_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 29}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 26,
-                      singleLocColumn = 14}}}
+                        valueSourceLoc =
+                        "examples/enums.h:26:29"}],
+                    enumSourceLoc =
+                    "examples/enums.h:26:14"}}
               (Add 1)
               (Seq
                 [
@@ -1652,12 +1284,8 @@
         EnumValue {
           valueName = CName "B_FOO",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 26,
-            singleLocColumn = 22}}},
+          valueSourceLoc =
+          "examples/enums.h:26:22"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1675,12 +1303,8 @@
         EnumValue {
           valueName = CName "B_BAR",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 26,
-            singleLocColumn = 29}}},
+          valueSourceLoc =
+          "examples/enums.h:26:29"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1709,27 +1333,15 @@
             EnumValue {
               valueName = CName "C_FOO",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 28,
-                singleLocColumn = 14}},
+              valueSourceLoc =
+              "examples/enums.h:28:14"},
             EnumValue {
               valueName = CName "C_BAR",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 28,
-                singleLocColumn = 21}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 28,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/enums.h:28:21"}],
+          enumSourceLoc =
+          "examples/enums.h:28:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1759,27 +1371,15 @@
               EnumValue {
                 valueName = CName "C_FOO",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 28,
-                  singleLocColumn = 14}},
+                valueSourceLoc =
+                "examples/enums.h:28:14"},
               EnumValue {
                 valueName = CName "C_BAR",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 28,
-                  singleLocColumn = 21}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 28,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/enums.h:28:21"}],
+            enumSourceLoc =
+            "examples/enums.h:28:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1814,27 +1414,15 @@
                       EnumValue {
                         valueName = CName "C_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 14}},
+                        valueSourceLoc =
+                        "examples/enums.h:28:14"},
                       EnumValue {
                         valueName = CName "C_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 21}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 28,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/enums.h:28:21"}],
+                    enumSourceLoc =
+                    "examples/enums.h:28:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1869,27 +1457,15 @@
                       EnumValue {
                         valueName = CName "C_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 14}},
+                        valueSourceLoc =
+                        "examples/enums.h:28:14"},
                       EnumValue {
                         valueName = CName "C_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 21}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 28,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/enums.h:28:21"}],
+                    enumSourceLoc =
+                    "examples/enums.h:28:6"}}
               (Add 1)
               (Seq
                 [
@@ -1914,12 +1490,8 @@
         EnumValue {
           valueName = CName "C_FOO",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 28,
-            singleLocColumn = 14}}},
+          valueSourceLoc =
+          "examples/enums.h:28:14"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1937,12 +1509,8 @@
         EnumValue {
           valueName = CName "C_BAR",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 28,
-            singleLocColumn = 21}}},
+          valueSourceLoc =
+          "examples/enums.h:28:21"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1971,27 +1539,15 @@
             EnumValue {
               valueName = CName "D_FOO",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 31,
-                singleLocColumn = 14}},
+              valueSourceLoc =
+              "examples/enums.h:31:14"},
             EnumValue {
               valueName = CName "D_BAR",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "enums.h"],
-                singleLocLine = 31,
-                singleLocColumn = 21}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 31,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/enums.h:31:21"}],
+          enumSourceLoc =
+          "examples/enums.h:31:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2021,27 +1577,15 @@
               EnumValue {
                 valueName = CName "D_FOO",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 14}},
+                valueSourceLoc =
+                "examples/enums.h:31:14"},
               EnumValue {
                 valueName = CName "D_BAR",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "enums.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 21}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "enums.h"],
-              singleLocLine = 31,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/enums.h:31:21"}],
+            enumSourceLoc =
+            "examples/enums.h:31:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -2076,27 +1620,15 @@
                       EnumValue {
                         valueName = CName "D_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 14}},
+                        valueSourceLoc =
+                        "examples/enums.h:31:14"},
                       EnumValue {
                         valueName = CName "D_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 21}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 31,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/enums.h:31:21"}],
+                    enumSourceLoc =
+                    "examples/enums.h:31:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2131,27 +1663,15 @@
                       EnumValue {
                         valueName = CName "D_FOO",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 14}},
+                        valueSourceLoc =
+                        "examples/enums.h:31:14"},
                       EnumValue {
                         valueName = CName "D_BAR",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "enums.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 21}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "enums.h"],
-                      singleLocLine = 31,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/enums.h:31:21"}],
+                    enumSourceLoc =
+                    "examples/enums.h:31:6"}}
               (Add 1)
               (Seq
                 [
@@ -2176,12 +1696,8 @@
         EnumValue {
           valueName = CName "D_FOO",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 31,
-            singleLocColumn = 14}}},
+          valueSourceLoc =
+          "examples/enums.h:31:14"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2199,12 +1715,8 @@
         EnumValue {
           valueName = CName "D_BAR",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 31,
-            singleLocColumn = 21}}},
+          valueSourceLoc =
+          "examples/enums.h:31:21"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2228,12 +1740,8 @@
           typedefName = CName "enumD_t",
           typedefType = TypeEnum
             (CName "enumD"),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "enums.h"],
-            singleLocLine = 32,
-            singleLocColumn = 20}}},
+          typedefSourceLoc =
+          "examples/enums.h:32:20"}},
   DeclNewtypeInstance
     Storable
     (HsName

@@ -21,12 +21,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 3,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:3:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -40,12 +36,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 4,
-                singleLocColumn = 10}}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:4:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -60,30 +52,18 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 3,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:3:9"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 4,
-                singleLocColumn = 10}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:4:10"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 2,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/simple_structs.h:2:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -107,12 +87,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:3:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -126,12 +102,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 10}}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:4:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -146,30 +118,18 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:3:9"},
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 10}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:4:10"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "simple_structs.h"],
-              singleLocLine = 2,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/simple_structs.h:2:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -198,12 +158,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:3:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -217,12 +173,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:4:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -237,30 +189,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:3:9"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:4:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 2,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/simple_structs.h:2:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -291,12 +231,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:3:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -310,12 +246,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:4:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -330,30 +262,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:3:9"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:4:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 2,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/simple_structs.h:2:8"}}
               (Add 2)
               (Seq
                 [
@@ -384,12 +304,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 9,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:9:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -403,12 +319,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 10,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:10:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -422,12 +334,8 @@
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 11,
-                singleLocColumn = 11}}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:11:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -442,41 +350,25 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 9,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:9:10"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 10,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:10:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 11,
-                singleLocColumn = 11}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:11:11"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 8,
-            singleLocColumn = 16}}},
+          structSourceLoc =
+          "examples/simple_structs.h:8:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -500,12 +392,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:9:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -519,12 +407,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:10:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -538,12 +422,8 @@
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 11}}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:11:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -558,41 +438,25 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:9:10"},
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:10:9"},
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 11}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:11:11"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "simple_structs.h"],
-              singleLocLine = 8,
-              singleLocColumn = 16}}}
+            structSourceLoc =
+            "examples/simple_structs.h:8:16"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -621,12 +485,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:9:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -640,12 +500,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:10:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -659,12 +515,8 @@
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 11}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:11:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -679,41 +531,25 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:9:10"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:10:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 11}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:11:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 8,
-                      singleLocColumn = 16}}})
+                    structSourceLoc =
+                    "examples/simple_structs.h:8:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -745,12 +581,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:9:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -764,12 +596,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:10:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -783,12 +611,8 @@
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 11}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:11:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -803,41 +627,25 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:9:10"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:10:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 11}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:11:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 8,
-                      singleLocColumn = 16}}}
+                    structSourceLoc =
+                    "examples/simple_structs.h:8:16"}}
               (Add 3)
               (Seq
                 [
@@ -870,12 +678,8 @@
             (DeclPathStruct
               (DeclNameTag (CName "S2"))
               DeclPathTop),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 12,
-            singleLocColumn = 3}}},
+          typedefSourceLoc =
+          "examples/simple_structs.h:12:3"}},
   DeclNewtypeInstance
     Storable
     (HsName "@NsTypeConstr" "S2_t"),
@@ -901,12 +705,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 16,
-                singleLocColumn = 10}}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:16:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -921,19 +721,11 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 16,
-                singleLocColumn = 10}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:16:10"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 15,
-            singleLocColumn = 9}}},
+          structSourceLoc =
+          "examples/simple_structs.h:15:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -957,12 +749,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 10}}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:16:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -977,19 +765,11 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 10}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:16:10"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "simple_structs.h"],
-              singleLocLine = 15,
-              singleLocColumn = 9}}}
+            structSourceLoc =
+            "examples/simple_structs.h:15:9"}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -1018,12 +798,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:16:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1038,19 +814,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:16:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 9}}})
+                    structSourceLoc =
+                    "examples/simple_structs.h:15:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1079,12 +847,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:16:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1099,19 +863,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:16:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 9}}}
+                    structSourceLoc =
+                    "examples/simple_structs.h:15:9"}}
               (Add 1)
               (Seq
                 [
@@ -1141,12 +897,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 20,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:20:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1160,12 +912,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 21,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:21:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1181,12 +929,8 @@
                 (TypePrim
                   (PrimIntegral
                     (PrimInt Signed))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 22,
-                singleLocColumn = 10}}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:22:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1201,23 +945,15 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 20,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:20:10"},
             StructField {
               fieldName = CName "a",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 21,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:21:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
@@ -1225,19 +961,11 @@
                 (TypePrim
                   (PrimIntegral
                     (PrimInt Signed))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 22,
-                singleLocColumn = 10}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:22:10"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 19,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/simple_structs.h:19:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1261,12 +989,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 20,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:20:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1280,12 +1004,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:21:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1301,12 +1021,8 @@
                   (TypePrim
                     (PrimIntegral
                       (PrimInt Signed))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 22,
-                  singleLocColumn = 10}}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:22:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1321,23 +1037,15 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 20,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:20:10"},
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:21:9"},
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 64,
@@ -1345,19 +1053,11 @@
                   (TypePrim
                     (PrimIntegral
                       (PrimInt Signed))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 22,
-                  singleLocColumn = 10}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:22:10"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "simple_structs.h"],
-              singleLocLine = 19,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/simple_structs.h:19:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1386,12 +1086,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:20:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1405,12 +1101,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:21:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1426,12 +1118,8 @@
                           (TypePrim
                             (PrimIntegral
                               (PrimInt Signed))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:22:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1446,23 +1134,15 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:20:10"},
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:21:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 64,
@@ -1470,19 +1150,11 @@
                           (TypePrim
                             (PrimIntegral
                               (PrimInt Signed))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:22:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 19,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/simple_structs.h:19:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -1514,12 +1186,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:20:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1533,12 +1201,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:21:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1554,12 +1218,8 @@
                           (TypePrim
                             (PrimIntegral
                               (PrimInt Signed))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:22:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1574,23 +1234,15 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:20:10"},
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:21:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 64,
@@ -1598,19 +1250,11 @@
                           (TypePrim
                             (PrimIntegral
                               (PrimInt Signed))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:22:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 19,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/simple_structs.h:19:8"}}
               (Add 3)
               (Seq
                 [
@@ -1642,12 +1286,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 27,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:27:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1661,12 +1301,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 28,
-                singleLocColumn = 9}}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:28:9"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1681,30 +1317,18 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 27,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:27:10"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 28,
-                singleLocColumn = 9}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:28:9"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 26,
-            singleLocColumn = 16}}},
+          structSourceLoc =
+          "examples/simple_structs.h:26:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1728,12 +1352,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 27,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:27:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1747,12 +1367,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 28,
-                  singleLocColumn = 9}}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:28:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1767,30 +1383,18 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 27,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:27:10"},
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 28,
-                  singleLocColumn = 9}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:28:9"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "simple_structs.h"],
-              singleLocLine = 26,
-              singleLocColumn = 16}}}
+            structSourceLoc =
+            "examples/simple_structs.h:26:16"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1819,12 +1423,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:27:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1838,12 +1438,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 9}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:28:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1858,30 +1454,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:27:10"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 9}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:28:9"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 26,
-                      singleLocColumn = 16}}})
+                    structSourceLoc =
+                    "examples/simple_structs.h:26:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1912,12 +1496,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:27:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1931,12 +1511,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 9}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:28:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1951,30 +1527,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:27:10"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 28,
-                          singleLocColumn = 9}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:28:9"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 26,
-                      singleLocColumn = 16}}}
+                    structSourceLoc =
+                    "examples/simple_structs.h:26:16"}}
               (Add 2)
               (Seq
                 [
@@ -2005,12 +1569,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 31,
-                singleLocColumn = 18}}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:31:18"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2024,12 +1584,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 31,
-                singleLocColumn = 25}}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:31:25"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -2044,30 +1600,18 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 31,
-                singleLocColumn = 18}},
+              fieldSourceLoc =
+              "examples/simple_structs.h:31:18"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "simple_structs.h"],
-                singleLocLine = 31,
-                singleLocColumn = 25}}],
+              fieldSourceLoc =
+              "examples/simple_structs.h:31:25"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_structs.h"],
-            singleLocLine = 31,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/simple_structs.h:31:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2091,12 +1635,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 18}}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:31:18"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2110,12 +1650,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 25}}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:31:25"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -2130,30 +1666,18 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 18}},
+                fieldSourceLoc =
+                "examples/simple_structs.h:31:18"},
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "simple_structs.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 25}}],
+                fieldSourceLoc =
+                "examples/simple_structs.h:31:25"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "simple_structs.h"],
-              singleLocLine = 31,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/simple_structs.h:31:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2182,12 +1706,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 18}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:18"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2201,12 +1721,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 25}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2221,30 +1737,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 18}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:18"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 25}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:25"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 31,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/simple_structs.h:31:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2275,12 +1779,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 18}}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:18"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2294,12 +1794,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 25}}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2314,30 +1810,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 18}},
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:18"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "simple_structs.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 25}}],
+                        fieldSourceLoc =
+                        "examples/simple_structs.h:31:25"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "simple_structs.h"],
-                      singleLocLine = 31,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/simple_structs.h:31:8"}}
               (Add 2)
               (Seq
                 [

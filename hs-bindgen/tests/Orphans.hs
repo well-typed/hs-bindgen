@@ -11,6 +11,7 @@ import Data.Vec.Lazy (Vec)
 import Data.Vec.Lazy qualified as Vec
 import Foreign.C
 import System.FilePath (splitDirectories)
+import System.FilePath.Posix qualified as Posix
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro as CMacro
@@ -55,7 +56,6 @@ instance ToExpr C.PrimFloatType
 instance ToExpr C.PrimIntType
 instance ToExpr C.PrimSign
 instance ToExpr C.PrimType
-instance ToExpr C.SingleLoc
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TokenSpelling
@@ -67,9 +67,13 @@ instance ToExpr C.FloatingLiteral
 instance ToExpr a => ToExpr (C.Range a)
 instance ToExpr a => ToExpr (C.Token a)
 
--- Construct platform-independent expression
-instance ToExpr C.SourcePath where
-  toExpr = toExpr . splitDirectories . Text.unpack . C.getSourcePath
+-- do not use record syntax, as it's very verbose
+instance ToExpr C.SingleLoc where
+  toExpr (C.SingleLoc p l c) = toExpr $
+    -- use posix directory separators even on windows
+    Posix.joinPath (splitDirectories (Text.unpack (C.getSourcePath p))) ++ ":" ++
+    show l ++ ":" ++
+    show c
 
 instance ToExpr C.ReparseError where
   toExpr C.ReparseError {..} = Expr.Rec "ReparseError" $ OMap.fromList

@@ -18,12 +18,8 @@
       NewtypeOriginMacro
         Macro {
           macroLoc = MultiLoc {
-            multiLocExpansion = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "typedef_vs_macro.h"],
-              singleLocLine = 4,
-              singleLocColumn = 9},
+            multiLocExpansion =
+            "examples/typedef_vs_macro.h:4:9",
             multiLocPresumed = Nothing,
             multiLocSpelling = Nothing,
             multiLocFile = Nothing},
@@ -52,12 +48,8 @@
       NewtypeOriginMacro
         Macro {
           macroLoc = MultiLoc {
-            multiLocExpansion = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "typedef_vs_macro.h"],
-              singleLocLine = 5,
-              singleLocColumn = 9},
+            multiLocExpansion =
+            "examples/typedef_vs_macro.h:5:9",
             multiLocPresumed = Nothing,
             multiLocSpelling = Nothing,
             multiLocFile = Nothing},
@@ -86,12 +78,8 @@
           typedefName = CName "T1",
           typedefType = TypePrim
             (PrimIntegral (PrimInt Signed)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typedef_vs_macro.h"],
-            singleLocLine = 1,
-            singleLocColumn = 13}}},
+          typedefSourceLoc =
+          "examples/typedef_vs_macro.h:1:13"}},
   DeclNewtypeInstance
     Storable
     (HsName "@NsTypeConstr" "T1"),
@@ -116,12 +104,8 @@
           typedefName = CName "T2",
           typedefType = TypePrim
             (PrimChar Nothing),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typedef_vs_macro.h"],
-            singleLocLine = 2,
-            singleLocColumn = 14}}},
+          typedefSourceLoc =
+          "examples/typedef_vs_macro.h:2:14"}},
   DeclNewtypeInstance
     Storable
     (HsName "@NsTypeConstr" "T2"),
@@ -147,12 +131,8 @@
               fieldOffset = 0,
               fieldType = TypeTypedef
                 (CName "T1"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 8,
-                singleLocColumn = 6}}},
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:8:6"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -166,12 +146,8 @@
               fieldOffset = 32,
               fieldType = TypeTypedef
                 (CName "T2"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 9,
-                singleLocColumn = 6}}},
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:9:6"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -185,12 +161,8 @@
               fieldOffset = 64,
               fieldType = TypeTypedef
                 (CName "M1"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 10,
-                singleLocColumn = 6}}},
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:10:6"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -204,12 +176,8 @@
               fieldOffset = 96,
               fieldType = TypeTypedef
                 (CName "M2"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 11,
-                singleLocColumn = 6}}}],
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:11:6"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -225,52 +193,32 @@
               fieldOffset = 0,
               fieldType = TypeTypedef
                 (CName "T1"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 8,
-                singleLocColumn = 6}},
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:8:6"},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
               fieldType = TypeTypedef
                 (CName "T2"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 9,
-                singleLocColumn = 6}},
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:9:6"},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
               fieldType = TypeTypedef
                 (CName "M1"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 10,
-                singleLocColumn = 6}},
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:10:6"},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
               fieldType = TypeTypedef
                 (CName "M2"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typedef_vs_macro.h"],
-                singleLocLine = 11,
-                singleLocColumn = 6}}],
+              fieldSourceLoc =
+              "examples/typedef_vs_macro.h:11:6"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typedef_vs_macro.h"],
-            singleLocLine = 7,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/typedef_vs_macro.h:7:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -294,12 +242,8 @@
                 fieldOffset = 0,
                 fieldType = TypeTypedef
                   (CName "T1"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 6}}},
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:8:6"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -313,12 +257,8 @@
                 fieldOffset = 32,
                 fieldType = TypeTypedef
                   (CName "T2"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 6}}},
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:9:6"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -332,12 +272,8 @@
                 fieldOffset = 64,
                 fieldType = TypeTypedef
                   (CName "M1"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 6}}},
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:10:6"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -351,12 +287,8 @@
                 fieldOffset = 96,
                 fieldType = TypeTypedef
                   (CName "M2"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 6}}}],
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:11:6"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -372,52 +304,32 @@
                 fieldOffset = 0,
                 fieldType = TypeTypedef
                   (CName "T1"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 6}},
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:8:6"},
               StructField {
                 fieldName = CName "t2",
                 fieldOffset = 32,
                 fieldType = TypeTypedef
                   (CName "T2"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 6}},
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:9:6"},
               StructField {
                 fieldName = CName "m1",
                 fieldOffset = 64,
                 fieldType = TypeTypedef
                   (CName "M1"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 6}},
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:10:6"},
               StructField {
                 fieldName = CName "m2",
                 fieldOffset = 96,
                 fieldType = TypeTypedef
                   (CName "M2"),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typedef_vs_macro.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 6}}],
+                fieldSourceLoc =
+                "examples/typedef_vs_macro.h:11:6"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "typedef_vs_macro.h"],
-              singleLocLine = 7,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/typedef_vs_macro.h:7:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -446,12 +358,8 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "T1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 6}}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:8:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -465,12 +373,8 @@
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "T2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 6}}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:9:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -484,12 +388,8 @@
                         fieldOffset = 64,
                         fieldType = TypeTypedef
                           (CName "M1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 6}}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:10:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -503,12 +403,8 @@
                         fieldOffset = 96,
                         fieldType = TypeTypedef
                           (CName "M2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 6}}}],
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:11:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -524,52 +420,32 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "T1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 6}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:8:6"},
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "T2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 6}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:9:6"},
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
                         fieldType = TypeTypedef
                           (CName "M1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 6}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:10:6"},
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
                         fieldType = TypeTypedef
                           (CName "M2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 6}}],
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "typedef_vs_macro.h"],
-                      singleLocLine = 7,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/typedef_vs_macro.h:7:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -602,12 +478,8 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "T1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 6}}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:8:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -621,12 +493,8 @@
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "T2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 6}}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:9:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -640,12 +508,8 @@
                         fieldOffset = 64,
                         fieldType = TypeTypedef
                           (CName "M1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 6}}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:10:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -659,12 +523,8 @@
                         fieldOffset = 96,
                         fieldType = TypeTypedef
                           (CName "M2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 6}}}],
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:11:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -680,52 +540,32 @@
                         fieldOffset = 0,
                         fieldType = TypeTypedef
                           (CName "T1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 6}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:8:6"},
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
                         fieldType = TypeTypedef
                           (CName "T2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 6}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:9:6"},
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
                         fieldType = TypeTypedef
                           (CName "M1"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 6}},
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:10:6"},
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
                         fieldType = TypeTypedef
                           (CName "M2"),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typedef_vs_macro.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 6}}],
+                        fieldSourceLoc =
+                        "examples/typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "typedef_vs_macro.h"],
-                      singleLocLine = 7,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/typedef_vs_macro.h:7:8"}}
               (Add 4)
               (Seq
                 [

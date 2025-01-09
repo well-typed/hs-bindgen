@@ -7,28 +7,16 @@ WrapCHeader
           typedefType = TypePrim
             (PrimIntegral
               (PrimLong Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 136,
-            singleLocColumn = 25}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:136:25"},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
             (PrimIntegral
               (PrimInt Unsigned)),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "musl-include",
-              "x86_64",
-              "bits",
-              "alltypes.h"],
-            singleLocLine = 131,
-            singleLocColumn = 25}},
+          typedefSourceLoc =
+          "musl-include/x86_64/bits/alltypes.h:131:25"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -42,27 +30,15 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypeTypedef
                 (CName "uint64_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "fixedwidth.h"],
-                singleLocLine = 4,
-                singleLocColumn = 11}},
+              fieldSourceLoc =
+              "examples/fixedwidth.h:4:11"},
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "fixedwidth.h"],
-                singleLocLine = 5,
-                singleLocColumn = 11}}],
+              fieldSourceLoc =
+              "examples/fixedwidth.h:5:11"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "fixedwidth.h"],
-            singleLocLine = 3,
-            singleLocColumn = 8}}])
+          structSourceLoc =
+          "examples/fixedwidth.h:3:8"}])

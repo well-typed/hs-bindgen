@@ -5,12 +5,7 @@ WrapCHeader
         OpaqueStruct {
           opaqueStructTag = CName "foo",
           opaqueStructSourceLoc =
-          SingleLoc {
-            singleLocPath = [
-              "examples",
-              "opaque_declaration.h"],
-            singleLocLine = 1,
-            singleLocColumn = 8}},
+          "examples/opaque_declaration.h:1:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -27,12 +22,8 @@ WrapCHeader
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "opaque_declaration.h"],
-                singleLocLine = 5,
-                singleLocColumn = 17}},
+              fieldSourceLoc =
+              "examples/opaque_declaration.h:5:17"},
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
@@ -41,19 +32,11 @@ WrapCHeader
                   (DeclPathStruct
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "opaque_declaration.h"],
-                singleLocLine = 6,
-                singleLocColumn = 17}}],
+              fieldSourceLoc =
+              "examples/opaque_declaration.h:6:17"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "opaque_declaration.h"],
-            singleLocLine = 4,
-            singleLocColumn = 8}},
+          structSourceLoc =
+          "examples/opaque_declaration.h:4:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -63,19 +46,10 @@ WrapCHeader
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "opaque_declaration.h"],
-            singleLocLine = 9,
-            singleLocColumn = 8}},
+          structSourceLoc =
+          "examples/opaque_declaration.h:9:8"},
       DeclOpaqueEnum
         OpaqueEnum {
           opaqueEnumTag = CName "quu",
           opaqueEnumSourceLoc =
-          SingleLoc {
-            singleLocPath = [
-              "examples",
-              "opaque_declaration.h"],
-            singleLocLine = 11,
-            singleLocColumn = 6}}])
+          "examples/opaque_declaration.h:11:6"}])

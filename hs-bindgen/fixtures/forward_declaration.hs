@@ -21,12 +21,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "forward_declaration.h"],
-                singleLocLine = 4,
-                singleLocColumn = 7}}}],
+              fieldSourceLoc =
+              "examples/forward_declaration.h:4:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -41,19 +37,11 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "forward_declaration.h"],
-                singleLocLine = 4,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/forward_declaration.h:4:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "forward_declaration.h"],
-            singleLocLine = 3,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/forward_declaration.h:3:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -77,12 +65,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "forward_declaration.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 7}}}],
+                fieldSourceLoc =
+                "examples/forward_declaration.h:4:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -97,19 +81,11 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "forward_declaration.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 7}}],
+                fieldSourceLoc =
+                "examples/forward_declaration.h:4:7"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "forward_declaration.h"],
-              singleLocLine = 3,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/forward_declaration.h:3:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -138,12 +114,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:4:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -158,19 +130,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:4:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "forward_declaration.h"],
-                      singleLocLine = 3,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/forward_declaration.h:3:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -199,12 +163,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:4:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -219,19 +179,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:4:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "forward_declaration.h"],
-                      singleLocLine = 3,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/forward_declaration.h:3:8"}}
               (Add 1)
               (Seq
                 [
@@ -262,12 +214,8 @@
             (DeclPathStruct
               (DeclNameTag (CName "S1"))
               DeclPathTop),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "forward_declaration.h"],
-            singleLocLine = 1,
-            singleLocColumn = 19}}},
+          typedefSourceLoc =
+          "examples/forward_declaration.h:1:19"}},
   DeclNewtypeInstance
     Storable
     (HsName "@NsTypeConstr" "S1_t"),
@@ -293,12 +241,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "forward_declaration.h"],
-                singleLocLine = 10,
-                singleLocColumn = 7}}}],
+              fieldSourceLoc =
+              "examples/forward_declaration.h:10:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -313,19 +257,11 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "forward_declaration.h"],
-                singleLocLine = 10,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/forward_declaration.h:10:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "forward_declaration.h"],
-            singleLocLine = 9,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/forward_declaration.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -349,12 +285,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "forward_declaration.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 7}}}],
+                fieldSourceLoc =
+                "examples/forward_declaration.h:10:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -369,19 +301,11 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "forward_declaration.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 7}}],
+                fieldSourceLoc =
+                "examples/forward_declaration.h:10:7"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "forward_declaration.h"],
-              singleLocLine = 9,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/forward_declaration.h:9:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -410,12 +334,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:10:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -430,19 +350,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:10:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "forward_declaration.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/forward_declaration.h:9:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -471,12 +383,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:10:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -491,19 +399,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "forward_declaration.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/forward_declaration.h:10:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "forward_declaration.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/forward_declaration.h:9:8"}}
               (Add 1)
               (Seq
                 [

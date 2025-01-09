@@ -21,12 +21,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 2,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/nested_types.h:2:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -40,12 +36,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 3,
-                singleLocColumn = 10}}}],
+              fieldSourceLoc =
+              "examples/nested_types.h:3:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -60,30 +52,18 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 2,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/nested_types.h:2:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 3,
-                singleLocColumn = 10}}],
+              fieldSourceLoc =
+              "examples/nested_types.h:3:10"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "nested_types.h"],
-            singleLocLine = 1,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/nested_types.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -107,12 +87,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/nested_types.h:2:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -126,12 +102,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 10}}}],
+                fieldSourceLoc =
+                "examples/nested_types.h:3:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -146,30 +118,18 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/nested_types.h:2:9"},
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 10}}],
+                fieldSourceLoc =
+                "examples/nested_types.h:3:10"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "nested_types.h"],
-              singleLocLine = 1,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/nested_types.h:1:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -198,12 +158,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:2:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -217,12 +173,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:3:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -237,30 +189,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:2:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:3:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "nested_types.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/nested_types.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -291,12 +231,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:2:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -310,12 +246,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 10}}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:3:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -330,30 +262,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:2:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 10}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:3:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "nested_types.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/nested_types.h:1:8"}}
               (Add 2)
               (Seq
                 [
@@ -386,12 +306,8 @@
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 7,
-                singleLocColumn = 16}}},
+              fieldSourceLoc =
+              "examples/nested_types.h:7:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -407,12 +323,8 @@
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 8,
-                singleLocColumn = 16}}}],
+              fieldSourceLoc =
+              "examples/nested_types.h:8:16"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -429,12 +341,8 @@
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 7,
-                singleLocColumn = 16}},
+              fieldSourceLoc =
+              "examples/nested_types.h:7:16"},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
@@ -442,19 +350,11 @@
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "nested_types.h"],
-                singleLocLine = 8,
-                singleLocColumn = 16}}],
+              fieldSourceLoc =
+              "examples/nested_types.h:8:16"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "nested_types.h"],
-            singleLocLine = 6,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/nested_types.h:6:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -480,12 +380,8 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 7,
-                  singleLocColumn = 16}}},
+                fieldSourceLoc =
+                "examples/nested_types.h:7:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -501,12 +397,8 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 16}}}],
+                fieldSourceLoc =
+                "examples/nested_types.h:8:16"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -523,12 +415,8 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 7,
-                  singleLocColumn = 16}},
+                fieldSourceLoc =
+                "examples/nested_types.h:7:16"},
               StructField {
                 fieldName = CName "foo2",
                 fieldOffset = 64,
@@ -536,19 +424,11 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "nested_types.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 16}}],
+                fieldSourceLoc =
+                "examples/nested_types.h:8:16"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "nested_types.h"],
-              singleLocLine = 6,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/nested_types.h:6:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -579,12 +459,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 16}}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:7:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -600,12 +476,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 16}}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:8:16"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -622,12 +494,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 16}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:7:16"},
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
@@ -635,19 +503,11 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 16}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:8:16"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "nested_types.h"],
-                      singleLocLine = 6,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/nested_types.h:6:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -680,12 +540,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 16}}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:7:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -701,12 +557,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 16}}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:8:16"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -723,12 +575,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 16}},
+                        fieldSourceLoc =
+                        "examples/nested_types.h:7:16"},
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
@@ -736,19 +584,11 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "nested_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 16}}],
+                        fieldSourceLoc =
+                        "examples/nested_types.h:8:16"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "nested_types.h"],
-                      singleLocLine = 6,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/nested_types.h:6:8"}}
               (Add 2)
               (Seq
                 [
