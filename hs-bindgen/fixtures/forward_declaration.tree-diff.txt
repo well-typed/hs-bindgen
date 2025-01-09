@@ -14,19 +14,11 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "forward_declaration.h"],
-                singleLocLine = 4,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/forward_declaration.h:4:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "forward_declaration.h"],
-            singleLocLine = 3,
-            singleLocColumn = 8}},
+          structSourceLoc =
+          "examples/forward_declaration.h:3:8"},
       DeclTypedef
         Typedef {
           typedefName = CName "S1_t",
@@ -34,12 +26,8 @@ WrapCHeader
             (DeclPathStruct
               (DeclNameTag (CName "S1"))
               DeclPathTop),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "forward_declaration.h"],
-            singleLocLine = 1,
-            singleLocColumn = 19}},
+          typedefSourceLoc =
+          "examples/forward_declaration.h:1:19"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -53,16 +41,8 @@ WrapCHeader
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "forward_declaration.h"],
-                singleLocLine = 10,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/forward_declaration.h:10:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "forward_declaration.h"],
-            singleLocLine = 9,
-            singleLocColumn = 8}}])
+          structSourceLoc =
+          "examples/forward_declaration.h:9:8"}])

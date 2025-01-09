@@ -23,12 +23,8 @@
               (PrimFloating PrimDouble)),
           functionHeader =
           "simple_func.h",
-          functionSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_func.h"],
-            singleLocLine = 1,
-            singleLocColumn = 8}}},
+          functionSourceLoc =
+          "examples/simple_func.h:1:8"}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -62,9 +58,5 @@
               (PrimFloating PrimDouble)),
           functionHeader =
           "simple_func.h",
-          functionSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "simple_func.h"],
-            singleLocLine = 3,
-            singleLocColumn = 22}}}]
+          functionSourceLoc =
+          "examples/simple_func.h:3:22"}}]

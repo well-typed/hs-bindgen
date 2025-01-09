@@ -27,27 +27,15 @@
             EnumValue {
               valueName = CName "FOO1",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typenames.h"],
-                singleLocLine = 15,
-                singleLocColumn = 2}},
+              valueSourceLoc =
+              "examples/typenames.h:15:2"},
             EnumValue {
               valueName = CName "FOO2",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "typenames.h"],
-                singleLocLine = 16,
-                singleLocColumn = 2}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typenames.h"],
-            singleLocLine = 14,
-            singleLocColumn = 6}}},
+              valueSourceLoc =
+              "examples/typenames.h:16:2"}],
+          enumSourceLoc =
+          "examples/typenames.h:14:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -77,27 +65,15 @@
               EnumValue {
                 valueName = CName "FOO1",
                 valueValue = 0,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typenames.h"],
-                  singleLocLine = 15,
-                  singleLocColumn = 2}},
+                valueSourceLoc =
+                "examples/typenames.h:15:2"},
               EnumValue {
                 valueName = CName "FOO2",
                 valueValue = 1,
-                valueSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "typenames.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 2}}],
-            enumSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "typenames.h"],
-              singleLocLine = 14,
-              singleLocColumn = 6}}}
+                valueSourceLoc =
+                "examples/typenames.h:16:2"}],
+            enumSourceLoc =
+            "examples/typenames.h:14:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -132,27 +108,15 @@
                       EnumValue {
                         valueName = CName "FOO1",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typenames.h"],
-                          singleLocLine = 15,
-                          singleLocColumn = 2}},
+                        valueSourceLoc =
+                        "examples/typenames.h:15:2"},
                       EnumValue {
                         valueName = CName "FOO2",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typenames.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 2}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "typenames.h"],
-                      singleLocLine = 14,
-                      singleLocColumn = 6}}})
+                        valueSourceLoc =
+                        "examples/typenames.h:16:2"}],
+                    enumSourceLoc =
+                    "examples/typenames.h:14:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -187,27 +151,15 @@
                       EnumValue {
                         valueName = CName "FOO1",
                         valueValue = 0,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typenames.h"],
-                          singleLocLine = 15,
-                          singleLocColumn = 2}},
+                        valueSourceLoc =
+                        "examples/typenames.h:15:2"},
                       EnumValue {
                         valueName = CName "FOO2",
                         valueValue = 1,
-                        valueSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "typenames.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 2}}],
-                    enumSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "typenames.h"],
-                      singleLocLine = 14,
-                      singleLocColumn = 6}}}
+                        valueSourceLoc =
+                        "examples/typenames.h:16:2"}],
+                    enumSourceLoc =
+                    "examples/typenames.h:14:6"}}
               (Add 1)
               (Seq
                 [
@@ -232,12 +184,8 @@
         EnumValue {
           valueName = CName "FOO1",
           valueValue = 0,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typenames.h"],
-            singleLocLine = 15,
-            singleLocColumn = 2}}},
+          valueSourceLoc =
+          "examples/typenames.h:15:2"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -255,12 +203,8 @@
         EnumValue {
           valueName = CName "FOO2",
           valueValue = 1,
-          valueSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typenames.h"],
-            singleLocLine = 16,
-            singleLocColumn = 2}}},
+          valueSourceLoc =
+          "examples/typenames.h:16:2"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -282,12 +226,8 @@
           typedefName = CName "foo",
           typedefType = TypePrim
             (PrimFloating PrimDouble),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "typenames.h"],
-            singleLocLine = 19,
-            singleLocColumn = 16}}},
+          typedefSourceLoc =
+          "examples/typenames.h:19:16"}},
   DeclNewtypeInstance
     Storable
     (HsName "@NsTypeConstr" "Foo")]

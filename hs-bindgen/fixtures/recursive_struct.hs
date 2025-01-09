@@ -21,12 +21,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 2,
-                singleLocColumn = 7}}},
+              fieldSourceLoc =
+              "examples/recursive_struct.h:2:7"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -47,12 +43,8 @@
                     (DeclNameTag
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 3,
-                singleLocColumn = 27}}}],
+              fieldSourceLoc =
+              "examples/recursive_struct.h:3:27"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -68,12 +60,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 2,
-                singleLocColumn = 7}},
+              fieldSourceLoc =
+              "examples/recursive_struct.h:2:7"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -83,19 +71,11 @@
                     (DeclNameTag
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 3,
-                singleLocColumn = 27}}],
+              fieldSourceLoc =
+              "examples/recursive_struct.h:3:27"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "recursive_struct.h"],
-            singleLocLine = 1,
-            singleLocColumn = 16}}},
+          structSourceLoc =
+          "examples/recursive_struct.h:1:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -119,12 +99,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 7}}},
+                fieldSourceLoc =
+                "examples/recursive_struct.h:2:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -145,12 +121,8 @@
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 27}}}],
+                fieldSourceLoc =
+                "examples/recursive_struct.h:3:27"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -166,12 +138,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 7}},
+                fieldSourceLoc =
+                "examples/recursive_struct.h:2:7"},
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
@@ -181,19 +149,11 @@
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 27}}],
+                fieldSourceLoc =
+                "examples/recursive_struct.h:3:27"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "recursive_struct.h"],
-              singleLocLine = 1,
-              singleLocColumn = 16}}}
+            structSourceLoc =
+            "examples/recursive_struct.h:1:16"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -222,12 +182,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 7}}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:2:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -248,12 +204,8 @@
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 27}}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:3:27"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -269,12 +221,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 7}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:2:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -284,19 +232,11 @@
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 27}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:3:27"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "recursive_struct.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 16}}})
+                    structSourceLoc =
+                    "examples/recursive_struct.h:1:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -327,12 +267,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 7}}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:2:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -353,12 +289,8 @@
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 27}}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:3:27"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -374,12 +306,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 7}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:2:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -389,19 +317,11 @@
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 27}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:3:27"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "recursive_struct.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 16}}}
+                    structSourceLoc =
+                    "examples/recursive_struct.h:1:16"}}
               (Add 2)
               (Seq
                 [
@@ -437,12 +357,8 @@
               (DeclNameTag
                 (CName "linked_list_A_s"))
               DeclPathTop),
-          typedefSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "recursive_struct.h"],
-            singleLocLine = 4,
-            singleLocColumn = 3}}},
+          typedefSourceLoc =
+          "examples/recursive_struct.h:4:3"}},
   DeclNewtypeInstance
     Storable
     (HsName
@@ -470,12 +386,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 10,
-                singleLocColumn = 7}}},
+              fieldSourceLoc =
+              "examples/recursive_struct.h:10:7"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -496,12 +408,8 @@
                     (DeclNameTag
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 11,
-                singleLocColumn = 20}}}],
+              fieldSourceLoc =
+              "examples/recursive_struct.h:11:20"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -517,12 +425,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 10,
-                singleLocColumn = 7}},
+              fieldSourceLoc =
+              "examples/recursive_struct.h:10:7"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -532,19 +436,11 @@
                     (DeclNameTag
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "recursive_struct.h"],
-                singleLocLine = 11,
-                singleLocColumn = 20}}],
+              fieldSourceLoc =
+              "examples/recursive_struct.h:11:20"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "recursive_struct.h"],
-            singleLocLine = 9,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/recursive_struct.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -568,12 +464,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 7}}},
+                fieldSourceLoc =
+                "examples/recursive_struct.h:10:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -594,12 +486,8 @@
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 20}}}],
+                fieldSourceLoc =
+                "examples/recursive_struct.h:11:20"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -615,12 +503,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 10,
-                  singleLocColumn = 7}},
+                fieldSourceLoc =
+                "examples/recursive_struct.h:10:7"},
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
@@ -630,19 +514,11 @@
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "recursive_struct.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 20}}],
+                fieldSourceLoc =
+                "examples/recursive_struct.h:11:20"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "recursive_struct.h"],
-              singleLocLine = 9,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/recursive_struct.h:9:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -671,12 +547,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:10:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -697,12 +569,8 @@
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:11:20"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -718,12 +586,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:10:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -733,19 +597,11 @@
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:11:20"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "recursive_struct.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/recursive_struct.h:9:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -776,12 +632,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:10:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -802,12 +654,8 @@
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:11:20"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -823,12 +671,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 10,
-                          singleLocColumn = 7}},
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:10:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -838,19 +682,11 @@
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "recursive_struct.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}}],
+                        fieldSourceLoc =
+                        "examples/recursive_struct.h:11:20"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "recursive_struct.h"],
-                      singleLocLine = 9,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/recursive_struct.h:9:8"}}
               (Add 2)
               (Seq
                 [

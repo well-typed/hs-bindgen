@@ -5,12 +5,8 @@ WrapCHeader
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 1,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:1:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -24,22 +20,14 @@ WrapCHeader
                   integerLiteralValue = 1})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 1,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:1:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 2,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:2:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -53,22 +41,14 @@ WrapCHeader
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 2,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:2:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 3,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:3:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -91,22 +71,14 @@ WrapCHeader
                       integerLiteralValue = 3})]},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 3,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:3:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 4,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:4:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -129,22 +101,14 @@ WrapCHeader
                       integerLiteralValue = 4})]},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 4,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:4:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 6,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:6:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -159,22 +123,14 @@ WrapCHeader
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 6,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:6:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 7,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:7:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -189,22 +145,14 @@ WrapCHeader
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 7,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:7:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 8,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:8:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -219,22 +167,14 @@ WrapCHeader
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 8,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:8:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 9,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:9:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -249,22 +189,14 @@ WrapCHeader
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 9,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:9:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 10,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:10:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -279,22 +211,14 @@ WrapCHeader
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
           "(forall a. Integral a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 10,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:10:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 12,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:12:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -311,22 +235,14 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy = "ULLong",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 12,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:12:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 13,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:13:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -343,22 +259,14 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy = "ULLong",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 13,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:13:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 14,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:14:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -375,22 +283,14 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy = "ULLong",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 14,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:14:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 15,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:15:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -407,22 +307,14 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy = "ULLong",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 15,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:15:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 20,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:20:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -439,22 +331,14 @@ WrapCHeader
                   110000.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 20,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:20:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 21,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:21:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -471,22 +355,14 @@ WrapCHeader
                   1.2e-2})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 21,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:21:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 22,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:22:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -503,22 +379,14 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   1.3e-2})},
           macroDeclMacroTy = "Float",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 22,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:22:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 24,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:24:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -535,22 +403,14 @@ WrapCHeader
                   21.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 24,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:24:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 25,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:25:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -567,22 +427,14 @@ WrapCHeader
                   2200.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 25,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:25:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 26,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:26:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -599,22 +451,14 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   23.0})},
           macroDeclMacroTy = "Float",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 26,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:26:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 28,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:28:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -631,22 +475,14 @@ WrapCHeader
                   31.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 28,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:28:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 29,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:29:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -663,22 +499,14 @@ WrapCHeader
                   0.32})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 29,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:29:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 30,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:30:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -695,22 +523,14 @@ WrapCHeader
                   33.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 30,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:30:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 31,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:31:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -727,22 +547,14 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   3.4e-3})},
           macroDeclMacroTy = "Float",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 31,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:31:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 33,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:33:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -759,22 +571,14 @@ WrapCHeader
                   650000.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 33,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:33:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 34,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:34:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -791,22 +595,14 @@ WrapCHeader
                   6.6e-2})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 34,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:34:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 35,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:35:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -824,22 +620,14 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   6.7e-2})},
           macroDeclMacroTy = "Float",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 35,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:35:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 37,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:37:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -856,22 +644,14 @@ WrapCHeader
                   81.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 37,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:37:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 38,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:38:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -889,22 +669,14 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   82.0})},
           macroDeclMacroTy = "Float",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 38,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:38:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 40,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:40:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -922,22 +694,14 @@ WrapCHeader
                   15520.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 40,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:40:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 41,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:41:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -954,22 +718,14 @@ WrapCHeader
                   98.0})},
           macroDeclMacroTy =
           "(forall a. Fractional a => a)",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 41,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:41:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 42,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:42:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -987,22 +743,14 @@ WrapCHeader
                   floatingLiteralDoubleValue =
                   9.9e-3})},
           macroDeclMacroTy = "Float",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "macros.h"],
-            singleLocLine = 42,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/macros.h:42:9"},
       DeclMacro
         MacroTcError {
           macroTcErrorMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 45,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:45:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -1034,12 +782,8 @@ WrapCHeader
         MacroTcError {
           macroTcErrorMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "macros.h"],
-                singleLocLine = 46,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/macros.h:46:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},

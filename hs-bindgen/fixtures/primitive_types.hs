@@ -21,12 +21,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 2,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:2:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -40,12 +36,8 @@
               fieldOffset = 8,
               fieldType = TypePrim
                 (PrimChar (Just Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 3,
-                singleLocColumn = 17}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:3:17"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -59,12 +51,8 @@
               fieldOffset = 16,
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 4,
-                singleLocColumn = 19}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:4:19"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -79,12 +67,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 6,
-                singleLocColumn = 11}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:6:11"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -99,12 +83,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 7,
-                singleLocColumn = 15}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:7:15"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -119,12 +99,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 8,
-                singleLocColumn = 18}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:8:18"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -139,12 +115,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 9,
-                singleLocColumn = 22}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:9:22"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -159,12 +131,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 11,
-                singleLocColumn = 20}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:11:20"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -179,12 +147,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 12,
-                singleLocColumn = 24}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:12:24"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -198,12 +162,8 @@
               fieldOffset = 128,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 14,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:14:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -217,12 +177,8 @@
               fieldOffset = 160,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 15,
-                singleLocColumn = 12}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:15:12"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -236,12 +192,8 @@
               fieldOffset = 192,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 16,
-                singleLocColumn = 16}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:16:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -256,12 +208,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 18,
-                singleLocColumn = 14}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:18:14"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -276,12 +224,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 19,
-                singleLocColumn = 18}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:19:18"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -296,12 +240,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 21,
-                singleLocColumn = 10}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:21:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -316,12 +256,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 22,
-                singleLocColumn = 14}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:22:14"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -336,12 +272,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 23,
-                singleLocColumn = 17}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:23:17"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -356,12 +288,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 24,
-                singleLocColumn = 21}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:24:21"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -376,12 +304,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 26,
-                singleLocColumn = 19}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:26:19"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -396,12 +320,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 27,
-                singleLocColumn = 23}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:27:23"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -416,12 +336,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 29,
-                singleLocColumn = 15}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:29:15"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -436,12 +352,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 30,
-                singleLocColumn = 19}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:30:19"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -456,12 +368,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 31,
-                singleLocColumn = 22}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:31:22"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -476,12 +384,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 32,
-                singleLocColumn = 26}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:32:26"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -496,12 +400,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 34,
-                singleLocColumn = 24}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:34:24"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -516,12 +416,8 @@
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 35,
-                singleLocColumn = 28}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:35:28"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -535,12 +431,8 @@
               fieldOffset = 1088,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 37,
-                singleLocColumn = 11}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:37:11"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -554,12 +446,8 @@
               fieldOffset = 1152,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 38,
-                singleLocColumn = 12}}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:38:12"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -573,12 +461,8 @@
               fieldOffset = 1280,
               fieldType = TypePrim
                 (PrimFloating PrimLongDouble),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 39,
-                singleLocColumn = 17}}}],
+              fieldSourceLoc =
+              "examples/primitive_types.h:39:17"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -594,347 +478,227 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 2,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:2:10"},
             StructField {
               fieldName = CName "sc",
               fieldOffset = 8,
               fieldType = TypePrim
                 (PrimChar (Just Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 3,
-                singleLocColumn = 17}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:3:17"},
             StructField {
               fieldName = CName "uc",
               fieldOffset = 16,
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 4,
-                singleLocColumn = 19}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:4:19"},
             StructField {
               fieldName = CName "s",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 6,
-                singleLocColumn = 11}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:6:11"},
             StructField {
               fieldName = CName "si",
               fieldOffset = 48,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 7,
-                singleLocColumn = 15}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:7:15"},
             StructField {
               fieldName = CName "ss",
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 8,
-                singleLocColumn = 18}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:8:18"},
             StructField {
               fieldName = CName "ssi",
               fieldOffset = 80,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 9,
-                singleLocColumn = 22}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:9:22"},
             StructField {
               fieldName = CName "us",
               fieldOffset = 96,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 11,
-                singleLocColumn = 20}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:11:20"},
             StructField {
               fieldName = CName "usi",
               fieldOffset = 112,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimShort Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 12,
-                singleLocColumn = 24}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:12:24"},
             StructField {
               fieldName = CName "i",
               fieldOffset = 128,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 14,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:14:9"},
             StructField {
               fieldName = CName "s2",
               fieldOffset = 160,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 15,
-                singleLocColumn = 12}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:15:12"},
             StructField {
               fieldName = CName "si2",
               fieldOffset = 192,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 16,
-                singleLocColumn = 16}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:16:16"},
             StructField {
               fieldName = CName "u",
               fieldOffset = 224,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 18,
-                singleLocColumn = 14}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:18:14"},
             StructField {
               fieldName = CName "ui",
               fieldOffset = 256,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimInt Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 19,
-                singleLocColumn = 18}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:19:18"},
             StructField {
               fieldName = CName "l",
               fieldOffset = 320,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 21,
-                singleLocColumn = 10}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:21:10"},
             StructField {
               fieldName = CName "li",
               fieldOffset = 384,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 22,
-                singleLocColumn = 14}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:22:14"},
             StructField {
               fieldName = CName "sl",
               fieldOffset = 448,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 23,
-                singleLocColumn = 17}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:23:17"},
             StructField {
               fieldName = CName "sli",
               fieldOffset = 512,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 24,
-                singleLocColumn = 21}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:24:21"},
             StructField {
               fieldName = CName "ul",
               fieldOffset = 576,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 26,
-                singleLocColumn = 19}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:26:19"},
             StructField {
               fieldName = CName "uli",
               fieldOffset = 640,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 27,
-                singleLocColumn = 23}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:27:23"},
             StructField {
               fieldName = CName "ll",
               fieldOffset = 704,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 29,
-                singleLocColumn = 15}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:29:15"},
             StructField {
               fieldName = CName "lli",
               fieldOffset = 768,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 30,
-                singleLocColumn = 19}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:30:19"},
             StructField {
               fieldName = CName "sll",
               fieldOffset = 832,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 31,
-                singleLocColumn = 22}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:31:22"},
             StructField {
               fieldName = CName "slli",
               fieldOffset = 896,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 32,
-                singleLocColumn = 26}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:32:26"},
             StructField {
               fieldName = CName "ull",
               fieldOffset = 960,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 34,
-                singleLocColumn = 24}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:34:24"},
             StructField {
               fieldName = CName "ulli",
               fieldOffset = 1024,
               fieldType = TypePrim
                 (PrimIntegral
                   (PrimLongLong Unsigned)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 35,
-                singleLocColumn = 28}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:35:28"},
             StructField {
               fieldName = CName "f",
               fieldOffset = 1088,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 37,
-                singleLocColumn = 11}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:37:11"},
             StructField {
               fieldName = CName "d",
               fieldOffset = 1152,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 38,
-                singleLocColumn = 12}},
+              fieldSourceLoc =
+              "examples/primitive_types.h:38:12"},
             StructField {
               fieldName = CName "ld",
               fieldOffset = 1280,
               fieldType = TypePrim
                 (PrimFloating PrimLongDouble),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "primitive_types.h"],
-                singleLocLine = 39,
-                singleLocColumn = 17}}],
+              fieldSourceLoc =
+              "examples/primitive_types.h:39:17"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "primitive_types.h"],
-            singleLocLine = 1,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/primitive_types.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -958,12 +722,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:2:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -977,12 +737,8 @@
                 fieldOffset = 8,
                 fieldType = TypePrim
                   (PrimChar (Just Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 17}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:3:17"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -996,12 +752,8 @@
                 fieldOffset = 16,
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 19}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:4:19"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1016,12 +768,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 11}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:6:11"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1036,12 +784,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 7,
-                  singleLocColumn = 15}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:7:15"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1056,12 +800,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 18}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:8:18"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1076,12 +816,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 22}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:9:22"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1096,12 +832,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 20}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:11:20"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1116,12 +848,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 12,
-                  singleLocColumn = 24}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:12:24"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1135,12 +863,8 @@
                 fieldOffset = 128,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 14,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:14:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1154,12 +878,8 @@
                 fieldOffset = 160,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 15,
-                  singleLocColumn = 12}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:15:12"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1173,12 +893,8 @@
                 fieldOffset = 192,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 16}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:16:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1193,12 +909,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimInt Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 18,
-                  singleLocColumn = 14}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:18:14"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1213,12 +925,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimInt Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 19,
-                  singleLocColumn = 18}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:19:18"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1233,12 +941,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 10}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:21:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1253,12 +957,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 22,
-                  singleLocColumn = 14}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:22:14"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1273,12 +973,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 23,
-                  singleLocColumn = 17}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:23:17"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1293,12 +989,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 24,
-                  singleLocColumn = 21}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:24:21"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1313,12 +1005,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 26,
-                  singleLocColumn = 19}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:26:19"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1333,12 +1021,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 27,
-                  singleLocColumn = 23}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:27:23"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1353,12 +1037,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 29,
-                  singleLocColumn = 15}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:29:15"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1373,12 +1053,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 30,
-                  singleLocColumn = 19}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:30:19"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1393,12 +1069,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 22}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:31:22"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1413,12 +1085,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 32,
-                  singleLocColumn = 26}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:32:26"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1433,12 +1101,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 34,
-                  singleLocColumn = 24}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:34:24"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1453,12 +1117,8 @@
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 35,
-                  singleLocColumn = 28}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:35:28"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1472,12 +1132,8 @@
                 fieldOffset = 1088,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 37,
-                  singleLocColumn = 11}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:37:11"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1491,12 +1147,8 @@
                 fieldOffset = 1152,
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 38,
-                  singleLocColumn = 12}}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:38:12"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1510,12 +1162,8 @@
                 fieldOffset = 1280,
                 fieldType = TypePrim
                   (PrimFloating PrimLongDouble),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 39,
-                  singleLocColumn = 17}}}],
+                fieldSourceLoc =
+                "examples/primitive_types.h:39:17"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1531,347 +1179,227 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 2,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:2:10"},
               StructField {
                 fieldName = CName "sc",
                 fieldOffset = 8,
                 fieldType = TypePrim
                   (PrimChar (Just Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 3,
-                  singleLocColumn = 17}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:3:17"},
               StructField {
                 fieldName = CName "uc",
                 fieldOffset = 16,
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 19}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:4:19"},
               StructField {
                 fieldName = CName "s",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 11}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:6:11"},
               StructField {
                 fieldName = CName "si",
                 fieldOffset = 48,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 7,
-                  singleLocColumn = 15}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:7:15"},
               StructField {
                 fieldName = CName "ss",
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 18}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:8:18"},
               StructField {
                 fieldName = CName "ssi",
                 fieldOffset = 80,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 9,
-                  singleLocColumn = 22}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:9:22"},
               StructField {
                 fieldName = CName "us",
                 fieldOffset = 96,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 11,
-                  singleLocColumn = 20}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:11:20"},
               StructField {
                 fieldName = CName "usi",
                 fieldOffset = 112,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimShort Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 12,
-                  singleLocColumn = 24}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:12:24"},
               StructField {
                 fieldName = CName "i",
                 fieldOffset = 128,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 14,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:14:9"},
               StructField {
                 fieldName = CName "s2",
                 fieldOffset = 160,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 15,
-                  singleLocColumn = 12}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:15:12"},
               StructField {
                 fieldName = CName "si2",
                 fieldOffset = 192,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 16}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:16:16"},
               StructField {
                 fieldName = CName "u",
                 fieldOffset = 224,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimInt Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 18,
-                  singleLocColumn = 14}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:18:14"},
               StructField {
                 fieldName = CName "ui",
                 fieldOffset = 256,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimInt Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 19,
-                  singleLocColumn = 18}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:19:18"},
               StructField {
                 fieldName = CName "l",
                 fieldOffset = 320,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 21,
-                  singleLocColumn = 10}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:21:10"},
               StructField {
                 fieldName = CName "li",
                 fieldOffset = 384,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 22,
-                  singleLocColumn = 14}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:22:14"},
               StructField {
                 fieldName = CName "sl",
                 fieldOffset = 448,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 23,
-                  singleLocColumn = 17}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:23:17"},
               StructField {
                 fieldName = CName "sli",
                 fieldOffset = 512,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 24,
-                  singleLocColumn = 21}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:24:21"},
               StructField {
                 fieldName = CName "ul",
                 fieldOffset = 576,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 26,
-                  singleLocColumn = 19}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:26:19"},
               StructField {
                 fieldName = CName "uli",
                 fieldOffset = 640,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 27,
-                  singleLocColumn = 23}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:27:23"},
               StructField {
                 fieldName = CName "ll",
                 fieldOffset = 704,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 29,
-                  singleLocColumn = 15}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:29:15"},
               StructField {
                 fieldName = CName "lli",
                 fieldOffset = 768,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 30,
-                  singleLocColumn = 19}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:30:19"},
               StructField {
                 fieldName = CName "sll",
                 fieldOffset = 832,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 31,
-                  singleLocColumn = 22}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:31:22"},
               StructField {
                 fieldName = CName "slli",
                 fieldOffset = 896,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 32,
-                  singleLocColumn = 26}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:32:26"},
               StructField {
                 fieldName = CName "ull",
                 fieldOffset = 960,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 34,
-                  singleLocColumn = 24}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:34:24"},
               StructField {
                 fieldName = CName "ulli",
                 fieldOffset = 1024,
                 fieldType = TypePrim
                   (PrimIntegral
                     (PrimLongLong Unsigned)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 35,
-                  singleLocColumn = 28}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:35:28"},
               StructField {
                 fieldName = CName "f",
                 fieldOffset = 1088,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 37,
-                  singleLocColumn = 11}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:37:11"},
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 1152,
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 38,
-                  singleLocColumn = 12}},
+                fieldSourceLoc =
+                "examples/primitive_types.h:38:12"},
               StructField {
                 fieldName = CName "ld",
                 fieldOffset = 1280,
                 fieldType = TypePrim
                   (PrimFloating PrimLongDouble),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "primitive_types.h"],
-                  singleLocLine = 39,
-                  singleLocColumn = 17}}],
+                fieldSourceLoc =
+                "examples/primitive_types.h:39:17"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "primitive_types.h"],
-              singleLocLine = 1,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/primitive_types.h:1:8"}}
       StorableInstance {
         storableSizeOf = 176,
         storableAlignment = 16,
@@ -1900,12 +1428,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:2:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1919,12 +1443,8 @@
                         fieldOffset = 8,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 17}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:3:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1938,12 +1458,8 @@
                         fieldOffset = 16,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 19}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:4:19"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1958,12 +1474,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 11}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:6:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1978,12 +1490,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 15}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:7:15"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1998,12 +1506,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 18}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:8:18"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2018,12 +1522,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 22}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:9:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2038,12 +1538,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:11:20"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2058,12 +1554,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 12,
-                          singleLocColumn = 24}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:12:24"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2077,12 +1569,8 @@
                         fieldOffset = 128,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:14:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2096,12 +1584,8 @@
                         fieldOffset = 160,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 15,
-                          singleLocColumn = 12}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:15:12"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2115,12 +1599,8 @@
                         fieldOffset = 192,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 16}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:16:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2135,12 +1615,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 14}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:18:14"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2155,12 +1631,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 19,
-                          singleLocColumn = 18}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:19:18"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2175,12 +1647,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:21:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2195,12 +1663,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 14}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:22:14"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2215,12 +1679,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 23,
-                          singleLocColumn = 17}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:23:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2235,12 +1695,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 21}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:24:21"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2255,12 +1711,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 19}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:26:19"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2275,12 +1727,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 23}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:27:23"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2295,12 +1743,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 29,
-                          singleLocColumn = 15}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:29:15"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2315,12 +1759,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 30,
-                          singleLocColumn = 19}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:30:19"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2335,12 +1775,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 22}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:31:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2355,12 +1791,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 32,
-                          singleLocColumn = 26}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:32:26"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2375,12 +1807,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 34,
-                          singleLocColumn = 24}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:34:24"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2395,12 +1823,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 35,
-                          singleLocColumn = 28}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:35:28"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2414,12 +1838,8 @@
                         fieldOffset = 1088,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 11}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:37:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2433,12 +1853,8 @@
                         fieldOffset = 1152,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 12}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:38:12"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2452,12 +1868,8 @@
                         fieldOffset = 1280,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 17}}}],
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:39:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2473,347 +1885,227 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:2:10"},
                       StructField {
                         fieldName = CName "sc",
                         fieldOffset = 8,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 17}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:3:17"},
                       StructField {
                         fieldName = CName "uc",
                         fieldOffset = 16,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 19}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:4:19"},
                       StructField {
                         fieldName = CName "s",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 11}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:6:11"},
                       StructField {
                         fieldName = CName "si",
                         fieldOffset = 48,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 15}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:7:15"},
                       StructField {
                         fieldName = CName "ss",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 18}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:8:18"},
                       StructField {
                         fieldName = CName "ssi",
                         fieldOffset = 80,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 22}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:9:22"},
                       StructField {
                         fieldName = CName "us",
                         fieldOffset = 96,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:11:20"},
                       StructField {
                         fieldName = CName "usi",
                         fieldOffset = 112,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 12,
-                          singleLocColumn = 24}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:12:24"},
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 128,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:14:9"},
                       StructField {
                         fieldName = CName "s2",
                         fieldOffset = 160,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 15,
-                          singleLocColumn = 12}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:15:12"},
                       StructField {
                         fieldName = CName "si2",
                         fieldOffset = 192,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 16}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:16:16"},
                       StructField {
                         fieldName = CName "u",
                         fieldOffset = 224,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 14}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:18:14"},
                       StructField {
                         fieldName = CName "ui",
                         fieldOffset = 256,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 19,
-                          singleLocColumn = 18}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:19:18"},
                       StructField {
                         fieldName = CName "l",
                         fieldOffset = 320,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:21:10"},
                       StructField {
                         fieldName = CName "li",
                         fieldOffset = 384,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 14}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:22:14"},
                       StructField {
                         fieldName = CName "sl",
                         fieldOffset = 448,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 23,
-                          singleLocColumn = 17}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:23:17"},
                       StructField {
                         fieldName = CName "sli",
                         fieldOffset = 512,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 21}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:24:21"},
                       StructField {
                         fieldName = CName "ul",
                         fieldOffset = 576,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 19}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:26:19"},
                       StructField {
                         fieldName = CName "uli",
                         fieldOffset = 640,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 23}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:27:23"},
                       StructField {
                         fieldName = CName "ll",
                         fieldOffset = 704,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 29,
-                          singleLocColumn = 15}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:29:15"},
                       StructField {
                         fieldName = CName "lli",
                         fieldOffset = 768,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 30,
-                          singleLocColumn = 19}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:30:19"},
                       StructField {
                         fieldName = CName "sll",
                         fieldOffset = 832,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 22}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:31:22"},
                       StructField {
                         fieldName = CName "slli",
                         fieldOffset = 896,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 32,
-                          singleLocColumn = 26}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:32:26"},
                       StructField {
                         fieldName = CName "ull",
                         fieldOffset = 960,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 34,
-                          singleLocColumn = 24}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:34:24"},
                       StructField {
                         fieldName = CName "ulli",
                         fieldOffset = 1024,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 35,
-                          singleLocColumn = 28}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:35:28"},
                       StructField {
                         fieldName = CName "f",
                         fieldOffset = 1088,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 11}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:37:11"},
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 1152,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 12}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:38:12"},
                       StructField {
                         fieldName = CName "ld",
                         fieldOffset = 1280,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 17}}],
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:39:17"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "primitive_types.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/primitive_types.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2871,12 +2163,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:2:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2890,12 +2178,8 @@
                         fieldOffset = 8,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 17}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:3:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2909,12 +2193,8 @@
                         fieldOffset = 16,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 19}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:4:19"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2929,12 +2209,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 11}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:6:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2949,12 +2225,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 15}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:7:15"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2969,12 +2241,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 18}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:8:18"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2989,12 +2257,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 22}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:9:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3009,12 +2273,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:11:20"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3029,12 +2289,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 12,
-                          singleLocColumn = 24}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:12:24"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3048,12 +2304,8 @@
                         fieldOffset = 128,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:14:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3067,12 +2319,8 @@
                         fieldOffset = 160,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 15,
-                          singleLocColumn = 12}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:15:12"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3086,12 +2334,8 @@
                         fieldOffset = 192,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 16}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:16:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3106,12 +2350,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 14}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:18:14"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3126,12 +2366,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 19,
-                          singleLocColumn = 18}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:19:18"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3146,12 +2382,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 10}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:21:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3166,12 +2398,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 14}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:22:14"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3186,12 +2414,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 23,
-                          singleLocColumn = 17}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:23:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3206,12 +2430,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 21}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:24:21"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3226,12 +2446,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 19}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:26:19"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3246,12 +2462,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 23}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:27:23"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3266,12 +2478,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 29,
-                          singleLocColumn = 15}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:29:15"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3286,12 +2494,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 30,
-                          singleLocColumn = 19}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:30:19"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3306,12 +2510,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 22}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:31:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3326,12 +2526,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 32,
-                          singleLocColumn = 26}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:32:26"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3346,12 +2542,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 34,
-                          singleLocColumn = 24}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:34:24"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3366,12 +2558,8 @@
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 35,
-                          singleLocColumn = 28}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:35:28"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3385,12 +2573,8 @@
                         fieldOffset = 1088,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 11}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:37:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3404,12 +2588,8 @@
                         fieldOffset = 1152,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 12}}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:38:12"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -3423,12 +2603,8 @@
                         fieldOffset = 1280,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 17}}}],
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:39:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -3444,347 +2620,227 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 2,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:2:10"},
                       StructField {
                         fieldName = CName "sc",
                         fieldOffset = 8,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 3,
-                          singleLocColumn = 17}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:3:17"},
                       StructField {
                         fieldName = CName "uc",
                         fieldOffset = 16,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 19}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:4:19"},
                       StructField {
                         fieldName = CName "s",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 11}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:6:11"},
                       StructField {
                         fieldName = CName "si",
                         fieldOffset = 48,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 7,
-                          singleLocColumn = 15}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:7:15"},
                       StructField {
                         fieldName = CName "ss",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 18}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:8:18"},
                       StructField {
                         fieldName = CName "ssi",
                         fieldOffset = 80,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 9,
-                          singleLocColumn = 22}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:9:22"},
                       StructField {
                         fieldName = CName "us",
                         fieldOffset = 96,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 11,
-                          singleLocColumn = 20}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:11:20"},
                       StructField {
                         fieldName = CName "usi",
                         fieldOffset = 112,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimShort Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 12,
-                          singleLocColumn = 24}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:12:24"},
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 128,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:14:9"},
                       StructField {
                         fieldName = CName "s2",
                         fieldOffset = 160,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 15,
-                          singleLocColumn = 12}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:15:12"},
                       StructField {
                         fieldName = CName "si2",
                         fieldOffset = 192,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 16}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:16:16"},
                       StructField {
                         fieldName = CName "u",
                         fieldOffset = 224,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 14}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:18:14"},
                       StructField {
                         fieldName = CName "ui",
                         fieldOffset = 256,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimInt Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 19,
-                          singleLocColumn = 18}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:19:18"},
                       StructField {
                         fieldName = CName "l",
                         fieldOffset = 320,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 21,
-                          singleLocColumn = 10}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:21:10"},
                       StructField {
                         fieldName = CName "li",
                         fieldOffset = 384,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 22,
-                          singleLocColumn = 14}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:22:14"},
                       StructField {
                         fieldName = CName "sl",
                         fieldOffset = 448,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 23,
-                          singleLocColumn = 17}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:23:17"},
                       StructField {
                         fieldName = CName "sli",
                         fieldOffset = 512,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 24,
-                          singleLocColumn = 21}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:24:21"},
                       StructField {
                         fieldName = CName "ul",
                         fieldOffset = 576,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 26,
-                          singleLocColumn = 19}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:26:19"},
                       StructField {
                         fieldName = CName "uli",
                         fieldOffset = 640,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 27,
-                          singleLocColumn = 23}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:27:23"},
                       StructField {
                         fieldName = CName "ll",
                         fieldOffset = 704,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 29,
-                          singleLocColumn = 15}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:29:15"},
                       StructField {
                         fieldName = CName "lli",
                         fieldOffset = 768,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 30,
-                          singleLocColumn = 19}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:30:19"},
                       StructField {
                         fieldName = CName "sll",
                         fieldOffset = 832,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 31,
-                          singleLocColumn = 22}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:31:22"},
                       StructField {
                         fieldName = CName "slli",
                         fieldOffset = 896,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 32,
-                          singleLocColumn = 26}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:32:26"},
                       StructField {
                         fieldName = CName "ull",
                         fieldOffset = 960,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 34,
-                          singleLocColumn = 24}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:34:24"},
                       StructField {
                         fieldName = CName "ulli",
                         fieldOffset = 1024,
                         fieldType = TypePrim
                           (PrimIntegral
                             (PrimLongLong Unsigned)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 35,
-                          singleLocColumn = 28}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:35:28"},
                       StructField {
                         fieldName = CName "f",
                         fieldOffset = 1088,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 37,
-                          singleLocColumn = 11}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:37:11"},
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 1152,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 38,
-                          singleLocColumn = 12}},
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:38:12"},
                       StructField {
                         fieldName = CName "ld",
                         fieldOffset = 1280,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "primitive_types.h"],
-                          singleLocLine = 39,
-                          singleLocColumn = 17}}],
+                        fieldSourceLoc =
+                        "examples/primitive_types.h:39:17"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "primitive_types.h"],
-                      singleLocLine = 1,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/primitive_types.h:1:8"}}
               (Add 29)
               (Seq
                 [

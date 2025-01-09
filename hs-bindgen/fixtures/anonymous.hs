@@ -21,12 +21,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 4,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/anonymous.h:4:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -40,12 +36,8 @@
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 5,
-                singleLocColumn = 9}}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:5:9"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -64,30 +56,18 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 4,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/anonymous.h:4:9"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 5,
-                singleLocColumn = 9}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:5:9"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "anonymous.h"],
-            singleLocLine = 3,
-            singleLocColumn = 3}}},
+          structSourceLoc =
+          "examples/anonymous.h:3:3"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -111,12 +91,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/anonymous.h:4:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -130,12 +106,8 @@
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 5,
-                  singleLocColumn = 9}}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:5:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -154,30 +126,18 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 4,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/anonymous.h:4:9"},
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 5,
-                  singleLocColumn = 9}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:5:9"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "anonymous.h"],
-              singleLocLine = 3,
-              singleLocColumn = 3}}}
+            structSourceLoc =
+            "examples/anonymous.h:3:3"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -206,12 +166,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:4:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -225,12 +181,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 9}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:5:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -249,30 +201,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:4:9"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 9}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 3,
-                      singleLocColumn = 3}}})
+                    structSourceLoc =
+                    "examples/anonymous.h:3:3"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -303,12 +243,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:4:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -322,12 +258,8 @@
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 9}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:5:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -346,30 +278,18 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 4,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:4:9"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 5,
-                          singleLocColumn = 9}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 3,
-                      singleLocColumn = 3}}}
+                    structSourceLoc =
+                    "examples/anonymous.h:3:3"}}
               (Add 2)
               (Seq
                 [
@@ -406,12 +326,8 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 6,
-                singleLocColumn = 5}}},
+              fieldSourceLoc =
+              "examples/anonymous.h:6:5"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -425,12 +341,8 @@
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 8,
-                singleLocColumn = 7}}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:8:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -451,30 +363,18 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 6,
-                singleLocColumn = 5}},
+              fieldSourceLoc =
+              "examples/anonymous.h:6:5"},
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 8,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:8:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "anonymous.h"],
-            singleLocLine = 2,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/anonymous.h:2:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -504,12 +404,8 @@
                       (DeclPathStruct
                         (DeclNameTag (CName "S1"))
                         DeclPathTop))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 5}}},
+                fieldSourceLoc =
+                "examples/anonymous.h:6:5"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -523,12 +419,8 @@
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 7}}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:8:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -549,30 +441,18 @@
                       (DeclPathStruct
                         (DeclNameTag (CName "S1"))
                         DeclPathTop))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 6,
-                  singleLocColumn = 5}},
+                fieldSourceLoc =
+                "examples/anonymous.h:6:5"},
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 8,
-                  singleLocColumn = 7}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:8:7"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "anonymous.h"],
-              singleLocLine = 2,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/anonymous.h:2:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -607,12 +487,8 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S1"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 5}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:6:5"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -626,12 +502,8 @@
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:8:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -652,30 +524,18 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S1"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 5}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:6:5"},
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 2,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/anonymous.h:2:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -712,12 +572,8 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S1"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 5}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:6:5"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -731,12 +587,8 @@
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:8:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -757,30 +609,18 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S1"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 6,
-                          singleLocColumn = 5}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:6:5"},
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 8,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 2,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/anonymous.h:2:8"}}
               (Add 2)
               (Seq
                 [
@@ -811,12 +651,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 16,
-                singleLocColumn = 11}}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:16:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -839,19 +675,11 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 16,
-                singleLocColumn = 11}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:16:11"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "anonymous.h"],
-            singleLocLine = 15,
-            singleLocColumn = 5}}},
+          structSourceLoc =
+          "examples/anonymous.h:15:5"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -875,12 +703,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 11}}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:16:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -903,19 +727,11 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 16,
-                  singleLocColumn = 11}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:16:11"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "anonymous.h"],
-              singleLocLine = 15,
-              singleLocColumn = 5}}}
+            structSourceLoc =
+            "examples/anonymous.h:15:5"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -944,12 +760,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 11}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:16:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -972,19 +784,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 11}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 5}}})
+                    structSourceLoc =
+                    "examples/anonymous.h:15:5"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1013,12 +817,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 11}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:16:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1041,19 +841,11 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 16,
-                          singleLocColumn = 11}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 15,
-                      singleLocColumn = 5}}}
+                    structSourceLoc =
+                    "examples/anonymous.h:15:5"}}
               (Add 1)
               (Seq
                 [
@@ -1083,12 +875,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 14,
-                singleLocColumn = 9}}},
+              fieldSourceLoc =
+              "examples/anonymous.h:14:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1114,12 +902,8 @@
                         (DeclPathStruct
                           (DeclNameTag (CName "S2"))
                           DeclPathTop))))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 17,
-                singleLocColumn = 7}}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:17:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1138,12 +922,8 @@
               fieldOffset = 0,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 14,
-                singleLocColumn = 9}},
+              fieldSourceLoc =
+              "examples/anonymous.h:14:9"},
             StructField {
               fieldName = CName "deep",
               fieldOffset = 32,
@@ -1159,19 +939,11 @@
                         (DeclPathStruct
                           (DeclNameTag (CName "S2"))
                           DeclPathTop))))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 17,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:17:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "anonymous.h"],
-            singleLocLine = 13,
-            singleLocColumn = 3}}},
+          structSourceLoc =
+          "examples/anonymous.h:13:3"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1195,12 +967,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 14,
-                  singleLocColumn = 9}}},
+                fieldSourceLoc =
+                "examples/anonymous.h:14:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1226,12 +994,8 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "S2"))
                             DeclPathTop))))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 17,
-                  singleLocColumn = 7}}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:17:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1250,12 +1014,8 @@
                 fieldOffset = 0,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 14,
-                  singleLocColumn = 9}},
+                fieldSourceLoc =
+                "examples/anonymous.h:14:9"},
               StructField {
                 fieldName = CName "deep",
                 fieldOffset = 32,
@@ -1271,19 +1031,11 @@
                           (DeclPathStruct
                             (DeclNameTag (CName "S2"))
                             DeclPathTop))))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 17,
-                  singleLocColumn = 7}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:17:7"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "anonymous.h"],
-              singleLocLine = 13,
-              singleLocColumn = 3}}}
+            structSourceLoc =
+            "examples/anonymous.h:13:3"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1312,12 +1064,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:14:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1343,12 +1091,8 @@
                                   (DeclPathStruct
                                     (DeclNameTag (CName "S2"))
                                     DeclPathTop))))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:17:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1367,12 +1111,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:14:9"},
                       StructField {
                         fieldName = CName "deep",
                         fieldOffset = 32,
@@ -1388,19 +1128,11 @@
                                   (DeclPathStruct
                                     (DeclNameTag (CName "S2"))
                                     DeclPathTop))))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:17:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 13,
-                      singleLocColumn = 3}}})
+                    structSourceLoc =
+                    "examples/anonymous.h:13:3"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1431,12 +1163,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:14:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1462,12 +1190,8 @@
                                   (DeclPathStruct
                                     (DeclNameTag (CName "S2"))
                                     DeclPathTop))))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:17:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1486,12 +1210,8 @@
                         fieldOffset = 0,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 14,
-                          singleLocColumn = 9}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:14:9"},
                       StructField {
                         fieldName = CName "deep",
                         fieldOffset = 32,
@@ -1507,19 +1227,11 @@
                                   (DeclPathStruct
                                     (DeclNameTag (CName "S2"))
                                     DeclPathTop))))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 17,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:17:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 13,
-                      singleLocColumn = 3}}}
+                    structSourceLoc =
+                    "examples/anonymous.h:13:3"}}
               (Add 2)
               (Seq
                 [
@@ -1558,12 +1270,8 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 18,
-                singleLocColumn = 5}}},
+              fieldSourceLoc =
+              "examples/anonymous.h:18:5"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1577,12 +1285,8 @@
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 20,
-                singleLocColumn = 7}}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:20:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1603,30 +1307,18 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop))),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 18,
-                singleLocColumn = 5}},
+              fieldSourceLoc =
+              "examples/anonymous.h:18:5"},
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
                 (PrimIntegral (PrimInt Signed)),
-              fieldSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "anonymous.h"],
-                singleLocLine = 20,
-                singleLocColumn = 7}}],
+              fieldSourceLoc =
+              "examples/anonymous.h:20:7"}],
           structFlam = Nothing,
-          structSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "anonymous.h"],
-            singleLocLine = 12,
-            singleLocColumn = 8}}},
+          structSourceLoc =
+          "examples/anonymous.h:12:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1658,12 +1350,8 @@
                       (DeclPathStruct
                         (DeclNameTag (CName "S2"))
                         DeclPathTop))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 18,
-                  singleLocColumn = 5}}},
+                fieldSourceLoc =
+                "examples/anonymous.h:18:5"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1677,12 +1365,8 @@
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 20,
-                  singleLocColumn = 7}}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:20:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1703,30 +1387,18 @@
                       (DeclPathStruct
                         (DeclNameTag (CName "S2"))
                         DeclPathTop))),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 18,
-                  singleLocColumn = 5}},
+                fieldSourceLoc =
+                "examples/anonymous.h:18:5"},
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 64,
                 fieldType = TypePrim
                   (PrimIntegral (PrimInt Signed)),
-                fieldSourceLoc = SingleLoc {
-                  singleLocPath = [
-                    "examples",
-                    "anonymous.h"],
-                  singleLocLine = 20,
-                  singleLocColumn = 7}}],
+                fieldSourceLoc =
+                "examples/anonymous.h:20:7"}],
             structFlam = Nothing,
-            structSourceLoc = SingleLoc {
-              singleLocPath = [
-                "examples",
-                "anonymous.h"],
-              singleLocLine = 12,
-              singleLocColumn = 8}}}
+            structSourceLoc =
+            "examples/anonymous.h:12:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1763,12 +1435,8 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S2"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 5}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:18:5"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1782,12 +1450,8 @@
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:20:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1808,30 +1472,18 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S2"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 5}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:18:5"},
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 12,
-                      singleLocColumn = 8}}})
+                    structSourceLoc =
+                    "examples/anonymous.h:12:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1870,12 +1522,8 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S2"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 5}}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:18:5"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1889,12 +1537,8 @@
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 7}}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:20:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1915,30 +1559,18 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "S2"))
                                 DeclPathTop))),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 18,
-                          singleLocColumn = 5}},
+                        fieldSourceLoc =
+                        "examples/anonymous.h:18:5"},
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
                           (PrimIntegral (PrimInt Signed)),
-                        fieldSourceLoc = SingleLoc {
-                          singleLocPath = [
-                            "examples",
-                            "anonymous.h"],
-                          singleLocLine = 20,
-                          singleLocColumn = 7}}],
+                        fieldSourceLoc =
+                        "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
-                    structSourceLoc = SingleLoc {
-                      singleLocPath = [
-                        "examples",
-                        "anonymous.h"],
-                      singleLocLine = 12,
-                      singleLocColumn = 8}}}
+                    structSourceLoc =
+                    "examples/anonymous.h:12:8"}}
               (Add 2)
               (Seq
                 [

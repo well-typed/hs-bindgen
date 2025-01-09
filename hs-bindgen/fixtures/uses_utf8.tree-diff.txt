@@ -5,12 +5,8 @@ WrapCHeader
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
-              multiLocExpansion = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "uses_utf8.h"],
-                singleLocLine = 2,
-                singleLocColumn = 9},
+              multiLocExpansion =
+              "examples/uses_utf8.h:2:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -18,12 +14,8 @@ WrapCHeader
             macroArgs = [],
             macroBody = MTerm MEmpty},
           macroDeclMacroTy = "Empty",
-          macroDeclSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "uses_utf8.h"],
-            singleLocLine = 2,
-            singleLocColumn = 9}},
+          macroDeclSourceLoc =
+          "examples/uses_utf8.h:2:9"},
       DeclEnum
         Enu {
           enumTag = CName "MyEnum",
@@ -37,25 +29,13 @@ WrapCHeader
               valueName = CName
                 "Say\20320\22909",
               valueValue = 0,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "uses_utf8.h"],
-                singleLocLine = 5,
-                singleLocColumn = 9}},
+              valueSourceLoc =
+              "examples/uses_utf8.h:5:9"},
             EnumValue {
               valueName = CName
                 "Say\25308\25308",
               valueValue = 1,
-              valueSourceLoc = SingleLoc {
-                singleLocPath = [
-                  "examples",
-                  "uses_utf8.h"],
-                singleLocLine = 6,
-                singleLocColumn = 9}}],
-          enumSourceLoc = SingleLoc {
-            singleLocPath = [
-              "examples",
-              "uses_utf8.h"],
-            singleLocLine = 4,
-            singleLocColumn = 6}}])
+              valueSourceLoc =
+              "examples/uses_utf8.h:6:9"}],
+          enumSourceLoc =
+          "examples/uses_utf8.h:4:6"}])
