@@ -4,3 +4,4 @@ unversioned
 cabal.project.local
 .vscode/
 *.dll
+macros-recognized.log

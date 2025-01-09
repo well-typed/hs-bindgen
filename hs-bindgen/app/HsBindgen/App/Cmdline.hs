@@ -5,9 +5,12 @@ module HsBindgen.App.Cmdline (
   , getCmdline
   ) where
 
+import Data.Char qualified as Char
 import Data.Default
+import Data.List qualified as List
 import Options.Applicative
 import System.FilePath
+import System.Info qualified
 
 import HsBindgen.Lib
 
@@ -44,10 +47,10 @@ data Cmdline = Cmdline {
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
     ModePreprocess {
-        input      :: FilePath
-      , moduleOpts :: HsModuleOpts
-      , renderOpts :: HsRenderOpts
-      , output     :: Maybe FilePath
+        preprocessInput      :: FilePath
+      , preprocessModuleOpts :: HsModuleOpts
+      , preprocessRenderOpts :: HsRenderOpts
+      , preprocessOutput     :: Maybe FilePath
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
@@ -61,10 +64,14 @@ data Mode =
 
 data DevMode =
     -- | Just parse the C header
-    DevModeParseCHeader FilePath
-
+    DevModeParseCHeader {
+        parseCHeaderInput :: FilePath
+      }
     -- | Generate prelude (bootstrap)
-  | DevModePrelude FilePath
+  | DevModePrelude {
+        preludeInput      :: FilePath
+      , preludeIncludeDir :: FilePath
+      }
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -137,11 +144,19 @@ parseDevModeParseCHeader =
 
 parseDevModePrelude :: FilePath -> Parser DevMode
 parseDevModePrelude dataDir =
-     DevModePrelude
-       <$> parseInput (Just stdHeaders)
+    DevModePrelude
+      <$> parseInput (Just stdHeaders)
+      <*> parseIncludeDir includeDir
   where
     stdHeaders :: FilePath
     stdHeaders = dataDir </> "bootstrap" </> "standard_headers.h"
+
+    includeDir :: Maybe FilePath
+    includeDir = case System.Info.arch of
+      "aarch64" -> Just $ dataDir </> "musl-include" </> "aarch64"
+      "i386"    -> Just $ dataDir </> "musl-include" </> "i386"
+      "x86_64"  -> Just $ dataDir </> "musl-include" </> "x86_64"
+      _other    -> Nothing
 
 {-------------------------------------------------------------------------------
   Prepare input
@@ -157,13 +172,70 @@ parseVerbosity =
 
 parseClangArgs :: Parser ClangArgs
 parseClangArgs =
-    fmap aux . many $ strOption $ mconcat [
+    ClangArgs
+      <$> parseTarget
+      <*> fmap Just parseCStandard
+      <*> parseGnuOption
+      <*> parseOtherArgs
+  where
+    parseTarget :: Parser (Maybe String)
+    parseTarget = optional . strOption $ mconcat [
+        long "target"
+      , metavar "TARGET"
+      , help "Target architecture (triplet)"
+      ]
+
+    parseCStandard :: Parser CStandard
+    parseCStandard = option (eitherReader readCStandard) $ mconcat [
+        long "standard"
+      , metavar "STANDARD"
+      , value defaultCStandard
+      , help $ concat [
+            "C standard (default: "
+          , renderCStandard defaultCStandard
+          , "; supported: "
+          , List.intercalate ", " (map fst cStandards)
+          , ")"
+          ]
+      ]
+
+    defaultCStandard :: CStandard
+    defaultCStandard = C17
+
+    renderCStandard :: CStandard -> String
+    renderCStandard = map Char.toLower . show
+
+    cStandards :: [(String, CStandard)]
+    cStandards = [
+        (renderCStandard cStandard, cStandard)
+      | cStandard <- [minBound ..]
+      ]
+
+    readCStandard :: String -> Either String CStandard
+    readCStandard s = case List.lookup s cStandards of
+      Just cStandard -> Right cStandard
+      Nothing -> Left $ "unknown C standard: " ++ s
+
+    parseGnuOption :: Parser Bool
+    parseGnuOption = switch $ mconcat [
+        long "gnu"
+      , help "Enable GNU extensions"
+      ]
+
+    parseOtherArgs :: Parser [String]
+    parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
         long "clang-option"
+      , metavar "OPTION"
       , help "Pass option to libclang"
       ]
-  where
-    aux :: [String] -> ClangArgs
-    aux args = defaultClangArgs{clangOtherArgs = args}
+
+    readOtherArg :: String -> Either String String
+    readOtherArg s
+      | s == "-std" || "-std=" `List.isPrefixOf` s =
+          Left "C standard must be set using hs-bindgen --standard option"
+      | s == "--target" || "--target=" `List.isPrefixOf` s =
+          Left "Target must be set using hs-bindgen --target option"
+      | otherwise = Right s
 
 parseInput :: Maybe FilePath -> Parser FilePath
 parseInput mDefault =
@@ -172,6 +244,21 @@ parseInput mDefault =
          , metavar "PATH"
          , long "input"
          , short 'i'
+         ]
+      ++ case mDefault of
+           Nothing -> []
+           Just d  -> [
+               showDefault
+             , value d
+             ]
+
+parseIncludeDir :: Maybe FilePath -> Parser FilePath
+parseIncludeDir mDefault =
+    strOption $ mconcat $ [
+           help "Include directory"
+         , metavar "PATH"
+         , long "include"
+         , short 'I'
          ]
       ++ case mDefault of
            Nothing -> []

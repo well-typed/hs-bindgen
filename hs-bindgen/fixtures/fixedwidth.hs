@@ -24,6 +24,7 @@
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
               "musl-include",
+              "x86_64",
               "bits",
               "alltypes.h"],
             singleLocLine = 136,
@@ -58,6 +59,7 @@
           typedefSourceLoc = SingleLoc {
             singleLocPath = [
               "musl-include",
+              "x86_64",
               "bits",
               "alltypes.h"],
             singleLocLine = 131,

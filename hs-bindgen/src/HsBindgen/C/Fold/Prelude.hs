@@ -6,6 +6,7 @@ module HsBindgen.C.Fold.Prelude (
 
 import Data.Text qualified as Text
 
+import HsBindgen.C.AST qualified as C
 import HsBindgen.Imports
 import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
@@ -29,9 +30,10 @@ foldPrelude :: forall m.
      MonadIO m
   => Maybe FilePath -- ^ Directory to make paths relative to
   -> Tracer IO GenPreludeMsg
+  -> Tracer IO (MultiLoc, C.Macro)
   -> CXTranslationUnit
   -> Fold m PreludeEntry
-foldPrelude relPath tracer unit = go
+foldPrelude relPath msgTracer macroTracer unit = go
   where
     go :: Fold m PreludeEntry
     go = checkLoc $ \loc current -> do
@@ -39,7 +41,7 @@ foldPrelude relPath tracer unit = go
 
         let skip :: m (Next m a)
             skip = liftIO $ do
-                traceWith tracer Info $ Skipping loc kind
+                traceWith msgTracer Info $ Skipping loc kind
                 return $ Continue Nothing
 
         case fromSimpleEnum kind of
@@ -47,11 +49,11 @@ foldPrelude relPath tracer unit = go
           Right CXCursor_MacroExpansion     -> skip
 
           Right CXCursor_MacroDefinition -> do
-            processMacro relPath tracer unit loc current
+            processMacro relPath msgTracer macroTracer unit loc current
             return $ Continue Nothing
 
           _otherwise ->
-            Continue <$> unrecognized relPath tracer current
+            Continue <$> unrecognized relPath msgTracer current
 
     checkLoc :: (MultiLoc -> Fold m a) -> Fold m a
     checkLoc k current = do
@@ -73,20 +75,21 @@ processMacro ::
      MonadIO m
   => Maybe FilePath -- ^ Directory to make paths relative to
   -> Tracer IO GenPreludeMsg
+  -> Tracer IO (MultiLoc, C.Macro)
   -> CXTranslationUnit
   -> MultiLoc
-  -> CXCursor -> m ()
-processMacro relPath tracer unit loc current = liftIO $ do
+  -> CXCursor
+  -> m ()
+processMacro relPath msgTracer macroTracer unit loc current = liftIO $ do
     cursorExtent <- HighLevel.clang_getCursorExtent relPath current
     tokens       <- HighLevel.clang_tokenize
                       relPath
                       unit
                       (multiLocExpansion <$> cursorExtent)
     case reparseWith reparseMacro tokens of
-      Right macro ->
-        appendFile "macros-recognized.log" (show (loc, macro) ++ "\n")
+      Right macro -> traceWith macroTracer Info (loc, macro)
       Left err -> do
-        traceWith tracer Warning $ UnrecognizedMacro err
+        traceWith msgTracer Warning $ UnrecognizedMacro err
 
 {-------------------------------------------------------------------------------
   Auxiliary
@@ -124,10 +127,9 @@ unrecognized ::
   -> Tracer IO GenPreludeMsg
   -> CXCursor
   -> m (Maybe a)
-unrecognized relPath tracer current = liftIO $ do
+unrecognized relPath msgTracer current = liftIO $ do
     loc  <- HighLevel.clang_getCursorLocation relPath current
     kind <- clang_getCursorKind current
     name <- clang_getCursorSpelling current
-    traceWith tracer Error $ UnrecognizedElement loc kind name
+    traceWith msgTracer Error $ UnrecognizedElement loc kind name
     return Nothing
-

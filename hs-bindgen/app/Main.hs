@@ -1,6 +1,10 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Main (main) where
 
+import Control.Monad (void)
 import System.Directory qualified as Dir
+import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
 import HsBindgen.Lib
@@ -11,7 +15,7 @@ import HsBindgen.Lib
 
 main :: IO ()
 main = do
-    cmdline@Cmdline{cmdVerbosity, cmdMode} <- getCmdline
+    cmdline@Cmdline{..} <- getCmdline
 
     let tracer :: Tracer IO String
         tracer = mkTracerIO cmdVerbosity
@@ -27,11 +31,11 @@ execMode ::
   -> Mode
   -> IO ()
 execMode relPath cmdline tracer = \case
-    ModePreprocess{input, moduleOpts, renderOpts, output} -> do
-      cHeader <- parseC relPath cmdline tracer input
-      let hsModl = genModule moduleOpts cHeader
-      prettyHs renderOpts output hsModl
-    ModeGenTests{genTestsInput, genTestsModuleOpts, genTestsRenderOpts, genTestsOutput} -> do
+    ModePreprocess{..} -> do
+      cHeader <- parseC relPath cmdline tracer preprocessInput
+      let hsModl = genModule preprocessModuleOpts cHeader
+      prettyHs preprocessRenderOpts preprocessOutput hsModl
+    ModeGenTests{..} -> do
       cHeader <- parseC relPath cmdline tracer genTestsInput
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     Dev devMode ->
@@ -44,12 +48,39 @@ execDevMode ::
   -> DevMode
   -> IO ()
 execDevMode relPath cmdline tracer = \case
-    DevModeParseCHeader fp ->
-      prettyC =<< parseC relPath cmdline tracer fp
-    DevModePrelude fp -> do
-      _entries <- withC relPath cmdline tracer fp $
-        bootstrapPrelude relPath tracer
-      return ()
+    DevModeParseCHeader{..} ->
+      prettyC =<< parseC relPath cmdline tracer parseCHeaderInput
+    DevModePrelude{..} -> do
+      let cmdline' = preludeCmdline preludeIncludeDir
+      IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
+        void . withC relPath cmdline' tracer preludeInput $
+          bootstrapPrelude relPath tracer (preludeLogTracer logHandle)
+  where
+    preludeLogPath :: FilePath
+    preludeLogPath = "macros-recognized.log"
+
+    preludeLogTracer :: IO.Handle -> Tracer IO String
+    preludeLogTracer logHandle =
+      mkTracer
+        (IO.hPutStrLn logHandle . ("Error: "   ++))
+        (IO.hPutStrLn logHandle . ("Warning: " ++))
+        (IO.hPutStrLn logHandle)
+        True
+
+    preludeCmdline :: FilePath -> Cmdline
+    preludeCmdline includeDir = cmdline {
+        cmdClangArgs = preludeClangArgs includeDir $ cmdClangArgs cmdline
+      }
+
+    preludeClangArgs :: FilePath -> ClangArgs -> ClangArgs
+    preludeClangArgs includeDir clangArgs = clangArgs {
+        clangOtherArgs =
+          preludeClangOtherArgs includeDir $ clangOtherArgs clangArgs
+      }
+
+    preludeClangOtherArgs :: FilePath -> [String] -> [String]
+    preludeClangOtherArgs includeDir args =
+        "-nostdinc" : "-isystem" : includeDir : args
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

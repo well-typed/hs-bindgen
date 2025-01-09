@@ -154,18 +154,22 @@ parseCHeader relPath traceSkipped p unit = do
 
 bootstrapPrelude ::
      Maybe FilePath     -- ^ Directory to make paths relative to
-  -> Tracer IO String   -- ^ Warnings
+  -> Tracer IO String   -- ^ Messages
+  -> Tracer IO String   -- ^ Macros
   -> CXTranslationUnit
   -> IO [C.PreludeEntry]
-bootstrapPrelude relPath tracer unit = do
+bootstrapPrelude relPath msgTracer macroTracer unit = do
     cursor <- clang_getTranslationUnitCursor unit
-    C.runFoldIdentity $
-      HighLevel.clang_visitChildren cursor $ C.foldPrelude relPath tracer' unit
+    C.runFoldIdentity . HighLevel.clang_visitChildren cursor $
+      C.foldPrelude relPath msgTracer' macroTracer' unit
   where
     -- We could take a tracer for 'C.GenPreludeMsg', but there is only a point
     -- in doing so if we then also export that type.
-    tracer' :: Tracer IO C.GenPreludeMsg
-    tracer' = contramap prettyLogMsg tracer
+    msgTracer' :: Tracer IO C.GenPreludeMsg
+    msgTracer' = contramap prettyLogMsg msgTracer
+
+    macroTracer' :: Tracer IO (MultiLoc, C.Macro)
+    macroTracer' = contramap show macroTracer
 
 -- | Return the target triple for translation unit
 getTargetTriple :: CXTranslationUnit -> IO Text
