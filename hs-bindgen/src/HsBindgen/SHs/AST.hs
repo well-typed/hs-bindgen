@@ -51,36 +51,58 @@ data Global =
   | HasFlexibleArrayMember_class
   | HasFlexibleArrayMember_offset
 
-  | Eq_class
-  | Ord_class
-  | Num_class
-  | Integral_class
-  | Fractional_class
-  | Bits_class
-  | Div_class
+    -- | Primitive (unboxed) type equality
+  | NomEq_class
 
-  | Eq_eq
-  | Eq_uneq
-  | Ord_lt
-  | Ord_le
-  | Ord_gt
-  | Ord_ge
-  | Base_identity
-  | Base_not
-  | Base_and
-  | Base_or
-  | Bits_shiftL
-  | Bits_shiftR
-  | Bits_and
-  | Bits_xor
-  | Bits_or
-  | Bits_complement
-  | Num_negate
-  | Num_add
-  | Num_minus
-  | Num_times
+  | Not_class
+  | Not_not
+  | Logical_class
+  | Logical_and
+  | Logical_or
+  | RelEq_class
+  | RelEq_eq
+  | RelEq_uneq
+  | RelOrd_class
+  | RelOrd_lt
+  | RelOrd_le
+  | RelOrd_gt
+  | RelOrd_ge
+  | Plus_class
+  | Plus_resTyCon
+  | Plus_plus
+  | Minus_class
+  | Minus_resTyCon
+  | Minus_negate
+  | Add_class
+  | Add_resTyCon
+  | Add_add
+  | Sub_class
+  | Sub_resTyCon
+  | Sub_minus
+  | Mult_class
+  | Mult_resTyCon
+  | Mult_mult
+  | Div_class
   | Div_div
-  | Integral_rem
+  | Div_resTyCon
+  | Rem_class
+  | Rem_resTyCon
+  | Rem_rem
+  | Complement_class
+  | Complement_resTyCon
+  | Complement_complement
+  | Bitwise_class
+  | Bitwise_resTyCon
+  | Bitwise_and
+  | Bitwise_or
+  | Bitwise_xor
+  | Shift_class
+  | Shift_resTyCon
+  | Shift_shiftL
+  | Shift_shiftR
+
+  | IntLike_tycon
+  | FloatLike_tycon
 
   | CFloat_constructor
   | CDouble_constructor
@@ -144,6 +166,8 @@ data SType ctx =
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
+
+infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
 

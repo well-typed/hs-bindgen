@@ -121,6 +121,7 @@ library
       -- Internal dependencies
     , hs-bindgen-libclang
     , hs-bindgen-runtime
+    , c-expr:c-expr-core
   build-depends:
       -- External dependencies
     , containers         >= 0.6.5.1 && < 0.8
@@ -177,6 +178,7 @@ test-suite golden
       -- Internal dependencies
     , hs-bindgen
     , hs-bindgen-runtime
+    , c-expr:c-expr-core
   build-depends:
       -- Inherited dependencies
     , bytestring

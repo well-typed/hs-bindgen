@@ -16,7 +16,8 @@ import Data.Set qualified as Set
 import HsBindgen.Imports
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.C.AST
+import HsBindgen.C.AST (CName, Type, Decl)
+import HsBindgen.C.Tc.Macro qualified as Macro
 
 {-------------------------------------------------------------------------------
   Definition
@@ -32,7 +33,7 @@ data DeclState = DeclState {
       -- for example, it can alert us to the fact that a struct field has a
       -- type which is macro defined.
       macroExpansions  :: !(Set SingleLoc)
-    , macroTypes       :: !(Map CName QuantTy)
+    , macroTypes       :: !(Map CName (Macro.Quant (Macro.Type Macro.Ty)))
     -- | Type declarations
     --
     -- We accumulate type declarations in (insert)ordered map,
@@ -62,7 +63,7 @@ registerMacroExpansion loc st = st{
       macroExpansions = Set.insert (multiLocExpansion loc) (macroExpansions st)
     }
 
-registerMacroType :: CName -> QuantTy -> DeclState -> DeclState
+registerMacroType :: CName -> Macro.Quant ( Macro.Type Macro.Ty ) -> DeclState -> DeclState
 registerMacroType nm ty st = st{
       macroTypes = Map.insert nm ty (macroTypes st)
     }

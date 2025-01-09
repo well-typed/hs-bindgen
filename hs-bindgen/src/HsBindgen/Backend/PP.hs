@@ -27,10 +27,6 @@ data HsImportModule = HsImportModule {
     }
   deriving (Eq, Ord, Show)
 
--- | @Data.Bits@ import module
-iBits :: HsImportModule
-iBits = HsImportModule "Data.Bits" (Just "DB")
-
 -- | @HsBindgen.ConstantArray@ import module
 iConstantArray :: HsImportModule
 iConstantArray = HsImportModule "HsBindgen.ConstantArray" Nothing
@@ -54,13 +50,25 @@ iForeignC = HsImportModule "Foreign.C" (Just "FC")
 iGHCFloat :: HsImportModule
 iGHCFloat = HsImportModule "GHC.Float" (Just "GHC.Float")
 
--- | @HsBindgen.Patterns@ import module
-iHsBindgenPatterns :: HsImportModule
-iHsBindgenPatterns = HsImportModule "HsBindgen.Patterns" (Just "HsBindgen")
+-- | @Data.Type.Equality@ import module
+iDataTypeEquality :: HsImportModule
+iDataTypeEquality = HsImportModule "Data.Type.Equality" Nothing
+
+-- | @HsBindgen.Syntax@ import module
+iHsBindgenSyntax :: HsImportModule
+iHsBindgenSyntax = HsImportModule "HsBindgen.Syntax" (Just "HsBindgen")
 
 -- | @Prelude@ import module
 iPrelude :: HsImportModule
 iPrelude = HsImportModule "Prelude" (Just "P")
+
+-- | @C.Typing@ import module
+iCTyping :: HsImportModule
+iCTyping = HsImportModule "C.Typing" (Just "C")
+
+{-------------------------------------------------------------------------------
+  NameType
+-------------------------------------------------------------------------------}
 
 -- | A qualified or unqualified import of a module
 data HsImport =
@@ -144,57 +152,80 @@ resolveGlobal = \case
     HasFlexibleArrayMember_class -> importQ iFlexibleArrayMember "HasFlexibleArrayMember"
     HasFlexibleArrayMember_offset -> importQ iFlexibleArrayMember "flexibleArrayMemberOffset"
 
-    Eq_class         -> importQ iPrelude           "Eq"
-    Ord_class        -> importQ iPrelude           "Ord"
-    Num_class        -> importQ iPrelude           "Num"
-    Integral_class   -> importQ iPrelude           "Integral"
-    Fractional_class -> importQ iPrelude           "Fractional"
-    Div_class        -> importQ iHsBindgenPatterns "Div"
-    Bits_class       -> importQ iBits              "Bits"
+    NomEq_class          -> importU iDataTypeEquality  "~"
 
-    Eq_eq           -> importQ iPrelude           "=="
-    Eq_uneq         -> importQ iPrelude           "/="
-    Ord_lt          -> importQ iPrelude           "<"
-    Ord_le          -> importQ iPrelude           "<="
-    Ord_gt          -> importQ iPrelude           ">"
-    Ord_ge          -> importQ iPrelude           ">="
-    Base_identity   -> importQ iPrelude           "id"
-    Base_not        -> importQ iPrelude           "not"
-    Base_and        -> importQ iPrelude           "&&"
-    Base_or         -> importQ iPrelude           "||"
-    Bits_shiftL     -> importQ iBits              "shiftL"
-    Bits_shiftR     -> importQ iBits              "shiftR"
-    Bits_and        -> importQ iBits              ".&."
-    Bits_xor        -> importQ iBits              "xor"
-    Bits_or         -> importQ iBits              ".|."
-    Bits_complement -> importQ iBits              "complement"
-    Num_negate      -> importQ iPrelude           "negate"
-    Num_add         -> importQ iPrelude           "+"
-    Num_minus       -> importQ iPrelude           "-"
-    Num_times       -> importQ iPrelude           "*"
-    Div_div         -> importQ iHsBindgenPatterns "/"
-    Integral_rem    -> importQ iPrelude           "rem"
+    Not_class             -> importQ iCTyping "Not"
+    Not_not               -> importQ iCTyping "not"
+    Logical_class         -> importQ iCTyping "Logical"
+    Logical_and           -> importU iCTyping "&&"
+    Logical_or            -> importU iCTyping "||"
+    RelEq_class           -> importQ iCTyping "RelEq"
+    RelEq_eq              -> importU iCTyping "=="
+    RelEq_uneq            -> importU iCTyping "!="
+    RelOrd_class          -> importQ iCTyping "RelOrd"
+    RelOrd_lt             -> importU iCTyping "<"
+    RelOrd_le             -> importU iCTyping "<="
+    RelOrd_gt             -> importU iCTyping ">"
+    RelOrd_ge             -> importU iCTyping ">="
+    Plus_class            -> importQ iCTyping "Plus"
+    Plus_resTyCon         -> importQ iCTyping "PlusRes"
+    Plus_plus             -> importQ iCTyping "plus"
+    Minus_class           -> importQ iCTyping "Minus"
+    Minus_resTyCon        -> importQ iCTyping "MinusRes"
+    Minus_negate          -> importQ iCTyping "negate"
+    Add_class             -> importQ iCTyping "Add"
+    Add_resTyCon          -> importQ iCTyping "AddRes"
+    Add_add               -> importU iCTyping "+"
+    Sub_class             -> importQ iCTyping "Sub"
+    Sub_resTyCon          -> importQ iCTyping "SubRes"
+    Sub_minus             -> importU iCTyping "-"
+    Mult_class            -> importQ iCTyping "Mult"
+    Mult_resTyCon         -> importQ iCTyping "MultRes"
+    Mult_mult             -> importU iCTyping "*"
+    Div_class             -> importQ iCTyping "Div"
+    Div_resTyCon          -> importQ iCTyping "DivRes"
+    Div_div               -> importU iCTyping "/"
+    Rem_class             -> importQ iCTyping "Rem"
+    Rem_resTyCon          -> importQ iCTyping "RemRes"
+    Rem_rem               -> importU iCTyping "%"
+    Complement_class      -> importQ iCTyping "Complement"
+    Complement_resTyCon   -> importQ iCTyping "ComplementRes"
+    Complement_complement -> importQ iCTyping ".~"
+    Bitwise_class         -> importQ iCTyping "Bitwise"
+    Bitwise_resTyCon      -> importQ iCTyping "BitsRes"
+    Bitwise_and           -> importU iCTyping ".&."
+    Bitwise_or            -> importU iCTyping ".|."
+    Bitwise_xor           -> importU iCTyping ".^."
+    Shift_class           -> importQ iCTyping "Shift"
+    Shift_resTyCon        -> importQ iCTyping "ShiftRes"
+    Shift_shiftL          -> importU iCTyping "<<"
+    Shift_shiftR          -> importU iCTyping ">>"
+
+    IntLike_tycon    -> importQ iHsBindgenSyntax "IntLike"
+    FloatLike_tycon  -> importQ iHsBindgenSyntax "FloatLike"
+
     GHC_Float_castWord32ToFloat -> importQ iGHCFloat "castWord32ToFloat"
     GHC_Float_castWord64ToDouble -> importQ iGHCFloat "castWord64ToDouble"
     CFloat_constructor -> importQ iForeignC "CFloat"
     CDouble_constructor -> importQ iForeignC "CDouble"
 
     PrimType hsPrimType  -> case hsPrimType of
-      HsPrimVoid    -> importU iDataVoid "Void"
-      HsPrimCChar   -> importQ iForeignC "CChar"
-      HsPrimCSChar  -> importQ iForeignC "CSChar"
-      HsPrimCUChar  -> importQ iForeignC "CUChar"
-      HsPrimCInt    -> importQ iForeignC "CInt"
-      HsPrimCUInt   -> importQ iForeignC "CUInt"
-      HsPrimCShort  -> importQ iForeignC "CShort"
-      HsPrimCUShort -> importQ iForeignC "CUShort"
-      HsPrimCLong   -> importQ iForeignC "CLong"
-      HsPrimCULong  -> importQ iForeignC "CULong"
-      HsPrimCLLong  -> importQ iForeignC "CLLong"
-      HsPrimCULLong -> importQ iForeignC "CULLong"
-      HsPrimCBool   -> importQ iForeignC "CBool"
-      HsPrimCFloat  -> importQ iForeignC "CFloat"
-      HsPrimCDouble -> importQ iForeignC "CDouble"
+      HsPrimVoid     -> importU iDataVoid "Void"
+      HsPrimCChar    -> importQ iForeignC "CChar"
+      HsPrimCSChar   -> importQ iForeignC "CSChar"
+      HsPrimCUChar   -> importQ iForeignC "CUChar"
+      HsPrimCInt     -> importQ iForeignC "CInt"
+      HsPrimCUInt    -> importQ iForeignC "CUInt"
+      HsPrimCShort   -> importQ iForeignC "CShort"
+      HsPrimCUShort  -> importQ iForeignC "CUShort"
+      HsPrimCLong    -> importQ iForeignC "CLong"
+      HsPrimCULong   -> importQ iForeignC "CULong"
+      HsPrimCLLong   -> importQ iForeignC "CLLong"
+      HsPrimCULLong  -> importQ iForeignC "CULLong"
+      HsPrimCBool    -> importQ iForeignC "CBool"
+      HsPrimCFloat   -> importQ iForeignC "CFloat"
+      HsPrimCDouble  -> importQ iForeignC "CDouble"
+      HsPrimCPtrDiff -> importQ iForeignC "CPtrdiff"
 
 {-------------------------------------------------------------------------------
   BackendName

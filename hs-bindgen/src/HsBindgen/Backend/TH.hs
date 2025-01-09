@@ -4,7 +4,6 @@ module HsBindgen.Backend.TH (
     mkDecl,
 ) where
 
-import Data.Bits qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
@@ -24,8 +23,9 @@ import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.Arithmetic qualified (Div(..))
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.Syntax qualified
+import C.Operator.Classes qualified as C
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -56,36 +56,57 @@ mkGlobal =  \case
       HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
 
-      Eq_class             -> ''Eq
-      Ord_class            -> ''Ord
-      Num_class            -> ''Num
-      Integral_class       -> ''Integral
-      Fractional_class     -> ''Fractional
-      Div_class            -> ''HsBindgen.Runtime.Arithmetic.Div
-      Bits_class           -> ''Data.Bits.Bits
+      NomEq_class          -> ''(~)
 
-      Eq_eq                -> '(==)
-      Eq_uneq              -> '(/=)
-      Ord_lt               -> '(<)
-      Ord_le               -> '(<=)
-      Ord_gt               -> '(>)
-      Ord_ge               -> '(>=)
-      Base_identity        -> 'id
-      Base_not             -> 'not
-      Base_and             -> '(&&)
-      Base_or              -> '(||)
-      Bits_shiftL          -> 'Data.Bits.shiftL
-      Bits_shiftR          -> 'Data.Bits.shiftR
-      Bits_and             -> '(Data.Bits..&.)
-      Bits_xor             -> 'Data.Bits.xor
-      Bits_or              -> '(Data.Bits..|.)
-      Bits_complement      -> 'Data.Bits.complement
-      Num_negate           -> 'negate
-      Num_add              -> '(+)
-      Num_minus            -> '(-)
-      Num_times            -> '(*)
-      Div_div              -> '(HsBindgen.Runtime.Arithmetic./)
-      Integral_rem         -> 'rem
+      Not_class             -> ''C.Not
+      Not_not               ->  'C.not
+      Logical_class         -> ''C.Logical
+      Logical_and           -> '(C.&&)
+      Logical_or            -> '(C.||)
+      RelEq_class           -> ''C.RelEq
+      RelEq_eq              -> '(C.==)
+      RelEq_uneq            -> '(C.!=)
+      RelOrd_class          -> ''C.RelOrd
+      RelOrd_lt             -> '(C.<)
+      RelOrd_le             -> '(C.<=)
+      RelOrd_gt             -> '(C.>)
+      RelOrd_ge             -> '(C.>=)
+      Plus_class            -> ''C.Plus
+      Plus_resTyCon         -> ''C.PlusRes
+      Plus_plus             ->  'C.plus
+      Minus_class           -> ''C.Minus
+      Minus_resTyCon        -> ''C.MinusRes
+      Minus_negate          ->  'C.negate
+      Add_class             -> ''C.Add
+      Add_resTyCon          -> ''C.AddRes
+      Add_add               -> '(C.+)
+      Sub_class             -> ''C.Sub
+      Sub_resTyCon          -> ''C.SubRes
+      Sub_minus             -> '(C.-)
+      Mult_class            -> ''C.Mult
+      Mult_resTyCon         -> ''C.MultRes
+      Mult_mult             -> '(C.*)
+      Div_class             -> ''C.Div
+      Div_resTyCon          -> ''C.DivRes
+      Div_div               -> '(C./)
+      Rem_class             -> ''C.Rem
+      Rem_resTyCon          -> ''C.RemRes
+      Rem_rem               -> '(C.%)
+      Complement_class      -> ''C.Complement
+      Complement_resTyCon   -> ''C.ComplementRes
+      Complement_complement -> '(C..~)
+      Bitwise_class         -> ''C.Bitwise
+      Bitwise_resTyCon      -> ''C.BitsRes
+      Bitwise_and           -> '(C..&.)
+      Bitwise_or            -> '(C..|.)
+      Bitwise_xor           -> '(C..^.)
+      Shift_class           -> ''C.Shift
+      Shift_resTyCon        -> ''C.ShiftRes
+      Shift_shiftL          -> '(C.<<)
+      Shift_shiftR          -> '(C.>>)
+
+      IntLike_tycon        -> ''HsBindgen.Runtime.Syntax.IntLike
+      FloatLike_tycon      -> ''HsBindgen.Runtime.Syntax.FloatLike
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
@@ -93,21 +114,22 @@ mkGlobal =  \case
 
       PrimType t           -> mkGlobalP t
     where
-      mkGlobalP HsPrimVoid    = ''Data.Void.Void
-      mkGlobalP HsPrimCChar   = ''Foreign.C.Types.CChar
-      mkGlobalP HsPrimCUChar  = ''Foreign.C.Types.CUChar
-      mkGlobalP HsPrimCSChar  = ''Foreign.C.Types.CSChar
-      mkGlobalP HsPrimCInt    = ''Foreign.C.Types.CInt
-      mkGlobalP HsPrimCUInt   = ''Foreign.C.Types.CUInt
-      mkGlobalP HsPrimCShort  = ''Foreign.C.Types.CShort
-      mkGlobalP HsPrimCUShort = ''Foreign.C.Types.CUShort
-      mkGlobalP HsPrimCLong   = ''Foreign.C.Types.CLong
-      mkGlobalP HsPrimCULong  = ''Foreign.C.Types.CULong
-      mkGlobalP HsPrimCLLong  = ''Foreign.C.Types.CLLong
-      mkGlobalP HsPrimCULLong = ''Foreign.C.Types.CULLong
-      mkGlobalP HsPrimCFloat  = ''Foreign.C.Types.CFloat
-      mkGlobalP HsPrimCDouble = ''Foreign.C.Types.CDouble
-      mkGlobalP HsPrimCBool   = ''Foreign.C.Types.CBool
+      mkGlobalP HsPrimVoid     = ''Data.Void.Void
+      mkGlobalP HsPrimCChar    = ''Foreign.C.Types.CChar
+      mkGlobalP HsPrimCUChar   = ''Foreign.C.Types.CUChar
+      mkGlobalP HsPrimCSChar   = ''Foreign.C.Types.CSChar
+      mkGlobalP HsPrimCInt     = ''Foreign.C.Types.CInt
+      mkGlobalP HsPrimCUInt    = ''Foreign.C.Types.CUInt
+      mkGlobalP HsPrimCShort   = ''Foreign.C.Types.CShort
+      mkGlobalP HsPrimCUShort  = ''Foreign.C.Types.CUShort
+      mkGlobalP HsPrimCLong    = ''Foreign.C.Types.CLong
+      mkGlobalP HsPrimCULong   = ''Foreign.C.Types.CULong
+      mkGlobalP HsPrimCLLong   = ''Foreign.C.Types.CLLong
+      mkGlobalP HsPrimCULLong  = ''Foreign.C.Types.CULLong
+      mkGlobalP HsPrimCFloat   = ''Foreign.C.Types.CFloat
+      mkGlobalP HsPrimCDouble  = ''Foreign.C.Types.CDouble
+      mkGlobalP HsPrimCBool    = ''Foreign.C.Types.CBool
+      mkGlobalP HsPrimCPtrDiff = ''Foreign.C.Types.CPtrdiff
 
 {-
   mkExpr be = \case

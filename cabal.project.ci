@@ -2,6 +2,7 @@ packages: hs-bindgen-runtime
 packages: hs-bindgen
 packages: hs-bindgen-libclang
 packages: ansi-diff
+packages: c-expr
 
 package hs-bindgen
   ghc-options: -Werror

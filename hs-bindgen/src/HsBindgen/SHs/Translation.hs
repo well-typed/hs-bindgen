@@ -8,16 +8,18 @@ module HsBindgen.SHs.Translation (
 import Data.Text qualified as T
 
 import HsBindgen.C.AST qualified as C (MFun(..))
-import HsBindgen.C.Tc.Macro qualified as C (DataTyCon(..), ClassTyCon(..))
+import HsBindgen.C.Tc.Macro qualified as C
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.Translation (integralType, floatingType)
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 
+import C.Type qualified as C
+
 import DeBruijn (rzeroAdd)
+import DeBruijn.Internal.Size (Size(UnsafeSize))
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -121,67 +123,150 @@ translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
 -------------------------------------------------------------------------------}
 
 translateSigma :: Hs.SigmaType -> ClosedType
-translateSigma (Hs.ForallTy size hints (Hs.QuantTy cts ty)) = TForall
+translateSigma (Hs.ForallTy hints (Hs.QuantTy cts ty)) =
+  TForall
     hints
-    (rzeroAdd size)
-    (map translateClassTy cts)
+    (rzeroAdd $ UnsafeSize $ length hints)
+    (map translatePredTy cts)
     (translateTau ty)
 
-translateClassTy :: Hs.ClassTy ctx -> SType ctx
-translateClassTy (Hs.ClassTy cls args) =
-    foldl' TApp (TGlobal $ classGlobal cls) (fmap translateTau args)
-
-classGlobal :: C.ClassTyCon n -> Global
-classGlobal = \case
-  C.EqTyCon         -> Eq_class
-  C.OrdTyCon        -> Ord_class
-  C.NumTyCon        -> Num_class
-  C.IntegralTyCon   -> Integral_class
-  C.FractionalTyCon -> Fractional_class
-  C.BitsTyCon       -> Bits_class
-  C.DivTyCon        -> Div_class
+translatePredTy :: Hs.PredType ctx -> SType ctx
+translatePredTy (Hs.DictTy (Hs.AClass cls) args) =
+  foldl' TApp (tyConGlobal cls) (fmap translateTau args)
+translatePredTy (Hs.NomEqTy a b) =
+  TGlobal NomEq_class `TApp` translateTau a `TApp` translateTau b
 
 translateTau :: Hs.TauType ctx -> SType ctx
-translateTau (Hs.FunTy a b) = TFun (translateTau a) (translateTau b)
-translateTau (Hs.TyVarTy x) = TBound x
-translateTau (Hs.TyConAppTy (Hs.TyConApp dc args)) =
-    foldl' TApp (tyConGlobal dc) (fmap translateTau args)
+translateTau = \case
+  Hs.FunTy a b -> TFun (translateTau a) (translateTau b)
+  Hs.TyVarTy x -> TBound x
+  Hs.TyConAppTy (Hs.ATyCon tc) args
+    | Just ty <- simpleTyConApp tc args
+    -> ty
+    | otherwise
+    -> foldl' TApp (tyConGlobal tc) (fmap translateTau args)
 
-tyConGlobal :: C.DataTyCon n -> SType be
+simpleTyConApp :: C.TyCon args C.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
+simpleTyConApp
+  (C.GenerativeTyCon (C.DataTyCon C.IntLikeTyCon))
+  [Hs.TyConAppTy (Hs.ATyCon (C.GenerativeTyCon (C.DataTyCon (C.PrimIntInfoTyCon inty)))) []]
+    = Just $ TGlobal $ PrimType $ hsPrimIntTy inty
+simpleTyConApp
+  (C.GenerativeTyCon (C.DataTyCon C.FloatLikeTyCon))
+  [Hs.TyConAppTy (Hs.ATyCon (C.GenerativeTyCon (C.DataTyCon (C.PrimFloatInfoTyCon floaty)))) []]
+    = Just $ TGlobal $ PrimType $ hsPrimFloatTy floaty
+simpleTyConApp _ _ = Nothing
+
+tyConGlobal :: C.TyCon args res -> SType ctx
 tyConGlobal = \case
-  C.BoolTyCon             -> mkPrimTy HsPrimCBool
-  C.StringTyCon           -> TApp (TGlobal Foreign_Ptr) (mkPrimTy HsPrimCChar)
-  C.IntLikeTyCon   inty   -> mkPrimTy $ integralType inty
-  C.FloatLikeTyCon floaty -> mkPrimTy $ floatingType floaty
-  C.PrimTyTyCon           -> error "tyConGlobal PrimTyTyCon"
-  C.EmptyTyCon            -> error "tyConGlobal EmptyTyCon"
-  where
-    mkPrimTy = TGlobal . PrimType
+  C.GenerativeTyCon tc ->
+    case tc of
+      C.DataTyCon dc ->
+        case dc of
+          C.VoidTyCon ->
+            TGlobal $ PrimType HsPrimVoid
+          C.IntLikeTyCon   ->
+            TGlobal IntLike_tycon
+          C.FloatLikeTyCon ->
+            TGlobal FloatLike_tycon
+          C.PrimIntInfoTyCon inty ->
+            TGlobal $ PrimType $ hsPrimIntTy inty
+          C.PrimFloatInfoTyCon floaty ->
+            TGlobal $ PrimType $ hsPrimFloatTy floaty
+          C.PtrTyCon ->
+            TGlobal Foreign_Ptr
+          C.StringTyCon ->
+            TApp (TGlobal Foreign_Ptr) (TGlobal $ PrimType $ HsPrimCChar)
+          C.PrimTyTyCon ->
+            error "tyConGlobal PrimTyTyCon"
+          C.EmptyTyCon ->
+            error "tyConGlobal EmptyTyCon"
+      C.ClassTyCon cls -> TGlobal $
+        case cls of
+          C.NotTyCon        -> Not_class
+          C.LogicalTyCon    -> Logical_class
+          C.RelEqTyCon      -> RelEq_class
+          C.RelOrdTyCon     -> RelOrd_class
+          C.PlusTyCon       -> Plus_class
+          C.MinusTyCon      -> Minus_class
+          C.AddTyCon        -> Add_class
+          C.SubTyCon        -> Sub_class
+          C.MultTyCon       -> Mult_class
+          C.DivTyCon        -> Div_class
+          C.RemTyCon        -> Rem_class
+          C.ComplementTyCon -> Complement_class
+          C.BitwiseTyCon    -> Bitwise_class
+          C.ShiftTyCon      -> Shift_class
+  C.FamilyTyCon tc -> TGlobal $
+    case tc of
+      C.PlusResTyCon       -> Plus_resTyCon
+      C.MinusResTyCon      -> Minus_resTyCon
+      C.AddResTyCon        -> Add_resTyCon
+      C.SubResTyCon        -> Sub_resTyCon
+      C.MultResTyCon       -> Mult_resTyCon
+      C.DivResTyCon        -> Div_resTyCon
+      C.RemResTyCon        -> Rem_resTyCon
+      C.ComplementResTyCon -> Complement_resTyCon
+      C.BitsResTyCon       -> Bitwise_resTyCon
+      C.ShiftResTyCon      -> Shift_resTyCon
 
 mfunGlobal :: C.MFun arity -> Global
 mfunGlobal = \case
-  C.MUnaryPlus  -> Base_identity -- TODO: want some function like `numId :: forall a. Num a => a -> a; numId x = x`
-  C.MUnaryMinus -> Num_negate
-  C.MLogicalNot -> Base_not
-  C.MBitwiseNot -> Bits_complement
-  C.MMult       -> Num_times
+  C.MUnaryPlus  -> Plus_plus
+  C.MUnaryMinus -> Minus_negate
+  C.MLogicalNot -> Not_not
+  C.MBitwiseNot -> Complement_complement
+  C.MMult       -> Mult_mult
   C.MDiv        -> Div_div
-  C.MRem        -> Integral_rem
-  C.MAdd        -> Num_add
-  C.MSub        -> Num_minus
-  C.MShiftLeft  -> Bits_shiftL
-  C.MShiftRight -> Bits_shiftR
-  C.MRelLT      -> Ord_lt
-  C.MRelLE      -> Ord_le
-  C.MRelGT      -> Ord_gt
-  C.MRelGE      -> Ord_ge
-  C.MRelEQ      -> Eq_eq
-  C.MRelNE      -> Eq_uneq
-  C.MBitwiseAnd -> Bits_and
-  C.MBitwiseXor -> Bits_xor
-  C.MBitwiseOr  -> Bits_or
-  C.MLogicalAnd -> Base_and
-  C.MLogicalOr  -> Base_or
+  C.MRem        -> Rem_rem
+  C.MAdd        -> Add_add
+  C.MSub        -> Sub_minus
+  C.MShiftLeft  -> Shift_shiftL
+  C.MShiftRight -> Shift_shiftR
+  C.MRelLT      -> RelOrd_lt
+  C.MRelLE      -> RelOrd_le
+  C.MRelGT      -> RelOrd_gt
+  C.MRelGE      -> RelOrd_ge
+  C.MRelEQ      -> RelEq_eq
+  C.MRelNE      -> RelEq_uneq
+  C.MBitwiseAnd -> Bitwise_and
+  C.MBitwiseXor -> Bitwise_xor
+  C.MBitwiseOr  -> Bitwise_or
+  C.MLogicalAnd -> Logical_and
+  C.MLogicalOr  -> Logical_or
+
+
+hsPrimIntTy :: C.IntegralType -> HsPrimType
+hsPrimIntTy = \case
+  C.Bool -> HsPrimCBool
+  C.CharLike c ->
+    case c of
+      C.Char  -> HsPrimCChar
+      C.SChar -> HsPrimCSChar
+      C.UChar -> HsPrimCUChar
+  C.IntLike i ->
+    case i of
+      C.Short    s ->
+        case s of
+          C.Signed   -> HsPrimCShort
+          C.Unsigned -> HsPrimCUShort
+      C.Int      s ->
+        case s of
+          C.Signed   -> HsPrimCInt
+          C.Unsigned -> HsPrimCUInt
+      C.Long     s ->
+        case s of
+          C.Signed   -> HsPrimCLong
+          C.Unsigned -> HsPrimCULong
+      C.LongLong s ->
+        case s of
+          C.Signed   -> HsPrimCLLong
+          C.Unsigned -> HsPrimCULLong
+      C.PtrDiff    -> HsPrimCPtrDiff
+hsPrimFloatTy :: C.FloatingType -> HsPrimType
+hsPrimFloatTy = \case
+  C.FloatType  -> HsPrimCFloat
+  C.DoubleType -> HsPrimCDouble
 
 {-------------------------------------------------------------------------------
  VarDeclRHS

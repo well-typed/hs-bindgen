@@ -36,13 +36,13 @@ library
   import:
       lang
   exposed-modules:
-      HsBindgen.Runtime.Arithmetic
       HsBindgen.Runtime.Backtrace
       HsBindgen.Runtime.ConstantArray
       HsBindgen.Runtime.Enum.Bitfield
       HsBindgen.Runtime.Enum.Simple
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
+      HsBindgen.Runtime.Syntax
   other-modules:
       HsBindgen.Runtime.LibC.Arch
   hs-source-dirs:
