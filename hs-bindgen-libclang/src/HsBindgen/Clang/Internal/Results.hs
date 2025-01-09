@@ -20,7 +20,8 @@ import Foreign
 import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core.Instances ()
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Backtrace
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Failed calls

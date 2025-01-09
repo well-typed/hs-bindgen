@@ -206,7 +206,8 @@ import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.FFI
 import HsBindgen.Clang.Internal.Results
 import HsBindgen.Clang.Version
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Enum.Bitfield
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Top-level

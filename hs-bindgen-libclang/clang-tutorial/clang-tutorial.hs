@@ -8,7 +8,8 @@ import System.Environment
 
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Enum.Bitfield
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Reproduce the clang tutorial in Haskell

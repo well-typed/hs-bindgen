@@ -24,7 +24,7 @@ import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.Patterns qualified (Div(..))
+import HsBindgen.Runtime.Arithmetic qualified (Div(..))
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -58,7 +58,7 @@ mkGlobal =  \case
       Num_class            -> ''Num
       Integral_class       -> ''Integral
       Fractional_class     -> ''Fractional
-      Div_class            -> ''HsBindgen.Runtime.Patterns.Div
+      Div_class            -> ''HsBindgen.Runtime.Arithmetic.Div
       Bits_class           -> ''Data.Bits.Bits
 
       Eq_eq                -> '(==)
@@ -81,7 +81,7 @@ mkGlobal =  \case
       Num_add              -> '(+)
       Num_minus            -> '(-)
       Num_times            -> '(*)
-      Div_div              -> '(HsBindgen.Runtime.Patterns./)
+      Div_div              -> '(HsBindgen.Runtime.Arithmetic./)
       Integral_rem         -> 'rem
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble

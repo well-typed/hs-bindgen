@@ -12,7 +12,7 @@ import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.HighLevel.SourceLoc (Range, MultiLoc, SingleLoc)
 import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Enum.Simple
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
 import HsBindgen.Clang.LowLevel.Core hiding (clang_tokenize)

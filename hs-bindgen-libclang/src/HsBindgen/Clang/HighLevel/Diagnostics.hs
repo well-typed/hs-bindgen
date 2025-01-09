@@ -13,7 +13,8 @@ import Foreign.C
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.HighLevel.SourceLoc (MultiLoc, Range)
 import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Enum.Bitfield
+import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Definition

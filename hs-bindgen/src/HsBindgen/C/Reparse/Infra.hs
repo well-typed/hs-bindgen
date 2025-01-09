@@ -31,7 +31,7 @@ import Text.Parsec.Pos
 import HsBindgen.Imports
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer (PrettyLogMsg(..))
 
 {-------------------------------------------------------------------------------

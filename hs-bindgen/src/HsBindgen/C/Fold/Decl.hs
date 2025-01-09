@@ -20,7 +20,7 @@ import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Runtime.Patterns
+import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
 
