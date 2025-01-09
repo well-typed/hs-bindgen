@@ -5,17 +5,47 @@
         "@NsVar"
         "iNCR",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
         forallTyBinders = [
           NameHint "a"],
         forallTy = QuantTy {
           quantTyCts = [
             ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon AddTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (IntLike (Int Signed))))))
+                      []]]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
-            (TyVarTy (Idx 0))}},
+            (TyConAppTy
+              (ATyCon
+                (FamilyTyCon AddResTyCon))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (IntLike (Int Signed))))))
+                      []]])}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -32,19 +62,28 @@
         "@NsVar"
         "aDD",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
         forallTyBinders = [
-          NameHint "a"],
+          NameHint "a",
+          NameHint "b"],
         forallTy = QuantTy {
           quantTyCts = [
             ClassTy
-              NumTyCon
-              [TyVarTy (Idx 0)]],
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon AddTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyVarTy (Idx 1)]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
             (FunTy
-              (TyVarTy (Idx 0))
-              (TyVarTy (Idx 0)))}},
+              (TyVarTy (Idx 1))
+              (TyConAppTy
+                (ATyCon
+                  (FamilyTyCon AddResTyCon))
+                [
+                  TyVarTy (Idx 0),
+                  TyVarTy (Idx 1)]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -62,7 +101,6 @@
         "@NsVar"
         "iD",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
         forallTyBinders = [
           NameHint "a"],
         forallTy = QuantTy {
@@ -80,7 +118,6 @@
         "@NsVar"
         "cONST",
       varDeclType = ForallTy {
-        forallTySize = Size 2,
         forallTyBinders = [
           NameHint "a",
           NameHint "b"],
@@ -104,20 +141,34 @@
         "@NsVar"
         "cMP",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
         forallTyBinders = [
-          NameHint "a"],
+          NameHint "a",
+          NameHint "b"],
         forallTy = QuantTy {
           quantTyCts = [
             ClassTy
-              OrdTyCon
-              [TyVarTy (Idx 0)]],
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon RelOrdTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyVarTy (Idx 1)]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
             (FunTy
-              (TyVarTy (Idx 0))
+              (TyVarTy (Idx 1))
               (TyConAppTy
-                (TyConApp BoolTyCon [])))}},
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon IntLikeTyCon)))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon
+                          (IntLikeTyCon
+                            (IntLike (Int Signed))))))
+                    []]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -135,27 +186,81 @@
         "@NsVar"
         "fUN1",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
-        forallTyBinders = [],
+        forallTyBinders = [
+          NameHint "a",
+          NameHint "b"],
         forallTy = QuantTy {
-          quantTyCts = [],
+          quantTyCts = [
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon AddTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon MultResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (IntLike
+                                    (LongLong Unsigned))))))
+                          []],
+                    TyVarTy (Idx 1)]],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon MultTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (IntLike
+                                (LongLong Unsigned))))))
+                      []],
+                TyVarTy (Idx 1)]],
           quantTyBody = FunTy
-            (TyConAppTy
-              (TyConApp
-                (IntLikeTyCon
-                  (PrimLongLong Unsigned))
-                []))
+            (TyVarTy (Idx 0))
             (FunTy
+              (TyVarTy (Idx 1))
               (TyConAppTy
-                (TyConApp
-                  (IntLikeTyCon
-                    (PrimLongLong Unsigned))
-                  []))
-              (TyConAppTy
-                (TyConApp
-                  (IntLikeTyCon
-                    (PrimLongLong Unsigned))
-                  [])))}},
+                (ATyCon
+                  (FamilyTyCon AddResTyCon))
+                [
+                  TyVarTy (Idx 0),
+                  TyConAppTy
+                    (ATyCon
+                      (FamilyTyCon MultResTyCon))
+                    [
+                      TyConAppTy
+                        (ATyCon
+                          (GenerativeTyCon
+                            (DataTyCon IntLikeTyCon)))
+                        [
+                          TyConAppTy
+                            (ATyCon
+                              (GenerativeTyCon
+                                (DataTyCon
+                                  (IntLikeTyCon
+                                    (IntLike
+                                      (LongLong Unsigned))))))
+                            []],
+                      TyVarTy (Idx 1)]]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -179,23 +284,71 @@
         "@NsVar"
         "fUN2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
         forallTyBinders = [
-          NameHint "a"],
+          NameHint "a",
+          NameHint "b"],
         forallTy = QuantTy {
           quantTyCts = [
             ClassTy
-              BitsTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon MultTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (IntLike
+                                (LongLong Unsigned))))))
+                      []],
+                TyVarTy (Idx 1)],
+            NomEqTy
               (TyConAppTy
-                (TyConApp
-                  (IntLikeTyCon
-                    (PrimLongLong Unsigned))
-                  []))
-              (TyVarTy (Idx 0)))}},
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon IntLikeTyCon)))
+                [TyVarTy (Idx 1)])
+              (TyConAppTy
+                (ATyCon
+                  (FamilyTyCon MultResTyCon))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon IntLikeTyCon)))
+                    [
+                      TyConAppTy
+                        (ATyCon
+                          (GenerativeTyCon
+                            (DataTyCon
+                              (IntLikeTyCon
+                                (IntLike
+                                  (LongLong Unsigned))))))
+                        []],
+                  TyVarTy (Idx 1)])],
+          quantTyBody = FunTy
+            (TyConAppTy
+              (ATyCon
+                (GenerativeTyCon
+                  (DataTyCon IntLikeTyCon)))
+              [TyVarTy (Idx 0)])
+            (FunTy
+              (TyVarTy (Idx 1))
+              (TyConAppTy
+                (ATyCon
+                  (FamilyTyCon ShiftResTyCon))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon IntLikeTyCon)))
+                    [TyVarTy (Idx 0)]]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -217,20 +370,50 @@
         "@NsVar"
         "g",
       varDeclType = ForallTy {
-        forallTySize = Size 2,
         forallTyBinders = [
           NameHint "a",
           NameHint "b"],
         forallTy = QuantTy {
           quantTyCts = [
             ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 1)]],
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon AddTyCon)))
+              [
+                TyVarTy (Idx 1),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (IntLike (Int Signed))))))
+                      []]]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
             (FunTy
               (TyVarTy (Idx 1))
-              (TyVarTy (Idx 1)))}},
+              (TyConAppTy
+                (ATyCon
+                  (FamilyTyCon AddResTyCon))
+                [
+                  TyVarTy (Idx 1),
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon IntLikeTyCon)))
+                    [
+                      TyConAppTy
+                        (ATyCon
+                          (GenerativeTyCon
+                            (DataTyCon
+                              (IntLikeTyCon
+                                (IntLike (Int Signed))))))
+                        []]]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -255,27 +438,78 @@
         "@NsVar"
         "dIV1",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
-        forallTyBinders = [],
+        forallTyBinders = [
+          NameHint "a",
+          NameHint "b"],
         forallTy = QuantTy {
-          quantTyCts = [],
+          quantTyCts = [
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon AddTyCon)))
+              [
+                TyVarTy (Idx 1),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (IntLike (Int Unsigned))))))
+                      []]],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon DivTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon AddResTyCon))
+                  [
+                    TyVarTy (Idx 1),
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon IntLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (IntLikeTyCon
+                                  (IntLike (Int Unsigned))))))
+                          []]]]],
           quantTyBody = FunTy
-            (TyConAppTy
-              (TyConApp
-                (IntLikeTyCon
-                  (PrimInt Unsigned))
-                []))
+            (TyVarTy (Idx 0))
             (FunTy
+              (TyVarTy (Idx 1))
               (TyConAppTy
-                (TyConApp
-                  (IntLikeTyCon
-                    (PrimInt Unsigned))
-                  []))
-              (TyConAppTy
-                (TyConApp
-                  (IntLikeTyCon
-                    (PrimInt Unsigned))
-                  [])))}},
+                (ATyCon
+                  (FamilyTyCon DivResTyCon))
+                [
+                  TyVarTy (Idx 0),
+                  TyConAppTy
+                    (ATyCon
+                      (FamilyTyCon AddResTyCon))
+                    [
+                      TyVarTy (Idx 1),
+                      TyConAppTy
+                        (ATyCon
+                          (GenerativeTyCon
+                            (DataTyCon IntLikeTyCon)))
+                        [
+                          TyConAppTy
+                            (ATyCon
+                              (GenerativeTyCon
+                                (DataTyCon
+                                  (IntLikeTyCon
+                                    (IntLike (Int Unsigned))))))
+                            []]]]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")
@@ -299,24 +533,75 @@
         "@NsVar"
         "dIV2",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
-        forallTyBinders = [],
+        forallTyBinders = [
+          NameHint "a",
+          NameHint "b"],
         forallTy = QuantTy {
-          quantTyCts = [],
+          quantTyCts = [
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon MultTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon FloatLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (FloatLikeTyCon FloatType))))
+                      []],
+                TyVarTy (Idx 0)],
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon DivTyCon)))
+              [
+                TyConAppTy
+                  (ATyCon
+                    (FamilyTyCon MultResTyCon))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon FloatLikeTyCon)))
+                      [
+                        TyConAppTy
+                          (ATyCon
+                            (GenerativeTyCon
+                              (DataTyCon
+                                (FloatLikeTyCon FloatType))))
+                          []],
+                    TyVarTy (Idx 0)],
+                TyVarTy (Idx 1)]],
           quantTyBody = FunTy
-            (TyConAppTy
-              (TyConApp
-                (FloatLikeTyCon PrimFloat)
-                []))
+            (TyVarTy (Idx 0))
             (FunTy
+              (TyVarTy (Idx 1))
               (TyConAppTy
-                (TyConApp
-                  (FloatLikeTyCon PrimFloat)
-                  []))
-              (TyConAppTy
-                (TyConApp
-                  (FloatLikeTyCon PrimFloat)
-                  [])))}},
+                (ATyCon
+                  (FamilyTyCon DivResTyCon))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (FamilyTyCon MultResTyCon))
+                    [
+                      TyConAppTy
+                        (ATyCon
+                          (GenerativeTyCon
+                            (DataTyCon FloatLikeTyCon)))
+                        [
+                          TyConAppTy
+                            (ATyCon
+                              (GenerativeTyCon
+                                (DataTyCon
+                                  (FloatLikeTyCon FloatType))))
+                            []],
+                      TyVarTy (Idx 0)],
+                  TyVarTy (Idx 1)]))}},
       varDeclBody = VarDeclLambda
         (Lambda
           (NameHint "x")

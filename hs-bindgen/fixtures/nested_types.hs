@@ -20,7 +20,7 @@
               fieldName = CName "i",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/nested_types.h:2:9"}},
         Field {
@@ -51,7 +51,7 @@
               fieldName = CName "i",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/nested_types.h:2:9"},
             StructField {
@@ -86,7 +86,7 @@
                 fieldName = CName "i",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/nested_types.h:2:9"}},
           Field {
@@ -117,7 +117,7 @@
                 fieldName = CName "i",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/nested_types.h:2:9"},
               StructField {
@@ -157,7 +157,7 @@
                         fieldName = CName "i",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:2:9"}},
                   Field {
@@ -188,7 +188,7 @@
                         fieldName = CName "i",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:2:9"},
                       StructField {
@@ -230,7 +230,7 @@
                         fieldName = CName "i",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:2:9"}},
                   Field {
@@ -261,7 +261,7 @@
                         fieldName = CName "i",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:2:9"},
                       StructField {
@@ -1154,7 +1154,7 @@
                 "ex4_odd_value",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/nested_types.h:23:9"}},
         Field {
@@ -1196,7 +1196,7 @@
                 "ex4_odd_value",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/nested_types.h:23:9"},
             StructField {
@@ -1239,7 +1239,7 @@
                   "ex4_odd_value",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/nested_types.h:23:9"}},
           Field {
@@ -1281,7 +1281,7 @@
                   "ex4_odd_value",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/nested_types.h:23:9"},
               StructField {
@@ -1329,7 +1329,7 @@
                           "ex4_odd_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:23:9"}},
                   Field {
@@ -1371,7 +1371,7 @@
                           "ex4_odd_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:23:9"},
                       StructField {
@@ -1421,7 +1421,7 @@
                           "ex4_odd_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:23:9"}},
                   Field {
@@ -1463,7 +1463,7 @@
                           "ex4_odd_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/nested_types.h:23:9"},
                       StructField {

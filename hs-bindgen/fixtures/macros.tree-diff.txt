@@ -16,10 +16,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "1",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 1})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:1:9"},
       DeclMacro
@@ -37,10 +38,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "2",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:2:9"},
       DeclMacro
@@ -61,16 +63,18 @@ WrapCHeader
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "3",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
                       integerLiteralValue = 3}),
                 MTerm
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "3",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
                       integerLiteralValue = 3})]},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:3:9"},
       DeclMacro
@@ -91,16 +95,18 @@ WrapCHeader
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "4",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
                       integerLiteralValue = 4}),
                 MTerm
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "4",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
                       integerLiteralValue = 4})]},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:4:9"},
       DeclMacro
@@ -119,10 +125,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "42",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:6:9"},
       DeclMacro
@@ -141,10 +148,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "052",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:7:9"},
       DeclMacro
@@ -163,10 +171,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0x2a",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:8:9"},
       DeclMacro
@@ -185,10 +194,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0X2A",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:9:9"},
       DeclMacro
@@ -207,10 +217,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0b101010",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/macros.h:10:9"},
       DeclMacro
@@ -231,10 +242,11 @@ WrapCHeader
                   integerLiteralText =
                   "18446744073709550592ull",
                   integerLiteralType = Just
-                    (PrimLongLong Unsigned),
+                    (_×_ PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong",
+          macroDeclMacroTy =
+          "IntLike (IntLike (LongLong Unsigned))",
           macroDeclSourceLoc =
           "examples/macros.h:12:9"},
       DeclMacro
@@ -255,10 +267,11 @@ WrapCHeader
                   integerLiteralText =
                   "18'446'744'073'709'550'592llu",
                   integerLiteralType = Just
-                    (PrimLongLong Unsigned),
+                    (_×_ PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong",
+          macroDeclMacroTy =
+          "IntLike (IntLike (LongLong Unsigned))",
           macroDeclSourceLoc =
           "examples/macros.h:13:9"},
       DeclMacro
@@ -279,10 +292,11 @@ WrapCHeader
                   integerLiteralText =
                   "1844'6744'0737'0955'0592uLL",
                   integerLiteralType = Just
-                    (PrimLongLong Unsigned),
+                    (_×_ PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong",
+          macroDeclMacroTy =
+          "IntLike (IntLike (LongLong Unsigned))",
           macroDeclSourceLoc =
           "examples/macros.h:14:9"},
       DeclMacro
@@ -303,10 +317,11 @@ WrapCHeader
                   integerLiteralText =
                   "184467'440737'0'95505'92LLU",
                   integerLiteralType = Just
-                    (PrimLongLong Unsigned),
+                    (_×_ PrimLongLong Unsigned),
                   integerLiteralValue =
                   18446744073709550592})},
-          macroDeclMacroTy = "ULLong",
+          macroDeclMacroTy =
+          "IntLike (IntLike (LongLong Unsigned))",
           macroDeclSourceLoc =
           "examples/macros.h:15:9"},
       DeclMacro
@@ -324,13 +339,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "11e4",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   110000.0,
                   floatingLiteralDoubleValue =
                   110000.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:20:9"},
       DeclMacro
@@ -348,13 +364,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "12E-3",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   1.2e-2,
                   floatingLiteralDoubleValue =
                   1.2e-2})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:21:9"},
       DeclMacro
@@ -378,7 +395,8 @@ WrapCHeader
                   1.3e-2,
                   floatingLiteralDoubleValue =
                   1.3e-2})},
-          macroDeclMacroTy = "Float",
+          macroDeclMacroTy =
+          "FloatLike FloatType",
           macroDeclSourceLoc =
           "examples/macros.h:22:9"},
       DeclMacro
@@ -396,13 +414,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "21.",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   21.0,
                   floatingLiteralDoubleValue =
                   21.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:24:9"},
       DeclMacro
@@ -420,13 +439,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "22.e2",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   2200.0,
                   floatingLiteralDoubleValue =
                   2200.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:25:9"},
       DeclMacro
@@ -450,7 +470,8 @@ WrapCHeader
                   23.0,
                   floatingLiteralDoubleValue =
                   23.0})},
-          macroDeclMacroTy = "Float",
+          macroDeclMacroTy =
+          "FloatLike FloatType",
           macroDeclSourceLoc =
           "examples/macros.h:26:9"},
       DeclMacro
@@ -468,13 +489,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "31.0",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   31.0,
                   floatingLiteralDoubleValue =
                   31.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:28:9"},
       DeclMacro
@@ -492,13 +514,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = ".32",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   0.32,
                   floatingLiteralDoubleValue =
                   0.32})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:29:9"},
       DeclMacro
@@ -516,13 +539,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = ".33e2",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   33.0,
                   floatingLiteralDoubleValue =
                   33.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:30:9"},
       DeclMacro
@@ -546,7 +570,8 @@ WrapCHeader
                   3.4e-3,
                   floatingLiteralDoubleValue =
                   3.4e-3})},
-          macroDeclMacroTy = "Float",
+          macroDeclMacroTy =
+          "FloatLike FloatType",
           macroDeclSourceLoc =
           "examples/macros.h:31:9"},
       DeclMacro
@@ -564,13 +589,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "0x41p4",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   650000.0,
                   floatingLiteralDoubleValue =
                   650000.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:33:9"},
       DeclMacro
@@ -588,13 +614,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "0x42P-3",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   6.6e-2,
                   floatingLiteralDoubleValue =
                   6.6e-2})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:34:9"},
       DeclMacro
@@ -619,7 +646,8 @@ WrapCHeader
                   6.7e-2,
                   floatingLiteralDoubleValue =
                   6.7e-2})},
-          macroDeclMacroTy = "Float",
+          macroDeclMacroTy =
+          "FloatLike FloatType",
           macroDeclSourceLoc =
           "examples/macros.h:35:9"},
       DeclMacro
@@ -637,13 +665,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "0x51.p0",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   81.0,
                   floatingLiteralDoubleValue =
                   81.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:37:9"},
       DeclMacro
@@ -668,7 +697,8 @@ WrapCHeader
                   82.0,
                   floatingLiteralDoubleValue =
                   82.0})},
-          macroDeclMacroTy = "Float",
+          macroDeclMacroTy =
+          "FloatLike FloatType",
           macroDeclSourceLoc =
           "examples/macros.h:38:9"},
       DeclMacro
@@ -687,13 +717,14 @@ WrapCHeader
                 FloatingLiteral {
                   floatingLiteralText =
                   "0x61.0P2",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   15520.0,
                   floatingLiteralDoubleValue =
                   15520.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:40:9"},
       DeclMacro
@@ -711,13 +742,14 @@ WrapCHeader
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "0x.62p2",
-                  floatingLiteralType = Nothing,
+                  floatingLiteralType = Just
+                    PrimDouble,
                   floatingLiteralFloatValue =
                   98.0,
                   floatingLiteralDoubleValue =
                   98.0})},
           macroDeclMacroTy =
-          "(forall a. Fractional a => a)",
+          "FloatLike DoubleType",
           macroDeclSourceLoc =
           "examples/macros.h:41:9"},
       DeclMacro
@@ -742,12 +774,13 @@ WrapCHeader
                   9.9e-3,
                   floatingLiteralDoubleValue =
                   9.9e-3})},
-          macroDeclMacroTy = "Float",
+          macroDeclMacroTy =
+          "FloatLike FloatType",
           macroDeclSourceLoc =
           "examples/macros.h:42:9"},
       DeclMacro
-        MacroTcError {
-          macroTcErrorMacro = Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
               "examples/macros.h:45:9",
@@ -763,7 +796,8 @@ WrapCHeader
                   (MFloat
                     FloatingLiteral {
                       floatingLiteralText = "0.1",
-                      floatingLiteralType = Nothing,
+                      floatingLiteralType = Just
+                        PrimDouble,
                       floatingLiteralFloatValue = 0.1,
                       floatingLiteralDoubleValue =
                       0.1}),
@@ -771,16 +805,16 @@ WrapCHeader
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "1",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
                       integerLiteralValue = 1})]},
-          macroTcError = T.concat
-            [
-              "Failed to typecheck macro:\n",
-              "Inconsistent pairs of constraints:\n",
-              "  - 'Integral a_0[tau]' and Fractional a_0[tau]\n"]},
+          macroDeclMacroTy =
+          "FloatLike DoubleType",
+          macroDeclSourceLoc =
+          "examples/macros.h:45:9"},
       DeclMacro
-        MacroTcError {
-          macroTcErrorMacro = Macro {
+        MacroDecl {
+          macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
               "examples/macros.h:46:9",
@@ -797,21 +831,16 @@ WrapCHeader
                     IntegerLiteral {
                       integerLiteralText = "2l",
                       integerLiteralType = Just
-                        (PrimLong Signed),
+                        (_×_ PrimLong Signed),
                       integerLiteralValue = 2}),
                 MTerm
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "2ul",
                       integerLiteralType = Just
-                        (PrimLong Unsigned),
+                        (_×_ PrimLong Unsigned),
                       integerLiteralValue = 2})]},
-          macroTcError = T.concat
-            [
-              "Failed to typecheck macro:\n",
-              "Could not unify:\n",
-              "  - ULong\n",
-              "  - Long\n",
-              "because the type constructors are different.\n",
-              "In an application of 'MMult'.\n",
-              "\n"]}])
+          macroDeclMacroTy =
+          "IntLike (IntLike (Long Unsigned))",
+          macroDeclSourceLoc =
+          "examples/macros.h:46:9"}])

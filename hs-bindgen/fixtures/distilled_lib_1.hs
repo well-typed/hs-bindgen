@@ -5,15 +5,21 @@
         "@NsVar"
         "a",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         5
         HsPrimCInt},
@@ -23,15 +29,21 @@
         "@NsVar"
         "b",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         3
         HsPrimCInt},
@@ -41,15 +53,21 @@
         "@NsVar"
         "sOME_DEFINED_CONSTANT",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         4
         HsPrimCInt},
@@ -59,15 +77,21 @@
         "@NsVar"
         "a_DEFINE_0",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         0
         HsPrimCInt},
@@ -77,15 +101,21 @@
         "@NsVar"
         "a_DEFINE_1",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (IntLikeTyCon
-                (PrimInt Unsigned))
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Unsigned))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         20560
         HsPrimCUInt},
@@ -95,15 +125,21 @@
         "@NsVar"
         "a_DEFINE_2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         2
         HsPrimCInt},
@@ -113,15 +149,21 @@
         "@NsVar"
         "tWO_ARGS",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         13398
         HsPrimCInt},
@@ -189,7 +231,7 @@
               fieldName = CName "foo",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/distilled_lib_1.h:8:22"}},
         Field {
@@ -222,7 +264,7 @@
               fieldName = CName "foo",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/distilled_lib_1.h:8:22"},
             StructField {
@@ -257,7 +299,7 @@
                 fieldName = CName "foo",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:8:22"}},
           Field {
@@ -290,7 +332,7 @@
                 fieldName = CName "foo",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:8:22"},
               StructField {
@@ -330,7 +372,7 @@
                         fieldName = CName "foo",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:8:22"}},
                   Field {
@@ -363,7 +405,7 @@
                         fieldName = CName "foo",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:8:22"},
                       StructField {
@@ -405,7 +447,7 @@
                         fieldName = CName "foo",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:8:22"}},
                   Field {
@@ -438,7 +480,7 @@
                         fieldName = CName "foo",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:8:22"},
                       StructField {
@@ -480,8 +522,7 @@
           enumTag = CName
             "another_typedef_enum_e",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -519,8 +560,7 @@
             enumTag = CName
               "another_typedef_enum_e",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -563,8 +603,7 @@
                     enumTag = CName
                       "another_typedef_enum_e",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -607,8 +646,7 @@
                     enumTag = CName
                       "another_typedef_enum_e",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -689,7 +727,7 @@
         Typedef {
           typedefName = CName "a_type_t",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "examples/distilled_lib_1.h:13:13"}},
   DeclNewtypeInstance
@@ -717,7 +755,7 @@
         Typedef {
           typedefName = CName "var_t",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "examples/distilled_lib_1.h:14:13"}},
   DeclNewtypeInstance
@@ -774,7 +812,8 @@
           typedefName = CName "uint16_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimShort Unsigned)),
+              PrimShort
+              Unsigned),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:126:25"}},
   DeclNewtypeInstance
@@ -802,8 +841,7 @@
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:131:25"}},
   DeclNewtypeInstance
@@ -2434,7 +2472,7 @@
         Typedef {
           typedefName = CName "int32_t",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:106:25"}},
   DeclNewtypeInstance

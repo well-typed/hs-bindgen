@@ -1,20 +1,28 @@
-iNCR :: forall a_0 . Integral a_0 => a_0 -> a_0
+iNCR :: forall a_0 . Add a_0 CInt => a_0 -> AddRes a_0 CInt
 iNCR = \x_0 -> (+) x_0 1
-aDD :: forall a_0 . Num a_0 => a_0 -> a_0 -> a_0
+aDD :: forall a_0 b_1 . Add a_0 b_1 => a_0 -> b_1 -> AddRes a_0 b_1
 aDD = \x_0 -> \y_1 -> (+) x_0 y_1
 iD :: forall a_0 . a_0 -> a_0
 iD = \x_0 -> x_0
 cONST :: forall a_0 b_1 . a_0 -> b_1 -> a_0
 cONST = \x_0 -> \y_1 -> x_0
-cMP :: forall a_0 . Ord a_0 => a_0 -> a_0 -> CBool
+cMP :: forall a_0 b_1 . RelOrd a_0 b_1 => a_0 -> b_1 -> CInt
 cMP = \x_0 -> \y_1 -> (<) x_0 y_1
-fUN1 :: CULLong -> CULLong -> CULLong
+fUN1 :: forall a_0 b_1 . (Add a_0 (MultRes CULLong b_1),
+                          Mult CULLong b_1) =>
+        a_0 -> b_1 -> AddRes a_0 (MultRes CULLong b_1)
 fUN1 = \x_0 -> \y_1 -> (+) x_0 ((*) 12 y_1)
-fUN2 :: forall a_0 . Bits a_0 => a_0 -> CULLong -> a_0
-fUN2 = \x_0 -> \y_1 -> shiftL x_0 ((*) 3 y_1)
-g :: forall a_0 b_1 . Integral b_1 => a_0 -> b_1 -> b_1
+fUN2 :: forall a_0 b_1 . (Mult CULLong b_1,
+                          (~) (IntLike b_1) (MultRes CULLong b_1)) =>
+        IntLike a_0 -> b_1 -> ShiftRes (IntLike a_0)
+fUN2 = \x_0 -> \y_1 -> (<<) x_0 ((*) 3 y_1)
+g :: forall a_0 b_1 . Add b_1 CInt => a_0 -> b_1 -> AddRes b_1 CInt
 g = \x_0 -> \y_1 -> cONST (iNCR y_1) (iD x_0)
-dIV1 :: CUInt -> CUInt -> CUInt
+dIV1 :: forall a_0 b_1 . (Add b_1 CUInt,
+                          Div a_0 (AddRes b_1 CUInt)) =>
+        a_0 -> b_1 -> DivRes a_0 (AddRes b_1 CUInt)
 dIV1 = \x_0 -> \y_1 -> (/) x_0 ((+) y_1 12)
-dIV2 :: CFloat -> CFloat -> CFloat
+dIV2 :: forall a_0 b_1 . (Mult CFloat a_0,
+                          Div (MultRes CFloat a_0) b_1) =>
+        a_0 -> b_1 -> DivRes (MultRes CFloat a_0) b_1
 dIV2 = \x_0 -> \y_1 -> (/) ((*) 10.0 x_0) y_1

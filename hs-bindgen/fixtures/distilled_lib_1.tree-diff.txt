@@ -16,10 +16,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "5",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 5})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:10:9"},
       DeclMacro
@@ -37,10 +38,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "3",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 3})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:11:9"},
       DeclMacro
@@ -59,10 +61,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "4",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 4})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:12:9"},
       DeclMacro
@@ -328,10 +331,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0x00",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 0})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:52:9"},
       DeclMacro
@@ -350,9 +354,10 @@ WrapCHeader
                 IntegerLiteral {
                   integerLiteralText = "0x5050U",
                   integerLiteralType = Just
-                    (PrimInt Unsigned),
+                    (_×_ PrimInt Unsigned),
                   integerLiteralValue = 20560})},
-          macroDeclMacroTy = "UInt",
+          macroDeclMacroTy =
+          "IntLike (IntLike (Int Unsigned))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:53:9"},
       DeclMacro
@@ -370,10 +375,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "2",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:54:9"},
       DeclMacro
@@ -391,10 +397,11 @@ WrapCHeader
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0x3456",
-                  integerLiteralType = Nothing,
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
                   integerLiteralValue = 13398})},
           macroDeclMacroTy =
-          "(forall a. Integral a => a)",
+          "IntLike (IntLike (Int Signed))",
           macroDeclSourceLoc =
           "examples/distilled_lib_1.h:55:9"},
       DeclFunction
@@ -426,7 +433,7 @@ WrapCHeader
               fieldName = CName "foo",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/distilled_lib_1.h:8:22"},
             StructField {
@@ -444,8 +451,7 @@ WrapCHeader
           enumTag = CName
             "another_typedef_enum_e",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -465,14 +471,14 @@ WrapCHeader
         Typedef {
           typedefName = CName "a_type_t",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "examples/distilled_lib_1.h:13:13"},
       DeclTypedef
         Typedef {
           typedefName = CName "var_t",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "examples/distilled_lib_1.h:14:13"},
       DeclTypedef
@@ -487,15 +493,15 @@ WrapCHeader
           typedefName = CName "uint16_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimShort Unsigned)),
+              PrimShort
+              Unsigned),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:126:25"},
       DeclTypedef
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:131:25"},
       DeclStruct
@@ -646,7 +652,7 @@ WrapCHeader
         Typedef {
           typedefName = CName "int32_t",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:106:25"},
       DeclTypedef

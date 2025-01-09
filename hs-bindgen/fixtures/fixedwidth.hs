@@ -20,7 +20,8 @@
           typedefName = CName "uint64_t",
           typedefType = TypePrim
             (PrimIntegral
-              (PrimLong Unsigned)),
+              PrimLong
+              Unsigned),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:136:25"}},
   DeclNewtypeInstance
@@ -48,8 +49,7 @@
         Typedef {
           typedefName = CName "uint32_t",
           typedefType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:131:25"}},
   DeclNewtypeInstance

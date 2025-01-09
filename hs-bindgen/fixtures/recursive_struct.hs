@@ -20,7 +20,7 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/recursive_struct.h:2:7"}},
         Field {
@@ -59,7 +59,7 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/recursive_struct.h:2:7"},
             StructField {
@@ -98,7 +98,7 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/recursive_struct.h:2:7"}},
           Field {
@@ -137,7 +137,7 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/recursive_struct.h:2:7"},
               StructField {
@@ -181,7 +181,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:2:7"}},
                   Field {
@@ -220,7 +220,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:2:7"},
                       StructField {
@@ -266,7 +266,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:2:7"}},
                   Field {
@@ -305,7 +305,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:2:7"},
                       StructField {
@@ -385,7 +385,7 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/recursive_struct.h:10:7"}},
         Field {
@@ -424,7 +424,7 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/recursive_struct.h:10:7"},
             StructField {
@@ -463,7 +463,7 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/recursive_struct.h:10:7"}},
           Field {
@@ -502,7 +502,7 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/recursive_struct.h:10:7"},
               StructField {
@@ -546,7 +546,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:10:7"}},
                   Field {
@@ -585,7 +585,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:10:7"},
                       StructField {
@@ -631,7 +631,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:10:7"}},
                   Field {
@@ -670,7 +670,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/recursive_struct.h:10:7"},
                       StructField {
