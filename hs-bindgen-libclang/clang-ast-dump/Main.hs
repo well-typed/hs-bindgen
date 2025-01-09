@@ -130,6 +130,8 @@ foldDecls opts@Options{..} cursor = do
       Right CXCursor_MacroDefinition ->
         -- TODO not defined yet
         pure True
+      Right CXCursor_UnionDecl -> do
+        pure True
       Right{} -> False <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
       Left n  -> False <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
 
