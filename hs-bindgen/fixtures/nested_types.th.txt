@@ -21,23 +21,23 @@ instance Storable Ex3
            peek = \ptr_0 -> pure Ex3 <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Ex3 ex3_ex3_c_3 -> pokeByteOff ptr_1 8 ex3_ex3_c_3}}
-data Ex4_b
-    = Ex4_b {ex4_b_ex3_a :: CInt,
-             ex4_b_ex3_b :: CChar,
-             ex4_b_recur :: (Ptr Ex4_b)}
-instance Storable Ex4_b
+data Ex4_even
+    = Ex4_even {ex4_even_ex4_even_value :: CDouble,
+                ex4_even_next :: (Ptr Ex4_odd)}
+instance Storable Ex4_even
     where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> ((pure Ex4_b <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8;
+           peek = \ptr_0 -> (pure Ex4_even <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex4_b ex4_b_ex3_a_3
-                                           ex4_b_ex3_b_4
-                                           ex4_b_recur_5 -> pokeByteOff ptr_1 0 ex4_b_ex3_a_3 >> (pokeByteOff ptr_1 4 ex4_b_ex3_b_4 >> pokeByteOff ptr_1 8 ex4_b_recur_5)}}
-data Ex4 = Ex4 {ex4_linkedlist :: Ex4_b, ex4_ex3_c :: CFloat}
-instance Storable Ex4
-    where {sizeOf = \_ -> 24;
+                                    {Ex4_even ex4_even_ex4_even_value_3
+                                              ex4_even_next_4 -> pokeByteOff ptr_1 0 ex4_even_ex4_even_value_3 >> pokeByteOff ptr_1 8 ex4_even_next_4}}
+data Ex4_odd
+    = Ex4_odd {ex4_odd_ex4_odd_value :: CInt,
+               ex4_odd_next :: (Ptr Ex4_even)}
+instance Storable Ex4_odd
+    where {sizeOf = \_ -> 16;
            alignment = \_ -> 8;
-           peek = \ptr_0 -> (pure Ex4 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 16;
+           peek = \ptr_0 -> (pure Ex4_odd <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Ex4 ex4_linkedlist_3
-                                         ex4_ex3_c_4 -> pokeByteOff ptr_1 0 ex4_linkedlist_3 >> pokeByteOff ptr_1 16 ex4_ex3_c_4}}
+                                    {Ex4_odd ex4_odd_ex4_odd_value_3
+                                             ex4_odd_next_4 -> pokeByteOff ptr_1 0 ex4_odd_ex4_odd_value_3 >> pokeByteOff ptr_1 8 ex4_odd_next_4}}

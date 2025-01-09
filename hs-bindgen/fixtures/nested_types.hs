@@ -793,219 +793,163 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "Ex4_b",
+        "Ex4_even",
       structConstr = HsName
         "@NsConstr"
-        "Ex4_b",
+        "Ex4_even",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "ex4_b_ex3_a",
+            "ex4_even_ex4_even_value",
           fieldType = HsPrimType
-            HsPrimCInt,
+            HsPrimCDouble,
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName "ex3_a",
+              fieldName = CName
+                "ex4_even_value",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "examples/nested_types.h:21:13"}},
+              "examples/nested_types.h:25:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
-            "ex4_b_ex3_b",
-          fieldType = HsPrimType
-            HsPrimCChar,
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "ex3_b",
-              fieldOffset = 32,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "examples/nested_types.h:22:14"}},
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "ex4_b_recur",
+            "ex4_even_next",
           fieldType = HsPtr
             (HsTypRef
               (HsName
                 "@NsTypeConstr"
-                "Ex4_b")),
+                "Ex4_odd")),
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName "recur",
+              fieldName = CName "next",
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
-                    (DeclNameTag (CName "ex4_b"))
-                    (DeclPathField
-                      (CName "linkedlist")
-                      (DeclPathStruct
-                        (DeclNameTag (CName "ex4"))
-                        DeclPathTop)))),
+                    (DeclNameTag (CName "ex4_odd"))
+                    DeclPathTop)),
               fieldSourceLoc =
-              "examples/nested_types.h:23:23"}}],
+              "examples/nested_types.h:26:25"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "ex4_b"))
+            (DeclNameTag (CName "ex4_even"))
             (DeclPathField
-              (CName "linkedlist")
+              (CName "next")
               (DeclPathStruct
-                (DeclNameTag (CName "ex4"))
+                (DeclNameTag (CName "ex4_odd"))
                 DeclPathTop)),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
             StructField {
-              fieldName = CName "ex3_a",
+              fieldName = CName
+                "ex4_even_value",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "examples/nested_types.h:21:13"},
+              "examples/nested_types.h:25:16"},
             StructField {
-              fieldName = CName "ex3_b",
-              fieldOffset = 32,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "examples/nested_types.h:22:14"},
-            StructField {
-              fieldName = CName "recur",
+              fieldName = CName "next",
               fieldOffset = 64,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
-                    (DeclNameTag (CName "ex4_b"))
-                    (DeclPathField
-                      (CName "linkedlist")
-                      (DeclPathStruct
-                        (DeclNameTag (CName "ex4"))
-                        DeclPathTop)))),
+                    (DeclNameTag (CName "ex4_odd"))
+                    DeclPathTop)),
               fieldSourceLoc =
-              "examples/nested_types.h:23:23"}],
+              "examples/nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:20:12"}},
+          "examples/nested_types.h:24:12"}},
   DeclInstance
     (InstanceStorable
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Ex4_b",
+          "Ex4_even",
         structConstr = HsName
           "@NsConstr"
-          "Ex4_b",
+          "Ex4_even",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "ex4_b_ex3_a",
+              "ex4_even_ex4_even_value",
             fieldType = HsPrimType
-              HsPrimCInt,
+              HsPrimCDouble,
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName "ex3_a",
+                fieldName = CName
+                  "ex4_even_value",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimFloating PrimDouble),
                 fieldSourceLoc =
-                "examples/nested_types.h:21:13"}},
+                "examples/nested_types.h:25:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
-              "ex4_b_ex3_b",
-            fieldType = HsPrimType
-              HsPrimCChar,
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "ex3_b",
-                fieldOffset = 32,
-                fieldType = TypePrim
-                  (PrimChar Nothing),
-                fieldSourceLoc =
-                "examples/nested_types.h:22:14"}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "ex4_b_recur",
+              "ex4_even_next",
             fieldType = HsPtr
               (HsTypRef
                 (HsName
                   "@NsTypeConstr"
-                  "Ex4_b")),
+                  "Ex4_odd")),
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName "recur",
+                fieldName = CName "next",
                 fieldOffset = 64,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
-                      (DeclNameTag (CName "ex4_b"))
-                      (DeclPathField
-                        (CName "linkedlist")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "ex4"))
-                          DeclPathTop)))),
+                      (DeclNameTag (CName "ex4_odd"))
+                      DeclPathTop)),
                 fieldSourceLoc =
-                "examples/nested_types.h:23:23"}}],
+                "examples/nested_types.h:26:25"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathStruct
-              (DeclNameTag (CName "ex4_b"))
+              (DeclNameTag (CName "ex4_even"))
               (DeclPathField
-                (CName "linkedlist")
+                (CName "next")
                 (DeclPathStruct
-                  (DeclNameTag (CName "ex4"))
+                  (DeclNameTag (CName "ex4_odd"))
                   DeclPathTop)),
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
               StructField {
-                fieldName = CName "ex3_a",
+                fieldName = CName
+                  "ex4_even_value",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimFloating PrimDouble),
                 fieldSourceLoc =
-                "examples/nested_types.h:21:13"},
+                "examples/nested_types.h:25:16"},
               StructField {
-                fieldName = CName "ex3_b",
-                fieldOffset = 32,
-                fieldType = TypePrim
-                  (PrimChar Nothing),
-                fieldSourceLoc =
-                "examples/nested_types.h:22:14"},
-              StructField {
-                fieldName = CName "recur",
+                fieldName = CName "next",
                 fieldOffset = 64,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
-                      (DeclNameTag (CName "ex4_b"))
-                      (DeclPathField
-                        (CName "linkedlist")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "ex4"))
-                          DeclPathTop)))),
+                      (DeclNameTag (CName "ex4_odd"))
+                      DeclPathTop)),
                 fieldSourceLoc =
-                "examples/nested_types.h:23:23"}],
+                "examples/nested_types.h:26:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:20:12"}}
+            "examples/nested_types.h:24:12"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1016,113 +960,84 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Ex4_b",
+                  "Ex4_even",
                 structConstr = HsName
                   "@NsConstr"
-                  "Ex4_b",
+                  "Ex4_even",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_b_ex3_a",
+                      "ex4_even_ex4_even_value",
                     fieldType = HsPrimType
-                      HsPrimCInt,
+                      HsPrimCDouble,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "ex3_a",
+                        fieldName = CName
+                          "ex4_even_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:21:13"}},
+                        "examples/nested_types.h:25:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_b_ex3_b",
-                    fieldType = HsPrimType
-                      HsPrimCChar,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "ex3_b",
-                        fieldOffset = 32,
-                        fieldType = TypePrim
-                          (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/nested_types.h:22:14"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "ex4_b_recur",
+                      "ex4_even_next",
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName
                           "@NsTypeConstr"
-                          "Ex4_b")),
+                          "Ex4_odd")),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "recur",
+                        fieldName = CName "next",
                         fieldOffset = 64,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
-                              (DeclNameTag (CName "ex4_b"))
-                              (DeclPathField
-                                (CName "linkedlist")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4"))
-                                  DeclPathTop)))),
+                              (DeclNameTag (CName "ex4_odd"))
+                              DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:23"}}],
+                        "examples/nested_types.h:26:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathStruct
-                      (DeclNameTag (CName "ex4_b"))
+                      (DeclNameTag (CName "ex4_even"))
                       (DeclPathField
-                        (CName "linkedlist")
+                        (CName "next")
                         (DeclPathStruct
-                          (DeclNameTag (CName "ex4"))
+                          (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop)),
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName "ex3_a",
+                        fieldName = CName
+                          "ex4_even_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:21:13"},
+                        "examples/nested_types.h:25:16"},
                       StructField {
-                        fieldName = CName "ex3_b",
-                        fieldOffset = 32,
-                        fieldType = TypePrim
-                          (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/nested_types.h:22:14"},
-                      StructField {
-                        fieldName = CName "recur",
+                        fieldName = CName "next",
                         fieldOffset = 64,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
-                              (DeclNameTag (CName "ex4_b"))
-                              (DeclPathField
-                                (CName "linkedlist")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4"))
-                                  DeclPathTop)))),
+                              (DeclNameTag (CName "ex4_odd"))
+                              DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:23"}],
+                        "examples/nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:20:12"}})
+                    "examples/nested_types.h:24:12"}})
             [
               PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 4,
               PeekByteOff (Idx 0) 8]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1133,280 +1048,261 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Ex4_b",
+                  "Ex4_even",
                 structConstr = HsName
                   "@NsConstr"
-                  "Ex4_b",
+                  "Ex4_even",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_b_ex3_a",
+                      "ex4_even_ex4_even_value",
                     fieldType = HsPrimType
-                      HsPrimCInt,
+                      HsPrimCDouble,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "ex3_a",
+                        fieldName = CName
+                          "ex4_even_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:21:13"}},
+                        "examples/nested_types.h:25:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_b_ex3_b",
-                    fieldType = HsPrimType
-                      HsPrimCChar,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "ex3_b",
-                        fieldOffset = 32,
-                        fieldType = TypePrim
-                          (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/nested_types.h:22:14"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "ex4_b_recur",
+                      "ex4_even_next",
                     fieldType = HsPtr
                       (HsTypRef
                         (HsName
                           "@NsTypeConstr"
-                          "Ex4_b")),
+                          "Ex4_odd")),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "recur",
+                        fieldName = CName "next",
                         fieldOffset = 64,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
-                              (DeclNameTag (CName "ex4_b"))
-                              (DeclPathField
-                                (CName "linkedlist")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4"))
-                                  DeclPathTop)))),
+                              (DeclNameTag (CName "ex4_odd"))
+                              DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:23"}}],
+                        "examples/nested_types.h:26:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathStruct
-                      (DeclNameTag (CName "ex4_b"))
+                      (DeclNameTag (CName "ex4_even"))
                       (DeclPathField
-                        (CName "linkedlist")
+                        (CName "next")
                         (DeclPathStruct
-                          (DeclNameTag (CName "ex4"))
+                          (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop)),
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName "ex3_a",
+                        fieldName = CName
+                          "ex4_even_value",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:21:13"},
+                        "examples/nested_types.h:25:16"},
                       StructField {
-                        fieldName = CName "ex3_b",
-                        fieldOffset = 32,
-                        fieldType = TypePrim
-                          (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/nested_types.h:22:14"},
-                      StructField {
-                        fieldName = CName "recur",
+                        fieldName = CName "next",
                         fieldOffset = 64,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
-                              (DeclNameTag (CName "ex4_b"))
-                              (DeclPathField
-                                (CName "linkedlist")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4"))
-                                  DeclPathTop)))),
+                              (DeclNameTag (CName "ex4_odd"))
+                              DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:23"}],
+                        "examples/nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:20:12"}}
-              (Add 3)
+                    "examples/nested_types.h:24:12"}}
+              (Add 2)
               (Seq
                 [
-                  PokeByteOff (Idx 4) 0 (Idx 0),
-                  PokeByteOff (Idx 4) 4 (Idx 1),
+                  PokeByteOff (Idx 3) 0 (Idx 0),
                   PokeByteOff
-                    (Idx 4)
+                    (Idx 3)
                     8
-                    (Idx 2)])))}),
+                    (Idx 1)])))}),
   DeclData
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "Ex4",
+        "Ex4_odd",
       structConstr = HsName
         "@NsConstr"
-        "Ex4",
+        "Ex4_odd",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "ex4_linkedlist",
-          fieldType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Ex4_b"),
+            "ex4_odd_ex4_odd_value",
+          fieldType = HsPrimType
+            HsPrimCInt,
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName "linkedlist",
+              fieldName = CName
+                "ex4_odd_value",
               fieldOffset = 0,
-              fieldType = TypeStruct
-                (DeclPathStruct
-                  (DeclNameTag (CName "ex4_b"))
-                  (DeclPathField
-                    (CName "linkedlist")
-                    (DeclPathStruct
-                      (DeclNameTag (CName "ex4"))
-                      DeclPathTop))),
+              fieldType = TypePrim
+                (PrimIntegral (PrimInt Signed)),
               fieldSourceLoc =
-              "examples/nested_types.h:24:7"}},
+              "examples/nested_types.h:23:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
-            "ex4_ex3_c",
-          fieldType = HsPrimType
-            HsPrimCFloat,
+            "ex4_odd_next",
+          fieldType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Ex4_even")),
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName "ex3_c",
-              fieldOffset = 128,
-              fieldType = TypePrim
-                (PrimFloating PrimFloat),
+              fieldName = CName "next",
+              fieldOffset = 64,
+              fieldType = TypePointer
+                (TypeStruct
+                  (DeclPathStruct
+                    (DeclNameTag (CName "ex4_even"))
+                    (DeclPathField
+                      (CName "next")
+                      (DeclPathStruct
+                        (DeclNameTag (CName "ex4_odd"))
+                        DeclPathTop)))),
               fieldSourceLoc =
-              "examples/nested_types.h:25:11"}}],
+              "examples/nested_types.h:27:8"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "ex4"))
+            (DeclNameTag (CName "ex4_odd"))
             DeclPathTop,
-          structSizeof = 24,
+          structSizeof = 16,
           structAlignment = 8,
           structFields = [
             StructField {
-              fieldName = CName "linkedlist",
+              fieldName = CName
+                "ex4_odd_value",
               fieldOffset = 0,
-              fieldType = TypeStruct
-                (DeclPathStruct
-                  (DeclNameTag (CName "ex4_b"))
-                  (DeclPathField
-                    (CName "linkedlist")
-                    (DeclPathStruct
-                      (DeclNameTag (CName "ex4"))
-                      DeclPathTop))),
-              fieldSourceLoc =
-              "examples/nested_types.h:24:7"},
-            StructField {
-              fieldName = CName "ex3_c",
-              fieldOffset = 128,
               fieldType = TypePrim
-                (PrimFloating PrimFloat),
+                (PrimIntegral (PrimInt Signed)),
               fieldSourceLoc =
-              "examples/nested_types.h:25:11"}],
+              "examples/nested_types.h:23:9"},
+            StructField {
+              fieldName = CName "next",
+              fieldOffset = 64,
+              fieldType = TypePointer
+                (TypeStruct
+                  (DeclPathStruct
+                    (DeclNameTag (CName "ex4_even"))
+                    (DeclPathField
+                      (CName "next")
+                      (DeclPathStruct
+                        (DeclNameTag (CName "ex4_odd"))
+                        DeclPathTop)))),
+              fieldSourceLoc =
+              "examples/nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:19:8"}},
+          "examples/nested_types.h:22:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "Ex4",
+          "Ex4_odd",
         structConstr = HsName
           "@NsConstr"
-          "Ex4",
+          "Ex4_odd",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "ex4_linkedlist",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Ex4_b"),
+              "ex4_odd_ex4_odd_value",
+            fieldType = HsPrimType
+              HsPrimCInt,
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName "linkedlist",
+                fieldName = CName
+                  "ex4_odd_value",
                 fieldOffset = 0,
-                fieldType = TypeStruct
-                  (DeclPathStruct
-                    (DeclNameTag (CName "ex4_b"))
-                    (DeclPathField
-                      (CName "linkedlist")
-                      (DeclPathStruct
-                        (DeclNameTag (CName "ex4"))
-                        DeclPathTop))),
+                fieldType = TypePrim
+                  (PrimIntegral (PrimInt Signed)),
                 fieldSourceLoc =
-                "examples/nested_types.h:24:7"}},
+                "examples/nested_types.h:23:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
-              "ex4_ex3_c",
-            fieldType = HsPrimType
-              HsPrimCFloat,
+              "ex4_odd_next",
+            fieldType = HsPtr
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Ex4_even")),
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName "ex3_c",
-                fieldOffset = 128,
-                fieldType = TypePrim
-                  (PrimFloating PrimFloat),
+                fieldName = CName "next",
+                fieldOffset = 64,
+                fieldType = TypePointer
+                  (TypeStruct
+                    (DeclPathStruct
+                      (DeclNameTag (CName "ex4_even"))
+                      (DeclPathField
+                        (CName "next")
+                        (DeclPathStruct
+                          (DeclNameTag (CName "ex4_odd"))
+                          DeclPathTop)))),
                 fieldSourceLoc =
-                "examples/nested_types.h:25:11"}}],
+                "examples/nested_types.h:27:8"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathStruct
-              (DeclNameTag (CName "ex4"))
+              (DeclNameTag (CName "ex4_odd"))
               DeclPathTop,
-            structSizeof = 24,
+            structSizeof = 16,
             structAlignment = 8,
             structFields = [
               StructField {
-                fieldName = CName "linkedlist",
+                fieldName = CName
+                  "ex4_odd_value",
                 fieldOffset = 0,
-                fieldType = TypeStruct
-                  (DeclPathStruct
-                    (DeclNameTag (CName "ex4_b"))
-                    (DeclPathField
-                      (CName "linkedlist")
-                      (DeclPathStruct
-                        (DeclNameTag (CName "ex4"))
-                        DeclPathTop))),
-                fieldSourceLoc =
-                "examples/nested_types.h:24:7"},
-              StructField {
-                fieldName = CName "ex3_c",
-                fieldOffset = 128,
                 fieldType = TypePrim
-                  (PrimFloating PrimFloat),
+                  (PrimIntegral (PrimInt Signed)),
                 fieldSourceLoc =
-                "examples/nested_types.h:25:11"}],
+                "examples/nested_types.h:23:9"},
+              StructField {
+                fieldName = CName "next",
+                fieldOffset = 64,
+                fieldType = TypePointer
+                  (TypeStruct
+                    (DeclPathStruct
+                      (DeclNameTag (CName "ex4_even"))
+                      (DeclPathField
+                        (CName "next")
+                        (DeclPathStruct
+                          (DeclNameTag (CName "ex4_odd"))
+                          DeclPathTop)))),
+                fieldSourceLoc =
+                "examples/nested_types.h:27:8"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:19:8"}}
+            "examples/nested_types.h:22:8"}}
       StorableInstance {
-        storableSizeOf = 24,
+        storableSizeOf = 16,
         storableAlignment = 8,
         storablePeek = Lambda
           (NameHint "ptr")
@@ -1415,84 +1311,89 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Ex4",
+                  "Ex4_odd",
                 structConstr = HsName
                   "@NsConstr"
-                  "Ex4",
+                  "Ex4_odd",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_linkedlist",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Ex4_b"),
+                      "ex4_odd_ex4_odd_value",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "linkedlist",
+                        fieldName = CName
+                          "ex4_odd_value",
                         fieldOffset = 0,
-                        fieldType = TypeStruct
-                          (DeclPathStruct
-                            (DeclNameTag (CName "ex4_b"))
-                            (DeclPathField
-                              (CName "linkedlist")
-                              (DeclPathStruct
-                                (DeclNameTag (CName "ex4"))
-                                DeclPathTop))),
+                        fieldType = TypePrim
+                          (PrimIntegral (PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:24:7"}},
+                        "examples/nested_types.h:23:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_ex3_c",
-                    fieldType = HsPrimType
-                      HsPrimCFloat,
+                      "ex4_odd_next",
+                    fieldType = HsPtr
+                      (HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "Ex4_even")),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "ex3_c",
-                        fieldOffset = 128,
-                        fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                        fieldName = CName "next",
+                        fieldOffset = 64,
+                        fieldType = TypePointer
+                          (TypeStruct
+                            (DeclPathStruct
+                              (DeclNameTag (CName "ex4_even"))
+                              (DeclPathField
+                                (CName "next")
+                                (DeclPathStruct
+                                  (DeclNameTag (CName "ex4_odd"))
+                                  DeclPathTop)))),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:11"}}],
+                        "examples/nested_types.h:27:8"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathStruct
-                      (DeclNameTag (CName "ex4"))
+                      (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop,
-                    structSizeof = 24,
+                    structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName "linkedlist",
+                        fieldName = CName
+                          "ex4_odd_value",
                         fieldOffset = 0,
-                        fieldType = TypeStruct
-                          (DeclPathStruct
-                            (DeclNameTag (CName "ex4_b"))
-                            (DeclPathField
-                              (CName "linkedlist")
-                              (DeclPathStruct
-                                (DeclNameTag (CName "ex4"))
-                                DeclPathTop))),
-                        fieldSourceLoc =
-                        "examples/nested_types.h:24:7"},
-                      StructField {
-                        fieldName = CName "ex3_c",
-                        fieldOffset = 128,
                         fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                          (PrimIntegral (PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:11"}],
+                        "examples/nested_types.h:23:9"},
+                      StructField {
+                        fieldName = CName "next",
+                        fieldOffset = 64,
+                        fieldType = TypePointer
+                          (TypeStruct
+                            (DeclPathStruct
+                              (DeclNameTag (CName "ex4_even"))
+                              (DeclPathField
+                                (CName "next")
+                                (DeclPathStruct
+                                  (DeclNameTag (CName "ex4_odd"))
+                                  DeclPathTop)))),
+                        fieldSourceLoc =
+                        "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:19:8"}})
+                    "examples/nested_types.h:22:8"}})
             [
               PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 16]),
+              PeekByteOff (Idx 0) 8]),
         storablePoke = Lambda
           (NameHint "ptr")
           (Lambda
@@ -1502,86 +1403,91 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "Ex4",
+                  "Ex4_odd",
                 structConstr = HsName
                   "@NsConstr"
-                  "Ex4",
+                  "Ex4_odd",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_linkedlist",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Ex4_b"),
+                      "ex4_odd_ex4_odd_value",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "linkedlist",
+                        fieldName = CName
+                          "ex4_odd_value",
                         fieldOffset = 0,
-                        fieldType = TypeStruct
-                          (DeclPathStruct
-                            (DeclNameTag (CName "ex4_b"))
-                            (DeclPathField
-                              (CName "linkedlist")
-                              (DeclPathStruct
-                                (DeclNameTag (CName "ex4"))
-                                DeclPathTop))),
+                        fieldType = TypePrim
+                          (PrimIntegral (PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:24:7"}},
+                        "examples/nested_types.h:23:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_ex3_c",
-                    fieldType = HsPrimType
-                      HsPrimCFloat,
+                      "ex4_odd_next",
+                    fieldType = HsPtr
+                      (HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "Ex4_even")),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "ex3_c",
-                        fieldOffset = 128,
-                        fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                        fieldName = CName "next",
+                        fieldOffset = 64,
+                        fieldType = TypePointer
+                          (TypeStruct
+                            (DeclPathStruct
+                              (DeclNameTag (CName "ex4_even"))
+                              (DeclPathField
+                                (CName "next")
+                                (DeclPathStruct
+                                  (DeclNameTag (CName "ex4_odd"))
+                                  DeclPathTop)))),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:11"}}],
+                        "examples/nested_types.h:27:8"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathStruct
-                      (DeclNameTag (CName "ex4"))
+                      (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop,
-                    structSizeof = 24,
+                    structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName "linkedlist",
+                        fieldName = CName
+                          "ex4_odd_value",
                         fieldOffset = 0,
-                        fieldType = TypeStruct
-                          (DeclPathStruct
-                            (DeclNameTag (CName "ex4_b"))
-                            (DeclPathField
-                              (CName "linkedlist")
-                              (DeclPathStruct
-                                (DeclNameTag (CName "ex4"))
-                                DeclPathTop))),
-                        fieldSourceLoc =
-                        "examples/nested_types.h:24:7"},
-                      StructField {
-                        fieldName = CName "ex3_c",
-                        fieldOffset = 128,
                         fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                          (PrimIntegral (PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:11"}],
+                        "examples/nested_types.h:23:9"},
+                      StructField {
+                        fieldName = CName "next",
+                        fieldOffset = 64,
+                        fieldType = TypePointer
+                          (TypeStruct
+                            (DeclPathStruct
+                              (DeclNameTag (CName "ex4_even"))
+                              (DeclPathField
+                                (CName "next")
+                                (DeclPathStruct
+                                  (DeclNameTag (CName "ex4_odd"))
+                                  DeclPathTop)))),
+                        fieldSourceLoc =
+                        "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:19:8"}}
+                    "examples/nested_types.h:22:8"}}
               (Add 2)
               (Seq
                 [
                   PokeByteOff (Idx 3) 0 (Idx 0),
                   PokeByteOff
                     (Idx 3)
-                    16
+                    8
                     (Idx 1)])))})]

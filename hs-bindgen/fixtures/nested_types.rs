@@ -59,37 +59,35 @@ const _: () = {
 };
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct ex4 {
-    pub linkedlist: ex4_ex4_b,
-    pub ex3_c: f32,
+pub struct ex4_odd {
+    pub ex4_odd_value: ::std::os::raw::c_int,
+    pub next: *mut ex4_odd_ex4_even,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct ex4_ex4_b {
-    pub ex3_a: ::std::os::raw::c_int,
-    pub ex3_b: ::std::os::raw::c_char,
-    pub recur: *mut ex4_ex4_b,
+pub struct ex4_odd_ex4_even {
+    pub ex4_even_value: f64,
+    pub next: *mut ex4_odd,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of ex4_ex4_b"][::std::mem::size_of::<ex4_ex4_b>() - 16usize];
-    ["Alignment of ex4_ex4_b"][::std::mem::align_of::<ex4_ex4_b>() - 8usize];
+    ["Size of ex4_odd_ex4_even"][::std::mem::size_of::<ex4_odd_ex4_even>() - 16usize];
     [
-        "Offset of field: ex4_ex4_b::ex3_a",
-    ][::std::mem::offset_of!(ex4_ex4_b, ex3_a) - 0usize];
+        "Alignment of ex4_odd_ex4_even",
+    ][::std::mem::align_of::<ex4_odd_ex4_even>() - 8usize];
     [
-        "Offset of field: ex4_ex4_b::ex3_b",
-    ][::std::mem::offset_of!(ex4_ex4_b, ex3_b) - 4usize];
+        "Offset of field: ex4_odd_ex4_even::ex4_even_value",
+    ][::std::mem::offset_of!(ex4_odd_ex4_even, ex4_even_value) - 0usize];
     [
-        "Offset of field: ex4_ex4_b::recur",
-    ][::std::mem::offset_of!(ex4_ex4_b, recur) - 8usize];
+        "Offset of field: ex4_odd_ex4_even::next",
+    ][::std::mem::offset_of!(ex4_odd_ex4_even, next) - 8usize];
 };
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of ex4"][::std::mem::size_of::<ex4>() - 24usize];
-    ["Alignment of ex4"][::std::mem::align_of::<ex4>() - 8usize];
+    ["Size of ex4_odd"][::std::mem::size_of::<ex4_odd>() - 16usize];
+    ["Alignment of ex4_odd"][::std::mem::align_of::<ex4_odd>() - 8usize];
     [
-        "Offset of field: ex4::linkedlist",
-    ][::std::mem::offset_of!(ex4, linkedlist) - 0usize];
-    ["Offset of field: ex4::ex3_c"][::std::mem::offset_of!(ex4, ex3_c) - 16usize];
+        "Offset of field: ex4_odd::ex4_odd_value",
+    ][::std::mem::offset_of!(ex4_odd, ex4_odd_value) - 0usize];
+    ["Offset of field: ex4_odd::next"][::std::mem::offset_of!(ex4_odd, next) - 8usize];
 };
