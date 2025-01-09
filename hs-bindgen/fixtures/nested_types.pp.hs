@@ -77,13 +77,12 @@ instance F.Storable Ex3 where
         case s1 of
           Ex3 ex3_ex3_c2 -> F.pokeByteOff ptr0 8 ex3_ex3_c2
 
-data Ex4_b = Ex4_b
-  { ex4_b_ex3_a :: FC.CInt
-  , ex4_b_ex3_b :: FC.CChar
-  , ex4_b_recur :: F.Ptr Ex4_b
+data Ex4_even = Ex4_even
+  { ex4_even_ex4_even_value :: FC.CDouble
+  , ex4_even_next :: F.Ptr Ex4_odd
   }
 
-instance F.Storable Ex4_b where
+instance F.Storable Ex4_even where
 
   sizeOf = \_ -> 16
 
@@ -91,41 +90,39 @@ instance F.Storable Ex4_b where
 
   peek =
     \ptr0 ->
-          pure Ex4_b
+          pure Ex4_even
       <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 4
       <*> F.peekByteOff ptr0 8
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Ex4_b ex4_b_ex3_a2 ex4_b_ex3_b3 ex4_b_recur4 ->
-               F.pokeByteOff ptr0 0 ex4_b_ex3_a2
-            >> F.pokeByteOff ptr0 4 ex4_b_ex3_b3
-            >> F.pokeByteOff ptr0 8 ex4_b_recur4
+          Ex4_even ex4_even_ex4_even_value2 ex4_even_next3 ->
+               F.pokeByteOff ptr0 0 ex4_even_ex4_even_value2
+            >> F.pokeByteOff ptr0 8 ex4_even_next3
 
-data Ex4 = Ex4
-  { ex4_linkedlist :: Ex4_b
-  , ex4_ex3_c :: FC.CFloat
+data Ex4_odd = Ex4_odd
+  { ex4_odd_ex4_odd_value :: FC.CInt
+  , ex4_odd_next :: F.Ptr Ex4_even
   }
 
-instance F.Storable Ex4 where
+instance F.Storable Ex4_odd where
 
-  sizeOf = \_ -> 24
+  sizeOf = \_ -> 16
 
   alignment = \_ -> 8
 
   peek =
     \ptr0 ->
-          pure Ex4
+          pure Ex4_odd
       <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 16
+      <*> F.peekByteOff ptr0 8
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Ex4 ex4_linkedlist2 ex4_ex3_c3 ->
-               F.pokeByteOff ptr0 0 ex4_linkedlist2
-            >> F.pokeByteOff ptr0 16 ex4_ex3_c3
+          Ex4_odd ex4_odd_ex4_odd_value2 ex4_odd_next3 ->
+               F.pokeByteOff ptr0 0 ex4_odd_ex4_odd_value2
+            >> F.pokeByteOff ptr0 8 ex4_odd_next3
