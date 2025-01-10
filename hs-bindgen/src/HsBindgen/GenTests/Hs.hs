@@ -92,10 +92,6 @@ genTestsHs
 
 getFfiFunctions :: IncludeFile -> CFunPrefix -> Hs.Decl -> [FfiFunction]
 getFfiFunctions includeFile cFunPrefix = \case
-    Hs.DeclData{} -> []
-    Hs.DeclEmpty{} -> []
-    Hs.DeclNewtype{} -> []
-    Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         [ FfiSizeof   includeFile cFunPrefix structName
@@ -104,17 +100,11 @@ getFfiFunctions includeFile cFunPrefix = \case
         , FfiGenSeqC  includeFile cFunPrefix structName
         , FfiPreturb  includeFile cFunPrefix structName
         ]
-      Hs.InstanceHasFLAM {} -> []
-    Hs.DeclNewtypeInstance{} -> []
-    Hs.DeclForeignImport{} -> []
-    Hs.DeclVar{} -> []
+      _otherwise -> []
+    _otherwise -> []
 
 getOrphanInstances :: Hs.Decl -> [OrphanInstance]
 getOrphanInstances = \case
-    Hs.DeclData{} -> []
-    Hs.DeclEmpty{} -> []
-    Hs.DeclNewtype{} -> []
-    Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         let fieldNames = Hs.fieldName <$> Vec.toList structFields
@@ -123,37 +113,23 @@ getOrphanInstances = \case
             , PreturbInstance       structName structConstr fieldNames
             , SameSemanticsInstance structName              fieldNames
             ]
-      Hs.InstanceHasFLAM {} -> []
-    Hs.DeclNewtypeInstance{} -> []
-    Hs.DeclForeignImport{} -> []
-    Hs.DeclVar{} -> []
+      _otherwise -> []
+    _otherwise -> []
 
 getTypeTests :: Hs.Decl -> [TypeTest]
 getTypeTests = \case
-    Hs.DeclData{} -> []
-    Hs.DeclEmpty{} -> []
-    Hs.DeclNewtype{} -> []
-    Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         [TypeTest structName]
-      Hs.InstanceHasFLAM {} -> []
-    Hs.DeclNewtypeInstance{} -> []
-    Hs.DeclForeignImport{} -> []
-    Hs.DeclVar{} -> []
+      _otherwise -> []
+    _otherwise -> []
 
 getTestsFunNames :: Hs.Decl -> [HsName NsTypeConstr]
 getTestsFunNames = \case
-    Hs.DeclData{} -> []
-    Hs.DeclEmpty{} -> []
-    Hs.DeclNewtype{} -> []
-    Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance -> [structName]
-      Hs.InstanceHasFLAM {} -> []
-    Hs.DeclNewtypeInstance{} -> []
-    Hs.DeclForeignImport{} -> []
-    Hs.DeclVar{} -> []
+      _otherwise -> []
+    _otherwise -> []
 
 {-------------------------------------------------------------------------------
   AST

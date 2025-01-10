@@ -5,6 +5,7 @@ module HsBindgen.GenTests.C (
 import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Text qualified as T
+import Data.Typeable (typeOf)
 import Data.Vec.Lazy qualified as Vec
 import System.FilePath qualified as FilePath
 
@@ -62,10 +63,6 @@ genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
 
 getTestHeaderDecls :: CFunPrefix -> Hs.Decl -> [CTestDecl]
 getTestHeaderDecls cFunPrefix = \case
-    Hs.DeclData{} -> []
-    Hs.DeclEmpty{} -> []
-    Hs.DeclNewtype{} -> []
-    Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         case getStructCTypeSpelling structOrigin of
@@ -77,17 +74,11 @@ getTestHeaderDecls cFunPrefix = \case
             , CTestPreturbDecl  cFunPrefix structName cts
             ]
           Nothing -> []
-      Hs.InstanceHasFLAM {} -> []
-    Hs.DeclNewtypeInstance{} -> []
-    Hs.DeclForeignImport{} -> []
-    Hs.DeclVar{} -> []
+      _otherwise -> []
+    _otherwise -> []
 
 getTestSourceDefns :: CFunPrefix -> Hs.Decl -> [CTestDefn]
 getTestSourceDefns cFunPrefix = \case
-    Hs.DeclData{} -> []
-    Hs.DeclEmpty{} -> []
-    Hs.DeclNewtype{} -> []
-    Hs.DeclPatSyn{} -> []
     Hs.DeclInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         case getStructCTypeSpelling structOrigin of
@@ -100,10 +91,8 @@ getTestSourceDefns cFunPrefix = \case
                 , CTestPreturbDefn  cFunPrefix structName cts fieldPs
                 ]
           Nothing -> []
-      Hs.InstanceHasFLAM {} -> []
-    Hs.DeclNewtypeInstance{} -> []
-    Hs.DeclForeignImport{} -> []
-    Hs.DeclVar{} -> []
+      _otherwise -> []
+    _otherwise -> []
 
 getStructCTypeSpelling :: Hs.StructOrigin -> Maybe CTypeSpelling
 getStructCTypeSpelling = \case
@@ -125,9 +114,7 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
 
     hsTypeName :: HsTypeName
     hsTypeName = case fieldType of
-      Hs.HsType{} -> error "not supported: HsType"
       Hs.HsPrimType hsPrimType -> case hsPrimType of
-        HsT.HsPrimVoid    -> error "not supported: HsPrimVoid"
         HsT.HsPrimCChar   -> "CChar"
         HsT.HsPrimCSChar  -> "CSChar"
         HsT.HsPrimCUChar  -> "CUChar"
@@ -142,12 +129,8 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
         HsT.HsPrimCBool   -> "CBool"
         HsT.HsPrimCFloat  -> "CFloat"
         HsT.HsPrimCDouble -> "CDouble"
-      Hs.HsTypRef{} -> error "not supported: HsTypRef"
-      Hs.HsConstArray{} -> error "not supported: HsConstArray"
-      Hs.HsPtr{} -> error "not supported: HsPtr"
-      Hs.HsFunPtr{} -> error "not supported: HsFunPtr"
-      Hs.HsIO{} -> error "not supported: HsIO"
-      Hs.HsFun{} -> error "not supported: HsFun"
+        x -> error $ "not supported: " ++ show (typeOf x)
+      x -> error $ "not supported: " ++ show (typeOf x)
 
 {-------------------------------------------------------------------------------
   AST
