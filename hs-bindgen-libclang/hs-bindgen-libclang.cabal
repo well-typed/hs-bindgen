@@ -45,6 +45,7 @@ library
       DeriveAnyClass
       DerivingStrategies
       DerivingVia
+      LambdaCase
       MagicHash
       TypeFamilies
       UnboxedTuples
