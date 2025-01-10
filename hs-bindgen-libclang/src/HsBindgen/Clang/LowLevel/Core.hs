@@ -188,6 +188,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , nullCursor
   ) where
 
+import Control.Exception
 import Control.Monad
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -825,7 +826,9 @@ clang_visitChildren root visitor = do
     visitor' <- mkCursorVisitor $ \current parent -> do
       current' <- CXCursor <$> copyToHaskellHeap current
       parent'  <- CXCursor <$> copyToHaskellHeap parent
-      visitor current' parent'
+      try (visitor current' parent') >>= \e -> case e of
+        Left err -> print (err :: SomeException) >> return (simpleEnum CXChildVisit_Break)
+        Right x -> return x
     onHaskellHeap root $ \parent' ->
       (/= 0) <$> wrap_visitChildren parent' visitor'
 
