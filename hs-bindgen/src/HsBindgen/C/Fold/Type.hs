@@ -388,43 +388,38 @@ mkStructField relPath unit path current = do
         extent   <- liftIO $ HighLevel.clang_getCursorExtent relPath current
         hasMacro <- gets $ containsMacroExpansion extent
 
-        if hasMacro then liftIO $ do
+        (fieldName, fieldType, isIncompleteArray) <- if hasMacro
+          then liftIO $ do
+            tokens <- HighLevel.clang_tokenize relPath unit (multiLocExpansion <$> extent)
+            case reparseWith reparseFieldDecl tokens of
+              Left err ->
+                fail $ "mkStructField: " ++ show err
+              Right (fieldType, fieldName) -> do
+                -- Note: macro definitions don't work with incomplete arrays
+                -- This is fine as reparseWith doesn't recognise array types atm.
+                return (fieldName, fieldType, False)
 
-          tokens <- HighLevel.clang_tokenize relPath unit (multiLocExpansion <$> extent)
-          case reparseWith reparseFieldDecl tokens of
-            Left err ->
-              fail $ "mkStructField: " ++ show err
-            Right (fieldType, fieldName) -> do
-              fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
-              unless (fieldOffset `mod` 8 == 0) $
-                fail "bit-fields not supported yet"
-
-              return $ Just $ Right StructField {
-                  fieldName
-                , fieldOffset
-                , fieldType
-                , fieldSourceLoc
-                }
-
-        else do
-          fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
-          ty          <- liftIO (clang_getCursorType current)
-
-          case fromSimpleEnum $ cxtKind ty of
-            Right CXType_IncompleteArray -> do
+          else do
+            fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
+            ty          <- liftIO (clang_getCursorType current)
+            case fromSimpleEnum $ cxtKind ty of
+              Right CXType_IncompleteArray -> do
                 e <- liftIO $ clang_getArrayElementType ty
                 fieldType <- processTypeDeclRec relPath (DeclPathField fieldName path) unit e
-                fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
+                return (fieldName, fieldType, True)
 
-                return $ Just $ Left  StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+              _ -> do
+                fieldType <- processTypeDeclRec relPath (DeclPathField fieldName path) unit ty
+                return (fieldName, fieldType, False)
 
-            _ -> do
-                fieldType   <- processTypeDeclRec relPath (DeclPathField fieldName path) unit ty
-                fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
+        fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
+        unless (fieldOffset `mod` 8 == 0) $ fail "bit-fields not supported yet"
 
-                unless (fieldOffset `mod` 8 == 0) $ fail "bit-fields not supported yet"
-
-                return $ Just $ Right StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+        if isIncompleteArray
+        then do
+          return $ Just $ Left StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+        else do
+          return $ Just $ Right StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
 
       -- inner structs, there are two approaches:
       -- * process eagerly
