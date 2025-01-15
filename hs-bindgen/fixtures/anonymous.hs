@@ -20,7 +20,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:4:9"}},
         Field {
@@ -35,7 +35,7 @@
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:5:9"}}],
       structOrigin =
@@ -55,14 +55,14 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:4:9"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:5:9"}],
           structFlam = Nothing,
@@ -90,7 +90,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:4:9"}},
           Field {
@@ -105,7 +105,7 @@
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:5:9"}}],
         structOrigin =
@@ -125,14 +125,14 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:4:9"},
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:5:9"}],
             structFlam = Nothing,
@@ -165,7 +165,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:4:9"}},
                   Field {
@@ -180,7 +180,7 @@
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:5:9"}}],
                 structOrigin =
@@ -200,14 +200,14 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:4:9"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
@@ -242,7 +242,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:4:9"}},
                   Field {
@@ -257,7 +257,7 @@
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:5:9"}}],
                 structOrigin =
@@ -277,14 +277,14 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:4:9"},
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
@@ -340,7 +340,7 @@
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:8:7"}}],
       structOrigin =
@@ -369,7 +369,7 @@
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:8:7"}],
           structFlam = Nothing,
@@ -418,7 +418,7 @@
                 fieldName = CName "d",
                 fieldOffset = 64,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:8:7"}}],
         structOrigin =
@@ -447,7 +447,7 @@
                 fieldName = CName "d",
                 fieldOffset = 64,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:8:7"}],
             structFlam = Nothing,
@@ -501,7 +501,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:8:7"}}],
                 structOrigin =
@@ -530,7 +530,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
@@ -586,7 +586,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:8:7"}}],
                 structOrigin =
@@ -615,7 +615,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
@@ -650,7 +650,7 @@
               fieldName = CName "b",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:16:11"}}],
       structOrigin =
@@ -674,7 +674,7 @@
               fieldName = CName "b",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:16:11"}],
           structFlam = Nothing,
@@ -702,7 +702,7 @@
                 fieldName = CName "b",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:16:11"}}],
         structOrigin =
@@ -726,7 +726,7 @@
                 fieldName = CName "b",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:16:11"}],
             structFlam = Nothing,
@@ -759,7 +759,7 @@
                         fieldName = CName "b",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:16:11"}}],
                 structOrigin =
@@ -783,7 +783,7 @@
                         fieldName = CName "b",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
@@ -816,7 +816,7 @@
                         fieldName = CName "b",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:16:11"}}],
                 structOrigin =
@@ -840,7 +840,7 @@
                         fieldName = CName "b",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
@@ -874,7 +874,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:14:9"}},
         Field {
@@ -921,7 +921,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:14:9"},
             StructField {
@@ -966,7 +966,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:14:9"}},
           Field {
@@ -1013,7 +1013,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:14:9"},
               StructField {
@@ -1063,7 +1063,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:14:9"}},
                   Field {
@@ -1110,7 +1110,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:14:9"},
                       StructField {
@@ -1162,7 +1162,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:14:9"}},
                   Field {
@@ -1209,7 +1209,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:14:9"},
                       StructField {
@@ -1284,7 +1284,7 @@
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:20:7"}}],
       structOrigin =
@@ -1313,7 +1313,7 @@
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:20:7"}],
           structFlam = Nothing,
@@ -1364,7 +1364,7 @@
                 fieldName = CName "d",
                 fieldOffset = 64,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:20:7"}}],
         structOrigin =
@@ -1393,7 +1393,7 @@
                 fieldName = CName "d",
                 fieldOffset = 64,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:20:7"}],
             structFlam = Nothing,
@@ -1449,7 +1449,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:20:7"}}],
                 structOrigin =
@@ -1478,7 +1478,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
@@ -1536,7 +1536,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:20:7"}}],
                 structOrigin =
@@ -1565,7 +1565,7 @@
                         fieldName = CName "d",
                         fieldOffset = 64,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,

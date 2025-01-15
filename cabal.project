@@ -3,6 +3,7 @@ packages: hs-bindgen
 packages: hs-bindgen-libclang
 packages: hs-bindgen-bootstrap
 packages: hs-bindgen-testlib
+packages: c-expr
 packages: ansi-diff
 
 tests: True

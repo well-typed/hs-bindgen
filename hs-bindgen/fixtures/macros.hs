@@ -5,15 +5,21 @@
         "@NsVar"
         "oBJECTLIKE1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         1
         HsPrimCInt},
@@ -23,15 +29,21 @@
         "@NsVar"
         "oBJECTLIKE2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         2
         HsPrimCInt},
@@ -41,15 +53,21 @@
         "@NsVar"
         "oBJECTLIKE3",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclApp
         (InfixAppHead MAdd)
         [
@@ -61,15 +79,21 @@
         "@NsVar"
         "oBJECTLIKE4",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclApp
         (InfixAppHead MAdd)
         [
@@ -81,15 +105,21 @@
         "@NsVar"
         "mEANING_OF_LIFE1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt},
@@ -99,15 +129,21 @@
         "@NsVar"
         "mEANING_OF_LIFE2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt},
@@ -117,15 +153,21 @@
         "@NsVar"
         "mEANING_OF_LIFE3",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt},
@@ -135,15 +177,21 @@
         "@NsVar"
         "mEANING_OF_LIFE4",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt},
@@ -153,15 +201,21 @@
         "@NsVar"
         "mEANING_OF_LIFE5",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              IntegralTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Int Signed))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt},
@@ -171,15 +225,22 @@
         "@NsVar"
         "lONG_INT_TOKEN1",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (IntLikeTyCon
-                (PrimLongLong Unsigned))
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike
+                          (LongLong Unsigned))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong},
@@ -189,15 +250,22 @@
         "@NsVar"
         "lONG_INT_TOKEN2",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (IntLikeTyCon
-                (PrimLongLong Unsigned))
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike
+                          (LongLong Unsigned))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong},
@@ -207,15 +275,22 @@
         "@NsVar"
         "lONG_INT_TOKEN3",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (IntLikeTyCon
-                (PrimLongLong Unsigned))
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike
+                          (LongLong Unsigned))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong},
@@ -225,15 +300,22 @@
         "@NsVar"
         "lONG_INT_TOKEN4",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (IntLikeTyCon
-                (PrimLongLong Unsigned))
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike
+                          (LongLong Unsigned))))))
+                []]}},
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong},
@@ -243,15 +325,20 @@
         "@NsVar"
         "fLT1_1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         110000.0},
   DeclVar
@@ -260,15 +347,20 @@
         "@NsVar"
         "fLT1_2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         1.2e-2},
   DeclVar
@@ -277,14 +369,20 @@
         "@NsVar"
         "fLT1_3",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (FloatLikeTyCon PrimFloat)
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon FloatType))))
+                []]}},
       varDeclBody = VarDeclFloat
         1.3e-2},
   DeclVar
@@ -293,15 +391,20 @@
         "@NsVar"
         "fLT2_1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         21.0},
   DeclVar
@@ -310,15 +413,20 @@
         "@NsVar"
         "fLT2_2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         2200.0},
   DeclVar
@@ -327,14 +435,20 @@
         "@NsVar"
         "fLT2_3",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (FloatLikeTyCon PrimFloat)
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon FloatType))))
+                []]}},
       varDeclBody = VarDeclFloat
         23.0},
   DeclVar
@@ -343,15 +457,20 @@
         "@NsVar"
         "fLT3_1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         31.0},
   DeclVar
@@ -360,15 +479,20 @@
         "@NsVar"
         "fLT3_2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         0.32},
   DeclVar
@@ -377,15 +501,20 @@
         "@NsVar"
         "fLT3_3",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         33.0},
   DeclVar
@@ -394,14 +523,20 @@
         "@NsVar"
         "fLT3_4",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (FloatLikeTyCon PrimFloat)
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon FloatType))))
+                []]}},
       varDeclBody = VarDeclFloat
         3.4e-3},
   DeclVar
@@ -410,15 +545,20 @@
         "@NsVar"
         "fLT4_1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         650000.0},
   DeclVar
@@ -427,15 +567,20 @@
         "@NsVar"
         "fLT4_2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         6.6e-2},
   DeclVar
@@ -444,14 +589,20 @@
         "@NsVar"
         "fLT4_3",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (FloatLikeTyCon PrimFloat)
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon FloatType))))
+                []]}},
       varDeclBody = VarDeclFloat
         6.7e-2},
   DeclVar
@@ -460,15 +611,20 @@
         "@NsVar"
         "fLT5_1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         81.0},
   DeclVar
@@ -477,14 +633,20 @@
         "@NsVar"
         "fLT5_2",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (FloatLikeTyCon PrimFloat)
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon FloatType))))
+                []]}},
       varDeclBody = VarDeclFloat
         82.0},
   DeclVar
@@ -493,15 +655,20 @@
         "@NsVar"
         "fLT6_1",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         15520.0},
   DeclVar
@@ -510,15 +677,20 @@
         "@NsVar"
         "fLT6_2",
       varDeclType = ForallTy {
-        forallTySize = Size 1,
-        forallTyBinders = [
-          NameHint "a"],
+        forallTyBinders = [],
         forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              FractionalTyCon
-              [TyVarTy (Idx 0)]],
-          quantTyBody = TyVarTy (Idx 0)}},
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
       varDeclBody = VarDeclDouble
         98.0},
   DeclVar
@@ -527,13 +699,72 @@
         "@NsVar"
         "fLT6_3",
       varDeclType = ForallTy {
-        forallTySize = Size 0,
         forallTyBinders = [],
         forallTy = QuantTy {
           quantTyCts = [],
           quantTyBody = TyConAppTy
-            (TyConApp
-              (FloatLikeTyCon PrimFloat)
-              [])}},
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon FloatType))))
+                []]}},
       varDeclBody = VarDeclFloat
-        9.9e-3}]
+        9.9e-3},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "bAD1",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
+      varDeclBody = VarDeclApp
+        (InfixAppHead MAdd)
+        [
+          VarDeclDouble 0.1,
+          VarDeclIntegral 1 HsPrimCInt]},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "bAD2",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (IntLike (Long Unsigned))))))
+                []]}},
+      varDeclBody = VarDeclApp
+        (InfixAppHead MMult)
+        [
+          VarDeclIntegral 2 HsPrimCLong,
+          VarDeclIntegral
+            2
+            HsPrimCULong]}]

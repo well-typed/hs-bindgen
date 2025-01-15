@@ -20,7 +20,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/forward_declaration.h:4:7"}}],
       structOrigin =
@@ -36,7 +36,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/forward_declaration.h:4:7"}],
           structFlam = Nothing,
@@ -64,7 +64,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/forward_declaration.h:4:7"}}],
         structOrigin =
@@ -80,7 +80,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/forward_declaration.h:4:7"}],
             structFlam = Nothing,
@@ -113,7 +113,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:4:7"}}],
                 structOrigin =
@@ -129,7 +129,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:4:7"}],
                     structFlam = Nothing,
@@ -162,7 +162,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:4:7"}}],
                 structOrigin =
@@ -178,7 +178,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:4:7"}],
                     structFlam = Nothing,
@@ -240,7 +240,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/forward_declaration.h:10:7"}}],
       structOrigin =
@@ -256,7 +256,7 @@
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/forward_declaration.h:10:7"}],
           structFlam = Nothing,
@@ -284,7 +284,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/forward_declaration.h:10:7"}}],
         structOrigin =
@@ -300,7 +300,7 @@
                 fieldName = CName "a",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/forward_declaration.h:10:7"}],
             structFlam = Nothing,
@@ -333,7 +333,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:10:7"}}],
                 structOrigin =
@@ -349,7 +349,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:10:7"}],
                     structFlam = Nothing,
@@ -382,7 +382,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:10:7"}}],
                 structOrigin =
@@ -398,7 +398,7 @@
                         fieldName = CName "a",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:10:7"}],
                     structFlam = Nothing,

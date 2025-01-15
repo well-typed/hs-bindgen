@@ -1,0 +1,63 @@
+Macro type-checking: C arithmetic conversion rules
+
+This commit generalises macro type-checking to handle C arithmetic
+conversion rules as per the C standard.
+
+What this means is that in a C expression such as
+
+  a + b
+
+the values 'a' and 'b' are allowed to have different types, with
+implicit conversions being inserted. For example:
+
+  - a :: CFloat, b :: CInt => convert b to CFloat before adding
+  - a :: Int, b :: UInt => convert a to UInt before adding
+
+This is achieved as follows:
+
+  - a new package, c-expr, with the following components:
+
+    - c-expr-core, a public sublibrary which:
+
+        - defines standard C types and C operators,
+        - implements the C arithmetic conversion rules
+        - defines a collection of type-classes that can be used for
+          a DSL for C arithmetic expressions
+        - uses Template Haskell to define a function that can, given
+          a platform, implement all the instances of these typeclasses
+          for types such as CInt, CUInt, CFloat, pointers, etc
+
+    - c-expr, the main library, which exports **platform-dependent**
+      modules such as `C.Expr.Posix32` or `C.Expr.Win64` with
+      type-class instances for all the C arithmetic typeclasses
+
+    - a test-suite, which uses hsbindgen-libclang to invoke Clang on
+      test programs in order to check that the implementation
+      of C arithmetic conversion rules in 'c-expr-core' are
+      compatible with Clang
+
+  - the C macro typechecker imports c-expr-core, which it uses to
+    compute type family reduction (e.g. the 'SubRes' type family
+    which computes the return type of the subtraction operator given
+    its argument types)
+
+  - hs-bindgen generates programs that will depend on c-expr, e.g.
+    to turn a C macro into a Haskell function we will generate a module
+    that imports the C arithmetic operator DSL provided by c-expr
+
+To do this, we also needed to significantly generalise the macro
+typechecker:
+
+  - Make class constraints more general by allowing what GHC calls
+    FlexibleContexts and FlexibleInstances,
+
+  - Use a special monad for constraint solving, TcSolveM.
+    This monad keeps track of a work list and a set of
+    inert (= fully processed) constraints.
+
+  - Solving a constraint using a top-level instance may now add
+    additional constraints to the work list.
+
+  - Instances are keyed using a TrieMap, similar to GHC's RoughMap,
+    which avoids traversing all instances when doing instance matching.
+

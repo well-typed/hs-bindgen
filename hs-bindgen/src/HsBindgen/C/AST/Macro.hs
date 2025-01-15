@@ -34,7 +34,7 @@ import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Pretty.Orphans
   ()
 import HsBindgen.Util.TestEquality
-  ( equals )
+  ( equals1 )
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -67,7 +67,7 @@ instance PrettyVal MExpr where
 instance Eq MExpr where
   MTerm m1 == MTerm m2 = m1 == m2
   MApp f1 args1 == MApp f2 args2
-    | Just Refl <- f1 `equals` f2
+    | Just Refl <- f1 `equals1` f2
     = args1 == args2
     | otherwise
     = False

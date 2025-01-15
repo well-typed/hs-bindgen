@@ -23,7 +23,8 @@ data IntegerLiteral =
       integerLiteralText  :: Text
 
       -- | The type of the integer literal, as determined from suffixes.
-    , integerLiteralType  :: Maybe PrimIntType
+    , integerLiteralType  :: Maybe (PrimIntType, PrimSign)
+        -- TODO: re-use 'IntegralType' from @c-expr@ library.
 
       -- | The (parsed) value of the literal
     , integerLiteralValue :: Integer

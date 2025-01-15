@@ -20,10 +20,11 @@ WrapCHeader
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "1",
-                      integerLiteralType = Nothing,
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
                       integerLiteralValue = 1})]},
           macroDeclMacroTy =
-          "(forall a. Integral a => (a -> a))",
+          "(forall a. Add a (IntLike (IntLike (Int Signed))) => (a -> AddRes a (IntLike (IntLike (Int Signed)))))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:1:9"},
       DeclMacro
@@ -45,7 +46,7 @@ WrapCHeader
                 MTerm (MVar (CName "x") []),
                 MTerm (MVar (CName "y") [])]},
           macroDeclMacroTy =
-          "(forall a. Num a => (a -> a -> a))",
+          "(forall a b. Add a b => (a -> b -> AddRes a b))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:2:9"},
       DeclMacro
@@ -103,7 +104,7 @@ WrapCHeader
                 MTerm (MVar (CName "X") []),
                 MTerm (MVar (CName "Y") [])]},
           macroDeclMacroTy =
-          "(forall a. Ord a => (a -> a -> Bool))",
+          "(forall a b. RelOrd a b => (a -> b -> IntLike (IntLike (Int Signed))))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:7:9"},
       DeclMacro
@@ -131,11 +132,11 @@ WrapCHeader
                         IntegerLiteral {
                           integerLiteralText = "12ull",
                           integerLiteralType = Just
-                            (PrimLongLong Unsigned),
+                            (_×_ PrimLongLong Unsigned),
                           integerLiteralValue = 12}),
                     MTerm (MVar (CName "Y") [])]]},
           macroDeclMacroTy =
-          "(ULLong -> ULLong -> ULLong)",
+          "(forall a b. Add a (MultRes (IntLike (IntLike (LongLong Unsigned))) b) => Mult (IntLike (IntLike (LongLong Unsigned))) b => (a -> b -> AddRes a (MultRes (IntLike (IntLike (LongLong Unsigned))) b)))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:8:9"},
       DeclMacro
@@ -163,11 +164,11 @@ WrapCHeader
                         IntegerLiteral {
                           integerLiteralText = "3ull",
                           integerLiteralType = Just
-                            (PrimLongLong Unsigned),
+                            (_×_ PrimLongLong Unsigned),
                           integerLiteralValue = 3}),
                     MTerm (MVar (CName "Y") [])]]},
           macroDeclMacroTy =
-          "(forall a. Bits a => (a -> ULLong -> a))",
+          "(forall a b. Mult (IntLike (IntLike (LongLong Unsigned))) b => IntLike b_10[tau] ~ MultRes (IntLike (IntLike (LongLong Unsigned))) b => (IntLike a -> b -> ShiftRes (IntLike a)))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:9:9"},
       DeclMacro
@@ -198,7 +199,7 @@ WrapCHeader
                         MTerm
                           (MVar (CName "X") [])])])},
           macroDeclMacroTy =
-          "(forall a b. Integral b => (a -> b -> b))",
+          "(forall a b. Add b (IntLike (IntLike (Int Signed))) => (a -> b -> AddRes b (IntLike (IntLike (Int Signed)))))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:11:9"},
       DeclMacro
@@ -227,10 +228,10 @@ WrapCHeader
                         IntegerLiteral {
                           integerLiteralText = "12u",
                           integerLiteralType = Just
-                            (PrimInt Unsigned),
+                            (_×_ PrimInt Unsigned),
                           integerLiteralValue = 12})]]},
           macroDeclMacroTy =
-          "(UInt -> UInt -> UInt)",
+          "(forall a b. Add b (IntLike (IntLike (Int Unsigned))) => Div a (AddRes b (IntLike (IntLike (Int Unsigned)))) => (a -> b -> DivRes a (AddRes b (IntLike (IntLike (Int Unsigned))))))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:13:9"},
       DeclMacro
@@ -265,6 +266,6 @@ WrapCHeader
                     MTerm (MVar (CName "X") [])],
                 MTerm (MVar (CName "Y") [])]},
           macroDeclMacroTy =
-          "(Float -> Float -> Float)",
+          "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))",
           macroDeclSourceLoc =
           "examples/macro_functions.h:14:9"}])

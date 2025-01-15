@@ -622,10 +622,10 @@ ghcExtensionKeywords =
 
 -- | Names in the type namespace that @hs-bindgen@ may use unqualified
 --
--- * (None)
+-- * '~'
 hsBindgenReservedTypeNames :: [Text]
 hsBindgenReservedTypeNames =
-    [
+    [ "~"
     ]
 
 -- | Names in the variable namespace that @hs-bindgen@ may use unqualified

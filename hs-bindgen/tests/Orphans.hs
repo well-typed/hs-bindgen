@@ -22,6 +22,8 @@ import HsBindgen.Lib
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Enum.Simple
 
+import C.Type qualified as CExpr
+
 import DeBruijn
 
 {-------------------------------------------------------------------------------
@@ -101,27 +103,88 @@ instance ToExpr C.MExpr where
 instance ToExpr ( C.MFun arity ) where
   toExpr f = Expr.App (show f) []
 
-instance ToExpr C.QuantTy where
+instance Show e => ToExpr ( CMacro.Quant e ) where
   toExpr quantTy = toExpr $ show quantTy
 
 instance ToExpr (CMacro.ClassTyCon arity) where
   toExpr = \case
-    CMacro.EqTyCon         -> Expr.App "EqTyCon"         []
-    CMacro.OrdTyCon        -> Expr.App "OrdTyCon"        []
-    CMacro.NumTyCon        -> Expr.App "NumTyCon"        []
-    CMacro.IntegralTyCon   -> Expr.App "IntegralTyCon"   []
-    CMacro.FractionalTyCon -> Expr.App "FractionalTyCon" []
+    CMacro.NotTyCon        -> Expr.App "NotTyCon"        []
+    CMacro.LogicalTyCon    -> Expr.App "LogicalTyCon"    []
+    CMacro.RelEqTyCon      -> Expr.App "RelEqTyCon"      []
+    CMacro.RelOrdTyCon     -> Expr.App "RelOrdTyCon"     []
+    CMacro.PlusTyCon       -> Expr.App "PlusTyCon"       []
+    CMacro.MinusTyCon      -> Expr.App "MinusTyCon"      []
+    CMacro.AddTyCon        -> Expr.App "AddTyCon"        []
+    CMacro.SubTyCon        -> Expr.App "SubTyCon"        []
+    CMacro.MultTyCon       -> Expr.App "MultTyCon"       []
     CMacro.DivTyCon        -> Expr.App "DivTyCon"        []
-    CMacro.BitsTyCon       -> Expr.App "BitsTyCon"       []
+    CMacro.RemTyCon        -> Expr.App "RemTyCon"        []
+    CMacro.ComplementTyCon -> Expr.App "ComplementTyCon" []
+    CMacro.BitwiseTyCon    -> Expr.App "BitwiseTyCon"    []
+    CMacro.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
+
+
+instance ToExpr (TyCon args resKi) where
+  toExpr = \case
+    GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
+    FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
+
+instance ToExpr (GenerativeTyCon args resKi) where
+  toExpr = \case
+    DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
+    ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
 
 instance ToExpr (DataTyCon n) where
   toExpr = \case
-    BoolTyCon           -> Expr.App "BoolTyCon"      []
-    StringTyCon         -> Expr.App "StringTyCon"    []
-    IntLikeTyCon prim   -> Expr.App "IntLikeTyCon"   [toExpr prim]
-    FloatLikeTyCon prim -> Expr.App "FloatLikeTyCon" [toExpr prim]
-    PrimTyTyCon         -> Expr.App "PrimTyTyCon"    []
-    EmptyTyCon          -> Expr.App "EmptyTyCon"     []
+    VoidTyCon               -> Expr.App "VoidTyCon"      []
+    PtrTyCon                -> Expr.App "PtrTyCon"       []
+    StringTyCon             -> Expr.App "StringTyCon"    []
+    IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
+    FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
+    PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
+    PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
+    PrimTyTyCon             -> Expr.App "PrimTyTyCon"    []
+    EmptyTyCon              -> Expr.App "EmptyTyCon"     []
+
+instance ToExpr CExpr.IntegralType where
+  toExpr = \case
+    CExpr.Bool       -> Expr.App "Bool"     []
+    CExpr.CharLike s -> Expr.App "CharLike" [toExpr s]
+    CExpr.IntLike  i -> Expr.App "IntLike"  [toExpr i]
+instance ToExpr CExpr.CharLikeType where
+  toExpr = \case
+    CExpr.Char  -> Expr.App "Char" []
+    CExpr.SChar -> Expr.App "SChar" []
+    CExpr.UChar -> Expr.App "UChar" []
+instance ToExpr CExpr.IntLikeType where
+  toExpr = \case
+    CExpr.Short    s -> Expr.App "Short"    [toExpr s]
+    CExpr.Int      s -> Expr.App "Int"      [toExpr s]
+    CExpr.Long     s -> Expr.App "Long"     [toExpr s]
+    CExpr.LongLong s -> Expr.App "LongLong" [toExpr s]
+    CExpr.PtrDiff    -> Expr.App "PtrDiff"  []
+instance ToExpr CExpr.Sign where
+  toExpr = \case
+    CExpr.Signed   -> Expr.App "Signed"   []
+    CExpr.Unsigned -> Expr.App "Unsigned" []
+
+instance ToExpr CExpr.FloatingType where
+  toExpr = \case
+    CExpr.FloatType  -> Expr.App "FloatType"  []
+    CExpr.DoubleType -> Expr.App "DoubleType" []
+
+instance ToExpr (FamilyTyCon n) where
+  toExpr = \case
+    PlusResTyCon       -> Expr.App "PlusResTyCon"       []
+    MinusResTyCon      -> Expr.App "MinusResTyCon"      []
+    AddResTyCon        -> Expr.App "AddResTyCon"        []
+    SubResTyCon        -> Expr.App "SubResTyCon"        []
+    MultResTyCon       -> Expr.App "MultResTyCon"       []
+    DivResTyCon        -> Expr.App "DivResTyCon"        []
+    RemResTyCon        -> Expr.App "RemResTyCon"        []
+    ComplementResTyCon -> Expr.App "ComplementResTyCon" []
+    BitsResTyCon       -> Expr.App "BitsResTyCon"       []
+    ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
 
 instance ToExpr HsType.HsType
 instance ToExpr HsType.HsPrimType
@@ -198,8 +261,7 @@ instance ToExpr (Hs.StructCon ctx) where
 
 instance ToExpr Hs.SigmaType where
   toExpr Hs.ForallTy {..} = Expr.Rec "ForallTy" $ OMap.fromList [
-      ("forallTySize", toExpr forallTySize)
-    , ("forallTyBinders", toExpr forallTyBinders)
+      ("forallTyBinders", toExpr forallTyBinders)
     , ("forallTy", toExpr forallTy)
     ]
 
@@ -210,13 +272,20 @@ instance ToExpr Hs.VarDeclRHSAppHead where
     Hs.VarAppHead name ->
       Expr.App "VarAppHead" [toExpr name]
 
-instance ToExpr (Hs.ClassTy ctx) where
-  toExpr (Hs.ClassTy tycon args) =
-    Expr.App "ClassTy" [toExpr tycon, toExpr args]
+instance ToExpr (Hs.PredType ctx) where
+  toExpr = \case
+    Hs.DictTy cls args ->
+      Expr.App "ClassTy" [toExpr cls, toExpr args]
+    Hs.NomEqTy l r ->
+      Expr.App "NomEqTy" [toExpr l, toExpr r]
 
-instance ToExpr (Hs.TyConAppTy ctx) where
-  toExpr (Hs.TyConApp tycon args) =
-    Expr.App "TyConApp" [toExpr tycon, toExpr args]
+instance ToExpr Hs.ATyCon where
+  toExpr (Hs.ATyCon tc) =
+    Expr.App "ATyCon" [toExpr tc]
+
+instance ToExpr Hs.AClass where
+  toExpr (Hs.AClass tc) =
+    Expr.App "AClass" [toExpr tc]
 
 {-------------------------------------------------------------------------------
   hs-bindgen-runtime

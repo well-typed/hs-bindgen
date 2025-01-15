@@ -48,7 +48,7 @@
               fieldName = CName "z",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:2:13"}}],
       structOrigin =
@@ -64,7 +64,7 @@
               fieldName = CName "z",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:2:13"}],
           structFlam = Nothing,
@@ -92,7 +92,7 @@
                 fieldName = CName "z",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/weird01.h:2:13"}}],
         structOrigin =
@@ -108,7 +108,7 @@
                 fieldName = CName "z",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/weird01.h:2:13"}],
             structFlam = Nothing,
@@ -141,7 +141,7 @@
                         fieldName = CName "z",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:2:13"}}],
                 structOrigin =
@@ -157,7 +157,7 @@
                         fieldName = CName "z",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:2:13"}],
                     structFlam = Nothing,
@@ -190,7 +190,7 @@
                         fieldName = CName "z",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:2:13"}}],
                 structOrigin =
@@ -206,7 +206,7 @@
                         fieldName = CName "z",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:2:13"}],
                     structFlam = Nothing,
@@ -240,7 +240,7 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:4:21"}}],
       structOrigin =
@@ -256,7 +256,7 @@
               fieldName = CName "x",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:4:21"}],
           structFlam = Nothing,
@@ -284,7 +284,7 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/weird01.h:4:21"}}],
         structOrigin =
@@ -300,7 +300,7 @@
                 fieldName = CName "x",
                 fieldOffset = 0,
                 fieldType = TypePrim
-                  (PrimIntegral (PrimInt Signed)),
+                  (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/weird01.h:4:21"}],
             structFlam = Nothing,
@@ -333,7 +333,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:4:21"}}],
                 structOrigin =
@@ -349,7 +349,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:4:21"}],
                     structFlam = Nothing,
@@ -382,7 +382,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:4:21"}}],
                 structOrigin =
@@ -398,7 +398,7 @@
                         fieldName = CName "x",
                         fieldOffset = 0,
                         fieldType = TypePrim
-                          (PrimIntegral (PrimInt Signed)),
+                          (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:4:21"}],
                     structFlam = Nothing,

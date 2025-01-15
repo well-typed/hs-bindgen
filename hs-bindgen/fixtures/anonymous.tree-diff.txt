@@ -17,14 +17,14 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:4:9"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:5:9"}],
           structFlam = Nothing,
@@ -55,7 +55,7 @@ WrapCHeader
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:8:7"}],
           structFlam = Nothing,
@@ -81,7 +81,7 @@ WrapCHeader
               fieldName = CName "b",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:16:11"}],
           structFlam = Nothing,
@@ -103,7 +103,7 @@ WrapCHeader
               fieldName = CName "a",
               fieldOffset = 0,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:14:9"},
             StructField {
@@ -151,7 +151,7 @@ WrapCHeader
               fieldName = CName "d",
               fieldOffset = 64,
               fieldType = TypePrim
-                (PrimIntegral (PrimInt Signed)),
+                (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:20:7"}],
           structFlam = Nothing,

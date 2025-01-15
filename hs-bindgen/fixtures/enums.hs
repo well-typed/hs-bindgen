@@ -19,8 +19,7 @@
         Enu {
           enumTag = CName "first",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -57,8 +56,7 @@
           Enu {
             enumTag = CName "first",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -100,8 +98,7 @@
                   Enu {
                     enumTag = CName "first",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -143,8 +140,7 @@
                   Enu {
                     enumTag = CName "first",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -225,7 +221,7 @@
         Enu {
           enumTag = CName "second",
           enumType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -267,7 +263,7 @@
           Enu {
             enumTag = CName "second",
             enumType = TypePrim
-              (PrimIntegral (PrimInt Signed)),
+              (PrimIntegral PrimInt Signed),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -314,7 +310,7 @@
                   Enu {
                     enumTag = CName "second",
                     enumType = TypePrim
-                      (PrimIntegral (PrimInt Signed)),
+                      (PrimIntegral PrimInt Signed),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -361,7 +357,7 @@
                   Enu {
                     enumTag = CName "second",
                     enumType = TypePrim
-                      (PrimIntegral (PrimInt Signed)),
+                      (PrimIntegral PrimInt Signed),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -466,8 +462,7 @@
         Enu {
           enumTag = CName "same",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -504,8 +499,7 @@
           Enu {
             enumTag = CName "same",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -547,8 +541,7 @@
                   Enu {
                     enumTag = CName "same",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -590,8 +583,7 @@
                   Enu {
                     enumTag = CName "same",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -913,8 +905,7 @@
         Enu {
           enumTag = CName "enumA",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -951,8 +942,7 @@
           Enu {
             enumTag = CName "enumA",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -994,8 +984,7 @@
                   Enu {
                     enumTag = CName "enumA",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1037,8 +1026,7 @@
                   Enu {
                     enumTag = CName "enumA",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1119,8 +1107,7 @@
         Enu {
           enumTag = CName "enumB",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -1157,8 +1144,7 @@
           Enu {
             enumTag = CName "enumB",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -1200,8 +1186,7 @@
                   Enu {
                     enumTag = CName "enumB",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1243,8 +1228,7 @@
                   Enu {
                     enumTag = CName "enumB",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1325,8 +1309,7 @@
         Enu {
           enumTag = CName "enumC",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -1363,8 +1346,7 @@
           Enu {
             enumTag = CName "enumC",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -1406,8 +1388,7 @@
                   Enu {
                     enumTag = CName "enumC",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1449,8 +1430,7 @@
                   Enu {
                     enumTag = CName "enumC",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1531,8 +1511,7 @@
         Enu {
           enumTag = CName "enumD",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -1569,8 +1548,7 @@
           Enu {
             enumTag = CName "enumD",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -1612,8 +1590,7 @@
                   Enu {
                     enumTag = CName "enumD",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -1655,8 +1632,7 @@
                   Enu {
                     enumTag = CName "enumD",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [

@@ -12,6 +12,7 @@ import System.FilePath qualified as FilePath
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.AST.Name
 import HsBindgen.GenTests.Internal
+    ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type qualified as HsT
@@ -115,20 +116,21 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
     hsTypeName :: HsTypeName
     hsTypeName = case fieldType of
       Hs.HsPrimType hsPrimType -> case hsPrimType of
-        HsT.HsPrimCChar   -> "CChar"
-        HsT.HsPrimCSChar  -> "CSChar"
-        HsT.HsPrimCUChar  -> "CUChar"
-        HsT.HsPrimCInt    -> "CInt"
-        HsT.HsPrimCUInt   -> "CUInt"
-        HsT.HsPrimCShort  -> "CShort"
-        HsT.HsPrimCUShort -> "CUShort"
-        HsT.HsPrimCLong   -> "CLong"
-        HsT.HsPrimCULong  -> "CULong"
-        HsT.HsPrimCLLong  -> "CLLong"
-        HsT.HsPrimCULLong -> "CULLong"
-        HsT.HsPrimCBool   -> "CBool"
-        HsT.HsPrimCFloat  -> "CFloat"
-        HsT.HsPrimCDouble -> "CDouble"
+        HsT.HsPrimCChar    -> "CChar"
+        HsT.HsPrimCSChar   -> "CSChar"
+        HsT.HsPrimCUChar   -> "CUChar"
+        HsT.HsPrimCInt     -> "CInt"
+        HsT.HsPrimCUInt    -> "CUInt"
+        HsT.HsPrimCShort   -> "CShort"
+        HsT.HsPrimCUShort  -> "CUShort"
+        HsT.HsPrimCLong    -> "CLong"
+        HsT.HsPrimCULong   -> "CULong"
+        HsT.HsPrimCLLong   -> "CLLong"
+        HsT.HsPrimCULLong  -> "CULLong"
+        HsT.HsPrimCBool    -> "CBool"
+        HsT.HsPrimCFloat   -> "CFloat"
+        HsT.HsPrimCDouble  -> "CDouble"
+        HsT.HsPrimCPtrDiff -> "CPtrdiff"
         x -> error $ "not supported: " ++ show (typeOf x)
       x -> error $ "not supported: " ++ show (typeOf x)
 

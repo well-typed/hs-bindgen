@@ -19,7 +19,7 @@
         Typedef {
           typedefName = CName "myint",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "examples/typedefs.h:1:13"}},
   DeclNewtypeInstance
@@ -48,8 +48,7 @@
           typedefName = CName "intptr",
           typedefType = TypePointer
             (TypePrim
-              (PrimIntegral
-                (PrimInt Signed))),
+              (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
           "examples/typedefs.h:2:15"}},
   DeclNewtypeInstance

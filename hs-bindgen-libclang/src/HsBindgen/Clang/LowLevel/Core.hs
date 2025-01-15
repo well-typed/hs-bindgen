@@ -96,6 +96,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_equalCursors
   , clang_getCursorSemanticParent
   , clang_getCursorLexicalParent
+  , clang_Cursor_getArgument
   , clang_getNullCursor
   , clang_getCursorKind
   , clang_getCursorKindSpelling
@@ -726,6 +727,11 @@ clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
 clang_getCursorLexicalParent cursor =
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLexicalParent cursor'
+
+clang_Cursor_getArgument :: CXCursor -> Int -> IO CXCursor
+clang_Cursor_getArgument cursor i =
+    onHaskellHeap cursor $ \cursor' ->
+      preallocate_ $ wrap_Cursor_getArgument cursor' (fromIntegral i)
 
 -- | Retrieve the NULL cursor, which represents no entity.
 clang_getNullCursor :: IO CXCursor

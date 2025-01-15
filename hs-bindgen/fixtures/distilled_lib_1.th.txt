@@ -1,16 +1,16 @@
-a :: forall a_0 . Integral a_0 => a_0
+a :: CInt
 a = 5
-b :: forall a_0 . Integral a_0 => a_0
+b :: CInt
 b = 3
-sOME_DEFINED_CONSTANT :: forall a_0 . Integral a_0 => a_0
+sOME_DEFINED_CONSTANT :: CInt
 sOME_DEFINED_CONSTANT = 4
-a_DEFINE_0 :: forall a_0 . Integral a_0 => a_0
+a_DEFINE_0 :: CInt
 a_DEFINE_0 = 0
 a_DEFINE_1 :: CUInt
 a_DEFINE_1 = 20560
-a_DEFINE_2 :: forall a_0 . Integral a_0 => a_0
+a_DEFINE_2 :: CInt
 a_DEFINE_2 = 2
-tWO_ARGS :: forall a_0 . Integral a_0 => a_0
+tWO_ARGS :: CInt
 tWO_ARGS = 13398
 foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr A_type_t ->
                                                                   Uint32_t -> Void -> IO Int32_t

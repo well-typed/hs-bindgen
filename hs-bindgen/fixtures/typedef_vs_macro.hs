@@ -28,7 +28,8 @@
           macroBody = MTerm
             (MType
               (PrimIntegral
-                (PrimInt Signed)))}},
+                PrimInt
+                Signed))}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -77,7 +78,7 @@
         Typedef {
           typedefName = CName "T1",
           typedefType = TypePrim
-            (PrimIntegral (PrimInt Signed)),
+            (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
           "examples/typedef_vs_macro.h:1:13"}},
   DeclNewtypeInstance

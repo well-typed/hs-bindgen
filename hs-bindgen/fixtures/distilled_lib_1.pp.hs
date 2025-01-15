@@ -12,27 +12,26 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.ConstantArray
 import Prelude ((<*>), (>>), IO, pure)
-import qualified Prelude as P
 
-a :: forall a0. P.Integral a0 => a0
+a :: FC.CInt
 a = 5
 
-b :: forall a0. P.Integral a0 => a0
+b :: FC.CInt
 b = 3
 
-sOME_DEFINED_CONSTANT :: forall a0. P.Integral a0 => a0
+sOME_DEFINED_CONSTANT :: FC.CInt
 sOME_DEFINED_CONSTANT = 4
 
-a_DEFINE_0 :: forall a0. P.Integral a0 => a0
+a_DEFINE_0 :: FC.CInt
 a_DEFINE_0 = 0
 
 a_DEFINE_1 :: FC.CUInt
 a_DEFINE_1 = 20560
 
-a_DEFINE_2 :: forall a0. P.Integral a0 => a0
+a_DEFINE_2 :: FC.CInt
 a_DEFINE_2 = 2
 
-tWO_ARGS :: forall a0. P.Integral a0 => a0
+tWO_ARGS :: FC.CInt
 tWO_ARGS = 13398
 
 foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> Void -> IO Int32_t

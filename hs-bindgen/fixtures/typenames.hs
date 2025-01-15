@@ -19,8 +19,7 @@
         Enu {
           enumTag = CName "foo",
           enumType = TypePrim
-            (PrimIntegral
-              (PrimInt Unsigned)),
+            (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
           enumAlignment = 4,
           enumValues = [
@@ -57,8 +56,7 @@
           Enu {
             enumTag = CName "foo",
             enumType = TypePrim
-              (PrimIntegral
-                (PrimInt Unsigned)),
+              (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
             enumAlignment = 4,
             enumValues = [
@@ -100,8 +98,7 @@
                   Enu {
                     enumTag = CName "foo",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
@@ -143,8 +140,7 @@
                   Enu {
                     enumTag = CName "foo",
                     enumType = TypePrim
-                      (PrimIntegral
-                        (PrimInt Unsigned)),
+                      (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
                     enumAlignment = 4,
                     enumValues = [
