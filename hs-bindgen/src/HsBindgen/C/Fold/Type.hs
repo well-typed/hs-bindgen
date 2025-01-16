@@ -413,13 +413,21 @@ mkStructField relPath unit path current = do
                 return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
-        unless (fieldOffset `mod` 8 == 0) $ fail "bit-fields not supported yet"
 
         if isIncompleteArray
         then do
+          assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
           return $ Just $ Left StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
         else do
-          return $ Just $ Right StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+          isBitField <- liftIO $ clang_Cursor_isBitField current
+          if isBitField
+          then do
+            width <- liftIO $ clang_getFieldDeclBitWidth current
+            dtraceIO "bitfield" (fieldOffset, width)
+            return Nothing
+          else do
+            assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
+            return $ Just $ Right StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
 
       -- inner structs, there are two approaches:
       -- * process eagerly
