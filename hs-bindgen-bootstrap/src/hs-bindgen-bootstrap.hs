@@ -17,7 +17,7 @@ import Text.Parsec.ByteString (Parser)
 
 main :: IO ()
 main = do
-    bs <- BS.readFile "imports.h"
+    bs <- BS.readFile "hs-bindgen-bootstrap/imports.h"
     decls <- case P.parse (whitespace *> many declP <* P.eof) "imports.h" bs of
         Left err    -> print err >> fail "parse error"
         Right decls -> return decls
@@ -111,7 +111,7 @@ ffiModule ds = unlines $
         , "import HsBindgen.Clang.Internal.ByValue"
         , "import HsBindgen.Clang.LowLevel.Core.Enums"
         , "import HsBindgen.Clang.LowLevel.Core.Structs"
-        , "import HsBindgen.Patterns"
+        , "import HsBindgen.Runtime.Enum.Simple"
         ]
 
 ffiDecl :: Decl -> [String]
