@@ -111,7 +111,7 @@ ffiModule ds = unlines $
         , "import HsBindgen.Clang.Internal.ByValue"
         , "import HsBindgen.Clang.LowLevel.Core.Enums"
         , "import HsBindgen.Clang.LowLevel.Core.Structs"
-        , "import HsBindgen.Patterns"
+        , "import HsBindgen.Runtime.Enum.Simple"
         ]
 
 ffiDecl :: Decl -> [String]
