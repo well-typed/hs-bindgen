@@ -1,17 +1,27 @@
 module HsBindgen.Runtime.LibC (
     -- * Primitive Types
     -- $PrimitiveTypes
+
     -- * Boolean Types
     -- $BooleanTypes
+
     -- * Integral Types
     -- $IntegralTypes
+
     -- * Floating Types
     CFexceptT(..)
+
     -- * Mathematical Types
+  , CDivT(..)
+  , CLdivT(..)
+  , CLldivT(..)
+
     -- * Standard Definitions
     -- $StandardDefinitions
+
     -- * Non-Local Jump Types
     -- $NonLocalJumpTypes
+
     -- * Wide Character Types
     -- $WideCharacterTypes
   , CWintT(..)
@@ -19,13 +29,19 @@ module HsBindgen.Runtime.LibC (
   , CWctypeT(..)
   , CChar16T(..)
   , CChar32T(..)
+
     -- * Localization Types
+
     -- * Time Types
     -- $TimeTypes
+  , CTm(..)
+
     -- * File Types
     -- $FileTypes
+
     -- * Signal Types
     -- $SignalTypes
+
     -- * Thread Types
   ) where
 
@@ -34,12 +50,16 @@ import Data.Ix (Ix)
 import Data.Word (Word16, Word32)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
-import Foreign.Storable (Storable)
+import Foreign.Storable
 
 -- Architecture-dependent definitions are defined in the following /internal/
 -- module.  Cabal conditionals are used to select the source corresponding to
 -- the host architecture.
 import HsBindgen.Runtime.LibC.Arch ()
+
+#include <inttypes.h>
+#include <stdlib.h>
+#include <time.h>
 
 {-------------------------------------------------------------------------------
   Primitive Types
@@ -189,7 +209,7 @@ import HsBindgen.Runtime.LibC.Arch ()
 
 -- TODO CDoubleT @double_t@ (arch, uses long double, math.h)
 
--- TODO CFenvT @fenv_t@ (arch, C99, fenv.h)
+-- TODO CFenvT @fenv_t@ (opaque?, C99, fenv.h)
 
 -- | C @fexcept_t@ type
 --
@@ -204,13 +224,98 @@ newtype CFexceptT = CFexceptT C.CShort
   Mathematical Types
 -------------------------------------------------------------------------------}
 
--- TODO CDivT @div_t@ (stdlib.h)
+-- | C @div_t@ structure
+--
+-- @div_t@ represents the result of integral division performed by function
+-- @div@.  It is defined in the @stdlib.h@ header file.
+data CDivT = CDivT {
+      cDivT_quot :: C.CInt -- ^ Quotient
+    , cDivT_rem  :: C.CInt -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
 
--- TODO CLdivT @ldiv_t@ (stdlib.h)
+instance Storable CDivT where
+  sizeOf    _ = #size      div_t
+  alignment _ = #alignment div_t
 
--- TODO CLldivT @lldiv_t@ (stdlib.h)
+  peek ptr = do
+    cDivT_quot <- (#peek div_t, quot) ptr
+    cDivT_rem  <- (#peek div_t, rem)  ptr
+    return CDivT{..}
 
--- TODO CImaxdivT @imaxdiv_t@ (C99, inttypes.h)
+  poke ptr CDivT{..} = do
+    (#poke div_t, quot) ptr cDivT_quot
+    (#poke div_t, rem)  ptr cDivT_rem
+
+-- | C @ldiv_t@ structure
+--
+-- @ldiv_t@ represents the result of integral division performed by function
+-- @ldiv@.  It is defined in the @stdlib.h@ header file.
+data CLdivT = CLdivT {
+      cLdivT_quot :: C.CLong -- ^ Quotient
+    , cLdivT_rem  :: C.CLong -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
+
+instance Storable CLdivT where
+  sizeOf    _ = #size      ldiv_t
+  alignment _ = #alignment ldiv_t
+
+  peek ptr = do
+    cLdivT_quot <- (#peek ldiv_t, quot) ptr
+    cLdivT_rem  <- (#peek ldiv_t, rem)  ptr
+    return CLdivT{..}
+
+  poke ptr CLdivT{..} = do
+    (#poke ldiv_t, quot) ptr cLdivT_quot
+    (#poke ldiv_t, rem)  ptr cLdivT_rem
+
+-- | C @lldiv_t@ structure
+--
+-- @lldiv_t@ represents the result of integral division performed by function
+-- @lldiv@.  It is defined in the @stdlib.h@ header file.
+data CLldivT = CLldivT {
+      cLldivT_quot :: C.CLLong -- ^ Quotient
+    , cLldivT_rem  :: C.CLLong -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
+
+instance Storable CLldivT where
+  sizeOf    _ = #size      lldiv_t
+  alignment _ = #alignment lldiv_t
+
+  peek ptr = do
+    cLldivT_quot <- (#peek lldiv_t, quot) ptr
+    cLldivT_rem  <- (#peek lldiv_t, rem)  ptr
+    return CLldivT{..}
+
+  poke ptr CLldivT{..} = do
+    (#poke lldiv_t, quot) ptr cLldivT_quot
+    (#poke lldiv_t, rem)  ptr cLldivT_rem
+
+-- | C @imaxdiv_t@ structure
+--
+-- @imaxdiv_t@ represents the result of integral division performed by function
+-- @imaxdiv@.  It is available since C99.  It is defined in the @inttypes.h@
+-- header file.
+data CImaxdivT = CImaxdivT {
+      cImaxdivT_quot :: C.CIntMax -- ^ Quotient
+    , cImaxdivT_rem  :: C.CIntMax -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
+
+instance Storable CImaxdivT where
+  sizeOf    _ = #size      imaxdiv_t
+  alignment _ = #alignment imaxdiv_t
+
+  peek ptr = do
+    cImaxdivT_quot <- (#peek imaxdiv_t, quot) ptr
+    cImaxdivT_rem  <- (#peek imaxdiv_t, rem)  ptr
+    return CImaxdivT{..}
+
+  poke ptr CImaxdivT{..} = do
+    (#poke imaxdiv_t, quot) ptr cImaxdivT_quot
+    (#poke imaxdiv_t, rem)  ptr cImaxdivT_rem
 
 {-------------------------------------------------------------------------------
   Standard Definitions
@@ -336,7 +441,7 @@ newtype CChar32T = CChar32T Word32
   Localization Types
 -------------------------------------------------------------------------------}
 
--- TODO CLconv @struct lconv@ (locale.h)
+-- TODO CLconv @struct lconv@ (includes strings, locale.h)
 
 {-------------------------------------------------------------------------------
   Time Types
@@ -356,7 +461,50 @@ newtype CChar32T = CChar32T Word32
 -- @base@ with a platform-specific implementation, is the corresponding Haskell
 -- type.
 
--- TODO CTm @struct tm@ (name, time.h)
+-- | C @struct tm@ type
+--
+-- @struct tm@ holds the components of a calendar time, called the
+-- /broken-down time/.  Note that only the fields defined in the standard are
+-- represented here.  It is defined in the @time.h@ header file.
+data CTm = CTm {
+      cTm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
+    , cTm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
+    , cTm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
+    , cTm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
+    , cTm_mon   :: C.CInt -- ^ Months since January (@[0, 11]@)
+    , cTm_year  :: C.CInt -- ^ Years since 1900
+    , cTm_wday  :: C.CInt -- ^ Days since Sunday (@[0, 6]@)
+    , cTm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
+    , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
+    }
+  deriving Show
+
+instance Storable CTm where
+  sizeOf    _ = #size      struct tm
+  alignment _ = #alignment struct tm
+
+  peek ptr = do
+    cTm_sec   <- (#peek struct tm, tm_sec)   ptr
+    cTm_min   <- (#peek struct tm, tm_min)   ptr
+    cTm_hour  <- (#peek struct tm, tm_hour)  ptr
+    cTm_mday  <- (#peek struct tm, tm_mday)  ptr
+    cTm_mon   <- (#peek struct tm, tm_mon)   ptr
+    cTm_year  <- (#peek struct tm, tm_year)  ptr
+    cTm_wday  <- (#peek struct tm, tm_wday)  ptr
+    cTm_yday  <- (#peek struct tm, tm_yday)  ptr
+    cTm_isdst <- (#peek struct tm, tm_isdst) ptr
+    return CTm{..}
+
+  poke ptr CTm{..} = do
+    (#poke struct tm, tm_sec)   ptr cTm_sec
+    (#poke struct tm, tm_min)   ptr cTm_min
+    (#poke struct tm, tm_hour)  ptr cTm_hour
+    (#poke struct tm, tm_mday)  ptr cTm_mday
+    (#poke struct tm, tm_mon)   ptr cTm_mon
+    (#poke struct tm, tm_year)  ptr cTm_year
+    (#poke struct tm, tm_wday)  ptr cTm_wday
+    (#poke struct tm, tm_yday)  ptr cTm_yday
+    (#poke struct tm, tm_isdst) ptr cTm_isdst
 
 {-------------------------------------------------------------------------------
   File Types
