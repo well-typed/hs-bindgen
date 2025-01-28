@@ -33,6 +33,30 @@ instance HasKnownSize CXToken_          where knownSize = #size CXToken
 instance HasKnownSize CXType_           where knownSize = #size CXType
 
 {-------------------------------------------------------------------------------
+  CXErrorCode
+-------------------------------------------------------------------------------}
+
+instance IsSimpleEnum CXErrorCode where
+  simpleToC CXError_Failure          = #const CXError_Failure
+  simpleToC CXError_Crashed          = #const CXError_Crashed
+  simpleToC CXError_InvalidArguments = #const CXError_InvalidArguments
+  simpleToC CXError_ASTReadError     = #const CXError_ASTReadError
+
+  simpleFromC (#const CXError_Failure)          = Just CXError_Failure
+  simpleFromC (#const CXError_Crashed)          = Just CXError_Crashed
+  simpleFromC (#const CXError_InvalidArguments) = Just CXError_InvalidArguments
+  simpleFromC (#const CXError_ASTReadError)     = Just CXError_ASTReadError
+
+  simpleFromC _ = Nothing
+
+instance IsSimpleEnum (Maybe CXErrorCode) where
+  simpleToC Nothing   = #const CXError_Success
+  simpleToC (Just hs) = simpleToC hs
+
+  simpleFromC (#const CXError_Success) = Just Nothing
+  simpleFromC c                        = Just <$> simpleFromC c
+
+{-------------------------------------------------------------------------------
   CXTranslationUnit_Flag
 -------------------------------------------------------------------------------}
 

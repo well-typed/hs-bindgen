@@ -5,41 +5,55 @@
 -- > import HsBindgen.C.Parser qualified as C
 module HsBindgen.C.Parser (
     -- * Main entry point into libclang
-    CErrors(..)
+    TranslationUnitException(..)
   , withTranslationUnit
     -- * Processing the 'CXTranslationUnit'
   , getTranslationUnitTargetTriple
   , foldTranslationUnitWith
   ) where
 
+import Control.Exception
 import Data.List (partition)
+import System.IO
 
-import HsBindgen.Imports
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
+import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Main entry point into libclang
 -------------------------------------------------------------------------------}
 
--- | Errors in the C source
+-- | Failed to parse the C source
 --
 -- This is thrown by 'withTranslationUnit'.
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/174>
--- We should have a pretty renderer for diagnostics. For now we rely on
--- 'diagnosticFormatted'.
-data CErrors = CErrors [Text]
+data TranslationUnitException =
+    -- | Errors in the C file
+    --
+    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/174> We should
+    -- have a pretty renderer for diagnostics. For now we rely on
+    -- 'diagnosticFormatted'.
+    TranslationUnitCErrors [Text]
+
+    -- | We cannot open the file (does not exist, permissions, ...)
+    --
+    -- @libclang@ reports 'CXError_Failure' in this case; we try to produce a
+    -- more useful exception.
+ | TranslationUnitCannotOpen FilePath
+
+    -- | We failed to process file for some other reason
+  | TranslationUnitUnknownError (SimpleEnum CXErrorCode)
   deriving stock (Show)
   deriving anyclass (Exception)
 
 -- | Parse C file
 --
--- Throws 'CErrors' if @libclang@ reported any errors in the C file.
+-- Maybe throw 'TranslationUnitException'.
 withTranslationUnit ::
      Maybe FilePath        -- ^ Directory to make paths relative to
   -> Tracer IO Diagnostic  -- ^ Tracer for warnings
@@ -48,23 +62,44 @@ withTranslationUnit ::
   -> (CXTranslationUnit -> IO r)
   -> IO r
 withTranslationUnit relPath tracer args fp k = do
+    -- checkFileExists fp
+
     index  <- clang_createIndex DontDisplayDiagnostics
-    unit   <- clang_parseTranslationUnit index fp args flags
-    diags  <- HighLevel.clang_getDiagnostics relPath unit Nothing
+    mUnit  <- clang_parseTranslationUnit2 index fp args flags
 
-    let errors, warnings :: [Diagnostic]
-        (errors, warnings) = partition diagnosticIsError diags
+    case mUnit of
+      Right unit -> do
+        diags  <- HighLevel.clang_getDiagnostics relPath unit Nothing
 
-    let _unused = warnings
+        let errors, warnings :: [Diagnostic]
+            (errors, warnings) = partition diagnosticIsError diags
 
-    case errors of
-      [] -> do
-        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
-        -- We should print warnings only optionally.
-        forM_ warnings $ traceWith tracer Warning
-        k unit
-      errs ->
-        throwIO $ CErrors $ map diagnosticFormatted errs
+        let _unused = warnings
+
+        case errors of
+          [] -> do
+            -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
+            -- We should print warnings only optionally.
+            forM_ warnings $ traceWith tracer Warning
+            k unit
+          errs ->
+            throwIO $ TranslationUnitCErrors $ map diagnosticFormatted errs
+      Left err -> do
+        if err == simpleEnum CXError_Failure then do
+          -- Attempt to find the cause of the failure. Our diagnosis here might
+          -- be wrong (for example, it's theoretically possible that we report
+          -- that the file does not exist because it was deleted /after/ the
+          -- call to @libclang@, and the failure was really a different one),
+          -- but for now we'll just accept that limitation in order to get
+          -- more helpful error messages in the majority of cases.
+          mCanOpen <- try $ withFile fp ReadMode $ \_h -> return ()
+          case mCanOpen of
+            Right () ->
+              throwIO $ TranslationUnitUnknownError err
+            Left (_ :: IOException) ->
+              throwIO $ TranslationUnitCannotOpen fp
+        else
+          throwIO $ TranslationUnitUnknownError err
   where
     flags :: BitfieldEnum CXTranslationUnit_Flags
     flags = bitfieldEnum [
@@ -73,6 +108,7 @@ withTranslationUnit relPath tracer args fp k = do
         , CXTranslationUnit_IncludeAttributedTypes
         , CXTranslationUnit_VisitImplicitAttributes
         ]
+
 
 {-------------------------------------------------------------------------------
   Processing the 'CXTranslationUnit'
