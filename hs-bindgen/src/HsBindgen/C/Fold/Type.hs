@@ -301,8 +301,8 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
         res' <- processTypeDeclRec relPath path unit res
 
         nargs <- liftIO $ clang_getNumArgTypes ty
-        args' <- forM [0 .. fromIntegral nargs - 1] $ \i -> do
-            arg <- liftIO $ clang_getArgType ty i
+        args' <- forM [0 .. nargs - 1] $ \i -> do
+            arg <- liftIO $ clang_getArgType ty (fromIntegral i)
             processTypeDeclRec relPath path unit arg
 
         return $ TypeFun args' res'

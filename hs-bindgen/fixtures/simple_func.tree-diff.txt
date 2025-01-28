@@ -30,4 +30,14 @@ WrapCHeader
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "examples/simple_func.h:3:22"}])
+          "examples/simple_func.h:3:22"},
+      DeclFunction
+        Function {
+          functionName = CName "no_args",
+          functionType = TypeFun
+            []
+            (TypePrim PrimVoid),
+          functionHeader =
+          "simple_func.h",
+          functionSourceLoc =
+          "examples/simple_func.h:7:6"}])
