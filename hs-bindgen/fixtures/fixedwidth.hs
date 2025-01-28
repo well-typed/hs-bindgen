@@ -125,7 +125,8 @@
               "examples/fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/fixedwidth.h:3:8"}},
+          "examples/fixedwidth.h:3:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -195,7 +196,8 @@
                 "examples/fixedwidth.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/fixedwidth.h:3:8"}}
+            "examples/fixedwidth.h:3:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -270,7 +272,8 @@
                         "examples/fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedwidth.h:3:8"}})
+                    "examples/fixedwidth.h:3:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -347,7 +350,8 @@
                         "examples/fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedwidth.h:3:8"}}
+                    "examples/fixedwidth.h:3:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [

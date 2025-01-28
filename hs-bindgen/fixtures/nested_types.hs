@@ -63,7 +63,8 @@
               "examples/nested_types.h:3:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:1:8"}},
+          "examples/nested_types.h:1:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -129,7 +130,8 @@
                 "examples/nested_types.h:3:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:1:8"}}
+            "examples/nested_types.h:1:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -200,7 +202,8 @@
                         "examples/nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:1:8"}})
+                    "examples/nested_types.h:1:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -273,7 +276,8 @@
                         "examples/nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:1:8"}}
+                    "examples/nested_types.h:1:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -354,7 +358,8 @@
               "examples/nested_types.h:8:16"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:6:8"}},
+          "examples/nested_types.h:6:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -428,7 +433,8 @@
                 "examples/nested_types.h:8:16"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:6:8"}}
+            "examples/nested_types.h:6:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -507,7 +513,8 @@
                         "examples/nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:6:8"}})
+                    "examples/nested_types.h:6:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -588,7 +595,8 @@
                         "examples/nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:6:8"}}
+                    "examples/nested_types.h:6:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -639,7 +647,8 @@
               "examples/nested_types.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:11:8"}},
+          "examples/nested_types.h:11:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -683,7 +692,8 @@
                 "examples/nested_types.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:11:8"}}
+            "examples/nested_types.h:11:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -732,7 +742,8 @@
                         "examples/nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:11:8"}})
+                    "examples/nested_types.h:11:8",
+                    structBitfields = []}})
             [PeekByteOff (Idx 0) 8]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -781,7 +792,8 @@
                         "examples/nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:11:8"}}
+                    "examples/nested_types.h:11:8",
+                    structBitfields = []}}
               (Add 1)
               (Seq
                 [
@@ -868,7 +880,8 @@
               "examples/nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:24:12"}},
+          "examples/nested_types.h:24:12",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -949,7 +962,8 @@
                 "examples/nested_types.h:26:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:24:12"}}
+            "examples/nested_types.h:24:12",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1035,7 +1049,8 @@
                         "examples/nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:24:12"}})
+                    "examples/nested_types.h:24:12",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1123,7 +1138,8 @@
                         "examples/nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:24:12"}}
+                    "examples/nested_types.h:24:12",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -1215,7 +1231,8 @@
               "examples/nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:22:8"}},
+          "examples/nested_types.h:22:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1300,7 +1317,8 @@
                 "examples/nested_types.h:27:8"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:22:8"}}
+            "examples/nested_types.h:22:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1390,7 +1408,8 @@
                         "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:22:8"}})
+                    "examples/nested_types.h:22:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1482,7 +1501,8 @@
                         "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:22:8"}}
+                    "examples/nested_types.h:22:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [

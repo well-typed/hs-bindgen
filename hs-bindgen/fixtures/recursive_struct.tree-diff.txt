@@ -30,7 +30,8 @@ WrapCHeader
               "examples/recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:1:16"},
+          "examples/recursive_struct.h:1:16",
+          structBitfields = []},
       DeclTypedef
         Typedef {
           typedefName = CName
@@ -71,4 +72,5 @@ WrapCHeader
               "examples/recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:9:8"}])
+          "examples/recursive_struct.h:9:8",
+          structBitfields = []}])

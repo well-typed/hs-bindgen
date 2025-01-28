@@ -25,7 +25,8 @@ WrapCHeader
               fieldSourceLoc =
               "examples/flam.h:4:10"},
           structSourceLoc =
-          "examples/flam.h:2:8"},
+          "examples/flam.h:2:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -54,7 +55,8 @@ WrapCHeader
               "examples/flam.h:12:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/flam.h:10:2"},
+          "examples/flam.h:10:2",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -85,7 +87,8 @@ WrapCHeader
               fieldSourceLoc =
               "examples/flam.h:13:4"},
           structSourceLoc =
-          "examples/flam.h:8:8"},
+          "examples/flam.h:8:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -117,4 +120,5 @@ WrapCHeader
               fieldSourceLoc =
               "examples/flam.h:20:7"},
           structSourceLoc =
-          "examples/flam.h:17:8"}])
+          "examples/flam.h:17:8",
+          structBitfields = []}])

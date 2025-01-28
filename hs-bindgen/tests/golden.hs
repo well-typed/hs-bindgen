@@ -60,6 +60,7 @@ main' packageRoot bg = testGroup "golden"
     , golden "anonymous"
     , golden "simple_func"
     , golden "weird01"
+    , golden "bitfields"
     ]
   where
     golden name = testGroup name

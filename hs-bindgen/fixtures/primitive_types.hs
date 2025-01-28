@@ -698,7 +698,8 @@
               "examples/primitive_types.h:39:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/primitive_types.h:1:8"}},
+          "examples/primitive_types.h:1:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1399,7 +1400,8 @@
                 "examples/primitive_types.h:39:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/primitive_types.h:1:8"}}
+            "examples/primitive_types.h:1:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 176,
         storableAlignment = 16,
@@ -2105,7 +2107,8 @@
                         "examples/primitive_types.h:39:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/primitive_types.h:1:8"}})
+                    "examples/primitive_types.h:1:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2840,7 +2843,8 @@
                         "examples/primitive_types.h:39:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/primitive_types.h:1:8"}}
+                    "examples/primitive_types.h:1:8",
+                    structBitfields = []}}
               (Add 29)
               (Seq
                 [

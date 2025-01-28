@@ -445,7 +445,8 @@ WrapCHeader
               "examples/distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/distilled_lib_1.h:8:9"},
+          "examples/distilled_lib_1.h:8:9",
+          structBitfields = []},
       DeclEnum
         Enu {
           enumTag = CName
@@ -605,7 +606,8 @@ WrapCHeader
               "examples/distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/distilled_lib_1.h:34:16"},
+          "examples/distilled_lib_1.h:34:16",
+          structBitfields = []},
       DeclTypedef
         Typedef {
           typedefName = CName

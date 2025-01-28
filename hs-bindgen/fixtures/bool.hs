@@ -87,7 +87,8 @@
               "examples/bool.h:3:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:1:8"}},
+          "examples/bool.h:1:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -149,7 +150,8 @@
                 "examples/bool.h:3:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:1:8"}}
+            "examples/bool.h:1:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -216,7 +218,8 @@
                         "examples/bool.h:3:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:1:8"}})
+                    "examples/bool.h:1:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -285,7 +288,8 @@
                         "examples/bool.h:3:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:1:8"}}
+                    "examples/bool.h:1:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -354,7 +358,8 @@
               "examples/bool.h:10:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:8:8"}},
+          "examples/bool.h:8:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -416,7 +421,8 @@
                 "examples/bool.h:10:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:8:8"}}
+            "examples/bool.h:8:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -483,7 +489,8 @@
                         "examples/bool.h:10:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:8:8"}})
+                    "examples/bool.h:8:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -552,7 +559,8 @@
                         "examples/bool.h:10:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:8:8"}}
+                    "examples/bool.h:8:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [
@@ -625,7 +633,8 @@
               "examples/bool.h:17:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:15:8"}},
+          "examples/bool.h:15:8",
+          structBitfields = []}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -691,7 +700,8 @@
                 "examples/bool.h:17:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:15:8"}}
+            "examples/bool.h:15:8",
+            structBitfields = []}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -762,7 +772,8 @@
                         "examples/bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:15:8"}})
+                    "examples/bool.h:15:8",
+                    structBitfields = []}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -835,7 +846,8 @@
                         "examples/bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:15:8"}}
+                    "examples/bool.h:15:8",
+                    structBitfields = []}}
               (Add 2)
               (Seq
                 [

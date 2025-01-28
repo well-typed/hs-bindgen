@@ -87,4 +87,5 @@ WrapCHeader
               "examples/typedef_vs_macro.h:11:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/typedef_vs_macro.h:7:8"}])
+          "examples/typedef_vs_macro.h:7:8",
+          structBitfields = []}])

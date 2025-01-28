@@ -39,7 +39,8 @@ WrapCHeader
               "examples/bool.h:3:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:1:8"},
+          "examples/bool.h:1:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -62,7 +63,8 @@ WrapCHeader
               "examples/bool.h:10:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:8:8"},
+          "examples/bool.h:8:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -87,4 +89,5 @@ WrapCHeader
               "examples/bool.h:17:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:15:8"}])
+          "examples/bool.h:15:8",
+          structBitfields = []}])

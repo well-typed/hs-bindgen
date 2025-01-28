@@ -25,7 +25,8 @@ WrapCHeader
               "examples/simple_structs.h:4:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:2:8"},
+          "examples/simple_structs.h:2:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -57,7 +58,8 @@ WrapCHeader
               "examples/simple_structs.h:11:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:8:16"},
+          "examples/simple_structs.h:8:16",
+          structBitfields = []},
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
@@ -84,7 +86,8 @@ WrapCHeader
               "examples/simple_structs.h:16:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:15:9"},
+          "examples/simple_structs.h:15:9",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -117,7 +120,8 @@ WrapCHeader
               "examples/simple_structs.h:22:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:19:8"},
+          "examples/simple_structs.h:19:8",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -142,7 +146,8 @@ WrapCHeader
               "examples/simple_structs.h:28:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:26:16"},
+          "examples/simple_structs.h:26:16",
+          structBitfields = []},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -167,4 +172,5 @@ WrapCHeader
               "examples/simple_structs.h:31:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:31:8"}])
+          "examples/simple_structs.h:31:8",
+          structBitfields = []}])
