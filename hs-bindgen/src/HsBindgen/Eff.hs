@@ -4,6 +4,7 @@ module HsBindgen.Eff (
   runFoldIdentity,
   runFoldReader,
   runFoldState,
+  assertEff,
 ) where
 
 import Control.Monad.Reader (Reader, ReaderT (..), MonadReader)
@@ -31,6 +32,10 @@ wrapEff = Eff . ReaderT
 
 unwrapEff :: Eff m a -> Support m -> IO a
 unwrapEff = runReaderT . getEff
+
+assertEff :: Bool -> String -> Eff m ()
+assertEff True  _   = return ()
+assertEff False msg = fail msg
 
 -- | 'ReaderT' argument required to support @m@
 type family Support (m :: Star -> Star) :: Star

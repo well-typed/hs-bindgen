@@ -12,6 +12,7 @@ import Data.Bits (unsafeShiftR, (.&.))
 import Data.Char (intToDigit)
 import Data.Text qualified as T
 import Data.Word (Word8)
+import Foreign.C.Types (CInt)
 import GHC.Exts qualified
 import GHC.Generics (from, (:*:) (..), M1 (..), K1 (..))
 import HsBindgen.Clang.Internal.ByValue (OnHaskellHeap (..))
@@ -73,6 +74,7 @@ deriving via ReprShow T.Text instance Repr T.Text
 deriving via ReprShow Bool instance Repr Bool
 deriving via ReprShow Int instance Repr Int
 deriving via ReprShow () instance Repr ()
+deriving via ReprShow CInt instance Repr CInt
 
 -------------------------------------------------------------------------------
 -- Repr libclang
