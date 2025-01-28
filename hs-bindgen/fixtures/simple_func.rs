@@ -3,3 +3,6 @@
 extern "C" {
     pub fn erf(arg: f64) -> f64;
 }
+extern "C" {
+    pub fn no_args();
+}

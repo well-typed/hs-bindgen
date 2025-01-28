@@ -124,6 +124,15 @@ foldDecls opts@Options{..} cursor = do
         traceU 1 "integer value"
           =<< liftIO (clang_getEnumConstantDeclValue cursor)
         pure False -- leaf
+      Right CXCursor_FunctionDecl -> do
+        numArgs <- liftIO $ clang_getNumArgTypes cursorType
+        traceU 1 "args" numArgs
+        forM_ [0 .. numArgs - 1] $ \i -> do
+          argType <- liftIO $ clang_getArgType cursorType (fromIntegral i)
+          traceO_ 2 i =<< liftIO (clang_getTypeSpelling argType)
+        resultType <- liftIO $ clang_getResultType cursorType
+        traceU 1 "result" =<< liftIO (clang_getTypeSpelling resultType)
+        pure False
       Right CXCursor_TypedefDecl -> do
         traceU 1 "typedef name" =<< liftIO (clang_getTypedefName cursorType)
         pure True -- results in repeated information unless typedef is decl

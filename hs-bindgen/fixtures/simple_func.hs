@@ -59,4 +59,26 @@
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "examples/simple_func.h:3:22"}}]
+          "examples/simple_func.h:3:22"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "no_args",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimVoid),
+      foreignImportOrigName =
+      "no_args",
+      foreignImportHeader =
+      "simple_func.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "no_args",
+          functionType = TypeFun
+            []
+            (TypePrim PrimVoid),
+          functionHeader =
+          "simple_func.h",
+          functionSourceLoc =
+          "examples/simple_func.h:7:6"}}]
