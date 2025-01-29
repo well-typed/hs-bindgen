@@ -244,25 +244,29 @@ macroDecs C.MacroReparseError {} = []
 macroDecs C.MacroTcError {}      = []
 
 macroDecsTypedef :: C.Macro -> [Hs.Decl]
-macroDecsTypedef m = [
-      Hs.DeclNewtype Hs.Newtype{..}
-    ]
+macroDecsTypedef m =
+    -- For now we only support primitive types
+    case C.macroBody m of
+      C.MTerm (C.MType pt) ->
+        let newtypeField = primType pt
+        in [Hs.DeclNewtype Hs.Newtype{..}]
+      _otherwise ->
+        []
   where
-    cName = C.macroName m
     nm@NameMangler{..} = defaultNameMangler
+
+    cName         = C.macroName m
     typeConstrCtx = TypeConstrContext cName
-    newtypeName = mangleTypeConstrName typeConstrCtx
+    newtypeName   = mangleTypeConstrName typeConstrCtx
     newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
-    newtypeField = Hs.Field {
-        fieldName = mangleVarName $ EnumVarContext typeConstrCtx
-      , fieldType =
-          -- TODO: this type conversion is very simple, but works for now.
-          typ nm $ case C.macroBody m of
-            C.MTerm (C.MType pt) -> C.TypePrim pt
-            _                    -> C.TypePrim C.PrimVoid
-      , fieldOrigin = Hs.FieldOriginNone
-      }
     newtypeOrigin = Hs.NewtypeOriginMacro m
+
+    primType :: C.PrimType -> Hs.Field
+    primType pt = Hs.Field {
+          fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
+        , fieldType   = typ nm $ C.TypePrim pt
+        , fieldOrigin = Hs.FieldOriginNone
+        }
 
 {-------------------------------------------------------------------------------
   Types
