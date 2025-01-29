@@ -85,7 +85,9 @@ module HsBindgen.Clang.LowLevel.Core (
   , CXUnsavedFile
   , CXTranslationUnit_Flags(..)
   , CXTargetInfo(..)
+  , CXErrorCode(..)
   , clang_parseTranslationUnit
+  , clang_parseTranslationUnit2
   , clang_getTranslationUnitTargetInfo
   , clang_TargetInfo_dispose
   , clang_TargetInfo_getTriple
@@ -503,6 +505,7 @@ clang_getDiagnosticFixIt diagnostic fixit =
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gacdb7815736ca709ce9a5e1ec2b7e16ac>
 newtype CXTranslationUnit = CXTranslationUnit (Ptr ())
   deriving stock (Show)
+  deriving newtype (Storable)
 
 -- | Provides the contents of a file that has not yet been saved to disk.
 --
@@ -534,6 +537,18 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit"
     -> CUInt
     -> BitfieldEnum CXTranslationUnit_Flags
     -> IO CXTranslationUnit
+
+foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit2"
+  nowrapper_parseTranslationUnit2 ::
+       CXIndex
+    -> CString
+    -> Ptr CString
+    -> CInt
+    -> CXUnsavedFile
+    -> CUInt
+    -> BitfieldEnum CXTranslationUnit_Flags
+    -> Ptr CXTranslationUnit
+    -> IO (SimpleEnum (Maybe CXErrorCode))
 
 -- | Get target information for this translation unit.
 --
@@ -584,6 +599,47 @@ clang_parseTranslationUnit cIdx src args options =
             0
             options
 
+-- | Parse the given source file and the translation unit corresponding to that
+-- file.
+--
+-- This routine is the main entry point for the Clang C API, providing the
+-- ability to parse a source file into a translation unit that can then be
+-- queried by other functions in the API. This routine accepts a set of
+-- command-line arguments so that the compilation can be configured in the same
+-- way that the compiler is configured on the command line.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga494de0e725c5ae40cbdea5fa6081027d>
+clang_parseTranslationUnit2 ::
+     HasCallStack
+  => CXIndex                               -- ^ @CIdx@
+  -> FilePath                              -- ^ @source_filename@
+  -> ClangArgs                             -- ^ @command_line_args@
+  -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
+  -> IO (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
+clang_parseTranslationUnit2 cIdx src args options =
+    case fromClangArgs args of
+      Left  err   -> callFailed err
+      Right args' ->
+        withCString  src   $ \src' ->
+        withCStrings args' $ \args'' numArgs ->
+        alloca             $ \outPtr -> do
+          mError <- nowrapper_parseTranslationUnit2
+            cIdx
+            src'
+            args''
+            numArgs
+            nullPtr
+            0
+            options
+            outPtr
+          case fromSimpleEnum mError of
+            Right Nothing ->
+              Right <$> peek outPtr
+            Right (Just knownError) ->
+              return $ Left (simpleEnum knownError)
+            Left unknownError ->
+              return $ Left (coerceSimpleEnum unknownError)
+--
 -- | Get the normalized target triple as a string.
 --
 -- Throws 'CallFailed' on error.

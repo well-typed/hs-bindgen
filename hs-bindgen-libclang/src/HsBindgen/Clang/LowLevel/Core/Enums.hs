@@ -2,7 +2,8 @@
 --
 -- This module should only be imported by "HsBindgen.Clang.LowLevel.Core".
 module HsBindgen.Clang.LowLevel.Core.Enums (
-    CXTranslationUnit_Flags(..)
+    CXErrorCode(..)
+  , CXTranslationUnit_Flags(..)
   , CXTypeKind(..)
   , CXChildVisitResult(..)
   , CXTypeLayoutError(..)
@@ -14,6 +15,38 @@ module HsBindgen.Clang.LowLevel.Core.Enums (
 
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  CXErrorCode
+-------------------------------------------------------------------------------}
+
+-- | Error codes returned by @libclang@ routines.
+--
+-- NOTE: The docs state:
+--
+-- > Zero (CXError_Success) is the only error code indicating success. Other
+-- > error codes, including not yet assigned non-zero values, indicate errors.
+--
+-- Since we want to reserve 'CXErrorCode' for actual errors, we omit
+-- @CXError_Success@, and define 'IsSimpleEnum' for both @CXErrorCode@ and
+-- @Maybe CXErrorCode@.
+data CXErrorCode =
+    -- | A generic error code, no further details are available.
+    --
+    -- Errors of this kind can get their own specific error codes in future
+    -- libclang versions.
+    CXError_Failure
+
+    -- | @libclang@ crashed while performing the requested operation.
+  | CXError_Crashed
+
+    -- | The function detected that the arguments violate the function contract.
+  | CXError_InvalidArguments
+
+    -- | An AST deserialization error has occurred.
+  | CXError_ASTReadError
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXTranslationUnit_Flag
