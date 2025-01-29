@@ -117,6 +117,7 @@ data NameType = IdentifierName | OperatorName
 
 nameType :: String -> NameType
 nameType nm
+  | nm == "()"         = IdentifierName
   | all isIdentChar nm = IdentifierName
   | otherwise          = OperatorName
   where

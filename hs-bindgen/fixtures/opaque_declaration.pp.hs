@@ -47,6 +47,6 @@ instance F.Storable Baz where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Baz -> return (())
+          Baz -> return ()
 
 data Quu

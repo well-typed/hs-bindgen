@@ -7,7 +7,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), IO, pure)
 
-foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO (())
+foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO ()
 
 data Foo = Foo
   { foo_z :: FC.CInt
