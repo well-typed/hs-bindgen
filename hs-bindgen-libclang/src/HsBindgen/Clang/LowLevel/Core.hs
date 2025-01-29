@@ -1049,7 +1049,7 @@ clang_getTypeSpelling typ = ensure (not . Text.null) $
 -- Throws 'CallFailed' if the cursor does not reference a typedef declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8de899fc18dc859b6fe3b97309f4fd52>
-clang_getTypedefDeclUnderlyingType :: CXCursor -> IO CXType
+clang_getTypedefDeclUnderlyingType :: HasCallStack => CXCursor -> IO CXType
 clang_getTypedefDeclUnderlyingType cursor = ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getTypedefDeclUnderlyingType cursor'
@@ -1057,7 +1057,7 @@ clang_getTypedefDeclUnderlyingType cursor = ensureValidType $
 -- | Retrieve the integer type of an enum declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0f5f950bee4e1828b51a41f0eaa951c4>
-clang_getEnumDeclIntegerType :: CXCursor -> IO CXType
+clang_getEnumDeclIntegerType :: HasCallStack => CXCursor -> IO CXType
 clang_getEnumDeclIntegerType cursor = ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getEnumDeclIntegerType cursor'
@@ -1782,7 +1782,7 @@ clang_getRange begin end =
 -- Throws 'CallFailed' if the file was not a part of this translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaa0554e2ea48ecd217a29314d3cbd2085>
-clang_getFile :: CXTranslationUnit -> Text -> IO CXFile
+clang_getFile :: HasCallStack => CXTranslationUnit -> Text -> IO CXFile
 clang_getFile unit file = ensureNotNull $
     withCString (Text.unpack file) $ \file' ->
       nowrapper_getFile unit file'
