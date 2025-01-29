@@ -45,25 +45,28 @@ foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> 
       Right CXCursor_StructDecl  -> typeDecl current
       Right CXCursor_EnumDecl    -> typeDecl current
 
-      Right CXCursor_MacroDefinition -> do
-        mbMExpr <- mkMacro relPath unit current
-        macro <- case mbMExpr of
-          Left err -> return $ MacroReparseError err
-          Right macro@( Macro _ mVar mArgs mExpr ) -> do
-            macroTyEnv <- macroTypes <$> get
-            let tcRes = tcMacro buildPlatform macroTyEnv mVar mArgs mExpr
-              -- TODO (cross-compilation): use of 'buildPlatform'.
-            case tcRes of
-              Left err ->
-                return $ MacroTcError macro err
-              Right ty -> do
-                modify $ registerMacroType mVar ty
-                return MacroDecl {
-                    macroDeclMacro     = macro
-                  , macroDeclMacroTy   = ty
-                  , macroDeclSourceLoc = sloc
-                  }
-        return $ Continue $ Just $ DeclMacro macro
+      Right CXCursor_MacroDefinition ->
+        if isBuiltinMacro sloc
+          then return $ Continue Nothing
+          else do
+            mbMExpr <- mkMacro relPath unit current
+            macro <- case mbMExpr of
+              Left err -> return $ MacroReparseError err
+              Right macro@( Macro _ mVar mArgs mExpr ) -> do
+                macroTyEnv <- macroTypes <$> get
+                let tcRes = tcMacro buildPlatform macroTyEnv mVar mArgs mExpr
+                  -- TODO (cross-compilation): use of 'buildPlatform'.
+                case tcRes of
+                  Left err ->
+                    return $ MacroTcError macro err
+                  Right ty -> do
+                    modify $ registerMacroType mVar ty
+                    return MacroDecl {
+                        macroDeclMacro     = macro
+                      , macroDeclMacroTy   = ty
+                      , macroDeclSourceLoc = sloc
+                      }
+            return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
         mloc <- liftIO $ HighLevel.clang_getCursorLocation relPath current
         modify $ registerMacroExpansion mloc
@@ -106,6 +109,15 @@ foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> 
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
+
+-- | Determine if a macro definition is for a builtin macro from its source
+-- location
+--
+-- The source path for builtin macros is the empty string.
+--
+-- This hack is necessary because @clang_Cursor_isMacroBuiltin@ is not working.
+isBuiltinMacro :: SingleLoc -> Bool
+isBuiltinMacro = Text.null . getSourcePath . singleLocPath
 
 mkMacro ::
      MonadIO m
