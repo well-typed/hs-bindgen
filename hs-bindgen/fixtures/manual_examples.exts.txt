@@ -1,0 +1,10 @@
+CApiFFI
+DataKinds
+StandaloneDeriving
+DerivingStrategies
+DerivingVia
+FlexibleContexts
+EmptyDataDecls
+GeneralizedNewtypeDeriving
+ExplicitForAll
+PatternSynonyms
