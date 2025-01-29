@@ -312,7 +312,9 @@ typ nm = go CTop
     goPrim _ C.PrimPtrDiff                  = HsPrimCPtrDiff
 
     goVoid :: TypeContext -> HsPrimType
-    goVoid _ = HsPrimVoid
+    goVoid CFunRes = HsPrimUnit
+    goVoid CPtrArg = HsPrimVoid
+    goVoid c       = error $ "typ: unexpected void in context " ++ show c
 
     goArrayUnknownSize :: TypeContext -> C.Type -> HsType
     goArrayUnknownSize CFunArg t =

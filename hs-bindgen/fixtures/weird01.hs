@@ -8,7 +8,7 @@
         (HsPtr
           (HsTypRef
             (HsName "@NsTypeConstr" "Bar")))
-        (HsIO (HsPrimType HsPrimVoid)),
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName = "func",
       foreignImportHeader =
       "weird01.h",

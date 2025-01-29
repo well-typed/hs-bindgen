@@ -211,6 +211,7 @@ resolveGlobal = \case
 
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid     -> importU iDataVoid "Void"
+      HsPrimUnit     -> noImport "()"
       HsPrimCChar    -> importQ iForeignC "CChar"
       HsPrimCSChar   -> importQ iForeignC "CSChar"
       HsPrimCUChar   -> importQ iForeignC "CUChar"

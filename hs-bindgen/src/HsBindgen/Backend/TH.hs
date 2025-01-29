@@ -115,6 +115,7 @@ mkGlobal =  \case
       PrimType t           -> mkGlobalP t
     where
       mkGlobalP HsPrimVoid     = ''Data.Void.Void
+      mkGlobalP HsPrimUnit     = ''()
       mkGlobalP HsPrimCChar    = ''Foreign.C.Types.CChar
       mkGlobalP HsPrimCUChar   = ''Foreign.C.Types.CUChar
       mkGlobalP HsPrimCSChar   = ''Foreign.C.Types.CSChar
