@@ -66,7 +66,7 @@
         "@NsVar"
         "no_args",
       foreignImportType = HsIO
-        (HsPrimType HsPrimVoid),
+        (HsPrimType HsPrimUnit),
       foreignImportOrigName =
       "no_args",
       foreignImportHeader =

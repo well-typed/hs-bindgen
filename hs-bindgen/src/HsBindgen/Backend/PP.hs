@@ -88,7 +88,7 @@ data ResolvedName = ResolvedName {
     }
   deriving (Eq, Ord, Show)
 
--- | Construct a `ResvoledName` with no import
+-- | Construct a `ResolvedName` with no import
 noImport :: String -> ResolvedName
 noImport s = ResolvedName {
       resolvedNameString = s
@@ -117,6 +117,7 @@ data NameType = IdentifierName | OperatorName
 
 nameType :: String -> NameType
 nameType nm
+  | nm == "()"         = IdentifierName
   | all isIdentChar nm = IdentifierName
   | otherwise          = OperatorName
   where
@@ -211,6 +212,7 @@ resolveGlobal = \case
 
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid     -> importU iDataVoid "Void"
+      HsPrimUnit     -> noImport "()"
       HsPrimCChar    -> importQ iForeignC "CChar"
       HsPrimCSChar   -> importQ iForeignC "CSChar"
       HsPrimCUChar   -> importQ iForeignC "CUChar"

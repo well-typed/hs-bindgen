@@ -40,6 +40,22 @@ data Type =
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type
+
+    -- | Arrays of unknown size
+    --
+    -- Arrays normally have a known size, but not always:
+    --
+    -- * Arrays of unknown size are allowed as function arguments; such arrays
+    --   are interpreted as pointers.
+    -- * Arrays of unknown size may be declared for externs; this is considered
+    --   an incomplete type.
+    -- * Structs may contain an array of undefined size as their last field,
+    --   known as a "flexible array member" (FLAM).
+    --
+    -- We treat the FLAM case separately.
+    --
+    -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
+  | TypeIncompleteArray Type
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

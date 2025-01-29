@@ -12,6 +12,7 @@ import HsBindgen.Hs.AST.Name
 
 data HsPrimType
     = HsPrimVoid
+    | HsPrimUnit
     | HsPrimCChar
     | HsPrimCSChar
     | HsPrimCUChar

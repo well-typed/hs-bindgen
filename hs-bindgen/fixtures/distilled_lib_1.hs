@@ -184,7 +184,11 @@
               "@NsTypeConstr"
               "Uint32_t"))
           (HsFun
-            (HsPrimType HsPrimVoid)
+            (HsPtr
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Uint8_t")))
             (HsIO
               (HsTypRef
                 (HsName
@@ -204,7 +208,8 @@
                 (TypeTypedef
                   (CName "a_type_t")),
               TypeTypedef (CName "uint32_t"),
-              TypePrim PrimVoid]
+              TypeIncompleteArray
+                (TypeTypedef (CName "uint8_t"))]
             (TypeTypedef (CName "int32_t")),
           functionHeader =
           "distilled_lib_1.h",

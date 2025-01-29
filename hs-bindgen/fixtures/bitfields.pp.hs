@@ -46,7 +46,7 @@ instance F.Storable Overflow32 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Overflow32 -> return (())
+          Overflow32 -> return ()
 
 data Overflow32b = Overflow32b
   {}
@@ -63,7 +63,7 @@ instance F.Storable Overflow32b where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Overflow32b -> return (())
+          Overflow32b -> return ()
 
 data Overflow32c = Overflow32c
   {}
@@ -80,7 +80,7 @@ instance F.Storable Overflow32c where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Overflow32c -> return (())
+          Overflow32c -> return ()
 
 data Overflow64 = Overflow64
   {}
@@ -97,7 +97,7 @@ instance F.Storable Overflow64 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Overflow64 -> return (())
+          Overflow64 -> return ()
 
 data AlignA = AlignA
   {}
@@ -114,7 +114,7 @@ instance F.Storable AlignA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          AlignA -> return (())
+          AlignA -> return ()
 
 data AlignB = AlignB
   {}
@@ -131,4 +131,4 @@ instance F.Storable AlignB where
     \ptr0 ->
       \s1 ->
         case s1 of
-          AlignB -> return (())
+          AlignB -> return ()
