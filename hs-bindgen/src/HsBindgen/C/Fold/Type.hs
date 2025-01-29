@@ -305,14 +305,9 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
         return $ TypeFun args' res'
 
     Right CXType_IncompleteArray -> do
-        -- in distilled_lib_1.h we have:
-        --
-        -- int32_t some_fun(a_type_t *i, uint32_t j, uint8_t k[]);
-        --
-        -- I'm not sure what's an intention here. Should the k, have uint8_t *,
-        -- i.e. a pointer type instead?
-        --
-        return $ TypePrim PrimVoid -- TODO
+        e <- liftIO $ clang_getArrayElementType ty
+        e' <- processTypeDeclRec relPath path unit e
+        return (TypeIncompleteArray e')
 
     _ -> do
       name <- CName <$> liftIO (clang_getTypeSpelling ty)

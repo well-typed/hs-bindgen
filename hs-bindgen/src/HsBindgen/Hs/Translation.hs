@@ -277,6 +277,7 @@ data TypeContext =
   | CFunArg  -- ^ Function argument
   | CFunRes  -- ^ Function result
   | CPtrArg  -- ^ Pointer argument
+  deriving stock (Show)
 
 typ :: NameMangler -> C.Type -> Hs.HsType
 typ nm = go CTop
@@ -295,6 +296,8 @@ typ nm = go CTop
         _            -> Hs.HsPtr (go CPtrArg t)
     go _ (C.TypeConstArray n ty) =
         Hs.HsConstArray n (go CTop ty)
+    go c (C.TypeIncompleteArray ty) =
+        goArrayUnknownSize c ty
     go _ (C.TypeFun xs y) =
         foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
 
@@ -310,6 +313,17 @@ typ nm = go CTop
 
     goVoid :: TypeContext -> HsPrimType
     goVoid _ = HsPrimVoid
+
+    goArrayUnknownSize :: TypeContext -> C.Type -> HsType
+    goArrayUnknownSize CFunArg t =
+         -- Arrays of unknown size as function args are treated as pointers.
+         -- <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
+         Hs.HsPtr $ go CTop t
+    goArrayUnknownSize c _ =
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/377>
+        -- We need to extend 'TypeContext' with a context for extern
+        -- declarations, and then allow for arrays of unknown size.
+        error $ "typ: unexpected array of unknown size in context " ++ show c
 
 integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
 integralType C.PrimInt      C.Signed   = HsPrimCInt
