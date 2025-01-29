@@ -9,10 +9,9 @@ module HsBindgen.Runtime.LibC (
     -- $IntegralTypes
 
     -- * Floating Types
-    CFexceptT(..)
 
     -- * Mathematical Types
-  , CDivT(..)
+    CDivT(..)
   , CLdivT(..)
   , CLldivT(..)
 
@@ -67,7 +66,7 @@ import HsBindgen.Runtime.LibC.Arch ()
 
 -- $PrimitiveTypes
 --
--- The following types are available in all C standards.  They corresponding
+-- The following types are available in all C standards.  The corresponding
 -- Haskell types are defined in @base@ with platform-specific implementations.
 --
 -- Integral types:
@@ -211,14 +210,7 @@ import HsBindgen.Runtime.LibC.Arch ()
 
 -- TODO CFenvT @fenv_t@ (opaque?, C99, fenv.h)
 
--- | C @fexcept_t@ type
---
--- @fexcept_t@ represents the state of all floating-point status flags
--- collectively, including the active floating-point exceptions along with any
--- additional information the implementation associates with their status.  It
--- is available since C99.  It is defined in the @fenv.h@ header file.
-newtype CFexceptT = CFexceptT C.CShort
-  deriving newtype (Eq, Ord, Show, Storable)
+-- TODO CFexceptT @fexcept_t@ (arch, C99, fenv.h)
 
 {-------------------------------------------------------------------------------
   Mathematical Types
