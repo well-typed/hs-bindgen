@@ -23,7 +23,7 @@
                   (DeclPathStruct
                     (DeclNameTag (CName "bar"))
                     DeclPathTop))]
-            (TypePrim PrimVoid),
+            TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
           "examples/weird01.h:8:6"}},

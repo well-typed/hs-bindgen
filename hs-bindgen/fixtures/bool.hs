@@ -26,7 +26,7 @@
           macroName = CName "BOOL",
           macroArgs = [],
           macroBody = MTerm
-            (MType PrimBool)}},
+            (MType (TypePrim PrimBool))}},
   DeclData
     Struct {
       structName = HsName

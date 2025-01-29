@@ -184,7 +184,7 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
         then do
             -- Anonymous top-level declaration: nothing to do but warn, as there
             -- shouldn't be one in "good" code.
-            return $ TypePrim PrimVoid
+            return TypeVoid
 
         else do
             addTypeDeclProcessing ty $ TypeStruct declPath
@@ -234,7 +234,7 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
             -- anonymous declration, nothing to do
 
             -- TODO: check with struct foo { struct { ... } field; };
-            return $ TypePrim PrimVoid
+            return TypeVoid
 
         else do
             let defnName :: CName
@@ -286,7 +286,7 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
         return (TypeConstArray (fromIntegral n) e')
 
     Right CXType_Void -> do
-        return $ TypePrim PrimVoid
+        return TypeVoid
 
     Right CXType_Bool -> do
         return $ TypePrim PrimBool

@@ -166,9 +166,7 @@ data MTerm =
   | MVar CName [MExpr]
 
     -- | Type declaration
-    --
-    -- For now we only support primitive types.
-  | MType PrimType
+  | MType Type
 
     -- | Attribute
   | MAttr Attribute MTerm

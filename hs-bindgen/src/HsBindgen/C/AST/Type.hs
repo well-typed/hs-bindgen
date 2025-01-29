@@ -40,6 +40,7 @@ data Type =
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type
+  | TypeVoid
 
     -- | Arrays of unknown size
     --
@@ -100,9 +101,6 @@ data PrimType =
 
     -- | A floating-point type, such as @float@ or @long double@.
   | PrimFloating PrimFloatType
-
-    -- | @void@
-  | PrimVoid
 
     -- | @_Bool@
   | PrimBool
