@@ -13,7 +13,7 @@ import Orphans ()
 import Rust
 import Misc
 
-#if __GLASGOW_HASKELL__ ==908
+#if __GLASGOW_HASKELL__ >=904
 import TH
 #endif
 
@@ -69,7 +69,7 @@ main' packageRoot bg = testGroup "golden"
 -- Pretty-printing of TH differs between GHC versions; for example, @()@ becomes
 -- @Unit@ in 9.8 <https://github.com/ghc-proposals/ghc-proposals/pull/475>.
 -- We therefore test TH only with one specific GHC version.
-#if __GLASGOW_HASKELL__ ==908
+#if __GLASGOW_HASKELL__ >=904
         , goldenTh packageRoot name
 #endif
         , goldenPP name

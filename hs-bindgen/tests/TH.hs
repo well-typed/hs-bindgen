@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskellQuotes #-}
 -- | Separate module for TH tests.
 --
 -- This module exists mainly to avoid hassle with unused imports and packages.
@@ -34,9 +35,12 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.
         unqualNames :: [TH.Dec] -> [TH.Dec]
-        unqualNames = SYB.everywhere $ SYB.mkT $ \case
-            TH.NameG {} -> TH.NameS
-            nameFlavour -> nameFlavour
+        unqualNames = SYB.everywhere $ SYB.mkT mangleName
+
+        mangleName :: TH.Name -> TH.Name
+        mangleName n | n == ''()             = TH.Name (TH.OccName "Unit") TH.NameS
+        mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
+        mangleName n = n
 
     return $ unlines $ map (show . TH.ppr) $ unqualNames $ runQu decls
 
