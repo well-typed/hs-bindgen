@@ -88,7 +88,7 @@ data ResolvedName = ResolvedName {
     }
   deriving (Eq, Ord, Show)
 
--- | Construct a `ResvoledName` with no import
+-- | Construct a `ResolvedName` with no import
 noImport :: String -> ResolvedName
 noImport s = ResolvedName {
       resolvedNameString = s

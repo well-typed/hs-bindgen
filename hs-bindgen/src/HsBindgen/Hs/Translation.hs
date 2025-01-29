@@ -272,35 +272,44 @@ macroDecsTypedef m =
   Types
 -------------------------------------------------------------------------------}
 
-typ :: NameMangler -> C.Type -> Hs.HsType
-typ nm = go
-  where
-    go :: C.Type -> Hs.HsType
-    go (C.TypeTypedef c) =
-        Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext c)) -- wrong
-    go (C.TypeStruct declPath) =
-        Hs.HsTypRef (mangleTypeConstrName nm (StructTypeConstrContext declPath))
-    go (C.TypeEnum name) =
-        Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
-    go (C.TypePrim p) =
-        Hs.HsPrimType (goPrim p)
-    go (C.TypePointer t) = case t of
-        C.TypeFun {} -> Hs.HsFunPtr (go t)
-        _            -> Hs.HsPtr (go t)
-    go (C.TypeConstArray n ty) =
-        Hs.HsConstArray n (go ty)
-    go (C.TypeFun xs y) =
-        foldr (\x res -> Hs.HsFun (go x) res) (Hs.HsIO (go y)) xs
+data TypeContext =
+    CTop     -- ^ Anything else
+  | CFunArg  -- ^ Function argument
+  | CFunRes  -- ^ Function result
+  | CPtrArg  -- ^ Pointer argument
 
-    goPrim :: C.PrimType -> HsPrimType
-    goPrim C.PrimBool                     = HsPrimCBool
-    goPrim C.PrimVoid                     = HsPrimVoid
-    goPrim (C.PrimChar Nothing)           = HsPrimCChar
-    goPrim (C.PrimChar (Just C.Signed))   = HsPrimCSChar
-    goPrim (C.PrimChar (Just C.Unsigned)) = HsPrimCSChar
-    goPrim (C.PrimIntegral i s)           = integralType i s
-    goPrim (C.PrimFloating f)             = floatingType f
-    goPrim C.PrimPtrDiff                  = HsPrimCPtrDiff
+typ :: NameMangler -> C.Type -> Hs.HsType
+typ nm = go CTop
+  where
+    go :: TypeContext -> C.Type -> Hs.HsType
+    go _ (C.TypeTypedef c) =
+        Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext c)) -- wrong
+    go _ (C.TypeStruct declPath) =
+        Hs.HsTypRef (mangleTypeConstrName nm (StructTypeConstrContext declPath))
+    go _ (C.TypeEnum name) =
+        Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
+    go c (C.TypePrim p) =
+        Hs.HsPrimType (goPrim c p)
+    go _ (C.TypePointer t) = case t of
+        C.TypeFun {} -> Hs.HsFunPtr (go CPtrArg t)
+        _            -> Hs.HsPtr (go CPtrArg t)
+    go _ (C.TypeConstArray n ty) =
+        Hs.HsConstArray n (go CTop ty)
+    go _ (C.TypeFun xs y) =
+        foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
+
+    goPrim :: TypeContext -> C.PrimType -> HsPrimType
+    goPrim _ C.PrimBool                     = HsPrimCBool
+    goPrim c C.PrimVoid                     = goVoid c
+    goPrim _ (C.PrimChar Nothing)           = HsPrimCChar
+    goPrim _ (C.PrimChar (Just C.Signed))   = HsPrimCSChar
+    goPrim _ (C.PrimChar (Just C.Unsigned)) = HsPrimCSChar
+    goPrim _ (C.PrimIntegral i s)           = integralType i s
+    goPrim _ (C.PrimFloating f)             = floatingType f
+    goPrim _ C.PrimPtrDiff                  = HsPrimCPtrDiff
+
+    goVoid :: TypeContext -> HsPrimType
+    goVoid _ = HsPrimVoid
 
 integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
 integralType C.PrimInt      C.Signed   = HsPrimCInt
