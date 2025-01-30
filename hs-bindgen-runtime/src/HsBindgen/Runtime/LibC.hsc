@@ -53,12 +53,14 @@ import Data.Ix (Ix)
 import Data.Word (Word16, Word32)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
-import Foreign.Storable
+import Foreign.Storable (Storable)
 
 -- Architecture-dependent definitions are defined in the following /internal/
 -- module.  Cabal conditionals are used to select the source corresponding to
 -- the host architecture.
 import HsBindgen.Runtime.LibC.Arch ()
+
+import HsBindgen.Runtime.Marshal
 
 #include <inttypes.h>
 #include <locale.h>
@@ -244,18 +246,11 @@ data CDivT = CDivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Storable CDivT where
-  sizeOf    _ = #size      div_t
-  alignment _ = #alignment div_t
-
+instance Peekable CDivT where
   peek ptr = do
     cDivT_quot <- (#peek div_t, quot) ptr
     cDivT_rem  <- (#peek div_t, rem)  ptr
     return CDivT{..}
-
-  poke ptr CDivT{..} = do
-    (#poke div_t, quot) ptr cDivT_quot
-    (#poke div_t, rem)  ptr cDivT_rem
 
 -- | C @ldiv_t@ structure
 --
@@ -267,18 +262,11 @@ data CLdivT = CLdivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Storable CLdivT where
-  sizeOf    _ = #size      ldiv_t
-  alignment _ = #alignment ldiv_t
-
+instance Peekable CLdivT where
   peek ptr = do
     cLdivT_quot <- (#peek ldiv_t, quot) ptr
     cLdivT_rem  <- (#peek ldiv_t, rem)  ptr
     return CLdivT{..}
-
-  poke ptr CLdivT{..} = do
-    (#poke ldiv_t, quot) ptr cLdivT_quot
-    (#poke ldiv_t, rem)  ptr cLdivT_rem
 
 -- | C @lldiv_t@ structure
 --
@@ -290,18 +278,11 @@ data CLldivT = CLldivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Storable CLldivT where
-  sizeOf    _ = #size      lldiv_t
-  alignment _ = #alignment lldiv_t
-
+instance Peekable CLldivT where
   peek ptr = do
     cLldivT_quot <- (#peek lldiv_t, quot) ptr
     cLldivT_rem  <- (#peek lldiv_t, rem)  ptr
     return CLldivT{..}
-
-  poke ptr CLldivT{..} = do
-    (#poke lldiv_t, quot) ptr cLldivT_quot
-    (#poke lldiv_t, rem)  ptr cLldivT_rem
 
 -- | C @imaxdiv_t@ structure
 --
@@ -314,18 +295,11 @@ data CImaxdivT = CImaxdivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Storable CImaxdivT where
-  sizeOf    _ = #size      imaxdiv_t
-  alignment _ = #alignment imaxdiv_t
-
+instance Peekable CImaxdivT where
   peek ptr = do
     cImaxdivT_quot <- (#peek imaxdiv_t, quot) ptr
     cImaxdivT_rem  <- (#peek imaxdiv_t, rem)  ptr
     return CImaxdivT{..}
-
-  poke ptr CImaxdivT{..} = do
-    (#poke imaxdiv_t, quot) ptr cImaxdivT_quot
-    (#poke imaxdiv_t, rem)  ptr cImaxdivT_rem
 
 {-------------------------------------------------------------------------------
   Standard Definitions
@@ -377,10 +351,13 @@ newtype CWintT = CWintT C.CUInt
     , Enum
     , Eq
     , FiniteBits
+    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
+    , Peekable
+    , Pokable
     , Read
     , Real
     , Show
@@ -403,7 +380,7 @@ data CMbstateT
 -- locale-specific character transformations.  It is available since C95.  It is
 -- defined in the @wctype.h@ header file.
 newtype CWctransT = CWctransT (Ptr C.CInt)
-  deriving newtype (Eq, Show, Storable)
+  deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
 
 -- | C @wctype_t@ type
 --
@@ -411,7 +388,7 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
 -- locale-specific character classification categories.  It is available since
 -- C95.  It is defined in the @wctype.h@ and @wchar.h@ header files.
 newtype CWctypeT = CWctypeT C.CULong
-  deriving newtype (Eq, Show, Storable)
+  deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
 
 -- | C @char16_t@ type
 --
@@ -424,10 +401,13 @@ newtype CChar16T = CChar16T Word16
     , Enum
     , Eq
     , FiniteBits
+    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
+    , Peekable
+    , Pokable
     , Read
     , Real
     , Show
@@ -445,10 +425,13 @@ newtype CChar32T = CChar32T Word32
     , Enum
     , Eq
     , FiniteBits
+    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
+    , Peekable
+    , Pokable
     , Read
     , Real
     , Show
@@ -533,11 +516,13 @@ data CLconv = CLconv {
       cLconv_int_n_sign_posn    :: C.CChar
     }
   deriving Show
+  deriving Storable via EquivStorable CLconv
 
-instance Storable CLconv where
+instance HasStaticSize CLconv where
   sizeOf    _ = #size      struct lconv
   alignment _ = #alignment struct lconv
 
+instance Peekable CLconv where
   peek ptr = do
     cLconv_decimal_point      <- (#peek struct lconv, decimal_point)      ptr
     cLconv_thousands_sep      <- (#peek struct lconv, thousands_sep)      ptr
@@ -565,6 +550,7 @@ instance Storable CLconv where
     cLconv_int_n_sign_posn    <- (#peek struct lconv, int_n_sign_posn)    ptr
     return CLconv{..}
 
+instance Pokable CLconv where
   poke ptr CLconv{..} = do
     (#poke struct lconv, decimal_point)      ptr cLconv_decimal_point
     (#poke struct lconv, thousands_sep)      ptr cLconv_thousands_sep
@@ -626,11 +612,13 @@ data CTm = CTm {
     , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
     }
   deriving Show
+  deriving Storable via EquivStorable CTm
 
-instance Storable CTm where
+instance HasStaticSize CTm where
   sizeOf    _ = #size      struct tm
   alignment _ = #alignment struct tm
 
+instance Peekable CTm where
   peek ptr = do
     cTm_sec   <- (#peek struct tm, tm_sec)   ptr
     cTm_min   <- (#peek struct tm, tm_min)   ptr
@@ -643,6 +631,7 @@ instance Storable CTm where
     cTm_isdst <- (#peek struct tm, tm_isdst) ptr
     return CTm{..}
 
+instance Pokable CTm where
   poke ptr CTm{..} = do
     (#poke struct tm, tm_sec)   ptr cTm_sec
     (#poke struct tm, tm_min)   ptr cTm_min

@@ -24,9 +24,10 @@ common lang
       GHC2021
   default-extensions:
       DataKinds
+      DefaultSignatures
       DeriveAnyClass
       DerivingStrategies
-      DefaultSignatures
+      DerivingVia
       FunctionalDependencies
       RecordWildCards
       RoleAnnotations
@@ -44,6 +45,7 @@ library
       HsBindgen.Runtime.Enum.Simple
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
+      HsBindgen.Runtime.Marshal
       HsBindgen.Runtime.Syntax
       HsBindgen.Runtime.Bitfield
   other-modules:
