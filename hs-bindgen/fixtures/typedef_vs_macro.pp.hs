@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), Show, pure)
 
 newtype M1 = M1
   { unM1 :: FC.CInt
@@ -59,3 +59,5 @@ instance F.Storable ExampleStruct where
             >> F.pokeByteOff ptr0 4 exampleStruct_t23
             >> F.pokeByteOff ptr0 8 exampleStruct_m14
             >> F.pokeByteOff ptr0 12 exampleStruct_m25
+
+deriving stock instance Show ExampleStruct

@@ -168,6 +168,7 @@ data Strategy =
 -- | Class instance names (for instances that /ghc/ generates)
 data TypeClass =
     Storable
+  | Show
   deriving stock (Generic, Show)
 
 -- | Class instance declaration (with code that /we/ generate)

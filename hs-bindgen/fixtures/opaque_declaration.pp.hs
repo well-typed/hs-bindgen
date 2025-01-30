@@ -1,9 +1,12 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
 import qualified Foreign as F
-import Prelude ((<*>), (>>), pure, return)
+import Prelude ((<*>), (>>), Show, pure, return)
 
 data Foo
 
@@ -32,6 +35,8 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 0 bar_ptrA2
             >> F.pokeByteOff ptr0 8 bar_ptrB3
 
+deriving stock instance Show Bar
+
 data Baz = Baz
   {}
 
@@ -48,5 +53,7 @@ instance F.Storable Baz where
       \s1 ->
         case s1 of
           Baz -> return ()
+
+deriving stock instance Show Baz
 
 data Quu

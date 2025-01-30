@@ -2933,4 +2933,10 @@
                   PokeByteOff
                     (Idx 30)
                     160
-                    (Idx 28)])))})]
+                    (Idx 28)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Primitive")]

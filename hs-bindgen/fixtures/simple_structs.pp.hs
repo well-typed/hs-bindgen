@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), Show, pure)
 
 data S1 = S1
   { s1_a :: FC.CInt
@@ -33,6 +33,8 @@ instance F.Storable S1 where
           S1 s1_a2 s1_b3 ->
                F.pokeByteOff ptr0 0 s1_a2
             >> F.pokeByteOff ptr0 4 s1_b3
+
+deriving stock instance Show S1
 
 data S2 = S2
   { s2_a :: FC.CChar
@@ -62,6 +64,8 @@ instance F.Storable S2 where
             >> F.pokeByteOff ptr0 4 s2_b3
             >> F.pokeByteOff ptr0 8 s2_c4
 
+deriving stock instance Show S2
+
 newtype S2_t = S2_t
   { unS2_t :: S2
   }
@@ -88,6 +92,8 @@ instance F.Storable S3_t where
       \s1 ->
         case s1 of
           S3_t s3_t_a2 -> F.pokeByteOff ptr0 0 s3_t_a2
+
+deriving stock instance Show S3_t
 
 data S4 = S4
   { s4_b :: FC.CChar
@@ -117,6 +123,8 @@ instance F.Storable S4 where
             >> F.pokeByteOff ptr0 4 s4_a3
             >> F.pokeByteOff ptr0 8 s4_c4
 
+deriving stock instance Show S4
+
 data S5 = S5
   { s5_a :: FC.CChar
   , s5_b :: FC.CInt
@@ -142,6 +150,8 @@ instance F.Storable S5 where
                F.pokeByteOff ptr0 0 s5_a2
             >> F.pokeByteOff ptr0 4 s5_b3
 
+deriving stock instance Show S5
+
 data S6 = S6
   { s6_a :: FC.CChar
   , s6_b :: FC.CInt
@@ -166,3 +176,5 @@ instance F.Storable S6 where
           S6 s6_a2 s6_b3 ->
                F.pokeByteOff ptr0 0 s6_a2
             >> F.pokeByteOff ptr0 4 s6_b3
+
+deriving stock instance Show S6

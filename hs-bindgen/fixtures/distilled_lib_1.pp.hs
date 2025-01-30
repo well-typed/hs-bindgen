@@ -11,7 +11,7 @@ import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.ConstantArray
-import Prelude ((<*>), (>>), IO, pure)
+import Prelude ((<*>), (>>), IO, Show, pure)
 
 a :: FC.CInt
 a = 5
@@ -60,6 +60,8 @@ instance F.Storable Another_typedef_struct_t where
           Another_typedef_struct_t another_typedef_struct_t_foo2 another_typedef_struct_t_bar3 ->
                F.pokeByteOff ptr0 0 another_typedef_struct_t_foo2
             >> F.pokeByteOff ptr0 4 another_typedef_struct_t_bar3
+
+deriving stock instance Show Another_typedef_struct_t
 
 newtype Another_typedef_enum_e = Another_typedef_enum_e
   { unAnother_typedef_enum_e :: FC.CUInt
@@ -181,6 +183,8 @@ instance F.Storable A_typedef_struct where
               >> F.pokeByteOff ptr0 60 a_typedef_struct_field_810
               >> F.pokeByteOff ptr0 64 a_typedef_struct_field_911
               >> F.pokeByteOff ptr0 80 a_typedef_struct_field_1012
+
+deriving stock instance Show A_typedef_struct
 
 newtype A_typedef_struct_t = A_typedef_struct_t
   { unA_typedef_struct_t :: A_typedef_struct

@@ -40,11 +40,15 @@ import DeBruijn
   Configuration
 -------------------------------------------------------------------------------}
 
-data TranslationOpts = TranslationOpts
+data TranslationOpts = TranslationOpts {
+      translationDeriveShow :: Bool
+    }
   deriving stock (Show)
 
 defaultTranslationOpts :: TranslationOpts
-defaultTranslationOpts = TranslationOpts
+defaultTranslationOpts = TranslationOpts {
+      translationDeriveShow = True
+    }
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -90,11 +94,14 @@ structDecs :: forall n.
      SNatI n
   => TranslationOpts
   -> C.Struct -> Vec n C.StructField -> [Hs.Decl]
-structDecs _opts struct fields =
-    [ Hs.DeclData hs
-    , Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable
+structDecs opts struct fields = concat
+    [ [ Hs.DeclData hs ]
+    , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable]
+    , [ Hs.DeclDeriveInstance Hs.DeriveStock Hs.Show (Hs.structName hs)
+      | translationDeriveShow opts
+      ]
+    , flamInstance
     ]
-    ++ flamInstance
   where
     nm@NameMangler{..} = defaultNameMangler
 

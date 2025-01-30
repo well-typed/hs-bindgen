@@ -139,6 +139,7 @@ resolveGlobal = \case
     Applicative_seq      -> importU iPrelude "<*>"
     Monad_return         -> importU iPrelude "return"
     Monad_seq            -> importU iPrelude ">>"
+    Show_Show            -> importU iPrelude "Show"
     Storable_Storable    -> importQ iForeign "Storable"
     Storable_sizeOf      -> importQ iForeign "sizeOf"
     Storable_alignment   -> importQ iForeign "alignment"

@@ -5,6 +5,7 @@ instance Storable S1
            peek = \ptr_0 -> pure S1 <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S1 s1_a_3 -> pokeByteOff ptr_1 0 s1_a_3}}
+deriving stock instance Show S1
 newtype S1_t = S1_t {unS1_t :: S1}
 deriving newtype instance Storable S1_t
 data S2 = S2 {s2_a :: CInt}
@@ -14,3 +15,4 @@ instance Storable S2
            peek = \ptr_0 -> pure S2 <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S2 s2_a_3 -> pokeByteOff ptr_1 0 s2_a_3}}
+deriving stock instance Show S2

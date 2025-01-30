@@ -37,6 +37,7 @@ data Global =
   | Applicative_seq
   | Monad_return
   | Monad_seq
+  | Show_Show
   | Storable_Storable
   | Storable_sizeOf
   | Storable_alignment

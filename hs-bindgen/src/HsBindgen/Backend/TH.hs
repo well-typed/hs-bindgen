@@ -43,6 +43,7 @@ mkGlobal =  \case
       Applicative_seq      -> '(<*>)
       Monad_return         -> 'return
       Monad_seq            -> '(>>)
+      Show_Show            -> ''Show
       Storable_Storable    -> ''Foreign.Storable.Storable
       Storable_sizeOf      -> 'Foreign.Storable.sizeOf
       Storable_alignment   -> 'Foreign.Storable.alignment

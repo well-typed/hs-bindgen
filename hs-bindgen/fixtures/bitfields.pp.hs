@@ -1,10 +1,13 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), pure, return)
+import Prelude ((<*>), (>>), Show, pure, return)
 
 data Flags = Flags
   { flags_fieldX :: FC.CChar
@@ -31,6 +34,8 @@ instance F.Storable Flags where
                F.pokeByteOff ptr0 0 flags_fieldX2
             >> F.pokeByteOff ptr0 2 flags_fieldY3
 
+deriving stock instance Show Flags
+
 data Overflow32 = Overflow32
   {}
 
@@ -47,6 +52,8 @@ instance F.Storable Overflow32 where
       \s1 ->
         case s1 of
           Overflow32 -> return ()
+
+deriving stock instance Show Overflow32
 
 data Overflow32b = Overflow32b
   {}
@@ -65,6 +72,8 @@ instance F.Storable Overflow32b where
         case s1 of
           Overflow32b -> return ()
 
+deriving stock instance Show Overflow32b
+
 data Overflow32c = Overflow32c
   {}
 
@@ -81,6 +90,8 @@ instance F.Storable Overflow32c where
       \s1 ->
         case s1 of
           Overflow32c -> return ()
+
+deriving stock instance Show Overflow32c
 
 data Overflow64 = Overflow64
   {}
@@ -99,6 +110,8 @@ instance F.Storable Overflow64 where
         case s1 of
           Overflow64 -> return ()
 
+deriving stock instance Show Overflow64
+
 data AlignA = AlignA
   {}
 
@@ -116,6 +129,8 @@ instance F.Storable AlignA where
         case s1 of
           AlignA -> return ()
 
+deriving stock instance Show AlignA
+
 data AlignB = AlignB
   {}
 
@@ -132,3 +147,5 @@ instance F.Storable AlignB where
       \s1 ->
         case s1 of
           AlignB -> return ()
+
+deriving stock instance Show AlignB

@@ -1,10 +1,13 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), Show, pure)
 
 data Primitive = Primitive
   { primitive_c :: FC.CChar
@@ -140,3 +143,5 @@ instance F.Storable Primitive where
               >> F.pokeByteOff ptr0 136 primitive_f28
               >> F.pokeByteOff ptr0 144 primitive_d29
               >> F.pokeByteOff ptr0 160 primitive_ld30
+
+deriving stock instance Show Primitive

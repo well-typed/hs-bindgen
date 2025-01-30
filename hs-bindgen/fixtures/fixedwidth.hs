@@ -25,6 +25,7 @@
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:136:25"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -53,6 +54,7 @@
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:131:25"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -359,4 +361,8 @@
                   PokeByteOff
                     (Idx 3)
                     8
-                    (Idx 1)])))})]
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Foo")]

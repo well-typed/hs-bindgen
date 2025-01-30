@@ -302,6 +302,10 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S1_c"),
   DeclData
     Struct {
       structName = HsName
@@ -637,6 +641,10 @@
                     (Idx 3)
                     8
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S1"),
   DeclData
     Struct {
       structName = HsName
@@ -865,6 +873,12 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "S2_inner_deep"),
   DeclData
     Struct {
       structName = HsName
@@ -1256,6 +1270,12 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "S2_inner"),
   DeclData
     Struct {
       structName = HsName
@@ -1598,4 +1618,8 @@
                   PokeByteOff
                     (Idx 3)
                     8
-                    (Idx 1)])))})]
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S2")]

@@ -430,6 +430,12 @@
                     (Idx 3)
                     2
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Flags"),
   DeclData
     Struct {
       structName = HsName
@@ -645,6 +651,12 @@
                         17]}}
               (Add 0)
               (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Overflow32"),
   DeclData
     Struct {
       structName = HsName
@@ -860,6 +872,12 @@
                         17]}}
               (Add 0)
               (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Overflow32b"),
   DeclData
     Struct {
       structName = HsName
@@ -1075,6 +1093,12 @@
                         17]}}
               (Add 0)
               (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Overflow32c"),
   DeclData
     Struct {
       structName = HsName
@@ -1254,6 +1278,12 @@
                         33]}}
               (Add 0)
               (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Overflow64"),
   DeclData
     Struct {
       structName = HsName
@@ -1429,6 +1459,12 @@
                         10]}}
               (Add 0)
               (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "AlignA"),
   DeclData
     Struct {
       structName = HsName
@@ -1603,4 +1639,10 @@
                           "examples/bitfields.h:43:6"}
                         31]}}
               (Add 0)
-              (Seq [])))})]
+              (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "AlignB")]
