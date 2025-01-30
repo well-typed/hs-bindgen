@@ -74,16 +74,6 @@ reifyStructFields ::
 reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
---
--- This is just a first sketch so far.
---
--- TODO:
---
--- * We currently generate only the 'Storable' instance. We should also
---   generate the @data@ declaration.
--- * Name mangling
--- * Deal with untagged structs.
--- * ..
 structDecs :: forall n.
      SNatI n
   => C.Struct -> Vec n C.StructField -> [Hs.Decl]
