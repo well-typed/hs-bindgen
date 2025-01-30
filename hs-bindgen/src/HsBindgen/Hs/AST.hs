@@ -172,6 +172,7 @@ deriving instance Show Decl
 -- | Deriving strategy
 data Strategy =
     DeriveNewtype
+  | DeriveStock
   deriving stock (Generic, Show)
 
 -- | Class instance names (for instances that /ghc/ generates)

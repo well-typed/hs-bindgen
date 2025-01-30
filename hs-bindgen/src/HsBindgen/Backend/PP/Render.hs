@@ -150,6 +150,7 @@ instance Pretty SDecl where
 
 strategy :: Hs.Strategy -> CtxDoc
 strategy Hs.DeriveNewtype = "newtype"
+strategy Hs.DeriveStock   = "stock"
 
 {-------------------------------------------------------------------------------
   Type pretty-printing

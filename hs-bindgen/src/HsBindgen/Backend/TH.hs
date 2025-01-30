@@ -299,6 +299,7 @@ mkDecl = \case
 
 strategy :: Hs.Strategy -> TH.DerivStrategy
 strategy Hs.DeriveNewtype = TH.NewtypeStrategy
+strategy Hs.DeriveStock   = TH.StockStrategy
 
 {-------------------------------------------------------------------------------
   Monad functionality
