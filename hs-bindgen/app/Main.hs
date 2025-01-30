@@ -33,7 +33,7 @@ execMode ::
 execMode relPath cmdline tracer = \case
     ModePreprocess{..} -> do
       cHeader <- parseC relPath cmdline tracer preprocessInput
-      let hsModl = genModule preprocessModuleOpts cHeader
+      let hsModl = genModule preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
       cHeader <- parseC relPath cmdline tracer genTestsInput

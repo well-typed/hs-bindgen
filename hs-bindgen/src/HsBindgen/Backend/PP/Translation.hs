@@ -78,12 +78,12 @@ newtype HsModuleOpts = HsModuleOpts {
     }
   deriving stock (Show)
 
-translate :: HsModuleOpts -> C.Header -> HsModule
-translate HsModuleOpts{..} header =
+translate :: TranslationOpts -> HsModuleOpts -> C.Header -> HsModule
+translate topts HsModuleOpts{..} header =
     let hsModulePragmas = resolvePragmas hsModuleDecls
         hsModuleImports = resolveImports hsModuleDecls
         hsModuleName    = hsModuleOptsName
-        hsModuleDecls   = map SHs.translateDecl (generateDeclarations header)
+        hsModuleDecls   = map SHs.translateDecl (generateDeclarations topts header)
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------

@@ -37,6 +37,8 @@ module HsBindgen.Lib (
   , bootstrapPrelude
 
     -- * Translation
+  , LowLevel.TranslationOpts(..)
+  , LowLevel.defaultTranslationOpts
   , HsModuleOpts(..)
   , HsModule(..) -- opaque, TODO: but needed to be unwrapped by rendering functions
   , genModule
@@ -74,7 +76,6 @@ module HsBindgen.Lib (
 import Language.Haskell.TH qualified as TH
 import Text.Show.Pretty qualified as Pretty
 
-import HsBindgen.Imports
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
@@ -92,6 +93,7 @@ import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -179,14 +181,21 @@ getTargetTriple = C.getTranslationUnitTargetTriple
   Translation
 -------------------------------------------------------------------------------}
 
-genModule :: HsModuleOpts -> CHeader -> HsModule
-genModule opts = WrapHsModule . Backend.PP.translate opts . unwrapCHeader
+genModule ::
+     LowLevel.TranslationOpts
+  -> HsModuleOpts
+  -> CHeader
+  -> HsModule
+genModule topts opts =
+      WrapHsModule
+    . Backend.PP.translate topts opts
+    . unwrapCHeader
 
 genTH :: TH.Quote q => CHeader -> q [TH.Dec]
 genTH = Backend.TH.translateC . unwrapCHeader
 
-genHsDecls :: CHeader -> [Hs.Decl]
-genHsDecls = LowLevel.generateDeclarations . unwrapCHeader
+genHsDecls :: LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
+genHsDecls topts = LowLevel.generateDeclarations topts . unwrapCHeader
 
 {-------------------------------------------------------------------------------
   Processing output
@@ -242,10 +251,16 @@ preprocessor ::
   -> FilePath
   -> IO String
 preprocessor relPath fp = do
-    cheader <- withTranslationUnit relPath nullTracer defaultClangArgs fp $
-      parseCHeader relPath nullTracer SelectFromMainFile
-    return $ Backend.PP.render renderOpts $ unwrapHsModule $ genModule moduleOpts cheader
+    cheader <-
+      withTranslationUnit relPath nullTracer defaultClangArgs fp $
+        parseCHeader relPath nullTracer SelectFromMainFile
+    return $
+      Backend.PP.render renderOpts $
+        unwrapHsModule $ genModule topts moduleOpts cheader
   where
+    topts :: LowLevel.TranslationOpts
+    topts = LowLevel.defaultTranslationOpts
+
     moduleOpts :: HsModuleOpts
     moduleOpts = HsModuleOpts
       { hsModuleOptsName = "Example"

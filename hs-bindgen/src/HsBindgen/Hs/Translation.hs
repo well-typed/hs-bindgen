@@ -11,12 +11,14 @@
 -- * Milestone 2: Low-level API
 --   <https://github.com/well-typed/hs-bindgen/milestone/3>
 module HsBindgen.Hs.Translation (
-    generateDeclarations,
+    TranslationOpts(..)
+  , defaultTranslationOpts
+  , generateDeclarations
     -- * leaky exports:
     --   perfectly, translation will happen in *this* module.
-    integralType,
-    floatingType,
-) where
+  , integralType
+  , floatingType
+  ) where
 
 import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
@@ -35,10 +37,20 @@ import DeBruijn
   (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx)
 
 {-------------------------------------------------------------------------------
+  Configuration
+-------------------------------------------------------------------------------}
+
+data TranslationOpts = TranslationOpts
+  deriving stock (Show)
+
+defaultTranslationOpts :: TranslationOpts
+defaultTranslationOpts = TranslationOpts
+
+{-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-generateDeclarations :: C.Header -> [Hs.Decl]
+generateDeclarations :: TranslationOpts -> C.Header -> [Hs.Decl]
 generateDeclarations = toHs
 
 {-------------------------------------------------------------------------------
@@ -47,21 +59,21 @@ generateDeclarations = toHs
 
 class ToHs (a :: Star) where
   type InHs a :: Star
-  toHs :: a -> InHs a
+  toHs :: TranslationOpts -> a -> InHs a
 
 instance ToHs C.Header where
   type InHs C.Header = [Hs.Decl]
-  toHs (C.Header decs) = concatMap toHs decs
+  toHs opts (C.Header decs) = concatMap (toHs opts) decs
 
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
-  toHs (C.DeclStruct struct)  = reifyStructFields struct $ structDecs struct
-  toHs (C.DeclOpaqueStruct o) = opaqueStructDecs $ C.opaqueStructTag o
-  toHs (C.DeclEnum e)         = enumDecs e
-  toHs (C.DeclOpaqueEnum o)   = opaqueStructDecs $ C.opaqueEnumTag o -- TODO?
-  toHs (C.DeclTypedef d)      = typedefDecs d
-  toHs (C.DeclMacro m)        = macroDecs m
-  toHs (C.DeclFunction f)     = functionDecs f
+  toHs opts (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts struct
+  toHs opts (C.DeclOpaqueStruct o) = opaqueStructDecs opts $ C.opaqueStructTag o
+  toHs opts (C.DeclEnum e)         = enumDecs opts e
+  toHs opts (C.DeclOpaqueEnum o)   = opaqueStructDecs opts $ C.opaqueEnumTag o -- TODO?
+  toHs opts (C.DeclTypedef d)      = typedefDecs opts d
+  toHs opts (C.DeclMacro m)        = macroDecs opts m
+  toHs opts (C.DeclFunction f)     = functionDecs opts f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -76,8 +88,9 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 -- | Generate declarations for given C struct
 structDecs :: forall n.
      SNatI n
-  => C.Struct -> Vec n C.StructField -> [Hs.Decl]
-structDecs struct fields =
+  => TranslationOpts
+  -> C.Struct -> Vec n C.StructField -> [Hs.Decl]
+structDecs _opts struct fields =
     [ Hs.DeclData hs
     , Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable
     ]
@@ -127,8 +140,8 @@ structDecs struct fields =
   Opaque struct
 -------------------------------------------------------------------------------}
 
-opaqueStructDecs :: C.CName -> [Hs.Decl]
-opaqueStructDecs cname =
+opaqueStructDecs :: TranslationOpts -> C.CName -> [Hs.Decl]
+opaqueStructDecs _opts cname =
     [ Hs.DeclEmpty hsName
     ]
   where
@@ -140,8 +153,8 @@ opaqueStructDecs cname =
   Enum
 -------------------------------------------------------------------------------}
 
-enumDecs :: C.Enu -> [Hs.Decl]
-enumDecs e = [
+enumDecs :: TranslationOpts -> C.Enu -> [Hs.Decl]
+enumDecs _opts e = [
       Hs.DeclNewtype Hs.Newtype{..}
     , Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable
     ] ++ valueDecls
@@ -198,8 +211,8 @@ enumDecs e = [
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs :: C.Typedef -> [Hs.Decl]
-typedefDecs d = [
+typedefDecs :: TranslationOpts -> C.Typedef -> [Hs.Decl]
+typedefDecs _opts d = [
       Hs.DeclNewtype Hs.Newtype{..}
     , Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
     ]
@@ -220,8 +233,8 @@ typedefDecs d = [
   Macros
 -------------------------------------------------------------------------------}
 
-macroDecs :: C.MacroDecl -> [Hs.Decl]
-macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
+macroDecs :: TranslationOpts -> C.MacroDecl -> [Hs.Decl]
+macroDecs _opts C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | Macro.Quant bf <- ty
     , Macro.isPrimTy bf
     = macroDecsTypedef m
@@ -230,8 +243,8 @@ macroDecs C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     = macroVarDecs m ty
     where
 
-macroDecs C.MacroReparseError {} = []
-macroDecs C.MacroTcError {}      = []
+macroDecs _ C.MacroReparseError {} = []
+macroDecs _ C.MacroTcError {}      = []
 
 macroDecsTypedef :: C.Macro -> [Hs.Decl]
 macroDecsTypedef m =
@@ -338,8 +351,8 @@ floatingType = \case
   Function
 -------------------------------------------------------------------------------}
 
-functionDecs :: C.Function -> [Hs.Decl]
-functionDecs f =
+functionDecs :: TranslationOpts -> C.Function -> [Hs.Decl]
+functionDecs _opts f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangleVarName nm $ VarContext $ C.functionName f
         , foreignImportType       = typ nm $ C.functionType f

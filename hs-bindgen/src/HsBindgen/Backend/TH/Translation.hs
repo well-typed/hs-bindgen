@@ -14,4 +14,11 @@ import HsBindgen.Hs.Translation
 -------------------------------------------------------------------------------}
 
 translateC :: TH.Quote q => C.Header -> q [TH.Dec]
-translateC = fmap concat . traverse mkDecl . map SHs.translateDecl . generateDeclarations
+translateC =
+      fmap concat
+    . traverse mkDecl
+    . map SHs.translateDecl
+    . generateDeclarations topts
+  where
+    topts :: TranslationOpts
+    topts = defaultTranslationOpts
