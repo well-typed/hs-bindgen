@@ -27,9 +27,10 @@
           macroArgs = [],
           macroBody = MTerm
             (MType
-              (PrimIntegral
-                PrimInt
-                Signed))}},
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -57,7 +58,9 @@
           macroName = CName "M2",
           macroArgs = [],
           macroBody = MTerm
-            (MType (PrimChar Nothing))}},
+            (MType
+              (TypePrim
+                (PrimChar Nothing)))}},
   DeclNewtype
     Newtype {
       newtypeName = HsName

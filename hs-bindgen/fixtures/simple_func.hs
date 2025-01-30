@@ -77,7 +77,7 @@
           functionName = CName "no_args",
           functionType = TypeFun
             []
-            (TypePrim PrimVoid),
+            TypeVoid,
           functionHeader =
           "simple_func.h",
           functionSourceLoc =

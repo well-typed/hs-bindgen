@@ -14,7 +14,10 @@ WrapCHeader
             macroArgs = [],
             macroBody = MTerm
               (MType
-                (PrimIntegral PrimInt Signed))},
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))},
           macroDeclMacroTy = "PrimTy",
           macroDeclSourceLoc =
           "examples/typedef_vs_macro.h:4:9"},
@@ -30,7 +33,8 @@ WrapCHeader
             macroName = CName "M2",
             macroArgs = [],
             macroBody = MTerm
-              (MType (PrimChar Nothing))},
+              (MType
+                (TypePrim (PrimChar Nothing)))},
           macroDeclMacroTy = "PrimTy",
           macroDeclSourceLoc =
           "examples/typedef_vs_macro.h:5:9"},

@@ -13,7 +13,7 @@ WrapCHeader
             macroName = CName "BOOL",
             macroArgs = [],
             macroBody = MTerm
-              (MType PrimBool)},
+              (MType (TypePrim PrimBool))},
           macroDeclMacroTy = "PrimTy",
           macroDeclSourceLoc =
           "examples/bool.h:13:9"},

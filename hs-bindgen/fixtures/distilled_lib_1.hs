@@ -988,7 +988,7 @@
               fieldName = CName "field_6",
               fieldOffset = 192,
               fieldType = TypePointer
-                (TypePrim PrimVoid),
+                TypeVoid,
               fieldSourceLoc =
               "examples/distilled_lib_1.h:42:31"}},
         Field {
@@ -1130,7 +1130,7 @@
               fieldName = CName "field_6",
               fieldOffset = 192,
               fieldType = TypePointer
-                (TypePrim PrimVoid),
+                TypeVoid,
               fieldSourceLoc =
               "examples/distilled_lib_1.h:42:31"},
             StructField {
@@ -1301,7 +1301,7 @@
                 fieldName = CName "field_6",
                 fieldOffset = 192,
                 fieldType = TypePointer
-                  (TypePrim PrimVoid),
+                  TypeVoid,
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:42:31"}},
           Field {
@@ -1443,7 +1443,7 @@
                 fieldName = CName "field_6",
                 fieldOffset = 192,
                 fieldType = TypePointer
-                  (TypePrim PrimVoid),
+                  TypeVoid,
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:42:31"},
               StructField {
@@ -1619,7 +1619,7 @@
                         fieldName = CName "field_6",
                         fieldOffset = 192,
                         fieldType = TypePointer
-                          (TypePrim PrimVoid),
+                          TypeVoid,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:42:31"}},
                   Field {
@@ -1761,7 +1761,7 @@
                         fieldName = CName "field_6",
                         fieldOffset = 192,
                         fieldType = TypePointer
-                          (TypePrim PrimVoid),
+                          TypeVoid,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:42:31"},
                       StructField {
@@ -1948,7 +1948,7 @@
                         fieldName = CName "field_6",
                         fieldOffset = 192,
                         fieldType = TypePointer
-                          (TypePrim PrimVoid),
+                          TypeVoid,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:42:31"}},
                   Field {
@@ -2090,7 +2090,7 @@
                         fieldName = CName "field_6",
                         fieldOffset = 192,
                         fieldType = TypePointer
-                          (TypePrim PrimVoid),
+                          TypeVoid,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:42:31"},
                       StructField {
@@ -2527,7 +2527,7 @@
           typedefType = TypePointer
             (TypeFun
               [
-                TypePointer (TypePrim PrimVoid),
+                TypePointer TypeVoid,
                 TypeTypedef (CName "uint32_t")]
               (TypeTypedef
                 (CName "uint32_t"))),
