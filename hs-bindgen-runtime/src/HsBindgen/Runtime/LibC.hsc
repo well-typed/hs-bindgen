@@ -55,11 +55,6 @@ import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
 import Foreign.Storable (Storable)
 
--- Architecture-dependent definitions are defined in the following /internal/
--- module.  Cabal conditionals are used to select the source corresponding to
--- the host architecture.
-import HsBindgen.Runtime.LibC.Arch ()
-
 import HsBindgen.Runtime.Marshal
 
 #include <inttypes.h>

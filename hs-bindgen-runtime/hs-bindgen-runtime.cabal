@@ -48,17 +48,8 @@ library
       HsBindgen.Runtime.Marshal
       HsBindgen.Runtime.Syntax
       HsBindgen.Runtime.Bitfield
-  other-modules:
-      HsBindgen.Runtime.LibC.Arch
   hs-source-dirs:
       src
-  if arch(x86_64)
-    hs-source-dirs: src-x86_64
-  else
-    if arch(aarch64)
-      hs-source-dirs: src-aarch64
-    else
-      buildable: False
   build-depends:
     , pretty-show >= 1.10 && < 1.11
     , vector ^>=0.13.2.0
