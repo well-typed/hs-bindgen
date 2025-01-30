@@ -43,8 +43,9 @@ module HsBindgen.Hs.AST (
   , AClass(..)
   , VarDeclRHS(..)
   , VarDeclRHSAppHead(..)
-    -- ** Newtype instances
-  , TypeClass (..)
+    -- ** Deriving instances
+  , Strategy(..)
+  , TypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , ForeignImportDeclOrigin(..)
@@ -162,11 +163,16 @@ data Decl where
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
     DeclDefineInstance  :: InstanceDecl -> Decl
-    DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
+    DeclDeriveInstance  :: Strategy -> TypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
 
 deriving instance Show Decl
+
+-- | Deriving strategy
+data Strategy =
+    DeriveNewtype
+  deriving stock (Generic, Show)
 
 -- | Class instance names (for instances that /ghc/ generates)
 data TypeClass =

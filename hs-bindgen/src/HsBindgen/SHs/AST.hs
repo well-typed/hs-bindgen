@@ -149,7 +149,7 @@ data SDecl =
   | DRecord Record
   | DNewtype Newtype
   | DEmptyData (HsName NsTypeConstr)
-  | DDerivingNewtypeInstance ClosedType
+  | DDerivingInstance Hs.Strategy ClosedType
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
   deriving stock (Show)

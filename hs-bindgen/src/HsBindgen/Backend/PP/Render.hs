@@ -12,14 +12,15 @@ import Data.Text qualified as Text
 import GHC.Float (castFloatToWord32, castDoubleToWord64)
 import System.IO
 
-import HsBindgen.Imports
-import HsBindgen.NameHint
-import HsBindgen.SHs.AST
 import HsBindgen.Backend.PP
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
+import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type (HsPrimType(..))
+import HsBindgen.Imports
+import HsBindgen.NameHint
+import HsBindgen.SHs.AST
 import Text.SimplePrettyPrint
 
 import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
@@ -140,12 +141,15 @@ instance Pretty SDecl where
       let importStr = foreignImportHeader ++ " " ++ Text.unpack foreignImportOrigName
       in "foreign import capi safe" <+> fromString (show importStr) <+> pretty foreignImportName <+> "::" <+> pretty foreignImportType
 
-    DDerivingNewtypeInstance t -> "deriving newtype instance" <+> pretty t
+    DDerivingInstance s t -> "deriving" <+> strategy s <+> "instance" <+> pretty t
 
     DPatternSynonym PatternSynonym {..} -> vcat
       [ "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
       , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
       ]
+
+strategy :: Hs.Strategy -> CtxDoc
+strategy Hs.DeriveNewtype = "newtype"
 
 {-------------------------------------------------------------------------------
   Type pretty-printing

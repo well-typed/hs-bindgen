@@ -30,7 +30,7 @@ translateDecl (Hs.DeclData d) = translateDeclData d
 translateDecl (Hs.DeclEmpty n) = translateDeclEmpty n
 translateDecl (Hs.DeclNewtype n) = translateNewtype n
 translateDecl (Hs.DeclDefineInstance i) = translateDefineInstanceDecl i
-translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
+translateDecl (Hs.DeclDeriveInstance s tc c) = translateDeriveInstance s tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
@@ -75,8 +75,8 @@ translateNewtype n = DNewtype $ Newtype
     , newtypeOrigin = Hs.newtypeOrigin n
     }
 
-translateNewtypeInstance :: Hs.TypeClass -> HsName NsTypeConstr -> SDecl
-translateNewtypeInstance tc n = DDerivingNewtypeInstance $ TApp (translateTypeClass tc) (TCon n)
+translateDeriveInstance :: Hs.Strategy -> Hs.TypeClass -> HsName NsTypeConstr -> SDecl
+translateDeriveInstance s tc n = DDerivingInstance s $ TApp (translateTypeClass tc) (TCon n)
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass Hs.Storable = TGlobal Storable_Storable

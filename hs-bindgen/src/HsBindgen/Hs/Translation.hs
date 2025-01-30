@@ -211,7 +211,7 @@ enumDecs e = [
 typedefDecs :: C.Typedef -> [Hs.Decl]
 typedefDecs d = [
       Hs.DeclNewtype Hs.Newtype{..}
-    , Hs.DeclNewtypeInstance Hs.Storable newtypeName
+    , Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
     ]
   where
     cName              = C.typedefName d
