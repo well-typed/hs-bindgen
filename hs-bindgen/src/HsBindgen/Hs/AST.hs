@@ -161,19 +161,19 @@ data Decl where
     DeclEmpty           :: HsName NsTypeConstr -> Decl
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
-    DeclInstance        :: InstanceDecl -> Decl
+    DeclDefineInstance  :: InstanceDecl -> Decl
     DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
 
 deriving instance Show Decl
 
--- | Class instance names
+-- | Class instance names (for instances that /ghc/ generates)
 data TypeClass =
     Storable
   deriving stock (Generic, Show)
 
--- | Class instance declaration
+-- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl

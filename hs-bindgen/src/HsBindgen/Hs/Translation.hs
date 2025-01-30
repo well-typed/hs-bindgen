@@ -89,7 +89,7 @@ structDecs :: forall n.
   => C.Struct -> Vec n C.StructField -> [Hs.Decl]
 structDecs struct fields =
     [ Hs.DeclData hs
-    , Hs.DeclInstance $ Hs.InstanceStorable hs storable
+    , Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable
     ]
     ++ flamInstance
   where
@@ -128,7 +128,7 @@ structDecs struct fields =
     flamInstance :: [Hs.Decl]
     flamInstance = case C.structFlam struct of
       Nothing  -> []
-      Just flam -> singleton $ Hs.DeclInstance $ Hs.InstanceHasFLAM
+      Just flam -> singleton $ Hs.DeclDefineInstance $ Hs.InstanceHasFLAM
         hs
         (typ nm (C.fieldType flam))
         (C.fieldOffset flam `div` 8)
@@ -153,7 +153,7 @@ opaqueStructDecs cname =
 enumDecs :: C.Enu -> [Hs.Decl]
 enumDecs e = [
       Hs.DeclNewtype Hs.Newtype{..}
-    , Hs.DeclInstance $ Hs.InstanceStorable hs storable
+    , Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable
     ] ++ valueDecls
   where
     cEnumName          = C.enumTag e

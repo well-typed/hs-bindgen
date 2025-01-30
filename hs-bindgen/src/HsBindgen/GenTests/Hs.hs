@@ -92,7 +92,7 @@ genTestsHs
 
 getFfiFunctions :: IncludeFile -> CFunPrefix -> Hs.Decl -> [FfiFunction]
 getFfiFunctions includeFile cFunPrefix = \case
-    Hs.DeclInstance instanceDecl -> case instanceDecl of
+    Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         [ FfiSizeof   includeFile cFunPrefix structName
         , FfiAlignof  includeFile cFunPrefix structName
@@ -105,7 +105,7 @@ getFfiFunctions includeFile cFunPrefix = \case
 
 getOrphanInstances :: Hs.Decl -> [OrphanInstance]
 getOrphanInstances = \case
-    Hs.DeclInstance instanceDecl -> case instanceDecl of
+    Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         let fieldNames = Hs.fieldName <$> Vec.toList structFields
         in  [ ArbitraryInstance     structName structConstr fieldNames
@@ -118,7 +118,7 @@ getOrphanInstances = \case
 
 getTypeTests :: Hs.Decl -> [TypeTest]
 getTypeTests = \case
-    Hs.DeclInstance instanceDecl -> case instanceDecl of
+    Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         [TypeTest structName]
       _otherwise -> []
@@ -126,7 +126,7 @@ getTypeTests = \case
 
 getTestsFunNames :: Hs.Decl -> [HsName NsTypeConstr]
 getTestsFunNames = \case
-    Hs.DeclInstance instanceDecl -> case instanceDecl of
+    Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance -> [structName]
       _otherwise -> []
     _otherwise -> []

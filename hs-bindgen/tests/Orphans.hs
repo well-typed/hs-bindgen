@@ -219,7 +219,7 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclNewtype" [toExpr nt]
     Hs.DeclPatSyn patSyn ->
       Expr.App "DeclPatSyn" [toExpr patSyn]
-    Hs.DeclInstance inst ->
+    Hs.DeclDefineInstance inst ->
       Expr.App "DeclInstance" [toExpr inst]
     Hs.DeclNewtypeInstance typeClass name ->
       Expr.App "DeclNewtypeInstance" [toExpr typeClass, toExpr name]

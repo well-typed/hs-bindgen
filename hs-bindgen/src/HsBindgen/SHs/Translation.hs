@@ -29,16 +29,16 @@ translateDecl :: Hs.Decl -> SDecl
 translateDecl (Hs.DeclData d) = translateDeclData d
 translateDecl (Hs.DeclEmpty n) = translateDeclEmpty n
 translateDecl (Hs.DeclNewtype n) = translateNewtype n
-translateDecl (Hs.DeclInstance i) = translateInstanceDecl i
+translateDecl (Hs.DeclDefineInstance i) = translateDefineInstanceDecl i
 translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
 
-translateInstanceDecl :: Hs.InstanceDecl -> SDecl
-translateInstanceDecl (Hs.InstanceStorable struct i) =
+translateDefineInstanceDecl :: Hs.InstanceDecl -> SDecl
+translateDefineInstanceDecl (Hs.InstanceStorable struct i) =
     DInst $ translateStorableInstance struct i
-translateInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
+translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
     DInst Instance
       { instanceClass = HasFlexibleArrayMember_class
       , instanceArgs  = [TCon $ Hs.structName struct, translateType fty ]
