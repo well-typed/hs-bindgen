@@ -26,6 +26,7 @@ common lang
       DataKinds
       DeriveAnyClass
       DerivingStrategies
+      DefaultSignatures
       FunctionalDependencies
       RoleAnnotations
       ScopedTypeVariables
@@ -43,6 +44,7 @@ library
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Syntax
+      HsBindgen.Runtime.Bitfield
   other-modules:
       HsBindgen.Runtime.LibC.Arch
   hs-source-dirs:
@@ -57,3 +59,17 @@ library
   build-depends:
     , pretty-show >= 1.10 && < 1.11
     , vector ^>=0.13.2.0
+
+test-suite runtime-tests
+  import:         lang
+  hs-source-dirs: tests
+  type:           exitcode-stdio-1.0
+  main-is:        runtime-tests.hs
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+
+  build-depends:
+    , QuickCheck        ^>=2.15.0.1
+    , tasty             ^>=1.5
+    , tasty-quickcheck  ^>=0.11.1
