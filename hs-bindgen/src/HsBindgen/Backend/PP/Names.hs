@@ -1,4 +1,4 @@
-module HsBindgen.Backend.PP (
+module HsBindgen.Backend.PP.Names (
     -- * Imports
     HsImportModule(..)
   , HsImport(..)

@@ -9,18 +9,15 @@ module HsBindgen.Backend.PP.Translation (
   , HsModule(..)
     -- * Translation
   , HsModuleOpts(..)
-  , translate
+  , translateModule
   ) where
 
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import HsBindgen.Backend.PP
-import HsBindgen.C.AST qualified as C
-import HsBindgen.Hs.Translation
+import HsBindgen.Backend.PP.Names
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
-import HsBindgen.SHs.Translation qualified as SHs
 
 {-------------------------------------------------------------------------------
   GhcPragma
@@ -78,13 +75,13 @@ newtype HsModuleOpts = HsModuleOpts {
     }
   deriving stock (Show)
 
-translate :: TranslationOpts -> HsModuleOpts -> C.Header -> HsModule
-translate topts HsModuleOpts{..} header =
+translateModule :: HsModuleOpts -> [SDecl] -> HsModule
+translateModule HsModuleOpts{..} hsModuleDecls =
     let hsModulePragmas = resolvePragmas hsModuleDecls
         hsModuleImports = resolveImports hsModuleDecls
         hsModuleName    = hsModuleOptsName
-        hsModuleDecls   = map SHs.translateDecl (generateDeclarations topts header)
     in  HsModule{..}
+
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution

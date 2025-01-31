@@ -10,6 +10,9 @@ import HsBindgen.Lib
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/11>
 -- We need to think about how we want to handle configuration in TH mode.
+--
+-- TODO: add TranslationOpts argument
+--
 generateBindingsFor ::
      Maybe FilePath -- ^ Directory to make paths relative to
   -> FilePath       -- ^ C header
@@ -17,7 +20,7 @@ generateBindingsFor ::
 generateBindingsFor relPath fp = do
     cHeader <- liftIO $ withTranslationUnit relPath traceWarnings args fp $
                           parseCHeader relPath traceSkipped p
-    genTH cHeader
+    genTH defaultTranslationOpts cHeader
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show $ mkTracerQ False

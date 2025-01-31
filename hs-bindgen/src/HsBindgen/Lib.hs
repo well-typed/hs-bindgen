@@ -93,6 +93,7 @@ import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
+import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -188,11 +189,16 @@ genModule ::
   -> HsModule
 genModule topts opts =
       WrapHsModule
-    . Backend.PP.translate topts opts
-    . unwrapCHeader
+    . Backend.PP.translateModule opts
+    . map SHs.translateDecl
+    . genHsDecls topts
 
-genTH :: TH.Quote q => CHeader -> q [TH.Dec]
-genTH = Backend.TH.translateC . unwrapCHeader
+genTH :: TH.Quote q => LowLevel.TranslationOpts -> CHeader -> q [TH.Dec]
+genTH topts =
+    fmap concat
+    . traverse Backend.TH.mkDecl
+    . map SHs.translateDecl
+    . genHsDecls topts
 
 genHsDecls :: LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
 genHsDecls topts = LowLevel.generateDeclarations topts . unwrapCHeader
@@ -244,7 +250,7 @@ templateHaskell relPath fp = do
     cheader <- TH.runIO $
       withTranslationUnit relPath nullTracer defaultClangArgs fp $
         parseCHeader relPath nullTracer SelectFromMainFile
-    genTH cheader
+    genTH LowLevel.defaultTranslationOpts cheader
 
 preprocessor ::
      Maybe FilePath -- ^ Directory to make paths relative to

@@ -12,7 +12,7 @@ import Data.Text qualified as Text
 import GHC.Float (castFloatToWord32, castDoubleToWord64)
 import System.IO
 
-import HsBindgen.Backend.PP
+import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Hs.AST qualified as Hs
