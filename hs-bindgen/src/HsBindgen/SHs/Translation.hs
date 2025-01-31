@@ -79,8 +79,8 @@ translateDeriveInstance :: Hs.Strategy -> Hs.TypeClass -> HsName NsTypeConstr ->
 translateDeriveInstance s tc n = DDerivingInstance s $ TApp (translateTypeClass tc) (TCon n)
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
-translateTypeClass Hs.Storable = TGlobal Storable_Storable
-translateTypeClass Hs.Show     = TGlobal Show_Show
+translateTypeClass Hs.Storable = TGlobal Storable_class
+translateTypeClass Hs.Show     = TGlobal Show_class
 
 translateVarDecl :: Hs.VarDecl -> SDecl
 translateVarDecl Hs.VarDecl {..} = DVar
@@ -297,7 +297,7 @@ translateStorableInstance struct Hs.StorableInstance{..} = do
     let peek = lambda (idiom structCon translatePeekByteOff) storablePeek
     let poke = lambda (lambda (translateElimStruct (doAll translatePokeByteOff))) storablePoke
     Instance
-      { instanceClass = Storable_Storable
+      { instanceClass = Storable_class
       , instanceArgs  = [TCon $ Hs.structName struct]
       , instanceDecs  = [
             (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
