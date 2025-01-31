@@ -2,8 +2,32 @@ newtype M1 = M1 {unM1 :: CInt}
 newtype M2 = M2 {unM2 :: CChar}
 newtype T1 = T1 {unT1 :: CInt}
 deriving newtype instance Storable T1
+deriving stock instance Eq T1
+deriving stock instance Ord T1
+deriving stock instance Read T1
+deriving stock instance Show T1
+deriving newtype instance Enum T1
+deriving newtype instance Ix T1
+deriving newtype instance Bounded T1
+deriving newtype instance Bits T1
+deriving newtype instance FiniteBits T1
+deriving newtype instance Integral T1
+deriving newtype instance Num T1
+deriving newtype instance Real T1
 newtype T2 = T2 {unT2 :: CChar}
 deriving newtype instance Storable T2
+deriving stock instance Eq T2
+deriving stock instance Ord T2
+deriving stock instance Read T2
+deriving stock instance Show T2
+deriving newtype instance Enum T2
+deriving newtype instance Ix T2
+deriving newtype instance Bounded T2
+deriving newtype instance Bits T2
+deriving newtype instance FiniteBits T2
+deriving newtype instance Integral T2
+deriving newtype instance Num T2
+deriving newtype instance Real T2
 data ExampleStruct
     = ExampleStruct {exampleStruct_t1 :: T1,
                      exampleStruct_t2 :: T2,

@@ -46,6 +46,19 @@ data TranslationOpts = TranslationOpts {
 
       -- | Default set of classes to derive for enums
     , translationDeriveEnum :: [(Hs.Strategy, Hs.TypeClass)]
+
+      -- | Default set of classes to derive for typedefs around primitive types
+      --
+      -- The situation for typedefs is more intricate, because the instances we
+      -- can generate depend on the instances available for the type we're
+      -- defining a newtype for. However, for typedefs of /primitive/ types
+      -- this is easier, as we do know which instances are available for those.
+      --
+      -- Any classes in this list that are /not/ supported by the underlying
+      -- (primitive) type will simply not be generated, so it's okay for this
+      -- to contain classes such as 'Num' which are only supported by /some/
+      -- primitive types.
+    , translationDeriveTypedefPrim :: [(Hs.Strategy, Hs.TypeClass)]
     }
   deriving stock (Show)
 
@@ -61,6 +74,24 @@ defaultTranslationOpts = TranslationOpts {
         , (Hs.DeriveStock, Hs.Eq)
         , (Hs.DeriveStock, Hs.Ord)
         , (Hs.DeriveNewtype, Hs.Enum)
+        ]
+    , translationDeriveTypedefPrim = [
+          (Hs.DeriveStock, Hs.Eq)
+        , (Hs.DeriveStock, Hs.Ord)
+        , (Hs.DeriveStock, Hs.Read)
+        , (Hs.DeriveStock, Hs.Show)
+        , (Hs.DeriveNewtype, Hs.Enum)
+        , (Hs.DeriveNewtype, Hs.Ix)
+        , (Hs.DeriveNewtype, Hs.Bounded)
+        , (Hs.DeriveNewtype, Hs.Bits)
+        , (Hs.DeriveNewtype, Hs.FiniteBits)
+        , (Hs.DeriveNewtype, Hs.Floating)
+        , (Hs.DeriveNewtype, Hs.Fractional)
+        , (Hs.DeriveNewtype, Hs.Integral)
+        , (Hs.DeriveNewtype, Hs.Num)
+        , (Hs.DeriveNewtype, Hs.Real)
+        , (Hs.DeriveNewtype, Hs.RealFloat)
+        , (Hs.DeriveNewtype, Hs.RealFrac)
         ]
     }
 
@@ -237,10 +268,16 @@ enumDecs opts e = concat [
 -------------------------------------------------------------------------------}
 
 typedefDecs :: TranslationOpts -> C.Typedef -> [Hs.Decl]
-typedefDecs _opts d = [
-      Hs.DeclNewtype Hs.Newtype{..}
-    , Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
+typedefDecs opts d = concat [
+      [ Hs.DeclNewtype Hs.Newtype{..} ]
+    , [ Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName ]
+    , [ Hs.DeclDeriveInstance strat clss newtypeName
+      | C.TypePrim pt <- [C.typedefType d]
+      , (strat, clss) <- translationDeriveTypedefPrim opts
+      , clss `elem` primTypeInstances pt
+      ]
     ]
+    -- translationDeriveTypedefPrim
   where
     cName              = C.typedefName d
     nm@NameMangler{..} = defaultNameMangler
@@ -253,6 +290,37 @@ typedefDecs _opts d = [
       , fieldOrigin = Hs.FieldOriginNone
       }
     newtypeOrigin      = Hs.NewtypeOriginTypedef d
+
+primTypeInstances :: C.PrimType -> [Hs.TypeClass]
+primTypeInstances (C.PrimFloating _) = [
+      Hs.Enum
+    , Hs.Floating
+    , Hs.RealFloat
+    , Hs.Storable
+    , Hs.Num
+    , Hs.Read
+    , Hs.Fractional
+    , Hs.Real
+    , Hs.RealFrac
+    , Hs.Show
+    , Hs.Eq
+    , Hs.Ord
+    ]
+primTypeInstances _otherwise = [
+      Hs.Bits
+    , Hs.FiniteBits
+    , Hs.Bounded
+    , Hs.Enum
+    , Hs.Storable
+    , Hs.Ix
+    , Hs.Num
+    , Hs.Read
+    , Hs.Integral
+    , Hs.Real
+    , Hs.Show
+    , Hs.Eq
+    , Hs.Ord
+    ]
 
 {-------------------------------------------------------------------------------
   Macros

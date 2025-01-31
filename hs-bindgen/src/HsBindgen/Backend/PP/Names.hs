@@ -66,6 +66,10 @@ iPrelude = HsImportModule "Prelude" (Just "P")
 iDataIx :: HsImportModule
 iDataIx = HsImportModule "Data.Ix" (Just "Ix")
 
+-- | @Data.Bits@ import module
+iDataBits :: HsImportModule
+iDataBits = HsImportModule "Data.Bits" (Just "Bits")
+
 -- | @C.Typing@ import module
 iCTyping :: HsImportModule
 iCTyping = HsImportModule "C.Typing" (Just "C")
@@ -143,13 +147,6 @@ resolveGlobal = \case
     Applicative_seq      -> importU iPrelude "<*>"
     Monad_return         -> importU iPrelude "return"
     Monad_seq            -> importU iPrelude ">>"
-    Eq_class             -> importU iPrelude "Eq"
-    Ord_class            -> importU iPrelude "Ord"
-    Enum_class           -> importU iPrelude "Enum"
-    Ix_class             -> importU iDataIx  "Ix"
-    Bounded_class        -> importU iPrelude "Bounded"
-    Read_class           -> importU iPrelude "Read"
-    Show_class           -> importU iPrelude "Show"
     Storable_class       -> importQ iForeign "Storable"
     Storable_sizeOf      -> importQ iForeign "sizeOf"
     Storable_alignment   -> importQ iForeign "alignment"
@@ -164,7 +161,24 @@ resolveGlobal = \case
     HasFlexibleArrayMember_class -> importQ iFlexibleArrayMember "HasFlexibleArrayMember"
     HasFlexibleArrayMember_offset -> importQ iFlexibleArrayMember "flexibleArrayMemberOffset"
 
-    NomEq_class          -> importU iDataTypeEquality  "~"
+    Bits_class       -> importQ iDataBits "Bits"
+    Bounded_class    -> importU iPrelude  "Bounded"
+    Enum_class       -> importU iPrelude  "Enum"
+    Eq_class         -> importU iPrelude  "Eq"
+    FiniteBits_class -> importU iDataBits "FiniteBits"
+    Floating_class   -> importU iPrelude  "Floating"
+    Fractional_class -> importU iPrelude  "Fractional"
+    Integral_class   -> importU iPrelude  "Integral"
+    Ix_class         -> importQ iDataIx   "Ix"
+    Num_class        -> importU iPrelude  "Num"
+    Ord_class        -> importU iPrelude  "Ord"
+    Read_class       -> importU iPrelude  "Read"
+    Real_class       -> importU iPrelude  "Real"
+    RealFloat_class  -> importU iPrelude  "RealFloat"
+    RealFrac_class   -> importU iPrelude  "RealFrac"
+    Show_class       -> importU iPrelude  "Show"
+
+    NomEq_class -> importU iDataTypeEquality  "~"
 
     Not_class             -> importQ iCTyping "Not"
     Not_not               -> importQ iCTyping "not"

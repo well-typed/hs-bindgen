@@ -16,3 +16,14 @@ pattern FOO2 :: Foo
 pattern FOO2 = Foo 1
 newtype Foo = Foo {unFoo :: CDouble}
 deriving newtype instance Storable Foo
+deriving stock instance Eq Foo
+deriving stock instance Ord Foo
+deriving stock instance Read Foo
+deriving stock instance Show Foo
+deriving newtype instance Enum Foo
+deriving newtype instance Floating Foo
+deriving newtype instance Fractional Foo
+deriving newtype instance Num Foo
+deriving newtype instance Real Foo
+deriving newtype instance RealFloat Foo
+deriving newtype instance RealFrac Foo

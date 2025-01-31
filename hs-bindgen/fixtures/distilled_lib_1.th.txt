@@ -46,14 +46,74 @@ pattern BAR :: Another_typedef_enum_e
 pattern BAR = Another_typedef_enum_e 1
 newtype A_type_t = A_type_t {unA_type_t :: CInt}
 deriving newtype instance Storable A_type_t
+deriving stock instance Eq A_type_t
+deriving stock instance Ord A_type_t
+deriving stock instance Read A_type_t
+deriving stock instance Show A_type_t
+deriving newtype instance Enum A_type_t
+deriving newtype instance Ix A_type_t
+deriving newtype instance Bounded A_type_t
+deriving newtype instance Bits A_type_t
+deriving newtype instance FiniteBits A_type_t
+deriving newtype instance Integral A_type_t
+deriving newtype instance Num A_type_t
+deriving newtype instance Real A_type_t
 newtype Var_t = Var_t {unVar_t :: CInt}
 deriving newtype instance Storable Var_t
+deriving stock instance Eq Var_t
+deriving stock instance Ord Var_t
+deriving stock instance Read Var_t
+deriving stock instance Show Var_t
+deriving newtype instance Enum Var_t
+deriving newtype instance Ix Var_t
+deriving newtype instance Bounded Var_t
+deriving newtype instance Bits Var_t
+deriving newtype instance FiniteBits Var_t
+deriving newtype instance Integral Var_t
+deriving newtype instance Num Var_t
+deriving newtype instance Real Var_t
 newtype Uint8_t = Uint8_t {unUint8_t :: CSChar}
 deriving newtype instance Storable Uint8_t
+deriving stock instance Eq Uint8_t
+deriving stock instance Ord Uint8_t
+deriving stock instance Read Uint8_t
+deriving stock instance Show Uint8_t
+deriving newtype instance Enum Uint8_t
+deriving newtype instance Ix Uint8_t
+deriving newtype instance Bounded Uint8_t
+deriving newtype instance Bits Uint8_t
+deriving newtype instance FiniteBits Uint8_t
+deriving newtype instance Integral Uint8_t
+deriving newtype instance Num Uint8_t
+deriving newtype instance Real Uint8_t
 newtype Uint16_t = Uint16_t {unUint16_t :: CUShort}
 deriving newtype instance Storable Uint16_t
+deriving stock instance Eq Uint16_t
+deriving stock instance Ord Uint16_t
+deriving stock instance Read Uint16_t
+deriving stock instance Show Uint16_t
+deriving newtype instance Enum Uint16_t
+deriving newtype instance Ix Uint16_t
+deriving newtype instance Bounded Uint16_t
+deriving newtype instance Bits Uint16_t
+deriving newtype instance FiniteBits Uint16_t
+deriving newtype instance Integral Uint16_t
+deriving newtype instance Num Uint16_t
+deriving newtype instance Real Uint16_t
 newtype Uint32_t = Uint32_t {unUint32_t :: CUInt}
 deriving newtype instance Storable Uint32_t
+deriving stock instance Eq Uint32_t
+deriving stock instance Ord Uint32_t
+deriving stock instance Read Uint32_t
+deriving stock instance Show Uint32_t
+deriving newtype instance Enum Uint32_t
+deriving newtype instance Ix Uint32_t
+deriving newtype instance Bounded Uint32_t
+deriving newtype instance Bits Uint32_t
+deriving newtype instance FiniteBits Uint32_t
+deriving newtype instance Integral Uint32_t
+deriving newtype instance Num Uint32_t
+deriving newtype instance Real Uint32_t
 data A_typedef_struct
     = A_typedef_struct {a_typedef_struct_field_0 :: CBool,
                         a_typedef_struct_field_1 :: Uint8_t,
@@ -110,6 +170,18 @@ pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 newtype Int32_t = Int32_t {unInt32_t :: CInt}
 deriving newtype instance Storable Int32_t
+deriving stock instance Eq Int32_t
+deriving stock instance Ord Int32_t
+deriving stock instance Read Int32_t
+deriving stock instance Show Int32_t
+deriving newtype instance Enum Int32_t
+deriving newtype instance Ix Int32_t
+deriving newtype instance Bounded Int32_t
+deriving newtype instance Bits Int32_t
+deriving newtype instance FiniteBits Int32_t
+deriving newtype instance Integral Int32_t
+deriving newtype instance Num Int32_t
+deriving newtype instance Real Int32_t
 newtype Callback_t
     = Callback_t {unCallback_t :: (FunPtr (Ptr Void ->
                                            Uint32_t -> IO Uint32_t))}

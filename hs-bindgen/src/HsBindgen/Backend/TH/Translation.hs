@@ -3,6 +3,7 @@ module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
 
+import Data.Bits qualified
 import Data.Ix qualified
 import Data.Text qualified as Text
 import Data.Void qualified
@@ -43,13 +44,6 @@ mkGlobal =  \case
       Applicative_seq      -> '(<*>)
       Monad_return         -> 'return
       Monad_seq            -> '(>>)
-      Eq_class             -> ''Eq
-      Ord_class            -> ''Ord
-      Enum_class           -> ''Enum
-      Ix_class             -> ''Data.Ix.Ix
-      Bounded_class        -> ''Bounded
-      Read_class           -> ''Read
-      Show_class           -> ''Show
       Storable_class       -> ''Foreign.Storable.Storable
       Storable_sizeOf      -> 'Foreign.Storable.sizeOf
       Storable_alignment   -> 'Foreign.Storable.alignment
@@ -64,7 +58,24 @@ mkGlobal =  \case
       HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
 
-      NomEq_class          -> ''(~)
+      Bits_class       -> ''Data.Bits.Bits
+      Bounded_class    -> ''Bounded
+      Enum_class       -> ''Enum
+      Eq_class         -> ''Eq
+      FiniteBits_class -> ''Data.Bits.FiniteBits
+      Floating_class   -> ''Floating
+      Fractional_class -> ''Fractional
+      Integral_class   -> ''Integral
+      Ix_class         -> ''Data.Ix.Ix
+      Num_class        -> ''Num
+      Ord_class        -> ''Ord
+      Read_class       -> ''Read
+      Real_class       -> ''Real
+      RealFloat_class  -> ''RealFloat
+      RealFrac_class   -> ''RealFrac
+      Show_class       -> ''Show
+
+      NomEq_class -> ''(~)
 
       Not_class             -> ''C.Not
       Not_not               ->  'C.not
