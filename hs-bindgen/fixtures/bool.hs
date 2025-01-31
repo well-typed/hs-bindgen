@@ -298,6 +298,12 @@
                     (Idx 3)
                     1
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Bools1"),
   DeclData
     Struct {
       structName = HsName
@@ -569,6 +575,12 @@
                     (Idx 3)
                     1
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Bools2"),
   DeclData
     Struct {
       structName = HsName
@@ -855,4 +867,10 @@
                   PokeByteOff
                     (Idx 3)
                     1
-                    (Idx 1)])))})]
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Bools3")]

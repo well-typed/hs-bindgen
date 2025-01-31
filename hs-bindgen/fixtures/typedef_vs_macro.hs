@@ -85,6 +85,7 @@
           typedefSourceLoc =
           "examples/typedef_vs_macro.h:1:13"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName "@NsTypeConstr" "T1"),
   DeclNewtype
@@ -111,6 +112,7 @@
           typedefSourceLoc =
           "examples/typedef_vs_macro.h:2:14"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName "@NsTypeConstr" "T2"),
   DeclData
@@ -583,4 +585,10 @@
                   PokeByteOff
                     (Idx 5)
                     12
-                    (Idx 3)])))})]
+                    (Idx 3)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "ExampleStruct")]

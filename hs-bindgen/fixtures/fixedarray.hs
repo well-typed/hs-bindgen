@@ -26,6 +26,7 @@
           typedefSourceLoc =
           "examples/fixedarray.h:1:13"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"

@@ -223,6 +223,12 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Pascal"),
   DeclInstance
     (InstanceHasFLAM
       Struct {
@@ -580,6 +586,12 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Foo_bar"),
   DeclData
     Struct {
       structName = HsName
@@ -828,6 +840,10 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Foo"),
   DeclInstance
     (InstanceHasFLAM
       Struct {
@@ -1206,6 +1222,10 @@
                     (Idx 3)
                     8
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Diff"),
   DeclInstance
     (InstanceHasFLAM
       Struct {

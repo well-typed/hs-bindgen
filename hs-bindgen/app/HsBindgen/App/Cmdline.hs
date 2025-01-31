@@ -47,10 +47,11 @@ data Cmdline = Cmdline {
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
     ModePreprocess {
-        preprocessInput      :: FilePath
-      , preprocessModuleOpts :: HsModuleOpts
-      , preprocessRenderOpts :: HsRenderOpts
-      , preprocessOutput     :: Maybe FilePath
+        preprocessInput           :: FilePath
+      , preprocessTranslationOpts :: TranslationOpts
+      , preprocessModuleOpts      :: HsModuleOpts
+      , preprocessRenderOpts      :: HsRenderOpts
+      , preprocessOutput          :: Maybe FilePath
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
@@ -121,6 +122,7 @@ parseModePreprocess :: Parser Mode
 parseModePreprocess =
     ModePreprocess
       <$> parseInput Nothing
+      <*> parseTranslationOpts
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseOutput
@@ -294,6 +296,9 @@ parsePredicate = fmap aux . many . asum $ [
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
+
+parseTranslationOpts :: Parser TranslationOpts
+parseTranslationOpts = pure defaultTranslationOpts
 
 parseHsModuleOpts :: Parser HsModuleOpts
 parseHsModuleOpts =

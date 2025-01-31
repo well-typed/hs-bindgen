@@ -1,10 +1,13 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), Show, pure)
 
 newtype BOOL = BOOL
   { unBOOL :: FC.CBool
@@ -35,6 +38,8 @@ instance F.Storable Bools1 where
                F.pokeByteOff ptr0 0 bools1_x2
             >> F.pokeByteOff ptr0 1 bools1_y3
 
+deriving stock instance Show Bools1
+
 data Bools2 = Bools2
   { bools2_x :: FC.CBool
   , bools2_y :: FC.CBool
@@ -60,6 +65,8 @@ instance F.Storable Bools2 where
                F.pokeByteOff ptr0 0 bools2_x2
             >> F.pokeByteOff ptr0 1 bools2_y3
 
+deriving stock instance Show Bools2
+
 data Bools3 = Bools3
   { bools3_x :: BOOL
   , bools3_y :: BOOL
@@ -84,3 +91,5 @@ instance F.Storable Bools3 where
           Bools3 bools3_x2 bools3_y3 ->
                F.pokeByteOff ptr0 0 bools3_x2
             >> F.pokeByteOff ptr0 1 bools3_y3
+
+deriving stock instance Show Bools3

@@ -6,6 +6,7 @@ instance Storable Flags
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Flags flags_fieldX_3
                                            flags_fieldY_4 -> pokeByteOff ptr_1 0 flags_fieldX_3 >> pokeByteOff ptr_1 2 flags_fieldY_4}}
+deriving stock instance Show Flags
 data Overflow32 = Overflow32 {}
 instance Storable Overflow32
     where {sizeOf = \_ -> 12;
@@ -13,6 +14,7 @@ instance Storable Overflow32
            peek = \ptr_0 -> pure Overflow32;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Overflow32 -> return ()}}
+deriving stock instance Show Overflow32
 data Overflow32b = Overflow32b {}
 instance Storable Overflow32b
     where {sizeOf = \_ -> 8;
@@ -20,6 +22,7 @@ instance Storable Overflow32b
            peek = \ptr_0 -> pure Overflow32b;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Overflow32b -> return ()}}
+deriving stock instance Show Overflow32b
 data Overflow32c = Overflow32c {}
 instance Storable Overflow32c
     where {sizeOf = \_ -> 16;
@@ -27,6 +30,7 @@ instance Storable Overflow32c
            peek = \ptr_0 -> pure Overflow32c;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Overflow32c -> return ()}}
+deriving stock instance Show Overflow32c
 data Overflow64 = Overflow64 {}
 instance Storable Overflow64
     where {sizeOf = \_ -> 16;
@@ -34,6 +38,7 @@ instance Storable Overflow64
            peek = \ptr_0 -> pure Overflow64;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Overflow64 -> return ()}}
+deriving stock instance Show Overflow64
 data AlignA = AlignA {}
 instance Storable AlignA
     where {sizeOf = \_ -> 4;
@@ -41,6 +46,7 @@ instance Storable AlignA
            peek = \ptr_0 -> pure AlignA;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {AlignA -> return ()}}
+deriving stock instance Show AlignA
 data AlignB = AlignB {}
 instance Storable AlignB
     where {sizeOf = \_ -> 8;
@@ -48,3 +54,4 @@ instance Storable AlignB
            peek = \ptr_0 -> pure AlignB;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {AlignB -> return ()}}
+deriving stock instance Show AlignB

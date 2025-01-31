@@ -70,7 +70,7 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
     hsMainPath                = FilePath.combine srcPath "Main.hs"
 
     decls :: [Decl]
-    decls = Hs.generateDeclarations cHeader
+    decls = Hs.generateDeclarations Hs.defaultTranslationOpts cHeader
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

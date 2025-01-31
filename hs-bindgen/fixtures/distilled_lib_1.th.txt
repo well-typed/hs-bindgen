@@ -25,6 +25,7 @@ instance Storable Another_typedef_struct_t
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Another_typedef_struct_t another_typedef_struct_t_foo_3
                                                               another_typedef_struct_t_bar_4 -> pokeByteOff ptr_1 0 another_typedef_struct_t_foo_3 >> pokeByteOff ptr_1 4 another_typedef_struct_t_bar_4}}
+deriving stock instance Show Another_typedef_struct_t
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {unAnother_typedef_enum_e :: CUInt}
 instance Storable Another_typedef_enum_e
@@ -75,6 +76,7 @@ instance Storable A_typedef_struct
                                                       a_typedef_struct_field_8_11
                                                       a_typedef_struct_field_9_12
                                                       a_typedef_struct_field_10_13 -> pokeByteOff ptr_1 0 a_typedef_struct_field_0_3 >> (pokeByteOff ptr_1 1 a_typedef_struct_field_1_4 >> (pokeByteOff ptr_1 2 a_typedef_struct_field_2_5 >> (pokeByteOff ptr_1 4 a_typedef_struct_field_3_6 >> (pokeByteOff ptr_1 8 a_typedef_struct_field_4_7 >> (pokeByteOff ptr_1 16 a_typedef_struct_field_5_8 >> (pokeByteOff ptr_1 24 a_typedef_struct_field_6_9 >> (pokeByteOff ptr_1 32 a_typedef_struct_field_7_10 >> (pokeByteOff ptr_1 60 a_typedef_struct_field_8_11 >> (pokeByteOff ptr_1 64 a_typedef_struct_field_9_12 >> pokeByteOff ptr_1 80 a_typedef_struct_field_10_13)))))))))}}
+deriving stock instance Show A_typedef_struct
 newtype A_typedef_struct_t
     = A_typedef_struct_t {unA_typedef_struct_t :: A_typedef_struct}
 deriving newtype instance Storable A_typedef_struct_t

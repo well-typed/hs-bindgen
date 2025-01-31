@@ -96,7 +96,7 @@ main' packageRoot bg = testGroup "golden"
 
         relPath <- Just <$> Dir.getCurrentDirectory
         header <- parseC relPath tracer args fp
-        return $ genHsDecls header
+        return $ genHsDecls defaultTranslationOpts header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
@@ -111,7 +111,7 @@ main' packageRoot bg = testGroup "golden"
         header <- parseC relPath tracer args fp
 
         -- TODO: PP.render should add trailing '\n' itself.
-        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule moduleOpts header) ++ "\n"
+        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule defaultTranslationOpts moduleOpts header) ++ "\n"
       where
         moduleOpts :: HsModuleOpts
         moduleOpts = HsModuleOpts

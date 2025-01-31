@@ -344,6 +344,10 @@
                     (Idx 3)
                     8
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Bar"),
   DeclData
     Struct {
       structName = HsName
@@ -447,5 +451,9 @@
                     structBitfields = []}}
               (Add 0)
               (Seq [])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Baz"),
   DeclEmpty
     (HsName "@NsTypeConstr" "Quu")]

@@ -195,6 +195,10 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S1"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -221,6 +225,7 @@
           typedefSourceLoc =
           "examples/forward_declaration.h:1:19"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName "@NsTypeConstr" "S1_t"),
   DeclData
@@ -418,4 +423,8 @@
                   PokeByteOff
                     (Idx 2)
                     0
-                    (Idx 0)])))})]
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S2")]

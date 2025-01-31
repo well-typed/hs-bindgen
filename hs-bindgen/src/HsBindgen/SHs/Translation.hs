@@ -29,16 +29,16 @@ translateDecl :: Hs.Decl -> SDecl
 translateDecl (Hs.DeclData d) = translateDeclData d
 translateDecl (Hs.DeclEmpty n) = translateDeclEmpty n
 translateDecl (Hs.DeclNewtype n) = translateNewtype n
-translateDecl (Hs.DeclInstance i) = translateInstanceDecl i
-translateDecl (Hs.DeclNewtypeInstance tc c) = translateNewtypeInstance tc c
+translateDecl (Hs.DeclDefineInstance i) = translateDefineInstanceDecl i
+translateDecl (Hs.DeclDeriveInstance s tc c) = translateDeriveInstance s tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
 
-translateInstanceDecl :: Hs.InstanceDecl -> SDecl
-translateInstanceDecl (Hs.InstanceStorable struct i) =
+translateDefineInstanceDecl :: Hs.InstanceDecl -> SDecl
+translateDefineInstanceDecl (Hs.InstanceStorable struct i) =
     DInst $ translateStorableInstance struct i
-translateInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
+translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
     DInst Instance
       { instanceClass = HasFlexibleArrayMember_class
       , instanceArgs  = [TCon $ Hs.structName struct, translateType fty ]
@@ -75,11 +75,12 @@ translateNewtype n = DNewtype $ Newtype
     , newtypeOrigin = Hs.newtypeOrigin n
     }
 
-translateNewtypeInstance :: Hs.TypeClass -> HsName NsTypeConstr -> SDecl
-translateNewtypeInstance tc n = DDerivingNewtypeInstance $ TApp (translateTypeClass tc) (TCon n)
+translateDeriveInstance :: Hs.Strategy -> Hs.TypeClass -> HsName NsTypeConstr -> SDecl
+translateDeriveInstance s tc n = DDerivingInstance s $ TApp (translateTypeClass tc) (TCon n)
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
-translateTypeClass Hs.Storable = TGlobal Storable_Storable
+translateTypeClass Hs.Storable = TGlobal Storable_class
+translateTypeClass Hs.Show     = TGlobal Show_class
 
 translateVarDecl :: Hs.VarDecl -> SDecl
 translateVarDecl Hs.VarDecl {..} = DVar
@@ -296,7 +297,7 @@ translateStorableInstance struct Hs.StorableInstance{..} = do
     let peek = lambda (idiom structCon translatePeekByteOff) storablePeek
     let poke = lambda (lambda (translateElimStruct (doAll translatePokeByteOff))) storablePoke
     Instance
-      { instanceClass = Storable_Storable
+      { instanceClass = Storable_class
       , instanceArgs  = [TCon $ Hs.structName struct]
       , instanceDecs  = [
             (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)

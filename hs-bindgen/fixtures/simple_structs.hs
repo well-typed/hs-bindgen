@@ -286,6 +286,10 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S1"),
   DeclData
     Struct {
       structName = HsName
@@ -663,6 +667,10 @@
                     (Idx 4)
                     8
                     (Idx 2)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S2"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -689,6 +697,7 @@
           typedefSourceLoc =
           "examples/simple_structs.h:12:3"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName "@NsTypeConstr" "S2_t"),
   DeclData
@@ -887,6 +896,10 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S3_t"),
   DeclData
     Struct {
       structName = HsName
@@ -1272,6 +1285,10 @@
                     (Idx 4)
                     8
                     (Idx 2)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S4"),
   DeclData
     Struct {
       structName = HsName
@@ -1559,6 +1576,10 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S5"),
   DeclData
     Struct {
       structName = HsName
@@ -1845,4 +1866,8 @@
                   PokeByteOff
                     (Idx 3)
                     4
-                    (Idx 1)])))})]
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S6")]

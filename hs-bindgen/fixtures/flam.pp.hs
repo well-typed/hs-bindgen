@@ -1,11 +1,14 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Patterns.FlexibleArrayMember
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), Show, pure)
 
 data Pascal = Pascal
   { pascal_len :: FC.CInt
@@ -27,6 +30,8 @@ instance F.Storable Pascal where
       \s1 ->
         case s1 of
           Pascal pascal_len2 -> F.pokeByteOff ptr0 0 pascal_len2
+
+deriving stock instance Show Pascal
 
 instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Pascal FC.CChar where
 
@@ -57,6 +62,8 @@ instance F.Storable Foo_bar where
                F.pokeByteOff ptr0 0 foo_bar_x2
             >> F.pokeByteOff ptr0 4 foo_bar_y3
 
+deriving stock instance Show Foo_bar
+
 data Foo = Foo
   { foo_len :: FC.CInt
   }
@@ -77,6 +84,8 @@ instance F.Storable Foo where
       \s1 ->
         case s1 of
           Foo foo_len2 -> F.pokeByteOff ptr0 0 foo_len2
+
+deriving stock instance Show Foo
 
 instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Foo Foo_bar where
 
@@ -106,6 +115,8 @@ instance F.Storable Diff where
           Diff diff_first2 diff_second3 ->
                F.pokeByteOff ptr0 0 diff_first2
             >> F.pokeByteOff ptr0 8 diff_second3
+
+deriving stock instance Show Diff
 
 instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Diff FC.CChar where
 

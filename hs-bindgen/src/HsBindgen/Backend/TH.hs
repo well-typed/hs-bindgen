@@ -17,7 +17,9 @@ import GHC.Float
   ( castWord64ToDouble, castDoubleToWord64
   , castWord32ToFloat , castFloatToWord32 )
 
+import C.Operator.Classes qualified as C
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
+import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
@@ -25,7 +27,6 @@ import HsBindgen.NameHint
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
-import C.Operator.Classes qualified as C
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -42,7 +43,8 @@ mkGlobal =  \case
       Applicative_seq      -> '(<*>)
       Monad_return         -> 'return
       Monad_seq            -> '(>>)
-      Storable_Storable    -> ''Foreign.Storable.Storable
+      Show_class           -> ''Show
+      Storable_class       -> ''Foreign.Storable.Storable
       Storable_sizeOf      -> 'Foreign.Storable.sizeOf
       Storable_alignment   -> 'Foreign.Storable.alignment
       Storable_peekByteOff -> 'Foreign.Storable.peekByteOff
@@ -272,8 +274,8 @@ mkDecl = \case
                 (mkType EmptyEnv (fieldType (newtypeField n)))
         in singleton <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
 
-      DDerivingNewtypeInstance ty ->
-          singleton <$> TH.standaloneDerivWithStrategyD (Just TH.NewtypeStrategy) (TH.cxt []) (mkType EmptyEnv ty)
+      DDerivingInstance s ty ->
+          singleton <$> TH.standaloneDerivWithStrategyD (Just $ strategy s) (TH.cxt []) (mkType EmptyEnv ty)
 
       DForeignImport ForeignImport {..} ->
            singleton . TH.ForeignD . TH.ImportF TH.CApi TH.Safe
@@ -295,6 +297,10 @@ mkDecl = \case
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
+
+strategy :: Hs.Strategy -> TH.DerivStrategy
+strategy Hs.DeriveNewtype = TH.NewtypeStrategy
+strategy Hs.DeriveStock   = TH.StockStrategy
 
 {-------------------------------------------------------------------------------
   Monad functionality

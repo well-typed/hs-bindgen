@@ -64,7 +64,7 @@ genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
 
 getTestHeaderDecls :: CFunPrefix -> Hs.Decl -> [CTestDecl]
 getTestHeaderDecls cFunPrefix = \case
-    Hs.DeclInstance instanceDecl -> case instanceDecl of
+    Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         case getStructCTypeSpelling structOrigin of
           Just cts ->
@@ -80,7 +80,7 @@ getTestHeaderDecls cFunPrefix = \case
 
 getTestSourceDefns :: CFunPrefix -> Hs.Decl -> [CTestDefn]
 getTestSourceDefns cFunPrefix = \case
-    Hs.DeclInstance instanceDecl -> case instanceDecl of
+    Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         case getStructCTypeSpelling structOrigin of
           Just cts ->

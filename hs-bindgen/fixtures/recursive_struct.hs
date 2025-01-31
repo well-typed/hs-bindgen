@@ -334,6 +334,12 @@
                     (Idx 3)
                     8
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_A_s"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -364,6 +370,7 @@
           typedefSourceLoc =
           "examples/recursive_struct.h:4:3"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -702,4 +709,10 @@
                   PokeByteOff
                     (Idx 3)
                     8
-                    (Idx 1)])))})]
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_B_t")]

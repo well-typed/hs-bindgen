@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), pure)
+import Prelude ((<*>), (>>), Show, pure)
 
 newtype Uint64_t = Uint64_t
   { unUint64_t :: FC.CULong
@@ -45,3 +45,5 @@ instance F.Storable Foo where
           Foo foo_sixty_four2 foo_thirty_two3 ->
                F.pokeByteOff ptr0 0 foo_sixty_four2
             >> F.pokeByteOff ptr0 8 foo_thirty_two3
+
+deriving stock instance Show Foo

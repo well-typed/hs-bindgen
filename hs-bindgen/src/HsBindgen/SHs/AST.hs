@@ -37,7 +37,8 @@ data Global =
   | Applicative_seq
   | Monad_return
   | Monad_seq
-  | Storable_Storable
+  | Show_class
+  | Storable_class
   | Storable_sizeOf
   | Storable_alignment
   | Storable_peekByteOff
@@ -149,7 +150,7 @@ data SDecl =
   | DRecord Record
   | DNewtype Newtype
   | DEmptyData (HsName NsTypeConstr)
-  | DDerivingNewtypeInstance ClosedType
+  | DDerivingInstance Hs.Strategy ClosedType
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
   deriving stock (Show)

@@ -510,6 +510,12 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_struct_t"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -740,6 +746,7 @@
           typedefSourceLoc =
           "examples/distilled_lib_1.h:13:13"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -768,6 +775,7 @@
           typedefSourceLoc =
           "examples/distilled_lib_1.h:14:13"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -796,6 +804,7 @@
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:121:25"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -826,6 +835,7 @@
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:126:25"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -854,6 +864,7 @@
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:131:25"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -2147,6 +2158,12 @@
                     (Idx 12)
                     80
                     (Idx 10)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_struct"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2177,6 +2194,7 @@
           typedefSourceLoc =
           "examples/distilled_lib_1.h:47:3"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -2489,6 +2507,7 @@
           typedefSourceLoc =
           "musl-include/x86_64/bits/alltypes.h:106:25"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -2534,6 +2553,7 @@
           typedefSourceLoc =
           "examples/distilled_lib_1.h:76:19"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"

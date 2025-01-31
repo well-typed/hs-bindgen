@@ -197,17 +197,19 @@ instance ToExpr Hs.Newtype
 instance ToExpr Hs.NewtypeOrigin
 instance ToExpr Hs.PatSyn
 instance ToExpr Hs.PatSynOrigin
+instance ToExpr Hs.StorableInstance
+instance ToExpr Hs.Strategy
+instance ToExpr Hs.StructOrigin
+instance ToExpr Hs.TypeClass
+instance ToExpr Hs.VarDecl
+
 instance ToExpr (Hs.PeekByteOff ctx)
 instance ToExpr (Hs.PhiType ctx)
 instance ToExpr (Hs.PokeByteOff ctx)
-instance ToExpr (t ctx) => ToExpr (Hs.Seq t ctx)
-instance ToExpr Hs.StorableInstance
 instance ToExpr (Hs.Struct n)
-instance ToExpr Hs.StructOrigin
 instance ToExpr (Hs.TauType ctx)
-instance ToExpr Hs.TypeClass
-instance ToExpr Hs.VarDecl
 instance ToExpr (Hs.VarDeclRHS ctx)
+instance ToExpr (t ctx) => ToExpr (Hs.Seq t ctx)
 
 instance ToExpr Hs.Decl where
   toExpr = \case
@@ -219,10 +221,10 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclNewtype" [toExpr nt]
     Hs.DeclPatSyn patSyn ->
       Expr.App "DeclPatSyn" [toExpr patSyn]
-    Hs.DeclInstance inst ->
+    Hs.DeclDefineInstance inst ->
       Expr.App "DeclInstance" [toExpr inst]
-    Hs.DeclNewtypeInstance typeClass name ->
-      Expr.App "DeclNewtypeInstance" [toExpr typeClass, toExpr name]
+    Hs.DeclDeriveInstance strategy typeClass name ->
+      Expr.App "DeclNewtypeInstance" [toExpr strategy, toExpr typeClass, toExpr name]
     Hs.DeclForeignImport foreignImport ->
       Expr.App "DeclForeignImport" [toExpr foreignImport]
     Hs.DeclVar v ->

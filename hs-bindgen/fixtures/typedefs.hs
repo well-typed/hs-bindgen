@@ -23,6 +23,7 @@
           typedefSourceLoc =
           "examples/typedefs.h:1:13"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"
@@ -52,6 +53,7 @@
           typedefSourceLoc =
           "examples/typedefs.h:2:15"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"

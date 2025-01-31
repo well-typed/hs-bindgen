@@ -3,16 +3,6 @@
 -- Abstract Haskell syntax for the specific purposes of hs-bindgen: we only
 -- cover the parts of the Haskell syntax that we need. We attempt to do this in
 -- such a way that the generated Haskell code is type correct by construction.
--- We use PHOAS for bound variables: the individual backends (TH, standalone)
--- are responsible for generating fresh variable names.
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/23>
--- We should annotate the AST with to explain tool decisions (when generating
--- high-level API).
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/74>
--- We should annotate the AST with the relevant part of the C header here
--- (including line numbers).
 --
 -- Intended for qualified import:
 --
@@ -43,8 +33,9 @@ module HsBindgen.Hs.AST (
   , AClass(..)
   , VarDeclRHS(..)
   , VarDeclRHSAppHead(..)
-    -- ** Newtype instances
-  , TypeClass (..)
+    -- ** Deriving instances
+  , Strategy(..)
+  , TypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , ForeignImportDeclOrigin(..)
@@ -161,19 +152,26 @@ data Decl where
     DeclEmpty           :: HsName NsTypeConstr -> Decl
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
-    DeclInstance        :: InstanceDecl -> Decl
-    DeclNewtypeInstance :: TypeClass -> HsName NsTypeConstr -> Decl
+    DeclDefineInstance  :: InstanceDecl -> Decl
+    DeclDeriveInstance  :: Strategy -> TypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
 
 deriving instance Show Decl
 
--- | Class instance names
-data TypeClass =
-    Storable
+-- | Deriving strategy
+data Strategy =
+    DeriveNewtype
+  | DeriveStock
   deriving stock (Generic, Show)
 
--- | Class instance declaration
+-- | Class instance names (for instances that /ghc/ generates)
+data TypeClass =
+    Storable
+  | Show
+  deriving stock (Generic, Show)
+
+-- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl

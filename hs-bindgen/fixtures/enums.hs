@@ -1719,6 +1719,7 @@
           typedefSourceLoc =
           "examples/enums.h:32:20"}},
   DeclNewtypeInstance
+    DeriveNewtype
     Storable
     (HsName
       "@NsTypeConstr"

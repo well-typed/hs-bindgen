@@ -78,12 +78,12 @@ newtype HsModuleOpts = HsModuleOpts {
     }
   deriving stock (Show)
 
-translate :: HsModuleOpts -> C.Header -> HsModule
-translate HsModuleOpts{..} header =
+translate :: TranslationOpts -> HsModuleOpts -> C.Header -> HsModule
+translate topts HsModuleOpts{..} header =
     let hsModulePragmas = resolvePragmas hsModuleDecls
         hsModuleImports = resolveImports hsModuleDecls
         hsModuleName    = hsModuleOptsName
-        hsModuleDecls   = map SHs.translateDecl (generateDeclarations header)
+        hsModuleDecls   = map SHs.translateDecl (generateDeclarations topts header)
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ resolveDeclPragmas = \case
     DRecord{} -> Set.empty
     DNewtype{} -> Set.empty
     DEmptyData{} -> Set.empty
-    DDerivingNewtypeInstance{} -> Set.fromList
+    DDerivingInstance{} -> Set.fromList
       [ "LANGUAGE DerivingStrategies"
       , "LANGUAGE GeneralizedNewtypeDeriving"
       , "LANGUAGE StandaloneDeriving"
@@ -154,7 +154,7 @@ resolveDeclImports = \case
       map (resolveTypeImports . fieldType) dataFields
     DEmptyData _name -> mempty
     DNewtype Newtype{..} -> resolveTypeImports $ fieldType newtypeField
-    DDerivingNewtypeInstance ty -> resolveTypeImports ty
+    DDerivingInstance _s ty -> resolveTypeImports ty
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>

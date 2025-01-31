@@ -286,6 +286,10 @@
                     (Idx 3)
                     4
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Foo"),
   DeclData
     Struct {
       structName = HsName
@@ -605,6 +609,10 @@
                     (Idx 3)
                     8
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Bar"),
   DeclData
     Struct {
       structName = HsName
@@ -801,6 +809,10 @@
                     (Idx 2)
                     8
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Ex3"),
   DeclData
     Struct {
       structName = HsName
@@ -1148,6 +1160,12 @@
                     (Idx 3)
                     8
                     (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Ex4_even"),
   DeclData
     Struct {
       structName = HsName
@@ -1510,4 +1528,10 @@
                   PokeByteOff
                     (Idx 3)
                     8
-                    (Idx 1)])))})]
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Ex4_odd")]
