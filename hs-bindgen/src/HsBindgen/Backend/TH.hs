@@ -4,6 +4,7 @@ module HsBindgen.Backend.TH (
     mkDecl,
 ) where
 
+import Data.Ix qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
@@ -43,6 +44,12 @@ mkGlobal =  \case
       Applicative_seq      -> '(<*>)
       Monad_return         -> 'return
       Monad_seq            -> '(>>)
+      Eq_class             -> ''Eq
+      Ord_class            -> ''Ord
+      Enum_class           -> ''Enum
+      Ix_class             -> ''Data.Ix.Ix
+      Bounded_class        -> ''Bounded
+      Read_class           -> ''Read
       Show_class           -> ''Show
       Storable_class       -> ''Foreign.Storable.Storable
       Storable_sizeOf      -> 'Foreign.Storable.sizeOf

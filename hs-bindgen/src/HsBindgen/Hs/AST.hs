@@ -168,6 +168,15 @@ data Strategy =
 -- | Class instance names (for instances that /ghc/ generates)
 data TypeClass =
     Storable
+
+    -- Haskell98 derivable classes
+    -- <https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/deriving.html>
+  | Eq
+  | Ord
+  | Enum
+  | Ix
+  | Bounded
+  | Read
   | Show
   deriving stock (Generic, Show)
 
