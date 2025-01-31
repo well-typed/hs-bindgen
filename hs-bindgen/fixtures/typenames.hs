@@ -163,6 +163,26 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "Foo"),
   DeclPatSyn
     PatSyn {
       patSynName = HsName

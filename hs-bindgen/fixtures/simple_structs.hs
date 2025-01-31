@@ -290,6 +290,10 @@
     DeriveStock
     Show
     (HsName "@NsTypeConstr" "S1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S1"),
   DeclData
     Struct {
       structName = HsName
@@ -671,6 +675,10 @@
     DeriveStock
     Show
     (HsName "@NsTypeConstr" "S2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S2"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -899,6 +907,10 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName "@NsTypeConstr" "S3_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName "@NsTypeConstr" "S3_t"),
   DeclData
     Struct {
@@ -1289,6 +1301,10 @@
     DeriveStock
     Show
     (HsName "@NsTypeConstr" "S4"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S4"),
   DeclData
     Struct {
       structName = HsName
@@ -1580,6 +1596,10 @@
     DeriveStock
     Show
     (HsName "@NsTypeConstr" "S5"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S5"),
   DeclData
     Struct {
       structName = HsName
@@ -1870,4 +1890,8 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName "@NsTypeConstr" "S6"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName "@NsTypeConstr" "S6")]

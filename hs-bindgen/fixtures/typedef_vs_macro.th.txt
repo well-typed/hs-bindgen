@@ -19,3 +19,4 @@ instance Storable ExampleStruct
                                                    exampleStruct_m1_5
                                                    exampleStruct_m2_6 -> pokeByteOff ptr_1 0 exampleStruct_t1_3 >> (pokeByteOff ptr_1 4 exampleStruct_t2_4 >> (pokeByteOff ptr_1 8 exampleStruct_m1_5 >> pokeByteOff ptr_1 12 exampleStruct_m2_6))}}
 deriving stock instance Show ExampleStruct
+deriving stock instance Eq ExampleStruct

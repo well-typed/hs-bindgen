@@ -8,6 +8,7 @@ instance Storable Bar
                                     {Bar bar_ptrA_3
                                          bar_ptrB_4 -> pokeByteOff ptr_1 0 bar_ptrA_3 >> pokeByteOff ptr_1 8 bar_ptrB_4}}
 deriving stock instance Show Bar
+deriving stock instance Eq Bar
 data Baz = Baz {}
 instance Storable Baz
     where {sizeOf = \_ -> 0;
@@ -16,4 +17,5 @@ instance Storable Baz
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Baz -> return ()}}
 deriving stock instance Show Baz
+deriving stock instance Eq Baz
 data Quu

@@ -9,6 +9,7 @@ instance Storable Linked_list_A_s
                                     {Linked_list_A_s linked_list_A_s_x_3
                                                      linked_list_A_s_next_4 -> pokeByteOff ptr_1 0 linked_list_A_s_x_3 >> pokeByteOff ptr_1 8 linked_list_A_s_next_4}}
 deriving stock instance Show Linked_list_A_s
+deriving stock instance Eq Linked_list_A_s
 newtype Linked_list_A_t
     = Linked_list_A_t {unLinked_list_A_t :: Linked_list_A_s}
 deriving newtype instance Storable Linked_list_A_t
@@ -23,3 +24,4 @@ instance Storable Linked_list_B_t
                                     {Linked_list_B_t linked_list_B_t_x_3
                                                      linked_list_B_t_next_4 -> pokeByteOff ptr_1 0 linked_list_B_t_x_3 >> pokeByteOff ptr_1 8 linked_list_B_t_next_4}}
 deriving stock instance Show Linked_list_B_t
+deriving stock instance Eq Linked_list_B_t

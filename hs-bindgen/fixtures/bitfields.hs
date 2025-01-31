@@ -436,6 +436,12 @@
     (HsName
       "@NsTypeConstr"
       "Flags"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Flags"),
   DeclData
     Struct {
       structName = HsName
@@ -654,6 +660,12 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName
+      "@NsTypeConstr"
+      "Overflow32"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName
       "@NsTypeConstr"
       "Overflow32"),
@@ -878,6 +890,12 @@
     (HsName
       "@NsTypeConstr"
       "Overflow32b"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Overflow32b"),
   DeclData
     Struct {
       structName = HsName
@@ -1099,6 +1117,12 @@
     (HsName
       "@NsTypeConstr"
       "Overflow32c"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Overflow32c"),
   DeclData
     Struct {
       structName = HsName
@@ -1284,6 +1308,12 @@
     (HsName
       "@NsTypeConstr"
       "Overflow64"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Overflow64"),
   DeclData
     Struct {
       structName = HsName
@@ -1465,6 +1495,12 @@
     (HsName
       "@NsTypeConstr"
       "AlignA"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "AlignA"),
   DeclData
     Struct {
       structName = HsName
@@ -1643,6 +1679,12 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName
+      "@NsTypeConstr"
+      "AlignB"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName
       "@NsTypeConstr"
       "AlignB")]

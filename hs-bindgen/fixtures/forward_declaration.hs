@@ -199,6 +199,10 @@
     DeriveStock
     Show
     (HsName "@NsTypeConstr" "S1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S1"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -427,4 +431,8 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName "@NsTypeConstr" "S2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName "@NsTypeConstr" "S2")]

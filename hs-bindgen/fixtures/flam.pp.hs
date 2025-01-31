@@ -8,7 +8,7 @@ module Example where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Patterns.FlexibleArrayMember
-import Prelude ((<*>), (>>), Show, pure)
+import Prelude ((<*>), (>>), Eq, Show, pure)
 
 data Pascal = Pascal
   { pascal_len :: FC.CInt
@@ -32,6 +32,8 @@ instance F.Storable Pascal where
           Pascal pascal_len2 -> F.pokeByteOff ptr0 0 pascal_len2
 
 deriving stock instance Show Pascal
+
+deriving stock instance Eq Pascal
 
 instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Pascal FC.CChar where
 
@@ -64,6 +66,8 @@ instance F.Storable Foo_bar where
 
 deriving stock instance Show Foo_bar
 
+deriving stock instance Eq Foo_bar
+
 data Foo = Foo
   { foo_len :: FC.CInt
   }
@@ -86,6 +90,8 @@ instance F.Storable Foo where
           Foo foo_len2 -> F.pokeByteOff ptr0 0 foo_len2
 
 deriving stock instance Show Foo
+
+deriving stock instance Eq Foo
 
 instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Foo Foo_bar where
 
@@ -117,6 +123,8 @@ instance F.Storable Diff where
             >> F.pokeByteOff ptr0 8 diff_second3
 
 deriving stock instance Show Diff
+
+deriving stock instance Eq Diff
 
 instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Diff FC.CChar where
 

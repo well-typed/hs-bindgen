@@ -516,6 +516,12 @@
     (HsName
       "@NsTypeConstr"
       "Another_typedef_struct_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_struct_t"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -684,6 +690,36 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_enum_e"),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2164,6 +2200,12 @@
     (HsName
       "@NsTypeConstr"
       "A_typedef_struct"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_struct"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2407,6 +2449,36 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_enum_e"),
   DeclPatSyn
     PatSyn {
       patSynName = HsName

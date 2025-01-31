@@ -5,6 +5,11 @@ instance Storable MyEnum
            peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MyEnum unMyEnum_3 -> pokeByteOff ptr_1 0 unMyEnum_3}}
+deriving stock instance Show MyEnum
+deriving stock instance Read MyEnum
+deriving stock instance Eq MyEnum
+deriving stock instance Ord MyEnum
+deriving newtype instance Enum MyEnum
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0
 pattern Say拜拜 :: MyEnum

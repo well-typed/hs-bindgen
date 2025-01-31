@@ -11,7 +11,7 @@ import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.ConstantArray
-import Prelude ((<*>), (>>), IO, Show, pure)
+import Prelude ((<*>), (>>), Enum, Eq, IO, Ord, Read, Show, pure)
 
 a :: FC.CInt
 a = 5
@@ -63,6 +63,8 @@ instance F.Storable Another_typedef_struct_t where
 
 deriving stock instance Show Another_typedef_struct_t
 
+deriving stock instance Eq Another_typedef_struct_t
+
 newtype Another_typedef_enum_e = Another_typedef_enum_e
   { unAnother_typedef_enum_e :: FC.CUInt
   }
@@ -84,6 +86,16 @@ instance F.Storable Another_typedef_enum_e where
         case s1 of
           Another_typedef_enum_e unAnother_typedef_enum_e2 ->
             F.pokeByteOff ptr0 0 unAnother_typedef_enum_e2
+
+deriving stock instance Show Another_typedef_enum_e
+
+deriving stock instance Read Another_typedef_enum_e
+
+deriving stock instance Eq Another_typedef_enum_e
+
+deriving stock instance Ord Another_typedef_enum_e
+
+deriving newtype instance Enum Another_typedef_enum_e
 
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
@@ -186,6 +198,8 @@ instance F.Storable A_typedef_struct where
 
 deriving stock instance Show A_typedef_struct
 
+deriving stock instance Eq A_typedef_struct
+
 newtype A_typedef_struct_t = A_typedef_struct_t
   { unA_typedef_struct_t :: A_typedef_struct
   }
@@ -212,6 +226,16 @@ instance F.Storable A_typedef_enum_e where
       \s1 ->
         case s1 of
           A_typedef_enum_e unA_typedef_enum_e2 -> F.pokeByteOff ptr0 0 unA_typedef_enum_e2
+
+deriving stock instance Show A_typedef_enum_e
+
+deriving stock instance Read A_typedef_enum_e
+
+deriving stock instance Eq A_typedef_enum_e
+
+deriving stock instance Ord A_typedef_enum_e
+
+deriving newtype instance Enum A_typedef_enum_e
 
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0

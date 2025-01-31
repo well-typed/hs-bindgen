@@ -8,6 +8,7 @@ instance Storable Bools1
                                     {Bools1 bools1_x_3
                                             bools1_y_4 -> pokeByteOff ptr_1 0 bools1_x_3 >> pokeByteOff ptr_1 1 bools1_y_4}}
 deriving stock instance Show Bools1
+deriving stock instance Eq Bools1
 data Bools2 = Bools2 {bools2_x :: CBool, bools2_y :: CBool}
 instance Storable Bools2
     where {sizeOf = \_ -> 2;
@@ -17,6 +18,7 @@ instance Storable Bools2
                                     {Bools2 bools2_x_3
                                             bools2_y_4 -> pokeByteOff ptr_1 0 bools2_x_3 >> pokeByteOff ptr_1 1 bools2_y_4}}
 deriving stock instance Show Bools2
+deriving stock instance Eq Bools2
 data Bools3 = Bools3 {bools3_x :: BOOL, bools3_y :: BOOL}
 instance Storable Bools3
     where {sizeOf = \_ -> 2;
@@ -26,3 +28,4 @@ instance Storable Bools3
                                     {Bools3 bools3_x_3
                                             bools3_y_4 -> pokeByteOff ptr_1 0 bools3_x_3 >> pokeByteOff ptr_1 1 bools3_y_4}}
 deriving stock instance Show Bools3
+deriving stock instance Eq Bools3

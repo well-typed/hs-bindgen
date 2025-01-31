@@ -340,6 +340,12 @@
     (HsName
       "@NsTypeConstr"
       "Linked_list_A_s"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_A_s"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -713,6 +719,12 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_B_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName
       "@NsTypeConstr"
       "Linked_list_B_t")]
