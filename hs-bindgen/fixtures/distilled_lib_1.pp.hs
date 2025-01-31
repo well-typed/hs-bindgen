@@ -7,11 +7,14 @@
 
 module Example where
 
+import Data.Bits (FiniteBits)
+import qualified Data.Bits as Bits
+import qualified Data.Ix as Ix
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.ConstantArray
-import Prelude ((<*>), (>>), Enum, Eq, IO, Ord, Read, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show, pure)
 
 a :: FC.CInt
 a = 5
@@ -109,11 +112,59 @@ newtype A_type_t = A_type_t
 
 deriving newtype instance F.Storable A_type_t
 
+deriving stock instance Eq A_type_t
+
+deriving stock instance Ord A_type_t
+
+deriving stock instance Read A_type_t
+
+deriving stock instance Show A_type_t
+
+deriving newtype instance Enum A_type_t
+
+deriving newtype instance Ix.Ix A_type_t
+
+deriving newtype instance Bounded A_type_t
+
+deriving newtype instance Bits.Bits A_type_t
+
+deriving newtype instance FiniteBits A_type_t
+
+deriving newtype instance Integral A_type_t
+
+deriving newtype instance Num A_type_t
+
+deriving newtype instance Real A_type_t
+
 newtype Var_t = Var_t
   { unVar_t :: FC.CInt
   }
 
 deriving newtype instance F.Storable Var_t
+
+deriving stock instance Eq Var_t
+
+deriving stock instance Ord Var_t
+
+deriving stock instance Read Var_t
+
+deriving stock instance Show Var_t
+
+deriving newtype instance Enum Var_t
+
+deriving newtype instance Ix.Ix Var_t
+
+deriving newtype instance Bounded Var_t
+
+deriving newtype instance Bits.Bits Var_t
+
+deriving newtype instance FiniteBits Var_t
+
+deriving newtype instance Integral Var_t
+
+deriving newtype instance Num Var_t
+
+deriving newtype instance Real Var_t
 
 newtype Uint8_t = Uint8_t
   { unUint8_t :: FC.CSChar
@@ -121,17 +172,89 @@ newtype Uint8_t = Uint8_t
 
 deriving newtype instance F.Storable Uint8_t
 
+deriving stock instance Eq Uint8_t
+
+deriving stock instance Ord Uint8_t
+
+deriving stock instance Read Uint8_t
+
+deriving stock instance Show Uint8_t
+
+deriving newtype instance Enum Uint8_t
+
+deriving newtype instance Ix.Ix Uint8_t
+
+deriving newtype instance Bounded Uint8_t
+
+deriving newtype instance Bits.Bits Uint8_t
+
+deriving newtype instance FiniteBits Uint8_t
+
+deriving newtype instance Integral Uint8_t
+
+deriving newtype instance Num Uint8_t
+
+deriving newtype instance Real Uint8_t
+
 newtype Uint16_t = Uint16_t
   { unUint16_t :: FC.CUShort
   }
 
 deriving newtype instance F.Storable Uint16_t
 
+deriving stock instance Eq Uint16_t
+
+deriving stock instance Ord Uint16_t
+
+deriving stock instance Read Uint16_t
+
+deriving stock instance Show Uint16_t
+
+deriving newtype instance Enum Uint16_t
+
+deriving newtype instance Ix.Ix Uint16_t
+
+deriving newtype instance Bounded Uint16_t
+
+deriving newtype instance Bits.Bits Uint16_t
+
+deriving newtype instance FiniteBits Uint16_t
+
+deriving newtype instance Integral Uint16_t
+
+deriving newtype instance Num Uint16_t
+
+deriving newtype instance Real Uint16_t
+
 newtype Uint32_t = Uint32_t
   { unUint32_t :: FC.CUInt
   }
 
 deriving newtype instance F.Storable Uint32_t
+
+deriving stock instance Eq Uint32_t
+
+deriving stock instance Ord Uint32_t
+
+deriving stock instance Read Uint32_t
+
+deriving stock instance Show Uint32_t
+
+deriving newtype instance Enum Uint32_t
+
+deriving newtype instance Ix.Ix Uint32_t
+
+deriving newtype instance Bounded Uint32_t
+
+deriving newtype instance Bits.Bits Uint32_t
+
+deriving newtype instance FiniteBits Uint32_t
+
+deriving newtype instance Integral Uint32_t
+
+deriving newtype instance Num Uint32_t
+
+deriving newtype instance Real Uint32_t
 
 data A_typedef_struct = A_typedef_struct
   { a_typedef_struct_field_0 :: FC.CBool
@@ -254,6 +377,30 @@ newtype Int32_t = Int32_t
   }
 
 deriving newtype instance F.Storable Int32_t
+
+deriving stock instance Eq Int32_t
+
+deriving stock instance Ord Int32_t
+
+deriving stock instance Read Int32_t
+
+deriving stock instance Show Int32_t
+
+deriving newtype instance Enum Int32_t
+
+deriving newtype instance Ix.Ix Int32_t
+
+deriving newtype instance Bounded Int32_t
+
+deriving newtype instance Bits.Bits Int32_t
+
+deriving newtype instance FiniteBits Int32_t
+
+deriving newtype instance Integral Int32_t
+
+deriving newtype instance Num Int32_t
+
+deriving newtype instance Real Int32_t
 
 newtype Callback_t = Callback_t
   { unCallback_t :: F.FunPtr ((F.Ptr Void) -> Uint32_t -> IO Uint32_t)

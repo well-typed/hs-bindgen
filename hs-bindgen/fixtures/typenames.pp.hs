@@ -8,7 +8,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Ord, Read, Show, pure)
+import Prelude ((<*>), Enum, Eq, Floating, Fractional, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
 
 newtype Foo = Foo
   { unFoo :: FC.CUInt
@@ -52,3 +52,25 @@ newtype Foo = Foo
   }
 
 deriving newtype instance F.Storable Foo
+
+deriving stock instance Eq Foo
+
+deriving stock instance Ord Foo
+
+deriving stock instance Read Foo
+
+deriving stock instance Show Foo
+
+deriving newtype instance Enum Foo
+
+deriving newtype instance Floating Foo
+
+deriving newtype instance Fractional Foo
+
+deriving newtype instance Num Foo
+
+deriving newtype instance Real Foo
+
+deriving newtype instance RealFloat Foo
+
+deriving newtype instance RealFrac Foo

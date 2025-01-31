@@ -178,7 +178,18 @@ data TypeClass =
   | Bounded
   | Read
   | Show
-  deriving stock (Generic, Show)
+
+    -- Classes we can only derive through newtype deriving
+  | Bits
+  | FiniteBits
+  | Floating
+  | Fractional
+  | Integral
+  | Num
+  | Real
+  | RealFloat
+  | RealFrac
+  deriving stock (Generic, Show, Eq, Ord)
 
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star

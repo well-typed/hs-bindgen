@@ -37,13 +37,6 @@ data Global =
   | Applicative_seq
   | Monad_return
   | Monad_seq
-  | Eq_class
-  | Ord_class
-  | Enum_class
-  | Ix_class
-  | Bounded_class
-  | Read_class
-  | Show_class
   | Storable_class
   | Storable_sizeOf
   | Storable_alignment
@@ -57,6 +50,24 @@ data Global =
   | IO_type
   | HasFlexibleArrayMember_class
   | HasFlexibleArrayMember_offset
+
+    -- Other type classes
+  | Bits_class
+  | Bounded_class
+  | Enum_class
+  | Eq_class
+  | FiniteBits_class
+  | Floating_class
+  | Fractional_class
+  | Integral_class
+  | Ix_class
+  | Num_class
+  | Ord_class
+  | Read_class
+  | Real_class
+  | RealFloat_class
+  | RealFrac_class
+  | Show_class
 
     -- | Primitive (unboxed) type equality
   | NomEq_class

@@ -247,4 +247,48 @@
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Floating
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Fractional
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    RealFloat
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    RealFrac
     (HsName "@NsTypeConstr" "Foo")]
