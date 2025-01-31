@@ -75,9 +75,8 @@ library
       HsBindgen.Hs.AST.Type
       HsBindgen.NameHint
   other-modules:
-      HsBindgen.Backend.PP
+      HsBindgen.Backend.PP.Names
       HsBindgen.Backend.PP.Translation
-      HsBindgen.Backend.TH
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
