@@ -51,6 +51,7 @@ module HsBindgen.Runtime.LibC (
 import Data.Bits (Bits, FiniteBits)
 import Data.Ix (Ix)
 import Data.Word (Word16, Word32)
+import Foreign.C.String (CString)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
 import Foreign.Storable (Storable)
@@ -444,30 +445,30 @@ newtype CChar32T = CChar32T Word32
 -- available from C99.  It is defined in the @locale.h@ header file.
 data CLconv = CLconv {
       -- | Decimal-point separator used for non-monetary quantities
-      cLconv_decimal_point      :: Ptr C.CChar
+      cLconv_decimal_point      :: CString
     , -- | Separators used to delimit groups of digits to the left of the
       -- decimal point for non-monetary quantities
-      cLconv_thousands_sep      :: Ptr C.CChar
+      cLconv_thousands_sep      :: CString
     , -- | Specifies digits that form each of the groups to be separated by
       -- @thousands_sep@ separator for non-monetary quantities
-      cLconv_grouping           :: Ptr C.CChar
+      cLconv_grouping           :: CString
     , -- | ISO-4217 currency symbol (example: @USD@)
-      cLconv_int_curr_symbol    :: Ptr C.CChar
+      cLconv_int_curr_symbol    :: CString
     , -- | Local currency symbol (example: @$@)
-      cLconv_currency_symbol    :: Ptr C.CChar
+      cLconv_currency_symbol    :: CString
     , -- | Decimal-point separator used for monetary quantities
-      cLconv_mon_decimal_point  :: Ptr C.CChar
+      cLconv_mon_decimal_point  :: CString
     , -- | Separators used to delimit groups of digits to the left of the
       -- decimal point for monetary quantities
-      cLconv_mon_thousands_sep  :: Ptr C.CChar
+      cLconv_mon_thousands_sep  :: CString
     , -- | Specifies digits that form each of the groups to be separated by
       -- @mon_thousands_sep@ separator for monetary quantities
-      cLconv_mon_grouping       :: Ptr C.CChar
+      cLconv_mon_grouping       :: CString
     , -- | Sign to be used for nonnegative (zero or positive) monetary
       -- quantities
-      cLconv_positive_sign      :: Ptr C.CChar
+      cLconv_positive_sign      :: CString
     , -- | Sign to be used for negative monetary quantities
-      cLconv_negative_sign      :: Ptr C.CChar
+      cLconv_negative_sign      :: CString
     , -- | Number of fractional digits to the right of the decimal point for
       -- monetary quantities in the international format
       cLconv_int_frac_digits    :: C.CChar
