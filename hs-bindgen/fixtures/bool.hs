@@ -304,6 +304,12 @@
     (HsName
       "@NsTypeConstr"
       "Bools1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Bools1"),
   DeclData
     Struct {
       structName = HsName
@@ -578,6 +584,12 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName
+      "@NsTypeConstr"
+      "Bools2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName
       "@NsTypeConstr"
       "Bools2"),
@@ -871,6 +883,12 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName
+      "@NsTypeConstr"
+      "Bools3"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName
       "@NsTypeConstr"
       "Bools3")]

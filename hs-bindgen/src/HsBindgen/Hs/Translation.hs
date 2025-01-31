@@ -41,13 +41,27 @@ import DeBruijn
 -------------------------------------------------------------------------------}
 
 data TranslationOpts = TranslationOpts {
-      translationDeriveShow :: Bool
+      -- | Default set of classes to derive for structs
+      translationDeriveStruct :: [(Hs.Strategy, Hs.TypeClass)]
+
+      -- | Default set of classes to derive for enums
+    , translationDeriveEnum :: [(Hs.Strategy, Hs.TypeClass)]
     }
   deriving stock (Show)
 
 defaultTranslationOpts :: TranslationOpts
 defaultTranslationOpts = TranslationOpts {
-      translationDeriveShow = True
+      translationDeriveStruct = [
+          (Hs.DeriveStock, Hs.Show)
+        , (Hs.DeriveStock, Hs.Eq)
+        ]
+    , translationDeriveEnum = [
+          (Hs.DeriveStock, Hs.Show)
+        , (Hs.DeriveStock, Hs.Read)
+        , (Hs.DeriveStock, Hs.Eq)
+        , (Hs.DeriveStock, Hs.Ord)
+        , (Hs.DeriveNewtype, Hs.Enum)
+        ]
     }
 
 {-------------------------------------------------------------------------------
@@ -97,8 +111,8 @@ structDecs :: forall n.
 structDecs opts struct fields = concat
     [ [ Hs.DeclData hs ]
     , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable]
-    , [ Hs.DeclDeriveInstance Hs.DeriveStock Hs.Show (Hs.structName hs)
-      | translationDeriveShow opts
+    , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
+      | (strat, clss) <- translationDeriveStruct opts
       ]
     , flamInstance
     ]
@@ -161,10 +175,14 @@ opaqueStructDecs _opts cname =
 -------------------------------------------------------------------------------}
 
 enumDecs :: TranslationOpts -> C.Enu -> [Hs.Decl]
-enumDecs _opts e = [
-      Hs.DeclNewtype Hs.Newtype{..}
-    , Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable
-    ] ++ valueDecls
+enumDecs opts e = concat [
+      [ Hs.DeclNewtype Hs.Newtype{..} ]
+    , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable ]
+    , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
+      | (strat, clss) <- translationDeriveEnum opts
+      ]
+    , valueDecls
+    ]
   where
     cEnumName          = C.enumTag e
     nm@NameMangler{..} = defaultNameMangler

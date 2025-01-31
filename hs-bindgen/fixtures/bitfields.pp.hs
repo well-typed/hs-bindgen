@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Show, pure, return)
+import Prelude ((<*>), (>>), Eq, Show, pure, return)
 
 data Flags = Flags
   { flags_fieldX :: FC.CChar
@@ -36,6 +36,8 @@ instance F.Storable Flags where
 
 deriving stock instance Show Flags
 
+deriving stock instance Eq Flags
+
 data Overflow32 = Overflow32
   {}
 
@@ -54,6 +56,8 @@ instance F.Storable Overflow32 where
           Overflow32 -> return ()
 
 deriving stock instance Show Overflow32
+
+deriving stock instance Eq Overflow32
 
 data Overflow32b = Overflow32b
   {}
@@ -74,6 +78,8 @@ instance F.Storable Overflow32b where
 
 deriving stock instance Show Overflow32b
 
+deriving stock instance Eq Overflow32b
+
 data Overflow32c = Overflow32c
   {}
 
@@ -92,6 +98,8 @@ instance F.Storable Overflow32c where
           Overflow32c -> return ()
 
 deriving stock instance Show Overflow32c
+
+deriving stock instance Eq Overflow32c
 
 data Overflow64 = Overflow64
   {}
@@ -112,6 +120,8 @@ instance F.Storable Overflow64 where
 
 deriving stock instance Show Overflow64
 
+deriving stock instance Eq Overflow64
+
 data AlignA = AlignA
   {}
 
@@ -131,6 +141,8 @@ instance F.Storable AlignA where
 
 deriving stock instance Show AlignA
 
+deriving stock instance Eq AlignA
+
 data AlignB = AlignB
   {}
 
@@ -149,3 +161,5 @@ instance F.Storable AlignB where
           AlignB -> return ()
 
 deriving stock instance Show AlignB
+
+deriving stock instance Eq AlignB

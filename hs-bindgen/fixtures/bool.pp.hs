@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Show, pure)
+import Prelude ((<*>), (>>), Eq, Show, pure)
 
 newtype BOOL = BOOL
   { unBOOL :: FC.CBool
@@ -40,6 +40,8 @@ instance F.Storable Bools1 where
 
 deriving stock instance Show Bools1
 
+deriving stock instance Eq Bools1
+
 data Bools2 = Bools2
   { bools2_x :: FC.CBool
   , bools2_y :: FC.CBool
@@ -67,6 +69,8 @@ instance F.Storable Bools2 where
 
 deriving stock instance Show Bools2
 
+deriving stock instance Eq Bools2
+
 data Bools3 = Bools3
   { bools3_x :: BOOL
   , bools3_y :: BOOL
@@ -93,3 +97,5 @@ instance F.Storable Bools3 where
             >> F.pokeByteOff ptr0 1 bools3_y3
 
 deriving stock instance Show Bools3
+
+deriving stock instance Eq Bools3

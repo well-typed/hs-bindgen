@@ -7,6 +7,7 @@ instance Storable Foo
                                     {Foo foo_i_3
                                          foo_c_4 -> pokeByteOff ptr_1 0 foo_i_3 >> pokeByteOff ptr_1 4 foo_c_4}}
 deriving stock instance Show Foo
+deriving stock instance Eq Foo
 data Bar = Bar {bar_foo1 :: Foo, bar_foo2 :: Foo}
 instance Storable Bar
     where {sizeOf = \_ -> 16;
@@ -16,6 +17,7 @@ instance Storable Bar
                                     {Bar bar_foo1_3
                                          bar_foo2_4 -> pokeByteOff ptr_1 0 bar_foo1_3 >> pokeByteOff ptr_1 8 bar_foo2_4}}
 deriving stock instance Show Bar
+deriving stock instance Eq Bar
 data Ex3 = Ex3 {ex3_ex3_c :: CFloat}
 instance Storable Ex3
     where {sizeOf = \_ -> 12;
@@ -24,6 +26,7 @@ instance Storable Ex3
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Ex3 ex3_ex3_c_3 -> pokeByteOff ptr_1 8 ex3_ex3_c_3}}
 deriving stock instance Show Ex3
+deriving stock instance Eq Ex3
 data Ex4_even
     = Ex4_even {ex4_even_ex4_even_value :: CDouble,
                 ex4_even_next :: (Ptr Ex4_odd)}
@@ -35,6 +38,7 @@ instance Storable Ex4_even
                                     {Ex4_even ex4_even_ex4_even_value_3
                                               ex4_even_next_4 -> pokeByteOff ptr_1 0 ex4_even_ex4_even_value_3 >> pokeByteOff ptr_1 8 ex4_even_next_4}}
 deriving stock instance Show Ex4_even
+deriving stock instance Eq Ex4_even
 data Ex4_odd
     = Ex4_odd {ex4_odd_ex4_odd_value :: CInt,
                ex4_odd_next :: (Ptr Ex4_even)}
@@ -46,3 +50,4 @@ instance Storable Ex4_odd
                                     {Ex4_odd ex4_odd_ex4_odd_value_3
                                              ex4_odd_next_4 -> pokeByteOff ptr_1 0 ex4_odd_ex4_odd_value_3 >> pokeByteOff ptr_1 8 ex4_odd_next_4}}
 deriving stock instance Show Ex4_odd
+deriving stock instance Eq Ex4_odd

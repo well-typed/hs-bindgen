@@ -5,6 +5,11 @@ instance Storable Foo
            peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 0;
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo unFoo_3 -> pokeByteOff ptr_1 0 unFoo_3}}
+deriving stock instance Show Foo
+deriving stock instance Read Foo
+deriving stock instance Eq Foo
+deriving stock instance Ord Foo
+deriving newtype instance Enum Foo
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo

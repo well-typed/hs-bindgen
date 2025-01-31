@@ -6,6 +6,7 @@ instance Storable Pascal
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Pascal pascal_len_3 -> pokeByteOff ptr_1 0 pascal_len_3}}
 deriving stock instance Show Pascal
+deriving stock instance Eq Pascal
 instance HasFlexibleArrayMember Pascal CChar
     where {flexibleArrayMemberOffset = \_ty_0 -> 4}
 data Foo_bar = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
@@ -17,6 +18,7 @@ instance Storable Foo_bar
                                     {Foo_bar foo_bar_x_3
                                              foo_bar_y_4 -> pokeByteOff ptr_1 0 foo_bar_x_3 >> pokeByteOff ptr_1 4 foo_bar_y_4}}
 deriving stock instance Show Foo_bar
+deriving stock instance Eq Foo_bar
 data Foo = Foo {foo_len :: CInt}
 instance Storable Foo
     where {sizeOf = \_ -> 4;
@@ -25,6 +27,7 @@ instance Storable Foo
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo foo_len_3 -> pokeByteOff ptr_1 0 foo_len_3}}
 deriving stock instance Show Foo
+deriving stock instance Eq Foo
 instance HasFlexibleArrayMember Foo Foo_bar
     where {flexibleArrayMemberOffset = \_ty_0 -> 4}
 data Diff = Diff {diff_first :: CLong, diff_second :: CChar}
@@ -36,5 +39,6 @@ instance Storable Diff
                                     {Diff diff_first_3
                                           diff_second_4 -> pokeByteOff ptr_1 0 diff_first_3 >> pokeByteOff ptr_1 8 diff_second_4}}
 deriving stock instance Show Diff
+deriving stock instance Eq Diff
 instance HasFlexibleArrayMember Diff CChar
     where {flexibleArrayMemberOffset = \_ty_0 -> 9}

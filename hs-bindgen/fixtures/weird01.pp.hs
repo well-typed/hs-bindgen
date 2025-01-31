@@ -8,7 +8,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), IO, Show, pure)
+import Prelude ((<*>), Eq, IO, Show, pure)
 
 foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO ()
 
@@ -35,6 +35,8 @@ instance F.Storable Foo where
 
 deriving stock instance Show Foo
 
+deriving stock instance Eq Foo
+
 data Bar = Bar
   { bar_x :: FC.CInt
   }
@@ -57,3 +59,5 @@ instance F.Storable Bar where
           Bar bar_x2 -> F.pokeByteOff ptr0 0 bar_x2
 
 deriving stock instance Show Bar
+
+deriving stock instance Eq Bar

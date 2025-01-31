@@ -6,7 +6,7 @@
 module Example where
 
 import qualified Foreign as F
-import Prelude ((<*>), (>>), Show, pure, return)
+import Prelude ((<*>), (>>), Eq, Show, pure, return)
 
 data Foo
 
@@ -37,6 +37,8 @@ instance F.Storable Bar where
 
 deriving stock instance Show Bar
 
+deriving stock instance Eq Bar
+
 data Baz = Baz
   {}
 
@@ -55,5 +57,7 @@ instance F.Storable Baz where
           Baz -> return ()
 
 deriving stock instance Show Baz
+
+deriving stock instance Eq Baz
 
 data Quu

@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Show, pure)
+import Prelude ((<*>), (>>), Eq, Show, pure)
 
 data Linked_list_A_s = Linked_list_A_s
   { linked_list_A_s_x :: FC.CInt
@@ -35,6 +35,8 @@ instance F.Storable Linked_list_A_s where
             >> F.pokeByteOff ptr0 8 linked_list_A_s_next3
 
 deriving stock instance Show Linked_list_A_s
+
+deriving stock instance Eq Linked_list_A_s
 
 newtype Linked_list_A_t = Linked_list_A_t
   { unLinked_list_A_t :: Linked_list_A_s
@@ -68,3 +70,5 @@ instance F.Storable Linked_list_B_t where
             >> F.pokeByteOff ptr0 8 linked_list_B_t_next3
 
 deriving stock instance Show Linked_list_B_t
+
+deriving stock instance Eq Linked_list_B_t

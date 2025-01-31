@@ -2939,4 +2939,10 @@
     Show
     (HsName
       "@NsTypeConstr"
+      "Primitive"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
       "Primitive")]

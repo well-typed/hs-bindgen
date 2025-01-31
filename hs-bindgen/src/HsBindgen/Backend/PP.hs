@@ -62,6 +62,10 @@ iHsBindgenSyntax = HsImportModule "HsBindgen.Syntax" (Just "HsBindgen")
 iPrelude :: HsImportModule
 iPrelude = HsImportModule "Prelude" (Just "P")
 
+-- | @Data.Ix@ import module
+iDataIx :: HsImportModule
+iDataIx = HsImportModule "Data.Ix" (Just "Ix")
+
 -- | @C.Typing@ import module
 iCTyping :: HsImportModule
 iCTyping = HsImportModule "C.Typing" (Just "C")
@@ -139,6 +143,12 @@ resolveGlobal = \case
     Applicative_seq      -> importU iPrelude "<*>"
     Monad_return         -> importU iPrelude "return"
     Monad_seq            -> importU iPrelude ">>"
+    Eq_class             -> importU iPrelude "Eq"
+    Ord_class            -> importU iPrelude "Ord"
+    Enum_class           -> importU iPrelude "Enum"
+    Ix_class             -> importU iDataIx  "Ix"
+    Bounded_class        -> importU iPrelude "Bounded"
+    Read_class           -> importU iPrelude "Read"
     Show_class           -> importU iPrelude "Show"
     Storable_class       -> importQ iForeign "Storable"
     Storable_sizeOf      -> importQ iForeign "sizeOf"

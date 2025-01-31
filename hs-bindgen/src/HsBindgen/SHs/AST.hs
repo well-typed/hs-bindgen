@@ -37,6 +37,12 @@ data Global =
   | Applicative_seq
   | Monad_return
   | Monad_seq
+  | Eq_class
+  | Ord_class
+  | Enum_class
+  | Ix_class
+  | Bounded_class
+  | Read_class
   | Show_class
   | Storable_class
   | Storable_sizeOf

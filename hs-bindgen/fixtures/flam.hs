@@ -229,6 +229,12 @@
     (HsName
       "@NsTypeConstr"
       "Pascal"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Pascal"),
   DeclInstance
     (InstanceHasFLAM
       Struct {
@@ -592,6 +598,12 @@
     (HsName
       "@NsTypeConstr"
       "Foo_bar"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Foo_bar"),
   DeclData
     Struct {
       structName = HsName
@@ -843,6 +855,10 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName "@NsTypeConstr" "Foo"),
   DeclInstance
     (InstanceHasFLAM
@@ -1225,6 +1241,10 @@
   DeclNewtypeInstance
     DeriveStock
     Show
+    (HsName "@NsTypeConstr" "Diff"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
     (HsName "@NsTypeConstr" "Diff"),
   DeclInstance
     (InstanceHasFLAM

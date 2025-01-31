@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Show, pure)
+import Prelude ((<*>), (>>), Eq, Show, pure)
 
 data Primitive = Primitive
   { primitive_c :: FC.CChar
@@ -145,3 +145,5 @@ instance F.Storable Primitive where
               >> F.pokeByteOff ptr0 160 primitive_ld30
 
 deriving stock instance Show Primitive
+
+deriving stock instance Eq Primitive

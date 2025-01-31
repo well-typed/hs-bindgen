@@ -80,6 +80,12 @@ translateDeriveInstance s tc n = DDerivingInstance s $ TApp (translateTypeClass 
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass Hs.Storable = TGlobal Storable_class
+translateTypeClass Hs.Eq       = TGlobal Eq_class
+translateTypeClass Hs.Ord      = TGlobal Ord_class
+translateTypeClass Hs.Enum     = TGlobal Enum_class
+translateTypeClass Hs.Ix       = TGlobal Ix_class
+translateTypeClass Hs.Bounded  = TGlobal Bounded_class
+translateTypeClass Hs.Read     = TGlobal Read_class
 translateTypeClass Hs.Show     = TGlobal Show_class
 
 translateVarDecl :: Hs.VarDecl -> SDecl

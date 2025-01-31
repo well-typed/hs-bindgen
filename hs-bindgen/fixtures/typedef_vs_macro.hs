@@ -591,4 +591,10 @@
     Show
     (HsName
       "@NsTypeConstr"
+      "ExampleStruct"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
       "ExampleStruct")]

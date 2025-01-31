@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Show, pure)
+import Prelude ((<*>), (>>), Eq, Show, pure)
 
 data S1 = S1
   { s1_a :: FC.CInt
@@ -35,6 +35,8 @@ instance F.Storable S1 where
             >> F.pokeByteOff ptr0 4 s1_b3
 
 deriving stock instance Show S1
+
+deriving stock instance Eq S1
 
 data S2 = S2
   { s2_a :: FC.CChar
@@ -66,6 +68,8 @@ instance F.Storable S2 where
 
 deriving stock instance Show S2
 
+deriving stock instance Eq S2
+
 newtype S2_t = S2_t
   { unS2_t :: S2
   }
@@ -94,6 +98,8 @@ instance F.Storable S3_t where
           S3_t s3_t_a2 -> F.pokeByteOff ptr0 0 s3_t_a2
 
 deriving stock instance Show S3_t
+
+deriving stock instance Eq S3_t
 
 data S4 = S4
   { s4_b :: FC.CChar
@@ -125,6 +131,8 @@ instance F.Storable S4 where
 
 deriving stock instance Show S4
 
+deriving stock instance Eq S4
+
 data S5 = S5
   { s5_a :: FC.CChar
   , s5_b :: FC.CInt
@@ -152,6 +160,8 @@ instance F.Storable S5 where
 
 deriving stock instance Show S5
 
+deriving stock instance Eq S5
+
 data S6 = S6
   { s6_a :: FC.CChar
   , s6_b :: FC.CInt
@@ -178,3 +188,5 @@ instance F.Storable S6 where
             >> F.pokeByteOff ptr0 4 s6_b3
 
 deriving stock instance Show S6
+
+deriving stock instance Eq S6
