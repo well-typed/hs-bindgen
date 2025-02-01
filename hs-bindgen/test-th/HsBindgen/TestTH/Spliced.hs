@@ -8,6 +8,7 @@ import HsBindgen.Lib
 import Misc
 import System.FilePath ((</>))
 import Foreign
+import Foreign.C.Types
 
 $(runIO (findPackageDirectory "hs-bindgen") >>= \dir -> templateHaskell (Just dir) (dir </> "examples" </> "test-th-01.h"))
 
@@ -21,3 +22,6 @@ val = MyStruct
 
 pokeVal :: Ptr MyStruct -> IO ()
 pokeVal ptr = poke ptr val
+
+myPlus :: CLong -> CLong -> CLong
+myPlus x y = pLUS x y
