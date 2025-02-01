@@ -150,6 +150,7 @@ mkGlobal =  \case
       mkGlobalP HsPrimCDouble  = ''Foreign.C.Types.CDouble
       mkGlobalP HsPrimCBool    = ''Foreign.C.Types.CBool
       mkGlobalP HsPrimCPtrDiff = ''Foreign.C.Types.CPtrdiff
+      mkGlobalP HsPrimInt      = ''Int
 
 {-
   mkExpr be = \case
@@ -182,7 +183,8 @@ mkExpr env = \case
       EFree n       -> hsVarE n
       EBound x      -> TH.varE (lookupEnv x env)
       ECon n        -> hsConE n
-      EIntegral i _ -> TH.litE (TH.IntegerL i)
+      EIntegral i Nothing -> TH.litE (TH.IntegerL i)
+      EIntegral i (Just t)-> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv (TGlobal (PrimType t)))
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
       --

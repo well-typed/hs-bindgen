@@ -1,10 +1,10 @@
 newtype MyEnum = MyEnum {unMyEnum :: CUInt}
 instance Storable MyEnum
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {MyEnum unMyEnum_3 -> pokeByteOff ptr_1 0 unMyEnum_3}}
+                                    {MyEnum unMyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) unMyEnum_3}}
 deriving stock instance Show MyEnum
 deriving stock instance Read MyEnum
 deriving stock instance Eq MyEnum

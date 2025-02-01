@@ -1,10 +1,10 @@
 newtype First = First {unFirst :: CUInt}
 instance Storable First
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {First unFirst_3 -> pokeByteOff ptr_1 0 unFirst_3}}
+                                    {First unFirst_3 -> pokeByteOff ptr_1 (0 :: Int) unFirst_3}}
 deriving stock instance Show First
 deriving stock instance Read First
 deriving stock instance Eq First
@@ -16,11 +16,11 @@ pattern FIRST2 :: First
 pattern FIRST2 = First 1
 newtype Second = Second {unSecond :: CInt}
 instance Storable Second
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Second unSecond_3 -> pokeByteOff ptr_1 0 unSecond_3}}
+                                    {Second unSecond_3 -> pokeByteOff ptr_1 (0 :: Int) unSecond_3}}
 deriving stock instance Show Second
 deriving stock instance Read Second
 deriving stock instance Eq Second
@@ -34,11 +34,11 @@ pattern SECOND_C :: Second
 pattern SECOND_C = Second 1
 newtype Same = Same {unSame :: CUInt}
 instance Storable Same
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Same unSame_3 -> pokeByteOff ptr_1 0 unSame_3}}
+                                    {Same unSame_3 -> pokeByteOff ptr_1 (0 :: Int) unSame_3}}
 deriving stock instance Show Same
 deriving stock instance Read Same
 deriving stock instance Eq Same
@@ -50,11 +50,11 @@ pattern SAME_B :: Same
 pattern SAME_B = Same 1
 newtype Packad = Packad {unPackad :: CSChar}
 instance Storable Packad
-    where {sizeOf = \_ -> 1;
-           alignment = \_ -> 1;
-           peek = \ptr_0 -> pure Packad <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 1 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> pure Packad <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Packad unPackad_3 -> pokeByteOff ptr_1 0 unPackad_3}}
+                                    {Packad unPackad_3 -> pokeByteOff ptr_1 (0 :: Int) unPackad_3}}
 deriving stock instance Show Packad
 deriving stock instance Read Packad
 deriving stock instance Eq Packad
@@ -68,11 +68,11 @@ pattern PACKED_C :: Packad
 pattern PACKED_C = Packad 2
 newtype EnumA = EnumA {unEnumA :: CUInt}
 instance Storable EnumA
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {EnumA unEnumA_3 -> pokeByteOff ptr_1 0 unEnumA_3}}
+                                    {EnumA unEnumA_3 -> pokeByteOff ptr_1 (0 :: Int) unEnumA_3}}
 deriving stock instance Show EnumA
 deriving stock instance Read EnumA
 deriving stock instance Eq EnumA
@@ -84,11 +84,11 @@ pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
 newtype EnumB = EnumB {unEnumB :: CUInt}
 instance Storable EnumB
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {EnumB unEnumB_3 -> pokeByteOff ptr_1 0 unEnumB_3}}
+                                    {EnumB unEnumB_3 -> pokeByteOff ptr_1 (0 :: Int) unEnumB_3}}
 deriving stock instance Show EnumB
 deriving stock instance Read EnumB
 deriving stock instance Eq EnumB
@@ -100,11 +100,11 @@ pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
 newtype EnumC = EnumC {unEnumC :: CUInt}
 instance Storable EnumC
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {EnumC unEnumC_3 -> pokeByteOff ptr_1 0 unEnumC_3}}
+                                    {EnumC unEnumC_3 -> pokeByteOff ptr_1 (0 :: Int) unEnumC_3}}
 deriving stock instance Show EnumC
 deriving stock instance Read EnumC
 deriving stock instance Eq EnumC
@@ -116,11 +116,11 @@ pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
 newtype EnumD = EnumD {unEnumD :: CUInt}
 instance Storable EnumD
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure EnumD <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure EnumD <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {EnumD unEnumD_3 -> pokeByteOff ptr_1 0 unEnumD_3}}
+                                    {EnumD unEnumD_3 -> pokeByteOff ptr_1 (0 :: Int) unEnumD_3}}
 deriving stock instance Show EnumD
 deriving stock instance Read EnumD
 deriving stock instance Eq EnumD

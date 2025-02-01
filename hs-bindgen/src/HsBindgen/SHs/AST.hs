@@ -150,9 +150,9 @@ data SExpr ctx =
   deriving stock (Show)
 
 pattern EInt :: Int -> SExpr be
-pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimCInt)
+pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
   where
-    EInt i = EIntegral (fromIntegral i) (Just HsPrimCInt)
+    EInt i = EIntegral (fromIntegral i) (Just HsPrimInt)
 
 -- | Case alternatives
 data SAlt ctx where

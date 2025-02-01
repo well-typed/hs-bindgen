@@ -40,6 +40,8 @@ data HsPrimType
     | HsPrimCFloat
     | HsPrimCDouble
 
+    | HsPrimInt
+
   -- Int8 Int16 Int32 Int64
   -- Word8 Word16 Word32 Word64
   deriving stock (Eq, Generic, Show)
