@@ -114,7 +114,8 @@ main = do
           Windows -> clangArgs0
           Posix ->
             clangArgs0
-              { Clang.clangTarget = Just "x86_64-pc-linux-gnu"
+              { Clang.clangTarget =
+                  Just (Clang.Target_Linux_X86_64, Clang.TargetEnvDefault)
               , Clang.clangOtherArgs =
                   [ "-nostdinc" ]
                   ++ [ "-isystem" ++ (hsBindgenDir </> "musl-include/x86_64")

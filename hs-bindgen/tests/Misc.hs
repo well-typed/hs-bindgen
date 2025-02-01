@@ -13,7 +13,7 @@ import Test.Tasty (TestTree, TestName)
 
 import AnsiDiff (ansidiff)
 import TastyGolden
-import HsBindgen.Lib (ClangArgs (..), defaultClangArgs, CStandard (..))
+import HsBindgen.Lib
 
 -------------------------------------------------------------------------------
 -- tasty-golden wrapper
@@ -66,7 +66,7 @@ findPackageDirectory pkgname = do
 
 clangArgs :: FilePath -> ClangArgs
 clangArgs packageRoot = defaultClangArgs{
-     clangTarget = Just "x86_64-pc-linux-gnu"
+     clangTarget = Just (Target_Linux_X86_64, TargetEnvOverride "gnu")
    , clangCStandard = Just C23
    , clangOtherArgs = [
          "-nostdinc"
