@@ -1,6 +1,7 @@
 -- | Simplified HS abstract syntax tree
 module HsBindgen.SHs.AST (
     Global (..),
+    GlobalCExpr (..),
     ClosedExpr,
     SExpr (..),
     pattern EInt,
@@ -16,11 +17,12 @@ module HsBindgen.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import HsBindgen.Imports
-import HsBindgen.NameHint
+import HsBindgen.Clang.Args (Target)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Imports
+import HsBindgen.NameHint
 
 import DeBruijn
 
@@ -72,7 +74,22 @@ data Global =
     -- | Primitive (unboxed) type equality
   | NomEq_class
 
-  | Not_class
+    -- | Names from @c-expr@ must be imported from a platform-specific module
+  | CExpr Target GlobalCExpr
+
+  | IntLike_tycon
+  | FloatLike_tycon
+
+  | CFloat_constructor
+  | CDouble_constructor
+  | GHC_Float_castWord32ToFloat
+  | GHC_Float_castWord64ToDouble
+
+  | PrimType HsPrimType
+  deriving stock (Eq, Show)
+
+data GlobalCExpr =
+    Not_class
   | Not_not
   | Logical_class
   | Logical_and
@@ -118,16 +135,6 @@ data Global =
   | Shift_resTyCon
   | Shift_shiftL
   | Shift_shiftR
-
-  | IntLike_tycon
-  | FloatLike_tycon
-
-  | CFloat_constructor
-  | CDouble_constructor
-  | GHC_Float_castWord32ToFloat
-  | GHC_Float_castWord64ToDouble
-
-  | PrimType HsPrimType
   deriving stock (Eq, Show)
 
 type ClosedExpr = SExpr EmptyCtx

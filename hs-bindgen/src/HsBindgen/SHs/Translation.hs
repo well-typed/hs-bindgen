@@ -9,6 +9,7 @@ import Data.Text qualified as T
 
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as C
+import HsBindgen.Clang.Args (Target)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -173,8 +174,8 @@ simpleTyConApp
     = Just $ TGlobal $ PrimType $ hsPrimFloatTy floaty
 simpleTyConApp _ _ = Nothing
 
-tyConGlobal :: C.TyCon args res -> SType ctx
-tyConGlobal = \case
+tyConGlobal :: Target -> C.TyCon args res -> SType ctx
+tyConGlobal target = \case
   C.GenerativeTyCon tc ->
     case tc of
       C.DataTyCon dc ->
@@ -199,57 +200,57 @@ tyConGlobal = \case
             error "tyConGlobal EmptyTyCon"
       C.ClassTyCon cls -> TGlobal $
         case cls of
-          C.NotTyCon        -> Not_class
-          C.LogicalTyCon    -> Logical_class
-          C.RelEqTyCon      -> RelEq_class
-          C.RelOrdTyCon     -> RelOrd_class
-          C.PlusTyCon       -> Plus_class
-          C.MinusTyCon      -> Minus_class
-          C.AddTyCon        -> Add_class
-          C.SubTyCon        -> Sub_class
-          C.MultTyCon       -> Mult_class
-          C.DivTyCon        -> Div_class
-          C.RemTyCon        -> Rem_class
-          C.ComplementTyCon -> Complement_class
-          C.BitwiseTyCon    -> Bitwise_class
-          C.ShiftTyCon      -> Shift_class
+          C.NotTyCon        -> CExpr target Not_class
+          C.LogicalTyCon    -> CExpr target Logical_class
+          C.RelEqTyCon      -> CExpr target RelEq_class
+          C.RelOrdTyCon     -> CExpr target RelOrd_class
+          C.PlusTyCon       -> CExpr target Plus_class
+          C.MinusTyCon      -> CExpr target Minus_class
+          C.AddTyCon        -> CExpr target Add_class
+          C.SubTyCon        -> CExpr target Sub_class
+          C.MultTyCon       -> CExpr target Mult_class
+          C.DivTyCon        -> CExpr target Div_class
+          C.RemTyCon        -> CExpr target Rem_class
+          C.ComplementTyCon -> CExpr target Complement_class
+          C.BitwiseTyCon    -> CExpr target Bitwise_class
+          C.ShiftTyCon      -> CExpr target Shift_class
   C.FamilyTyCon tc -> TGlobal $
     case tc of
-      C.PlusResTyCon       -> Plus_resTyCon
-      C.MinusResTyCon      -> Minus_resTyCon
-      C.AddResTyCon        -> Add_resTyCon
-      C.SubResTyCon        -> Sub_resTyCon
-      C.MultResTyCon       -> Mult_resTyCon
-      C.DivResTyCon        -> Div_resTyCon
-      C.RemResTyCon        -> Rem_resTyCon
-      C.ComplementResTyCon -> Complement_resTyCon
-      C.BitsResTyCon       -> Bitwise_resTyCon
-      C.ShiftResTyCon      -> Shift_resTyCon
+      C.PlusResTyCon       -> CExpr target Plus_resTyCon
+      C.MinusResTyCon      -> CExpr target Minus_resTyCon
+      C.AddResTyCon        -> CExpr target Add_resTyCon
+      C.SubResTyCon        -> CExpr target Sub_resTyCon
+      C.MultResTyCon       -> CExpr target Mult_resTyCon
+      C.DivResTyCon        -> CExpr target Div_resTyCon
+      C.RemResTyCon        -> CExpr target Rem_resTyCon
+      C.ComplementResTyCon -> CExpr target Complement_resTyCon
+      C.BitsResTyCon       -> CExpr target Bitwise_resTyCon
+      C.ShiftResTyCon      -> CExpr target Shift_resTyCon
 
-mfunGlobal :: C.MFun arity -> Global
-mfunGlobal = \case
-  C.MUnaryPlus  -> Plus_plus
-  C.MUnaryMinus -> Minus_negate
-  C.MLogicalNot -> Not_not
-  C.MBitwiseNot -> Complement_complement
-  C.MMult       -> Mult_mult
-  C.MDiv        -> Div_div
-  C.MRem        -> Rem_rem
-  C.MAdd        -> Add_add
-  C.MSub        -> Sub_minus
-  C.MShiftLeft  -> Shift_shiftL
-  C.MShiftRight -> Shift_shiftR
-  C.MRelLT      -> RelOrd_lt
-  C.MRelLE      -> RelOrd_le
-  C.MRelGT      -> RelOrd_gt
-  C.MRelGE      -> RelOrd_ge
-  C.MRelEQ      -> RelEq_eq
-  C.MRelNE      -> RelEq_uneq
-  C.MBitwiseAnd -> Bitwise_and
-  C.MBitwiseXor -> Bitwise_xor
-  C.MBitwiseOr  -> Bitwise_or
-  C.MLogicalAnd -> Logical_and
-  C.MLogicalOr  -> Logical_or
+mfunGlobal :: Target -> C.MFun arity -> Global
+mfunGlobal target = \case
+  C.MUnaryPlus  -> CExpr target Plus_plus
+  C.MUnaryMinus -> CExpr target Minus_negate
+  C.MLogicalNot -> CExpr target Not_not
+  C.MBitwiseNot -> CExpr target Complement_complement
+  C.MMult       -> CExpr target Mult_mult
+  C.MDiv        -> CExpr target Div_div
+  C.MRem        -> CExpr target Rem_rem
+  C.MAdd        -> CExpr target Add_add
+  C.MSub        -> CExpr target Sub_minus
+  C.MShiftLeft  -> CExpr target Shift_shiftL
+  C.MShiftRight -> CExpr target Shift_shiftR
+  C.MRelLT      -> CExpr target RelOrd_lt
+  C.MRelLE      -> CExpr target RelOrd_le
+  C.MRelGT      -> CExpr target RelOrd_gt
+  C.MRelGE      -> CExpr target RelOrd_ge
+  C.MRelEQ      -> CExpr target RelEq_eq
+  C.MRelNE      -> CExpr target RelEq_uneq
+  C.MBitwiseAnd -> CExpr target Bitwise_and
+  C.MBitwiseXor -> CExpr target Bitwise_xor
+  C.MBitwiseOr  -> CExpr target Bitwise_or
+  C.MLogicalAnd -> CExpr target Logical_and
+  C.MLogicalOr  -> CExpr target Logical_or
 
 
 hsPrimIntTy :: C.IntegralType -> HsPrimType

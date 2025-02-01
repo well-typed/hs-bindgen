@@ -20,6 +20,7 @@ import GHC.Float
 
 import C.Operator.Classes qualified as C
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
+import HsBindgen.Clang.Args (Target)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -77,52 +78,7 @@ mkGlobal =  \case
 
       NomEq_class -> ''(~)
 
-      Not_class             -> ''C.Not
-      Not_not               ->  'C.not
-      Logical_class         -> ''C.Logical
-      Logical_and           -> '(C.&&)
-      Logical_or            -> '(C.||)
-      RelEq_class           -> ''C.RelEq
-      RelEq_eq              -> '(C.==)
-      RelEq_uneq            -> '(C.!=)
-      RelOrd_class          -> ''C.RelOrd
-      RelOrd_lt             -> '(C.<)
-      RelOrd_le             -> '(C.<=)
-      RelOrd_gt             -> '(C.>)
-      RelOrd_ge             -> '(C.>=)
-      Plus_class            -> ''C.Plus
-      Plus_resTyCon         -> ''C.PlusRes
-      Plus_plus             ->  'C.plus
-      Minus_class           -> ''C.Minus
-      Minus_resTyCon        -> ''C.MinusRes
-      Minus_negate          ->  'C.negate
-      Add_class             -> ''C.Add
-      Add_resTyCon          -> ''C.AddRes
-      Add_add               -> '(C.+)
-      Sub_class             -> ''C.Sub
-      Sub_resTyCon          -> ''C.SubRes
-      Sub_minus             -> '(C.-)
-      Mult_class            -> ''C.Mult
-      Mult_resTyCon         -> ''C.MultRes
-      Mult_mult             -> '(C.*)
-      Div_class             -> ''C.Div
-      Div_resTyCon          -> ''C.DivRes
-      Div_div               -> '(C./)
-      Rem_class             -> ''C.Rem
-      Rem_resTyCon          -> ''C.RemRes
-      Rem_rem               -> '(C.%)
-      Complement_class      -> ''C.Complement
-      Complement_resTyCon   -> ''C.ComplementRes
-      Complement_complement -> '(C..~)
-      Bitwise_class         -> ''C.Bitwise
-      Bitwise_resTyCon      -> ''C.BitsRes
-      Bitwise_and           -> '(C..&.)
-      Bitwise_or            -> '(C..|.)
-      Bitwise_xor           -> '(C..^.)
-      Shift_class           -> ''C.Shift
-      Shift_resTyCon        -> ''C.ShiftRes
-      Shift_shiftL          -> '(C.<<)
-      Shift_shiftR          -> '(C.>>)
+      CExpr target name -> mkGlobalCExpr target name
 
       IntLike_tycon        -> ''HsBindgen.Runtime.Syntax.IntLike
       FloatLike_tycon      -> ''HsBindgen.Runtime.Syntax.FloatLike
@@ -175,6 +131,57 @@ mkGlobal =  \case
         -> [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
       EApp f x      -> TH.appE (mkExpr be f) (mkExpr be x)
 -}
+
+-- | TODO: Target @target@ into account
+mkGlobalCExpr :: Target -> GlobalCExpr -> TH.Name
+mkGlobalCExpr _target = \case
+      Not_class             -> ''C.Not
+      Not_not               ->  'C.not
+      Logical_class         -> ''C.Logical
+      Logical_and           -> '(C.&&)
+      Logical_or            -> '(C.||)
+      RelEq_class           -> ''C.RelEq
+      RelEq_eq              -> '(C.==)
+      RelEq_uneq            -> '(C.!=)
+      RelOrd_class          -> ''C.RelOrd
+      RelOrd_lt             -> '(C.<)
+      RelOrd_le             -> '(C.<=)
+      RelOrd_gt             -> '(C.>)
+      RelOrd_ge             -> '(C.>=)
+      Plus_class            -> ''C.Plus
+      Plus_resTyCon         -> ''C.PlusRes
+      Plus_plus             ->  'C.plus
+      Minus_class           -> ''C.Minus
+      Minus_resTyCon        -> ''C.MinusRes
+      Minus_negate          ->  'C.negate
+      Add_class             -> ''C.Add
+      Add_resTyCon          -> ''C.AddRes
+      Add_add               -> '(C.+)
+      Sub_class             -> ''C.Sub
+      Sub_resTyCon          -> ''C.SubRes
+      Sub_minus             -> '(C.-)
+      Mult_class            -> ''C.Mult
+      Mult_resTyCon         -> ''C.MultRes
+      Mult_mult             -> '(C.*)
+      Div_class             -> ''C.Div
+      Div_resTyCon          -> ''C.DivRes
+      Div_div               -> '(C./)
+      Rem_class             -> ''C.Rem
+      Rem_resTyCon          -> ''C.RemRes
+      Rem_rem               -> '(C.%)
+      Complement_class      -> ''C.Complement
+      Complement_resTyCon   -> ''C.ComplementRes
+      Complement_complement -> '(C..~)
+      Bitwise_class         -> ''C.Bitwise
+      Bitwise_resTyCon      -> ''C.BitsRes
+      Bitwise_and           -> '(C..&.)
+      Bitwise_or            -> '(C..|.)
+      Bitwise_xor           -> '(C..^.)
+      Shift_class           -> ''C.Shift
+      Shift_resTyCon        -> ''C.ShiftRes
+      Shift_shiftL          -> '(C.<<)
+      Shift_shiftR          -> '(C.>>)
+
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env = \case

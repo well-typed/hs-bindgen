@@ -13,8 +13,9 @@ module HsBindgen.Backend.PP.Names (
 
 import Data.Char qualified as Char
 
-import HsBindgen.SHs.AST
+import HsBindgen.Clang.Args (Target(..))
 import HsBindgen.Hs.AST.Type
+import HsBindgen.SHs.AST
 
 {-------------------------------------------------------------------------------
   Imports
@@ -70,9 +71,15 @@ iDataIx = HsImportModule "Data.Ix" (Just "Ix")
 iDataBits :: HsImportModule
 iDataBits = HsImportModule "Data.Bits" (Just "Bits")
 
--- | @C.Typing@ import module
-iCTyping :: HsImportModule
-iCTyping = HsImportModule "C.Typing" (Just "C")
+-- | @C.Expr.*@ platform specific import module
+iCExprFor :: Target -> HsImportModule
+iCExprFor = \case
+    Target_Linux_X86_64   -> HsImportModule "C.Expr.Posix64" (Just "CExpr")
+    Target_Linux_AArch64  -> HsImportModule "C.Expr.Posix64" (Just "CExpr")
+    Target_Linux_X86      -> HsImportModule "C.Expr.Posix32" (Just "CExpr")
+    Target_MacOS_X86_64   -> HsImportModule "C.Expr.Posix64" (Just "CExpr")
+    Target_MacOS_AArch64  -> HsImportModule "C.Expr.Posix64" (Just "CExpr")
+    Target_Windows_X86_64 -> HsImportModule "C.Expr.Win64"   (Just "CExpr")
 
 {-------------------------------------------------------------------------------
   NameType
@@ -180,52 +187,7 @@ resolveGlobal = \case
 
     NomEq_class -> importU iDataTypeEquality  "~"
 
-    Not_class             -> importQ iCTyping "Not"
-    Not_not               -> importQ iCTyping "not"
-    Logical_class         -> importQ iCTyping "Logical"
-    Logical_and           -> importU iCTyping "&&"
-    Logical_or            -> importU iCTyping "||"
-    RelEq_class           -> importQ iCTyping "RelEq"
-    RelEq_eq              -> importU iCTyping "=="
-    RelEq_uneq            -> importU iCTyping "!="
-    RelOrd_class          -> importQ iCTyping "RelOrd"
-    RelOrd_lt             -> importU iCTyping "<"
-    RelOrd_le             -> importU iCTyping "<="
-    RelOrd_gt             -> importU iCTyping ">"
-    RelOrd_ge             -> importU iCTyping ">="
-    Plus_class            -> importQ iCTyping "Plus"
-    Plus_resTyCon         -> importQ iCTyping "PlusRes"
-    Plus_plus             -> importQ iCTyping "plus"
-    Minus_class           -> importQ iCTyping "Minus"
-    Minus_resTyCon        -> importQ iCTyping "MinusRes"
-    Minus_negate          -> importQ iCTyping "negate"
-    Add_class             -> importQ iCTyping "Add"
-    Add_resTyCon          -> importQ iCTyping "AddRes"
-    Add_add               -> importU iCTyping "+"
-    Sub_class             -> importQ iCTyping "Sub"
-    Sub_resTyCon          -> importQ iCTyping "SubRes"
-    Sub_minus             -> importU iCTyping "-"
-    Mult_class            -> importQ iCTyping "Mult"
-    Mult_resTyCon         -> importQ iCTyping "MultRes"
-    Mult_mult             -> importU iCTyping "*"
-    Div_class             -> importQ iCTyping "Div"
-    Div_resTyCon          -> importQ iCTyping "DivRes"
-    Div_div               -> importU iCTyping "/"
-    Rem_class             -> importQ iCTyping "Rem"
-    Rem_resTyCon          -> importQ iCTyping "RemRes"
-    Rem_rem               -> importU iCTyping "%"
-    Complement_class      -> importQ iCTyping "Complement"
-    Complement_resTyCon   -> importQ iCTyping "ComplementRes"
-    Complement_complement -> importQ iCTyping ".~"
-    Bitwise_class         -> importQ iCTyping "Bitwise"
-    Bitwise_resTyCon      -> importQ iCTyping "BitsRes"
-    Bitwise_and           -> importU iCTyping ".&."
-    Bitwise_or            -> importU iCTyping ".|."
-    Bitwise_xor           -> importU iCTyping ".^."
-    Shift_class           -> importQ iCTyping "Shift"
-    Shift_resTyCon        -> importQ iCTyping "ShiftRes"
-    Shift_shiftL          -> importU iCTyping "<<"
-    Shift_shiftR          -> importU iCTyping ">>"
+    CExpr target name -> resolveGlobalCExpr target name
 
     IntLike_tycon    -> importQ iHsBindgenSyntax "IntLike"
     FloatLike_tycon  -> importQ iHsBindgenSyntax "FloatLike"
@@ -253,6 +215,58 @@ resolveGlobal = \case
       HsPrimCFloat   -> importQ iForeignC "CFloat"
       HsPrimCDouble  -> importQ iForeignC "CDouble"
       HsPrimCPtrDiff -> importQ iForeignC "CPtrdiff"
+
+resolveGlobalCExpr :: Target -> GlobalCExpr -> ResolvedName
+resolveGlobalCExpr target = \case
+    Not_class             -> importQ iCExpr "Not"
+    Not_not               -> importQ iCExpr "not"
+    Logical_class         -> importQ iCExpr "Logical"
+    Logical_and           -> importU iCExpr "&&"
+    Logical_or            -> importU iCExpr "||"
+    RelEq_class           -> importQ iCExpr "RelEq"
+    RelEq_eq              -> importU iCExpr "=="
+    RelEq_uneq            -> importU iCExpr "!="
+    RelOrd_class          -> importQ iCExpr "RelOrd"
+    RelOrd_lt             -> importU iCExpr "<"
+    RelOrd_le             -> importU iCExpr "<="
+    RelOrd_gt             -> importU iCExpr ">"
+    RelOrd_ge             -> importU iCExpr ">="
+    Plus_class            -> importQ iCExpr "Plus"
+    Plus_resTyCon         -> importQ iCExpr "PlusRes"
+    Plus_plus             -> importQ iCExpr "plus"
+    Minus_class           -> importQ iCExpr "Minus"
+    Minus_resTyCon        -> importQ iCExpr "MinusRes"
+    Minus_negate          -> importQ iCExpr "negate"
+    Add_class             -> importQ iCExpr "Add"
+    Add_resTyCon          -> importQ iCExpr "AddRes"
+    Add_add               -> importU iCExpr "+"
+    Sub_class             -> importQ iCExpr "Sub"
+    Sub_resTyCon          -> importQ iCExpr "SubRes"
+    Sub_minus             -> importU iCExpr "-"
+    Mult_class            -> importQ iCExpr "Mult"
+    Mult_resTyCon         -> importQ iCExpr "MultRes"
+    Mult_mult             -> importU iCExpr "*"
+    Div_class             -> importQ iCExpr "Div"
+    Div_resTyCon          -> importQ iCExpr "DivRes"
+    Div_div               -> importU iCExpr "/"
+    Rem_class             -> importQ iCExpr "Rem"
+    Rem_resTyCon          -> importQ iCExpr "RemRes"
+    Rem_rem               -> importU iCExpr "%"
+    Complement_class      -> importQ iCExpr "Complement"
+    Complement_resTyCon   -> importQ iCExpr "ComplementRes"
+    Complement_complement -> importQ iCExpr ".~"
+    Bitwise_class         -> importQ iCExpr "Bitwise"
+    Bitwise_resTyCon      -> importQ iCExpr "BitsRes"
+    Bitwise_and           -> importU iCExpr ".&."
+    Bitwise_or            -> importU iCExpr ".|."
+    Bitwise_xor           -> importU iCExpr ".^."
+    Shift_class           -> importQ iCExpr "Shift"
+    Shift_resTyCon        -> importQ iCExpr "ShiftRes"
+    Shift_shiftL          -> importU iCExpr "<<"
+    Shift_shiftR          -> importU iCExpr ">>"
+  where
+    iCExpr :: HsImportModule
+    iCExpr = iCExprFor target
 
 {-------------------------------------------------------------------------------
   BackendName
