@@ -212,12 +212,14 @@ test-suite test-th
   other-modules:
       HsBindgen.TestTH.Spliced
       Misc
+      Def
   build-depends:
       -- Internal dependencies
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
     , template-haskell
+    , c-expr
   build-depends:
       -- External dependencies
     , directory
