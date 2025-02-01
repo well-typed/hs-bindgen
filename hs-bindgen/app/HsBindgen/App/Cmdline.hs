@@ -175,32 +175,25 @@ parseVerbosity =
 parseClangArgs :: Parser ClangArgs
 parseClangArgs =
     ClangArgs
-      <$> parseTarget
+      <$> optional parseTarget
       <*> fmap Just parseCStandard
       <*> parseGnuOption
       <*> parseOtherArgs
+
+parseCStandard :: Parser CStandard
+parseCStandard = option (eitherReader readCStandard) $ mconcat [
+      long "standard"
+    , metavar "STANDARD"
+    , value defaultCStandard
+    , help $ concat [
+          "C standard (default: "
+        , renderCStandard defaultCStandard
+        , "; supported: "
+        , List.intercalate ", " (map fst cStandards)
+        , ")"
+        ]
+    ]
   where
-    parseTarget :: Parser (Maybe String)
-    parseTarget = optional . strOption $ mconcat [
-        long "target"
-      , metavar "TARGET"
-      , help "Target architecture (triplet)"
-      ]
-
-    parseCStandard :: Parser CStandard
-    parseCStandard = option (eitherReader readCStandard) $ mconcat [
-        long "standard"
-      , metavar "STANDARD"
-      , value defaultCStandard
-      , help $ concat [
-            "C standard (default: "
-          , renderCStandard defaultCStandard
-          , "; supported: "
-          , List.intercalate ", " (map fst cStandards)
-          , ")"
-          ]
-      ]
-
     defaultCStandard :: CStandard
     defaultCStandard = C17
 
@@ -218,19 +211,19 @@ parseClangArgs =
       Just cStandard -> Right cStandard
       Nothing -> Left $ "unknown C standard: " ++ s
 
-    parseGnuOption :: Parser Bool
-    parseGnuOption = switch $ mconcat [
-        long "gnu"
-      , help "Enable GNU extensions"
-      ]
+parseGnuOption :: Parser Bool
+parseGnuOption = switch $ mconcat [
+      long "gnu"
+    , help "Enable GNU extensions"
+    ]
 
-    parseOtherArgs :: Parser [String]
-    parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
-        long "clang-option"
-      , metavar "OPTION"
-      , help "Pass option to libclang"
-      ]
-
+parseOtherArgs :: Parser [String]
+parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
+      long "clang-option"
+    , metavar "OPTION"
+    , help "Pass option to libclang"
+    ]
+  where
     readOtherArg :: String -> Either String String
     readOtherArg s
       | s == "-std" || "-std=" `List.isPrefixOf` s =
@@ -238,6 +231,35 @@ parseClangArgs =
       | s == "--target" || "--target=" `List.isPrefixOf` s =
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
+
+parseTarget :: Parser (Target, TargetEnv)
+parseTarget = option (maybeReader readTarget) $ mconcat [
+      long "target"
+    , metavar "TRIPLE"
+    , help $ concat [
+          "Target (for cross-compilation); supported: "
+        , List.intercalate ", " (map fst targets)
+        ]
+    ]
+  where
+    targets :: [(String, Target)]
+    targets = [
+        (targetTriple target TargetEnvDefault, target)
+      | target <- [minBound ..]
+      ]
+
+    readTarget :: String -> Maybe (Target, TargetEnv)
+    readTarget s = asum [
+          (, TargetEnvDefault) <$> lookup s targets
+        , do (rest, env) <- trySplitOffEnv s
+             (, TargetEnvOverride env) <$> lookup rest targets
+        ]
+
+    trySplitOffEnv :: String -> Maybe (String, String)
+    trySplitOffEnv s =
+        case break (== '-') (reverse s) of
+          (_   , []    ) -> Nothing
+          (env , _:rest) -> Just (reverse rest, reverse env)
 
 parseInput :: Maybe FilePath -> Parser FilePath
 parseInput mDefault =

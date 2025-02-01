@@ -5,6 +5,10 @@ module HsBindgen.Clang.Args (
   , CStandard(..)
   , defaultClangArgs
   , fromClangArgs
+    -- * Cross-compilation
+  , Target(..)
+  , TargetEnv(..)
+  , targetTriple
   ) where
 
 import Control.Monad.Except
@@ -23,8 +27,10 @@ import HsBindgen.Clang.Version
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/83> (also #10 and #71).
 -- We should support more of the command line arguments of @clang@.
 data ClangArgs = ClangArgs {
-      -- | Target architecutre
-      clangTarget :: Maybe String
+      -- | Target architecture ('Nothing' to compile for the host architecture)
+      --
+      -- The environment can be overriden separately, if necessary.
+      clangTarget :: Maybe (Target, TargetEnv)
 
       -- | C standard
     , clangCStandard :: Maybe CStandard
@@ -72,7 +78,7 @@ defaultClangArgs = ClangArgs {
 
 fromClangArgs :: ClangArgs -> Either String [String]
 fromClangArgs args = aux [
-      ifGiven clangTarget $ \target ->
+      ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
         return ["-target", target]
 
     , ifGiven clangCStandard $ \case
@@ -123,3 +129,107 @@ fromClangArgs args = aux [
     ifGiven Nothing  _ = return []
     ifGiven (Just a) f = f a
 
+{-------------------------------------------------------------------------------
+  Cross-compilation
+
+  <https://llvm.org/doxygen/Triple_8h_source.html> is a useful reference for
+  all choices supported by @clang@:
+
+  * 'TargetArch' is a subset of @ArchType@
+  * 'TargetSys' is a subset of @OSType@
+
+  We do not explicitly specify a @SubArchType@ or @VendorType@, but they are
+  implied by other choices.
+
+  Notes on ARM:
+
+  * @aarch@ stands for "ARM archicture"
+  * @aarch64@ was introduced with Armv8-A.
+    <https://en.wikipedia.org/wiki/AArch64>
+  * This architecture also has a big-endian mode and a 32-bit mode, which
+    @clang@ refers to as @aarch64_be@ and @aarch64_32@, respectively
+    (neither of which we currently support).
+  * The @clang@ @arm@ target refers /I think/ to older versions of the ARM
+    architecture; but the situation is a bit unclear here.
+
+    - For example, <https://www.freebsd.org/platforms/> uses
+
+        @armv6@ and @armv7@ to refer to 32-bit ARMv6 and ARMv7 respectively
+          (both of which are FreeBSD tier 2 platforms)
+        @arm@ for the 32-bit little-endian ARM v4/v5
+          (unsupported by FreeBSD)
+        @armeb@ to "32-bit big-endian ARM"
+          (for which they dropped support even earlier)
+
+    - Of these only ARMv7 is supported at all by GHC (as a tier 2 platform),
+      but @ghc@ calls this simply @arm@.
+
+    For now we simply don't support any of these, but if we did, being explicit
+    (FreeBSD style) might be advisable.
+-------------------------------------------------------------------------------}
+
+-- | Target platform
+--
+-- We don't use raw strings to denote platforms:
+--
+-- * In some cases /we/ need to make decisions based on the platform; for
+--   example, we need ao import the appropriate module from @c-expr@ (Win64,
+--   Posix32, Posix64). Unfortunately, although @clang-c@ has
+--   @clang_getTranslationUnitTargetInfo@, the resulting type is opaque, and the
+--   associated query funcitons are insufficient.
+--
+-- * There are some assumptions about the target platform embedded in the
+--   design of @hs-bindgen@; for example, we currently assume that the target is
+--   little endian. If assumptions like these are ever challenged because we
+--   support another architecture, careful testing will be essential.
+--
+-- * Supporting anything outside the GHC tier 1 platforms would be difficult
+--   <https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms#tier-1-platforms>,
+--   although some tier 2 platforms /might/ also be possible.
+--
+-- Notes on the translation to @clang@ triples:
+--
+-- * @X86_64@, @X86@ and @AArch64@ correspond to @x86_64@, @i386@ and @aarch64@,
+--   respectively. Note that @arm64@ is an alias for @aarch64@ in @clang@.
+-- * @MacOS@ corresponds to @macosx@ in @clang@; @clang@ also recognizes
+--   @macos@ as an alias for @macosx@, but @darwin@ refers to a /different/
+--   (presumably older) system.
+-- * @Windows@ corresponds to @windows@ (confusingly, the internal name for this
+--   in @clang@ is @Win32@, and @win32@ is an alias for @windows@).
+--
+-- For the vendor, we default to @pc@ on Linux and Windows and @apple@ for
+-- MacOS.
+data Target =
+    Target_Linux_X86_64
+  | Target_Linux_X86
+  | Target_Linux_AArch64
+  | Target_Windows_X86_64
+  | Target_MacOS_X86_64
+  | Target_MacOS_AArch64
+  deriving stock (Show, Eq, Enum, Bounded)
+
+-- | Target environment
+--
+-- For example, on Windows valid choices are @msvc@ (for Visual C++) or @gnu@
+-- (for @gcc@); see <https://wetmelon.github.io/clang-on-windows.html>.
+data TargetEnv =
+    TargetEnvDefault
+  | TargetEnvOverride String
+  deriving stock (Show, Eq)
+
+-- | Target triple, for use in cross-compilation
+--
+-- See <https://clang.llvm.org/docs/CrossCompilation.html>
+targetTriple :: Target -> TargetEnv -> String
+targetTriple target mEnv = concat [
+      case target of
+        Target_Linux_X86_64   -> "x86_64-pc-linux"
+        Target_Linux_X86      -> "i386-pc-linux"
+        Target_Linux_AArch64  -> "aarch64-pc-linux"
+        Target_Windows_X86_64 -> "x86_64-pc-windows"
+        Target_MacOS_X86_64   -> "x86_64-apple-macosx"
+        Target_MacOS_AArch64  -> "aarch64-apple-macosx"
+    , case mEnv of
+        TargetEnvDefault      -> ""
+        TargetEnvOverride env -> "-" ++ env
+    ]

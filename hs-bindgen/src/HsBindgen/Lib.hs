@@ -24,6 +24,11 @@ module HsBindgen.Lib (
   , CStandard(..)
   , defaultClangArgs
 
+    -- *** Cross-compilation
+  , Target(..)
+  , TargetEnv(..)
+  , targetTriple
+
     -- ** Select parts of the AST
   , Predicate(..)
   , C.Skipped -- opaque
