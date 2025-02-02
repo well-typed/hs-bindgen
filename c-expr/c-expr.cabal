@@ -76,12 +76,12 @@ common common
         >= 0.5   && < 0.6
 
 -- Platform independent core library
+-- Note: the C.Operator.Classes should not be publicly visible.
+-- We should only be able to import the definitions "polluted"
+-- by instances declarations (from C.Expr.BuildPlatform).
 library c-expr-core
-
   import:
     common
-  visibility:
-    public
   hs-source-dirs:
     core
   exposed-modules:
@@ -105,11 +105,15 @@ library
     lib
   exposed-modules:
     C.Expr.BuildPlatform
+  other-modules:
     C.Expr.Posix32
     C.Expr.Posix64
     C.Expr.Win64
   build-depends:
     c-expr:c-expr-core
+  reexported-modules:
+    C.Operators,
+    C.Type
   default-language:
     Haskell2010
 

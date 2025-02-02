@@ -2,7 +2,7 @@
 
 module Example where
 
-import C.Typing ((*), (+))
+import C.Expr.BuildPlatform ((*), (+))
 import qualified Foreign.C as FC
 
 oBJECTLIKE1 :: FC.CInt
