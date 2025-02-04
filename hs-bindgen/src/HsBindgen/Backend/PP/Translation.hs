@@ -16,6 +16,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.PP.Names
+import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
 
@@ -174,7 +175,7 @@ resolveExprImports = \case
     EBound _x -> mempty
     EFree {} -> mempty
     ECon _n -> mempty
-    EIntegral _ t -> maybe mempty (resolveTypeImports . TGlobal . PrimType) t
+    EIntegral _ t -> maybe mempty resolvePrimTypeImports t
     EFloat    {} -> mempty
     EDouble   {} -> mempty
     EApp f x -> resolveExprImports f <> resolveExprImports x
@@ -199,3 +200,6 @@ resolveTypeImports = \case
     TBound {} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
+
+resolvePrimTypeImports :: Hs.HsPrimType -> ImportAcc
+resolvePrimTypeImports = resolveTypeImports . TGlobal . PrimType

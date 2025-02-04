@@ -45,61 +45,61 @@ lONG_INT_TOKEN4 :: FC.CULLong
 lONG_INT_TOKEN4 = (18446744073709550592 :: FC.CULLong)
 
 fLT1_1 :: FC.CDouble
-fLT1_1 = 110000.0
+fLT1_1 = (110000.0 :: FC.CDouble)
 
 fLT1_2 :: FC.CDouble
-fLT1_2 = 1.2e-2
+fLT1_2 = (1.2e-2 :: FC.CDouble)
 
 fLT1_3 :: FC.CFloat
-fLT1_3 = 1.3e-2
+fLT1_3 = (1.3e-2 :: FC.CFloat)
 
 fLT2_1 :: FC.CDouble
-fLT2_1 = 21.0
+fLT2_1 = (21.0 :: FC.CDouble)
 
 fLT2_2 :: FC.CDouble
-fLT2_2 = 2200.0
+fLT2_2 = (2200.0 :: FC.CDouble)
 
 fLT2_3 :: FC.CFloat
-fLT2_3 = 23.0
+fLT2_3 = (23.0 :: FC.CFloat)
 
 fLT3_1 :: FC.CDouble
-fLT3_1 = 31.0
+fLT3_1 = (31.0 :: FC.CDouble)
 
 fLT3_2 :: FC.CDouble
-fLT3_2 = 0.32
+fLT3_2 = (0.32 :: FC.CDouble)
 
 fLT3_3 :: FC.CDouble
-fLT3_3 = 33.0
+fLT3_3 = (33.0 :: FC.CDouble)
 
 fLT3_4 :: FC.CFloat
-fLT3_4 = 3.4e-3
+fLT3_4 = (3.4e-3 :: FC.CFloat)
 
 fLT4_1 :: FC.CDouble
-fLT4_1 = 650000.0
+fLT4_1 = (650000.0 :: FC.CDouble)
 
 fLT4_2 :: FC.CDouble
-fLT4_2 = 6.6e-2
+fLT4_2 = (6.6e-2 :: FC.CDouble)
 
 fLT4_3 :: FC.CFloat
-fLT4_3 = 6.7e-2
+fLT4_3 = (6.7e-2 :: FC.CFloat)
 
 fLT5_1 :: FC.CDouble
-fLT5_1 = 81.0
+fLT5_1 = (81.0 :: FC.CDouble)
 
 fLT5_2 :: FC.CFloat
-fLT5_2 = 82.0
+fLT5_2 = (82.0 :: FC.CFloat)
 
 fLT6_1 :: FC.CDouble
-fLT6_1 = 15520.0
+fLT6_1 = (15520.0 :: FC.CDouble)
 
 fLT6_2 :: FC.CDouble
-fLT6_2 = 98.0
+fLT6_2 = (98.0 :: FC.CDouble)
 
 fLT6_3 :: FC.CFloat
-fLT6_3 = 9.9e-3
+fLT6_3 = (9.9e-3 :: FC.CFloat)
 
 bAD1 :: FC.CDouble
-bAD1 = (+) 0.1 (1 :: FC.CInt)
+bAD1 = (+) (0.1 :: FC.CDouble) (1 :: FC.CInt)
 
 bAD2 :: FC.CULong
 bAD2 = (*) (2 :: FC.CLong) (2 :: FC.CULong)

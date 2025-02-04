@@ -184,22 +184,26 @@ mkExpr env = \case
       EBound x      -> TH.varE (lookupEnv x env)
       ECon n        -> hsConE n
       EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just t)-> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv (TGlobal (PrimType t)))
+      EIntegral i (Just t)-> TH.sigE (TH.litE (TH.IntegerL i)) (mkPrimType t)
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
       --
       -- To work around this problem, we cast floating-point numbers to
       -- Word32/Word64 and then cast back.
-      EFloat f
-        | canBeRepresentedAsRational f
-        -> [| f |]
-        | otherwise
-        -> [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
-      EDouble d
-        | canBeRepresentedAsRational d
-        -> [| d |]
-        | otherwise
-        -> [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
+      EFloat f t ->
+        TH.sigE
+          ( if canBeRepresentedAsRational f
+              then [| f |]
+              else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
+          )
+          (mkPrimType t)
+      EDouble d t ->
+        TH.sigE
+          ( if canBeRepresentedAsRational d
+              then [| d |]
+              else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
+          )
+          (mkPrimType t)
       EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
       EInfix op x y -> TH.infixE
                          (Just $ mkExpr env x)
@@ -254,6 +258,9 @@ mkType env = \case
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
+
+mkPrimType :: Quote q => HsPrimType -> q TH.Type
+mkPrimType = mkType EmptyEnv . TGlobal . PrimType
 
 mkDecl :: forall q. Quote q => SDecl -> q [TH.Dec]
 mkDecl = \case

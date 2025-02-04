@@ -25,4 +25,4 @@ dIV1 = \x_0 -> \y_1 -> (/) x_0 ((+) y_1 (12 :: CUInt))
 dIV2 :: forall a_0 b_1 . (Mult CFloat a_0,
                           Div (MultRes CFloat a_0) b_1) =>
         a_0 -> b_1 -> DivRes (MultRes CFloat a_0) b_1
-dIV2 = \x_0 -> \y_1 -> (/) ((*) 10.0 x_0) y_1
+dIV2 = \x_0 -> \y_1 -> (/) ((*) (10.0 :: CFloat) x_0) y_1

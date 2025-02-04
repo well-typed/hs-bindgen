@@ -176,6 +176,9 @@ prettyType env prec = \case
           "forall" <+> hsep params >< "." <+>
           hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
 
+prettyPrimType :: HsPrimType -> CtxDoc
+prettyPrimType = prettyType EmptyEnv 0 . TGlobal . PrimType
+
 {-------------------------------------------------------------------------------
   Expression pretty-printing
 -------------------------------------------------------------------------------}
@@ -195,27 +198,31 @@ prettyExpr env prec = \case
     EIntegral i (Just t) -> parens $ hcat [
           showToCtxDoc i
         , " :: "
-        , prettyType EmptyEnv 0 (TGlobal (PrimType t))
+        , prettyPrimType t
         ]
 
-    EFloat f
-      | canBeRepresentedAsRational f
-      -> showToCtxDoc f
-      | otherwise
-      ->
-        prettyExpr env prec $
-          EApp (EGlobal CFloat_constructor) $
-            EApp (EGlobal GHC_Float_castWord32ToFloat) $
-              EIntegral (toInteger $ castFloatToWord32 f) (Just HsPrimCUInt)
-    EDouble f
-      | canBeRepresentedAsRational f
-      -> showToCtxDoc f
-      | otherwise
-      ->
-        prettyExpr env  prec $
-          EApp (EGlobal CDouble_constructor) $
-            EApp (EGlobal GHC_Float_castWord64ToDouble) $
-              EIntegral (toInteger $ castDoubleToWord64 f) (Just HsPrimCULong)
+    EFloat f t -> parens $ hcat [
+        if canBeRepresentedAsRational f then
+          showToCtxDoc f
+        else
+          prettyExpr env prec $
+            EApp (EGlobal CFloat_constructor) $
+              EApp (EGlobal GHC_Float_castWord32ToFloat) $
+                EIntegral (toInteger $ castFloatToWord32 f) (Just HsPrimCUInt)
+      , " :: "
+      , prettyPrimType t
+      ]
+    EDouble f t -> parens $ hcat [
+        if canBeRepresentedAsRational f then
+          showToCtxDoc f
+        else
+          prettyExpr env  prec $
+            EApp (EGlobal CDouble_constructor) $
+              EApp (EGlobal GHC_Float_castWord64ToDouble) $
+                EIntegral (toInteger $ castDoubleToWord64 f) (Just HsPrimCULong)
+      , " :: "
+      , prettyPrimType t
+      ]
 
     EApp f x -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
 

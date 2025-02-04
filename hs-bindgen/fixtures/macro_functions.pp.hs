@@ -36,4 +36,4 @@ dIV1 :: forall a0 b1. (C.Add b1) FC.CUInt => (C.Div a0) ((C.AddRes b1) FC.CUInt)
 dIV1 = \x0 -> \y1 -> (/) x0 ((+) y1 (12 :: FC.CUInt))
 
 dIV2 :: forall a0 b1. (C.Mult FC.CFloat) a0 => (C.Div ((C.MultRes FC.CFloat) a0)) b1 => a0 -> b1 -> (C.DivRes ((C.MultRes FC.CFloat) a0)) b1
-dIV2 = \x0 -> \y1 -> (/) ((*) 10.0 x0) y1
+dIV2 = \x0 -> \y1 -> (/) ((*) (10.0 :: FC.CFloat) x0) y1
