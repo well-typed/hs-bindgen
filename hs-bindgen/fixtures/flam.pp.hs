@@ -8,7 +8,7 @@ module Example where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Patterns.FlexibleArrayMember
-import Prelude ((<*>), (>>), Eq, Show, pure)
+import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 data Pascal = Pascal
   { pascal_len :: FC.CInt
@@ -16,20 +16,20 @@ data Pascal = Pascal
 
 instance F.Storable Pascal where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Pascal
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Pascal pascal_len2 -> F.pokeByteOff ptr0 0 pascal_len2
+          Pascal pascal_len2 -> F.pokeByteOff ptr0 (0 :: Int) pascal_len2
 
 deriving stock instance Show Pascal
 
@@ -46,23 +46,23 @@ data Foo_bar = Foo_bar
 
 instance F.Storable Foo_bar where
 
-  sizeOf = \_ -> 8
+  sizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Foo_bar
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 4
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo_bar foo_bar_x2 foo_bar_y3 ->
-               F.pokeByteOff ptr0 0 foo_bar_x2
-            >> F.pokeByteOff ptr0 4 foo_bar_y3
+               F.pokeByteOff ptr0 (0 :: Int) foo_bar_x2
+            >> F.pokeByteOff ptr0 (4 :: Int) foo_bar_y3
 
 deriving stock instance Show Foo_bar
 
@@ -74,20 +74,20 @@ data Foo = Foo
 
 instance F.Storable Foo where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Foo
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo foo_len2 -> F.pokeByteOff ptr0 0 foo_len2
+          Foo foo_len2 -> F.pokeByteOff ptr0 (0 :: Int) foo_len2
 
 deriving stock instance Show Foo
 
@@ -104,23 +104,23 @@ data Diff = Diff
 
 instance F.Storable Diff where
 
-  sizeOf = \_ -> 16
+  sizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> 8
+  alignment = \_ -> (8 :: Int)
 
   peek =
     \ptr0 ->
           pure Diff
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 8
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Diff diff_first2 diff_second3 ->
-               F.pokeByteOff ptr0 0 diff_first2
-            >> F.pokeByteOff ptr0 8 diff_second3
+               F.pokeByteOff ptr0 (0 :: Int) diff_first2
+            >> F.pokeByteOff ptr0 (8 :: Int) diff_second3
 
 deriving stock instance Show Diff
 

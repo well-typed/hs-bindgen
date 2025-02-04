@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Eq, Show, pure)
+import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 data Primitive = Primitive
   { primitive_c :: FC.CChar
@@ -43,42 +43,42 @@ data Primitive = Primitive
 
 instance F.Storable Primitive where
 
-  sizeOf = \_ -> 176
+  sizeOf = \_ -> (176 :: Int)
 
-  alignment = \_ -> 16
+  alignment = \_ -> (16 :: Int)
 
   peek =
     \ptr0 ->
           pure Primitive
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 1
-      <*> F.peekByteOff ptr0 2
-      <*> F.peekByteOff ptr0 4
-      <*> F.peekByteOff ptr0 6
-      <*> F.peekByteOff ptr0 8
-      <*> F.peekByteOff ptr0 10
-      <*> F.peekByteOff ptr0 12
-      <*> F.peekByteOff ptr0 14
-      <*> F.peekByteOff ptr0 16
-      <*> F.peekByteOff ptr0 20
-      <*> F.peekByteOff ptr0 24
-      <*> F.peekByteOff ptr0 28
-      <*> F.peekByteOff ptr0 32
-      <*> F.peekByteOff ptr0 40
-      <*> F.peekByteOff ptr0 48
-      <*> F.peekByteOff ptr0 56
-      <*> F.peekByteOff ptr0 64
-      <*> F.peekByteOff ptr0 72
-      <*> F.peekByteOff ptr0 80
-      <*> F.peekByteOff ptr0 88
-      <*> F.peekByteOff ptr0 96
-      <*> F.peekByteOff ptr0 104
-      <*> F.peekByteOff ptr0 112
-      <*> F.peekByteOff ptr0 120
-      <*> F.peekByteOff ptr0 128
-      <*> F.peekByteOff ptr0 136
-      <*> F.peekByteOff ptr0 144
-      <*> F.peekByteOff ptr0 160
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (1 :: Int)
+      <*> F.peekByteOff ptr0 (2 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> F.peekByteOff ptr0 (6 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> F.peekByteOff ptr0 (10 :: Int)
+      <*> F.peekByteOff ptr0 (12 :: Int)
+      <*> F.peekByteOff ptr0 (14 :: Int)
+      <*> F.peekByteOff ptr0 (16 :: Int)
+      <*> F.peekByteOff ptr0 (20 :: Int)
+      <*> F.peekByteOff ptr0 (24 :: Int)
+      <*> F.peekByteOff ptr0 (28 :: Int)
+      <*> F.peekByteOff ptr0 (32 :: Int)
+      <*> F.peekByteOff ptr0 (40 :: Int)
+      <*> F.peekByteOff ptr0 (48 :: Int)
+      <*> F.peekByteOff ptr0 (56 :: Int)
+      <*> F.peekByteOff ptr0 (64 :: Int)
+      <*> F.peekByteOff ptr0 (72 :: Int)
+      <*> F.peekByteOff ptr0 (80 :: Int)
+      <*> F.peekByteOff ptr0 (88 :: Int)
+      <*> F.peekByteOff ptr0 (96 :: Int)
+      <*> F.peekByteOff ptr0 (104 :: Int)
+      <*> F.peekByteOff ptr0 (112 :: Int)
+      <*> F.peekByteOff ptr0 (120 :: Int)
+      <*> F.peekByteOff ptr0 (128 :: Int)
+      <*> F.peekByteOff ptr0 (136 :: Int)
+      <*> F.peekByteOff ptr0 (144 :: Int)
+      <*> F.peekByteOff ptr0 (160 :: Int)
 
   poke =
     \ptr0 ->
@@ -114,35 +114,35 @@ instance F.Storable Primitive where
             primitive_f28
             primitive_d29
             primitive_ld30 ->
-                 F.pokeByteOff ptr0 0 primitive_c2
-              >> F.pokeByteOff ptr0 1 primitive_sc3
-              >> F.pokeByteOff ptr0 2 primitive_uc4
-              >> F.pokeByteOff ptr0 4 primitive_s5
-              >> F.pokeByteOff ptr0 6 primitive_si6
-              >> F.pokeByteOff ptr0 8 primitive_ss7
-              >> F.pokeByteOff ptr0 10 primitive_ssi8
-              >> F.pokeByteOff ptr0 12 primitive_us9
-              >> F.pokeByteOff ptr0 14 primitive_usi10
-              >> F.pokeByteOff ptr0 16 primitive_i11
-              >> F.pokeByteOff ptr0 20 primitive_s212
-              >> F.pokeByteOff ptr0 24 primitive_si213
-              >> F.pokeByteOff ptr0 28 primitive_u14
-              >> F.pokeByteOff ptr0 32 primitive_ui15
-              >> F.pokeByteOff ptr0 40 primitive_l16
-              >> F.pokeByteOff ptr0 48 primitive_li17
-              >> F.pokeByteOff ptr0 56 primitive_sl18
-              >> F.pokeByteOff ptr0 64 primitive_sli19
-              >> F.pokeByteOff ptr0 72 primitive_ul20
-              >> F.pokeByteOff ptr0 80 primitive_uli21
-              >> F.pokeByteOff ptr0 88 primitive_ll22
-              >> F.pokeByteOff ptr0 96 primitive_lli23
-              >> F.pokeByteOff ptr0 104 primitive_sll24
-              >> F.pokeByteOff ptr0 112 primitive_slli25
-              >> F.pokeByteOff ptr0 120 primitive_ull26
-              >> F.pokeByteOff ptr0 128 primitive_ulli27
-              >> F.pokeByteOff ptr0 136 primitive_f28
-              >> F.pokeByteOff ptr0 144 primitive_d29
-              >> F.pokeByteOff ptr0 160 primitive_ld30
+                 F.pokeByteOff ptr0 (0 :: Int) primitive_c2
+              >> F.pokeByteOff ptr0 (1 :: Int) primitive_sc3
+              >> F.pokeByteOff ptr0 (2 :: Int) primitive_uc4
+              >> F.pokeByteOff ptr0 (4 :: Int) primitive_s5
+              >> F.pokeByteOff ptr0 (6 :: Int) primitive_si6
+              >> F.pokeByteOff ptr0 (8 :: Int) primitive_ss7
+              >> F.pokeByteOff ptr0 (10 :: Int) primitive_ssi8
+              >> F.pokeByteOff ptr0 (12 :: Int) primitive_us9
+              >> F.pokeByteOff ptr0 (14 :: Int) primitive_usi10
+              >> F.pokeByteOff ptr0 (16 :: Int) primitive_i11
+              >> F.pokeByteOff ptr0 (20 :: Int) primitive_s212
+              >> F.pokeByteOff ptr0 (24 :: Int) primitive_si213
+              >> F.pokeByteOff ptr0 (28 :: Int) primitive_u14
+              >> F.pokeByteOff ptr0 (32 :: Int) primitive_ui15
+              >> F.pokeByteOff ptr0 (40 :: Int) primitive_l16
+              >> F.pokeByteOff ptr0 (48 :: Int) primitive_li17
+              >> F.pokeByteOff ptr0 (56 :: Int) primitive_sl18
+              >> F.pokeByteOff ptr0 (64 :: Int) primitive_sli19
+              >> F.pokeByteOff ptr0 (72 :: Int) primitive_ul20
+              >> F.pokeByteOff ptr0 (80 :: Int) primitive_uli21
+              >> F.pokeByteOff ptr0 (88 :: Int) primitive_ll22
+              >> F.pokeByteOff ptr0 (96 :: Int) primitive_lli23
+              >> F.pokeByteOff ptr0 (104 :: Int) primitive_sll24
+              >> F.pokeByteOff ptr0 (112 :: Int) primitive_slli25
+              >> F.pokeByteOff ptr0 (120 :: Int) primitive_ull26
+              >> F.pokeByteOff ptr0 (128 :: Int) primitive_ulli27
+              >> F.pokeByteOff ptr0 (136 :: Int) primitive_f28
+              >> F.pokeByteOff ptr0 (144 :: Int) primitive_d29
+              >> F.pokeByteOff ptr0 (160 :: Int) primitive_ld30
 
 deriving stock instance Show Primitive
 

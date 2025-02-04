@@ -174,7 +174,7 @@ resolveExprImports = \case
     EBound _x -> mempty
     EFree {} -> mempty
     ECon _n -> mempty
-    EIntegral {} -> mempty
+    EIntegral _ t -> maybe mempty (resolveTypeImports . TGlobal . PrimType) t
     EFloat    {} -> mempty
     EDouble   {} -> mempty
     EApp f x -> resolveExprImports f <> resolveExprImports x

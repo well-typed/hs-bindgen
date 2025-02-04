@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Eq, Show, pure)
+import Prelude ((<*>), Eq, Int, Show, pure)
 
 data S1 = S1
   { s1_a :: FC.CInt
@@ -15,20 +15,20 @@ data S1 = S1
 
 instance F.Storable S1 where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure S1
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S1 s1_a2 -> F.pokeByteOff ptr0 0 s1_a2
+          S1 s1_a2 -> F.pokeByteOff ptr0 (0 :: Int) s1_a2
 
 deriving stock instance Show S1
 
@@ -46,20 +46,20 @@ data S2 = S2
 
 instance F.Storable S2 where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure S2
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2 s2_a2 -> F.pokeByteOff ptr0 0 s2_a2
+          S2 s2_a2 -> F.pokeByteOff ptr0 (0 :: Int) s2_a2
 
 deriving stock instance Show S2
 
