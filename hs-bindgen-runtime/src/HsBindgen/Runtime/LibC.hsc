@@ -44,8 +44,6 @@ module HsBindgen.Runtime.LibC (
 
     -- * Signal Types
     -- $SignalTypes
-
-    -- * Thread Types
   ) where
 
 import Data.Bits (Bits, FiniteBits)
@@ -595,7 +593,8 @@ instance Pokable CLconv where
 --
 -- @struct tm@ holds the components of a calendar time, called the
 -- /broken-down time/.  Note that only the fields defined in the standard are
--- represented here.  It is defined in the @time.h@ header file.
+-- represented here.  It is defined in the @time.h@ header file, and it is made
+-- available in other header files that use it.
 data CTm = CTm {
       cTm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
     , cTm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
@@ -664,9 +663,3 @@ instance Pokable CTm where
 -- accessed as an atomic entity even in the presence of asynchronous signals.
 -- It is defined in the @signal.h@ header file.  'C.CSigAtomic', defined in
 -- @base@ with a platform-specific implementation.
-
-{-------------------------------------------------------------------------------
-  Thread Types
--------------------------------------------------------------------------------}
-
--- TODO threads.h (C11)

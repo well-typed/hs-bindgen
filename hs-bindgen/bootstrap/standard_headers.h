@@ -54,6 +54,11 @@
  *
  * * https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf
  *   7.1.2 Standard headers
+ *
+ * Notes:
+ *
+ * * complex.h is optional
+ * * stdbool.h is deprecated in C23
  */
 
 #include <complex.h>
@@ -73,7 +78,10 @@
  *
  * Notes:
  *
- * * stdatomic.h is not included in musl
+ * * stdalign.h is deprecated in C23
+ * * stdatomic.h is optional, and it is not included in musl
+ * * stdnoreturn.h is deprecated in C23
+ * * threads.h is optional
  */
 
 #include <stdalign.h>
