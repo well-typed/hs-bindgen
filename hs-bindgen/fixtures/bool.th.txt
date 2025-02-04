@@ -1,4 +1,17 @@
 newtype BOOL = BOOL {unBOOL :: CBool}
+deriving newtype instance Storable BOOL
+deriving stock instance Eq BOOL
+deriving stock instance Ord BOOL
+deriving stock instance Read BOOL
+deriving stock instance Show BOOL
+deriving newtype instance Enum BOOL
+deriving newtype instance Ix BOOL
+deriving newtype instance Bounded BOOL
+deriving newtype instance Bits BOOL
+deriving newtype instance FiniteBits BOOL
+deriving newtype instance Integral BOOL
+deriving newtype instance Num BOOL
+deriving newtype instance Real BOOL
 data Bools1 = Bools1 {bools1_x :: CBool, bools1_y :: CBool}
 instance Storable Bools1
     where {sizeOf = \_ -> 2 :: Int;

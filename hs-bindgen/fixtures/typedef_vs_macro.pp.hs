@@ -16,9 +16,61 @@ newtype M1 = M1
   { unM1 :: FC.CInt
   }
 
+deriving newtype instance F.Storable M1
+
+deriving stock instance Eq M1
+
+deriving stock instance Ord M1
+
+deriving stock instance Read M1
+
+deriving stock instance Show M1
+
+deriving newtype instance Enum M1
+
+deriving newtype instance Ix.Ix M1
+
+deriving newtype instance Bounded M1
+
+deriving newtype instance Bits.Bits M1
+
+deriving newtype instance FiniteBits M1
+
+deriving newtype instance Integral M1
+
+deriving newtype instance Num M1
+
+deriving newtype instance Real M1
+
 newtype M2 = M2
   { unM2 :: FC.CChar
   }
+
+deriving newtype instance F.Storable M2
+
+deriving stock instance Eq M2
+
+deriving stock instance Ord M2
+
+deriving stock instance Read M2
+
+deriving stock instance Show M2
+
+deriving newtype instance Enum M2
+
+deriving newtype instance Ix.Ix M2
+
+deriving newtype instance Bounded M2
+
+deriving newtype instance Bits.Bits M2
+
+deriving newtype instance FiniteBits M2
+
+deriving newtype instance Integral M2
+
+deriving newtype instance Num M2
+
+deriving newtype instance Real M2
 
 newtype T1 = T1
   { unT1 :: FC.CInt
