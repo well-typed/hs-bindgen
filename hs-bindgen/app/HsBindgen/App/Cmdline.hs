@@ -4,6 +4,7 @@ module HsBindgen.App.Cmdline (
   , Mode(..)
   , DevMode(..)
   , getCmdline
+  , pureParseModePreprocess
   ) where
 
 import Data.Char qualified as Char
@@ -62,6 +63,7 @@ data Mode =
       , genTestsRenderOpts :: HsRenderOpts
       , genTestsOutput     :: FilePath
       }
+  | ModeLiterate FilePath FilePath
   | Dev DevMode
   deriving (Show)
 
@@ -88,6 +90,10 @@ parseCmdline dataDir =
       <*> parsePredicate
       <*> parseClangArgs
       <*> parseMode dataDir
+
+pureParseModePreprocess :: [String] -> Maybe Mode
+pureParseModePreprocess =
+    getParseResult . execParserPure defaultPrefs (info parseModePreprocess mempty)
 
 {-------------------------------------------------------------------------------
   Mode selection
@@ -142,14 +148,11 @@ parseModeGenTests =
 
 parseModeLiterate :: Parser Mode
 parseModeLiterate = do
-    preprocessModuleOpts <- parseHsModuleOpts
-    preprocessTranslationOpts <- parseTranslationOpts
-    preprocessRenderOpts <- parseHsRenderOpts
-    preprocessInput <- parseInput Nothing
     _ <- strOption @String $ mconcat [ short 'h', metavar "IGNORED" ]
-    _ <- strArgument @String $ mconcat [ metavar "IGNORED" ]
-    preprocessOutput <- fmap Just $ strArgument $ mconcat [ metavar "OUT" ]
-    return ModePreprocess {..}
+
+    input <- strArgument $ mconcat [ metavar "IN" ]
+    output <- strArgument $ mconcat [ metavar "OUT" ]
+    return (ModeLiterate input output)
 
 {-------------------------------------------------------------------------------
   Dev modes

@@ -224,40 +224,28 @@ test-suite test-th
     , tasty ^>= 1.5
     , tasty-hunit ^>=0.10.2
 
-library test-pp-v01
-  default-language:   Haskell2010
+test-suite test-pp
+  default-language: Haskell2010
 
   -- bug: PP code doesn't add ScopedTypeVariables, etc for macros
   default-extensions:
     FlexibleContexts
     ScopedTypeVariables
 
-  hs-source-dirs:     test-pp
-  exposed-modules:    Test01
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test-pp
+  main-is:        test-pp.hs
+  other-modules:  Test01
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
-  -- A separate issue with libclang is that headers seems to be required to have .h extension
-  -- so we have to be a bit indirect with --input flag.
-  ghc-options:
-    -pgmL hs-bindgen -optL literate -optL --module=Test01 -optL --input=examples/test-th-01.h
+  -- The source files contains the actual options and arguments to be used with hs-bindgen
+  ghc-options: -pgmL hs-bindgen -optL literate
 
   build-tool-depends: hs-bindgen:hs-bindgen
   build-depends:
-    , base    <5
+    , base <5
     , c-expr
-
-test-suite test-pp
-  import:         lang
-  type:           exitcode-stdio-1.0
-  main-is:        test-pp.hs
-
-  -- note: needs to be in different directory from test-pp-v* sublibraries,
-  -- to avoid recompilation.
-  hs-source-dirs: tests
-  build-depends:
-    , base
     , tasty
     , tasty-hunit
-    , test-pp-v01
