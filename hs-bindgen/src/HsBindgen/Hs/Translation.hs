@@ -277,7 +277,6 @@ typedefDecs opts d = concat [
       , clss `elem` primTypeInstances pt
       ]
     ]
-    -- translationDeriveTypedefPrim
   where
     cName              = C.typedefName d
     nm@NameMangler{..} = defaultNameMangler
@@ -327,10 +326,10 @@ primTypeInstances _otherwise = [
 -------------------------------------------------------------------------------}
 
 macroDecs :: TranslationOpts -> C.MacroDecl -> [Hs.Decl]
-macroDecs _opts C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
+macroDecs opts C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | Macro.Quant bf <- ty
     , Macro.isPrimTy bf
-    = macroDecsTypedef m
+    = macroDecsTypedef opts m
 
     | otherwise
     = macroVarDecs m ty
@@ -339,13 +338,20 @@ macroDecs _opts C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
 macroDecs _ C.MacroReparseError {} = []
 macroDecs _ C.MacroTcError {}      = []
 
-macroDecsTypedef :: C.Macro -> [Hs.Decl]
-macroDecsTypedef m =
-    -- For now we only support primitive types
+macroDecsTypedef :: TranslationOpts -> C.Macro -> [Hs.Decl]
+macroDecsTypedef opts m =
     case C.macroBody m of
       C.MTerm (C.MType ty) ->
-        let newtypeField = mkField ty
-        in [Hs.DeclNewtype Hs.Newtype{..}]
+        let newtypeField = mkField ty in
+        concat [
+            [ Hs.DeclNewtype Hs.Newtype{..} ]
+          , [ Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName ]
+          , [ Hs.DeclDeriveInstance strat clss newtypeName
+            | C.TypePrim pt <- [ty]
+            , (strat, clss) <- translationDeriveTypedefPrim opts
+            , clss `elem` primTypeInstances pt
+            ]
+          ]
       _otherwise ->
         []
   where

@@ -5,13 +5,42 @@
 
 module Example where
 
+import Data.Bits (FiniteBits)
+import qualified Data.Bits as Bits
+import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype BOOL = BOOL
   { unBOOL :: FC.CBool
   }
+
+deriving newtype instance F.Storable BOOL
+
+deriving stock instance Eq BOOL
+
+deriving stock instance Ord BOOL
+
+deriving stock instance Read BOOL
+
+deriving stock instance Show BOOL
+
+deriving newtype instance Enum BOOL
+
+deriving newtype instance Ix.Ix BOOL
+
+deriving newtype instance Bounded BOOL
+
+deriving newtype instance Bits.Bits BOOL
+
+deriving newtype instance FiniteBits BOOL
+
+deriving newtype instance Integral BOOL
+
+deriving newtype instance Num BOOL
+
+deriving newtype instance Real BOOL
 
 data Bools1 = Bools1
   { bools1_x :: FC.CBool

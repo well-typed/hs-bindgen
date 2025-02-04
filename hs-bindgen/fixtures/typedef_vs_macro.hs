@@ -31,6 +31,58 @@
                 (PrimIntegral
                   PrimInt
                   Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "M1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "M1"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -61,6 +113,58 @@
             (MType
               (TypePrim
                 (PrimChar Nothing)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "M2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "M2"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
