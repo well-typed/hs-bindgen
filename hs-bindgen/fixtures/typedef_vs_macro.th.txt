@@ -34,13 +34,13 @@ data ExampleStruct
                      exampleStruct_m1 :: M1,
                      exampleStruct_m2 :: M2}
 instance Storable ExampleStruct
-    where {sizeOf = \_ -> 16;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> (((pure ExampleStruct <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4) <*> peekByteOff ptr_0 8) <*> peekByteOff ptr_0 12;
+    where {sizeOf = \_ -> 16 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (((pure ExampleStruct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (12 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {ExampleStruct exampleStruct_t1_3
                                                    exampleStruct_t2_4
                                                    exampleStruct_m1_5
-                                                   exampleStruct_m2_6 -> pokeByteOff ptr_1 0 exampleStruct_t1_3 >> (pokeByteOff ptr_1 4 exampleStruct_t2_4 >> (pokeByteOff ptr_1 8 exampleStruct_m1_5 >> pokeByteOff ptr_1 12 exampleStruct_m2_6))}}
+                                                   exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))}}
 deriving stock instance Show ExampleStruct
 deriving stock instance Eq ExampleStruct

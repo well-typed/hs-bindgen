@@ -253,6 +253,7 @@ resolveGlobal = \case
       HsPrimCFloat   -> importQ iForeignC "CFloat"
       HsPrimCDouble  -> importQ iForeignC "CDouble"
       HsPrimCPtrDiff -> importQ iForeignC "CPtrdiff"
+      HsPrimInt      -> importU iPrelude  "Int"
 
 {-------------------------------------------------------------------------------
   BackendName

@@ -1,10 +1,10 @@
 newtype Foo = Foo {unFoo :: CUInt}
 instance Storable Foo
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Foo unFoo_3 -> pokeByteOff ptr_1 0 unFoo_3}}
+                                    {Foo unFoo_3 -> pokeByteOff ptr_1 (0 :: Int) unFoo_3}}
 deriving stock instance Show Foo
 deriving stock instance Read Foo
 deriving stock instance Eq Foo

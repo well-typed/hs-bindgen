@@ -1,50 +1,50 @@
 data S1_c = S1_c {s1_c_a :: CInt, s1_c_b :: CInt}
 instance Storable S1_c
-    where {sizeOf = \_ -> 8;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure S1_c <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure S1_c <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S1_c s1_c_a_3
-                                          s1_c_b_4 -> pokeByteOff ptr_1 0 s1_c_a_3 >> pokeByteOff ptr_1 4 s1_c_b_4}}
+                                          s1_c_b_4 -> pokeByteOff ptr_1 (0 :: Int) s1_c_a_3 >> pokeByteOff ptr_1 (4 :: Int) s1_c_b_4}}
 deriving stock instance Show S1_c
 deriving stock instance Eq S1_c
 data S1 = S1 {s1_c :: S1_c, s1_d :: CInt}
 instance Storable S1
-    where {sizeOf = \_ -> 12;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure S1 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+    where {sizeOf = \_ -> 12 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure S1 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S1 s1_c_3
-                                        s1_d_4 -> pokeByteOff ptr_1 0 s1_c_3 >> pokeByteOff ptr_1 8 s1_d_4}}
+                                        s1_d_4 -> pokeByteOff ptr_1 (0 :: Int) s1_c_3 >> pokeByteOff ptr_1 (8 :: Int) s1_d_4}}
 deriving stock instance Show S1
 deriving stock instance Eq S1
 data S2_inner_deep = S2_inner_deep {s2_inner_deep_b :: CInt}
 instance Storable S2_inner_deep
-    where {sizeOf = \_ -> 4;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> pure S2_inner_deep <*> peekByteOff ptr_0 0;
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure S2_inner_deep <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {S2_inner_deep s2_inner_deep_b_3 -> pokeByteOff ptr_1 0 s2_inner_deep_b_3}}
+                                    {S2_inner_deep s2_inner_deep_b_3 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_deep_b_3}}
 deriving stock instance Show S2_inner_deep
 deriving stock instance Eq S2_inner_deep
 data S2_inner
     = S2_inner {s2_inner_a :: CInt, s2_inner_deep :: S2_inner_deep}
 instance Storable S2_inner
-    where {sizeOf = \_ -> 8;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure S2_inner <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 4;
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure S2_inner <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S2_inner s2_inner_a_3
-                                              s2_inner_deep_4 -> pokeByteOff ptr_1 0 s2_inner_a_3 >> pokeByteOff ptr_1 4 s2_inner_deep_4}}
+                                              s2_inner_deep_4 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_a_3 >> pokeByteOff ptr_1 (4 :: Int) s2_inner_deep_4}}
 deriving stock instance Show S2_inner
 deriving stock instance Eq S2_inner
 data S2 = S2 {s2_inner :: S2_inner, s2_d :: CInt}
 instance Storable S2
-    where {sizeOf = \_ -> 12;
-           alignment = \_ -> 4;
-           peek = \ptr_0 -> (pure S2 <*> peekByteOff ptr_0 0) <*> peekByteOff ptr_0 8;
+    where {sizeOf = \_ -> 12 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure S2 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {S2 s2_inner_3
-                                        s2_d_4 -> pokeByteOff ptr_1 0 s2_inner_3 >> pokeByteOff ptr_1 8 s2_d_4}}
+                                        s2_d_4 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_3 >> pokeByteOff ptr_1 (8 :: Int) s2_d_4}}
 deriving stock instance Show S2
 deriving stock instance Eq S2
