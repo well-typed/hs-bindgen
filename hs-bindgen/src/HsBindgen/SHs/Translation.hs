@@ -290,8 +290,8 @@ hsPrimFloatTy = \case
 
 translateBody :: Hs.VarDeclRHS ctx -> SExpr ctx
 translateBody (Hs.VarDeclVar x)                     = EBound x
-translateBody (Hs.VarDeclFloat f)                   = EFloat f
-translateBody (Hs.VarDeclDouble d)                  = EDouble d
+translateBody (Hs.VarDeclFloat f)                   = EFloat f HsPrimCFloat
+translateBody (Hs.VarDeclDouble d)                  = EDouble d HsPrimCDouble
 translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i (Just ty)
 translateBody (Hs.VarDeclLambda (Hs.Lambda hint b)) = ELam hint (translateBody b)
 translateBody (Hs.VarDeclApp f as)                  = foldl' EApp (translateAppHead f) (map translateBody as)

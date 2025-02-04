@@ -140,8 +140,8 @@ data SExpr ctx =
   | EFree (HsName NsVar)
   | ECon (HsName NsConstr)
   | EIntegral Integer (Maybe HsPrimType)
-  | EFloat Float
-  | EDouble Double
+  | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
+  | EDouble Double HsPrimType
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix Global (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))

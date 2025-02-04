@@ -8,7 +8,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Floating, Fractional, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
+import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
 
 newtype Foo = Foo
   { unFoo :: FC.CUInt
@@ -16,20 +16,20 @@ newtype Foo = Foo
 
 instance F.Storable Foo where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Foo
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo unFoo2 -> F.pokeByteOff ptr0 0 unFoo2
+          Foo unFoo2 -> F.pokeByteOff ptr0 (0 :: Int) unFoo2
 
 deriving stock instance Show Foo
 

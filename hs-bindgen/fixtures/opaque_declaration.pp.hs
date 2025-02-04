@@ -6,7 +6,7 @@
 module Example where
 
 import qualified Foreign as F
-import Prelude ((<*>), (>>), Eq, Show, pure, return)
+import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
 data Foo
 
@@ -17,23 +17,23 @@ data Bar = Bar
 
 instance F.Storable Bar where
 
-  sizeOf = \_ -> 16
+  sizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> 8
+  alignment = \_ -> (8 :: Int)
 
   peek =
     \ptr0 ->
           pure Bar
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 8
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bar bar_ptrA2 bar_ptrB3 ->
-               F.pokeByteOff ptr0 0 bar_ptrA2
-            >> F.pokeByteOff ptr0 8 bar_ptrB3
+               F.pokeByteOff ptr0 (0 :: Int) bar_ptrA2
+            >> F.pokeByteOff ptr0 (8 :: Int) bar_ptrB3
 
 deriving stock instance Show Bar
 
@@ -44,9 +44,9 @@ data Baz = Baz
 
 instance F.Storable Baz where
 
-  sizeOf = \_ -> 0
+  sizeOf = \_ -> (0 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek = \ptr0 -> pure Baz
 

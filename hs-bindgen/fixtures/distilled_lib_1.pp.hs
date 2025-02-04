@@ -14,28 +14,28 @@ import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.ConstantArray
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 a :: FC.CInt
-a = 5
+a = (5 :: FC.CInt)
 
 b :: FC.CInt
-b = 3
+b = (3 :: FC.CInt)
 
 sOME_DEFINED_CONSTANT :: FC.CInt
-sOME_DEFINED_CONSTANT = 4
+sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
 
 a_DEFINE_0 :: FC.CInt
-a_DEFINE_0 = 0
+a_DEFINE_0 = (0 :: FC.CInt)
 
 a_DEFINE_1 :: FC.CUInt
-a_DEFINE_1 = 20560
+a_DEFINE_1 = (20560 :: FC.CUInt)
 
 a_DEFINE_2 :: FC.CInt
-a_DEFINE_2 = 2
+a_DEFINE_2 = (2 :: FC.CInt)
 
 tWO_ARGS :: FC.CInt
-tWO_ARGS = 13398
+tWO_ARGS = (13398 :: FC.CInt)
 
 foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 
@@ -46,23 +46,23 @@ data Another_typedef_struct_t = Another_typedef_struct_t
 
 instance F.Storable Another_typedef_struct_t where
 
-  sizeOf = \_ -> 8
+  sizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Another_typedef_struct_t
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 4
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Another_typedef_struct_t another_typedef_struct_t_foo2 another_typedef_struct_t_bar3 ->
-               F.pokeByteOff ptr0 0 another_typedef_struct_t_foo2
-            >> F.pokeByteOff ptr0 4 another_typedef_struct_t_bar3
+               F.pokeByteOff ptr0 (0 :: Int) another_typedef_struct_t_foo2
+            >> F.pokeByteOff ptr0 (4 :: Int) another_typedef_struct_t_bar3
 
 deriving stock instance Show Another_typedef_struct_t
 
@@ -74,21 +74,21 @@ newtype Another_typedef_enum_e = Another_typedef_enum_e
 
 instance F.Storable Another_typedef_enum_e where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Another_typedef_enum_e
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Another_typedef_enum_e unAnother_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 0 unAnother_typedef_enum_e2
+            F.pokeByteOff ptr0 (0 :: Int) unAnother_typedef_enum_e2
 
 deriving stock instance Show Another_typedef_enum_e
 
@@ -272,24 +272,24 @@ data A_typedef_struct = A_typedef_struct
 
 instance F.Storable A_typedef_struct where
 
-  sizeOf = \_ -> 140
+  sizeOf = \_ -> (140 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek =
     \ptr0 ->
           pure A_typedef_struct
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 1
-      <*> F.peekByteOff ptr0 2
-      <*> F.peekByteOff ptr0 4
-      <*> F.peekByteOff ptr0 8
-      <*> F.peekByteOff ptr0 16
-      <*> F.peekByteOff ptr0 24
-      <*> F.peekByteOff ptr0 32
-      <*> F.peekByteOff ptr0 60
-      <*> F.peekByteOff ptr0 64
-      <*> F.peekByteOff ptr0 80
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (1 :: Int)
+      <*> F.peekByteOff ptr0 (2 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> F.peekByteOff ptr0 (16 :: Int)
+      <*> F.peekByteOff ptr0 (24 :: Int)
+      <*> F.peekByteOff ptr0 (32 :: Int)
+      <*> F.peekByteOff ptr0 (60 :: Int)
+      <*> F.peekByteOff ptr0 (64 :: Int)
+      <*> F.peekByteOff ptr0 (80 :: Int)
 
   poke =
     \ptr0 ->
@@ -307,17 +307,17 @@ instance F.Storable A_typedef_struct where
             a_typedef_struct_field_810
             a_typedef_struct_field_911
             a_typedef_struct_field_1012 ->
-                 F.pokeByteOff ptr0 0 a_typedef_struct_field_02
-              >> F.pokeByteOff ptr0 1 a_typedef_struct_field_13
-              >> F.pokeByteOff ptr0 2 a_typedef_struct_field_24
-              >> F.pokeByteOff ptr0 4 a_typedef_struct_field_35
-              >> F.pokeByteOff ptr0 8 a_typedef_struct_field_46
-              >> F.pokeByteOff ptr0 16 a_typedef_struct_field_57
-              >> F.pokeByteOff ptr0 24 a_typedef_struct_field_68
-              >> F.pokeByteOff ptr0 32 a_typedef_struct_field_79
-              >> F.pokeByteOff ptr0 60 a_typedef_struct_field_810
-              >> F.pokeByteOff ptr0 64 a_typedef_struct_field_911
-              >> F.pokeByteOff ptr0 80 a_typedef_struct_field_1012
+                 F.pokeByteOff ptr0 (0 :: Int) a_typedef_struct_field_02
+              >> F.pokeByteOff ptr0 (1 :: Int) a_typedef_struct_field_13
+              >> F.pokeByteOff ptr0 (2 :: Int) a_typedef_struct_field_24
+              >> F.pokeByteOff ptr0 (4 :: Int) a_typedef_struct_field_35
+              >> F.pokeByteOff ptr0 (8 :: Int) a_typedef_struct_field_46
+              >> F.pokeByteOff ptr0 (16 :: Int) a_typedef_struct_field_57
+              >> F.pokeByteOff ptr0 (24 :: Int) a_typedef_struct_field_68
+              >> F.pokeByteOff ptr0 (32 :: Int) a_typedef_struct_field_79
+              >> F.pokeByteOff ptr0 (60 :: Int) a_typedef_struct_field_810
+              >> F.pokeByteOff ptr0 (64 :: Int) a_typedef_struct_field_911
+              >> F.pokeByteOff ptr0 (80 :: Int) a_typedef_struct_field_1012
 
 deriving stock instance Show A_typedef_struct
 
@@ -335,20 +335,21 @@ newtype A_typedef_enum_e = A_typedef_enum_e
 
 instance F.Storable A_typedef_enum_e where
 
-  sizeOf = \_ -> 1
+  sizeOf = \_ -> (1 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek =
     \ptr0 ->
           pure A_typedef_enum_e
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          A_typedef_enum_e unA_typedef_enum_e2 -> F.pokeByteOff ptr0 0 unA_typedef_enum_e2
+          A_typedef_enum_e unA_typedef_enum_e2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unA_typedef_enum_e2
 
 deriving stock instance Show A_typedef_enum_e
 

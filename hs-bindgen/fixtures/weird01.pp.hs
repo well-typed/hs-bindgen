@@ -8,7 +8,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Eq, IO, Show, pure)
+import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO ()
 
@@ -18,20 +18,20 @@ data Foo = Foo
 
 instance F.Storable Foo where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Foo
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo foo_z2 -> F.pokeByteOff ptr0 0 foo_z2
+          Foo foo_z2 -> F.pokeByteOff ptr0 (0 :: Int) foo_z2
 
 deriving stock instance Show Foo
 
@@ -43,20 +43,20 @@ data Bar = Bar
 
 instance F.Storable Bar where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Bar
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Bar bar_x2 -> F.pokeByteOff ptr0 0 bar_x2
+          Bar bar_x2 -> F.pokeByteOff ptr0 (0 :: Int) bar_x2
 
 deriving stock instance Show Bar
 

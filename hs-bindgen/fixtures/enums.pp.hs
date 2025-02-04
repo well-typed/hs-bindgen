@@ -8,7 +8,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Ord, Read, Show, pure)
+import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
 
 newtype First = First
   { unFirst :: FC.CUInt
@@ -16,20 +16,20 @@ newtype First = First
 
 instance F.Storable First where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure First
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          First unFirst2 -> F.pokeByteOff ptr0 0 unFirst2
+          First unFirst2 -> F.pokeByteOff ptr0 (0 :: Int) unFirst2
 
 deriving stock instance Show First
 
@@ -53,20 +53,20 @@ newtype Second = Second
 
 instance F.Storable Second where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Second
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Second unSecond2 -> F.pokeByteOff ptr0 0 unSecond2
+          Second unSecond2 -> F.pokeByteOff ptr0 (0 :: Int) unSecond2
 
 deriving stock instance Show Second
 
@@ -79,7 +79,7 @@ deriving stock instance Ord Second
 deriving newtype instance Enum Second
 
 pattern SECOND_A :: Second
-pattern SECOND_A = Second (-1)
+pattern SECOND_A = Second -1
 
 pattern SECOND_B :: Second
 pattern SECOND_B = Second 0
@@ -93,20 +93,20 @@ newtype Same = Same
 
 instance F.Storable Same where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure Same
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Same unSame2 -> F.pokeByteOff ptr0 0 unSame2
+          Same unSame2 -> F.pokeByteOff ptr0 (0 :: Int) unSame2
 
 deriving stock instance Show Same
 
@@ -130,20 +130,20 @@ newtype Packad = Packad
 
 instance F.Storable Packad where
 
-  sizeOf = \_ -> 1
+  sizeOf = \_ -> (1 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek =
     \ptr0 ->
           pure Packad
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Packad unPackad2 -> F.pokeByteOff ptr0 0 unPackad2
+          Packad unPackad2 -> F.pokeByteOff ptr0 (0 :: Int) unPackad2
 
 deriving stock instance Show Packad
 
@@ -170,20 +170,20 @@ newtype EnumA = EnumA
 
 instance F.Storable EnumA where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure EnumA
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumA unEnumA2 -> F.pokeByteOff ptr0 0 unEnumA2
+          EnumA unEnumA2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumA2
 
 deriving stock instance Show EnumA
 
@@ -207,20 +207,20 @@ newtype EnumB = EnumB
 
 instance F.Storable EnumB where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure EnumB
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumB unEnumB2 -> F.pokeByteOff ptr0 0 unEnumB2
+          EnumB unEnumB2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumB2
 
 deriving stock instance Show EnumB
 
@@ -244,20 +244,20 @@ newtype EnumC = EnumC
 
 instance F.Storable EnumC where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure EnumC
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumC unEnumC2 -> F.pokeByteOff ptr0 0 unEnumC2
+          EnumC unEnumC2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumC2
 
 deriving stock instance Show EnumC
 
@@ -281,20 +281,20 @@ newtype EnumD = EnumD
 
 instance F.Storable EnumD where
 
-  sizeOf = \_ -> 4
+  sizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure EnumD
-      <*> F.peekByteOff ptr0 0
+      <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumD unEnumD2 -> F.pokeByteOff ptr0 0 unEnumD2
+          EnumD unEnumD2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumD2
 
 deriving stock instance Show EnumD
 

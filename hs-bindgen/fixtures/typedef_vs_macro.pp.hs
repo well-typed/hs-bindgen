@@ -10,7 +10,7 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype M1 = M1
   { unM1 :: FC.CInt
@@ -89,27 +89,27 @@ data ExampleStruct = ExampleStruct
 
 instance F.Storable ExampleStruct where
 
-  sizeOf = \_ -> 16
+  sizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> 4
+  alignment = \_ -> (4 :: Int)
 
   peek =
     \ptr0 ->
           pure ExampleStruct
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 4
-      <*> F.peekByteOff ptr0 8
-      <*> F.peekByteOff ptr0 12
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> F.peekByteOff ptr0 (12 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExampleStruct exampleStruct_t12 exampleStruct_t23 exampleStruct_m14 exampleStruct_m25 ->
-               F.pokeByteOff ptr0 0 exampleStruct_t12
-            >> F.pokeByteOff ptr0 4 exampleStruct_t23
-            >> F.pokeByteOff ptr0 8 exampleStruct_m14
-            >> F.pokeByteOff ptr0 12 exampleStruct_m25
+               F.pokeByteOff ptr0 (0 :: Int) exampleStruct_t12
+            >> F.pokeByteOff ptr0 (4 :: Int) exampleStruct_t23
+            >> F.pokeByteOff ptr0 (8 :: Int) exampleStruct_m14
+            >> F.pokeByteOff ptr0 (12 :: Int) exampleStruct_m25
 
 deriving stock instance Show ExampleStruct
 

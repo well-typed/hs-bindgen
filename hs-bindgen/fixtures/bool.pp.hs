@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Eq, Show, pure)
+import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 newtype BOOL = BOOL
   { unBOOL :: FC.CBool
@@ -20,23 +20,23 @@ data Bools1 = Bools1
 
 instance F.Storable Bools1 where
 
-  sizeOf = \_ -> 2
+  sizeOf = \_ -> (2 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek =
     \ptr0 ->
           pure Bools1
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 1
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (1 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools1 bools1_x2 bools1_y3 ->
-               F.pokeByteOff ptr0 0 bools1_x2
-            >> F.pokeByteOff ptr0 1 bools1_y3
+               F.pokeByteOff ptr0 (0 :: Int) bools1_x2
+            >> F.pokeByteOff ptr0 (1 :: Int) bools1_y3
 
 deriving stock instance Show Bools1
 
@@ -49,23 +49,23 @@ data Bools2 = Bools2
 
 instance F.Storable Bools2 where
 
-  sizeOf = \_ -> 2
+  sizeOf = \_ -> (2 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek =
     \ptr0 ->
           pure Bools2
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 1
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (1 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools2 bools2_x2 bools2_y3 ->
-               F.pokeByteOff ptr0 0 bools2_x2
-            >> F.pokeByteOff ptr0 1 bools2_y3
+               F.pokeByteOff ptr0 (0 :: Int) bools2_x2
+            >> F.pokeByteOff ptr0 (1 :: Int) bools2_y3
 
 deriving stock instance Show Bools2
 
@@ -78,23 +78,23 @@ data Bools3 = Bools3
 
 instance F.Storable Bools3 where
 
-  sizeOf = \_ -> 2
+  sizeOf = \_ -> (2 :: Int)
 
-  alignment = \_ -> 1
+  alignment = \_ -> (1 :: Int)
 
   peek =
     \ptr0 ->
           pure Bools3
-      <*> F.peekByteOff ptr0 0
-      <*> F.peekByteOff ptr0 1
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (1 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools3 bools3_x2 bools3_y3 ->
-               F.pokeByteOff ptr0 0 bools3_x2
-            >> F.pokeByteOff ptr0 1 bools3_y3
+               F.pokeByteOff ptr0 (0 :: Int) bools3_x2
+            >> F.pokeByteOff ptr0 (1 :: Int) bools3_y3
 
 deriving stock instance Show Bools3
 
