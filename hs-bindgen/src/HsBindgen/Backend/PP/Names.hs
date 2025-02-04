@@ -72,7 +72,7 @@ iDataBits = HsImportModule "Data.Bits" (Just "Bits")
 
 -- | @C.Typing@ import module
 iCTyping :: HsImportModule
-iCTyping = HsImportModule "C.Typing" (Just "C")
+iCTyping = HsImportModule "C.Expr.BuildPlatform" (Just "C")
 
 {-------------------------------------------------------------------------------
   NameType

@@ -18,7 +18,7 @@ import GHC.Float
   ( castWord64ToDouble, castDoubleToWord64
   , castWord32ToFloat , castFloatToWord32 )
 
-import C.Operator.Classes qualified as C
+import C.Expr.BuildPlatform qualified as C
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name

@@ -2,8 +2,8 @@
 
 module Example where
 
-import C.Typing ((*), (+), (/), (<), (<<))
-import qualified C.Typing as C
+import C.Expr.BuildPlatform ((*), (+), (/), (<), (<<))
+import qualified C.Expr.BuildPlatform as C
 import Data.Type.Equality ((~))
 import qualified Foreign.C as FC
 import qualified HsBindgen.Syntax as HsBindgen
