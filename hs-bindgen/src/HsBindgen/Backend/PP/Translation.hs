@@ -176,8 +176,8 @@ resolveExprImports = \case
     EFree {} -> mempty
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolvePrimTypeImports t
-    EFloat    {} -> mempty
-    EDouble   {} -> mempty
+    EFloat _ t -> resolvePrimTypeImports t
+    EDouble _ t -> resolvePrimTypeImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x
     EInfix op x y ->
       resolveGlobalImports op <> resolveExprImports x <> resolveExprImports y
@@ -202,4 +202,4 @@ resolveTypeImports = \case
       foldMap resolveTypeImports (body:ctxt)
 
 resolvePrimTypeImports :: Hs.HsPrimType -> ImportAcc
-resolvePrimTypeImports = resolveTypeImports . TGlobal . PrimType
+resolvePrimTypeImports = resolveGlobalImports . PrimType

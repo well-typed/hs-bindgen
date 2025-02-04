@@ -132,50 +132,26 @@ mkGlobal =  \case
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
       PrimType t           -> mkGlobalP t
-    where
-      mkGlobalP HsPrimVoid     = ''Data.Void.Void
-      mkGlobalP HsPrimUnit     = ''()
-      mkGlobalP HsPrimCChar    = ''Foreign.C.Types.CChar
-      mkGlobalP HsPrimCUChar   = ''Foreign.C.Types.CUChar
-      mkGlobalP HsPrimCSChar   = ''Foreign.C.Types.CSChar
-      mkGlobalP HsPrimCInt     = ''Foreign.C.Types.CInt
-      mkGlobalP HsPrimCUInt    = ''Foreign.C.Types.CUInt
-      mkGlobalP HsPrimCShort   = ''Foreign.C.Types.CShort
-      mkGlobalP HsPrimCUShort  = ''Foreign.C.Types.CUShort
-      mkGlobalP HsPrimCLong    = ''Foreign.C.Types.CLong
-      mkGlobalP HsPrimCULong   = ''Foreign.C.Types.CULong
-      mkGlobalP HsPrimCLLong   = ''Foreign.C.Types.CLLong
-      mkGlobalP HsPrimCULLong  = ''Foreign.C.Types.CULLong
-      mkGlobalP HsPrimCFloat   = ''Foreign.C.Types.CFloat
-      mkGlobalP HsPrimCDouble  = ''Foreign.C.Types.CDouble
-      mkGlobalP HsPrimCBool    = ''Foreign.C.Types.CBool
-      mkGlobalP HsPrimCPtrDiff = ''Foreign.C.Types.CPtrdiff
-      mkGlobalP HsPrimInt      = ''Int
 
-{-
-  mkExpr be = \case
-      EGlobal n     -> TH.varE (resolve be n)
-      EVar x        -> TH.varE (getFresh x)
-      EFreeVar x    -> TH.varE $ TH.mkName (Text.unpack $ getHsName x)
-      ECon n        -> hsConE n
-      EIntegral i _ -> TH.litE (TH.IntegerL i)
-      -- TH doesn't have floating-point literals, because it represents them
-      -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
-      --
-      -- To work around this problem, we cast floating-point numbers to
-      -- Word32/Word64 and then cast back.
-      EFloat f
-        | canBeRepresentedAsRational f
-        -> [| f |]
-        | otherwise
-        -> [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
-      EDouble d
-        | canBeRepresentedAsRational d
-        -> [| d |]
-        | otherwise
-        -> [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
-      EApp f x      -> TH.appE (mkExpr be f) (mkExpr be x)
--}
+mkGlobalP :: HsPrimType -> TH.Name
+mkGlobalP HsPrimVoid     = ''Data.Void.Void
+mkGlobalP HsPrimUnit     = ''()
+mkGlobalP HsPrimCChar    = ''Foreign.C.Types.CChar
+mkGlobalP HsPrimCUChar   = ''Foreign.C.Types.CUChar
+mkGlobalP HsPrimCSChar   = ''Foreign.C.Types.CSChar
+mkGlobalP HsPrimCInt     = ''Foreign.C.Types.CInt
+mkGlobalP HsPrimCUInt    = ''Foreign.C.Types.CUInt
+mkGlobalP HsPrimCShort   = ''Foreign.C.Types.CShort
+mkGlobalP HsPrimCUShort  = ''Foreign.C.Types.CUShort
+mkGlobalP HsPrimCLong    = ''Foreign.C.Types.CLong
+mkGlobalP HsPrimCULong   = ''Foreign.C.Types.CULong
+mkGlobalP HsPrimCLLong   = ''Foreign.C.Types.CLLong
+mkGlobalP HsPrimCULLong  = ''Foreign.C.Types.CULLong
+mkGlobalP HsPrimCFloat   = ''Foreign.C.Types.CFloat
+mkGlobalP HsPrimCDouble  = ''Foreign.C.Types.CDouble
+mkGlobalP HsPrimCBool    = ''Foreign.C.Types.CBool
+mkGlobalP HsPrimCPtrDiff = ''Foreign.C.Types.CPtrdiff
+mkGlobalP HsPrimInt      = ''Int
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env = \case
@@ -260,7 +236,7 @@ mkType env = \case
             (mkType env' body)
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type
-mkPrimType = mkType EmptyEnv . TGlobal . PrimType
+mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Quote q => SDecl -> q [TH.Dec]
 mkDecl = \case
