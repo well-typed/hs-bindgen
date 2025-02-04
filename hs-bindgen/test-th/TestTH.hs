@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
-
 module Main (main) where
 
 import Test.Tasty (testGroup, defaultMain)
