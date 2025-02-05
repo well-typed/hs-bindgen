@@ -1,7 +1,7 @@
 module HsBindgen.ExtBindings (
     -- * Types
     CNameSpelling
-  , CHeader
+  , CHeaderPath
   , HsPackageName
   , HsModuleName
   , HsIdent
@@ -32,13 +32,13 @@ import HsBindgen.Imports
 -- Examples: @int8_t@, @struct tm@
 type CNameSpelling = Text
 
--- | C header file
+-- | C header path
 --
 -- A value must be specified as used in the C source code (relative to an
 -- include directory).
 --
 -- Example: @time.h@
-type CHeader = Text
+type CHeaderPath = Text
 
 -- | Haskell package name
 --
@@ -65,7 +65,7 @@ data HsTypeRef = HsTypeRef {
 
 -- | External bindings
 data ExtBindings = ExtBindings {
-      extBindingsCHeadersMap :: Map CNameSpelling [CHeader]
+      extBindingsCHeadersMap :: Map CNameSpelling [CHeaderPath]
     , extBindingsCResolveMap :: Map CNameSpelling HsTypeRef
     }
   deriving Show
@@ -89,7 +89,7 @@ instance Aeson.FromJSON Config where
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
       mappingCname      :: CNameSpelling
-    , mappingHeaders    :: [CHeader]
+    , mappingHeaders    :: [CHeaderPath]
     , mappingIdentifier :: HsIdent
     , mappingModule     :: HsModuleName
     , mappingPackage    :: HsPackageName
