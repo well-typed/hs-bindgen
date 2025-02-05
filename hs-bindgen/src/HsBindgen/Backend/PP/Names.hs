@@ -29,10 +29,10 @@ data HsImportModule = HsImportModule {
 
 -- | @HsBindgen.ConstantArray@ import module
 iConstantArray :: HsImportModule
-iConstantArray = HsImportModule "HsBindgen.ConstantArray" Nothing
+iConstantArray = HsImportModule "HsBindgen.Runtime.ConstantArray" Nothing
 
 iFlexibleArrayMember :: HsImportModule
-iFlexibleArrayMember = HsImportModule "HsBindgen.Patterns.FlexibleArrayMember" Nothing
+iFlexibleArrayMember = HsImportModule "HsBindgen.Runtime.FlexibleArrayMember" Nothing
 
 -- | @Data.Void@ import module
 iDataVoid :: HsImportModule
