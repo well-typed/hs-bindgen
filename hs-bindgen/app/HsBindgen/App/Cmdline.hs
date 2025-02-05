@@ -1,14 +1,17 @@
+{-# LANGUAGE ApplicativeDo #-}
 module HsBindgen.App.Cmdline (
     Cmdline(..)
   , Mode(..)
   , DevMode(..)
   , getCmdline
+  , pureParseModePreprocess
   ) where
 
 import Data.Char qualified as Char
 import Data.Default
 import Data.List qualified as List
 import Options.Applicative
+import Options.Applicative.Extra (helperWith)
 import System.FilePath
 import System.Info qualified
 
@@ -60,6 +63,7 @@ data Mode =
       , genTestsRenderOpts :: HsRenderOpts
       , genTestsOutput     :: FilePath
       }
+  | ModeLiterate FilePath FilePath
   | Dev DevMode
   deriving (Show)
 
@@ -87,6 +91,10 @@ parseCmdline dataDir =
       <*> parseClangArgs
       <*> parseMode dataDir
 
+pureParseModePreprocess :: [String] -> Maybe Mode
+pureParseModePreprocess =
+    getParseResult . execParserPure defaultPrefs (info parseModePreprocess mempty)
+
 {-------------------------------------------------------------------------------
   Mode selection
 -------------------------------------------------------------------------------}
@@ -95,6 +103,9 @@ parseMode :: FilePath -> Parser Mode
 parseMode dataDir = subparser $ mconcat [
       cmd "preprocess" parseModePreprocess $ mconcat [
           progDesc "Generate Haskell module from C header"
+        ]
+    , cmd' "literate" parseModeLiterate $ mconcat [
+          progDesc "Generate Haskell module from C header, acting as literate Haskell preprocessor"
         ]
     , cmd "gentests" parseModeGenTests $ mconcat [
           progDesc "Generate tests for generated Haskell code"
@@ -134,6 +145,14 @@ parseModeGenTests =
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseGenTestsOutput
+
+parseModeLiterate :: Parser Mode
+parseModeLiterate = do
+    _ <- strOption @String $ mconcat [ short 'h', metavar "IGNORED" ]
+
+    input <- strArgument $ mconcat [ metavar "IN" ]
+    output <- strArgument $ mconcat [ metavar "OUT" ]
+    return (ModeLiterate input output)
 
 {-------------------------------------------------------------------------------
   Dev modes
@@ -373,3 +392,13 @@ parseGenTestsOutput =
 
 cmd :: String -> Parser a -> InfoMod a -> Mod CommandFields a
 cmd name p = command name . info (p <**> helper)
+
+-- | Like cmd but without '-h'
+cmd' :: String -> Parser a -> InfoMod a -> Mod CommandFields a
+cmd' name p = command name . info (p <**> helper') where
+  helper' :: Parser (a -> a)
+  helper' =
+    helperWith (mconcat [
+      long "help",
+      help "Show this help text"
+    ])

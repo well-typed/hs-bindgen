@@ -3,6 +3,7 @@
 module Main (main) where
 
 import Control.Monad (void)
+import Text.Read (readMaybe)
 import System.Directory qualified as Dir
 import System.IO qualified as IO
 
@@ -38,6 +39,14 @@ execMode relPath cmdline tracer = \case
     ModeGenTests{..} -> do
       cHeader <- parseC relPath cmdline tracer genTestsInput
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
+    ModeLiterate input output -> do
+      lit <- readFile input
+      args <- maybe (fail "cannot parse literate file") return $ readMaybe lit
+      mode <- maybe (fail "cannot parse arguments in literate file") return $ pureParseModePreprocess args
+      execMode relPath cmdline tracer $ case mode of
+          ModePreprocess {} -> mode { preprocessOutput = Just output }
+          _ -> mode
+
     Dev devMode ->
       execDevMode relPath cmdline tracer devMode
 

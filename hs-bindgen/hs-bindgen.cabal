@@ -223,3 +223,29 @@ test-suite test-th
     , filepath
     , tasty ^>= 1.5
     , tasty-hunit ^>=0.10.2
+
+test-suite test-pp
+  default-language: Haskell2010
+
+  -- bug: PP code doesn't add ScopedTypeVariables, etc for macros
+  default-extensions:
+    FlexibleContexts
+    ScopedTypeVariables
+
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test-pp
+  main-is:        test-pp.hs
+  other-modules:  Test01
+
+  -- Here we use literate haskell "hook" to avoid setting up true preprocessors
+  -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
+  --
+  -- The source files contains the actual options and arguments to be used with hs-bindgen
+  ghc-options: -pgmL hs-bindgen -optL literate
+
+  build-tool-depends: hs-bindgen:hs-bindgen
+  build-depends:
+    , base <5
+    , c-expr
+    , tasty
+    , tasty-hunit
