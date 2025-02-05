@@ -5,7 +5,7 @@ module HsBindgen.ExtBindings (
   , HsPackageName
   , HsModuleName
   , HsIdent
-  , HsTypeRef(..)
+  , ExtIdentifier(..)
   , ExtBindings(..)
     -- * Configuration Files
   , loadJson
@@ -55,18 +55,17 @@ type HsModuleName = Text
 -- Example @CTm@
 type HsIdent = Text
 
--- | Haskell type reference
-data HsTypeRef = HsTypeRef {
-      hsTypeRefPackage :: HsPackageName
-    , hsTypeRefModule  :: HsModuleName
-    , hsTypeRefIdent   :: HsIdent
+-- | External identifier
+data ExtIdentifier = ExtIdentifier {
+      extIdentifierPackage :: HsPackageName
+    , extIdentifierModule  :: HsModuleName
+    , extIdentifierIdent   :: HsIdent
     }
   deriving (Eq, Ord, Show)
 
 -- | External bindings
-data ExtBindings = ExtBindings {
-      extBindingsCHeadersMap :: Map CNameSpelling [CHeaderPath]
-    , extBindingsCResolveMap :: Map CNameSpelling HsTypeRef
+newtype ExtBindings = ExtBindings {
+      extBindingsTypes :: Map CNameSpelling ([CHeaderPath], ExtIdentifier)
     }
   deriving Show
 
@@ -147,12 +146,9 @@ decodeYamlStrict path = do
 -- An error is returned if any invariants are violated.
 mkExtBindings :: Config -> Either String ExtBindings
 mkExtBindings Config{..} = do
-    typesMap <- handleDups "duplicate types cnames: " $
+    extBindingsTypes <- handleDups "duplicate types cnames: " $
       foldr typesInsert (Set.empty, Map.empty) configTypes
-    return ExtBindings {
-        extBindingsCHeadersMap = Map.map mappingHeaders typesMap
-      , extBindingsCResolveMap = Map.map toHsTypeRef    typesMap
-      }
+    return ExtBindings {..}
   where
     handleDups :: String -> (Set CNameSpelling, a) -> Either String a
     handleDups prefix (dupSet, x)
@@ -162,23 +158,21 @@ mkExtBindings Config{..} = do
 
     typesInsert ::
          Mapping
-      -> (Set CNameSpelling, Map CNameSpelling Mapping)
-      -> (Set CNameSpelling, Map CNameSpelling Mapping)
-    typesInsert mapping (dupSet, typesMap) =
-      let cname = mappingCname mapping
-      in  case Map.insertLookupWithKey useNewValue cname mapping typesMap of
-            (Nothing, typesMap') -> (dupSet,                  typesMap')
-            (Just{},  typesMap') -> (Set.insert cname dupSet, typesMap')
+      -> (Set CNameSpelling, Map CNameSpelling ([CHeaderPath], ExtIdentifier))
+      -> (Set CNameSpelling, Map CNameSpelling ([CHeaderPath], ExtIdentifier))
+    typesInsert Mapping{..} (dupSet, typesMap) =
+      let extIdentifier = ExtIdentifier {
+              extIdentifierPackage = mappingPackage
+            , extIdentifierModule  = mappingModule
+            , extIdentifierIdent   = mappingIdentifier
+            }
+          v = (mappingHeaders, extIdentifier)
+      in  case Map.insertLookupWithKey useNewValue mappingCname v typesMap of
+            (Nothing, typesMap') -> (dupSet,                         typesMap')
+            (Just{},  typesMap') -> (Set.insert mappingCname dupSet, typesMap')
 
     useNewValue :: k -> a -> a -> a
     useNewValue _key new _old = new
-
-    toHsTypeRef :: Mapping -> HsTypeRef
-    toHsTypeRef Mapping{..} = HsTypeRef {
-        hsTypeRefPackage = mappingPackage
-      , hsTypeRefModule  = mappingModule
-      , hsTypeRefIdent   = mappingIdentifier
-      }
 
 -- | Fail on error, indicating the path
 failOnError :: FilePath -> Either String a -> IO a
