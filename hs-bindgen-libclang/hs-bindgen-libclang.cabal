@@ -68,6 +68,7 @@ library
       HsBindgen.Clang.LowLevel.FFI
       HsBindgen.Clang.LowLevel.Core.Enums
       HsBindgen.Clang.LowLevel.Core.Instances
+      HsBindgen.Clang.LowLevel.Core.Pointers
       HsBindgen.Clang.LowLevel.Core.Structs
       HsBindgen.Clang.LowLevel.Doxygen.Enums
       HsBindgen.Clang.LowLevel.Doxygen.Instances

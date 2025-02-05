@@ -110,7 +110,10 @@ CXCursor clang_getCursorSemanticParent (CXCursor cursor);
 CXCursor clang_getCursorLexicalParent (CXCursor cursor);
 // void clang_getOverriddenCursors (CXCursor cursor, CXCursor **overridden, unsigned *num_overridden); // C++?
 // void clang_disposeOverriddenCursors (CXCursor *overridden); // C++?
-// CXFile clang_getIncludedFile (CXCursor cursor); // CXFile is defined in LowLevel.Core
+CXFile clang_getIncludedFile (CXCursor cursor);
+
+// File manipulation routines https://clang.llvm.org/doxygen/group__CINDEX__FILES.html
+CXString clang_getFileName(CXFile SFile);
 
 // Debugging facilities https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html
 CXString clang_getCursorKindSpelling (enum CXCursorKind Kind);

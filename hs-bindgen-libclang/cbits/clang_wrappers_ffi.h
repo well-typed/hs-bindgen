@@ -323,7 +323,15 @@ static inline void wrap_getCursorLexicalParent(const CXCursor* cursor, CXCursor*
 
 /* void clang_disposeOverriddenCursors (CXCursor *overridden); // C++? */
 
-/* CXFile clang_getIncludedFile (CXCursor cursor); // CXFile is defined in LowLevel.Core */
+static inline CXFile wrap_getIncludedFile(const CXCursor* cursor) {
+  return clang_getIncludedFile(*cursor);
+}
+
+/* File manipulation routines https://clang.llvm.org/doxygen/group__CINDEX__FILES.html */
+
+static inline void wrap_getFileName(CXFile SFile, CXString* result) {
+  *result = clang_getFileName(SFile);
+}
 
 /* Debugging facilities https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html */
 
