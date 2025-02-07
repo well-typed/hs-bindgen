@@ -214,6 +214,7 @@ test-suite test-th
   build-depends:
       -- Internal dependencies
     , hs-bindgen
+    , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
     , template-haskell
@@ -228,9 +229,11 @@ test-suite test-pp
   default-language: Haskell2010
 
   -- bug: PP code doesn't add ScopedTypeVariables, etc for macros
+  -- nor DataKinds for ConstantArray
   default-extensions:
     FlexibleContexts
     ScopedTypeVariables
+    DataKinds
 
   type:           exitcode-stdio-1.0
   hs-source-dirs: test-pp
@@ -247,5 +250,6 @@ test-suite test-pp
   build-depends:
     , base <5
     , c-expr
+    , hs-bindgen-runtime
     , tasty
     , tasty-hunit

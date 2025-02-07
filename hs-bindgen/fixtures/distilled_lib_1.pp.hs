@@ -13,7 +13,7 @@ import qualified Data.Ix as Ix
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.ConstantArray
+import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 a :: FC.CInt
@@ -264,7 +264,7 @@ data A_typedef_struct = A_typedef_struct
   , a_typedef_struct_field_4 :: Another_typedef_struct_t
   , a_typedef_struct_field_5 :: F.Ptr Another_typedef_struct_t
   , a_typedef_struct_field_6 :: F.Ptr Void
-  , a_typedef_struct_field_7 :: (HsBindgen.ConstantArray.ConstantArray 7) Uint32_t
+  , a_typedef_struct_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) Uint32_t
   , a_typedef_struct_field_8 :: Another_typedef_enum_e
   , a_typedef_struct_field_9 :: Another_typedef_enum_e
   , a_typedef_struct_field_10 :: Another_typedef_enum_e

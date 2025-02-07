@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.Patterns.FlexibleArrayMember
+import qualified HsBindgen.Runtime.FlexibleArrayMember
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 data Pascal = Pascal
@@ -35,7 +35,7 @@ deriving stock instance Show Pascal
 
 deriving stock instance Eq Pascal
 
-instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Pascal FC.CChar where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Pascal FC.CChar where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
@@ -93,7 +93,7 @@ deriving stock instance Show Foo
 
 deriving stock instance Eq Foo
 
-instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Foo Foo_bar where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo Foo_bar where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
@@ -126,6 +126,6 @@ deriving stock instance Show Diff
 
 deriving stock instance Eq Diff
 
-instance HsBindgen.Patterns.FlexibleArrayMember.HasFlexibleArrayMember Diff FC.CChar where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Diff FC.CChar where
 
   flexibleArrayMemberOffset = \_ty0 -> 9

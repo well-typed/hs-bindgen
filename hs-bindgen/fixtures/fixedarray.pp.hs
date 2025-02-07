@@ -7,10 +7,10 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.ConstantArray
+import qualified HsBindgen.Runtime.ConstantArray
 
 newtype Triple = Triple
-  { unTriple :: (HsBindgen.ConstantArray.ConstantArray 3) FC.CInt
+  { unTriple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
 
 deriving newtype instance F.Storable Triple
