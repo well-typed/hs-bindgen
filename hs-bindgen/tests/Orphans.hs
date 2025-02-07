@@ -10,8 +10,10 @@ import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
 import Data.Vec.Lazy qualified as Vec
 import Foreign.C
-import System.FilePath (splitDirectories)
+import System.Directory qualified as Dir
+import System.FilePath (makeRelative, splitDirectories)
 import System.FilePath.Posix qualified as Posix
+import System.IO.Unsafe (unsafePerformIO)
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro as CMacro
@@ -73,7 +75,7 @@ instance ToExpr a => ToExpr (C.Token a)
 instance ToExpr C.SingleLoc where
   toExpr (C.SingleLoc p l c) = toExpr $
     -- use posix directory separators even on windows
-    Posix.joinPath (splitDirectories (Text.unpack (C.getSourcePath p))) ++ ":" ++
+    Posix.joinPath (splitDirectories (makeRelative cwd (Text.unpack (C.getSourcePath p)))) ++ ":" ++
     show l ++ ":" ++
     show c
 
@@ -307,3 +309,16 @@ instance ToExpr (Idx j) where
 
 instance ToExpr (Size ctx) where
   toExpr size = Expr.App "Size" [toExpr (sizeToInt size)]
+
+{-------------------------------------------------------------------------------
+  Dirty Hacks
+-------------------------------------------------------------------------------}
+
+-- | Unsafely get the current working directory
+--
+-- We need to use relative paths in test fixtures since absolute paths differ
+-- across different systems.  Paths are only compared via 'ToExpr C.SingleLoc`,
+-- and a minimal hack allows us to transform absolute paths to relative paths
+-- there.
+cwd :: FilePath
+cwd = unsafePerformIO Dir.getCurrentDirectory
