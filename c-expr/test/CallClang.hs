@@ -321,7 +321,7 @@ clangVisitChildren args f srcContents = do
 
   unit <- clangGetTranslationUnit args srcContents
 
-  diags  <- Clang.clang_getDiagnostics Nothing unit Nothing
+  diags  <- Clang.clang_getDiagnostics unit Nothing
   let (errors, _warnings) = partition diagnosticIsSevere diags
 
 {-

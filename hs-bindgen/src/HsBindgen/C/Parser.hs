@@ -55,13 +55,12 @@ data TranslationUnitException =
 --
 -- Maybe throw 'TranslationUnitException'.
 withTranslationUnit ::
-     Maybe FilePath        -- ^ Directory to make paths relative to
-  -> Tracer IO Diagnostic  -- ^ Tracer for warnings
+     Tracer IO Diagnostic  -- ^ Tracer for warnings
   -> ClangArgs
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withTranslationUnit relPath tracer args fp k = do
+withTranslationUnit tracer args fp k = do
     -- checkFileExists fp
 
     index  <- clang_createIndex DontDisplayDiagnostics
@@ -69,7 +68,7 @@ withTranslationUnit relPath tracer args fp k = do
 
     case mUnit of
       Right unit -> do
-        diags  <- HighLevel.clang_getDiagnostics relPath unit Nothing
+        diags  <- HighLevel.clang_getDiagnostics unit Nothing
 
         let errors, warnings :: [Diagnostic]
             (errors, warnings) = partition diagnosticIsError diags

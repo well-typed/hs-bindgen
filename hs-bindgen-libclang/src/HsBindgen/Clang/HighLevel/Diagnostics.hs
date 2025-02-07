@@ -97,57 +97,53 @@ diagnosticIsError diag =
 -------------------------------------------------------------------------------}
 
 clang_getDiagnostics ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> CXTranslationUnit
+     CXTranslationUnit
   -> Maybe (BitfieldEnum CXDiagnosticDisplayOptions)
      -- ^ Display options for constructing 'diagnosticFormatted'
      --
      -- If 'Nothing', uses 'clang_defaultDiagnosticDisplayOptions'.
   -> IO [Diagnostic]
-clang_getDiagnostics relPath unit mDisplayOptions = do
+clang_getDiagnostics unit mDisplayOptions = do
     displayOptions <- case mDisplayOptions of
                         Just displayOptions -> return displayOptions
                         Nothing -> clang_defaultDiagnosticDisplayOptions
-    getAll unit clang_getNumDiagnostics $ getDiagnostic relPath displayOptions
+    getAll unit clang_getNumDiagnostics $ getDiagnostic displayOptions
 
 {-------------------------------------------------------------------------------
   Get all diagnostics
 -------------------------------------------------------------------------------}
 
 getDiagnostic ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> BitfieldEnum CXDiagnosticDisplayOptions
+     BitfieldEnum CXDiagnosticDisplayOptions
   -> CXTranslationUnit
   -> CUInt -> IO Diagnostic
-getDiagnostic relPath displayOptions unit i =
+getDiagnostic displayOptions unit i =
     bracket (clang_getDiagnostic unit i) clang_disposeDiagnostic $
-      reify relPath displayOptions
+      reify displayOptions
 
 getDiagnosticInSet ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> BitfieldEnum CXDiagnosticDisplayOptions
+     BitfieldEnum CXDiagnosticDisplayOptions
   -> CXDiagnosticSet -> CUInt -> IO Diagnostic
-getDiagnosticInSet relPath displayOptions set i =
+getDiagnosticInSet displayOptions set i =
     bracket (clang_getDiagnosticInSet set i) clang_disposeDiagnostic $
-      reify relPath displayOptions
+      reify displayOptions
 
 reify ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> BitfieldEnum CXDiagnosticDisplayOptions
+     BitfieldEnum CXDiagnosticDisplayOptions
   -> CXDiagnostic -> IO Diagnostic
-reify relPath displayOptions diag = do
+reify displayOptions diag = do
     diagnosticFormatted    <- clang_formatDiagnostic diag displayOptions
     diagnosticSeverity     <- clang_getDiagnosticSeverity diag
-    diagnosticLocation     <- SourceLoc.clang_getDiagnosticLocation relPath diag
+    diagnosticLocation     <- SourceLoc.clang_getDiagnosticLocation diag
     diagnosticSpelling     <- clang_getDiagnosticSpelling diag
     (mOption, mDisabledBy) <- clang_getDiagnosticOption diag
     diagnosticCategory     <- fromIntegral <$> clang_getDiagnosticCategory diag
     diagnosticCategoryText <- clang_getDiagnosticCategoryText diag
     diagnosticRanges       <- getAll diag clang_getDiagnosticNumRanges $
-                                SourceLoc.clang_getDiagnosticRange relPath
+                                SourceLoc.clang_getDiagnosticRange
     diagnosticFixIts       <- getAll diag clang_getDiagnosticNumFixIts $
-                                getDiagnosticFixIt relPath
-    diagnosticChildren     <- getChildDiagnostics relPath displayOptions diag
+                                getDiagnosticFixIt
+    diagnosticChildren     <- getChildDiagnostics displayOptions diag
     return $ Diagnostic {
           diagnosticFormatted
         , diagnosticSeverity
@@ -168,21 +164,19 @@ reify relPath displayOptions diag = do
       | otherwise    = Just bs
 
 getChildDiagnostics ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> BitfieldEnum CXDiagnosticDisplayOptions
+     BitfieldEnum CXDiagnosticDisplayOptions
   -> CXDiagnostic -> IO [Diagnostic]
-getChildDiagnostics relPath displayOptions diag = do
+getChildDiagnostics displayOptions diag = do
     set <- clang_getChildDiagnostics diag
     getAll set clang_getNumDiagnosticsInSet $
-      getDiagnosticInSet relPath displayOptions
+      getDiagnosticInSet displayOptions
 
 getDiagnosticFixIt ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> CXDiagnostic
+     CXDiagnostic
   -> CUInt
   -> IO FixIt
-getDiagnosticFixIt relPath diag i =
-    uncurry FixIt <$> SourceLoc.clang_getDiagnosticFixIt relPath diag i
+getDiagnosticFixIt diag i =
+    uncurry FixIt <$> SourceLoc.clang_getDiagnosticFixIt diag i
 
 {-------------------------------------------------------------------------------
   Auxiliary

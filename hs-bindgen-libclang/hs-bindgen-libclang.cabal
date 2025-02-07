@@ -87,7 +87,6 @@ library
     , hs-bindgen-runtime
   build-depends:
       -- External dependencies
-    , filepath      >= 1.4.2.2 && < 1.6
     , mtl           >= 2.2     && < 2.4
     , pretty-show   >= 1.10    && < 1.11
     , text          >= 1.2     && < 2.2

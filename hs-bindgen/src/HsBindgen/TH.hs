@@ -14,12 +14,11 @@ import HsBindgen.Lib
 -- TODO: add TranslationOpts argument
 --
 generateBindingsFor ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> FilePath       -- ^ C header
+     FilePath -- ^ C header
   -> Q [Dec]
-generateBindingsFor relPath fp = do
-    cHeader <- liftIO $ withTranslationUnit relPath traceWarnings args fp $
-                          parseCHeader relPath traceSkipped p
+generateBindingsFor fp = do
+    cHeader <- liftIO $ withTranslationUnit traceWarnings args fp $
+                          parseCHeader traceSkipped p
     genTH defaultTranslationOpts cHeader
   where
     traceWarnings :: Tracer IO Diagnostic

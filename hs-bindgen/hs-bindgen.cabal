@@ -162,7 +162,6 @@ executable hs-bindgen
   build-depends:
       -- Inherited dependencies
     , data-default
-    , directory
     , filepath
   build-depends:
     , optparse-applicative >= 0.18 && < 0.19

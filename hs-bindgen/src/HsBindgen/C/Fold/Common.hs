@@ -47,18 +47,17 @@ instance PrettyLogMsg Skipped where
 
 checkPredicate ::
      MonadIO m
-  => Maybe FilePath -- ^ Directory to make paths relative to
-  -> Tracer IO Skipped
+  => Tracer IO Skipped
   -> Predicate
   -> Fold m a
   -> Fold m a
-checkPredicate relPath tracer p k current = do
+checkPredicate tracer p k current = do
     isMatch <- liftIO $ Predicate.match current p
     case isMatch of
       Right ()     -> k current
       Left  reason -> liftIO $ do
         name <- clang_getCursorSpelling current
-        loc  <- HighLevel.clang_getCursorLocation relPath current
+        loc  <- HighLevel.clang_getCursorLocation current
         traceWith tracer Info $ Skipped name loc reason
         return $ Continue Nothing
 
@@ -83,12 +82,11 @@ data UnrecognizedType = UnrecognizedType {
 
 unrecognizedCursor ::
      (MonadIO m, HasCallStack)
-  => Maybe FilePath -- ^ Directory to make paths relative to
-  -> CXCursor
+  => CXCursor
   -> m a
-unrecognizedCursor relPath cursor = liftIO $ do
+unrecognizedCursor cursor = liftIO $ do
     unrecognizedCursorKind  <- clang_getCursorKind cursor
-    unrecognizedCursorLoc   <- HighLevel.clang_getCursorLocation relPath cursor
+    unrecognizedCursorLoc   <- HighLevel.clang_getCursorLocation cursor
     unrecognizedCursorTrace <- collectBacktrace
     throwIO UnrecognizedCursor{
         unrecognizedCursorKind

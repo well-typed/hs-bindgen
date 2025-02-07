@@ -10,7 +10,6 @@ import Control.Monad.State.Strict (State, get, put, evalState)
 import Data.Generics qualified as SYB
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import System.Directory qualified as Dir
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName)
 
@@ -26,9 +25,7 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
 
     let tracer = mkTracer report report report False
 
-    relPath <- Just <$> Dir.getCurrentDirectory
-
-    header <- parseC relPath tracer args fp
+    header <- parseC tracer args fp
     let decls :: Qu [TH.Dec]
         decls = genTH defaultTranslationOpts header
 
@@ -58,14 +55,13 @@ runQu :: Qu a -> a
 runQu (Qu m) = evalState m 0
 
 parseC ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> Tracer IO String
+     Tracer IO String
   -> ClangArgs
   -> FilePath
   -> IO CHeader
-parseC relPath tracer args fp =
-    withTranslationUnit relPath tracerD args fp $
-      parseCHeader relPath tracerP SelectFromMainFile
+parseC tracer args fp =
+    withTranslationUnit tracerD args fp $
+      parseCHeader tracerP SelectFromMainFile
   where
     tracerD = contramap show tracer
     tracerP = contramap prettyLogMsg tracer
