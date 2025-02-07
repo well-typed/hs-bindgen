@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskellQuotes #-}
 module HsBindgen.Backend.PP.Names (
     -- * Imports
     HsImportModule(..)
@@ -12,9 +13,23 @@ module HsBindgen.Backend.PP.Names (
   ) where
 
 import Data.Char qualified as Char
+import Data.List qualified as L
 
 import HsBindgen.SHs.AST
 import HsBindgen.Hs.AST.Type
+
+import Language.Haskell.TH.Syntax qualified as TH
+
+import C.Expr.BuildPlatform qualified
+import Data.Bits qualified
+import Data.Ix qualified
+import Data.Void qualified
+import Foreign qualified
+import Foreign.C qualified
+import GHC.Float qualified
+import HsBindgen.Runtime.ConstantArray qualified
+import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.Syntax qualified
 
 {-------------------------------------------------------------------------------
   Imports
@@ -27,52 +42,9 @@ data HsImportModule = HsImportModule {
     }
   deriving (Eq, Ord, Show)
 
--- | @HsBindgen.ConstantArray@ import module
-iConstantArray :: HsImportModule
-iConstantArray = HsImportModule "HsBindgen.Runtime.ConstantArray" Nothing
-
-iFlexibleArrayMember :: HsImportModule
-iFlexibleArrayMember = HsImportModule "HsBindgen.Runtime.FlexibleArrayMember" Nothing
-
--- | @Data.Void@ import module
-iDataVoid :: HsImportModule
-iDataVoid = HsImportModule "Data.Void" Nothing
-
--- | @Foreign@ import module
-iForeign :: HsImportModule
-iForeign = HsImportModule "Foreign" (Just "F")
-
--- | @Foreign.C@ import module
-iForeignC :: HsImportModule
-iForeignC = HsImportModule "Foreign.C" (Just "FC")
-
--- | @GHC.Float@ import module
-iGHCFloat :: HsImportModule
-iGHCFloat = HsImportModule "GHC.Float" (Just "GHC.Float")
-
--- | @Data.Type.Equality@ import module
-iDataTypeEquality :: HsImportModule
-iDataTypeEquality = HsImportModule "Data.Type.Equality" Nothing
-
--- | @HsBindgen.Syntax@ import module
-iHsBindgenSyntax :: HsImportModule
-iHsBindgenSyntax = HsImportModule "HsBindgen.Syntax" (Just "HsBindgen")
-
 -- | @Prelude@ import module
 iPrelude :: HsImportModule
 iPrelude = HsImportModule "Prelude" (Just "P")
-
--- | @Data.Ix@ import module
-iDataIx :: HsImportModule
-iDataIx = HsImportModule "Data.Ix" (Just "Ix")
-
--- | @Data.Bits@ import module
-iDataBits :: HsImportModule
-iDataBits = HsImportModule "Data.Bits" (Just "Bits")
-
--- | @C.Typing@ import module
-iCTyping :: HsImportModule
-iCTyping = HsImportModule "C.Expr.BuildPlatform" (Just "C")
 
 {-------------------------------------------------------------------------------
   NameType
@@ -84,9 +56,6 @@ data HsImport =
   | UnqualifiedHsImport HsImportModule
   deriving (Eq, Ord, Show)
 
-{-------------------------------------------------------------------------------
-  ResolvedName
--------------------------------------------------------------------------------}
 
 -- | Resolved name
 data ResolvedName = ResolvedName {
@@ -96,28 +65,31 @@ data ResolvedName = ResolvedName {
     }
   deriving (Eq, Ord, Show)
 
--- | Construct a `ResolvedName` with no import
-noImport :: String -> ResolvedName
-noImport s = ResolvedName {
-      resolvedNameString = s
-    , resolvedNameType   = nameType s
-    , resolvedNameImport = Nothing
-    }
+-- | Name for @()@
+unitResolvedName :: ResolvedName
+unitResolvedName = ResolvedName "()" IdentifierName Nothing
 
--- | Construct a `ResolvedName` with qualified import
-importQ :: HsImportModule -> String -> ResolvedName
-importQ hsImportModule s = ResolvedName {
-      resolvedNameString = s
-    , resolvedNameType   = nameType s
-    , resolvedNameImport = Just $ QualifiedHsImport hsImportModule
-    }
+{-------------------------------------------------------------------------------
+  Imports helpers
+-------------------------------------------------------------------------------}
 
-importU :: HsImportModule -> String -> ResolvedName
-importU hsImportModule s = ResolvedName {
-      resolvedNameString = s
+importQ :: TH.Name -> ResolvedName
+importQ name = ResolvedName
+    { resolvedNameString = s
     , resolvedNameType   = nameType s
-    , resolvedNameImport = Just $ UnqualifiedHsImport hsImportModule
+    , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) (TH.nameModule name)
     }
+  where
+    s = TH.nameBase name
+
+importU :: TH.Name -> ResolvedName
+importU name = ResolvedName
+    { resolvedNameString = s
+    , resolvedNameType   = nameType s
+    , resolvedNameImport = fmap (UnqualifiedHsImport . moduleOf s) (TH.nameModule name)
+    }
+  where
+    s = TH.nameBase name
 
 -- | Name type
 data NameType = IdentifierName | OperatorName
@@ -125,12 +97,56 @@ data NameType = IdentifierName | OperatorName
 
 nameType :: String -> NameType
 nameType nm
-  | nm == "()"         = IdentifierName
   | all isIdentChar nm = IdentifierName
   | otherwise          = OperatorName
   where
     isIdentChar :: Char -> Bool
     isIdentChar c = Char.isAlphaNum c || c == '_' || c == '\''
+
+-- | Create 'HsImportModule' from a definition module.
+--
+-- We need to map internal modules to external ones for @base@ names.
+moduleOf :: String -> String -> HsImportModule
+moduleOf "Void" _  = HsImportModule "Data.Void" Nothing
+moduleOf _ident m0 = case parts of
+    ["C","Operator","Classes"]       -> HsImportModule "C.Expr.BuildPlatform" (Just "C")
+    ["HsBindgen","Runtime","Syntax"] -> HsImportModule "HsBindgen.Runtime.Syntax" (Just "HsBindgen")
+    ["GHC", "Bits"]                  -> HsImportModule "Data.Bits" (Just "Bits")
+    ["GHC", "Base"]                  -> iPrelude
+    ["GHC", "Classes"]               -> iPrelude
+    ["GHC", "Show"]                  -> iPrelude
+    ["GHC", "Types"]                 -> iPrelude
+    ["GHC", "Read"]                  -> iPrelude
+    ["GHC", "Real"]                  -> iPrelude
+    ["GHC", "Enum"]                  -> iPrelude
+    ["GHC", "Float"]                 -> iPrelude
+    ["GHC", "Num"]                   -> iPrelude
+    ["GHC", "Ix"]                    -> HsImportModule "Data.Ix" (Just "Ix")
+    ("GHC" : "Foreign" : "C" : _)    -> HsImportModule "Foreign.C" (Just "FC")
+    ("Foreign" : "C" : _)            -> HsImportModule "Foreign.C" (Just "FC")
+    ["GHC", "Ptr"]                   -> HsImportModule "Foreign"   (Just "F")
+    ("GHC" : "Foreign" : _)          -> HsImportModule "Foreign"   (Just "F")
+    ("Foreign" : _)                  -> HsImportModule "Foreign"   (Just "F")
+
+    -- otherwise just use module as is.
+    _ -> HsImportModule (L.intercalate "." parts) Nothing
+  where
+    -- we drop "Internal" (to reduce ghc-internal migration noise)
+    parts = filter ("Internal" /=) (split '.' m0)
+
+split :: Eq a => a -> [a] -> [[a]]
+split _ []      = []
+split e (x:xs)
+    | x == e    = [] : split e xs
+    | otherwise = (x:pfx) : split e sfx
+  where
+    (pfx, sfx) = span' e xs
+
+span' :: Eq a => a -> [a] -> ([a],[a])
+span' _ []      = ([], [])
+span' e (x:xs')
+    | e == x    = ([], xs')
+    | otherwise = let (ys,zs) = span' e xs' in (x:ys,zs)
 
 {-------------------------------------------------------------------------------
   Resolution
@@ -141,119 +157,126 @@ resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Hs.AST.Name".
-    Unit_type            -> noImport "()"
-    Unit_constructor     -> noImport "()"
-    Applicative_pure     -> importU iPrelude "pure"
-    Applicative_seq      -> importU iPrelude "<*>"
-    Monad_return         -> importU iPrelude "return"
-    Monad_seq            -> importU iPrelude ">>"
-    Storable_class       -> importQ iForeign "Storable"
-    Storable_sizeOf      -> importQ iForeign "sizeOf"
-    Storable_alignment   -> importQ iForeign "alignment"
-    Storable_peekByteOff -> importQ iForeign "peekByteOff"
-    Storable_pokeByteOff -> importQ iForeign "pokeByteOff"
-    Storable_peek        -> importQ iForeign "peek"
-    Storable_poke        -> importQ iForeign "poke"
-    Foreign_Ptr          -> importQ iForeign "Ptr"
-    Foreign_FunPtr       -> importQ iForeign "FunPtr"
-    ConstantArray        -> importQ iConstantArray "ConstantArray"
-    IO_type              -> importU iPrelude "IO"
-    HasFlexibleArrayMember_class -> importQ iFlexibleArrayMember "HasFlexibleArrayMember"
-    HasFlexibleArrayMember_offset -> importQ iFlexibleArrayMember "flexibleArrayMemberOffset"
+    Unit_type            -> unitResolvedName
+    Unit_constructor     -> unitResolvedName
+    Applicative_pure     -> importU 'pure
+    Applicative_seq      -> importU '(<*>)
+    Monad_return         -> importU 'return
+    Monad_seq            -> importU '(>>)
+    Storable_class       -> importQ ''Foreign.Storable
+    Storable_sizeOf      -> importQ 'Foreign.sizeOf
+    Storable_alignment   -> importQ 'Foreign.alignment
+    Storable_peekByteOff -> importQ 'Foreign.peekByteOff
+    Storable_pokeByteOff -> importQ 'Foreign.pokeByteOff
+    Storable_peek        -> importQ 'Foreign.peek
+    Storable_poke        -> importQ 'Foreign.poke
+    Foreign_Ptr          -> importQ ''Foreign.Ptr
+    Foreign_FunPtr       -> importQ ''Foreign.FunPtr
+    ConstantArray        -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
+    IO_type              -> importU ''IO
+    HasFlexibleArrayMember_class -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
+    HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
 
-    Bits_class       -> importQ iDataBits "Bits"
-    Bounded_class    -> importU iPrelude  "Bounded"
-    Enum_class       -> importU iPrelude  "Enum"
-    Eq_class         -> importU iPrelude  "Eq"
-    FiniteBits_class -> importU iDataBits "FiniteBits"
-    Floating_class   -> importU iPrelude  "Floating"
-    Fractional_class -> importU iPrelude  "Fractional"
-    Integral_class   -> importU iPrelude  "Integral"
-    Ix_class         -> importQ iDataIx   "Ix"
-    Num_class        -> importU iPrelude  "Num"
-    Ord_class        -> importU iPrelude  "Ord"
-    Read_class       -> importU iPrelude  "Read"
-    Real_class       -> importU iPrelude  "Real"
-    RealFloat_class  -> importU iPrelude  "RealFloat"
-    RealFrac_class   -> importU iPrelude  "RealFrac"
-    Show_class       -> importU iPrelude  "Show"
+    Bits_class       -> importQ ''Data.Bits.Bits
+    Bounded_class    -> importU ''Bounded
+    Enum_class       -> importU ''Enum
+    Eq_class         -> importU ''Eq
+    FiniteBits_class -> importU ''Data.Bits.FiniteBits
+    Floating_class   -> importU ''Floating
+    Fractional_class -> importU ''Fractional
+    Integral_class   -> importU ''Integral
+    Ix_class         -> importQ ''Data.Ix.Ix
+    Num_class        -> importU ''Num
+    Ord_class        -> importU ''Ord
+    Read_class       -> importU ''Read
+    Real_class       -> importU ''Real
+    RealFloat_class  -> importU ''RealFloat
+    RealFrac_class   -> importU ''RealFrac
+    Show_class       -> importU ''Show
 
-    NomEq_class -> importU iDataTypeEquality  "~"
+    -- We now import ~ from Prelude;
+    -- but it's not always there; it's also not in Data.Type.Equality
+    -- on GHC-9.2, it just exists.
+    --
+    -- https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0371-non-magical-eq.md
+    --
+    -- So for now code using ~ will not work with preprocessor setup on GHC-9.2.
+    NomEq_class -> ResolvedName "~" OperatorName (Just (UnqualifiedHsImport iPrelude))
 
-    Not_class             -> importQ iCTyping "Not"
-    Not_not               -> importQ iCTyping "not"
-    Logical_class         -> importQ iCTyping "Logical"
-    Logical_and           -> importU iCTyping "&&"
-    Logical_or            -> importU iCTyping "||"
-    RelEq_class           -> importQ iCTyping "RelEq"
-    RelEq_eq              -> importU iCTyping "=="
-    RelEq_uneq            -> importU iCTyping "!="
-    RelOrd_class          -> importQ iCTyping "RelOrd"
-    RelOrd_lt             -> importU iCTyping "<"
-    RelOrd_le             -> importU iCTyping "<="
-    RelOrd_gt             -> importU iCTyping ">"
-    RelOrd_ge             -> importU iCTyping ">="
-    Plus_class            -> importQ iCTyping "Plus"
-    Plus_resTyCon         -> importQ iCTyping "PlusRes"
-    Plus_plus             -> importQ iCTyping "plus"
-    Minus_class           -> importQ iCTyping "Minus"
-    Minus_resTyCon        -> importQ iCTyping "MinusRes"
-    Minus_negate          -> importQ iCTyping "negate"
-    Add_class             -> importQ iCTyping "Add"
-    Add_resTyCon          -> importQ iCTyping "AddRes"
-    Add_add               -> importU iCTyping "+"
-    Sub_class             -> importQ iCTyping "Sub"
-    Sub_resTyCon          -> importQ iCTyping "SubRes"
-    Sub_minus             -> importU iCTyping "-"
-    Mult_class            -> importQ iCTyping "Mult"
-    Mult_resTyCon         -> importQ iCTyping "MultRes"
-    Mult_mult             -> importU iCTyping "*"
-    Div_class             -> importQ iCTyping "Div"
-    Div_resTyCon          -> importQ iCTyping "DivRes"
-    Div_div               -> importU iCTyping "/"
-    Rem_class             -> importQ iCTyping "Rem"
-    Rem_resTyCon          -> importQ iCTyping "RemRes"
-    Rem_rem               -> importU iCTyping "%"
-    Complement_class      -> importQ iCTyping "Complement"
-    Complement_resTyCon   -> importQ iCTyping "ComplementRes"
-    Complement_complement -> importQ iCTyping ".~"
-    Bitwise_class         -> importQ iCTyping "Bitwise"
-    Bitwise_resTyCon      -> importQ iCTyping "BitsRes"
-    Bitwise_and           -> importU iCTyping ".&."
-    Bitwise_or            -> importU iCTyping ".|."
-    Bitwise_xor           -> importU iCTyping ".^."
-    Shift_class           -> importQ iCTyping "Shift"
-    Shift_resTyCon        -> importQ iCTyping "ShiftRes"
-    Shift_shiftL          -> importU iCTyping "<<"
-    Shift_shiftR          -> importU iCTyping ">>"
+    Not_class             -> importQ ''C.Expr.BuildPlatform.Not
+    Not_not               -> importQ 'C.Expr.BuildPlatform.not
+    Logical_class         -> importQ ''C.Expr.BuildPlatform.Logical
+    Logical_and           -> importU '(C.Expr.BuildPlatform.&&)
+    Logical_or            -> importU '(C.Expr.BuildPlatform.||)
+    RelEq_class           -> importQ ''C.Expr.BuildPlatform.RelEq
+    RelEq_eq              -> importU '(C.Expr.BuildPlatform.==)
+    RelEq_uneq            -> importU '(C.Expr.BuildPlatform.!=)
+    RelOrd_class          -> importQ ''C.Expr.BuildPlatform.RelOrd
+    RelOrd_lt             -> importU '(C.Expr.BuildPlatform.<)
+    RelOrd_le             -> importU '(C.Expr.BuildPlatform.<=)
+    RelOrd_gt             -> importU '(C.Expr.BuildPlatform.>)
+    RelOrd_ge             -> importU '(C.Expr.BuildPlatform.>=)
+    Plus_class            -> importQ ''C.Expr.BuildPlatform.Plus
+    Plus_resTyCon         -> importQ ''C.Expr.BuildPlatform.PlusRes
+    Plus_plus             -> importQ 'C.Expr.BuildPlatform.plus
+    Minus_class           -> importQ ''C.Expr.BuildPlatform.Minus
+    Minus_resTyCon        -> importQ ''C.Expr.BuildPlatform.MinusRes
+    Minus_negate          -> importQ 'C.Expr.BuildPlatform.negate
+    Add_class             -> importQ ''C.Expr.BuildPlatform.Add
+    Add_resTyCon          -> importQ ''C.Expr.BuildPlatform.AddRes
+    Add_add               -> importU '(C.Expr.BuildPlatform.+)
+    Sub_class             -> importQ ''C.Expr.BuildPlatform.Sub
+    Sub_resTyCon          -> importQ ''C.Expr.BuildPlatform.SubRes
+    Sub_minus             -> importU '(C.Expr.BuildPlatform.-)
+    Mult_class            -> importQ ''C.Expr.BuildPlatform.Mult
+    Mult_resTyCon         -> importQ ''C.Expr.BuildPlatform.MultRes
+    Mult_mult             -> importU '(C.Expr.BuildPlatform.*)
+    Div_class             -> importQ ''C.Expr.BuildPlatform.Div
+    Div_resTyCon          -> importQ ''C.Expr.BuildPlatform.DivRes
+    Div_div               -> importU '(C.Expr.BuildPlatform./)
+    Rem_class             -> importQ ''C.Expr.BuildPlatform.Rem
+    Rem_resTyCon          -> importQ ''C.Expr.BuildPlatform.RemRes
+    Rem_rem               -> importU '(C.Expr.BuildPlatform.%)
+    Complement_class      -> importQ ''C.Expr.BuildPlatform.Complement
+    Complement_resTyCon   -> importQ ''C.Expr.BuildPlatform.ComplementRes
+    Complement_complement -> importQ '(C.Expr.BuildPlatform..~)
+    Bitwise_class         -> importQ ''C.Expr.BuildPlatform.Bitwise
+    Bitwise_resTyCon      -> importQ ''C.Expr.BuildPlatform.BitsRes
+    Bitwise_and           -> importU '(C.Expr.BuildPlatform..&.)
+    Bitwise_or            -> importU '(C.Expr.BuildPlatform..|.)
+    Bitwise_xor           -> importU '(C.Expr.BuildPlatform..^.)
+    Shift_class           -> importQ ''C.Expr.BuildPlatform.Shift
+    Shift_resTyCon        -> importQ ''C.Expr.BuildPlatform.ShiftRes
+    Shift_shiftL          -> importU '(C.Expr.BuildPlatform.<<)
+    Shift_shiftR          -> importU '(C.Expr.BuildPlatform.>>)
 
-    IntLike_tycon    -> importQ iHsBindgenSyntax "IntLike"
-    FloatLike_tycon  -> importQ iHsBindgenSyntax "FloatLike"
+    IntLike_tycon    -> importQ ''HsBindgen.Runtime.Syntax.IntLike
+    FloatLike_tycon  -> importQ ''HsBindgen.Runtime.Syntax.FloatLike
 
-    GHC_Float_castWord32ToFloat -> importQ iGHCFloat "castWord32ToFloat"
-    GHC_Float_castWord64ToDouble -> importQ iGHCFloat "castWord64ToDouble"
-    CFloat_constructor -> importQ iForeignC "CFloat"
-    CDouble_constructor -> importQ iForeignC "CDouble"
+    GHC_Float_castWord32ToFloat -> importQ 'GHC.Float.castWord32ToFloat
+    GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble
+    CFloat_constructor -> importQ ''Foreign.C.CFloat
+    CDouble_constructor -> importQ ''Foreign.C.CDouble
 
     PrimType hsPrimType  -> case hsPrimType of
-      HsPrimVoid     -> importU iDataVoid "Void"
-      HsPrimUnit     -> noImport "()"
-      HsPrimCChar    -> importQ iForeignC "CChar"
-      HsPrimCSChar   -> importQ iForeignC "CSChar"
-      HsPrimCUChar   -> importQ iForeignC "CUChar"
-      HsPrimCInt     -> importQ iForeignC "CInt"
-      HsPrimCUInt    -> importQ iForeignC "CUInt"
-      HsPrimCShort   -> importQ iForeignC "CShort"
-      HsPrimCUShort  -> importQ iForeignC "CUShort"
-      HsPrimCLong    -> importQ iForeignC "CLong"
-      HsPrimCULong   -> importQ iForeignC "CULong"
-      HsPrimCLLong   -> importQ iForeignC "CLLong"
-      HsPrimCULLong  -> importQ iForeignC "CULLong"
-      HsPrimCBool    -> importQ iForeignC "CBool"
-      HsPrimCFloat   -> importQ iForeignC "CFloat"
-      HsPrimCDouble  -> importQ iForeignC "CDouble"
-      HsPrimCPtrDiff -> importQ iForeignC "CPtrdiff"
-      HsPrimInt      -> importU iPrelude  "Int"
+      HsPrimVoid     -> importU ''Data.Void.Void
+      HsPrimUnit     -> unitResolvedName
+      HsPrimCChar    -> importQ ''Foreign.C.CChar
+      HsPrimCSChar   -> importQ ''Foreign.C.CSChar
+      HsPrimCUChar   -> importQ ''Foreign.C.CUChar
+      HsPrimCInt     -> importQ ''Foreign.C.CInt
+      HsPrimCUInt    -> importQ ''Foreign.C.CUInt
+      HsPrimCShort   -> importQ ''Foreign.C.CShort
+      HsPrimCUShort  -> importQ ''Foreign.C.CUShort
+      HsPrimCLong    -> importQ ''Foreign.C.CLong
+      HsPrimCULong   -> importQ ''Foreign.C.CULong
+      HsPrimCLLong   -> importQ ''Foreign.C.CLLong
+      HsPrimCULLong  -> importQ ''Foreign.C.CULLong
+      HsPrimCBool    -> importQ ''Foreign.C.CBool
+      HsPrimCFloat   -> importQ ''Foreign.C.CFloat
+      HsPrimCDouble  -> importQ ''Foreign.C.CDouble
+      HsPrimCPtrDiff -> importQ ''Foreign.C.CPtrdiff
+      HsPrimInt      -> importU ''Int
 
 {-------------------------------------------------------------------------------
   BackendName

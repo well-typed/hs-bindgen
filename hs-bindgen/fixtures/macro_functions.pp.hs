@@ -4,9 +4,9 @@ module Example where
 
 import C.Expr.BuildPlatform ((*), (+), (/), (<), (<<))
 import qualified C.Expr.BuildPlatform as C
-import Data.Type.Equality ((~))
 import qualified Foreign.C as FC
-import qualified HsBindgen.Syntax as HsBindgen
+import qualified HsBindgen.Runtime.Syntax as HsBindgen
+import Prelude ((~))
 
 iNCR :: forall a0. (C.Add a0) FC.CInt => a0 -> (C.AddRes a0) FC.CInt
 iNCR = \x0 -> (+) x0 (1 :: FC.CInt)
