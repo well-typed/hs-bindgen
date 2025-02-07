@@ -5,6 +5,7 @@ module HsBindgen.C.Fold.DeclState (
   , initDeclState
   , registerMacroExpansion
   , registerMacroType
+  , registerInclude
     -- * Query
   , containsMacroExpansion
   ) where
@@ -13,6 +14,9 @@ import Data.Map.Ordered.Strict qualified as OMap
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Data.RevGraph (RevGraph)
+import Data.RevGraph qualified as RevGraph
+import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.HighLevel.Types
@@ -39,6 +43,10 @@ data DeclState = DeclState {
     -- We accumulate type declarations in (insert)ordered map,
     -- so the ordering resembles the one in the header.
     , typeDeclarations :: !(OMap.OMap CXType TypeDecl)
+    -- | C header path graph
+    --
+    -- We create a DAG of C header paths with an edge for each @#include@.
+    , cHeaderPathGraph :: RevGraph CHeaderPath
     }
 
 data TypeDecl
@@ -56,6 +64,7 @@ initDeclState = DeclState {
       macroExpansions = Set.empty
     , macroTypes      = Map.empty
     , typeDeclarations = OMap.empty
+    , cHeaderPathGraph = RevGraph.empty
     }
 
 registerMacroExpansion :: MultiLoc -> DeclState -> DeclState
@@ -66,6 +75,12 @@ registerMacroExpansion loc st = st{
 registerMacroType :: CName -> Macro.Quant ( Macro.Type Macro.Ty ) -> DeclState -> DeclState
 registerMacroType nm ty st = st{
       macroTypes = Map.insert nm ty (macroTypes st)
+    }
+
+registerInclude :: CHeaderPath -> CHeaderPath -> DeclState -> DeclState
+registerInclude header incHeader st = st{
+      cHeaderPathGraph =
+        RevGraph.insertEdge header incHeader (cHeaderPathGraph st)
     }
 
 {-------------------------------------------------------------------------------

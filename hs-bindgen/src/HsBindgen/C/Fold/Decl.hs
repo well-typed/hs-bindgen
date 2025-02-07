@@ -70,12 +70,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         mloc <- liftIO $ HighLevel.clang_getCursorLocation current
         modify $ registerMacroExpansion mloc
         return $ Continue Nothing
-      Right CXCursor_InclusionDirective ->
-        -- The inclusion directive merely tells us that we are now going to
-        -- process a #include-d file; we don't need to do anything special at
-        -- this point so we can just ignore it (for each declaration we see we
-        -- are anyway told from which file it originates, which we use for
-        -- filtering).
+
+      Right CXCursor_InclusionDirective -> do
+        incHeader <- liftIO $
+          clang_getFileName =<< clang_getIncludedFile current
+        modify $ registerInclude (getSourcePath (singleLocPath sloc)) incHeader
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
