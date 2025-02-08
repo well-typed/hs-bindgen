@@ -25,4 +25,11 @@ main = defaultMain $ testGroup "test-th"
             peek ptr
 
         s' @?= s
+
+    , testCase "Bitfield" $ do
+        let s = Struct3 5 1 1 2
+        s' <- alloca $ \ptr -> do
+            poke ptr s
+            peek ptr
+        s' @?= s
     ]

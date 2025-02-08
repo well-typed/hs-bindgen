@@ -324,9 +324,11 @@ translateStorableInstance struct Hs.StorableInstance{..} = do
 
 translatePeekByteOff :: Hs.PeekByteOff ctx -> SExpr ctx
 translatePeekByteOff (Hs.PeekByteOff ptr i) = appMany Storable_peekByteOff [EBound ptr, EInt i]
+translatePeekByteOff (Hs.PeekBitOffWidth ptr i w) = appMany Bitfield_peekBitOffWidth [EBound ptr, EInt i, EInt w] -- TODO
 
 translatePokeByteOff :: Hs.PokeByteOff ctx -> SExpr ctx
 translatePokeByteOff (Hs.PokeByteOff ptr i x) = appMany Storable_pokeByteOff [EBound ptr, EInt i, EBound x]
+translatePokeByteOff (Hs.PokeBitOffWidth ptr i w x) = appMany Bitfield_pokeBitOffWidth [EBound ptr, EInt i, EInt w, EBound x] -- TODO
 
 {-------------------------------------------------------------------------------
   Structs

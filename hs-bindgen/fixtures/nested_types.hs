@@ -19,6 +19,7 @@
             StructField {
               fieldName = CName "i",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -34,6 +35,7 @@
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
@@ -50,6 +52,7 @@
             StructField {
               fieldName = CName "i",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -57,14 +60,14 @@
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
               "examples/nested_types.h:3:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:1:8",
-          structBitfields = []}},
+          "examples/nested_types.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -86,6 +89,7 @@
               StructField {
                 fieldName = CName "i",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -101,6 +105,7 @@
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
@@ -117,6 +122,7 @@
               StructField {
                 fieldName = CName "i",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -124,14 +130,14 @@
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
                 "examples/nested_types.h:3:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:1:8",
-            structBitfields = []}}
+            "examples/nested_types.h:1:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -158,6 +164,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -173,6 +180,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -189,6 +197,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -196,14 +205,14 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
                         "examples/nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:1:8",
-                    structBitfields = []}})
+                    "examples/nested_types.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -232,6 +241,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -247,6 +257,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -263,6 +274,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -270,14 +282,14 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
                         "examples/nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:1:8",
-                    structBitfields = []}}
+                    "examples/nested_types.h:1:8"}}
               (Add 2)
               (Seq
                 [
@@ -314,6 +326,7 @@
             StructField {
               fieldName = CName "foo1",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
@@ -331,6 +344,7 @@
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
@@ -349,6 +363,7 @@
             StructField {
               fieldName = CName "foo1",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
@@ -358,6 +373,7 @@
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   (DeclNameTag (CName "foo"))
@@ -366,8 +382,7 @@
               "examples/nested_types.h:8:16"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:6:8",
-          structBitfields = []}},
+          "examples/nested_types.h:6:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -389,6 +404,7 @@
               StructField {
                 fieldName = CName "foo1",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
@@ -406,6 +422,7 @@
               StructField {
                 fieldName = CName "foo2",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
@@ -424,6 +441,7 @@
               StructField {
                 fieldName = CName "foo1",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
@@ -433,6 +451,7 @@
               StructField {
                 fieldName = CName "foo2",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "foo"))
@@ -441,8 +460,7 @@
                 "examples/nested_types.h:8:16"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:6:8",
-            structBitfields = []}}
+            "examples/nested_types.h:6:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -469,6 +487,7 @@
                       StructField {
                         fieldName = CName "foo1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -486,6 +505,7 @@
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -504,6 +524,7 @@
                       StructField {
                         fieldName = CName "foo1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -513,6 +534,7 @@
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -521,8 +543,7 @@
                         "examples/nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:6:8",
-                    structBitfields = []}})
+                    "examples/nested_types.h:6:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -551,6 +572,7 @@
                       StructField {
                         fieldName = CName "foo1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -568,6 +590,7 @@
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -586,6 +609,7 @@
                       StructField {
                         fieldName = CName "foo1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -595,6 +619,7 @@
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTag (CName "foo"))
@@ -603,8 +628,7 @@
                         "examples/nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:6:8",
-                    structBitfields = []}}
+                    "examples/nested_types.h:6:8"}}
               (Add 2)
               (Seq
                 [
@@ -641,6 +665,7 @@
             StructField {
               fieldName = CName "ex3_c",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
@@ -657,14 +682,14 @@
             StructField {
               fieldName = CName "ex3_c",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
               "examples/nested_types.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:11:8",
-          structBitfields = []}},
+          "examples/nested_types.h:11:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -686,6 +711,7 @@
               StructField {
                 fieldName = CName "ex3_c",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
                 fieldSourceLoc =
@@ -702,14 +728,14 @@
               StructField {
                 fieldName = CName "ex3_c",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
                 fieldSourceLoc =
                 "examples/nested_types.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:11:8",
-            structBitfields = []}}
+            "examples/nested_types.h:11:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -736,6 +762,7 @@
                       StructField {
                         fieldName = CName "ex3_c",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
@@ -752,14 +779,14 @@
                       StructField {
                         fieldName = CName "ex3_c",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
                         "examples/nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:11:8",
-                    structBitfields = []}})
+                    "examples/nested_types.h:11:8"}})
             [PeekByteOff (Idx 0) 8]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -786,6 +813,7 @@
                       StructField {
                         fieldName = CName "ex3_c",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
@@ -802,14 +830,14 @@
                       StructField {
                         fieldName = CName "ex3_c",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
                         "examples/nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:11:8",
-                    structBitfields = []}}
+                    "examples/nested_types.h:11:8"}}
               (Add 1)
               (Seq
                 [
@@ -846,6 +874,7 @@
               fieldName = CName
                 "ex4_even_value",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
@@ -864,6 +893,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -888,6 +918,7 @@
               fieldName = CName
                 "ex4_even_value",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
@@ -895,6 +926,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -904,8 +936,7 @@
               "examples/nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:24:12",
-          structBitfields = []}},
+          "examples/nested_types.h:24:12"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -928,6 +959,7 @@
                 fieldName = CName
                   "ex4_even_value",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
@@ -946,6 +978,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -970,6 +1003,7 @@
                 fieldName = CName
                   "ex4_even_value",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
@@ -977,6 +1011,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -986,8 +1021,7 @@
                 "examples/nested_types.h:26:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:24:12",
-            structBitfields = []}}
+            "examples/nested_types.h:24:12"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1015,6 +1049,7 @@
                         fieldName = CName
                           "ex4_even_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -1033,6 +1068,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1057,6 +1093,7 @@
                         fieldName = CName
                           "ex4_even_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -1064,6 +1101,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1073,8 +1111,7 @@
                         "examples/nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:24:12",
-                    structBitfields = []}})
+                    "examples/nested_types.h:24:12"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1104,6 +1141,7 @@
                         fieldName = CName
                           "ex4_even_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -1122,6 +1160,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1146,6 +1185,7 @@
                         fieldName = CName
                           "ex4_even_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -1153,6 +1193,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1162,8 +1203,7 @@
                         "examples/nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:24:12",
-                    structBitfields = []}}
+                    "examples/nested_types.h:24:12"}}
               (Add 2)
               (Seq
                 [
@@ -1205,6 +1245,7 @@
               fieldName = CName
                 "ex4_odd_value",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -1223,6 +1264,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -1247,6 +1289,7 @@
               fieldName = CName
                 "ex4_odd_value",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -1254,6 +1297,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -1267,8 +1311,7 @@
               "examples/nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:22:8",
-          structBitfields = []}},
+          "examples/nested_types.h:22:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1291,6 +1334,7 @@
                 fieldName = CName
                   "ex4_odd_value",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1309,6 +1353,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -1333,6 +1378,7 @@
                 fieldName = CName
                   "ex4_odd_value",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1340,6 +1386,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -1353,8 +1400,7 @@
                 "examples/nested_types.h:27:8"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:22:8",
-            structBitfields = []}}
+            "examples/nested_types.h:22:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1382,6 +1428,7 @@
                         fieldName = CName
                           "ex4_odd_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1400,6 +1447,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1424,6 +1472,7 @@
                         fieldName = CName
                           "ex4_odd_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1431,6 +1480,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1444,8 +1494,7 @@
                         "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:22:8",
-                    structBitfields = []}})
+                    "examples/nested_types.h:22:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1475,6 +1524,7 @@
                         fieldName = CName
                           "ex4_odd_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1493,6 +1543,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1517,6 +1568,7 @@
                         fieldName = CName
                           "ex4_odd_value",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1524,6 +1576,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -1537,8 +1590,7 @@
                         "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:22:8",
-                    structBitfields = []}}
+                    "examples/nested_types.h:22:8"}}
               (Add 2)
               (Seq
                 [

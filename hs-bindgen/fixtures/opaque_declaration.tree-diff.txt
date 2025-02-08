@@ -17,6 +17,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ptrA",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -27,6 +28,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -36,8 +38,7 @@ WrapCHeader
               "examples/opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:4:8",
-          structBitfields = []},
+          "examples/opaque_declaration.h:4:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -48,8 +49,7 @@ WrapCHeader
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:9:8",
-          structBitfields = []},
+          "examples/opaque_declaration.h:9:8"},
       DeclOpaqueEnum
         OpaqueEnum {
           opaqueEnumTag = CName "quu",

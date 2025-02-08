@@ -5,6 +5,8 @@ module HsBindgen.Runtime.Bitfield (
     unsignedExtend,
     loMask,
     hiMask,
+    peekBitOffWidth,
+    pokeBitOffWidth,
 ) where
 
 -- $setup
@@ -13,7 +15,8 @@ module HsBindgen.Runtime.Bitfield (
 -- >>> import Foreign.C.Types
 
 import Data.Bits
-import Data.Word (Word64)
+import Data.Word (Word64, Word32, Word16, Word8)
+import Foreign (Ptr, peekByteOff, pokeByteOff)
 import Foreign.C.Types
 
 -- | Class for types which can be a bitfield in C struct.
@@ -51,6 +54,7 @@ class Bitfield a where
 instance Bitfield CUChar where extend = unsignedExtend
 instance Bitfield CUInt where extend = unsignedExtend
 instance Bitfield CULong where extend = unsignedExtend
+instance Bitfield Word64 where extend = unsignedExtend
 
 instance Bitfield CSChar where extend = signedExtend
 instance Bitfield CInt where extend = signedExtend
@@ -90,3 +94,87 @@ loMask n = unsafeShiftL 1 n - 1
 --
 hiMask :: (Num a, Bits a) => Int -> a
 hiMask n = complement (loMask n)
+
+-------------------------------------------------------------------------------
+-- Storable
+-------------------------------------------------------------------------------
+
+-- | Peek a "bitfield" from a memory; we assume that offset and width are such
+-- that we can read&write whole bitfield with one (read or write) operation.
+-- Which means that bitfields cannot span multiple Word64s etc: at the extreme: if width is 64, the offset can only be multiple of 64.
+--
+-- Note: the implementation may do unaligned reads.
+peekBitOffWidth :: Bitfield a => Ptr b -> Int -> Int -> IO a
+peekBitOffWidth ptr off width
+    | (0x7 .&. off) + width <= 8 = do
+        w <- peekByteOff ptr (complement 0x7 .&. off) :: IO Word8
+        return $! extend (fromIntegral (unsafeShiftR w (0x7 .&. off) .&. loMask width)) width
+
+    | (0xf .&. off) + width <= 16 = do
+        w <- peekByteOff ptr (complement 0xf .&. off) :: IO Word16
+        return $! extend (fromIntegral (unsafeShiftR w (0xf .&. off) .&. loMask width)) width
+
+    | (0x1f .&. off) + width <= 32 = do
+        w <- peekByteOff ptr (complement 0x1f .&. off) :: IO Word32
+        return $! extend (fromIntegral (unsafeShiftR w (0x1f .&. off) .&. loMask width)) width
+
+    | (0x3f .&. off) + width <= 64 = do
+        w <- peekByteOff ptr (complement 0x3f .&. off) :: IO Word64
+        return $! extend (fromIntegral (unsafeShiftR w (0x3f .&. off) .&. loMask width)) width
+
+    | otherwise = fail $ "peekBitOffWidth _ " ++ show off ++ " " ++ show ptr ++ ": too wide"
+
+-- As far as I can tell there are no more clever bit fiddling way to do this:
+-- See e.g. https://godbolt.org/z/cfcdc1eKd
+-- for @ptr->y = y@; we get
+--
+-- @
+-- mov     ecx, dword ptr [rbp - 12]
+-- mov     rax, qword ptr [rbp - 8]
+-- mov     dl, cl
+-- mov     cl, byte ptr [rax]
+-- and     dl, 7
+-- shl     dl, 2
+-- and     cl, -29
+-- or      cl, dl
+-- mov     byte ptr [rax], cl
+-- @
+--
+-- 7 is mask 0b111 for three bits (unsigned int y : 3) (it's used by 'narrow')
+-- -29 is another mask @1111111111100011@, which is @complement (unsafeShiftL (loMask width) ...)@ in the pokeBitOffWidth
+--
+pokeBitOffWidth :: Bitfield a => Ptr b -> Int -> Int -> a -> IO ()
+pokeBitOffWidth ptr off width x
+    | (0x7 .&. off) + width <= 8 = do
+        w <- peekByteOff ptr (complement 0x7 .&. off) :: IO Word8
+        let x' = fromIntegral (narrow x width) :: Word8
+        let mask = unsafeShiftL (loMask width) (0x7 .&. off)
+            x''  = unsafeShiftL x'             (0x7 .&. off)
+
+        pokeByteOff ptr (complement 0x7 .&. off) ((w .&. complement mask) .|. x'')
+
+    | (0xf .&. off) + width <= 16 = do
+        w <- peekByteOff ptr (complement 0xf .&. off) :: IO Word16
+        let x' = fromIntegral (narrow x width) :: Word16
+        let mask = unsafeShiftL (loMask width) (0xf .&. off)
+            x''  = unsafeShiftL x'             (0xf .&. off)
+
+        pokeByteOff ptr (complement 0xf .&. off) ((w .&. complement mask) .|. x'')
+
+    | (0x1f .&. off) + width <= 32 = do
+        w <- peekByteOff ptr (complement 0x1f .&. off) :: IO Word32
+        let x' = fromIntegral (narrow x width) :: Word32
+        let mask = unsafeShiftL (loMask width) (0x1f .&. off)
+            x''  = unsafeShiftL x'             (0x1f .&. off)
+
+        pokeByteOff ptr (complement 0x1f .&. off) ((w .&. complement mask) .|. x'')
+
+    | (0x3f .&. off) + width <= 64 = do
+        w <- peekByteOff ptr (complement 0x3f .&. off) :: IO Word64
+        let x' = fromIntegral (narrow x width) :: Word64
+        let mask = unsafeShiftL (loMask width) (0x3f .&. off)
+            x''  = unsafeShiftL x'             (0x3f .&. off)
+
+        pokeByteOff ptr (complement 0x3f .&. off) ((w .&. complement mask) .|. x'')
+
+    | otherwise = fail $ "pokeBitOffWidth _ " ++ show off ++ " " ++ show ptr ++ " _: too wide"

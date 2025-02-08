@@ -335,6 +335,7 @@
             StructField {
               fieldName = CName "t1",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "T1"),
               fieldSourceLoc =
@@ -350,6 +351,7 @@
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "T2"),
               fieldSourceLoc =
@@ -365,6 +367,7 @@
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "M1"),
               fieldSourceLoc =
@@ -380,6 +383,7 @@
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "M2"),
               fieldSourceLoc =
@@ -397,6 +401,7 @@
             StructField {
               fieldName = CName "t1",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "T1"),
               fieldSourceLoc =
@@ -404,6 +409,7 @@
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "T2"),
               fieldSourceLoc =
@@ -411,6 +417,7 @@
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "M1"),
               fieldSourceLoc =
@@ -418,14 +425,14 @@
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "M2"),
               fieldSourceLoc =
               "examples/typedef_vs_macro.h:11:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/typedef_vs_macro.h:7:8",
-          structBitfields = []}},
+          "examples/typedef_vs_macro.h:7:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -447,6 +454,7 @@
               StructField {
                 fieldName = CName "t1",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "T1"),
                 fieldSourceLoc =
@@ -462,6 +470,7 @@
               StructField {
                 fieldName = CName "t2",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "T2"),
                 fieldSourceLoc =
@@ -477,6 +486,7 @@
               StructField {
                 fieldName = CName "m1",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "M1"),
                 fieldSourceLoc =
@@ -492,6 +502,7 @@
               StructField {
                 fieldName = CName "m2",
                 fieldOffset = 96,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "M2"),
                 fieldSourceLoc =
@@ -509,6 +520,7 @@
               StructField {
                 fieldName = CName "t1",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "T1"),
                 fieldSourceLoc =
@@ -516,6 +528,7 @@
               StructField {
                 fieldName = CName "t2",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "T2"),
                 fieldSourceLoc =
@@ -523,6 +536,7 @@
               StructField {
                 fieldName = CName "m1",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "M1"),
                 fieldSourceLoc =
@@ -530,14 +544,14 @@
               StructField {
                 fieldName = CName "m2",
                 fieldOffset = 96,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "M2"),
                 fieldSourceLoc =
                 "examples/typedef_vs_macro.h:11:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/typedef_vs_macro.h:7:8",
-            structBitfields = []}}
+            "examples/typedef_vs_macro.h:7:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -564,6 +578,7 @@
                       StructField {
                         fieldName = CName "t1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
@@ -579,6 +594,7 @@
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
@@ -594,6 +610,7 @@
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
@@ -609,6 +626,7 @@
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
@@ -626,6 +644,7 @@
                       StructField {
                         fieldName = CName "t1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
@@ -633,6 +652,7 @@
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
@@ -640,6 +660,7 @@
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
@@ -647,14 +668,14 @@
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
                         "examples/typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/typedef_vs_macro.h:7:8",
-                    structBitfields = []}})
+                    "examples/typedef_vs_macro.h:7:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -685,6 +706,7 @@
                       StructField {
                         fieldName = CName "t1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
@@ -700,6 +722,7 @@
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
@@ -715,6 +738,7 @@
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
@@ -730,6 +754,7 @@
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
@@ -747,6 +772,7 @@
                       StructField {
                         fieldName = CName "t1",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
@@ -754,6 +780,7 @@
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
@@ -761,6 +788,7 @@
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
@@ -768,14 +796,14 @@
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
                         "examples/typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/typedef_vs_macro.h:7:8",
-                    structBitfields = []}}
+                    "examples/typedef_vs_macro.h:7:8"}}
               (Add 4)
               (Seq
                 [

@@ -208,7 +208,7 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
                         mfield <- mkStructField relPath unit declPath cursor
                         return $ Continue mfield
 
-                    (fields, bitfields, flam) <- partitionFields fields'
+                    (fields, flam) <- partitionFields fields'
 
                     addDecl ty $ DeclStruct Struct
                         { structDeclPath  = declPath
@@ -217,7 +217,6 @@ processTypeDecl' relPath path unit ty = case fromSimpleEnum $ cxtKind ty of
                         , structFields    = fields
                         , structFlam      = flam
                         , structSourceLoc = sloc
-                        , structBitfields = bitfields
                         }
 
     -- enum
@@ -364,19 +363,17 @@ omapInsertBack k v m = m OMap.>| (k, v)
 data Field
     = Normal !StructField
     | IncompleteArray !StructField
-    | BitField !StructField !Int
   deriving Show
 
 type DList a = [a] -> [a]
 
-partitionFields :: [Field] -> Eff m ([StructField], [(StructField, Int)], Maybe StructField)
-partitionFields = go id id where
-    go :: DList StructField -> DList (StructField, Int) -> [Field] -> Eff m ([StructField], [(StructField, Int)], Maybe StructField)
-    go !fs !gs []                       = return (fs [], gs [], Nothing)
-    go !fs !gs (IncompleteArray f : []) = return (fs [], gs [], Just f)
-    go !_  !_  (IncompleteArray _ : _)  = fail "incomplete array is not a last field"
-    go !fs !gs (Normal f : xs)          = go (fs . (f :)) gs xs
-    go !fs !gs (BitField f w : xs)      = go fs (gs . ((f, w) :)) xs
+partitionFields :: [Field] -> Eff m ([StructField],  Maybe StructField)
+partitionFields = go id where
+    go :: DList StructField -> [Field] -> Eff m ([StructField], Maybe StructField)
+    go !fs []                       = return (fs [], Nothing)
+    go !fs (IncompleteArray f : []) = return (fs [], Just f)
+    go !_  (IncompleteArray _ : _)  = fail "incomplete array is not a last field"
+    go !fs (Normal f : xs)          = go (fs . (f :)) xs
 
 mkStructField ::
      Maybe FilePath -- ^ Directory to make paths relative to
@@ -426,16 +423,16 @@ mkStructField relPath unit path current = do
         if isIncompleteArray
         then do
           assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
-          return $ Just $ IncompleteArray StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+          return $ Just $ IncompleteArray StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc, fieldWidth = Nothing}
         else do
           isBitField <- liftIO $ clang_Cursor_isBitField current
           if isBitField
           then do
             width <- liftIO $ clang_getFieldDeclBitWidth current
-            return $ Just $ BitField StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc} (fromIntegral width)
+            return $ Just $ Normal StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc, fieldWidth = Just (fromIntegral width)}
           else do
             assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
-            return $ Just $ Normal StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc}
+            return $ Just $ Normal StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc, fieldWidth = Nothing}
 
       -- inner structs, there are two approaches:
       -- * process eagerly

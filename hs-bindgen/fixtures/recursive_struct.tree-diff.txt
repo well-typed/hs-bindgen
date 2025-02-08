@@ -13,6 +13,7 @@ WrapCHeader
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -20,6 +21,7 @@ WrapCHeader
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -30,8 +32,7 @@ WrapCHeader
               "examples/recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:1:16",
-          structBitfields = []},
+          "examples/recursive_struct.h:1:16"},
       DeclTypedef
         Typedef {
           typedefName = CName
@@ -55,6 +56,7 @@ WrapCHeader
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -62,6 +64,7 @@ WrapCHeader
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -72,5 +75,4 @@ WrapCHeader
               "examples/recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:9:8",
-          structBitfields = []}])
+          "examples/recursive_struct.h:9:8"}])

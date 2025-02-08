@@ -175,10 +175,14 @@ structDecs opts struct fields = concat
         }
 
     peek :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
-    peek ptr f = Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
+    peek ptr f = case C.fieldWidth f of
+      Nothing -> Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
+      Just w  -> Hs.PeekBitOffWidth ptr (C.fieldOffset f) w
 
     poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
-    poke ptr f i = Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
+    poke ptr f i = case C.fieldWidth f of
+      Nothing -> Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
+      Just w  -> Hs.PokeBitOffWidth ptr (C.fieldOffset f) w i
 
     flamInstance :: [Hs.Decl]
     flamInstance = case C.structFlam struct of

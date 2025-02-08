@@ -26,14 +26,14 @@ WrapCHeader
             StructField {
               fieldName = CName "z",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:1:8",
-          structBitfields = []},
+          "examples/weird01.h:1:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -45,11 +45,11 @@ WrapCHeader
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:3:16",
-          structBitfields = []}])
+          "examples/weird01.h:3:16"}])

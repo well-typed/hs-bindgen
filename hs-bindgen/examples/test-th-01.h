@@ -9,3 +9,10 @@ struct Struct2 {
 };
 
 #define PLUS(x,y) x + y + 1L
+
+struct Struct3 {
+    int a;
+    unsigned int b : 1;
+    unsigned int c : 1;
+    int d : 5;
+};

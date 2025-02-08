@@ -342,16 +342,18 @@ data StorableInstance = StorableInstance
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:peekByteOff>
 type PeekByteOff :: Ctx -> Star
-data PeekByteOff ctx = PeekByteOff
-    (Idx ctx)
-    Int
+data PeekByteOff ctx
+  = PeekByteOff (Idx ctx) Int
+  | PeekBitOffWidth (Idx ctx) Int Int
   deriving stock (Generic, Show)
 
 -- | Call to 'pokeByteOff'
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:pokeByteOff>
 type PokeByteOff :: Ctx -> Star
-data PokeByteOff ctx = PokeByteOff (Idx ctx) Int (Idx ctx)
+data PokeByteOff ctx
+  = PokeByteOff (Idx ctx) Int (Idx ctx)
+  | PokeBitOffWidth (Idx ctx) Int Int (Idx ctx)
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

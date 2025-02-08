@@ -99,6 +99,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:2:11"}},
@@ -113,6 +114,7 @@
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:3:11"}}],
@@ -128,19 +130,20 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:2:11"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:3:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:1:8",
-          structBitfields = []}},
+          "examples/bool.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -162,6 +165,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:2:11"}},
@@ -176,6 +180,7 @@
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:3:11"}}],
@@ -191,19 +196,20 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:2:11"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:3:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:1:8",
-            structBitfields = []}}
+            "examples/bool.h:1:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -230,6 +236,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:2:11"}},
@@ -244,6 +251,7 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:3:11"}}],
@@ -259,19 +267,20 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:2:11"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:3:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:1:8",
-                    structBitfields = []}})
+                    "examples/bool.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -300,6 +309,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:2:11"}},
@@ -314,6 +324,7 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:3:11"}}],
@@ -329,19 +340,20 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:2:11"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:3:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:1:8",
-                    structBitfields = []}}
+                    "examples/bool.h:1:8"}}
               (Add 2)
               (Seq
                 [
@@ -382,6 +394,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:9:10"}},
@@ -396,6 +409,7 @@
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:10:10"}}],
@@ -411,19 +425,20 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:9:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/bool.h:10:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:8:8",
-          structBitfields = []}},
+          "examples/bool.h:8:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -445,6 +460,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:9:10"}},
@@ -459,6 +475,7 @@
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:10:10"}}],
@@ -474,19 +491,20 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:9:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/bool.h:10:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:8:8",
-            structBitfields = []}}
+            "examples/bool.h:8:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -513,6 +531,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:9:10"}},
@@ -527,6 +546,7 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:10:10"}}],
@@ -542,19 +562,20 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:9:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:10:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:8:8",
-                    structBitfields = []}})
+                    "examples/bool.h:8:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -583,6 +604,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:9:10"}},
@@ -597,6 +619,7 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:10:10"}}],
@@ -612,19 +635,20 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:9:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/bool.h:10:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:8:8",
-                    structBitfields = []}}
+                    "examples/bool.h:8:8"}}
               (Add 2)
               (Seq
                 [
@@ -665,6 +689,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
@@ -680,6 +705,7 @@
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
@@ -696,6 +722,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
@@ -703,14 +730,14 @@
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
               "examples/bool.h:17:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:15:8",
-          structBitfields = []}},
+          "examples/bool.h:15:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -732,6 +759,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
@@ -747,6 +775,7 @@
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
@@ -763,6 +792,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
@@ -770,14 +800,14 @@
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
                 "examples/bool.h:17:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:15:8",
-            structBitfields = []}}
+            "examples/bool.h:15:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -804,6 +834,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
@@ -819,6 +850,7 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
@@ -835,6 +867,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
@@ -842,14 +875,14 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
                         "examples/bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:15:8",
-                    structBitfields = []}})
+                    "examples/bool.h:15:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -878,6 +911,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
@@ -893,6 +927,7 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
@@ -909,6 +944,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
@@ -916,14 +952,14 @@
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
                         "examples/bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:15:8",
-                    structBitfields = []}}
+                    "examples/bool.h:15:8"}}
               (Add 2)
               (Seq
                 [

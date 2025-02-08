@@ -235,6 +235,7 @@
             StructField {
               fieldName = CName "foo",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -250,6 +251,7 @@
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
@@ -268,6 +270,7 @@
             StructField {
               fieldName = CName "foo",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -275,14 +278,14 @@
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
               "examples/distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/distilled_lib_1.h:8:9",
-          structBitfields = []}},
+          "examples/distilled_lib_1.h:8:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -304,6 +307,7 @@
               StructField {
                 fieldName = CName "foo",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -319,6 +323,7 @@
               StructField {
                 fieldName = CName "bar",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
@@ -337,6 +342,7 @@
               StructField {
                 fieldName = CName "foo",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -344,14 +350,14 @@
               StructField {
                 fieldName = CName "bar",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:8:32"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/distilled_lib_1.h:8:9",
-            structBitfields = []}}
+            "examples/distilled_lib_1.h:8:9"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -378,6 +384,7 @@
                       StructField {
                         fieldName = CName "foo",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -393,6 +400,7 @@
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -411,6 +419,7 @@
                       StructField {
                         fieldName = CName "foo",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -418,14 +427,14 @@
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:8:9",
-                    structBitfields = []}})
+                    "examples/distilled_lib_1.h:8:9"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -454,6 +463,7 @@
                       StructField {
                         fieldName = CName "foo",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -469,6 +479,7 @@
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -487,6 +498,7 @@
                       StructField {
                         fieldName = CName "foo",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -494,14 +506,14 @@
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:8:9",
-                    structBitfields = []}}
+                    "examples/distilled_lib_1.h:8:9"}}
               (Add 2)
               (Seq
                 [
@@ -1285,6 +1297,7 @@
             StructField {
               fieldName = CName "field_0",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/distilled_lib_1.h:36:31"}},
@@ -1301,6 +1314,7 @@
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint8_t"),
               fieldSourceLoc =
@@ -1318,6 +1332,7 @@
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint16_t"),
               fieldSourceLoc =
@@ -1335,6 +1350,7 @@
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
@@ -1352,6 +1368,7 @@
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   (DeclNameTypedef
@@ -1374,6 +1391,7 @@
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -1394,6 +1412,7 @@
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 TypeVoid,
               fieldSourceLoc =
@@ -1413,6 +1432,7 @@
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
+              fieldWidth = Nothing,
               fieldType = TypeConstArray
                 7
                 (TypeTypedef
@@ -1432,6 +1452,7 @@
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
+              fieldWidth = Nothing,
               fieldType = TypeEnum
                 (CName
                   "another_typedef_enum_e"),
@@ -1450,6 +1471,7 @@
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
@@ -1468,6 +1490,7 @@
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
@@ -1486,12 +1509,14 @@
             StructField {
               fieldName = CName "field_0",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
               "examples/distilled_lib_1.h:36:31"},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint8_t"),
               fieldSourceLoc =
@@ -1499,6 +1524,7 @@
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint16_t"),
               fieldSourceLoc =
@@ -1506,6 +1532,7 @@
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
@@ -1513,6 +1540,7 @@
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   (DeclNameTypedef
@@ -1524,6 +1552,7 @@
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -1536,6 +1565,7 @@
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 TypeVoid,
               fieldSourceLoc =
@@ -1543,6 +1573,7 @@
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
+              fieldWidth = Nothing,
               fieldType = TypeConstArray
                 7
                 (TypeTypedef
@@ -1552,6 +1583,7 @@
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
+              fieldWidth = Nothing,
               fieldType = TypeEnum
                 (CName
                   "another_typedef_enum_e"),
@@ -1560,6 +1592,7 @@
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
@@ -1568,6 +1601,7 @@
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName
                   "another_typedef_enum_e"),
@@ -1575,8 +1609,7 @@
               "examples/distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/distilled_lib_1.h:34:16",
-          structBitfields = []}},
+          "examples/distilled_lib_1.h:34:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1598,6 +1631,7 @@
               StructField {
                 fieldName = CName "field_0",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:36:31"}},
@@ -1614,6 +1648,7 @@
               StructField {
                 fieldName = CName "field_1",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint8_t"),
                 fieldSourceLoc =
@@ -1631,6 +1666,7 @@
               StructField {
                 fieldName = CName "field_2",
                 fieldOffset = 16,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint16_t"),
                 fieldSourceLoc =
@@ -1648,6 +1684,7 @@
               StructField {
                 fieldName = CName "field_3",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
@@ -1665,6 +1702,7 @@
               StructField {
                 fieldName = CName "field_4",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     (DeclNameTypedef
@@ -1687,6 +1725,7 @@
               StructField {
                 fieldName = CName "field_5",
                 fieldOffset = 128,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -1707,6 +1746,7 @@
               StructField {
                 fieldName = CName "field_6",
                 fieldOffset = 192,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   TypeVoid,
                 fieldSourceLoc =
@@ -1726,6 +1766,7 @@
               StructField {
                 fieldName = CName "field_7",
                 fieldOffset = 256,
+                fieldWidth = Nothing,
                 fieldType = TypeConstArray
                   7
                   (TypeTypedef
@@ -1745,6 +1786,7 @@
               StructField {
                 fieldName = CName "field_8",
                 fieldOffset = 480,
+                fieldWidth = Nothing,
                 fieldType = TypeEnum
                   (CName
                     "another_typedef_enum_e"),
@@ -1763,6 +1805,7 @@
               StructField {
                 fieldName = CName "field_9",
                 fieldOffset = 512,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
@@ -1781,6 +1824,7 @@
               StructField {
                 fieldName = CName "field_10",
                 fieldOffset = 640,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
@@ -1799,12 +1843,14 @@
               StructField {
                 fieldName = CName "field_0",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
                 "examples/distilled_lib_1.h:36:31"},
               StructField {
                 fieldName = CName "field_1",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint8_t"),
                 fieldSourceLoc =
@@ -1812,6 +1858,7 @@
               StructField {
                 fieldName = CName "field_2",
                 fieldOffset = 16,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint16_t"),
                 fieldSourceLoc =
@@ -1819,6 +1866,7 @@
               StructField {
                 fieldName = CName "field_3",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
@@ -1826,6 +1874,7 @@
               StructField {
                 fieldName = CName "field_4",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     (DeclNameTypedef
@@ -1837,6 +1886,7 @@
               StructField {
                 fieldName = CName "field_5",
                 fieldOffset = 128,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -1849,6 +1899,7 @@
               StructField {
                 fieldName = CName "field_6",
                 fieldOffset = 192,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   TypeVoid,
                 fieldSourceLoc =
@@ -1856,6 +1907,7 @@
               StructField {
                 fieldName = CName "field_7",
                 fieldOffset = 256,
+                fieldWidth = Nothing,
                 fieldType = TypeConstArray
                   7
                   (TypeTypedef
@@ -1865,6 +1917,7 @@
               StructField {
                 fieldName = CName "field_8",
                 fieldOffset = 480,
+                fieldWidth = Nothing,
                 fieldType = TypeEnum
                   (CName
                     "another_typedef_enum_e"),
@@ -1873,6 +1926,7 @@
               StructField {
                 fieldName = CName "field_9",
                 fieldOffset = 512,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
@@ -1881,6 +1935,7 @@
               StructField {
                 fieldName = CName "field_10",
                 fieldOffset = 640,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName
                     "another_typedef_enum_e"),
@@ -1888,8 +1943,7 @@
                 "examples/distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/distilled_lib_1.h:34:16",
-            structBitfields = []}}
+            "examples/distilled_lib_1.h:34:16"}}
       StorableInstance {
         storableSizeOf = 140,
         storableAlignment = 1,
@@ -1916,6 +1970,7 @@
                       StructField {
                         fieldName = CName "field_0",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:36:31"}},
@@ -1932,6 +1987,7 @@
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
@@ -1949,6 +2005,7 @@
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
@@ -1966,6 +2023,7 @@
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
@@ -1983,6 +2041,7 @@
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTypedef
@@ -2005,6 +2064,7 @@
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -2025,6 +2085,7 @@
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
@@ -2044,6 +2105,7 @@
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypeConstArray
                           7
                           (TypeTypedef
@@ -2063,6 +2125,7 @@
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
+                        fieldWidth = Nothing,
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
@@ -2081,6 +2144,7 @@
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2099,6 +2163,7 @@
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2117,12 +2182,14 @@
                       StructField {
                         fieldName = CName "field_0",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:36:31"},
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
@@ -2130,6 +2197,7 @@
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
@@ -2137,6 +2205,7 @@
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
@@ -2144,6 +2213,7 @@
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTypedef
@@ -2155,6 +2225,7 @@
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -2167,6 +2238,7 @@
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
@@ -2174,6 +2246,7 @@
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypeConstArray
                           7
                           (TypeTypedef
@@ -2183,6 +2256,7 @@
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
+                        fieldWidth = Nothing,
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
@@ -2191,6 +2265,7 @@
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2199,6 +2274,7 @@
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2206,8 +2282,7 @@
                         "examples/distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:34:16",
-                    structBitfields = []}})
+                    "examples/distilled_lib_1.h:34:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2245,6 +2320,7 @@
                       StructField {
                         fieldName = CName "field_0",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:36:31"}},
@@ -2261,6 +2337,7 @@
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
@@ -2278,6 +2355,7 @@
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
@@ -2295,6 +2373,7 @@
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
@@ -2312,6 +2391,7 @@
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTypedef
@@ -2334,6 +2414,7 @@
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -2354,6 +2435,7 @@
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
@@ -2373,6 +2455,7 @@
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypeConstArray
                           7
                           (TypeTypedef
@@ -2392,6 +2475,7 @@
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
+                        fieldWidth = Nothing,
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
@@ -2410,6 +2494,7 @@
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2428,6 +2513,7 @@
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2446,12 +2532,14 @@
                       StructField {
                         fieldName = CName "field_0",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
                         "examples/distilled_lib_1.h:36:31"},
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
@@ -2459,6 +2547,7 @@
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
@@ -2466,6 +2555,7 @@
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
@@ -2473,6 +2563,7 @@
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             (DeclNameTypedef
@@ -2484,6 +2575,7 @@
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -2496,6 +2588,7 @@
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
@@ -2503,6 +2596,7 @@
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypeConstArray
                           7
                           (TypeTypedef
@@ -2512,6 +2606,7 @@
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
+                        fieldWidth = Nothing,
                         fieldType = TypeEnum
                           (CName
                             "another_typedef_enum_e"),
@@ -2520,6 +2615,7 @@
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2528,6 +2624,7 @@
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName
                             "another_typedef_enum_e"),
@@ -2535,8 +2632,7 @@
                         "examples/distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:34:16",
-                    structBitfields = []}}
+                    "examples/distilled_lib_1.h:34:16"}}
               (Add 11)
               (Seq
                 [

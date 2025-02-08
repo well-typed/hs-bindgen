@@ -225,6 +225,7 @@
             StructField {
               fieldName = CName "sixty_four",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint64_t"),
               fieldSourceLoc =
@@ -242,6 +243,7 @@
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
@@ -258,6 +260,7 @@
             StructField {
               fieldName = CName "sixty_four",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint64_t"),
               fieldSourceLoc =
@@ -265,14 +268,14 @@
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
               "examples/fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/fixedwidth.h:3:8",
-          structBitfields = []}},
+          "examples/fixedwidth.h:3:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -296,6 +299,7 @@
               StructField {
                 fieldName = CName "sixty_four",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint64_t"),
                 fieldSourceLoc =
@@ -313,6 +317,7 @@
               StructField {
                 fieldName = CName "thirty_two",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
@@ -329,6 +334,7 @@
               StructField {
                 fieldName = CName "sixty_four",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint64_t"),
                 fieldSourceLoc =
@@ -336,14 +342,14 @@
               StructField {
                 fieldName = CName "thirty_two",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
                 "examples/fixedwidth.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/fixedwidth.h:3:8",
-            structBitfields = []}}
+            "examples/fixedwidth.h:3:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -372,6 +378,7 @@
                       StructField {
                         fieldName = CName "sixty_four",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
@@ -389,6 +396,7 @@
                       StructField {
                         fieldName = CName "thirty_two",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
@@ -405,6 +413,7 @@
                       StructField {
                         fieldName = CName "sixty_four",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
@@ -412,14 +421,14 @@
                       StructField {
                         fieldName = CName "thirty_two",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
                         "examples/fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedwidth.h:3:8",
-                    structBitfields = []}})
+                    "examples/fixedwidth.h:3:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -450,6 +459,7 @@
                       StructField {
                         fieldName = CName "sixty_four",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
@@ -467,6 +477,7 @@
                       StructField {
                         fieldName = CName "thirty_two",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
@@ -483,6 +494,7 @@
                       StructField {
                         fieldName = CName "sixty_four",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
@@ -490,14 +502,14 @@
                       StructField {
                         fieldName = CName "thirty_two",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
                         "examples/fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedwidth.h:3:8",
-                    structBitfields = []}}
+                    "examples/fixedwidth.h:3:8"}}
               (Add 2)
               (Seq
                 [

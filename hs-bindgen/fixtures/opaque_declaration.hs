@@ -22,6 +22,7 @@
             StructField {
               fieldName = CName "ptrA",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -41,6 +42,7 @@
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -60,6 +62,7 @@
             StructField {
               fieldName = CName "ptrA",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -70,6 +73,7 @@
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -79,8 +83,7 @@
               "examples/opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:4:8",
-          structBitfields = []}},
+          "examples/opaque_declaration.h:4:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -103,6 +106,7 @@
               StructField {
                 fieldName = CName "ptrA",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -122,6 +126,7 @@
               StructField {
                 fieldName = CName "ptrB",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -141,6 +146,7 @@
               StructField {
                 fieldName = CName "ptrA",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -151,6 +157,7 @@
               StructField {
                 fieldName = CName "ptrB",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -160,8 +167,7 @@
                 "examples/opaque_declaration.h:6:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/opaque_declaration.h:4:8",
-            structBitfields = []}}
+            "examples/opaque_declaration.h:4:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -189,6 +195,7 @@
                       StructField {
                         fieldName = CName "ptrA",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -208,6 +215,7 @@
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -227,6 +235,7 @@
                       StructField {
                         fieldName = CName "ptrA",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -237,6 +246,7 @@
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -246,8 +256,7 @@
                         "examples/opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:4:8",
-                    structBitfields = []}})
+                    "examples/opaque_declaration.h:4:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -277,6 +286,7 @@
                       StructField {
                         fieldName = CName "ptrA",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -296,6 +306,7 @@
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -315,6 +326,7 @@
                       StructField {
                         fieldName = CName "ptrA",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -325,6 +337,7 @@
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -334,8 +347,7 @@
                         "examples/opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:4:8",
-                    structBitfields = []}}
+                    "examples/opaque_declaration.h:4:8"}}
               (Add 2)
               (Seq
                 [
@@ -372,8 +384,7 @@
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:9:8",
-          structBitfields = []}},
+          "examples/opaque_declaration.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -395,8 +406,7 @@
             structFields = [],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/opaque_declaration.h:9:8",
-            structBitfields = []}}
+            "examples/opaque_declaration.h:9:8"}}
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
@@ -423,8 +433,7 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:9:8",
-                    structBitfields = []}})
+                    "examples/opaque_declaration.h:9:8"}})
             []),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -451,8 +460,7 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:9:8",
-                    structBitfields = []}}
+                    "examples/opaque_declaration.h:9:8"}}
               (Add 0)
               (Seq [])))}),
   DeclNewtypeInstance
