@@ -31,14 +31,13 @@ import C.Type (buildPlatform)
 
 foldDecls ::
      HasCallStack
-  => Maybe FilePath -- ^ Directory to make paths relative to
-  -> Tracer IO Skipped
+  => Tracer IO Skipped
   -> Predicate
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> do
+foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     loc <- liftIO $ clang_getCursorLocation current
-    sloc <- liftIO $ HighLevel.clang_getExpansionLocation relPath loc
+    sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
     cursorKind <- liftIO $ clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_TypedefDecl -> typeDecl current
@@ -49,7 +48,7 @@ foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> 
         if isBuiltinMacro sloc
           then return $ Continue Nothing
           else do
-            mbMExpr <- mkMacro relPath unit current
+            mbMExpr <- mkMacro unit current
             macro <- case mbMExpr of
               Left err -> return $ MacroReparseError err
               Right macro@( Macro _ mVar mArgs mExpr ) -> do
@@ -68,7 +67,7 @@ foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> 
                       }
             return $ Continue $ Just $ DeclMacro macro
       Right CXCursor_MacroExpansion -> do
-        mloc <- liftIO $ HighLevel.clang_getCursorLocation relPath current
+        mloc <- liftIO $ HighLevel.clang_getCursorLocation current
         modify $ registerMacroExpansion mloc
         return $ Continue Nothing
       Right CXCursor_InclusionDirective ->
@@ -82,7 +81,7 @@ foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> 
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl relPath unit ty
+        ty' <- processTypeDecl unit ty
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
@@ -97,13 +96,13 @@ foldDecls relPath tracer p unit = checkPredicate relPath tracer p $ \current -> 
         return $ Continue Nothing
 
       _otherwise -> do
-        unrecognizedCursor relPath current
+        unrecognizedCursor current
   where
     typeDecl :: CXCursor -> Eff (State DeclState) (Next m a)
     typeDecl current = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl relPath unit ty
+      void $ processTypeDecl unit ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -121,11 +120,10 @@ isBuiltinMacro = Text.null . getSourcePath . singleLocPath
 
 mkMacro ::
      MonadIO m
-  => Maybe FilePath -- ^ Directory to make paths relative to
-  -> CXTranslationUnit
+  => CXTranslationUnit
   -> CXCursor
   -> m (Either ReparseError Macro)
-mkMacro relPath unit current = liftIO $ do
-    range  <- HighLevel.clang_getCursorExtent relPath current
-    tokens <- HighLevel.clang_tokenize relPath unit (multiLocExpansion <$> range)
+mkMacro unit current = liftIO $ do
+    range  <- HighLevel.clang_getCursorExtent current
+    tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
     return $ reparseWith reparseMacro tokens

@@ -136,8 +136,7 @@ newtype HsModule = WrapHsModule {
 -- See section "Process the C input" for example functions you can pass as
 -- arguments; the most important being 'parseCHeader'.
 withTranslationUnit ::
-     Maybe FilePath              -- ^ Directory to make paths relative to
-  -> Tracer IO Diagnostic        -- ^ Tracer for warnings from @libclang@
+     Tracer IO Diagnostic        -- ^ Tracer for warnings from @libclang@
   -> ClangArgs                   -- ^ @libclang@ arguments
   -> FilePath                    -- ^ Input path
   -> (CXTranslationUnit -> IO r)
@@ -145,31 +144,29 @@ withTranslationUnit ::
 withTranslationUnit = C.withTranslationUnit
 
 parseCHeader ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> Tracer IO C.Skipped
+     Tracer IO C.Skipped
   -> Predicate
   -> CXTranslationUnit
   -> IO CHeader
-parseCHeader relPath traceSkipped p unit = do
+parseCHeader traceSkipped p unit = do
     (decls, finalDeclState) <-
       C.foldTranslationUnitWith
         unit
         (C.runFoldState C.initDeclState)
-        (C.foldDecls relPath traceSkipped p unit)
+        (C.foldDecls traceSkipped p unit)
 
     let decls' = [ d | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState) ]
     return $ WrapCHeader (C.Header $ decls ++ decls')
 
 bootstrapPrelude ::
-     Maybe FilePath     -- ^ Directory to make paths relative to
-  -> Tracer IO String   -- ^ Messages
+     Tracer IO String   -- ^ Messages
   -> Tracer IO String   -- ^ Macros
   -> CXTranslationUnit
   -> IO [C.PreludeEntry]
-bootstrapPrelude relPath msgTracer macroTracer unit = do
+bootstrapPrelude msgTracer macroTracer unit = do
     cursor <- clang_getTranslationUnitCursor unit
     C.runFoldIdentity . HighLevel.clang_visitChildren cursor $
-      C.foldPrelude relPath msgTracer' macroTracer' unit
+      C.foldPrelude msgTracer' macroTracer' unit
   where
     -- We could take a tracer for 'C.GenPreludeMsg', but there is only a point
     -- in doing so if we then also export that type.
@@ -247,24 +244,18 @@ genTests
   All in one
 -------------------------------------------------------------------------------}
 
-templateHaskell ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> FilePath
-  -> TH.Q [TH.Dec]
-templateHaskell relPath fp = do
+templateHaskell :: FilePath -> TH.Q [TH.Dec]
+templateHaskell fp = do
     cheader <- TH.runIO $
-      withTranslationUnit relPath nullTracer defaultClangArgs fp $
-        parseCHeader relPath nullTracer SelectFromMainFile
+      withTranslationUnit nullTracer defaultClangArgs fp $
+        parseCHeader nullTracer SelectFromMainFile
     genTH LowLevel.defaultTranslationOpts cheader
 
-preprocessor ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> FilePath
-  -> IO String
-preprocessor relPath fp = do
+preprocessor :: FilePath -> IO String
+preprocessor fp = do
     cheader <-
-      withTranslationUnit relPath nullTracer defaultClangArgs fp $
-        parseCHeader relPath nullTracer SelectFromMainFile
+      withTranslationUnit nullTracer defaultClangArgs fp $
+        parseCHeader nullTracer SelectFromMainFile
     return $
       Backend.PP.render renderOpts $
         unwrapHsModule $ genModule topts moduleOpts cheader

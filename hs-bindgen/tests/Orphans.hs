@@ -10,7 +10,7 @@ import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
 import Data.Vec.Lazy qualified as Vec
 import Foreign.C
-import System.FilePath (splitDirectories)
+import System.FilePath (isRelative, splitDirectories)
 import System.FilePath.Posix qualified as Posix
 
 import HsBindgen.C.AST qualified as C
@@ -72,10 +72,18 @@ instance ToExpr a => ToExpr (C.Token a)
 -- do not use record syntax, as it's very verbose
 instance ToExpr C.SingleLoc where
   toExpr (C.SingleLoc p l c) = toExpr $
-    -- use posix directory separators even on windows
-    Posix.joinPath (splitDirectories (Text.unpack (C.getSourcePath p))) ++ ":" ++
-    show l ++ ":" ++
-    show c
+    let nativePath = Text.unpack $ C.getSourcePath p
+        dirs = splitDirectories nativePath
+        -- use posix directory separators even on windows
+        normalizedPath = Posix.joinPath $
+          if isRelative nativePath
+            then dirs
+            else
+              -- make relative to musl-include when applicable
+              case dropWhile (/= "musl-include") dirs of
+                []    -> dirs
+                dirs' -> dirs'
+    in  normalizedPath ++ ":" ++ show l ++ ":" ++ show c
 
 instance ToExpr C.ReparseError where
   toExpr C.ReparseError {..} = Expr.Rec "ReparseError" $ OMap.fromList

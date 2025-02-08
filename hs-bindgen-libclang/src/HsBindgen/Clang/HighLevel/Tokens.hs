@@ -44,8 +44,7 @@ instance PrettyVal TokenSpelling where
 
 -- | Get all tokens in the specified range
 clang_tokenize ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> CXTranslationUnit
+     CXTranslationUnit
   -> Range SingleLoc
      -- ^ Range
      --
@@ -53,7 +52,7 @@ clang_tokenize ::
      -- avoid ambiguity; see 'HsBindgen.Clang.HighLevel.SourceLoc.Multi' for
      -- discussion.
   -> IO [Token TokenSpelling]
-clang_tokenize relPath unit range = do
+clang_tokenize unit range = do
     range' <- SourceLoc.fromRange unit range
     bracket
         (Core.clang_tokenize unit range')
@@ -61,18 +60,13 @@ clang_tokenize relPath unit range = do
       cursors <- clang_annotateTokens unit tokens numTokens
       forM [0 .. pred numTokens] $ \i -> do
         cursor <- index_CXCursorArray cursors i
-        toToken relPath unit (index_CXTokenArray tokens i) cursor
+        toToken unit (index_CXTokenArray tokens i) cursor
 
-toToken ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> CXTranslationUnit
-  -> CXToken
-  -> CXCursor
-  -> IO (Token TokenSpelling)
-toToken relPath unit token cursor = do
+toToken :: CXTranslationUnit -> CXToken -> CXCursor -> IO (Token TokenSpelling)
+toToken unit token cursor = do
     tokenKind       <- clang_getTokenKind token
     tokenSpelling   <- TokenSpelling <$> clang_getTokenSpelling unit token
-    tokenExtent     <- SourceLoc.clang_getTokenExtent relPath unit token
+    tokenExtent     <- SourceLoc.clang_getTokenExtent unit token
     tokenCursorKind <- clang_getCursorKind cursor
     return Token{
         tokenKind

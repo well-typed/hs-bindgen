@@ -10,7 +10,7 @@ import System.FilePath ((</>))
 import Foreign
 import Foreign.C.Types
 
-$(runIO (findPackageDirectory "hs-bindgen") >>= \dir -> templateHaskell (Just dir) (dir </> "examples" </> "test-th-01.h"))
+$(runIO (findPackageDirectory "hs-bindgen") >>= \dir -> templateHaskell (dir </> "examples" </> "test-th-01.h"))
 
 -- usage
 

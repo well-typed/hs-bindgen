@@ -4,7 +4,6 @@ module Main (main) where
 
 import Control.Monad (void)
 import Text.Read (readMaybe)
-import System.Directory qualified as Dir
 import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
@@ -21,49 +20,37 @@ main = do
     let tracer :: Tracer IO String
         tracer = mkTracerIO cmdVerbosity
 
-    relPath <- Just <$> Dir.getCurrentDirectory
+    execMode cmdline tracer (cmdMode)
 
-    execMode relPath cmdline tracer (cmdMode)
-
-execMode ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> Cmdline
-  -> Tracer IO String
-  -> Mode
-  -> IO ()
-execMode relPath cmdline tracer = \case
+execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
+execMode cmdline tracer = \case
     ModePreprocess{..} -> do
-      cHeader <- parseC relPath cmdline tracer preprocessInput
+      cHeader <- parseC cmdline tracer preprocessInput
       let hsModl = genModule preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
-      cHeader <- parseC relPath cmdline tracer genTestsInput
+      cHeader <- parseC cmdline tracer genTestsInput
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
       lit <- readFile input
       args <- maybe (fail "cannot parse literate file") return $ readMaybe lit
       mode <- maybe (fail "cannot parse arguments in literate file") return $ pureParseModePreprocess args
-      execMode relPath cmdline tracer $ case mode of
+      execMode cmdline tracer $ case mode of
           ModePreprocess {} -> mode { preprocessOutput = Just output }
           _ -> mode
 
     Dev devMode ->
-      execDevMode relPath cmdline tracer devMode
+      execDevMode cmdline tracer devMode
 
-execDevMode ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> Cmdline
-  -> Tracer IO String
-  -> DevMode
-  -> IO ()
-execDevMode relPath cmdline tracer = \case
+execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
+execDevMode cmdline tracer = \case
     DevModeParseCHeader{..} ->
-      prettyC =<< parseC relPath cmdline tracer parseCHeaderInput
+      prettyC =<< parseC cmdline tracer parseCHeaderInput
     DevModePrelude{..} -> do
       let cmdline' = preludeCmdline preludeIncludeDir
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
-        void . withC relPath cmdline' tracer preludeInput $
-          bootstrapPrelude relPath tracer (preludeLogTracer logHandle)
+        void . withC cmdline' tracer preludeInput $
+          bootstrapPrelude tracer (preludeLogTracer logHandle)
   where
     preludeLogPath :: FilePath
     preludeLogPath = "macros-recognized.log"
@@ -96,27 +83,25 @@ execDevMode relPath cmdline tracer = \case
 -------------------------------------------------------------------------------}
 
 withC ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> Cmdline
+     Cmdline
   -> Tracer IO String
   -> FilePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC relPath cmdline tracer fp =
-    withTranslationUnit relPath traceWarnings (cmdClangArgs cmdline) fp
+withC cmdline tracer fp =
+    withTranslationUnit traceWarnings (cmdClangArgs cmdline) fp
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show tracer
 
 parseC ::
-     Maybe FilePath -- ^ Directory to make paths relative to
-  -> Cmdline
+     Cmdline
   -> Tracer IO String
   -> FilePath
   -> IO CHeader
-parseC relPath cmdline tracer fp =
-    withC relPath cmdline tracer fp $
-      parseCHeader relPath traceSkipped (cmdPredicate cmdline)
+parseC cmdline tracer fp =
+    withC cmdline tracer fp $
+      parseCHeader traceSkipped (cmdPredicate cmdline)
   where
     traceSkipped :: Tracer IO Skipped
     traceSkipped = (contramap prettyLogMsg tracer)
