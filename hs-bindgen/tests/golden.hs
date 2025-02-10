@@ -92,7 +92,7 @@ main' packageRoot bg = testGroup "golden"
         let tracer = mkTracer report report report False
 
         header <- parseC tracer args fp
-        return $ genHsDecls defaultTranslationOpts header
+        return $ genHsDecls fp defaultTranslationOpts header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
@@ -106,7 +106,7 @@ main' packageRoot bg = testGroup "golden"
         header <- parseC tracer args fp
 
         -- TODO: PP.render should add trailing '\n' itself.
-        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule defaultTranslationOpts moduleOpts header) ++ "\n"
+        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule fp defaultTranslationOpts moduleOpts header) ++ "\n"
       where
         moduleOpts :: HsModuleOpts
         moduleOpts = HsModuleOpts

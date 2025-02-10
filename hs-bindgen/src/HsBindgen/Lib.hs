@@ -184,26 +184,26 @@ getTargetTriple = C.getTranslationUnitTargetTriple
   Translation
 -------------------------------------------------------------------------------}
 
-genModule ::
+genModule :: FilePath ->
      LowLevel.TranslationOpts
   -> HsModuleOpts
   -> CHeader
   -> HsModule
-genModule topts opts =
+genModule fp topts opts =
       WrapHsModule
     . Backend.PP.translateModule opts
     . map SHs.translateDecl
-    . genHsDecls topts
+    . genHsDecls fp topts
 
-genTH :: TH.Quote q => LowLevel.TranslationOpts -> CHeader -> q [TH.Dec]
-genTH topts =
+genTH :: TH.Quote q => FilePath -> LowLevel.TranslationOpts -> CHeader -> q [TH.Dec]
+genTH fp topts =
     fmap concat
     . traverse Backend.TH.mkDecl
     . map SHs.translateDecl
-    . genHsDecls topts
+    . genHsDecls fp topts
 
-genHsDecls :: LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
-genHsDecls topts = LowLevel.generateDeclarations topts . unwrapCHeader
+genHsDecls :: FilePath -> LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
+genHsDecls fp topts = LowLevel.generateDeclarations fp topts . unwrapCHeader
 
 {-------------------------------------------------------------------------------
   Processing output
@@ -249,7 +249,7 @@ templateHaskell fp = do
     cheader <- TH.runIO $
       withTranslationUnit nullTracer defaultClangArgs fp $
         parseCHeader nullTracer SelectFromMainFile
-    genTH LowLevel.defaultTranslationOpts cheader
+    genTH fp LowLevel.defaultTranslationOpts cheader
 
 preprocessor :: FilePath -> IO String
 preprocessor fp = do
@@ -258,7 +258,7 @@ preprocessor fp = do
         parseCHeader nullTracer SelectFromMainFile
     return $
       Backend.PP.render renderOpts $
-        unwrapHsModule $ genModule topts moduleOpts cheader
+        unwrapHsModule $ genModule fp topts moduleOpts cheader
   where
     topts :: LowLevel.TranslationOpts
     topts = LowLevel.defaultTranslationOpts

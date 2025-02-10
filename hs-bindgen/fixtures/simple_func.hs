@@ -10,7 +10,7 @@
           (HsPrimType HsPrimCDouble)),
       foreignImportOrigName = "erf",
       foreignImportHeader =
-      "simple_func.h",
+      "examples/simple_func.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {
@@ -41,7 +41,7 @@
       foreignImportOrigName =
       "bad_fma",
       foreignImportHeader =
-      "simple_func.h",
+      "examples/simple_func.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {
@@ -70,7 +70,7 @@
       foreignImportOrigName =
       "no_args",
       foreignImportHeader =
-      "simple_func.h",
+      "examples/simple_func.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {

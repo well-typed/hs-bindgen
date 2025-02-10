@@ -19,7 +19,7 @@ generateBindingsFor ::
 generateBindingsFor fp = do
     cHeader <- liftIO $ withTranslationUnit traceWarnings args fp $
                           parseCHeader traceSkipped p
-    genTH defaultTranslationOpts cHeader
+    genTH fp defaultTranslationOpts cHeader
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show $ mkTracerQ False

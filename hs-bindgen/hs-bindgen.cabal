@@ -245,6 +245,9 @@ test-suite test-pp
   -- The source files contains the actual options and arguments to be used with hs-bindgen
   ghc-options: -pgmL hs-bindgen -optL literate
 
+  -- I'm not sure why this is required for preprocessor, but not for TH test.
+  include-dirs: .
+
   build-tool-depends: hs-bindgen:hs-bindgen
   build-depends:
     , base <5

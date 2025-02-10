@@ -27,7 +27,7 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
 
     header <- parseC tracer args fp
     let decls :: Qu [TH.Dec]
-        decls = genTH defaultTranslationOpts header
+        decls = genTH fp defaultTranslationOpts header
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.

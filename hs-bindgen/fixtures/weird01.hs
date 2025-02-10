@@ -11,7 +11,7 @@
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName = "func",
       foreignImportHeader =
-      "weird01.h",
+      "examples/weird01.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {

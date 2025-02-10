@@ -26,7 +26,7 @@ execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline tracer = \case
     ModePreprocess{..} -> do
       cHeader <- parseC cmdline tracer preprocessInput
-      let hsModl = genModule preprocessTranslationOpts preprocessModuleOpts cHeader
+      let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
       cHeader <- parseC cmdline tracer genTestsInput

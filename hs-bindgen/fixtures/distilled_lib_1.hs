@@ -197,7 +197,7 @@
       foreignImportOrigName =
       "some_fun",
       foreignImportHeader =
-      "distilled_lib_1.h",
+      "examples/distilled_lib_1.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {
