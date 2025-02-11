@@ -16,3 +16,7 @@ struct Struct3 {
     unsigned int c : 1;
     int d : 5;
 };
+
+static inline int my_fma(int x, int y, int z) {
+    return x * y + z;
+}

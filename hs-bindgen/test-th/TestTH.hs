@@ -32,4 +32,8 @@ main = defaultMain $ testGroup "test-th"
             poke ptr s
             peek ptr
         s' @?= s
+
+    , testCase "function" $ do
+        res <- my_fma 2 3 5
+        res @?= 11
     ]
