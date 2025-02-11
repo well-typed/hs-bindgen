@@ -47,6 +47,7 @@
             StructField {
               fieldName = CName "z",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -63,14 +64,14 @@
             StructField {
               fieldName = CName "z",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:1:8",
-          structBitfields = []}},
+          "examples/weird01.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -92,6 +93,7 @@
               StructField {
                 fieldName = CName "z",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -108,14 +110,14 @@
               StructField {
                 fieldName = CName "z",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/weird01.h:2:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/weird01.h:1:8",
-            structBitfields = []}}
+            "examples/weird01.h:1:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -142,6 +144,7 @@
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -158,14 +161,14 @@
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:1:8",
-                    structBitfields = []}})
+                    "examples/weird01.h:1:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -192,6 +195,7 @@
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -208,14 +212,14 @@
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:1:8",
-                    structBitfields = []}}
+                    "examples/weird01.h:1:8"}}
               (Add 1)
               (Seq
                 [
@@ -251,6 +255,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -267,14 +272,14 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:3:16",
-          structBitfields = []}},
+          "examples/weird01.h:3:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -296,6 +301,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -312,14 +318,14 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/weird01.h:4:21"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/weird01.h:3:16",
-            structBitfields = []}}
+            "examples/weird01.h:3:16"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -346,6 +352,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -362,14 +369,14 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:3:16",
-                    structBitfields = []}})
+                    "examples/weird01.h:3:16"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -396,6 +403,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -412,14 +420,14 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:3:16",
-                    structBitfields = []}}
+                    "examples/weird01.h:3:16"}}
               (Add 1)
               (Seq
                 [

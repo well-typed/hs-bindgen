@@ -50,6 +50,8 @@ data Global =
   | IO_type
   | HasFlexibleArrayMember_class
   | HasFlexibleArrayMember_offset
+  | Bitfield_peekBitOffWidth
+  | Bitfield_pokeBitOffWidth
 
     -- Other type classes
   | Bits_class

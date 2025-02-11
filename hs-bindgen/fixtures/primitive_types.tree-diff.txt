@@ -13,6 +13,7 @@ WrapCHeader
             StructField {
               fieldName = CName "c",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
@@ -20,6 +21,7 @@ WrapCHeader
             StructField {
               fieldName = CName "sc",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar (Just Signed)),
               fieldSourceLoc =
@@ -27,6 +29,7 @@ WrapCHeader
             StructField {
               fieldName = CName "uc",
               fieldOffset = 16,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
@@ -34,6 +37,7 @@ WrapCHeader
             StructField {
               fieldName = CName "s",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -41,6 +45,7 @@ WrapCHeader
             StructField {
               fieldName = CName "si",
               fieldOffset = 48,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -48,6 +53,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ss",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -55,6 +61,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ssi",
               fieldOffset = 80,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -62,6 +69,7 @@ WrapCHeader
             StructField {
               fieldName = CName "us",
               fieldOffset = 96,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimShort
@@ -71,6 +79,7 @@ WrapCHeader
             StructField {
               fieldName = CName "usi",
               fieldOffset = 112,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimShort
@@ -80,6 +89,7 @@ WrapCHeader
             StructField {
               fieldName = CName "i",
               fieldOffset = 128,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -87,6 +97,7 @@ WrapCHeader
             StructField {
               fieldName = CName "s2",
               fieldOffset = 160,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -94,6 +105,7 @@ WrapCHeader
             StructField {
               fieldName = CName "si2",
               fieldOffset = 192,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -101,6 +113,7 @@ WrapCHeader
             StructField {
               fieldName = CName "u",
               fieldOffset = 224,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
@@ -108,6 +121,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ui",
               fieldOffset = 256,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
@@ -115,6 +129,7 @@ WrapCHeader
             StructField {
               fieldName = CName "l",
               fieldOffset = 320,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -122,6 +137,7 @@ WrapCHeader
             StructField {
               fieldName = CName "li",
               fieldOffset = 384,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -129,6 +145,7 @@ WrapCHeader
             StructField {
               fieldName = CName "sl",
               fieldOffset = 448,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -136,6 +153,7 @@ WrapCHeader
             StructField {
               fieldName = CName "sli",
               fieldOffset = 512,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -143,6 +161,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ul",
               fieldOffset = 576,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLong
@@ -152,6 +171,7 @@ WrapCHeader
             StructField {
               fieldName = CName "uli",
               fieldOffset = 640,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLong
@@ -161,6 +181,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ll",
               fieldOffset = 704,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -170,6 +191,7 @@ WrapCHeader
             StructField {
               fieldName = CName "lli",
               fieldOffset = 768,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -179,6 +201,7 @@ WrapCHeader
             StructField {
               fieldName = CName "sll",
               fieldOffset = 832,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -188,6 +211,7 @@ WrapCHeader
             StructField {
               fieldName = CName "slli",
               fieldOffset = 896,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -197,6 +221,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ull",
               fieldOffset = 960,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -206,6 +231,7 @@ WrapCHeader
             StructField {
               fieldName = CName "ulli",
               fieldOffset = 1024,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -215,6 +241,7 @@ WrapCHeader
             StructField {
               fieldName = CName "f",
               fieldOffset = 1088,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
@@ -222,6 +249,7 @@ WrapCHeader
             StructField {
               fieldName = CName "d",
               fieldOffset = 1152,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
@@ -229,11 +257,11 @@ WrapCHeader
             StructField {
               fieldName = CName "ld",
               fieldOffset = 1280,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimLongDouble),
               fieldSourceLoc =
               "examples/primitive_types.h:39:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/primitive_types.h:1:8",
-          structBitfields = []}])
+          "examples/primitive_types.h:1:8"}])

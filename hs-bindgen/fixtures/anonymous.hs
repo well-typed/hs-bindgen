@@ -19,6 +19,7 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -34,6 +35,7 @@
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -54,6 +56,7 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -61,14 +64,14 @@
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:3:3",
-          structBitfields = []}},
+          "examples/anonymous.h:3:3"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -90,6 +93,7 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -105,6 +109,7 @@
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -125,6 +130,7 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -132,14 +138,14 @@
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:3:3",
-            structBitfields = []}}
+            "examples/anonymous.h:3:3"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -166,6 +172,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -181,6 +188,7 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -201,6 +209,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -208,14 +217,14 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:3:3",
-                    structBitfields = []}})
+                    "examples/anonymous.h:3:3"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -244,6 +253,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -259,6 +269,7 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -279,6 +290,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -286,14 +298,14 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:3:3",
-                    structBitfields = []}}
+                    "examples/anonymous.h:3:3"}}
               (Add 2)
               (Seq
                 [
@@ -330,6 +342,7 @@
             StructField {
               fieldName = CName "c",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -351,6 +364,7 @@
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -367,6 +381,7 @@
             StructField {
               fieldName = CName "c",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -380,14 +395,14 @@
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:8:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:2:8",
-          structBitfields = []}},
+          "examples/anonymous.h:2:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -409,6 +424,7 @@
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     DeclNameNone
@@ -430,6 +446,7 @@
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -446,6 +463,7 @@
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     DeclNameNone
@@ -459,14 +477,14 @@
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:8:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:2:8",
-            structBitfields = []}}
+            "examples/anonymous.h:2:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -493,6 +511,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -514,6 +533,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -530,6 +550,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -543,14 +564,14 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:2:8",
-                    structBitfields = []}})
+                    "examples/anonymous.h:2:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -579,6 +600,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -600,6 +622,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -616,6 +639,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -629,14 +653,14 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:2:8",
-                    structBitfields = []}}
+                    "examples/anonymous.h:2:8"}}
               (Add 2)
               (Seq
                 [
@@ -673,6 +697,7 @@
             StructField {
               fieldName = CName "b",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -697,14 +722,14 @@
             StructField {
               fieldName = CName "b",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:15:5",
-          structBitfields = []}},
+          "examples/anonymous.h:15:5"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -726,6 +751,7 @@
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -750,14 +776,14 @@
               StructField {
                 fieldName = CName "b",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:15:5",
-            structBitfields = []}}
+            "examples/anonymous.h:15:5"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -784,6 +810,7 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -808,14 +835,14 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:15:5",
-                    structBitfields = []}})
+                    "examples/anonymous.h:15:5"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -842,6 +869,7 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -866,14 +894,14 @@
                       StructField {
                         fieldName = CName "b",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:15:5",
-                    structBitfields = []}}
+                    "examples/anonymous.h:15:5"}}
               (Add 1)
               (Seq
                 [
@@ -913,6 +941,7 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -930,6 +959,7 @@
             StructField {
               fieldName = CName "deep",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -960,6 +990,7 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -967,6 +998,7 @@
             StructField {
               fieldName = CName "deep",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -983,8 +1015,7 @@
               "examples/anonymous.h:17:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:13:3",
-          structBitfields = []}},
+          "examples/anonymous.h:13:3"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1006,6 +1037,7 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1023,6 +1055,7 @@
               StructField {
                 fieldName = CName "deep",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     DeclNameNone
@@ -1053,6 +1086,7 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1060,6 +1094,7 @@
               StructField {
                 fieldName = CName "deep",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     DeclNameNone
@@ -1076,8 +1111,7 @@
                 "examples/anonymous.h:17:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:13:3",
-            structBitfields = []}}
+            "examples/anonymous.h:13:3"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1104,6 +1138,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1121,6 +1156,7 @@
                       StructField {
                         fieldName = CName "deep",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1151,6 +1187,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1158,6 +1195,7 @@
                       StructField {
                         fieldName = CName "deep",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1174,8 +1212,7 @@
                         "examples/anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:13:3",
-                    structBitfields = []}})
+                    "examples/anonymous.h:13:3"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1204,6 +1241,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1221,6 +1259,7 @@
                       StructField {
                         fieldName = CName "deep",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1251,6 +1290,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1258,6 +1298,7 @@
                       StructField {
                         fieldName = CName "deep",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1274,8 +1315,7 @@
                         "examples/anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:13:3",
-                    structBitfields = []}}
+                    "examples/anonymous.h:13:3"}}
               (Add 2)
               (Seq
                 [
@@ -1318,6 +1358,7 @@
             StructField {
               fieldName = CName "inner",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -1339,6 +1380,7 @@
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -1355,6 +1397,7 @@
             StructField {
               fieldName = CName "inner",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -1368,14 +1411,14 @@
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:20:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:12:8",
-          structBitfields = []}},
+          "examples/anonymous.h:12:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1399,6 +1442,7 @@
               StructField {
                 fieldName = CName "inner",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     DeclNameNone
@@ -1420,6 +1464,7 @@
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1436,6 +1481,7 @@
               StructField {
                 fieldName = CName "inner",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypeStruct
                   (DeclPathStruct
                     DeclNameNone
@@ -1449,14 +1495,14 @@
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/anonymous.h:20:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/anonymous.h:12:8",
-            structBitfields = []}}
+            "examples/anonymous.h:12:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1485,6 +1531,7 @@
                       StructField {
                         fieldName = CName "inner",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1506,6 +1553,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1522,6 +1570,7 @@
                       StructField {
                         fieldName = CName "inner",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1535,14 +1584,14 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:12:8",
-                    structBitfields = []}})
+                    "examples/anonymous.h:12:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1573,6 +1622,7 @@
                       StructField {
                         fieldName = CName "inner",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1594,6 +1644,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1610,6 +1661,7 @@
                       StructField {
                         fieldName = CName "inner",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypeStruct
                           (DeclPathStruct
                             DeclNameNone
@@ -1623,14 +1675,14 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/anonymous.h:12:8",
-                    structBitfields = []}}
+                    "examples/anonymous.h:12:8"}}
               (Add 2)
               (Seq
                 [

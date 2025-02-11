@@ -25,6 +25,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
+import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
@@ -57,6 +58,8 @@ mkGlobal =  \case
       IO_type              -> ''IO
       HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
+      Bitfield_peekBitOffWidth -> 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
+      Bitfield_pokeBitOffWidth -> 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
 
       Bits_class       -> ''Data.Bits.Bits
       Bounded_class    -> ''Bounded

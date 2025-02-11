@@ -16,6 +16,7 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -23,14 +24,14 @@ WrapCHeader
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:3:3",
-          structBitfields = []},
+          "examples/anonymous.h:3:3"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -42,6 +43,7 @@ WrapCHeader
             StructField {
               fieldName = CName "c",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -55,14 +57,14 @@ WrapCHeader
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:8:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:2:8",
-          structBitfields = []},
+          "examples/anonymous.h:2:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -82,14 +84,14 @@ WrapCHeader
             StructField {
               fieldName = CName "b",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:15:5",
-          structBitfields = []},
+          "examples/anonymous.h:15:5"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -105,6 +107,7 @@ WrapCHeader
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -112,6 +115,7 @@ WrapCHeader
             StructField {
               fieldName = CName "deep",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -128,8 +132,7 @@ WrapCHeader
               "examples/anonymous.h:17:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:13:3",
-          structBitfields = []},
+          "examples/anonymous.h:13:3"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -141,6 +144,7 @@ WrapCHeader
             StructField {
               fieldName = CName "inner",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeStruct
                 (DeclPathStruct
                   DeclNameNone
@@ -154,11 +158,11 @@ WrapCHeader
             StructField {
               fieldName = CName "d",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/anonymous.h:20:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/anonymous.h:12:8",
-          structBitfields = []}])
+          "examples/anonymous.h:12:8"}])

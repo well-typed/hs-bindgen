@@ -19,6 +19,7 @@
             StructField {
               fieldName = CName "c",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
@@ -34,6 +35,7 @@
             StructField {
               fieldName = CName "sc",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar (Just Signed)),
               fieldSourceLoc =
@@ -49,6 +51,7 @@
             StructField {
               fieldName = CName "uc",
               fieldOffset = 16,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
@@ -64,6 +67,7 @@
             StructField {
               fieldName = CName "s",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -79,6 +83,7 @@
             StructField {
               fieldName = CName "si",
               fieldOffset = 48,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -94,6 +99,7 @@
             StructField {
               fieldName = CName "ss",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -109,6 +115,7 @@
             StructField {
               fieldName = CName "ssi",
               fieldOffset = 80,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -124,6 +131,7 @@
             StructField {
               fieldName = CName "us",
               fieldOffset = 96,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimShort
@@ -141,6 +149,7 @@
             StructField {
               fieldName = CName "usi",
               fieldOffset = 112,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimShort
@@ -158,6 +167,7 @@
             StructField {
               fieldName = CName "i",
               fieldOffset = 128,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -173,6 +183,7 @@
             StructField {
               fieldName = CName "s2",
               fieldOffset = 160,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -188,6 +199,7 @@
             StructField {
               fieldName = CName "si2",
               fieldOffset = 192,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -203,6 +215,7 @@
             StructField {
               fieldName = CName "u",
               fieldOffset = 224,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
@@ -218,6 +231,7 @@
             StructField {
               fieldName = CName "ui",
               fieldOffset = 256,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
@@ -233,6 +247,7 @@
             StructField {
               fieldName = CName "l",
               fieldOffset = 320,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -248,6 +263,7 @@
             StructField {
               fieldName = CName "li",
               fieldOffset = 384,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -263,6 +279,7 @@
             StructField {
               fieldName = CName "sl",
               fieldOffset = 448,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -278,6 +295,7 @@
             StructField {
               fieldName = CName "sli",
               fieldOffset = 512,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -293,6 +311,7 @@
             StructField {
               fieldName = CName "ul",
               fieldOffset = 576,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLong
@@ -310,6 +329,7 @@
             StructField {
               fieldName = CName "uli",
               fieldOffset = 640,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLong
@@ -327,6 +347,7 @@
             StructField {
               fieldName = CName "ll",
               fieldOffset = 704,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -344,6 +365,7 @@
             StructField {
               fieldName = CName "lli",
               fieldOffset = 768,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -361,6 +383,7 @@
             StructField {
               fieldName = CName "sll",
               fieldOffset = 832,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -378,6 +401,7 @@
             StructField {
               fieldName = CName "slli",
               fieldOffset = 896,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -395,6 +419,7 @@
             StructField {
               fieldName = CName "ull",
               fieldOffset = 960,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -412,6 +437,7 @@
             StructField {
               fieldName = CName "ulli",
               fieldOffset = 1024,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -429,6 +455,7 @@
             StructField {
               fieldName = CName "f",
               fieldOffset = 1088,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
@@ -444,6 +471,7 @@
             StructField {
               fieldName = CName "d",
               fieldOffset = 1152,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
@@ -459,6 +487,7 @@
             StructField {
               fieldName = CName "ld",
               fieldOffset = 1280,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimLongDouble),
               fieldSourceLoc =
@@ -476,6 +505,7 @@
             StructField {
               fieldName = CName "c",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
@@ -483,6 +513,7 @@
             StructField {
               fieldName = CName "sc",
               fieldOffset = 8,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar (Just Signed)),
               fieldSourceLoc =
@@ -490,6 +521,7 @@
             StructField {
               fieldName = CName "uc",
               fieldOffset = 16,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
@@ -497,6 +529,7 @@
             StructField {
               fieldName = CName "s",
               fieldOffset = 32,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -504,6 +537,7 @@
             StructField {
               fieldName = CName "si",
               fieldOffset = 48,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -511,6 +545,7 @@
             StructField {
               fieldName = CName "ss",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -518,6 +553,7 @@
             StructField {
               fieldName = CName "ssi",
               fieldOffset = 80,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
@@ -525,6 +561,7 @@
             StructField {
               fieldName = CName "us",
               fieldOffset = 96,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimShort
@@ -534,6 +571,7 @@
             StructField {
               fieldName = CName "usi",
               fieldOffset = 112,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimShort
@@ -543,6 +581,7 @@
             StructField {
               fieldName = CName "i",
               fieldOffset = 128,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -550,6 +589,7 @@
             StructField {
               fieldName = CName "s2",
               fieldOffset = 160,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -557,6 +597,7 @@
             StructField {
               fieldName = CName "si2",
               fieldOffset = 192,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -564,6 +605,7 @@
             StructField {
               fieldName = CName "u",
               fieldOffset = 224,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
@@ -571,6 +613,7 @@
             StructField {
               fieldName = CName "ui",
               fieldOffset = 256,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
@@ -578,6 +621,7 @@
             StructField {
               fieldName = CName "l",
               fieldOffset = 320,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -585,6 +629,7 @@
             StructField {
               fieldName = CName "li",
               fieldOffset = 384,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -592,6 +637,7 @@
             StructField {
               fieldName = CName "sl",
               fieldOffset = 448,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -599,6 +645,7 @@
             StructField {
               fieldName = CName "sli",
               fieldOffset = 512,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
@@ -606,6 +653,7 @@
             StructField {
               fieldName = CName "ul",
               fieldOffset = 576,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLong
@@ -615,6 +663,7 @@
             StructField {
               fieldName = CName "uli",
               fieldOffset = 640,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLong
@@ -624,6 +673,7 @@
             StructField {
               fieldName = CName "ll",
               fieldOffset = 704,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -633,6 +683,7 @@
             StructField {
               fieldName = CName "lli",
               fieldOffset = 768,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -642,6 +693,7 @@
             StructField {
               fieldName = CName "sll",
               fieldOffset = 832,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -651,6 +703,7 @@
             StructField {
               fieldName = CName "slli",
               fieldOffset = 896,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -660,6 +713,7 @@
             StructField {
               fieldName = CName "ull",
               fieldOffset = 960,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -669,6 +723,7 @@
             StructField {
               fieldName = CName "ulli",
               fieldOffset = 1024,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
@@ -678,6 +733,7 @@
             StructField {
               fieldName = CName "f",
               fieldOffset = 1088,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
@@ -685,6 +741,7 @@
             StructField {
               fieldName = CName "d",
               fieldOffset = 1152,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
@@ -692,14 +749,14 @@
             StructField {
               fieldName = CName "ld",
               fieldOffset = 1280,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimFloating PrimLongDouble),
               fieldSourceLoc =
               "examples/primitive_types.h:39:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/primitive_types.h:1:8",
-          structBitfields = []}},
+          "examples/primitive_types.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -721,6 +778,7 @@
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
@@ -736,6 +794,7 @@
               StructField {
                 fieldName = CName "sc",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar (Just Signed)),
                 fieldSourceLoc =
@@ -751,6 +810,7 @@
               StructField {
                 fieldName = CName "uc",
                 fieldOffset = 16,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
                 fieldSourceLoc =
@@ -766,6 +826,7 @@
               StructField {
                 fieldName = CName "s",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -781,6 +842,7 @@
               StructField {
                 fieldName = CName "si",
                 fieldOffset = 48,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -796,6 +858,7 @@
               StructField {
                 fieldName = CName "ss",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -811,6 +874,7 @@
               StructField {
                 fieldName = CName "ssi",
                 fieldOffset = 80,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -826,6 +890,7 @@
               StructField {
                 fieldName = CName "us",
                 fieldOffset = 96,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimShort
@@ -843,6 +908,7 @@
               StructField {
                 fieldName = CName "usi",
                 fieldOffset = 112,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimShort
@@ -860,6 +926,7 @@
               StructField {
                 fieldName = CName "i",
                 fieldOffset = 128,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -875,6 +942,7 @@
               StructField {
                 fieldName = CName "s2",
                 fieldOffset = 160,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -890,6 +958,7 @@
               StructField {
                 fieldName = CName "si2",
                 fieldOffset = 192,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -905,6 +974,7 @@
               StructField {
                 fieldName = CName "u",
                 fieldOffset = 224,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Unsigned),
                 fieldSourceLoc =
@@ -920,6 +990,7 @@
               StructField {
                 fieldName = CName "ui",
                 fieldOffset = 256,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Unsigned),
                 fieldSourceLoc =
@@ -935,6 +1006,7 @@
               StructField {
                 fieldName = CName "l",
                 fieldOffset = 320,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -950,6 +1022,7 @@
               StructField {
                 fieldName = CName "li",
                 fieldOffset = 384,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -965,6 +1038,7 @@
               StructField {
                 fieldName = CName "sl",
                 fieldOffset = 448,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -980,6 +1054,7 @@
               StructField {
                 fieldName = CName "sli",
                 fieldOffset = 512,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -995,6 +1070,7 @@
               StructField {
                 fieldName = CName "ul",
                 fieldOffset = 576,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLong
@@ -1012,6 +1088,7 @@
               StructField {
                 fieldName = CName "uli",
                 fieldOffset = 640,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLong
@@ -1029,6 +1106,7 @@
               StructField {
                 fieldName = CName "ll",
                 fieldOffset = 704,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1046,6 +1124,7 @@
               StructField {
                 fieldName = CName "lli",
                 fieldOffset = 768,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1063,6 +1142,7 @@
               StructField {
                 fieldName = CName "sll",
                 fieldOffset = 832,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1080,6 +1160,7 @@
               StructField {
                 fieldName = CName "slli",
                 fieldOffset = 896,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1097,6 +1178,7 @@
               StructField {
                 fieldName = CName "ull",
                 fieldOffset = 960,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1114,6 +1196,7 @@
               StructField {
                 fieldName = CName "ulli",
                 fieldOffset = 1024,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1131,6 +1214,7 @@
               StructField {
                 fieldName = CName "f",
                 fieldOffset = 1088,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
                 fieldSourceLoc =
@@ -1146,6 +1230,7 @@
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 1152,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
@@ -1161,6 +1246,7 @@
               StructField {
                 fieldName = CName "ld",
                 fieldOffset = 1280,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimLongDouble),
                 fieldSourceLoc =
@@ -1178,6 +1264,7 @@
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
@@ -1185,6 +1272,7 @@
               StructField {
                 fieldName = CName "sc",
                 fieldOffset = 8,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar (Just Signed)),
                 fieldSourceLoc =
@@ -1192,6 +1280,7 @@
               StructField {
                 fieldName = CName "uc",
                 fieldOffset = 16,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
                 fieldSourceLoc =
@@ -1199,6 +1288,7 @@
               StructField {
                 fieldName = CName "s",
                 fieldOffset = 32,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -1206,6 +1296,7 @@
               StructField {
                 fieldName = CName "si",
                 fieldOffset = 48,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -1213,6 +1304,7 @@
               StructField {
                 fieldName = CName "ss",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -1220,6 +1312,7 @@
               StructField {
                 fieldName = CName "ssi",
                 fieldOffset = 80,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimShort Signed),
                 fieldSourceLoc =
@@ -1227,6 +1320,7 @@
               StructField {
                 fieldName = CName "us",
                 fieldOffset = 96,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimShort
@@ -1236,6 +1330,7 @@
               StructField {
                 fieldName = CName "usi",
                 fieldOffset = 112,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimShort
@@ -1245,6 +1340,7 @@
               StructField {
                 fieldName = CName "i",
                 fieldOffset = 128,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1252,6 +1348,7 @@
               StructField {
                 fieldName = CName "s2",
                 fieldOffset = 160,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1259,6 +1356,7 @@
               StructField {
                 fieldName = CName "si2",
                 fieldOffset = 192,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -1266,6 +1364,7 @@
               StructField {
                 fieldName = CName "u",
                 fieldOffset = 224,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Unsigned),
                 fieldSourceLoc =
@@ -1273,6 +1372,7 @@
               StructField {
                 fieldName = CName "ui",
                 fieldOffset = 256,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Unsigned),
                 fieldSourceLoc =
@@ -1280,6 +1380,7 @@
               StructField {
                 fieldName = CName "l",
                 fieldOffset = 320,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -1287,6 +1388,7 @@
               StructField {
                 fieldName = CName "li",
                 fieldOffset = 384,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -1294,6 +1396,7 @@
               StructField {
                 fieldName = CName "sl",
                 fieldOffset = 448,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -1301,6 +1404,7 @@
               StructField {
                 fieldName = CName "sli",
                 fieldOffset = 512,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
@@ -1308,6 +1412,7 @@
               StructField {
                 fieldName = CName "ul",
                 fieldOffset = 576,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLong
@@ -1317,6 +1422,7 @@
               StructField {
                 fieldName = CName "uli",
                 fieldOffset = 640,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLong
@@ -1326,6 +1432,7 @@
               StructField {
                 fieldName = CName "ll",
                 fieldOffset = 704,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1335,6 +1442,7 @@
               StructField {
                 fieldName = CName "lli",
                 fieldOffset = 768,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1344,6 +1452,7 @@
               StructField {
                 fieldName = CName "sll",
                 fieldOffset = 832,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1353,6 +1462,7 @@
               StructField {
                 fieldName = CName "slli",
                 fieldOffset = 896,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1362,6 +1472,7 @@
               StructField {
                 fieldName = CName "ull",
                 fieldOffset = 960,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1371,6 +1482,7 @@
               StructField {
                 fieldName = CName "ulli",
                 fieldOffset = 1024,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral
                     PrimLongLong
@@ -1380,6 +1492,7 @@
               StructField {
                 fieldName = CName "f",
                 fieldOffset = 1088,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
                 fieldSourceLoc =
@@ -1387,6 +1500,7 @@
               StructField {
                 fieldName = CName "d",
                 fieldOffset = 1152,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
@@ -1394,14 +1508,14 @@
               StructField {
                 fieldName = CName "ld",
                 fieldOffset = 1280,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimFloating PrimLongDouble),
                 fieldSourceLoc =
                 "examples/primitive_types.h:39:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/primitive_types.h:1:8",
-            structBitfields = []}}
+            "examples/primitive_types.h:1:8"}}
       StorableInstance {
         storableSizeOf = 176,
         storableAlignment = 16,
@@ -1428,6 +1542,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -1443,6 +1558,7 @@
                       StructField {
                         fieldName = CName "sc",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
                         fieldSourceLoc =
@@ -1458,6 +1574,7 @@
                       StructField {
                         fieldName = CName "uc",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
@@ -1473,6 +1590,7 @@
                       StructField {
                         fieldName = CName "s",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1488,6 +1606,7 @@
                       StructField {
                         fieldName = CName "si",
                         fieldOffset = 48,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1503,6 +1622,7 @@
                       StructField {
                         fieldName = CName "ss",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1518,6 +1638,7 @@
                       StructField {
                         fieldName = CName "ssi",
                         fieldOffset = 80,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1533,6 +1654,7 @@
                       StructField {
                         fieldName = CName "us",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -1550,6 +1672,7 @@
                       StructField {
                         fieldName = CName "usi",
                         fieldOffset = 112,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -1567,6 +1690,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1582,6 +1706,7 @@
                       StructField {
                         fieldName = CName "s2",
                         fieldOffset = 160,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1597,6 +1722,7 @@
                       StructField {
                         fieldName = CName "si2",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1612,6 +1738,7 @@
                       StructField {
                         fieldName = CName "u",
                         fieldOffset = 224,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -1627,6 +1754,7 @@
                       StructField {
                         fieldName = CName "ui",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -1642,6 +1770,7 @@
                       StructField {
                         fieldName = CName "l",
                         fieldOffset = 320,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -1657,6 +1786,7 @@
                       StructField {
                         fieldName = CName "li",
                         fieldOffset = 384,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -1672,6 +1802,7 @@
                       StructField {
                         fieldName = CName "sl",
                         fieldOffset = 448,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -1687,6 +1818,7 @@
                       StructField {
                         fieldName = CName "sli",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -1702,6 +1834,7 @@
                       StructField {
                         fieldName = CName "ul",
                         fieldOffset = 576,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -1719,6 +1852,7 @@
                       StructField {
                         fieldName = CName "uli",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -1736,6 +1870,7 @@
                       StructField {
                         fieldName = CName "ll",
                         fieldOffset = 704,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -1753,6 +1888,7 @@
                       StructField {
                         fieldName = CName "lli",
                         fieldOffset = 768,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -1770,6 +1906,7 @@
                       StructField {
                         fieldName = CName "sll",
                         fieldOffset = 832,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -1787,6 +1924,7 @@
                       StructField {
                         fieldName = CName "slli",
                         fieldOffset = 896,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -1804,6 +1942,7 @@
                       StructField {
                         fieldName = CName "ull",
                         fieldOffset = 960,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -1821,6 +1960,7 @@
                       StructField {
                         fieldName = CName "ulli",
                         fieldOffset = 1024,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -1838,6 +1978,7 @@
                       StructField {
                         fieldName = CName "f",
                         fieldOffset = 1088,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
@@ -1853,6 +1994,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 1152,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -1868,6 +2010,7 @@
                       StructField {
                         fieldName = CName "ld",
                         fieldOffset = 1280,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
                         fieldSourceLoc =
@@ -1885,6 +2028,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -1892,6 +2036,7 @@
                       StructField {
                         fieldName = CName "sc",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
                         fieldSourceLoc =
@@ -1899,6 +2044,7 @@
                       StructField {
                         fieldName = CName "uc",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
@@ -1906,6 +2052,7 @@
                       StructField {
                         fieldName = CName "s",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1913,6 +2060,7 @@
                       StructField {
                         fieldName = CName "si",
                         fieldOffset = 48,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1920,6 +2068,7 @@
                       StructField {
                         fieldName = CName "ss",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1927,6 +2076,7 @@
                       StructField {
                         fieldName = CName "ssi",
                         fieldOffset = 80,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -1934,6 +2084,7 @@
                       StructField {
                         fieldName = CName "us",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -1943,6 +2094,7 @@
                       StructField {
                         fieldName = CName "usi",
                         fieldOffset = 112,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -1952,6 +2104,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1959,6 +2112,7 @@
                       StructField {
                         fieldName = CName "s2",
                         fieldOffset = 160,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1966,6 +2120,7 @@
                       StructField {
                         fieldName = CName "si2",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -1973,6 +2128,7 @@
                       StructField {
                         fieldName = CName "u",
                         fieldOffset = 224,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -1980,6 +2136,7 @@
                       StructField {
                         fieldName = CName "ui",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -1987,6 +2144,7 @@
                       StructField {
                         fieldName = CName "l",
                         fieldOffset = 320,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -1994,6 +2152,7 @@
                       StructField {
                         fieldName = CName "li",
                         fieldOffset = 384,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2001,6 +2160,7 @@
                       StructField {
                         fieldName = CName "sl",
                         fieldOffset = 448,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2008,6 +2168,7 @@
                       StructField {
                         fieldName = CName "sli",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2015,6 +2176,7 @@
                       StructField {
                         fieldName = CName "ul",
                         fieldOffset = 576,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -2024,6 +2186,7 @@
                       StructField {
                         fieldName = CName "uli",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -2033,6 +2196,7 @@
                       StructField {
                         fieldName = CName "ll",
                         fieldOffset = 704,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2042,6 +2206,7 @@
                       StructField {
                         fieldName = CName "lli",
                         fieldOffset = 768,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2051,6 +2216,7 @@
                       StructField {
                         fieldName = CName "sll",
                         fieldOffset = 832,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2060,6 +2226,7 @@
                       StructField {
                         fieldName = CName "slli",
                         fieldOffset = 896,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2069,6 +2236,7 @@
                       StructField {
                         fieldName = CName "ull",
                         fieldOffset = 960,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2078,6 +2246,7 @@
                       StructField {
                         fieldName = CName "ulli",
                         fieldOffset = 1024,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2087,6 +2256,7 @@
                       StructField {
                         fieldName = CName "f",
                         fieldOffset = 1088,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
@@ -2094,6 +2264,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 1152,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -2101,14 +2272,14 @@
                       StructField {
                         fieldName = CName "ld",
                         fieldOffset = 1280,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
                         fieldSourceLoc =
                         "examples/primitive_types.h:39:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/primitive_types.h:1:8",
-                    structBitfields = []}})
+                    "examples/primitive_types.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2164,6 +2335,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -2179,6 +2351,7 @@
                       StructField {
                         fieldName = CName "sc",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
                         fieldSourceLoc =
@@ -2194,6 +2367,7 @@
                       StructField {
                         fieldName = CName "uc",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
@@ -2209,6 +2383,7 @@
                       StructField {
                         fieldName = CName "s",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2224,6 +2399,7 @@
                       StructField {
                         fieldName = CName "si",
                         fieldOffset = 48,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2239,6 +2415,7 @@
                       StructField {
                         fieldName = CName "ss",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2254,6 +2431,7 @@
                       StructField {
                         fieldName = CName "ssi",
                         fieldOffset = 80,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2269,6 +2447,7 @@
                       StructField {
                         fieldName = CName "us",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -2286,6 +2465,7 @@
                       StructField {
                         fieldName = CName "usi",
                         fieldOffset = 112,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -2303,6 +2483,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -2318,6 +2499,7 @@
                       StructField {
                         fieldName = CName "s2",
                         fieldOffset = 160,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -2333,6 +2515,7 @@
                       StructField {
                         fieldName = CName "si2",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -2348,6 +2531,7 @@
                       StructField {
                         fieldName = CName "u",
                         fieldOffset = 224,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -2363,6 +2547,7 @@
                       StructField {
                         fieldName = CName "ui",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -2378,6 +2563,7 @@
                       StructField {
                         fieldName = CName "l",
                         fieldOffset = 320,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2393,6 +2579,7 @@
                       StructField {
                         fieldName = CName "li",
                         fieldOffset = 384,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2408,6 +2595,7 @@
                       StructField {
                         fieldName = CName "sl",
                         fieldOffset = 448,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2423,6 +2611,7 @@
                       StructField {
                         fieldName = CName "sli",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2438,6 +2627,7 @@
                       StructField {
                         fieldName = CName "ul",
                         fieldOffset = 576,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -2455,6 +2645,7 @@
                       StructField {
                         fieldName = CName "uli",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -2472,6 +2663,7 @@
                       StructField {
                         fieldName = CName "ll",
                         fieldOffset = 704,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2489,6 +2681,7 @@
                       StructField {
                         fieldName = CName "lli",
                         fieldOffset = 768,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2506,6 +2699,7 @@
                       StructField {
                         fieldName = CName "sll",
                         fieldOffset = 832,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2523,6 +2717,7 @@
                       StructField {
                         fieldName = CName "slli",
                         fieldOffset = 896,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2540,6 +2735,7 @@
                       StructField {
                         fieldName = CName "ull",
                         fieldOffset = 960,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2557,6 +2753,7 @@
                       StructField {
                         fieldName = CName "ulli",
                         fieldOffset = 1024,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2574,6 +2771,7 @@
                       StructField {
                         fieldName = CName "f",
                         fieldOffset = 1088,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
@@ -2589,6 +2787,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 1152,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -2604,6 +2803,7 @@
                       StructField {
                         fieldName = CName "ld",
                         fieldOffset = 1280,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
                         fieldSourceLoc =
@@ -2621,6 +2821,7 @@
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
@@ -2628,6 +2829,7 @@
                       StructField {
                         fieldName = CName "sc",
                         fieldOffset = 8,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Signed)),
                         fieldSourceLoc =
@@ -2635,6 +2837,7 @@
                       StructField {
                         fieldName = CName "uc",
                         fieldOffset = 16,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
@@ -2642,6 +2845,7 @@
                       StructField {
                         fieldName = CName "s",
                         fieldOffset = 32,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2649,6 +2853,7 @@
                       StructField {
                         fieldName = CName "si",
                         fieldOffset = 48,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2656,6 +2861,7 @@
                       StructField {
                         fieldName = CName "ss",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2663,6 +2869,7 @@
                       StructField {
                         fieldName = CName "ssi",
                         fieldOffset = 80,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimShort Signed),
                         fieldSourceLoc =
@@ -2670,6 +2877,7 @@
                       StructField {
                         fieldName = CName "us",
                         fieldOffset = 96,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -2679,6 +2887,7 @@
                       StructField {
                         fieldName = CName "usi",
                         fieldOffset = 112,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimShort
@@ -2688,6 +2897,7 @@
                       StructField {
                         fieldName = CName "i",
                         fieldOffset = 128,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -2695,6 +2905,7 @@
                       StructField {
                         fieldName = CName "s2",
                         fieldOffset = 160,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -2702,6 +2913,7 @@
                       StructField {
                         fieldName = CName "si2",
                         fieldOffset = 192,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -2709,6 +2921,7 @@
                       StructField {
                         fieldName = CName "u",
                         fieldOffset = 224,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -2716,6 +2929,7 @@
                       StructField {
                         fieldName = CName "ui",
                         fieldOffset = 256,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Unsigned),
                         fieldSourceLoc =
@@ -2723,6 +2937,7 @@
                       StructField {
                         fieldName = CName "l",
                         fieldOffset = 320,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2730,6 +2945,7 @@
                       StructField {
                         fieldName = CName "li",
                         fieldOffset = 384,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2737,6 +2953,7 @@
                       StructField {
                         fieldName = CName "sl",
                         fieldOffset = 448,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2744,6 +2961,7 @@
                       StructField {
                         fieldName = CName "sli",
                         fieldOffset = 512,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
@@ -2751,6 +2969,7 @@
                       StructField {
                         fieldName = CName "ul",
                         fieldOffset = 576,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -2760,6 +2979,7 @@
                       StructField {
                         fieldName = CName "uli",
                         fieldOffset = 640,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLong
@@ -2769,6 +2989,7 @@
                       StructField {
                         fieldName = CName "ll",
                         fieldOffset = 704,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2778,6 +2999,7 @@
                       StructField {
                         fieldName = CName "lli",
                         fieldOffset = 768,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2787,6 +3009,7 @@
                       StructField {
                         fieldName = CName "sll",
                         fieldOffset = 832,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2796,6 +3019,7 @@
                       StructField {
                         fieldName = CName "slli",
                         fieldOffset = 896,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2805,6 +3029,7 @@
                       StructField {
                         fieldName = CName "ull",
                         fieldOffset = 960,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2814,6 +3039,7 @@
                       StructField {
                         fieldName = CName "ulli",
                         fieldOffset = 1024,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral
                             PrimLongLong
@@ -2823,6 +3049,7 @@
                       StructField {
                         fieldName = CName "f",
                         fieldOffset = 1088,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
@@ -2830,6 +3057,7 @@
                       StructField {
                         fieldName = CName "d",
                         fieldOffset = 1152,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
@@ -2837,14 +3065,14 @@
                       StructField {
                         fieldName = CName "ld",
                         fieldOffset = 1280,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimFloating PrimLongDouble),
                         fieldSourceLoc =
                         "examples/primitive_types.h:39:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/primitive_types.h:1:8",
-                    structBitfields = []}}
+                    "examples/primitive_types.h:1:8"}}
               (Add 29)
               (Seq
                 [

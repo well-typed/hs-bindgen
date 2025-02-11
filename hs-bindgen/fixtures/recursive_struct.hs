@@ -19,6 +19,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -37,6 +38,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -58,6 +60,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -65,6 +68,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -75,8 +79,7 @@
               "examples/recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:1:16",
-          structBitfields = []}},
+          "examples/recursive_struct.h:1:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -98,6 +101,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -116,6 +120,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -137,6 +142,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -144,6 +150,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -154,8 +161,7 @@
                 "examples/recursive_struct.h:3:27"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/recursive_struct.h:1:16",
-            structBitfields = []}}
+            "examples/recursive_struct.h:1:16"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -182,6 +188,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -200,6 +207,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -221,6 +229,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -228,6 +237,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -238,8 +248,7 @@
                         "examples/recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:1:16",
-                    structBitfields = []}})
+                    "examples/recursive_struct.h:1:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -268,6 +277,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -286,6 +296,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -307,6 +318,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -314,6 +326,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -324,8 +337,7 @@
                         "examples/recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:1:16",
-                    structBitfields = []}}
+                    "examples/recursive_struct.h:1:16"}}
               (Add 2)
               (Seq
                 [
@@ -401,6 +413,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -419,6 +432,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -440,6 +454,7 @@
             StructField {
               fieldName = CName "x",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -447,6 +462,7 @@
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathStruct
@@ -457,8 +473,7 @@
               "examples/recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:9:8",
-          structBitfields = []}},
+          "examples/recursive_struct.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -480,6 +495,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -498,6 +514,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -519,6 +536,7 @@
               StructField {
                 fieldName = CName "x",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -526,6 +544,7 @@
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
+                fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathStruct
@@ -536,8 +555,7 @@
                 "examples/recursive_struct.h:11:20"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/recursive_struct.h:9:8",
-            structBitfields = []}}
+            "examples/recursive_struct.h:9:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -564,6 +582,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -582,6 +601,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -603,6 +623,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -610,6 +631,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -620,8 +642,7 @@
                         "examples/recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:9:8",
-                    structBitfields = []}})
+                    "examples/recursive_struct.h:9:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -650,6 +671,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -668,6 +690,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -689,6 +712,7 @@
                       StructField {
                         fieldName = CName "x",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -696,6 +720,7 @@
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
+                        fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathStruct
@@ -706,8 +731,7 @@
                         "examples/recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:9:8",
-                    structBitfields = []}}
+                    "examples/recursive_struct.h:9:8"}}
               (Add 2)
               (Seq
                 [

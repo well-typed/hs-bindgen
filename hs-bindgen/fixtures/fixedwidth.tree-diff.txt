@@ -28,6 +28,7 @@ WrapCHeader
             StructField {
               fieldName = CName "sixty_four",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint64_t"),
               fieldSourceLoc =
@@ -35,11 +36,11 @@ WrapCHeader
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
+              fieldWidth = Nothing,
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
               "examples/fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/fixedwidth.h:3:8",
-          structBitfields = []}])
+          "examples/fixedwidth.h:3:8"}])

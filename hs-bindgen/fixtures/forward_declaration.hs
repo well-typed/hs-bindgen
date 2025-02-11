@@ -19,6 +19,7 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -35,14 +36,14 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/forward_declaration.h:4:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/forward_declaration.h:3:8",
-          structBitfields = []}},
+          "examples/forward_declaration.h:3:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -64,6 +65,7 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -80,14 +82,14 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/forward_declaration.h:4:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/forward_declaration.h:3:8",
-            structBitfields = []}}
+            "examples/forward_declaration.h:3:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -114,6 +116,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -130,14 +133,14 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:3:8",
-                    structBitfields = []}})
+                    "examples/forward_declaration.h:3:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -164,6 +167,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -180,14 +184,14 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:3:8",
-                    structBitfields = []}}
+                    "examples/forward_declaration.h:3:8"}}
               (Add 1)
               (Seq
                 [
@@ -252,6 +256,7 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
@@ -268,14 +273,14 @@
             StructField {
               fieldName = CName "a",
               fieldOffset = 0,
+              fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
               "examples/forward_declaration.h:10:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/forward_declaration.h:9:8",
-          structBitfields = []}},
+          "examples/forward_declaration.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -297,6 +302,7 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
@@ -313,14 +319,14 @@
               StructField {
                 fieldName = CName "a",
                 fieldOffset = 0,
+                fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
                 "examples/forward_declaration.h:10:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/forward_declaration.h:9:8",
-            structBitfields = []}}
+            "examples/forward_declaration.h:9:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -347,6 +353,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -363,14 +370,14 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:9:8",
-                    structBitfields = []}})
+                    "examples/forward_declaration.h:9:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -397,6 +404,7 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
@@ -413,14 +421,14 @@
                       StructField {
                         fieldName = CName "a",
                         fieldOffset = 0,
+                        fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
                         "examples/forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:9:8",
-                    structBitfields = []}}
+                    "examples/forward_declaration.h:9:8"}}
               (Add 1)
               (Seq
                 [

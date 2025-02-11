@@ -27,6 +27,7 @@ import Data.Void qualified
 import Foreign qualified
 import Foreign.C qualified
 import GHC.Float qualified
+import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
@@ -176,6 +177,8 @@ resolveGlobal = \case
     IO_type              -> importU ''IO
     HasFlexibleArrayMember_class -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
+    Bitfield_peekBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
+    Bitfield_pokeBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
 
     Bits_class       -> importQ ''Data.Bits.Bits
     Bounded_class    -> importU ''Bounded
