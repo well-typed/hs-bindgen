@@ -104,6 +104,7 @@ library
       HsBindgen.Imports
       HsBindgen.Orphans
       HsBindgen.Pretty.Orphans
+      HsBindgen.Ref
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec

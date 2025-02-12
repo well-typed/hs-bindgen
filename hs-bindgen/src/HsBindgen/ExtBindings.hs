@@ -1,15 +1,13 @@
 module HsBindgen.ExtBindings (
     -- * Types
-    CNameSpelling
-  , CHeaderPath
-  , HsPackageName
-  , HsModuleName
-  , HsIdent
-  , ExtIdentifier(..)
+    ExtIdentifier(..)
+  , UnresolvedExtBindings(..)
   , ExtBindings(..)
     -- * Configuration Files
   , loadJson
   , loadYaml
+    -- * Resolution
+  , resolveExtBindings
   ) where
 
 import Data.Aeson qualified as Aeson
@@ -20,54 +18,74 @@ import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
 
 import HsBindgen.Imports
+import HsBindgen.Ref
 
 {-------------------------------------------------------------------------------
   Types
 -------------------------------------------------------------------------------}
 
--- | Spelling of a C name
---
--- A value must specify @struct@ or @union@ when required.
---
--- Examples: @int8_t@, @struct tm@
-type CNameSpelling = Text
-
--- | C header path
---
--- A value must be specified as used in the C source code (relative to an
--- include directory).
---
--- Example: @time.h@
-type CHeaderPath = Text
-
--- | Haskell package name
---
--- Example: @hs-bindgen-runtime@
-type HsPackageName = Text
-
--- | Haskell module name
---
--- Example: @HsBindgen.Runtime.LibC@
-type HsModuleName = Text
-
--- | Haskell identifier
---
--- Example @CTm@
-type HsIdent = Text
-
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
-      extIdentifierPackage :: HsPackageName
-    , extIdentifierModule  :: HsModuleName
-    , extIdentifierIdent   :: HsIdent
+      extIdentifierPackage    :: HsPackageName
+    , extIdentifierModule     :: HsModuleName
+    , extIdentifierIdentifier :: HsIdentifier
     }
   deriving (Eq, Ord, Show)
 
--- | External bindings
-newtype ExtBindings = ExtBindings {
-      extBindingsTypes :: Map CNameSpelling ([CHeaderPath], ExtIdentifier)
+-- | External bindings with unresolved header paths
+--
+-- Header paths are relative, as specified in the configuration file.
+newtype UnresolvedExtBindings = UnresolvedExtBindings {
+      unresolvedExtBindingsTypes ::
+        Map CNameSpelling (Set CHeaderRelPath, ExtIdentifier)
     }
   deriving Show
+
+-- | External bindings
+--
+-- Header paths are absolute and confirmed to exist.
+newtype ExtBindings = ExtBindings {
+      extBindingsTypes :: Map CNameSpelling (Set CHeaderAbsPath, ExtIdentifier)
+    }
+  deriving Show
+
+{-------------------------------------------------------------------------------
+  Configuration Files
+-------------------------------------------------------------------------------}
+
+-- | Load 'ExtBindings' from a JSON file
+--
+-- This function fails on error.
+loadJson :: FilePath -> IO UnresolvedExtBindings
+loadJson path =
+        failOnError' path . (mkUnresolvedExtBindings =<<)
+    =<< Aeson.eitherDecodeFileStrict' path
+
+-- | Load 'ExtBindings' from a YAML file
+--
+-- This function fails on error.
+loadYaml :: FilePath -> IO UnresolvedExtBindings
+loadYaml path =
+        failOnError' path . (mkUnresolvedExtBindings =<<)
+    =<< decodeYamlStrict path
+
+{-------------------------------------------------------------------------------
+  Resolution
+-------------------------------------------------------------------------------}
+
+-- | Resolve external bindings header paths
+--
+-- This function fails on error.
+resolveExtBindings ::
+     [CIncludePathDir]
+  -> UnresolvedExtBindings
+  -> IO ExtBindings
+resolveExtBindings includePathDirs UnresolvedExtBindings{..} = do
+    headerMap <- resolveHeaders includePathDirs $
+      mconcat (fst <$> Map.elems unresolvedExtBindingsTypes)
+    let resolve'         = Set.map (headerMap Map.!)
+        extBindingsTypes = Map.map (first resolve') unresolvedExtBindingsTypes
+    return ExtBindings{..}
 
 {-------------------------------------------------------------------------------
   Configuration File Representation (Internal)
@@ -88,8 +106,8 @@ instance Aeson.FromJSON Config where
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
       mappingCname      :: CNameSpelling
-    , mappingHeaders    :: [CHeaderPath]
-    , mappingIdentifier :: HsIdent
+    , mappingHeaders    :: [CHeaderRelPath]
+    , mappingIdentifier :: HsIdentifier
     , mappingModule     :: HsModuleName
     , mappingPackage    :: HsPackageName
     }
@@ -102,26 +120,6 @@ instance Aeson.FromJSON Mapping where
       }
 
 {-------------------------------------------------------------------------------
-  Configuration Files
--------------------------------------------------------------------------------}
-
--- | Load 'ExtBindings' from a JSON file
---
--- This function fails on error.
-loadJson :: FilePath -> IO ExtBindings
-loadJson path =
-        failOnError path . (mkExtBindings =<<)
-    =<< Aeson.eitherDecodeFileStrict' path
-
--- | Load 'ExtBindings' from a YAML file
---
--- This function fails on error.
-loadYaml :: FilePath -> IO ExtBindings
-loadYaml path =
-        failOnError path . (mkExtBindings =<<)
-    =<< decodeYamlStrict path
-
-{-------------------------------------------------------------------------------
   Auxiliary Functions (Internal)
 -------------------------------------------------------------------------------}
 
@@ -132,6 +130,12 @@ stripPrefix prefix s = case List.stripPrefix prefix s of
     Just s' | not (null s') -> Aeson.camelTo2 '_' s'
     _otherwise  -> s
 
+-- | Fail on error, indicating the path
+failOnError' :: FilePath -> Either String a -> IO a
+failOnError' path = \case
+    Right x  -> return x
+    Left err -> fail $ "error loading " ++ path ++ ": " ++ err
+
 -- | Decode a YAML file, treating warnings as errors
 decodeYamlStrict :: Aeson.FromJSON a => FilePath -> IO (Either String a)
 decodeYamlStrict path = do
@@ -141,16 +145,16 @@ decodeYamlStrict path = do
       Right (warnings, _x) -> Left $ show warnings
       Left err             -> Left $ show err
 
--- | Create 'ExtBindings' from a 'Config'
+-- | Create 'UnresolvedExtBindings' from a 'Config'
 --
 -- An error is returned if any invariants are violated.
-mkExtBindings :: Config -> Either String ExtBindings
-mkExtBindings Config{..} = do
-    extBindingsTypes <- handleDups "duplicate types cnames: " $
+mkUnresolvedExtBindings :: Config -> Either String UnresolvedExtBindings
+mkUnresolvedExtBindings Config{..} = do
+    unresolvedExtBindingsTypes <- handleDups "duplicate types cnames: " $
       foldr typesInsert (Set.empty, Map.empty) configTypes
-    return ExtBindings {..}
+    return UnresolvedExtBindings{..}
   where
-    handleDups :: String -> (Set CNameSpelling, a) -> Either String a
+    handleDups :: String -> (Set Text, a) -> Either String a
     handleDups prefix (dupSet, x)
       | Set.null dupSet = Right x
       | otherwise = Left $
@@ -158,24 +162,19 @@ mkExtBindings Config{..} = do
 
     typesInsert ::
          Mapping
-      -> (Set CNameSpelling, Map CNameSpelling ([CHeaderPath], ExtIdentifier))
-      -> (Set CNameSpelling, Map CNameSpelling ([CHeaderPath], ExtIdentifier))
+      -> (Set Text, Map CNameSpelling (Set CHeaderRelPath, ExtIdentifier))
+      -> (Set Text, Map CNameSpelling (Set CHeaderRelPath, ExtIdentifier))
     typesInsert Mapping{..} (dupSet, typesMap) =
       let extIdentifier = ExtIdentifier {
-              extIdentifierPackage = mappingPackage
-            , extIdentifierModule  = mappingModule
-            , extIdentifierIdent   = mappingIdentifier
+              extIdentifierPackage    = mappingPackage
+            , extIdentifierModule     = mappingModule
+            , extIdentifierIdentifier = mappingIdentifier
             }
-          v = (mappingHeaders, extIdentifier)
+          v = (Set.fromList mappingHeaders, extIdentifier)
+          dupSet' = Set.insert (getCNameSpelling mappingCname) dupSet
       in  case Map.insertLookupWithKey useNewValue mappingCname v typesMap of
-            (Nothing, typesMap') -> (dupSet,                         typesMap')
-            (Just{},  typesMap') -> (Set.insert mappingCname dupSet, typesMap')
+            (Nothing, typesMap') -> (dupSet,  typesMap')
+            (Just{},  typesMap') -> (dupSet', typesMap')
 
     useNewValue :: k -> a -> a -> a
     useNewValue _key new _old = new
-
--- | Fail on error, indicating the path
-failOnError :: FilePath -> Either String a -> IO a
-failOnError path = \case
-    Right x  -> return x
-    Left err -> fail $ "error loading " ++ path ++ ": " ++ err

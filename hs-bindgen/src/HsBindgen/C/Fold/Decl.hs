@@ -20,6 +20,7 @@ import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Ref
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
@@ -72,9 +73,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       Right CXCursor_InclusionDirective -> do
+        let header = CHeaderAbsPath $ getSourcePath (singleLocPath sloc)
         incHeader <- liftIO $
-          clang_getFileName =<< clang_getIncludedFile current
-        modify $ registerInclude (getSourcePath (singleLocPath sloc)) incHeader
+              fmap CHeaderAbsPath . clang_getFileName
+          =<< clang_getIncludedFile current
+        modify $ registerInclude header incHeader
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do

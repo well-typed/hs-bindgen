@@ -16,12 +16,12 @@ import Data.Set qualified as Set
 
 import Data.RevGraph (RevGraph)
 import Data.RevGraph qualified as RevGraph
-import HsBindgen.ExtBindings
-import HsBindgen.Imports
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.C.AST (CName, Type, Decl)
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Imports
+import HsBindgen.Ref
 
 {-------------------------------------------------------------------------------
   Definition
@@ -46,7 +46,7 @@ data DeclState = DeclState {
     -- | C header path graph
     --
     -- We create a DAG of C header paths with an edge for each @#include@.
-    , cHeaderPathGraph :: RevGraph CHeaderPath
+    , cHeaderPathGraph :: RevGraph CHeaderAbsPath
     }
 
 data TypeDecl
@@ -77,7 +77,7 @@ registerMacroType nm ty st = st{
       macroTypes = Map.insert nm ty (macroTypes st)
     }
 
-registerInclude :: CHeaderPath -> CHeaderPath -> DeclState -> DeclState
+registerInclude :: CHeaderAbsPath -> CHeaderAbsPath -> DeclState -> DeclState
 registerInclude header incHeader st = st{
       cHeaderPathGraph =
         RevGraph.insertEdge header incHeader (cHeaderPathGraph st)
