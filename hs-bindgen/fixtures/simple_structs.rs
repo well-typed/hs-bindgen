@@ -81,3 +81,39 @@ const _: () = {
     ["Offset of field: S6::a"][::std::mem::offset_of!(S6, a) - 0usize];
     ["Offset of field: S6::b"][::std::mem::offset_of!(S6, b) - 4usize];
 };
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _bindgen_ty_1 {
+    pub a: ::std::os::raw::c_char,
+    pub b: ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of _bindgen_ty_1"][::std::mem::size_of::<_bindgen_ty_1>() - 8usize];
+    ["Alignment of _bindgen_ty_1"][::std::mem::align_of::<_bindgen_ty_1>() - 4usize];
+    [
+        "Offset of field: _bindgen_ty_1::a",
+    ][::std::mem::offset_of!(_bindgen_ty_1, a) - 0usize];
+    [
+        "Offset of field: _bindgen_ty_1::b",
+    ][::std::mem::offset_of!(_bindgen_ty_1, b) - 4usize];
+};
+pub type S7a = *mut _bindgen_ty_1;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _bindgen_ty_2 {
+    pub a: ::std::os::raw::c_char,
+    pub b: ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of _bindgen_ty_2"][::std::mem::size_of::<_bindgen_ty_2>() - 8usize];
+    ["Alignment of _bindgen_ty_2"][::std::mem::align_of::<_bindgen_ty_2>() - 4usize];
+    [
+        "Offset of field: _bindgen_ty_2::a",
+    ][::std::mem::offset_of!(_bindgen_ty_2, a) - 0usize];
+    [
+        "Offset of field: _bindgen_ty_2::b",
+    ][::std::mem::offset_of!(_bindgen_ty_2, b) - 4usize];
+};
+pub type S7b = *mut *mut *mut _bindgen_ty_2;
