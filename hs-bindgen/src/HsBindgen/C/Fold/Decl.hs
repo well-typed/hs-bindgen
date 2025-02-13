@@ -73,9 +73,10 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       Right CXCursor_InclusionDirective -> do
-        let header = CHeaderAbsPath $ getSourcePath (singleLocPath sloc)
+        header <- mkCHeaderAbsPath $ getSourcePath (singleLocPath sloc)
         incHeader <- liftIO $
-              fmap CHeaderAbsPath . clang_getFileName
+              mkCHeaderAbsPath
+          =<< clang_getFileName
           =<< clang_getIncludedFile current
         modify $ registerInclude header incHeader
         return $ Continue Nothing

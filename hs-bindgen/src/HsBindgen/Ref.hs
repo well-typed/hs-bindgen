@@ -1,9 +1,15 @@
 module HsBindgen.Ref (
     -- * C References
     CNameSpelling(..)
-  , CHeaderRelPath(..)
-  , CHeaderAbsPath(..)
-  , CIncludePathDir(..)
+  , CIncludePathDir
+  , mkCIncludePathDir
+  , getCIncludePathDir
+  , CHeaderRelPath
+  , mkCHeaderRelPath
+  , getCHeaderRelPath
+  , CHeaderAbsPath
+  , mkCHeaderAbsPath
+  , getCHeaderAbsPath
   , resolveHeader
   , resolveHeaders
     -- * Haskell References
@@ -17,6 +23,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
+import System.FilePath qualified as FilePath
 
 import HsBindgen.Imports
 
@@ -35,24 +42,68 @@ import HsBindgen.Imports
 newtype CNameSpelling = CNameSpelling { getCNameSpelling :: Text }
   deriving newtype (Aeson.FromJSON, Eq, Ord, Show)
 
+-- | C include search path directory
+newtype CIncludePathDir = CIncludePathDir { getCIncludePathDir :: FilePath }
+  deriving newtype (Eq, Ord, Show)
+
+-- | Construct a 'CIncludePathDir'
+--
+-- This function fails if the path is not absolute.  It does /not/ check
+-- existence, readability, or if it points to a directory or not.
+mkCIncludePathDir :: MonadFail m => FilePath -> m CIncludePathDir
+mkCIncludePathDir path
+    | FilePath.isAbsolute path = return $ CIncludePathDir path
+    | otherwise = fail $ "relative include path directory: " ++ path
+
 -- | C header path (relative)
 --
 -- A value must be specified as used in the C source code (relative to an
 -- include directory).
 --
 -- Example: @time.h@
-newtype CHeaderRelPath = CHeaderRelPath { getCHeaderRelPath :: Text }
-  deriving newtype (Aeson.FromJSON, Eq, Ord, Show)
+newtype CHeaderRelPath = CHeaderRelPath Text
+  deriving newtype (Eq, Ord, Show)
+
+instance Aeson.FromJSON CHeaderRelPath where
+  parseJSON = Aeson.withText "CHeaderRelPath" mkCHeaderRelPath
+
+-- | Construct a 'CHeaderRelPath'
+--
+-- This funtion fails if the path is not relative.  It does /not/ check
+-- existence, readability, or if it points to a file or not.
+mkCHeaderRelPath :: MonadFail m => Text -> m CHeaderRelPath
+mkCHeaderRelPath t
+    | FilePath.isRelative path = return $ CHeaderRelPath t
+    | otherwise = fail $ "C header path not relative: " ++ path
+  where
+    path :: FilePath
+    path = Text.unpack t
+
+-- | Get the 'FilePath' representation of a 'CHeaderRelPath'
+getCHeaderRelPath :: CHeaderRelPath -> FilePath
+getCHeaderRelPath (CHeaderRelPath t) = Text.unpack t
 
 -- | C header path (absolute)
 --
 -- Example: @/usr/include/time.h@
-newtype CHeaderAbsPath = CHeaderAbsPath { getCHeaderAbsPath :: Text }
+newtype CHeaderAbsPath = CHeaderAbsPath Text
   deriving newtype (Eq, Ord, Show)
 
--- | C include search path directory
-newtype CIncludePathDir = CIncludePathDir { getCIncludePathDir :: FilePath }
-  deriving newtype (Eq, Ord, Show)
+-- | Construct a 'CHeaderAbsPath'
+--
+-- This function fails if the path is not absolute.  It does /not/ check
+-- existence, readability, or if it points to a file or not.
+mkCHeaderAbsPath :: MonadFail m => Text -> m CHeaderAbsPath
+mkCHeaderAbsPath t
+    | FilePath.isAbsolute path = return $ CHeaderAbsPath t
+    | otherwise = fail $ "C header path is not absolute: " ++ path
+  where
+    path :: FilePath
+    path = Text.unpack t
+
+-- | Get the 'FilePath' representation of a 'CHeaderAbsPath'
+getCHeaderAbsPath :: CHeaderAbsPath -> FilePath
+getCHeaderAbsPath (CHeaderAbsPath t) = Text.unpack t
 
 -- | Resolve a single C header
 --
@@ -79,7 +130,7 @@ resolveHeaders includeDirs relPathSet =
 
 resolveHeader' :: [FilePath] -> CHeaderRelPath -> IO CHeaderAbsPath
 resolveHeader' includeDirs relPath = do
-    let relPath' = Text.unpack $ getCHeaderRelPath relPath
+    let relPath' = getCHeaderRelPath relPath
     mAbsPath <- Dir.findFile includeDirs relPath'
     case mAbsPath of
       Just absPath -> return $ CHeaderAbsPath (Text.pack absPath)
