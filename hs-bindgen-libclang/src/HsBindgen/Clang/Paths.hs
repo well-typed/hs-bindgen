@@ -15,6 +15,7 @@ module HsBindgen.Clang.Paths (
   ) where
 
 import Control.Monad (forM, unless)
+import Data.String (IsString(fromString))
 import Data.Text (Text)
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
@@ -30,6 +31,9 @@ import System.FilePath qualified as FilePath
 -- relative to the current working directory.
 newtype CIncludePathDir = CIncludePathDir { getCIncludePathDir :: FilePath }
   deriving newtype (Eq, Ord, Show)
+
+instance IsString CIncludePathDir where
+  fromString = CIncludePathDir
 
 -- | C include search path directory (absolute)
 newtype CIncludeAbsPathDir = CIncludeAbsPathDir {
