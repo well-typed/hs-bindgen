@@ -20,8 +20,8 @@ import HsBindgen.C.AST (CName, Type, Decl)
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Imports
-import HsBindgen.Ref
 
 {-------------------------------------------------------------------------------
   Definition

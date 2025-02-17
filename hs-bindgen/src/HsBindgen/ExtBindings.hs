@@ -1,6 +1,9 @@
 module HsBindgen.ExtBindings (
     -- * Types
-    ExtIdentifier(..)
+    HsPackageName(..)
+  , HsModuleName(..)
+  , HsIdentifier(..)
+  , ExtIdentifier(..)
   , UnresolvedExtBindings(..)
   , ExtBindings(..)
     -- * Configuration Files
@@ -17,12 +20,35 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
 
+import HsBindgen.Clang.CNameSpelling
+import HsBindgen.Clang.Paths
 import HsBindgen.Imports
-import HsBindgen.Ref
+import HsBindgen.Orphans ()
 
 {-------------------------------------------------------------------------------
   Types
 -------------------------------------------------------------------------------}
+
+-- | Haskell package name
+--
+-- Example: @hs-bindgen-runtime@
+newtype HsPackageName = HsPackageName { getHsPackageName :: Text }
+  deriving newtype (Aeson.FromJSON, Eq, Ord, Show)
+
+-- | Haskell module name
+--
+-- Example: @HsBindgen.Runtime.LibC@
+newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
+  deriving newtype (Aeson.FromJSON, Eq, Ord, Show)
+
+-- | Haskell identifier
+--
+-- Example: @CTm@
+--
+-- This type is different from 'HsBindgen.Hs.AST.HsName' in that it does not
+-- include a 'HsBindgen.Hs.AST.Namespace'.
+newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
+  deriving newtype (Aeson.FromJSON, Eq, Ord, Show)
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
@@ -81,8 +107,9 @@ resolveExtBindings ::
   -> UnresolvedExtBindings
   -> IO ExtBindings
 resolveExtBindings includePathDirs UnresolvedExtBindings{..} = do
-    headerMap <- resolveHeaders includePathDirs $
-      mconcat (fst <$> Map.elems unresolvedExtBindingsTypes)
+    let relPathSet = mconcat (fst <$> Map.elems unresolvedExtBindingsTypes)
+    headerMap <- fmap Map.fromList . forM (Set.toList relPathSet) $ \relPath ->
+      (relPath,) <$> resolveHeader includePathDirs relPath
     let resolve'         = Set.map (headerMap Map.!)
         extBindingsTypes = Map.map (first resolve') unresolvedExtBindingsTypes
     return ExtBindings{..}

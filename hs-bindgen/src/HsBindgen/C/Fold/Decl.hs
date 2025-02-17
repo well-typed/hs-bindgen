@@ -7,7 +7,9 @@ module HsBindgen.C.Fold.Decl (
 
 import Control.Monad.State
 import Data.Text qualified as Text
+import System.Directory qualified as Dir
 import System.FilePath (takeFileName)
+import System.FilePath qualified as FilePath
 
 import HsBindgen.Imports
 import HsBindgen.Eff
@@ -20,7 +22,7 @@ import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Ref
+import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
@@ -73,7 +75,19 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       Right CXCursor_InclusionDirective -> do
-        header <- mkCHeaderAbsPath $ getSourcePath (singleLocPath sloc)
+        -- TODO Remove following temporary hack
+        -- Clang should be passed absolute paths to user-specified headers so
+        -- that it consistently reports absolute paths.  Until this is done,
+        -- this temporary hack maintains the current semantics and avoids test
+        -- failures.
+        header <- liftIO $ do
+          let fp = Text.unpack $ getSourcePath (singleLocPath sloc)
+          absFP <- if FilePath.isAbsolute fp
+            then return fp
+            else (FilePath.</> fp) <$> Dir.getCurrentDirectory
+          mkCHeaderAbsPath $ Text.pack absFP
+        -- TODO Uncomment following line when temporary hack removed
+        -- header <- mkCHeaderAbsPath $ getSourcePath (singleLocPath sloc)
         incHeader <- liftIO $
               mkCHeaderAbsPath
           =<< clang_getFileName

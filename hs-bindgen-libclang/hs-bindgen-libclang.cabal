@@ -56,6 +56,8 @@ library
       AllowAmbiguousTypes
   exposed-modules:
       HsBindgen.Clang.Args
+      HsBindgen.Clang.CNameSpelling
+      HsBindgen.Clang.Paths
       HsBindgen.Clang.Version
 
       HsBindgen.Clang.LowLevel.Core
@@ -88,6 +90,8 @@ library
     , hs-bindgen-runtime
   build-depends:
       -- External dependencies
+    , directory     >= 1.3.6.2 && < 1.4
+    , filepath      >= 1.4     && < 1.6
     , mtl           >= 2.2     && < 2.4
     , pretty-show   >= 1.10    && < 1.11
     , text          >= 1.2     && < 2.2
