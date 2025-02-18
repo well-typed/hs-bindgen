@@ -906,11 +906,12 @@
         Struct {
           structDeclPath = DeclPathStruct
             (DeclNameTag (CName "ex4_even"))
-            (DeclPathField
-              (CName "next")
-              (DeclPathStruct
-                (DeclNameTag (CName "ex4_odd"))
-                DeclPathTop)),
+            (DeclPathPtr
+              (DeclPathField
+                (CName "next")
+                (DeclPathStruct
+                  (DeclNameTag (CName "ex4_odd"))
+                  DeclPathTop))),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -991,11 +992,12 @@
           Struct {
             structDeclPath = DeclPathStruct
               (DeclNameTag (CName "ex4_even"))
-              (DeclPathField
-                (CName "next")
-                (DeclPathStruct
-                  (DeclNameTag (CName "ex4_odd"))
-                  DeclPathTop)),
+              (DeclPathPtr
+                (DeclPathField
+                  (CName "next")
+                  (DeclPathStruct
+                    (DeclNameTag (CName "ex4_odd"))
+                    DeclPathTop))),
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -1081,11 +1083,12 @@
                   Struct {
                     structDeclPath = DeclPathStruct
                       (DeclNameTag (CName "ex4_even"))
-                      (DeclPathField
-                        (CName "next")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "ex4_odd"))
-                          DeclPathTop)),
+                      (DeclPathPtr
+                        (DeclPathField
+                          (CName "next")
+                          (DeclPathStruct
+                            (DeclNameTag (CName "ex4_odd"))
+                            DeclPathTop))),
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1173,11 +1176,12 @@
                   Struct {
                     structDeclPath = DeclPathStruct
                       (DeclNameTag (CName "ex4_even"))
-                      (DeclPathField
-                        (CName "next")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "ex4_odd"))
-                          DeclPathTop)),
+                      (DeclPathPtr
+                        (DeclPathField
+                          (CName "next")
+                          (DeclPathStruct
+                            (DeclNameTag (CName "ex4_odd"))
+                            DeclPathTop))),
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1269,11 +1273,12 @@
                 (TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "ex4_even"))
-                    (DeclPathField
-                      (CName "next")
-                      (DeclPathStruct
-                        (DeclNameTag (CName "ex4_odd"))
-                        DeclPathTop)))),
+                    (DeclPathPtr
+                      (DeclPathField
+                        (CName "next")
+                        (DeclPathStruct
+                          (DeclNameTag (CName "ex4_odd"))
+                          DeclPathTop))))),
               fieldSourceLoc =
               "examples/nested_types.h:27:8"}}],
       structOrigin =
@@ -1302,11 +1307,12 @@
                 (TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "ex4_even"))
-                    (DeclPathField
-                      (CName "next")
-                      (DeclPathStruct
-                        (DeclNameTag (CName "ex4_odd"))
-                        DeclPathTop)))),
+                    (DeclPathPtr
+                      (DeclPathField
+                        (CName "next")
+                        (DeclPathStruct
+                          (DeclNameTag (CName "ex4_odd"))
+                          DeclPathTop))))),
               fieldSourceLoc =
               "examples/nested_types.h:27:8"}],
           structFlam = Nothing,
@@ -1358,11 +1364,12 @@
                   (TypeStruct
                     (DeclPathStruct
                       (DeclNameTag (CName "ex4_even"))
-                      (DeclPathField
-                        (CName "next")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "ex4_odd"))
-                          DeclPathTop)))),
+                      (DeclPathPtr
+                        (DeclPathField
+                          (CName "next")
+                          (DeclPathStruct
+                            (DeclNameTag (CName "ex4_odd"))
+                            DeclPathTop))))),
                 fieldSourceLoc =
                 "examples/nested_types.h:27:8"}}],
         structOrigin =
@@ -1391,11 +1398,12 @@
                   (TypeStruct
                     (DeclPathStruct
                       (DeclNameTag (CName "ex4_even"))
-                      (DeclPathField
-                        (CName "next")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "ex4_odd"))
-                          DeclPathTop)))),
+                      (DeclPathPtr
+                        (DeclPathField
+                          (CName "next")
+                          (DeclPathStruct
+                            (DeclNameTag (CName "ex4_odd"))
+                            DeclPathTop))))),
                 fieldSourceLoc =
                 "examples/nested_types.h:27:8"}],
             structFlam = Nothing,
@@ -1452,11 +1460,12 @@
                           (TypeStruct
                             (DeclPathStruct
                               (DeclNameTag (CName "ex4_even"))
-                              (DeclPathField
-                                (CName "next")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4_odd"))
-                                  DeclPathTop)))),
+                              (DeclPathPtr
+                                (DeclPathField
+                                  (CName "next")
+                                  (DeclPathStruct
+                                    (DeclNameTag (CName "ex4_odd"))
+                                    DeclPathTop))))),
                         fieldSourceLoc =
                         "examples/nested_types.h:27:8"}}],
                 structOrigin =
@@ -1485,11 +1494,12 @@
                           (TypeStruct
                             (DeclPathStruct
                               (DeclNameTag (CName "ex4_even"))
-                              (DeclPathField
-                                (CName "next")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4_odd"))
-                                  DeclPathTop)))),
+                              (DeclPathPtr
+                                (DeclPathField
+                                  (CName "next")
+                                  (DeclPathStruct
+                                    (DeclNameTag (CName "ex4_odd"))
+                                    DeclPathTop))))),
                         fieldSourceLoc =
                         "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,
@@ -1548,11 +1558,12 @@
                           (TypeStruct
                             (DeclPathStruct
                               (DeclNameTag (CName "ex4_even"))
-                              (DeclPathField
-                                (CName "next")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4_odd"))
-                                  DeclPathTop)))),
+                              (DeclPathPtr
+                                (DeclPathField
+                                  (CName "next")
+                                  (DeclPathStruct
+                                    (DeclNameTag (CName "ex4_odd"))
+                                    DeclPathTop))))),
                         fieldSourceLoc =
                         "examples/nested_types.h:27:8"}}],
                 structOrigin =
@@ -1581,11 +1592,12 @@
                           (TypeStruct
                             (DeclPathStruct
                               (DeclNameTag (CName "ex4_even"))
-                              (DeclPathField
-                                (CName "next")
-                                (DeclPathStruct
-                                  (DeclNameTag (CName "ex4_odd"))
-                                  DeclPathTop)))),
+                              (DeclPathPtr
+                                (DeclPathField
+                                  (CName "next")
+                                  (DeclPathStruct
+                                    (DeclNameTag (CName "ex4_odd"))
+                                    DeclPathTop))))),
                         fieldSourceLoc =
                         "examples/nested_types.h:27:8"}],
                     structFlam = Nothing,

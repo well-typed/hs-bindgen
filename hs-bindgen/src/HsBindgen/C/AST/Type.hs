@@ -247,7 +247,7 @@ data DeclPath
     | DeclPathStruct DeclName DeclPath
     -- TODO | DeclPathUnion (Maybe CName) DeclPath
     | DeclPathField CName DeclPath
-    -- TODO | DeclPathPtr Path
+    | DeclPathPtr DeclPath
     -- TODO | DeclPathConstArray Natural Path
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)

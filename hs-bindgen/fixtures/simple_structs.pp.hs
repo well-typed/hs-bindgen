@@ -190,3 +190,73 @@ instance F.Storable S6 where
 deriving stock instance Show S6
 
 deriving stock instance Eq S6
+
+data S7a_Deref = S7a_Deref
+  { s7a_Deref_a :: FC.CChar
+  , s7a_Deref_b :: FC.CInt
+  }
+
+instance F.Storable S7a_Deref where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure S7a_Deref
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          S7a_Deref s7a_Deref_a2 s7a_Deref_b3 ->
+               F.pokeByteOff ptr0 (0 :: Int) s7a_Deref_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) s7a_Deref_b3
+
+deriving stock instance Show S7a_Deref
+
+deriving stock instance Eq S7a_Deref
+
+newtype S7a = S7a
+  { unS7a :: F.Ptr S7a_Deref
+  }
+
+deriving newtype instance F.Storable S7a
+
+data S7b_Deref_Deref_Deref = S7b_Deref_Deref_Deref
+  { s7b_Deref_Deref_Deref_a :: FC.CChar
+  , s7b_Deref_Deref_Deref_b :: FC.CInt
+  }
+
+instance F.Storable S7b_Deref_Deref_Deref where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure S7b_Deref_Deref_Deref
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          S7b_Deref_Deref_Deref s7b_Deref_Deref_Deref_a2 s7b_Deref_Deref_Deref_b3 ->
+               F.pokeByteOff ptr0 (0 :: Int) s7b_Deref_Deref_Deref_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) s7b_Deref_Deref_Deref_b3
+
+deriving stock instance Show S7b_Deref_Deref_Deref
+
+deriving stock instance Eq S7b_Deref_Deref_Deref
+
+newtype S7b = S7b
+  { unS7b :: F.Ptr (F.Ptr (F.Ptr S7b_Deref_Deref_Deref))
+  }
+
+deriving newtype instance F.Storable S7b

@@ -61,3 +61,31 @@ instance Storable S6
                                         s6_b_4 -> pokeByteOff ptr_1 (0 :: Int) s6_a_3 >> pokeByteOff ptr_1 (4 :: Int) s6_b_4}}
 deriving stock instance Show S6
 deriving stock instance Eq S6
+data S7a_Deref
+    = S7a_Deref {s7a_Deref_a :: CChar, s7a_Deref_b :: CInt}
+instance Storable S7a_Deref
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure S7a_Deref <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {S7a_Deref s7a_Deref_a_3
+                                               s7a_Deref_b_4 -> pokeByteOff ptr_1 (0 :: Int) s7a_Deref_a_3 >> pokeByteOff ptr_1 (4 :: Int) s7a_Deref_b_4}}
+deriving stock instance Show S7a_Deref
+deriving stock instance Eq S7a_Deref
+newtype S7a = S7a {unS7a :: (Ptr S7a_Deref)}
+deriving newtype instance Storable S7a
+data S7b_Deref_Deref_Deref
+    = S7b_Deref_Deref_Deref {s7b_Deref_Deref_Deref_a :: CChar,
+                             s7b_Deref_Deref_Deref_b :: CInt}
+instance Storable S7b_Deref_Deref_Deref
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure S7b_Deref_Deref_Deref <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {S7b_Deref_Deref_Deref s7b_Deref_Deref_Deref_a_3
+                                                           s7b_Deref_Deref_Deref_b_4 -> pokeByteOff ptr_1 (0 :: Int) s7b_Deref_Deref_Deref_a_3 >> pokeByteOff ptr_1 (4 :: Int) s7b_Deref_Deref_Deref_b_4}}
+deriving stock instance Show S7b_Deref_Deref_Deref
+deriving stock instance Eq S7b_Deref_Deref_Deref
+newtype S7b
+    = S7b {unS7b :: (Ptr (Ptr (Ptr S7b_Deref_Deref_Deref)))}
+deriving newtype instance Storable S7b

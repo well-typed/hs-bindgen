@@ -125,7 +125,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         sloc <- liftIO $
           HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
 
-        use <- processTypeDeclRec DeclPathTop unit ty'
+        use <- processTypeDeclRec (DeclPathStruct (DeclNameTypedef tag) DeclPathTop) unit ty'
 
         -- we could check whether typedef has a transparent tag,
         -- like in case of `typedef struct foo { ..} foo;`
@@ -268,8 +268,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
     Right CXType_Pointer -> do
         pointee <- liftIO $ clang_getPointeeType ty
-        -- TOOD: think about what path should be
-        pointee' <- processTypeDeclRec path unit pointee
+        pointee' <- processTypeDeclRec (DeclPathPtr path) unit pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do

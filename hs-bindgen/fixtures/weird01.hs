@@ -22,7 +22,7 @@
                 (TypeStruct
                   (DeclPathStruct
                     (DeclNameTag (CName "bar"))
-                    DeclPathTop))]
+                    (DeclPathPtr DeclPathTop)))]
             TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
@@ -265,7 +265,7 @@
         Struct {
           structDeclPath = DeclPathStruct
             (DeclNameTag (CName "bar"))
-            DeclPathTop,
+            (DeclPathPtr DeclPathTop),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -311,7 +311,7 @@
           Struct {
             structDeclPath = DeclPathStruct
               (DeclNameTag (CName "bar"))
-              DeclPathTop,
+              (DeclPathPtr DeclPathTop),
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -362,7 +362,7 @@
                   Struct {
                     structDeclPath = DeclPathStruct
                       (DeclNameTag (CName "bar"))
-                      DeclPathTop,
+                      (DeclPathPtr DeclPathTop),
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -413,7 +413,7 @@
                   Struct {
                     structDeclPath = DeclPathStruct
                       (DeclNameTag (CName "bar"))
-                      DeclPathTop,
+                      (DeclPathPtr DeclPathTop),
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [

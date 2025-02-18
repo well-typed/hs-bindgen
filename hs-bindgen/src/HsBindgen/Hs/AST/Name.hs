@@ -316,6 +316,7 @@ translateDeclPath
         DeclNameNone         -> Nothing
         DeclNameTag name     -> Just name
         DeclNameTypedef name -> Just name
+      DeclPathPtr path -> getCName' path
       DeclPathField{} -> Nothing
 
 -- | Default 'DeclPath' translation
@@ -330,6 +331,7 @@ getDeclPathParts = aux
         DeclNameTag n     -> [n]
         DeclNameTypedef n -> [n]
       DeclPathField n path -> aux path ++ [n]
+      DeclPathPtr path -> aux path ++ ["Deref"]
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible

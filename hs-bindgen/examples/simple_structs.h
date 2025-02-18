@@ -30,3 +30,6 @@ typedef struct S5 {
 
 struct S6 { char a; int b; };
 typedef struct S6 S6;
+
+typedef struct { char a; int b; } *S7a;
+typedef struct { char a; int b; } ***S7b;
