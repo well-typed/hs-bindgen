@@ -13,6 +13,8 @@ import Control.Arrow
   ( first )
 import Data.List
   ( isPrefixOf )
+import Data.String
+  ( IsString(fromString) )
 import Control.Monad
   ( when )
 
@@ -112,15 +114,19 @@ main = do
       clangArgs =
         case platformOS buildPlatform of
           Windows -> clangArgs0
+              -- TODO query default system include path
+              { Clang.clangSystemIncludePathDirs =
+                  [ fromString "C:/tools/ghc-9.4.8/mingw/lib/clang/14.0.6/include"
+                  ]
+              }
           Posix ->
             clangArgs0
               { Clang.clangTarget =
                   Just (Clang.Target_Linux_X86_64, Clang.TargetEnvDefault)
-              , Clang.clangOtherArgs =
-                  [ "-nostdinc" ]
-                  ++ [ "-isystem" ++ (hsBindgenDir </> "musl-include/x86_64")
-                     | hsBindgenDir <- maybeToList mbHsBindgenDir
-                     ]
+              , Clang.clangSystemIncludePathDirs =
+                  [ fromString (hsBindgenDir </> "musl-include/x86_64")
+                  | hsBindgenDir <- maybeToList mbHsBindgenDir
+                  ]
               }
   --buildTargetTriple <- queryClangBuildTargetTriple
 
