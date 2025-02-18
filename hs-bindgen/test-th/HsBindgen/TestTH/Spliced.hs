@@ -1,16 +1,21 @@
 -- {-# OPTIONS_GHC -ddump-splices #-}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module HsBindgen.TestTH.Spliced where
 
-import Language.Haskell.TH (runIO)
 import HsBindgen.Lib
-import Misc
 import System.FilePath ((</>))
 import Foreign
 import Foreign.C.Types
 
-$(runIO (findPackageDirectory "hs-bindgen") >>= \dir -> templateHaskell (dir </> "examples" </> "test-th-01.h"))
+#ifdef MIN_VERSION_th_compat
+import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
+#else
+import Language.Haskell.TH.Syntax (getPackageRoot)
+#endif
+
+$(getPackageRoot >>= \dir -> templateHaskell (dir </> "examples" </> "test-th-01.h"))
 
 -- usage
 
