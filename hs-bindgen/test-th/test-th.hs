@@ -1,16 +1,18 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE ImportQualifiedPost #-}
 module Main (main) where
 
 import Test.Tasty (testGroup, defaultMain)
 import Test.Tasty.HUnit (testCase, (@?=))
 import HsBindgen.Runtime.ConstantArray qualified as CA
-import Foreign (Storable (..))
+import Foreign (Storable (..), Ptr)
 import Foreign.Marshal.Alloc (alloca)
+import Foreign.C.Types (CLong)
 
-import HsBindgen.TestTH.Spliced
-
+import Test01
 
 main :: IO ()
-main = defaultMain $ testGroup "test-th"
+main = defaultMain $ testGroup CURRENT_COMPONENT_ID
     [ testCase "constants" $ do
         sizeOf (undefined :: MyStruct) @?= 8
         alignment (undefined :: MyStruct) @?= 4
@@ -37,3 +39,17 @@ main = defaultMain $ testGroup "test-th"
         res <- my_fma 2 3 5
         res @?= 11
     ]
+
+-- testing usage, e.g. that instances are present.
+
+val :: MyStruct
+val = MyStruct
+    { myStruct_field1 = 0
+    , myStruct_field2 = 1
+    }
+
+_pokeVal :: Ptr MyStruct -> IO ()
+_pokeVal ptr = poke ptr val
+
+_myPlus :: CLong -> CLong -> CLong
+_myPlus x y = pLUS x y
