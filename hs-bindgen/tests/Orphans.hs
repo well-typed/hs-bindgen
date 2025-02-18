@@ -101,12 +101,10 @@ instance ToExpr C.ReparseError where
 
       -- syntax: "<PATH:RANGE>"
       normalizePathsQB :: String -> String
-      normalizePathsQB s = case span (/= ':') s of
-        (path, s'@(':':_)) -> case span (/= '>') s' of
-          (sL, '>':'"':sR) ->
-            '"' : '<' : FilePath.takeFileName path ++ sL
-              ++ '>' : '"' : normalizePaths sR
-          _otherwise -> '"' : '<' : s -- unexpected
+      normalizePathsQB s = case span (/= '>') s of
+        (pathAndRange, '>':'"':sR) ->
+          '"' : '<' : FilePath.takeFileName pathAndRange
+            ++ '>' : '"' : normalizePaths sR
         _otherwise -> '"' : '<' : s -- unexpected
 
 instance ToExpr C.TcMacroError where
