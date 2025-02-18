@@ -79,7 +79,9 @@ module HsBindgen.Lib (
   ) where
 
 import Language.Haskell.TH qualified as TH
+import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 import Text.Show.Pretty qualified as Pretty
+import System.Directory (canonicalizePath)
 
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
@@ -246,10 +248,15 @@ genTests
 
 templateHaskell :: FilePath -> TH.Q [TH.Dec]
 templateHaskell fp = do
-    cheader <- TH.runIO $
-      withTranslationUnit nullTracer defaultClangArgs fp $
+    (cfp, cheader) <- TH.runIO $ do
+      cfp <- canonicalizePath fp
+      cheader <- withTranslationUnit nullTracer defaultClangArgs fp $
         parseCHeader nullTracer SelectFromMainFile
+      return (cfp, cheader)
+
+    TH.addDependentFile cfp
     genTH fp LowLevel.defaultTranslationOpts cheader
+
 
 preprocessor :: FilePath -> IO String
 preprocessor fp = do
