@@ -33,7 +33,6 @@ module HsBindgen.Runtime.LibC (
   , CChar32T(..)
 
     -- * Localization Types
-  , CLconv(..)
 
     -- * Time Types
     -- $TimeTypes
@@ -49,7 +48,6 @@ module HsBindgen.Runtime.LibC (
 import Data.Bits (Bits, FiniteBits)
 import Data.Ix (Ix)
 import Data.Word (Word16, Word32)
-import Foreign.C.String (CString)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
 import Foreign.Storable (Storable)
@@ -436,140 +434,7 @@ newtype CChar32T = CChar32T Word32
   Localization Types
 -------------------------------------------------------------------------------}
 
--- | C @struct lconv@ structure
---
--- @struct lconv@ holds formatting information for numeric values, both monetary
--- and non-monetary.  Note that fields starting with @int_p@ and @int_n@ are
--- available from C99.  It is defined in the @locale.h@ header file.
-data CLconv = CLconv {
-      -- | Decimal-point separator used for non-monetary quantities
-      cLconv_decimal_point      :: CString
-    , -- | Separators used to delimit groups of digits to the left of the
-      -- decimal point for non-monetary quantities
-      cLconv_thousands_sep      :: CString
-    , -- | Specifies digits that form each of the groups to be separated by
-      -- @thousands_sep@ separator for non-monetary quantities
-      cLconv_grouping           :: CString
-    , -- | ISO-4217 currency symbol (example: @USD@)
-      cLconv_int_curr_symbol    :: CString
-    , -- | Local currency symbol (example: @$@)
-      cLconv_currency_symbol    :: CString
-    , -- | Decimal-point separator used for monetary quantities
-      cLconv_mon_decimal_point  :: CString
-    , -- | Separators used to delimit groups of digits to the left of the
-      -- decimal point for monetary quantities
-      cLconv_mon_thousands_sep  :: CString
-    , -- | Specifies digits that form each of the groups to be separated by
-      -- @mon_thousands_sep@ separator for monetary quantities
-      cLconv_mon_grouping       :: CString
-    , -- | Sign to be used for nonnegative (zero or positive) monetary
-      -- quantities
-      cLconv_positive_sign      :: CString
-    , -- | Sign to be used for negative monetary quantities
-      cLconv_negative_sign      :: CString
-    , -- | Number of fractional digits to the right of the decimal point for
-      -- monetary quantities in the international format
-      cLconv_int_frac_digits    :: C.CChar
-    , -- | Number of fractional digits to the right of the decimal point for
-      -- monetary quantities in the local format
-      cLconv_frac_digits        :: C.CChar
-    , -- | Currency symbol should precede nonnegative (positive or zero)
-      -- monetary quantities? (@1@: yes; @0@: no)
-      cLconv_p_cs_precedes      :: C.CChar
-    , -- | Space should appear between the currency symbol and nonnegative
-      -- (positive or zero) monetary quantities? (@1@: yes; @0@: no)
-      cLconv_p_sep_by_space     :: C.CChar
-    , -- | Currency symbol should precede negative monetary quantities?
-      -- (@1@: yes; @0@: no)
-      cLconv_n_cs_precedes      :: C.CChar
-    , -- | Space should appear between the currency symbol and negative
-      -- monetary quantities? (@1@: yes; @0@: no)
-      cLconv_n_sep_by_space     :: C.CChar
-    , -- | Position of the sign for nonnegative (positive or zero) monetary
-      -- quantities
-      cLconv_p_sign_posn        :: C.CChar
-    , -- | Position of the sign for negative monetary quantities
-      cLconv_n_sign_posn        :: C.CChar
-    , -- | Same as @p_cs_precedes@ but for international format, available since
-      -- C99
-      cLconv_int_p_cs_precedes  :: C.CChar
-    , -- | Same as @p_sep_by_space@ but for international format, available
-      -- since C99
-      cLconv_int_p_sep_by_space :: C.CChar
-    , -- | Same as @n_cs_precedes@ but for international format, available since
-      -- C99
-      cLconv_int_n_cs_precedes  :: C.CChar
-    , -- | Same as @n_sep_by_space@ but for international format, available
-      -- since C99
-      cLconv_int_n_sep_by_space :: C.CChar
-    , -- | Same as @p_sign_posn@ but for international format, available since
-      -- C99
-      cLconv_int_p_sign_posn    :: C.CChar
-    , -- | Same as @n_sign_posn@ but for international format, available since
-      -- C99
-      cLconv_int_n_sign_posn    :: C.CChar
-    }
-  deriving Show
-  deriving Storable via EquivStorable CLconv
-
-instance HasStaticSize CLconv where
-  sizeOf    _ = #size      struct lconv
-  alignment _ = #alignment struct lconv
-
-instance Peekable CLconv where
-  peek ptr = do
-    cLconv_decimal_point      <- (#peek struct lconv, decimal_point)      ptr
-    cLconv_thousands_sep      <- (#peek struct lconv, thousands_sep)      ptr
-    cLconv_grouping           <- (#peek struct lconv, grouping)           ptr
-    cLconv_int_curr_symbol    <- (#peek struct lconv, int_curr_symbol)    ptr
-    cLconv_currency_symbol    <- (#peek struct lconv, currency_symbol)    ptr
-    cLconv_mon_decimal_point  <- (#peek struct lconv, mon_decimal_point)  ptr
-    cLconv_mon_thousands_sep  <- (#peek struct lconv, mon_thousands_sep)  ptr
-    cLconv_mon_grouping       <- (#peek struct lconv, mon_grouping)       ptr
-    cLconv_positive_sign      <- (#peek struct lconv, positive_sign)      ptr
-    cLconv_negative_sign      <- (#peek struct lconv, negative_sign)      ptr
-    cLconv_int_frac_digits    <- (#peek struct lconv, int_frac_digits)    ptr
-    cLconv_frac_digits        <- (#peek struct lconv, frac_digits)        ptr
-    cLconv_p_cs_precedes      <- (#peek struct lconv, p_cs_precedes)      ptr
-    cLconv_p_sep_by_space     <- (#peek struct lconv, p_sep_by_space)     ptr
-    cLconv_n_cs_precedes      <- (#peek struct lconv, n_cs_precedes)      ptr
-    cLconv_n_sep_by_space     <- (#peek struct lconv, n_sep_by_space)     ptr
-    cLconv_p_sign_posn        <- (#peek struct lconv, p_sign_posn)        ptr
-    cLconv_n_sign_posn        <- (#peek struct lconv, n_sign_posn)        ptr
-    cLconv_int_p_cs_precedes  <- (#peek struct lconv, int_p_cs_precedes)  ptr
-    cLconv_int_p_sep_by_space <- (#peek struct lconv, int_p_sep_by_space) ptr
-    cLconv_int_n_cs_precedes  <- (#peek struct lconv, int_n_cs_precedes)  ptr
-    cLconv_int_n_sep_by_space <- (#peek struct lconv, int_n_sep_by_space) ptr
-    cLconv_int_p_sign_posn    <- (#peek struct lconv, int_p_sign_posn)    ptr
-    cLconv_int_n_sign_posn    <- (#peek struct lconv, int_n_sign_posn)    ptr
-    return CLconv{..}
-
-instance Pokable CLconv where
-  poke ptr CLconv{..} = do
-    (#poke struct lconv, decimal_point)      ptr cLconv_decimal_point
-    (#poke struct lconv, thousands_sep)      ptr cLconv_thousands_sep
-    (#poke struct lconv, grouping)           ptr cLconv_grouping
-    (#poke struct lconv, int_curr_symbol)    ptr cLconv_int_curr_symbol
-    (#poke struct lconv, currency_symbol)    ptr cLconv_currency_symbol
-    (#poke struct lconv, mon_decimal_point)  ptr cLconv_mon_decimal_point
-    (#poke struct lconv, mon_thousands_sep)  ptr cLconv_mon_thousands_sep
-    (#poke struct lconv, mon_grouping)       ptr cLconv_mon_grouping
-    (#poke struct lconv, positive_sign)      ptr cLconv_positive_sign
-    (#poke struct lconv, negative_sign)      ptr cLconv_negative_sign
-    (#poke struct lconv, int_frac_digits)    ptr cLconv_int_frac_digits
-    (#poke struct lconv, frac_digits)        ptr cLconv_frac_digits
-    (#poke struct lconv, p_cs_precedes)      ptr cLconv_p_cs_precedes
-    (#poke struct lconv, p_sep_by_space)     ptr cLconv_p_sep_by_space
-    (#poke struct lconv, n_cs_precedes)      ptr cLconv_n_cs_precedes
-    (#poke struct lconv, n_sep_by_space)     ptr cLconv_n_sep_by_space
-    (#poke struct lconv, p_sign_posn)        ptr cLconv_p_sign_posn
-    (#poke struct lconv, n_sign_posn)        ptr cLconv_n_sign_posn
-    (#poke struct lconv, int_p_cs_precedes)  ptr cLconv_int_p_cs_precedes
-    (#poke struct lconv, int_p_sep_by_space) ptr cLconv_int_p_sep_by_space
-    (#poke struct lconv, int_n_cs_precedes)  ptr cLconv_int_n_cs_precedes
-    (#poke struct lconv, int_n_sep_by_space) ptr cLconv_int_n_sep_by_space
-    (#poke struct lconv, int_p_sign_posn)    ptr cLconv_int_p_sign_posn
-    (#poke struct lconv, int_n_sign_posn)    ptr cLconv_int_n_sign_posn
+-- TODO CLconv @struct lconv@ (fields added in C99, locale.h)
 
 {-------------------------------------------------------------------------------
   Time Types

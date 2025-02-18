@@ -75,12 +75,6 @@ types:
     identifier: CChar32T
     module: HsBindgen.Runtime.LibC
     package: hs-bindgen-runtime
-  - cname: struct lconv
-    headers:
-      - locale.h
-    identifier: CLconv
-    module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: struct tm
     headers:
       - time.h

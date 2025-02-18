@@ -28,8 +28,6 @@ let types
       , mkM "wctype_t"     "CWctypeT"  [ "wchar.h", "wctype.h" ]
       , mkM "char16_t"     "CChar16T"  [ "uchar.h" ]
       , mkM "char32_t"     "CChar32T"  [ "uchar.h" ]
-        -- Localization Types
-      , mkM "struct lconv" "CLconv"    [ "locale.h" ]
         -- Time Types
       , mkM "struct tm"    "CTm"       [ "time.h" ]
       ]
