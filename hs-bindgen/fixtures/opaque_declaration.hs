@@ -29,7 +29,7 @@
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/opaque_declaration.h:5:17"}},
+              "opaque_declaration.h:5:17"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -49,7 +49,7 @@
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/opaque_declaration.h:6:17"}}],
+              "opaque_declaration.h:6:17"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -69,7 +69,7 @@
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/opaque_declaration.h:5:17"},
+              "opaque_declaration.h:5:17"},
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
@@ -80,10 +80,10 @@
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/opaque_declaration.h:6:17"}],
+              "opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:4:8"}},
+          "opaque_declaration.h:4:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -113,7 +113,7 @@
                       (DeclNameTag (CName "foo"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/opaque_declaration.h:5:17"}},
+                "opaque_declaration.h:5:17"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -133,7 +133,7 @@
                       (DeclNameTag (CName "bar"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/opaque_declaration.h:6:17"}}],
+                "opaque_declaration.h:6:17"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -153,7 +153,7 @@
                       (DeclNameTag (CName "foo"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/opaque_declaration.h:5:17"},
+                "opaque_declaration.h:5:17"},
               StructField {
                 fieldName = CName "ptrB",
                 fieldOffset = 64,
@@ -164,10 +164,10 @@
                       (DeclNameTag (CName "bar"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/opaque_declaration.h:6:17"}],
+                "opaque_declaration.h:6:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/opaque_declaration.h:4:8"}}
+            "opaque_declaration.h:4:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -202,7 +202,7 @@
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:5:17"}},
+                        "opaque_declaration.h:5:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -222,7 +222,7 @@
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:6:17"}}],
+                        "opaque_declaration.h:6:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -242,7 +242,7 @@
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:5:17"},
+                        "opaque_declaration.h:5:17"},
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
@@ -253,10 +253,10 @@
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:6:17"}],
+                        "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:4:8"}})
+                    "opaque_declaration.h:4:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -293,7 +293,7 @@
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:5:17"}},
+                        "opaque_declaration.h:5:17"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -313,7 +313,7 @@
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:6:17"}}],
+                        "opaque_declaration.h:6:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -333,7 +333,7 @@
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:5:17"},
+                        "opaque_declaration.h:5:17"},
                       StructField {
                         fieldName = CName "ptrB",
                         fieldOffset = 64,
@@ -344,10 +344,10 @@
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/opaque_declaration.h:6:17"}],
+                        "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:4:8"}}
+                    "opaque_declaration.h:4:8"}}
               (Add 2)
               (Seq
                 [
@@ -384,7 +384,7 @@
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:9:8"}},
+          "opaque_declaration.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -406,7 +406,7 @@
             structFields = [],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/opaque_declaration.h:9:8"}}
+            "opaque_declaration.h:9:8"}}
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
@@ -433,7 +433,7 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:9:8"}})
+                    "opaque_declaration.h:9:8"}})
             []),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -460,7 +460,7 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/opaque_declaration.h:9:8"}}
+                    "opaque_declaration.h:9:8"}}
               (Add 0)
               (Seq [])))}),
   DeclNewtypeInstance

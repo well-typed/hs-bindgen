@@ -15,11 +15,14 @@ module HsBindgen.Clang.Paths (
   ) where
 
 import Control.Monad (forM, unless)
+import Control.Monad.Except (runExceptT, throwError)
+import Control.Monad.IO.Class (MonadIO(liftIO))
 import Data.String (IsString(fromString))
 import Data.Text (Text)
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
+import System.FilePath.Posix qualified as Posix
 
 {-------------------------------------------------------------------------------
   C include search path directories
@@ -43,17 +46,21 @@ newtype CIncludeAbsPathDir = CIncludeAbsPathDir {
 
 -- | Resolve any number of 'CIncludePathDir'
 --
--- This function fails if any path is not found or is not a directory.
-resolveCIncludeAbsPathDirs :: [CIncludePathDir] -> IO [CIncludeAbsPathDir]
-resolveCIncludeAbsPathDirs paths = do
-    cwd <- Dir.getCurrentDirectory
+-- This function returns an error if any path is not found or is not a
+-- directory.
+resolveCIncludeAbsPathDirs ::
+     MonadIO m
+  => [CIncludePathDir]
+  -> m (Either String [CIncludeAbsPathDir])
+resolveCIncludeAbsPathDirs paths = runExceptT $ do
+    cwd <- liftIO Dir.getCurrentDirectory
     forM (getCIncludePathDir <$> paths) $ \path -> do
       let absPath
             | FilePath.isAbsolute path = path
             | otherwise                = cwd FilePath.</> path
-      exists <- Dir.doesDirectoryExist absPath
+      exists <- liftIO $ Dir.doesDirectoryExist absPath
       unless exists $
-        fail ("include path not found or not a directory: " ++ path)
+        throwError ("include path not found or not a directory: " ++ path)
       return $ CIncludeAbsPathDir absPath
 
 {-------------------------------------------------------------------------------
@@ -63,27 +70,22 @@ resolveCIncludeAbsPathDirs paths = do
 -- | C header path (relative)
 --
 -- A value must be specified as used in the C source code (relative to an
--- include directory).
+-- include directory).  Forward slashes (@/@) must be used, even on Windows.
 --
 -- Example: @time.h@
-newtype CHeaderRelPath = CHeaderRelPath Text
+newtype CHeaderRelPath = CHeaderRelPath { getCHeaderRelPath :: FilePath }
   deriving newtype (Eq, Ord, Show)
 
 -- | Construct a 'CHeaderRelPath'
 --
--- This funtion fails if the path is not relative.  It does /not/ check
--- existence, readability, or if it points to a file or not.
-mkCHeaderRelPath :: MonadFail m => Text -> m CHeaderRelPath
-mkCHeaderRelPath t
-    | FilePath.isRelative path = return $ CHeaderRelPath t
-    | otherwise = fail $ "C header path not relative: " ++ path
-  where
-    path :: FilePath
-    path = Text.unpack t
-
--- | Get the 'FilePath' representation of a 'CHeaderRelPath'
-getCHeaderRelPath :: CHeaderRelPath -> FilePath
-getCHeaderRelPath (CHeaderRelPath t) = Text.unpack t
+-- This funtion returns an error if the path is not relative or if it contains
+-- a backslash.  It does /not/ check existence, readability, or if it points to
+-- a file or not.
+mkCHeaderRelPath :: FilePath -> Either String CHeaderRelPath
+mkCHeaderRelPath path
+    | '\\' `elem` path = Left $ "C header path contains a backslash: " ++ path
+    | FilePath.isRelative path = Right $ CHeaderRelPath path
+    | otherwise = Left $ "C header path not relative: " ++ path
 
 -- | C header path (absolute)
 --
@@ -95,10 +97,10 @@ newtype CHeaderAbsPath = CHeaderAbsPath Text
 --
 -- This function fails if the path is not absolute.  It does /not/ check
 -- existence, readability, or if it points to a file or not.
-mkCHeaderAbsPath :: MonadFail m => Text -> m CHeaderAbsPath
+mkCHeaderAbsPath :: Text -> Either String CHeaderAbsPath
 mkCHeaderAbsPath t
-    | FilePath.isAbsolute path = return $ CHeaderAbsPath t
-    | otherwise = fail $ "C header path is not absolute: " ++ path
+    | FilePath.isAbsolute path = Right $ CHeaderAbsPath t
+    | otherwise = Left $ "C header path is not absolute: " ++ path
   where
     path :: FilePath
     path = Text.unpack t
@@ -111,13 +113,17 @@ getCHeaderAbsPath (CHeaderAbsPath t) = Text.unpack t
 --
 -- This function fails if the header is not found in the include search path.
 resolveHeader ::
-     [CIncludePathDir]
+     MonadIO m
+  => [CIncludeAbsPathDir]
   -> CHeaderRelPath
-  -> IO CHeaderAbsPath
+  -> m (Either String CHeaderAbsPath)
 resolveHeader includeDirs relPath = do
-    let includeDirs' = getCIncludePathDir <$> includeDirs
+    let includeDirs' = getCIncludeAbsPathDir <$> includeDirs
         relPath'     = getCHeaderRelPath relPath
-    mAbsPath <- Dir.findFile includeDirs' relPath'
-    case mAbsPath of
-      Just absPath -> return $ CHeaderAbsPath (Text.pack absPath)
-      Nothing -> fail $ "header not found in include search path: " ++ relPath'
+    mAbsPath <- liftIO $ Dir.findFile includeDirs' (nativeRelPath relPath')
+    return $ case mAbsPath of
+      Just absPath -> Right $ CHeaderAbsPath (Text.pack absPath)
+      Nothing -> Left $ "header not found in include search path: " ++ relPath'
+  where
+    nativeRelPath :: FilePath -> FilePath
+    nativeRelPath = FilePath.joinPath . Posix.splitDirectories

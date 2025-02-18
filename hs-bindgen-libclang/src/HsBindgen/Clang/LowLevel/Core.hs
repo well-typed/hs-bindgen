@@ -586,12 +586,11 @@ clang_parseTranslationUnit ::
   -> ClangArgs                             -- ^ @command_line_args@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO CXTranslationUnit
-clang_parseTranslationUnit cIdx src args options =
-    case fromClangArgs args of
-      Left  err   -> callFailed err
-      Right args' ->
-        withCString  src   $ \src' ->
-        withCStrings args' $ \args'' numArgs -> ensureNotNull $
+clang_parseTranslationUnit cIdx src args options = do
+    args' <- either callFailed return =<< fromClangArgs args
+    withCString src $ \src' ->
+      withCStrings args' $ \args'' numArgs ->
+        ensureNotNull $
           nowrapper_parseTranslationUnit
             cIdx
             src'
@@ -618,13 +617,11 @@ clang_parseTranslationUnit2 ::
   -> ClangArgs                             -- ^ @command_line_args@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
-clang_parseTranslationUnit2 cIdx src args options =
-    case fromClangArgs args of
-      Left  err   -> callFailed err
-      Right args' ->
-        withCString  src   $ \src' ->
-        withCStrings args' $ \args'' numArgs ->
-        alloca             $ \outPtr -> do
+clang_parseTranslationUnit2 cIdx src args options = do
+    args' <- either callFailed return =<< fromClangArgs args
+    withCString src $ \src' ->
+      withCStrings args' $ \args'' numArgs ->
+        alloca $ \outPtr -> do
           mError <- nowrapper_parseTranslationUnit2
             cIdx
             src'

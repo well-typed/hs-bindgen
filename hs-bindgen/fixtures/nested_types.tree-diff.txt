@@ -16,7 +16,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/nested_types.h:2:9"},
+              "nested_types.h:2:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
@@ -24,10 +24,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/nested_types.h:3:10"}],
+              "nested_types.h:3:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:1:8"},
+          "nested_types.h:1:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -45,7 +45,7 @@ WrapCHeader
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/nested_types.h:7:16"},
+              "nested_types.h:7:16"},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
@@ -55,10 +55,10 @@ WrapCHeader
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/nested_types.h:8:16"}],
+              "nested_types.h:8:16"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:6:8"},
+          "nested_types.h:6:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -74,10 +74,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
-              "examples/nested_types.h:16:11"}],
+              "nested_types.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:11:8"},
+          "nested_types.h:11:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -99,7 +99,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "examples/nested_types.h:25:16"},
+              "nested_types.h:25:16"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -110,10 +110,10 @@ WrapCHeader
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/nested_types.h:26:25"}],
+              "nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:24:12"},
+          "nested_types.h:24:12"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -130,7 +130,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/nested_types.h:23:9"},
+              "nested_types.h:23:9"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -146,7 +146,7 @@ WrapCHeader
                           (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop))))),
               fieldSourceLoc =
-              "examples/nested_types.h:27:8"}],
+              "nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:22:8"}])
+          "nested_types.h:22:8"}])

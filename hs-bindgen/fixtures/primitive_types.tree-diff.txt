@@ -17,7 +17,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/primitive_types.h:2:10"},
+              "primitive_types.h:2:10"},
             StructField {
               fieldName = CName "sc",
               fieldOffset = 8,
@@ -25,7 +25,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar (Just Signed)),
               fieldSourceLoc =
-              "examples/primitive_types.h:3:17"},
+              "primitive_types.h:3:17"},
             StructField {
               fieldName = CName "uc",
               fieldOffset = 16,
@@ -33,7 +33,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
-              "examples/primitive_types.h:4:19"},
+              "primitive_types.h:4:19"},
             StructField {
               fieldName = CName "s",
               fieldOffset = 32,
@@ -41,7 +41,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:6:11"},
+              "primitive_types.h:6:11"},
             StructField {
               fieldName = CName "si",
               fieldOffset = 48,
@@ -49,7 +49,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:7:15"},
+              "primitive_types.h:7:15"},
             StructField {
               fieldName = CName "ss",
               fieldOffset = 64,
@@ -57,7 +57,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:8:18"},
+              "primitive_types.h:8:18"},
             StructField {
               fieldName = CName "ssi",
               fieldOffset = 80,
@@ -65,7 +65,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:9:22"},
+              "primitive_types.h:9:22"},
             StructField {
               fieldName = CName "us",
               fieldOffset = 96,
@@ -75,7 +75,7 @@ WrapCHeader
                   PrimShort
                   Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:11:20"},
+              "primitive_types.h:11:20"},
             StructField {
               fieldName = CName "usi",
               fieldOffset = 112,
@@ -85,7 +85,7 @@ WrapCHeader
                   PrimShort
                   Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:12:24"},
+              "primitive_types.h:12:24"},
             StructField {
               fieldName = CName "i",
               fieldOffset = 128,
@@ -93,7 +93,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:14:9"},
+              "primitive_types.h:14:9"},
             StructField {
               fieldName = CName "s2",
               fieldOffset = 160,
@@ -101,7 +101,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:15:12"},
+              "primitive_types.h:15:12"},
             StructField {
               fieldName = CName "si2",
               fieldOffset = 192,
@@ -109,7 +109,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:16:16"},
+              "primitive_types.h:16:16"},
             StructField {
               fieldName = CName "u",
               fieldOffset = 224,
@@ -117,7 +117,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:18:14"},
+              "primitive_types.h:18:14"},
             StructField {
               fieldName = CName "ui",
               fieldOffset = 256,
@@ -125,7 +125,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:19:18"},
+              "primitive_types.h:19:18"},
             StructField {
               fieldName = CName "l",
               fieldOffset = 320,
@@ -133,7 +133,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:21:10"},
+              "primitive_types.h:21:10"},
             StructField {
               fieldName = CName "li",
               fieldOffset = 384,
@@ -141,7 +141,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:22:14"},
+              "primitive_types.h:22:14"},
             StructField {
               fieldName = CName "sl",
               fieldOffset = 448,
@@ -149,7 +149,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:23:17"},
+              "primitive_types.h:23:17"},
             StructField {
               fieldName = CName "sli",
               fieldOffset = 512,
@@ -157,7 +157,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:24:21"},
+              "primitive_types.h:24:21"},
             StructField {
               fieldName = CName "ul",
               fieldOffset = 576,
@@ -167,7 +167,7 @@ WrapCHeader
                   PrimLong
                   Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:26:19"},
+              "primitive_types.h:26:19"},
             StructField {
               fieldName = CName "uli",
               fieldOffset = 640,
@@ -177,7 +177,7 @@ WrapCHeader
                   PrimLong
                   Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:27:23"},
+              "primitive_types.h:27:23"},
             StructField {
               fieldName = CName "ll",
               fieldOffset = 704,
@@ -187,7 +187,7 @@ WrapCHeader
                   PrimLongLong
                   Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:29:15"},
+              "primitive_types.h:29:15"},
             StructField {
               fieldName = CName "lli",
               fieldOffset = 768,
@@ -197,7 +197,7 @@ WrapCHeader
                   PrimLongLong
                   Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:30:19"},
+              "primitive_types.h:30:19"},
             StructField {
               fieldName = CName "sll",
               fieldOffset = 832,
@@ -207,7 +207,7 @@ WrapCHeader
                   PrimLongLong
                   Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:31:22"},
+              "primitive_types.h:31:22"},
             StructField {
               fieldName = CName "slli",
               fieldOffset = 896,
@@ -217,7 +217,7 @@ WrapCHeader
                   PrimLongLong
                   Signed),
               fieldSourceLoc =
-              "examples/primitive_types.h:32:26"},
+              "primitive_types.h:32:26"},
             StructField {
               fieldName = CName "ull",
               fieldOffset = 960,
@@ -227,7 +227,7 @@ WrapCHeader
                   PrimLongLong
                   Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:34:24"},
+              "primitive_types.h:34:24"},
             StructField {
               fieldName = CName "ulli",
               fieldOffset = 1024,
@@ -237,7 +237,7 @@ WrapCHeader
                   PrimLongLong
                   Unsigned),
               fieldSourceLoc =
-              "examples/primitive_types.h:35:28"},
+              "primitive_types.h:35:28"},
             StructField {
               fieldName = CName "f",
               fieldOffset = 1088,
@@ -245,7 +245,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
-              "examples/primitive_types.h:37:11"},
+              "primitive_types.h:37:11"},
             StructField {
               fieldName = CName "d",
               fieldOffset = 1152,
@@ -253,7 +253,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "examples/primitive_types.h:38:12"},
+              "primitive_types.h:38:12"},
             StructField {
               fieldName = CName "ld",
               fieldOffset = 1280,
@@ -261,7 +261,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimFloating PrimLongDouble),
               fieldSourceLoc =
-              "examples/primitive_types.h:39:17"}],
+              "primitive_types.h:39:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/primitive_types.h:1:8"}])
+          "primitive_types.h:1:8"}])

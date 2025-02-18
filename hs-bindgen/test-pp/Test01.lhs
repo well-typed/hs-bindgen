@@ -1,3 +1,3 @@
 [ "--module=Test01"
-, "--input=examples/test-th-01.h"
+, "--input=test-th-01.h"
 ]

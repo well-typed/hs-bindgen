@@ -24,7 +24,7 @@
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "examples/fixedarray.h:1:13"}},
+          "fixedarray.h:1:13"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -58,7 +58,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               fieldSourceLoc =
-              "examples/fixedarray.h:4:9"}},
+              "fixedarray.h:4:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -81,7 +81,7 @@
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               fieldSourceLoc =
-              "examples/fixedarray.h:5:9"}}],
+              "fixedarray.h:5:9"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -100,7 +100,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               fieldSourceLoc =
-              "examples/fixedarray.h:4:9"},
+              "fixedarray.h:4:9"},
             StructField {
               fieldName = CName "sudoku",
               fieldOffset = 96,
@@ -112,10 +112,10 @@
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               fieldSourceLoc =
-              "examples/fixedarray.h:5:9"}],
+              "fixedarray.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/fixedarray.h:3:8"}},
+          "fixedarray.h:3:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -144,7 +144,7 @@
                   (TypePrim
                     (PrimIntegral PrimInt Signed)),
                 fieldSourceLoc =
-                "examples/fixedarray.h:4:9"}},
+                "fixedarray.h:4:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -167,7 +167,7 @@
                     (TypePrim
                       (PrimIntegral PrimInt Signed))),
                 fieldSourceLoc =
-                "examples/fixedarray.h:5:9"}}],
+                "fixedarray.h:5:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -186,7 +186,7 @@
                   (TypePrim
                     (PrimIntegral PrimInt Signed)),
                 fieldSourceLoc =
-                "examples/fixedarray.h:4:9"},
+                "fixedarray.h:4:9"},
               StructField {
                 fieldName = CName "sudoku",
                 fieldOffset = 96,
@@ -198,10 +198,10 @@
                     (TypePrim
                       (PrimIntegral PrimInt Signed))),
                 fieldSourceLoc =
-                "examples/fixedarray.h:5:9"}],
+                "fixedarray.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/fixedarray.h:3:8"}}
+            "fixedarray.h:3:8"}}
       StorableInstance {
         storableSizeOf = 48,
         storableAlignment = 4,
@@ -235,7 +235,7 @@
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:4:9"}},
+                        "fixedarray.h:4:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -258,7 +258,7 @@
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:5:9"}}],
+                        "fixedarray.h:5:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -277,7 +277,7 @@
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:4:9"},
+                        "fixedarray.h:4:9"},
                       StructField {
                         fieldName = CName "sudoku",
                         fieldOffset = 96,
@@ -289,10 +289,10 @@
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:5:9"}],
+                        "fixedarray.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedarray.h:3:8"}})
+                    "fixedarray.h:3:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 12]),
@@ -328,7 +328,7 @@
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:4:9"}},
+                        "fixedarray.h:4:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -351,7 +351,7 @@
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:5:9"}}],
+                        "fixedarray.h:5:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -370,7 +370,7 @@
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:4:9"},
+                        "fixedarray.h:4:9"},
                       StructField {
                         fieldName = CName "sudoku",
                         fieldOffset = 96,
@@ -382,10 +382,10 @@
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
-                        "examples/fixedarray.h:5:9"}],
+                        "fixedarray.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedarray.h:3:8"}}
+                    "fixedarray.h:3:8"}}
               (Add 2)
               (Seq
                 [

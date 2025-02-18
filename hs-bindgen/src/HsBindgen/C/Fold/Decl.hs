@@ -7,8 +7,6 @@ module HsBindgen.C.Fold.Decl (
 
 import Control.Monad.State
 import Data.Text qualified as Text
-import System.Directory qualified as Dir
-import System.FilePath (takeFileName)
 import System.FilePath qualified as FilePath
 
 import HsBindgen.Imports
@@ -75,21 +73,10 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       Right CXCursor_InclusionDirective -> do
-        -- TODO Remove following temporary hack
-        -- Clang should be passed absolute paths to user-specified headers so
-        -- that it consistently reports absolute paths.  Until this is done,
-        -- this temporary hack maintains the current semantics and avoids test
-        -- failures.
-        header <- liftIO $ do
-          let fp = Text.unpack $ getSourcePath (singleLocPath sloc)
-          absFP <- if FilePath.isAbsolute fp
-            then return fp
-            else (FilePath.</> fp) <$> Dir.getCurrentDirectory
-          mkCHeaderAbsPath $ Text.pack absFP
-        -- TODO Uncomment following line when temporary hack removed
-        -- header <- mkCHeaderAbsPath $ getSourcePath (singleLocPath sloc)
+        header <- either fail return $
+          mkCHeaderAbsPath (getSourcePath (singleLocPath sloc))
         incHeader <- liftIO $
-              mkCHeaderAbsPath
+              either fail return . mkCHeaderAbsPath
           =<< clang_getFileName
           =<< clang_getIncludedFile current
         modify $ registerInclude header incHeader
@@ -104,7 +91,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue $ Just $ DeclFunction $ Function
           { functionName      = CName spelling
           , functionType      = ty'
-          , functionHeader    = takeFileName (Text.unpack path)
+          , functionHeader    = FilePath.takeFileName (Text.unpack path)
           , functionSourceLoc = sloc
           }
 

@@ -19,7 +19,7 @@
         Macro {
           macroLoc = MultiLoc {
             multiLocExpansion =
-            "examples/bool.h:13:9",
+            "bool.h:13:9",
             multiLocPresumed = Nothing,
             multiLocSpelling = Nothing,
             multiLocFile = Nothing},
@@ -102,7 +102,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/bool.h:2:11"}},
+              "bool.h:2:11"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -117,7 +117,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/bool.h:3:11"}}],
+              "bool.h:3:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -132,18 +132,17 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "examples/bool.h:2:11"},
+              fieldSourceLoc = "bool.h:2:11"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/bool.h:3:11"}],
+              "bool.h:3:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:1:8"}},
+          "bool.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -168,7 +167,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/bool.h:2:11"}},
+                "bool.h:2:11"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -183,7 +182,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/bool.h:3:11"}}],
+                "bool.h:3:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -198,18 +197,16 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "examples/bool.h:2:11"},
+                fieldSourceLoc = "bool.h:2:11"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/bool.h:3:11"}],
+                "bool.h:3:11"}],
             structFlam = Nothing,
-            structSourceLoc =
-            "examples/bool.h:1:8"}}
+            structSourceLoc = "bool.h:1:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -239,7 +236,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:2:11"}},
+                        "bool.h:2:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -254,7 +251,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:3:11"}}],
+                        "bool.h:3:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -269,18 +266,17 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "examples/bool.h:2:11"},
+                        fieldSourceLoc = "bool.h:2:11"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:3:11"}],
+                        "bool.h:3:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:1:8"}})
+                    "bool.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -312,7 +308,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:2:11"}},
+                        "bool.h:2:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -327,7 +323,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:3:11"}}],
+                        "bool.h:3:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -342,18 +338,16 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "examples/bool.h:2:11"},
+                        fieldSourceLoc = "bool.h:2:11"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:3:11"}],
+                        "bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "examples/bool.h:1:8"}}
+                    structSourceLoc = "bool.h:1:8"}}
               (Add 2)
               (Seq
                 [
@@ -397,7 +391,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/bool.h:9:10"}},
+              "bool.h:9:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -412,7 +406,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/bool.h:10:10"}}],
+              "bool.h:10:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -427,18 +421,17 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "examples/bool.h:9:10"},
+              fieldSourceLoc = "bool.h:9:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/bool.h:10:10"}],
+              "bool.h:10:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:8:8"}},
+          "bool.h:8:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -463,7 +456,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/bool.h:9:10"}},
+                "bool.h:9:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -478,7 +471,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/bool.h:10:10"}}],
+                "bool.h:10:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -493,18 +486,16 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
-                fieldSourceLoc =
-                "examples/bool.h:9:10"},
+                fieldSourceLoc = "bool.h:9:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/bool.h:10:10"}],
+                "bool.h:10:10"}],
             structFlam = Nothing,
-            structSourceLoc =
-            "examples/bool.h:8:8"}}
+            structSourceLoc = "bool.h:8:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -534,7 +525,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:9:10"}},
+                        "bool.h:9:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -549,7 +540,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:10:10"}}],
+                        "bool.h:10:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -564,18 +555,17 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "examples/bool.h:9:10"},
+                        fieldSourceLoc = "bool.h:9:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:10:10"}],
+                        "bool.h:10:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:8:8"}})
+                    "bool.h:8:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -607,7 +597,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:9:10"}},
+                        "bool.h:9:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -622,7 +612,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:10:10"}}],
+                        "bool.h:10:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -637,18 +627,16 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
-                        fieldSourceLoc =
-                        "examples/bool.h:9:10"},
+                        fieldSourceLoc = "bool.h:9:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/bool.h:10:10"}],
+                        "bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "examples/bool.h:8:8"}}
+                    structSourceLoc = "bool.h:8:8"}}
               (Add 2)
               (Seq
                 [
@@ -693,7 +681,7 @@
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
-              "examples/bool.h:16:10"}},
+              "bool.h:16:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -709,7 +697,7 @@
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
-              "examples/bool.h:17:10"}}],
+              "bool.h:17:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -726,7 +714,7 @@
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
-              "examples/bool.h:16:10"},
+              "bool.h:16:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 8,
@@ -734,10 +722,10 @@
               fieldType = TypeTypedef
                 (CName "BOOL"),
               fieldSourceLoc =
-              "examples/bool.h:17:10"}],
+              "bool.h:17:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bool.h:15:8"}},
+          "bool.h:15:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -763,7 +751,7 @@
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
-                "examples/bool.h:16:10"}},
+                "bool.h:16:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -779,7 +767,7 @@
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
-                "examples/bool.h:17:10"}}],
+                "bool.h:17:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -796,7 +784,7 @@
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
-                "examples/bool.h:16:10"},
+                "bool.h:16:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 8,
@@ -804,10 +792,10 @@
                 fieldType = TypeTypedef
                   (CName "BOOL"),
                 fieldSourceLoc =
-                "examples/bool.h:17:10"}],
+                "bool.h:17:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bool.h:15:8"}}
+            "bool.h:15:8"}}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -838,7 +826,7 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:16:10"}},
+                        "bool.h:16:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -854,7 +842,7 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:17:10"}}],
+                        "bool.h:17:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -871,7 +859,7 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:16:10"},
+                        "bool.h:16:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
@@ -879,10 +867,10 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:17:10"}],
+                        "bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:15:8"}})
+                    "bool.h:15:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -915,7 +903,7 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:16:10"}},
+                        "bool.h:16:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -931,7 +919,7 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:17:10"}}],
+                        "bool.h:17:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -948,7 +936,7 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:16:10"},
+                        "bool.h:16:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 8,
@@ -956,10 +944,10 @@
                         fieldType = TypeTypedef
                           (CName "BOOL"),
                         fieldSourceLoc =
-                        "examples/bool.h:17:10"}],
+                        "bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bool.h:15:8"}}
+                    "bool.h:15:8"}}
               (Add 2)
               (Seq
                 [

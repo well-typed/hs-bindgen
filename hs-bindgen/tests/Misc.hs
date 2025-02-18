@@ -13,6 +13,7 @@ import Test.Tasty (TestTree, TestName)
 
 import AnsiDiff (ansidiff)
 import TastyGolden
+import HsBindgen.Clang.Paths
 import HsBindgen.Lib
 
 -------------------------------------------------------------------------------
@@ -66,10 +67,12 @@ findPackageDirectory pkgname = do
 
 clangArgs :: FilePath -> ClangArgs
 clangArgs packageRoot = defaultClangArgs{
-     clangTarget = Just (Target_Linux_X86_64, TargetEnvOverride "gnu")
-   , clangCStandard = Just C23
-   , clangOtherArgs = [
-         "-nostdinc"
-       , "-isystem" ++ (packageRoot </> "musl-include/x86_64")
-       ]
-   }
+      clangTarget = Just (Target_Linux_X86_64, TargetEnvOverride "gnu")
+    , clangCStandard = Just C23
+    , clangSystemIncludePathDirs = [
+          CIncludePathDir (packageRoot </> "musl-include/x86_64")
+        ]
+    , clangIncludePathDirs = [
+          CIncludePathDir (packageRoot </> "examples")
+        ]
+    }

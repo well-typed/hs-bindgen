@@ -23,7 +23,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/forward_declaration.h:4:7"}}],
+              "forward_declaration.h:4:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -40,10 +40,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/forward_declaration.h:4:7"}],
+              "forward_declaration.h:4:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/forward_declaration.h:3:8"}},
+          "forward_declaration.h:3:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -69,7 +69,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/forward_declaration.h:4:7"}}],
+                "forward_declaration.h:4:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -86,10 +86,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/forward_declaration.h:4:7"}],
+                "forward_declaration.h:4:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/forward_declaration.h:3:8"}}
+            "forward_declaration.h:3:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -120,7 +120,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:4:7"}}],
+                        "forward_declaration.h:4:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -137,10 +137,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:4:7"}],
+                        "forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:3:8"}})
+                    "forward_declaration.h:3:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -171,7 +171,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:4:7"}}],
+                        "forward_declaration.h:4:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -188,10 +188,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:4:7"}],
+                        "forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:3:8"}}
+                    "forward_declaration.h:3:8"}}
               (Add 1)
               (Seq
                 [
@@ -231,7 +231,7 @@
               (DeclNameTag (CName "S1"))
               DeclPathTop),
           typedefSourceLoc =
-          "examples/forward_declaration.h:1:19"}},
+          "forward_declaration.h:1:19"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -260,7 +260,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/forward_declaration.h:10:7"}}],
+              "forward_declaration.h:10:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -277,10 +277,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/forward_declaration.h:10:7"}],
+              "forward_declaration.h:10:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/forward_declaration.h:9:8"}},
+          "forward_declaration.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -306,7 +306,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/forward_declaration.h:10:7"}}],
+                "forward_declaration.h:10:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -323,10 +323,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/forward_declaration.h:10:7"}],
+                "forward_declaration.h:10:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/forward_declaration.h:9:8"}}
+            "forward_declaration.h:9:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -357,7 +357,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:10:7"}}],
+                        "forward_declaration.h:10:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -374,10 +374,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:10:7"}],
+                        "forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:9:8"}})
+                    "forward_declaration.h:9:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -408,7 +408,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:10:7"}}],
+                        "forward_declaration.h:10:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -425,10 +425,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/forward_declaration.h:10:7"}],
+                        "forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/forward_declaration.h:9:8"}}
+                    "forward_declaration.h:9:8"}}
               (Add 1)
               (Seq
                 [

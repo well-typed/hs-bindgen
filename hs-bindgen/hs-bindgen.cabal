@@ -163,10 +163,10 @@ executable hs-bindgen
   build-depends:
       -- Internal dependencies
     , hs-bindgen
+    , hs-bindgen-libclang
   build-depends:
       -- Inherited dependencies
     , data-default
-    , filepath
   build-depends:
     , optparse-applicative >= 0.18 && < 0.19
 
@@ -179,6 +179,7 @@ test-suite golden
   build-depends:
       -- Internal dependencies
     , hs-bindgen
+    , hs-bindgen-libclang
     , hs-bindgen-runtime
     , c-expr
   build-depends:
@@ -208,6 +209,7 @@ test-suite test-th
   type:           exitcode-stdio-1.0
   main-is:        TestTH.hs
   hs-source-dirs: test-th
+  include-dirs:   examples
 
   other-extensions:
       TemplateHaskell
@@ -250,8 +252,9 @@ test-suite test-pp
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
-  ghc-options: -pgmL hs-bindgen -optL literate
-  include-dirs: .
+  ghc-options: -pgmL hs-bindgen -optL -Iexamples -optL literate
+
+  include-dirs: examples
 
   build-tool-depends: hs-bindgen:hs-bindgen
   build-depends:

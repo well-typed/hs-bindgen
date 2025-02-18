@@ -14,20 +14,24 @@ import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName)
 
 import Misc
+import HsBindgen.Clang.Paths
 import HsBindgen.Lib
 
 goldenTh :: FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
-    let fp = "examples" </> (name ++ ".h")
-        args = clangArgs packageRoot
+    relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
+    let args = clangArgs packageRoot
+    includeDirs <- either fail return =<<
+      resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
+    absPath <- either fail return =<< resolveHeader includeDirs relPath
 
     let tracer = mkTracer report report report False
 
-    header <- parseC tracer args fp
+    header <- parseC tracer args absPath
     let decls :: Qu [TH.Dec]
-        decls = genTH fp defaultTranslationOpts header
+        decls = genTH relPath defaultTranslationOpts header
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.
@@ -57,10 +61,10 @@ runQu (Qu m) = evalState m 0
 parseC ::
      Tracer IO String
   -> ClangArgs
-  -> FilePath
+  -> CHeaderAbsPath
   -> IO CHeader
-parseC tracer args fp =
-    withTranslationUnit tracerD args fp $
+parseC tracer args headerPath =
+    withTranslationUnit tracerD args headerPath $
       parseCHeader tracerP SelectFromMainFile
   where
     tracerD = contramap show tracer

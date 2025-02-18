@@ -11,7 +11,7 @@
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName = "func",
       foreignImportHeader =
-      "examples/weird01.h",
+      "weird01.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {
@@ -26,7 +26,7 @@
             TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
-          "examples/weird01.h:8:6"}},
+          "weird01.h:8:6"}},
   DeclData
     Struct {
       structName = HsName
@@ -51,7 +51,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/weird01.h:2:13"}}],
+              "weird01.h:2:13"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -68,10 +68,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/weird01.h:2:13"}],
+              "weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:1:8"}},
+          "weird01.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -97,7 +97,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/weird01.h:2:13"}}],
+                "weird01.h:2:13"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -114,10 +114,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/weird01.h:2:13"}],
+                "weird01.h:2:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/weird01.h:1:8"}}
+            "weird01.h:1:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -148,7 +148,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:2:13"}}],
+                        "weird01.h:2:13"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -165,10 +165,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:2:13"}],
+                        "weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:1:8"}})
+                    "weird01.h:1:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -199,7 +199,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:2:13"}}],
+                        "weird01.h:2:13"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -216,10 +216,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:2:13"}],
+                        "weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:1:8"}}
+                    "weird01.h:1:8"}}
               (Add 1)
               (Seq
                 [
@@ -259,7 +259,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/weird01.h:4:21"}}],
+              "weird01.h:4:21"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -276,10 +276,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/weird01.h:4:21"}],
+              "weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:3:16"}},
+          "weird01.h:3:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -305,7 +305,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/weird01.h:4:21"}}],
+                "weird01.h:4:21"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -322,10 +322,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/weird01.h:4:21"}],
+                "weird01.h:4:21"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/weird01.h:3:16"}}
+            "weird01.h:3:16"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -356,7 +356,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:4:21"}}],
+                        "weird01.h:4:21"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -373,10 +373,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:4:21"}],
+                        "weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:3:16"}})
+                    "weird01.h:3:16"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -407,7 +407,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:4:21"}}],
+                        "weird01.h:4:21"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -424,10 +424,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/weird01.h:4:21"}],
+                        "weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/weird01.h:3:16"}}
+                    "weird01.h:3:16"}}
               (Add 1)
               (Seq
                 [

@@ -11,6 +11,7 @@ import System.FilePath qualified as FilePath
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.AST.Name
+import HsBindgen.Clang.Paths
 import HsBindgen.GenTests.Internal
     ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Hs.AST qualified as Hs
@@ -24,11 +25,11 @@ import Text.SimplePrettyPrint
 
 -- | Generate C test header and source files
 genTestsC ::
-     FilePath  -- ^ C test header file path
-  -> FilePath  -- ^ C test source file path
-  -> Int       -- ^ Maximum line length
-  -> FilePath  -- ^ C header path
-  -> [Hs.Decl] -- ^ Declarations
+     FilePath       -- ^ C test header file path
+  -> FilePath       -- ^ C test source file path
+  -> Int            -- ^ Maximum line length
+  -> CHeaderRelPath -- ^ C header path
+  -> [Hs.Decl]      -- ^ Declarations
   -> IO ()
 genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
     writeFile cTestHeaderPath $ renderPretty ctx CTestHeader{..}
@@ -39,7 +40,7 @@ genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
 
     cTestHeaderFilename, cHeaderFilename :: FilePath
     cTestHeaderFilename = FilePath.takeFileName cTestHeaderPath
-    cHeaderFilename     = FilePath.takeFileName cHeaderPath
+    cHeaderFilename = FilePath.takeFileName $ getCHeaderRelPath cHeaderPath
 
     cFunPrefix :: CFunPrefix
     cFunPrefix = getCFunPrefix cTestHeaderFilename

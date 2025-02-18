@@ -81,7 +81,6 @@ module HsBindgen.Lib (
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 import Text.Show.Pretty qualified as Pretty
-import System.Directory (canonicalizePath)
 
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
@@ -97,6 +96,7 @@ import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
@@ -140,7 +140,7 @@ newtype HsModule = WrapHsModule {
 withTranslationUnit ::
      Tracer IO Diagnostic        -- ^ Tracer for warnings from @libclang@
   -> ClangArgs                   -- ^ @libclang@ arguments
-  -> FilePath                    -- ^ Input path
+  -> CHeaderAbsPath              -- ^ Input path
   -> (CXTranslationUnit -> IO r)
   -> IO r
 withTranslationUnit = C.withTranslationUnit
@@ -186,26 +186,33 @@ getTargetTriple = C.getTranslationUnitTargetTriple
   Translation
 -------------------------------------------------------------------------------}
 
-genModule :: FilePath ->
-     LowLevel.TranslationOpts
+genModule ::
+     CHeaderRelPath
+  -> LowLevel.TranslationOpts
   -> HsModuleOpts
   -> CHeader
   -> HsModule
-genModule fp topts opts =
+genModule headerPath topts opts =
       WrapHsModule
     . Backend.PP.translateModule opts
     . map SHs.translateDecl
-    . genHsDecls fp topts
+    . genHsDecls headerPath topts
 
-genTH :: TH.Quote q => FilePath -> LowLevel.TranslationOpts -> CHeader -> q [TH.Dec]
-genTH fp topts =
+genTH ::
+     TH.Quote q
+  => CHeaderRelPath
+  -> LowLevel.TranslationOpts
+  -> CHeader
+  -> q [TH.Dec]
+genTH headerPath topts =
     fmap concat
     . traverse Backend.TH.mkDecl
     . map SHs.translateDecl
-    . genHsDecls fp topts
+    . genHsDecls headerPath topts
 
-genHsDecls :: FilePath -> LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
-genHsDecls fp topts = LowLevel.generateDeclarations fp topts . unwrapCHeader
+genHsDecls :: CHeaderRelPath -> LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
+genHsDecls headerPath topts =
+    LowLevel.generateDeclarations headerPath topts . unwrapCHeader
 
 {-------------------------------------------------------------------------------
   Processing output
@@ -225,11 +232,11 @@ prettyHs opts fp = Backend.PP.renderIO opts fp . unwrapHsModule
 -------------------------------------------------------------------------------}
 
 genTests ::
-     FilePath      -- ^ C header file path
+     CHeaderRelPath -- ^ C header file path
   -> CHeader
   -> HsModuleOpts
   -> HsRenderOpts
-  -> FilePath      -- ^ Test suite directory path
+  -> FilePath       -- ^ Test suite directory path
   -> IO ()
 genTests
   cHeaderPath
@@ -246,27 +253,59 @@ genTests
   All in one
 -------------------------------------------------------------------------------}
 
-templateHaskell :: FilePath -> TH.Q [TH.Dec]
-templateHaskell fp = do
-    (cfp, cheader) <- TH.runIO $ do
-      cfp <- canonicalizePath fp
-      cheader <- withTranslationUnit nullTracer defaultClangArgs fp $
+templateHaskell ::
+     [FilePath] -- ^ System include search path directories
+  -> [FilePath] -- ^ Non-system include search path directories
+  -> FilePath   -- ^ Input header, as written in C @#include@
+  -> TH.Q [TH.Dec]
+templateHaskell sysIncPathDirs incPathDirs relPath = do
+    relPath' <- either fail return $ mkCHeaderRelPath relPath
+    absPath <- TH.runIO $ do
+      sysIncAbsPathDirs <- either fail return
+        =<< resolveCIncludeAbsPathDirs sysIncPathDirs'
+      incAbsPathDirs <- either fail return
+        =<< resolveCIncludeAbsPathDirs incPathDirs'
+      either fail return
+        =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath'
+    let clangArgs = defaultClangArgs {
+            clangSystemIncludePathDirs = sysIncPathDirs'
+          , clangIncludePathDirs       = incPathDirs'
+          }
+    cheader <- TH.runIO $
+      withTranslationUnit nullTracer clangArgs absPath $
         parseCHeader nullTracer SelectFromMainFile
-      return (cfp, cheader)
+    TH.addDependentFile $ getCHeaderAbsPath absPath
+    genTH relPath' LowLevel.defaultTranslationOpts cheader
+  where
+    sysIncPathDirs', incPathDirs' :: [CIncludePathDir]
+    sysIncPathDirs' = CIncludePathDir <$> sysIncPathDirs
+    incPathDirs'    = CIncludePathDir <$> incPathDirs
 
-    TH.addDependentFile cfp
-    genTH fp LowLevel.defaultTranslationOpts cheader
-
-
-preprocessor :: FilePath -> IO String
-preprocessor fp = do
+preprocessor ::
+     [CIncludePathDir] -- ^ System include search path directories
+  -> [CIncludePathDir] -- ^ Non-system include search path directories
+  -> CHeaderRelPath    -- ^ Input header
+  -> IO String
+preprocessor sysIncPathDirs incPathDirs relPath = do
+    sysIncAbsPathDirs <- either fail return
+      =<< resolveCIncludeAbsPathDirs sysIncPathDirs
+    incAbsPathDirs <- either fail return
+      =<< resolveCIncludeAbsPathDirs incPathDirs
+    absPath <- either fail return
+      =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath
     cheader <-
-      withTranslationUnit nullTracer defaultClangArgs fp $
+      withTranslationUnit nullTracer clangArgs absPath $
         parseCHeader nullTracer SelectFromMainFile
     return $
       Backend.PP.render renderOpts $
-        unwrapHsModule $ genModule fp topts moduleOpts cheader
+        unwrapHsModule $ genModule relPath topts moduleOpts cheader
   where
+    clangArgs :: ClangArgs
+    clangArgs = defaultClangArgs {
+        clangSystemIncludePathDirs = sysIncPathDirs
+      , clangIncludePathDirs       = incPathDirs
+      }
+
     topts :: LowLevel.TranslationOpts
     topts = LowLevel.defaultTranslationOpts
 

@@ -23,7 +23,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/flam.h:3:9"}}],
+              "flam.h:3:9"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -39,8 +39,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "examples/flam.h:3:9"}],
+              fieldSourceLoc = "flam.h:3:9"}],
           structFlam = Just
             StructField {
               fieldName = CName "data",
@@ -48,10 +47,9 @@
               fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc =
-              "examples/flam.h:4:10"},
+              fieldSourceLoc = "flam.h:4:10"},
           structSourceLoc =
-          "examples/flam.h:2:8"}},
+          "flam.h:2:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -77,7 +75,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:3:9"}}],
+                "flam.h:3:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -93,8 +91,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "examples/flam.h:3:9"}],
+                fieldSourceLoc = "flam.h:3:9"}],
             structFlam = Just
               StructField {
                 fieldName = CName "data",
@@ -102,10 +99,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc =
-                "examples/flam.h:4:10"},
-            structSourceLoc =
-            "examples/flam.h:2:8"}}
+                fieldSourceLoc = "flam.h:4:10"},
+            structSourceLoc = "flam.h:2:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -136,7 +131,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:3:9"}}],
+                        "flam.h:3:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -152,8 +147,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:3:9"}],
+                        fieldSourceLoc = "flam.h:3:9"}],
                     structFlam = Just
                       StructField {
                         fieldName = CName "data",
@@ -161,10 +155,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/flam.h:4:10"},
+                        fieldSourceLoc = "flam.h:4:10"},
                     structSourceLoc =
-                    "examples/flam.h:2:8"}})
+                    "flam.h:2:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -195,7 +188,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:3:9"}}],
+                        "flam.h:3:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -211,8 +204,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:3:9"}],
+                        fieldSourceLoc = "flam.h:3:9"}],
                     structFlam = Just
                       StructField {
                         fieldName = CName "data",
@@ -220,10 +212,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/flam.h:4:10"},
-                    structSourceLoc =
-                    "examples/flam.h:2:8"}}
+                        fieldSourceLoc = "flam.h:4:10"},
+                    structSourceLoc = "flam.h:2:8"}}
               (Add 1)
               (Seq
                 [
@@ -268,7 +258,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:3:9"}}],
+                "flam.h:3:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -284,8 +274,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "examples/flam.h:3:9"}],
+                fieldSourceLoc = "flam.h:3:9"}],
             structFlam = Just
               StructField {
                 fieldName = CName "data",
@@ -293,10 +282,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc =
-                "examples/flam.h:4:10"},
-            structSourceLoc =
-            "examples/flam.h:2:8"}}
+                fieldSourceLoc = "flam.h:4:10"},
+            structSourceLoc = "flam.h:2:8"}}
       (HsPrimType HsPrimCChar)
       4),
   DeclData
@@ -323,7 +310,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/flam.h:11:7"}},
+              "flam.h:11:7"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -339,7 +326,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/flam.h:12:7"}}],
+              "flam.h:12:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -359,8 +346,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "examples/flam.h:11:7"},
+              fieldSourceLoc = "flam.h:11:7"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 32,
@@ -368,10 +354,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/flam.h:12:7"}],
+              "flam.h:12:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/flam.h:10:2"}},
+          "flam.h:10:2"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -397,7 +383,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:11:7"}},
+                "flam.h:11:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -413,7 +399,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:12:7"}}],
+                "flam.h:12:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -433,8 +419,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "examples/flam.h:11:7"},
+                fieldSourceLoc = "flam.h:11:7"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 32,
@@ -442,10 +427,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:12:7"}],
+                "flam.h:12:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/flam.h:10:2"}}
+            "flam.h:10:2"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -476,7 +461,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:11:7"}},
+                        "flam.h:11:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -492,7 +477,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:12:7"}}],
+                        "flam.h:12:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -512,8 +497,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:11:7"},
+                        fieldSourceLoc = "flam.h:11:7"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -521,10 +505,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:12:7"}],
+                        "flam.h:12:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/flam.h:10:2"}})
+                    "flam.h:10:2"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -557,7 +541,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:11:7"}},
+                        "flam.h:11:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -573,7 +557,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:12:7"}}],
+                        "flam.h:12:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -593,8 +577,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:11:7"},
+                        fieldSourceLoc = "flam.h:11:7"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -602,10 +585,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:12:7"}],
+                        "flam.h:12:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/flam.h:10:2"}}
+                    "flam.h:10:2"}}
               (Add 2)
               (Seq
                 [
@@ -650,7 +633,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/flam.h:9:6"}}],
+              "flam.h:9:6"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -666,8 +649,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "examples/flam.h:9:6"}],
+              fieldSourceLoc = "flam.h:9:6"}],
           structFlam = Just
             StructField {
               fieldName = CName "bar",
@@ -681,10 +663,9 @@
                     (DeclPathStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop))),
-              fieldSourceLoc =
-              "examples/flam.h:13:4"},
+              fieldSourceLoc = "flam.h:13:4"},
           structSourceLoc =
-          "examples/flam.h:8:8"}},
+          "flam.h:8:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -710,7 +691,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:9:6"}}],
+                "flam.h:9:6"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -726,8 +707,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "examples/flam.h:9:6"}],
+                fieldSourceLoc = "flam.h:9:6"}],
             structFlam = Just
               StructField {
                 fieldName = CName "bar",
@@ -741,10 +721,8 @@
                       (DeclPathStruct
                         (DeclNameTag (CName "foo"))
                         DeclPathTop))),
-                fieldSourceLoc =
-                "examples/flam.h:13:4"},
-            structSourceLoc =
-            "examples/flam.h:8:8"}}
+                fieldSourceLoc = "flam.h:13:4"},
+            structSourceLoc = "flam.h:8:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -775,7 +753,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:9:6"}}],
+                        "flam.h:9:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -791,8 +769,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:9:6"}],
+                        fieldSourceLoc = "flam.h:9:6"}],
                     structFlam = Just
                       StructField {
                         fieldName = CName "bar",
@@ -806,10 +783,9 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "foo"))
                                 DeclPathTop))),
-                        fieldSourceLoc =
-                        "examples/flam.h:13:4"},
+                        fieldSourceLoc = "flam.h:13:4"},
                     structSourceLoc =
-                    "examples/flam.h:8:8"}})
+                    "flam.h:8:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -840,7 +816,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:9:6"}}],
+                        "flam.h:9:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -856,8 +832,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:9:6"}],
+                        fieldSourceLoc = "flam.h:9:6"}],
                     structFlam = Just
                       StructField {
                         fieldName = CName "bar",
@@ -871,10 +846,8 @@
                               (DeclPathStruct
                                 (DeclNameTag (CName "foo"))
                                 DeclPathTop))),
-                        fieldSourceLoc =
-                        "examples/flam.h:13:4"},
-                    structSourceLoc =
-                    "examples/flam.h:8:8"}}
+                        fieldSourceLoc = "flam.h:13:4"},
+                    structSourceLoc = "flam.h:8:8"}}
               (Add 1)
               (Seq
                 [
@@ -915,7 +888,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/flam.h:9:6"}}],
+                "flam.h:9:6"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -931,8 +904,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
-                fieldSourceLoc =
-                "examples/flam.h:9:6"}],
+                fieldSourceLoc = "flam.h:9:6"}],
             structFlam = Just
               StructField {
                 fieldName = CName "bar",
@@ -946,10 +918,8 @@
                       (DeclPathStruct
                         (DeclNameTag (CName "foo"))
                         DeclPathTop))),
-                fieldSourceLoc =
-                "examples/flam.h:13:4"},
-            structSourceLoc =
-            "examples/flam.h:8:8"}}
+                fieldSourceLoc = "flam.h:13:4"},
+            structSourceLoc = "flam.h:8:8"}}
       (HsTypRef
         (HsName
           "@NsTypeConstr"
@@ -979,7 +949,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/flam.h:18:7"}},
+              "flam.h:18:7"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -995,7 +965,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/flam.h:19:7"}}],
+              "flam.h:19:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1011,8 +981,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
-              fieldSourceLoc =
-              "examples/flam.h:18:7"},
+              fieldSourceLoc = "flam.h:18:7"},
             StructField {
               fieldName = CName "second",
               fieldOffset = 64,
@@ -1020,7 +989,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/flam.h:19:7"}],
+              "flam.h:19:7"}],
           structFlam = Just
             StructField {
               fieldName = CName "flam",
@@ -1028,10 +997,9 @@
               fieldWidth = Nothing,
               fieldType = TypePrim
                 (PrimChar Nothing),
-              fieldSourceLoc =
-              "examples/flam.h:20:7"},
+              fieldSourceLoc = "flam.h:20:7"},
           structSourceLoc =
-          "examples/flam.h:17:8"}},
+          "flam.h:17:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1057,7 +1025,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/flam.h:18:7"}},
+                "flam.h:18:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1073,7 +1041,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/flam.h:19:7"}}],
+                "flam.h:19:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1089,8 +1057,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
-                fieldSourceLoc =
-                "examples/flam.h:18:7"},
+                fieldSourceLoc = "flam.h:18:7"},
               StructField {
                 fieldName = CName "second",
                 fieldOffset = 64,
@@ -1098,7 +1065,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/flam.h:19:7"}],
+                "flam.h:19:7"}],
             structFlam = Just
               StructField {
                 fieldName = CName "flam",
@@ -1106,10 +1073,9 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc =
-                "examples/flam.h:20:7"},
+                fieldSourceLoc = "flam.h:20:7"},
             structSourceLoc =
-            "examples/flam.h:17:8"}}
+            "flam.h:17:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1140,7 +1106,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:18:7"}},
+                        "flam.h:18:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1156,7 +1122,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/flam.h:19:7"}}],
+                        "flam.h:19:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1172,8 +1138,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:18:7"},
+                        fieldSourceLoc = "flam.h:18:7"},
                       StructField {
                         fieldName = CName "second",
                         fieldOffset = 64,
@@ -1181,7 +1146,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/flam.h:19:7"}],
+                        "flam.h:19:7"}],
                     structFlam = Just
                       StructField {
                         fieldName = CName "flam",
@@ -1189,10 +1154,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/flam.h:20:7"},
+                        fieldSourceLoc = "flam.h:20:7"},
                     structSourceLoc =
-                    "examples/flam.h:17:8"}})
+                    "flam.h:17:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1225,7 +1189,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/flam.h:18:7"}},
+                        "flam.h:18:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1241,7 +1205,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/flam.h:19:7"}}],
+                        "flam.h:19:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1257,8 +1221,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
-                        fieldSourceLoc =
-                        "examples/flam.h:18:7"},
+                        fieldSourceLoc = "flam.h:18:7"},
                       StructField {
                         fieldName = CName "second",
                         fieldOffset = 64,
@@ -1266,7 +1229,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/flam.h:19:7"}],
+                        "flam.h:19:7"}],
                     structFlam = Just
                       StructField {
                         fieldName = CName "flam",
@@ -1274,10 +1237,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim
                           (PrimChar Nothing),
-                        fieldSourceLoc =
-                        "examples/flam.h:20:7"},
+                        fieldSourceLoc = "flam.h:20:7"},
                     structSourceLoc =
-                    "examples/flam.h:17:8"}}
+                    "flam.h:17:8"}}
               (Add 2)
               (Seq
                 [
@@ -1319,7 +1281,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/flam.h:18:7"}},
+                "flam.h:18:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1335,7 +1297,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/flam.h:19:7"}}],
+                "flam.h:19:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1351,8 +1313,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
-                fieldSourceLoc =
-                "examples/flam.h:18:7"},
+                fieldSourceLoc = "flam.h:18:7"},
               StructField {
                 fieldName = CName "second",
                 fieldOffset = 64,
@@ -1360,7 +1321,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/flam.h:19:7"}],
+                "flam.h:19:7"}],
             structFlam = Just
               StructField {
                 fieldName = CName "flam",
@@ -1368,9 +1329,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim
                   (PrimChar Nothing),
-                fieldSourceLoc =
-                "examples/flam.h:20:7"},
+                fieldSourceLoc = "flam.h:20:7"},
             structSourceLoc =
-            "examples/flam.h:17:8"}}
+            "flam.h:17:8"}}
       (HsPrimType HsPrimCChar)
       9)]

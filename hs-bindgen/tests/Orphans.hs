@@ -3,6 +3,7 @@
 module Orphans where
 
 import Data.Foldable (toList)
+import Data.List qualified as List
 import Data.Text qualified as Text
 import Data.TreeDiff.Class (ToExpr(..))
 import Data.TreeDiff.Expr qualified as Expr
@@ -10,8 +11,7 @@ import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
 import Data.Vec.Lazy qualified as Vec
 import Foreign.C
-import System.FilePath (isRelative, splitDirectories)
-import System.FilePath.Posix qualified as Posix
+import System.FilePath qualified as FilePath
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro as CMacro
@@ -72,31 +72,42 @@ instance ToExpr a => ToExpr (C.Token a)
 -- do not use record syntax, as it's very verbose
 instance ToExpr C.SingleLoc where
   toExpr (C.SingleLoc p l c) = toExpr $
-    let nativePath = Text.unpack $ C.getSourcePath p
-        dirs = splitDirectories nativePath
-        -- use posix directory separators even on windows
-        normalizedPath = Posix.joinPath $
-          if isRelative nativePath
-            then dirs
-            else
-              -- make relative to musl-include when applicable
-              case dropWhile (/= "musl-include") dirs of
-                []    -> dirs
-                dirs' -> dirs'
-    in  normalizedPath ++ ":" ++ show l ++ ":" ++ show c
+    let filename = FilePath.takeFileName . Text.unpack $ C.getSourcePath p
+    in  filename ++ ":" ++ show l ++ ":" ++ show c
 
 instance ToExpr C.ReparseError where
   toExpr C.ReparseError {..} = Expr.Rec "ReparseError" $ OMap.fromList
-    [ ("reparseError", toExpr $ f reparseError)
+    [ ("reparseError", toExpr $ normalizePaths reparseError)
     , ("reparseErrorTokens", toExpr reparseErrorTokens)
     ]
     where
       -- reparseError may contain paths
-      f :: String -> String
-      f ('\\' : '\\' : xs) = '/' : f xs
-      f ('\\' : xs)        = '/' : f xs
-      f (c : xs)           = c   : f xs
-      f []                 = []
+      normalizePaths :: String -> String
+      normalizePaths s = case span (/= '"') s of
+        (sL, '"':'<':sR) -> sL ++ normalizePathsQB sR
+        (sL, '"':sR)     -> sL ++ normalizePathsQ  sR
+        _otherwise       -> s
+
+      -- syntax: "PATH"
+      normalizePathsQ :: String -> String
+      normalizePathsQ s = case span (/= '"') s of
+        (sL, '"':sR)
+          -- not everything quoted is a path
+          | ".h" `List.isSuffixOf` sL ->
+              '"' : FilePath.takeFileName sL ++ '"' : normalizePaths sR
+          -- do not assume other quotes are paired
+          | otherwise -> '"' : normalizePaths s
+        _otherwise -> '"' : s
+
+      -- syntax: "<PATH:RANGE>"
+      normalizePathsQB :: String -> String
+      normalizePathsQB s = case span (/= ':') s of
+        (path, s'@(':':_)) -> case span (/= '>') s' of
+          (sL, '>':'"':sR) ->
+            '"' : '<' : FilePath.takeFileName path ++ sL
+              ++ '>' : '"' : normalizePaths sR
+          _otherwise -> '"' : '<' : s -- unexpected
+        _otherwise -> '"' : '<' : s -- unexpected
 
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err

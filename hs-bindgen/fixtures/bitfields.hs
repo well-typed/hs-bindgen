@@ -23,7 +23,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/bitfields.h:2:10"}},
+              "bitfields.h:2:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -39,7 +39,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:3:9"}},
+              "bitfields.h:3:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -55,7 +55,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:4:9"}},
+              "bitfields.h:4:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -71,7 +71,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:5:9"}},
+              "bitfields.h:5:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -87,7 +87,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/bitfields.h:6:10"}},
+              "bitfields.h:6:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -103,7 +103,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:7:9"}}],
+              "bitfields.h:7:9"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -120,7 +120,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/bitfields.h:2:10"},
+              "bitfields.h:2:10"},
             StructField {
               fieldName = CName "flagA",
               fieldOffset = 8,
@@ -128,7 +128,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:3:9"},
+              "bitfields.h:3:9"},
             StructField {
               fieldName = CName "flagB",
               fieldOffset = 9,
@@ -136,7 +136,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:4:9"},
+              "bitfields.h:4:9"},
             StructField {
               fieldName = CName "flagC",
               fieldOffset = 10,
@@ -144,7 +144,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:5:9"},
+              "bitfields.h:5:9"},
             StructField {
               fieldName = CName "fieldY",
               fieldOffset = 16,
@@ -152,7 +152,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/bitfields.h:6:10"},
+              "bitfields.h:6:10"},
             StructField {
               fieldName = CName "bits",
               fieldOffset = 24,
@@ -160,10 +160,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:7:9"}],
+              "bitfields.h:7:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:1:8"}},
+          "bitfields.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -189,7 +189,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/bitfields.h:2:10"}},
+                "bitfields.h:2:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -205,7 +205,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:3:9"}},
+                "bitfields.h:3:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -221,7 +221,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:4:9"}},
+                "bitfields.h:4:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -237,7 +237,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:5:9"}},
+                "bitfields.h:5:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -253,7 +253,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/bitfields.h:6:10"}},
+                "bitfields.h:6:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -269,7 +269,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:7:9"}}],
+                "bitfields.h:7:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -286,7 +286,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/bitfields.h:2:10"},
+                "bitfields.h:2:10"},
               StructField {
                 fieldName = CName "flagA",
                 fieldOffset = 8,
@@ -294,7 +294,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:3:9"},
+                "bitfields.h:3:9"},
               StructField {
                 fieldName = CName "flagB",
                 fieldOffset = 9,
@@ -302,7 +302,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:4:9"},
+                "bitfields.h:4:9"},
               StructField {
                 fieldName = CName "flagC",
                 fieldOffset = 10,
@@ -310,7 +310,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:5:9"},
+                "bitfields.h:5:9"},
               StructField {
                 fieldName = CName "fieldY",
                 fieldOffset = 16,
@@ -318,7 +318,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/bitfields.h:6:10"},
+                "bitfields.h:6:10"},
               StructField {
                 fieldName = CName "bits",
                 fieldOffset = 24,
@@ -326,10 +326,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:7:9"}],
+                "bitfields.h:7:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:1:8"}}
+            "bitfields.h:1:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -360,7 +360,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:2:10"}},
+                        "bitfields.h:2:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -376,7 +376,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:3:9"}},
+                        "bitfields.h:3:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -392,7 +392,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:4:9"}},
+                        "bitfields.h:4:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -408,7 +408,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:5:9"}},
+                        "bitfields.h:5:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -424,7 +424,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:6:10"}},
+                        "bitfields.h:6:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -440,7 +440,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:7:9"}}],
+                        "bitfields.h:7:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -457,7 +457,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:2:10"},
+                        "bitfields.h:2:10"},
                       StructField {
                         fieldName = CName "flagA",
                         fieldOffset = 8,
@@ -465,7 +465,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:3:9"},
+                        "bitfields.h:3:9"},
                       StructField {
                         fieldName = CName "flagB",
                         fieldOffset = 9,
@@ -473,7 +473,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:4:9"},
+                        "bitfields.h:4:9"},
                       StructField {
                         fieldName = CName "flagC",
                         fieldOffset = 10,
@@ -481,7 +481,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:5:9"},
+                        "bitfields.h:5:9"},
                       StructField {
                         fieldName = CName "fieldY",
                         fieldOffset = 16,
@@ -489,7 +489,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:6:10"},
+                        "bitfields.h:6:10"},
                       StructField {
                         fieldName = CName "bits",
                         fieldOffset = 24,
@@ -497,10 +497,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:7:9"}],
+                        "bitfields.h:7:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:1:8"}})
+                    "bitfields.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekBitOffWidth (Idx 0) 8 1,
@@ -537,7 +537,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:2:10"}},
+                        "bitfields.h:2:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -553,7 +553,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:3:9"}},
+                        "bitfields.h:3:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -569,7 +569,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:4:9"}},
+                        "bitfields.h:4:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -585,7 +585,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:5:9"}},
+                        "bitfields.h:5:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -601,7 +601,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:6:10"}},
+                        "bitfields.h:6:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -617,7 +617,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:7:9"}}],
+                        "bitfields.h:7:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -634,7 +634,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:2:10"},
+                        "bitfields.h:2:10"},
                       StructField {
                         fieldName = CName "flagA",
                         fieldOffset = 8,
@@ -642,7 +642,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:3:9"},
+                        "bitfields.h:3:9"},
                       StructField {
                         fieldName = CName "flagB",
                         fieldOffset = 9,
@@ -650,7 +650,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:4:9"},
+                        "bitfields.h:4:9"},
                       StructField {
                         fieldName = CName "flagC",
                         fieldOffset = 10,
@@ -658,7 +658,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:5:9"},
+                        "bitfields.h:5:9"},
                       StructField {
                         fieldName = CName "fieldY",
                         fieldOffset = 16,
@@ -666,7 +666,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/bitfields.h:6:10"},
+                        "bitfields.h:6:10"},
                       StructField {
                         fieldName = CName "bits",
                         fieldOffset = 24,
@@ -674,10 +674,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:7:9"}],
+                        "bitfields.h:7:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:1:8"}}
+                    "bitfields.h:1:8"}}
               (Add 6)
               (Seq
                 [
@@ -739,7 +739,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:13:9"}},
+              "bitfields.h:13:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -755,7 +755,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:14:9"}},
+              "bitfields.h:14:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -771,7 +771,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:15:9"}}],
+              "bitfields.h:15:9"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -789,7 +789,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:13:9"},
+              "bitfields.h:13:9"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 32,
@@ -797,7 +797,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:14:9"},
+              "bitfields.h:14:9"},
             StructField {
               fieldName = CName "z",
               fieldOffset = 64,
@@ -805,10 +805,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:15:9"}],
+              "bitfields.h:15:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:12:8"}},
+          "bitfields.h:12:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -834,7 +834,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:13:9"}},
+                "bitfields.h:13:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -850,7 +850,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:14:9"}},
+                "bitfields.h:14:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -866,7 +866,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:15:9"}}],
+                "bitfields.h:15:9"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -884,7 +884,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:13:9"},
+                "bitfields.h:13:9"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 32,
@@ -892,7 +892,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:14:9"},
+                "bitfields.h:14:9"},
               StructField {
                 fieldName = CName "z",
                 fieldOffset = 64,
@@ -900,10 +900,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:15:9"}],
+                "bitfields.h:15:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:12:8"}}
+            "bitfields.h:12:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -934,7 +934,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:13:9"}},
+                        "bitfields.h:13:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -950,7 +950,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:14:9"}},
+                        "bitfields.h:14:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -966,7 +966,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:15:9"}}],
+                        "bitfields.h:15:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -984,7 +984,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:13:9"},
+                        "bitfields.h:13:9"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -992,7 +992,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:14:9"},
+                        "bitfields.h:14:9"},
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 64,
@@ -1000,10 +1000,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:15:9"}],
+                        "bitfields.h:15:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:12:8"}})
+                    "bitfields.h:12:8"}})
             [
               PeekBitOffWidth (Idx 0) 0 17,
               PeekBitOffWidth (Idx 0) 32 17,
@@ -1037,7 +1037,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:13:9"}},
+                        "bitfields.h:13:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1053,7 +1053,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:14:9"}},
+                        "bitfields.h:14:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1069,7 +1069,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:15:9"}}],
+                        "bitfields.h:15:9"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1087,7 +1087,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:13:9"},
+                        "bitfields.h:13:9"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -1095,7 +1095,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:14:9"},
+                        "bitfields.h:14:9"},
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 64,
@@ -1103,10 +1103,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:15:9"}],
+                        "bitfields.h:15:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:12:8"}}
+                    "bitfields.h:12:8"}}
               (Add 3)
               (Seq
                 [
@@ -1161,7 +1161,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:19:10"}},
+              "bitfields.h:19:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1177,7 +1177,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:20:10"}},
+              "bitfields.h:20:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1193,7 +1193,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:21:10"}}],
+              "bitfields.h:21:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1211,7 +1211,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:19:10"},
+              "bitfields.h:19:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 17,
@@ -1219,7 +1219,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:20:10"},
+              "bitfields.h:20:10"},
             StructField {
               fieldName = CName "z",
               fieldOffset = 34,
@@ -1227,10 +1227,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:21:10"}],
+              "bitfields.h:21:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:18:8"}},
+          "bitfields.h:18:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1256,7 +1256,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:19:10"}},
+                "bitfields.h:19:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1272,7 +1272,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:20:10"}},
+                "bitfields.h:20:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1288,7 +1288,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:21:10"}}],
+                "bitfields.h:21:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1306,7 +1306,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:19:10"},
+                "bitfields.h:19:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 17,
@@ -1314,7 +1314,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:20:10"},
+                "bitfields.h:20:10"},
               StructField {
                 fieldName = CName "z",
                 fieldOffset = 34,
@@ -1322,10 +1322,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:21:10"}],
+                "bitfields.h:21:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:18:8"}}
+            "bitfields.h:18:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 8,
@@ -1356,7 +1356,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:19:10"}},
+                        "bitfields.h:19:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1372,7 +1372,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:20:10"}},
+                        "bitfields.h:20:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1388,7 +1388,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:21:10"}}],
+                        "bitfields.h:21:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1406,7 +1406,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:19:10"},
+                        "bitfields.h:19:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 17,
@@ -1414,7 +1414,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:20:10"},
+                        "bitfields.h:20:10"},
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 34,
@@ -1422,10 +1422,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:21:10"}],
+                        "bitfields.h:21:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:18:8"}})
+                    "bitfields.h:18:8"}})
             [
               PeekBitOffWidth (Idx 0) 0 17,
               PeekBitOffWidth (Idx 0) 17 17,
@@ -1459,7 +1459,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:19:10"}},
+                        "bitfields.h:19:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1475,7 +1475,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:20:10"}},
+                        "bitfields.h:20:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1491,7 +1491,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:21:10"}}],
+                        "bitfields.h:21:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1509,7 +1509,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:19:10"},
+                        "bitfields.h:19:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 17,
@@ -1517,7 +1517,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:20:10"},
+                        "bitfields.h:20:10"},
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 34,
@@ -1525,10 +1525,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:21:10"}],
+                        "bitfields.h:21:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:18:8"}}
+                    "bitfields.h:18:8"}}
               (Add 3)
               (Seq
                 [
@@ -1583,7 +1583,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:25:10"}},
+              "bitfields.h:25:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1599,7 +1599,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:26:10"}},
+              "bitfields.h:26:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1615,7 +1615,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:27:10"}}],
+              "bitfields.h:27:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1633,7 +1633,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:25:10"},
+              "bitfields.h:25:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 32,
@@ -1641,7 +1641,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:26:10"},
+              "bitfields.h:26:10"},
             StructField {
               fieldName = CName "z",
               fieldOffset = 64,
@@ -1649,10 +1649,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:27:10"}],
+              "bitfields.h:27:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:24:8"}},
+          "bitfields.h:24:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1678,7 +1678,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:25:10"}},
+                "bitfields.h:25:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1694,7 +1694,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:26:10"}},
+                "bitfields.h:26:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1710,7 +1710,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:27:10"}}],
+                "bitfields.h:27:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1728,7 +1728,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:25:10"},
+                "bitfields.h:25:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 32,
@@ -1736,7 +1736,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:26:10"},
+                "bitfields.h:26:10"},
               StructField {
                 fieldName = CName "z",
                 fieldOffset = 64,
@@ -1744,10 +1744,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:27:10"}],
+                "bitfields.h:27:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:24:8"}}
+            "bitfields.h:24:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1778,7 +1778,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:25:10"}},
+                        "bitfields.h:25:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1794,7 +1794,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:26:10"}},
+                        "bitfields.h:26:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1810,7 +1810,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:27:10"}}],
+                        "bitfields.h:27:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1828,7 +1828,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:25:10"},
+                        "bitfields.h:25:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -1836,7 +1836,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:26:10"},
+                        "bitfields.h:26:10"},
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 64,
@@ -1844,10 +1844,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:27:10"}],
+                        "bitfields.h:27:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:24:8"}})
+                    "bitfields.h:24:8"}})
             [
               PeekBitOffWidth (Idx 0) 0 17,
               PeekBitOffWidth (Idx 0) 32 17,
@@ -1881,7 +1881,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:25:10"}},
+                        "bitfields.h:25:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1897,7 +1897,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:26:10"}},
+                        "bitfields.h:26:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1913,7 +1913,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:27:10"}}],
+                        "bitfields.h:27:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1931,7 +1931,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:25:10"},
+                        "bitfields.h:25:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -1939,7 +1939,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:26:10"},
+                        "bitfields.h:26:10"},
                       StructField {
                         fieldName = CName "z",
                         fieldOffset = 64,
@@ -1947,10 +1947,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:27:10"}],
+                        "bitfields.h:27:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:24:8"}}
+                    "bitfields.h:24:8"}}
               (Add 3)
               (Seq
                 [
@@ -2005,7 +2005,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:31:10"}},
+              "bitfields.h:31:10"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2021,7 +2021,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:32:10"}}],
+              "bitfields.h:32:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -2039,7 +2039,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:31:10"},
+              "bitfields.h:31:10"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 64,
@@ -2047,10 +2047,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:32:10"}],
+              "bitfields.h:32:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:30:8"}},
+          "bitfields.h:30:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2076,7 +2076,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:31:10"}},
+                "bitfields.h:31:10"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2092,7 +2092,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:32:10"}}],
+                "bitfields.h:32:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -2110,7 +2110,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:31:10"},
+                "bitfields.h:31:10"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 64,
@@ -2118,10 +2118,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimLong Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:32:10"}],
+                "bitfields.h:32:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:30:8"}}
+            "bitfields.h:30:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -2152,7 +2152,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:31:10"}},
+                        "bitfields.h:31:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2168,7 +2168,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:32:10"}}],
+                        "bitfields.h:32:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2186,7 +2186,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:31:10"},
+                        "bitfields.h:31:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 64,
@@ -2194,10 +2194,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:32:10"}],
+                        "bitfields.h:32:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:30:8"}})
+                    "bitfields.h:30:8"}})
             [
               PeekBitOffWidth (Idx 0) 0 33,
               PeekBitOffWidth (Idx 0) 64 33]),
@@ -2230,7 +2230,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:31:10"}},
+                        "bitfields.h:31:10"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2246,7 +2246,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:32:10"}}],
+                        "bitfields.h:32:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2264,7 +2264,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:31:10"},
+                        "bitfields.h:31:10"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 64,
@@ -2272,10 +2272,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimLong Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:32:10"}],
+                        "bitfields.h:32:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:30:8"}}
+                    "bitfields.h:30:8"}}
               (Add 2)
               (Seq
                 [
@@ -2325,7 +2325,7 @@
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
-              "examples/bitfields.h:37:16"}},
+              "bitfields.h:37:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2341,7 +2341,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:38:6"}}],
+              "bitfields.h:38:6"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -2358,7 +2358,7 @@
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
-              "examples/bitfields.h:37:16"},
+              "bitfields.h:37:16"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 1,
@@ -2366,10 +2366,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:38:6"}],
+              "bitfields.h:38:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:36:8"}},
+          "bitfields.h:36:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2395,7 +2395,7 @@
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
                 fieldSourceLoc =
-                "examples/bitfields.h:37:16"}},
+                "bitfields.h:37:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2411,7 +2411,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:38:6"}}],
+                "bitfields.h:38:6"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -2428,7 +2428,7 @@
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
                 fieldSourceLoc =
-                "examples/bitfields.h:37:16"},
+                "bitfields.h:37:16"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 1,
@@ -2436,10 +2436,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:38:6"}],
+                "bitfields.h:38:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:36:8"}}
+            "bitfields.h:36:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -2470,7 +2470,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:37:16"}},
+                        "bitfields.h:37:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2486,7 +2486,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:38:6"}}],
+                        "bitfields.h:38:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2503,7 +2503,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:37:16"},
+                        "bitfields.h:37:16"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 1,
@@ -2511,10 +2511,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:38:6"}],
+                        "bitfields.h:38:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:36:8"}})
+                    "bitfields.h:36:8"}})
             [
               PeekBitOffWidth (Idx 0) 0 1,
               PeekBitOffWidth (Idx 0) 1 10]),
@@ -2547,7 +2547,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:37:16"}},
+                        "bitfields.h:37:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2563,7 +2563,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:38:6"}}],
+                        "bitfields.h:38:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2580,7 +2580,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:37:16"},
+                        "bitfields.h:37:16"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 1,
@@ -2588,10 +2588,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:38:6"}],
+                        "bitfields.h:38:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:36:8"}}
+                    "bitfields.h:36:8"}}
               (Add 2)
               (Seq
                 [
@@ -2641,7 +2641,7 @@
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
-              "examples/bitfields.h:42:16"}},
+              "bitfields.h:42:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2657,7 +2657,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:43:6"}}],
+              "bitfields.h:43:6"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -2674,7 +2674,7 @@
               fieldType = TypePrim
                 (PrimChar (Just Unsigned)),
               fieldSourceLoc =
-              "examples/bitfields.h:42:16"},
+              "bitfields.h:42:16"},
             StructField {
               fieldName = CName "y",
               fieldOffset = 32,
@@ -2682,10 +2682,10 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/bitfields.h:43:6"}],
+              "bitfields.h:43:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/bitfields.h:41:8"}},
+          "bitfields.h:41:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2711,7 +2711,7 @@
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
                 fieldSourceLoc =
-                "examples/bitfields.h:42:16"}},
+                "bitfields.h:42:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -2727,7 +2727,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:43:6"}}],
+                "bitfields.h:43:6"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -2744,7 +2744,7 @@
                 fieldType = TypePrim
                   (PrimChar (Just Unsigned)),
                 fieldSourceLoc =
-                "examples/bitfields.h:42:16"},
+                "bitfields.h:42:16"},
               StructField {
                 fieldName = CName "y",
                 fieldOffset = 32,
@@ -2752,10 +2752,10 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/bitfields.h:43:6"}],
+                "bitfields.h:43:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/bitfields.h:41:8"}}
+            "bitfields.h:41:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2786,7 +2786,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:42:16"}},
+                        "bitfields.h:42:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2802,7 +2802,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:43:6"}}],
+                        "bitfields.h:43:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2819,7 +2819,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:42:16"},
+                        "bitfields.h:42:16"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -2827,10 +2827,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:43:6"}],
+                        "bitfields.h:43:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:41:8"}})
+                    "bitfields.h:41:8"}})
             [
               PeekBitOffWidth (Idx 0) 0 7,
               PeekBitOffWidth (Idx 0) 32 31]),
@@ -2863,7 +2863,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:42:16"}},
+                        "bitfields.h:42:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2879,7 +2879,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:43:6"}}],
+                        "bitfields.h:43:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2896,7 +2896,7 @@
                         fieldType = TypePrim
                           (PrimChar (Just Unsigned)),
                         fieldSourceLoc =
-                        "examples/bitfields.h:42:16"},
+                        "bitfields.h:42:16"},
                       StructField {
                         fieldName = CName "y",
                         fieldOffset = 32,
@@ -2904,10 +2904,10 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/bitfields.h:43:6"}],
+                        "bitfields.h:43:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/bitfields.h:41:8"}}
+                    "bitfields.h:41:8"}}
               (Add 2)
               (Seq
                 [

@@ -23,7 +23,7 @@
               PrimLong
               Unsigned),
           typedefSourceLoc =
-          "musl-include/x86_64/bits/alltypes.h:136:25"}},
+          "alltypes.h:136:25"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -124,7 +124,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
-          "musl-include/x86_64/bits/alltypes.h:131:25"}},
+          "alltypes.h:131:25"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -229,7 +229,7 @@
               fieldType = TypeTypedef
                 (CName "uint64_t"),
               fieldSourceLoc =
-              "examples/fixedwidth.h:4:11"}},
+              "fixedwidth.h:4:11"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -247,7 +247,7 @@
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
-              "examples/fixedwidth.h:5:11"}}],
+              "fixedwidth.h:5:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -264,7 +264,7 @@
               fieldType = TypeTypedef
                 (CName "uint64_t"),
               fieldSourceLoc =
-              "examples/fixedwidth.h:4:11"},
+              "fixedwidth.h:4:11"},
             StructField {
               fieldName = CName "thirty_two",
               fieldOffset = 64,
@@ -272,10 +272,10 @@
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
-              "examples/fixedwidth.h:5:11"}],
+              "fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/fixedwidth.h:3:8"}},
+          "fixedwidth.h:3:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -303,7 +303,7 @@
                 fieldType = TypeTypedef
                   (CName "uint64_t"),
                 fieldSourceLoc =
-                "examples/fixedwidth.h:4:11"}},
+                "fixedwidth.h:4:11"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -321,7 +321,7 @@
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
-                "examples/fixedwidth.h:5:11"}}],
+                "fixedwidth.h:5:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -338,7 +338,7 @@
                 fieldType = TypeTypedef
                   (CName "uint64_t"),
                 fieldSourceLoc =
-                "examples/fixedwidth.h:4:11"},
+                "fixedwidth.h:4:11"},
               StructField {
                 fieldName = CName "thirty_two",
                 fieldOffset = 64,
@@ -346,10 +346,10 @@
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
-                "examples/fixedwidth.h:5:11"}],
+                "fixedwidth.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/fixedwidth.h:3:8"}}
+            "fixedwidth.h:3:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -382,7 +382,7 @@
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:4:11"}},
+                        "fixedwidth.h:4:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -400,7 +400,7 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:5:11"}}],
+                        "fixedwidth.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -417,7 +417,7 @@
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:4:11"},
+                        "fixedwidth.h:4:11"},
                       StructField {
                         fieldName = CName "thirty_two",
                         fieldOffset = 64,
@@ -425,10 +425,10 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:5:11"}],
+                        "fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedwidth.h:3:8"}})
+                    "fixedwidth.h:3:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -463,7 +463,7 @@
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:4:11"}},
+                        "fixedwidth.h:4:11"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -481,7 +481,7 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:5:11"}}],
+                        "fixedwidth.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -498,7 +498,7 @@
                         fieldType = TypeTypedef
                           (CName "uint64_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:4:11"},
+                        "fixedwidth.h:4:11"},
                       StructField {
                         fieldName = CName "thirty_two",
                         fieldOffset = 64,
@@ -506,10 +506,10 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/fixedwidth.h:5:11"}],
+                        "fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/fixedwidth.h:3:8"}}
+                    "fixedwidth.h:3:8"}}
               (Add 2)
               (Seq
                 [

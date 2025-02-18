@@ -197,7 +197,7 @@
       foreignImportOrigName =
       "some_fun",
       foreignImportHeader =
-      "examples/distilled_lib_1.h",
+      "distilled_lib_1.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
         Function {
@@ -214,7 +214,7 @@
           functionHeader =
           "distilled_lib_1.h",
           functionSourceLoc =
-          "examples/distilled_lib_1.h:71:9"}},
+          "distilled_lib_1.h:71:9"}},
   DeclData
     Struct {
       structName = HsName
@@ -239,7 +239,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:8:22"}},
+              "distilled_lib_1.h:8:22"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -255,7 +255,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:8:32"}}],
+              "distilled_lib_1.h:8:32"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -274,7 +274,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:8:22"},
+              "distilled_lib_1.h:8:22"},
             StructField {
               fieldName = CName "bar",
               fieldOffset = 32,
@@ -282,10 +282,10 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:8:32"}],
+              "distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/distilled_lib_1.h:8:9"}},
+          "distilled_lib_1.h:8:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -311,7 +311,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:8:22"}},
+                "distilled_lib_1.h:8:22"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -327,7 +327,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:8:32"}}],
+                "distilled_lib_1.h:8:32"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -346,7 +346,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:8:22"},
+                "distilled_lib_1.h:8:22"},
               StructField {
                 fieldName = CName "bar",
                 fieldOffset = 32,
@@ -354,10 +354,10 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:8:32"}],
+                "distilled_lib_1.h:8:32"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/distilled_lib_1.h:8:9"}}
+            "distilled_lib_1.h:8:9"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -388,7 +388,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:22"}},
+                        "distilled_lib_1.h:8:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -404,7 +404,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:32"}}],
+                        "distilled_lib_1.h:8:32"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -423,7 +423,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:22"},
+                        "distilled_lib_1.h:8:22"},
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
@@ -431,10 +431,10 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:32"}],
+                        "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:8:9"}})
+                    "distilled_lib_1.h:8:9"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -467,7 +467,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:22"}},
+                        "distilled_lib_1.h:8:22"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -483,7 +483,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:32"}}],
+                        "distilled_lib_1.h:8:32"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -502,7 +502,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:22"},
+                        "distilled_lib_1.h:8:22"},
                       StructField {
                         fieldName = CName "bar",
                         fieldOffset = 32,
@@ -510,10 +510,10 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:8:32"}],
+                        "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:8:9"}}
+                    "distilled_lib_1.h:8:9"}}
               (Add 2)
               (Seq
                 [
@@ -563,14 +563,14 @@
               valueName = CName "FOO",
               valueValue = 0,
               valueSourceLoc =
-              "examples/distilled_lib_1.h:9:16"},
+              "distilled_lib_1.h:9:16"},
             EnumValue {
               valueName = CName "BAR",
               valueValue = 1,
               valueSourceLoc =
-              "examples/distilled_lib_1.h:9:21"}],
+              "distilled_lib_1.h:9:21"}],
           enumSourceLoc =
-          "examples/distilled_lib_1.h:9:9"}},
+          "distilled_lib_1.h:9:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -601,14 +601,14 @@
                 valueName = CName "FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "examples/distilled_lib_1.h:9:16"},
+                "distilled_lib_1.h:9:16"},
               EnumValue {
                 valueName = CName "BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "examples/distilled_lib_1.h:9:21"}],
+                "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "examples/distilled_lib_1.h:9:9"}}
+            "distilled_lib_1.h:9:9"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -644,14 +644,14 @@
                         valueName = CName "FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:9:16"},
+                        "distilled_lib_1.h:9:16"},
                       EnumValue {
                         valueName = CName "BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:9:21"}],
+                        "distilled_lib_1.h:9:21"}],
                     enumSourceLoc =
-                    "examples/distilled_lib_1.h:9:9"}})
+                    "distilled_lib_1.h:9:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -687,14 +687,14 @@
                         valueName = CName "FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:9:16"},
+                        "distilled_lib_1.h:9:16"},
                       EnumValue {
                         valueName = CName "BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:9:21"}],
+                        "distilled_lib_1.h:9:21"}],
                     enumSourceLoc =
-                    "examples/distilled_lib_1.h:9:9"}}
+                    "distilled_lib_1.h:9:9"}}
               (Add 1)
               (Seq
                 [
@@ -750,7 +750,7 @@
           valueName = CName "FOO",
           valueValue = 0,
           valueSourceLoc =
-          "examples/distilled_lib_1.h:9:16"}},
+          "distilled_lib_1.h:9:16"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -769,7 +769,7 @@
           valueName = CName "BAR",
           valueValue = 1,
           valueSourceLoc =
-          "examples/distilled_lib_1.h:9:21"}},
+          "distilled_lib_1.h:9:21"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -792,7 +792,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "examples/distilled_lib_1.h:13:13"}},
+          "distilled_lib_1.h:13:13"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -893,7 +893,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "examples/distilled_lib_1.h:14:13"}},
+          "distilled_lib_1.h:14:13"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -994,7 +994,7 @@
           typedefType = TypePrim
             (PrimChar (Just Unsigned)),
           typedefSourceLoc =
-          "musl-include/x86_64/bits/alltypes.h:121:25"}},
+          "alltypes.h:121:25"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1097,7 +1097,7 @@
               PrimShort
               Unsigned),
           typedefSourceLoc =
-          "musl-include/x86_64/bits/alltypes.h:126:25"}},
+          "alltypes.h:126:25"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1198,7 +1198,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
-          "musl-include/x86_64/bits/alltypes.h:131:25"}},
+          "alltypes.h:131:25"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1300,7 +1300,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:36:31"}},
+              "distilled_lib_1.h:36:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1318,7 +1318,7 @@
               fieldType = TypeTypedef
                 (CName "uint8_t"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:37:31"}},
+              "distilled_lib_1.h:37:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1336,7 +1336,7 @@
               fieldType = TypeTypedef
                 (CName "uint16_t"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:38:31"}},
+              "distilled_lib_1.h:38:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1354,7 +1354,7 @@
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:39:31"}},
+              "distilled_lib_1.h:39:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1376,7 +1376,7 @@
                       "another_typedef_struct_t"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:40:31"}},
+              "distilled_lib_1.h:40:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1400,7 +1400,7 @@
                         "another_typedef_struct_t"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:41:31"}},
+              "distilled_lib_1.h:41:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1416,7 +1416,7 @@
               fieldType = TypePointer
                 TypeVoid,
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:42:31"}},
+              "distilled_lib_1.h:42:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1438,7 +1438,7 @@
                 (TypeTypedef
                   (CName "uint32_t")),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:43:31"}},
+              "distilled_lib_1.h:43:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1457,7 +1457,7 @@
                 (CName
                   "another_typedef_enum_e"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:44:31"}},
+              "distilled_lib_1.h:44:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1476,7 +1476,7 @@
                 (CName
                   "another_typedef_enum_e"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:45:31"}},
+              "distilled_lib_1.h:45:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1495,7 +1495,7 @@
                 (CName
                   "another_typedef_enum_e"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:46:31"}}],
+              "distilled_lib_1.h:46:31"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1512,7 +1512,7 @@
               fieldWidth = Nothing,
               fieldType = TypePrim PrimBool,
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:36:31"},
+              "distilled_lib_1.h:36:31"},
             StructField {
               fieldName = CName "field_1",
               fieldOffset = 8,
@@ -1520,7 +1520,7 @@
               fieldType = TypeTypedef
                 (CName "uint8_t"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:37:31"},
+              "distilled_lib_1.h:37:31"},
             StructField {
               fieldName = CName "field_2",
               fieldOffset = 16,
@@ -1528,7 +1528,7 @@
               fieldType = TypeTypedef
                 (CName "uint16_t"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:38:31"},
+              "distilled_lib_1.h:38:31"},
             StructField {
               fieldName = CName "field_3",
               fieldOffset = 32,
@@ -1536,7 +1536,7 @@
               fieldType = TypeTypedef
                 (CName "uint32_t"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:39:31"},
+              "distilled_lib_1.h:39:31"},
             StructField {
               fieldName = CName "field_4",
               fieldOffset = 64,
@@ -1548,7 +1548,7 @@
                       "another_typedef_struct_t"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:40:31"},
+              "distilled_lib_1.h:40:31"},
             StructField {
               fieldName = CName "field_5",
               fieldOffset = 128,
@@ -1561,7 +1561,7 @@
                         "another_typedef_struct_t"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:41:31"},
+              "distilled_lib_1.h:41:31"},
             StructField {
               fieldName = CName "field_6",
               fieldOffset = 192,
@@ -1569,7 +1569,7 @@
               fieldType = TypePointer
                 TypeVoid,
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:42:31"},
+              "distilled_lib_1.h:42:31"},
             StructField {
               fieldName = CName "field_7",
               fieldOffset = 256,
@@ -1579,7 +1579,7 @@
                 (TypeTypedef
                   (CName "uint32_t")),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:43:31"},
+              "distilled_lib_1.h:43:31"},
             StructField {
               fieldName = CName "field_8",
               fieldOffset = 480,
@@ -1588,7 +1588,7 @@
                 (CName
                   "another_typedef_enum_e"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:44:31"},
+              "distilled_lib_1.h:44:31"},
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
@@ -1597,7 +1597,7 @@
                 (CName
                   "another_typedef_enum_e"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:45:31"},
+              "distilled_lib_1.h:45:31"},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
@@ -1606,10 +1606,10 @@
                 (CName
                   "another_typedef_enum_e"),
               fieldSourceLoc =
-              "examples/distilled_lib_1.h:46:31"}],
+              "distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/distilled_lib_1.h:34:16"}},
+          "distilled_lib_1.h:34:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1634,7 +1634,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:36:31"}},
+                "distilled_lib_1.h:36:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1652,7 +1652,7 @@
                 fieldType = TypeTypedef
                   (CName "uint8_t"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:37:31"}},
+                "distilled_lib_1.h:37:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1670,7 +1670,7 @@
                 fieldType = TypeTypedef
                   (CName "uint16_t"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:38:31"}},
+                "distilled_lib_1.h:38:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1688,7 +1688,7 @@
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:39:31"}},
+                "distilled_lib_1.h:39:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1710,7 +1710,7 @@
                         "another_typedef_struct_t"))
                     DeclPathTop),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:40:31"}},
+                "distilled_lib_1.h:40:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1734,7 +1734,7 @@
                           "another_typedef_struct_t"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:41:31"}},
+                "distilled_lib_1.h:41:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1750,7 +1750,7 @@
                 fieldType = TypePointer
                   TypeVoid,
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:42:31"}},
+                "distilled_lib_1.h:42:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1772,7 +1772,7 @@
                   (TypeTypedef
                     (CName "uint32_t")),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:43:31"}},
+                "distilled_lib_1.h:43:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1791,7 +1791,7 @@
                   (CName
                     "another_typedef_enum_e"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:44:31"}},
+                "distilled_lib_1.h:44:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1810,7 +1810,7 @@
                   (CName
                     "another_typedef_enum_e"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:45:31"}},
+                "distilled_lib_1.h:45:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1829,7 +1829,7 @@
                   (CName
                     "another_typedef_enum_e"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:46:31"}}],
+                "distilled_lib_1.h:46:31"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1846,7 +1846,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePrim PrimBool,
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:36:31"},
+                "distilled_lib_1.h:36:31"},
               StructField {
                 fieldName = CName "field_1",
                 fieldOffset = 8,
@@ -1854,7 +1854,7 @@
                 fieldType = TypeTypedef
                   (CName "uint8_t"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:37:31"},
+                "distilled_lib_1.h:37:31"},
               StructField {
                 fieldName = CName "field_2",
                 fieldOffset = 16,
@@ -1862,7 +1862,7 @@
                 fieldType = TypeTypedef
                   (CName "uint16_t"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:38:31"},
+                "distilled_lib_1.h:38:31"},
               StructField {
                 fieldName = CName "field_3",
                 fieldOffset = 32,
@@ -1870,7 +1870,7 @@
                 fieldType = TypeTypedef
                   (CName "uint32_t"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:39:31"},
+                "distilled_lib_1.h:39:31"},
               StructField {
                 fieldName = CName "field_4",
                 fieldOffset = 64,
@@ -1882,7 +1882,7 @@
                         "another_typedef_struct_t"))
                     DeclPathTop),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:40:31"},
+                "distilled_lib_1.h:40:31"},
               StructField {
                 fieldName = CName "field_5",
                 fieldOffset = 128,
@@ -1895,7 +1895,7 @@
                           "another_typedef_struct_t"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:41:31"},
+                "distilled_lib_1.h:41:31"},
               StructField {
                 fieldName = CName "field_6",
                 fieldOffset = 192,
@@ -1903,7 +1903,7 @@
                 fieldType = TypePointer
                   TypeVoid,
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:42:31"},
+                "distilled_lib_1.h:42:31"},
               StructField {
                 fieldName = CName "field_7",
                 fieldOffset = 256,
@@ -1913,7 +1913,7 @@
                   (TypeTypedef
                     (CName "uint32_t")),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:43:31"},
+                "distilled_lib_1.h:43:31"},
               StructField {
                 fieldName = CName "field_8",
                 fieldOffset = 480,
@@ -1922,7 +1922,7 @@
                   (CName
                     "another_typedef_enum_e"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:44:31"},
+                "distilled_lib_1.h:44:31"},
               StructField {
                 fieldName = CName "field_9",
                 fieldOffset = 512,
@@ -1931,7 +1931,7 @@
                   (CName
                     "another_typedef_enum_e"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:45:31"},
+                "distilled_lib_1.h:45:31"},
               StructField {
                 fieldName = CName "field_10",
                 fieldOffset = 640,
@@ -1940,10 +1940,10 @@
                   (CName
                     "another_typedef_enum_e"),
                 fieldSourceLoc =
-                "examples/distilled_lib_1.h:46:31"}],
+                "distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/distilled_lib_1.h:34:16"}}
+            "distilled_lib_1.h:34:16"}}
       StorableInstance {
         storableSizeOf = 140,
         storableAlignment = 1,
@@ -1973,7 +1973,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:36:31"}},
+                        "distilled_lib_1.h:36:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1991,7 +1991,7 @@
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:37:31"}},
+                        "distilled_lib_1.h:37:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2009,7 +2009,7 @@
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:38:31"}},
+                        "distilled_lib_1.h:38:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2027,7 +2027,7 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:39:31"}},
+                        "distilled_lib_1.h:39:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2049,7 +2049,7 @@
                                 "another_typedef_struct_t"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:40:31"}},
+                        "distilled_lib_1.h:40:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2073,7 +2073,7 @@
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:41:31"}},
+                        "distilled_lib_1.h:41:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2089,7 +2089,7 @@
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:42:31"}},
+                        "distilled_lib_1.h:42:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2111,7 +2111,7 @@
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:43:31"}},
+                        "distilled_lib_1.h:43:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2130,7 +2130,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:44:31"}},
+                        "distilled_lib_1.h:44:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2149,7 +2149,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:45:31"}},
+                        "distilled_lib_1.h:45:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2168,7 +2168,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:46:31"}}],
+                        "distilled_lib_1.h:46:31"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2185,7 +2185,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:36:31"},
+                        "distilled_lib_1.h:36:31"},
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
@@ -2193,7 +2193,7 @@
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:37:31"},
+                        "distilled_lib_1.h:37:31"},
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
@@ -2201,7 +2201,7 @@
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:38:31"},
+                        "distilled_lib_1.h:38:31"},
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
@@ -2209,7 +2209,7 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:39:31"},
+                        "distilled_lib_1.h:39:31"},
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
@@ -2221,7 +2221,7 @@
                                 "another_typedef_struct_t"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:40:31"},
+                        "distilled_lib_1.h:40:31"},
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
@@ -2234,7 +2234,7 @@
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:41:31"},
+                        "distilled_lib_1.h:41:31"},
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
@@ -2242,7 +2242,7 @@
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:42:31"},
+                        "distilled_lib_1.h:42:31"},
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
@@ -2252,7 +2252,7 @@
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:43:31"},
+                        "distilled_lib_1.h:43:31"},
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
@@ -2261,7 +2261,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:44:31"},
+                        "distilled_lib_1.h:44:31"},
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
@@ -2270,7 +2270,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:45:31"},
+                        "distilled_lib_1.h:45:31"},
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
@@ -2279,10 +2279,10 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:46:31"}],
+                        "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:34:16"}})
+                    "distilled_lib_1.h:34:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2323,7 +2323,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:36:31"}},
+                        "distilled_lib_1.h:36:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2341,7 +2341,7 @@
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:37:31"}},
+                        "distilled_lib_1.h:37:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2359,7 +2359,7 @@
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:38:31"}},
+                        "distilled_lib_1.h:38:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2377,7 +2377,7 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:39:31"}},
+                        "distilled_lib_1.h:39:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2399,7 +2399,7 @@
                                 "another_typedef_struct_t"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:40:31"}},
+                        "distilled_lib_1.h:40:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2423,7 +2423,7 @@
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:41:31"}},
+                        "distilled_lib_1.h:41:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2439,7 +2439,7 @@
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:42:31"}},
+                        "distilled_lib_1.h:42:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2461,7 +2461,7 @@
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:43:31"}},
+                        "distilled_lib_1.h:43:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2480,7 +2480,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:44:31"}},
+                        "distilled_lib_1.h:44:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2499,7 +2499,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:45:31"}},
+                        "distilled_lib_1.h:45:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -2518,7 +2518,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:46:31"}}],
+                        "distilled_lib_1.h:46:31"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2535,7 +2535,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePrim PrimBool,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:36:31"},
+                        "distilled_lib_1.h:36:31"},
                       StructField {
                         fieldName = CName "field_1",
                         fieldOffset = 8,
@@ -2543,7 +2543,7 @@
                         fieldType = TypeTypedef
                           (CName "uint8_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:37:31"},
+                        "distilled_lib_1.h:37:31"},
                       StructField {
                         fieldName = CName "field_2",
                         fieldOffset = 16,
@@ -2551,7 +2551,7 @@
                         fieldType = TypeTypedef
                           (CName "uint16_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:38:31"},
+                        "distilled_lib_1.h:38:31"},
                       StructField {
                         fieldName = CName "field_3",
                         fieldOffset = 32,
@@ -2559,7 +2559,7 @@
                         fieldType = TypeTypedef
                           (CName "uint32_t"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:39:31"},
+                        "distilled_lib_1.h:39:31"},
                       StructField {
                         fieldName = CName "field_4",
                         fieldOffset = 64,
@@ -2571,7 +2571,7 @@
                                 "another_typedef_struct_t"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:40:31"},
+                        "distilled_lib_1.h:40:31"},
                       StructField {
                         fieldName = CName "field_5",
                         fieldOffset = 128,
@@ -2584,7 +2584,7 @@
                                   "another_typedef_struct_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:41:31"},
+                        "distilled_lib_1.h:41:31"},
                       StructField {
                         fieldName = CName "field_6",
                         fieldOffset = 192,
@@ -2592,7 +2592,7 @@
                         fieldType = TypePointer
                           TypeVoid,
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:42:31"},
+                        "distilled_lib_1.h:42:31"},
                       StructField {
                         fieldName = CName "field_7",
                         fieldOffset = 256,
@@ -2602,7 +2602,7 @@
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:43:31"},
+                        "distilled_lib_1.h:43:31"},
                       StructField {
                         fieldName = CName "field_8",
                         fieldOffset = 480,
@@ -2611,7 +2611,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:44:31"},
+                        "distilled_lib_1.h:44:31"},
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
@@ -2620,7 +2620,7 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:45:31"},
+                        "distilled_lib_1.h:45:31"},
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
@@ -2629,10 +2629,10 @@
                           (CName
                             "another_typedef_enum_e"),
                         fieldSourceLoc =
-                        "examples/distilled_lib_1.h:46:31"}],
+                        "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/distilled_lib_1.h:34:16"}}
+                    "distilled_lib_1.h:34:16"}}
               (Add 11)
               (Seq
                 [
@@ -2690,7 +2690,7 @@
                 (CName "a_typedef_struct"))
               DeclPathTop),
           typedefSourceLoc =
-          "examples/distilled_lib_1.h:47:3"}},
+          "distilled_lib_1.h:47:3"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -2726,24 +2726,24 @@
               valueName = CName "ENUM_CASE_0",
               valueValue = 0,
               valueSourceLoc =
-              "examples/distilled_lib_1.h:62:3"},
+              "distilled_lib_1.h:62:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_1",
               valueValue = 1,
               valueSourceLoc =
-              "examples/distilled_lib_1.h:63:3"},
+              "distilled_lib_1.h:63:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_2",
               valueValue = 2,
               valueSourceLoc =
-              "examples/distilled_lib_1.h:64:3"},
+              "distilled_lib_1.h:64:3"},
             EnumValue {
               valueName = CName "ENUM_CASE_3",
               valueValue = 3,
               valueSourceLoc =
-              "examples/distilled_lib_1.h:65:3"}],
+              "distilled_lib_1.h:65:3"}],
           enumSourceLoc =
-          "examples/distilled_lib_1.h:60:9"}},
+          "distilled_lib_1.h:60:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2774,24 +2774,24 @@
                 valueName = CName "ENUM_CASE_0",
                 valueValue = 0,
                 valueSourceLoc =
-                "examples/distilled_lib_1.h:62:3"},
+                "distilled_lib_1.h:62:3"},
               EnumValue {
                 valueName = CName "ENUM_CASE_1",
                 valueValue = 1,
                 valueSourceLoc =
-                "examples/distilled_lib_1.h:63:3"},
+                "distilled_lib_1.h:63:3"},
               EnumValue {
                 valueName = CName "ENUM_CASE_2",
                 valueValue = 2,
                 valueSourceLoc =
-                "examples/distilled_lib_1.h:64:3"},
+                "distilled_lib_1.h:64:3"},
               EnumValue {
                 valueName = CName "ENUM_CASE_3",
                 valueValue = 3,
                 valueSourceLoc =
-                "examples/distilled_lib_1.h:65:3"}],
+                "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "examples/distilled_lib_1.h:60:9"}}
+            "distilled_lib_1.h:60:9"}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -2827,24 +2827,24 @@
                         valueName = CName "ENUM_CASE_0",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:62:3"},
+                        "distilled_lib_1.h:62:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_1",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:63:3"},
+                        "distilled_lib_1.h:63:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_2",
                         valueValue = 2,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:64:3"},
+                        "distilled_lib_1.h:64:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_3",
                         valueValue = 3,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:65:3"}],
+                        "distilled_lib_1.h:65:3"}],
                     enumSourceLoc =
-                    "examples/distilled_lib_1.h:60:9"}})
+                    "distilled_lib_1.h:60:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2880,24 +2880,24 @@
                         valueName = CName "ENUM_CASE_0",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:62:3"},
+                        "distilled_lib_1.h:62:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_1",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:63:3"},
+                        "distilled_lib_1.h:63:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_2",
                         valueValue = 2,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:64:3"},
+                        "distilled_lib_1.h:64:3"},
                       EnumValue {
                         valueName = CName "ENUM_CASE_3",
                         valueValue = 3,
                         valueSourceLoc =
-                        "examples/distilled_lib_1.h:65:3"}],
+                        "distilled_lib_1.h:65:3"}],
                     enumSourceLoc =
-                    "examples/distilled_lib_1.h:60:9"}}
+                    "distilled_lib_1.h:60:9"}}
               (Add 1)
               (Seq
                 [
@@ -2953,7 +2953,7 @@
           valueName = CName "ENUM_CASE_0",
           valueValue = 0,
           valueSourceLoc =
-          "examples/distilled_lib_1.h:62:3"}},
+          "distilled_lib_1.h:62:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2972,7 +2972,7 @@
           valueName = CName "ENUM_CASE_1",
           valueValue = 1,
           valueSourceLoc =
-          "examples/distilled_lib_1.h:63:3"}},
+          "distilled_lib_1.h:63:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2991,7 +2991,7 @@
           valueName = CName "ENUM_CASE_2",
           valueValue = 2,
           valueSourceLoc =
-          "examples/distilled_lib_1.h:64:3"}},
+          "distilled_lib_1.h:64:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3010,7 +3010,7 @@
           valueName = CName "ENUM_CASE_3",
           valueValue = 3,
           valueSourceLoc =
-          "examples/distilled_lib_1.h:65:3"}},
+          "distilled_lib_1.h:65:3"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -3033,7 +3033,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "musl-include/x86_64/bits/alltypes.h:106:25"}},
+          "alltypes.h:106:25"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -3151,7 +3151,7 @@
               (TypeTypedef
                 (CName "uint32_t"))),
           typedefSourceLoc =
-          "examples/distilled_lib_1.h:76:19"}},
+          "distilled_lib_1.h:76:19"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

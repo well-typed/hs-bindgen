@@ -6,7 +6,7 @@ WrapCHeader
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/uses_utf8.h:2:9",
+              "uses_utf8.h:2:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -15,7 +15,7 @@ WrapCHeader
             macroBody = MTerm MEmpty},
           macroDeclMacroTy = "Empty",
           macroDeclSourceLoc =
-          "examples/uses_utf8.h:2:9"},
+          "uses_utf8.h:2:9"},
       DeclEnum
         Enu {
           enumTag = CName "MyEnum",
@@ -29,12 +29,12 @@ WrapCHeader
                 "Say\20320\22909",
               valueValue = 0,
               valueSourceLoc =
-              "examples/uses_utf8.h:5:9"},
+              "uses_utf8.h:5:9"},
             EnumValue {
               valueName = CName
                 "Say\25308\25308",
               valueValue = 1,
               valueSourceLoc =
-              "examples/uses_utf8.h:6:9"}],
+              "uses_utf8.h:6:9"}],
           enumSourceLoc =
-          "examples/uses_utf8.h:4:6"}])
+          "uses_utf8.h:4:6"}])

@@ -1,5 +1,5 @@
-foreign import capi safe "examples/weird01.h func" func :: Ptr Bar ->
-                                                           IO Unit
+foreign import capi safe "weird01.h func" func :: Ptr Bar ->
+                                                  IO Unit
 data Foo = Foo {foo_z :: CInt}
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;

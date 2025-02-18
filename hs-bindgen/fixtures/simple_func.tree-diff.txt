@@ -13,7 +13,7 @@ WrapCHeader
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "examples/simple_func.h:1:8"},
+          "simple_func.h:1:8"},
       DeclFunction
         Function {
           functionName = CName "bad_fma",
@@ -30,7 +30,7 @@ WrapCHeader
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "examples/simple_func.h:3:22"},
+          "simple_func.h:3:22"},
       DeclFunction
         Function {
           functionName = CName "no_args",
@@ -40,4 +40,4 @@ WrapCHeader
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "examples/simple_func.h:7:6"}])
+          "simple_func.h:7:6"}])

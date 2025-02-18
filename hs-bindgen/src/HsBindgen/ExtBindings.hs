@@ -114,14 +114,15 @@ loadYaml path =
 --
 -- This function fails on error.
 resolveExtBindings ::
-     [CIncludePathDir]
+     [CIncludeAbsPathDir]
   -> UnresolvedExtBindings
   -> IO ExtBindings
 resolveExtBindings includePathDirs UnresolvedExtBindings{..} = do
-    let relPathSet = mconcat $
+    let relPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
-    headerMap <- fmap Map.fromList . forM (Set.toList relPathSet) $ \relPath ->
-      (relPath,) <$> resolveHeader includePathDirs relPath
+    headerMap <- fmap Map.fromList . forM relPaths $ \relPath ->
+      either fail (return . (relPath,))
+        =<< resolveHeader includePathDirs relPath
     let resolve'         = map $ first $ Set.map (headerMap Map.!)
         extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
     return ExtBindings{..}
