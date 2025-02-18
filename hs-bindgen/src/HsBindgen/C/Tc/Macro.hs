@@ -17,6 +17,7 @@ module HsBindgen.C.Tc.Macro
   , Type(..), Kind(..)
   , TyCon(..), GenerativeTyCon(..), DataTyCon(..), ClassTyCon(..)
   , FamilyTyCon(..)
+  , IntegralType(..)
   , Quant(..), QuantTyBody(..)
   , tyVarName, tyVarNames, mkQuantTyBody
   , isPrimTy
@@ -328,8 +329,11 @@ data DataTyCon nbArgs where
   -- | Type constructor for pointers
   PtrTyCon       :: DataTyCon ( S Z )
 
+  -- | Tuple type constructors
+  TupleTyCon     :: Nat.SNatI n => DataTyCon ( S ( S n ) )
+
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
-  PrimIntInfoTyCon   :: !C.IntegralType -> DataTyCon Z
+  PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
   -- | Family of nullary type constructors for arguments to 'FloatLikeTyCon'.
   PrimFloatInfoTyCon :: !C.FloatingType -> DataTyCon Z
 
@@ -337,6 +341,11 @@ data DataTyCon nbArgs where
   PrimTyTyCon    :: DataTyCon Z
   -- | Type constructor for the type of an empty macro.
   EmptyTyCon     :: DataTyCon Z
+
+data IntegralType
+  = CIntegralType !C.IntegralType
+  | HsIntType
+  deriving stock ( Eq, Ord, Show, Generic )
 
 deriving stock instance Eq  ( DataTyCon nbArgs )
 deriving stock instance Ord ( DataTyCon nbArgs )
@@ -432,6 +441,7 @@ instance Show ( DataTyCon n ) where
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
     PrimTyTyCon               -> showString "PrimTy"
     EmptyTyCon                -> showString "Empty"
+    TupleTyCon                -> showString "Tuple"
 instance Show ( FamilyTyCon n ) where
   show = \case
     PlusResTyCon       -> "PlusRes"
@@ -1109,7 +1119,7 @@ toMacroType = \case
   C.Type.Void          -> error "C macro typechecker does not support 'void' (yet)"
   C.Type.Arithmetic a  ->
     case a of
-      C.Type.Integral  i -> Just $ IntLike   $ PrimIntInfoTy   i
+      C.Type.Integral  i -> Just $ IntLike   $ PrimIntInfoTy   $ CIntegralType i
       C.Type.FloatLike f -> Just $ FloatLike $ PrimFloatInfoTy f
   C.Type.Ptr ( CType a ) -> Ptr <$> toMacroType a
 
@@ -1122,13 +1132,14 @@ fromMacroType = \case
       FamilyTyCon {} -> Nothing
       GenerativeTyCon ( DataTyCon dat ) ->
         case dat of
+          TupleTyCon -> Nothing
           VoidTyCon -> Just $ C.Type.Void
           StringTyCon -> Just $ C.Type.Ptr $ CType $ C.Type.Arithmetic ( C.Type.Integral $ C.Type.CharLike C.Type.Char )
           IntLikeTyCon ->
             case args of
               ( a ::: VNil ) ->
                 case a of
-                  PrimIntInfoTy inty ->
+                  PrimIntInfoTy (CIntegralType inty) ->
                     Just $ C.Type.Arithmetic $ C.Type.Integral inty
                   _ -> Nothing
           FloatLikeTyCon ->
@@ -1205,7 +1216,7 @@ inferTerm = \case
     IntLike <$>
       case mbIntyTy of
         Just intyTy ->
-          return $ PrimIntInfoTy $ fromPrimIntTy intyTy
+          return $ PrimIntInfoTy $ CIntegralType $ fromPrimIntTy intyTy
         Nothing ->
           newMetaTyVarTy (IntLitMeta i) "i"
   MFloat f@( FloatingLiteral { floatingLiteralType = mbFloatyTy }) ->
@@ -1215,6 +1226,16 @@ inferTerm = \case
           return $ PrimFloatInfoTy $ fromPrimFloatTy floatyTy
         Nothing ->
           newMetaTyVarTy (FloatLitMeta f) "f"
+  MChar {} ->
+    -- In C (unlike C++), character literals have type 'int', not 'char'.
+    --
+    -- This is likely due to integer promotion rules, which means that most
+    -- 'char' values get automatically promoted to 'int'.
+    --
+    -- See https://en.cppreference.com/w/c/language/character_constant.
+    return IntTy
+  MString {} ->
+    return $ Tuple ( Ptr CharTy ::: HsIntTy ::: VNil )
   MVar fun args -> inferApp ( FunName $ Left fun ) args
   MType {} -> return PrimTy
   MAttr _attr tm -> inferTerm tm
@@ -1295,18 +1316,22 @@ inferLam funNm argNms@( _ ::: _ ) body = do
 
 inferMFun :: MFun arity -> Quant ( Type Ty )
 inferMFun = \case
+
+  -- Tuple
+  MTuple @n -> Quant @(S (S n)) \ as -> QuantTyBody [] $ funTy (Vec.toList as) (Tuple as)
+
   -- Logical operators
-  MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      $ funTy [a]   intTy
-  MLogicalAnd -> q2 \ a b -> QuantTyBody [Logical a b] $ funTy [a,b] intTy
-  MLogicalOr  -> q2 \ a b -> QuantTyBody [Logical a b] $ funTy [a,b] intTy
+  MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      $ funTy [a]   IntTy
+  MLogicalAnd -> q2 \ a b -> QuantTyBody [Logical a b] $ funTy [a,b] IntTy
+  MLogicalOr  -> q2 \ a b -> QuantTyBody [Logical a b] $ funTy [a,b] IntTy
 
   -- Comparison operators
-  MRelEQ      -> q2 \ a b -> QuantTyBody [RelEq a b]    $ funTy [a,b] intTy
-  MRelNE      -> q2 \ a b -> QuantTyBody [RelEq a b]    $ funTy [a,b] intTy
-  MRelLT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] intTy
-  MRelLE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] intTy
-  MRelGT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] intTy
-  MRelGE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] intTy
+  MRelEQ      -> q2 \ a b -> QuantTyBody [RelEq a b]    $ funTy [a,b] IntTy
+  MRelNE      -> q2 \ a b -> QuantTyBody [RelEq a b]    $ funTy [a,b] IntTy
+  MRelLT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
+  MRelLE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
+  MRelGT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
+  MRelGE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
 
   -- Arithmetic operators
 
@@ -1339,7 +1364,6 @@ inferMFun = \case
       case NE.nonEmpty mbArgs of
         Just args -> FunTy args res
         Nothing   -> res
-    intTy = IntLike $ PrimIntInfoTy $ C.IntLike $ C.Int C.Signed
 
 pattern Class :: ClassTyCon nbArgs -> Vec nbArgs ( Type Ty ) -> Type Ct
 pattern Class cls args = TyConAppTy ( GenerativeTyCon ( ClassTyCon cls ) ) args
@@ -1380,7 +1404,7 @@ pattern Bitwise a b = Class BitwiseTyCon ( a ::: b ::: VNil )
 pattern Shift :: Type Ty -> Type Ty -> Type Ct
 pattern Shift a b = Class ShiftTyCon ( a ::: b ::: VNil )
 
-pattern PrimIntInfoTy :: C.IntegralType -> Type Ty
+pattern PrimIntInfoTy :: IntegralType -> Type Ty
 pattern PrimIntInfoTy inty = Data (PrimIntInfoTyCon inty) VNil
 pattern PrimFloatInfoTy :: C.FloatingType -> Type Ty
 pattern PrimFloatInfoTy floaty = Data (PrimFloatInfoTyCon floaty) VNil
@@ -1396,6 +1420,9 @@ pattern Empty :: Type Ty
 pattern Empty = Data EmptyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
+
+pattern Tuple :: () => ( nbArgs ~ S (S n), Nat.SNatI n ) => Vec nbArgs ( Type Ty ) -> Type Ty
+pattern Tuple as = Data TupleTyCon as
 
 pattern PlusRes :: Type Ty -> Type Ty
 pattern PlusRes a = FamApp PlusResTyCon ( a ::: VNil )
@@ -1418,7 +1445,13 @@ pattern BitsRes a b = FamApp BitsResTyCon ( a ::: b ::: VNil )
 pattern ShiftRes :: Type Ty -> Type Ty
 pattern ShiftRes a = FamApp ShiftResTyCon ( a ::: VNil )
 
-
+-- Convenient synonyms
+pattern IntTy :: Type Ty
+pattern IntTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.IntLike ( C.Int C.Signed ) ) ) )
+pattern HsIntTy :: Type Ty
+pattern HsIntTy = IntLike ( PrimIntInfoTy ( HsIntType ) )
+pattern CharTy :: Type Ty
+pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.CharLike C.Char ) ) )
 
 isPrimTy :: forall n. Nat.SNatI n => (Vec n (Type Ty) -> QuantTyBody ( Type Ty ) ) -> Bool
 isPrimTy bf = case Nat.snat @n of
@@ -1599,7 +1632,7 @@ classInstancesWithDefaults cls =
       ShiftTyCon      -> [ii2] -- TODO: default two arguments separately
   where
 
-    primIntTy    = PrimIntInfoTy $ C.IntLike $ C.Int C.Signed
+    primIntTy    = PrimIntInfoTy $ CIntegralType $ C.IntLike $ C.Int C.Signed
     primDoubleTy = PrimFloatInfoTy C.DoubleType
 
     dfltToInt, dfltToDouble :: DefaultingProposal ( S Z )

@@ -1,12 +1,21 @@
 module HsBindgen.C.AST.Literal (
-    IntegerLiteral(..), FloatingLiteral(..), canBeRepresentedAsRational
+  -- * Integer literals
+    IntegerLiteral(..)
+  -- * Floating-point literals
+  , FloatingLiteral(..), canBeRepresentedAsRational
+  -- * Character and string literals
+  , CharLiteral(..)
+  , StringLiteral(..)
+  , fromBytes
   ) where
 
-import Data.Text (Text)
-import GHC.Generics (Generic)
-import Text.Show.Pretty (PrettyVal)
+import Data.Bits
 
+import C.Char qualified as C
+
+import HsBindgen.Imports
 import HsBindgen.C.AST.Type
+import HsBindgen.Pretty.Orphans ()
 
 {-------------------------------------------------------------------------------
   Integer literals
@@ -68,3 +77,31 @@ canBeRepresentedAsRational f = not $ or
   , isNegativeZero f
   , isDenormalized f -- not strictly necessary, but let's be conservative
   ]
+
+{-------------------------------------------------------------------------------
+  Character and string literals
+-------------------------------------------------------------------------------}
+
+-- | A C character literal, with the original source text.
+--
+-- See 'CharLiteralValue'.
+data CharLiteral =
+  CharLiteral
+    { charLiteralText :: Text
+    , charLiteralValue :: C.CharValue
+    }
+  deriving stock ( Eq, Show, Generic )
+  deriving anyclass PrettyVal
+
+
+data StringLiteral =
+  StringLiteral
+    { stringLiteralText :: Text
+    , stringLiteralValue :: [ C.CharValue ]
+    }
+  deriving stock ( Eq, Show, Generic )
+  deriving anyclass PrettyVal
+
+fromBytes :: Bits i => [i] -> i
+fromBytes = foldl' (\ acc b -> ( acc `shiftL` 8 ) .|. b) zeroBits
+{-# INLINEABLE fromBytes #-}

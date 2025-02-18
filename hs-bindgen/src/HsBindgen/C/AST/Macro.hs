@@ -22,6 +22,7 @@ import Data.String
 import Data.Text qualified as Text
 import Data.Type.Equality
   ( type (:~:)(..) )
+import Data.Type.Nat (SNatI)
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
 import Text.Show.Pretty (PrettyVal(..))
@@ -118,6 +119,8 @@ data MFun arity where
   MLogicalAnd :: MFun ( S ( S Z ) )
   -- | @||@
   MLogicalOr  :: MFun ( S ( S Z ) )
+  -- | Tuples
+  MTuple      :: SNatI n => MFun ( S ( S n ) )
 
 deriving stock instance Show ( MFun arity )
 deriving stock instance Eq   ( MFun arity )
@@ -159,6 +162,12 @@ data MTerm =
 
     -- | Floating-point literal
   | MFloat FloatingLiteral
+
+    -- | Character literal
+  | MChar CharLiteral
+
+    -- | String literal
+  | MString StringLiteral
 
     -- | Variable or function/macro call
     --

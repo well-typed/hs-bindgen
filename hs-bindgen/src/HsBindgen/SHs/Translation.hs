@@ -8,7 +8,7 @@ module HsBindgen.SHs.Translation (
 import Data.Text qualified as T
 
 import HsBindgen.C.AST qualified as C (MFun(..))
-import HsBindgen.C.Tc.Macro qualified as C
+import HsBindgen.C.Tc.Macro qualified as C hiding ( IntegralType )
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -20,6 +20,8 @@ import C.Type qualified as C
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size(UnsafeSize))
+import Data.Type.Nat qualified as Fin
+import Data.Proxy (Proxy(..))
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -166,7 +168,10 @@ simpleTyConApp :: C.TyCon args C.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
 simpleTyConApp
   (C.GenerativeTyCon (C.DataTyCon C.IntLikeTyCon))
   [Hs.TyConAppTy (Hs.ATyCon (C.GenerativeTyCon (C.DataTyCon (C.PrimIntInfoTyCon inty)))) []]
-    = Just $ TGlobal $ PrimType $ hsPrimIntTy inty
+    = Just $ TGlobal $ PrimType $
+        case inty of
+          C.HsIntType -> HsPrimInt
+          C.CIntegralType primIntTy -> hsPrimIntTy primIntTy
 simpleTyConApp
   (C.GenerativeTyCon (C.DataTyCon C.FloatLikeTyCon))
   [Hs.TyConAppTy (Hs.ATyCon (C.GenerativeTyCon (C.DataTyCon (C.PrimFloatInfoTyCon floaty)))) []]
@@ -179,6 +184,8 @@ tyConGlobal = \case
     case tc of
       C.DataTyCon dc ->
         case dc of
+          C.TupleTyCon @n ->
+            TGlobal $ Tuple_type $ 2 + Fin.reflectToNum @n Proxy
           C.VoidTyCon ->
             TGlobal $ PrimType HsPrimVoid
           C.IntLikeTyCon   ->
@@ -186,13 +193,23 @@ tyConGlobal = \case
           C.FloatLikeTyCon ->
             TGlobal FloatLike_tycon
           C.PrimIntInfoTyCon inty ->
-            TGlobal $ PrimType $ hsPrimIntTy inty
+            TGlobal $ PrimType $
+              case inty of
+                C.CIntegralType primIntTy -> hsPrimIntTy primIntTy
+                C.HsIntType -> HsPrimInt
           C.PrimFloatInfoTyCon floaty ->
             TGlobal $ PrimType $ hsPrimFloatTy floaty
           C.PtrTyCon ->
             TGlobal Foreign_Ptr
           C.StringTyCon ->
-            TApp (TGlobal Foreign_Ptr) (TGlobal $ PrimType $ HsPrimCChar)
+            -- We use 'CStringLen' for C strings.
+            --
+            -- type CStringLen = (Ptr CChar, Int)
+            ( TGlobal $ Tuple_type 2 )
+              `TApp`
+            ( TApp (TGlobal Foreign_Ptr) (TGlobal $ PrimType HsPrimCChar) )
+              `TApp`
+            ( TGlobal $ PrimType HsPrimInt )
           C.PrimTyTyCon ->
             error "tyConGlobal PrimTyTyCon"
           C.EmptyTyCon ->
@@ -250,6 +267,7 @@ mfunGlobal = \case
   C.MBitwiseOr  -> Bitwise_or
   C.MLogicalAnd -> Logical_and
   C.MLogicalOr  -> Logical_or
+  C.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
 
 
 hsPrimIntTy :: C.IntegralType -> HsPrimType
@@ -293,6 +311,7 @@ translateBody (Hs.VarDeclVar x)                     = EBound x
 translateBody (Hs.VarDeclFloat f)                   = EFloat f HsPrimCFloat
 translateBody (Hs.VarDeclDouble d)                  = EDouble d HsPrimCDouble
 translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i (Just ty)
+translateBody (Hs.VarDeclString s)                  = EString s
 translateBody (Hs.VarDeclLambda (Hs.Lambda hint b)) = ELam hint (translateBody b)
 translateBody (Hs.VarDeclApp f as)                  = foldl' EApp (translateAppHead f) (map translateBody as)
 
@@ -369,5 +388,5 @@ lambda f (Hs.Lambda hint t) = ELam hint (f t)
 
 -- | Monad sequencing
 doAll :: (t ctx -> SExpr ctx) -> Hs.Seq t ctx -> SExpr ctx
-doAll _ (Hs.Seq []) = EGlobal Monad_return `EApp` EGlobal Unit_constructor
+doAll _ (Hs.Seq []) = EGlobal Monad_return `EApp` EGlobal (Tuple_constructor 0)
 doAll f (Hs.Seq ss) = foldr1 (EInfix Monad_seq) (map f ss)

@@ -23,6 +23,7 @@ import HsBindgen.NameHint
 import HsBindgen.Runtime.Enum.Simple
 
 import C.Type qualified as CExpr
+import C.Char qualified as CExpr
 
 import DeBruijn
 
@@ -64,8 +65,12 @@ instance ToExpr C.TokenSpelling
 instance ToExpr C.Type
 instance ToExpr C.Typedef
 
+instance ToExpr CExpr.CharValue
+
 instance ToExpr C.IntegerLiteral
 instance ToExpr C.FloatingLiteral
+instance ToExpr C.CharLiteral
+instance ToExpr C.StringLiteral
 instance ToExpr a => ToExpr (C.Range a)
 instance ToExpr a => ToExpr (C.Token a)
 
@@ -153,6 +158,7 @@ instance ToExpr (GenerativeTyCon args resKi) where
 
 instance ToExpr (DataTyCon n) where
   toExpr = \case
+    TupleTyCon              -> Expr.App "TupleTyCon"     []
     VoidTyCon               -> Expr.App "VoidTyCon"      []
     PtrTyCon                -> Expr.App "PtrTyCon"       []
     StringTyCon             -> Expr.App "StringTyCon"    []

@@ -47,6 +47,7 @@ main' packageRoot bg = testGroup "golden"
     , golden "primitive_types"
     , golden "typedefs"
     , golden "macros"
+    , testGroup "macro_strings" $ goldenNoRust "macro_strings" -- rs-bindgen panics on this
     , golden "macro_functions"
     , golden "uses_utf8"
     , golden "typedef_vs_macro"
@@ -66,7 +67,10 @@ main' packageRoot bg = testGroup "golden"
     , golden "bitfields"
     ]
   where
-    golden name = testGroup name
+    golden name =
+      testGroup name $ goldenNoRust name ++ [ goldenRust bg name ]
+
+    goldenNoRust name =
         [ goldenTreeDiff name
         , goldenHs name
 -- Pretty-printing of TH differs between GHC versions; for example, @()@ becomes
@@ -76,7 +80,6 @@ main' packageRoot bg = testGroup "golden"
         , goldenTh packageRoot name
 #endif
         , goldenPP name
-        , goldenRust bg name
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do

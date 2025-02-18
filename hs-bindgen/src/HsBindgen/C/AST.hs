@@ -40,6 +40,9 @@ module HsBindgen.C.AST (
   , MTerm(..)
   , IntegerLiteral(..)
   , FloatingLiteral(..)
+  , CharLiteral(..)
+  , StringLiteral(..)
+  , fromBytes
     -- ** Attributes
   , Attribute(..)
     -- ** Classification

@@ -39,6 +39,7 @@ data HsPrimType
     -- CSUSeconds
     | HsPrimCFloat
     | HsPrimCDouble
+    | HsPrimCStringLen
 
     | HsPrimInt
 
