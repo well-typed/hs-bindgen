@@ -24,6 +24,7 @@ import HsBindgen.Hs.AST.Type
 
 import DeBruijn
 
+
 -- TODO: drop S prefix?
 
 {-------------------------------------------------------------------------------
@@ -31,8 +32,8 @@ import DeBruijn
 -------------------------------------------------------------------------------}
 
 data Global =
-    Unit_type
-  | Unit_constructor
+    Tuple_type Word
+  | Tuple_constructor Word
   | Applicative_pure
   | Applicative_seq
   | Monad_return
@@ -45,6 +46,7 @@ data Global =
   | Storable_peek
   | Storable_poke
   | Foreign_Ptr
+  | Ptr_constructor
   | Foreign_FunPtr
   | ConstantArray
   | IO_type
@@ -144,6 +146,7 @@ data SExpr ctx =
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
+  | EString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix Global (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))

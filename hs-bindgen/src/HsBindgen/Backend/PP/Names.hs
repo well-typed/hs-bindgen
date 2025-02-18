@@ -26,7 +26,9 @@ import Data.Ix qualified
 import Data.Void qualified
 import Foreign qualified
 import Foreign.C qualified
+import Foreign.C.String qualified
 import GHC.Float qualified
+import GHC.Ptr qualified
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
@@ -66,9 +68,11 @@ data ResolvedName = ResolvedName {
     }
   deriving (Eq, Ord, Show)
 
--- | Name for @()@
-unitResolvedName :: ResolvedName
-unitResolvedName = ResolvedName "()" IdentifierName Nothing
+-- | Name for tuples
+tupleResolvedName :: Word -> ResolvedName
+tupleResolvedName i = ResolvedName tup IdentifierName Nothing
+  where
+    tup = "(" ++ replicate (fromIntegral i) ',' ++ ")"
 
 {-------------------------------------------------------------------------------
   Imports helpers
@@ -108,7 +112,11 @@ nameType nm
 --
 -- We need to map internal modules to external ones for @base@ names.
 moduleOf :: String -> String -> HsImportModule
-moduleOf "Void" _  = HsImportModule "Data.Void" Nothing
+moduleOf "Void"       _ = HsImportModule "Data.Void" Nothing
+moduleOf "CStringLen" _ =
+  -- We want the same qualifier whether we get CStringLen
+  -- from Foreign.C.String or GHC.Foreign, so special-case it here.
+  HsImportModule "Foreign.C.String" (Just "FC")
 moduleOf _ident m0 = case parts of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
     ["HsBindgen","Runtime","Syntax"] -> HsImportModule "HsBindgen.Runtime.Syntax" (Just "HsBindgen")
@@ -158,8 +166,8 @@ resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Hs.AST.Name".
-    Unit_type            -> unitResolvedName
-    Unit_constructor     -> unitResolvedName
+    Tuple_type i         -> tupleResolvedName i
+    Tuple_constructor i  -> tupleResolvedName i
     Applicative_pure     -> importU 'pure
     Applicative_seq      -> importU '(<*>)
     Monad_return         -> importU 'return
@@ -173,6 +181,7 @@ resolveGlobal = \case
     Storable_poke        -> importQ 'Foreign.poke
     Foreign_Ptr          -> importQ ''Foreign.Ptr
     Foreign_FunPtr       -> importQ ''Foreign.FunPtr
+    Ptr_constructor      -> importQ ''GHC.Ptr.Ptr
     ConstantArray        -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
     IO_type              -> importU ''IO
     HasFlexibleArrayMember_class -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
@@ -262,24 +271,25 @@ resolveGlobal = \case
     CDouble_constructor -> importQ ''Foreign.C.CDouble
 
     PrimType hsPrimType  -> case hsPrimType of
-      HsPrimVoid     -> importU ''Data.Void.Void
-      HsPrimUnit     -> unitResolvedName
-      HsPrimCChar    -> importQ ''Foreign.C.CChar
-      HsPrimCSChar   -> importQ ''Foreign.C.CSChar
-      HsPrimCUChar   -> importQ ''Foreign.C.CUChar
-      HsPrimCInt     -> importQ ''Foreign.C.CInt
-      HsPrimCUInt    -> importQ ''Foreign.C.CUInt
-      HsPrimCShort   -> importQ ''Foreign.C.CShort
-      HsPrimCUShort  -> importQ ''Foreign.C.CUShort
-      HsPrimCLong    -> importQ ''Foreign.C.CLong
-      HsPrimCULong   -> importQ ''Foreign.C.CULong
-      HsPrimCLLong   -> importQ ''Foreign.C.CLLong
-      HsPrimCULLong  -> importQ ''Foreign.C.CULLong
-      HsPrimCBool    -> importQ ''Foreign.C.CBool
-      HsPrimCFloat   -> importQ ''Foreign.C.CFloat
-      HsPrimCDouble  -> importQ ''Foreign.C.CDouble
-      HsPrimCPtrDiff -> importQ ''Foreign.C.CPtrdiff
-      HsPrimInt      -> importU ''Int
+      HsPrimVoid       -> importU ''Data.Void.Void
+      HsPrimUnit       -> tupleResolvedName 0
+      HsPrimCChar      -> importQ ''Foreign.C.CChar
+      HsPrimCSChar     -> importQ ''Foreign.C.CSChar
+      HsPrimCUChar     -> importQ ''Foreign.C.CUChar
+      HsPrimCInt       -> importQ ''Foreign.C.CInt
+      HsPrimCUInt      -> importQ ''Foreign.C.CUInt
+      HsPrimCShort     -> importQ ''Foreign.C.CShort
+      HsPrimCUShort    -> importQ ''Foreign.C.CUShort
+      HsPrimCLong      -> importQ ''Foreign.C.CLong
+      HsPrimCULong     -> importQ ''Foreign.C.CULong
+      HsPrimCLLong     -> importQ ''Foreign.C.CLLong
+      HsPrimCULLong    -> importQ ''Foreign.C.CULLong
+      HsPrimCBool      -> importQ ''Foreign.C.CBool
+      HsPrimCFloat     -> importQ ''Foreign.C.CFloat
+      HsPrimCDouble    -> importQ ''Foreign.C.CDouble
+      HsPrimCPtrDiff   -> importQ ''Foreign.C.CPtrdiff
+      HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
+      HsPrimInt        -> importU ''Int
 
 {-------------------------------------------------------------------------------
   BackendName

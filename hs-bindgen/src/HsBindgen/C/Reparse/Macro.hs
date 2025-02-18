@@ -2,6 +2,8 @@ module HsBindgen.C.Reparse.Macro (
     reparseMacro
   ) where
 
+import Control.Monad
+import Data.Type.Nat
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
@@ -15,7 +17,6 @@ import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Reparse.Type
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
-
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -41,8 +42,8 @@ reparseMacro = do
       ]
   where
     functionLike, objectLike :: MultiLoc -> CName -> Reparse Macro
-    functionLike loc name = Macro loc name <$> formalArgs <*> mExpr
-    objectLike   loc name = Macro loc name [] <$> mExpr
+    functionLike loc name = Macro loc name <$> formalArgs <*> mExprTuple
+    objectLike   loc name = Macro loc name [] <$> mExprTuple
 
 
 formalArgs :: Reparse [CName]
@@ -64,6 +65,8 @@ mTerm =
         MEmpty       <$  eof
       , MInt         <$> literalInteger
       , MFloat       <$> literalFloat
+      , MChar        <$> literalChar
+      , MString      <$> literalString
       , MVar         <$> var <*> option [] actualArgs
       , MType        <$> reparsePrimType
       , MAttr        <$> reparseAttribute <*> mTerm
@@ -98,6 +101,28 @@ literalFloat = do
       , floatingLiteralFloatValue = fltVal
       , floatingLiteralDoubleValue = dblVal }
 
+-- | Parse character literal
+literalChar :: Reparse CharLiteral
+literalChar = do
+  (txt, val) <-
+    parseTokenOfKind CXToken_Literal reparseLiteralChar
+  return $
+    CharLiteral
+      { charLiteralText  = txt
+      , charLiteralValue = val
+      }
+
+-- | Parse string literal
+literalString :: Reparse StringLiteral
+literalString = do
+  (txt, val) <-
+    parseTokenOfKind CXToken_Literal reparseLiteralString
+  return $
+    StringLiteral
+      { stringLiteralText  = txt
+      , stringLiteralValue = val
+      }
+
 actualArgs :: Reparse [MExpr]
 actualArgs = parens $ mExpr `sepBy` comma
 
@@ -109,10 +134,23 @@ actualArgs = parens $ mExpr `sepBy` comma
   follow the same structure.
 -------------------------------------------------------------------------------}
 
-mExpr :: Reparse MExpr
-mExpr =
-    buildExpressionParser ops term <?> "expression"
+mExprTuple :: Reparse MExpr
+mExprTuple = try tuple <|> mExpr
   where
+    tuple = do
+      openParen <- optionMaybe $ punctuation "("
+      (e1, e2, es) <- mExpr `sepBy2` comma
+      case openParen of
+        Nothing -> return ()
+        Just {} -> punctuation ")"
+      return $
+        reifyList es $ \es' ->
+           MApp MTuple ( e1 ::: e2 ::: es' )
+
+mExpr :: Reparse MExpr
+mExpr = buildExpressionParser ops term <?> "expression"
+  where
+
     term :: Reparse MExpr
     term = choice [
           parens mExpr
@@ -167,5 +205,18 @@ mExpr =
       , [ Infix (ap2 MLogicalOr  <$ punctuation "||") AssocLeft ]
       ]
 
+    ap1 :: MFun (S Z) -> MExpr -> MExpr
     ap1 op arg = MApp op ( arg ::: VNil )
+
+    ap2 :: MFun (S (S Z)) -> MExpr -> MExpr -> MExpr
     ap2 op arg1 arg2 = MApp op ( arg1 ::: arg2 ::: VNil )
+
+
+sepBy2 :: ParsecT s u m a -> ParsecT s u m sep -> ParsecT s u m (a, a, [a])
+{-# INLINEABLE sepBy2 #-}
+sepBy2 p sep = do
+  x1 <- p
+  void sep
+  x2 <- p
+  xs <- many $ sep >> p
+  return (x1, x2, xs)

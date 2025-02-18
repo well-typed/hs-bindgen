@@ -1,4 +1,6 @@
+{-# LANGUAGE MagicHash #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
+
 module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
@@ -8,11 +10,14 @@ import Data.Ix qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
+import Foreign.C.String qualified
 import Foreign.Ptr qualified
 import Foreign.Storable qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
+import GHC.Ptr ( Ptr(Ptr) )
+import GHC.Exts qualified as IsList(IsList(..))
 
 import GHC.Float
   ( castWord64ToDouble, castDoubleToWord64
@@ -32,15 +37,16 @@ import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.SHs.AST
 
 import DeBruijn
+import GHC.Exts (Int(..), sizeofByteArray#)
 
 {-------------------------------------------------------------------------------
   Backend definition
 -------------------------------------------------------------------------------}
 
 mkGlobal :: Global -> TH.Name
-mkGlobal =  \case
-      Unit_type            -> ''()
-      Unit_constructor     -> '()
+mkGlobal = \case
+      Tuple_type i         -> tupleTypeName $ fromIntegral i
+      Tuple_constructor i  -> TH.tupleDataName $ fromIntegral i
       Applicative_pure     -> 'pure
       Applicative_seq      -> '(<*>)
       Monad_return         -> 'return
@@ -53,6 +59,7 @@ mkGlobal =  \case
       Storable_peek        -> 'Foreign.Storable.peek
       Storable_poke        -> 'Foreign.Storable.poke
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
+      Ptr_constructor      -> 'GHC.Ptr.Ptr
       Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
       ConstantArray        -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IO_type              -> ''IO
@@ -136,25 +143,41 @@ mkGlobal =  \case
 
       PrimType t           -> mkGlobalP t
 
+-- | A version of 'TH.tupleTypeName' that always uses the @(,,)@ syntax rather
+-- than @Tuple3@. This ensures consistency in TH tests across GHC versions.
+tupleTypeName :: Int -> TH.Name
+tupleTypeName n =
+  TH.Name
+    (TH.mkOccName tup_occ)
+    (TH.NameG ns (TH.mkPkgName "ghc-internal") (TH.mkModName "GHC.Tuple"))
+      -- package name doesn't matter, as this is built-in syntax
+  where
+    ns = TH.TcClsName
+    tup_occ
+      | n == 0 = "Unit"
+      | n == 1 = "Solo"
+      | otherwise = "(" ++ replicate (n - 1) ',' ++ ")"
+
 mkGlobalP :: HsPrimType -> TH.Name
-mkGlobalP HsPrimVoid     = ''Data.Void.Void
-mkGlobalP HsPrimUnit     = ''()
-mkGlobalP HsPrimCChar    = ''Foreign.C.Types.CChar
-mkGlobalP HsPrimCUChar   = ''Foreign.C.Types.CUChar
-mkGlobalP HsPrimCSChar   = ''Foreign.C.Types.CSChar
-mkGlobalP HsPrimCInt     = ''Foreign.C.Types.CInt
-mkGlobalP HsPrimCUInt    = ''Foreign.C.Types.CUInt
-mkGlobalP HsPrimCShort   = ''Foreign.C.Types.CShort
-mkGlobalP HsPrimCUShort  = ''Foreign.C.Types.CUShort
-mkGlobalP HsPrimCLong    = ''Foreign.C.Types.CLong
-mkGlobalP HsPrimCULong   = ''Foreign.C.Types.CULong
-mkGlobalP HsPrimCLLong   = ''Foreign.C.Types.CLLong
-mkGlobalP HsPrimCULLong  = ''Foreign.C.Types.CULLong
-mkGlobalP HsPrimCFloat   = ''Foreign.C.Types.CFloat
-mkGlobalP HsPrimCDouble  = ''Foreign.C.Types.CDouble
-mkGlobalP HsPrimCBool    = ''Foreign.C.Types.CBool
-mkGlobalP HsPrimCPtrDiff = ''Foreign.C.Types.CPtrdiff
-mkGlobalP HsPrimInt      = ''Int
+mkGlobalP HsPrimVoid       = ''Data.Void.Void
+mkGlobalP HsPrimUnit       = ''()
+mkGlobalP HsPrimCChar      = ''Foreign.C.Types.CChar
+mkGlobalP HsPrimCUChar     = ''Foreign.C.Types.CUChar
+mkGlobalP HsPrimCSChar     = ''Foreign.C.Types.CSChar
+mkGlobalP HsPrimCInt       = ''Foreign.C.Types.CInt
+mkGlobalP HsPrimCUInt      = ''Foreign.C.Types.CUInt
+mkGlobalP HsPrimCShort     = ''Foreign.C.Types.CShort
+mkGlobalP HsPrimCUShort    = ''Foreign.C.Types.CUShort
+mkGlobalP HsPrimCLong      = ''Foreign.C.Types.CLong
+mkGlobalP HsPrimCULong     = ''Foreign.C.Types.CULong
+mkGlobalP HsPrimCLLong     = ''Foreign.C.Types.CLLong
+mkGlobalP HsPrimCULLong    = ''Foreign.C.Types.CULLong
+mkGlobalP HsPrimCFloat     = ''Foreign.C.Types.CFloat
+mkGlobalP HsPrimCDouble    = ''Foreign.C.Types.CDouble
+mkGlobalP HsPrimCBool      = ''Foreign.C.Types.CBool
+mkGlobalP HsPrimCPtrDiff   = ''Foreign.C.Types.CPtrdiff
+mkGlobalP HsPrimCStringLen = ''Foreign.C.String.CStringLen
+mkGlobalP HsPrimInt        = ''Int
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env = \case
@@ -183,6 +206,17 @@ mkExpr env = \case
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )
           (mkPrimType t)
+      EString ba@(ByteArray ba#) ->
+        let
+          len :: Integer
+          len = fromIntegral (I# (sizeofByteArray# ba#))
+        in
+          TH.sigE
+            ( TH.tupE [ TH.conE 'GHC.Ptr.Ptr `TH.appE` TH.litE (TH.StringPrimL $ IsList.toList ba)
+                      , TH.litE (TH.integerL len)
+                      ]
+            )
+          (mkPrimType HsPrimCStringLen)
       EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
       EInfix op x y -> TH.infixE
                          (Just $ mkExpr env x)
@@ -210,6 +244,7 @@ mkPat = \case
     EBound {}     -> error "cannot happen"
     EFloat {}     -> error "cannot happen"
     EDouble {}    -> error "cannot happen"
+    EString {}    -> error "cannot happen"
     EInfix {}     -> error "cannot happen"
     ELam {}       -> error "cannot happen"
     EUnusedLam {} -> error "cannot happen"

@@ -176,6 +176,8 @@ resolveExprImports = \case
     EFree {} -> mempty
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolvePrimTypeImports t
+    EString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen
+               <> resolveGlobalImports Ptr_constructor
     EFloat _ t -> resolvePrimTypeImports t
     EDouble _ t -> resolvePrimTypeImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x

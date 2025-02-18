@@ -24,6 +24,9 @@ import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
+import GHC.Exts qualified as IsList (IsList(..))
+
+import C.Char qualified as C
 
 import HsBindgen.Imports
 import HsBindgen.NameHint
@@ -556,8 +559,10 @@ macroExprHsExpr = goExpr where
       C.MEmpty -> Nothing
       C.MInt i -> goInt i
       C.MFloat f -> goFloat f
+      C.MChar c -> goChar c
+      C.MString s -> goString s
       C.MVar nm args ->
-        --  TODO: removed the macro arguement used as a function check.
+        --  TODO: removed the macro argument used as a function check.
         case Map.lookup nm env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
@@ -577,6 +582,19 @@ macroExprHsExpr = goExpr where
     goInt :: C.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goInt (C.IntegerLiteral { integerLiteralType = mbIntTy, integerLiteralValue = i }) =
       Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt (uncurry integralType) mbIntTy)
+
+    goChar :: C.CharLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goChar (C.CharLiteral { charLiteralValue = C.CharValue { charValue = charBytes }}) =
+      return $
+        Hs.VarDeclIntegral
+          ( C.fromBytes $ map fromIntegral $ IsList.toList charBytes )
+          HsPrimCInt
+
+    goString :: C.StringLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goString (C.StringLiteral { stringLiteralValue = s }) = do
+      let bytes = concatMap (IsList.toList . C.charValue) s
+      return $
+        Hs.VarDeclString (IsList.fromList bytes)
 
     goFloat :: C.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goFloat flt@(C.FloatingLiteral { floatingLiteralType = mbFty }) =

@@ -1,4 +1,7 @@
+{-# LANGUAGE MagicHash #-}
+
 {-# OPTIONS_GHC -fno-warn-orphans #-}
+
 module HsBindgen.Backend.PP.Render (
     -- * Rendering
     HsRenderOpts(..)
@@ -7,10 +10,15 @@ module HsBindgen.Backend.PP.Render (
   ) where
 
 import Data.Maybe (maybeToList)
+import Data.Char qualified
 import Data.List qualified as List
 import Data.Text qualified as Text
+import Data.Word
 import GHC.Float (castFloatToWord32, castDoubleToWord64)
+import GHC.Exts (Int(..), sizeofByteArray#)
+import GHC.Exts qualified as IsList(IsList(..))
 import System.IO
+import Numeric (showHex)
 
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
@@ -24,6 +32,7 @@ import HsBindgen.SHs.AST
 import Text.SimplePrettyPrint
 
 import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
+
 
 {-------------------------------------------------------------------------------
   Rendering
@@ -201,6 +210,16 @@ prettyExpr env prec = \case
         , prettyPrimType t
         ]
 
+    EString bs ->
+      -- Use unboxed Addr# literals to turn a string literal into a
+      -- value of type CStringLen.
+      let (str, len) = addrLiteral bs
+      in parens $ hcat
+        [ parens $ prettyExpr env 0 (EGlobal Ptr_constructor) <+> string str >< ", " >< string (show len)
+        , " :: "
+        , prettyPrimType HsPrimCStringLen
+        ]
+
     EFloat f t -> parens $ hcat [
         if canBeRepresentedAsRational f then
           showToCtxDoc f
@@ -268,6 +287,49 @@ prettyExpr env prec = \case
 
             | SAlt cnst add hints body <- alts
             ]
+
+-- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
+-- with its length.
+addrLiteral :: ByteArray -> (String, Int)
+addrLiteral ba@(ByteArray ba#) =
+  let
+    go :: Bool -> [Word8] -> String
+    go _ [] = ""
+    go prevHex (b:bs)
+      | Just s <- escapeHsChar_maybe c
+      = s ++ go False bs
+      | b <= 0x7F
+      , Data.Char.isPrint c
+      = ( if prevHex then ( "\\&" ++ ) else id ) $
+          c : go False bs
+      | otherwise
+      = "\\x" ++ map Data.Char.toUpper (showHex b "") ++ go True bs
+      where
+        c = Data.Char.chr $ fromIntegral b
+    lit :: String
+    lit = "\"" <> go False (IsList.toList ba) <> "\"#"
+  in (lit, I# (sizeofByteArray# ba#))
+
+escapeHsChar_maybe :: Char -> Maybe String
+escapeHsChar_maybe c =
+  case lookup c hsEscapes of
+    Nothing -> Nothing
+    Just e -> Just ['\\', e]
+
+hsEscapes :: [(Char, Char)]
+hsEscapes =
+  [ ( '\''  , '\'' ) -- single quote
+  , ( '\"'  , '\"' ) -- double quote
+  , ( '\\'  , '\\' ) -- backslash
+  , ( '\f'  , 'f'  ) -- form feed - new page
+  , ( '\t'  , 't'  ) -- horizontal tab
+  , ( '\v'  , 'v'  ) -- vertical tab
+  , ( '\a'  , 'a'  ) -- audible bell
+  , ( '\b'  , 'b'  ) -- backspace
+  , ( '\n'  , 'n'  ) -- line feed - new line
+  , ( '\r'  , 'r'  ) -- carriage return
+  , ( '\NUL', '0'  ) -- null character
+  ]
 
 withFreshNames ::
      Env ctx CtxDoc

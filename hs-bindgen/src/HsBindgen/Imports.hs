@@ -39,6 +39,7 @@ import Data.Vec.Lazy as X (Vec (..))
 -- without needing to add/remove imports.
 import Debug.Trace as X (traceShowId, traceShow, traceM)
 import HsBindgen.Debug as X
+import Data.Array.Byte as X
 
 import Text.Show.Pretty (PrettyVal(..))
 

@@ -1,3 +1,5 @@
+{-# LANGUAGE MagicHash #-}
+
 -- | Haskell AST
 --
 -- Abstract Haskell syntax for the specific purposes of hs-bindgen: we only
@@ -54,10 +56,11 @@ module HsBindgen.Hs.AST (
   , PatSynOrigin(..)
   ) where
 
+import Data.Maybe ( isJust )
+import Data.Type.Nat as Nat
+
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
-import Data.Type.Nat as Nat
-import Data.Maybe ( isJust )
 
 import HsBindgen.Imports
 import HsBindgen.NameHint
@@ -67,6 +70,7 @@ import HsBindgen.Orphans ()
 import HsBindgen.Util.TestEquality
 
 import DeBruijn
+
 
 {-------------------------------------------------------------------------------
   Information about generated code
@@ -279,6 +283,7 @@ data VarDeclRHS ctx
   = VarDeclIntegral Integer HsPrimType
   | VarDeclFloat Float
   | VarDeclDouble Double
+  | VarDeclString ByteArray
   | VarDeclLambda (Lambda VarDeclRHS ctx)
   | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
   | VarDeclVar (Idx ctx)
