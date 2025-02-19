@@ -337,14 +337,6 @@ static inline int wrap_Location_isFromMainFile(const CXSourceLocation* location)
 }
 
 /**
- * File manipulation routines
- */
-
-static inline void wrap_getFileName(CXFile SFile, CXString* result) {
-    *result = clang_getFileName(SFile);
-}
-
-/**
  * String manipulation routines
  */
 

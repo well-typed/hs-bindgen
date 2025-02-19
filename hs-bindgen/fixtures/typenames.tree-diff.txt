@@ -13,18 +13,18 @@ WrapCHeader
               valueName = CName "FOO1",
               valueValue = 0,
               valueSourceLoc =
-              "examples/typenames.h:15:2"},
+              "typenames.h:15:2"},
             EnumValue {
               valueName = CName "FOO2",
               valueValue = 1,
               valueSourceLoc =
-              "examples/typenames.h:16:2"}],
+              "typenames.h:16:2"}],
           enumSourceLoc =
-          "examples/typenames.h:14:6"},
+          "typenames.h:14:6"},
       DeclTypedef
         Typedef {
           typedefName = CName "foo",
           typedefType = TypePrim
             (PrimFloating PrimDouble),
           typedefSourceLoc =
-          "examples/typenames.h:19:16"}])
+          "typenames.h:19:16"}])

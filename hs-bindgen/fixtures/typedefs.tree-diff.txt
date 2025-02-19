@@ -7,7 +7,7 @@ WrapCHeader
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "examples/typedefs.h:1:13"},
+          "typedefs.h:1:13"},
       DeclTypedef
         Typedef {
           typedefName = CName "intptr",
@@ -15,4 +15,4 @@ WrapCHeader
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "examples/typedefs.h:2:15"}])
+          "typedefs.h:2:15"}])

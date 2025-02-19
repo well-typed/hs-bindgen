@@ -2,10 +2,25 @@
 
 module HsBindgen.Orphans () where
 
+import Data.Aeson qualified as Aeson
 import Data.GADT.Compare (GEq(geq))
+import Data.Text qualified as Text
 import Data.Type.Equality ((:~:)(Refl))
 import DeBruijn.Idx (Idx, idxToInt)
 import Unsafe.Coerce (unsafeCoerce)
+
+import HsBindgen.Clang.CNameSpelling
+import HsBindgen.Clang.Paths
+
+{-------------------------------------------------------------------------------
+  Aeson
+-------------------------------------------------------------------------------}
+
+instance Aeson.FromJSON CHeaderRelPath where
+  parseJSON = Aeson.withText "CHeaderRelPath" $
+    either fail return . mkCHeaderRelPath . Text.unpack
+
+deriving newtype instance Aeson.FromJSON CNameSpelling
 
 {-------------------------------------------------------------------------------
   DeBruijn

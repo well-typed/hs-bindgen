@@ -6,7 +6,7 @@ WrapCHeader
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:1:9",
+              "macro_functions.h:1:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -26,13 +26,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a. Add a (IntLike (IntLike (Int Signed))) => (a -> AddRes a (IntLike (IntLike (Int Signed)))))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:1:9"},
+          "macro_functions.h:1:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:2:9",
+              "macro_functions.h:2:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -48,13 +48,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. Add a b => (a -> b -> AddRes a b))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:2:9"},
+          "macro_functions.h:2:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:4:9",
+              "macro_functions.h:4:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -65,13 +65,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a. (a -> a))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:4:9"},
+          "macro_functions.h:4:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:5:9",
+              "macro_functions.h:5:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -84,13 +84,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. (a -> b -> a))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:5:9"},
+          "macro_functions.h:5:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:7:9",
+              "macro_functions.h:7:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -106,13 +106,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. RelOrd a b => (a -> b -> IntLike (IntLike (Int Signed))))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:7:9"},
+          "macro_functions.h:7:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:8:9",
+              "macro_functions.h:8:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -138,13 +138,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. Add a (MultRes (IntLike (IntLike (LongLong Unsigned))) b) => Mult (IntLike (IntLike (LongLong Unsigned))) b => (a -> b -> AddRes a (MultRes (IntLike (IntLike (LongLong Unsigned))) b)))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:8:9"},
+          "macro_functions.h:8:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:9:9",
+              "macro_functions.h:9:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -170,13 +170,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. Mult (IntLike (IntLike (LongLong Unsigned))) b => IntLike b_10[tau] ~ MultRes (IntLike (IntLike (LongLong Unsigned))) b => (IntLike a -> b -> ShiftRes (IntLike a)))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:9:9"},
+          "macro_functions.h:9:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:11:9",
+              "macro_functions.h:11:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -201,13 +201,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. Add b (IntLike (IntLike (Int Signed))) => (a -> b -> AddRes b (IntLike (IntLike (Int Signed)))))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:11:9"},
+          "macro_functions.h:11:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:13:9",
+              "macro_functions.h:13:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -233,13 +233,13 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. Add b (IntLike (IntLike (Int Unsigned))) => Div a (AddRes b (IntLike (IntLike (Int Unsigned)))) => (a -> b -> DivRes a (AddRes b (IntLike (IntLike (Int Unsigned))))))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:13:9"},
+          "macro_functions.h:13:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "examples/macro_functions.h:14:9",
+              "macro_functions.h:14:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -268,4 +268,4 @@ WrapCHeader
           macroDeclMacroTy =
           "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))",
           macroDeclSourceLoc =
-          "examples/macro_functions.h:14:9"}])
+          "macro_functions.h:14:9"}])

@@ -2,11 +2,12 @@
 
 module Main (main) where
 
-import Control.Monad (void)
+import Control.Monad
 import Text.Read (readMaybe)
 import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
+import HsBindgen.Clang.Paths
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
@@ -23,13 +24,23 @@ main = do
     execMode cmdline tracer (cmdMode)
 
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
-execMode cmdline tracer = \case
+execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
-      cHeader <- parseC cmdline tracer preprocessInput
+      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+        clangSystemIncludePathDirs cmdClangArgs
+          ++ clangIncludePathDirs cmdClangArgs
+      absPath <- either fail return
+        =<< resolveHeader includePath preprocessInput
+      cHeader <- parseC cmdline tracer absPath
       let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
-      cHeader <- parseC cmdline tracer genTestsInput
+      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+        clangSystemIncludePathDirs cmdClangArgs
+          ++ clangIncludePathDirs cmdClangArgs
+      absPath <- either fail return
+        =<< resolveHeader includePath genTestsInput
+      cHeader <- parseC cmdline tracer absPath
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
       lit <- readFile input
@@ -43,13 +54,21 @@ execMode cmdline tracer = \case
       execDevMode cmdline tracer devMode
 
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
-execDevMode cmdline tracer = \case
-    DevModeParseCHeader{..} ->
-      prettyC =<< parseC cmdline tracer parseCHeaderInput
+execDevMode cmdline@Cmdline{..} tracer = \case
+    DevModeParseCHeader{..} -> do
+      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+        clangSystemIncludePathDirs cmdClangArgs
+          ++ clangIncludePathDirs cmdClangArgs
+      absPath <- either fail return
+        =<< resolveHeader includePath parseCHeaderInput
+      prettyC =<< parseC cmdline tracer absPath
     DevModePrelude{..} -> do
-      let cmdline' = preludeCmdline preludeIncludeDir
+      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+        clangSystemIncludePathDirs cmdClangArgs
+          ++ clangIncludePathDirs cmdClangArgs
+      absPath <- either fail return =<< resolveHeader includePath preludeInput
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
-        void . withC cmdline' tracer preludeInput $
+        void . withC cmdline tracer absPath $
           bootstrapPrelude tracer (preludeLogTracer logHandle)
   where
     preludeLogPath :: FilePath
@@ -63,21 +82,6 @@ execDevMode cmdline tracer = \case
         (IO.hPutStrLn logHandle)
         True
 
-    preludeCmdline :: FilePath -> Cmdline
-    preludeCmdline includeDir = cmdline {
-        cmdClangArgs = preludeClangArgs includeDir $ cmdClangArgs cmdline
-      }
-
-    preludeClangArgs :: FilePath -> ClangArgs -> ClangArgs
-    preludeClangArgs includeDir clangArgs = clangArgs {
-        clangOtherArgs =
-          preludeClangOtherArgs includeDir $ clangOtherArgs clangArgs
-      }
-
-    preludeClangOtherArgs :: FilePath -> [String] -> [String]
-    preludeClangOtherArgs includeDir args =
-        "-nostdinc" : "-isystem" : includeDir : args
-
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
@@ -85,11 +89,11 @@ execDevMode cmdline tracer = \case
 withC ::
      Cmdline
   -> Tracer IO String
-  -> FilePath
+  -> CHeaderAbsPath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC cmdline tracer fp =
-    withTranslationUnit traceWarnings (cmdClangArgs cmdline) fp
+withC cmdline tracer headerPath =
+    withTranslationUnit traceWarnings (cmdClangArgs cmdline) headerPath
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show tracer
@@ -97,10 +101,10 @@ withC cmdline tracer fp =
 parseC ::
      Cmdline
   -> Tracer IO String
-  -> FilePath
+  -> CHeaderAbsPath
   -> IO CHeader
-parseC cmdline tracer fp =
-    withC cmdline tracer fp $
+parseC cmdline tracer headerPath =
+    withC cmdline tracer headerPath $
       parseCHeader traceSkipped (cmdPredicate cmdline)
   where
     traceSkipped :: Tracer IO Skipped

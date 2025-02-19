@@ -16,7 +16,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:3:9"},
+              "simple_structs.h:3:9"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -24,10 +24,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:4:10"}],
+              "simple_structs.h:4:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:2:8"},
+          "simple_structs.h:2:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -43,7 +43,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:9:10"},
+              "simple_structs.h:9:10"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -51,7 +51,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:10:9"},
+              "simple_structs.h:10:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
@@ -59,10 +59,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
-              "examples/simple_structs.h:11:11"}],
+              "simple_structs.h:11:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:8:16"},
+          "simple_structs.h:8:16"},
       DeclTypedef
         Typedef {
           typedefName = CName "S2_t",
@@ -71,7 +71,7 @@ WrapCHeader
               (DeclNameTag (CName "S2"))
               DeclPathTop),
           typedefSourceLoc =
-          "examples/simple_structs.h:12:3"},
+          "simple_structs.h:12:3"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -87,10 +87,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:16:10"}],
+              "simple_structs.h:16:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:15:9"},
+          "simple_structs.h:15:9"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -106,7 +106,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:20:10"},
+              "simple_structs.h:20:10"},
             StructField {
               fieldName = CName "a",
               fieldOffset = 32,
@@ -114,7 +114,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:21:9"},
+              "simple_structs.h:21:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 64,
@@ -123,10 +123,10 @@ WrapCHeader
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               fieldSourceLoc =
-              "examples/simple_structs.h:22:10"}],
+              "simple_structs.h:22:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:19:8"},
+          "simple_structs.h:19:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -142,7 +142,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:27:10"},
+              "simple_structs.h:27:10"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -150,10 +150,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:28:9"}],
+              "simple_structs.h:28:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:26:16"},
+          "simple_structs.h:26:16"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -169,7 +169,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:31:18"},
+              "simple_structs.h:31:18"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -177,10 +177,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:31:25"}],
+              "simple_structs.h:31:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:31:8"},
+          "simple_structs.h:31:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -199,7 +199,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:34:23"},
+              "simple_structs.h:34:23"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -207,10 +207,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:34:30"}],
+              "simple_structs.h:34:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:34:9"},
+          "simple_structs.h:34:9"},
       DeclTypedef
         Typedef {
           typedefName = CName "S7a",
@@ -223,7 +223,7 @@ WrapCHeader
                     (DeclNameTypedef (CName "S7a"))
                     DeclPathTop)))),
           typedefSourceLoc =
-          "examples/simple_structs.h:34:36"},
+          "simple_structs.h:34:36"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -244,7 +244,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/simple_structs.h:35:23"},
+              "simple_structs.h:35:23"},
             StructField {
               fieldName = CName "b",
               fieldOffset = 32,
@@ -252,10 +252,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/simple_structs.h:35:30"}],
+              "simple_structs.h:35:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/simple_structs.h:35:9"},
+          "simple_structs.h:35:9"},
       DeclTypedef
         Typedef {
           typedefName = CName "S7b",
@@ -272,4 +272,4 @@ WrapCHeader
                             (DeclNameTypedef (CName "S7b"))
                             DeclPathTop)))))))),
           typedefSourceLoc =
-          "examples/simple_structs.h:35:38"}])
+          "simple_structs.h:35:38"}])

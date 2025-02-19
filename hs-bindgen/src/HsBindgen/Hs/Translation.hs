@@ -29,6 +29,7 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Clang.Paths
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -100,14 +101,12 @@ defaultTranslationOpts = TranslationOpts {
 -------------------------------------------------------------------------------}
 
 -- filepath argument https://github.com/well-typed/hs-bindgen/issues/333
-generateDeclarations :: FilePath -> TranslationOpts -> C.Header -> [Hs.Decl]
-generateDeclarations = toHs . norm
-  where
-    -- "normalise" filepaths on windows
-    norm :: FilePath -> FilePath
-    norm = map $ \case
-        '\\' -> '/'
-        c    -> c
+generateDeclarations ::
+     CHeaderRelPath
+  -> TranslationOpts
+  -> C.Header
+  -> [Hs.Decl]
+generateDeclarations = toHs
 
 {-------------------------------------------------------------------------------
   Translation
@@ -115,7 +114,7 @@ generateDeclarations = toHs . norm
 
 class ToHs (a :: Star) where
   type InHs a :: Star
-  toHs :: FilePath -> TranslationOpts -> a -> InHs a
+  toHs :: CHeaderRelPath -> TranslationOpts -> a -> InHs a
 
 instance ToHs C.Header where
   type InHs C.Header = [Hs.Decl]
@@ -461,13 +460,13 @@ floatingType = \case
   Function
 -------------------------------------------------------------------------------}
 
-functionDecs :: FilePath -> TranslationOpts -> C.Function -> [Hs.Decl]
+functionDecs :: CHeaderRelPath -> TranslationOpts -> C.Function -> [Hs.Decl]
 functionDecs header _opts f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangleVarName nm $ VarContext $ C.functionName f
         , foreignImportType       = typ nm $ C.functionType f
         , foreignImportOrigName   = C.getCName (C.functionName f)
-        , foreignImportHeader     = header  -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
+        , foreignImportHeader     = getCHeaderRelPath header
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]

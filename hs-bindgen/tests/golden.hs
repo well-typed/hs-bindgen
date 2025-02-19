@@ -16,6 +16,7 @@ import Misc
 import TH
 #endif
 
+import HsBindgen.Clang.Paths
 import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
@@ -27,9 +28,13 @@ main = do
 main' :: FilePath -> IO FilePath -> TestTree
 main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
-        let fp = "examples/simple_structs.h"
-            args = clangArgs packageRoot
-        triple <- withC nullTracer args fp $ getTargetTriple
+        relPath <- either fail return $ mkCHeaderRelPath "simple_structs.h"
+        let args = clangArgs packageRoot
+        includeDirs <- either fail return =<<
+          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
+        absPath <- either fail return =<< resolveHeader includeDirs relPath
+
+        triple <- withC nullTracer args absPath getTargetTriple
 
         -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
         -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -75,38 +80,46 @@ main' packageRoot bg = testGroup "golden"
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do
-        let fp = "examples" </> (name ++ ".h")
-            args = clangArgs packageRoot
+        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
+        let args = clangArgs packageRoot
+        includeDirs <- either fail return =<<
+          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
+        absPath <- either fail return =<< resolveHeader includeDirs relPath
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
-        return header
+        parseC tracer args absPath
 
     goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
-        let fp = "examples" </> (name ++ ".h")
-            args = clangArgs packageRoot
+        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
+        let args = clangArgs packageRoot
+        includeDirs <- either fail return =<<
+          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
+        absPath <- either fail return =<< resolveHeader includeDirs relPath
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
-        return $ genHsDecls fp defaultTranslationOpts header
+        header <- parseC tracer args absPath
+        return $ genHsDecls relPath defaultTranslationOpts header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
-        let fp = "examples" </> (name ++ ".h")
-            args = clangArgs packageRoot
+        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
+        let args = clangArgs packageRoot
+        includeDirs <- either fail return =<<
+          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
+        absPath <- either fail return =<< resolveHeader includeDirs relPath
 
         let tracer = mkTracer report report report False
 
-        header <- parseC tracer args fp
+        header <- parseC tracer args absPath
 
         -- TODO: PP.render should add trailing '\n' itself.
-        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule fp defaultTranslationOpts moduleOpts header) ++ "\n"
+        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule relPath defaultTranslationOpts moduleOpts header) ++ "\n"
       where
         moduleOpts :: HsModuleOpts
         moduleOpts = HsModuleOpts
@@ -121,21 +134,21 @@ main' packageRoot bg = testGroup "golden"
 withC ::
      Tracer IO String
   -> ClangArgs
-  -> FilePath
+  -> CHeaderAbsPath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC tracer args fp =
-    withTranslationUnit tracerD args fp
+withC tracer args headerPath =
+    withTranslationUnit tracerD args headerPath
   where
     tracerD = contramap show tracer
 
 parseC ::
      Tracer IO String
   -> ClangArgs
-  -> FilePath
+  -> CHeaderAbsPath
   -> IO CHeader
-parseC tracer args fp =
-    withC tracer args fp $
+parseC tracer args headerPath =
+    withC tracer args headerPath $
       parseCHeader tracerP SelectFromMainFile
   where
     tracerP = contramap prettyLogMsg tracer

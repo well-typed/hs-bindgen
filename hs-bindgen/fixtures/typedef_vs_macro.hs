@@ -19,7 +19,7 @@
         Macro {
           macroLoc = MultiLoc {
             multiLocExpansion =
-            "examples/typedef_vs_macro.h:4:9",
+            "typedef_vs_macro.h:4:9",
             multiLocPresumed = Nothing,
             multiLocSpelling = Nothing,
             multiLocFile = Nothing},
@@ -103,7 +103,7 @@
         Macro {
           macroLoc = MultiLoc {
             multiLocExpansion =
-            "examples/typedef_vs_macro.h:5:9",
+            "typedef_vs_macro.h:5:9",
             multiLocPresumed = Nothing,
             multiLocSpelling = Nothing,
             multiLocFile = Nothing},
@@ -187,7 +187,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "examples/typedef_vs_macro.h:1:13"}},
+          "typedef_vs_macro.h:1:13"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -262,7 +262,7 @@
           typedefType = TypePrim
             (PrimChar Nothing),
           typedefSourceLoc =
-          "examples/typedef_vs_macro.h:2:14"}},
+          "typedef_vs_macro.h:2:14"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -339,7 +339,7 @@
               fieldType = TypeTypedef
                 (CName "T1"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:8:6"}},
+              "typedef_vs_macro.h:8:6"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -355,7 +355,7 @@
               fieldType = TypeTypedef
                 (CName "T2"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:9:6"}},
+              "typedef_vs_macro.h:9:6"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -371,7 +371,7 @@
               fieldType = TypeTypedef
                 (CName "M1"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:10:6"}},
+              "typedef_vs_macro.h:10:6"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -387,7 +387,7 @@
               fieldType = TypeTypedef
                 (CName "M2"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:11:6"}}],
+              "typedef_vs_macro.h:11:6"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -405,7 +405,7 @@
               fieldType = TypeTypedef
                 (CName "T1"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:8:6"},
+              "typedef_vs_macro.h:8:6"},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
@@ -413,7 +413,7 @@
               fieldType = TypeTypedef
                 (CName "T2"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:9:6"},
+              "typedef_vs_macro.h:9:6"},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
@@ -421,7 +421,7 @@
               fieldType = TypeTypedef
                 (CName "M1"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:10:6"},
+              "typedef_vs_macro.h:10:6"},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
@@ -429,10 +429,10 @@
               fieldType = TypeTypedef
                 (CName "M2"),
               fieldSourceLoc =
-              "examples/typedef_vs_macro.h:11:6"}],
+              "typedef_vs_macro.h:11:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/typedef_vs_macro.h:7:8"}},
+          "typedef_vs_macro.h:7:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -458,7 +458,7 @@
                 fieldType = TypeTypedef
                   (CName "T1"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:8:6"}},
+                "typedef_vs_macro.h:8:6"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -474,7 +474,7 @@
                 fieldType = TypeTypedef
                   (CName "T2"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:9:6"}},
+                "typedef_vs_macro.h:9:6"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -490,7 +490,7 @@
                 fieldType = TypeTypedef
                   (CName "M1"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:10:6"}},
+                "typedef_vs_macro.h:10:6"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -506,7 +506,7 @@
                 fieldType = TypeTypedef
                   (CName "M2"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:11:6"}}],
+                "typedef_vs_macro.h:11:6"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -524,7 +524,7 @@
                 fieldType = TypeTypedef
                   (CName "T1"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:8:6"},
+                "typedef_vs_macro.h:8:6"},
               StructField {
                 fieldName = CName "t2",
                 fieldOffset = 32,
@@ -532,7 +532,7 @@
                 fieldType = TypeTypedef
                   (CName "T2"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:9:6"},
+                "typedef_vs_macro.h:9:6"},
               StructField {
                 fieldName = CName "m1",
                 fieldOffset = 64,
@@ -540,7 +540,7 @@
                 fieldType = TypeTypedef
                   (CName "M1"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:10:6"},
+                "typedef_vs_macro.h:10:6"},
               StructField {
                 fieldName = CName "m2",
                 fieldOffset = 96,
@@ -548,10 +548,10 @@
                 fieldType = TypeTypedef
                   (CName "M2"),
                 fieldSourceLoc =
-                "examples/typedef_vs_macro.h:11:6"}],
+                "typedef_vs_macro.h:11:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/typedef_vs_macro.h:7:8"}}
+            "typedef_vs_macro.h:7:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -582,7 +582,7 @@
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:8:6"}},
+                        "typedef_vs_macro.h:8:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -598,7 +598,7 @@
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:9:6"}},
+                        "typedef_vs_macro.h:9:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -614,7 +614,7 @@
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:10:6"}},
+                        "typedef_vs_macro.h:10:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -630,7 +630,7 @@
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:11:6"}}],
+                        "typedef_vs_macro.h:11:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -648,7 +648,7 @@
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:8:6"},
+                        "typedef_vs_macro.h:8:6"},
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
@@ -656,7 +656,7 @@
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:9:6"},
+                        "typedef_vs_macro.h:9:6"},
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
@@ -664,7 +664,7 @@
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:10:6"},
+                        "typedef_vs_macro.h:10:6"},
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
@@ -672,10 +672,10 @@
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:11:6"}],
+                        "typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/typedef_vs_macro.h:7:8"}})
+                    "typedef_vs_macro.h:7:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -710,7 +710,7 @@
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:8:6"}},
+                        "typedef_vs_macro.h:8:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -726,7 +726,7 @@
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:9:6"}},
+                        "typedef_vs_macro.h:9:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -742,7 +742,7 @@
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:10:6"}},
+                        "typedef_vs_macro.h:10:6"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -758,7 +758,7 @@
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:11:6"}}],
+                        "typedef_vs_macro.h:11:6"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -776,7 +776,7 @@
                         fieldType = TypeTypedef
                           (CName "T1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:8:6"},
+                        "typedef_vs_macro.h:8:6"},
                       StructField {
                         fieldName = CName "t2",
                         fieldOffset = 32,
@@ -784,7 +784,7 @@
                         fieldType = TypeTypedef
                           (CName "T2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:9:6"},
+                        "typedef_vs_macro.h:9:6"},
                       StructField {
                         fieldName = CName "m1",
                         fieldOffset = 64,
@@ -792,7 +792,7 @@
                         fieldType = TypeTypedef
                           (CName "M1"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:10:6"},
+                        "typedef_vs_macro.h:10:6"},
                       StructField {
                         fieldName = CName "m2",
                         fieldOffset = 96,
@@ -800,10 +800,10 @@
                         fieldType = TypeTypedef
                           (CName "M2"),
                         fieldSourceLoc =
-                        "examples/typedef_vs_macro.h:11:6"}],
+                        "typedef_vs_macro.h:11:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/typedef_vs_macro.h:7:8"}}
+                    "typedef_vs_macro.h:7:8"}}
               (Add 4)
               (Seq
                 [

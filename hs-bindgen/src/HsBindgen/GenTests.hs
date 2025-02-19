@@ -8,6 +8,7 @@ import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
 import HsBindgen.C.AST qualified as C
+import HsBindgen.Clang.Paths
 import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
 import HsBindgen.GenTests.Readme (genTestsReadme)
@@ -21,11 +22,11 @@ import HsBindgen.Imports
 
 -- | Generate test suite
 genTests ::
-     FilePath  -- ^ C header file path
+     CHeaderRelPath -- ^ C header file path
   -> C.Header
-  -> String    -- ^ Generated Haskell module name
-  -> Int       -- ^ Maximum line length
-  -> FilePath  -- ^ Test suite directory path
+  -> String         -- ^ Generated Haskell module name
+  -> Int            -- ^ Maximum line length
+  -> FilePath       -- ^ Test suite directory path
   -> IO ()
 genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
     -- fails when testSuitePath already exists

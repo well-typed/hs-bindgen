@@ -20,6 +20,7 @@ import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
@@ -57,11 +58,11 @@ data TranslationUnitException =
 withTranslationUnit ::
      Tracer IO Diagnostic  -- ^ Tracer for warnings
   -> ClangArgs
-  -> FilePath
+  -> CHeaderAbsPath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withTranslationUnit tracer args fp k = do
-    -- checkFileExists fp
+withTranslationUnit tracer args headerPath k = do
+    let fp = getCHeaderAbsPath headerPath
 
     index  <- clang_createIndex DontDisplayDiagnostics
     mUnit  <- clang_parseTranslationUnit2 index fp args flags

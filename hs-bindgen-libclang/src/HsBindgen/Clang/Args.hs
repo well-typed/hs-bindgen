@@ -1,4 +1,5 @@
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE RecordWildCards #-}
 
 module HsBindgen.Clang.Args (
     ClangArgs(..)
@@ -13,6 +14,7 @@ module HsBindgen.Clang.Args (
 
 import Control.Monad.Except
 
+import HsBindgen.Clang.Paths
 import HsBindgen.Clang.Version
 
 {-------------------------------------------------------------------------------
@@ -37,6 +39,12 @@ data ClangArgs = ClangArgs {
 
       -- | Enable GNU extensions when 'True'
     , clangEnableGnu :: Bool
+
+      -- | Directories in the system include search path
+    , clangSystemIncludePathDirs :: [CIncludePathDir]
+
+      -- | Directories in the non-system include search path
+    , clangIncludePathDirs :: [CIncludePathDir]
 
       -- | Other arguments
       --
@@ -66,18 +74,20 @@ data CStandard =
 
 defaultClangArgs :: ClangArgs
 defaultClangArgs = ClangArgs {
-      clangTarget    = Nothing
-    , clangCStandard = Nothing
-    , clangEnableGnu = False
-    , clangOtherArgs = []
+      clangTarget                = Nothing
+    , clangCStandard             = Nothing
+    , clangEnableGnu             = False
+    , clangSystemIncludePathDirs = []
+    , clangIncludePathDirs       = []
+    , clangOtherArgs             = []
     }
 
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
-fromClangArgs :: ClangArgs -> Either String [String]
-fromClangArgs args = aux [
+fromClangArgs :: ClangArgs -> IO (Either String [String])
+fromClangArgs ClangArgs{..} = aux [
       ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
         return ["-target", target]
 
@@ -109,25 +119,28 @@ fromClangArgs args = aux [
           | clangEnableGnu -> return ["-std=gnu2x"]
           | otherwise      -> return ["-std=c2x"]
 
+    , do
+        sysIncPathDirs <- fmap (map getCIncludeAbsPathDir) . ExceptT $
+          resolveCIncludeAbsPathDirs clangSystemIncludePathDirs
+        incPathDirs <- fmap (map getCIncludeAbsPathDir) . ExceptT $
+          resolveCIncludeAbsPathDirs clangIncludePathDirs
+        return $
+             "-nostdinc"
+          :  concat [["-isystem", path] | path <- sysIncPathDirs]
+          ++ concat [["-I",       path] | path <- incPathDirs]
+
     , return clangOtherArgs
     ]
   where
-    ClangArgs{
-        clangTarget
-      , clangCStandard
-      , clangEnableGnu
-      , clangOtherArgs
-      } = args
-
-    aux :: [Except String [String]] -> Either String [String]
-    aux = runExcept . fmap concat . sequence
+    aux :: [ExceptT String IO [String]] -> IO (Either String [String])
+    aux = runExceptT . fmap concat . sequence
 
     ifGiven ::
          Maybe a
-      -> (a -> Except String [String])
-      ->       Except String [String]
+      -> (a -> Except  String    [String])
+      ->       ExceptT String IO [String]
     ifGiven Nothing  _ = return []
-    ifGiven (Just a) f = f a
+    ifGiven (Just a) f = ExceptT . return . runExcept $ f a
 
 {-------------------------------------------------------------------------------
   Cross-compilation

@@ -23,7 +23,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/recursive_struct.h:2:7"}},
+              "recursive_struct.h:2:7"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -46,7 +46,7 @@
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/recursive_struct.h:3:27"}}],
+              "recursive_struct.h:3:27"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -64,7 +64,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/recursive_struct.h:2:7"},
+              "recursive_struct.h:2:7"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -76,10 +76,10 @@
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/recursive_struct.h:3:27"}],
+              "recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:1:16"}},
+          "recursive_struct.h:1:16"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -105,7 +105,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:2:7"}},
+                "recursive_struct.h:2:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -128,7 +128,7 @@
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:3:27"}}],
+                "recursive_struct.h:3:27"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -146,7 +146,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:2:7"},
+                "recursive_struct.h:2:7"},
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
@@ -158,10 +158,10 @@
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:3:27"}],
+                "recursive_struct.h:3:27"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/recursive_struct.h:1:16"}}
+            "recursive_struct.h:1:16"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -192,7 +192,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:2:7"}},
+                        "recursive_struct.h:2:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -215,7 +215,7 @@
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:3:27"}}],
+                        "recursive_struct.h:3:27"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -233,7 +233,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:2:7"},
+                        "recursive_struct.h:2:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -245,10 +245,10 @@
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:3:27"}],
+                        "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:1:16"}})
+                    "recursive_struct.h:1:16"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -281,7 +281,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:2:7"}},
+                        "recursive_struct.h:2:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -304,7 +304,7 @@
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:3:27"}}],
+                        "recursive_struct.h:3:27"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -322,7 +322,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:2:7"},
+                        "recursive_struct.h:2:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -334,10 +334,10 @@
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:3:27"}],
+                        "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:1:16"}}
+                    "recursive_struct.h:1:16"}}
               (Add 2)
               (Seq
                 [
@@ -386,7 +386,7 @@
                 (CName "linked_list_A_s"))
               DeclPathTop),
           typedefSourceLoc =
-          "examples/recursive_struct.h:4:3"}},
+          "recursive_struct.h:4:3"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -417,7 +417,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/recursive_struct.h:10:7"}},
+              "recursive_struct.h:10:7"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -440,7 +440,7 @@
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/recursive_struct.h:11:20"}}],
+              "recursive_struct.h:11:20"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -458,7 +458,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/recursive_struct.h:10:7"},
+              "recursive_struct.h:10:7"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -470,10 +470,10 @@
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/recursive_struct.h:11:20"}],
+              "recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/recursive_struct.h:9:8"}},
+          "recursive_struct.h:9:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -499,7 +499,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:10:7"}},
+                "recursive_struct.h:10:7"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -522,7 +522,7 @@
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:11:20"}}],
+                "recursive_struct.h:11:20"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -540,7 +540,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:10:7"},
+                "recursive_struct.h:10:7"},
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
@@ -552,10 +552,10 @@
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/recursive_struct.h:11:20"}],
+                "recursive_struct.h:11:20"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/recursive_struct.h:9:8"}}
+            "recursive_struct.h:9:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -586,7 +586,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:10:7"}},
+                        "recursive_struct.h:10:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -609,7 +609,7 @@
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:11:20"}}],
+                        "recursive_struct.h:11:20"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -627,7 +627,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:10:7"},
+                        "recursive_struct.h:10:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -639,10 +639,10 @@
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:11:20"}],
+                        "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:9:8"}})
+                    "recursive_struct.h:9:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -675,7 +675,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:10:7"}},
+                        "recursive_struct.h:10:7"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -698,7 +698,7 @@
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:11:20"}}],
+                        "recursive_struct.h:11:20"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -716,7 +716,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:10:7"},
+                        "recursive_struct.h:10:7"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -728,10 +728,10 @@
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/recursive_struct.h:11:20"}],
+                        "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/recursive_struct.h:9:8"}}
+                    "recursive_struct.h:9:8"}}
               (Add 2)
               (Seq
                 [

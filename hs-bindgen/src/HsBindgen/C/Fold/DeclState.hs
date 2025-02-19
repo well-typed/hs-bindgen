@@ -5,6 +5,7 @@ module HsBindgen.C.Fold.DeclState (
   , initDeclState
   , registerMacroExpansion
   , registerMacroType
+  , registerInclude
     -- * Query
   , containsMacroExpansion
   ) where
@@ -13,11 +14,14 @@ import Data.Map.Ordered.Strict qualified as OMap
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import HsBindgen.Imports
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.HighLevel.Types
+import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST (CName, Type, Decl)
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -39,6 +43,11 @@ data DeclState = DeclState {
     -- We accumulate type declarations in (insert)ordered map,
     -- so the ordering resembles the one in the header.
     , typeDeclarations :: !(OMap.OMap CXType TypeDecl)
+    -- | C header path graph
+    --
+    -- We create a DAG of C header paths with an edge for each @#include@.  The
+    -- edges are /reversed/ to represent an \"included by\" relation.
+    , cHeaderPathGraph :: DynGraph CHeaderAbsPath
     }
 
 data TypeDecl
@@ -56,6 +65,7 @@ initDeclState = DeclState {
       macroExpansions = Set.empty
     , macroTypes      = Map.empty
     , typeDeclarations = OMap.empty
+    , cHeaderPathGraph = DynGraph.empty
     }
 
 registerMacroExpansion :: MultiLoc -> DeclState -> DeclState
@@ -66,6 +76,16 @@ registerMacroExpansion loc st = st{
 registerMacroType :: CName -> Macro.Quant ( Macro.Type Macro.Ty ) -> DeclState -> DeclState
 registerMacroType nm ty st = st{
       macroTypes = Map.insert nm ty (macroTypes st)
+    }
+
+registerInclude ::
+     CHeaderAbsPath -- ^ Path of header that includes the following header
+  -> CHeaderAbsPath -- ^ Path of the included header
+  -> DeclState
+  -> DeclState
+registerInclude header incHeader st = st{
+      cHeaderPathGraph =
+        DynGraph.insertEdge incHeader header (cHeaderPathGraph st)
     }
 
 {-------------------------------------------------------------------------------

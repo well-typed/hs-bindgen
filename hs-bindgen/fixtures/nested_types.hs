@@ -23,7 +23,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/nested_types.h:2:9"}},
+              "nested_types.h:2:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -39,7 +39,7 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/nested_types.h:3:10"}}],
+              "nested_types.h:3:10"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -56,7 +56,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/nested_types.h:2:9"},
+              "nested_types.h:2:9"},
             StructField {
               fieldName = CName "c",
               fieldOffset = 32,
@@ -64,10 +64,10 @@
               fieldType = TypePrim
                 (PrimChar Nothing),
               fieldSourceLoc =
-              "examples/nested_types.h:3:10"}],
+              "nested_types.h:3:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:1:8"}},
+          "nested_types.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -93,7 +93,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/nested_types.h:2:9"}},
+                "nested_types.h:2:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -109,7 +109,7 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/nested_types.h:3:10"}}],
+                "nested_types.h:3:10"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -126,7 +126,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/nested_types.h:2:9"},
+                "nested_types.h:2:9"},
               StructField {
                 fieldName = CName "c",
                 fieldOffset = 32,
@@ -134,10 +134,10 @@
                 fieldType = TypePrim
                   (PrimChar Nothing),
                 fieldSourceLoc =
-                "examples/nested_types.h:3:10"}],
+                "nested_types.h:3:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:1:8"}}
+            "nested_types.h:1:8"}}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -168,7 +168,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:2:9"}},
+                        "nested_types.h:2:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -184,7 +184,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/nested_types.h:3:10"}}],
+                        "nested_types.h:3:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -201,7 +201,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:2:9"},
+                        "nested_types.h:2:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
@@ -209,10 +209,10 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/nested_types.h:3:10"}],
+                        "nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:1:8"}})
+                    "nested_types.h:1:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -245,7 +245,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:2:9"}},
+                        "nested_types.h:2:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -261,7 +261,7 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/nested_types.h:3:10"}}],
+                        "nested_types.h:3:10"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -278,7 +278,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:2:9"},
+                        "nested_types.h:2:9"},
                       StructField {
                         fieldName = CName "c",
                         fieldOffset = 32,
@@ -286,10 +286,10 @@
                         fieldType = TypePrim
                           (PrimChar Nothing),
                         fieldSourceLoc =
-                        "examples/nested_types.h:3:10"}],
+                        "nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:1:8"}}
+                    "nested_types.h:1:8"}}
               (Add 2)
               (Seq
                 [
@@ -332,7 +332,7 @@
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/nested_types.h:7:16"}},
+              "nested_types.h:7:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -350,7 +350,7 @@
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/nested_types.h:8:16"}}],
+              "nested_types.h:8:16"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -369,7 +369,7 @@
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/nested_types.h:7:16"},
+              "nested_types.h:7:16"},
             StructField {
               fieldName = CName "foo2",
               fieldOffset = 64,
@@ -379,10 +379,10 @@
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
-              "examples/nested_types.h:8:16"}],
+              "nested_types.h:8:16"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:6:8"}},
+          "nested_types.h:6:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -410,7 +410,7 @@
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
-                "examples/nested_types.h:7:16"}},
+                "nested_types.h:7:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -428,7 +428,7 @@
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
-                "examples/nested_types.h:8:16"}}],
+                "nested_types.h:8:16"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -447,7 +447,7 @@
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
-                "examples/nested_types.h:7:16"},
+                "nested_types.h:7:16"},
               StructField {
                 fieldName = CName "foo2",
                 fieldOffset = 64,
@@ -457,10 +457,10 @@
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
-                "examples/nested_types.h:8:16"}],
+                "nested_types.h:8:16"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:6:8"}}
+            "nested_types.h:6:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -493,7 +493,7 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:7:16"}},
+                        "nested_types.h:7:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -511,7 +511,7 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:8:16"}}],
+                        "nested_types.h:8:16"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -530,7 +530,7 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:7:16"},
+                        "nested_types.h:7:16"},
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
@@ -540,10 +540,10 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:8:16"}],
+                        "nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:6:8"}})
+                    "nested_types.h:6:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -578,7 +578,7 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:7:16"}},
+                        "nested_types.h:7:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -596,7 +596,7 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:8:16"}}],
+                        "nested_types.h:8:16"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -615,7 +615,7 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:7:16"},
+                        "nested_types.h:7:16"},
                       StructField {
                         fieldName = CName "foo2",
                         fieldOffset = 64,
@@ -625,10 +625,10 @@
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
-                        "examples/nested_types.h:8:16"}],
+                        "nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:6:8"}}
+                    "nested_types.h:6:8"}}
               (Add 2)
               (Seq
                 [
@@ -669,7 +669,7 @@
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
-              "examples/nested_types.h:16:11"}}],
+              "nested_types.h:16:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -686,10 +686,10 @@
               fieldType = TypePrim
                 (PrimFloating PrimFloat),
               fieldSourceLoc =
-              "examples/nested_types.h:16:11"}],
+              "nested_types.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:11:8"}},
+          "nested_types.h:11:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -715,7 +715,7 @@
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
                 fieldSourceLoc =
-                "examples/nested_types.h:16:11"}}],
+                "nested_types.h:16:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -732,10 +732,10 @@
                 fieldType = TypePrim
                   (PrimFloating PrimFloat),
                 fieldSourceLoc =
-                "examples/nested_types.h:16:11"}],
+                "nested_types.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:11:8"}}
+            "nested_types.h:11:8"}}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -766,7 +766,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
-                        "examples/nested_types.h:16:11"}}],
+                        "nested_types.h:16:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -783,10 +783,10 @@
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
-                        "examples/nested_types.h:16:11"}],
+                        "nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:11:8"}})
+                    "nested_types.h:11:8"}})
             [PeekByteOff (Idx 0) 8]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -817,7 +817,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
-                        "examples/nested_types.h:16:11"}}],
+                        "nested_types.h:16:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -834,10 +834,10 @@
                         fieldType = TypePrim
                           (PrimFloating PrimFloat),
                         fieldSourceLoc =
-                        "examples/nested_types.h:16:11"}],
+                        "nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:11:8"}}
+                    "nested_types.h:11:8"}}
               (Add 1)
               (Seq
                 [
@@ -878,7 +878,7 @@
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "examples/nested_types.h:25:16"}},
+              "nested_types.h:25:16"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -900,7 +900,7 @@
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/nested_types.h:26:25"}}],
+              "nested_types.h:26:25"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -923,7 +923,7 @@
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "examples/nested_types.h:25:16"},
+              "nested_types.h:25:16"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -934,10 +934,10 @@
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/nested_types.h:26:25"}],
+              "nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:24:12"}},
+          "nested_types.h:24:12"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -964,7 +964,7 @@
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
-                "examples/nested_types.h:25:16"}},
+                "nested_types.h:25:16"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -986,7 +986,7 @@
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/nested_types.h:26:25"}}],
+                "nested_types.h:26:25"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1009,7 +1009,7 @@
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
-                "examples/nested_types.h:25:16"},
+                "nested_types.h:25:16"},
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
@@ -1020,10 +1020,10 @@
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop)),
                 fieldSourceLoc =
-                "examples/nested_types.h:26:25"}],
+                "nested_types.h:26:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:24:12"}}
+            "nested_types.h:24:12"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1055,7 +1055,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:16"}},
+                        "nested_types.h:25:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1077,7 +1077,7 @@
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:26:25"}}],
+                        "nested_types.h:26:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1100,7 +1100,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:16"},
+                        "nested_types.h:25:16"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -1111,10 +1111,10 @@
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:26:25"}],
+                        "nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:24:12"}})
+                    "nested_types.h:24:12"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1148,7 +1148,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:16"}},
+                        "nested_types.h:25:16"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1170,7 +1170,7 @@
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:26:25"}}],
+                        "nested_types.h:26:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1193,7 +1193,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "examples/nested_types.h:25:16"},
+                        "nested_types.h:25:16"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -1204,10 +1204,10 @@
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
-                        "examples/nested_types.h:26:25"}],
+                        "nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:24:12"}}
+                    "nested_types.h:24:12"}}
               (Add 2)
               (Seq
                 [
@@ -1253,7 +1253,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/nested_types.h:23:9"}},
+              "nested_types.h:23:9"}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1280,7 +1280,7 @@
                           (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop))))),
               fieldSourceLoc =
-              "examples/nested_types.h:27:8"}}],
+              "nested_types.h:27:8"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -1298,7 +1298,7 @@
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/nested_types.h:23:9"},
+              "nested_types.h:23:9"},
             StructField {
               fieldName = CName "next",
               fieldOffset = 64,
@@ -1314,10 +1314,10 @@
                           (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop))))),
               fieldSourceLoc =
-              "examples/nested_types.h:27:8"}],
+              "nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/nested_types.h:22:8"}},
+          "nested_types.h:22:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1344,7 +1344,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/nested_types.h:23:9"}},
+                "nested_types.h:23:9"}},
           Field {
             fieldName = HsName
               "@NsVar"
@@ -1371,7 +1371,7 @@
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))))),
                 fieldSourceLoc =
-                "examples/nested_types.h:27:8"}}],
+                "nested_types.h:27:8"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1389,7 +1389,7 @@
                 fieldType = TypePrim
                   (PrimIntegral PrimInt Signed),
                 fieldSourceLoc =
-                "examples/nested_types.h:23:9"},
+                "nested_types.h:23:9"},
               StructField {
                 fieldName = CName "next",
                 fieldOffset = 64,
@@ -1405,10 +1405,10 @@
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))))),
                 fieldSourceLoc =
-                "examples/nested_types.h:27:8"}],
+                "nested_types.h:27:8"}],
             structFlam = Nothing,
             structSourceLoc =
-            "examples/nested_types.h:22:8"}}
+            "nested_types.h:22:8"}}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1440,7 +1440,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:9"}},
+                        "nested_types.h:23:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1467,7 +1467,7 @@
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
-                        "examples/nested_types.h:27:8"}}],
+                        "nested_types.h:27:8"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1485,7 +1485,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:9"},
+                        "nested_types.h:23:9"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -1501,10 +1501,10 @@
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
-                        "examples/nested_types.h:27:8"}],
+                        "nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:22:8"}})
+                    "nested_types.h:22:8"}})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1538,7 +1538,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:9"}},
+                        "nested_types.h:23:9"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
@@ -1565,7 +1565,7 @@
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
-                        "examples/nested_types.h:27:8"}}],
+                        "nested_types.h:27:8"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -1583,7 +1583,7 @@
                         fieldType = TypePrim
                           (PrimIntegral PrimInt Signed),
                         fieldSourceLoc =
-                        "examples/nested_types.h:23:9"},
+                        "nested_types.h:23:9"},
                       StructField {
                         fieldName = CName "next",
                         fieldOffset = 64,
@@ -1599,10 +1599,10 @@
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
-                        "examples/nested_types.h:27:8"}],
+                        "nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "examples/nested_types.h:22:8"}}
+                    "nested_types.h:22:8"}}
               (Add 2)
               (Seq
                 [

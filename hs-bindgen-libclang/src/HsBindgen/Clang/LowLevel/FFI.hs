@@ -3,6 +3,7 @@ module HsBindgen.Clang.LowLevel.FFI (module HsBindgen.Clang.LowLevel.FFI) where
 import Foreign.C.Types
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.LowLevel.Core.Enums
+import HsBindgen.Clang.LowLevel.Core.Pointers
 import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Runtime.Enum.Simple
 -- Type information for CXCursors https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html
@@ -296,7 +297,15 @@ foreign import capi unsafe "clang_wrappers.h"
 
 -- void clang_disposeOverriddenCursors (CXCursor *overridden); // C++?
 
--- CXFile clang_getIncludedFile (CXCursor cursor); // CXFile is defined in LowLevel.Core
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getIncludedFile :: R CXCursor_ -> IO CXFile
+
+-- CXFile is defined in LowLevel.Core
+
+-- File manipulation routines https://clang.llvm.org/doxygen/group__CINDEX__FILES.html
+
+foreign import capi unsafe "clang_wrappers.h"
+  wrap_getFileName :: CXFile -> W CXString_ -> IO ()
 
 -- Debugging facilities https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html
 

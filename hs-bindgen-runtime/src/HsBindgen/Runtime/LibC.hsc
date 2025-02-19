@@ -1,32 +1,48 @@
 module HsBindgen.Runtime.LibC (
     -- * Primitive Types
     -- $PrimitiveTypes
+
     -- * Boolean Types
     -- $BooleanTypes
+
     -- * Integral Types
     -- $IntegralTypes
+
     -- * Floating Types
-    CFexceptT(..)
+    CFenvT
+  , CFexceptT
+
     -- * Mathematical Types
+  , CDivT(..)
+  , CLdivT(..)
+  , CLldivT(..)
+
     -- * Standard Definitions
     -- $StandardDefinitions
+
     -- * Non-Local Jump Types
     -- $NonLocalJumpTypes
+
     -- * Wide Character Types
     -- $WideCharacterTypes
   , CWintT(..)
+  , CMbstateT
   , CWctransT(..)
   , CWctypeT(..)
   , CChar16T(..)
   , CChar32T(..)
+
     -- * Localization Types
+
     -- * Time Types
     -- $TimeTypes
+  , CTm(..)
+
     -- * File Types
     -- $FileTypes
+
     -- * Signal Types
     -- $SignalTypes
-    -- * Thread Types
   ) where
 
 import Data.Bits (Bits, FiniteBits)
@@ -36,10 +52,12 @@ import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
 import Foreign.Storable (Storable)
 
--- Architecture-dependent definitions are defined in the following /internal/
--- module.  Cabal conditionals are used to select the source corresponding to
--- the host architecture.
-import HsBindgen.Runtime.LibC.Arch ()
+import HsBindgen.Runtime.Marshal
+
+#include <inttypes.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <time.h>
 
 {-------------------------------------------------------------------------------
   Primitive Types
@@ -47,7 +65,7 @@ import HsBindgen.Runtime.LibC.Arch ()
 
 -- $PrimitiveTypes
 --
--- The following types are available in all C standards.  They corresponding
+-- The following types are available in all C standards.  The corresponding
 -- Haskell types are defined in @base@ with platform-specific implementations.
 --
 -- Integral types:
@@ -189,28 +207,91 @@ import HsBindgen.Runtime.LibC.Arch ()
 
 -- TODO CDoubleT @double_t@ (arch, uses long double, math.h)
 
--- TODO CFenvT @fenv_t@ (arch, C99, fenv.h)
+-- | C @fenv_t@ type
+--
+-- @fenv_t@ represents the entire floating-point environment.  It is
+-- implementation-specific, so this representation is opaque and may only be
+-- used with a 'Ptr'.  It is available since C99.  It is defined in the @fenv.h@
+-- header file.
+data CFenvT
 
 -- | C @fexcept_t@ type
 --
--- @fexcept_t@ represents the state of all floating-point status flags
--- collectively, including the active floating-point exceptions along with any
--- additional information the implementation associates with their status.  It
--- is available since C99.  It is defined in the @fenv.h@ header file.
-newtype CFexceptT = CFexceptT C.CShort
-  deriving newtype (Eq, Ord, Show, Storable)
+-- @fexcept_t@ represents the floating-point status flags collectively,
+-- including any status the implementation associates with the flags.  It is
+-- implementation-specific, so this representation is opaque and may only be
+-- used with a 'Ptr'.  It is available since C99.  It is defined in the @fenv.h@
+-- header file.
+data CFexceptT
 
 {-------------------------------------------------------------------------------
   Mathematical Types
 -------------------------------------------------------------------------------}
 
--- TODO CDivT @div_t@ (stdlib.h)
+-- | C @div_t@ structure
+--
+-- @div_t@ represents the result of integral division performed by function
+-- @div@.  It is defined in the @stdlib.h@ header file.
+data CDivT = CDivT {
+      cDivT_quot :: C.CInt -- ^ Quotient
+    , cDivT_rem  :: C.CInt -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
 
--- TODO CLdivT @ldiv_t@ (stdlib.h)
+instance Peekable CDivT where
+  peek ptr = do
+    cDivT_quot <- (#peek div_t, quot) ptr
+    cDivT_rem  <- (#peek div_t, rem)  ptr
+    return CDivT{..}
 
--- TODO CLldivT @lldiv_t@ (stdlib.h)
+-- | C @ldiv_t@ structure
+--
+-- @ldiv_t@ represents the result of integral division performed by function
+-- @ldiv@.  It is defined in the @stdlib.h@ header file.
+data CLdivT = CLdivT {
+      cLdivT_quot :: C.CLong -- ^ Quotient
+    , cLdivT_rem  :: C.CLong -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
 
--- TODO CImaxdivT @imaxdiv_t@ (C99, inttypes.h)
+instance Peekable CLdivT where
+  peek ptr = do
+    cLdivT_quot <- (#peek ldiv_t, quot) ptr
+    cLdivT_rem  <- (#peek ldiv_t, rem)  ptr
+    return CLdivT{..}
+
+-- | C @lldiv_t@ structure
+--
+-- @lldiv_t@ represents the result of integral division performed by function
+-- @lldiv@.  It is defined in the @stdlib.h@ header file.
+data CLldivT = CLldivT {
+      cLldivT_quot :: C.CLLong -- ^ Quotient
+    , cLldivT_rem  :: C.CLLong -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
+
+instance Peekable CLldivT where
+  peek ptr = do
+    cLldivT_quot <- (#peek lldiv_t, quot) ptr
+    cLldivT_rem  <- (#peek lldiv_t, rem)  ptr
+    return CLldivT{..}
+
+-- | C @imaxdiv_t@ structure
+--
+-- @imaxdiv_t@ represents the result of integral division performed by function
+-- @imaxdiv@.  It is available since C99.  It is defined in the @inttypes.h@
+-- header file.
+data CImaxdivT = CImaxdivT {
+      cImaxdivT_quot :: C.CIntMax -- ^ Quotient
+    , cImaxdivT_rem  :: C.CIntMax -- ^ Remainder
+    }
+  deriving (Eq, Ord, Show)
+
+instance Peekable CImaxdivT where
+  peek ptr = do
+    cImaxdivT_quot <- (#peek imaxdiv_t, quot) ptr
+    cImaxdivT_rem  <- (#peek imaxdiv_t, rem)  ptr
+    return CImaxdivT{..}
 
 {-------------------------------------------------------------------------------
   Standard Definitions
@@ -262,17 +343,28 @@ newtype CWintT = CWintT C.CUInt
     , Enum
     , Eq
     , FiniteBits
+    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
+    , Peekable
+    , Pokable
     , Read
     , Real
     , Show
     , Storable
     )
 
--- TODO CMbstateT @mbstate_t@ (opaque, C95, wchar.h uchar.h)
+-- | C @mbstate_t@ type
+--
+-- @mbstate_t@ is a complete object type other than an array type that can hold
+-- the conversion state information necessary to convert between sequences of
+-- multibyte characters and wide characters.  It is implementation-specific, so
+-- this representation is opaque and may only be used with a 'Ptr'.  It is
+-- available since C95.  It is defined in the @wchar.h@ and @uchar.h@ header
+-- files.
+data CMbstateT
 
 -- | C @wctrans_t@ type
 --
@@ -280,7 +372,7 @@ newtype CWintT = CWintT C.CUInt
 -- locale-specific character transformations.  It is available since C95.  It is
 -- defined in the @wctype.h@ header file.
 newtype CWctransT = CWctransT (Ptr C.CInt)
-  deriving newtype (Eq, Show, Storable)
+  deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
 
 -- | C @wctype_t@ type
 --
@@ -288,7 +380,7 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
 -- locale-specific character classification categories.  It is available since
 -- C95.  It is defined in the @wctype.h@ and @wchar.h@ header files.
 newtype CWctypeT = CWctypeT C.CULong
-  deriving newtype (Eq, Show, Storable)
+  deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
 
 -- | C @char16_t@ type
 --
@@ -301,10 +393,13 @@ newtype CChar16T = CChar16T Word16
     , Enum
     , Eq
     , FiniteBits
+    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
+    , Peekable
+    , Pokable
     , Read
     , Real
     , Show
@@ -322,10 +417,13 @@ newtype CChar32T = CChar32T Word32
     , Enum
     , Eq
     , FiniteBits
+    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
+    , Peekable
+    , Pokable
     , Read
     , Real
     , Show
@@ -336,7 +434,7 @@ newtype CChar32T = CChar32T Word32
   Localization Types
 -------------------------------------------------------------------------------}
 
--- TODO CLconv @struct lconv@ (locale.h)
+-- TODO CLconv @struct lconv@ (fields added in C99, locale.h)
 
 {-------------------------------------------------------------------------------
   Time Types
@@ -356,7 +454,54 @@ newtype CChar32T = CChar32T Word32
 -- @base@ with a platform-specific implementation, is the corresponding Haskell
 -- type.
 
--- TODO CTm @struct tm@ (name, time.h)
+-- | C @struct tm@ type
+--
+-- @struct tm@ holds the components of a calendar time, called the
+-- /broken-down time/.  Note that only the fields defined in the standard are
+-- represented here.  It is defined in the @time.h@ header file, and it is made
+-- available in other header files that use it.
+data CTm = CTm {
+      cTm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
+    , cTm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
+    , cTm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
+    , cTm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
+    , cTm_mon   :: C.CInt -- ^ Months since January (@[0, 11]@)
+    , cTm_year  :: C.CInt -- ^ Years since 1900
+    , cTm_wday  :: C.CInt -- ^ Days since Sunday (@[0, 6]@)
+    , cTm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
+    , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
+    }
+  deriving Show
+  deriving Storable via EquivStorable CTm
+
+instance HasStaticSize CTm where
+  sizeOf    _ = #size      struct tm
+  alignment _ = #alignment struct tm
+
+instance Peekable CTm where
+  peek ptr = do
+    cTm_sec   <- (#peek struct tm, tm_sec)   ptr
+    cTm_min   <- (#peek struct tm, tm_min)   ptr
+    cTm_hour  <- (#peek struct tm, tm_hour)  ptr
+    cTm_mday  <- (#peek struct tm, tm_mday)  ptr
+    cTm_mon   <- (#peek struct tm, tm_mon)   ptr
+    cTm_year  <- (#peek struct tm, tm_year)  ptr
+    cTm_wday  <- (#peek struct tm, tm_wday)  ptr
+    cTm_yday  <- (#peek struct tm, tm_yday)  ptr
+    cTm_isdst <- (#peek struct tm, tm_isdst) ptr
+    return CTm{..}
+
+instance Pokable CTm where
+  poke ptr CTm{..} = do
+    (#poke struct tm, tm_sec)   ptr cTm_sec
+    (#poke struct tm, tm_min)   ptr cTm_min
+    (#poke struct tm, tm_hour)  ptr cTm_hour
+    (#poke struct tm, tm_mday)  ptr cTm_mday
+    (#poke struct tm, tm_mon)   ptr cTm_mon
+    (#poke struct tm, tm_year)  ptr cTm_year
+    (#poke struct tm, tm_wday)  ptr cTm_wday
+    (#poke struct tm, tm_yday)  ptr cTm_yday
+    (#poke struct tm, tm_isdst) ptr cTm_isdst
 
 {-------------------------------------------------------------------------------
   File Types
@@ -383,9 +528,3 @@ newtype CChar32T = CChar32T Word32
 -- accessed as an atomic entity even in the presence of asynchronous signals.
 -- It is defined in the @signal.h@ header file.  'C.CSigAtomic', defined in
 -- @base@ with a platform-specific implementation.
-
-{-------------------------------------------------------------------------------
-  Thread Types
--------------------------------------------------------------------------------}
-
--- TODO threads.h (C11)

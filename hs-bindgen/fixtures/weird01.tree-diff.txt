@@ -14,7 +14,7 @@ WrapCHeader
             TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
-          "examples/weird01.h:8:6"},
+          "weird01.h:8:6"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -30,10 +30,10 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/weird01.h:2:13"}],
+              "weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:1:8"},
+          "weird01.h:1:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -49,7 +49,7 @@ WrapCHeader
               fieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               fieldSourceLoc =
-              "examples/weird01.h:4:21"}],
+              "weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/weird01.h:3:16"}])
+          "weird01.h:3:16"}])

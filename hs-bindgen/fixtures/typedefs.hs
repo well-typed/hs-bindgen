@@ -21,7 +21,7 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "examples/typedefs.h:1:13"}},
+          "typedefs.h:1:13"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -123,7 +123,7 @@
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "examples/typedefs.h:2:15"}},
+          "typedefs.h:2:15"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

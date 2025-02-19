@@ -110,6 +110,7 @@ ffiModule ds = unlines $
         , "import Foreign.C.Types"
         , "import HsBindgen.Clang.Internal.ByValue"
         , "import HsBindgen.Clang.LowLevel.Core.Enums"
+        , "import HsBindgen.Clang.LowLevel.Core.Pointers"
         , "import HsBindgen.Clang.LowLevel.Core.Structs"
         , "import HsBindgen.Runtime.Enum.Simple"
         ]
@@ -240,6 +241,7 @@ toHaskellType :: RA -> [String] -> String
 toHaskellType ra ["CXType"]                 = haskellRA ra ++ "CXType_"
 toHaskellType ra ["CXString"]               = haskellRA ra ++ "CXString_"
 toHaskellType ra ["CXCursor"]               = haskellRA ra ++ "CXCursor_"
+toHaskellType _  ["CXFile"]                 = "CXFile"
 toHaskellType _  ["CXTranslationUnit"]      = "CXTranslationUnit" -- typedef to a pointer, not a struct.
 toHaskellType _  ["enum","CXCursorKind"]    = "SimpleEnum CXCursorKind"
 toHaskellType _  ["enum","CXTypeKind"]      = "SimpleEnum CXTypeKind"
@@ -257,6 +259,7 @@ toCType :: RA -> [String] -> String
 toCType ra ["CXType"]                 = cRA ra ++ "CXType*"
 toCType ra ["CXString"]               = cRA ra ++ "CXString*"
 toCType ra ["CXCursor"]               = cRA ra ++ "CXCursor*"
+toCType _  ["CXFile"]                 = "CXFile"
 toCType _  ["CXTranslationUnit"]      = "CXTranslationUnit"
 toCType _  ["enum","CXCursorKind"]    = "enum CXCursorKind"
 toCType _  ["enum","CXTypeKind"]      = "enum CXTypeKind"

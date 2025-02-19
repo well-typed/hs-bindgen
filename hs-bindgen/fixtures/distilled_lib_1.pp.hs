@@ -37,7 +37,7 @@ a_DEFINE_2 = (2 :: FC.CInt)
 tWO_ARGS :: FC.CInt
 tWO_ARGS = (13398 :: FC.CInt)
 
-foreign import capi safe "examples/distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
+foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 
 data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt

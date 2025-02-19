@@ -5,7 +5,7 @@ WrapCHeader
         OpaqueStruct {
           opaqueStructTag = CName "foo",
           opaqueStructSourceLoc =
-          "examples/opaque_declaration.h:1:8"},
+          "opaque_declaration.h:1:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -24,7 +24,7 @@ WrapCHeader
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/opaque_declaration.h:5:17"},
+              "opaque_declaration.h:5:17"},
             StructField {
               fieldName = CName "ptrB",
               fieldOffset = 64,
@@ -35,10 +35,10 @@ WrapCHeader
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
               fieldSourceLoc =
-              "examples/opaque_declaration.h:6:17"}],
+              "opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:4:8"},
+          "opaque_declaration.h:4:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -49,9 +49,9 @@ WrapCHeader
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "examples/opaque_declaration.h:9:8"},
+          "opaque_declaration.h:9:8"},
       DeclOpaqueEnum
         OpaqueEnum {
           opaqueEnumTag = CName "quu",
           opaqueEnumSourceLoc =
-          "examples/opaque_declaration.h:11:6"}])
+          "opaque_declaration.h:11:6"}])

@@ -4,6 +4,7 @@ module HsBindgen.TH (generateBindingsFor) where
 import Control.Monad.IO.Class
 import Language.Haskell.TH
 
+import HsBindgen.Clang.Paths
 import HsBindgen.Lib
 
 -- | Generate bindings for the given C header
@@ -14,22 +15,28 @@ import HsBindgen.Lib
 -- TODO: add TranslationOpts argument
 --
 generateBindingsFor ::
-     FilePath -- ^ C header
+     [CIncludePathDir] -- ^ System include search path directories
+  -> [CIncludePathDir] -- ^ Non-system include search path directories
+  -> CHeaderRelPath    -- ^ Input header
   -> Q [Dec]
-generateBindingsFor fp = do
-    cHeader <- liftIO $ withTranslationUnit traceWarnings args fp $
-                          parseCHeader traceSkipped p
-    genTH fp defaultTranslationOpts cHeader
+generateBindingsFor sysIncPathDirs incPathDirs relPath = do
+    cHeader <- liftIO $ do
+      sysIncAbsPathDirs <- either fail return
+        =<< resolveCIncludeAbsPathDirs sysIncPathDirs
+      incAbsPathDirs <- either fail return
+        =<< resolveCIncludeAbsPathDirs incPathDirs
+      absPath <- either fail return
+        =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath
+      let clangArgs = defaultClangArgs {
+              clangSystemIncludePathDirs = sysIncPathDirs
+            , clangIncludePathDirs       = incPathDirs
+            }
+      withTranslationUnit traceWarnings clangArgs absPath $
+        parseCHeader traceSkipped SelectFromMainFile
+    genTH relPath defaultTranslationOpts cHeader
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show $ mkTracerQ False
 
     traceSkipped :: Tracer IO Skipped
     traceSkipped = contramap prettyLogMsg $ mkTracerQ False
-
-    p :: Predicate
-    p = SelectFromMainFile
-
-    args :: ClangArgs
-    args = defaultClangArgs
-

@@ -28,15 +28,15 @@
                 "Say\20320\22909",
               valueValue = 0,
               valueSourceLoc =
-              "examples/uses_utf8.h:5:9"},
+              "uses_utf8.h:5:9"},
             EnumValue {
               valueName = CName
                 "Say\25308\25308",
               valueValue = 1,
               valueSourceLoc =
-              "examples/uses_utf8.h:6:9"}],
+              "uses_utf8.h:6:9"}],
           enumSourceLoc =
-          "examples/uses_utf8.h:4:6"}},
+          "uses_utf8.h:4:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -67,15 +67,15 @@
                   "Say\20320\22909",
                 valueValue = 0,
                 valueSourceLoc =
-                "examples/uses_utf8.h:5:9"},
+                "uses_utf8.h:5:9"},
               EnumValue {
                 valueName = CName
                   "Say\25308\25308",
                 valueValue = 1,
                 valueSourceLoc =
-                "examples/uses_utf8.h:6:9"}],
+                "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "examples/uses_utf8.h:4:6"}}
+            "uses_utf8.h:4:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -111,15 +111,15 @@
                           "Say\20320\22909",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/uses_utf8.h:5:9"},
+                        "uses_utf8.h:5:9"},
                       EnumValue {
                         valueName = CName
                           "Say\25308\25308",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/uses_utf8.h:6:9"}],
+                        "uses_utf8.h:6:9"}],
                     enumSourceLoc =
-                    "examples/uses_utf8.h:4:6"}})
+                    "uses_utf8.h:4:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -155,15 +155,15 @@
                           "Say\20320\22909",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/uses_utf8.h:5:9"},
+                        "uses_utf8.h:5:9"},
                       EnumValue {
                         valueName = CName
                           "Say\25308\25308",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/uses_utf8.h:6:9"}],
+                        "uses_utf8.h:6:9"}],
                     enumSourceLoc =
-                    "examples/uses_utf8.h:4:6"}}
+                    "uses_utf8.h:4:6"}}
               (Add 1)
               (Seq
                 [
@@ -220,7 +220,7 @@
             "Say\20320\22909",
           valueValue = 0,
           valueSourceLoc =
-          "examples/uses_utf8.h:5:9"}},
+          "uses_utf8.h:5:9"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -240,4 +240,4 @@
             "Say\25308\25308",
           valueValue = 1,
           valueSourceLoc =
-          "examples/uses_utf8.h:6:9"}}]
+          "uses_utf8.h:6:9"}}]

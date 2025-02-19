@@ -12,27 +12,22 @@ import Data.Default
 import Data.List qualified as List
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
-import System.FilePath
-import System.Info qualified
 
+import HsBindgen.Clang.Paths
 import HsBindgen.Lib
-
-import Paths_hs_bindgen
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 getCmdline :: IO Cmdline
-getCmdline = do
-    dataDir <- getDataDir
-
-    let opts :: ParserInfo Cmdline
-        opts = info (parseCmdline dataDir <**> helper) $ mconcat [
-              header "hs-bindgen - generate Haskell bindings from C headers"
-            ]
-
-    execParser opts
+getCmdline = execParser opts
+  where
+    opts :: ParserInfo Cmdline
+    opts = info (parseCmdline <**> helper) $
+      mconcat [
+          header "hs-bindgen - generate Haskell bindings from C headers"
+        ]
 
 {-------------------------------------------------------------------------------
   Definition
@@ -50,7 +45,7 @@ data Cmdline = Cmdline {
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
     ModePreprocess {
-        preprocessInput           :: FilePath
+        preprocessInput           :: CHeaderRelPath
       , preprocessTranslationOpts :: TranslationOpts
       , preprocessModuleOpts      :: HsModuleOpts
       , preprocessRenderOpts      :: HsRenderOpts
@@ -58,7 +53,7 @@ data Mode =
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
-        genTestsInput      :: FilePath
+        genTestsInput      :: CHeaderRelPath
       , genTestsModuleOpts :: HsModuleOpts
       , genTestsRenderOpts :: HsRenderOpts
       , genTestsOutput     :: FilePath
@@ -70,12 +65,11 @@ data Mode =
 data DevMode =
     -- | Just parse the C header
     DevModeParseCHeader {
-        parseCHeaderInput :: FilePath
+        parseCHeaderInput :: CHeaderRelPath
       }
     -- | Generate prelude (bootstrap)
   | DevModePrelude {
-        preludeInput      :: FilePath
-      , preludeIncludeDir :: FilePath
+        preludeInput :: CHeaderRelPath
       }
   deriving (Show)
 
@@ -83,13 +77,13 @@ data DevMode =
   Parser
 -------------------------------------------------------------------------------}
 
-parseCmdline :: FilePath -> Parser Cmdline
-parseCmdline dataDir =
+parseCmdline :: Parser Cmdline
+parseCmdline =
     Cmdline
       <$> parseVerbosity
       <*> parsePredicate
       <*> parseClangArgs
-      <*> parseMode dataDir
+      <*> parseMode
 
 pureParseModePreprocess :: [String] -> Maybe Mode
 pureParseModePreprocess =
@@ -99,8 +93,8 @@ pureParseModePreprocess =
   Mode selection
 -------------------------------------------------------------------------------}
 
-parseMode :: FilePath -> Parser Mode
-parseMode dataDir = subparser $ mconcat [
+parseMode :: Parser Mode
+parseMode = subparser $ mconcat [
       cmd "preprocess" parseModePreprocess $ mconcat [
           progDesc "Generate Haskell module from C header"
         ]
@@ -110,17 +104,17 @@ parseMode dataDir = subparser $ mconcat [
     , cmd "gentests" parseModeGenTests $ mconcat [
           progDesc "Generate tests for generated Haskell code"
         ]
-    , cmd "dev" (parseDevMode dataDir) $ mconcat [
+    , cmd "dev" parseDevMode $ mconcat [
           progDesc "Tools for the development of hs-bindgen itself"
         ]
     ]
 
-parseDevMode :: FilePath -> Parser Mode
-parseDevMode dataDir = fmap Dev $ subparser $ mconcat [
+parseDevMode :: Parser Mode
+parseDevMode = fmap Dev $ subparser $ mconcat [
       cmd "parse" parseDevModeParseCHeader $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
-    , cmd "prelude" (parseDevModePrelude dataDir) $ mconcat [
+    , cmd "prelude" parseDevModePrelude $ mconcat [
           progDesc "Trawl the C standard libraries to generate the hs-bindgen prelude"
        ]
     ]
@@ -132,7 +126,7 @@ parseDevMode dataDir = fmap Dev $ subparser $ mconcat [
 parseModePreprocess :: Parser Mode
 parseModePreprocess =
     ModePreprocess
-      <$> parseInput Nothing
+      <$> parseInput
       <*> parseTranslationOpts
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
@@ -141,7 +135,7 @@ parseModePreprocess =
 parseModeGenTests :: Parser Mode
 parseModeGenTests =
     ModeGenTests
-      <$> parseInput Nothing
+      <$> parseInput
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseGenTestsOutput
@@ -161,23 +155,12 @@ parseModeLiterate = do
 parseDevModeParseCHeader :: Parser DevMode
 parseDevModeParseCHeader =
     DevModeParseCHeader
-      <$> parseInput Nothing
+      <$> parseInput
 
-parseDevModePrelude :: FilePath -> Parser DevMode
-parseDevModePrelude dataDir =
+parseDevModePrelude :: Parser DevMode
+parseDevModePrelude =
     DevModePrelude
-      <$> parseInput (Just stdHeaders)
-      <*> parseIncludeDir includeDir
-  where
-    stdHeaders :: FilePath
-    stdHeaders = dataDir </> "bootstrap" </> "standard_headers.h"
-
-    includeDir :: Maybe FilePath
-    includeDir = case System.Info.arch of
-      "aarch64" -> Just $ dataDir </> "musl-include" </> "aarch64"
-      "i386"    -> Just $ dataDir </> "musl-include" </> "i386"
-      "x86_64"  -> Just $ dataDir </> "musl-include" </> "x86_64"
-      _other    -> Nothing
+      <$> parseInput
 
 {-------------------------------------------------------------------------------
   Prepare input
@@ -197,6 +180,8 @@ parseClangArgs =
       <$> optional parseTarget
       <*> fmap Just parseCStandard
       <*> parseGnuOption
+      <*> parseSystemIncludeDirOptions
+      <*> parseIncludeDirOptions
       <*> parseOtherArgs
 
 parseCStandard :: Parser CStandard
@@ -236,6 +221,21 @@ parseGnuOption = switch $ mconcat [
     , help "Enable GNU extensions"
     ]
 
+parseSystemIncludeDirOptions :: Parser [CIncludePathDir]
+parseSystemIncludeDirOptions = many . strOption $ mconcat [
+      long "system-include-path"
+    , metavar "DIR"
+    , help "System include search path directory"
+    ]
+
+parseIncludeDirOptions :: Parser [CIncludePathDir]
+parseIncludeDirOptions = many . strOption $ mconcat [
+      short 'I'
+    , long "include-path"
+    , metavar "DIR"
+    , help "Non-system include search path directory"
+    ]
+
 parseOtherArgs :: Parser [String]
 parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
       long "clang-option"
@@ -245,6 +245,12 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
   where
     readOtherArg :: String -> Either String String
     readOtherArg s
+      | "-I" `List.isPrefixOf` s =
+          Left "Include path must be set using hs-bindgen --include-path options"
+      | "-isystem" `List.isPrefixOf` s =
+          Left "System include path must be set using hs-bindgen --system-include-path options"
+      | s == "-nostdinc" =
+          Left "Option -nostdinc is always set"
       | s == "-std" || "-std=" `List.isPrefixOf` s =
           Left "C standard must be set using hs-bindgen --standard option"
       | s == "--target" || "--target=" `List.isPrefixOf` s =
@@ -280,35 +286,14 @@ parseTarget = option (maybeReader readTarget) $ mconcat [
           (_   , []    ) -> Nothing
           (env , _:rest) -> Just (reverse rest, reverse env)
 
-parseInput :: Maybe FilePath -> Parser FilePath
-parseInput mDefault =
-    strOption $ mconcat $ [
-           help "Input path to the C header"
+parseInput :: Parser CHeaderRelPath
+parseInput =
+    option (eitherReader mkCHeaderRelPath) $ mconcat $ [
+           help "Input C header, relative to an include path directory"
          , metavar "PATH"
          , long "input"
          , short 'i'
          ]
-      ++ case mDefault of
-           Nothing -> []
-           Just d  -> [
-               showDefault
-             , value d
-             ]
-
-parseIncludeDir :: Maybe FilePath -> Parser FilePath
-parseIncludeDir mDefault =
-    strOption $ mconcat $ [
-           help "Include directory"
-         , metavar "PATH"
-         , long "include"
-         , short 'I'
-         ]
-      ++ case mDefault of
-           Nothing -> []
-           Just d  -> [
-               showDefault
-             , value d
-             ]
 
 parsePredicate :: Parser Predicate
 parsePredicate = fmap aux . many . asum $ [

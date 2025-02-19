@@ -27,14 +27,14 @@
               valueName = CName "FOO1",
               valueValue = 0,
               valueSourceLoc =
-              "examples/typenames.h:15:2"},
+              "typenames.h:15:2"},
             EnumValue {
               valueName = CName "FOO2",
               valueValue = 1,
               valueSourceLoc =
-              "examples/typenames.h:16:2"}],
+              "typenames.h:16:2"}],
           enumSourceLoc =
-          "examples/typenames.h:14:6"}},
+          "typenames.h:14:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -64,14 +64,14 @@
                 valueName = CName "FOO1",
                 valueValue = 0,
                 valueSourceLoc =
-                "examples/typenames.h:15:2"},
+                "typenames.h:15:2"},
               EnumValue {
                 valueName = CName "FOO2",
                 valueValue = 1,
                 valueSourceLoc =
-                "examples/typenames.h:16:2"}],
+                "typenames.h:16:2"}],
             enumSourceLoc =
-            "examples/typenames.h:14:6"}}
+            "typenames.h:14:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -106,14 +106,14 @@
                         valueName = CName "FOO1",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/typenames.h:15:2"},
+                        "typenames.h:15:2"},
                       EnumValue {
                         valueName = CName "FOO2",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/typenames.h:16:2"}],
+                        "typenames.h:16:2"}],
                     enumSourceLoc =
-                    "examples/typenames.h:14:6"}})
+                    "typenames.h:14:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -148,14 +148,14 @@
                         valueName = CName "FOO1",
                         valueValue = 0,
                         valueSourceLoc =
-                        "examples/typenames.h:15:2"},
+                        "typenames.h:15:2"},
                       EnumValue {
                         valueName = CName "FOO2",
                         valueValue = 1,
                         valueSourceLoc =
-                        "examples/typenames.h:16:2"}],
+                        "typenames.h:16:2"}],
                     enumSourceLoc =
-                    "examples/typenames.h:14:6"}}
+                    "typenames.h:14:6"}}
               (Add 1)
               (Seq
                 [
@@ -201,7 +201,7 @@
           valueName = CName "FOO1",
           valueValue = 0,
           valueSourceLoc =
-          "examples/typenames.h:15:2"}},
+          "typenames.h:15:2"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -220,7 +220,7 @@
           valueName = CName "FOO2",
           valueValue = 1,
           valueSourceLoc =
-          "examples/typenames.h:16:2"}},
+          "typenames.h:16:2"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -243,7 +243,7 @@
           typedefType = TypePrim
             (PrimFloating PrimDouble),
           typedefSourceLoc =
-          "examples/typenames.h:19:16"}},
+          "typenames.h:19:16"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

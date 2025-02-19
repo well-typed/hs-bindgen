@@ -7,7 +7,7 @@ module HsBindgen.C.Fold.Decl (
 
 import Control.Monad.State
 import Data.Text qualified as Text
-import System.FilePath (takeFileName)
+import System.FilePath qualified as FilePath
 
 import HsBindgen.Imports
 import HsBindgen.Eff
@@ -20,6 +20,7 @@ import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
@@ -70,12 +71,15 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         mloc <- liftIO $ HighLevel.clang_getCursorLocation current
         modify $ registerMacroExpansion mloc
         return $ Continue Nothing
-      Right CXCursor_InclusionDirective ->
-        -- The inclusion directive merely tells us that we are now going to
-        -- process a #include-d file; we don't need to do anything special at
-        -- this point so we can just ignore it (for each declaration we see we
-        -- are anyway told from which file it originates, which we use for
-        -- filtering).
+
+      Right CXCursor_InclusionDirective -> do
+        header <- either fail return $
+          mkCHeaderAbsPath (getSourcePath (singleLocPath sloc))
+        incHeader <- liftIO $
+              either fail return . mkCHeaderAbsPath
+          =<< clang_getFileName
+          =<< clang_getIncludedFile current
+        modify $ registerInclude header incHeader
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
@@ -87,7 +91,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue $ Just $ DeclFunction $ Function
           { functionName      = CName spelling
           , functionType      = ty'
-          , functionHeader    = takeFileName (Text.unpack path)
+          , functionHeader    = FilePath.takeFileName (Text.unpack path)
           , functionSourceLoc = sloc
           }
 

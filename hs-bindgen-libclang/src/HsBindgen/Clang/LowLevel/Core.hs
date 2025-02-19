@@ -104,6 +104,7 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_getCursorKindSpelling
   , clang_Cursor_getTranslationUnit
   , clang_isDeclaration
+  , clang_getIncludedFile
     -- * Traversing the AST with cursors
   , CXChildVisitResult(..)
   , clang_visitChildren
@@ -205,6 +206,7 @@ import HsBindgen.Clang.Args
 import HsBindgen.Clang.LowLevel.FFI
 import HsBindgen.Clang.LowLevel.Core.Enums
 import HsBindgen.Clang.LowLevel.Core.Instances ()
+import HsBindgen.Clang.LowLevel.Core.Pointers
 import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
@@ -584,12 +586,11 @@ clang_parseTranslationUnit ::
   -> ClangArgs                             -- ^ @command_line_args@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO CXTranslationUnit
-clang_parseTranslationUnit cIdx src args options =
-    case fromClangArgs args of
-      Left  err   -> callFailed err
-      Right args' ->
-        withCString  src   $ \src' ->
-        withCStrings args' $ \args'' numArgs -> ensureNotNull $
+clang_parseTranslationUnit cIdx src args options = do
+    args' <- either callFailed return =<< fromClangArgs args
+    withCString src $ \src' ->
+      withCStrings args' $ \args'' numArgs ->
+        ensureNotNull $
           nowrapper_parseTranslationUnit
             cIdx
             src'
@@ -616,13 +617,11 @@ clang_parseTranslationUnit2 ::
   -> ClangArgs                             -- ^ @command_line_args@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
-clang_parseTranslationUnit2 cIdx src args options =
-    case fromClangArgs args of
-      Left  err   -> callFailed err
-      Right args' ->
-        withCString  src   $ \src' ->
-        withCStrings args' $ \args'' numArgs ->
-        alloca             $ \outPtr -> do
+clang_parseTranslationUnit2 cIdx src args options = do
+    args' <- either callFailed return =<< fromClangArgs args
+    withCString src $ \src' ->
+      withCStrings args' $ \args'' numArgs ->
+        alloca $ \outPtr -> do
           mError <- nowrapper_parseTranslationUnit2
             cIdx
             src'
@@ -825,6 +824,14 @@ clang_Cursor_getTranslationUnit cursor = checkNotNull $
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga660aa4846fce0a54e20073ab6a5465a0>
 clang_isDeclaration :: SimpleEnum CXCursorKind -> IO Bool
 clang_isDeclaration kind = cToBool <$> nowrapper_isDeclaration kind
+
+-- | Retrieve the file that is included by the given inclusion directive cursor.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf61979977343e39f21d6ea0b22167514>
+clang_getIncludedFile :: CXCursor -> IO CXFile
+clang_getIncludedFile cursor =
+    onHaskellHeap cursor $ \cursor' ->
+      wrap_getIncludedFile cursor'
 
 {-------------------------------------------------------------------------------
   Traversing the AST with cursors
@@ -1583,13 +1590,6 @@ index_CXCursorArray (CXCursorArray arr) i =
 newtype CXSourceLocation = CXSourceLocation (OnHaskellHeap CXSourceLocation_)
   deriving newtype (LivesOnHaskellHeap, Preallocate, Show)
 
--- | A particular source file that is part of a translation unit.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#gacfcea9c1239c916597e2e5b3e109215a>
-newtype CXFile = CXFile (Ptr ())
-  deriving stock (Show)
-  deriving newtype (Storable)
-
 foreign import capi unsafe "clang_wrappers.h wrap_getRangeStart"
   wrap_getRangeStart :: R CXSourceRange_ -> W CXSourceLocation_ -> IO ()
 
@@ -1857,9 +1857,6 @@ clang_Location_isFromMainFile location =
 
   <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html>
 -------------------------------------------------------------------------------}
-
-foreign import capi "clang_wrappers.h wrap_getFileName"
-  wrap_getFileName :: CXFile -> W CXString_ -> IO ()
 
 -- | Retrieve the complete file and path name of the given file.
 --
