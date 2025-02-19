@@ -69,6 +69,12 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
 
+      - name: Windows C_INCLUDE_PATH
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        run: |
+          chcp 65001 # set code page to utf-8
+          echo "C_INCLUDE_PATH=C:\tools\ghc-${{ matrix.ghc }}\mingw\lib\clang\14.0.6\include" >> $env:GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v4
 
