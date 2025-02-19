@@ -75,7 +75,7 @@ library
       HsBindgen.Hs.AST.Type
       HsBindgen.NameHint
   other-modules:
-      Data.RevGraph
+      Data.DynGraph
       HsBindgen.Backend.PP.Names
       HsBindgen.Backend.PP.Translation
       HsBindgen.C.Fold
