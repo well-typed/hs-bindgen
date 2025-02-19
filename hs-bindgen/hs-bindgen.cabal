@@ -207,14 +207,14 @@ test-suite golden
 test-suite test-th
   import:         lang
   type:           exitcode-stdio-1.0
-  main-is:        TestTH.hs
+  main-is:        test-th.hs
   hs-source-dirs: test-th
   include-dirs:   examples
 
   other-extensions:
       TemplateHaskell
   other-modules:
-      HsBindgen.TestTH.Spliced
+      Test01
   build-depends:
       -- Internal dependencies
     , hs-bindgen
