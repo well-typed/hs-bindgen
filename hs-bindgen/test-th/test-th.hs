@@ -14,14 +14,14 @@ import Test01
 main :: IO ()
 main = defaultMain $ testGroup CURRENT_COMPONENT_ID
     [ testCase "constants" $ do
-        sizeOf (undefined :: MyStruct) @?= 8
-        alignment (undefined :: MyStruct) @?= 4
+        sizeOf (undefined :: StructBasic) @?= 8
+        alignment (undefined :: StructBasic) @?= 4
 
-        sizeOf (undefined :: Struct2) @?= 12
-        alignment (undefined :: Struct2)  @?= 4
+        sizeOf (undefined :: StructFixedSizeArray) @?= 12
+        alignment (undefined :: StructFixedSizeArray)  @?= 4
 
     , testCase "ConstantArray peek-poke-roundtrip" $ do
-        let s = Struct2 5 (CA.repeat 12)
+        let s = StructFixedSizeArray 5 (CA.repeat 12)
         s' <- alloca $ \ptr -> do
             poke ptr s
             peek ptr
@@ -29,7 +29,7 @@ main = defaultMain $ testGroup CURRENT_COMPONENT_ID
         s' @?= s
 
     , testCase "Bitfield" $ do
-        let s = Struct3 5 1 1 2
+        let s = StructBitfield 5 1 1 2
         s' <- alloca $ \ptr -> do
             poke ptr s
             peek ptr
@@ -40,16 +40,22 @@ main = defaultMain $ testGroup CURRENT_COMPONENT_ID
         res @?= 11
     ]
 
--- testing usage, e.g. that instances are present.
+-- StructBacic
+-----------------------------------------------------------------------
 
-val :: MyStruct
-val = MyStruct
-    { myStruct_field1 = 0
-    , myStruct_field2 = 1
+-- StructBasic is generated
+val :: StructBasic
+val = StructBasic
+    { structBasic_field1 = 0
+    , structBasic_field2 = 1
     }
 
-_pokeVal :: Ptr MyStruct -> IO ()
+-- .. and can be poked
+_pokeVal :: Ptr StructBasic -> IO ()
 _pokeVal ptr = poke ptr val
+
+-- Macros
+-----------------------------------------------------------------------
 
 _myPlus :: CLong -> CLong -> CLong
 _myPlus x y = pLUS x y
