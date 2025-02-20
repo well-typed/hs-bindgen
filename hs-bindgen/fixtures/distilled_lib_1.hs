@@ -18,7 +18,8 @@
                   (GenerativeTyCon
                     (DataTyCon
                       (IntLikeTyCon
-                        (IntLike (Int Signed))))))
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
                 []]}},
       varDeclBody = VarDeclIntegral
         5
@@ -42,7 +43,8 @@
                   (GenerativeTyCon
                     (DataTyCon
                       (IntLikeTyCon
-                        (IntLike (Int Signed))))))
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
                 []]}},
       varDeclBody = VarDeclIntegral
         3
@@ -66,7 +68,8 @@
                   (GenerativeTyCon
                     (DataTyCon
                       (IntLikeTyCon
-                        (IntLike (Int Signed))))))
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
                 []]}},
       varDeclBody = VarDeclIntegral
         4
@@ -90,7 +93,8 @@
                   (GenerativeTyCon
                     (DataTyCon
                       (IntLikeTyCon
-                        (IntLike (Int Signed))))))
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
                 []]}},
       varDeclBody = VarDeclIntegral
         0
@@ -114,7 +118,8 @@
                   (GenerativeTyCon
                     (DataTyCon
                       (IntLikeTyCon
-                        (IntLike (Int Unsigned))))))
+                        (CIntegralType
+                          (IntLike (Int Unsigned)))))))
                 []]}},
       varDeclBody = VarDeclIntegral
         20560
@@ -138,7 +143,8 @@
                   (GenerativeTyCon
                     (DataTyCon
                       (IntLikeTyCon
-                        (IntLike (Int Signed))))))
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
                 []]}},
       varDeclBody = VarDeclIntegral
         2
@@ -155,18 +161,43 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
+                (DataTyCon TupleTyCon)))
             [
               TyConAppTy
                 (ATyCon
                   (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (IntLike (Int Signed))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        13398
-        HsPrimCInt},
+                    (DataTyCon IntLikeTyCon)))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon
+                          (IntLikeTyCon
+                            (CIntegralType
+                              (IntLike (Int Signed)))))))
+                    []],
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon IntLikeTyCon)))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon
+                          (IntLikeTyCon
+                            (CIntegralType
+                              (IntLike (Int Signed)))))))
+                    []]]}},
+      varDeclBody = VarDeclApp
+        (InfixAppHead MTuple)
+        [
+          VarDeclIntegral
+            13398
+            HsPrimCInt,
+          VarDeclIntegral
+            30874
+            HsPrimCInt]},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

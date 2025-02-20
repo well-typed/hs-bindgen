@@ -25,7 +25,8 @@
                         (GenerativeTyCon
                           (DataTyCon
                             (IntLikeTyCon
-                              (IntLike (Int Signed))))))
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
                       []]]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
@@ -44,7 +45,8 @@
                         (GenerativeTyCon
                           (DataTyCon
                             (IntLikeTyCon
-                              (IntLike (Int Signed))))))
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
                       []]])}},
       varDeclBody = VarDeclLambda
         (Lambda
@@ -167,7 +169,8 @@
                       (GenerativeTyCon
                         (DataTyCon
                           (IntLikeTyCon
-                            (IntLike (Int Signed))))))
+                            (CIntegralType
+                              (IntLike (Int Signed)))))))
                     []]))}},
       varDeclBody = VarDeclLambda
         (Lambda
@@ -211,8 +214,9 @@
                             (GenerativeTyCon
                               (DataTyCon
                                 (IntLikeTyCon
-                                  (IntLike
-                                    (LongLong Unsigned))))))
+                                  (CIntegralType
+                                    (IntLike
+                                      (LongLong Unsigned)))))))
                           []],
                     TyVarTy (Idx 1)]],
             ClassTy
@@ -230,8 +234,9 @@
                         (GenerativeTyCon
                           (DataTyCon
                             (IntLikeTyCon
-                              (IntLike
-                                (LongLong Unsigned))))))
+                              (CIntegralType
+                                (IntLike
+                                  (LongLong Unsigned)))))))
                       []],
                 TyVarTy (Idx 1)]],
           quantTyBody = FunTy
@@ -257,8 +262,9 @@
                               (GenerativeTyCon
                                 (DataTyCon
                                   (IntLikeTyCon
-                                    (IntLike
-                                      (LongLong Unsigned))))))
+                                    (CIntegralType
+                                      (IntLike
+                                        (LongLong Unsigned)))))))
                             []],
                       TyVarTy (Idx 1)]]))}},
       varDeclBody = VarDeclLambda
@@ -304,8 +310,9 @@
                         (GenerativeTyCon
                           (DataTyCon
                             (IntLikeTyCon
-                              (IntLike
-                                (LongLong Unsigned))))))
+                              (CIntegralType
+                                (IntLike
+                                  (LongLong Unsigned)))))))
                       []],
                 TyVarTy (Idx 1)],
             NomEqTy
@@ -328,8 +335,9 @@
                           (GenerativeTyCon
                             (DataTyCon
                               (IntLikeTyCon
-                                (IntLike
-                                  (LongLong Unsigned))))))
+                                (CIntegralType
+                                  (IntLike
+                                    (LongLong Unsigned)))))))
                         []],
                   TyVarTy (Idx 1)])],
           quantTyBody = FunTy
@@ -391,7 +399,8 @@
                         (GenerativeTyCon
                           (DataTyCon
                             (IntLikeTyCon
-                              (IntLike (Int Signed))))))
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
                       []]]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
@@ -412,7 +421,8 @@
                           (GenerativeTyCon
                             (DataTyCon
                               (IntLikeTyCon
-                                (IntLike (Int Signed))))))
+                                (CIntegralType
+                                  (IntLike (Int Signed)))))))
                         []]]))}},
       varDeclBody = VarDeclLambda
         (Lambda
@@ -459,7 +469,8 @@
                         (GenerativeTyCon
                           (DataTyCon
                             (IntLikeTyCon
-                              (IntLike (Int Unsigned))))))
+                              (CIntegralType
+                                (IntLike (Int Unsigned)))))))
                       []]],
             ClassTy
               (AClass
@@ -482,7 +493,8 @@
                             (GenerativeTyCon
                               (DataTyCon
                                 (IntLikeTyCon
-                                  (IntLike (Int Unsigned))))))
+                                  (CIntegralType
+                                    (IntLike (Int Unsigned)))))))
                           []]]]],
           quantTyBody = FunTy
             (TyVarTy (Idx 0))
@@ -508,7 +520,8 @@
                               (GenerativeTyCon
                                 (DataTyCon
                                   (IntLikeTyCon
-                                    (IntLike (Int Unsigned))))))
+                                    (CIntegralType
+                                      (IntLike (Int Unsigned)))))))
                             []]]]))}},
       varDeclBody = VarDeclLambda
         (Lambda

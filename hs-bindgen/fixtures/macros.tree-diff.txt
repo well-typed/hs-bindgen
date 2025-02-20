@@ -20,7 +20,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 1})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:1:9"},
       DeclMacro
@@ -42,7 +42,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:2:9"},
       DeclMacro
@@ -74,7 +74,7 @@ WrapCHeader
                         (_×_ PrimInt Signed),
                       integerLiteralValue = 3})]},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:3:9"},
       DeclMacro
@@ -106,7 +106,7 @@ WrapCHeader
                         (_×_ PrimInt Signed),
                       integerLiteralValue = 4})]},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:4:9"},
       DeclMacro
@@ -129,7 +129,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:6:9"},
       DeclMacro
@@ -152,7 +152,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:7:9"},
       DeclMacro
@@ -175,7 +175,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:8:9"},
       DeclMacro
@@ -198,7 +198,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:9:9"},
       DeclMacro
@@ -221,7 +221,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 42})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "macros.h:10:9"},
       DeclMacro
@@ -246,7 +246,7 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy =
-          "IntLike (IntLike (LongLong Unsigned))",
+          "IntLike (CIntegralType (IntLike (LongLong Unsigned)))",
           macroDeclSourceLoc =
           "macros.h:12:9"},
       DeclMacro
@@ -271,7 +271,7 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy =
-          "IntLike (IntLike (LongLong Unsigned))",
+          "IntLike (CIntegralType (IntLike (LongLong Unsigned)))",
           macroDeclSourceLoc =
           "macros.h:13:9"},
       DeclMacro
@@ -296,7 +296,7 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy =
-          "IntLike (IntLike (LongLong Unsigned))",
+          "IntLike (CIntegralType (IntLike (LongLong Unsigned)))",
           macroDeclSourceLoc =
           "macros.h:14:9"},
       DeclMacro
@@ -321,7 +321,7 @@ WrapCHeader
                   integerLiteralValue =
                   18446744073709550592})},
           macroDeclMacroTy =
-          "IntLike (IntLike (LongLong Unsigned))",
+          "IntLike (CIntegralType (IntLike (LongLong Unsigned)))",
           macroDeclSourceLoc =
           "macros.h:15:9"},
       DeclMacro
@@ -329,7 +329,103 @@ WrapCHeader
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:20:9",
+              "macros.h:17:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "TUPLE1",
+            macroArgs = [],
+            macroBody = MApp
+              MTuple
+              [
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "1",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 1}),
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "2",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 2})]},
+          macroDeclMacroTy =
+          "Tuple (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
+          macroDeclSourceLoc =
+          "macros.h:17:9"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "macros.h:18:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "TUPLE2",
+            macroArgs = [],
+            macroBody = MApp
+              MTuple
+              [
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "3",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 3}),
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "4",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 4})]},
+          macroDeclMacroTy =
+          "Tuple (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
+          macroDeclSourceLoc =
+          "macros.h:18:9"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "macros.h:19:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "TUPLE3",
+            macroArgs = [],
+            macroBody = MApp
+              MTuple
+              [
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "5",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 5}),
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "6",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 6})]},
+          macroDeclMacroTy =
+          "Tuple (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
+          macroDeclSourceLoc =
+          "macros.h:19:9"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "macros.h:24:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -348,13 +444,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:20:9"},
+          "macros.h:24:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:21:9",
+              "macros.h:25:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -373,13 +469,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:21:9"},
+          "macros.h:25:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:22:9",
+              "macros.h:26:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -398,13 +494,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike FloatType",
           macroDeclSourceLoc =
-          "macros.h:22:9"},
+          "macros.h:26:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:24:9",
+              "macros.h:28:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -423,13 +519,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:24:9"},
+          "macros.h:28:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:25:9",
+              "macros.h:29:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -448,13 +544,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:25:9"},
+          "macros.h:29:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:26:9",
+              "macros.h:30:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -473,13 +569,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike FloatType",
           macroDeclSourceLoc =
-          "macros.h:26:9"},
+          "macros.h:30:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:28:9",
+              "macros.h:32:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -498,13 +594,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:28:9"},
+          "macros.h:32:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:29:9",
+              "macros.h:33:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -523,13 +619,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:29:9"},
+          "macros.h:33:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:30:9",
+              "macros.h:34:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -548,13 +644,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:30:9"},
+          "macros.h:34:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:31:9",
+              "macros.h:35:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -573,13 +669,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike FloatType",
           macroDeclSourceLoc =
-          "macros.h:31:9"},
+          "macros.h:35:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:33:9",
+              "macros.h:37:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -598,13 +694,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:33:9"},
+          "macros.h:37:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:34:9",
+              "macros.h:38:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -623,13 +719,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:34:9"},
+          "macros.h:38:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:35:9",
+              "macros.h:39:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -649,13 +745,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike FloatType",
           macroDeclSourceLoc =
-          "macros.h:35:9"},
+          "macros.h:39:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:37:9",
+              "macros.h:41:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -674,13 +770,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:37:9"},
+          "macros.h:41:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:38:9",
+              "macros.h:42:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -700,13 +796,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike FloatType",
           macroDeclSourceLoc =
-          "macros.h:38:9"},
+          "macros.h:42:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:40:9",
+              "macros.h:44:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -726,13 +822,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:40:9"},
+          "macros.h:44:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:41:9",
+              "macros.h:45:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -751,13 +847,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:41:9"},
+          "macros.h:45:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:42:9",
+              "macros.h:46:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -777,13 +873,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike FloatType",
           macroDeclSourceLoc =
-          "macros.h:42:9"},
+          "macros.h:46:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:45:9",
+              "macros.h:49:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -811,13 +907,13 @@ WrapCHeader
           macroDeclMacroTy =
           "FloatLike DoubleType",
           macroDeclSourceLoc =
-          "macros.h:45:9"},
+          "macros.h:49:9"},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "macros.h:46:9",
+              "macros.h:50:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -841,6 +937,6 @@ WrapCHeader
                         (_×_ PrimLong Unsigned),
                       integerLiteralValue = 2})]},
           macroDeclMacroTy =
-          "IntLike (IntLike (Long Unsigned))",
+          "IntLike (CIntegralType (IntLike (Long Unsigned)))",
           macroDeclSourceLoc =
-          "macros.h:46:9"}])
+          "macros.h:50:9"}])

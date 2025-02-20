@@ -34,8 +34,8 @@ a_DEFINE_1 = (20560 :: FC.CUInt)
 a_DEFINE_2 :: FC.CInt
 a_DEFINE_2 = (2 :: FC.CInt)
 
-tWO_ARGS :: FC.CInt
-tWO_ARGS = (13398 :: FC.CInt)
+tWO_ARGS :: ((,,) FC.CInt) FC.CInt
+tWO_ARGS = (,,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 
 foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 

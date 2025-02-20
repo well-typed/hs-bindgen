@@ -2,8 +2,8 @@
 
 module Example where
 
-import C.Expr.BuildPlatform ((*), (+), (/), (<), (<<))
-import qualified C.Expr.BuildPlatform as C
+import C.Expr.HostPlatform ((*), (+), (/), (<), (<<))
+import qualified C.Expr.HostPlatform as C
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.Syntax as HsBindgen
 import Prelude ((~))

@@ -24,6 +24,12 @@ lONG_INT_TOKEN3 :: CULLong
 lONG_INT_TOKEN3 = 18446744073709550592 :: CULLong
 lONG_INT_TOKEN4 :: CULLong
 lONG_INT_TOKEN4 = 18446744073709550592 :: CULLong
+tUPLE1 :: (,) CInt CInt
+tUPLE1 = (,) (1 :: CInt) (2 :: CInt)
+tUPLE2 :: (,) CInt CInt
+tUPLE2 = (,) (3 :: CInt) (4 :: CInt)
+tUPLE3 :: (,) CInt CInt
+tUPLE3 = (,) (5 :: CInt) (6 :: CInt)
 fLT1_1 :: CDouble
 fLT1_1 = 110000.0 :: CDouble
 fLT1_2 :: CDouble
