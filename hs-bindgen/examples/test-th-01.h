@@ -49,7 +49,7 @@ static inline struct StructFLAM *flam_init(int n) {
     if (ptr) {
         ptr->length = n;
         for (int i = 0; i < n; ++i) {
-            ptr->numbers[i] = i; // TODO: do something more interesting
+            ptr->numbers[i] = i; // maybe do something more interesting?
         }
     }
     return ptr;
