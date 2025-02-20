@@ -1,0 +1,7 @@
+CApiFFI
+DataKinds
+StandaloneDeriving
+DerivingStrategies
+GeneralizedNewtypeDeriving
+ExplicitForAll
+PatternSynonyms

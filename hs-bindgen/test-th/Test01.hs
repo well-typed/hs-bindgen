@@ -1,5 +1,11 @@
 -- {-# OPTIONS_GHC -ddump-splices #-}
+{-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Test01 where
@@ -15,4 +21,3 @@ import Language.Haskell.TH.Syntax (getPackageRoot)
 #endif
 
 $(getPackageRoot >>= \dir -> templateHaskell Nothing [dir </> "examples"] "test-th-01.h")
-

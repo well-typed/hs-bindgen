@@ -48,6 +48,7 @@ module HsBindgen.Lib (
   , HsModule(..) -- opaque, TODO: but needed to be unwrapped by rendering functions
   , genModule
   , genTH
+  , genExtensions
 
     -- ** Development/debugging
   , genHsDecls
@@ -78,10 +79,12 @@ module HsBindgen.Lib (
   , preprocessor
   ) where
 
+import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 import Text.Show.Pretty qualified as Pretty
 
+import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
@@ -198,21 +201,31 @@ genModule headerPath topts opts =
     . map SHs.translateDecl
     . genHsDecls headerPath topts
 
-genTH ::
-     TH.Quote q
-  => CHeaderRelPath
+genTH
+  :: TH.Quote q => CHeaderRelPath
   -> LowLevel.TranslationOpts
   -> CHeader
   -> q [TH.Dec]
-genTH headerPath topts =
-    fmap concat
-    . traverse Backend.TH.mkDecl
-    . map SHs.translateDecl
-    . genHsDecls headerPath topts
+genTH headerPath topts cheader = do
+    fmap concat (traverse Backend.TH.mkDecl sdecls)
+  where
+    sdecls = map SHs.translateDecl (genHsDecls headerPath topts cheader)
 
 genHsDecls :: CHeaderRelPath -> LowLevel.TranslationOpts -> CHeader -> [Hs.Decl]
 genHsDecls headerPath topts =
     LowLevel.generateDeclarations headerPath topts . unwrapCHeader
+
+-- | Which extensions will be needed for the generated code.
+--
+-- Exposed for hs-bindgen internal tests
+genExtensions
+  :: CHeaderRelPath
+  -> LowLevel.TranslationOpts
+  -> CHeader -> Set TH.Extension
+genExtensions headerPath topts cheader = do
+    foldMap requiredExtensions sdecls
+  where
+    sdecls = map SHs.translateDecl (genHsDecls headerPath topts cheader)
 
 {-------------------------------------------------------------------------------
   Processing output
@@ -275,7 +288,20 @@ templateHaskell sysIncPathDirs incPathDirs relPath = do
     cheader <- TH.runIO $
       withTranslationUnit nullTracer clangArgs absPath $
         parseCHeader nullTracer SelectFromMainFile
+
+    -- record dependencies
+    -- TODO: https://github.com/well-typed/hs-bindgen/issues/422
     TH.addDependentFile $ getCHeaderAbsPath absPath
+
+    -- extensions checks.
+    -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
+    enabledExts <- Set.fromList <$> TH.extsEnabled
+    let requiredExts = genExtensions relPath' LowLevel.defaultTranslationOpts cheader
+    let missingExts = requiredExts `Set.difference` enabledExts
+    unless (null missingExts) $ do
+      TH.reportError $ "Missing LANGUAGE extensions: " ++ unwords (map show (toList missingExts))
+
+    -- generate TH declarations
     genTH relPath' LowLevel.defaultTranslationOpts cheader
   where
     sysIncPathDirs' :: Maybe [CIncludePathDir]
