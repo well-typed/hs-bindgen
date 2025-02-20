@@ -78,7 +78,7 @@ common common
 -- Platform independent core library
 -- Note: the C.Operator.Classes should not be publicly visible.
 -- We should only be able to import the definitions "polluted"
--- by instances declarations (from C.Expr.BuildPlatform).
+-- by instances declarations (from C.Expr.HostPlatform).
 library c-expr-core
   import:
     common
@@ -104,7 +104,7 @@ library
   hs-source-dirs:
     lib
   exposed-modules:
-    C.Expr.BuildPlatform
+    C.Expr.HostPlatform
   other-modules:
     C.Expr.Posix32
     C.Expr.Posix64

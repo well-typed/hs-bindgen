@@ -2,8 +2,7 @@
 
 #include <MachDeps.h>
 
--- | This module is incorrectly named, it's really a @HostPlatform@.
-module C.Expr.BuildPlatform
+module C.Expr.HostPlatform
   ( module C.Operator.Classes
   ) where
 
