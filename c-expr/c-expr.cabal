@@ -77,6 +77,11 @@ common common
     , vec
         >= 0.5   && < 0.6
 
+  if impl(ghc < 9.4)
+    build-depends:
+      data-array-byte
+        >= 0.1.0.1 && < 0.2
+
 -- Platform independent core library
 -- Note: the C.Operator.Classes should not be publicly visible.
 -- We should only be able to import the definitions "polluted"
@@ -87,6 +92,7 @@ library c-expr-core
   hs-source-dirs:
     core
   exposed-modules:
+    C.Char
     C.Type
     C.Type.Internal.Universe
     C.Operators
@@ -114,6 +120,7 @@ library
   build-depends:
     c-expr:c-expr-core
   reexported-modules:
+    C.Char,
     C.Operators,
     C.Type
   default-language:
