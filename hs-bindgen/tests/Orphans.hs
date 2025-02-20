@@ -164,31 +164,11 @@ instance ToExpr (DataTyCon n) where
     EmptyTyCon              -> Expr.App "EmptyTyCon"     []
 
 instance ToExpr CExpr.IntegralType where
-  toExpr = \case
-    CExpr.Bool       -> Expr.App "Bool"     []
-    CExpr.CharLike s -> Expr.App "CharLike" [toExpr s]
-    CExpr.IntLike  i -> Expr.App "IntLike"  [toExpr i]
 instance ToExpr CExpr.CharLikeType where
-  toExpr = \case
-    CExpr.Char  -> Expr.App "Char" []
-    CExpr.SChar -> Expr.App "SChar" []
-    CExpr.UChar -> Expr.App "UChar" []
 instance ToExpr CExpr.IntLikeType where
-  toExpr = \case
-    CExpr.Short    s -> Expr.App "Short"    [toExpr s]
-    CExpr.Int      s -> Expr.App "Int"      [toExpr s]
-    CExpr.Long     s -> Expr.App "Long"     [toExpr s]
-    CExpr.LongLong s -> Expr.App "LongLong" [toExpr s]
-    CExpr.PtrDiff    -> Expr.App "PtrDiff"  []
 instance ToExpr CExpr.Sign where
-  toExpr = \case
-    CExpr.Signed   -> Expr.App "Signed"   []
-    CExpr.Unsigned -> Expr.App "Unsigned" []
-
 instance ToExpr CExpr.FloatingType where
-  toExpr = \case
-    CExpr.FloatType  -> Expr.App "FloatType"  []
-    CExpr.DoubleType -> Expr.App "DoubleType" []
+instance ToExpr IntegralType
 
 instance ToExpr (FamilyTyCon n) where
   toExpr = \case

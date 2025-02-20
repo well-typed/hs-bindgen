@@ -12,6 +12,8 @@ module C.Type.Internal.Universe
 -- base
 import Data.Functor
   ( (<&>) )
+import GHC.Generics
+  ( Generic )
 
 -- fin
 import qualified Data.Type.Nat as Fin
@@ -31,7 +33,7 @@ newtype F n = F { unF :: [ ( Vec n ( Type OpaqueTy ), Maybe Int ) ] }
 
 -- | An opaque named type with a unique identifier.
 newtype OpaqueTy = OpaqueTy Int
-  deriving stock Eq
+  deriving stock ( Eq, Ord, Show, Generic )
 
 -- | Enumerate all tuples of types.
 --

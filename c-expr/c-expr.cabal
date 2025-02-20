@@ -41,6 +41,8 @@ common common
     -Wno-unticked-promoted-constructors
   default-extensions:
     DataKinds
+    DeriveGeneric
+    DeriveTraversable
     DerivingStrategies
     FlexibleInstances
     GADTs
