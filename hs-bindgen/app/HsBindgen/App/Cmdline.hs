@@ -175,14 +175,17 @@ parseVerbosity =
       ]
 
 parseClangArgs :: Parser ClangArgs
-parseClangArgs =
-    ClangArgs
-      <$> optional parseTarget
-      <*> fmap Just parseCStandard
-      <*> parseGnuOption
-      <*> parseSystemIncludeDirOptions
-      <*> parseIncludeDirOptions
-      <*> parseOtherArgs
+parseClangArgs = do
+    -- ApplicativeDo to be able reorder arguments for --help
+    -- and uses record construction (i.a. to avoid bool or string/path blindness) instead of positional one.
+    clangTarget <- optional parseTarget
+    clangCStandard <- fmap Just parseCStandard
+    clangStdInc <- pure True -- TODO: allow specifying --no-stdinc
+    clangEnableGnu <-parseGnuOption
+    clangSystemIncludePathDirs <- parseSystemIncludeDirOptions
+    clangIncludePathDirs <- parseIncludeDirOptions
+    clangOtherArgs <- parseOtherArgs
+    pure ClangArgs {..}
 
 parseCStandard :: Parser CStandard
 parseCStandard = option (eitherReader readCStandard) $ mconcat [

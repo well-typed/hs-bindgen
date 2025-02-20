@@ -14,5 +14,5 @@ import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
 import Language.Haskell.TH.Syntax (getPackageRoot)
 #endif
 
-$(getPackageRoot >>= \dir -> templateHaskell [] [dir </> "examples"] "test-th-01.h")
+$(getPackageRoot >>= \dir -> templateHaskell Nothing [dir </> "examples"] "test-th-01.h")
 
