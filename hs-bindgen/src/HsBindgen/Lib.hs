@@ -254,7 +254,7 @@ genTests
 -------------------------------------------------------------------------------}
 
 templateHaskell ::
-     [FilePath] -- ^ System include search path directories
+     Maybe [FilePath] -- ^ System include search path directories, if @Nothing@ default ones are used.
   -> [FilePath] -- ^ Non-system include search path directories
   -> FilePath   -- ^ Input header, as written in C @#include@
   -> TH.Q [TH.Dec]
@@ -262,13 +262,14 @@ templateHaskell sysIncPathDirs incPathDirs relPath = do
     relPath' <- either fail return $ mkCHeaderRelPath relPath
     absPath <- TH.runIO $ do
       sysIncAbsPathDirs <- either fail return
-        =<< resolveCIncludeAbsPathDirs sysIncPathDirs'
+        =<< resolveCIncludeAbsPathDirs (fromMaybe [] sysIncPathDirs')
       incAbsPathDirs <- either fail return
         =<< resolveCIncludeAbsPathDirs incPathDirs'
       either fail return
         =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath'
-    let clangArgs = defaultClangArgs {
-            clangSystemIncludePathDirs = sysIncPathDirs'
+    let clangArgs = defaultClangArgs
+          { clangStdInc                = isNothing sysIncPathDirs
+          , clangSystemIncludePathDirs = fromMaybe [] sysIncPathDirs'
           , clangIncludePathDirs       = incPathDirs'
           }
     cheader <- TH.runIO $
@@ -277,8 +278,9 @@ templateHaskell sysIncPathDirs incPathDirs relPath = do
     TH.addDependentFile $ getCHeaderAbsPath absPath
     genTH relPath' LowLevel.defaultTranslationOpts cheader
   where
-    sysIncPathDirs', incPathDirs' :: [CIncludePathDir]
-    sysIncPathDirs' = CIncludePathDir <$> sysIncPathDirs
+    sysIncPathDirs' :: Maybe [CIncludePathDir]
+    incPathDirs' :: [CIncludePathDir]
+    sysIncPathDirs' = fmap CIncludePathDir <$> sysIncPathDirs
     incPathDirs'    = CIncludePathDir <$> incPathDirs
 
 preprocessor ::

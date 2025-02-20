@@ -3,6 +3,9 @@
  * See test-th and test-pp tests.
  */
 
+/* Standard headers. */
+#include <stdlib.h>
+
 /* Basic structure. Nothing special. */
 struct StructBasic {
     int field1;
