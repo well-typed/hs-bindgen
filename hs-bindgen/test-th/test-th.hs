@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 
 -- For flexible array members:
