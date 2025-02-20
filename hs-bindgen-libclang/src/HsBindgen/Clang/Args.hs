@@ -37,6 +37,9 @@ data ClangArgs = ClangArgs {
       -- | C standard
     , clangCStandard :: Maybe CStandard
 
+      -- | Enablee both standard system @#include@ directories and builtin @#include@ directories (@False@ will pass @-nostdinc@)
+    , clangStdInc :: Bool
+
       -- | Enable GNU extensions when 'True'
     , clangEnableGnu :: Bool
 
@@ -75,6 +78,7 @@ data CStandard =
 defaultClangArgs :: ClangArgs
 defaultClangArgs = ClangArgs {
       clangTarget                = Nothing
+    , clangStdInc                = False
     , clangCStandard             = Nothing
     , clangEnableGnu             = False
     , clangSystemIncludePathDirs = []
@@ -125,8 +129,8 @@ fromClangArgs ClangArgs{..} = aux [
         incPathDirs <- fmap (map getCIncludeAbsPathDir) . ExceptT $
           resolveCIncludeAbsPathDirs clangIncludePathDirs
         return $
-             "-nostdinc"
-          :  concat [["-isystem", path] | path <- sysIncPathDirs]
+             [ "-nostdinc" | not clangStdInc ]
+          ++ concat [["-isystem", path] | path <- sysIncPathDirs]
           ++ concat [["-I",       path] | path <- incPathDirs]
 
     , return clangOtherArgs

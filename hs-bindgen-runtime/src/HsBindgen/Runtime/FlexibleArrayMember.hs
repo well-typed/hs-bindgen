@@ -8,13 +8,13 @@ module HsBindgen.Runtime.FlexibleArrayMember (
 import GHC.Exts (Proxy#)
 import Data.Vector.Storable qualified as VS
 
-class HasFlexibleArrayMember b a | a -> b where
-  flexibleArrayMemberOffset :: Proxy# a -> Int
+class HasFlexibleArrayMember element struct | struct -> element where
+  flexibleArrayMemberOffset :: Proxy# struct -> Int
 
-class HasFlexibleArrayMember b a => HasFlexibleArrayLength b a | a -> b where
-  flexibleArrayMemberLength :: a -> Int
+class HasFlexibleArrayMember element struct => HasFlexibleArrayLength element struct | struct -> element where
+  flexibleArrayMemberLength :: struct -> Int
 
-data WithFlexbileArrayMember b a = WithFlexbileArrayMember !a {-# UNPACK #-} !(VS.Vector b)
+data WithFlexbileArrayMember element struct = WithFlexbileArrayMember !struct {-# UNPACK #-} !(VS.Vector element)
 
 {-
 -- Single instance, defined once and for all

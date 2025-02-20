@@ -57,7 +57,6 @@ module HsBindgen.Hs.AST (
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
 import Data.Type.Nat as Nat
-import Data.Maybe ( isJust )
 
 import HsBindgen.Imports
 import HsBindgen.NameHint

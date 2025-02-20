@@ -7,7 +7,7 @@ instance Storable Pascal
                                     {Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3}}
 deriving stock instance Show Pascal
 deriving stock instance Eq Pascal
-instance HasFlexibleArrayMember Pascal CChar
+instance HasFlexibleArrayMember CChar Pascal
     where {flexibleArrayMemberOffset = \_ty_0 -> 4}
 data Foo_bar = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
 instance Storable Foo_bar
@@ -28,7 +28,7 @@ instance Storable Foo
                                     {Foo foo_len_3 -> pokeByteOff ptr_1 (0 :: Int) foo_len_3}}
 deriving stock instance Show Foo
 deriving stock instance Eq Foo
-instance HasFlexibleArrayMember Foo Foo_bar
+instance HasFlexibleArrayMember Foo_bar Foo
     where {flexibleArrayMemberOffset = \_ty_0 -> 4}
 data Diff = Diff {diff_first :: CLong, diff_second :: CChar}
 instance Storable Diff
@@ -40,5 +40,5 @@ instance Storable Diff
                                           diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4}}
 deriving stock instance Show Diff
 deriving stock instance Eq Diff
-instance HasFlexibleArrayMember Diff CChar
+instance HasFlexibleArrayMember CChar Diff
     where {flexibleArrayMemberOffset = \_ty_0 -> 9}
