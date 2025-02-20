@@ -1,0 +1,4 @@
+StandaloneDeriving
+DerivingStrategies
+GeneralizedNewtypeDeriving
+PatternSynonyms

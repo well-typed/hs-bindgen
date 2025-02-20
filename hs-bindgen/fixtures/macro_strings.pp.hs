@@ -1,3 +1,4 @@
+{-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
 module Example where

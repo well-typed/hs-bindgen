@@ -1,0 +1,2 @@
+StandaloneDeriving
+DerivingStrategies

@@ -2,6 +2,8 @@
 
 module Main (main) where
 
+import Data.Foldable (toList)
+import Data.List (sort)
 import Data.TreeDiff.Golden (ediffGolden1)
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
@@ -73,6 +75,7 @@ main' packageRoot bg = testGroup "golden"
     goldenNoRust name =
         [ goldenTreeDiff name
         , goldenHs name
+        , goldenExtensions name
 -- Pretty-printing of TH differs between GHC versions; for example, @()@ becomes
 -- @Unit@ in 9.8 <https://github.com/ghc-proposals/ghc-proposals/pull/475>.
 -- We therefore test TH only with one specific GHC version.
@@ -106,6 +109,21 @@ main' packageRoot bg = testGroup "golden"
 
         header <- parseC tracer args absPath
         return $ genHsDecls relPath defaultTranslationOpts header
+
+    goldenExtensions name = goldenVsStringDiff_ "exts" ("fixtures" </> (name ++ ".exts.txt")) $ \report -> do
+        -- -<.> does weird stuff for filenames with multiple dots;
+        -- I usually simply avoid using it.
+        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
+        let args = clangArgs packageRoot
+        includeDirs <- either fail return =<<
+          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
+        absPath <- either fail return =<< resolveHeader includeDirs relPath
+
+        let tracer = mkTracer report report report False
+
+        header <- parseC tracer args absPath
+        return $ unlines $ map show $ sort $ toList $
+            genExtensions relPath defaultTranslationOpts header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
