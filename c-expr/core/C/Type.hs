@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveTraversable #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module C.Type
@@ -31,6 +30,8 @@ import Foreign.Ptr qualified as Foreign
   ( Ptr )
 import Foreign.Storable
   ( sizeOf )
+import GHC.Generics
+  ( Generic )
 import System.Info qualified
   ( os )
 
@@ -40,27 +41,27 @@ data Type a
   = Void
   | Arithmetic !ArithmeticType
   | Ptr        !a
-  deriving stock ( Eq, Ord, Show, Functor, Foldable, Traversable )
+  deriving stock ( Eq, Ord, Show, Functor, Foldable, Traversable, Generic )
 
 data ArithmeticType
   = Integral  !IntegralType
   | FloatLike !FloatingType
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data FloatingType = FloatType | DoubleType
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data IntegralType
   = Bool
   | CharLike !CharLikeType
   | IntLike  !IntLikeType
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data CharLikeType = Char | SChar | UChar
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data Sign = Signed | Unsigned
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data IntLikeType
   = Short    !Sign
@@ -68,12 +69,12 @@ data IntLikeType
   | Long     !Sign
   | LongLong !Sign
   | PtrDiff
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 --------------------------------------------------------------------------------
 
 data WordWidth = WordWidth32 | WordWidth64
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 wordWidthInBits :: WordWidth -> Word
 wordWidthInBits = \case
@@ -81,10 +82,11 @@ wordWidthInBits = \case
   WordWidth64 -> 64
 
 data OS = Windows | Posix
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data Platform = Platform { platformWordWidth :: !WordWidth
                          , platformOS        :: !OS }
+  deriving stock ( Eq, Show, Generic )
 
 buildPlatform :: Platform
 buildPlatform =
@@ -101,7 +103,7 @@ buildPlatform =
     }
 
 newtype IntegerConversionRank = IntegerConversionRank Rational
-  deriving stock ( Eq, Ord, Show )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 intLikeTypeSign :: IntLikeType -> Sign
 intLikeTypeSign = \case

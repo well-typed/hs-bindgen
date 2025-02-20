@@ -9,6 +9,8 @@ import Control.Exception
   ( assert )
 import qualified Data.Kind as Hs
 import Data.Void qualified as Absurd
+import GHC.Generics
+  ( Generic )
 
 -- fin
 import Data.Nat ( Nat(..) )
@@ -39,13 +41,13 @@ data OpImpl n
   | SubPtrAndPtr
   -- | Subtract an integral value from a pointer.
   | SubPtrAndIntegral
-  deriving stock Show
+  deriving stock ( Show, Generic )
 
 data Conversion
   = FromIntegralTo { fromIntegralTo :: !( Type Absurd.Void ) }
   | RealToFracTo   { realToFracTo   :: !( Type Absurd.Void ) }
   | PtrToInt
-  deriving stock Show
+  deriving stock ( Show, Generic )
 
 --------------------------------------------------------------------------------
 
