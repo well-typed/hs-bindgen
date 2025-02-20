@@ -114,6 +114,9 @@ main = do
       clangArgs =
         case platformOS buildPlatform of
           Windows -> clangArgs0
+              { Clang.clangTarget =
+                  Just (Clang.Target_Linux_X86_64, Clang.TargetEnvDefault)
+              }
           Posix ->
             clangArgs0
               { Clang.clangTarget =
