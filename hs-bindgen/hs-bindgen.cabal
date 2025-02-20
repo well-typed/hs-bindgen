@@ -237,14 +237,6 @@ test-suite test-th
 
 test-suite test-pp
   default-language: Haskell2010
-
-  -- bug: PP code doesn't add ScopedTypeVariables, etc for macros
-  -- nor DataKinds for ConstantArray
-  default-extensions:
-    FlexibleContexts
-    ScopedTypeVariables
-    DataKinds
-
   type:           exitcode-stdio-1.0
   hs-source-dirs: test-pp
   main-is:        test-pp.hs
