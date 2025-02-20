@@ -97,6 +97,7 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
@@ -148,9 +149,11 @@ withTranslationUnit = C.withTranslationUnit
 parseCHeader ::
      Tracer IO C.Skipped
   -> Predicate
+  -> ExtBindings
   -> CXTranslationUnit
   -> IO CHeader
-parseCHeader traceSkipped p unit = do
+parseCHeader traceSkipped p _extBindings unit = do
+    -- TODO use extBindings
     (decls, finalDeclState) <-
       C.foldTranslationUnitWith
         unit
@@ -256,24 +259,23 @@ genTests
 templateHaskell ::
      [FilePath] -- ^ System include search path directories
   -> [FilePath] -- ^ Non-system include search path directories
+  -> [FilePath] -- ^ External bindings configuration
   -> FilePath   -- ^ Input header, as written in C @#include@
   -> TH.Q [TH.Dec]
-templateHaskell sysIncPathDirs incPathDirs relPath = do
-    relPath' <- either fail return $ mkCHeaderRelPath relPath
-    absPath <- TH.runIO $ do
+templateHaskell sysIncPathDirs incPathDirs extBindingsPaths relPath = do
+    includePathDirs <- TH.runIO $ do
       sysIncAbsPathDirs <- either fail return
         =<< resolveCIncludeAbsPathDirs sysIncPathDirs'
       incAbsPathDirs <- either fail return
         =<< resolveCIncludeAbsPathDirs incPathDirs'
-      either fail return
-        =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath'
-    let clangArgs = defaultClangArgs {
-            clangSystemIncludePathDirs = sysIncPathDirs'
-          , clangIncludePathDirs       = incPathDirs'
-          }
-    cheader <- TH.runIO $
+      return $ sysIncAbsPathDirs ++ incAbsPathDirs
+    relPath' <- either fail return $ mkCHeaderRelPath relPath
+    absPath <- TH.runIO $
+      either fail return =<< resolveHeader includePathDirs relPath'
+    cheader <- TH.runIO $ do
+      extBindings <- loadExtBindings' includePathDirs extBindingsPaths
       withTranslationUnit nullTracer clangArgs absPath $
-        parseCHeader nullTracer SelectFromMainFile
+        parseCHeader nullTracer SelectFromMainFile extBindings
     TH.addDependentFile $ getCHeaderAbsPath absPath
     genTH relPath' LowLevel.defaultTranslationOpts cheader
   where
@@ -281,12 +283,19 @@ templateHaskell sysIncPathDirs incPathDirs relPath = do
     sysIncPathDirs' = CIncludePathDir <$> sysIncPathDirs
     incPathDirs'    = CIncludePathDir <$> incPathDirs
 
+    clangArgs :: ClangArgs
+    clangArgs = defaultClangArgs {
+        clangSystemIncludePathDirs = sysIncPathDirs'
+      , clangIncludePathDirs       = incPathDirs'
+      }
+
 preprocessor ::
      [CIncludePathDir] -- ^ System include search path directories
   -> [CIncludePathDir] -- ^ Non-system include search path directories
+  -> ExtBindings
   -> CHeaderRelPath    -- ^ Input header
   -> IO String
-preprocessor sysIncPathDirs incPathDirs relPath = do
+preprocessor sysIncPathDirs incPathDirs extBindings relPath = do
     sysIncAbsPathDirs <- either fail return
       =<< resolveCIncludeAbsPathDirs sysIncPathDirs
     incAbsPathDirs <- either fail return
@@ -295,7 +304,7 @@ preprocessor sysIncPathDirs incPathDirs relPath = do
       =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath
     cheader <-
       withTranslationUnit nullTracer clangArgs absPath $
-        parseCHeader nullTracer SelectFromMainFile
+        parseCHeader nullTracer SelectFromMainFile extBindings
     return $
       Backend.PP.render renderOpts $
         unwrapHsModule $ genModule relPath topts moduleOpts cheader

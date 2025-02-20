@@ -8,6 +8,7 @@ import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
@@ -26,21 +27,23 @@ main = do
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
-      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+      includePathDirs <- either fail return <=< resolveCIncludeAbsPathDirs $
         clangSystemIncludePathDirs cmdClangArgs
           ++ clangIncludePathDirs cmdClangArgs
       absPath <- either fail return
-        =<< resolveHeader includePath preprocessInput
-      cHeader <- parseC cmdline tracer absPath
+        =<< resolveHeader includePathDirs preprocessInput
+      extBindings <- loadExtBindings' includePathDirs cmdExtBindings
+      cHeader <- parseC cmdline tracer extBindings absPath
       let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
-      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+      includePathDirs <- either fail return <=< resolveCIncludeAbsPathDirs $
         clangSystemIncludePathDirs cmdClangArgs
           ++ clangIncludePathDirs cmdClangArgs
       absPath <- either fail return
-        =<< resolveHeader includePath genTestsInput
-      cHeader <- parseC cmdline tracer absPath
+        =<< resolveHeader includePathDirs genTestsInput
+      extBindings <- loadExtBindings' includePathDirs cmdExtBindings
+      cHeader <- parseC cmdline tracer extBindings absPath
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
       lit <- readFile input
@@ -56,17 +59,19 @@ execMode cmdline@Cmdline{..} tracer = \case
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode cmdline@Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
-      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+      includePathDirs <- either fail return <=< resolveCIncludeAbsPathDirs $
         clangSystemIncludePathDirs cmdClangArgs
           ++ clangIncludePathDirs cmdClangArgs
       absPath <- either fail return
-        =<< resolveHeader includePath parseCHeaderInput
-      prettyC =<< parseC cmdline tracer absPath
+        =<< resolveHeader includePathDirs parseCHeaderInput
+      extBindings <- loadExtBindings' includePathDirs cmdExtBindings
+      prettyC =<< parseC cmdline tracer extBindings absPath
     DevModePrelude{..} -> do
-      includePath <- either fail return <=< resolveCIncludeAbsPathDirs $
+      includePathDir <- either fail return <=< resolveCIncludeAbsPathDirs $
         clangSystemIncludePathDirs cmdClangArgs
           ++ clangIncludePathDirs cmdClangArgs
-      absPath <- either fail return =<< resolveHeader includePath preludeInput
+      absPath <- either fail return
+        =<< resolveHeader includePathDir preludeInput
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
         void . withC cmdline tracer absPath $
           bootstrapPrelude tracer (preludeLogTracer logHandle)
@@ -101,11 +106,12 @@ withC cmdline tracer headerPath =
 parseC ::
      Cmdline
   -> Tracer IO String
+  -> ExtBindings
   -> CHeaderAbsPath
   -> IO CHeader
-parseC cmdline tracer headerPath =
+parseC cmdline tracer extBindings headerPath = do
     withC cmdline tracer headerPath $
-      parseCHeader traceSkipped (cmdPredicate cmdline)
+      parseCHeader traceSkipped (cmdPredicate cmdline) extBindings
   where
     traceSkipped :: Tracer IO Skipped
     traceSkipped = (contramap prettyLogMsg tracer)

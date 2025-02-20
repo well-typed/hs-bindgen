@@ -6,13 +6,19 @@ module HsBindgen.ExtBindings (
   , ExtIdentifier(..)
   , UnresolvedExtBindings(..)
   , ExtBindings(..)
-    -- * Configuration Files
-  , loadJson
-  , loadYaml
-    -- * Resolution
+    -- * API
+  , emptyExtBindings
   , resolveExtBindings
+  , mergeExtBindings
+    -- ** Configuration Files
+  , loadExtBindings
+  , loadExtBindingsJson
+  , loadExtBindingsYaml
+    -- ** Convenience
+  , loadExtBindings'
   ) where
 
+import Control.Monad ((<=<))
 import Data.Aeson qualified as Aeson
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
@@ -87,28 +93,12 @@ newtype ExtBindings = ExtBindings {
   deriving Show
 
 {-------------------------------------------------------------------------------
-  Configuration Files
+  API
 -------------------------------------------------------------------------------}
 
--- | Load 'ExtBindings' from a JSON file
---
--- This function fails on error.
-loadJson :: FilePath -> IO UnresolvedExtBindings
-loadJson path =
-        failOnError' path . (mkUnresolvedExtBindings =<<)
-    =<< Aeson.eitherDecodeFileStrict' path
-
--- | Load 'ExtBindings' from a YAML file
---
--- This function fails on error.
-loadYaml :: FilePath -> IO UnresolvedExtBindings
-loadYaml path =
-        failOnError' path . (mkUnresolvedExtBindings =<<)
-    =<< decodeYamlStrict path
-
-{-------------------------------------------------------------------------------
-  Resolution
--------------------------------------------------------------------------------}
+-- | Empty external bindings
+emptyExtBindings :: ExtBindings
+emptyExtBindings = ExtBindings Map.empty
 
 -- | Resolve external bindings header paths
 --
@@ -126,6 +116,88 @@ resolveExtBindings includePathDirs UnresolvedExtBindings{..} = do
     let resolve'         = map $ first $ Set.map (headerMap Map.!)
         extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
     return ExtBindings{..}
+
+-- | Merge external bindings
+--
+-- This function fails if different external bindings contain configuration
+-- for the same 'CNameSpelling' and 'CHeaderAbsPath'.
+mergeExtBindings :: [ExtBindings] -> IO ExtBindings
+mergeExtBindings = \case
+    []   -> return emptyExtBindings
+    x:xs -> either fail return $ do
+      extBindingsTypes <- aux (extBindingsTypes x) $
+        concatMap (Map.toList . extBindingsTypes) xs
+      return ExtBindings{..}
+  where
+    aux ::
+         Map CNameSpelling [(Set CHeaderAbsPath, ExtIdentifier)]
+      -> [(CNameSpelling, [(Set CHeaderAbsPath, ExtIdentifier)])]
+      -> Either String (Map CNameSpelling [(Set CHeaderAbsPath, ExtIdentifier)])
+    aux acc = \case
+      [] -> return acc
+      (cname, rs):ps ->
+        case Map.insertLookupWithKey (const (++)) cname rs acc of
+          (Nothing, acc') -> aux acc' ps
+          (Just ls, acc') ->
+            let lHeaderSet = Set.unions $ fst <$> ls
+                rHeaderSet = Set.unions $ fst <$> rs
+                iHeaderSet = Set.intersection lHeaderSet rHeaderSet
+            in  if Set.null iHeaderSet
+                  then aux acc' ps
+                  else Left $ unwords [
+                      "multiple external binding configurations for"
+                    , show cname
+                    , "for header(s)"
+                    , List.intercalate ", " (show <$> Set.toAscList iHeaderSet)
+                    ]
+
+{-------------------------------------------------------------------------------
+  Configuration Files
+-------------------------------------------------------------------------------}
+
+-- | Load 'ExtBindings' from a configuration file
+--
+-- The format is determined by the filename extension.
+--
+-- This function fails if the filename has an unknown extension or on parsing
+-- error.
+loadExtBindings :: FilePath -> IO UnresolvedExtBindings
+loadExtBindings path
+    | ".yaml" `List.isSuffixOf` path = loadExtBindingsYaml path
+    | ".json" `List.isSuffixOf` path = loadExtBindingsJson path
+    | otherwise = fail $ "unknown external bindings extension: " ++ path
+
+-- | Load 'ExtBindings' from a JSON file
+--
+-- This function fails on error.
+loadExtBindingsJson :: FilePath -> IO UnresolvedExtBindings
+loadExtBindingsJson path =
+        failOnError' path . (mkUnresolvedExtBindings =<<)
+    =<< Aeson.eitherDecodeFileStrict' path
+
+-- | Load 'ExtBindings' from a YAML file
+--
+-- This function fails on error.
+loadExtBindingsYaml :: FilePath -> IO UnresolvedExtBindings
+loadExtBindingsYaml path =
+        failOnError' path . (mkUnresolvedExtBindings =<<)
+    =<< decodeYamlStrict path
+
+{-------------------------------------------------------------------------------
+  Convenience
+-------------------------------------------------------------------------------}
+
+-- | Load, resolve, and merge external bindings
+--
+-- The format is determined by the filename extension.
+--
+-- This function fails if the filename has an unknown extension, there is a
+-- parsing error, or if different external bindings contain configuration for
+-- the same 'CNameSpelling' and 'CHeaderAbsPath'.
+loadExtBindings' :: [CIncludeAbsPathDir] -> [FilePath] -> IO ExtBindings
+loadExtBindings' includePathDirs =
+    mergeExtBindings
+      <=< mapM (resolveExtBindings includePathDirs <=< loadExtBindings)
 
 {-------------------------------------------------------------------------------
   Configuration File Representation (Internal)

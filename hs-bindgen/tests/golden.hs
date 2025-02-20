@@ -17,6 +17,7 @@ import TH
 #endif
 
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
@@ -149,6 +150,10 @@ parseC ::
   -> IO CHeader
 parseC tracer args headerPath =
     withC tracer args headerPath $
-      parseCHeader tracerP SelectFromMainFile
+      parseCHeader tracerP SelectFromMainFile extBindings
   where
     tracerP = contramap prettyLogMsg tracer
+
+    -- TODO test external bindings
+    extBindings :: ExtBindings
+    extBindings = emptyExtBindings

@@ -70,6 +70,7 @@ library
       HsBindgen.C.AST
       HsBindgen.C.Tc.Macro
       HsBindgen.Eff
+      HsBindgen.ExtBindings
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
@@ -94,7 +95,6 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.Debug
-      HsBindgen.ExtBindings
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs

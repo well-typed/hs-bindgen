@@ -35,10 +35,11 @@ getCmdline = execParser opts
 
 -- | Command line arguments
 data Cmdline = Cmdline {
-      cmdVerbosity :: Bool
-    , cmdPredicate :: Predicate
-    , cmdClangArgs :: ClangArgs
-    , cmdMode      :: Mode
+      cmdVerbosity   :: Bool
+    , cmdPredicate   :: Predicate
+    , cmdClangArgs   :: ClangArgs
+    , cmdExtBindings :: [FilePath]
+    , cmdMode        :: Mode
     }
   deriving (Show)
 
@@ -83,6 +84,7 @@ parseCmdline =
       <$> parseVerbosity
       <*> parsePredicate
       <*> parseClangArgs
+      <*> parseExtBindings
       <*> parseMode
 
 pureParseModePreprocess :: [String] -> Maybe Mode
@@ -256,6 +258,13 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
       | s == "--target" || "--target=" `List.isPrefixOf` s =
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
+
+parseExtBindings :: Parser [FilePath]
+parseExtBindings = many . strOption $ mconcat [
+      long "external-bindings"
+    , metavar "FILE"
+    , help "External bindings configuration (YAML file)"
+    ]
 
 parseTarget :: Parser (Target, TargetEnv)
 parseTarget = option (maybeReader readTarget) $ mconcat [

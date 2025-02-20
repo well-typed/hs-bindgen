@@ -15,6 +15,7 @@ import Test.Tasty (TestTree, TestName)
 
 import Misc
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.Lib
 
 goldenTh :: FilePath -> TestName -> TestTree
@@ -65,7 +66,11 @@ parseC ::
   -> IO CHeader
 parseC tracer args headerPath =
     withTranslationUnit tracerD args headerPath $
-      parseCHeader tracerP SelectFromMainFile
+      parseCHeader tracerP SelectFromMainFile extBindings
   where
     tracerD = contramap show tracer
     tracerP = contramap prettyLogMsg tracer
+
+    -- TODO test external bindings
+    extBindings :: ExtBindings
+    extBindings = emptyExtBindings
