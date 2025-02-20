@@ -1,0 +1,54 @@
+c1 :: CInt
+c1 = 97 :: CInt
+c2 :: CInt
+c2 = 34 :: CInt
+c3 :: CInt
+c3 = 9 :: CInt
+c4 :: CInt
+c4 = 0 :: CInt
+c5 :: CInt
+c5 = 39 :: CInt
+c6 :: CInt
+c6 = 63 :: CInt
+c7 :: CInt
+c7 = 83 :: CInt
+c8 :: CInt
+c8 = 83 :: CInt
+d :: CInt
+d = 511 :: CInt
+j1 :: CInt
+j1 = 14909826 :: CInt
+j2 :: CInt
+j2 = 14909826 :: CInt
+j3 :: CInt
+j3 = 14909826 :: CInt
+s1 :: (,) (Ptr CChar) Int
+s1 = (Ptr "a"#, 1) :: CStringLen
+s2 :: (,) (Ptr CChar) Int
+s2 = (Ptr "'"#, 1) :: CStringLen
+s3 :: (,) (Ptr CChar) Int
+s3 = (Ptr "\t"#, 1) :: CStringLen
+s4 :: (,) (Ptr CChar) Int
+s4 = (Ptr "\NUL"#, 1) :: CStringLen
+s5 :: (,) (Ptr CChar) Int
+s5 = (Ptr "'"#, 1) :: CStringLen
+s6 :: (,) (Ptr CChar) Int
+s6 = (Ptr "?"#, 1) :: CStringLen
+s7 :: (,) (Ptr CChar) Int
+s7 = (Ptr "S"#, 1) :: CStringLen
+s8 :: (,) (Ptr CChar) Int
+s8 = (Ptr "S"#, 1) :: CStringLen
+t1 :: (,) (Ptr CChar) Int
+t1 = (Ptr "\227\129\130"#, 3) :: CStringLen
+t2 :: (,) (Ptr CChar) Int
+t2 = (Ptr "\227\129\130"#, 3) :: CStringLen
+t3 :: (,) (Ptr CChar) Int
+t3 = (Ptr "\227\129\130"#, 3) :: CStringLen
+u :: (,) (Ptr CChar) Int
+u = (Ptr "\SOH\255\SOH\255\SOH\255\SOH\255"#, 8) :: CStringLen
+v :: (,) (Ptr CChar) Int
+v = (Ptr "\SOH\STX\ETX\EOT\ENQ\ACK"#, 6) :: CStringLen
+w1 :: (,) (Ptr CChar) Int
+w1 = (Ptr "hij\NUL"#, 4) :: CStringLen
+w2 :: (,) (Ptr CChar) Int
+w2 = (Ptr "abc\NULdef\NULg"#, 9) :: CStringLen

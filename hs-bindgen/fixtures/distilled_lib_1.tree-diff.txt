@@ -20,7 +20,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 5})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:10:9"},
       DeclMacro
@@ -42,7 +42,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 3})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:11:9"},
       DeclMacro
@@ -65,219 +65,113 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 4})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:12:9"},
       DeclMacro
-        (MacroReparseError
-          ReparseError {
-            reparseError =
-            concat
-              [
-                "\"distilled_lib_1.h\" (line 17, column 32):\n",
-                "unexpected Token {tokenKind = simpleEnum CXToken_Literal, tokenSpelling = TokenSpelling {getTokenSpelling = \"\\\"pack(1)\\\"\"}, tokenExtent = \"<distilled_lib_1.h:17:32-17:41>\", tokenCursorKind = simpleEnum CXCursor_MacroDefinition}\n",
-                "expecting expression"],
-            reparseErrorTokens = [
-              Token {
-                tokenKind = SimpleEnum 2,
-                tokenSpelling = TokenSpelling
-                  "PACK_START",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:9",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:19",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 2,
-                tokenSpelling = TokenSpelling
-                  "_Pragma",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:24",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:31",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 0,
-                tokenSpelling = TokenSpelling
-                  "(",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:31",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:32",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 3,
-                tokenSpelling = TokenSpelling
-                  "\"pack(1)\"",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:32",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:41",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 0,
-                tokenSpelling = TokenSpelling
-                  ")",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:41",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:17:42",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501}]}),
+        MacroTcError {
+          macroTcErrorMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "distilled_lib_1.h:17:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "PACK_START",
+            macroArgs = [],
+            macroBody = MTerm
+              (MVar
+                (CName "_Pragma")
+                [
+                  MTerm
+                    (MString
+                      StringLiteral {
+                        stringLiteralText =
+                        "\"pack(1)\"",
+                        stringLiteralValue = [
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [112],
+                            unicodeCodePoint = Just 'p'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [97],
+                            unicodeCodePoint = Just 'a'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [99],
+                            unicodeCodePoint = Just 'c'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [107],
+                            unicodeCodePoint = Just 'k'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [40],
+                            unicodeCodePoint = Just `'('`},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [49],
+                            unicodeCodePoint = Just '1'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [41],
+                            unicodeCodePoint = Just
+                              `')'`}]})])},
+          macroTcError = T.concat
+            [
+              "Failed to typecheck macro:\n",
+              "Unbound variable: '_Pragma'\n"]},
       DeclMacro
-        (MacroReparseError
-          ReparseError {
-            reparseError =
-            concat
-              [
-                "\"distilled_lib_1.h\" (line 18, column 32):\n",
-                "unexpected Token {tokenKind = simpleEnum CXToken_Literal, tokenSpelling = TokenSpelling {getTokenSpelling = \"\\\"pack()\\\"\"}, tokenExtent = \"<distilled_lib_1.h:18:32-18:40>\", tokenCursorKind = simpleEnum CXCursor_MacroDefinition}\n",
-                "expecting expression"],
-            reparseErrorTokens = [
-              Token {
-                tokenKind = SimpleEnum 2,
-                tokenSpelling = TokenSpelling
-                  "PACK_FINISH",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:9",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:20",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 2,
-                tokenSpelling = TokenSpelling
-                  "_Pragma",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:24",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:31",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 0,
-                tokenSpelling = TokenSpelling
-                  "(",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:31",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:32",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 3,
-                tokenSpelling = TokenSpelling
-                  "\"pack()\"",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:32",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:40",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501},
-              Token {
-                tokenKind = SimpleEnum 0,
-                tokenSpelling = TokenSpelling
-                  ")",
-                tokenExtent = Range {
-                  rangeStart = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:40",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing},
-                  rangeEnd = MultiLoc {
-                    multiLocExpansion =
-                    "distilled_lib_1.h:18:41",
-                    multiLocPresumed = Nothing,
-                    multiLocSpelling = Nothing,
-                    multiLocFile = Nothing}},
-                tokenCursorKind = SimpleEnum
-                  501}]}),
+        MacroTcError {
+          macroTcErrorMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "distilled_lib_1.h:18:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "PACK_FINISH",
+            macroArgs = [],
+            macroBody = MTerm
+              (MVar
+                (CName "_Pragma")
+                [
+                  MTerm
+                    (MString
+                      StringLiteral {
+                        stringLiteralText =
+                        "\"pack()\"",
+                        stringLiteralValue = [
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [112],
+                            unicodeCodePoint = Just 'p'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [97],
+                            unicodeCodePoint = Just 'a'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [99],
+                            unicodeCodePoint = Just 'c'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [107],
+                            unicodeCodePoint = Just 'k'},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [40],
+                            unicodeCodePoint = Just `'('`},
+                          CharValue {
+                            charValue =
+                            Prim.byteArrayFromList [41],
+                            unicodeCodePoint = Just
+                              `')'`}]})])},
+          macroTcError = T.concat
+            [
+              "Failed to typecheck macro:\n",
+              "Unbound variable: '_Pragma'\n"]},
       DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
@@ -335,7 +229,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 0})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:52:9"},
       DeclMacro
@@ -357,7 +251,7 @@ WrapCHeader
                     (_×_ PrimInt Unsigned),
                   integerLiteralValue = 20560})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Unsigned))",
+          "IntLike (CIntegralType (IntLike (Int Unsigned)))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:53:9"},
       DeclMacro
@@ -379,7 +273,7 @@ WrapCHeader
                     (_×_ PrimInt Signed),
                   integerLiteralValue = 2})},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "IntLike (CIntegralType (IntLike (Int Signed)))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:54:9"},
       DeclMacro
@@ -393,15 +287,25 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "TWO_ARGS",
             macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "0x3456",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
-                  integerLiteralValue = 13398})},
+            macroBody = MApp
+              MTuple
+              [
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "0x3456",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 13398}),
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "0x789A",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 30874})]},
           macroDeclMacroTy =
-          "IntLike (IntLike (Int Signed))",
+          "Tuple (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:55:9"},
       DeclFunction
