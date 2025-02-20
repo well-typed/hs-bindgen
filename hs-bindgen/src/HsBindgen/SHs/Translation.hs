@@ -43,7 +43,7 @@ translateDefineInstanceDecl (Hs.InstanceStorable struct i) =
 translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
     DInst Instance
       { instanceClass = HasFlexibleArrayMember_class
-      , instanceArgs  = [TCon $ Hs.structName struct, translateType fty ]
+      , instanceArgs  = [ translateType fty, TCon $ Hs.structName struct ]
       , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
       }
 
