@@ -3,6 +3,9 @@
  * See test-th and test-pp tests.
  */
 
+#ifndef TEST01_H
+#define TEST01_H
+
 /* Standard headers. */
 #include <stdlib.h>
 
@@ -33,3 +36,27 @@ struct StructBitfield {
 static inline int my_fma(int x, int y, int z) {
     return x * y + z;
 }
+
+/* flexible array member */
+
+struct StructFLAM {
+    int length;
+    long numbers[];
+};
+
+static inline struct StructFLAM *flam_init(int n) {
+    struct StructFLAM *ptr = malloc(sizeof(struct StructFLAM) + sizeof(long) * n);
+    if (ptr) {
+        ptr->length = n;
+        for (int i = 0; i < n; ++i) {
+            ptr->numbers[i] = i; // maybe do something more interesting?
+        }
+    }
+    return ptr;
+}
+
+static inline void flam_deinit(struct StructFLAM *ptr) {
+    free(ptr);
+}
+
+#endif
