@@ -41,11 +41,11 @@ static inline int my_fma(int x, int y, int z) {
 
 struct StructFLAM {
     int length;
-    int numbers[];
+    long numbers[];
 };
 
 static inline struct StructFLAM *flam_init(int n) {
-    struct StructFLAM *ptr = malloc(sizeof(struct StructFLAM) + sizeof(int) * n);
+    struct StructFLAM *ptr = malloc(sizeof(struct StructFLAM) + sizeof(long) * n);
     if (ptr) {
         ptr->length = n;
         for (int i = 0; i < n; ++i) {

@@ -1,10 +1,15 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ImportQualifiedPost #-}
+
+-- For flexible array members:
+{-# OPTIONS_GHC -Wno-orphans #-}
 module Main (main) where
 
+import Control.Exception (bracket)
 import Test.Tasty (testGroup, defaultMain)
 import Test.Tasty.HUnit (testCase, (@?=))
 import HsBindgen.Runtime.ConstantArray qualified as CA
+import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import Foreign (Storable (..), Ptr)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.C.Types (CLong)
@@ -38,6 +43,15 @@ main = defaultMain $ testGroup CURRENT_COMPONENT_ID
     , testCase "function" $ do
         res <- my_fma 2 3 5
         res @?= 11
+
+    , testCase "flam" $ do
+        let n = 10
+        bracket (flam_init n) flam_deinit $ \ptr -> do
+            hdr <- peek ptr
+            structFLAM_length hdr @?= n
+            -- TODO:
+            print ptr
+            print hdr
     ]
 
 -- StructBacic
@@ -59,3 +73,10 @@ _pokeVal ptr = poke ptr val
 
 _myPlus :: CLong -> CLong -> CLong
 _myPlus x y = pLUS x y
+
+-- Flexible array member
+-----------------------------------------------------------------------
+
+-- orphan instance
+instance FLAM.HasFlexibleArrayLength CLong StructFLAM where
+    flexibleArrayMemberLength x = fromIntegral (structFLAM_length x)
