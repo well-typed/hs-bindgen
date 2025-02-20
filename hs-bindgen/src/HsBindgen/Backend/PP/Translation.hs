@@ -15,6 +15,7 @@ module HsBindgen.Backend.PP.Translation (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
@@ -96,21 +97,10 @@ resolvePragmas ds =
     constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
 
 resolveDeclPragmas :: SDecl -> Set GhcPragma
-resolveDeclPragmas = \case
-    DVar{} -> Set.empty
-    DInst x
-      | length (instanceArgs x) >= 2 -> Set.singleton "LANGUAGE MultiParamTypeClasses"
-      | otherwise -> Set.empty
-    DRecord{} -> Set.empty
-    DNewtype{} -> Set.empty
-    DEmptyData{} -> Set.empty
-    DDerivingInstance{} -> Set.fromList
-      [ "LANGUAGE DerivingStrategies"
-      , "LANGUAGE GeneralizedNewtypeDeriving"
-      , "LANGUAGE StandaloneDeriving"
-      ]
-    DForeignImport{} -> Set.singleton "LANGUAGE CApiFFI"
-    DPatternSynonym{} -> Set.singleton "LANGUAGE PatternSynonyms"
+resolveDeclPragmas decl =
+    Set.map f (requiredExtensions decl)
+  where
+    f ext = "LANGUAGE " ++ show ext
 
 {-------------------------------------------------------------------------------
   Auxiliary: Import resolution
