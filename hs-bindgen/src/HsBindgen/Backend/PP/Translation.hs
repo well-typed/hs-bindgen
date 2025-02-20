@@ -98,7 +98,9 @@ resolvePragmas ds =
 resolveDeclPragmas :: SDecl -> Set GhcPragma
 resolveDeclPragmas = \case
     DVar{} -> Set.empty
-    DInst{} -> Set.empty
+    DInst x
+      | length (instanceArgs x) >= 2 -> Set.singleton "LANGUAGE MultiParamTypeClasses"
+      | otherwise -> Set.empty
     DRecord{} -> Set.empty
     DNewtype{} -> Set.empty
     DEmptyData{} -> Set.empty
