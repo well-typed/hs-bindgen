@@ -1,6 +1,7 @@
 -- {-# OPTIONS_GHC -ddump-splices #-}
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -Wno-error=orphans #-} -- TODO: open GHC issue
 
 module Test01 where
 
