@@ -21,8 +21,10 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 getCmdline :: IO Cmdline
-getCmdline = execParser opts
+getCmdline = customExecParser p opts
   where
+    p = prefs helpShowGlobals
+
     opts :: ParserInfo Cmdline
     opts = info (parseCmdline <**> helper) $
       mconcat [
