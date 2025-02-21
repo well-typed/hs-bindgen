@@ -1,27 +1,27 @@
-c1 :: CInt
-c1 = 97 :: CInt
-c2 :: CInt
-c2 = 34 :: CInt
-c3 :: CInt
-c3 = 9 :: CInt
-c4 :: CInt
-c4 = 0 :: CInt
-c5 :: CInt
-c5 = 39 :: CInt
-c6 :: CInt
-c6 = 63 :: CInt
-c7 :: CInt
-c7 = 83 :: CInt
-c8 :: CInt
-c8 = 83 :: CInt
-d :: CInt
-d = 511 :: CInt
-j1 :: CInt
-j1 = 14909826 :: CInt
-j2 :: CInt
-j2 = 14909826 :: CInt
-j3 :: CInt
-j3 = 14909826 :: CInt
+c1 :: CharValue
+c1 = CharValue (addrToByteArray 1 "<binary data>") (Just 'a')
+c2 :: CharValue
+c2 = CharValue (addrToByteArray 1 "<binary data>") (Just '"')
+c3 :: CharValue
+c3 = CharValue (addrToByteArray 1 "<binary data>") (Just '\t')
+c4 :: CharValue
+c4 = CharValue (addrToByteArray 1 "<binary data>") (Just '\NUL')
+c5 :: CharValue
+c5 = CharValue (addrToByteArray 1 "<binary data>") (Just '\'')
+c6 :: CharValue
+c6 = CharValue (addrToByteArray 1 "<binary data>") (Just '?')
+c7 :: CharValue
+c7 = CharValue (addrToByteArray 1 "<binary data>") Nothing
+c8 :: CharValue
+c8 = CharValue (addrToByteArray 1 "<binary data>") Nothing
+d :: CharValue
+d = CharValue (addrToByteArray 2 "<binary data>") Nothing
+j1 :: CharValue
+j1 = CharValue (addrToByteArray 3 "<binary data>") (Just '\12354')
+j2 :: CharValue
+j2 = CharValue (addrToByteArray 3 "<binary data>") (Just '\12354')
+j3 :: CharValue
+j3 = CharValue (addrToByteArray 3 "<binary data>") Nothing
 s1 :: (,) (Ptr CChar) Int
 s1 = (Ptr "a"#, 1) :: CStringLen
 s2 :: (,) (Ptr CChar) Int

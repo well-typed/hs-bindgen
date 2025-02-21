@@ -1,14 +1,18 @@
+{-# LANGUAGE DeriveLift #-}
+{-# LANGUAGE UnboxedTuples #-}
+
 module C.Char
   ( CharValue(..)
   , charValueFromCodeUnit
   , charValueFromCodePoint
+  , charValueFromAddr
   , fromHaskellChar
   , utf8SingleByteCodeUnit
   ) where
 
 -- base
 import Data.Array.Byte
-  ( ByteArray )
+  ( ByteArray(..) )
 import Data.Bits
   ( Bits(..) )
 import Data.Char
@@ -19,10 +23,20 @@ import Data.Maybe
   ( fromMaybe )
 import Data.Word
   ( Word8, Word64 )
+import GHC.Exts
+  ( Addr#, Int(..)
+  , newByteArray#, copyAddrToByteArray#, unsafeFreezeByteArray#
+  )
 import GHC.Exts qualified as IsList
   ( IsList(..) )
 import GHC.Generics
   ( Generic )
+import GHC.ST
+  ( ST(..), runST )
+
+
+-- template-haskell
+import Language.Haskell.TH.Syntax ( Lift )
 
 --------------------------------------------------------------------------------
 
@@ -43,7 +57,19 @@ data CharValue
        -- text encoding, e.g. the UTF-8 encoding of @永@ is @0xE6B0B8@
        -- (or @15118520@ in decimal notation).
     }
-  deriving stock ( Eq, Ord, Show, Generic )
+  deriving stock ( Eq, Ord, Show, Generic, Lift )
+
+-- | Create a 'CharValue' from an 'Addr#' (e.g. a primitive @Addr#@ literal).
+charValueFromAddr :: Addr# -> Int -> Maybe Char -> CharValue
+charValueFromAddr addr ( I# len ) mbUnicode = runST $ ST $
+  -- Copied from 'Data.Array.Byte.addrToByteArray'
+  \s -> case newByteArray# len s of
+    (# s', mb #) ->
+      case copyAddrToByteArray# addr mb 0# len s' of
+        s'' ->
+          case unsafeFreezeByteArray# mb s'' of
+            (# s''', ret #) ->
+              (# s''', CharValue ( ByteArray ret ) mbUnicode #)
 
 -- | Turn a Haskell 'Char' into a @C@ 'CharValue'.
 fromHaskellChar :: Char -> CharValue
@@ -85,7 +111,9 @@ charValueFromCodePoint i =
                 $ utf8ByteCodeUnits ( fromIntegral i )
     , unicodeCodePoint = Just $ chr $ fromIntegral i
     }
+{-# INLINEABLE charValueFromCodePoint #-}
 
+-- | UTF-8 encoding of a Unicode code point.
 utf8ByteCodeUnits :: Word64 -> Maybe [ Word8 ]
 utf8ByteCodeUnits p
   | p <= 0x7F

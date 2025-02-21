@@ -107,12 +107,12 @@ main = do
       ]
 
 
-  let platform = buildPlatform
+  let platform = hostPlatform
       clangArgs0 =
         Clang.defaultClangArgs
           { Clang.clangCStandard = Just Clang.C23 }
       clangArgs =
-        case platformOS buildPlatform of
+        case platformOS hostPlatform of
           Windows -> clangArgs0
           Posix ->
             clangArgs0

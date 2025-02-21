@@ -19,7 +19,7 @@ module C.Type
 
   -- * Platform
   , Platform(..), WordWidth(..), OS(..)
-  , buildPlatform
+  , hostPlatform
 
   ) where
 
@@ -88,14 +88,14 @@ data Platform = Platform { platformWordWidth :: !WordWidth
                          , platformOS        :: !OS }
   deriving stock ( Eq, Show, Generic )
 
-buildPlatform :: Platform
-buildPlatform =
+hostPlatform :: Platform
+hostPlatform =
   Platform
     { platformWordWidth =
         case sizeOf @( Foreign.Ptr () ) undefined of
           4 -> WordWidth32
           8 -> WordWidth64
-          w -> error $ "buildPlatform: unsupported word width (" ++ show (8 * w) ++ " bits)"
+          w -> error $ "hostPlatform: unsupported word width (" ++ show (8 * w) ++ " bits)"
     , platformOS =
         case System.Info.os of
           "mingw32" -> Windows

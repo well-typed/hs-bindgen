@@ -11,19 +11,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        97
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [97],
+          unicodeCodePoint = Just 'a'}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -36,19 +30,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        34
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [34],
+          unicodeCodePoint = Just `'"'`}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -61,19 +49,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        9
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [9],
+          unicodeCodePoint = Just '\t'}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -86,19 +68,14 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        0
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [0],
+          unicodeCodePoint = Just
+            '\NUL'}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -111,19 +88,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        39
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [39],
+          unicodeCodePoint = Just '\''}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -136,19 +107,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        63
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [63],
+          unicodeCodePoint = Just '?'}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -161,19 +126,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        83
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [83],
+          unicodeCodePoint = Nothing}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -186,19 +145,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        83
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [83],
+          unicodeCodePoint = Nothing}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -211,19 +164,13 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        511
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList [1, 255],
+          unicodeCodePoint = Nothing}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -236,19 +183,15 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        14909826
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList
+            [227, 129, 130],
+          unicodeCodePoint = Just
+            '\12354'}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -261,19 +204,15 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        14909826
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList
+            [227, 129, 130],
+          unicodeCodePoint = Just
+            '\12354'}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -286,19 +225,14 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        14909826
-        HsPrimCInt},
+                (DataTyCon CharLitTyCon)))
+            []}},
+      varDeclBody = VarDeclChar
+        CharValue {
+          charValue =
+          Prim.byteArrayFromList
+            [227, 129, 130],
+          unicodeCodePoint = Nothing}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -311,7 +245,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -356,7 +290,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -401,7 +335,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -446,7 +380,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -491,7 +425,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -536,7 +470,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -581,7 +515,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -626,7 +560,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -671,7 +605,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -717,7 +651,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -763,7 +697,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -809,7 +743,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -863,7 +797,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -909,7 +843,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
@@ -955,7 +889,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon
