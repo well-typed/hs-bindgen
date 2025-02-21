@@ -330,7 +330,7 @@ data DataTyCon nbArgs where
   PtrTyCon       :: DataTyCon ( S Z )
 
   -- | Tuple type constructors
-  TupleTyCon     :: Nat.SNatI n => DataTyCon ( S ( S n ) )
+  TupleTyCon     :: !Word -> DataTyCon ( S ( S n ) )
 
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
@@ -390,9 +390,9 @@ data ClassTyCon nbArgs where
   -- | Class type constructor for @Logical@
   LogicalTyCon    :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @RelEq@
-  RelEqTyCon         :: ClassTyCon ( S ( S Z ) )
+  RelEqTyCon      :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @RelOrd@
-  RelOrdTyCon        :: ClassTyCon ( S ( S Z ) )
+  RelOrdTyCon     :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @Plus@ (unary plus)
   PlusTyCon       :: ClassTyCon ( S Z )
   -- | Class type constructor for @Minus (unary minus)
@@ -410,7 +410,7 @@ data ClassTyCon nbArgs where
   -- | Class type constructor for @Complement@
   ComplementTyCon :: ClassTyCon ( S Z )
   -- | Class type constructor for @Bitwise@
-  BitwiseTyCon       :: ClassTyCon ( S ( S Z ) )
+  BitwiseTyCon    :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @Shift@
   ShiftTyCon      :: ClassTyCon ( S ( S Z ) )
 
@@ -441,7 +441,7 @@ instance Show ( DataTyCon n ) where
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
     PrimTyTyCon               -> showString "PrimTy"
     EmptyTyCon                -> showString "Empty"
-    TupleTyCon                -> showString "Tuple"
+    TupleTyCon i              -> showString $ "Tuple" ++ show i
 instance Show ( FamilyTyCon n ) where
   show = \case
     PlusResTyCon       -> "PlusRes"
@@ -1132,7 +1132,7 @@ fromMacroType = \case
       FamilyTyCon {} -> Nothing
       GenerativeTyCon ( DataTyCon dat ) ->
         case dat of
-          TupleTyCon -> Nothing
+          TupleTyCon {} -> Nothing
           VoidTyCon -> Just $ C.Type.Void
           StringTyCon -> Just $ C.Type.Ptr $ CType $ C.Type.Arithmetic ( C.Type.Integral $ C.Type.CharLike C.Type.Char )
           IntLikeTyCon ->
@@ -1421,8 +1421,10 @@ pattern Empty = Data EmptyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 
-pattern Tuple :: () => ( nbArgs ~ S (S n), Nat.SNatI n ) => Vec nbArgs ( Type Ty ) -> Type Ty
-pattern Tuple as = Data TupleTyCon as
+
+pattern Tuple :: () => ( nbArgs ~ S (S n) ) => Word -> Vec nbArgs (Type Ty) -> Type Ty
+pattern Tuple l as = Data ( TupleTyCon l ) as
+
 
 pattern PlusRes :: Type Ty -> Type Ty
 pattern PlusRes a = FamApp PlusResTyCon ( a ::: VNil )

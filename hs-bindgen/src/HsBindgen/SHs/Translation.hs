@@ -184,8 +184,8 @@ tyConGlobal = \case
     case tc of
       C.DataTyCon dc ->
         case dc of
-          C.TupleTyCon @n ->
-            TGlobal $ Tuple_type $ 2 + Fin.reflectToNum @n Proxy
+          C.TupleTyCon n ->
+            TGlobal $ Tuple_type n
           C.VoidTyCon ->
             TGlobal $ PrimType HsPrimVoid
           C.IntLikeTyCon   ->
