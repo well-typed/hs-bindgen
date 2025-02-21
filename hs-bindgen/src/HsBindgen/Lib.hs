@@ -152,13 +152,12 @@ parseCHeader ::
   -> ExtBindings
   -> CXTranslationUnit
   -> IO CHeader
-parseCHeader traceSkipped p _extBindings unit = do
-    -- TODO use extBindings
+parseCHeader traceSkipped p extBindings unit = do
     (decls, finalDeclState) <-
       C.foldTranslationUnitWith
         unit
         (C.runFoldState C.initDeclState)
-        (C.foldDecls traceSkipped p unit)
+        (C.foldDecls traceSkipped p extBindings unit)
 
     let decls' = [ d | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState) ]
     return $ WrapCHeader (C.Header $ decls ++ decls')

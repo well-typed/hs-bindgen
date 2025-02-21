@@ -11,6 +11,7 @@ import System.FilePath qualified as FilePath
 
 import HsBindgen.Imports
 import HsBindgen.Eff
+import HsBindgen.ExtBindings
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
@@ -34,16 +35,28 @@ foldDecls ::
      HasCallStack
   => Tracer IO Skipped
   -> Predicate
+  -> ExtBindings
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
+foldDecls tracer p extBindings unit current = do
     loc <- liftIO $ clang_getCursorLocation current
     sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
-    cursorKind <- liftIO $ clang_getCursorKind current
-    case fromSimpleEnum cursorKind of
-      Right CXCursor_TypedefDecl -> typeDecl current
-      Right CXCursor_StructDecl  -> typeDecl current
-      Right CXCursor_EnumDecl    -> typeDecl current
+    eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind current
+
+    -- update include graph even when predicate does not match
+    when (eCursorKind == Right CXCursor_InclusionDirective) $ do
+      header <- either fail return $
+        mkCHeaderAbsPath (getSourcePath (singleLocPath sloc))
+      incHeader <- liftIO $
+            either fail return . mkCHeaderAbsPath
+        =<< clang_getFileName
+        =<< clang_getIncludedFile current
+      modify $ registerInclude header incHeader
+
+    whenPredicateMatches tracer p current $ case eCursorKind of
+      Right CXCursor_TypedefDecl -> typeDecl
+      Right CXCursor_StructDecl  -> typeDecl
+      Right CXCursor_EnumDecl    -> typeDecl
 
       Right CXCursor_MacroDefinition ->
         if isBuiltinMacro sloc
@@ -72,20 +85,14 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         modify $ registerMacroExpansion mloc
         return $ Continue Nothing
 
-      Right CXCursor_InclusionDirective -> do
-        header <- either fail return $
-          mkCHeaderAbsPath (getSourcePath (singleLocPath sloc))
-        incHeader <- liftIO $
-              either fail return . mkCHeaderAbsPath
-          =<< clang_getFileName
-          =<< clang_getIncludedFile current
-        modify $ registerInclude header incHeader
+      Right CXCursor_InclusionDirective ->
+        -- no children, recurse and continue have same behavior
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl unit ty
+        ty' <- processTypeDecl extBindings unit ty
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
@@ -102,11 +109,11 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       _otherwise -> do
         unrecognizedCursor current
   where
-    typeDecl :: CXCursor -> Eff (State DeclState) (Next m a)
-    typeDecl current = do
+    typeDecl :: Eff (State DeclState) (Next m a)
+    typeDecl = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl unit ty
+      void $ processTypeDecl extBindings unit ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
