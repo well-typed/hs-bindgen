@@ -56,7 +56,6 @@ module HsBindgen.Hs.AST (
   , PatSynOrigin(..)
   ) where
 
-import Data.Maybe ( isJust )
 import Data.Type.Nat as Nat
 
 import HsBindgen.C.AST qualified as C
