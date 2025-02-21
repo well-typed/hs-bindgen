@@ -156,7 +156,7 @@ resolveDeclImports = \case
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
-        resolveExprImports patSynRHS
+        resolvePatExprImports patSynRHS
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc
@@ -190,6 +190,12 @@ resolveExprImports = \case
       : [ resolveExprImports body
         | SAlt _con _add _hints body <- alts
         ]
+
+-- | Resolve imports in a pattern|expression
+resolvePatExprImports :: PatExpr -> ImportAcc
+resolvePatExprImports = \case
+    PEApps _n xs -> foldMap resolvePatExprImports xs
+    PELit _      -> mempty
 
 -- | Resolve imports in a type
 resolveTypeImports :: SType ctx -> ImportAcc

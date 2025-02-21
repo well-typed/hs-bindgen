@@ -188,6 +188,19 @@ prettyType env prec = \case
 prettyPrimType :: HsPrimType -> CtxDoc
 prettyPrimType = prettyType EmptyEnv 0 . TGlobal . PrimType
 
+
+{-------------------------------------------------------------------------------
+  PatEpxr pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty PatExpr where
+  prettyPrec = prettyPatExpr
+
+prettyPatExpr :: Int -> PatExpr -> CtxDoc
+prettyPatExpr prec = \case
+    PELit i -> showToCtxDoc i
+    PEApps n ps -> parensWhen (prec > 3) $ pretty n <+> hsep (map (prettyPatExpr 4) ps)
+
 {-------------------------------------------------------------------------------
   Expression pretty-printing
 -------------------------------------------------------------------------------}
