@@ -158,7 +158,7 @@ instance ToExpr (GenerativeTyCon args resKi) where
 
 instance ToExpr (DataTyCon n) where
   toExpr = \case
-    TupleTyCon              -> Expr.App "TupleTyCon"     []
+    TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
     VoidTyCon               -> Expr.App "VoidTyCon"      []
     PtrTyCon                -> Expr.App "PtrTyCon"       []
     StringTyCon             -> Expr.App "StringTyCon"    []
