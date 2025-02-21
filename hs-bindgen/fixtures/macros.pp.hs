@@ -45,14 +45,14 @@ lONG_INT_TOKEN3 = (18446744073709550592 :: FC.CULLong)
 lONG_INT_TOKEN4 :: FC.CULLong
 lONG_INT_TOKEN4 = (18446744073709550592 :: FC.CULLong)
 
-tUPLE1 :: ((,,) FC.CInt) FC.CInt
-tUPLE1 = (,,) (1 :: FC.CInt) (2 :: FC.CInt)
+tUPLE1 :: ((,) FC.CInt) FC.CInt
+tUPLE1 = (,) (1 :: FC.CInt) (2 :: FC.CInt)
 
-tUPLE2 :: ((,,) FC.CInt) FC.CInt
-tUPLE2 = (,,) (3 :: FC.CInt) (4 :: FC.CInt)
+tUPLE2 :: ((,) FC.CInt) FC.CInt
+tUPLE2 = (,) (3 :: FC.CInt) (4 :: FC.CInt)
 
-tUPLE3 :: ((,,) FC.CInt) FC.CInt
-tUPLE3 = (,,) (5 :: FC.CInt) (6 :: FC.CInt)
+tUPLE3 :: ((,) FC.CInt) FC.CInt
+tUPLE3 = (,) (5 :: FC.CInt) (6 :: FC.CInt)
 
 fLT1_1 :: FC.CDouble
 fLT1_1 = (110000.0 :: FC.CDouble)

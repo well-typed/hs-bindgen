@@ -161,7 +161,7 @@
           quantTyBody = TyConAppTy
             (ATyCon
               (GenerativeTyCon
-                (DataTyCon TupleTyCon)))
+                (DataTyCon (TupleTyCon 2))))
             [
               TyConAppTy
                 (ATyCon

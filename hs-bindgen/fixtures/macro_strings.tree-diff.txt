@@ -20,8 +20,7 @@ WrapCHeader
                     charValue =
                     Prim.byteArrayFromList [97],
                     unicodeCodePoint = Just 'a'}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:4:9"},
       DeclMacro
@@ -44,8 +43,7 @@ WrapCHeader
                     Prim.byteArrayFromList [34],
                     unicodeCodePoint = Just
                       `'"'`}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:5:9"},
       DeclMacro
@@ -68,8 +66,7 @@ WrapCHeader
                     Prim.byteArrayFromList [9],
                     unicodeCodePoint = Just
                       '\t'}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:6:9"},
       DeclMacro
@@ -92,8 +89,7 @@ WrapCHeader
                     Prim.byteArrayFromList [0],
                     unicodeCodePoint = Just
                       '\NUL'}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:7:9"},
       DeclMacro
@@ -116,8 +112,7 @@ WrapCHeader
                     Prim.byteArrayFromList [39],
                     unicodeCodePoint = Just
                       '\''}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:8:9"},
       DeclMacro
@@ -139,8 +134,7 @@ WrapCHeader
                     charValue =
                     Prim.byteArrayFromList [63],
                     unicodeCodePoint = Just '?'}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:9:9"},
       DeclMacro
@@ -162,8 +156,7 @@ WrapCHeader
                     charValue =
                     Prim.byteArrayFromList [83],
                     unicodeCodePoint = Nothing}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:10:9"},
       DeclMacro
@@ -185,8 +178,7 @@ WrapCHeader
                     charValue =
                     Prim.byteArrayFromList [83],
                     unicodeCodePoint = Nothing}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:11:9"},
       DeclMacro
@@ -208,8 +200,7 @@ WrapCHeader
                     charValue =
                     Prim.byteArrayFromList [1, 255],
                     unicodeCodePoint = Nothing}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:13:9"},
       DeclMacro
@@ -233,8 +224,7 @@ WrapCHeader
                       [227, 129, 130],
                     unicodeCodePoint = Just
                       '\12354'}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:15:9"},
       DeclMacro
@@ -258,8 +248,7 @@ WrapCHeader
                       [227, 129, 130],
                     unicodeCodePoint = Just
                       '\12354'}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:16:9"},
       DeclMacro
@@ -283,8 +272,7 @@ WrapCHeader
                     Prim.byteArrayFromList
                       [227, 129, 130],
                     unicodeCodePoint = Nothing}})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
+          macroDeclMacroTy = "CharLit",
           macroDeclSourceLoc =
           "macro_strings.h:17:9"},
       DeclMacro
@@ -309,7 +297,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         'a'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:20:9"},
       DeclMacro
@@ -334,7 +322,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\''}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:21:9"},
       DeclMacro
@@ -359,7 +347,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\t'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:22:9"},
       DeclMacro
@@ -384,7 +372,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\NUL'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:23:9"},
       DeclMacro
@@ -409,7 +397,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\''}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:24:9"},
       DeclMacro
@@ -434,7 +422,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '?'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:25:9"},
       DeclMacro
@@ -458,7 +446,7 @@ WrapCHeader
                       Prim.byteArrayFromList [83],
                       unicodeCodePoint = Nothing}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:26:9"},
       DeclMacro
@@ -482,7 +470,7 @@ WrapCHeader
                       Prim.byteArrayFromList [83],
                       unicodeCodePoint = Nothing}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:27:9"},
       DeclMacro
@@ -509,7 +497,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\12354'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:29:9"},
       DeclMacro
@@ -536,7 +524,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\12354'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:30:9"},
       DeclMacro
@@ -569,7 +557,7 @@ WrapCHeader
                       Prim.byteArrayFromList [130],
                       unicodeCodePoint = Nothing}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:31:9"},
       DeclMacro
@@ -606,7 +594,7 @@ WrapCHeader
                       Prim.byteArrayFromList [1, 255],
                       unicodeCodePoint = Nothing}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:33:9"},
       DeclMacro
@@ -651,7 +639,7 @@ WrapCHeader
                       Prim.byteArrayFromList [6],
                       unicodeCodePoint = Nothing}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:34:9"},
       DeclMacro
@@ -689,7 +677,7 @@ WrapCHeader
                       unicodeCodePoint = Just
                         '\NUL'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:36:9"},
       DeclMacro
@@ -747,6 +735,6 @@ WrapCHeader
                       unicodeCodePoint = Just
                         'g'}]})},
           macroDeclMacroTy =
-          "Tuple (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
+          "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)",
           macroDeclSourceLoc =
           "macro_strings.h:37:9"}])
