@@ -584,11 +584,8 @@ macroExprHsExpr = goExpr where
       Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt (uncurry integralType) mbIntTy)
 
     goChar :: C.CharLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goChar (C.CharLiteral { charLiteralValue = C.CharValue { charValue = charBytes }}) =
-      return $
-        Hs.VarDeclIntegral
-          ( C.fromBytes $ map fromIntegral $ IsList.toList charBytes )
-          HsPrimCInt
+    goChar (C.CharLiteral { charLiteralValue = c }) =
+      return $ Hs.VarDeclChar c
 
     goString :: C.StringLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goString (C.StringLiteral { stringLiteralValue = s }) = do

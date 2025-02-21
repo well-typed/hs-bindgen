@@ -320,8 +320,9 @@ type DataTyCon :: Nat -> Hs.Type
 data DataTyCon nbArgs where
   -- | Type constructor for 'Void'
   VoidTyCon      :: DataTyCon Z
-  -- | Type constructor for 'String'
-  StringTyCon    :: DataTyCon Z
+  -- | Type constructor for character literals (different from the C @char@
+  -- integral type)
+  CharLitTyCon   :: DataTyCon Z
   -- | Unary type constructor for integral types, such as 'Int' or 'UShort'.
   IntLikeTyCon   :: DataTyCon ( S Z )
   -- | Unary type constructor for floating-point types, such as 'Float' or 'Double'.
@@ -434,7 +435,7 @@ instance Show ( DataTyCon n ) where
   showsPrec p = \case
     VoidTyCon                 -> showString "Void"
     PtrTyCon                  -> showString "Ptr"
-    StringTyCon               -> showString "String"
+    CharLitTyCon              -> showString "CharLit"
     IntLikeTyCon              -> showString "IntLike"
     FloatLikeTyCon            -> showString "FloatLike"
     PrimIntInfoTyCon   inty   -> showsPrec p inty
@@ -1134,7 +1135,7 @@ fromMacroType = \case
         case dat of
           TupleTyCon {} -> Nothing
           VoidTyCon -> Just $ C.Type.Void
-          StringTyCon -> Just $ C.Type.Ptr $ CType $ C.Type.Arithmetic ( C.Type.Integral $ C.Type.CharLike C.Type.Char )
+          CharLitTyCon -> Nothing
           IntLikeTyCon ->
             case args of
               ( a ::: VNil ) ->
@@ -1227,15 +1228,9 @@ inferTerm = \case
         Nothing ->
           newMetaTyVarTy (FloatLitMeta f) "f"
   MChar {} ->
-    -- In C (unlike C++), character literals have type 'int', not 'char'.
-    --
-    -- This is likely due to integer promotion rules, which means that most
-    -- 'char' values get automatically promoted to 'int'.
-    --
-    -- See https://en.cppreference.com/w/c/language/character_constant.
-    return IntTy
+    return CharLitTy
   MString {} ->
-    return $ Tuple ( Ptr CharTy ::: HsIntTy ::: VNil )
+    return String
   MVar fun args -> inferApp ( FunName $ Left fun ) args
   MType {} -> return PrimTy
   MAttr _attr tm -> inferTerm tm
@@ -1318,7 +1313,8 @@ inferMFun :: MFun arity -> Quant ( Type Ty )
 inferMFun = \case
 
   -- Tuple
-  MTuple @n -> Quant @(S (S n)) \ as -> QuantTyBody [] $ funTy (Vec.toList as) (Tuple as)
+  MTuple @n -> Quant @(S (S n)) \ as ->
+    QuantTyBody [] $ funTy (Vec.toList as) (Tuple (fromIntegral $ length as ) as)
 
   -- Logical operators
   MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      $ funTy [a]   IntTy
@@ -1413,7 +1409,7 @@ pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
 pattern FloatLike :: Type Ty -> Type Ty
 pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
-pattern String = Data StringTyCon VNil
+pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
 pattern PrimTy :: Type Ty
 pattern PrimTy = Data PrimTyTyCon VNil
 pattern Empty :: Type Ty
@@ -1454,6 +1450,9 @@ pattern HsIntTy :: Type Ty
 pattern HsIntTy = IntLike ( PrimIntInfoTy ( HsIntType ) )
 pattern CharTy :: Type Ty
 pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.CharLike C.Char ) ) )
+
+pattern CharLitTy :: Type Ty
+pattern CharLitTy = Data CharLitTyCon VNil
 
 isPrimTy :: forall n. Nat.SNatI n => (Vec n (Type Ty) -> QuantTyBody ( Type Ty ) ) -> Bool
 isPrimTy bf = case Nat.snat @n of

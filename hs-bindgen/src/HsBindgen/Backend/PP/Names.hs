@@ -20,6 +20,7 @@ import HsBindgen.Hs.AST.Type
 
 import Language.Haskell.TH.Syntax qualified as TH
 
+import C.Char ( CharValue(..), charValueFromAddr )
 import C.Expr.HostPlatform qualified
 import Data.Bits qualified
 import Data.Ix qualified
@@ -196,6 +197,9 @@ resolveGlobal = \case
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
     Bitfield_peekBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
     Bitfield_pokeBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
+    CharValue_tycon       -> importQ ''C.Char.CharValue
+    CharValue_constructor -> importQ 'C.Char.CharValue
+    CharValue_fromAddr    -> importQ 'C.Char.charValueFromAddr
 
     Bits_class       -> importQ ''Data.Bits.Bits
     Bounded_class    -> importU ''Bounded

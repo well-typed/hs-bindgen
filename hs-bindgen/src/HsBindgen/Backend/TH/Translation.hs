@@ -23,6 +23,7 @@ import GHC.Float
   ( castWord64ToDouble, castDoubleToWord64
   , castWord32ToFloat , castFloatToWord32 )
 
+import C.Char (CharValue(..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Hs.AST qualified as Hs
@@ -67,6 +68,9 @@ mkGlobal = \case
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
       Bitfield_peekBitOffWidth -> 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
       Bitfield_pokeBitOffWidth -> 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
+      CharValue_tycon        -> ''C.Char.CharValue
+      CharValue_constructor  -> 'C.Char.CharValue
+      CharValue_fromAddr    -> 'C.Char.charValueFromAddr
 
       Bits_class       -> ''Data.Bits.Bits
       Bounded_class    -> ''Bounded
@@ -206,6 +210,7 @@ mkExpr env = \case
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )
           (mkPrimType t)
+      EChar c -> [| c |]
       EString ba@(ByteArray ba#) ->
         let
           len :: Integer
