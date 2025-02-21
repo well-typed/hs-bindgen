@@ -1,5 +1,6 @@
 -- | Simplified HS abstract syntax tree
 module HsBindgen.SHs.AST (
+-- TODO: drop S prefix?
     Global (..),
     ClosedExpr,
     SExpr (..),
@@ -23,9 +24,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
 import DeBruijn
-
-
--- TODO: drop S prefix?
+import C.Char qualified as CExpr
 
 {-------------------------------------------------------------------------------
   Backend representation
@@ -54,6 +53,9 @@ data Global =
   | HasFlexibleArrayMember_offset
   | Bitfield_peekBitOffWidth
   | Bitfield_pokeBitOffWidth
+  | CharValue_tycon
+  | CharValue_constructor
+  | CharValue_fromAddr
 
     -- Other type classes
   | Bits_class
@@ -146,6 +148,7 @@ data SExpr ctx =
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
+  | EChar CExpr.CharValue
   | EString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix Global (SExpr ctx) (SExpr ctx)
