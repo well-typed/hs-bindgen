@@ -237,25 +237,10 @@ mkExpr env = \case
                          | SAlt c add hints b <- alts
                          ]
 
-mkPat :: Quote q => SExpr EmptyCtx -> q TH.Pat
+mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
-    EGlobal {}    -> error "unexpected"
-    EFree {}      -> error "cannot happen"
-    EBound {}     -> error "cannot happen"
-    EFloat {}     -> error "cannot happen"
-    EDouble {}    -> error "cannot happen"
-    EString {}    -> error "cannot happen"
-    EInfix {}     -> error "cannot happen"
-    ELam {}       -> error "cannot happen"
-    EUnusedLam {} -> error "cannot happen"
-    ECase {}      -> error "cannot happen"
-    EApp f t      -> liftA2 appP (mkPat f) (mkPat t)
-    ECon n        -> hsConP n []
-    EIntegral i _ -> TH.litP (TH.IntegerL i)
-  where
-    appP :: TH.Pat -> TH.Pat -> TH.Pat
-    appP (TH.ConP n ts xs) p = TH.ConP n ts (xs ++ [p])
-    appP _                 _ = error "cannot happen"
+    PEApps n xs -> hsConP n (map mkPat xs)
+    PELit i -> TH.litP (TH.IntegerL i)
 
 mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkType env = \case

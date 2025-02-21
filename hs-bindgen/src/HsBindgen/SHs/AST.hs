@@ -5,6 +5,7 @@ module HsBindgen.SHs.AST (
     SExpr (..),
     pattern EInt,
     SAlt (..),
+    PatExpr (..),
     SDecl (..),
     ClosedType,
     SType (..),
@@ -154,6 +155,21 @@ data SExpr ctx =
   | ECase (SExpr ctx) [SAlt ctx]
   deriving stock (Show)
 
+-- | Pattern&Expressions
+--
+-- There is common sublanguage between term and pattern expressions.
+-- This is that common sublanguage.
+-- Expressions ('SExpr') and full patterns (may) have more cases,
+-- but for bidirectional pattern synonyms only the common bases
+-- can be used.
+--
+-- For now 'PatExpr' is quite small, as we don't need much.
+type PatExpr :: Star
+data PatExpr
+  = PEApps (HsName NsConstr) [PatExpr] -- head of pattern application cannot be variable.
+  | PELit Integer
+  deriving stock (Show)
+
 pattern EInt :: Int -> SExpr be
 pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
   where
@@ -236,7 +252,7 @@ data ForeignImport = ForeignImport
 data PatternSynonym = PatternSynonym
     { patSynName   :: HsName NsConstr
     , patSynType   :: ClosedType
-    , patSynRHS    :: ClosedExpr -- TODO: This should be Pat(tern)
+    , patSynRHS    :: PatExpr
     , patSynOrigin :: Hs.PatSynOrigin
     }
   deriving stock (Show)
