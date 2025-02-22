@@ -118,7 +118,7 @@ translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym
     { patSynName   = patSynName
     , patSynType   = TCon patSynType
-    , patSynRHS    = EApp (ECon patSynConstr) (EIntegral patSynValue Nothing)
+    , patSynRHS    = PEApps patSynConstr [PELit patSynValue]
     , patSynOrigin = patSynOrigin
     }
 
