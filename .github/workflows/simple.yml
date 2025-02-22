@@ -69,6 +69,15 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
 
+      # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
+      - name: macOS SDKROOT
+        shell: bash
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: |
+          export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
+          echo $SDKROOT
+          echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
+
       - name: Windows C_INCLUDE_PATH
         if: ${{ startsWith(matrix.os, 'windows') }}
         run: |
