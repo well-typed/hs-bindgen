@@ -184,8 +184,8 @@ tyConGlobal = \case
     case tc of
       C.DataTyCon dc ->
         case dc of
-          C.TupleTyCon @n ->
-            TGlobal $ Tuple_type $ 2 + Fin.reflectToNum @n Proxy
+          C.TupleTyCon n ->
+            TGlobal $ Tuple_type n
           C.VoidTyCon ->
             TGlobal $ PrimType HsPrimVoid
           C.IntLikeTyCon   ->
@@ -201,15 +201,8 @@ tyConGlobal = \case
             TGlobal $ PrimType $ hsPrimFloatTy floaty
           C.PtrTyCon ->
             TGlobal Foreign_Ptr
-          C.StringTyCon ->
-            -- We use 'CStringLen' for C strings.
-            --
-            -- type CStringLen = (Ptr CChar, Int)
-            ( TGlobal $ Tuple_type 2 )
-              `TApp`
-            ( TApp (TGlobal Foreign_Ptr) (TGlobal $ PrimType HsPrimCChar) )
-              `TApp`
-            ( TGlobal $ PrimType HsPrimInt )
+          C.CharLitTyCon ->
+            TGlobal CharValue_tycon
           C.PrimTyTyCon ->
             error "tyConGlobal PrimTyTyCon"
           C.EmptyTyCon ->
@@ -311,6 +304,7 @@ translateBody (Hs.VarDeclVar x)                     = EBound x
 translateBody (Hs.VarDeclFloat f)                   = EFloat f HsPrimCFloat
 translateBody (Hs.VarDeclDouble d)                  = EDouble d HsPrimCDouble
 translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i (Just ty)
+translateBody (Hs.VarDeclChar c)                    = EChar c
 translateBody (Hs.VarDeclString s)                  = EString s
 translateBody (Hs.VarDeclLambda (Hs.Lambda hint b)) = ELam hint (translateBody b)
 translateBody (Hs.VarDeclApp f as)                  = foldl' EApp (translateAppHead f) (map translateBody as)

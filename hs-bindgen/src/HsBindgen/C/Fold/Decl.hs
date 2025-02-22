@@ -24,7 +24,7 @@ import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
-import C.Type (buildPlatform)
+import C.Type (hostPlatform)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -54,8 +54,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
               Left err -> return $ MacroReparseError err
               Right macro@( Macro _ mVar mArgs mExpr ) -> do
                 macroTyEnv <- macroTypes <$> get
-                let tcRes = tcMacro buildPlatform macroTyEnv mVar mArgs mExpr
-                  -- TODO (cross-compilation): use of 'buildPlatform'.
+                let tcRes = tcMacro hostPlatform macroTyEnv mVar mArgs mExpr
                 case tcRes of
                   Left err ->
                     return $ MacroTcError macro err

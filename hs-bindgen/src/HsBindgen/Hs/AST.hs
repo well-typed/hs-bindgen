@@ -70,6 +70,7 @@ import HsBindgen.Util.TestEquality
 
 import DeBruijn
 
+import C.Char qualified as CExpr
 
 {-------------------------------------------------------------------------------
   Information about generated code
@@ -282,6 +283,7 @@ data VarDeclRHS ctx
   = VarDeclIntegral Integer HsPrimType
   | VarDeclFloat Float
   | VarDeclDouble Double
+  | VarDeclChar   CExpr.CharValue
   | VarDeclString ByteArray
   | VarDeclLambda (Lambda VarDeclRHS ctx)
   | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]

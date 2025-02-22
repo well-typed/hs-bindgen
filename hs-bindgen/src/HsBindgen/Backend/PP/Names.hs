@@ -20,6 +20,7 @@ import HsBindgen.Hs.AST.Type
 
 import Language.Haskell.TH.Syntax qualified as TH
 
+import C.Char ( CharValue(..), charValueFromAddr )
 import C.Expr.HostPlatform qualified
 import Data.Bits qualified
 import Data.Ix qualified
@@ -69,10 +70,18 @@ data ResolvedName = ResolvedName {
   deriving (Eq, Ord, Show)
 
 -- | Name for tuples
-tupleResolvedName :: Word -> ResolvedName
-tupleResolvedName i = ResolvedName tup IdentifierName Nothing
+tupleResolvedName :: Bool -> Word -> ResolvedName
+tupleResolvedName wantType i = ResolvedName tup IdentifierName Nothing
   where
-    tup = "(" ++ replicate (fromIntegral i) ',' ++ ")"
+    tup
+      | i == 0
+      = "()"
+      | i == 1
+      = if wantType
+        then "Solo"
+        else "MkSolo"
+      | otherwise
+      = "(" ++ replicate (fromIntegral (i - 1)) ',' ++ ")"
 
 {-------------------------------------------------------------------------------
   Imports helpers
@@ -166,8 +175,8 @@ resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Hs.AST.Name".
-    Tuple_type i         -> tupleResolvedName i
-    Tuple_constructor i  -> tupleResolvedName i
+    Tuple_type i         -> tupleResolvedName True  i
+    Tuple_constructor i  -> tupleResolvedName False i
     Applicative_pure     -> importU 'pure
     Applicative_seq      -> importU '(<*>)
     Monad_return         -> importU 'return
@@ -188,6 +197,9 @@ resolveGlobal = \case
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
     Bitfield_peekBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
     Bitfield_pokeBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
+    CharValue_tycon       -> importQ ''C.Char.CharValue
+    CharValue_constructor -> importQ 'C.Char.CharValue
+    CharValue_fromAddr    -> importQ 'C.Char.charValueFromAddr
 
     Bits_class       -> importQ ''Data.Bits.Bits
     Bounded_class    -> importU ''Bounded
@@ -272,7 +284,7 @@ resolveGlobal = \case
 
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void
-      HsPrimUnit       -> tupleResolvedName 0
+      HsPrimUnit       -> tupleResolvedName True 0
       HsPrimCChar      -> importQ ''Foreign.C.CChar
       HsPrimCSChar     -> importQ ''Foreign.C.CSChar
       HsPrimCUChar     -> importQ ''Foreign.C.CUChar

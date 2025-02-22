@@ -305,7 +305,7 @@ WrapCHeader
                         (_×_ PrimInt Signed),
                       integerLiteralValue = 30874})]},
           macroDeclMacroTy =
-          "Tuple (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
+          "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
           macroDeclSourceLoc =
           "distilled_lib_1.h:55:9"},
       DeclFunction

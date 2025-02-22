@@ -31,6 +31,7 @@ import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import Text.SimplePrettyPrint
 
+import C.Char (CharValue(..))
 import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
 
 
@@ -222,7 +223,13 @@ prettyExpr env prec = \case
         , " :: "
         , prettyPrimType t
         ]
-
+    EChar (CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
+      prettyExpr env 0 (EGlobal CharValue_fromAddr)
+        <+> string str
+        <+> string (show len)
+        <+> case mbUnicode of { Nothing -> "Nothing"; Just c -> parens ("Just" <+> string (show c)) }
+      where
+        (str, len) = addrLiteral ba
     EString bs ->
       -- Use unboxed Addr# literals to turn a string literal into a
       -- value of type CStringLen.

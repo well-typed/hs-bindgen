@@ -168,6 +168,11 @@ resolveExprImports = \case
     EFree {} -> mempty
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolvePrimTypeImports t
+    EChar {} -> mconcat $ map resolveGlobalImports
+                  [ CharValue_tycon
+                  , CharValue_constructor
+                  , CharValue_fromAddr
+                  ]
     EString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen
                <> resolveGlobalImports Ptr_constructor
     EFloat _ t -> resolvePrimTypeImports t

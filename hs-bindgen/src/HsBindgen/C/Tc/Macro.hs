@@ -320,8 +320,9 @@ type DataTyCon :: Nat -> Hs.Type
 data DataTyCon nbArgs where
   -- | Type constructor for 'Void'
   VoidTyCon      :: DataTyCon Z
-  -- | Type constructor for 'String'
-  StringTyCon    :: DataTyCon Z
+  -- | Type constructor for character literals (different from the C @char@
+  -- integral type)
+  CharLitTyCon   :: DataTyCon Z
   -- | Unary type constructor for integral types, such as 'Int' or 'UShort'.
   IntLikeTyCon   :: DataTyCon ( S Z )
   -- | Unary type constructor for floating-point types, such as 'Float' or 'Double'.
@@ -330,7 +331,7 @@ data DataTyCon nbArgs where
   PtrTyCon       :: DataTyCon ( S Z )
 
   -- | Tuple type constructors
-  TupleTyCon     :: Nat.SNatI n => DataTyCon ( S ( S n ) )
+  TupleTyCon     :: !Word -> DataTyCon ( S ( S n ) )
 
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
@@ -390,9 +391,9 @@ data ClassTyCon nbArgs where
   -- | Class type constructor for @Logical@
   LogicalTyCon    :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @RelEq@
-  RelEqTyCon         :: ClassTyCon ( S ( S Z ) )
+  RelEqTyCon      :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @RelOrd@
-  RelOrdTyCon        :: ClassTyCon ( S ( S Z ) )
+  RelOrdTyCon     :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @Plus@ (unary plus)
   PlusTyCon       :: ClassTyCon ( S Z )
   -- | Class type constructor for @Minus (unary minus)
@@ -410,7 +411,7 @@ data ClassTyCon nbArgs where
   -- | Class type constructor for @Complement@
   ComplementTyCon :: ClassTyCon ( S Z )
   -- | Class type constructor for @Bitwise@
-  BitwiseTyCon       :: ClassTyCon ( S ( S Z ) )
+  BitwiseTyCon    :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @Shift@
   ShiftTyCon      :: ClassTyCon ( S ( S Z ) )
 
@@ -434,14 +435,14 @@ instance Show ( DataTyCon n ) where
   showsPrec p = \case
     VoidTyCon                 -> showString "Void"
     PtrTyCon                  -> showString "Ptr"
-    StringTyCon               -> showString "String"
+    CharLitTyCon              -> showString "CharLit"
     IntLikeTyCon              -> showString "IntLike"
     FloatLikeTyCon            -> showString "FloatLike"
     PrimIntInfoTyCon   inty   -> showsPrec p inty
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
     PrimTyTyCon               -> showString "PrimTy"
     EmptyTyCon                -> showString "Empty"
-    TupleTyCon                -> showString "Tuple"
+    TupleTyCon i              -> showString $ "Tuple" ++ show i
 instance Show ( FamilyTyCon n ) where
   show = \case
     PlusResTyCon       -> "PlusRes"
@@ -1132,9 +1133,9 @@ fromMacroType = \case
       FamilyTyCon {} -> Nothing
       GenerativeTyCon ( DataTyCon dat ) ->
         case dat of
-          TupleTyCon -> Nothing
+          TupleTyCon {} -> Nothing
           VoidTyCon -> Just $ C.Type.Void
-          StringTyCon -> Just $ C.Type.Ptr $ CType $ C.Type.Arithmetic ( C.Type.Integral $ C.Type.CharLike C.Type.Char )
+          CharLitTyCon -> Nothing
           IntLikeTyCon ->
             case args of
               ( a ::: VNil ) ->
@@ -1227,15 +1228,9 @@ inferTerm = \case
         Nothing ->
           newMetaTyVarTy (FloatLitMeta f) "f"
   MChar {} ->
-    -- In C (unlike C++), character literals have type 'int', not 'char'.
-    --
-    -- This is likely due to integer promotion rules, which means that most
-    -- 'char' values get automatically promoted to 'int'.
-    --
-    -- See https://en.cppreference.com/w/c/language/character_constant.
-    return IntTy
+    return CharLitTy
   MString {} ->
-    return $ Tuple ( Ptr CharTy ::: HsIntTy ::: VNil )
+    return String
   MVar fun args -> inferApp ( FunName $ Left fun ) args
   MType {} -> return PrimTy
   MAttr _attr tm -> inferTerm tm
@@ -1318,7 +1313,8 @@ inferMFun :: MFun arity -> Quant ( Type Ty )
 inferMFun = \case
 
   -- Tuple
-  MTuple @n -> Quant @(S (S n)) \ as -> QuantTyBody [] $ funTy (Vec.toList as) (Tuple as)
+  MTuple @n -> Quant @(S (S n)) \ as ->
+    QuantTyBody [] $ funTy (Vec.toList as) (Tuple (fromIntegral $ length as ) as)
 
   -- Logical operators
   MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      $ funTy [a]   IntTy
@@ -1413,7 +1409,7 @@ pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
 pattern FloatLike :: Type Ty -> Type Ty
 pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
-pattern String = Data StringTyCon VNil
+pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
 pattern PrimTy :: Type Ty
 pattern PrimTy = Data PrimTyTyCon VNil
 pattern Empty :: Type Ty
@@ -1421,8 +1417,10 @@ pattern Empty = Data EmptyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 
-pattern Tuple :: () => ( nbArgs ~ S (S n), Nat.SNatI n ) => Vec nbArgs ( Type Ty ) -> Type Ty
-pattern Tuple as = Data TupleTyCon as
+
+pattern Tuple :: () => ( nbArgs ~ S (S n) ) => Word -> Vec nbArgs (Type Ty) -> Type Ty
+pattern Tuple l as = Data ( TupleTyCon l ) as
+
 
 pattern PlusRes :: Type Ty -> Type Ty
 pattern PlusRes a = FamApp PlusResTyCon ( a ::: VNil )
@@ -1452,6 +1450,9 @@ pattern HsIntTy :: Type Ty
 pattern HsIntTy = IntLike ( PrimIntInfoTy ( HsIntType ) )
 pattern CharTy :: Type Ty
 pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.CharLike C.Char ) ) )
+
+pattern CharLitTy :: Type Ty
+pattern CharLitTy = Data CharLitTyCon VNil
 
 isPrimTy :: forall n. Nat.SNatI n => (Vec n (Type Ty) -> QuantTyBody ( Type Ty ) ) -> Bool
 isPrimTy bf = case Nat.snat @n of
