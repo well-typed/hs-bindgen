@@ -1,9 +1,10 @@
 {-# LANGUAGE RecordWildCards #-}
-
 module Main (main) where
 
+import Control.Exception (handle, SomeException (..), displayException, fromException)
 import Control.Monad
 import Text.Read (readMaybe)
+import System.Exit (ExitCode)
 import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
@@ -15,7 +16,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 main :: IO ()
-main = do
+main = handle exceptionHandler $ do
     cmdline@Cmdline{..} <- getCmdline
 
     let tracer :: Tracer IO String
@@ -109,3 +110,20 @@ parseC cmdline tracer headerPath =
   where
     traceSkipped :: Tracer IO Skipped
     traceSkipped = (contramap prettyLogMsg tracer)
+
+{-------------------------------------------------------------------------------
+  Exception handling
+-------------------------------------------------------------------------------}
+
+exceptionHandler :: SomeException -> IO ()
+exceptionHandler e@(SomeException e')
+    | Just _ <- fromException e :: Maybe ExitCode
+    = return ()
+
+    -- truly unexpected exceptions
+    | otherwise = do
+      -- Note: displayException of internal exception
+      -- this will ensure uniform behavior while `base`/GHC figures out the ending of exceptions and backtrace story
+      putStrLn $ "Uncaught exception: " ++ displayException e'
+      putStrLn "Please report this at https://github.com/well-typed/hs-bindgen/issues"
+      -- TODO: we could print exception context here, but it seems to be empty for IOExceptions anyway.
