@@ -103,6 +103,7 @@ import C.Operators qualified as C.Op
 
 -- hs-bindgen
 import HsBindgen.Imports
+import HsBindgen.Errors
 import HsBindgen.C.AST.Literal
   ( IntegerLiteral(..), FloatingLiteral(..) )
 import HsBindgen.C.AST.Macro
@@ -1262,7 +1263,7 @@ fromPrimFloatTy :: PrimFloatType -> C.FloatingType
 fromPrimFloatTy = \case
   PrimFloat      -> C.FloatType
   PrimDouble     -> C.DoubleType
-  PrimLongDouble -> error "tcMacro: long double not supported"
+  PrimLongDouble -> throw_TODO 349 "tcMacro: long double not supported"
 
 inferApp :: FunName -> [ MExpr ] -> TcGenM ( Type Ty )
 inferApp fun mbArgs = do
