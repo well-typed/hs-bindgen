@@ -74,6 +74,7 @@ library
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
       HsBindgen.NameHint
+      HsBindgen.Errors
   other-modules:
       Data.DynGraph
       HsBindgen.Backend.Extensions
