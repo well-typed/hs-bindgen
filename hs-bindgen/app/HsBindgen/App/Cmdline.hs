@@ -23,7 +23,7 @@ import HsBindgen.Lib
 getCmdline :: IO Cmdline
 getCmdline = customExecParser p opts
   where
-    p = prefs helpShowGlobals
+    p = prefs $ helpShowGlobals <> subparserInline
 
     opts :: ParserInfo Cmdline
     opts = info (parseCmdline <**> helper) $
