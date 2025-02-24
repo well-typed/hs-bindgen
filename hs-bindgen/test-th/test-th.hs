@@ -14,6 +14,7 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import Foreign (Storable (..), Ptr)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.C.Types (CLong)
+import Data.Vector.Storable qualified as VS
 
 import Test01
 
@@ -50,9 +51,9 @@ main = defaultMain $ testGroup CURRENT_COMPONENT_ID
         bracket (flam_init n) flam_deinit $ \ptr -> do
             hdr <- peek ptr
             structFLAM_length hdr @?= n
-            -- TODO:
-            print ptr
-            print hdr
+
+            struct <- FLAM.peekWithFLAM ptr
+            FLAM.flamExtra struct @?= VS.fromList [0..9]
     ]
 
 -- StructBacic

@@ -2,11 +2,14 @@
 module HsBindgen.Runtime.FlexibleArrayMember (
     HasFlexibleArrayMember (..),
     HasFlexibleArrayLength (..),
-    WithFlexbileArrayMember (..),
+    WithFlexibleArrayMember (..),
+    peekWithFLAM,
 ) where
 
-import GHC.Exts (Proxy#)
+import GHC.Exts (Proxy#, proxy#)
+import Foreign
 import Data.Vector.Storable qualified as VS
+import Data.Vector.Storable.Mutable qualified as VSM
 
 class HasFlexibleArrayMember element struct | struct -> element where
   flexibleArrayMemberOffset :: Proxy# struct -> Int
@@ -14,11 +17,21 @@ class HasFlexibleArrayMember element struct | struct -> element where
 class HasFlexibleArrayMember element struct => HasFlexibleArrayLength element struct | struct -> element where
   flexibleArrayMemberLength :: struct -> Int
 
-data WithFlexbileArrayMember element struct = WithFlexbileArrayMember !struct {-# UNPACK #-} !(VS.Vector element)
+data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
+    { flamStruct :: !struct
+    , flamExtra  :: {-# UNPACK #-} !(VS.Vector element)
+    }
+  deriving Show
 
-{-
--- Single instance, defined once and for all
-instance (Storable a, HasFlexibleArrayLength b a) => Storable (WithFlexbileArrayMember b a) where
-    alignment _ = aligment (a :: undefined)
-    sizeof _ = sizeof (a :: undefined)
--}
+-- | Peek structure together with contents of flexible array member.
+peekWithFLAM :: forall struct element. (Storable struct, Storable element, HasFlexibleArrayLength element struct)
+    => Ptr struct -> IO (WithFlexibleArrayMember element struct)
+peekWithFLAM ptr = do
+    struct <- peek ptr
+    let !len = flexibleArrayMemberLength struct
+        !bytesN = len * sizeOf (undefined :: element)
+    vector <- VSM.unsafeNew len
+    withForeignPtr (fst (VSM.unsafeToForeignPtr0 vector)) $ \ptr' -> do
+        copyBytes ptr' (plusPtr ptr (flexibleArrayMemberOffset (proxy# @struct))) bytesN
+    vector' <- VS.unsafeFreeze vector
+    return (WithFlexibleArrayMember struct vector')
