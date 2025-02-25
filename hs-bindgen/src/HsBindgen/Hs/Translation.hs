@@ -29,6 +29,7 @@ import GHC.Exts qualified as IsList (IsList(..))
 import C.Char qualified as C
 
 import HsBindgen.Imports
+import HsBindgen.Errors
 import HsBindgen.NameHint
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
@@ -430,7 +431,7 @@ typ nm = go CTop
     goVoid :: TypeContext -> HsPrimType
     goVoid CFunRes = HsPrimUnit
     goVoid CPtrArg = HsPrimVoid
-    goVoid c       = error $ "typ: unexpected void in context " ++ show c
+    goVoid c       = panicPure $ "unexpected type void in context " ++ show c
 
     goArrayUnknownSize :: TypeContext -> C.Type -> HsType
     goArrayUnknownSize CFunArg t =
@@ -441,7 +442,7 @@ typ nm = go CTop
         -- TODO <https://github.com/well-typed/hs-bindgen/issues/377>
         -- We need to extend 'TypeContext' with a context for extern
         -- declarations, and then allow for arrays of unknown size.
-        error $ "typ: unexpected array of unknown size in context " ++ show c
+        panicPure $ "unexpected array of unknown size in context " ++ show c
 
 integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
 integralType C.PrimInt      C.Signed   = HsPrimCInt

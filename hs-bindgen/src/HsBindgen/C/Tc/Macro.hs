@@ -1263,7 +1263,7 @@ fromPrimFloatTy :: PrimFloatType -> C.FloatingType
 fromPrimFloatTy = \case
   PrimFloat      -> C.FloatType
   PrimDouble     -> C.DoubleType
-  PrimLongDouble -> throw_TODO 349 "tcMacro: long double not supported"
+  PrimLongDouble -> throwPure_TODO 349 "tcMacro: long double not supported"
 
 inferApp :: FunName -> [ MExpr ] -> TcGenM ( Type Ty )
 inferApp fun mbArgs = do
