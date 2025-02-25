@@ -2,6 +2,8 @@ module HsBindgen.Errors (
     HsBindgenException (..),
     TODOException (..),
     throwPure_TODO,
+    PanicException,
+    panicPure,
 ) where
 
 import GHC.Stack (CallStack, callStack, prettyCallStack)
@@ -51,3 +53,25 @@ instance Exception TODOException where
 -- | Throw a pure, known TODO exception.
 throwPure_TODO :: HasCallStack => Int -> String -> a
 throwPure_TODO issue msg = throw (TODOException callStack issue msg)
+
+-------------------------------------------------------------------------------
+-- Panics
+-------------------------------------------------------------------------------
+
+-- | Unexpected (e.g. invariant violation) conditions.
+data PanicException = PanicException !CallStack !String
+  deriving Show
+
+instance Exception PanicException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException (PanicException cs  msg) = unlines
+        [ "PANIC!: the impossible happened"
+        , "Please report this as a bug at https://github.com/well-typed/hs-bindgen/issues/"
+        , msg
+        , prettyCallStack cs
+        ]
+
+-- | Panic in pure context
+panicPure :: HasCallStack => String -> a
+panicPure msg = throw (PanicException callStack msg)
