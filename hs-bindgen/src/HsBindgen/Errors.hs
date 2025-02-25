@@ -1,7 +1,7 @@
 module HsBindgen.Errors (
     HsBindgenException (..),
     TODOException (..),
-    throw_TODO,
+    throwPure_TODO,
 ) where
 
 import GHC.Stack (CallStack, callStack, prettyCallStack)
@@ -49,5 +49,5 @@ instance Exception TODOException where
         ]
 
 -- | Throw a pure, known TODO exception.
-throw_TODO :: HasCallStack => Int -> String -> a
-throw_TODO issue msg = throw (TODOException callStack issue msg)
+throwPure_TODO :: HasCallStack => Int -> String -> a
+throwPure_TODO issue msg = throw (TODOException callStack issue msg)
