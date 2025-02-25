@@ -1,0 +1,76 @@
+# HLint configuration file
+# https://github.com/ndmitchell/hlint
+##########################
+
+# Warnings currently triggered by your code
+- ignore: {name: "Avoid lambda"} # 4 hints
+- ignore: {name: "Eta reduce"} # 2 hints
+- ignore: {name: "Evaluate"} # 1 hint
+- ignore: {name: "Move brackets to avoid $"} # 2 hints
+- ignore: {name: "Redundant $"} # 15 hints
+- ignore: {name: "Redundant as"} # 1 hint
+- ignore: {name: "Redundant bracket"} # 9 hints
+- ignore: {name: "Redundant multi-way if"} # 1 hint
+- ignore: {name: "Redundant where"} # 1 hint
+- ignore: {name: "Replace case with fromMaybe"} # 1 hint
+- ignore: {name: "Unused LANGUAGE pragma"} # 1 hint
+- ignore: {name: "Use &&"} # 3 hints
+- ignore: {name: "Use ++"} # 1 hint
+- ignore: {name: "Use <$>"} # 3 hints
+- ignore: {name: "Use camelCase"} # 6 hints
+- ignore: {name: "Use elem"} # 4 hints
+- ignore: {name: "Use flip"} # 2 hints
+- ignore: {name: "Use gets"} # 1 hint
+- ignore: {name: "Use isDigit"} # 2 hints
+- ignore: {name: "Use isOctDigit"} # 1 hint
+- ignore: {name: "Use list literal pattern"} # 1 hint
+- ignore: {name: "Use newtype instead of data"} # 2 hints
+- ignore: {name: "Use notElem"} # 1 hint
+- ignore: {name: "Use second"} # 1 hint
+- ignore: {name: "Use shows"} # 4 hints
+- ignore: {name: "Use unwords"} # 2 hints
+- ignore: {name: "Use writeFile"} # 1 hint
+- ignore: {name: "Use ||"} # 1 hint
+
+
+# Specify additional command line arguments
+#
+# - arguments: [--color, --cpp-simple, -XQuasiQuotes]
+
+
+# Control which extensions/flags/modules/functions can be used
+#
+# - extensions:
+#   - default: false # all extension are banned by default
+#   - name: [PatternGuards, ViewPatterns] # only these listed extensions can be used
+#   - {name: CPP, within: CrossPlatform} # CPP can only be used in a given module
+#
+# - flags:
+#   - {name: -w, within: []} # -w is allowed nowhere
+#
+# - modules:
+#   - {name: [Data.Set, Data.HashSet], as: Set} # if you import Data.Set qualified, it must be as 'Set'
+#   - {name: Control.Arrow, within: []} # Certain modules are banned entirely
+
+
+# - functions:
+#   - {name: error, within: []} # unsafePerformIO can only appear in no modules
+
+
+# Add custom hints for this project
+#
+# We should use default 'error', but instead throw specialised exceptions.
+# See HsBindgen.Errors
+#
+# We could use -functions as above to forbid these, but the hlint message will be a bit confusing.
+#
+# TODO: https://github.com/well-typed/hs-bindgen/issues/340
+#- error: {lhs: "error", rhs: "panicPure"}
+#- error: {lhs: "fail", rhs: "panicIO"}
+#- ignore: {name: "Use panicIO", within: "HsBindgen.C.Reparse.Literal" }
+
+# Define some custom infix operators
+# - fixity: infixr 3 ~^#^~
+
+# To generate a suitable file for HLint do:
+# $ hlint --default > .hlint.yaml
