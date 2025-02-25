@@ -56,7 +56,8 @@ module HsBindgen.Hs.AST (
   , PatSynOrigin(..)
   ) where
 
-import Data.Type.Nat as Nat
+import Data.Type.Nat (SNat, SNatI, snat)
+import Data.Type.Nat qualified as Nat
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as C
