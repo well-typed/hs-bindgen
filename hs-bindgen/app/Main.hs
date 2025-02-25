@@ -1,15 +1,16 @@
 {-# LANGUAGE RecordWildCards #-}
 module Main (main) where
 
-import Control.Exception (handle, SomeException (..), displayException, fromException)
+import Control.Exception (handle, SomeException (..), displayException, fromException, throwIO)
 import Control.Monad
 import Text.Read (readMaybe)
-import System.Exit (ExitCode)
+import System.Exit (ExitCode, exitFailure)
 import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
 import HsBindgen.Clang.Paths
 import HsBindgen.Lib
+import HsBindgen.Errors
 
 {-------------------------------------------------------------------------------
   Main application
@@ -118,7 +119,11 @@ parseC cmdline tracer headerPath =
 exceptionHandler :: SomeException -> IO ()
 exceptionHandler e@(SomeException e')
     | Just _ <- fromException e :: Maybe ExitCode
-    = return ()
+    = throwIO e'
+
+    | Just (HsBindgenException e'') <- fromException e = do
+      putStrLn $ displayException e''
+      exitFailure
 
     -- truly unexpected exceptions
     | otherwise = do
@@ -127,3 +132,4 @@ exceptionHandler e@(SomeException e')
       putStrLn $ "Uncaught exception: " ++ displayException e'
       putStrLn "Please report this at https://github.com/well-typed/hs-bindgen/issues"
       -- TODO: we could print exception context here, but it seems to be empty for IOExceptions anyway.
+      exitFailure
