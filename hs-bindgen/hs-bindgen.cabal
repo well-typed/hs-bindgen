@@ -222,6 +222,7 @@ test-suite test-th
     , base
     , hs-bindgen
     , hs-bindgen-runtime
+    , vector
   build-depends:
       -- External dependencies
     , filepath
@@ -258,3 +259,4 @@ test-suite test-pp
     , hs-bindgen-runtime
     , tasty
     , tasty-hunit
+    , vector
