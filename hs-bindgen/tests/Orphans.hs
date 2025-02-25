@@ -14,7 +14,7 @@ import Foreign.C
 import System.FilePath qualified as FilePath
 
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Tc.Macro as CMacro
+import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
@@ -146,48 +146,48 @@ instance ToExpr (CMacro.ClassTyCon arity) where
     CMacro.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
 
 
-instance ToExpr (TyCon args resKi) where
+instance ToExpr (CMacro.TyCon args resKi) where
   toExpr = \case
-    GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
-    FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
+    CMacro.GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
+    CMacro.FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
 
-instance ToExpr (GenerativeTyCon args resKi) where
+instance ToExpr (CMacro.GenerativeTyCon args resKi) where
   toExpr = \case
-    DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
-    ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
+    CMacro.DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
+    CMacro.ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
 
-instance ToExpr (DataTyCon n) where
+instance ToExpr (CMacro.DataTyCon n) where
   toExpr = \case
-    TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
-    VoidTyCon               -> Expr.App "VoidTyCon"      []
-    PtrTyCon                -> Expr.App "PtrTyCon"       []
-    CharLitTyCon            -> Expr.App "CharLitTyCon"   []
-    IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
-    FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
-    PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
-    PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
-    PrimTyTyCon             -> Expr.App "PrimTyTyCon"    []
-    EmptyTyCon              -> Expr.App "EmptyTyCon"     []
+    CMacro.TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
+    CMacro.VoidTyCon               -> Expr.App "VoidTyCon"      []
+    CMacro.PtrTyCon                -> Expr.App "PtrTyCon"       []
+    CMacro.CharLitTyCon            -> Expr.App "CharLitTyCon"   []
+    CMacro.IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
+    CMacro.FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
+    CMacro.PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
+    CMacro.PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
+    CMacro.PrimTyTyCon             -> Expr.App "PrimTyTyCon"    []
+    CMacro.EmptyTyCon              -> Expr.App "EmptyTyCon"     []
 
 instance ToExpr CExpr.IntegralType where
 instance ToExpr CExpr.CharLikeType where
 instance ToExpr CExpr.IntLikeType where
 instance ToExpr CExpr.Sign where
 instance ToExpr CExpr.FloatingType where
-instance ToExpr IntegralType
+instance ToExpr CMacro.IntegralType -- Note: different from CExpr.IntegralType
 
-instance ToExpr (FamilyTyCon n) where
+instance ToExpr (CMacro.FamilyTyCon n) where
   toExpr = \case
-    PlusResTyCon       -> Expr.App "PlusResTyCon"       []
-    MinusResTyCon      -> Expr.App "MinusResTyCon"      []
-    AddResTyCon        -> Expr.App "AddResTyCon"        []
-    SubResTyCon        -> Expr.App "SubResTyCon"        []
-    MultResTyCon       -> Expr.App "MultResTyCon"       []
-    DivResTyCon        -> Expr.App "DivResTyCon"        []
-    RemResTyCon        -> Expr.App "RemResTyCon"        []
-    ComplementResTyCon -> Expr.App "ComplementResTyCon" []
-    BitsResTyCon       -> Expr.App "BitsResTyCon"       []
-    ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
+    CMacro.PlusResTyCon       -> Expr.App "PlusResTyCon"       []
+    CMacro.MinusResTyCon      -> Expr.App "MinusResTyCon"      []
+    CMacro.AddResTyCon        -> Expr.App "AddResTyCon"        []
+    CMacro.SubResTyCon        -> Expr.App "SubResTyCon"        []
+    CMacro.MultResTyCon       -> Expr.App "MultResTyCon"       []
+    CMacro.DivResTyCon        -> Expr.App "DivResTyCon"        []
+    CMacro.RemResTyCon        -> Expr.App "RemResTyCon"        []
+    CMacro.ComplementResTyCon -> Expr.App "ComplementResTyCon" []
+    CMacro.BitsResTyCon       -> Expr.App "BitsResTyCon"       []
+    CMacro.ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
 
 instance ToExpr HsType.HsType
 instance ToExpr HsType.HsPrimType

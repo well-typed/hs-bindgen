@@ -6,7 +6,7 @@ import Data.Algorithm.Diff qualified as Diff
 import Data.ByteString.Char8 qualified as BS8
 import Data.Text (Text)
 import Data.Text.Encoding qualified as TE
-import Data.Text.Metrics as Metrics
+import Data.Text.Metrics qualified as Metrics
 import System.Directory (doesFileExist, setCurrentDirectory)
 import System.FilePath ((</>), (-<.>))
 import Test.Tasty.Bench (Benchmark, defaultMain, env, nf, whnf, bench, bgroup)
