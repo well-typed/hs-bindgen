@@ -29,6 +29,7 @@ import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos
 
 import HsBindgen.Imports
+import HsBindgen.Errors
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
@@ -46,7 +47,7 @@ data ParserState = ParserState
 initParserState :: ParserState
 initParserState = ParserState
 
-reparseWith ::
+reparseWith :: HasCallStack =>
      Reparse a
   -> [Token TokenSpelling]
   -> Either ReparseError a
@@ -56,7 +57,7 @@ reparseWith p tokens =
     sourcePath :: FilePath
     sourcePath =
         case tokens of
-          []  -> error "reparseWith: empty list"
+          []  -> panicPure "reparseWith: empty list"
           t:_ -> getSourcePath $ singleLocPath start
             where
               start :: SingleLoc
