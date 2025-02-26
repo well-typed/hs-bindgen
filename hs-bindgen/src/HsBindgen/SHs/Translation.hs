@@ -15,6 +15,7 @@ import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.SHs.AST
+import HsBindgen.Errors
 
 import C.Type qualified as C
 
@@ -204,9 +205,9 @@ tyConGlobal = \case
           C.CharLitTyCon ->
             TGlobal CharValue_tycon
           C.PrimTyTyCon ->
-            error "tyConGlobal PrimTyTyCon"
+            panicPure "tyConGlobal PrimTyTyCon"
           C.EmptyTyCon ->
-            error "tyConGlobal EmptyTyCon"
+            panicPure "tyConGlobal EmptyTyCon"
       C.ClassTyCon cls -> TGlobal $
         case cls of
           C.NotTyCon        -> Not_class
