@@ -6,12 +6,12 @@ module HsBindgen.Errors (
     throwPure_TODO,
     PanicException,
     panicPure,
+    panicIO,
 ) where
 
 import GHC.Stack (CallStack, callStack, prettyCallStack)
 import Control.Exception (SomeException (..), Exception (..), throw)
 import Data.Typeable (cast)
-
 import HsBindgen.Imports
 
 -------------------------------------------------------------------------------
@@ -77,3 +77,7 @@ instance Exception PanicException where
 -- | Panic in pure context
 panicPure :: HasCallStack => String -> a
 panicPure msg = throw (PanicException callStack msg)
+
+-- | Panic in IO
+panicIO :: (HasCallStack, MonadIO m) => String -> m a
+panicIO msg = liftIO (throwIO (PanicException callStack msg))
