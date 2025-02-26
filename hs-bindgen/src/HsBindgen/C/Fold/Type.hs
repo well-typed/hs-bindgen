@@ -15,6 +15,7 @@ import Foreign.C
 import HsBindgen.C.AST
 
 import HsBindgen.Imports
+import HsBindgen.Errors
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Reparse
@@ -365,7 +366,7 @@ partitionFields = go id where
     go :: DList StructField -> [Field] -> Eff m ([StructField], Maybe StructField)
     go !fs []                       = return (fs [], Nothing)
     go !fs (IncompleteArray f : []) = return (fs [], Just f)
-    go !_  (IncompleteArray _ : _)  = fail "incomplete array is not a last field"
+    go !_  (IncompleteArray _ : _)  = panicIO "incomplete array is not a last field"
     go !fs (Normal f : xs)          = go (fs . (f :)) xs
 
 mkStructField ::

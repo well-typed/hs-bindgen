@@ -26,7 +26,7 @@ import HsBindgen.Errors
 newtype Eff m a = Eff {
       getEff :: ReaderT (Support m) IO a
     }
-  deriving newtype (Functor, Applicative, Monad, MonadFail, MonadIO, MonadUnliftIO)
+  deriving newtype (Functor, Applicative, Monad, MonadIO, MonadUnliftIO)
 
 wrapEff :: (Support m -> IO a) -> Eff m a
 wrapEff = Eff . ReaderT
