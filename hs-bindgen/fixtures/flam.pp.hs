@@ -35,7 +35,7 @@ deriving stock instance Show Pascal
 
 deriving stock instance Eq Pascal
 
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Pascal FC.CChar where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Pascal where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
@@ -93,7 +93,7 @@ deriving stock instance Show Foo
 
 deriving stock instance Eq Foo
 
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo Foo_bar where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
@@ -126,6 +126,6 @@ deriving stock instance Show Diff
 
 deriving stock instance Eq Diff
 
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Diff FC.CChar where
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Diff where
 
   flexibleArrayMemberOffset = \_ty0 -> 9
