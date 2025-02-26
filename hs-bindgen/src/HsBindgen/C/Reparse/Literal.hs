@@ -102,10 +102,10 @@ reparseLiteralFloating = do
   if
     | Nothing <- mbXs
     , Nothing <- mbExp
-    -> fail $ "cannot parse floating-point value: expected either '.' or '" ++ exponentText b ++ "'"
+    -> unexpected $ "cannot parse floating-point value: expected either '.' or '" ++ exponentText b ++ "'"
     | null as
     , case mbXs of { Nothing -> True; Just [] -> True; _ -> False }
-    -> fail $ "cannot parse floating-point value without any digits"
+    -> unexpected $ "cannot parse floating-point value without any digits"
     | otherwise
     -> do ty <- choice
             [ PrimFloat      <$ caseInsensitive' "f"
@@ -241,7 +241,7 @@ reparseLiteralChar = do
   case prefix of
     Just {} ->
       -- TODO: support other prefixes.
-      fail "unsupported character literal prefix"
+      unexpected "unsupported character literal prefix"
     Nothing ->
       case chars of
         [c] -> return c
@@ -256,10 +256,10 @@ reparseLiteralChar = do
           -- and the value of '\1\2\3\4' is 0x01020304.
           case traverse C.utf8SingleByteCodeUnit chars of
             Nothing ->
-              fail "multi-character literal contains a character wider than a byte"
+              unexpected "multi-character literal contains a character wider than a byte"
             Just bs
               | length bs > 4
-              -> fail "multi-character literal contains more than 4 characters"
+              -> unexpected "multi-character literal contains more than 4 characters"
               | otherwise
               -> return $
                    C.CharValue
@@ -374,11 +374,11 @@ universalEscapedChar = do
 
   -- See 'Range of universal character names' in https://en.cppreference.com/w/c/language/escape
   if | codePoint < 0xA0 && not (codePoint `elem` [0x24, 0x40, 0x60]) -- '$', '@', '`'
-     -> fail $ "universal character names cannot refer to basic characters (" ++ showCodePoint ++ ")"
+     -> unexpected $ "universal character names cannot refer to basic characters (" ++ showCodePoint ++ ")"
      | codePoint >= 0xD800 && codePoint < 0xDFFF
-     -> fail $ "universal character names cannot refer to surrogate code points (" ++ showCodePoint ++ ")"
+     -> unexpected $ "universal character names cannot refer to surrogate code points (" ++ showCodePoint ++ ")"
      | codePoint >= 0x10FFFF
-     -> fail $ "universal character name is not a valid Unicode code point (" ++ showCodePoint ++ ")"
+     -> unexpected $ "universal character name is not a valid Unicode code point (" ++ showCodePoint ++ ")"
      | otherwise
      -> return $ C.charValueFromCodePoint codePoint
 
@@ -399,6 +399,6 @@ reparseLiteralString = do
   case prefix of
     Just {} ->
       -- TODO: support other prefixes.
-      fail "unsupported string literal prefix"
+      unexpected "unsupported string literal prefix"
     Nothing ->
       return cs
