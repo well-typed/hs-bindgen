@@ -1,5 +1,7 @@
 module HsBindgen.Errors (
     HsBindgenException (..),
+    hsBindgenExceptionToException,
+    hsBindgenExceptionFromException,
     TODOException (..),
     throwPure_TODO,
     PanicException,
