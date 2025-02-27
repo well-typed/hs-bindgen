@@ -37,11 +37,11 @@ data ClangArgs = ClangArgs {
       -- | C standard
     , clangCStandard :: Maybe CStandard
 
-      -- | Enable both standard system @#include@ directories and builtin @#include@ directories (@False@ will pass @-nostdinc@)
-    , clangStdInc :: Bool
-
       -- | Enable GNU extensions when 'True'
     , clangEnableGnu :: Bool
+
+      -- | Enable both standard system @#include@ directories and builtin @#include@ directories (@False@ will pass @-nostdinc@)
+    , clangStdInc :: Bool
 
       -- | Directories in the system include search path
     , clangSystemIncludePathDirs :: [CIncludePathDir]
@@ -78,9 +78,9 @@ data CStandard =
 defaultClangArgs :: ClangArgs
 defaultClangArgs = ClangArgs {
       clangTarget                = Nothing
-    , clangStdInc                = False
     , clangCStandard             = Nothing
     , clangEnableGnu             = False
+    , clangStdInc                = True
     , clangSystemIncludePathDirs = []
     , clangQuoteIncludePathDirs  = []
     , clangOtherArgs             = []

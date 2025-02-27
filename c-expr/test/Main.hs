@@ -114,12 +114,11 @@ main = do
       clangArgs =
         case platformOS hostPlatform of
           Windows -> clangArgs0
-              { Clang.clangStdInc = True
-              }
           Posix ->
             clangArgs0
               { Clang.clangTarget =
                   Just (Clang.Target_Linux_X86_64, Clang.TargetEnvDefault)
+              , Clang.clangStdInc = False
               , Clang.clangSystemIncludePathDirs =
                   [ fromString (hsBindgenDir </> "musl-include/x86_64")
                   | hsBindgenDir <- maybeToList mbHsBindgenDir
