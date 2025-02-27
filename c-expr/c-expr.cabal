@@ -70,8 +70,6 @@ common common
         >= 1.4   && < 1.6
     , fin
         >= 0.3.2 && < 0.4
-    , temporary
-        >= 1.2   && < 1.4
     , text
         >= 1.2   && < 2.2
     , vec
