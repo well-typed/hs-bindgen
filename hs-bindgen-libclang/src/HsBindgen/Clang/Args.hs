@@ -37,7 +37,7 @@ data ClangArgs = ClangArgs {
       -- | C standard
     , clangCStandard :: Maybe CStandard
 
-      -- | Enablee both standard system @#include@ directories and builtin @#include@ directories (@False@ will pass @-nostdinc@)
+      -- | Enable both standard system @#include@ directories and builtin @#include@ directories (@False@ will pass @-nostdinc@)
     , clangStdInc :: Bool
 
       -- | Enable GNU extensions when 'True'
@@ -47,7 +47,7 @@ data ClangArgs = ClangArgs {
     , clangSystemIncludePathDirs :: [CIncludePathDir]
 
       -- | Directories in the non-system include search path
-    , clangIncludePathDirs :: [CIncludePathDir]
+    , clangQuoteIncludePathDirs :: [CIncludePathDir]
 
       -- | Other arguments
       --
@@ -82,7 +82,7 @@ defaultClangArgs = ClangArgs {
     , clangCStandard             = Nothing
     , clangEnableGnu             = False
     , clangSystemIncludePathDirs = []
-    , clangIncludePathDirs       = []
+    , clangQuoteIncludePathDirs  = []
     , clangOtherArgs             = []
     }
 
@@ -90,7 +90,7 @@ defaultClangArgs = ClangArgs {
   Translation
 -------------------------------------------------------------------------------}
 
-fromClangArgs :: ClangArgs -> IO (Either String [String])
+fromClangArgs :: ClangArgs -> Either String [String]
 fromClangArgs ClangArgs{..} = aux [
       ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
         return ["-target", target]
@@ -123,28 +123,29 @@ fromClangArgs ClangArgs{..} = aux [
           | clangEnableGnu -> return ["-std=gnu2x"]
           | otherwise      -> return ["-std=c2x"]
 
-    , do
-        sysIncPathDirs <- fmap (map getCIncludeAbsPathDir) . ExceptT $
-          resolveCIncludeAbsPathDirs clangSystemIncludePathDirs
-        incPathDirs <- fmap (map getCIncludeAbsPathDir) . ExceptT $
-          resolveCIncludeAbsPathDirs clangIncludePathDirs
-        return $
-             [ "-nostdinc" | not clangStdInc ]
-          ++ concat [["-isystem", path] | path <- sysIncPathDirs]
-          ++ concat [["-I",       path] | path <- incPathDirs]
+    , return $
+           [ "-nostdinc" | not clangStdInc ]
+        ++ concat [
+               ["-isystem", getCIncludePathDir path]
+             | path <- clangSystemIncludePathDirs
+             ]
+        ++ concat [
+               ["-I", getCIncludePathDir path]
+             | path <- clangQuoteIncludePathDirs
+             ]
 
     , return clangOtherArgs
     ]
   where
-    aux :: [ExceptT String IO [String]] -> IO (Either String [String])
-    aux = runExceptT . fmap concat . sequence
+    aux :: [Except String [String]] -> Either String [String]
+    aux = runExcept . fmap concat . sequence
 
     ifGiven ::
          Maybe a
-      -> (a -> Except  String    [String])
-      ->       ExceptT String IO [String]
+      -> (a -> Except String [String])
+      ->       Except String [String]
     ifGiven Nothing  _ = return []
-    ifGiven (Just a) f = ExceptT . return . runExcept $ f a
+    ifGiven (Just a) f = f a
 
 {-------------------------------------------------------------------------------
   Cross-compilation

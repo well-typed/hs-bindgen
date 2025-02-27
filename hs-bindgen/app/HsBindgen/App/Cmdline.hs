@@ -47,7 +47,7 @@ data Cmdline = Cmdline {
 data Mode =
     -- | The main mode: preprocess C headers to Haskell modules
     ModePreprocess {
-        preprocessInput           :: CHeaderRelPath
+        preprocessInput           :: CHeaderIncludePath
       , preprocessTranslationOpts :: TranslationOpts
       , preprocessModuleOpts      :: HsModuleOpts
       , preprocessRenderOpts      :: HsRenderOpts
@@ -55,7 +55,7 @@ data Mode =
       }
     -- | Generate tests for generated Haskell code
   | ModeGenTests {
-        genTestsInput      :: CHeaderRelPath
+        genTestsInput      :: CHeaderIncludePath
       , genTestsModuleOpts :: HsModuleOpts
       , genTestsRenderOpts :: HsRenderOpts
       , genTestsOutput     :: FilePath
@@ -67,11 +67,11 @@ data Mode =
 data DevMode =
     -- | Just parse the C header
     DevModeParseCHeader {
-        parseCHeaderInput :: CHeaderRelPath
+        parseCHeaderInput :: CHeaderIncludePath
       }
     -- | Generate prelude (bootstrap)
   | DevModePrelude {
-        preludeInput :: CHeaderRelPath
+        preludeInput :: CHeaderIncludePath
       }
   deriving (Show)
 
@@ -185,7 +185,7 @@ parseClangArgs = do
     clangStdInc <- pure True -- TODO: allow specifying --no-stdinc
     clangEnableGnu <-parseGnuOption
     clangSystemIncludePathDirs <- parseSystemIncludeDirOptions
-    clangIncludePathDirs <- parseIncludeDirOptions
+    clangQuoteIncludePathDirs <- parseQuoteIncludeDirOptions
     clangOtherArgs <- parseOtherArgs
     pure ClangArgs {..}
 
@@ -233,12 +233,12 @@ parseSystemIncludeDirOptions = many . strOption $ mconcat [
     , help "System include search path directory"
     ]
 
-parseIncludeDirOptions :: Parser [CIncludePathDir]
-parseIncludeDirOptions = many . strOption $ mconcat [
+parseQuoteIncludeDirOptions :: Parser [CIncludePathDir]
+parseQuoteIncludeDirOptions = many . strOption $ mconcat [
       short 'I'
     , long "include-path"
     , metavar "DIR"
-    , help "Non-system include search path directory"
+    , help "Quote include search path directory"
     ]
 
 parseOtherArgs :: Parser [String]
@@ -291,9 +291,9 @@ parseTarget = option (maybeReader readTarget) $ mconcat [
           (_   , []    ) -> Nothing
           (env , _:rest) -> Just (reverse rest, reverse env)
 
-parseInput :: Parser CHeaderRelPath
+parseInput :: Parser CHeaderIncludePath
 parseInput =
-    option (eitherReader mkCHeaderRelPath) $ mconcat $ [
+    option (eitherReader parseCHeaderIncludePath) $ mconcat $ [
            help "Input C header, relative to an include path directory"
          , metavar "PATH"
          , long "input"

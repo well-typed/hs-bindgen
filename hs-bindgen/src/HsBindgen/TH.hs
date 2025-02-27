@@ -5,6 +5,7 @@ import Control.Monad.IO.Class
 import Language.Haskell.TH
 
 import HsBindgen.Clang.Paths
+import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Lib
 
 -- | Generate bindings for the given C header
@@ -15,28 +16,25 @@ import HsBindgen.Lib
 -- TODO: add TranslationOpts argument
 --
 generateBindingsFor ::
-     [CIncludePathDir] -- ^ System include search path directories
-  -> [CIncludePathDir] -- ^ Non-system include search path directories
-  -> CHeaderRelPath    -- ^ Input header
+     [CIncludePathDir]  -- ^ System include search path directories
+  -> [CIncludePathDir]  -- ^ Quote include search path directories
+  -> CHeaderIncludePath -- ^ Input header
   -> Q [Dec]
-generateBindingsFor sysIncPathDirs incPathDirs relPath = do
-    cHeader <- liftIO $ do
-      sysIncAbsPathDirs <- either fail return
-        =<< resolveCIncludeAbsPathDirs sysIncPathDirs
-      incAbsPathDirs <- either fail return
-        =<< resolveCIncludeAbsPathDirs incPathDirs
-      absPath <- either fail return
-        =<< resolveHeader (sysIncAbsPathDirs ++ incAbsPathDirs) relPath
-      let clangArgs = defaultClangArgs {
-              clangSystemIncludePathDirs = sysIncPathDirs
-            , clangIncludePathDirs       = incPathDirs
-            }
-      withTranslationUnit traceWarnings clangArgs absPath $
+generateBindingsFor sysIncPathDirs quoteIncPathDirs headerIncludePath = do
+    src <- liftIO $ resolveHeader' args headerIncludePath
+    cHeader <- liftIO $
+      withTranslationUnit traceWarnings args src $
         parseCHeader traceSkipped SelectFromMainFile
-    genTH relPath defaultTranslationOpts cHeader
+    genTH headerIncludePath defaultTranslationOpts cHeader
   where
     traceWarnings :: Tracer IO Diagnostic
     traceWarnings = contramap show $ mkTracerQ False
 
     traceSkipped :: Tracer IO Skipped
     traceSkipped = contramap prettyLogMsg $ mkTracerQ False
+
+    args :: ClangArgs
+    args = defaultClangArgs {
+        clangSystemIncludePathDirs = sysIncPathDirs
+      , clangQuoteIncludePathDirs  = quoteIncPathDirs
+      }

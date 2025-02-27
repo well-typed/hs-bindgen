@@ -19,7 +19,6 @@ import Data.GADT.Compare (GEq(geq))
 import Data.Nat (Nat(..))
 import Data.Vec.Lazy (Vec(..))
 import Data.String
-import Data.Text qualified as Text
 import Data.Type.Equality
   ( type (:~:)(..) )
 import Data.Type.Nat (SNatI)
@@ -32,6 +31,7 @@ import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Type
 import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.Paths
 import HsBindgen.Pretty.Orphans
   ()
 import HsBindgen.Util.TestEquality
@@ -231,8 +231,7 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
       ]
   where
     sourcePath :: FilePath
-    sourcePath = Text.unpack . getSourcePath . singleLocPath $
-                   multiLocExpansion macroLoc
+    sourcePath = getSourcePath . singleLocPath $ multiLocExpansion macroLoc
 
     includeGuards :: [CName]
     includeGuards = possibleIncludeGuards (takeBaseName sourcePath)

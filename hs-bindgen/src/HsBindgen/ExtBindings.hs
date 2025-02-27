@@ -20,8 +20,10 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
 
+import HsBindgen.Clang.Args
 import HsBindgen.Clang.CNameSpelling
 import HsBindgen.Clang.Paths
+import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Imports
 import HsBindgen.Orphans ()
 
@@ -64,25 +66,24 @@ data ExtIdentifier = ExtIdentifier {
 newtype UnresolvedExtBindings = UnresolvedExtBindings {
       -- | Types mapping
       --
-      -- For a given 'CNameSpelling', the sets of 'CHeaderRelPath' are
+      -- For a given 'CNameSpelling', the sets of 'CHeaderIncludePath' are
       -- disjoint.  The type is therefore equivalent to
-      -- @'Map' 'CNameSpelling' ('Map' 'CHeaderPath' 'ExtIdentifier')@ but this
-      -- type is used as an optimization.  In most cases, each 'CNameSpelling'
-      -- is mapped to exactly one value with a set of few headers.
+      -- @'Map' 'CNameSpelling' ('Map' 'CHeaderIncludePath' 'ExtIdentifier')@
+      -- but this type is used as an optimization.  In most cases, each
+      -- 'CNameSpelling' is mapped to exactly one value with a set of few
+      -- headers.
       unresolvedExtBindingsTypes ::
-        Map CNameSpelling [(Set CHeaderRelPath, ExtIdentifier)]
+        Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
     }
   deriving Show
 
--- | External bindings
---
--- Header paths are absolute and confirmed to exist.
+-- | External bindings with resolved header paths
 newtype ExtBindings = ExtBindings {
       -- | Types mapping
       --
       -- See the documentation for 'unresolvedExtBindingsTypes'.
       extBindingsTypes ::
-        Map CNameSpelling [(Set CHeaderAbsPath, ExtIdentifier)]
+        Map CNameSpelling [(Set SourcePath, ExtIdentifier)]
     }
   deriving Show
 
@@ -114,15 +115,14 @@ loadYaml path =
 --
 -- This function fails on error.
 resolveExtBindings ::
-     [CIncludeAbsPathDir]
+     ClangArgs
   -> UnresolvedExtBindings
   -> IO ExtBindings
-resolveExtBindings includePathDirs UnresolvedExtBindings{..} = do
-    let relPaths = Set.toAscList . mconcat $
+resolveExtBindings args UnresolvedExtBindings{..} = do
+    let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
-    headerMap <- fmap Map.fromList . forM relPaths $ \relPath ->
-      either fail (return . (relPath,))
-        =<< resolveHeader includePathDirs relPath
+    headerMap <- fmap Map.fromList . forM cPaths $ \cPath ->
+      (cPath,) <$> resolveHeader' args cPath
     let resolve'         = map $ first $ Set.map (headerMap Map.!)
         extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
     return ExtBindings{..}
@@ -146,7 +146,7 @@ instance Aeson.FromJSON Config where
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
       mappingCname      :: CNameSpelling
-    , mappingHeaders    :: [CHeaderRelPath]
+    , mappingHeaders    :: [CHeaderIncludePath]
     , mappingIdentifier :: HsIdentifier
     , mappingModule     :: HsModuleName
     , mappingPackage    :: HsPackageName
@@ -196,10 +196,14 @@ mkUnresolvedExtBindings Config{..} = do
   where
     mkMap ::
          [Mapping]
-      -> Either String (Map CNameSpelling [(Set CHeaderRelPath, ExtIdentifier)])
+      -> Either
+           String
+           (Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)])
     mkMap = mkMapErr . foldr mkMapInsert (Map.empty, Map.empty)
 
-    mkMapErr :: (Map CNameSpelling (Set CHeaderRelPath), a) -> Either String a
+    mkMapErr ::
+         (Map CNameSpelling (Set CHeaderIncludePath), a)
+      -> Either String a
     mkMapErr (dupMap, x)
       | Map.null dupMap = Right x
       | otherwise = Left $ List.intercalate ", " [
@@ -207,7 +211,7 @@ mkUnresolvedExtBindings Config{..} = do
                 "duplicate mapping for"
               , Text.unpack (getCNameSpelling cname)
               , "in header"
-              , getCHeaderRelPath header
+              , renderCHeaderIncludePath header
               ]
           | (cname, headerSet) <- Map.toAscList dupMap
           , header <- Set.toAscList headerSet
@@ -215,11 +219,11 @@ mkUnresolvedExtBindings Config{..} = do
 
     mkMapInsert ::
          Mapping
-      -> ( Map CNameSpelling (Set CHeaderRelPath)
-         , Map CNameSpelling [(Set CHeaderRelPath, ExtIdentifier)]
+      -> ( Map CNameSpelling (Set CHeaderIncludePath)
+         , Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
          )
-      -> ( Map CNameSpelling (Set CHeaderRelPath)
-         , Map CNameSpelling [(Set CHeaderRelPath, ExtIdentifier)]
+      -> ( Map CNameSpelling (Set CHeaderIncludePath)
+         , Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
          )
     mkMapInsert Mapping{..} (dupMap, accMap) =
       let extIdentifier = ExtIdentifier {
@@ -235,10 +239,10 @@ mkUnresolvedExtBindings Config{..} = do
 
     mkMapDup ::
          CNameSpelling
-      -> [(Set CHeaderRelPath, ExtIdentifier)]
-      -> [(Set CHeaderRelPath, ExtIdentifier)]
-      -> Map CNameSpelling (Set CHeaderRelPath)
-      -> Map CNameSpelling (Set CHeaderRelPath)
+      -> [(Set CHeaderIncludePath, ExtIdentifier)]
+      -> [(Set CHeaderIncludePath, ExtIdentifier)]
+      -> Map CNameSpelling (Set CHeaderIncludePath)
+      -> Map CNameSpelling (Set CHeaderIncludePath)
     mkMapDup cname newV oldV dupMap =
       let commonHeaders =
             Set.intersection (mconcat (fst <$> newV)) (mconcat (fst <$> oldV))

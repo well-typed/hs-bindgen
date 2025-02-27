@@ -19,6 +19,7 @@ import TH
 #endif
 
 import HsBindgen.Clang.Paths
+import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
@@ -30,13 +31,10 @@ main = do
 main' :: FilePath -> IO FilePath -> TestTree
 main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
-        relPath <- either fail return $ mkCHeaderRelPath "simple_structs.h"
-        let args = clangArgs packageRoot
-        includeDirs <- either fail return =<<
-          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
-        absPath <- either fail return =<< resolveHeader includeDirs relPath
-
-        triple <- withC nullTracer args absPath getTargetTriple
+        let headerIncludePath = CHeaderQuoteIncludePath "simple_structs.h"
+            args = clangArgs packageRoot
+        src <- resolveHeader' args headerIncludePath
+        triple <- withC nullTracer args src getTargetTriple
 
         -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
         -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -86,61 +84,46 @@ main' packageRoot bg = testGroup "golden"
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do
-        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
-        let args = clangArgs packageRoot
-        includeDirs <- either fail return =<<
-          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
-        absPath <- either fail return =<< resolveHeader includeDirs relPath
-
-        let tracer = mkTracer report report report False
-
-        parseC tracer args absPath
+        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+            args = clangArgs packageRoot
+            tracer = mkTracer report report report False
+        src <- resolveHeader' args headerIncludePath
+        parseC tracer args src
 
     goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
-        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
-        let args = clangArgs packageRoot
-        includeDirs <- either fail return =<<
-          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
-        absPath <- either fail return =<< resolveHeader includeDirs relPath
-
-        let tracer = mkTracer report report report False
-
-        header <- parseC tracer args absPath
-        return $ genHsDecls relPath defaultTranslationOpts header
+        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+            args = clangArgs packageRoot
+            tracer = mkTracer report report report False
+        src <- resolveHeader' args headerIncludePath
+        header <- parseC tracer args src
+        return $ genHsDecls headerIncludePath defaultTranslationOpts header
 
     goldenExtensions name = goldenVsStringDiff_ "exts" ("fixtures" </> (name ++ ".exts.txt")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
-        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
-        let args = clangArgs packageRoot
-        includeDirs <- either fail return =<<
-          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
-        absPath <- either fail return =<< resolveHeader includeDirs relPath
-
-        let tracer = mkTracer report report report False
-
-        header <- parseC tracer args absPath
+        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+            args = clangArgs packageRoot
+            tracer = mkTracer report report report False
+        src <- resolveHeader' args headerIncludePath
+        header <- parseC tracer args src
         return $ unlines $ map show $ sort $ toList $
-            genExtensions relPath defaultTranslationOpts header
+            genExtensions headerIncludePath defaultTranslationOpts header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
         -- -<.> does weird stuff for filenames with multiple dots;
         -- I usually simply avoid using it.
-        relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
-        let args = clangArgs packageRoot
-        includeDirs <- either fail return =<<
-          resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
-        absPath <- either fail return =<< resolveHeader includeDirs relPath
-
-        let tracer = mkTracer report report report False
-
-        header <- parseC tracer args absPath
+        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+            args = clangArgs packageRoot
+            tracer = mkTracer report report report False
+        src <- resolveHeader' args headerIncludePath
+        header <- parseC tracer args src
 
         -- TODO: PP.render should add trailing '\n' itself.
-        return $ (Backend.PP.render renderOpts $ unwrapHsModule $ genModule relPath defaultTranslationOpts moduleOpts header) ++ "\n"
+        return $ (Backend.PP.render renderOpts $ unwrapHsModule $
+          genModule headerIncludePath defaultTranslationOpts moduleOpts header) ++ "\n"
       where
         moduleOpts :: HsModuleOpts
         moduleOpts = HsModuleOpts
@@ -155,21 +138,21 @@ main' packageRoot bg = testGroup "golden"
 withC ::
      Tracer IO String
   -> ClangArgs
-  -> CHeaderAbsPath
+  -> SourcePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withC tracer args headerPath =
-    withTranslationUnit tracerD args headerPath
+withC tracer args src =
+    withTranslationUnit tracerD args src
   where
     tracerD = contramap show tracer
 
 parseC ::
      Tracer IO String
   -> ClangArgs
-  -> CHeaderAbsPath
+  -> SourcePath
   -> IO CHeader
-parseC tracer args headerPath =
-    withC tracer args headerPath $
+parseC tracer args src =
+    withC tracer args src $
       parseCHeader tracerP SelectFromMainFile
   where
     tracerP = contramap prettyLogMsg tracer

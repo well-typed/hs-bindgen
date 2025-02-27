@@ -106,7 +106,7 @@ defaultTranslationOpts = TranslationOpts {
 
 -- filepath argument https://github.com/well-typed/hs-bindgen/issues/333
 generateDeclarations ::
-     CHeaderRelPath
+     CHeaderIncludePath
   -> TranslationOpts
   -> C.Header
   -> [Hs.Decl]
@@ -118,7 +118,7 @@ generateDeclarations = toHs
 
 class ToHs (a :: Star) where
   type InHs a :: Star
-  toHs :: CHeaderRelPath -> TranslationOpts -> a -> InHs a
+  toHs :: CHeaderIncludePath -> TranslationOpts -> a -> InHs a
 
 instance ToHs C.Header where
   type InHs C.Header = [Hs.Decl]
@@ -464,13 +464,13 @@ floatingType = \case
   Function
 -------------------------------------------------------------------------------}
 
-functionDecs :: CHeaderRelPath -> TranslationOpts -> C.Function -> [Hs.Decl]
-functionDecs header _opts f =
+functionDecs :: CHeaderIncludePath -> TranslationOpts -> C.Function -> [Hs.Decl]
+functionDecs headerIncludePath _opts f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangleVarName nm $ VarContext $ C.functionName f
         , foreignImportType       = typ nm $ C.functionType f
         , foreignImportOrigName   = C.getCName (C.functionName f)
-        , foreignImportHeader     = getCHeaderRelPath header
+        , foreignImportHeader     = getCHeaderIncludePath headerIncludePath
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]

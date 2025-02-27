@@ -72,13 +72,10 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         return $ Continue Nothing
 
       Right CXCursor_InclusionDirective -> do
-        header <- either fail return $
-          mkCHeaderAbsPath (getSourcePath (singleLocPath sloc))
         incHeader <- liftIO $
-              either fail return . mkCHeaderAbsPath
-          =<< clang_getFileName
+              fmap SourcePath . clang_getFileName
           =<< clang_getIncludedFile current
-        modify $ registerInclude header incHeader
+        modify $ registerInclude (singleLocPath sloc) incHeader
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
@@ -119,7 +116,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
 --
 -- This hack is necessary because @clang_Cursor_isMacroBuiltin@ is not working.
 isBuiltinMacro :: SingleLoc -> Bool
-isBuiltinMacro = Text.null . getSourcePath . singleLocPath
+isBuiltinMacro = nullSourcePath . singleLocPath
 
 mkMacro ::
      MonadIO m

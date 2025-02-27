@@ -4,7 +4,6 @@ module Orphans where
 
 import Data.Foldable (toList)
 import Data.List qualified as List
-import Data.Text qualified as Text
 import Data.TreeDiff.Class (ToExpr(..))
 import Data.TreeDiff.Expr qualified as Expr
 import Data.TreeDiff.OMap qualified as OMap
@@ -15,6 +14,7 @@ import System.FilePath qualified as FilePath
 
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
+import HsBindgen.Clang.Paths qualified as Paths
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
@@ -77,7 +77,7 @@ instance ToExpr a => ToExpr (C.Token a)
 -- do not use record syntax, as it's very verbose
 instance ToExpr C.SingleLoc where
   toExpr (C.SingleLoc p l c) = toExpr $
-    let filename = FilePath.takeFileName . Text.unpack $ C.getSourcePath p
+    let filename = FilePath.takeFileName $ Paths.getSourcePath p
     in  filename ++ ":" ++ show l ++ ":" ++ show c
 
 instance ToExpr C.ReparseError where

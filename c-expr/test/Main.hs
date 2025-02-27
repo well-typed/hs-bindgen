@@ -114,6 +114,8 @@ main = do
       clangArgs =
         case platformOS hostPlatform of
           Windows -> clangArgs0
+              { Clang.clangStdInc = True
+              }
           Posix ->
             clangArgs0
               { Clang.clangTarget =

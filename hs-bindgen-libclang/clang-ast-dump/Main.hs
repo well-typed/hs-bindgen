@@ -9,6 +9,7 @@ import Control.Monad.IO.Class
 import Data.Bifunctor
 import Foreign.C.Types (CUInt)
 
+import Data.Text (Text)
 import Data.Text qualified as T
 import Options.Applicative qualified as OA
 
@@ -17,6 +18,8 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
+import HsBindgen.Clang.Paths
+import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
@@ -25,12 +28,15 @@ import HsBindgen.Runtime.Enum.Simple
 -------------------------------------------------------------------------------}
 
 data Options = Options {
-      optComments :: Bool
-    , optExtents  :: Bool
-    , optFile     :: FilePath
-    , optKind     :: Bool
-    , optSameFile :: Bool
-    , optType     :: Bool
+      optBuiltin           :: Bool
+    , optComments          :: Bool
+    , optExtents           :: Bool
+    , optFile              :: CHeaderIncludePath
+    , optKind              :: Bool
+    , optQuoteIncludePath  :: [CIncludePathDir]
+    , optSameFile          :: Bool
+    , optSystemIncludePath :: [CIncludePathDir]
+    , optType              :: Bool
     }
 
 {-------------------------------------------------------------------------------
@@ -39,121 +45,154 @@ data Options = Options {
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts@Options{..} = do
-    putStrLn $ "## `" ++ optFile ++ "`"
+    putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
-    index <- clang_createIndex DontDisplayDiagnostics
-    let clangOpts = bitfieldEnum [CXTranslationUnit_None]
-    unit <- clang_parseTranslationUnit index optFile defaultClangArgs clangOpts
-    rootCursor <- clang_getTranslationUnitCursor unit
-    void . HighLevel.clang_visitChildren rootCursor $
-      \cursor -> do
-        (cursorFile, _, _) <- liftIO $
-          clang_getPresumedLocation =<< clang_getCursorLocation cursor
-        if optSameFile && cursorFile /= T.pack optFile
-          then pure $ Continue Nothing
-          else foldDecls opts cursor
+
+    src <- resolveHeader' cArgs optFile
+    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
+      HighLevel.withTranslationUnit index src cArgs [] cOpts $ \unit -> do
+        rootCursor <- clang_getTranslationUnitCursor unit
+        void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
+          loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
+          case loc of
+            (file, _, _)
+              | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
+              | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
+              | otherwise                             -> foldDecls opts cursor
+  where
+    cArgs :: ClangArgs
+    cArgs = defaultClangArgs {
+        clangSystemIncludePathDirs = optSystemIncludePath
+      , clangQuoteIncludePathDirs  = optQuoteIncludePath
+      }
+
+    cOpts :: BitfieldEnum CXTranslationUnit_Flags
+    cOpts = bitfieldEnum [
+        CXTranslationUnit_SkipFunctionBodies
+      , CXTranslationUnit_DetailedPreprocessingRecord
+      , CXTranslationUnit_IncludeAttributedTypes
+      , CXTranslationUnit_VisitImplicitAttributes
+      ]
+
+    isBuiltIn :: Text -> Bool
+    isBuiltIn = (`elem` [T.pack "<built-in>", T.pack "<command line>"])
 
 foldDecls :: Options -> CXCursor -> IO (Next IO ())
 foldDecls opts@Options{..} cursor = do
-    traceU_ 0 =<< liftIO (clang_getCursorDisplayName cursor)
+    traceU_ 0 =<< clang_getCursorDisplayName cursor
 
-    semanticParent <- liftIO $ clang_getCursorSemanticParent cursor
-    lexicalParent  <- liftIO $ clang_getCursorLexicalParent  cursor
-    parentsEq      <- liftIO $ clang_equalCursors semanticParent lexicalParent
-    if parentsEq
-      then
-        traceWhen 1 "parent" (/= T.pack optFile)
-          =<< liftIO (clang_getCursorDisplayName semanticParent)
-      else do
-        traceU 1 "semantic parent"
-          =<< liftIO (clang_getCursorDisplayName semanticParent)
-        traceU 1 "lexical parent"
-          =<< liftIO (clang_getCursorDisplayName lexicalParent)
+    dumpParents
+    when optExtents dumpExtent
 
-    when optExtents $ do
-      extent <- liftIO $ clang_getCursorExtent cursor
-      (file, startLine, startCol) <- liftIO $
-        clang_getPresumedLocation =<< clang_getRangeStart extent
-      (_, endLine, endCol) <- liftIO $
-        clang_getPresumedLocation =<< clang_getRangeEnd extent
-      traceU 1 "extent" (file, (startLine, startCol), (endLine, endCol))
-
-    cursorKind <- liftIO $ clang_getCursorKind cursor
+    cursorKind <- clang_getCursorKind cursor
     traceU 1 "cursor kind" cursorKind
-    isDecl <- liftIO $ clang_isDeclaration cursorKind
+    isDecl <- clang_isDeclaration cursorKind
     when optKind $
       traceWhen 2 "declaration" id isDecl
 
-    cursorType <- liftIO $ clang_getCursorType cursor
-    let typeKind = cxtKind cursorType
-    traceU 1 "cursor type" =<< liftIO (clang_getTypeSpelling cursorType)
-    when optType $ do
-      traceU 2 "kind" $ fromSimpleEnum typeKind
-      traceU 3 "spelling" =<< liftIO (clang_getTypeKindSpelling typeKind)
-      traceU 2 "canonical"
-        =<< liftIO (clang_getTypeSpelling =<< clang_getCanonicalType cursorType)
-      when isDecl $ do
-        decl <- liftIO $ HighLevel.classifyDeclaration cursor
-        case decl of
-          DeclarationRegular -> do
-            traceU 2 "declaration type" "DeclarationRegular"
-            traceU 2 "sizeof"
-              =<< handleCallFailed (clang_Type_getSizeOf cursorType)
-            traceU 2 "alignment"
-              =<< handleCallFailed (clang_Type_getAlignOf cursorType)
-          DeclarationForward{} ->
-            traceU 2 "declaration type" "DeclarationForward"
-          DeclarationOpaque ->
-            traceU 2 "declaration type" "DeclarationOpaque"
+    cursorType <- clang_getCursorType cursor
 
     isRecurse <- case fromSimpleEnum cursorKind of
-      Right CXCursor_StructDecl ->
+      Right CXCursor_StructDecl -> do
+        dumpType cursorType isDecl
         pure True
       Right CXCursor_EnumDecl -> do
-        traceU 1 "integer type" =<< liftIO (clang_getEnumDeclIntegerType cursor)
+        dumpType cursorType isDecl
+        traceU 1 "integer type" =<< clang_getEnumDeclIntegerType cursor
         pure True
       Right CXCursor_FieldDecl -> do
-        traceU 1 "field offset"
-          =<< liftIO (clang_Cursor_getOffsetOfField cursor)
-        isBitField <- liftIO $ clang_Cursor_isBitField cursor
+        dumpType cursorType isDecl
+        traceU 1 "field offset" =<< clang_Cursor_getOffsetOfField cursor
+        isBitField <- clang_Cursor_isBitField cursor
         when isBitField $
-          traceU 1 "bit width"
-            =<< liftIO (clang_getFieldDeclBitWidth cursor)
+          traceU 1 "bit width" =<< clang_getFieldDeclBitWidth cursor
         pure False -- leaf
       Right CXCursor_EnumConstantDecl -> do
-        traceU 1 "integer value"
-          =<< liftIO (clang_getEnumConstantDeclValue cursor)
+        dumpType cursorType isDecl
+        traceU 1 "integer value" =<< clang_getEnumConstantDeclValue cursor
         pure False -- leaf
       Right CXCursor_FunctionDecl -> do
-        numArgs <- liftIO $ clang_getNumArgTypes cursorType
+        dumpType cursorType isDecl
+        numArgs <- clang_getNumArgTypes cursorType
         traceU 1 "args" numArgs
         forM_ [0 .. numArgs - 1] $ \i -> do
-          argType <- liftIO $ clang_getArgType cursorType (fromIntegral i)
-          traceO_ 2 i =<< liftIO (clang_getTypeSpelling argType)
-        resultType <- liftIO $ clang_getResultType cursorType
-        traceU 1 "result" =<< liftIO (clang_getTypeSpelling resultType)
+          argType <- clang_getArgType cursorType (fromIntegral i)
+          traceO_ 2 i =<< clang_getTypeSpelling argType
+        resultType <- clang_getResultType cursorType
+        traceU 1 "result" =<< clang_getTypeSpelling resultType
         pure False
       Right CXCursor_TypedefDecl -> do
-        traceU 1 "typedef name" =<< liftIO (clang_getTypedefName cursorType)
+        dumpType cursorType isDecl
+        traceU 1 "typedef name" =<< clang_getTypedefName cursorType
         pure True -- results in repeated information unless typedef is decl
       Right CXCursor_MacroDefinition ->
         -- TODO not defined yet
         pure True
+      Right CXCursor_InclusionDirective ->
+        pure False -- does not matter
       Right CXCursor_UnionDecl -> do
+        dumpType cursorType isDecl
         pure True
       Right{} -> False <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
       Left n  -> False <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
 
     when (isDecl && optComments) $ do
-      commentText <- liftIO $ clang_Cursor_getRawCommentText cursor
+      commentText <- clang_Cursor_getRawCommentText cursor
       unless (T.null commentText) $ do
         traceU 1 "comment" commentText
-        traceU 2 "brief" =<< liftIO (clang_Cursor_getBriefCommentText cursor)
-        liftIO $ dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
+        traceU 2 "brief" =<< clang_Cursor_getBriefCommentText cursor
+        dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
 
     pure $ if isRecurse
       then Recurse (foldDecls opts) (const Nothing)
       else Continue Nothing
+  where
+    dumpParents :: IO ()
+    dumpParents = do
+      semanticParent <- clang_getCursorSemanticParent cursor
+      lexicalParent  <- clang_getCursorLexicalParent  cursor
+      parentsEq      <- clang_equalCursors semanticParent lexicalParent
+      if parentsEq
+        then
+          traceU 1 "parent"
+            =<< clang_getCursorDisplayName semanticParent
+        else do
+          traceU 1 "semantic parent"
+            =<< clang_getCursorDisplayName semanticParent
+          traceU 1 "lexical parent"
+            =<< clang_getCursorDisplayName lexicalParent
+
+    dumpExtent :: IO ()
+    dumpExtent = do
+      extent <- clang_getCursorExtent cursor
+      (file, startLine, startCol) <-
+        clang_getPresumedLocation =<< clang_getRangeStart extent
+      (_, endLine, endCol) <-
+        clang_getPresumedLocation =<< clang_getRangeEnd extent
+      traceU 1 "extent" (file, (startLine, startCol), (endLine, endCol))
+
+    dumpType :: CXType -> Bool -> IO ()
+    dumpType cursorType isDecl = do
+      traceU 1 "cursor type" =<< clang_getTypeSpelling cursorType
+      when optType $ do
+        let typeKind = cxtKind cursorType
+        traceU 2 "kind" $ fromSimpleEnum typeKind
+        traceU 3 "spelling" =<< clang_getTypeKindSpelling typeKind
+        traceU 2 "canonical"
+          =<< clang_getTypeSpelling =<< clang_getCanonicalType cursorType
+        when isDecl $ do
+          decl <- HighLevel.classifyDeclaration cursor
+          case decl of
+            DeclarationRegular -> do
+              traceU 2 "declaration type" "DeclarationRegular"
+              traceU 2 "sizeof"
+                =<< handleCallFailed (clang_Type_getSizeOf cursorType)
+              traceU 2 "alignment"
+                =<< handleCallFailed (clang_Type_getAlignOf cursorType)
+            DeclarationForward{} ->
+              traceU 2 "declaration type" "DeclarationForward"
+            DeclarationOpaque ->
+              traceU 2 "declaration type" "DeclarationOpaque"
 
 dumpComment :: Int -> Maybe CUInt -> CXComment -> IO ()
 dumpComment level mIdx comment = do
@@ -374,26 +413,43 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       -- all flag
       optAll      <- mkFlag "all"       "enable all above flags"
       -- other options/arguments
+      optBuiltin  <- mkFlag "builtin"   "show builtin macros"
       optSameFile <- mkFlag "same-file" "only show from specified file"
-      optFile     <- fileArgument
+      optSystemIncludePath <- systemIncludePathOption
+      optQuoteIncludePath  <- quoteIncludePathOption
+      optFile              <- fileArgument
       pure (optAll, Options{..})
 
-    fileArgument :: OA.Parser FilePath
-    fileArgument = OA.strArgument $ mconcat
-      [ OA.metavar "FILE"
-      , OA.help "C (header) file to parse"
+    systemIncludePathOption :: OA.Parser [CIncludePathDir]
+    systemIncludePathOption = OA.many . OA.strOption $ mconcat
+      [ OA.long "system-include-path"
+      , OA.metavar "DIR"
+      , OA.help "System include search path directory"
       ]
+
+    quoteIncludePathOption :: OA.Parser [CIncludePathDir]
+    quoteIncludePathOption = OA.many . OA.strOption $ mconcat
+      [ OA.short 'I'
+      , OA.long "include-path"
+      , OA.metavar "DIR"
+      , OA.help "Quote include search path directory"
+      ]
+
+    fileArgument :: OA.Parser CHeaderIncludePath
+    fileArgument = OA.argument (OA.eitherReader parseCHeaderIncludePath) $
+      mconcat
+        [ OA.metavar "FILE"
+        , OA.help "C (header) file to parse"
+        ]
 
     mkFlag :: String -> String -> OA.Parser Bool
     mkFlag flag doc = OA.switch $ OA.long flag <> OA.help doc
 
     applyAll :: Bool -> Options -> Options
     applyAll False opts = opts
-    applyAll True Options{..} = Options {
+    applyAll True  opts = opts {
         optComments = True
       , optExtents  = True
-      , optFile     = optFile
       , optKind     = True
-      , optSameFile = optSameFile
       , optType     = True
       }

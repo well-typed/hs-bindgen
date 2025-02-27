@@ -22,13 +22,13 @@ import HsBindgen.Imports
 
 -- | Generate test suite
 genTests ::
-     CHeaderRelPath -- ^ C header file path
+     CHeaderIncludePath
   -> C.Header
-  -> String         -- ^ Generated Haskell module name
-  -> Int            -- ^ Maximum line length
-  -> FilePath       -- ^ Test suite directory path
+  -> String   -- ^ Generated Haskell module name
+  -> Int      -- ^ Maximum line length
+  -> FilePath -- ^ Test suite directory path
   -> IO ()
-genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
+genTests headerIncludePath cHeader moduleName lineLength testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
@@ -42,7 +42,7 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
       cTestHeaderPath
       cTestSourcePath
       lineLength
-      cHeaderPath
+      headerIncludePath
       decls
     genTestsHs
       hsTestPath
@@ -71,7 +71,11 @@ genTests cHeaderPath cHeader moduleName lineLength testSuitePath = do
     hsMainPath                = FilePath.combine srcPath "Main.hs"
 
     decls :: [Decl]
-    decls = Hs.generateDeclarations cHeaderPath Hs.defaultTranslationOpts cHeader
+    decls =
+      Hs.generateDeclarations
+        headerIncludePath
+        Hs.defaultTranslationOpts
+        cHeader
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

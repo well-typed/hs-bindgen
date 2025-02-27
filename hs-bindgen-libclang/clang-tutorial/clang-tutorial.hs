@@ -4,10 +4,12 @@
 module Main (main) where
 
 import Control.Monad
+import Data.Text qualified as Text
 import System.Environment
 
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
@@ -24,8 +26,9 @@ tutorial fp = do
     index  <- clang_createIndex DontDisplayDiagnostics
     unit   <- clang_parseTranslationUnit
                 index
-                fp
+                (SourcePath (Text.pack fp))
                 defaultClangArgs
+                []
                 (bitfieldEnum [CXTranslationUnit_None])
     cursor <- clang_getTranslationUnitCursor unit
 

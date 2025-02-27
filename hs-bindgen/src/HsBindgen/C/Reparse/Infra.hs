@@ -31,6 +31,7 @@ import Text.Parsec.Pos
 import HsBindgen.Imports
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer (PrettyLogMsg(..))
 
@@ -56,7 +57,7 @@ reparseWith p tokens =
     sourcePath =
         case tokens of
           []  -> error "reparseWith: empty list"
-          t:_ -> Text.unpack . getSourcePath $ singleLocPath start
+          t:_ -> getSourcePath $ singleLocPath start
             where
               start :: SingleLoc
               start = rangeStart $ multiLocExpansion <$> tokenExtent t
@@ -109,7 +110,7 @@ token = Parsec.token tokenPretty tokenSourcePos
     tokenSourcePos :: Token a -> SourcePos
     tokenSourcePos t =
         newPos
-          (Text.unpack . getSourcePath $ singleLocPath start)
+          (getSourcePath $ singleLocPath start)
           (singleLocLine start)
           (singleLocColumn start)
       where
