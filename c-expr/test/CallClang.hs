@@ -33,13 +33,6 @@ import Data.Map.Strict
   ( Map )
 import Data.Map.Strict qualified as Map
 
--- directory
-import System.Directory
-  ( removeFile )
-
--- temporary
-import System.IO.Temp qualified as Tmp
-
 -- text
 import Data.Text
   ( Text )
@@ -57,12 +50,13 @@ import HsBindgen.Clang.HighLevel.Types qualified as Clang
 import HsBindgen.Clang.LowLevel.Core qualified as Clang
   hiding ( clang_visitChildren, clang_getCursorSpelling )
 import HsBindgen.Clang.Args qualified as Clang
+import HsBindgen.Clang.Paths qualified as Paths
 
 -- hs-bindgen-runtime
 import HsBindgen.Runtime.Enum.Simple qualified as Clang
   ( fromSimpleEnum )
 import HsBindgen.Runtime.Enum.Bitfield qualified as Clang
-  ( bitfieldEnum )
+  ( BitfieldEnum, bitfieldEnum )
 
 -- c-expr
 import C.Type
@@ -160,9 +154,9 @@ parseClangType cxTy = do
 
 -- | Query @clang@ for canonical names for types.
 getExpansionTypeMapping :: Clang.ClangArgs -> [ CType ] -> IO ( Map CType CType )
-getExpansionTypeMapping clangArgs tys = do
-  cxTys <- Map.fromList <$> clangVisitChildren clangArgs ( getCanonicalType Nothing ) sourceProgram
-  traverse ( \ cxTy -> expectJust cxTy =<< parseClangType cxTy ) cxTys
+getExpansionTypeMapping clangArgs tys =
+  clangVisitChildren clangArgs sourceProgram ( getCanonicalType Nothing ) $
+    traverse ( \ cxTy -> expectJust cxTy =<< parseClangType cxTy ) . Map.fromList
 
   where
 
@@ -233,7 +227,8 @@ getExpansionTypeMapping clangArgs tys = do
 
 queryClangForResultType :: forall n. Clang.ClangArgs -> Vec n CType -> ( Vec n String -> String ) -> IO ( Maybe CType )
 queryClangForResultType clangArgs tys op =
-  listToMaybe <$> clangVisitChildren clangArgs ( extractType ( False, False ) ) sourceProgram
+  clangVisitChildren clangArgs sourceProgram ( extractType ( False, False ) ) $
+    return . listToMaybe
   where
     n :: Int
     n = length tys
@@ -292,34 +287,43 @@ queryClangForResultType clangArgs tys op =
               return $ Clang.Break mbTy
           _ -> return $ Clang.Recurse ( extractType ( inTestFunDecl, inCast ) ) listToMaybe
 
-clangGetTranslationUnit :: Clang.ClangArgs -> String -> IO Clang.CXTranslationUnit
-clangGetTranslationUnit userClangArgs srcContents = do
-  --putStrLn srcContents
+clangWithTranslationUnit ::
+     Clang.ClangArgs
+  -> String
+  -> (Clang.CXTranslationUnit -> IO a)
+  -> IO a
+clangWithTranslationUnit userClangArgs srcContents k =
+  Clang.withIndex Clang.DontDisplayDiagnostics $ \index ->
+    Clang.withUnsavedFile headerName srcContents $ \unsavedFile ->
+      Clang.withTranslationUnit index src args [unsavedFile] opts k
+  where
+    headerName :: FilePath
+    headerName = "src.c"
 
-  fp <- Tmp.writeSystemTempFile "src.c" srcContents
-  -- TODO: we wouldn't need to create a temporary file if we supported
-  -- unsaved files in 'clang_parseTranslationUnit'.
-  index  <- Clang.clang_createIndex Clang.DontDisplayDiagnostics
-  let clangArgs =
-        userClangArgs
-          { Clang.clangOtherArgs =
-              Clang.clangOtherArgs userClangArgs
-                ++
-                [ "-Werror=pointer-integer-compare"
-                , "-Werror=compare-distinct-pointer-types"
-                ]
-          }
-      flags = [ Clang.CXTranslationUnit_DetailedPreprocessingRecord
-              , Clang.CXTranslationUnit_IncludeAttributedTypes
-              , Clang.CXTranslationUnit_VisitImplicitAttributes ]
-  unit   <- Clang.clang_parseTranslationUnit index fp clangArgs (Clang.bitfieldEnum flags)
-  removeFile fp
-  return unit
+    src :: Paths.SourcePath
+    src = Paths.SourcePath $ Text.pack headerName
 
-clangVisitChildren :: Clang.ClangArgs -> Clang.Fold IO a -> String -> IO [a]
-clangVisitChildren args f srcContents = do
+    args :: Clang.ClangArgs
+    args = userClangArgs
+      { Clang.clangOtherArgs =
+          Clang.clangOtherArgs userClangArgs
+            ++
+            [ "-Werror=pointer-integer-compare"
+            , "-Werror=compare-distinct-pointer-types"
+            ]
+      }
 
-  unit <- clangGetTranslationUnit args srcContents
+    opts :: Clang.BitfieldEnum Clang.CXTranslationUnit_Flags
+    opts = Clang.bitfieldEnum
+      [ Clang.CXTranslationUnit_DetailedPreprocessingRecord
+      , Clang.CXTranslationUnit_IncludeAttributedTypes
+      , Clang.CXTranslationUnit_VisitImplicitAttributes
+      ]
+
+-- NB: This is implemented using a continuation so that all @libclang@ values
+-- are processed before the file content, translation unit, and index are freed.
+clangVisitChildren :: Clang.ClangArgs -> String -> Clang.Fold IO a -> ([a] -> IO b) -> IO b
+clangVisitChildren args srcContents f k = clangWithTranslationUnit args srcContents $ \unit -> do
 
   diags  <- Clang.clang_getDiagnostics unit Nothing
   let (errors, _warnings) = partition diagnosticIsSevere diags
@@ -334,9 +338,9 @@ clangVisitChildren args f srcContents = do
   if null errors
   then do
     rootCursor <- Clang.clang_getTranslationUnitCursor unit
-    Clang.clang_visitChildren rootCursor f
+    k =<< Clang.clang_visitChildren rootCursor f
   else
-    return []
+    k []
 
 diagnosticIsSevere :: Clang.Diagnostic -> Bool
 diagnosticIsSevere diag =
@@ -359,7 +363,7 @@ diagnosticIsSevere diag =
 -- | Get the target triple of the build system, as reported by Clang.
 queryClangBuildTargetTriple :: IO Text
 queryClangBuildTargetTriple =
-  getTriple =<< clangGetTranslationUnit Clang.defaultClangArgs ""
+  clangWithTranslationUnit Clang.defaultClangArgs "" getTriple
   where
     getTriple unit =
       bracket

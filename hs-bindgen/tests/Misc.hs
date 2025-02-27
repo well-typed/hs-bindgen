@@ -72,7 +72,7 @@ clangArgs packageRoot = defaultClangArgs{
     , clangSystemIncludePathDirs = [
           CIncludePathDir (packageRoot </> "musl-include/x86_64")
         ]
-    , clangIncludePathDirs = [
+    , clangQuoteIncludePathDirs = [
           CIncludePathDir (packageRoot </> "examples")
         ]
     }

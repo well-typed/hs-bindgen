@@ -190,7 +190,6 @@ test-suite golden
     , debruijn
     , mtl
     , template-haskell
-    , text
     , vec
   build-depends:
       -- External dependencies

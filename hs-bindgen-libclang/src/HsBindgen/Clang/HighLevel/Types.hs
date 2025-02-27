@@ -4,8 +4,7 @@
 -- more detailed discussion.
 module HsBindgen.Clang.HighLevel.Types (
     -- * Source locations
-    SourcePath(..)
-  , SingleLoc(..)
+    SingleLoc(..)
   , MultiLoc(..)
   , Range(..)
     -- ** Comparisons

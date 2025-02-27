@@ -1,129 +1,122 @@
 module HsBindgen.Clang.Paths (
-    -- * C include search path directories
-    CIncludePathDir(..)
-  , CIncludeAbsPathDir
-  , getCIncludeAbsPathDir
-  , resolveCIncludeAbsPathDirs
+    -- * Source paths
+    SourcePath(..)
+  , getSourcePath
+  , nullSourcePath
+
     -- * C header paths
-  , CHeaderRelPath
-  , mkCHeaderRelPath
-  , getCHeaderRelPath
-  , CHeaderAbsPath
-  , mkCHeaderAbsPath
-  , getCHeaderAbsPath
-  , resolveHeader
+  , CHeaderIncludePath(..)
+  , getCHeaderIncludePath
+  , parseCHeaderIncludePath
+  , renderCHeaderIncludePath
+
+    -- * C include path directories
+  , CIncludePathDir(..)
   ) where
 
-import Control.Monad (forM, unless)
-import Control.Monad.Except (runExceptT, throwError)
-import Control.Monad.IO.Class (MonadIO(liftIO))
-import Data.String (IsString(fromString))
 import Data.Text (Text)
 import Data.Text qualified as Text
-import System.Directory qualified as Dir
+import Data.List qualified as List
+import Data.String (IsString(fromString))
 import System.FilePath qualified as FilePath
-import System.FilePath.Posix qualified as Posix
+import Text.Show.Pretty (PrettyVal(prettyVal))
 
 {-------------------------------------------------------------------------------
-  C include search path directories
+  Source paths
 -------------------------------------------------------------------------------}
 
--- | C include search path directory
+-- | Filesystem path of a source file, typically a C header
 --
--- This type represents a path specified by a user that may be absolute or
--- relative to the current working directory.
-newtype CIncludePathDir = CIncludePathDir { getCIncludePathDir :: FilePath }
+-- The 'Text' type is used because Clang uses UTF-8 internally for everything,
+-- including paths.
+--
+-- The format of the path is platform-dependent.  For example, different
+-- directory separators are used on different platforms.
+newtype SourcePath = SourcePath Text
   deriving newtype (Eq, Ord, Show)
 
-instance IsString CIncludePathDir where
-  fromString = CIncludePathDir
+instance PrettyVal SourcePath where
+  prettyVal = prettyVal . show
 
--- | C include search path directory (absolute)
-newtype CIncludeAbsPathDir = CIncludeAbsPathDir {
-      getCIncludeAbsPathDir :: FilePath
-    }
-  deriving newtype (Eq, Ord, Show)
+-- | Get the 'FilePath' representation of a 'SourcePath'
+getSourcePath :: SourcePath -> FilePath
+getSourcePath (SourcePath path) = Text.unpack path
 
--- | Resolve any number of 'CIncludePathDir'
---
--- This function returns an error if any path is not found or is not a
--- directory.
-resolveCIncludeAbsPathDirs ::
-     MonadIO m
-  => [CIncludePathDir]
-  -> m (Either String [CIncludeAbsPathDir])
-resolveCIncludeAbsPathDirs paths = runExceptT $ do
-    cwd <- liftIO Dir.getCurrentDirectory
-    forM (getCIncludePathDir <$> paths) $ \path -> do
-      let absPath
-            | FilePath.isAbsolute path = path
-            | otherwise                = cwd FilePath.</> path
-      exists <- liftIO $ Dir.doesDirectoryExist absPath
-      unless exists $
-        throwError ("include path not found or not a directory: " ++ path)
-      return $ CIncludeAbsPathDir absPath
+-- | Determine if a 'SourcePath' is empty
+nullSourcePath :: SourcePath -> Bool
+nullSourcePath (SourcePath path) = Text.null path
 
 {-------------------------------------------------------------------------------
   C header paths
 -------------------------------------------------------------------------------}
 
--- | C header path (relative)
+-- | C header path, as specified in an include directive
 --
--- A value must be specified as used in the C source code (relative to an
--- include directory).  Forward slashes (@/@) must be used, even on Windows.
+-- This type represents an unresolved C header path.  It is relative to a
+-- directory in the C include search path.
 --
--- Example: @time.h@
-newtype CHeaderRelPath = CHeaderRelPath { getCHeaderRelPath :: FilePath }
+-- Forward slashes (@/@) must be used, even on Windows.
+data CHeaderIncludePath =
+    -- | C header path corresponding to @#include <PATH>@ syntax
+    CHeaderSystemIncludePath FilePath
+  | -- | C header path corresponding to @#include "PATH"@ syntax
+    CHeaderQuoteIncludePath  FilePath
+  deriving (Eq, Ord, Show)
+
+-- | Get the 'FilePath' representation of a 'CHeaderIncludePath'
+getCHeaderIncludePath :: CHeaderIncludePath -> FilePath
+getCHeaderIncludePath = \case
+  CHeaderSystemIncludePath path -> path
+  CHeaderQuoteIncludePath  path -> path
+
+-- | Parse a 'CHeaderIncludePath'
+--
+-- Prefix @system:@ is used to construct a 'CHeaderSystemIncludePath'.  No
+-- prefix is used to construct a 'CHeaderQuoteIncludePath'.
+--
+-- This function returns an error if the path is not relative or if it contains
+-- a backslash.
+parseCHeaderIncludePath :: String -> Either String CHeaderIncludePath
+parseCHeaderIncludePath path = case List.stripPrefix "system:" path of
+    Just path' -> CHeaderSystemIncludePath <$> aux path'
+    Nothing    -> CHeaderQuoteIncludePath  <$> aux path
+  where
+    aux :: FilePath -> Either String FilePath
+    aux path'
+      | '\\' `elem` path' =
+          Left $ "C header include path contains a backslash: " ++ path
+      | FilePath.isRelative path' = Right path'
+      | otherwise = Left $ "C header include path not relative: " ++ path
+
+-- | Render a 'CHeaderIncludePath'
+--
+-- A 'CHeaderSystemIncludePath' is rendered with a @system:@ prefix.  A
+-- 'CHeaderQuoteIncludePath' is rendered without a prefix.
+renderCHeaderIncludePath :: CHeaderIncludePath -> String
+renderCHeaderIncludePath = \case
+    CHeaderSystemIncludePath path -> "system:" ++ path
+    CHeaderQuoteIncludePath  path -> path
+
+{-------------------------------------------------------------------------------
+  C include path directories
+-------------------------------------------------------------------------------}
+
+-- | C include path directory
+--
+-- A C include path is an ordered list of directories that is used to resolve a
+-- 'CHeaderIncludePath'.  The name cames from environment variables
+-- @C_INCLUDE_PATH@ and @CPATH@.  It is unforuntaly confusing terminology that a
+-- /search/ path is a list of /filesystem/ paths.
+--
+-- The wrapped directory path may be absolute or relative to the current working
+-- directory.  When it is relative, resolved header paths in @libclang@ source
+-- locations are also relative.
+--
+-- For example, resolving 'CHeaderIncludePath' @stdint.h@ with a C include path
+-- that contains 'CIncludePathDir' @/usr/include@ may resolve to 'SourcePath'
+-- @/usr/include/stdint.h@.
+newtype CIncludePathDir = CIncludePathDir { getCIncludePathDir :: FilePath }
   deriving newtype (Eq, Ord, Show)
 
--- | Construct a 'CHeaderRelPath'
---
--- This funtion returns an error if the path is not relative or if it contains
--- a backslash.  It does /not/ check existence, readability, or if it points to
--- a file or not.
-mkCHeaderRelPath :: FilePath -> Either String CHeaderRelPath
-mkCHeaderRelPath path
-    | '\\' `elem` path = Left $ "C header path contains a backslash: " ++ path
-    | FilePath.isRelative path = Right $ CHeaderRelPath path
-    | otherwise = Left $ "C header path not relative: " ++ path
-
--- | C header path (absolute)
---
--- Example: @/usr/include/time.h@
-newtype CHeaderAbsPath = CHeaderAbsPath Text
-  deriving newtype (Eq, Ord, Show)
-
--- | Construct a 'CHeaderAbsPath'
---
--- This function fails if the path is not absolute.  It does /not/ check
--- existence, readability, or if it points to a file or not.
-mkCHeaderAbsPath :: Text -> Either String CHeaderAbsPath
-mkCHeaderAbsPath t
-    | FilePath.isAbsolute path = Right $ CHeaderAbsPath t
-    | otherwise = Left $ "C header path is not absolute: " ++ path
-  where
-    path :: FilePath
-    path = Text.unpack t
-
--- | Get the 'FilePath' representation of a 'CHeaderAbsPath'
-getCHeaderAbsPath :: CHeaderAbsPath -> FilePath
-getCHeaderAbsPath (CHeaderAbsPath t) = Text.unpack t
-
--- | Resolve a single 'CHeaderRelPath'
---
--- This function fails if the header is not found in the include search path.
-resolveHeader ::
-     MonadIO m
-  => [CIncludeAbsPathDir]
-  -> CHeaderRelPath
-  -> m (Either String CHeaderAbsPath)
-resolveHeader includeDirs relPath = do
-    let includeDirs' = getCIncludeAbsPathDir <$> includeDirs
-        relPath'     = getCHeaderRelPath relPath
-    mAbsPath <- liftIO $ Dir.findFile includeDirs' (nativeRelPath relPath')
-    return $ case mAbsPath of
-      Just absPath -> Right $ CHeaderAbsPath (Text.pack absPath)
-      Nothing -> Left $ "header not found in include search path: " ++ relPath'
-  where
-    nativeRelPath :: FilePath -> FilePath
-    nativeRelPath = FilePath.joinPath . Posix.splitDirectories
+instance IsString CIncludePathDir where
+  fromString = CIncludePathDir

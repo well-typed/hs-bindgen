@@ -43,11 +43,11 @@ data DeclState = DeclState {
     -- We accumulate type declarations in (insert)ordered map,
     -- so the ordering resembles the one in the header.
     , typeDeclarations :: !(OMap.OMap CXType TypeDecl)
-    -- | C header path graph
+    -- | C header include path graph
     --
     -- We create a DAG of C header paths with an edge for each @#include@.  The
     -- edges are /reversed/ to represent an \"included by\" relation.
-    , cHeaderPathGraph :: DynGraph CHeaderAbsPath
+    , cIncludePathGraph :: DynGraph SourcePath
     }
 
 data TypeDecl
@@ -62,10 +62,10 @@ data TypeDecl
 
 initDeclState :: DeclState
 initDeclState = DeclState {
-      macroExpansions = Set.empty
-    , macroTypes      = Map.empty
-    , typeDeclarations = OMap.empty
-    , cHeaderPathGraph = DynGraph.empty
+      macroExpansions   = Set.empty
+    , macroTypes        = Map.empty
+    , typeDeclarations  = OMap.empty
+    , cIncludePathGraph = DynGraph.empty
     }
 
 registerMacroExpansion :: MultiLoc -> DeclState -> DeclState
@@ -79,13 +79,13 @@ registerMacroType nm ty st = st{
     }
 
 registerInclude ::
-     CHeaderAbsPath -- ^ Path of header that includes the following header
-  -> CHeaderAbsPath -- ^ Path of the included header
+     SourcePath -- ^ Path of header that includes the following header
+  -> SourcePath -- ^ Path of the included header
   -> DeclState
   -> DeclState
 registerInclude header incHeader st = st{
-      cHeaderPathGraph =
-        DynGraph.insertEdge incHeader header (cHeaderPathGraph st)
+      cIncludePathGraph =
+        DynGraph.insertEdge incHeader header (cIncludePathGraph st)
     }
 
 {-------------------------------------------------------------------------------

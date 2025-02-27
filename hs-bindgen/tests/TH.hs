@@ -15,23 +15,21 @@ import Test.Tasty (TestTree, TestName)
 
 import Misc
 import HsBindgen.Clang.Paths
+import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Lib
 
 goldenTh :: FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
-    relPath <- either fail return $ mkCHeaderRelPath (name ++ ".h")
-    let args = clangArgs packageRoot
-    includeDirs <- either fail return =<<
-      resolveCIncludeAbsPathDirs (clangIncludePathDirs args)
-    absPath <- either fail return =<< resolveHeader includeDirs relPath
+    let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+        args = clangArgs packageRoot
+        tracer = mkTracer report report report False
+    src <- resolveHeader' args headerIncludePath
 
-    let tracer = mkTracer report report report False
-
-    header <- parseC tracer args absPath
+    header <- parseC tracer args src
     let decls :: Qu [TH.Dec]
-        decls = genTH relPath defaultTranslationOpts header
+        decls = genTH headerIncludePath defaultTranslationOpts header
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.
@@ -61,10 +59,10 @@ runQu (Qu m) = evalState m 0
 parseC ::
      Tracer IO String
   -> ClangArgs
-  -> CHeaderAbsPath
+  -> SourcePath
   -> IO CHeader
-parseC tracer args headerPath =
-    withTranslationUnit tracerD args headerPath $
+parseC tracer args src =
+    withTranslationUnit tracerD args src $
       parseCHeader tracerP SelectFromMainFile
   where
     tracerD = contramap show tracer

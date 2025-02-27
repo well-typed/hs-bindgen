@@ -38,6 +38,11 @@ module HsBindgen.Clang.HighLevel (
   , clang_getCursorSpelling
     -- * Declaration classification
   , classifyDeclaration
+    -- * General wrappers
+  , withIndex
+  , withTranslationUnit
+  , withTranslationUnit2
+  , withUnsavedFile
   ) where
 
 import HsBindgen.Clang.HighLevel.Declaration
@@ -46,3 +51,4 @@ import HsBindgen.Clang.HighLevel.Fold
 import HsBindgen.Clang.HighLevel.SourceLoc
 import HsBindgen.Clang.HighLevel.Tokens
 import HsBindgen.Clang.HighLevel.UserProvided
+import HsBindgen.Clang.HighLevel.Wrappers

@@ -16,9 +16,9 @@ import HsBindgen.Clang.Paths
   Aeson
 -------------------------------------------------------------------------------}
 
-instance Aeson.FromJSON CHeaderRelPath where
-  parseJSON = Aeson.withText "CHeaderRelPath" $
-    either fail return . mkCHeaderRelPath . Text.unpack
+instance Aeson.FromJSON CHeaderIncludePath where
+  parseJSON = Aeson.withText "CHeaderIncludePath" $
+    either fail return . parseCHeaderIncludePath . Text.unpack
 
 deriving newtype instance Aeson.FromJSON CNameSpelling
 

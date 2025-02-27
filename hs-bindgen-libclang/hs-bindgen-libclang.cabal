@@ -58,6 +58,7 @@ library
       HsBindgen.Clang.Args
       HsBindgen.Clang.CNameSpelling
       HsBindgen.Clang.Paths
+      HsBindgen.Clang.Paths.Resolve
       HsBindgen.Clang.Version
 
       HsBindgen.Clang.LowLevel.Core
@@ -85,12 +86,12 @@ library
       HsBindgen.Clang.HighLevel.SourceLoc
       HsBindgen.Clang.HighLevel.Tokens
       HsBindgen.Clang.HighLevel.UserProvided
+      HsBindgen.Clang.HighLevel.Wrappers
   build-depends:
       -- Internal dependencies
     , hs-bindgen-runtime
   build-depends:
       -- External dependencies
-    , directory     >= 1.3.6.2 && < 1.4
     , filepath      >= 1.4     && < 1.6
     , mtl           >= 2.2     && < 2.4
     , pretty-show   >= 1.10    && < 1.11
@@ -106,6 +107,9 @@ library
 
   c-sources:
       cbits/clang_wrappers.c
+
+  build-tool-depends:
+      hsc2hs:hsc2hs
 
 executable clang-ast-dump
   import:         lang
@@ -133,3 +137,6 @@ test-suite clang-tutorial
       -- Internal dependencies
     , hs-bindgen-libclang
     , hs-bindgen-runtime
+  build-depends:
+      -- Inherited dependencies
+    , text

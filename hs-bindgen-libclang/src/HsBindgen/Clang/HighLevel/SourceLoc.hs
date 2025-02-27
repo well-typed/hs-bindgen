@@ -1,8 +1,7 @@
 -- | Utilities for working with source locations
 module HsBindgen.Clang.HighLevel.SourceLoc (
     -- * Definition
-    SourcePath(..)
-  , SingleLoc(..)
+    SingleLoc(..)
   , MultiLoc(..)
   , Range(..)
     -- * Comparisons
@@ -34,26 +33,16 @@ module HsBindgen.Clang.HighLevel.SourceLoc (
 import Control.Monad
 import Data.List (intercalate)
 import Data.Text (Text)
-import Data.Text qualified as Text
 import Foreign.C
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
+import HsBindgen.Clang.Paths
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
-
--- | Paths as reported by @libclang@
---
--- Clang uses UTF-8 internally for everything, including paths, which is why
--- this is 'Text', not @OsPath@. There might still be differences between
--- platforms of course (such as directory separators).
-newtype SourcePath = SourcePath {
-      getSourcePath :: Text
-    }
-  deriving newtype (Eq, Ord)
 
 -- | A /single/ location in a file
 --
@@ -173,7 +162,6 @@ rangeContainsLoc Range{rangeStart, rangeEnd} loc = do
   instances which we do not (yet?) define.
 -------------------------------------------------------------------------------}
 
-instance Show SourcePath        where show = show . getSourcePath
 instance Show SingleLoc         where show = show . prettySingleLoc True
 instance Show MultiLoc          where show = show . prettyMultiLoc  True
 instance Show (Range SingleLoc) where show = show . prettyRangeSingleLoc
@@ -193,7 +181,7 @@ type ShowFile = Bool
 prettySingleLoc :: ShowFile -> SingleLoc -> String
 prettySingleLoc showFile loc =
     intercalate ":" . concat $ [
-        [ Text.unpack (getSourcePath singleLocPath) | showFile ]
+        [ getSourcePath singleLocPath | showFile ]
       , [ show singleLocLine
         , show singleLocColumn
         ]
@@ -251,7 +239,6 @@ prettySourceRangeWith path pretty Range{rangeStart, rangeEnd} = concat [
   These just piggy-back on the 'Show' instances.
 -------------------------------------------------------------------------------}
 
-instance PrettyVal SourcePath   where prettyVal = prettyVal . show
 instance PrettyVal SingleLoc where prettyVal = prettyVal . show
 instance PrettyVal MultiLoc  where prettyVal = prettyVal . show
 
@@ -281,7 +268,8 @@ toRange = toRangeWith toMulti
 
 fromSingle :: Core.CXTranslationUnit -> SingleLoc -> IO Core.CXSourceLocation
 fromSingle unit SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
-     file <- Core.clang_getFile unit (getSourcePath singleLocPath)
+     let SourcePath path = singleLocPath
+     file <- Core.clang_getFile unit path
      Core.clang_getLocation
        unit
        file

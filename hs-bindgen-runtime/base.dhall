@@ -1,11 +1,22 @@
 -- hs-bindgen shared library configuration for base
 
+let map = https://prelude.dhall-lang.org/List/map
+
+let systemHeader : Text -> Text =
+      \(header : Text) ->
+        "system:" ++ header
+
 let mkM =
       \(cname : Text) ->
       \(identifier : Text) ->
       \(module : Text) ->
       \(headers : List Text) ->
-        { cname, headers, identifier, module, package = "base" }
+        { cname
+        , headers = map Text Text systemHeader headers
+        , identifier
+        , module
+        , package = "base"
+        }
 
 let intTypesH = [ "inttypes.h", "stdint.h" ]
 

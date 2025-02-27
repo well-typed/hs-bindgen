@@ -56,6 +56,7 @@ module HsBindgen.Clang.LowLevel.Core (
     CXIndex
   , DisplayDiagnostics(..)
   , clang_createIndex
+  , clang_disposeIndex
   , clang_getNumDiagnostics
   , clang_getDiagnostic
     -- * Diagnostic reporting
@@ -82,12 +83,13 @@ module HsBindgen.Clang.LowLevel.Core (
   , clang_getDiagnosticFixIt
     -- * Translation unit manipulation
   , CXTranslationUnit
-  , CXUnsavedFile
+  , CXUnsavedFile(..)
   , CXTranslationUnit_Flags(..)
   , CXTargetInfo(..)
   , CXErrorCode(..)
   , clang_parseTranslationUnit
   , clang_parseTranslationUnit2
+  , clang_disposeTranslationUnit
   , clang_getTranslationUnitTargetInfo
   , clang_TargetInfo_dispose
   , clang_TargetInfo_getTriple
@@ -212,6 +214,7 @@ import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.Internal.CXString ()
 import HsBindgen.Clang.Internal.FFI
 import HsBindgen.Clang.Internal.Results
+import HsBindgen.Clang.Paths
 import HsBindgen.Clang.Version
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
@@ -238,6 +241,15 @@ foreign import capi unsafe "clang-c/Index.h clang_createIndex"
        CInt -- ^ @excludeDeclarationsFromPCH@
     -> CInt -- ^ @displayDiagnostics@
     -> IO CXIndex
+
+-- | Destroy the given index.
+--
+-- The index must not be destroyed until all of the translation units created
+-- within that index have been destroyed.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga166ab73b14be73cbdcae14d62dbab22a>
+foreign import capi unsafe "clang-c/Index.h clang_disposeIndex"
+  clang_disposeIndex :: CXIndex -> IO ()
 
 -- | Determine the number of diagnostics produced for the given translation unit.
 --
@@ -509,16 +521,6 @@ newtype CXTranslationUnit = CXTranslationUnit (Ptr ())
   deriving stock (Show)
   deriving newtype (Storable)
 
--- | Provides the contents of a file that has not yet been saved to disk.
---
--- Each 'CXUnsavedFile' instance provides the name of a file on the system along
--- with the current contents of that file that have not yet been saved to disk.
---
--- We don't export this type.
---
--- <https://clang.llvm.org/doxygen/structCXUnsavedFile.html>
-type CXUnsavedFile = Ptr ()
-
 -- | An opaque type representing target information for a given translation
 -- unit.
 --
@@ -535,7 +537,7 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit"
     -> CString
     -> Ptr CString
     -> CInt
-    -> CXUnsavedFile
+    -> Ptr CXUnsavedFile
     -> CUInt
     -> BitfieldEnum CXTranslationUnit_Flags
     -> IO CXTranslationUnit
@@ -546,11 +548,17 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit2"
     -> CString
     -> Ptr CString
     -> CInt
-    -> CXUnsavedFile
+    -> Ptr CXUnsavedFile
     -> CUInt
     -> BitfieldEnum CXTranslationUnit_Flags
     -> Ptr CXTranslationUnit
     -> IO (SimpleEnum (Maybe CXErrorCode))
+
+-- | Destroy the specified CXTranslationUnit object.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gaee753cb0036ca4ab59e48e3dff5f530a>
+foreign import capi "clang-c/Index.h clang_disposeTranslationUnit"
+  clang_disposeTranslationUnit :: CXTranslationUnit -> IO ()
 
 -- | Get target information for this translation unit.
 --
@@ -582,23 +590,25 @@ foreign import capi "clang_wrappers.h wrap_TargetInfo_getTriple"
 clang_parseTranslationUnit ::
      HasCallStack
   => CXIndex                               -- ^ @CIdx@
-  -> FilePath                              -- ^ @source_filename@
+  -> SourcePath                            -- ^ @source_filename@
   -> ClangArgs                             -- ^ @command_line_args@
+  -> [CXUnsavedFile]
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO CXTranslationUnit
-clang_parseTranslationUnit cIdx src args options = do
-    args' <- either callFailed return =<< fromClangArgs args
-    withCString src $ \src' ->
+clang_parseTranslationUnit cIdx src args unsavedFiles options = do
+    args' <- either callFailed return $ fromClangArgs args
+    withCString (getSourcePath src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
-        ensureNotNull $
-          nowrapper_parseTranslationUnit
-            cIdx
-            src'
-            args''
-            numArgs
-            nullPtr
-            0
-            options
+        withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
+          ensureNotNull $
+            nowrapper_parseTranslationUnit
+              cIdx
+              src'
+              args''
+              numArgs
+              unsavedFiles'
+              (fromIntegral numUnsavedFiles)
+              options
 
 -- | Parse the given source file and the translation unit corresponding to that
 -- file.
@@ -613,31 +623,33 @@ clang_parseTranslationUnit cIdx src args options = do
 clang_parseTranslationUnit2 ::
      HasCallStack
   => CXIndex                               -- ^ @CIdx@
-  -> FilePath                              -- ^ @source_filename@
+  -> SourcePath                            -- ^ @source_filename@
   -> ClangArgs                             -- ^ @command_line_args@
+  -> [CXUnsavedFile]
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> IO (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
-clang_parseTranslationUnit2 cIdx src args options = do
-    args' <- either callFailed return =<< fromClangArgs args
-    withCString src $ \src' ->
+clang_parseTranslationUnit2 cIdx src args unsavedFiles options = do
+    args' <- either callFailed return $ fromClangArgs args
+    withCString (getSourcePath src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
-        alloca $ \outPtr -> do
-          mError <- nowrapper_parseTranslationUnit2
-            cIdx
-            src'
-            args''
-            numArgs
-            nullPtr
-            0
-            options
-            outPtr
-          case fromSimpleEnum mError of
-            Right Nothing ->
-              Right <$> peek outPtr
-            Right (Just knownError) ->
-              return $ Left (simpleEnum knownError)
-            Left unknownError ->
-              return $ Left (coerceSimpleEnum unknownError)
+        withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
+          alloca $ \outPtr -> do
+            mError <- nowrapper_parseTranslationUnit2
+              cIdx
+              src'
+              args''
+              numArgs
+              unsavedFiles'
+              (fromIntegral numUnsavedFiles)
+              options
+              outPtr
+            case fromSimpleEnum mError of
+              Right Nothing ->
+                Right <$> peek outPtr
+              Right (Just knownError) ->
+                return $ Left (simpleEnum knownError)
+              Left unknownError ->
+                return $ Left (coerceSimpleEnum unknownError)
 --
 -- | Get the normalized target triple as a string.
 --

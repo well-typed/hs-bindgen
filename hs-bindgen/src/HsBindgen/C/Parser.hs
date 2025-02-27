@@ -58,48 +58,38 @@ data TranslationUnitException =
 withTranslationUnit ::
      Tracer IO Diagnostic  -- ^ Tracer for warnings
   -> ClangArgs
-  -> CHeaderAbsPath
+  -> SourcePath
   -> (CXTranslationUnit -> IO r)
   -> IO r
-withTranslationUnit tracer args headerPath k = do
-    let fp = getCHeaderAbsPath headerPath
-
-    index  <- clang_createIndex DontDisplayDiagnostics
-    mUnit  <- clang_parseTranslationUnit2 index fp args flags
-
-    case mUnit of
-      Right unit -> do
-        diags  <- HighLevel.clang_getDiagnostics unit Nothing
-
-        let errors, warnings :: [Diagnostic]
-            (errors, warnings) = partition diagnosticIsError diags
-
-        let _unused = warnings
-
-        case errors of
-          [] -> do
-            -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
-            -- We should print warnings only optionally.
-            forM_ warnings $ traceWith tracer Warning
-            k unit
-          errs ->
-            throwIO $ TranslationUnitCErrors $ map diagnosticFormatted errs
-      Left err -> do
-        if err == simpleEnum CXError_Failure then do
-          -- Attempt to find the cause of the failure. Our diagnosis here might
-          -- be wrong (for example, it's theoretically possible that we report
-          -- that the file does not exist because it was deleted /after/ the
-          -- call to @libclang@, and the failure was really a different one),
-          -- but for now we'll just accept that limitation in order to get
-          -- more helpful error messages in the majority of cases.
-          mCanOpen <- try $ withFile fp ReadMode $ \_h -> return ()
-          case mCanOpen of
-            Right () ->
-              throwIO $ TranslationUnitUnknownError err
-            Left (_ :: IOException) ->
-              throwIO $ TranslationUnitCannotOpen fp
-        else
-          throwIO $ TranslationUnitUnknownError err
+withTranslationUnit tracer args src k =
+    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
+      HighLevel.withTranslationUnit2 index src args [] flags $ \case
+        Right unit -> do
+          diags  <- HighLevel.clang_getDiagnostics unit Nothing
+          let errors, warnings :: [Diagnostic]
+              (errors, warnings) = partition diagnosticIsError diags
+          unless (null errors) . throwIO $
+            TranslationUnitCErrors (map diagnosticFormatted errors)
+          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
+          -- We should print warnings only optionally.
+          forM_ warnings $ traceWith tracer Warning
+          k unit
+        Left err
+          | err == simpleEnum CXError_Failure -> do
+              -- Attempt to find the cause of the failure. Our diagnosis here
+              -- might be wrong (for example, it's theoretically possible that
+              -- we report that the file does not exist because it was deleted
+              -- /after/ the call to @libclang@, and the failure was really a
+              -- different one), but for now we'll just accept that limitation
+              -- in order to get more helpful error messages in the majority of
+              -- cases.
+              mCanOpen <- try $ withFile fp ReadMode $ \_h -> return ()
+              case mCanOpen of
+                Right () ->
+                  throwIO $ TranslationUnitUnknownError err
+                Left (_ :: IOException) ->
+                  throwIO $ TranslationUnitCannotOpen fp
+          | otherwise -> throwIO $ TranslationUnitUnknownError err
   where
     flags :: BitfieldEnum CXTranslationUnit_Flags
     flags = bitfieldEnum [
@@ -109,6 +99,8 @@ withTranslationUnit tracer args headerPath k = do
         , CXTranslationUnit_VisitImplicitAttributes
         ]
 
+    fp :: FilePath
+    fp = getSourcePath src
 
 {-------------------------------------------------------------------------------
   Processing the 'CXTranslationUnit'

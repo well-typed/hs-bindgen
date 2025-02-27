@@ -1,11 +1,17 @@
 -- hs-bindgen shared library configuration for hs-bindgen-runtime
 
+let map = https://prelude.dhall-lang.org/List/map
+
+let systemHeader : Text -> Text =
+      \(header : Text) ->
+        "system:" ++ header
+
 let mkM =
       \(cname : Text) ->
       \(identifier : Text) ->
       \(headers : List Text) ->
         { cname
-        , headers
+        , headers = map Text Text systemHeader headers
         , identifier
         , module = "HsBindgen.Runtime.LibC"
         , package = "hs-bindgen-runtime"

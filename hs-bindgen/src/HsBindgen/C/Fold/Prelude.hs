@@ -4,14 +4,13 @@ module HsBindgen.C.Fold.Prelude (
   , foldPrelude
   ) where
 
-import Data.Text qualified as Text
-
 import HsBindgen.C.AST qualified as C
 import HsBindgen.Imports
 import HsBindgen.C.Reparse
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 
@@ -58,8 +57,7 @@ foldPrelude msgTracer macroTracer unit = go
     checkLoc k current = do
         loc <- liftIO $ HighLevel.clang_getCursorLocation current
         let fp :: FilePath
-            fp = Text.unpack . getSourcePath . singleLocPath $
-                   multiLocExpansion loc
+            fp = getSourcePath . singleLocPath $ multiLocExpansion loc
 
         if | fp == "" ->
                -- TODO: Should we do anything with the macro definitions from
