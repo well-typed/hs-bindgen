@@ -92,7 +92,7 @@ deriving stock instance Show Ex3
 deriving stock instance Eq Ex3
 
 data Ex4_even = Ex4_even
-  { ex4_even_ex4_even_value :: FC.CDouble
+  { ex4_even_value :: FC.CDouble
   , ex4_even_next :: F.Ptr Ex4_odd
   }
 
@@ -112,8 +112,8 @@ instance F.Storable Ex4_even where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Ex4_even ex4_even_ex4_even_value2 ex4_even_next3 ->
-               F.pokeByteOff ptr0 (0 :: Int) ex4_even_ex4_even_value2
+          Ex4_even ex4_even_value2 ex4_even_next3 ->
+               F.pokeByteOff ptr0 (0 :: Int) ex4_even_value2
             >> F.pokeByteOff ptr0 (8 :: Int) ex4_even_next3
 
 deriving stock instance Show Ex4_even
@@ -121,7 +121,7 @@ deriving stock instance Show Ex4_even
 deriving stock instance Eq Ex4_even
 
 data Ex4_odd = Ex4_odd
-  { ex4_odd_ex4_odd_value :: FC.CInt
+  { ex4_odd_value :: FC.CInt
   , ex4_odd_next :: F.Ptr Ex4_even
   }
 
@@ -141,8 +141,8 @@ instance F.Storable Ex4_odd where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Ex4_odd ex4_odd_ex4_odd_value2 ex4_odd_next3 ->
-               F.pokeByteOff ptr0 (0 :: Int) ex4_odd_ex4_odd_value2
+          Ex4_odd ex4_odd_value2 ex4_odd_next3 ->
+               F.pokeByteOff ptr0 (0 :: Int) ex4_odd_value2
             >> F.pokeByteOff ptr0 (8 :: Int) ex4_odd_next3
 
 deriving stock instance Show Ex4_odd

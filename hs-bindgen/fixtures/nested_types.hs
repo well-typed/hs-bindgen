@@ -865,14 +865,13 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "ex4_even_ex4_even_value",
+            "ex4_even_value",
           fieldType = HsPrimType
             HsPrimCDouble,
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName
-                "ex4_even_value",
+              fieldName = CName "value",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
@@ -916,8 +915,7 @@
           structAlignment = 8,
           structFields = [
             StructField {
-              fieldName = CName
-                "ex4_even_value",
+              fieldName = CName "value",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
@@ -951,14 +949,13 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "ex4_even_ex4_even_value",
+              "ex4_even_value",
             fieldType = HsPrimType
               HsPrimCDouble,
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName
-                  "ex4_even_value",
+                fieldName = CName "value",
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
@@ -1002,8 +999,7 @@
             structAlignment = 8,
             structFields = [
               StructField {
-                fieldName = CName
-                  "ex4_even_value",
+                fieldName = CName "value",
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
@@ -1042,14 +1038,13 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_even_ex4_even_value",
+                      "ex4_even_value",
                     fieldType = HsPrimType
                       HsPrimCDouble,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName
-                          "ex4_even_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1093,8 +1088,7 @@
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName
-                          "ex4_even_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1135,14 +1129,13 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_even_ex4_even_value",
+                      "ex4_even_value",
                     fieldType = HsPrimType
                       HsPrimCDouble,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName
-                          "ex4_even_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1186,8 +1179,7 @@
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName
-                          "ex4_even_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1240,14 +1232,13 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "ex4_odd_ex4_odd_value",
+            "ex4_odd_value",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName
-                "ex4_odd_value",
+              fieldName = CName "value",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
@@ -1291,8 +1282,7 @@
           structAlignment = 8,
           structFields = [
             StructField {
-              fieldName = CName
-                "ex4_odd_value",
+              fieldName = CName "value",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
@@ -1331,14 +1321,13 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "ex4_odd_ex4_odd_value",
+              "ex4_odd_value",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName
-                  "ex4_odd_value",
+                fieldName = CName "value",
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
@@ -1382,8 +1371,7 @@
             structAlignment = 8,
             structFields = [
               StructField {
-                fieldName = CName
-                  "ex4_odd_value",
+                fieldName = CName "value",
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
@@ -1427,14 +1415,13 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_odd_ex4_odd_value",
+                      "ex4_odd_value",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName
-                          "ex4_odd_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1478,8 +1465,7 @@
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName
-                          "ex4_odd_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1525,14 +1511,13 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "ex4_odd_ex4_odd_value",
+                      "ex4_odd_value",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName
-                          "ex4_odd_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
@@ -1576,8 +1561,7 @@
                     structAlignment = 8,
                     structFields = [
                       StructField {
-                        fieldName = CName
-                          "ex4_odd_value",
+                        fieldName = CName "value",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim

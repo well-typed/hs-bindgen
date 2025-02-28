@@ -20,9 +20,9 @@ struct ex3 {
 // linked list where odd values are ints, and even values are doubles
 // by writing this way, we don't need forward declarations.
 struct ex4_odd {
-    int ex4_odd_value;
+    int value;
     struct ex4_even {
-        double ex4_even_value;
+        double value;
         struct ex4_odd *next;
     } *next;
 };
