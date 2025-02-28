@@ -1493,38 +1493,50 @@
           fieldName = HsName
             "@NsVar"
             "a_typedef_struct_field_9",
-          fieldType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Another_typedef_enum_e"),
+          fieldType = HsConstArray
+            4
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Another_typedef_enum_e")),
           fieldOrigin =
           FieldOriginStructField
             StructField {
               fieldName = CName "field_9",
               fieldOffset = 512,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName
-                  "another_typedef_enum_e"),
+              fieldType = TypeConstArray
+                4
+                (TypeEnum
+                  (CName
+                    "another_typedef_enum_e")),
               fieldSourceLoc =
               "distilled_lib_1.h:45:31"}},
         Field {
           fieldName = HsName
             "@NsVar"
             "a_typedef_struct_field_10",
-          fieldType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Another_typedef_enum_e"),
+          fieldType = HsConstArray
+            5
+            (HsConstArray
+              3
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Another_typedef_enum_e"))),
           fieldOrigin =
           FieldOriginStructField
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName
-                  "another_typedef_enum_e"),
+              fieldType = TypeConstArray
+                5
+                (TypeConstArray
+                  3
+                  (TypeEnum
+                    (CName
+                      "another_typedef_enum_e"))),
               fieldSourceLoc =
               "distilled_lib_1.h:46:31"}}],
       structOrigin =
@@ -1624,18 +1636,24 @@
               fieldName = CName "field_9",
               fieldOffset = 512,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName
-                  "another_typedef_enum_e"),
+              fieldType = TypeConstArray
+                4
+                (TypeEnum
+                  (CName
+                    "another_typedef_enum_e")),
               fieldSourceLoc =
               "distilled_lib_1.h:45:31"},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName
-                  "another_typedef_enum_e"),
+              fieldType = TypeConstArray
+                5
+                (TypeConstArray
+                  3
+                  (TypeEnum
+                    (CName
+                      "another_typedef_enum_e"))),
               fieldSourceLoc =
               "distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
@@ -1827,38 +1845,50 @@
             fieldName = HsName
               "@NsVar"
               "a_typedef_struct_field_9",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Another_typedef_enum_e"),
+            fieldType = HsConstArray
+              4
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Another_typedef_enum_e")),
             fieldOrigin =
             FieldOriginStructField
               StructField {
                 fieldName = CName "field_9",
                 fieldOffset = 512,
                 fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName
-                    "another_typedef_enum_e"),
+                fieldType = TypeConstArray
+                  4
+                  (TypeEnum
+                    (CName
+                      "another_typedef_enum_e")),
                 fieldSourceLoc =
                 "distilled_lib_1.h:45:31"}},
           Field {
             fieldName = HsName
               "@NsVar"
               "a_typedef_struct_field_10",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Another_typedef_enum_e"),
+            fieldType = HsConstArray
+              5
+              (HsConstArray
+                3
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Another_typedef_enum_e"))),
             fieldOrigin =
             FieldOriginStructField
               StructField {
                 fieldName = CName "field_10",
                 fieldOffset = 640,
                 fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName
-                    "another_typedef_enum_e"),
+                fieldType = TypeConstArray
+                  5
+                  (TypeConstArray
+                    3
+                    (TypeEnum
+                      (CName
+                        "another_typedef_enum_e"))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:46:31"}}],
         structOrigin =
@@ -1958,18 +1988,24 @@
                 fieldName = CName "field_9",
                 fieldOffset = 512,
                 fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName
-                    "another_typedef_enum_e"),
+                fieldType = TypeConstArray
+                  4
+                  (TypeEnum
+                    (CName
+                      "another_typedef_enum_e")),
                 fieldSourceLoc =
                 "distilled_lib_1.h:45:31"},
               StructField {
                 fieldName = CName "field_10",
                 fieldOffset = 640,
                 fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName
-                    "another_typedef_enum_e"),
+                fieldType = TypeConstArray
+                  5
+                  (TypeConstArray
+                    3
+                    (TypeEnum
+                      (CName
+                        "another_typedef_enum_e"))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
@@ -2166,38 +2202,50 @@
                     fieldName = HsName
                       "@NsVar"
                       "a_typedef_struct_field_9",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Another_typedef_enum_e"),
+                    fieldType = HsConstArray
+                      4
+                      (HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "Another_typedef_enum_e")),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          4
+                          (TypeEnum
+                            (CName
+                              "another_typedef_enum_e")),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "a_typedef_struct_field_10",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Another_typedef_enum_e"),
+                    fieldType = HsConstArray
+                      5
+                      (HsConstArray
+                        3
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "Another_typedef_enum_e"))),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          5
+                          (TypeConstArray
+                            3
+                            (TypeEnum
+                              (CName
+                                "another_typedef_enum_e"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}}],
                 structOrigin =
@@ -2297,18 +2345,24 @@
                         fieldName = CName "field_9",
                         fieldOffset = 512,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          4
+                          (TypeEnum
+                            (CName
+                              "another_typedef_enum_e")),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"},
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          5
+                          (TypeConstArray
+                            3
+                            (TypeEnum
+                              (CName
+                                "another_typedef_enum_e"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
@@ -2516,38 +2570,50 @@
                     fieldName = HsName
                       "@NsVar"
                       "a_typedef_struct_field_9",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Another_typedef_enum_e"),
+                    fieldType = HsConstArray
+                      4
+                      (HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "Another_typedef_enum_e")),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
                         fieldName = CName "field_9",
                         fieldOffset = 512,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          4
+                          (TypeEnum
+                            (CName
+                              "another_typedef_enum_e")),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"}},
                   Field {
                     fieldName = HsName
                       "@NsVar"
                       "a_typedef_struct_field_10",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Another_typedef_enum_e"),
+                    fieldType = HsConstArray
+                      5
+                      (HsConstArray
+                        3
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "Another_typedef_enum_e"))),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          5
+                          (TypeConstArray
+                            3
+                            (TypeEnum
+                              (CName
+                                "another_typedef_enum_e"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}}],
                 structOrigin =
@@ -2647,18 +2713,24 @@
                         fieldName = CName "field_9",
                         fieldOffset = 512,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          4
+                          (TypeEnum
+                            (CName
+                              "another_typedef_enum_e")),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"},
                       StructField {
                         fieldName = CName "field_10",
                         fieldOffset = 640,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName
-                            "another_typedef_enum_e"),
+                        fieldType = TypeConstArray
+                          5
+                          (TypeConstArray
+                            3
+                            (TypeEnum
+                              (CName
+                                "another_typedef_enum_e"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
