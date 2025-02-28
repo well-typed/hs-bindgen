@@ -91,7 +91,7 @@ library
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
       HsBindgen.C.Reparse.Common
-      HsBindgen.C.Reparse.FieldDecl
+      HsBindgen.C.Reparse.Decl
       HsBindgen.C.Reparse.Infra
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro

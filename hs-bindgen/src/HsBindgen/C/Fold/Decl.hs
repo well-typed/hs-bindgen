@@ -88,7 +88,7 @@ foldDecls tracer p extBindings unit current = do
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl extBindings unit ty
+        ty' <- processTypeDecl extBindings unit (Just current) ty
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
@@ -109,7 +109,7 @@ foldDecls tracer p extBindings unit current = do
     typeDecl = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl extBindings unit ty
+      void $ processTypeDecl extBindings unit ( Just current ) ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -126,7 +126,8 @@ isBuiltinMacro :: SingleLoc -> Bool
 isBuiltinMacro = nullSourcePath . singleLocPath
 
 mkMacro ::
-     MonadIO m
+     HasCallStack
+  => MonadIO m
   => CXTranslationUnit
   -> CXCursor
   -> m (Either ReparseError Macro)
