@@ -9,6 +9,8 @@ module Data.DynGraph (
     -- * Query
   , vertices
   , reaches
+    -- * Debugging
+  , dumpMermaid
   ) where
 
 import Data.IntMap.Strict (IntMap)
@@ -35,6 +37,8 @@ data DynGraph a
       , idxMap :: Map Int a
       , edges  :: IntMap IntSet
       }
+
+deriving instance Show a => Show (DynGraph a)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -88,6 +92,40 @@ reaches :: Ord a => DynGraph a -> a -> Set a
 reaches DynGraph{..} v = case Map.lookup v vtxMap of
     Just idx -> Set.fromList $ (idxMap Map.!) <$> reaches' edges idx
     Nothing  -> mempty
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+-- | Render a Mermaid diagram
+dumpMermaid ::
+     (a -> String) -- ^ Function to render a vertex
+  -> Bool          -- ^ 'False' if forward, 'True' if reverse
+  -> DynGraph a
+  -> String
+dumpMermaid renderVertex isReverse DynGraph{..} =
+    unlines $ header : nodes ++ links
+  where
+    header :: String
+    header = "graph TD;"
+
+    nodes, links :: [String]
+    nodes = [
+        -- TODO escape quotes?
+        "  v" ++ show idx ++ "[\"" ++ renderVertex v ++ "\"]"
+      | (v, idx) <- Map.toAscList vtxMap
+      ]
+    links
+      | isReverse = [
+            "  v" ++ show idxR ++ "-->v" ++ show idxL
+          | (idxL, rSet) <- IntMap.toAscList edges
+          , idxR <- IntSet.toAscList rSet
+          ]
+      | otherwise = [
+            "  v" ++ show idxL ++ "-->v" ++ show idxR
+          | (idxL, rSet) <- IntMap.toAscList edges
+          , idxR <- IntSet.toAscList rSet
+          ]
 
 {-------------------------------------------------------------------------------
   Internal
