@@ -6,10 +6,7 @@ module HsBindgen.Hs.AST.Name (
   , SingNamespace(..)
   , HsName(..)
     -- * Contexts
-  , ModuleNameContext(..)
-  , TypeClassContext(..)
   , TypeConstrContext(..)
-  , TypeVarContext(..)
   , ConstrContext(..)
   , VarContext(..)
     -- * NameMangler
@@ -33,7 +30,6 @@ module HsBindgen.Hs.AST.Name (
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
-  , handleModuleNameParent
     -- ** Reserved Names
     -- $ReservedNames
   , haskellKeywords
@@ -125,22 +121,6 @@ newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
   Contexts
 -------------------------------------------------------------------------------}
 
--- | Context for creating Haskell module names
-data ModuleNameContext = ModuleNameContext {
-      -- | Name of the parent module
-      ctxModuleNameParentName :: Maybe (HsName NsModuleName)
-    , -- | Module name source (perhaps from file name?)
-      ctxModuleNameCName :: CName
-    }
-  deriving stock (Eq, Show)
-
--- | Context for creating Haskell type class names
-newtype TypeClassContext = TypeClassContext {
-      -- | Type class name source
-      ctxTypeClassCName :: CName
-    }
-  deriving stock (Eq, Show)
-
 -- | Context for creating Haskell type constructor names
 data TypeConstrContext =
     -- | Context for general cases
@@ -153,19 +133,6 @@ data TypeConstrContext =
       -- | Structure declaration path
       ctxStructTypeConstrDeclPath :: DeclPath
     }
-  deriving stock (Eq, Show)
-
--- | Context for creating Haskell type variable names
-data TypeVarContext = TypeVarContext {
-      -- | Type that the type variable is for
-      ctxTypeVarTypeCtx :: TypeConstrContext
-    , -- | Type variable name source
-      ctxTypeVarCName :: CName
-    }
-  | MacroTypeVarContext {
-      -- | Type variable name source
-      ctxTypeVarCName :: CName
-  }
   deriving stock (Eq, Show)
 
 -- | Context for creating Haskell constructor names
@@ -202,17 +169,8 @@ data VarContext =
 
 -- | Name mangler functions
 data NameMangler = NameMangler {
-      -- | Create a Haskell module name
-      mangleModuleName :: ModuleNameContext -> HsName NsModuleName
-
-    , -- | Create a Haskell type class name
-      mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
-
-    , -- | Create a Haskell type constructor name
+      -- | Create a Haskell type constructor name
       mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
-
-    , -- | Create a Haskell type variable name
-      mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
 
       -- | Create a Haskell constructor name
     , mangleConstrName :: ConstrContext -> HsName NsConstr
@@ -524,17 +482,6 @@ handleReservedNames f reserved name@(HsName t)
 appendSingleQuote :: Text -> Text
 appendSingleQuote = (<> "'")
 
--- | Prepend the parent module name, joining using a @.@, if one is provided in
--- the context
-handleModuleNameParent ::
-     ModuleNameContext
-  -> HsName NsModuleName
-  -> HsName NsModuleName
-handleModuleNameParent ModuleNameContext{..} name =
-    case ctxModuleNameParentName of
-      Just parentName -> HsName $ getHsName parentName <> "." <> getHsName name
-      Nothing         -> name
-
 {-------------------------------------------------------------------------------
   Reserved Names
 -------------------------------------------------------------------------------}
@@ -722,30 +669,6 @@ defaultNameMangler = NameMangler{..}
       ++ hsBindgenReservedVarNames
       ++ sanityReservedVarNames
 
-    mangleModuleName :: ModuleNameContext -> HsName NsModuleName
-    mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
-      translateName
-        (maintainCName escapeInvalidChar)
-        joinWithSnakeCase -- not used (no prefixes/suffixes)
-        []
-        []
-        (mkHsNamePrefixInvalid "C")
-        handleOverrideNone
-        handleReservedNone
-        ctxModuleNameCName
-
-    mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
-    mangleTypeClassName TypeClassContext{..} =
-      translateName
-        (maintainCName escapeInvalidChar)
-        joinWithSnakeCase -- not used (no prefixes/suffixes)
-        []
-        []
-        (mkHsNamePrefixInvalid "C")
-        handleOverrideNone
-        handleReservedNone
-        ctxTypeClassCName
-
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
@@ -769,18 +692,6 @@ defaultNameMangler = NameMangler{..}
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxStructTypeConstrDeclPath
-
-    mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
-    mangleTypeVarName ctxt =
-      translateName
-        (maintainCName escapeInvalidChar)
-        joinWithSnakeCase -- not used (no prefixes/suffixes)
-        []
-        []
-        mkHsNameDropInvalid
-        handleOverrideNone
-        (handleReservedNames appendSingleQuote reservedVarNames)
-        (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
     mangleConstrName ConstrContext{..} =
@@ -844,30 +755,6 @@ haskellNameMangler = NameMangler{..}
       ++ hsBindgenReservedVarNames
       ++ sanityReservedVarNames
 
-    mangleModuleName :: ModuleNameContext -> HsName NsModuleName
-    mangleModuleName ctx@ModuleNameContext{..} = handleModuleNameParent ctx $
-      translateName
-        (camelCaseCName dropInvalidChar)
-        joinWithCamelCase -- not used (no prefixes/suffixes)
-        []
-        []
-        mkHsNameDropInvalid
-        handleOverrideNone
-        handleReservedNone
-        ctxModuleNameCName
-
-    mangleTypeClassName :: TypeClassContext -> HsName NsTypeClass
-    mangleTypeClassName TypeClassContext{..} =
-      translateName
-        (camelCaseCName dropInvalidChar)
-        joinWithCamelCase -- not used (no prefixes/suffixes)
-        []
-        []
-        mkHsNameDropInvalid
-        handleOverrideNone
-        handleReservedNone
-        ctxTypeClassCName
-
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
@@ -891,18 +778,6 @@ haskellNameMangler = NameMangler{..}
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxStructTypeConstrDeclPath
-
-    mangleTypeVarName :: TypeVarContext -> HsName NsTypeVar
-    mangleTypeVarName ctxt =
-      translateName
-        (maintainCName dropInvalidChar)
-        joinWithSnakeCase -- not used (no prefixes/suffixes)
-        []
-        []
-        mkHsNameDropInvalid
-        handleOverrideNone
-        (handleReservedNames appendSingleQuote reservedVarNames)
-        (ctxTypeVarCName ctxt)
 
     mangleConstrName :: ConstrContext -> HsName NsConstr
     mangleConstrName ConstrContext{..} =
