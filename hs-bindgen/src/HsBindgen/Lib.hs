@@ -87,6 +87,7 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 import Text.Show.Pretty qualified as Pretty
 
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
@@ -321,14 +322,24 @@ genBindings ::
   -> TH.Q [TH.Dec]
 genBindings fp args = do
     headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
-    src <- TH.runIO $ resolveHeader' args headerIncludePath
-    cheader <- TH.runIO $
-      withTranslationUnit nullTracer args src $
-        parseCHeader nullTracer SelectFromMainFile
 
-    -- record dependencies
-    -- TODO: https://github.com/well-typed/hs-bindgen/issues/422
-    TH.addDependentFile $ getSourcePath src
+    (cheader, depPaths) <- TH.runIO $ do
+      src <- resolveHeader' args headerIncludePath
+      withTranslationUnit nullTracer args src $ \unit -> do
+        (decls, finalDeclState) <-
+          C.foldTranslationUnitWith
+            unit
+            (C.runFoldState C.initDeclState)
+            (C.foldDecls nullTracer SelectFromMainFile unit)
+        let decls' =
+              [ d
+              | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState)
+              ]
+            depPaths = DynGraph.vertices $ C.cIncludePathGraph finalDeclState
+        return (WrapCHeader (C.Header (decls ++ decls')), depPaths)
+
+    -- record dependencies, including transitively included headers
+    mapM_ (TH.addDependentFile . getSourcePath) depPaths
 
     -- extensions checks.
     -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)

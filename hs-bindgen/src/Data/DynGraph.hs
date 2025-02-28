@@ -7,6 +7,7 @@ module Data.DynGraph (
   , insertVertex
   , insertEdge
     -- * Query
+  , vertices
   , reaches
   ) where
 
@@ -75,6 +76,10 @@ insertEdge vFrom vTo dynGraph0 =
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
+
+-- | Gets the vertices in the graph
+vertices :: DynGraph a -> [a]
+vertices DynGraph{..} = Map.keys vtxMap
 
 -- | Gets the set of vertices that are reachable from the specified vertex
 --
