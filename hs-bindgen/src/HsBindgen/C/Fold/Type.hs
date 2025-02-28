@@ -23,6 +23,7 @@ import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Eff
 import HsBindgen.Runtime.Enum.Simple
+import HsBindgen.Util.Tracer (prettyLogMsg)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -284,6 +285,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         return $ TypePrim PrimBool
 
     Right CXType_FunctionProto -> do
+        -- TODO: reparse when macro expansion occurred
         -- TODO: fail on variadic types, these don't have great FFI support anyway. clang_isFunctionTypeVariadic
         -- TODO: we could record calling convention clang_getFunctionTypeCallingConv, but for CApiFFI it's irrelevant as it creates C wrappers with known convention
         res <- liftIO $ clang_getResultType ty
@@ -385,29 +387,42 @@ mkStructField unit path current = do
         extent   <- liftIO $ HighLevel.clang_getCursorExtent current
         hasMacro <- gets $ containsMacroExpansion extent
 
-        (fieldName, fieldType, isIncompleteArray) <- if hasMacro
-          then liftIO $ do
-            tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
-            case reparseWith reparseFieldDecl tokens of
-              Left err ->
-                fail $ "mkStructField: " ++ show err
-              Right (fieldType, fieldName) -> do
-                -- Note: macro definitions don't work with incomplete arrays
-                -- This is fine as reparseWith doesn't recognise array types atm.
-                return (fieldName, fieldType, False)
-
-          else do
-            fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
-            ty          <- liftIO (clang_getCursorType current)
-            case fromSimpleEnum $ cxtKind ty of
-              Right CXType_IncompleteArray -> do
-                e <- liftIO $ clang_getArrayElementType ty
-                fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit e
-                return (fieldName, fieldType, True)
-
-              _ -> do
-                fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit ty
-                return (fieldName, fieldType, False)
+        mbNameTypeWithMacros <-
+          if hasMacro
+          then
+            do
+            tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+            macroTyEnv <- macroTypes <$> get
+            case reparseWith (reparseFieldDecl macroTyEnv) tokens of
+              Left err -> do
+                -- TODO: improve mechanism for reporting warnings
+                liftIO $ putStrLn $ unlines
+                  [ "Warning: failed to re-parse struct field containing macro expansion."
+                  , "Proceeding with macros expanded."
+                  , ""
+                  , "Parse error:"
+                  , prettyLogMsg err
+                  , ""
+                  ]
+                return Nothing
+              Right (fieldType, fieldName) ->
+                return $ Just (fieldName, fieldType, isIncompleteArrayType fieldType)
+          else
+            return Nothing
+        (fieldName, fieldType, isIncompleteArray) <-
+          case mbNameTypeWithMacros of
+            Just declNameAndTy -> return declNameAndTy
+            Nothing -> do
+              fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
+              ty          <- liftIO (clang_getCursorType current)
+              case fromSimpleEnum $ cxtKind ty of
+                Right CXType_IncompleteArray -> do
+                  e <- liftIO $ clang_getArrayElementType ty
+                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit e
+                  return (fieldName, fieldType, True)
+                _ -> do
+                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit ty
+                  return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
 
@@ -435,6 +450,10 @@ mkStructField unit path current = do
 
       _other ->
         unrecognizedCursor current
+
+isIncompleteArrayType :: Type -> Bool
+isIncompleteArrayType (TypeIncompleteArray {}) = True
+isIncompleteArrayType _ = False
 
 {-------------------------------------------------------------------------------
   Enums
