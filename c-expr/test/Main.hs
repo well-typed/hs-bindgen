@@ -118,7 +118,7 @@ main = do
             clangArgs0
               { Clang.clangTarget =
                   Just (Clang.Target_Linux_X86_64, Clang.TargetEnvDefault)
-              , Clang.clangStdInc = False
+              , Clang.clangStdInc = isNothing mbHsBindgenDir
               , Clang.clangSystemIncludePathDirs =
                   [ fromString (hsBindgenDir </> "musl-include/x86_64")
                   | hsBindgenDir <- maybeToList mbHsBindgenDir
