@@ -182,7 +182,7 @@ parseClangArgs = do
     -- and uses record construction (i.a. to avoid bool or string/path blindness) instead of positional one.
     clangTarget <- optional parseTarget
     clangCStandard <- fmap Just parseCStandard
-    clangStdInc <- pure True -- TODO: allow specifying --no-stdinc
+    clangStdInc <- fmap not parseNoStdInc
     clangEnableGnu <-parseGnuOption
     clangSystemIncludePathDirs <- parseSystemIncludeDirOptions
     clangQuoteIncludePathDirs <- parseQuoteIncludeDirOptions
@@ -226,6 +226,12 @@ parseGnuOption = switch $ mconcat [
     , help "Enable GNU extensions"
     ]
 
+parseNoStdInc :: Parser Bool
+parseNoStdInc = switch $ mconcat [
+      long "no-stdinc"
+    , help "Disable standard include directories"
+    ]
+
 parseSystemIncludeDirOptions :: Parser [CIncludePathDir]
 parseSystemIncludeDirOptions = many . strOption $ mconcat [
       long "system-include-path"
@@ -255,7 +261,7 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
       | "-isystem" `List.isPrefixOf` s =
           Left "System include path must be set using hs-bindgen --system-include-path options"
       | s == "-nostdinc" =
-          Left "Option -nostdinc is always set"
+          Left "No standard includes option must be set using hs-bindgen --no-stdinc option"
       | s == "-std" || "-std=" `List.isPrefixOf` s =
           Left "C standard must be set using hs-bindgen --standard option"
       | s == "--target" || "--target=" `List.isPrefixOf` s =
