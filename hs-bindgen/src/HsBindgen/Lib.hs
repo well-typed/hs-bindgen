@@ -82,12 +82,9 @@ module HsBindgen.Lib (
   , genBindings'
   ) where
 
-import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 import Text.Show.Pretty qualified as Pretty
 
-import Data.DynGraph qualified as DynGraph
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
@@ -109,6 +106,7 @@ import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
 import HsBindgen.SHs.Translation qualified as SHs
+import HsBindgen.TH
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -307,63 +305,4 @@ preprocessor sysIncPathDirs quoteIncPathDirs headerIncludePath = do
     renderOpts :: HsRenderOpts
     renderOpts = HsRenderOpts
       { hsLineLength = 120
-      }
-
-{-------------------------------------------------------------------------------
-  Template Haskell API
--------------------------------------------------------------------------------}
-
--- | Generate bindings for the given C header
---
--- TODO: add TranslationOpts argument
-genBindings ::
-     FilePath -- ^ Input header, as written in C @#include@
-  -> ClangArgs
-  -> TH.Q [TH.Dec]
-genBindings fp args = do
-    headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
-
-    (cheader, depPaths) <- TH.runIO $ do
-      src <- resolveHeader' args headerIncludePath
-      withTranslationUnit nullTracer args src $ \unit -> do
-        (decls, finalDeclState) <-
-          C.foldTranslationUnitWith
-            unit
-            (C.runFoldState C.initDeclState)
-            (C.foldDecls nullTracer SelectFromMainFile unit)
-        let decls' =
-              [ d
-              | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState)
-              ]
-            depPaths = DynGraph.vertices $ C.cIncludePathGraph finalDeclState
-        return (WrapCHeader (C.Header (decls ++ decls')), depPaths)
-
-    -- record dependencies, including transitively included headers
-    mapM_ (TH.addDependentFile . getSourcePath) depPaths
-
-    -- extensions checks.
-    -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
-    enabledExts <- Set.fromList <$> TH.extsEnabled
-    let requiredExts = genExtensions headerIncludePath LowLevel.defaultTranslationOpts cheader
-    let missingExts = requiredExts `Set.difference` enabledExts
-    unless (null missingExts) $ do
-      TH.reportError $ "Missing LANGUAGE extensions: " ++ unwords (map show (toList missingExts))
-
-    -- generate TH declarations
-    genTH headerIncludePath LowLevel.defaultTranslationOpts cheader
-
--- | Generate bindings for the given C header
---
--- This function uses default Clang arguments but allows you to add directories
--- to the include search path.  Use 'genBindings' when more configuration is
--- required.
-genBindings' ::
-     [FilePath] -- ^ Quote include search path directories
-  -> FilePath   -- ^ Input header, as written in C @#include@
-  -> TH.Q [TH.Dec]
-genBindings' quoteIncPathDirs fp = genBindings fp args
-  where
-    args :: ClangArgs
-    args = defaultClangArgs {
-        clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncPathDirs
       }
