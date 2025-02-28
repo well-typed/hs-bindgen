@@ -578,7 +578,7 @@ mkSubst = Subst
 
 substClashErr :: ( Show a, HasCallStack ) => String -> Int -> a -> a -> a
 substClashErr str i ty1 ty2 =
-  error $
+  panicPure $
     unlines
       [ str ++ ": incoherent substitution"
       , "TyVar with unique " ++ show ( Unique i ) ++ " mapped to two different types"
@@ -1118,7 +1118,11 @@ newtype CType = CType ( C.Type.Type CType )
 
 toMacroType :: C.Type.Type CType -> Maybe ( Type Ty )
 toMacroType = \case
-  C.Type.Void          -> error "C macro typechecker does not support 'void' (yet)"
+  -- TODO: the below should probably be throwPure_TODO,
+  -- but I can't figure a way to trigger this codepath; maybe it isn't possible yet.
+  -- Explicit casts would be one way to introduce `void`, but they don't work (yet).
+  -- https://github.com/well-typed/hs-bindgen/issues/441
+  C.Type.Void          -> panicPure "C macro typechecker does not support 'void' (yet)"
   C.Type.Arithmetic a  ->
     case a of
       C.Type.Integral  i -> Just $ IntLike   $ PrimIntInfoTy   $ CIntegralType i
@@ -1156,10 +1160,10 @@ fromMacroType = \case
               ( a ::: VNil ) ->
                 C.Type.Ptr . CType <$> fromMacroType a
 
-          PrimIntInfoTyCon {} -> error "fromMacroType: 'PrimIntInfoTyCon'"
-          PrimFloatInfoTyCon {} -> error "fromMacroType: 'PrimFloatInfoTyCon'"
-          PrimTyTyCon -> error "fromMacroType: 'PrimTyTyCon'"
-          EmptyTyCon  -> error "fromMacroType: 'EmptyTyCon'"
+          PrimIntInfoTyCon {} -> panicPure "fromMacroType: 'PrimIntInfoTyCon'"
+          PrimFloatInfoTyCon {} -> panicPure "fromMacroType: 'PrimFloatInfoTyCon'"
+          PrimTyTyCon -> panicPure "fromMacroType: 'PrimTyTyCon'"
+          EmptyTyCon  -> panicPure "fromMacroType: 'EmptyTyCon'"
 
 {-------------------------------------------------------------------------------
   Typechecking macros: instantiation
@@ -2109,7 +2113,7 @@ matchOneInst ctOrig cls
     return $
       mapMaybeA ( tryDefault ctOrig matchSubst . ( $ instBndrs ) ) mbDflt
   | otherwise
-  = error $ unlines
+  = panicPure $ unlines
       [ "matchOneInst: incorrect class arity"
       , "class: " ++ show cls
       ]
@@ -2243,8 +2247,8 @@ instance Num MExpr where
   negate a = MApp MUnaryMinus ( a ::: VNil )
   a + b = MApp MAdd ( a ::: b ::: VNil )
   a * b = MApp MMult ( a ::: b ::: VNil )
-  abs = error "no"
-  signum = error "no"
+  abs = panicPure "no"
+  signum = panicPure "no"
 
 testMacro :: forall n. Nat.SNatI n => ( Vec n MExpr -> MExpr ) -> Either TcMacroError ( Quant ( Type Ty ) )
 testMacro f = tcMacro Map.empty "TEST" ( toList vars ) ( f $ fmap var vars )

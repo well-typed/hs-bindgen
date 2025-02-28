@@ -10,6 +10,7 @@ import Data.Vec.Lazy qualified as Vec
 import System.FilePath qualified as FilePath
 import System.FilePath.Posix qualified as Posix
 
+import HsBindgen.Errors
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.AST.Name
 import HsBindgen.Clang.Paths
@@ -112,7 +113,7 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
   where
     cName :: CName
     cName = case fieldOrigin of
-      Hs.FieldOriginNone -> error "unexpected FieldOriginNone in struct"
+      Hs.FieldOriginNone -> panicPure "unexpected FieldOriginNone in struct"
       Hs.FieldOriginStructField cStructField -> C.fieldName cStructField
 
     hsTypeName :: HsTypeName
@@ -133,8 +134,8 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
         HsT.HsPrimCFloat   -> "CFloat"
         HsT.HsPrimCDouble  -> "CDouble"
         HsT.HsPrimCPtrDiff -> "CPtrdiff"
-        x -> error $ "not supported: " ++ show (typeOf x)
-      x -> error $ "not supported: " ++ show (typeOf x)
+        x -> throwPure_TODO 447 $ "not supported: " ++ show (typeOf x)
+      x -> throwPure_TODO 447 $ "not supported: " ++ show (typeOf x)
 
 {-------------------------------------------------------------------------------
   AST
