@@ -20,9 +20,6 @@ module HsBindgen.Hs.AST.Name (
   , dropInvalidChar
   , escapeInvalidChar
   , isValidChar
-  , joinWithConcat
-  , joinWithSnakeCase
-  , joinWithCamelCase
   , mkHsNamePrefixInvalid
   , mkHsNameDropInvalid
   , handleOverrideNone
@@ -30,6 +27,11 @@ module HsBindgen.Hs.AST.Name (
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
+    -- *** Constructing a name out of multiple parts
+  , JoinParts(..)
+  , joinWithConcat
+  , joinWithSnakeCase
+  , joinWithCamelCase
     -- ** Reserved Names
     -- $ReservedNames
   , haskellKeywords
@@ -180,6 +182,56 @@ data NameMangler = NameMangler {
     }
 
 {-------------------------------------------------------------------------------
+  Joining parts of a name
+-------------------------------------------------------------------------------}
+
+-- | Prefix and/or suffix for a name
+data JoinParts = JoinParts {
+      extraPrefixes :: [Text]
+    , extraSuffixes :: [Text]
+    , joinParts     :: [Text] -> Text
+    }
+
+mkJoinParts :: ([Text] -> Text) -> JoinParts
+mkJoinParts joinParts = JoinParts {
+      extraPrefixes = []
+    , extraSuffixes = []
+    , joinParts}
+
+-- | Join parts of a name by concatenating them
+joinWithConcat :: JoinParts
+joinWithConcat = mkJoinParts T.concat
+
+-- | Join parts of a name with underscores (@_@)
+joinWithSnakeCase :: JoinParts
+joinWithSnakeCase = mkJoinParts $ T.intercalate "_"
+
+-- | Join parts of a name in @camelCase@ style
+--
+-- The first character of all parts but the first is changed to uppercase (if it
+-- is a letter), and the results are concatenated.
+--
+-- Since this function may change the case of letters, it can cause name
+-- collisions when different C names only differ by case of the first letter.
+joinWithCamelCase :: JoinParts
+joinWithCamelCase = mkJoinParts $ \case
+    (t:ts) -> T.concat $ t : map upperFirstChar ts
+    []     -> T.empty
+  where
+    upperFirstChar :: Text -> Text
+    upperFirstChar t = case T.uncons t of
+      Just (c, t') -> T.cons (Char.toUpper c) t'
+      Nothing      -> t
+
+joinPartsWith :: JoinParts -> [Text] -> Text
+joinPartsWith JoinParts{extraPrefixes, extraSuffixes, joinParts} parts =
+    joinParts $ extraPrefixes ++ parts ++ extraSuffixes
+
+maybeJoinPartsWith :: Maybe JoinParts -> Text -> Text
+maybeJoinPartsWith Nothing         = id
+maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
+
+{-------------------------------------------------------------------------------
   Options: DSL
 -------------------------------------------------------------------------------}
 
@@ -216,9 +268,7 @@ data NameMangler = NameMangler {
 -- in this module: 'handleReservedNone' and 'handleReservedNames'.
 translateName ::
      (CName -> Text)                                 -- ^ Translate a 'CName'
-  -> ([Text] -> Text)                                -- ^ Join parts of a name
-  -> [Text]                                          -- ^ Prefixes
-  -> [Text]                                          -- ^ Suffixes
+  -> Maybe JoinParts                                 -- ^ Join parts (if any)
   -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
   -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
   -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
@@ -227,13 +277,11 @@ translateName ::
 translateName
   translate
   joinParts
-  prefixes
-  suffixes
   mkHsName
   override
   handleReserved
   cname =
-    let name = mkHsName . joinParts $ prefixes ++ translate cname : suffixes
+    let name = mkHsName $ maybeJoinPartsWith joinParts (translate cname)
     in  handleReserved $ fromMaybe name (override (Just cname) name)
 
 -- | Translate a 'DeclPath' to an 'HsName'
@@ -245,9 +293,7 @@ translateName
 translateDeclPath ::
      (DeclPath -> [CName])                           -- ^ Get parts from a 'DeclPath'
   -> (CName -> Text)                                 -- ^ Translate a 'CName'
-  -> ([Text] -> Text)                                -- ^ Join parts of a name
-  -> [Text]                                          -- ^ Prefixes
-  -> [Text]                                          -- ^ Suffixes
+  -> JoinParts                                       -- ^ Join parts of a name
   -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
   -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
   -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
@@ -257,14 +303,12 @@ translateDeclPath
   getParts
   translate
   joinParts
-  prefixes
-  suffixes
   mkHsName
   override
   handleReserved
   declPath =
-    let name = mkHsName . joinParts $
-          prefixes ++ map translate (getParts declPath) ++ suffixes
+    let name = mkHsName . joinPartsWith joinParts $
+                 map translate (getParts declPath)
     in  handleReserved $ fromMaybe name (override (getCName' declPath) name)
   where
     getCName' :: DeclPath -> Maybe CName
@@ -364,31 +408,6 @@ escapeInvalidChar c =
 -- and this predicate does not consider it valid.
 isValidChar :: Char -> Bool
 isValidChar c = Char.isAlphaNum c || c == '_'
-
--- | Join parts of a name by concatenating them
-joinWithConcat :: [Text] -> Text
-joinWithConcat = T.concat
-
--- | Join parts of a name with underscores (@_@)
-joinWithSnakeCase :: [Text] -> Text
-joinWithSnakeCase = T.intercalate "_"
-
--- | Join parts of a name in @camelCase@ style
---
--- The first character of all parts but the first is changed to uppercase (if it
--- is a letter), and the results are concatenated.
---
--- Since this function may change the case of letters, it can cause name
--- collisions when different C names only differ by case of the first letter.
-joinWithCamelCase :: [Text] -> Text
-joinWithCamelCase = \case
-    (t:ts) -> T.concat $ t : map upperFirstChar ts
-    []     -> T.empty
-  where
-    upperFirstChar :: Text -> Text
-    upperFirstChar t = case T.uncons t of
-      Just (c, t') -> T.cons (Char.toUpper c) t'
-      Nothing      -> t
 
 -- | Construct an 'HsName', changing the case of the first character or adding a
 -- prefix if the first character is invalid
@@ -674,9 +693,7 @@ defaultNameMangler = NameMangler{..}
       TypeConstrContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
-          joinWithSnakeCase -- not used (no prefixes/suffixes)
-          []
-          []
+          Nothing
           (mkHsNamePrefixInvalid "C")
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
@@ -686,8 +703,6 @@ defaultNameMangler = NameMangler{..}
           getDeclPathParts
           (maintainCName escapeInvalidChar)
           joinWithSnakeCase
-          []
-          []
           (mkHsNamePrefixInvalid "C")
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
@@ -702,9 +717,7 @@ defaultNameMangler = NameMangler{..}
       VarContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
-          joinWithSnakeCase -- not used (no prefixes/suffixes)
-          []
-          []
+          Nothing
           mkHsNameDropInvalid
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedVarNames)
@@ -714,10 +727,9 @@ defaultNameMangler = NameMangler{..}
       FieldVarContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
-          joinWithSnakeCase
-          [ getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)
-          ]
-          []
+          (Just $ joinWithSnakeCase{extraPrefixes =
+              [getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)]
+            })
           mkHsNameDropInvalid
           handleOverrideNone
           handleReservedNone  -- not needed since contains underscore
@@ -760,9 +772,7 @@ haskellNameMangler = NameMangler{..}
       TypeConstrContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
-          joinWithCamelCase
-          ["C"]
-          []
+          (Just $ joinWithCamelCase {extraPrefixes = ["C"]})
           mkHsNameDropInvalid
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
@@ -772,8 +782,6 @@ haskellNameMangler = NameMangler{..}
           getDeclPathParts
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase
-          []
-          []
           (mkHsNamePrefixInvalid "C")
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedTypeNames)
@@ -788,9 +796,7 @@ haskellNameMangler = NameMangler{..}
       VarContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
-          joinWithCamelCase -- not used (no prefixes/suffixes)
-          []
-          []
+          Nothing
           mkHsNameDropInvalid
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedVarNames)
@@ -800,11 +806,11 @@ haskellNameMangler = NameMangler{..}
       FieldVarContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
-          joinWithCamelCase
-          [ getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)
-          ]
-          []
+          (Just $ joinWithCamelCase{extraPrefixes =
+               [getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)]
+             })
           mkHsNameDropInvalid
           handleOverrideNone
           handleReservedNone
           ctxFieldVarCName
+
