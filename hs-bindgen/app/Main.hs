@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 module Main (main) where
 
-import Control.Exception (handle, SomeException (..), displayException, fromException, throwIO)
+import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
 import Control.Monad
 import Text.Read (readMaybe)
 import System.Exit (ExitCode, exitFailure)
@@ -26,6 +26,15 @@ main = handle exceptionHandler $ do
 
     execMode cmdline tracer (cmdMode)
 
+data LiterateFileException = LiterateFileException FilePath String
+  deriving Show
+
+instance Exception LiterateFileException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException (LiterateFileException path err) =
+      "error loading " ++ path ++ ": " ++ err
+
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
@@ -39,8 +48,8 @@ execMode cmdline@Cmdline{..} tracer = \case
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
       lit <- readFile input
-      args <- maybe (fail "cannot parse literate file") return $ readMaybe lit
-      mode <- maybe (fail "cannot parse arguments in literate file") return $ pureParseModePreprocess args
+      args <- maybe (throwIO $ LiterateFileException input "cannot parse literate file") return $ readMaybe lit
+      mode <- maybe (throwIO $ LiterateFileException input "cannot parse arguments in literate file") return $ pureParseModePreprocess args
       execMode cmdline tracer $ case mode of
           ModePreprocess {} -> mode { preprocessOutput = Just output }
           _ -> mode
