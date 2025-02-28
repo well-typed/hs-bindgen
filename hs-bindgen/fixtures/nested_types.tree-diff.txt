@@ -92,8 +92,7 @@ WrapCHeader
           structAlignment = 8,
           structFields = [
             StructField {
-              fieldName = CName
-                "ex4_even_value",
+              fieldName = CName "value",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
@@ -123,8 +122,7 @@ WrapCHeader
           structAlignment = 8,
           structFields = [
             StructField {
-              fieldName = CName
-                "ex4_odd_value",
+              fieldName = CName "value",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim

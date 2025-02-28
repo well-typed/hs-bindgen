@@ -60,13 +60,13 @@ const _: () = {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ex4_odd {
-    pub ex4_odd_value: ::std::os::raw::c_int,
+    pub value: ::std::os::raw::c_int,
     pub next: *mut ex4_odd_ex4_even,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ex4_odd_ex4_even {
-    pub ex4_even_value: f64,
+    pub value: f64,
     pub next: *mut ex4_odd,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -76,8 +76,8 @@ const _: () = {
         "Alignment of ex4_odd_ex4_even",
     ][::std::mem::align_of::<ex4_odd_ex4_even>() - 8usize];
     [
-        "Offset of field: ex4_odd_ex4_even::ex4_even_value",
-    ][::std::mem::offset_of!(ex4_odd_ex4_even, ex4_even_value) - 0usize];
+        "Offset of field: ex4_odd_ex4_even::value",
+    ][::std::mem::offset_of!(ex4_odd_ex4_even, value) - 0usize];
     [
         "Offset of field: ex4_odd_ex4_even::next",
     ][::std::mem::offset_of!(ex4_odd_ex4_even, next) - 8usize];
@@ -86,8 +86,6 @@ const _: () = {
 const _: () = {
     ["Size of ex4_odd"][::std::mem::size_of::<ex4_odd>() - 16usize];
     ["Alignment of ex4_odd"][::std::mem::align_of::<ex4_odd>() - 8usize];
-    [
-        "Offset of field: ex4_odd::ex4_odd_value",
-    ][::std::mem::offset_of!(ex4_odd, ex4_odd_value) - 0usize];
+    ["Offset of field: ex4_odd::value"][::std::mem::offset_of!(ex4_odd, value) - 0usize];
     ["Offset of field: ex4_odd::next"][::std::mem::offset_of!(ex4_odd, next) - 8usize];
 };
