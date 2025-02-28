@@ -36,14 +36,22 @@ foldDecls ::
   -> Predicate
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
+foldDecls tracer p unit current = do
     loc <- liftIO $ clang_getCursorLocation current
     sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
-    cursorKind <- liftIO $ clang_getCursorKind current
-    case fromSimpleEnum cursorKind of
-      Right CXCursor_TypedefDecl -> typeDecl current
-      Right CXCursor_StructDecl  -> typeDecl current
-      Right CXCursor_EnumDecl    -> typeDecl current
+    eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind current
+
+    -- process include directives even when predicate does not match
+    when (eCursorKind == Right CXCursor_InclusionDirective) $ do
+      incHeader <- liftIO $
+            fmap SourcePath . clang_getFileName
+        =<< clang_getIncludedFile current
+      modify $ registerInclude (singleLocPath sloc) incHeader
+
+    whenPredicateMatches tracer p current $ case eCursorKind of
+      Right CXCursor_TypedefDecl -> typeDecl
+      Right CXCursor_StructDecl  -> typeDecl
+      Right CXCursor_EnumDecl    -> typeDecl
 
       Right CXCursor_MacroDefinition ->
         if isBuiltinMacro sloc
@@ -71,11 +79,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
         modify $ registerMacroExpansion mloc
         return $ Continue Nothing
 
-      Right CXCursor_InclusionDirective -> do
-        incHeader <- liftIO $
-              fmap SourcePath . clang_getFileName
-          =<< clang_getIncludedFile current
-        modify $ registerInclude (singleLocPath sloc) incHeader
+      Right CXCursor_InclusionDirective ->
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
@@ -98,8 +102,8 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       _otherwise -> do
         unrecognizedCursor current
   where
-    typeDecl :: CXCursor -> Eff (State DeclState) (Next m a)
-    typeDecl current = do
+    typeDecl :: Eff (State DeclState) (Next m a)
+    typeDecl = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
       void $ processTypeDecl unit ty

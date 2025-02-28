@@ -82,9 +82,7 @@ module HsBindgen.Lib (
   , genBindings'
   ) where
 
-import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 import Text.Show.Pretty qualified as Pretty
 
 import HsBindgen.Backend.Extensions
@@ -108,6 +106,7 @@ import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
 import HsBindgen.SHs.Translation qualified as SHs
+import HsBindgen.TH
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -306,53 +305,4 @@ preprocessor sysIncPathDirs quoteIncPathDirs headerIncludePath = do
     renderOpts :: HsRenderOpts
     renderOpts = HsRenderOpts
       { hsLineLength = 120
-      }
-
-{-------------------------------------------------------------------------------
-  Template Haskell API
--------------------------------------------------------------------------------}
-
--- | Generate bindings for the given C header
---
--- TODO: add TranslationOpts argument
-genBindings ::
-     FilePath -- ^ Input header, as written in C @#include@
-  -> ClangArgs
-  -> TH.Q [TH.Dec]
-genBindings fp args = do
-    headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
-    src <- TH.runIO $ resolveHeader' args headerIncludePath
-    cheader <- TH.runIO $
-      withTranslationUnit nullTracer args src $
-        parseCHeader nullTracer SelectFromMainFile
-
-    -- record dependencies
-    -- TODO: https://github.com/well-typed/hs-bindgen/issues/422
-    TH.addDependentFile $ getSourcePath src
-
-    -- extensions checks.
-    -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
-    enabledExts <- Set.fromList <$> TH.extsEnabled
-    let requiredExts = genExtensions headerIncludePath LowLevel.defaultTranslationOpts cheader
-    let missingExts = requiredExts `Set.difference` enabledExts
-    unless (null missingExts) $ do
-      TH.reportError $ "Missing LANGUAGE extensions: " ++ unwords (map show (toList missingExts))
-
-    -- generate TH declarations
-    genTH headerIncludePath LowLevel.defaultTranslationOpts cheader
-
--- | Generate bindings for the given C header
---
--- This function uses default Clang arguments but allows you to add directories
--- to the include search path.  Use 'genBindings' when more configuration is
--- required.
-genBindings' ::
-     [FilePath] -- ^ Quote include search path directories
-  -> FilePath   -- ^ Input header, as written in C @#include@
-  -> TH.Q [TH.Dec]
-genBindings' quoteIncPathDirs fp = genBindings fp args
-  where
-    args :: ClangArgs
-    args = defaultClangArgs {
-        clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncPathDirs
       }

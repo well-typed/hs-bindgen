@@ -61,6 +61,7 @@ library
 
   exposed-modules:
       HsBindgen.Lib
+      HsBindgen.TH
   exposed-modules:
       -- Exposed for the sake of tests
       -- TODO: We should reconsider the proper way to export these.
