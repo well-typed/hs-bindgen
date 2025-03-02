@@ -43,7 +43,7 @@ processTypeDecl unit ty = do
         Nothing                      -> processTypeDecl' DeclPathTop unit ty
         Just (TypeDecl t _)          -> return t
         Just (TypeDeclAlias t)       -> return t
-        Just (TypeDeclProcessing t') -> liftIO $ fail $ "Incomplete type declaration: " ++ show t'
+        Just (TypeDeclProcessing t') -> liftIO $ panicIO $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
      DeclPath
@@ -194,7 +194,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                       }
 
                 DeclarationForward _defn -> do
-                    liftIO $ fail "should not happen"
+                    liftIO $ panicIO "should not happen"
 
                 DeclarationRegular -> do
                     sizeof    <- liftIO (clang_Type_getSizeOf  ty)
@@ -246,7 +246,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                           }
 
                     DeclarationForward _defn -> do
-                        liftIO $ fail "should not happen"
+                        liftIO $ panicIO "should not happen"
 
                     DeclarationRegular -> do
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
@@ -317,12 +317,12 @@ addAlias ty t = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
-        Nothing -> liftIO $ fail "type not being processed"
+        Nothing -> liftIO $ panicIO "type not being processed"
         Just (TypeDeclProcessing _t) -> do
             put s { typeDeclarations = omapInsertBack ty (TypeDeclAlias t) ds }
             return t
-        Just (TypeDeclAlias _) -> liftIO $ fail "type already processed"
-        Just (TypeDecl _ _) -> liftIO $ fail "type already processed"
+        Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
+        Just (TypeDecl _ _) -> liftIO $ panicIO "type already processed"
 
 addTypeDeclProcessing :: CXType -> Type -> Eff (State DeclState) ()
 addTypeDeclProcessing ty t = do
@@ -330,21 +330,21 @@ addTypeDeclProcessing ty t = do
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
         Nothing -> put s { typeDeclarations = omapInsertBack ty (TypeDeclProcessing t) ds }
-        Just (TypeDeclProcessing t') -> liftIO $ fail $ "type already processed (1)" ++ show (t, t')
-        Just (TypeDecl t' _) -> liftIO $ fail $ "type already processed (2)" ++ show (t, t')
-        Just (TypeDeclAlias t') -> liftIO $ fail $ "type already processed (3)" ++ show (t, t')
+        Just (TypeDeclProcessing t') -> liftIO $ panicIO $ "type already processed (1)" ++ show (t, t')
+        Just (TypeDecl t' _) -> liftIO $ panicIO $ "type already processed (2)" ++ show (t, t')
+        Just (TypeDeclAlias t') -> liftIO $ panicIO $ "type already processed (3)" ++ show (t, t')
 
 addDecl :: CXType -> Decl -> Eff (State DeclState) Type
 addDecl ty d = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
-        Nothing -> liftIO $ fail "type not being processed"
+        Nothing -> liftIO $ panicIO "type not being processed"
         Just (TypeDeclProcessing t) -> do
             put s { typeDeclarations = omapInsertBack ty (TypeDecl t d) ds }
             return t
-        Just (TypeDecl _ _)    -> liftIO $ fail "type already processed"
-        Just (TypeDeclAlias _) -> liftIO $ fail "type already processed"
+        Just (TypeDecl _ _)    -> liftIO $ panicIO "type already processed"
+        Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
 
 -- https://github.com/dmwit/ordered-containers/issues/29
 omapInsertBack :: Ord k => k -> v -> OMap.OMap k v -> OMap.OMap k v
@@ -391,7 +391,7 @@ mkStructField unit path current = do
             tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
             case reparseWith reparseFieldDecl tokens of
               Left err ->
-                fail $ "mkStructField: " ++ show err
+                throwIO_TODO 427 $ "mkStructField: " ++ show err
               Right (fieldType, fieldName) -> do
                 -- Note: macro definitions don't work with incomplete arrays
                 -- This is fine as reparseWith doesn't recognise array types atm.

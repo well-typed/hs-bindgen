@@ -4,6 +4,7 @@ module HsBindgen.Errors (
     hsBindgenExceptionFromException,
     TODOException (..),
     throwPure_TODO,
+    throwIO_TODO,
     PanicException,
     panicPure,
     panicIO,
@@ -55,6 +56,9 @@ instance Exception TODOException where
 -- | Throw a pure, known TODO exception.
 throwPure_TODO :: HasCallStack => Int -> String -> a
 throwPure_TODO issue msg = throw (TODOException callStack issue msg)
+
+throwIO_TODO :: (HasCallStack, MonadIO m) => Int -> String -> m a
+throwIO_TODO issue msg = liftIO (throwIO (TODOException callStack issue msg))
 
 -------------------------------------------------------------------------------
 -- Panics
