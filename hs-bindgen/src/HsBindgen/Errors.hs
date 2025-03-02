@@ -1,15 +1,18 @@
 module HsBindgen.Errors (
     HsBindgenException (..),
+    hsBindgenExceptionToException,
+    hsBindgenExceptionFromException,
     TODOException (..),
     throwPure_TODO,
+    throwIO_TODO,
     PanicException,
     panicPure,
+    panicIO,
 ) where
 
 import GHC.Stack (CallStack, callStack, prettyCallStack)
 import Control.Exception (SomeException (..), Exception (..), throw)
 import Data.Typeable (cast)
-
 import HsBindgen.Imports
 
 -------------------------------------------------------------------------------
@@ -54,6 +57,9 @@ instance Exception TODOException where
 throwPure_TODO :: HasCallStack => Int -> String -> a
 throwPure_TODO issue msg = throw (TODOException callStack issue msg)
 
+throwIO_TODO :: (HasCallStack, MonadIO m) => Int -> String -> m a
+throwIO_TODO issue msg = liftIO (throwIO (TODOException callStack issue msg))
+
 -------------------------------------------------------------------------------
 -- Panics
 -------------------------------------------------------------------------------
@@ -75,3 +81,7 @@ instance Exception PanicException where
 -- | Panic in pure context
 panicPure :: HasCallStack => String -> a
 panicPure msg = throw (PanicException callStack msg)
+
+-- | Panic in IO
+panicIO :: (HasCallStack, MonadIO m) => String -> m a
+panicIO msg = liftIO (throwIO (PanicException callStack msg))

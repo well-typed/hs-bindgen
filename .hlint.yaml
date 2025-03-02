@@ -65,11 +65,10 @@
 #
 # We could use -functions as above to forbid these, but the hlint message will be a bit confusing.
 #
-# TODO: https://github.com/well-typed/hs-bindgen/issues/340
 - error: {lhs: "error", rhs: "panicPure"}
 - error: {lhs: "undefined", rhs: "panicPure"}
-#- error: {lhs: "fail", rhs: "panicIO"}
-#- ignore: {name: "Use panicIO", within: "HsBindgen.C.Reparse.Literal" }
+- error: {lhs: "fail", rhs: "panicIO"}
+- ignore: {name: "Use panicIO", within: "HsBindgen.TH" } # fail is the only way to abort in Q
 
 # Define some custom infix operators
 # - fixity: infixr 3 ~^#^~
