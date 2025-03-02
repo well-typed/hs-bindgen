@@ -288,7 +288,7 @@ errorWithContext cursor msg = do
       clang_getPresumedLocation =<< clang_getRangeStart extent
     (_, endLine, endCol) <-
       clang_getPresumedLocation =<< clang_getRangeEnd extent
-    error $ concat
+    fail $ concat
       [ msg, ": cursor ", show displayName, " in ", show file, " ("
       , show startLine, ":", show startCol, "-", show endLine, ":"
       , show endCol, ")"
