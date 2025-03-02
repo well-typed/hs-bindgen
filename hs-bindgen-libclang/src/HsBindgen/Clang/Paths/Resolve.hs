@@ -1,8 +1,10 @@
 module HsBindgen.Clang.Paths.Resolve (
-    resolveHeader
+    ResolveHeaderException(..)
+  , resolveHeader
   , resolveHeader'
   ) where
 
+import Control.Exception (Exception, throwIO)
 import Control.Monad ((<=<), unless, when)
 import Control.Monad.Except (runExceptT, throwError)
 import Control.Monad.IO.Class (MonadIO(liftIO))
@@ -21,17 +23,30 @@ import HsBindgen.Runtime.Enum.Simple
 
 --------------------------------------------------------------------------------
 
+-- | Failed to resolve a header
+data ResolveHeaderException =
+    ResolveHeaderNotFound CHeaderIncludePath
+  | ResolveHeaderParseTranslationUnitError (SimpleEnum CXErrorCode)
+  deriving stock (Show)
+  deriving anyclass (Exception)
+
 -- | Resolve a header
-resolveHeader :: ClangArgs -> CHeaderIncludePath -> IO (Maybe SourcePath)
+resolveHeader ::
+     ClangArgs
+  -> CHeaderIncludePath
+  -> IO (Either ResolveHeaderException SourcePath)
 resolveHeader args headerIncludePath =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile headerName headerContent $ \unsavedFile ->
         withTranslationUnit2 index headerSourcePath args [unsavedFile] opts $
           \case
-            Left err -> fail $ show err
+            Left err -> return $
+              Left (ResolveHeaderParseTranslationUnitError err)
             Right unit -> do
               rootCursor <- clang_getTranslationUnitCursor unit
-              listToMaybe <$> HighLevel.clang_visitChildren rootCursor visit
+              maybe (Left (ResolveHeaderNotFound headerIncludePath)) Right
+                .   listToMaybe
+                <$> HighLevel.clang_visitChildren rootCursor visit
   where
     visit :: CXCursor -> IO (Next IO SourcePath)
     visit cursor = either return return <=< runExceptT $ do
@@ -72,11 +87,6 @@ resolveHeader args headerIncludePath =
     opts :: BitfieldEnum CXTranslationUnit_Flags
     opts = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
 
--- | Resolve a header, failing if not found
+-- | Resolve a header, throwing a 'ResolveHeaderException' on error
 resolveHeader' :: ClangArgs -> CHeaderIncludePath -> IO SourcePath
-resolveHeader' args headerIncludePath = do
-    mSrc <- resolveHeader args headerIncludePath
-    case mSrc of
-      Just src -> return src
-      Nothing  -> fail $
-        "header not found: " ++ renderCHeaderIncludePath headerIncludePath
+resolveHeader' args = either throwIO return <=< resolveHeader args
