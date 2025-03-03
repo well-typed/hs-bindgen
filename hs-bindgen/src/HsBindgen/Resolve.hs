@@ -4,12 +4,9 @@ module HsBindgen.Resolve (
   , resolveHeader
   ) where
 
-import Control.Exception (Exception, throwIO)
-import Control.Monad ((<=<), unless, when)
+import Control.Monad ((<=<))
 import Control.Monad.Except (runExceptT, throwError)
-import Control.Monad.IO.Class (MonadIO(liftIO))
 import Data.Maybe (listToMaybe)
-import Data.Text (Text)
 import Data.Text qualified as Text
 
 import HsBindgen.Clang.Args
@@ -19,6 +16,7 @@ import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
 import HsBindgen.Errors
+import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
