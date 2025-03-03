@@ -1,4 +1,4 @@
-module HsBindgen.Clang.Paths.Resolve (
+module HsBindgen.Resolve (
     ResolveHeaderException(..)
   , resolveHeader
   , resolveHeader'

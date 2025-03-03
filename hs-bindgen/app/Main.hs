@@ -9,7 +9,6 @@ import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Lib
 import HsBindgen.Errors
 

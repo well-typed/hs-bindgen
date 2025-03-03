@@ -58,7 +58,6 @@ library
       HsBindgen.Clang.Args
       HsBindgen.Clang.CNameSpelling
       HsBindgen.Clang.Paths
-      HsBindgen.Clang.Paths.Resolve
       HsBindgen.Clang.Version
 
       HsBindgen.Clang.LowLevel.Core
@@ -110,22 +109,6 @@ library
 
   build-tool-depends:
       hsc2hs:hsc2hs
-
-executable clang-ast-dump
-  import:         lang
-  main-is:        Main.hs
-  hs-source-dirs: clang-ast-dump
-
-  build-depends:
-      -- Internal dependencies
-    , hs-bindgen-libclang
-    , hs-bindgen-runtime
-  build-depends:
-      -- Inherited dependencies
-    , text
-  build-depends:
-      -- External dependencies
-    , optparse-applicative >= 0.18 && < 0.19
 
 test-suite clang-tutorial
   import:         lang

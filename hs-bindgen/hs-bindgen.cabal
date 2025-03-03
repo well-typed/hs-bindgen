@@ -106,6 +106,7 @@ library
       HsBindgen.Imports
       HsBindgen.Orphans
       HsBindgen.Pretty.Orphans
+      HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec
@@ -170,6 +171,23 @@ executable hs-bindgen
       -- Inherited dependencies
     , data-default
   build-depends:
+    , optparse-applicative >= 0.18 && < 0.19
+
+executable clang-ast-dump
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: clang-ast-dump
+
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
+    , hs-bindgen-libclang
+    , hs-bindgen-runtime
+  build-depends:
+      -- Inherited dependencies
+    , text
+  build-depends:
+      -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
 test-suite golden

@@ -1,5 +1,4 @@
 {-# LANGUAGE ApplicativeDo #-}
-{-# LANGUAGE RecordWildCards #-}
 
 module Main (main) where
 
@@ -19,7 +18,7 @@ import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
+import HsBindgen.Lib (resolveHeader')
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
@@ -184,15 +183,15 @@ foldDecls opts@Options{..} cursor = do
           decl <- HighLevel.classifyDeclaration cursor
           case decl of
             DeclarationRegular -> do
-              traceU 2 "declaration type" "DeclarationRegular"
+              traceU 2 "declaration type" ("DeclarationRegular" :: String)
               traceU 2 "sizeof"
                 =<< handleCallFailed (clang_Type_getSizeOf cursorType)
               traceU 2 "alignment"
                 =<< handleCallFailed (clang_Type_getAlignOf cursorType)
             DeclarationForward{} ->
-              traceU 2 "declaration type" "DeclarationForward"
+              traceU 2 "declaration type" ("DeclarationForward" :: String)
             DeclarationOpaque ->
-              traceU 2 "declaration type" "DeclarationOpaque"
+              traceU 2 "declaration type" ("DeclarationOpaque" :: String)
 
 dumpComment :: Int -> Maybe CUInt -> CXComment -> IO ()
 dumpComment level mIdx comment = do

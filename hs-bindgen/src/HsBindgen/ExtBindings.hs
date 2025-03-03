@@ -25,9 +25,9 @@ import HsBindgen.Errors
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.CNameSpelling
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Imports
 import HsBindgen.Orphans ()
+import HsBindgen.Resolve
 
 {-------------------------------------------------------------------------------
   Types

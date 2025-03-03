@@ -15,7 +15,6 @@ import Test.Tasty (TestTree, TestName)
 
 import Misc
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Lib
 
 goldenTh :: FilePath -> TestName -> TestTree

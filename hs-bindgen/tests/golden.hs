@@ -19,7 +19,6 @@ import TH
 #endif
 
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Lib
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 
