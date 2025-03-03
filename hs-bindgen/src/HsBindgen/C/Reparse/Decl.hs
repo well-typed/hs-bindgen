@@ -7,12 +7,23 @@ module HsBindgen.C.Reparse.Decl where
 -- base
 import Control.Monad
   ( void )
+import Data.Either
+  ( partitionEithers )
+import Data.Foldable
+  ( toList )
 import Data.Functor
-  ( (<&>), ($>) )
+  ( ($>) )
 import Data.Kind qualified as Hs
+
+import Data.List
+  ( intercalate )
 import Data.List.NonEmpty qualified as NE
 import Data.Maybe
   ( isJust, mapMaybe )
+import Data.Type.Bool
+  ( If )
+import Data.Type.Equality
+  ( type (==) )
 import Numeric.Natural
   ( Natural )
 
@@ -24,11 +35,13 @@ import Text.Parsec
 
 -- text
 import Data.Text
+  ( Text )
 
 -- hs-bindgen
 import HsBindgen.C.AST
   ( TokenSpelling(..), tokenSpelling )
-import HsBindgen.C.AST.Literal (IntegerLiteral(..))
+import HsBindgen.C.AST.Literal
+  ( IntegerLiteral(..) )
 
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
@@ -51,43 +64,46 @@ import HsBindgen.Clang.LowLevel.Core
 -- | Field declaration (in a struct)
 reparseFieldDecl :: TcMacro.TypeEnv -> Reparse (Type, CName)
 reparseFieldDecl macroTys = do
-  ( specs, Declarator ptrs decl) <-
+  ( specs, Declarator ptrs decl ) <-
     manyTillLookahead
       ( reparseDeclarationSpecifier macroTys )
       ( reparseDeclarator @Concrete macroTys )
-  _mbBitSize <- optionMaybe $ do { punctuation ":" ; reparseSizeExpression }
+  _mbBitSize <- optionMaybe $
+    ( do { punctuation ":" ; reparseSizeExpression } <?> "bit size" )
   eof
-
-  -- TODO: we're discarding a lot of information here.
-  let mbBaseTy = declarationSpecifiersType specs
-  case mbBaseTy of
-    Nothing ->
-      fail "field declaration must have a type"
-    Just baseTy -> do
-      let ptrTy = mkPtr ptrs baseTy
-      case declaratorTypeAndName ptrTy decl of
-        Left err -> fail err
-        Right r -> return r
+  case declaratorType specs decl of
+    Left err -> fail err
+    Right ( baseTy, nm ) ->
+      return ( mkPtr ptrs baseTy, nm )
 
 -- | Function declaration.
 reparseFunDecl :: TcMacro.TypeEnv -> Reparse (([Type],Type), CName)
 reparseFunDecl macroTys = do
-  ( specs, decl ) <-
+  ( specs, Declarator ptrs decl ) <-
     manyTillLookahead
       ( reparseDeclarationSpecifier macroTys )
-      ( reparseDirectDeclarator @Concrete macroTys )
+      ( reparseDeclarator @Concrete macroTys )
   eof
+  case declaratorType specs decl of
+    Left err -> fail err
+    Right ( ty, nm ) ->
+      case ty of
+        TypeFun args res ->
+          return ((args, mkPtr ptrs res), nm)
+        _ ->
+          fail $ "expected a function type, but got: " ++ show ty
+
+declaratorType :: [ DeclarationSpecifier ]
+               -> DirectDeclarator abs
+               -> Either String ( Type, If (abs == Concrete) CName () )
+declaratorType specs decl =
   case declarationSpecifiersType specs of
-    Nothing -> fail "missing return type annotation"
-    Just resTy ->
-      case declaratorTypeAndName resTy decl of
-        Left err -> fail err
-        Right (ty, nm) ->
-          case ty of
-            TypeFun args res ->
-              return ((args,res), nm)
-            _ ->
-              fail $ "expected a function type, but got: " ++ show ty
+    Nothing -> Left "declarator missing a type"
+    Just baseTy ->
+      case declaratorTypeAndName baseTy decl of
+        Left err -> Left err
+        Right tyAndNm ->
+          return tyAndNm
 
 manyTillLookahead :: (Stream s m t, Show t) => ParsecT s u m a -> ParsecT s u m e -> ParsecT s u m ([a], e)
 manyTillLookahead p end = go
@@ -101,8 +117,8 @@ manyTillLookahead p end = go
       , do { a <- p; (as, e) <- go ; return (a:as, e)}
       ]
 
-mkPtr :: Pointers [] -> Type -> Type
-mkPtr (Pointers l) = go l
+mkPtr :: Foldable f => Pointers f -> Type -> Type
+mkPtr (Pointers l) = go ( toList l )
   where
     go [] a = a
     go (_:r) a = go r (TypePointer a)
@@ -113,7 +129,7 @@ declarationSpecifiersType specs =
     [ ty ] -> Just ty
     [] -> Nothing
     tys@(_:_:_) ->
-      error $ Prelude.unlines
+      error $ unlines
         [ "declarationSpecifiersType: multiple types"
         , show tys
         ]
@@ -132,24 +148,28 @@ declarationSpecifiersType specs =
               TypeSpecifier ty -> Just ty
               TypeDefTypeSpecifier nm -> Just $ TypeTypedef nm
 
-declaratorTypeAndName :: Type -> DirectDeclarator Concrete -> Either String ( Type, CName )
+declaratorTypeAndName :: Type -> DirectDeclarator abs -> Either String ( Type, If ( abs == Concrete ) CName () )
 declaratorTypeAndName ty = \case
-  IdentifierDeclarator (NotOmitted (Identifier nm _)) -> Right ( ty, nm )
-  ParenDeclarator ( Declarator ptrs d ) ->
-    declaratorTypeAndName ty d <&> \ ( ty', nm ) ->
-      ( mkPtr ptrs ty', nm )
+  IdentifierDeclarator (Identifier nm _) ->
+    Right (ty, nm)
+  ParenDeclarator d ->
+    case d of
+      Declarator ptrs dd ->
+        declaratorTypeAndName (mkPtr ptrs ty) dd
+      PointerAbstractDeclarator ptrs ->
+        return ( mkPtr ptrs ty, () )
   ArrayDirectDeclarator (ArrayDeclarator { arrayDirectDeclarator = d, arraySize = sz }) -> do
-    ( ty', nm ) <- declaratorTypeAndName ty d
-    ( , nm ) <$>
+    arrTy <-
       case sz of
         ArrayNoSize ->
-          Right $ TypeIncompleteArray ty'
+          Right $ TypeIncompleteArray ty
         VLA ->
-          Right $ TypeIncompleteArray ty'
+          Right $ TypeIncompleteArray ty
         ArraySize ( SizeExpression sizeExpr ) ->
           case literalMaybe sizeExpr of
-            Just n -> Right $ TypeConstArray n ty'
+            Just n -> Right $ TypeConstArray n ty
             Nothing -> Left $ "cannot evaluate array size: " ++ show sizeExpr
+    declaratorTypeAndName arrTy d
   FunctionDirectDeclarator
     (FunctionDeclarator
       { functionDirectDeclarator = d
@@ -157,21 +177,54 @@ declaratorTypeAndName ty = \case
       , functionVariadic = variadic
       }
     ) -> do
-    ( ty', nm ) <- declaratorTypeAndName ty d
-    let
-      mbArgTys = parameterTypes xs
-    case mbArgTys of
-      Nothing ->
-        Left "missing type specifier"
-      Just argTys ->
-        if variadic
-        then
-          Left "unsupported variadic function declaration"
-        else
-          Right $ ( TypeFun argTys ty', nm )
+    let (missingTys, argTys) = parameterTypes xs
+    funTy <-
+      case missingTys of
+        [] ->
+          if variadic
+          then
+            Left "unsupported variadic function declaration"
+          else
+            Right $ TypeFun argTys ty
+        ms@(_:rest) -> do
+          let s = if null rest then "" else "s"
+          Left $
+            "missing type specifier" ++ s ++ " in function parameter" ++ s
+              ++ " " ++ intercalate ", " ( map show ms )
+    declaratorTypeAndName funTy d
 
-parameterTypes :: [Parameter] -> Maybe [Type]
-parameterTypes = traverse ( declarationSpecifiersType . parameterDeclSpecifiers )
+parameterTypes :: [Parameter] -> ([Int], [Type])
+parameterTypes ps =
+  partitionEithers $
+    zipWith aux [1..] ps
+  where
+    aux i ( Parameter { parameterDeclSpecifiers = specs, parameterDeclarator = pDecl }) =
+      case pDecl of
+        ParameterDeclarator ( Declarator ptrs d ) ->
+          case declaratorType specs d of
+            Left {} -> Left i
+            Right ( ty, _ ) ->
+              -- TODO: pointers probably wrong?
+              Right $ mkPtr ptrs ty
+        ParameterAbstractDeclarator mbAbs ->
+          case mbAbs of
+            Nothing ->
+              -- TODO: no idea if this is right?
+              case declarationSpecifiersType specs of
+                Nothing -> Left i
+                Just ty -> Right ty
+            Just decl ->
+              case decl of
+                Declarator ptrs d ->
+                  case declaratorType specs d of
+                    Left {} -> Left i
+                    Right ( ty, _ ) ->
+                      Right $ mkPtr ptrs ty
+                PointerAbstractDeclarator ptrs ->
+                  case declarationSpecifiersType specs of
+                    Nothing -> Left i
+                    Just ty -> Right $ mkPtr ptrs ty
+
 
 literalMaybe :: MExpr -> Maybe Natural
 literalMaybe = \case
@@ -221,19 +274,21 @@ reparsePointer = do
   attrs <- many reparseAttributeSpecifier
   tqs   <- many reparseTypeQualifier
   return ( attrs, tqs )
+  <?> "pointer"
 
 reparseDirectDeclarator
   :: forall abs. KnownDeclaratorType abs
   => TcMacro.TypeEnv -> Reparse ( DirectDeclarator abs )
-reparseDirectDeclarator macroTys =
-  choice $
-    [ ParenDeclarator <$> parens ( reparseDeclarator @abs macroTys )
-    , do { ident <- case knownDeclarator @abs of
-                      SConcrete -> NotOmitted <$> reparseIdentifier
-                      SAbstract -> return Omitted
-         ; withArrayOrFunctionSuffixes macroTys ( IdentifierDeclarator ident )
-         }
-    ]
+reparseDirectDeclarator macroTys = do
+  decl <-
+    choice $
+      [ ParenDeclarator <$> parens ( reparseDeclarator @abs macroTys )
+      ]
+      ++
+      case knownDeclarator @abs of
+        SConcrete -> [ IdentifierDeclarator <$> reparseIdentifier ]
+        SAbstract -> []
+  withArrayOrFunctionSuffixes macroTys decl
 
 withArrayOrFunctionSuffixes
   :: forall abs. KnownDeclaratorType abs
@@ -254,6 +309,7 @@ reparseIdentifier = do
   i <- tokenOfKind CXToken_Identifier (Just . CName)
   attrs <- many reparseAttributeSpecifier
   return $ Identifier i attrs
+  <?> "identifier"
 
 abstractOptional :: forall abs a. KnownDeclaratorType abs => Reparse a -> Reparse ( AbstractOptional abs a )
 abstractOptional p = case knownDeclarator @abs of
@@ -286,6 +342,7 @@ reparseArrayDeclarator macroTys decl = do
      , arraySize             = sz
      , arrayAttributes       = attrs
      }
+  <?> "array declarator"
 
 
 reparseFunctionDeclarator :: TcMacro.TypeEnv -> DirectDeclarator abs -> Reparse ( FunctionDeclarator abs )
@@ -299,16 +356,18 @@ reparseFunctionDeclarator macroTys decl = do
       , functionVariadic         = variadic
       , functionAttributes       = attrs
       }
+  <?> "function declarator"
 
 reparseParameterList :: TcMacro.TypeEnv -> Reparse ( [ Parameter ], Bool )
 reparseParameterList macroTys =
   choice
-    [ do { punctuation "..."; return ( [], True ) }
+    [ do { punctuation "..."; return ( [], True ) } <?> "varargs"
     , do { p <- reparseParameter macroTys
-         ; punctuation ","
-         ; ( ps, v ) <- reparseParameterList macroTys
-         ; return ( p: ps, v ) }
-    , do { p <- reparseParameter macroTys; return ( [p], False ) }
+         ; nxt <- optionMaybe $ do { punctuation ","; reparseParameterList macroTys }
+         ; return $
+            case nxt of
+              Nothing -> ([p], False)
+              Just (ps, v) -> (p:ps, v) }
     , return ( [], False )
     ]
 
@@ -317,8 +376,8 @@ reparseParameter macroTys = do
   attrs <- many reparseAttributeSpecifier
   declSpecs <- many1 $ reparseDeclarationSpecifier macroTys
   decl <- reparseParameterDeclarator macroTys
-  return $
-   Parameter attrs declSpecs decl
+  return $ Parameter attrs declSpecs decl
+  <?> "function parameter"
 
 reparseParameterDeclarator :: TcMacro.TypeEnv -> Reparse ParameterDeclarator
 reparseParameterDeclarator macroTys =
@@ -368,7 +427,7 @@ deriving stock instance ( forall a. Show a => Show ( f a ) ) => Show ( Pointers 
 
 type DirectDeclarator :: DeclaratorType -> Hs.Type
 data DirectDeclarator abs where
-  IdentifierDeclarator :: AbstractOmitted abs Identifier -> DirectDeclarator abs
+  IdentifierDeclarator :: Identifier -> DirectDeclarator Concrete
   ParenDeclarator :: Declarator abs -> DirectDeclarator abs
   ArrayDirectDeclarator :: ArrayDeclarator abs -> DirectDeclarator abs
   FunctionDirectDeclarator :: FunctionDeclarator abs -> DirectDeclarator abs
@@ -461,6 +520,7 @@ reparseAttributeSpecifier = do
   attrs <- many reparseAttribute
   do { punctuation "]" ; punctuation "]" }
   return $ AttributeSpecifier attrs
+  <?> "attribute"
 
 reparseAttribute :: Reparse Attribute
 reparseAttribute = do
@@ -535,6 +595,7 @@ reparseAlignmentSpecifier macroTys = do
       [ AlignAsTypeName <$> reparseTypeName macroTys
       , AlignAsConstExpr <$> reparseSizeExpression
       ]
+  <?> "alignment"
 
 data TypeName
   = TypeName [TypeSpecifier] [AttributeSpecifier] (Maybe (Declarator Abstract))
@@ -569,6 +630,7 @@ reparseTypeQualifier = choice
   , keyword "volatile" $> TQ_volatile
   , keyword "_Atomic"  $> TQ__Atomic
   ]
+  <?> "type qualifier"
 
 reparseTypeSpecifier :: TcMacro.TypeEnv -> Reparse TypeSpecifier
 reparseTypeSpecifier macroTys =
@@ -585,7 +647,9 @@ reparseTypeSpecifier macroTys =
               | otherwise
               -> fail $ "macro name does not refer to a type: " ++ show nm
        }
-  ]
+  ] <?> "type"
+
+
 data StorageClassSpecifier
   = SC_auto
   | SC_constexpr
@@ -607,6 +671,8 @@ reparseStorageClassSpecifier =
     , keyword "thread_local" $> SC_thread_local
     , keyword "typedef"      $> SC_typedef
     ]
+  <?> "storage class"
+
 data FunctionSpecifier
   = FS_inline
   | FS__Noreturn

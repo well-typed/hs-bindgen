@@ -84,7 +84,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl unit ty
+        ty' <- processTypeDecl unit (Just current) ty
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
@@ -105,7 +105,7 @@ foldDecls tracer p unit = checkPredicate tracer p $ \current -> do
     typeDecl current = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl unit ty
+      void $ processTypeDecl unit ( Just current ) ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
@@ -122,7 +122,8 @@ isBuiltinMacro :: SingleLoc -> Bool
 isBuiltinMacro = Text.null . getSourcePath . singleLocPath
 
 mkMacro ::
-     MonadIO m
+     HasCallStack
+  => MonadIO m
   => CXTranslationUnit
   -> CXCursor
   -> m (Either ReparseError Macro)

@@ -32,30 +32,33 @@ import HsBindgen.Util.Tracer (prettyLogMsg)
 -- | Process top-level (type) declration
 processTypeDecl ::
      CXTranslationUnit
+  -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl unit ty = do
+processTypeDecl unit declCursor ty = do
     -- dtraceIO "processTypeDecl" ty
 
     s <- get
 
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                      -> processTypeDecl' DeclPathTop unit ty
+        Nothing                      -> processTypeDecl' DeclPathTop unit declCursor ty
         Just (TypeDecl t _)          -> return t
         Just (TypeDeclAlias t)       -> return t
         Just (TypeDeclProcessing t') -> liftIO $ fail $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
-     DeclPath
+     HasCallStack
+  => DeclPath
   -> CXTranslationUnit
+  -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDeclRec path unit ty = do
+processTypeDeclRec path unit curr ty = do
     -- dtraceIO "processTypeDeclRec" ty
 
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                     -> processTypeDecl' path unit ty
+        Nothing                     -> processTypeDecl' path unit curr ty
         Just (TypeDecl t _)         -> return t
         Just (TypeDeclAlias t)      -> return t
         Just (TypeDeclProcessing t) -> return t
@@ -99,18 +102,22 @@ processTypeDeclRec path unit ty = do
 -- https://github.com/well-typed/hs-bindgen/issues/314
 --
 processTypeDecl' ::
-     DeclPath
+     HasCallStack
+  => DeclPath
   -> CXTranslationUnit
+  -> Maybe CXCursor
+      -- ^ cursor of the type declaration; only used for reparsing
+      -- function declarations containing macros
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' path unit declCursor ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- liftIO $ clang_Type_getNamedType ty
-        processTypeDeclRec path unit ty'
+        processTypeDeclRec path unit Nothing ty'
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -126,7 +133,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         sloc <- liftIO $
           HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
 
-        use <- processTypeDeclRec (DeclPathStruct (DeclNameTypedef tag) DeclPathTop) unit ty'
+        use <- processTypeDeclRec (DeclPathStruct (DeclNameTypedef tag) DeclPathTop) unit (Just decl) ty'
 
         -- we could check whether typedef has a transparent tag,
         -- like in case of `typedef struct foo { ..} foo;`
@@ -225,7 +232,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
         if anon
         then do
-            -- anonymous declration, nothing to do
+            -- anonymous declaration, nothing to do
 
             -- TODO: check with struct foo { struct { ... } field; };
             return TypeVoid
@@ -252,7 +259,7 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                         alignment <- liftIO (clang_Type_getAlignOf ty)
                         ety       <- liftIO (clang_getEnumDeclIntegerType decl)
-                          >>= processTypeDeclRec DeclPathTop unit
+                          >>= processTypeDeclRec DeclPathTop unit (Just decl)
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -269,13 +276,15 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
 
     Right CXType_Pointer -> do
         pointee <- liftIO $ clang_getPointeeType ty
-        pointee' <- processTypeDeclRec (DeclPathPtr path) unit pointee
+        pointee' <- processTypeDeclRec (DeclPathPtr path) unit declCursor pointee
+          -- NB: keeping 'declCursor' even though we are peeling off
+          -- a pointer. See the CXType_FunctionProto case of processTypeDecl'.
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- liftIO $ clang_getArraySize ty
         e <- liftIO $ clang_getArrayElementType ty
-        e' <- processTypeDeclRec path unit e
+        e' <- processTypeDeclRec path unit Nothing e
         return (TypeConstArray (fromIntegral n) e')
 
     Right CXType_Void -> do
@@ -285,22 +294,71 @@ processTypeDecl' path unit ty = case fromSimpleEnum $ cxtKind ty of
         return $ TypePrim PrimBool
 
     Right CXType_FunctionProto -> do
-        -- TODO: reparse when macro expansion occurred
-        -- TODO: fail on variadic types, these don't have great FFI support anyway. clang_isFunctionTypeVariadic
-        -- TODO: we could record calling convention clang_getFunctionTypeCallingConv, but for CApiFFI it's irrelevant as it creates C wrappers with known convention
-        res <- liftIO $ clang_getResultType ty
-        res' <- processTypeDeclRec path unit res
+        mbProtoWithMacros <-
+          case declCursor of
+            Nothing ->
+              -- This should only happen when we are recurring into a
+              -- function which takes function (pointers) as parameters.
+              --
+              -- We only do such manual recursion if the entire function doesn't
+              -- have macros, so we are OK to report no macros here.
+              return Nothing
+            Just cx -> do
+              protoExtent <- liftIO $ HighLevel.clang_getCursorExtent cx
+              hasMacro <- gets $ containsMacroExpansion protoExtent
+              return $
+                if hasMacro
+                then Just protoExtent
+                else Nothing
 
-        nargs <- liftIO $ clang_getNumArgTypes ty
-        args' <- forM [0 .. nargs - 1] $ \i -> do
-            arg <- liftIO $ clang_getArgType ty (fromIntegral i)
-            processTypeDeclRec path unit arg
+        mbTyWithMacros <-
+          case mbProtoWithMacros of
+            Nothing -> return Nothing
+            Just protoExtent -> do
+              -- TODO: if macro expansion is confined to the function parameters,
+              -- we don't need to reparse the whole function as we do here.
+              tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> protoExtent)
+              macroTyEnv <- macroTypes <$> get
+              case reparseWith (reparseFunDecl macroTyEnv) tokens of
+                  Left err -> do
+                    -- TODO: improve mechanism for reporting warnings
+                    liftIO $ putStrLn $ unlines
+                      [ "Warning: failed to re-parse function declaration containing macro expansion."
+                      , "Proceeding with macros expanded."
+                      , ""
+                      , "Parse error:"
+                      , prettyLogMsg err
+                      , ""
+                      ]
+                    return Nothing
+                  Right ((args, res), _fnName) ->
+                    -- For function pointers, the number of pointers will get added
+                    -- on by the CXType_Pointer case of processTypeDecl'.
+                    return $ Just $ TypeFun args res
+        case mbTyWithMacros of
+          Just funTy -> return funTy
+          Nothing -> do
+            -- TODO: fail on variadic types, these don't have great FFI support anyway
+            -- (clang_isFunctionTypeVariadic)
+            -- TODO: we could record calling convention (clang_getFunctionTypeCallingConv),
+            -- but for CApiFFI it's irrelevant as it creates C wrappers with known convention
 
-        return $ TypeFun args' res'
+            res <- liftIO $ clang_getResultType ty
+            res' <- processTypeDeclRec path unit Nothing res
+            nargs <- liftIO $ clang_getNumArgTypes ty
+            args' <- forM [0 .. nargs - 1] $ \i -> do
+              arg <- liftIO $ clang_getArgType ty (fromIntegral i)
+              processTypeDeclRec path unit Nothing arg
+
+            -- There are no macros in the function, hence no macros in the
+            -- function argument or return types either. This is why it's OK
+            -- to pass 'Nothing' as a CXCursor above (it is only used for re-parsing).
+
+            return $ TypeFun args' res'
 
     Right CXType_IncompleteArray -> do
         e <- liftIO $ clang_getArrayElementType ty
-        e' <- processTypeDeclRec path unit e
+        e' <- processTypeDeclRec path unit Nothing e
         return (TypeIncompleteArray e')
 
     _ -> do
@@ -389,8 +447,7 @@ mkStructField unit path current = do
 
         mbNameTypeWithMacros <-
           if hasMacro
-          then
-            do
+          then do
             tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
             macroTyEnv <- macroTypes <$> get
             case reparseWith (reparseFieldDecl macroTyEnv) tokens of
@@ -418,10 +475,10 @@ mkStructField unit path current = do
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
                   e <- liftIO $ clang_getArrayElementType ty
-                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit e
+                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
-                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit ty
+                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) unit Nothing ty
                   return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
