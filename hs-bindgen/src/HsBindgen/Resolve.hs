@@ -1,9 +1,12 @@
 module HsBindgen.Resolve (
+    -- * Error type
     ResolveHeaderException(..)
+    -- * API
   , resolveHeader'
   , resolveHeader
   ) where
 
+import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
 import Control.Monad.Except (runExceptT, throwError)
 import Data.Maybe (listToMaybe)
@@ -20,14 +23,27 @@ import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
---------------------------------------------------------------------------------
+{-------------------------------------------------------------------------------
+  Error type
+-------------------------------------------------------------------------------}
 
 -- | Failed to resolve a header
 data ResolveHeaderException =
     ResolveHeaderNotFound CHeaderIncludePath
   | ResolveHeaderParseTranslationUnitError (SimpleEnum CXErrorCode)
   deriving stock (Show)
-  deriving anyclass (Exception)
+
+instance Exception ResolveHeaderException where
+  displayException = \case
+    ResolveHeaderNotFound headerIncludePath ->
+      "header not found: " ++ getCHeaderIncludePath headerIncludePath
+    ResolveHeaderParseTranslationUnitError err ->
+      "Clang parse translation unit error during header resolution: "
+        ++ show err
+
+{-------------------------------------------------------------------------------
+  API
+-------------------------------------------------------------------------------}
 
 -- | Resolve a header
 resolveHeader' ::
