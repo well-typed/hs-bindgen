@@ -8,6 +8,7 @@ import Control.Exception
 import Control.Monad
 import Data.Text (Text)
 import GHC.Generics (Generic)
+import GHC.Stack
 import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.HighLevel.SourceLoc (Range, MultiLoc, SingleLoc)
@@ -44,7 +45,8 @@ instance PrettyVal TokenSpelling where
 
 -- | Get all tokens in the specified range
 clang_tokenize ::
-     CXTranslationUnit
+     HasCallStack
+  => CXTranslationUnit
   -> Range SingleLoc
      -- ^ Range
      --

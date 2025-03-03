@@ -36,6 +36,7 @@ import Data.Text (Text)
 import Foreign.C
 import GHC.Generics (Generic)
 import Text.Show.Pretty (PrettyVal(..))
+import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
 import HsBindgen.Clang.Paths
@@ -266,7 +267,7 @@ toMulti location = do
 toRange :: Core.CXSourceRange -> IO (Range MultiLoc)
 toRange = toRangeWith toMulti
 
-fromSingle :: Core.CXTranslationUnit -> SingleLoc -> IO Core.CXSourceLocation
+fromSingle :: HasCallStack => Core.CXTranslationUnit -> SingleLoc -> IO Core.CXSourceLocation
 fromSingle unit SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
      let SourcePath path = singleLocPath
      file <- Core.clang_getFile unit path
@@ -276,7 +277,7 @@ fromSingle unit SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
        (fromIntegral singleLocLine)
        (fromIntegral singleLocColumn)
 
-fromRange :: Core.CXTranslationUnit -> Range SingleLoc -> IO Core.CXSourceRange
+fromRange :: HasCallStack => Core.CXTranslationUnit -> Range SingleLoc -> IO Core.CXSourceRange
 fromRange unit Range{rangeStart, rangeEnd} = do
     rangeStart' <- fromSingle unit rangeStart
     rangeEnd'   <- fromSingle unit rangeEnd

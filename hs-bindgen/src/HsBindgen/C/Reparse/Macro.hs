@@ -1,5 +1,5 @@
 module HsBindgen.C.Reparse.Macro (
-    reparseMacro
+    reparseMacro, mExpr
   ) where
 
 import Control.Monad
@@ -34,12 +34,15 @@ import HsBindgen.Clang.LowLevel.Core
 reparseMacro :: Reparse Macro
 reparseMacro = do
     (macroLoc, macroName) <- reparseLocName
-    choice [
-        -- When we see an opening bracket it might be the start of an argument
-        -- list, or it might be the start of the body, wrapped in parentheses.
-        try $ functionLike macroLoc macroName
-      , objectLike macroLoc macroName
-      ]
+    macro <-
+      choice [
+          -- When we see an opening bracket it might be the start of an argument
+          -- list, or it might be the start of the body, wrapped in parentheses.
+          try $ functionLike macroLoc macroName
+        , objectLike macroLoc macroName
+        ]
+    eof
+    return macro
   where
     functionLike, objectLike :: MultiLoc -> CName -> Reparse Macro
     functionLike loc name = Macro loc name <$> formalArgs <*> mExprTuple

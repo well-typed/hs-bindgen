@@ -799,7 +799,7 @@ instance Monad TcPureM where
     case f a of
       TcPureM g -> g env
 
-runTcM :: C.Type.Platform -> Map CName ( Quant ( Type Ty ) ) -> TcPureM a -> ( a, [ ( TcError, SrcSpan ) ] )
+runTcM :: C.Type.Platform -> TypeEnv -> TcPureM a -> ( a, [ ( TcError, SrcSpan ) ] )
 runTcM plat initTyEnv ( TcPureM f ) = runST do
   tcErrs    <- newSTRef []
   tcTypeEnv <- newSTRef initTyEnv
@@ -2145,7 +2145,7 @@ simplifyAndDefault quantTvs cts =
   Typechecking macros: generalisation
 -------------------------------------------------------------------------------}
 
-tcMacro :: C.Type.Platform -> Map CName ( Quant ( Type Ty ) ) -> CName -> [ CName ] -> MExpr -> Either TcMacroError ( Quant ( Type Ty ) )
+tcMacro :: C.Type.Platform -> TypeEnv -> CName -> [ CName ] -> MExpr -> Either TcMacroError ( Quant ( Type Ty ) )
 tcMacro plat tyEnv macroNm args body =
   throwErrors $ runTcM plat tyEnv $ ( `State.evalStateT` Unique 0 ) $ Except.runExceptT do
 
