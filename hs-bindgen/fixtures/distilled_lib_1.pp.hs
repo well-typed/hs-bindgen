@@ -268,8 +268,8 @@ data A_typedef_struct = A_typedef_struct
   , a_typedef_struct_field_6 :: F.Ptr Void
   , a_typedef_struct_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) Uint32_t
   , a_typedef_struct_field_8 :: Another_typedef_enum_e
-  , a_typedef_struct_field_9 :: Another_typedef_enum_e
-  , a_typedef_struct_field_10 :: Another_typedef_enum_e
+  , a_typedef_struct_field_9 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e
+  , a_typedef_struct_field_10 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e)
   }
 
 instance F.Storable A_typedef_struct where

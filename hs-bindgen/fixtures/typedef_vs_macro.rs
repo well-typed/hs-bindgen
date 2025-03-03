@@ -27,3 +27,14 @@ const _: () = {
         "Offset of field: ExampleStruct::m2",
     ][::std::mem::offset_of!(ExampleStruct, m2) - 12usize];
 };
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct foo {
+    pub a: *mut ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of foo"][::std::mem::size_of::<foo>() - 8usize];
+    ["Alignment of foo"][::std::mem::align_of::<foo>() - 8usize];
+    ["Offset of field: foo::a"][::std::mem::offset_of!(foo, a) - 0usize];
+};

@@ -11,3 +11,9 @@ struct ExampleStruct {
   M1 m1;
   M2 m2;
 };
+
+#define uint64_t int
+
+struct foo {
+  uint64_t* a;
+};

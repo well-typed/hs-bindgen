@@ -26,6 +26,22 @@ deriving newtype instance FiniteBits M2
 deriving newtype instance Integral M2
 deriving newtype instance Num M2
 deriving newtype instance Real M2
+newtype M3 = M3 {unM3 :: (ConstantArray 3 CInt)}
+deriving newtype instance Storable M3
+newtype Uint64_t = Uint64_t {unUint64_t :: CInt}
+deriving newtype instance Storable Uint64_t
+deriving stock instance Eq Uint64_t
+deriving stock instance Ord Uint64_t
+deriving stock instance Read Uint64_t
+deriving stock instance Show Uint64_t
+deriving newtype instance Enum Uint64_t
+deriving newtype instance Ix Uint64_t
+deriving newtype instance Bounded Uint64_t
+deriving newtype instance Bits Uint64_t
+deriving newtype instance FiniteBits Uint64_t
+deriving newtype instance Integral Uint64_t
+deriving newtype instance Num Uint64_t
+deriving newtype instance Real Uint64_t
 newtype T1 = T1 {unT1 :: CInt}
 deriving newtype instance Storable T1
 deriving stock instance Eq T1
@@ -70,3 +86,12 @@ instance Storable ExampleStruct
                                                    exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))}}
 deriving stock instance Show ExampleStruct
 deriving stock instance Eq ExampleStruct
+data Foo = Foo {foo_a :: (Ptr Uint64_t)}
+instance Storable Foo
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 8 :: Int;
+           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Foo foo_a_3 -> pokeByteOff ptr_1 (0 :: Int) foo_a_3}}
+deriving stock instance Show Foo
+deriving stock instance Eq Foo
