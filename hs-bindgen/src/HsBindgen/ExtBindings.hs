@@ -16,6 +16,8 @@ module HsBindgen.ExtBindings (
   , emptyExtBindings
   , resolveExtBindings
   , mergeExtBindings
+  , lookupExtBindingsType
+  , lookupExtIdentifier
     -- ** Configuration Files
   , loadUnresolvedExtBindings
   , loadUnresolvedExtBindingsJson
@@ -214,6 +216,32 @@ mergeExtBindings = \case
             in  if Set.null iHeaderSet
                   then aux dupSet acc' ps
                   else aux (Set.insert cname dupSet) acc' ps
+
+-- | Lookup a type C name spelling in external bindings
+lookupExtBindingsType ::
+     CNameSpelling
+  -> ExtBindings
+  -> Maybe [(Set SourcePath, ExtIdentifier)]
+lookupExtBindingsType cname = Map.lookup cname . extBindingsTypes
+
+-- | Lookup an 'ExtIdentifier' associated with a set of header paths when at
+-- least one in common with the specified set of header paths
+--
+-- This is purposefully separate from 'lookupExtBindingsType' because we do not
+-- even need to compute the set of header paths unless there is a match for the
+-- C name spelling.
+lookupExtIdentifier ::
+     Set SourcePath
+  -> [(Set SourcePath, ExtIdentifier)]
+  -> Maybe ExtIdentifier
+lookupExtIdentifier headerSet = aux
+  where
+    aux :: [(Set SourcePath, ExtIdentifier)] -> Maybe ExtIdentifier
+    aux = \case
+      (extHeaderSet, extId):ps
+        | Set.null (headerSet `Set.intersection` extHeaderSet) -> aux ps
+        | otherwise                                            -> Just extId
+      []                                                       -> Nothing
 
 {-------------------------------------------------------------------------------
   Configuration Files
