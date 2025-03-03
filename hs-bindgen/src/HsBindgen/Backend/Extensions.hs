@@ -47,6 +47,7 @@ typeExtensions = \case
     TCon _    -> Set.empty
     TFun a b  -> typeExtensions a <> typeExtensions b
     TLit _    -> Set.singleton TH.DataKinds
+    TExt _    -> Set.empty
     TBound _  -> Set.empty
     TApp f b  -> typeExtensions f <> typeExtensions b
     TForall _names _add preds b ->

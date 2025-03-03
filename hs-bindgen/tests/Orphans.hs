@@ -112,6 +112,11 @@ instance ToExpr C.ReparseError where
             ++ '>' : '"' : normalizePaths sR
         _otherwise -> '"' : '<' : s -- unexpected
 
+instance ToExpr HsPackageName
+instance ToExpr HsModuleName
+instance ToExpr HsIdentifier
+instance ToExpr ExtIdentifier
+
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err
 

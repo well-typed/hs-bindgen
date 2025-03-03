@@ -24,6 +24,7 @@ module HsBindgen.C.AST.Type (
   ) where
 
 import HsBindgen.Clang.HighLevel.Types (SingleLoc)
+import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 
@@ -57,6 +58,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
+  | TypeExtBinding ExtIdentifier
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)
 

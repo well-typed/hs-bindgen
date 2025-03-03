@@ -28,6 +28,10 @@ module HsBindgen.Lib (
   , defaultClangArgs
 
     -- ** External bindings
+  , HsPackageName(..)
+  , HsModuleName(..)
+  , HsIdentifier(..)
+  , ExtIdentifier(..)
   , ExtBindings
   , ExtBindingsExceptions
   , emptyExtBindings
