@@ -62,7 +62,7 @@ parseC ::
   -> IO CHeader
 parseC tracer args src =
     withTranslationUnit tracerD args src $
-      parseCHeader tracerP SelectFromMainFile
+      parseCHeader tracerP SelectFromMainFile emptyExtBindings
   where
     tracerD = contramap show tracer
     tracerP = contramap prettyLogMsg tracer

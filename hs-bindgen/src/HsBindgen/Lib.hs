@@ -27,6 +27,12 @@ module HsBindgen.Lib (
   , CStandard(..)
   , defaultClangArgs
 
+    -- ** External bindings
+  , ExtBindings
+  , ExtBindingsExceptions
+  , emptyExtBindings
+  , loadExtBindings
+
     -- *** Cross-compilation
   , Target(..)
   , TargetEnv(..)
@@ -104,6 +110,7 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
@@ -157,14 +164,15 @@ withTranslationUnit = C.withTranslationUnit
 parseCHeader ::
      Tracer IO C.Skipped
   -> Predicate
+  -> ExtBindings
   -> CXTranslationUnit
   -> IO CHeader
-parseCHeader traceSkipped p unit = do
+parseCHeader traceSkipped p extBindings unit = do
     (decls, finalDeclState) <-
       C.foldTranslationUnitWith
         unit
         (C.runFoldState C.initDeclState)
-        (C.foldDecls traceSkipped p unit)
+        (C.foldDecls traceSkipped p extBindings unit)
 
     let decls' = [ d | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState) ]
     return $ WrapCHeader (C.Header $ decls ++ decls')
@@ -280,13 +288,14 @@ genTests
 preprocessor ::
      [CIncludePathDir]  -- ^ System include search path directories
   -> [CIncludePathDir]  -- ^ Non-system include search path directories
+  -> ExtBindings        -- ^ External bindings
   -> CHeaderIncludePath -- ^ Input header
   -> IO String
-preprocessor sysIncPathDirs quoteIncPathDirs headerIncludePath = do
+preprocessor sysIncPathDirs quoteIncPathDirs extBindings headerIncludePath = do
     src <- resolveHeader args headerIncludePath
     cheader <-
       withTranslationUnit nullTracer args src $
-        parseCHeader nullTracer SelectFromMainFile
+        parseCHeader nullTracer SelectFromMainFile extBindings
     return $
       Backend.PP.render renderOpts $
         unwrapHsModule $ genModule headerIncludePath topts moduleOpts cheader

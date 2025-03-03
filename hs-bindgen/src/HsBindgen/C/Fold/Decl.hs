@@ -21,6 +21,7 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
@@ -34,9 +35,10 @@ foldDecls ::
      HasCallStack
   => Tracer IO Skipped
   -> Predicate
+  -> ExtBindings
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p unit current = do
+foldDecls tracer p extBindings unit current = do
     loc <- liftIO $ clang_getCursorLocation current
     sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
     eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind current
@@ -80,12 +82,13 @@ foldDecls tracer p unit current = do
         return $ Continue Nothing
 
       Right CXCursor_InclusionDirective ->
+        -- no children, recurse and continue have same behavior
         return $ Continue Nothing
 
       Right CXCursor_FunctionDecl -> do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
-        ty' <- processTypeDecl unit ty
+        ty' <- processTypeDecl extBindings unit ty
         (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
@@ -106,7 +109,7 @@ foldDecls tracer p unit current = do
     typeDecl = do
       ty <- liftIO $ clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl unit ty
+      void $ processTypeDecl extBindings unit ty
       return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
