@@ -32,7 +32,7 @@ main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
         let headerIncludePath = CHeaderQuoteIncludePath "simple_structs.h"
             args = clangArgs packageRoot
-        src <- resolveHeader' args headerIncludePath
+        src <- resolveHeader args headerIncludePath
         triple <- withC nullTracer args src getTargetTriple
 
         -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
@@ -86,7 +86,7 @@ main' packageRoot bg = testGroup "golden"
         let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
             args = clangArgs packageRoot
             tracer = mkTracer report report report False
-        src <- resolveHeader' args headerIncludePath
+        src <- resolveHeader args headerIncludePath
         parseC tracer args src
 
     goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
@@ -95,7 +95,7 @@ main' packageRoot bg = testGroup "golden"
         let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
             args = clangArgs packageRoot
             tracer = mkTracer report report report False
-        src <- resolveHeader' args headerIncludePath
+        src <- resolveHeader args headerIncludePath
         header <- parseC tracer args src
         return $ genHsDecls headerIncludePath defaultTranslationOpts header
 
@@ -105,7 +105,7 @@ main' packageRoot bg = testGroup "golden"
         let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
             args = clangArgs packageRoot
             tracer = mkTracer report report report False
-        src <- resolveHeader' args headerIncludePath
+        src <- resolveHeader args headerIncludePath
         header <- parseC tracer args src
         return $ unlines $ map show $ sort $ toList $
             genExtensions headerIncludePath defaultTranslationOpts header
@@ -117,7 +117,7 @@ main' packageRoot bg = testGroup "golden"
         let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
             args = clangArgs packageRoot
             tracer = mkTracer report report report False
-        src <- resolveHeader' args headerIncludePath
+        src <- resolveHeader args headerIncludePath
         header <- parseC tracer args src
 
         -- TODO: PP.render should add trailing '\n' itself.

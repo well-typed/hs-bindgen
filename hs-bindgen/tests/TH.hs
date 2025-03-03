@@ -24,7 +24,7 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
     let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
         args = clangArgs packageRoot
         tracer = mkTracer report report report False
-    src <- resolveHeader' args headerIncludePath
+    src <- resolveHeader args headerIncludePath
 
     header <- parseC tracer args src
     let decls :: Qu [TH.Dec]

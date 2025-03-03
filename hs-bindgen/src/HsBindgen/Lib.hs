@@ -20,7 +20,7 @@ module HsBindgen.Lib (
   , withTranslationUnit
 
     -- * Header resolution
-  , resolveHeader'
+  , resolveHeader
 
     -- ** Clang arguments
   , ClangArgs(..)
@@ -283,7 +283,7 @@ preprocessor ::
   -> CHeaderIncludePath -- ^ Input header
   -> IO String
 preprocessor sysIncPathDirs quoteIncPathDirs headerIncludePath = do
-    src <- resolveHeader' args headerIncludePath
+    src <- resolveHeader args headerIncludePath
     cheader <-
       withTranslationUnit nullTracer args src $
         parseCHeader nullTracer SelectFromMainFile

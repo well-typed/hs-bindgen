@@ -1,7 +1,7 @@
 module HsBindgen.Resolve (
     ResolveHeaderException(..)
-  , resolveHeader
   , resolveHeader'
+  , resolveHeader
   ) where
 
 import Control.Exception (Exception, throwIO)
@@ -31,11 +31,11 @@ data ResolveHeaderException =
   deriving anyclass (Exception)
 
 -- | Resolve a header
-resolveHeader ::
+resolveHeader' ::
      ClangArgs
   -> CHeaderIncludePath
   -> IO (Either ResolveHeaderException SourcePath)
-resolveHeader args headerIncludePath =
+resolveHeader' args headerIncludePath =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile headerName headerContent $ \unsavedFile ->
         withTranslationUnit2 index headerSourcePath args [unsavedFile] opts $
@@ -88,5 +88,5 @@ resolveHeader args headerIncludePath =
     opts = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
 
 -- | Resolve a header, throwing a 'ResolveHeaderException' on error
-resolveHeader' :: ClangArgs -> CHeaderIncludePath -> IO SourcePath
-resolveHeader' args = either throwIO return <=< resolveHeader args
+resolveHeader :: ClangArgs -> CHeaderIncludePath -> IO SourcePath
+resolveHeader args = either throwIO return <=< resolveHeader' args

@@ -133,7 +133,7 @@ resolveExtBindings args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
     headerMap <- fmap Map.fromList . forM cPaths $ \cPath ->
-      (cPath,) <$> resolveHeader' args cPath
+      (cPath,) <$> resolveHeader args cPath
     let resolve'         = map $ first $ Set.map (headerMap Map.!)
         extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
     return ExtBindings{..}

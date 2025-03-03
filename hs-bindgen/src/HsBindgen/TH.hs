@@ -39,7 +39,7 @@ genBindings fp args = do
     headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
 
     (cheader, depPaths) <- TH.runIO $ do
-      src <- resolveHeader' args headerIncludePath
+      src <- resolveHeader args headerIncludePath
       C.withTranslationUnit nullTracer args src $ \unit -> do
         (decls, finalDeclState) <-
           C.foldTranslationUnitWith

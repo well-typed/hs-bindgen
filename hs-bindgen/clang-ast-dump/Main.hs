@@ -18,7 +18,7 @@ import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
 import HsBindgen.Clang.Paths
-import HsBindgen.Lib (resolveHeader')
+import HsBindgen.Lib (resolveHeader)
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
@@ -47,7 +47,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    src <- resolveHeader' cArgs optFile
+    src <- resolveHeader cArgs optFile
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withTranslationUnit index src cArgs [] cOpts $ \unit -> do
         rootCursor <- clang_getTranslationUnitCursor unit

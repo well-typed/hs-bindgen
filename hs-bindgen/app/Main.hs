@@ -37,12 +37,12 @@ instance Exception LiterateFileException where
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
-      src <- resolveHeader' cmdClangArgs preprocessInput
+      src <- resolveHeader cmdClangArgs preprocessInput
       cHeader <- parseC cmdline tracer src
       let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
-      src <- resolveHeader' cmdClangArgs genTestsInput
+      src <- resolveHeader cmdClangArgs genTestsInput
       cHeader <- parseC cmdline tracer src
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
@@ -59,10 +59,10 @@ execMode cmdline@Cmdline{..} tracer = \case
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode cmdline@Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
-      src <- resolveHeader' cmdClangArgs parseCHeaderInput
+      src <- resolveHeader cmdClangArgs parseCHeaderInput
       prettyC =<< parseC cmdline tracer src
     DevModePrelude{..} -> do
-      src <- resolveHeader' cmdClangArgs preludeInput
+      src <- resolveHeader cmdClangArgs preludeInput
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
         void . withC cmdline tracer src $
           bootstrapPrelude tracer (preludeLogTracer logHandle)
