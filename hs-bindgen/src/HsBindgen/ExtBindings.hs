@@ -6,22 +6,32 @@ module HsBindgen.ExtBindings (
   , ExtIdentifier(..)
   , UnresolvedExtBindings(..)
   , ExtBindings(..)
-    -- * Configuration Files
-  , loadJson
-  , loadYaml
-    -- * Resolution
+    -- ** Exceptions
+  , LoadUnresolvedExtBindingsException(..)
+  , ResolveExtBindingsException(..)
+  , MergeExtBindingsException(..)
+  , ExtBindingsException(..)
+  , ExtBindingsExceptions(..)
+    -- * API
+  , emptyExtBindings
   , resolveExtBindings
+  , mergeExtBindings
+    -- ** Configuration Files
+  , loadUnresolvedExtBindings
+  , loadUnresolvedExtBindingsJson
+  , loadUnresolvedExtBindingsYaml
+    -- ** Convenience
+  , loadExtBindings
   ) where
 
-import Control.Exception (Exception (..))
 import Data.Aeson qualified as Aeson
+import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
+import Data.Yaml.Internal qualified
 
-import HsBindgen.Errors
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.CNameSpelling
 import HsBindgen.Clang.Paths
@@ -90,53 +100,182 @@ newtype ExtBindings = ExtBindings {
   deriving Show
 
 {-------------------------------------------------------------------------------
-  Configuration Files
+  Exceptions
 -------------------------------------------------------------------------------}
 
-data ConfigurationLoadingException = ConfigurationLoadingException FilePath String
-  deriving Show
+-- | Failed to load external bindings configuration file
+data LoadUnresolvedExtBindingsException =
+    -- | Unknown file extension
+    LoadUnresolvedExtBindingsUnknownExtension FilePath
+  | -- | Aeson parsing error
+    LoadUnresolvedExtBindingsAesonError FilePath String
+  | -- | YAML parsing error
+    LoadUnresolvedExtBindingsYamlError FilePath Yaml.ParseException
+  | -- | YAML parsing warnings (which should be treated like errors)
+    LoadUnresolvedExtBindingsYamlWarning FilePath [Data.Yaml.Internal.Warning]
+    -- | Multiple external bindings configurations for the same C name and
+    -- header in the same configuration file
+  | LoadUnresolvedExtBindingsConflict
+      FilePath
+      [(CNameSpelling, CHeaderIncludePath)]
+  deriving stock (Show)
+  deriving anyclass (Exception)
 
-instance Exception ConfigurationLoadingException where
-    toException = hsBindgenExceptionToException
-    fromException = hsBindgenExceptionFromException
-    displayException (ConfigurationLoadingException path err) =
-      "error loading " ++ path ++ ": " ++ err
+-- | Failed to resolve external bindings header(s)
+newtype ResolveExtBindingsException =
+    -- | One or more C headers were not found
+    ResolveExtBindingsNotFound [CHeaderIncludePath]
+  deriving stock (Show)
+  deriving anyclass (Exception)
 
--- | Load 'ExtBindings' from a JSON file
---
--- This function fails on error.
-loadJson :: FilePath -> IO UnresolvedExtBindings
-loadJson path =
-        failOnError' path . (mkUnresolvedExtBindings =<<)
-    =<< Aeson.eitherDecodeFileStrict' path
+-- | Failed to merge external bindings
+newtype MergeExtBindingsException =
+    -- | Multiple external bindings configurations for the same C name and
+    -- header
+    MergeExtBindingsConflict [CNameSpelling]
+  deriving stock (Show)
+  deriving anyclass (Exception)
 
--- | Load 'ExtBindings' from a YAML file
---
--- This function fails on error.
-loadYaml :: FilePath -> IO UnresolvedExtBindings
-loadYaml path =
-        failOnError' path . (mkUnresolvedExtBindings =<<)
-    =<< decodeYamlStrict path
+-- | Failed loading, resolving, or merging external bindings
+data ExtBindingsException =
+    LoadUnresolvedExtBindingsException LoadUnresolvedExtBindingsException
+  | ResolveExtBindingsException        ResolveExtBindingsException
+  | MergeExtBindingsException          MergeExtBindingsException
+  deriving stock (Show)
+  deriving anyclass (Exception)
+
+-- | Failed loading, resolving, or merging external bindings
+newtype ExtBindingsExceptions = ExtBindingsExceptions [ExtBindingsException]
+  deriving stock (Show)
+  deriving anyclass (Exception)
 
 {-------------------------------------------------------------------------------
-  Resolution
+  API
 -------------------------------------------------------------------------------}
 
+-- | Empty external bindings
+emptyExtBindings :: ExtBindings
+emptyExtBindings = ExtBindings Map.empty
+
 -- | Resolve external bindings header paths
---
--- This function fails on error.
 resolveExtBindings ::
      ClangArgs
   -> UnresolvedExtBindings
-  -> IO ExtBindings
+  -> IO (Either ResolveExtBindingsException ExtBindings)
 resolveExtBindings args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
-    headerMap <- fmap Map.fromList . forM cPaths $ \cPath ->
-      (cPath,) <$> resolveHeader args cPath
-    let resolve'         = map $ first $ Set.map (headerMap Map.!)
-        extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
-    return ExtBindings{..}
+    (mErr, headerMap) <- bimap convertErrors Map.fromList . partitionEithers
+      <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' args cPath) cPaths
+    return $ case mErr of
+      Nothing -> Right $
+        let resolve' = map $ first $ Set.map (headerMap Map.!)
+            extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
+        in  ExtBindings{..}
+      Just err -> Left err
+  where
+    convertErrors ::
+         [ResolveHeaderException]
+      -> Maybe ResolveExtBindingsException
+    convertErrors = \case
+        []   -> Nothing
+        errs -> Just . ResolveExtBindingsNotFound . List.sort $
+          map (\(ResolveHeaderNotFound cPath) -> cPath) errs
+
+-- | Merge external bindings
+mergeExtBindings ::
+     [ExtBindings]
+  -> Either MergeExtBindingsException ExtBindings
+mergeExtBindings = \case
+    []   -> Right emptyExtBindings
+    x:xs -> do
+      extBindingsTypes <- aux Set.empty (extBindingsTypes x) $
+        concatMap (Map.toList . extBindingsTypes) xs
+      return ExtBindings{..}
+  where
+    aux ::
+         Set CNameSpelling
+      -> Map CNameSpelling [(Set SourcePath, ExtIdentifier)]
+      -> [(CNameSpelling, [(Set SourcePath, ExtIdentifier)])]
+      -> Either
+           MergeExtBindingsException
+           (Map CNameSpelling [(Set SourcePath, ExtIdentifier)])
+    aux dupSet acc = \case
+      []
+        | Set.null dupSet -> Right acc
+        | otherwise -> Left (MergeExtBindingsConflict (Set.toAscList dupSet))
+      (cname, rs):ps ->
+        case Map.insertLookupWithKey (const (++)) cname rs acc of
+          (Nothing, acc') -> aux dupSet acc' ps
+          (Just ls, acc') ->
+            let lHeaderSet = Set.unions $ fst <$> ls
+                rHeaderSet = Set.unions $ fst <$> rs
+                iHeaderSet = Set.intersection lHeaderSet rHeaderSet
+            in  if Set.null iHeaderSet
+                  then aux dupSet acc' ps
+                  else aux (Set.insert cname dupSet) acc' ps
+
+{-------------------------------------------------------------------------------
+  Configuration Files
+-------------------------------------------------------------------------------}
+
+-- | Load 'UnresolvedExtBindings' from a configuration file
+--
+-- The format is determined by the filename extension.
+loadUnresolvedExtBindings ::
+     FilePath
+  -> IO (Either LoadUnresolvedExtBindingsException UnresolvedExtBindings)
+loadUnresolvedExtBindings path
+    | ".yaml" `List.isSuffixOf` path = loadUnresolvedExtBindingsYaml path
+    | ".json" `List.isSuffixOf` path = loadUnresolvedExtBindingsJson path
+    | otherwise = return $ Left (LoadUnresolvedExtBindingsUnknownExtension path)
+
+-- | Load 'UnresolvedExtBindings' from a JSON file
+loadUnresolvedExtBindingsJson ::
+     FilePath
+  -> IO (Either LoadUnresolvedExtBindingsException UnresolvedExtBindings)
+loadUnresolvedExtBindingsJson path = do
+    eec <- Aeson.eitherDecodeFileStrict' path
+    return $ case eec of
+      Right config -> mkUnresolvedExtBindings path config
+      Left err     -> Left (LoadUnresolvedExtBindingsAesonError path err)
+
+-- | Load 'UnresolvedExtBindings' from a YAML file
+loadUnresolvedExtBindingsYaml ::
+     FilePath
+  -> IO (Either LoadUnresolvedExtBindingsException UnresolvedExtBindings)
+loadUnresolvedExtBindingsYaml path = do
+    eewc <- Yaml.decodeFileWithWarnings path
+    return $ case eewc of
+      Right ([], config) -> mkUnresolvedExtBindings path config
+      Right (warnings, _) ->
+        Left (LoadUnresolvedExtBindingsYamlWarning path warnings)
+      Left err -> Left (LoadUnresolvedExtBindingsYamlError path err)
+
+{-------------------------------------------------------------------------------
+  Convenience
+-------------------------------------------------------------------------------}
+
+-- | Load, resolve, and merge external bindings
+--
+-- The format is determined by filename extension.
+loadExtBindings ::
+     ClangArgs
+  -> [FilePath]
+  -> IO (Either ExtBindingsExceptions ExtBindings)
+loadExtBindings args paths = do
+    (loadErrs, uebs) <-
+      first (map LoadUnresolvedExtBindingsException) . partitionEithers
+        <$> mapM loadUnresolvedExtBindings paths
+    (resolveErrs, ebs) <-
+      first (map ResolveExtBindingsException) . partitionEithers
+        <$> mapM (resolveExtBindings args) uebs
+    let errs = loadErrs ++ resolveErrs
+    return $ case first MergeExtBindingsException (mergeExtBindings ebs) of
+      Right extBindings
+        | null errs -> Right extBindings
+        | otherwise -> Left $ ExtBindingsExceptions errs
+      Left mergeErr -> Left $ ExtBindingsExceptions (errs ++ [mergeErr])
 
 {-------------------------------------------------------------------------------
   Configuration File Representation (Internal)
@@ -181,49 +320,29 @@ stripPrefix prefix s = case List.stripPrefix prefix s of
     Just s' | not (null s') -> Aeson.camelTo2 '_' s'
     _otherwise  -> s
 
--- | Fail on error, indicating the path
-failOnError' :: FilePath -> Either String a -> IO a
-failOnError' path = \case
-    Right x  -> return x
-    Left err -> throwIO $ ConfigurationLoadingException path err
-
--- | Decode a YAML file, treating warnings as errors
-decodeYamlStrict :: Aeson.FromJSON a => FilePath -> IO (Either String a)
-decodeYamlStrict path = do
-    eewx <- Yaml.decodeFileWithWarnings path
-    return $ case eewx of
-      Right ([], x)        -> Right x
-      Right (warnings, _x) -> Left $ show warnings
-      Left err             -> Left $ show err
-
 -- | Create 'UnresolvedExtBindings' from a 'Config'
---
--- An error is returned if any invariants are violated.
-mkUnresolvedExtBindings :: Config -> Either String UnresolvedExtBindings
-mkUnresolvedExtBindings Config{..} = do
-    unresolvedExtBindingsTypes <- first ("error in types: " ++) $
-      mkMap configTypes
+mkUnresolvedExtBindings ::
+     FilePath
+  -> Config
+  -> Either LoadUnresolvedExtBindingsException UnresolvedExtBindings
+mkUnresolvedExtBindings path Config{..} = do
+    unresolvedExtBindingsTypes <- mkMap configTypes
     return UnresolvedExtBindings{..}
   where
     mkMap ::
          [Mapping]
       -> Either
-           String
+           LoadUnresolvedExtBindingsException
            (Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)])
     mkMap = mkMapErr . foldr mkMapInsert (Map.empty, Map.empty)
 
     mkMapErr ::
          (Map CNameSpelling (Set CHeaderIncludePath), a)
-      -> Either String a
+      -> Either LoadUnresolvedExtBindingsException a
     mkMapErr (dupMap, x)
       | Map.null dupMap = Right x
-      | otherwise = Left $ List.intercalate ", " [
-            unwords [
-                "duplicate mapping for"
-              , Text.unpack (getCNameSpelling cname)
-              , "in header"
-              , renderCHeaderIncludePath header
-              ]
+      | otherwise = Left $ LoadUnresolvedExtBindingsConflict path
+          [ (cname, header)
           | (cname, headerSet) <- Map.toAscList dupMap
           , header <- Set.toAscList headerSet
           ]
