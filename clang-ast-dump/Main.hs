@@ -1,4 +1,5 @@
 {-# LANGUAGE ApplicativeDo #-}
+{-# LANGUAGE RecordWildCards #-}
 
 module Main (main) where
 
