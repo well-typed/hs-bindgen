@@ -18,6 +18,7 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
+import HsBindgen.Errors
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
 
@@ -87,6 +88,7 @@ resolveHeader' args headerIncludePath =
     opts :: BitfieldEnum CXTranslationUnit_Flags
     opts = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
 
--- | Resolve a header, throwing a 'ResolveHeaderException' on error
+-- | Resolve a header, throwing an 'HsBindgenException' on error
 resolveHeader :: ClangArgs -> CHeaderIncludePath -> IO SourcePath
-resolveHeader args = either throwIO return <=< resolveHeader' args
+resolveHeader args =
+    either (throwIO . HsBindgenException) return <=< resolveHeader' args
