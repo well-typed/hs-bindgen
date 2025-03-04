@@ -38,15 +38,13 @@ execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
       src <- resolveHeader cmdClangArgs preprocessInput
-      extBindings <- either (throwIO . HsBindgenException) return
-        =<< loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
       cHeader <- parseC cmdline tracer extBindings src
       let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
       src <- resolveHeader cmdClangArgs genTestsInput
-      extBindings <- either (throwIO . HsBindgenException) return
-        =<< loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
       cHeader <- parseC cmdline tracer extBindings src
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
@@ -64,8 +62,7 @@ execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode cmdline@Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
       src <- resolveHeader cmdClangArgs parseCHeaderInput
-      extBindings <- either (throwIO . HsBindgenException) return
-        =<< loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
       prettyC =<< parseC cmdline tracer extBindings src
     DevModePrelude{..} -> do
       src <- resolveHeader cmdClangArgs preludeInput

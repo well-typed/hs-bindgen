@@ -22,21 +22,27 @@ module HsBindgen.ExtBindings (
   , loadUnresolvedExtBindings
   , loadUnresolvedExtBindingsJson
   , loadUnresolvedExtBindingsYaml
-    -- ** Convenience
+    -- ** Public API
+  , loadExtBindings'
   , loadExtBindings
   ) where
 
+import Control.Exception (Exception(displayException))
+import Control.Monad ((<=<))
 import Data.Aeson qualified as Aeson
+import Data.Aeson.Types qualified
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
 
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.CNameSpelling
 import HsBindgen.Clang.Paths
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
@@ -125,14 +131,45 @@ data LoadUnresolvedExtBindingsException =
       FilePath
       [(CNameSpelling, CHeaderIncludePath)]
   deriving stock (Show)
-  deriving anyclass (Exception)
+
+instance Exception LoadUnresolvedExtBindingsException where
+  displayException = \case
+    LoadUnresolvedExtBindingsUnknownExtension path ->
+      "unknown extension: " ++ path
+    LoadUnresolvedExtBindingsAesonError path err ->
+      "error parsing JSON: " ++ path ++ ": " ++ err
+    LoadUnresolvedExtBindingsYamlError path err -> unlines [
+        "error parsing YAML: " ++ path
+      , Yaml.prettyPrintParseException err
+      ]
+    LoadUnresolvedExtBindingsYamlWarning path warnings ->
+      let format (Data.Yaml.Internal.DuplicateKey jsonPath) =
+            "  " ++ Data.Aeson.Types.formatPath jsonPath
+      in  unlines $
+              ("duplicate keys in YAML file: " ++ path)
+            : map format warnings
+    LoadUnresolvedExtBindingsConflict path conflicts ->
+      let format (cname, header) =
+            "  " ++ Text.unpack (getCNameSpelling cname)
+              ++ ' ' : getCHeaderIncludePath header
+      in  unlines $
+              ( "multiple external bindings for same C name and header: "
+                  ++ path
+              )
+            : map format conflicts
 
 -- | Failed to resolve external bindings header(s)
 newtype ResolveExtBindingsException =
     -- | One or more C headers were not found
     ResolveExtBindingsNotFound [CHeaderIncludePath]
   deriving stock (Show)
-  deriving anyclass (Exception)
+
+instance Exception ResolveExtBindingsException where
+  displayException = \case
+    ResolveExtBindingsNotFound headers ->
+      unlines $
+          "external bindings header(s) not found"
+        : map (("  " ++) . getCHeaderIncludePath) headers
 
 -- | Failed to merge external bindings
 newtype MergeExtBindingsException =
@@ -140,7 +177,13 @@ newtype MergeExtBindingsException =
     -- header
     MergeExtBindingsConflict [CNameSpelling]
   deriving stock (Show)
-  deriving anyclass (Exception)
+
+instance Exception MergeExtBindingsException where
+  displayException = \case
+    MergeExtBindingsConflict cnames ->
+      unlines $
+          "multiple external bindings for same C name and header"
+        : map (\cname -> "  " ++ Text.unpack (getCNameSpelling cname)) cnames
 
 -- | Failed loading, resolving, or merging external bindings
 data ExtBindingsException =
@@ -148,12 +191,20 @@ data ExtBindingsException =
   | ResolveExtBindingsException        ResolveExtBindingsException
   | MergeExtBindingsException          MergeExtBindingsException
   deriving stock (Show)
-  deriving anyclass (Exception)
+
+instance Exception ExtBindingsException where
+  displayException = \case
+    LoadUnresolvedExtBindingsException e -> displayException e
+    ResolveExtBindingsException        e -> displayException e
+    MergeExtBindingsException          e -> displayException e
 
 -- | Failed loading, resolving, or merging external bindings
 newtype ExtBindingsExceptions = ExtBindingsExceptions [ExtBindingsException]
   deriving stock (Show)
-  deriving anyclass (Exception)
+
+instance Exception ExtBindingsExceptions where
+  displayException (ExtBindingsExceptions es) =
+    unlines $ map displayException es
 
 {-------------------------------------------------------------------------------
   API
@@ -285,17 +336,17 @@ loadUnresolvedExtBindingsYaml path = do
       Left err -> Left (LoadUnresolvedExtBindingsYamlError path err)
 
 {-------------------------------------------------------------------------------
-  Convenience
+  Public API
 -------------------------------------------------------------------------------}
 
 -- | Load, resolve, and merge external bindings
 --
 -- The format is determined by filename extension.
-loadExtBindings ::
+loadExtBindings' ::
      ClangArgs
   -> [FilePath]
   -> IO (Either ExtBindingsExceptions ExtBindings)
-loadExtBindings args paths = do
+loadExtBindings' args paths = do
     (loadErrs, uebs) <-
       first (map LoadUnresolvedExtBindingsException) . partitionEithers
         <$> mapM loadUnresolvedExtBindings paths
@@ -308,6 +359,14 @@ loadExtBindings args paths = do
         | null errs -> Right extBindings
         | otherwise -> Left $ ExtBindingsExceptions errs
       Left mergeErr -> Left $ ExtBindingsExceptions (errs ++ [mergeErr])
+
+-- | Load, resolve, and merge external bindings, throwing an
+-- 'HsBindgenException' on error
+--
+-- The format is determined by filename extension.
+loadExtBindings :: ClangArgs -> [FilePath] -> IO ExtBindings
+loadExtBindings args =
+    either (throwIO . HsBindgenException) return <=< loadExtBindings' args
 
 {-------------------------------------------------------------------------------
   Configuration File Representation (Internal)
