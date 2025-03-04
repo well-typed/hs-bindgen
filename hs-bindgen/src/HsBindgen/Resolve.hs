@@ -28,18 +28,14 @@ import HsBindgen.Runtime.Enum.Simple
 -------------------------------------------------------------------------------}
 
 -- | Failed to resolve a header
-data ResolveHeaderException =
+newtype ResolveHeaderException =
     ResolveHeaderNotFound CHeaderIncludePath
-  | ResolveHeaderParseTranslationUnitError (SimpleEnum CXErrorCode)
   deriving stock (Show)
 
 instance Exception ResolveHeaderException where
   displayException = \case
     ResolveHeaderNotFound headerIncludePath ->
       "header not found: " ++ getCHeaderIncludePath headerIncludePath
-    ResolveHeaderParseTranslationUnitError err ->
-      "Clang parse translation unit error during header resolution: "
-        ++ show err
 
 {-------------------------------------------------------------------------------
   API
@@ -55,8 +51,9 @@ resolveHeader' args headerIncludePath =
       HighLevel.withUnsavedFile headerName headerContent $ \unsavedFile ->
         withTranslationUnit2 index headerSourcePath args [unsavedFile] opts $
           \case
-            Left err -> return $
-              Left (ResolveHeaderParseTranslationUnitError err)
+            Left err -> panicPure $
+              "Clang parse translation unit error during header resolution: "
+                ++ show err
             Right unit -> do
               rootCursor <- clang_getTranslationUnitCursor unit
               maybe (Left (ResolveHeaderNotFound headerIncludePath)) Right
