@@ -233,14 +233,12 @@ processTypeDecl' path extBindings unit ty = case fromSimpleEnum $ cxtKind ty of
     -- enum
     Right CXType_Enum -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
-        sloc <- liftIO $
-          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
         name <- liftIO (clang_getTypeSpelling ty)
         anon <- liftIO (clang_Cursor_isAnonymous decl)
 
         if anon
         then do
-            -- anonymous declration, nothing to do
+            -- anonymous declaration, nothing to do
 
             -- TODO: check with struct foo { struct { ... } field; };
             return TypeVoid
@@ -252,8 +250,14 @@ processTypeDecl' path extBindings unit ty = case fromSimpleEnum $ cxtKind ty of
                     Right n -> CName n
 
             addTypeDeclProcessing ty $ TypeEnum defnName
+            sloc <- liftIO $
+                HighLevel.clang_getExpansionLocation
+                    =<< clang_getCursorLocation decl
 
-            liftIO (HighLevel.classifyDeclaration decl) >>= \case
+            mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
+            case mExtId of
+                Just extId -> addAlias ty $ TypeExtBinding extId
+                Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
                     DeclarationOpaque -> do
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
                             opaqueEnumTag       = defnName
