@@ -3,8 +3,8 @@
  * See test-th and test-pp tests.
  */
 
-#ifndef TEST01_H
-#define TEST01_H
+#ifndef TEST_01_H
+#define TEST_01_H
 
 /* Standard headers. */
 #include <stdlib.h>
