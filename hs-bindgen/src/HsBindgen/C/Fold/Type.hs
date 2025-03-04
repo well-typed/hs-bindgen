@@ -127,44 +127,44 @@ processTypeDecl' path extBindings unit ty = case fromSimpleEnum $ cxtKind ty of
 
         decl <- liftIO (clang_getTypeDeclaration ty)
         sloc <- liftIO $
-          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
+            HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
 
         mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
         case mExtId of
-          Just extId -> addAlias ty $ TypeExtBinding extId
-          Nothing -> do
-            tag <- CName <$> liftIO (clang_getCursorSpelling decl)
-            ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
-            use <- processTypeDeclRec (DeclPathStruct (DeclNameTypedef tag) DeclPathTop) extBindings unit ty'
+            Just extId -> addAlias ty $ TypeExtBinding extId
+            Nothing -> do
+                tag <- CName <$> liftIO (clang_getCursorSpelling decl)
+                ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
+                use <- processTypeDeclRec (DeclPathStruct (DeclNameTypedef tag) DeclPathTop) extBindings unit ty'
 
-            -- we could check whether typedef has a transparent tag,
-            -- like in case of `typedef struct foo { ..} foo;`
-            -- but we don't use that for anything.
-            --
-            -- transparent <- liftIO (clang_Type_isTransparentTagTypedef ty)
+                -- we could check whether typedef has a transparent tag,
+                -- like in case of `typedef struct foo { ..} foo;`
+                -- but we don't use that for anything.
+                --
+                -- transparent <- liftIO (clang_Type_isTransparentTagTypedef ty)
 
-            case use of
-                -- If names match, skip.
-                -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
-                -- in typedef struct { ... } foo; the typedef does not have transparent tag.
-                TypeStruct (DeclPathStruct declName _declPath)
-                  | declName == DeclNameTag tag -> addAlias ty use
-                  | declName == DeclNameTypedef tag -> addAlias ty use
+                case use of
+                    -- If names match, skip.
+                    -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
+                    -- in typedef struct { ... } foo; the typedef does not have transparent tag.
+                    TypeStruct (DeclPathStruct declName _declPath)
+                        | declName == DeclNameTag tag -> addAlias ty use
+                        | declName == DeclNameTypedef tag -> addAlias ty use
 
-                TypeEnum n | n == tag ->
-                    addAlias ty use
+                    TypeEnum n | n == tag ->
+                        addAlias ty use
 
-                _ -> do
-                    --
-                    -- record name-path properly in underlying struct. (something like Path)
-                    --
-                    -- TODO: handle typedef struct|enum {..} ty; // pattern
+                    _ -> do
+                        --
+                        -- record name-path properly in underlying struct. (something like Path)
+                        --
+                        -- TODO: handle typedef struct|enum {..} ty; // pattern
 
-                    addDecl ty $ DeclTypedef Typedef {
-                        typedefName      = tag
-                      , typedefType      = use
-                      , typedefSourceLoc = sloc
-                      }
+                        addDecl ty $ DeclTypedef Typedef {
+                              typedefName      = tag
+                            , typedefType      = use
+                            , typedefSourceLoc = sloc
+                            }
 
     -- structs
     Right CXType_Record -> do
