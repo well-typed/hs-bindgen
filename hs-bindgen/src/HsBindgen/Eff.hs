@@ -13,6 +13,7 @@ import Data.IORef (IORef, newIORef, readIORef, atomicModifyIORef)
 import Data.Tuple (swap)
 
 import HsBindgen.Imports
+import HsBindgen.Errors
 
 {-------------------------------------------------------------------------------
   'Eff' monad
@@ -25,7 +26,7 @@ import HsBindgen.Imports
 newtype Eff m a = Eff {
       getEff :: ReaderT (Support m) IO a
     }
-  deriving newtype (Functor, Applicative, Monad, MonadFail, MonadIO, MonadUnliftIO)
+  deriving newtype (Functor, Applicative, Monad, MonadIO, MonadUnliftIO)
 
 wrapEff :: (Support m -> IO a) -> Eff m a
 wrapEff = Eff . ReaderT
@@ -35,7 +36,7 @@ unwrapEff = runReaderT . getEff
 
 assertEff :: Bool -> String -> Eff m ()
 assertEff True  _   = return ()
-assertEff False msg = fail msg
+assertEff False msg = panicIO msg
 
 -- | 'ReaderT' argument required to support @m@
 type family Support (m :: Star -> Star) :: Star

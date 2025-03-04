@@ -13,6 +13,7 @@ module HsBindgen.ExtBindings (
   , resolveExtBindings
   ) where
 
+import Control.Exception (Exception (..))
 import Data.Aeson qualified as Aeson
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
@@ -20,6 +21,7 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
 
+import HsBindgen.Errors
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.CNameSpelling
 import HsBindgen.Clang.Paths
@@ -90,6 +92,15 @@ newtype ExtBindings = ExtBindings {
 {-------------------------------------------------------------------------------
   Configuration Files
 -------------------------------------------------------------------------------}
+
+data ConfigurationLoadingException = ConfigurationLoadingException FilePath String
+  deriving Show
+
+instance Exception ConfigurationLoadingException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException (ConfigurationLoadingException path err) =
+      "error loading " ++ path ++ ": " ++ err
 
 -- | Load 'ExtBindings' from a JSON file
 --
@@ -174,7 +185,7 @@ stripPrefix prefix s = case List.stripPrefix prefix s of
 failOnError' :: FilePath -> Either String a -> IO a
 failOnError' path = \case
     Right x  -> return x
-    Left err -> fail $ "error loading " ++ path ++ ": " ++ err
+    Left err -> throwIO $ ConfigurationLoadingException path err
 
 -- | Decode a YAML file, treating warnings as errors
 decodeYamlStrict :: Aeson.FromJSON a => FilePath -> IO (Either String a)

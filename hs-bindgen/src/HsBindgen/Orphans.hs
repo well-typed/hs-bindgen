@@ -3,6 +3,7 @@
 module HsBindgen.Orphans () where
 
 import Data.Aeson qualified as Aeson
+import Data.Aeson.Types qualified as Aeson
 import Data.GADT.Compare (GEq(geq))
 import Data.Text qualified as Text
 import Data.Type.Equality ((:~:)(Refl))
@@ -18,7 +19,7 @@ import HsBindgen.Clang.Paths
 
 instance Aeson.FromJSON CHeaderIncludePath where
   parseJSON = Aeson.withText "CHeaderIncludePath" $
-    either fail return . parseCHeaderIncludePath . Text.unpack
+    either Aeson.parseFail return . parseCHeaderIncludePath . Text.unpack
 
 deriving newtype instance Aeson.FromJSON CNameSpelling
 
