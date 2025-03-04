@@ -18,9 +18,9 @@ import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Hs.Translation qualified as LowLevel
 import HsBindgen.Imports
+import HsBindgen.Resolve
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Tracer
 
@@ -39,7 +39,7 @@ genBindings fp args = do
     headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
 
     (cheader, depPaths) <- TH.runIO $ do
-      src <- resolveHeader' args headerIncludePath
+      src <- resolveHeader args headerIncludePath
       C.withTranslationUnit nullTracer args src $ \unit -> do
         (decls, finalDeclState) <-
           C.foldTranslationUnitWith

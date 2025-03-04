@@ -25,9 +25,9 @@ import HsBindgen.Errors
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.CNameSpelling
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.Imports
 import HsBindgen.Orphans ()
+import HsBindgen.Resolve
 
 {-------------------------------------------------------------------------------
   Types
@@ -133,7 +133,7 @@ resolveExtBindings args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
     headerMap <- fmap Map.fromList . forM cPaths $ \cPath ->
-      (cPath,) <$> resolveHeader' args cPath
+      (cPath,) <$> resolveHeader args cPath
     let resolve'         = map $ first $ Set.map (headerMap Map.!)
         extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
     return ExtBindings{..}

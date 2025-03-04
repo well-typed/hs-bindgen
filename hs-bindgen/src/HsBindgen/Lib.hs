@@ -19,6 +19,9 @@ module HsBindgen.Lib (
   , FixIt(..)
   , withTranslationUnit
 
+    -- * Header resolution
+  , resolveHeader
+
     -- ** Clang arguments
   , ClangArgs(..)
   , CStandard(..)
@@ -101,10 +104,10 @@ import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
-import HsBindgen.Clang.Paths.Resolve
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as LowLevel
+import HsBindgen.Resolve
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.TH
 import HsBindgen.Imports
@@ -280,7 +283,7 @@ preprocessor ::
   -> CHeaderIncludePath -- ^ Input header
   -> IO String
 preprocessor sysIncPathDirs quoteIncPathDirs headerIncludePath = do
-    src <- resolveHeader' args headerIncludePath
+    src <- resolveHeader args headerIncludePath
     cheader <-
       withTranslationUnit nullTracer args src $
         parseCHeader nullTracer SelectFromMainFile

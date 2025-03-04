@@ -4,6 +4,7 @@ packages: hs-bindgen-libclang
 packages: hs-bindgen-bootstrap
 packages: hs-bindgen-testlib
 packages: c-expr
+packages: clang-ast-dump
 packages: ansi-diff
 
 tests: True
