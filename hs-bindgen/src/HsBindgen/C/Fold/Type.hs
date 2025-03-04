@@ -176,9 +176,6 @@ processTypeDecl' path extBindings unit ty = case fromSimpleEnum $ cxtKind ty of
 
         -- dtraceIO "record" (decl, tag, name, anon)
 
-        sloc <- liftIO $
-          HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
-
         let declPath
               | anon      = DeclPathStruct DeclNameNone path
               | otherwise = case T.stripPrefix "struct " name of
@@ -193,36 +190,45 @@ processTypeDecl' path extBindings unit ty = case fromSimpleEnum $ cxtKind ty of
 
         else do
             addTypeDeclProcessing ty $ TypeStruct declPath
+            sloc <- liftIO $
+                HighLevel.clang_getExpansionLocation
+                    =<< clang_getCursorLocation decl
 
-            liftIO (HighLevel.classifyDeclaration decl) >>= \case
-                DeclarationOpaque ->
-                    -- TODO: use defnname
-                    addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                        opaqueStructTag       = CName tag
-                      , opaqueStructSourceLoc = sloc
-                      }
+            mExtId <- case declPath of
+                DeclPathStruct DeclNameTag{} _path ->
+                    lookupExtBinding (CNameSpelling name) sloc extBindings
+                _otherwise -> return Nothing
+            case mExtId of
+                Just extId -> addAlias ty $ TypeExtBinding extId
+                Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
+                    DeclarationOpaque ->
+                        -- TODO: use defnname
+                        addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                              opaqueStructTag       = CName tag
+                            , opaqueStructSourceLoc = sloc
+                            }
 
-                DeclarationForward _defn -> do
-                    liftIO $ panicIO "should not happen"
+                    DeclarationForward _defn -> do
+                        liftIO $ panicIO "should not happen"
 
-                DeclarationRegular -> do
-                    sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                    alignment <- liftIO (clang_Type_getAlignOf ty)
+                    DeclarationRegular -> do
+                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
+                        alignment <- liftIO (clang_Type_getAlignOf ty)
 
-                    fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                        mfield <- mkStructField extBindings unit declPath cursor
-                        return $ Continue mfield
+                        fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                            mfield <- mkStructField extBindings unit declPath cursor
+                            return $ Continue mfield
 
-                    (fields, flam) <- partitionFields fields'
+                        (fields, flam) <- partitionFields fields'
 
-                    addDecl ty $ DeclStruct Struct
-                        { structDeclPath  = declPath
-                        , structSizeof    = fromIntegral sizeof
-                        , structAlignment = fromIntegral alignment
-                        , structFields    = fields
-                        , structFlam      = flam
-                        , structSourceLoc = sloc
-                        }
+                        addDecl ty $ DeclStruct Struct
+                            { structDeclPath  = declPath
+                            , structSizeof    = fromIntegral sizeof
+                            , structAlignment = fromIntegral alignment
+                            , structFields    = fields
+                            , structFlam      = flam
+                            , structSourceLoc = sloc
+                            }
 
     -- enum
     Right CXType_Enum -> do
