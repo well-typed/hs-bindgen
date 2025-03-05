@@ -17,25 +17,26 @@ import Foreign.C.Types (CLong)
 import Data.Vector.Storable qualified as VS
 
 import Test01 qualified
+import Test02 qualified
 
 {-------------------------------------------------------------------------------
   Test01
 -------------------------------------------------------------------------------}
 
 -- StructBasic is generated
-val :: Test01.StructBasic
-val = Test01.StructBasic
+t01Val :: Test01.StructBasic
+t01Val = Test01.StructBasic
     { Test01.structBasic_field1 = 0
     , Test01.structBasic_field2 = 1
     }
 
 -- .. and can be poked
-_pokeVal :: Ptr Test01.StructBasic -> IO ()
-_pokeVal ptr = poke ptr val
+_t01PokeVal :: Ptr Test01.StructBasic -> IO ()
+_t01PokeVal ptr = poke ptr t01Val
 
 -- Macros
-_myPlus :: CLong -> CLong -> CLong
-_myPlus x y = Test01.pLUS x y
+_t01MyPlus :: CLong -> CLong -> CLong
+_t01MyPlus x y = Test01.pLUS x y
 
 -- Flexible array member (orphan instance)
 instance FLAM.HasFlexibleArrayLength CLong Test01.StructFLAM where
