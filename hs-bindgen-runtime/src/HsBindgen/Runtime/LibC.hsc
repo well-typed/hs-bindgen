@@ -29,8 +29,6 @@ module HsBindgen.Runtime.LibC (
   , CMbstateT
   , CWctransT(..)
   , CWctypeT(..)
-  , CChar16T(..)
-  , CChar32T(..)
 
     -- * Localization Types
 
@@ -47,7 +45,6 @@ module HsBindgen.Runtime.LibC (
 
 import Data.Bits (Bits, FiniteBits)
 import Data.Ix (Ix)
-import Data.Word (Word16, Word32)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
 import Foreign.Storable (Storable)
@@ -362,8 +359,10 @@ newtype CWintT = CWintT C.CUInt
 -- the conversion state information necessary to convert between sequences of
 -- multibyte characters and wide characters.  It is implementation-specific, so
 -- this representation is opaque and may only be used with a 'Ptr'.  It is
--- available since C95.  It is defined in the @wchar.h@ and @uchar.h@ header
--- files.
+-- available since C95.  It is defined in the @uchar.h@ header file.
+--
+-- This type is also defined in the @uchar.h@ header file, but the external
+-- bindings do not include this header because it is not available on macOS.
 data CMbstateT
 
 -- | C @wctrans_t@ type
@@ -382,53 +381,9 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
 newtype CWctypeT = CWctypeT C.CULong
   deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
 
--- | C @char16_t@ type
---
--- @char16_t@ represents a 16-bit Unicode character.  It is available since C11.
--- It is defined in the @uchar.h@ header file.
-newtype CChar16T = CChar16T Word16
-  deriving newtype (
-      Bits
-    , Bounded
-    , Enum
-    , Eq
-    , FiniteBits
-    , HasStaticSize
-    , Integral
-    , Ix
-    , Num
-    , Ord
-    , Peekable
-    , Pokable
-    , Read
-    , Real
-    , Show
-    , Storable
-    )
+-- TODO CChar16T @char16_t@ (C11, uchar.h, not available on macOS)
 
--- | C @char32_t@ type
---
--- @char32_t@ represents a 32-bit Unicode character.  It is available since C11.
--- It is defined in the @uchar.h@ header file.
-newtype CChar32T = CChar32T Word32
-  deriving newtype (
-      Bits
-    , Bounded
-    , Enum
-    , Eq
-    , FiniteBits
-    , HasStaticSize
-    , Integral
-    , Ix
-    , Num
-    , Ord
-    , Peekable
-    , Pokable
-    , Read
-    , Real
-    , Show
-    , Storable
-    )
+-- TODO CChar32T @char32_t@ (C11, uchar.h, not available on macOS)
 
 {-------------------------------------------------------------------------------
   Localization Types

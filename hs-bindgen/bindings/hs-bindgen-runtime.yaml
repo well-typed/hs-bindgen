@@ -45,7 +45,6 @@ types:
     package: hs-bindgen-runtime
   - cname: mbstate_t
     headers:
-      - system:uchar.h
       - system:wchar.h
     identifier: CMbstateT
     module: HsBindgen.Runtime.LibC
@@ -61,18 +60,6 @@ types:
       - system:wchar.h
       - system:wctype.h
     identifier: CWctypeT
-    module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
-  - cname: char16_t
-    headers:
-      - system:uchar.h
-    identifier: CChar16T
-    module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
-  - cname: char32_t
-    headers:
-      - system:uchar.h
-    identifier: CChar32T
     module: HsBindgen.Runtime.LibC
     package: hs-bindgen-runtime
   - cname: struct tm
