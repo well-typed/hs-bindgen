@@ -12,7 +12,7 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "USES_UTF8_H",
             macroArgs = [],
-            macroBody = MTerm MEmpty},
+            macroBody = MEmpty},
           macroDeclMacroTy = "Empty",
           macroDeclSourceLoc =
           "uses_utf8.h:2:9"},

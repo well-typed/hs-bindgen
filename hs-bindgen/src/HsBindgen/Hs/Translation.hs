@@ -554,12 +554,12 @@ macroExprHsExpr = goExpr where
     goExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
+      C.MEmpty -> Nothing
       C.MApp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
     goTerm :: Map C.CName (Idx ctx) -> C.MTerm -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
-      C.MEmpty -> Nothing
       C.MInt i -> goInt i
       C.MFloat f -> goFloat f
       C.MChar c -> goChar c
@@ -573,7 +573,7 @@ macroExprHsExpr = goExpr where
             in  goApp env (Hs.VarAppHead hsVar) args
 
       C.MType {} -> Nothing
-      C.MAttr _attr tm' -> goTerm env tm'
+      C.MAttr _attr tm' -> goTerm env =<< tm'
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 

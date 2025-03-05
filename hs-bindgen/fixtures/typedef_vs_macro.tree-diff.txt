@@ -61,11 +61,77 @@ WrapCHeader
           macroDeclSourceLoc =
           "typedef_vs_macro.h:6:9"},
       DeclMacro
+        (MacroReparseError
+          ReparseError {
+            reparseError = concat
+              [
+                "\"typedef_vs_macro.h\" (line 7, column 15):\n",
+                "unexpected end of input\n",
+                "expecting simple expression"],
+            reparseErrorTokens = [
+              Token {
+                tokenKind = SimpleEnum 2,
+                tokenSpelling = TokenSpelling
+                  "M4",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion =
+                    "typedef_vs_macro.h:7:9",
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion =
+                    "typedef_vs_macro.h:7:11",
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 1,
+                tokenSpelling = TokenSpelling
+                  "int",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion =
+                    "typedef_vs_macro.h:7:12",
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion =
+                    "typedef_vs_macro.h:7:15",
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501},
+              Token {
+                tokenKind = SimpleEnum 0,
+                tokenSpelling = TokenSpelling
+                  "*",
+                tokenExtent = Range {
+                  rangeStart = MultiLoc {
+                    multiLocExpansion =
+                    "typedef_vs_macro.h:7:15",
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing},
+                  rangeEnd = MultiLoc {
+                    multiLocExpansion =
+                    "typedef_vs_macro.h:7:16",
+                    multiLocPresumed = Nothing,
+                    multiLocSpelling = Nothing,
+                    multiLocFile = Nothing}},
+                tokenCursorKind = SimpleEnum
+                  501}]}),
+      DeclMacro
         MacroDecl {
           macroDeclMacro = Macro {
             macroLoc = MultiLoc {
               multiLocExpansion =
-              "typedef_vs_macro.h:15:9",
+              "typedef_vs_macro.h:16:9",
               multiLocPresumed = Nothing,
               multiLocSpelling = Nothing,
               multiLocFile = Nothing},
@@ -79,7 +145,7 @@ WrapCHeader
                     Signed)))},
           macroDeclMacroTy = "PrimTy",
           macroDeclSourceLoc =
-          "typedef_vs_macro.h:15:9"},
+          "typedef_vs_macro.h:16:9"},
       DeclTypedef
         Typedef {
           typedefName = CName "T1",
@@ -110,7 +176,7 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "T1"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:9:6"},
+              "typedef_vs_macro.h:10:6"},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
@@ -118,7 +184,7 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "T2"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:10:6"},
+              "typedef_vs_macro.h:11:6"},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
@@ -126,7 +192,7 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "M1"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:11:6"},
+              "typedef_vs_macro.h:12:6"},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
@@ -134,10 +200,10 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "M2"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:12:6"}],
+              "typedef_vs_macro.h:13:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:8:8"},
+          "typedef_vs_macro.h:9:8"},
       DeclStruct
         Struct {
           structDeclPath = DeclPathStruct
@@ -154,7 +220,7 @@ WrapCHeader
                 (TypeTypedef
                   (CName "uint64_t")),
               fieldSourceLoc =
-              "typedef_vs_macro.h:18:13"}],
+              "typedef_vs_macro.h:19:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:17:8"}])
+          "typedef_vs_macro.h:18:8"}])

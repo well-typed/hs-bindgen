@@ -12,7 +12,7 @@ WrapCHeader
               multiLocFile = Nothing},
             macroName = CName "ENUMS_H",
             macroArgs = [],
-            macroBody = MTerm MEmpty},
+            macroBody = MEmpty},
           macroDeclMacroTy = "Empty",
           macroDeclSourceLoc =
           "enums.h:2:9"},

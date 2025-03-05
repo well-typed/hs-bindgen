@@ -206,7 +206,7 @@ WrapCHeader
                           multiLocFile = Nothing}},
                       tokenCursorKind = SimpleEnum
                         501}])
-                MEmpty)},
+                Nothing)},
           macroDeclMacroTy = "Empty",
           macroDeclSourceLoc =
           "distilled_lib_1.h:25:9"},

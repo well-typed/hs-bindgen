@@ -286,6 +286,7 @@ literalSizeMaybe ( SizeExpression sz ) =
           -- macro-defined constants, e.g.:
           --
           --   int arr[SOME_CONSTANT];
+    MEmpty -> Nothing
     MApp {} -> Nothing
 
 --------------------------------------------------------------------------------
