@@ -68,14 +68,14 @@ mTerm =
   where
     term :: Reparse MTerm
     term = choice [
-        MEmpty       <$  eof
-      , MInt         <$> literalInteger
+        MInt         <$> literalInteger
       , MFloat       <$> literalFloat
       , MChar        <$> literalChar
       , MString      <$> literalString
       , MVar         <$> var <*> option [] actualArgs
       , MType        <$> reparsePrimTypeWithArrs
-      , MAttr        <$> reparseAttribute <*> mTerm
+      , MAttr        <$> reparseAttribute
+                     <*> ( choice [ Just <$> mTerm, Nothing <$ eof ] )
       , MStringize   <$  punctuation "#" <*> var
       ]
 
@@ -141,7 +141,7 @@ actualArgs = parens $ mExpr `sepBy` comma
 -------------------------------------------------------------------------------}
 
 mExprTuple :: Reparse MExpr
-mExprTuple = try tuple <|> mExpr
+mExprTuple = try tuple <|> mExpr <|> ( MEmpty <$ eof )
   where
     tuple = do
       openParen <- optionMaybe $ punctuation "("

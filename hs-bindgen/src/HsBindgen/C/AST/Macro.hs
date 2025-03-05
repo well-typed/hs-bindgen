@@ -57,13 +57,16 @@ data Macro = Macro {
 -- | Body of a function-like macro
 data MExpr =
     MTerm MTerm
+  | -- | Empty
+    MEmpty
   -- | Exactly saturated non-nullary function application.
   | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
 deriving stock instance Show MExpr
 instance PrettyVal MExpr where
   prettyVal = \case
-    MTerm tm    -> Pretty.Con "MTerm" [prettyVal tm]
-    MApp f args -> Pretty.Con "MApp" [prettyVal f, prettyVal args]
+    MTerm tm    -> Pretty.Con "MTerm"  [prettyVal tm]
+    MEmpty      -> Pretty.Con "MEmpty" []
+    MApp f args -> Pretty.Con "MApp"   [prettyVal f, prettyVal args]
 
 instance Eq MExpr where
   MTerm m1 == MTerm m2 = m1 == m2
@@ -154,11 +157,9 @@ instance PrettyVal ( MFun arity ) where
   prettyVal f = Pretty.Con (show f) []
 
 data MTerm =
-    -- | Empty
-    MEmpty
 
     -- | Integer literal
-  | MInt IntegerLiteral
+    MInt IntegerLiteral
 
     -- | Floating-point literal
   | MFloat FloatingLiteral
@@ -178,7 +179,7 @@ data MTerm =
   | MType Type
 
     -- | Attribute
-  | MAttr Attribute MTerm
+  | MAttr Attribute (Maybe MTerm)
 
     -- | Stringizing
     --
@@ -222,7 +223,7 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
         macroName `elem` includeGuards
       , null macroArgs
       , case macroBody of
-          MTerm MEmpty
+          MEmpty
             -> True
           MTerm ( MInt IntegerLiteral { integerLiteralValue = 1 } )
             -> True

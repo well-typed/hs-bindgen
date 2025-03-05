@@ -1212,12 +1212,12 @@ inferTop funNm argsList body =
 
 inferExpr :: MExpr -> TcGenM ( Type Ty )
 inferExpr = \case
+  MEmpty -> return Empty
   MTerm tm -> inferTerm tm
   MApp fun args -> inferApp ( FunName $ Right fun ) ( Vec.toList args )
 
 inferTerm :: MTerm -> TcGenM ( Type Ty )
 inferTerm = \case
-  MEmpty -> return Empty
   MInt i@( IntegerLiteral { integerLiteralType = mbIntyTy } ) ->
     IntLike <$>
       case mbIntyTy of
@@ -1238,7 +1238,10 @@ inferTerm = \case
     return String
   MVar fun args -> inferApp ( FunName $ Left fun ) args
   MType {} -> return PrimTy
-  MAttr _attr tm -> inferTerm tm
+  MAttr _attr mbTerm ->
+    case mbTerm of
+      Nothing -> return Empty
+      Just tm -> inferTerm tm
   MStringize {} -> return String
   MConcat a1 a2 -> do
     ty1 <- inferTerm a1

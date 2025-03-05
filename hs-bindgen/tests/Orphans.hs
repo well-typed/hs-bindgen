@@ -124,6 +124,8 @@ instance ToExpr C.MExpr where
   toExpr = \case
     C.MTerm tm ->
       Expr.App "MTerm" [toExpr tm]
+    C.MEmpty ->
+      Expr.App "MEmpty" []
     C.MApp fun args ->
       Expr.App "MApp" [toExpr fun, toExpr (toList args)]
 
