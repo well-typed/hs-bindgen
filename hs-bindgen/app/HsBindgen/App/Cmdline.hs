@@ -89,9 +89,11 @@ parseCmdline =
       <*> parseExtBindings
       <*> parseMode
 
-pureParseModePreprocess :: [String] -> Maybe Mode
+pureParseModePreprocess :: [String] -> Maybe Cmdline
 pureParseModePreprocess =
-    getParseResult . execParserPure defaultPrefs (info parseModePreprocess mempty)
+      getParseResult
+    . execParserPure (prefs subparserInline) (info parseCmdline mempty)
+    . ("preprocess" :)
 
 {-------------------------------------------------------------------------------
   Mode selection

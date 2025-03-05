@@ -248,7 +248,7 @@ test-suite test-pp
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
-  ghc-options: -pgmL hs-bindgen -optL --include-path=examples -optL literate
+  ghc-options: -pgmL hs-bindgen -optL literate
 
   include-dirs: examples
 
