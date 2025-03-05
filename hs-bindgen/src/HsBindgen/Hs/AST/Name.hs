@@ -34,6 +34,8 @@ module HsBindgen.Hs.AST.Name (
   , joinWithCamelCase
     -- ** Reserved Names
     -- $ReservedNames
+  , reservedVarNames
+  , reservedTypeNames
   , haskellKeywords
   , ghcExtensionKeywords
   , hsBindgenReservedTypeNames
@@ -510,6 +512,18 @@ work with the implementation of their name manglers.
 
 -}
 
+reservedVarNames :: Set Text
+reservedVarNames = Set.fromList $
+       haskellKeywords
+    ++ ghcExtensionKeywords
+    ++ hsBindgenReservedVarNames
+    ++ sanityReservedVarNames
+
+reservedTypeNames :: Set Text
+reservedTypeNames = Set.fromList $
+       hsBindgenReservedTypeNames
+    ++ sanityReservedTypeNames
+
 -- | Haskell keywords
 --
 -- * [Source](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L781-805)
@@ -669,15 +683,6 @@ sanityReservedVarNames =
 defaultNameMangler :: NameMangler
 defaultNameMangler = NameMangler{..}
   where
-    reservedTypeNames, reservedVarNames :: Set Text
-    reservedTypeNames = Set.fromList $
-      hsBindgenReservedTypeNames ++ sanityReservedTypeNames
-    reservedVarNames = Set.fromList $
-         haskellKeywords
-      ++ ghcExtensionKeywords
-      ++ hsBindgenReservedVarNames
-      ++ sanityReservedVarNames
-
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
@@ -730,14 +735,9 @@ defaultNameMangler = NameMangler{..}
 -- This default provides Haskell-style names with a higher risk of name
 -- collision.
 --
--- * Module names are transformed to @PascalCase@, dropping invalid characters.
--- * Type class names are transformed to @PascalCase@, dropping invalid
---   characters.
 -- * Type constructors are transformed to @PascalCase@ and prefixed with @C@,
 --   escaping invalid characters.
--- * Type variables have invalid characters dropped, and single quotes are
---   appended to reserved names.
--- * Constructors are are transformed to @PascalCase@ and prefixed with @Mk@,
+-- * Constructors are transformed to @PascalCase@ and prefixed with @Mk@,
 --   escaping invalid characters.
 -- * Record fields are prefixed with the type name if the data type has a single
 --   constructor or the constructor name otherwise, joined using @camelCase@,
@@ -748,15 +748,6 @@ defaultNameMangler = NameMangler{..}
 haskellNameMangler :: NameMangler
 haskellNameMangler = NameMangler{..}
   where
-    reservedTypeNames, reservedVarNames :: Set Text
-    reservedTypeNames = Set.fromList $
-      hsBindgenReservedTypeNames ++ sanityReservedTypeNames
-    reservedVarNames = Set.fromList $
-         haskellKeywords
-      ++ ghcExtensionKeywords
-      ++ hsBindgenReservedVarNames
-      ++ sanityReservedVarNames
-
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
