@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-redundant-constraints #-}
+
 module HsBindgen.Hs.NameMangler (
     -- * Definition
     NameMangler(..)
@@ -17,13 +19,17 @@ module HsBindgen.Hs.NameMangler (
   , dropInvalidChar
   , escapeInvalidChar
   , isValidChar
-  , mkHsNamePrefixInvalid
-  , mkHsNameDropInvalid
   , handleOverrideNone
   , handleOverrideMap
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
+    -- ** Constructing Haskell identifiers
+  , NameRuleSet(..)
+  , NamespaceRuleSet
+  , mkHsNamePrefixInvalid
+  , mkHsNameDropInvalid
+  , mkHsVarName
     -- ** Constructing a name out of multiple parts
   , JoinParts(..)
   , joinWithConcat
@@ -43,18 +49,15 @@ module HsBindgen.Hs.NameMangler (
 
 import Data.Char qualified as Char
 import Data.List qualified as List
-import Data.Map (Map)
 import Data.Map.Strict qualified as Map
-import Data.Maybe (fromMaybe)
-import Data.Set (Set)
 import Data.Set qualified as Set
-import Data.Text (Text)
 import Data.Text qualified as T
 import Numeric (showHex)
 
 import HsBindgen.C.AST
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -175,7 +178,7 @@ defaultNameMangler = NameMangler{..}
         translateName
           (maintainCName escapeInvalidChar)
           Nothing
-          mkHsNameDropInvalid
+          mkHsVarName
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
@@ -187,7 +190,7 @@ defaultNameMangler = NameMangler{..}
           (Just $ joinWithSnakeCase{extraPrefixes =
               [getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)]
             })
-          mkHsNameDropInvalid
+          mkHsVarName
           handleOverrideNone
           handleReservedNone  -- not needed since contains underscore
           ctxFieldVarCName
@@ -240,7 +243,7 @@ haskellNameMangler = NameMangler{..}
         translateName
           (camelCaseCName dropInvalidChar)
           Nothing
-          mkHsNameDropInvalid
+          mkHsVarName
           handleOverrideNone
           (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
@@ -252,7 +255,7 @@ haskellNameMangler = NameMangler{..}
           (Just $ joinWithCamelCase{extraPrefixes =
                [getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)]
              })
-          mkHsNameDropInvalid
+          mkHsVarName
           handleOverrideNone
           handleReservedNone
           ctxFieldVarCName
@@ -435,65 +438,6 @@ escapeInvalidChar c =
 isValidChar :: Char -> Bool
 isValidChar c = Char.isAlphaNum c || c == '_'
 
--- | Construct an 'HsName', changing the case of the first character or adding a
--- prefix if the first character is invalid
---
--- Precondition: the name must not be empty.
---
--- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
--- "C_foo"
-mkHsNamePrefixInvalid :: forall ns.
-     SingNamespace ns
-  => Text  -- ^ Prefix to use when first character invalid
-  -> Text
-  -> HsName ns
-mkHsNamePrefixInvalid prefix = HsName . case singNamespace @ns of
-    SNsTypeConstr -> auxU
-    SNsConstr     -> auxU
-    SNsVar        -> auxL
-  where
-    auxU :: Text -> Text
-    auxU t = case T.uncons t of
-      Just (c, t')
-        | Char.isLetter c -> T.cons (Char.toUpper c) t'
-        | otherwise       -> prefix <> t
-      Nothing             -> emptyName
-
-    auxL :: Text -> Text
-    auxL t = case T.uncons t of
-      Just (c, t') -> T.cons (Char.toLower c) t'
-      Nothing      -> emptyName
-
-    emptyName :: a
-    emptyName = panicPure "mkHsNamePrefixInvalid: empty name"
-
-
--- | Construct an 'HsName', changing the case of the first character after
--- dropping any invalid first characters
---
--- Precondition: the name must not be empty.
---
--- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
--- "Foo"
-mkHsNameDropInvalid :: forall ns. SingNamespace ns => Text -> HsName ns
-mkHsNameDropInvalid = HsName . case singNamespace @ns of
-    SNsTypeConstr -> auxU
-    SNsConstr     -> auxU
-    SNsVar        -> auxL
-  where
-    auxU :: Text -> Text
-    auxU t = case T.uncons (T.dropWhile (not . Char.isLetter) t) of
-      Just (c, t') -> T.cons (Char.toUpper c) t'
-      Nothing      -> emptyName
-
-    auxL :: Text -> Text
-    auxL t = case T.uncons t of
-      Just (c, t') -> T.cons(Char.toLower c) t'
-      Nothing      -> emptyName
-
-    emptyName :: a
-    emptyName = panicPure "mkHsNameDropInvalid: empty name"
-
 -- | Do not override any translations
 handleOverrideNone :: Maybe CName -> HsName ns -> Maybe (HsName ns)
 handleOverrideNone _cname _name = Nothing
@@ -531,6 +475,67 @@ handleReservedNames f reserved name@(HsName t)
 -- | Append a single quote (@'@) to a name
 appendSingleQuote :: Text -> Text
 appendSingleQuote = (<> "'")
+
+{-------------------------------------------------------------------------------
+  Constructing Haskell identifiers
+-------------------------------------------------------------------------------}
+
+data NameRuleSet =
+    -- | Variables and type variables
+    NameRuleSetVar
+
+    -- | Constructors, type constructors, type classes and module names
+  | NameRuleSetOther
+
+type family NamespaceRuleSet (ns :: Namespace) :: NameRuleSet where
+  NamespaceRuleSet NsTypeConstr = NameRuleSetOther
+  NamespaceRuleSet NsConstr     = NameRuleSetOther
+  NamespaceRuleSet NsVar        = NameRuleSetVar
+
+-- | Construct an 'HsName', changing the case of the first character or adding a
+-- prefix if the first character is invalid
+--
+-- Precondition: the name must not be empty.
+--
+-- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
+-- "C_foo"
+mkHsNamePrefixInvalid :: forall ns.
+     NamespaceRuleSet ns ~ NameRuleSetOther
+  => Text  -- ^ Prefix to use when first character invalid
+  -> Text
+  -> HsName ns
+mkHsNamePrefixInvalid prefix t = HsName $
+    case T.uncons t of
+      Just (c, t')
+        | Char.isLetter c -> T.cons (Char.toUpper c) t'
+        | otherwise       -> prefix <> t
+      Nothing             -> panicEmptyName
+
+-- | Construct an 'HsName', changing the case of the first character after
+-- dropping any invalid first characters
+--
+-- Precondition: the name must not be empty.
+--
+-- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
+-- "Foo"
+mkHsNameDropInvalid :: forall ns.
+     NamespaceRuleSet ns ~ NameRuleSetOther
+  => Text -> HsName ns
+mkHsNameDropInvalid t = HsName $
+    case T.uncons (T.dropWhile (not . Char.isLetter) t) of
+      Just (c, t') -> T.cons (Char.toUpper c) t'
+      Nothing      -> panicEmptyName
+
+mkHsVarName :: forall ns.
+     NamespaceRuleSet ns ~ NameRuleSetVar
+  => Text -> HsName ns
+mkHsVarName t = HsName $
+    case T.uncons t of
+      Just (c, t') -> T.cons (Char.toLower c) t'
+      Nothing      -> panicEmptyName
+
+panicEmptyName :: a
+panicEmptyName = panicPure "mkHsNameDropInvalid: empty name"
 
 {-------------------------------------------------------------------------------
   Joining parts of a name

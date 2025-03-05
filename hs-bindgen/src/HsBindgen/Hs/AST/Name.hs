@@ -43,14 +43,9 @@ namespaceOf = \case
 class SingNamespace ns where
   singNamespace :: SNamespace ns
 
-instance SingNamespace 'NsTypeConstr where
-  singNamespace = SNsTypeConstr
-
-instance SingNamespace 'NsConstr where
-  singNamespace = SNsConstr
-
-instance SingNamespace 'NsVar where
-  singNamespace = SNsVar
+instance SingNamespace 'NsTypeConstr where singNamespace = SNsTypeConstr
+instance SingNamespace 'NsConstr     where singNamespace = SNsConstr
+instance SingNamespace 'NsVar        where singNamespace = SNsVar
 
 -- | Haskell name in namespace @ns@
 newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
