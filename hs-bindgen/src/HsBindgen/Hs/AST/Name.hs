@@ -735,14 +735,9 @@ defaultNameMangler = NameMangler{..}
 -- This default provides Haskell-style names with a higher risk of name
 -- collision.
 --
--- * Module names are transformed to @PascalCase@, dropping invalid characters.
--- * Type class names are transformed to @PascalCase@, dropping invalid
---   characters.
 -- * Type constructors are transformed to @PascalCase@ and prefixed with @C@,
 --   escaping invalid characters.
--- * Type variables have invalid characters dropped, and single quotes are
---   appended to reserved names.
--- * Constructors are are transformed to @PascalCase@ and prefixed with @Mk@,
+-- * Constructors are transformed to @PascalCase@ and prefixed with @Mk@,
 --   escaping invalid characters.
 -- * Record fields are prefixed with the type name if the data type has a single
 --   constructor or the constructor name otherwise, joined using @camelCase@,
