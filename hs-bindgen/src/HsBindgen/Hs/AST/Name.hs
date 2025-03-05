@@ -62,33 +62,26 @@ import HsBindgen.C.AST (CName(..), DeclName(..), DeclPath(..))
 
 -- | Namespace
 --
+-- This covers only the namespaces in which we /generate/ identifiers.
+--
 -- See section 1.4, "Namespaces" of the Haskell report
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch1.html#x6-130001.4>
 data Namespace =
-    NsModuleName
-  | NsTypeClass
-  | NsTypeConstr
-  | NsTypeVar
+    NsTypeConstr
   | NsConstr
   | NsVar
   deriving (Eq, Ord, Show)
 
 -- | Namespace singleton
 data SNamespace :: Namespace -> Star where
-  SNsModuleName :: SNamespace 'NsModuleName
-  SNsTypeClass  :: SNamespace 'NsTypeClass
   SNsTypeConstr :: SNamespace 'NsTypeConstr
-  SNsTypeVar    :: SNamespace 'NsTypeVar
   SNsConstr     :: SNamespace 'NsConstr
   SNsVar        :: SNamespace 'NsVar
 
 -- | Get the namespace of a namespace singleton
 namespaceOf :: SNamespace ns -> Namespace
 namespaceOf = \case
-    SNsModuleName -> NsModuleName
-    SNsTypeClass  -> NsTypeClass
     SNsTypeConstr -> NsTypeConstr
-    SNsTypeVar    -> NsTypeVar
     SNsConstr     -> NsConstr
     SNsVar        -> NsVar
 
@@ -96,17 +89,8 @@ namespaceOf = \case
 class SingNamespace ns where
   singNamespace :: SNamespace ns
 
-instance SingNamespace 'NsModuleName where
-  singNamespace = SNsModuleName
-
-instance SingNamespace 'NsTypeClass where
-  singNamespace = SNsTypeClass
-
 instance SingNamespace 'NsTypeConstr where
   singNamespace = SNsTypeConstr
-
-instance SingNamespace 'NsTypeVar where
-  singNamespace = SNsTypeVar
 
 instance SingNamespace 'NsConstr where
   singNamespace = SNsConstr
@@ -420,10 +404,7 @@ mkHsNamePrefixInvalid :: forall ns.
   -> Text
   -> HsName ns
 mkHsNamePrefixInvalid prefix = HsName . case singNamespace @ns of
-    SNsModuleName -> auxU
-    SNsTypeClass  -> auxU
     SNsTypeConstr -> auxU
-    SNsTypeVar    -> auxL
     SNsConstr     -> auxU
     SNsVar        -> auxL
   where
@@ -446,10 +427,7 @@ mkHsNamePrefixInvalid prefix = HsName . case singNamespace @ns of
 -- "Foo"
 mkHsNameDropInvalid :: forall ns. SingNamespace ns => Text -> HsName ns
 mkHsNameDropInvalid = HsName . case singNamespace @ns of
-    SNsModuleName -> auxU
-    SNsTypeClass  -> auxU
     SNsTypeConstr -> auxU
-    SNsTypeVar    -> auxL
     SNsConstr     -> auxU
     SNsVar        -> auxL
   where
