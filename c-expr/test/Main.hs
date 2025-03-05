@@ -113,7 +113,12 @@ main = do
           { Clang.clangCStandard = Just Clang.C23 }
       clangArgs =
         case platformOS hostPlatform of
-          Windows -> clangArgs0
+          Windows ->
+            clangArgs0
+              { Clang.clangTarget =
+                  Just (Clang.Target_Windows_X86_64, Clang.TargetEnvDefault)
+              , Clang.clangStdInc = True
+              }
           Posix ->
             clangArgs0
               { Clang.clangTarget =
