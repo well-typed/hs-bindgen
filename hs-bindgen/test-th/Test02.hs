@@ -27,8 +27,8 @@ $(do
             clangQuoteIncludePathDirs = [fromString (dir </> "examples")]
           }
     extBindings <- TH.runIO $ loadExtBindings args [
-        joinPath [dir, "..", "hs-bindgen-runtime", "base.yaml"]
-      , joinPath [dir, "..", "hs-bindgen-runtime", "hs-bindgen-runtime.yaml"]
+        joinPath [dir, "bindings", "base.yaml"]
+      , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
       ]
     genBindings "test_02.h" extBindings args
  )
