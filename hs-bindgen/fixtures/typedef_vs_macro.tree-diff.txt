@@ -38,6 +38,48 @@ WrapCHeader
           macroDeclMacroTy = "PrimTy",
           macroDeclSourceLoc =
           "typedef_vs_macro.h:5:9"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "typedef_vs_macro.h:6:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "M3",
+            macroArgs = [],
+            macroBody = MTerm
+              (MType
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))},
+          macroDeclMacroTy = "PrimTy",
+          macroDeclSourceLoc =
+          "typedef_vs_macro.h:6:9"},
+      DeclMacro
+        MacroDecl {
+          macroDeclMacro = Macro {
+            macroLoc = MultiLoc {
+              multiLocExpansion =
+              "typedef_vs_macro.h:15:9",
+              multiLocPresumed = Nothing,
+              multiLocSpelling = Nothing,
+              multiLocFile = Nothing},
+            macroName = CName "uint64_t",
+            macroArgs = [],
+            macroBody = MTerm
+              (MType
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))},
+          macroDeclMacroTy = "PrimTy",
+          macroDeclSourceLoc =
+          "typedef_vs_macro.h:15:9"},
       DeclTypedef
         Typedef {
           typedefName = CName "T1",
@@ -68,7 +110,7 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "T1"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:8:6"},
+              "typedef_vs_macro.h:9:6"},
             StructField {
               fieldName = CName "t2",
               fieldOffset = 32,
@@ -76,7 +118,7 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "T2"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:9:6"},
+              "typedef_vs_macro.h:10:6"},
             StructField {
               fieldName = CName "m1",
               fieldOffset = 64,
@@ -84,7 +126,7 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "M1"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:10:6"},
+              "typedef_vs_macro.h:11:6"},
             StructField {
               fieldName = CName "m2",
               fieldOffset = 96,
@@ -92,7 +134,27 @@ WrapCHeader
               fieldType = TypeTypedef
                 (CName "M2"),
               fieldSourceLoc =
-              "typedef_vs_macro.h:11:6"}],
+              "typedef_vs_macro.h:12:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:7:8"}])
+          "typedef_vs_macro.h:8:8"},
+      DeclStruct
+        Struct {
+          structDeclPath = DeclPathStruct
+            (DeclNameTag (CName "foo"))
+            DeclPathTop,
+          structSizeof = 8,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              fieldName = CName "a",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypePointer
+                (TypeTypedef
+                  (CName "uint64_t")),
+              fieldSourceLoc =
+              "typedef_vs_macro.h:18:13"}],
+          structFlam = Nothing,
+          structSourceLoc =
+          "typedef_vs_macro.h:17:8"}])

@@ -1,29 +1,14 @@
 module HsBindgen.C.Reparse.Type (
-    reparseTypeUse
-  , reparsePrimType
+  reparsePrimType
   ) where
 
 import Data.List (intercalate)
-import Data.Text (Text)
 import Data.Text qualified as Text
 import Text.Parsec
 
+import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Reparse.Infra
-import HsBindgen.C.Reparse.Common
-
-{-------------------------------------------------------------------------------
-  Type use sites
--------------------------------------------------------------------------------}
-
--- | Reparse type use
---
--- TODO: This parser is quite minimal at the moment.
-reparseTypeUse :: Reparse Type
-reparseTypeUse = choice [
-      reparsePrimType
-    , TypeTypedef <$> reparseName
-    ]
 
 {-------------------------------------------------------------------------------
   Primitive types
@@ -93,4 +78,3 @@ reparsePrimType = do
           "Unexpected primitive type "
         , show $ intercalate " " (map Text.unpack kws)
         ]
-

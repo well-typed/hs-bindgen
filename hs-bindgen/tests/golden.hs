@@ -48,6 +48,7 @@ main' packageRoot bg = testGroup "golden"
     , golden "macros"
     , testGroup "macro_strings" $ goldenNoRust "macro_strings" -- rs-bindgen panics on this
     , golden "macro_functions"
+    , golden "macro_in_fundecl"
     , golden "uses_utf8"
     , golden "typedef_vs_macro"
     , golden "headers"

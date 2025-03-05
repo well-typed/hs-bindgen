@@ -37,7 +37,7 @@ data DeclState = DeclState {
       -- for example, it can alert us to the fact that a struct field has a
       -- type which is macro defined.
       macroExpansions  :: !(Set SingleLoc)
-    , macroTypes       :: !(Map CName (Macro.Quant (Macro.Type Macro.Ty)))
+    , macroTypes       :: !Macro.TypeEnv
     -- | Type declarations
     --
     -- We accumulate type declarations in (insert)ordered map,

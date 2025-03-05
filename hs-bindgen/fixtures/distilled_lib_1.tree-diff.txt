@@ -507,18 +507,24 @@ WrapCHeader
               fieldName = CName "field_9",
               fieldOffset = 512,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName
-                  "another_typedef_enum_e"),
+              fieldType = TypeConstArray
+                4
+                (TypeEnum
+                  (CName
+                    "another_typedef_enum_e")),
               fieldSourceLoc =
               "distilled_lib_1.h:45:31"},
             StructField {
               fieldName = CName "field_10",
               fieldOffset = 640,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName
-                  "another_typedef_enum_e"),
+              fieldType = TypeConstArray
+                5
+                (TypeConstArray
+                  3
+                  (TypeEnum
+                    (CName
+                      "another_typedef_enum_e"))),
               fieldSourceLoc =
               "distilled_lib_1.h:46:31"}],
           structFlam = Nothing,

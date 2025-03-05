@@ -1,0 +1,856 @@
+[
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "I",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "I",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unI",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:5:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "I",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "I"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "C",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "C",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unC",
+        fieldType = HsPrimType
+          HsPrimCChar,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:6:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "C",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimChar Nothing)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "C"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "F",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "F",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unF",
+        fieldType = HsPrimType
+          HsPrimCFloat,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:7:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "F",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimFloating PrimFloat)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Floating
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Fractional
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    RealFloat
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    RealFrac
+    (HsName "@NsTypeConstr" "F"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "L",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "L",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unL",
+        fieldType = HsPrimType
+          HsPrimCLong,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:8:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "L",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "L"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "S",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "S",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unS",
+        fieldType = HsPrimType
+          HsPrimCShort,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:9:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "S",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "S"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "S"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "quux",
+      foreignImportType = HsFun
+        (HsTypRef
+          (HsName "@NsTypeConstr" "F"))
+        (HsFun
+          (HsPrimType HsPrimCChar)
+          (HsIO
+            (HsPrimType HsPrimCChar))),
+      foreignImportOrigName = "quux",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "quux",
+          functionType = TypeFun
+            [
+              TypeTypedef (CName "F"),
+              TypePrim (PrimChar Nothing)]
+            (TypePrim (PrimChar Nothing)),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:12:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wam",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCFloat)
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "C")))
+          (HsIO
+            (HsPtr
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "C"))))),
+      foreignImportOrigName = "wam",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "wam",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimFloating PrimFloat),
+              TypePointer
+                (TypeTypedef (CName "C"))]
+            (TypePointer
+              (TypeTypedef (CName "C"))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:13:4"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "foo1",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCFloat)
+        (HsFun
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimCInt))))
+          (HsIO
+            (HsPtr
+              (HsPrimType HsPrimCChar)))),
+      foreignImportOrigName = "foo1",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "foo1",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimFloating PrimFloat),
+              TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed)))]
+            (TypePointer
+              (TypePrim (PrimChar Nothing))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:16:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "foo2",
+      foreignImportType = HsFun
+        (HsTypRef
+          (HsName "@NsTypeConstr" "F"))
+        (HsFun
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimCInt))))
+          (HsIO
+            (HsPtr
+              (HsPrimType HsPrimCChar)))),
+      foreignImportOrigName = "foo2",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "foo2",
+          functionType = TypeFun
+            [
+              TypeTypedef (CName "F"),
+              TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed)))]
+            (TypePointer
+              (TypePrim (PrimChar Nothing))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:17:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "foo3",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCFloat)
+        (HsFun
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimCInt))))
+          (HsIO
+            (HsPtr
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "C"))))),
+      foreignImportOrigName = "foo3",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "foo3",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimFloating PrimFloat),
+              TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed)))]
+            (TypePointer
+              (TypeTypedef (CName "C"))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:18:4"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "bar1",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCLong)
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCShort)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName = "bar1",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "bar1",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimLong Signed)]
+            (TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimShort Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:21:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "bar2",
+      foreignImportType = HsFun
+        (HsTypRef
+          (HsName "@NsTypeConstr" "L"))
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCShort)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName = "bar2",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "bar2",
+          functionType = TypeFun
+            [TypeTypedef (CName "L")]
+            (TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimShort Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:22:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "bar3",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCLong)
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "S"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName = "bar3",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "bar3",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimLong Signed)]
+            (TypePointer
+              (TypeFun
+                [TypeTypedef (CName "S")]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:23:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "bar4",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCLong)
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCShort)
+              (HsIO
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "I")))))),
+      foreignImportOrigName = "bar4",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "bar4",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimLong Signed)]
+            (TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimShort Signed)]
+                (TypeTypedef (CName "I")))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:24:5"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "baz1",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              2
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName = "baz1",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "baz1",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePointer
+              (TypeConstArray
+                2
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:27:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "baz2",
+      foreignImportType = HsFun
+        (HsTypRef
+          (HsName "@NsTypeConstr" "I"))
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              2
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName = "baz2",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "baz2",
+          functionType = TypeFun
+            [TypeTypedef (CName "I")]
+            (TypePointer
+              (TypeConstArray
+                2
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:35:7"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "baz3",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              2
+              (HsConstArray
+                3
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "I")))))),
+      foreignImportOrigName = "baz3",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "baz3",
+          functionType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePointer
+              (TypeConstArray
+                2
+                (TypeConstArray
+                  3
+                  (TypeTypedef (CName "I"))))),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:43:5"}}]

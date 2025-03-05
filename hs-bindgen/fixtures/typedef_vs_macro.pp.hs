@@ -10,6 +10,7 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype M1 = M1
@@ -71,6 +72,42 @@ deriving newtype instance Integral M2
 deriving newtype instance Num M2
 
 deriving newtype instance Real M2
+
+newtype M3 = M3
+  { unM3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  }
+
+deriving newtype instance F.Storable M3
+
+newtype Uint64_t = Uint64_t
+  { unUint64_t :: FC.CInt
+  }
+
+deriving newtype instance F.Storable Uint64_t
+
+deriving stock instance Eq Uint64_t
+
+deriving stock instance Ord Uint64_t
+
+deriving stock instance Read Uint64_t
+
+deriving stock instance Show Uint64_t
+
+deriving newtype instance Enum Uint64_t
+
+deriving newtype instance Ix.Ix Uint64_t
+
+deriving newtype instance Bounded Uint64_t
+
+deriving newtype instance Bits.Bits Uint64_t
+
+deriving newtype instance FiniteBits Uint64_t
+
+deriving newtype instance Integral Uint64_t
+
+deriving newtype instance Num Uint64_t
+
+deriving newtype instance Real Uint64_t
 
 newtype T1 = T1
   { unT1 :: FC.CInt
@@ -166,3 +203,28 @@ instance F.Storable ExampleStruct where
 deriving stock instance Show ExampleStruct
 
 deriving stock instance Eq ExampleStruct
+
+data Foo = Foo
+  { foo_a :: F.Ptr Uint64_t
+  }
+
+instance F.Storable Foo where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (8 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Foo
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Foo foo_a2 -> F.pokeByteOff ptr0 (0 :: Int) foo_a2
+
+deriving stock instance Show Foo
+
+deriving stock instance Eq Foo

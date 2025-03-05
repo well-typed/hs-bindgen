@@ -69,7 +69,8 @@ foldPrelude msgTracer macroTracer unit = go
                k loc current
 
 processMacro ::
-     MonadIO m
+     HasCallStack
+  => MonadIO m
   => Tracer IO GenPreludeMsg
   -> Tracer IO (MultiLoc, C.Macro)
   -> CXTranslationUnit

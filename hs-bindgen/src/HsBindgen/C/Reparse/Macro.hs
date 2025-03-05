@@ -1,5 +1,5 @@
 module HsBindgen.C.Reparse.Macro (
-    reparseMacro
+    reparseMacro, mExpr
   ) where
 
 import Control.Monad
@@ -7,10 +7,13 @@ import Data.Type.Nat
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
+import Data.Text qualified as Text
 
+import HsBindgen.Imports
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
+import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Common
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
@@ -34,12 +37,15 @@ import HsBindgen.Clang.LowLevel.Core
 reparseMacro :: Reparse Macro
 reparseMacro = do
     (macroLoc, macroName) <- reparseLocName
-    choice [
-        -- When we see an opening bracket it might be the start of an argument
-        -- list, or it might be the start of the body, wrapped in parentheses.
-        try $ functionLike macroLoc macroName
-      , objectLike macroLoc macroName
-      ]
+    macro <-
+      choice [
+          -- When we see an opening bracket it might be the start of an argument
+          -- list, or it might be the start of the body, wrapped in parentheses.
+          try $ functionLike macroLoc macroName
+        , objectLike macroLoc macroName
+        ]
+    eof
+    return macro
   where
     functionLike, objectLike :: MultiLoc -> CName -> Reparse Macro
     functionLike loc name = Macro loc name <$> formalArgs <*> mExprTuple
@@ -68,7 +74,7 @@ mTerm =
       , MChar        <$> literalChar
       , MString      <$> literalString
       , MVar         <$> var <*> option [] actualArgs
-      , MType        <$> reparsePrimType
+      , MType        <$> reparsePrimTypeWithArrs
       , MAttr        <$> reparseAttribute <*> mTerm
       , MStringize   <$  punctuation "#" <*> var
       ]
@@ -220,3 +226,42 @@ sepBy2 p sep = do
   x2 <- p
   xs <- many $ sep >> p
   return (x1, x2, xs)
+
+{-------------------------------------------------------------------------------
+  Array types
+-------------------------------------------------------------------------------}
+
+-- | Like 'reparsePrimType', but including array syntax.
+reparsePrimTypeWithArrs :: Reparse Type
+-- TODO: duplication with HsBindgen.C.Reparse.Decl.withArrayOrFunctionSuffixes
+reparsePrimTypeWithArrs = do
+  baseTy <- reparsePrimType
+  arrSizes <- many $ punctuation "[" *> reparseArraySize <* punctuation "]"
+  let
+    mkArrs :: [Maybe Natural] -> Type -> Type
+    mkArrs [] ty = ty
+    mkArrs (mbSz:szs) ty =
+      mkArrs szs $
+        case mbSz of
+          Just s  -> TypeConstArray s ty
+          Nothing -> TypeIncompleteArray ty
+  return $ mkArrs arrSizes baseTy
+
+reparseArraySize :: Reparse (Maybe Natural)
+reparseArraySize =
+  -- TODO: many other things can appear in array sizes,
+  -- such as the 'static' keyword.
+  --
+  -- Moreover, the size can be an arbitrary integer constant expression,
+  -- not necessarily a simple literal. We don't handle that for now.
+  --
+  -- See HsBindgen.C.Reparse.Decl.withArrayOrFunctionSuffixes.
+  choice
+    [ do { (txt, (i, _ty)) <- parseTokenOfKind CXToken_Literal reparseLiteralInteger
+         ; if i < 0
+           then unexpected $ "negative array size: " <> Text.unpack txt
+           else return $ Just $ fromIntegral i }
+    , Nothing <$ punctuation "*"
+    -- TODO: handle empty size declaration?
+    ]
+  <?> "array size"
