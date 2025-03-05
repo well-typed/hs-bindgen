@@ -53,8 +53,9 @@ import Data.String
 import Data.Text qualified as T
 import Numeric (showHex)
 
-import HsBindgen.Imports
 import HsBindgen.C.AST (CName(..), DeclName(..), DeclPath(..))
+import HsBindgen.Errors (panicPure)
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -396,6 +397,8 @@ isValidChar c = Char.isAlphaNum c || c == '_'
 -- | Construct an 'HsName', changing the case of the first character or adding a
 -- prefix if the first character is invalid
 --
+-- Precondition: the name must not be empty.
+--
 -- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
 -- "C_foo"
 mkHsNamePrefixInvalid :: forall ns.
@@ -413,15 +416,21 @@ mkHsNamePrefixInvalid prefix = HsName . case singNamespace @ns of
       Just (c, t')
         | Char.isLetter c -> T.cons (Char.toUpper c) t'
         | otherwise       -> prefix <> t
-      Nothing             -> prefix
+      Nothing             -> emptyName
 
     auxL :: Text -> Text
     auxL t = case T.uncons t of
       Just (c, t') -> T.cons (Char.toLower c) t'
-      Nothing      -> prefix
+      Nothing      -> emptyName
+
+    emptyName :: a
+    emptyName = panicPure "mkHsNamePrefixInvalid: empty name"
+
 
 -- | Construct an 'HsName', changing the case of the first character after
 -- dropping any invalid first characters
+--
+-- Precondition: the name must not be empty.
 --
 -- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
 -- "Foo"
@@ -434,12 +443,15 @@ mkHsNameDropInvalid = HsName . case singNamespace @ns of
     auxU :: Text -> Text
     auxU t = case T.uncons (T.dropWhile (not . Char.isLetter) t) of
       Just (c, t') -> T.cons (Char.toUpper c) t'
-      Nothing      -> "X"
+      Nothing      -> emptyName
 
     auxL :: Text -> Text
     auxL t = case T.uncons t of
-      Just (c, t') -> T.cons (Char.toLower c) t'
-      Nothing      -> "x"
+      Just (c, t') -> T.cons(Char.toLower c) t'
+      Nothing      -> emptyName
+
+    emptyName :: a
+    emptyName = panicPure "mkHsNameDropInvalid: empty name"
 
 -- | Do not override any translations
 handleOverrideNone :: Maybe CName -> HsName ns -> Maybe (HsName ns)
