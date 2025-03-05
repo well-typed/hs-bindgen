@@ -34,6 +34,8 @@ module HsBindgen.Hs.AST.Name (
   , joinWithCamelCase
     -- ** Reserved Names
     -- $ReservedNames
+  , reservedVarNames
+  , reservedTypeNames
   , haskellKeywords
   , ghcExtensionKeywords
   , hsBindgenReservedTypeNames
@@ -510,6 +512,18 @@ work with the implementation of their name manglers.
 
 -}
 
+reservedVarNames :: Set Text
+reservedVarNames = Set.fromList $
+       haskellKeywords
+    ++ ghcExtensionKeywords
+    ++ hsBindgenReservedVarNames
+    ++ sanityReservedVarNames
+
+reservedTypeNames :: Set Text
+reservedTypeNames = Set.fromList $
+       hsBindgenReservedTypeNames
+    ++ sanityReservedTypeNames
+
 -- | Haskell keywords
 --
 -- * [Source](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L781-805)
@@ -669,15 +683,6 @@ sanityReservedVarNames =
 defaultNameMangler :: NameMangler
 defaultNameMangler = NameMangler{..}
   where
-    reservedTypeNames, reservedVarNames :: Set Text
-    reservedTypeNames = Set.fromList $
-      hsBindgenReservedTypeNames ++ sanityReservedTypeNames
-    reservedVarNames = Set.fromList $
-         haskellKeywords
-      ++ ghcExtensionKeywords
-      ++ hsBindgenReservedVarNames
-      ++ sanityReservedVarNames
-
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
@@ -748,15 +753,6 @@ defaultNameMangler = NameMangler{..}
 haskellNameMangler :: NameMangler
 haskellNameMangler = NameMangler{..}
   where
-    reservedTypeNames, reservedVarNames :: Set Text
-    reservedTypeNames = Set.fromList $
-      hsBindgenReservedTypeNames ++ sanityReservedTypeNames
-    reservedVarNames = Set.fromList $
-         haskellKeywords
-      ++ ghcExtensionKeywords
-      ++ hsBindgenReservedVarNames
-      ++ sanityReservedVarNames
-
     mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrName = \case
       TypeConstrContext{..} ->
