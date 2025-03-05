@@ -152,6 +152,6 @@ parseC ::
   -> IO CHeader
 parseC tracer args src =
     withC tracer args src $
-      parseCHeader tracerP SelectFromMainFile
+      parseCHeader tracerP SelectFromMainFile emptyExtBindings
   where
     tracerP = contramap prettyLogMsg tracer

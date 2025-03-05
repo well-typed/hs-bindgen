@@ -18,6 +18,7 @@ import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings
 import HsBindgen.Hs.Translation qualified as LowLevel
 import HsBindgen.Imports
 import HsBindgen.Resolve
@@ -33,9 +34,10 @@ import HsBindgen.Util.Tracer
 -- TODO: add TranslationOpts argument
 genBindings ::
      FilePath -- ^ Input header, as written in C @#include@
+  -> ExtBindings
   -> ClangArgs
   -> TH.Q [TH.Dec]
-genBindings fp args = do
+genBindings fp extBindings args = do
     headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
 
     (cheader, depPaths) <- TH.runIO $ do
@@ -45,7 +47,7 @@ genBindings fp args = do
           C.foldTranslationUnitWith
             unit
             (C.runFoldState C.initDeclState)
-            (C.foldDecls nullTracer SelectFromMainFile unit)
+            (C.foldDecls nullTracer SelectFromMainFile extBindings unit)
         let decls' =
               [ d
               | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState)
@@ -82,7 +84,7 @@ genBindings' ::
      [FilePath] -- ^ Quote include search path directories
   -> FilePath   -- ^ Input header, as written in C @#include@
   -> TH.Q [TH.Dec]
-genBindings' quoteIncPathDirs fp = genBindings fp args
+genBindings' quoteIncPathDirs fp = genBindings fp emptyExtBindings args
   where
     args :: ClangArgs
     args = defaultClangArgs {

@@ -3,6 +3,7 @@ module HsBindgen.Hs.AST.Type (
   HsType (..)
 ) where
 
+import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Hs.AST.Name
 
@@ -56,5 +57,6 @@ data HsType =
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
+  | HsExtBinding ExtIdentifier
   deriving stock (Generic, Show)
 

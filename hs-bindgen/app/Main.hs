@@ -35,23 +35,29 @@ instance Exception LiterateFileException where
       "error loading " ++ path ++ ": " ++ err
 
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
-execMode cmdline@Cmdline{..} tracer = \case
+execMode cmdline tracer = \case
     ModePreprocess{..} -> do
-      src <- resolveHeader cmdClangArgs preprocessInput
-      cHeader <- parseC cmdline tracer src
+      src <- resolveHeader (cmdClangArgs cmdline) preprocessInput
+      extBindings <-
+        loadExtBindings (cmdClangArgs cmdline) (cmdExtBindings cmdline)
+      cHeader <- parseC cmdline tracer extBindings src
       let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
       prettyHs preprocessRenderOpts preprocessOutput hsModl
     ModeGenTests{..} -> do
-      src <- resolveHeader cmdClangArgs genTestsInput
-      cHeader <- parseC cmdline tracer src
+      src <- resolveHeader (cmdClangArgs cmdline) genTestsInput
+      extBindings <-
+        loadExtBindings (cmdClangArgs cmdline) (cmdExtBindings cmdline)
+      cHeader <- parseC cmdline tracer extBindings src
       genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
     ModeLiterate input output -> do
       lit <- readFile input
       args <- maybe (throwIO $ LiterateFileException input "cannot parse literate file") return $ readMaybe lit
-      mode <- maybe (throwIO $ LiterateFileException input "cannot parse arguments in literate file") return $ pureParseModePreprocess args
-      execMode cmdline tracer $ case mode of
-          ModePreprocess {} -> mode { preprocessOutput = Just output }
-          _ -> mode
+      case pureParseModePreprocess args of
+        Just cmdline' -> execMode cmdline' tracer $ case cmdMode cmdline' of
+          mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
+          mode                  -> mode
+        Nothing -> throwIO $
+          LiterateFileException input "cannot parse arguments in literate file"
 
     Dev devMode ->
       execDevMode cmdline tracer devMode
@@ -60,7 +66,8 @@ execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode cmdline@Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
       src <- resolveHeader cmdClangArgs parseCHeaderInput
-      prettyC =<< parseC cmdline tracer src
+      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      prettyC =<< parseC cmdline tracer extBindings src
     DevModePrelude{..} -> do
       src <- resolveHeader cmdClangArgs preludeInput
       IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
@@ -97,11 +104,12 @@ withC cmdline tracer src =
 parseC ::
      Cmdline
   -> Tracer IO String
+  -> ExtBindings
   -> SourcePath
   -> IO CHeader
-parseC cmdline tracer src =
+parseC cmdline tracer extBindings src =
     withC cmdline tracer src $
-      parseCHeader traceSkipped (cmdPredicate cmdline)
+      parseCHeader traceSkipped (cmdPredicate cmdline) extBindings
   where
     traceSkipped :: Tracer IO Skipped
     traceSkipped = (contramap prettyLogMsg tracer)

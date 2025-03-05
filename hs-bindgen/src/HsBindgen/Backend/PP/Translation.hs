@@ -14,9 +14,11 @@ module HsBindgen.Backend.PP.Translation (
 
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Names
+import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
@@ -200,6 +202,7 @@ resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
     TCon _n -> mempty
     TLit _n -> mempty
+    TExt i -> resolveExtIdentifierImports i
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound {} -> mempty
@@ -208,3 +211,12 @@ resolveTypeImports = \case
 
 resolvePrimTypeImports :: Hs.HsPrimType -> ImportAcc
 resolvePrimTypeImports = resolveGlobalImports . PrimType
+
+resolveExtIdentifierImports :: ExtIdentifier -> ImportAcc
+resolveExtIdentifierImports ExtIdentifier{..} =
+    let hsImportModule = HsImportModule {
+            hsImportModuleName =
+              Text.unpack $ getHsModuleName extIdentifierModule
+          , hsImportModuleAlias = Nothing
+          }
+    in  ImportAcc (Set.singleton hsImportModule, mempty)

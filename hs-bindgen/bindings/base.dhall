@@ -59,7 +59,6 @@ let types
           , "stdlib.h"
           , "string.h"
           , "time.h"
-          , "uchar.h"
           , "wchar.h"
           ]
       , mkM "ptrdiff_t" "CPtrdiff" "Foreign.C.Types" [ "stddef.h" ]
