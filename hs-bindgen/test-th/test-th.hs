@@ -7,14 +7,16 @@
 module Main (main) where
 
 import Control.Exception (bracket)
+import Data.Vector.Storable qualified as VS
+import Foreign (Storable (..), Ptr, nullPtr)
+import Foreign.C.Types (CLong)
+import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, testGroup, defaultMain)
 import Test.Tasty.HUnit (testCase, (@?=))
+
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
-import Foreign (Storable (..), Ptr)
-import Foreign.Marshal.Alloc (alloca)
-import Foreign.C.Types (CLong)
-import Data.Vector.Storable qualified as VS
+import HsBindgen.Runtime.LibC qualified as LibC
 
 import Test01 qualified
 import Test02 qualified
@@ -82,10 +84,43 @@ test01 = testGroup "test_01"
     ]
 
 {-------------------------------------------------------------------------------
+  Test02
+-------------------------------------------------------------------------------}
+
+-- Event is generated
+t02Val :: Test02.Event
+t02Val = Test02.Event
+    { Test02.event_id   = 42
+    , Test02.event_name = nullPtr
+    , Test02.event_time = LibC.CTm
+        { LibC.cTm_sec   = 5
+        , LibC.cTm_min   = 4
+        , LibC.cTm_hour  = 3
+        , LibC.cTm_mday  = 2
+        , LibC.cTm_mon   = 1
+        , LibC.cTm_year  = 2000 - 1900
+        , LibC.cTm_wday  = 6
+        , LibC.cTm_yday  = 2
+        , LibC.cTm_isdst = 0
+        }
+    }
+
+-- Unit tests
+test02 :: TestTree
+test02 = testGroup "test_02"
+    [ testCase "Event peek-poke-roundtrip" $ do
+        x <- alloca $ \ptr -> do
+            poke ptr t02Val
+            peek ptr
+        x @?= t02Val
+    ]
+
+{-------------------------------------------------------------------------------
   Main
 -------------------------------------------------------------------------------}
 
 main :: IO ()
 main = defaultMain $ testGroup CURRENT_COMPONENT_ID
     [ test01
+    , test02
     ]

@@ -217,6 +217,7 @@ test-suite test-th
       TemplateHaskell
   other-modules:
       Test01
+      Test02
   build-depends:
       -- Internal dependencies
     , base
@@ -242,7 +243,10 @@ test-suite test-pp
   type:           exitcode-stdio-1.0
   hs-source-dirs: test-pp
   main-is:        test-pp.hs
-  other-modules:  Test01
+
+  other-modules:
+      Test01
+      Test02
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).

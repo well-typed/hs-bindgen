@@ -471,7 +471,7 @@ data CTm = CTm {
     , cTm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
     , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
     }
-  deriving Show
+  deriving (Eq, Show)
   deriving Storable via EquivStorable CTm
 
 instance HasStaticSize CTm where
