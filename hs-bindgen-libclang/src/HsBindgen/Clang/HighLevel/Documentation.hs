@@ -15,7 +15,6 @@ module HsBindgen.Clang.HighLevel.Documentation (
 import Control.Monad
 import Data.Either
 import Data.Text (Text)
-import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
@@ -277,8 +276,8 @@ getIdxs n = [0 .. n - 1]
 -------------------------------------------------------------------------------}
 
 -- | Throw an error with context information
-errorWithContext :: HasCallStack
-  => CXCursor -- ^ cursor to provide context in error messages
+errorWithContext
+  :: CXCursor -- ^ cursor to provide context in error messages
   -> String   -- ^ error message
   -> IO a
 errorWithContext cursor msg = do
@@ -288,7 +287,7 @@ errorWithContext cursor msg = do
       clang_getPresumedLocation =<< clang_getRangeStart extent
     (_, endLine, endCol) <-
       clang_getPresumedLocation =<< clang_getRangeEnd extent
-    error $ concat
+    fail $ concat
       [ msg, ": cursor ", show displayName, " in ", show file, " ("
       , show startLine, ":", show startCol, "-", show endLine, ":"
       , show endCol, ")"
