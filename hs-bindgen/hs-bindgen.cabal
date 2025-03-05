@@ -103,6 +103,7 @@ library
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
+      HsBindgen.Hs.NameMangler
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Orphans

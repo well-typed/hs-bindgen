@@ -28,15 +28,15 @@ import GHC.Exts qualified as IsList (IsList(..))
 
 import C.Char qualified as C
 
-import HsBindgen.Imports
-import HsBindgen.Errors
-import HsBindgen.NameHint
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.Paths
+import HsBindgen.Errors
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
+import HsBindgen.Hs.NameMangler
+import HsBindgen.Imports
+import HsBindgen.NameHint
 
 import DeBruijn
   (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx)
