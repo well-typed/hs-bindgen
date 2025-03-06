@@ -19,14 +19,13 @@ module HsBindgen.Hs.NameMangler (
   , dropInvalidChar
   , escapeInvalidChar
   , isValidChar
-  , handleOverrideNone
-  , handleOverrideMap
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
     -- ** Constructing Haskell identifiers
   , NameRuleSet(..)
   , NamespaceRuleSet
+  , GenerateName
   , mkHsNamePrefixInvalid
   , mkHsNameDropInvalid
   , mkHsVarName
@@ -35,6 +34,10 @@ module HsBindgen.Hs.NameMangler (
   , joinWithConcat
   , joinWithSnakeCase
   , joinWithCamelCase
+    -- ** Overrides
+  , Overrides(..)
+  , handleOverrideNone
+  , handleOverrideMap
     -- ** Reserved Names
     -- $ReservedNames
   , reservedVarNames
@@ -47,6 +50,7 @@ module HsBindgen.Hs.NameMangler (
   , sanityReservedVarNames
   ) where
 
+import Control.Exception
 import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
@@ -55,7 +59,7 @@ import Data.Text qualified as T
 import Numeric (showHex)
 
 import HsBindgen.C.AST
-import HsBindgen.Errors (panicPure)
+import HsBindgen.Errors
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Imports
 
@@ -204,8 +208,7 @@ defaultNameMangler = NameMangler{..}
 --   escaping invalid characters.
 -- * Constructors are transformed to @PascalCase@ and prefixed with @Mk@,
 --   escaping invalid characters.
--- * Record fields are prefixed with the type name if the data type has a single
---   constructor or the constructor name otherwise, joined using @camelCase@,
+-- * Record fields are prefixed with the type name, joined using @camelCase@,
 --   dropping invalid characters.
 -- * Enumeration fields are prefixed with @un@, dropping invalid characters.
 -- * Other variables have invalid characters dropped, and single quotes are
@@ -296,22 +299,25 @@ haskellNameMangler = NameMangler{..}
 -- confusion or a compilation error.  Two reserved name functions are provided
 -- in this module: 'handleReservedNone' and 'handleReservedNames'.
 translateName ::
-     (CName -> Text)                                 -- ^ Translate a 'CName'
-  -> Maybe JoinParts                                 -- ^ Join parts (if any)
-  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
-  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
-  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
+     SingNamespace ns
+  => (CName -> Text)          -- ^ Translate a 'CName'
+  -> Maybe JoinParts          -- ^ Join parts (if any)
+  -> GenerateName ns          -- ^ Construct an 'HsName'
+  -> Overrides                -- ^ Override translation
+  -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> CName
   -> HsName ns
 translateName
   translate
   joinParts
   mkHsName
-  override
+  overrides
   handleReserved
   cname =
-    let name = mkHsName $ maybeJoinPartsWith joinParts (translate cname)
-    in  handleReserved $ fromMaybe name (override (Just cname) name)
+    let input = maybeJoinPartsWith joinParts (translate cname)
+        name  = mkHsName input
+    in  handleReserved $ useOverride input name $
+          override overrides (Just cname) name
 
 -- | Translate a 'DeclPath' to an 'HsName'
 --
@@ -320,12 +326,13 @@ translateName
 --
 -- See 'translateName' for documentation of the other parameters.
 translateDeclPath ::
-     (DeclPath -> [CName])                           -- ^ Get parts from a 'DeclPath'
-  -> (CName -> Text)                                 -- ^ Translate a 'CName'
-  -> JoinParts                                       -- ^ Join parts of a name
-  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
-  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
-  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
+     SingNamespace ns
+  => (DeclPath -> [CName])    -- ^ Get parts from a 'DeclPath'
+  -> (CName -> Text)          -- ^ Translate a 'CName'
+  -> JoinParts                -- ^ Join parts of a name
+  -> GenerateName ns          -- ^ Construct an 'HsName'
+  -> Overrides                -- ^ Override translation
+  -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> DeclPath
   -> HsName ns
 translateDeclPath
@@ -333,12 +340,13 @@ translateDeclPath
   translate
   joinParts
   mkHsName
-  override
+  overrides
   handleReserved
   declPath =
-    let name = mkHsName . joinPartsWith joinParts $
-                 map translate (getParts declPath)
-    in  handleReserved $ fromMaybe name (override (getCName' declPath) name)
+    let input = joinPartsWith joinParts $ map translate (getParts declPath)
+        name  = mkHsName input
+    in  handleReserved $ useOverride input name $
+          override overrides (getCName' declPath) name
   where
     getCName' :: DeclPath -> Maybe CName
     getCName' = \case
@@ -438,27 +446,6 @@ escapeInvalidChar c =
 isValidChar :: Char -> Bool
 isValidChar c = Char.isAlphaNum c || c == '_'
 
--- | Do not override any translations
-handleOverrideNone :: Maybe CName -> HsName ns -> Maybe (HsName ns)
-handleOverrideNone _cname _name = Nothing
-
--- | Override translations of Haskell names using a map
---
--- Since not all generated Haskell names have corresponding C names, overriding
--- is primarily done based on the generated Haskell name.  You can optionally
--- specify a C name to create overrides in cases where more than one C name is
--- being translated to the same Haskell name.
-handleOverrideMap :: forall ns.
-     SingNamespace ns
-  => Map Namespace (Map Text (Map (Maybe CName) Text))
-  -> Maybe CName
-  -> HsName ns
-  -> Maybe (HsName ns)
-handleOverrideMap overrideMap cname name = do
-    nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
-    nMap  <- Map.lookup (getHsName name) nsMap
-    HsName <$> Map.lookup cname nMap
-
 -- | Do not handle reserved names
 handleReservedNone :: HsName ns -> HsName ns
 handleReservedNone = id
@@ -480,6 +467,13 @@ appendSingleQuote = (<> "'")
   Constructing Haskell identifiers
 -------------------------------------------------------------------------------}
 
+-- | Generate name
+--
+-- Name generation is allowed to fail (depending on the policy, there are
+-- circumstances in which we cannot generate a name). When this happens, we
+-- require a name override.
+type GenerateName ns = Text -> Maybe (HsName ns)
+
 data NameRuleSet =
     -- | Variables and type variables
     NameRuleSetVar
@@ -495,41 +489,64 @@ type family NamespaceRuleSet (ns :: Namespace) :: NameRuleSet where
 -- | Construct an 'HsName', changing the case of the first character or adding a
 -- prefix if the first character is invalid
 --
--- Precondition: the name must not be empty.
---
 -- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
 -- "C_foo"
 mkHsNamePrefixInvalid :: forall ns.
      NamespaceRuleSet ns ~ NameRuleSetOther
   => Text  -- ^ Prefix to use when first character invalid
-  -> Text
-  -> HsName ns
-mkHsNamePrefixInvalid prefix t = HsName $
-    case T.uncons t of
-      Just (c, t')
-        | Char.isLetter c -> T.cons (Char.toUpper c) t'
-        | otherwise       -> prefix <> t
-      Nothing             -> panicEmptyName
+  -> GenerateName ns
+mkHsNamePrefixInvalid prefix =
+    mkHsOtherName $ \nonletters rest ->
+     Just $ HsName $ prefix <> nonletters <> rest
 
 -- | Construct an 'HsName', changing the case of the first character after
 -- dropping any invalid first characters
 --
--- Precondition: the name must not be empty.
+-- Can return 'Nothing' if the C identifier started with an underscore, and then
+-- contained only non-letters (e.g., @_123@).
 --
 -- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
 -- "Foo"
-mkHsNameDropInvalid :: forall ns.
-     NamespaceRuleSet ns ~ NameRuleSetOther
-  => Text -> HsName ns
-mkHsNameDropInvalid t = HsName $
-    case T.uncons (T.dropWhile (not . Char.isLetter) t) of
-      Just (c, t') -> T.cons (Char.toUpper c) t'
-      Nothing      -> panicEmptyName
+mkHsNameDropInvalid :: NamespaceRuleSet ns ~ NameRuleSetOther => GenerateName ns
+mkHsNameDropInvalid = mkHsOtherName $ \_nonletters rest -> do
+    (c, t) <- T.uncons rest
+    Just $ HsName $ T.cons (Char.toUpper c) t
 
+-- | Construct Haskell (type or value) constructor identifier
+--
+-- Precondition: the name must not be empty.
+--
+-- The assumption is that the input is a C identifier, and so must start with
+-- a letter or an underscore.
+--
+-- * If it is a letter, we make that letter uppercase.
+-- * If it is an underscore, we strip off everything that's not a letter, and
+--   then call the specified function on this prefix and the remaining suffix.
+mkHsOtherName ::
+     NamespaceRuleSet ns ~ NameRuleSetOther
+  => (Text -> Text -> Maybe (HsName ns))
+  -> GenerateName ns
+mkHsOtherName f t
+  | T.null nonletters
+  = case T.uncons rest of
+      Just (c, t') -> Just $ HsName $ T.cons (Char.toUpper c) t'
+      Nothing      -> panicEmptyName
+  | otherwise
+  = f nonletters rest
+  where
+    (nonletters, rest) = T.break Char.isLetter t
+
+-- | Construct Haskell variable identifier
+--
+-- The assumption is that the input is a C identifier, and so must start with
+-- a letter or an underscore:
+--
+-- * If it is a letter, we make that letter lowercase.
+-- * If it is an underscore, there is nothing to do.
 mkHsVarName :: forall ns.
      NamespaceRuleSet ns ~ NameRuleSetVar
-  => Text -> HsName ns
-mkHsVarName t = HsName $
+  => GenerateName ns
+mkHsVarName t = Just $ HsName $
     case T.uncons t of
       Just (c, t') -> T.cons (Char.toLower c) t'
       Nothing      -> panicEmptyName
@@ -586,6 +603,74 @@ joinPartsWith JoinParts{extraPrefixes, extraSuffixes, joinParts} parts =
 maybeJoinPartsWith :: Maybe JoinParts -> Text -> Text
 maybeJoinPartsWith Nothing         = id
 maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
+
+{-------------------------------------------------------------------------------
+  Overrides
+-------------------------------------------------------------------------------}
+
+-- | Override translations of Haskell names
+--
+-- Since not all generated Haskell names have corresponding C names, overriding
+-- is primarily done based on the generated Haskell name.  In some cases the C
+-- name can be used for disambiguation, if more than one C name is being
+-- translated to the same Haskell name.
+data Overrides = Overrides {
+      override :: forall ns.
+           SingNamespace ns
+        => Maybe CName
+           -- ^ C name, if available.
+           --
+           -- An example situation in which the C name is unavailable is
+           -- anonymous structs nested inside other structs.
+        -> Maybe (HsName ns)
+           -- ^ Haskell name
+           --
+           -- This will be 'Nothing' only if we fail to construct the Haskell
+           -- name altogether. For example, this can happen if a C type is
+           -- called @_123@, and we are using the 'mkHsNameDropInvalid'
+           -- policy; in this case, /all/ characters are invalid, and so we'd
+           -- end up with nothing.
+        -> Maybe (HsName ns)
+    }
+
+-- | Do not override any translations
+handleOverrideNone :: Overrides
+handleOverrideNone = Overrides $ \_cname _name -> Nothing
+
+-- | Override translations of Haskell names using a map
+handleOverrideMap ::
+     Map Namespace (Map (Maybe Text) (Map (Maybe CName) Text))
+  -> Overrides
+handleOverrideMap overrideMap = Overrides aux
+  where
+    aux :: forall ns.
+         SingNamespace ns
+      => Maybe CName -> Maybe (HsName ns) -> Maybe (HsName ns)
+    aux cname name = do
+        nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
+        nMap  <- Map.lookup (getHsName <$> name) nsMap
+        HsName <$> Map.lookup cname nMap
+
+useOverride ::
+     Text               -- ^ Input to name generation
+  -> Maybe (HsName ns)  -- ^ Generated name (unless failed)
+  -> Maybe (HsName ns)  -- ^ Override (if any)
+  -> HsName ns
+useOverride _     _           (Just name) = name
+useOverride _     (Just name) _           = name
+useOverride input Nothing     Nothing     = throw $ RequireOverride input
+
+data RequireOverride = RequireOverride Text
+  deriving stock (Show)
+
+instance Exception RequireOverride where
+  toException   = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+
+  displayException (RequireOverride input) = concat [
+        "Require name override for "
+      , show input
+      ]
 
 {-------------------------------------------------------------------------------
   Reserved Names
