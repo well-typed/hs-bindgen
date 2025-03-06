@@ -204,8 +204,7 @@ defaultNameMangler = NameMangler{..}
 --   escaping invalid characters.
 -- * Constructors are transformed to @PascalCase@ and prefixed with @Mk@,
 --   escaping invalid characters.
--- * Record fields are prefixed with the type name if the data type has a single
---   constructor or the constructor name otherwise, joined using @camelCase@,
+-- * Record fields are prefixed with the type name, joined using @camelCase@,
 --   dropping invalid characters.
 -- * Enumeration fields are prefixed with @un@, dropping invalid characters.
 -- * Other variables have invalid characters dropped, and single quotes are
@@ -495,8 +494,6 @@ type family NamespaceRuleSet (ns :: Namespace) :: NameRuleSet where
 -- | Construct an 'HsName', changing the case of the first character or adding a
 -- prefix if the first character is invalid
 --
--- Precondition: the name must not be empty.
---
 -- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
 -- "C_foo"
 mkHsNamePrefixInvalid :: forall ns.
@@ -504,28 +501,58 @@ mkHsNamePrefixInvalid :: forall ns.
   => Text  -- ^ Prefix to use when first character invalid
   -> Text
   -> HsName ns
-mkHsNamePrefixInvalid prefix t = HsName $
-    case T.uncons t of
-      Just (c, t')
-        | Char.isLetter c -> T.cons (Char.toUpper c) t'
-        | otherwise       -> prefix <> t
-      Nothing             -> panicEmptyName
+mkHsNamePrefixInvalid prefix =
+    mkHsOtherName $ \nonletters rest ->
+     HsName $ prefix <> nonletters <> rest
 
 -- | Construct an 'HsName', changing the case of the first character after
 -- dropping any invalid first characters
---
--- Precondition: the name must not be empty.
 --
 -- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
 -- "Foo"
 mkHsNameDropInvalid :: forall ns.
      NamespaceRuleSet ns ~ NameRuleSetOther
   => Text -> HsName ns
-mkHsNameDropInvalid t = HsName $
-    case T.uncons (T.dropWhile (not . Char.isLetter) t) of
-      Just (c, t') -> T.cons (Char.toUpper c) t'
-      Nothing      -> panicEmptyName
+mkHsNameDropInvalid = mkHsOtherName $ \_nonletters rest ->
+    case T.uncons rest of
+      Nothing ->
+        -- The C identifier started with an underscore, and then contained
+        -- only non-letters (e.g., @_123@).
+        -- TODO: We should insist on an override here.
+        "X"
+      Just (c, t) ->
+        HsName $ T.cons (Char.toUpper c) t
 
+-- | Construct Haskell (type or value) constructor identifier
+--
+-- Precondition: the name must not be empty.
+--
+-- The assumption is that the input is a C identifier, and so must start with
+-- a letter or an underscore.
+--
+-- * If it is a letter, we make that letter uppercase.
+-- * If it is an underscore, we strip off everything that's not a letter, and
+--   then call the specified function on this prefix and the remaining suffix.
+mkHsOtherName ::
+     NamespaceRuleSet ns ~ NameRuleSetOther
+  => (Text -> Text -> HsName ns) -> Text -> HsName ns
+mkHsOtherName f t
+  | T.null nonletters
+  = case T.uncons rest of
+      Just (c, t') -> HsName $ T.cons (Char.toUpper c) t'
+      Nothing      -> panicEmptyName
+  | otherwise
+  = f nonletters rest
+  where
+    (nonletters, rest) = T.break Char.isLetter t
+
+-- | Construct Haskell variable identifier
+--
+-- The assumption is that the input is a C identifier, and so must start with
+-- a letter or an underscore:
+--
+-- * If it is a letter, we make that letter lowercase.
+-- * If it is an underscore, there is nothing to do.
 mkHsVarName :: forall ns.
      NamespaceRuleSet ns ~ NameRuleSetVar
   => Text -> HsName ns
