@@ -19,8 +19,6 @@ module HsBindgen.Hs.NameMangler (
   , dropInvalidChar
   , escapeInvalidChar
   , isValidChar
-  , handleOverrideNone
-  , handleOverrideMap
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
@@ -35,6 +33,10 @@ module HsBindgen.Hs.NameMangler (
   , joinWithConcat
   , joinWithSnakeCase
   , joinWithCamelCase
+    -- ** Overrides
+  , Overrides(..)
+  , handleOverrideNone
+  , handleOverrideMap
     -- ** Reserved Names
     -- $ReservedNames
   , reservedVarNames
@@ -295,22 +297,24 @@ haskellNameMangler = NameMangler{..}
 -- confusion or a compilation error.  Two reserved name functions are provided
 -- in this module: 'handleReservedNone' and 'handleReservedNames'.
 translateName ::
-     (CName -> Text)                                 -- ^ Translate a 'CName'
-  -> Maybe JoinParts                                 -- ^ Join parts (if any)
-  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
-  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
-  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
+     SingNamespace ns
+  => (CName -> Text)          -- ^ Translate a 'CName'
+  -> Maybe JoinParts          -- ^ Join parts (if any)
+  -> (Text -> HsName ns)      -- ^ Construct an 'HsName'
+  -> Overrides                -- ^ Override translation
+  -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> CName
   -> HsName ns
 translateName
   translate
   joinParts
   mkHsName
-  override
+  overrides
   handleReserved
   cname =
     let name = mkHsName $ maybeJoinPartsWith joinParts (translate cname)
-    in  handleReserved $ fromMaybe name (override (Just cname) name)
+    in  handleReserved $ fromMaybe name $
+          override overrides (Just cname) name
 
 -- | Translate a 'DeclPath' to an 'HsName'
 --
@@ -319,12 +323,13 @@ translateName
 --
 -- See 'translateName' for documentation of the other parameters.
 translateDeclPath ::
-     (DeclPath -> [CName])                           -- ^ Get parts from a 'DeclPath'
-  -> (CName -> Text)                                 -- ^ Translate a 'CName'
-  -> JoinParts                                       -- ^ Join parts of a name
-  -> (Text -> HsName ns)                             -- ^ Construct an 'HsName'
-  -> (Maybe CName -> HsName ns -> Maybe (HsName ns)) -- ^ Override translation
-  -> (HsName ns -> HsName ns)                        -- ^ Handle reserved names
+     SingNamespace ns
+  => (DeclPath -> [CName])    -- ^ Get parts from a 'DeclPath'
+  -> (CName -> Text)          -- ^ Translate a 'CName'
+  -> JoinParts                -- ^ Join parts of a name
+  -> (Text -> HsName ns)      -- ^ Construct an 'HsName'
+  -> Overrides                -- ^ Override translation
+  -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> DeclPath
   -> HsName ns
 translateDeclPath
@@ -332,12 +337,13 @@ translateDeclPath
   translate
   joinParts
   mkHsName
-  override
+  overrides
   handleReserved
   declPath =
     let name = mkHsName . joinPartsWith joinParts $
                  map translate (getParts declPath)
-    in  handleReserved $ fromMaybe name (override (getCName' declPath) name)
+    in  handleReserved $ fromMaybe name $
+          override overrides (getCName' declPath) name
   where
     getCName' :: DeclPath -> Maybe CName
     getCName' = \case
@@ -436,27 +442,6 @@ escapeInvalidChar c =
 -- and this predicate does not consider it valid.
 isValidChar :: Char -> Bool
 isValidChar c = Char.isAlphaNum c || c == '_'
-
--- | Do not override any translations
-handleOverrideNone :: Maybe CName -> HsName ns -> Maybe (HsName ns)
-handleOverrideNone _cname _name = Nothing
-
--- | Override translations of Haskell names using a map
---
--- Since not all generated Haskell names have corresponding C names, overriding
--- is primarily done based on the generated Haskell name.  You can optionally
--- specify a C name to create overrides in cases where more than one C name is
--- being translated to the same Haskell name.
-handleOverrideMap :: forall ns.
-     SingNamespace ns
-  => Map Namespace (Map Text (Map (Maybe CName) Text))
-  -> Maybe CName
-  -> HsName ns
-  -> Maybe (HsName ns)
-handleOverrideMap overrideMap cname name = do
-    nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
-    nMap  <- Map.lookup (getHsName name) nsMap
-    HsName <$> Map.lookup cname nMap
 
 -- | Do not handle reserved names
 handleReservedNone :: HsName ns -> HsName ns
@@ -613,6 +598,42 @@ joinPartsWith JoinParts{extraPrefixes, extraSuffixes, joinParts} parts =
 maybeJoinPartsWith :: Maybe JoinParts -> Text -> Text
 maybeJoinPartsWith Nothing         = id
 maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
+
+{-------------------------------------------------------------------------------
+  Overrides
+-------------------------------------------------------------------------------}
+
+-- | Override translations of Haskell names
+--
+-- Since not all generated Haskell names have corresponding C names, overriding
+-- is primarily done based on the generated Haskell name.  In some cases the C
+-- name can be used for disambiguation, if more than one C name is being
+-- translated to the same Haskell name.
+data Overrides = Overrides {
+      override :: forall ns.
+           SingNamespace ns
+        => Maybe CName
+        -> HsName ns
+        -> Maybe (HsName ns)
+    }
+
+-- | Do not override any translations
+handleOverrideNone :: Overrides
+handleOverrideNone = Overrides $ \_cname _name -> Nothing
+
+-- | Override translations of Haskell names using a map
+handleOverrideMap ::
+     Map Namespace (Map Text (Map (Maybe CName) Text))
+  -> Overrides
+handleOverrideMap overrideMap = Overrides aux
+  where
+    aux :: forall ns.
+         SingNamespace ns
+      => Maybe CName -> HsName ns -> Maybe (HsName ns)
+    aux cname name = do
+        nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
+        nMap  <- Map.lookup (getHsName name) nsMap
+        HsName <$> Map.lookup cname nMap
 
 {-------------------------------------------------------------------------------
   Reserved Names
