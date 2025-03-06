@@ -40,6 +40,7 @@ library
       lang
   exposed-modules:
       HsBindgen.Runtime.Backtrace
+      HsBindgen.Runtime.ByteArray
       HsBindgen.Runtime.ConstantArray
       HsBindgen.Runtime.Enum.Bitfield
       HsBindgen.Runtime.Enum.Simple
@@ -53,6 +54,7 @@ library
   build-depends:
     , pretty-show >= 1.10 && < 1.11
     , vector ^>=0.13.2.0
+    , primitive ^>=0.9.0.0
   build-tool-depends:
       hsc2hs:hsc2hs
 
