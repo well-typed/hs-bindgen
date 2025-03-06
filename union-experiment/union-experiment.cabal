@@ -1,0 +1,42 @@
+cabal-version:      3.0
+name:               union-experiment
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+build-type:         Simple
+extra-source-files: cbits/*.c cbits/*.h
+
+common lang
+  ghc-options:      -Wall
+  build-depends:    base >= 4.16
+  default-language: GHC2021
+
+  default-extensions:
+      CApiFFI
+      DerivingStrategies
+      LambdaCase
+      ViewPatterns
+
+executable union-experiment
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: app
+
+  build-depends:
+    , primitive
+    , QuickCheck
+    , tasty
+    , tasty-quickcheck
+
+  other-modules:
+      Example.C
+      Example.Hs
+      Util.PeekPokeByteArray
+
+  -- C sources
+  include-dirs:   cbits
+  c-sources:      cbits/example.c
+  cc-options:     -Wall
+
