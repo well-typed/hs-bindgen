@@ -6,6 +6,7 @@ packages: hs-bindgen-testlib
 packages: c-expr
 packages: clang-ast-dump
 packages: ansi-diff
+packages: userland-capi
 
 tests: True
 benchmarks: True

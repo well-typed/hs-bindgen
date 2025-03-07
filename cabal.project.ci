@@ -4,6 +4,7 @@ packages: hs-bindgen-libclang
 packages: ansi-diff
 packages: c-expr
 packages: clang-ast-dump
+packages: userland-capi
 
 package hs-bindgen
   ghc-options: -Werror
