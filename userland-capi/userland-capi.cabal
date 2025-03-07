@@ -1,0 +1,41 @@
+cabal-version: 3.0
+name:          userland-capi
+version:       0
+synopsis:      Userland CApiFFI
+description:   Userland CApiFFI.
+category:      Development
+maintainer:    edsko@well-typed.com
+license:            BSD-3-Clause
+license-file:       LICENSE
+tested-with:      , GHC==9.2.8
+                  , GHC==9.4.8
+                  , GHC==9.6.6
+                  , GHC==9.8.2
+                  , GHC==9.10.1
+
+library
+  default-language: Haskell2010
+  build-depends:
+    , base <5
+    , template-haskell <3
+
+  hs-source-dirs:   src
+  exposed-modules:  UserlandCApi
+
+test-suite example01
+  default-language: Haskell2010
+  type:           exitcode-stdio-1.0
+  main-is:        example01.hs
+  hs-source-dirs: examples
+  build-depends:
+    , base <5
+    , template-haskell
+
+test-suite example02
+  default-language: Haskell2010
+  type:           exitcode-stdio-1.0
+  main-is:        example02.hs
+  hs-source-dirs: examples
+  build-depends:
+    , base
+    , userland-capi
