@@ -8,9 +8,9 @@
 #
 # For more information, see https://github.com/haskell-CI/haskell-ci
 #
-# version: 0.19.20240708
+# version: 0.19.20250216
 #
-# REGENDATA ("0.19.20240708",["github","cabal.project.ci"])
+# REGENDATA ("0.19.20250216",["github","cabal.project.ci"])
 #
 name: Haskell-CI
 on:
@@ -23,7 +23,7 @@ on:
 jobs:
   linux:
     name: Haskell-CI - Linux - ${{ matrix.compiler }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     timeout-minutes:
       60
     container:
@@ -59,17 +59,30 @@ jobs:
             allow-failure: false
       fail-fast: false
     steps:
-      - name: apt
+      - name: apt-get install
         run: |
           apt-get update
           apt-get install -y --no-install-recommends gnupg ca-certificates dirmngr curl git software-properties-common libtinfo5
+          apt-get install -y libclang-dev llvm
+      - name: Install GHCup
+        run: |
           mkdir -p "$HOME/.ghcup/bin"
           curl -sL https://downloads.haskell.org/ghcup/0.1.30.0/x86_64-linux-ghcup-0.1.30.0 > "$HOME/.ghcup/bin/ghcup"
           chmod a+x "$HOME/.ghcup/bin/ghcup"
-          "$HOME/.ghcup/bin/ghcup" install ghc "$HCVER" || (cat "$HOME"/.ghcup/logs/*.* && false)
+      - name: Install cabal-install
+        run: |
           "$HOME/.ghcup/bin/ghcup" install cabal 3.12.1.0 || (cat "$HOME"/.ghcup/logs/*.* && false)
-          apt-get update
-          apt-get install -y libclang-dev llvm
+          echo "CABAL=$HOME/.ghcup/bin/cabal-3.12.1.0 -vnormal+nowrap" >> "$GITHUB_ENV"
+      - name: Install GHC (GHCup)
+        if: matrix.setup-method == 'ghcup'
+        run: |
+          "$HOME/.ghcup/bin/ghcup" install ghc "$HCVER" || (cat "$HOME"/.ghcup/logs/*.* && false)
+          HC=$("$HOME/.ghcup/bin/ghcup" whereis ghc "$HCVER")
+          HCPKG=$(echo "$HC" | sed 's#ghc$#ghc-pkg#')
+          HADDOCK=$(echo "$HC" | sed 's#ghc$#haddock#')
+          echo "HC=$HC" >> "$GITHUB_ENV"
+          echo "HCPKG=$HCPKG" >> "$GITHUB_ENV"
+          echo "HADDOCK=$HADDOCK" >> "$GITHUB_ENV"
         env:
           HCKIND: ${{ matrix.compilerKind }}
           HCNAME: ${{ matrix.compiler }}
@@ -80,21 +93,12 @@ jobs:
           echo "LANG=C.UTF-8" >> "$GITHUB_ENV"
           echo "CABAL_DIR=$HOME/.cabal" >> "$GITHUB_ENV"
           echo "CABAL_CONFIG=$HOME/.cabal/config" >> "$GITHUB_ENV"
-          HCDIR=/opt/$HCKIND/$HCVER
-          HC=$("$HOME/.ghcup/bin/ghcup" whereis ghc "$HCVER")
-          HCPKG=$(echo "$HC" | sed 's#ghc$#ghc-pkg#')
-          HADDOCK=$(echo "$HC" | sed 's#ghc$#haddock#')
-          echo "HC=$HC" >> "$GITHUB_ENV"
-          echo "HCPKG=$HCPKG" >> "$GITHUB_ENV"
-          echo "HADDOCK=$HADDOCK" >> "$GITHUB_ENV"
-          echo "CABAL=$HOME/.ghcup/bin/cabal-3.12.1.0 -vnormal+nowrap" >> "$GITHUB_ENV"
           HCNUMVER=$(${HC} --numeric-version|perl -ne '/^(\d+)\.(\d+)\.(\d+)(\.(\d+))?$/; print(10000 * $1 + 100 * $2 + ($3 == 0 ? $5 != 1 : $3))')
           echo "HCNUMVER=$HCNUMVER" >> "$GITHUB_ENV"
           echo "ARG_TESTS=--enable-tests" >> "$GITHUB_ENV"
           echo "ARG_BENCH=--enable-benchmarks" >> "$GITHUB_ENV"
           echo "HEADHACKAGE=false" >> "$GITHUB_ENV"
           echo "ARG_COMPILER=--$HCKIND --with-compiler=$HC" >> "$GITHUB_ENV"
-          echo "GHCJSARITH=0" >> "$GITHUB_ENV"
         env:
           HCKIND: ${{ matrix.compilerKind }}
           HCNAME: ${{ matrix.compiler }}
@@ -155,6 +159,7 @@ jobs:
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-libclang" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/ansi-diff" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/c-expr" >> cabal.project
+          echo "packages: $GITHUB_WORKSPACE/source/clang-ast-dump" >> cabal.project
           cat cabal.project
       - name: sdist
         run: |
@@ -176,6 +181,8 @@ jobs:
           echo "PKGDIR_ansi_diff=${PKGDIR_ansi_diff}" >> "$GITHUB_ENV"
           PKGDIR_c_expr="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/c-expr-[0-9.]*')"
           echo "PKGDIR_c_expr=${PKGDIR_c_expr}" >> "$GITHUB_ENV"
+          PKGDIR_clang_ast_dump="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/clang-ast-dump-[0-9.]*')"
+          echo "PKGDIR_clang_ast_dump=${PKGDIR_clang_ast_dump}" >> "$GITHUB_ENV"
           rm -f cabal.project cabal.project.local
           touch cabal.project
           touch cabal.project.local
@@ -184,6 +191,7 @@ jobs:
           echo "packages: ${PKGDIR_hs_bindgen_libclang}" >> cabal.project
           echo "packages: ${PKGDIR_ansi_diff}" >> cabal.project
           echo "packages: ${PKGDIR_c_expr}" >> cabal.project
+          echo "packages: ${PKGDIR_clang_ast_dump}" >> cabal.project
           echo "package hs-bindgen-runtime" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package hs-bindgen" >> cabal.project
@@ -193,6 +201,8 @@ jobs:
           echo "package ansi-diff" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package c-expr" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "package clang-ast-dump" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           cat >> cabal.project <<EOF
           package hs-bindgen
@@ -207,7 +217,7 @@ jobs:
           package ansi-diff
             ghc-options: -Werror
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|hs-bindgen|hs-bindgen-libclang|hs-bindgen-runtime)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr|clang-ast-dump|hs-bindgen|hs-bindgen-libclang|hs-bindgen-runtime)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -241,9 +251,11 @@ jobs:
           ${CABAL} -vnormal check
           cd ${PKGDIR_hs_bindgen_libclang} || false
           ${CABAL} -vnormal check
+          cd ${PKGDIR_ansi_diff} || false
+          ${CABAL} -vnormal check
           cd ${PKGDIR_c_expr} || false
           ${CABAL} -vnormal check
-          cd ${PKGDIR_ansi_diff} || false
+          cd ${PKGDIR_clang_ast_dump} || false
           ${CABAL} -vnormal check
       - name: haddock
         run: |
@@ -253,8 +265,8 @@ jobs:
           rm -f cabal.project.local
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks all
       - name: save cache
-        uses: actions/cache/save@v4
         if: always()
+        uses: actions/cache/save@v4
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-${{ github.sha }}
           path: ~/.cabal/store
