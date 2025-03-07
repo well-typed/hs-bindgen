@@ -19,9 +19,11 @@ module HsBindgen.Runtime.ByteArray (
    , getUnionPayload
    ) where
 
+import Control.Exception
 import Control.Monad.Primitive (RealWorld)
 import Data.Coerce (Coercible, coerce)
-import Data.Primitive.ByteArray (ByteArray, MutableByteArray, copyByteArray, newPinnedByteArray, freezeByteArray, withMutableByteArrayContents, sizeofByteArray)
+import Data.Primitive.ByteArray (ByteArray, MutableByteArray)
+import Data.Primitive.ByteArray qualified as BA
 import Foreign (Storable (poke, peek), Ptr, castPtr, copyBytes, sizeOf)
 import System.IO.Unsafe (unsafePerformIO)
 
@@ -31,18 +33,18 @@ import System.IO.Unsafe (unsafePerformIO)
 
 peekByteArray :: Ptr a -> Int -> IO ByteArray
 peekByteArray src n = do
-    pinnedCopy <- newPinnedByteArray n
-    withMutableByteArrayContents pinnedCopy $ \dest ->
+    pinnedCopy <- BA.newPinnedByteArray n
+    BA.withMutableByteArrayContents pinnedCopy $ \dest ->
       copyBytes dest (castPtr src) n
-    freezeByteArray pinnedCopy 0 n
+    BA.freezeByteArray pinnedCopy 0 n
 
 pokeByteArray :: Ptr a -> ByteArray -> IO ()
 pokeByteArray dest bytes = do
     pinnedCopy <- thawPinned bytes
-    withMutableByteArrayContents pinnedCopy $ \src ->
+    BA.withMutableByteArrayContents pinnedCopy $ \src ->
       copyBytes dest (castPtr src) n
   where
-    n = sizeofByteArray bytes
+    n = BA.sizeofByteArray bytes
 
 {-------------------------------------------------------------------------------
   Support for defining setters and getters for union types
@@ -64,27 +66,49 @@ getUnionPayload :: forall payload union.
   => union -> payload
 getUnionPayload = peekFromByteArray . coerce
 
-peekFromByteArray :: Storable a => ByteArray -> a
-peekFromByteArray bytes = unsafePerformIO $ do
-    pinnedCopy <- thawPinned bytes
-    withMutableByteArrayContents pinnedCopy $ \ptr ->
-      peek (castPtr ptr)
-
-pokeToByteArray :: Storable a => Int -> a -> ByteArray
-pokeToByteArray n x = unsafePerformIO $ do
-    pinnedCopy <- newPinnedByteArray n
-    withMutableByteArrayContents pinnedCopy $ \ptr ->
-      poke (castPtr ptr) x
-    freezeByteArray pinnedCopy 0 n
-
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
+-- | Read 'Storable' value from 'ByteArray'
+--
+-- Precondition:
+--
+-- > sizeOf (undefined :: a) <= sizeofByteArray bytes
+--
+-- It may well be the case that the ByteArray is /larger/; 'peekFromByteArray'
+-- is intended to be used for reading values from otherwise opaque unions (where
+-- @a@ is one such possible value), and so the bytearray will be large enough to
+-- store the entire union.
+peekFromByteArray :: forall a. Storable a => ByteArray -> a
+peekFromByteArray bytes =
+    assert (sizeOf (undefined :: a) <= BA.sizeofByteArray bytes) $
+    unsafePerformIO $ do
+      pinnedCopy <- thawPinned bytes
+      BA.withMutableByteArrayContents pinnedCopy $ \ptr ->
+        peek (castPtr ptr)
+
+-- | Write 'Storable' value to new 'ByteArray' of specified size
+--
+-- Precondition:
+--
+-- > sizeOf (undefined :: a) <= n
+--
+-- It may well be that @n@ is larger; see also 'peekFromByteArray'.
+pokeToByteArray :: forall a. Storable a => Int -> a -> ByteArray
+pokeToByteArray n x =
+    assert (sizeOf (undefined :: a) <= n) $
+    unsafePerformIO $ do
+      pinnedCopy <- BA.newPinnedByteArray n
+      BA.withMutableByteArrayContents pinnedCopy $ \ptr ->
+        poke (castPtr ptr) x
+      BA.freezeByteArray pinnedCopy 0 n
+
+-- | Like 'thawByteArray', but the 'MutableByteArray' is pinned
 thawPinned :: ByteArray -> IO (MutableByteArray RealWorld)
 thawPinned src = do
-    dest <- newPinnedByteArray n
-    copyByteArray dest 0 src 0 n
+    dest <- BA.newPinnedByteArray n
+    BA.copyByteArray dest 0 src 0 n
     return dest
   where
-    n = sizeofByteArray src
+    n = BA.sizeofByteArray src
