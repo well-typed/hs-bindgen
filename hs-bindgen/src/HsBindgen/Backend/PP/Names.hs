@@ -60,7 +60,6 @@ data HsImport =
   | UnqualifiedHsImport HsImportModule
   deriving (Eq, Ord, Show)
 
-
 -- | Resolved name
 data ResolvedName = ResolvedName {
       resolvedNameString :: String

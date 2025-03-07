@@ -33,7 +33,6 @@ main = do
         putStr contents
         writeFile "hs-bindgen-libclang/cbits/clang_wrappers_ffi.h" contents
 
-
 -------------------------------------------------------------------------------
 -- declarations
 -------------------------------------------------------------------------------

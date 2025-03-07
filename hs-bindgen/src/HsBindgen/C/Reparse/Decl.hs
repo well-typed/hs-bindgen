@@ -442,7 +442,6 @@ parameterTypes ps =
                     Nothing -> Left i
                     Just ty -> Right $ mkPtr ptrs ty
 
-
 reparseDeclarator :: forall abs. KnownDeclaratorType abs => TcMacro.TypeEnv -> Reparse (Declarator abs)
 reparseDeclarator macroTys = do
   ptr <- many reparsePointer
@@ -537,7 +536,6 @@ reparseArrayDeclarator macroTys decl = do
      , arrayAttributes       = attrs
      }
   <?> "array declarator"
-
 
 reparseFunctionDeclarator
   :: TcMacro.TypeEnv
@@ -688,7 +686,6 @@ reparseTypeSpecifier macroTys =
        }
   ] <?> "type"
 
-
 reparseStorageClassSpecifier :: Reparse StorageClassSpecifier
 reparseStorageClassSpecifier =
   choice
@@ -701,7 +698,6 @@ reparseStorageClassSpecifier =
     , keyword "typedef"      $> SC_typedef
     ]
   <?> "storage class"
-
 
 reparseFunctionSpecifier :: Reparse FunctionSpecifier
 reparseFunctionSpecifier = choice

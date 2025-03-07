@@ -86,7 +86,6 @@ translateModule HsModuleOpts{..} hsModuleDecls =
         hsModuleName    = hsModuleOptsName
     in  HsModule{..}
 
-
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
 -------------------------------------------------------------------------------}

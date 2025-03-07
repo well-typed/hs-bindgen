@@ -267,7 +267,6 @@ instance Eq ATyCon where
   ATyCon tc1 == ATyCon tc2 =
     isJust $ equals2 tc1 tc2
 
-
 data AClass where
   AClass :: C.TyCon args C.Ct -> AClass
 instance Show AClass where

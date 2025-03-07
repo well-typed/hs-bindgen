@@ -86,7 +86,6 @@ readInBase b ds =
   Reference: <https://en.cppreference.com/w/cpp/language/floating_literal>
 -------------------------------------------------------------------------------}
 
-
 reparseLiteralFloating :: TokenParser (Float, Double, PrimFloatType)
 reparseLiteralFloating = do
 
