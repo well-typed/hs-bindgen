@@ -169,69 +169,78 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             }
 
     -- structs
+    -- TODO: CXType_Record also applies to unions.
     Right CXType_Record -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
-        -- TODO: don't use getCursorSpelling.
-        tag <- liftIO (clang_getCursorSpelling decl)
-        name <- liftIO (clang_getTypeSpelling ty)
-        anon <- liftIO (clang_Cursor_isAnonymous decl)
+        ki <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
+        case ki of
+            Right CXCursor_StructDecl -> do
+                -- TODO: don't use getCursorSpelling.
+                tag <- liftIO (clang_getCursorSpelling decl)
+                name <- liftIO (clang_getTypeSpelling ty)
+                anon <- liftIO (clang_Cursor_isAnonymous decl)
 
-        -- dtraceIO "record" (decl, tag, name, anon)
+                -- dtraceIO "record" (decl, tag, name, anon)
 
-        let declPath
-              | anon      = DeclPathStruct DeclNameNone path
-              | otherwise = case T.stripPrefix "struct " name of
-                  Just n  -> DeclPathStruct (DeclNameTag (CName n))        path
-                  Nothing -> DeclPathStruct (DeclNameTypedef (CName name)) path
+                let declPath
+                      | anon      = DeclPathStruct DeclNameNone path
+                      | otherwise = case T.stripPrefix "struct " name of
+                          Just n  -> DeclPathStruct (DeclNameTag (CName n))        path
+                          Nothing -> DeclPathStruct (DeclNameTypedef (CName name)) path
 
-        if declPath == DeclPathStruct DeclNameNone DeclPathTop
-        then do
-            -- Anonymous top-level declaration: nothing to do but warn, as there
-            -- shouldn't be one in "good" code.
-            return TypeVoid
+                if declPath == DeclPathStruct DeclNameNone DeclPathTop
+                then do
+                    -- Anonymous top-level declaration: nothing to do but warn, as there
+                    -- shouldn't be one in "good" code.
+                    return TypeVoid
 
-        else do
-            addTypeDeclProcessing ty $ TypeStruct declPath
-            sloc <- liftIO $
-                HighLevel.clang_getExpansionLocation
-                    =<< clang_getCursorLocation decl
+                else do
+                    addTypeDeclProcessing ty $ TypeStruct declPath
+                    sloc <- liftIO $
+                        HighLevel.clang_getExpansionLocation
+                            =<< clang_getCursorLocation decl
 
-            mExtId <- case declPath of
-                DeclPathStruct DeclNameTag{} _path ->
-                    lookupExtBinding (CNameSpelling name) sloc extBindings
-                _otherwise -> return Nothing
-            case mExtId of
-                Just extId -> addAlias ty $ TypeExtBinding extId
-                Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
-                    DeclarationOpaque ->
-                        -- TODO: use defnname
-                        addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                              opaqueStructTag       = CName tag
-                            , opaqueStructSourceLoc = sloc
-                            }
+                    mExtId <- case declPath of
+                        DeclPathStruct DeclNameTag{} _path ->
+                            lookupExtBinding (CNameSpelling name) sloc extBindings
+                        _otherwise -> return Nothing
+                    case mExtId of
+                        Just extId -> addAlias ty $ TypeExtBinding extId
+                        Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
+                            DeclarationOpaque ->
+                                -- TODO: use defnname
+                                addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                                      opaqueStructTag       = CName tag
+                                    , opaqueStructSourceLoc = sloc
+                                    }
 
-                    DeclarationForward _defn -> do
-                        liftIO $ panicIO "should not happen"
+                            DeclarationForward _defn -> do
+                                liftIO $ panicIO "should not happen"
 
-                    DeclarationRegular -> do
-                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                        alignment <- liftIO (clang_Type_getAlignOf ty)
+                            DeclarationRegular -> do
+                                sizeof    <- liftIO (clang_Type_getSizeOf  ty)
+                                alignment <- liftIO (clang_Type_getAlignOf ty)
 
-                        fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                            mfield <- mkStructField extBindings unit declPath cursor
-                            return $ Continue mfield
+                                fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                                    mfield <- mkStructField extBindings unit declPath cursor
+                                    return $ Continue mfield
 
-                        (fields, flam) <- partitionFields fields'
+                                (fields, flam) <- partitionFields fields'
 
-                        addDecl ty $ DeclStruct Struct
-                            { structDeclPath  = declPath
-                            , structSizeof    = fromIntegral sizeof
-                            , structAlignment = fromIntegral alignment
-                            , structFields    = fields
-                            , structFlam      = flam
-                            , structSourceLoc = sloc
-                            }
+                                addDecl ty $ DeclStruct Struct
+                                    { structDeclPath  = declPath
+                                    , structSizeof    = fromIntegral sizeof
+                                    , structAlignment = fromIntegral alignment
+                                    , structFields    = fields
+                                    , structFlam      = flam
+                                    , structSourceLoc = sloc
+                                    }
 
+            Right CXCursor_UnionDecl -> do
+                -- TODO: for now return some garbage
+                return $ TypePrim $ PrimFloating $ PrimFloat
+
+            _ -> panicIO $ show ki
     -- enum
     Right CXType_Enum -> do
         decl <- liftIO (clang_getTypeDeclaration ty)

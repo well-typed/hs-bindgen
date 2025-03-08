@@ -54,6 +54,7 @@ foldDecls tracer p extBindings unit current = do
       Right CXCursor_TypedefDecl -> typeDecl
       Right CXCursor_StructDecl  -> typeDecl
       Right CXCursor_EnumDecl    -> typeDecl
+      Right CXCursor_UnionDecl   -> typeDecl
 
       Right CXCursor_MacroDefinition ->
         if isBuiltinMacro sloc
