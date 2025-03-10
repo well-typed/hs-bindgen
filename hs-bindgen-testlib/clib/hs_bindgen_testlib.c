@@ -293,8 +293,8 @@ double hsbg_preturb_CDouble(long size, double x) {
 
   size_t const e_idx = 52;
 
-  long const e_size = e_mask - 1;
-  long const f_size = f_mask + 1;
+  long long const e_size = e_mask - 1;
+  long long const f_size = f_mask + 1;
 
   uint64_t const *const w = (uint64_t *)&x;
   uint64_t const s = *w & s_mask;
@@ -302,20 +302,20 @@ double hsbg_preturb_CDouble(long size, double x) {
   uint64_t const e = (*w >> e_idx) & e_mask;
   uint64_t const f = *w & f_mask;
 
-  ldiv_t const size_qr = ldiv(size, f_size);
-  long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
-  long const size_mod = size_qr.rem + (size_qr.rem >= 0 ? 0 : f_size);
+  lldiv_t const size_qr = lldiv((long long) size, f_size);
+  long long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
+  long long const size_mod = size_qr.rem + (size_qr.rem >= 0 ? 0 : f_size);
 
   // positive => quot ~ div, rem ~ mod
-  ldiv_t const f_qr = ldiv(size_mod + f, f_size);
+  lldiv_t const f_qr = lldiv(size_mod + f, f_size);
 
   uint64_t w_r = 0;
   if (e == 0) {
     uint64_t const s_r = (size_div + f_qr.quot) % 2 == 0 ? s : s_c;
     w_r = s_r + f_qr.rem;
   } else {
-    ldiv_t const e_qr = ldiv(f_qr.quot + size_div + e - 1, e_size);
-    long const e_div = e_qr.quot - (e_qr.rem >= 0 ? 0 : 1);
+    lldiv_t const e_qr = lldiv(f_qr.quot + size_div + e - 1, e_size);
+    long long const e_div = e_qr.quot - (e_qr.rem >= 0 ? 0 : 1);
     uint64_t const e_mod = e_qr.rem + (e_qr.rem >= 0 ? 0 : e_size) + 1;
     uint64_t const s_r = e_div % 2 == 0 ? s : s_c;
     w_r = s_r + (e_mod << e_idx) + f_qr.rem;

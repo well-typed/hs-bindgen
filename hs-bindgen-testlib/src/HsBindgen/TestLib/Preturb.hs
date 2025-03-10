@@ -387,7 +387,7 @@ preturbDouble size x
     eIdx = 52
 
     -- Exponent size (not including special values), fraction size
-    eSize, fSize :: FC.CLong
+    eSize, fSize :: FC.CLLong
     eSize = fromIntegral $ eMask - 1
     fSize = fromIntegral $ fMask + 1
 
@@ -403,7 +403,7 @@ preturbDouble size x
     e  = Bits.shiftR w eIdx Bits..&. eMask
     f  = w Bits..&. fMask
 
-    -- Avoid overflow in CLong domain
-    sizeDiv, sizeMod, fDiv, fMod :: FC.CLong
-    (sizeDiv, sizeMod) = size `divMod` fSize
+    -- Avoid overflow in CLLong domain
+    sizeDiv, sizeMod, fDiv, fMod :: FC.CLLong
+    (sizeDiv, sizeMod) = fromIntegral size `divMod` fSize
     (fDiv, fMod) = (sizeMod + fromIntegral f) `divMod` fSize
