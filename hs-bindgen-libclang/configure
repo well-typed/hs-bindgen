@@ -3266,7 +3266,7 @@ fi
 
 if test -z "$LLVM_CONFIG"; then
   if test -z "$LLVM_PATH"; then
-    as_fn_error $? "could not find llvm-config" "$LINENO" 5
+    as_fn_error $? "could not find llvm-config; LLVM_PATH is also not set" "$LINENO" 5
   else
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: could not find llvm-config; using LLVM_PATH=$LLVM_PATH" >&5
 printf "%s\n" "$as_me: could not find llvm-config; using LLVM_PATH=$LLVM_PATH" >&6;}
