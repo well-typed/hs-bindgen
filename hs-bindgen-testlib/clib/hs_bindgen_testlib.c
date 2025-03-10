@@ -171,63 +171,73 @@ size_t hsbg_alignof_CDouble(void) { return alignof(double); }
   Preturb
 *******************************************************************************/
 
-char hsbg_preturb_CChar(long size, char c) { return c + size; }
+char hsbg_preturb_CChar(long long size, char c) { return c + size; }
 
-signed char hsbg_preturb_CSChar(long size, signed char c) { return c + size; }
-
-unsigned char hsbg_preturb_CUChar(long size, unsigned char c) {
+signed char hsbg_preturb_CSChar(long long size, signed char c) {
   return c + size;
 }
 
-short hsbg_preturb_CShort(long size, short n) { return n + size; }
+unsigned char hsbg_preturb_CUChar(long long size, unsigned char c) {
+  return c + size;
+}
 
-unsigned short hsbg_preturb_CUShort(long size, unsigned short n) {
+short hsbg_preturb_CShort(long long size, short n) { return n + size; }
+
+unsigned short hsbg_preturb_CUShort(long long size, unsigned short n) {
   return n + size;
 }
 
-int hsbg_preturb_CInt(long size, int n) { return n + size; }
+int hsbg_preturb_CInt(long long size, int n) { return n + size; }
 
-unsigned int hsbg_preturb_CUInt(long size, unsigned int n) { return n + size; }
-
-long hsbg_preturb_CLong(long size, long n) { return n + size; }
-
-unsigned long hsbg_preturb_CULong(long size, unsigned long n) {
+unsigned int hsbg_preturb_CUInt(long long size, unsigned int n) {
   return n + size;
 }
 
-ptrdiff_t hsbg_preturb_CPtrdiff(long size, ptrdiff_t n) { return n + size; }
+long hsbg_preturb_CLong(long long size, long n) { return n + size; }
 
-size_t hsbg_preturb_CSize(long size, size_t n) { return n + size; }
-
-wchar_t hsbg_preturb_CWchar(long size, wchar_t c) { return c + size; }
-
-sig_atomic_t hsbg_preturb_CSigAtomic(long size, sig_atomic_t n) {
+unsigned long hsbg_preturb_CULong(long long size, unsigned long n) {
   return n + size;
 }
 
-long long hsbg_preturb_CLLong(long size, long long n) { return n + size; }
-
-unsigned long long hsbg_preturb_CULLong(long size, unsigned long long n) {
+ptrdiff_t hsbg_preturb_CPtrdiff(long long size, ptrdiff_t n) {
   return n + size;
 }
 
-bool hsbg_preturb_CBool(long size, bool b) {
+size_t hsbg_preturb_CSize(long long size, size_t n) { return n + size; }
+
+wchar_t hsbg_preturb_CWchar(long long size, wchar_t c) { return c + size; }
+
+sig_atomic_t hsbg_preturb_CSigAtomic(long long size, sig_atomic_t n) {
+  return n + size;
+}
+
+long long hsbg_preturb_CLLong(long long size, long long n) { return n + size; }
+
+unsigned long long hsbg_preturb_CULLong(long long size, unsigned long long n) {
+  return n + size;
+}
+
+bool hsbg_preturb_CBool(long long size, bool b) {
   return (labs(size) % 2 == 1) != b;
 }
 
-intptr_t hsbg_preturb_CIntPtr(long size, intptr_t n) { return n + size; }
+intptr_t hsbg_preturb_CIntPtr(long long size, intptr_t n) { return n + size; }
 
-uintptr_t hsbg_preturb_CUIntPtr(long size, uintptr_t n) { return n + size; }
+uintptr_t hsbg_preturb_CUIntPtr(long long size, uintptr_t n) {
+  return n + size;
+}
 
-intmax_t hsbg_preturb_CIntMax(long size, intmax_t n) { return n + size; }
+intmax_t hsbg_preturb_CIntMax(long long size, intmax_t n) { return n + size; }
 
-uintmax_t hsbg_preturb_CUIntMax(long size, uintmax_t n) { return n + size; }
+uintmax_t hsbg_preturb_CUIntMax(long long size, uintmax_t n) {
+  return n + size;
+}
 
-clock_t hsbg_preturb_CClock(long size, clock_t c) { return c + size; }
+clock_t hsbg_preturb_CClock(long long size, clock_t c) { return c + size; }
 
-time_t hsbg_preturb_CTime(long size, time_t t) { return t + size; }
+time_t hsbg_preturb_CTime(long long size, time_t t) { return t + size; }
 
-float hsbg_preturb_CFloat(long size, float x) {
+float hsbg_preturb_CFloat(long long size, float x) {
   if (isnan(x)) {
     return (labs(size) % 2 == 0) ? NAN : -0.0;
   }
@@ -244,8 +254,8 @@ float hsbg_preturb_CFloat(long size, float x) {
 
   size_t const e_idx = 23;
 
-  long const e_size = e_mask - 1;
-  long const f_size = f_mask + 1;
+  long long const e_size = e_mask - 1;
+  long long const f_size = f_mask + 1;
 
   uint32_t const *const w = (uint32_t *)&x;
   uint32_t const s = *w & s_mask;
@@ -253,20 +263,20 @@ float hsbg_preturb_CFloat(long size, float x) {
   uint32_t const e = (*w >> e_idx) & e_mask;
   uint32_t const f = *w & f_mask;
 
-  ldiv_t const size_qr = ldiv(size, f_size);
-  long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
-  long const size_mod = size_qr.rem + (size_qr.rem >= 0 ? 0 : f_size);
+  lldiv_t const size_qr = lldiv(size, f_size);
+  long long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
+  long long const size_mod = size_qr.rem + (size_qr.rem >= 0 ? 0 : f_size);
 
   // positive => quot ~ div, rem ~ mod
-  ldiv_t const f_qr = ldiv(size_mod + f, f_size);
+  lldiv_t const f_qr = lldiv(size_mod + f, f_size);
 
   uint32_t w_r = 0;
   if (e == 0) {
     uint32_t const s_r = (size_div + f_qr.quot) % 2 == 0 ? s : s_c;
     w_r = s_r + f_qr.rem;
   } else {
-    ldiv_t const e_qr = ldiv(f_qr.quot + size_div + e - 1, e_size);
-    long const e_div = e_qr.quot - (e_qr.rem >= 0 ? 0 : 1);
+    lldiv_t const e_qr = lldiv(f_qr.quot + size_div + e - 1, e_size);
+    long long const e_div = e_qr.quot - (e_qr.rem >= 0 ? 0 : 1);
     uint32_t const e_mod = e_qr.rem + (e_qr.rem >= 0 ? 0 : e_size) + 1;
     uint32_t const s_r = e_div % 2 == 0 ? s : s_c;
     w_r = s_r + (e_mod << e_idx) + f_qr.rem;
@@ -276,7 +286,7 @@ float hsbg_preturb_CFloat(long size, float x) {
   return *x_r;
 }
 
-double hsbg_preturb_CDouble(long size, double x) {
+double hsbg_preturb_CDouble(long long size, double x) {
   if (isnan(x)) {
     return (labs(size) % 2 == 0) ? NAN : -0.0;
   }
@@ -302,7 +312,7 @@ double hsbg_preturb_CDouble(long size, double x) {
   uint64_t const e = (*w >> e_idx) & e_mask;
   uint64_t const f = *w & f_mask;
 
-  lldiv_t const size_qr = lldiv((long long) size, f_size);
+  lldiv_t const size_qr = lldiv(size, f_size);
   long long const size_div = size_qr.quot - (size_qr.rem >= 0 ? 0 : 1);
   long long const size_mod = size_qr.rem + (size_qr.rem >= 0 ? 0 : f_size);
 
