@@ -259,16 +259,16 @@ preturbFloat :: FC.CLong -> Float -> Float
 -- names can be translated to C, making it easier to compare the two
 -- implementations.
 preturbFloat size x
-    | isNaN x          = if size `mod` 2 == 0 then RF.nan     else RF.negZero
-    | isNegativeZero x = if size `mod` 2 == 0 then RF.negZero else RF.nan
-    | isInfinite x     = if size `mod` 2 == 0 then x          else negate x
+    | isNaN x          = if even size then RF.nan     else RF.negZero
+    | isNegativeZero x = if even size then RF.negZero else RF.nan
+    | isInfinite x     = if even size then x          else negate x
     | e == 0 = RF.floatFromWord32 $
-        let sR = if (sizeDiv + fDiv) `mod` 2 == 0 then s else sC
+        let sR = if even (sizeDiv + fDiv) then s else sC
         in  sR + fromIntegral fMod
     | otherwise = RF.floatFromWord32 $
         let (eDiv, eMod) = fmap (+ 1) $
               (fDiv + sizeDiv + fromIntegral e - 1) `divMod` eSize
-            sR = if eDiv `mod` 2 == 0 then s else sC
+            sR = if even eDiv then s else sC
         in  sR + Bits.shiftL (fromIntegral eMod) eIdx + fromIntegral fMod
   where
     -- Single-precision floating-point values are represented as follows:
@@ -343,16 +343,16 @@ preturbDouble :: FC.CLong -> Double -> Double
 -- names can be translated to C, making it easier to compare the two
 -- implementations.
 preturbDouble size x
-    | isNaN x          = if size `mod` 2 == 0 then RF.nan     else RF.negZero
-    | isNegativeZero x = if size `mod` 2 == 0 then RF.negZero else RF.nan
-    | isInfinite x     = if size `mod` 2 == 0 then x          else negate x
+    | isNaN x          = if even size then RF.nan     else RF.negZero
+    | isNegativeZero x = if even size then RF.negZero else RF.nan
+    | isInfinite x     = if even size then x          else negate x
     | e == 0 = RF.doubleFromWord64 $
-        let sR = if (sizeDiv + fDiv) `mod` 2 == 0 then s else sC
+        let sR = if even (sizeDiv + fDiv) then s else sC
         in  sR + fromIntegral fMod
     | otherwise = RF.doubleFromWord64 $
         let (eDiv, eMod) = fmap (+ 1) $
               (fDiv + sizeDiv + fromIntegral e - 1) `divMod` eSize
-            sR = if eDiv `mod` 2 == 0 then s else sC
+            sR = if even eDiv then s else sC
         in  sR + Bits.shiftL (fromIntegral eMod) eIdx + fromIntegral fMod
   where
     -- Double-precision floating-point values are represented as follows:
