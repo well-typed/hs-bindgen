@@ -1,46 +1,45 @@
-WrapCHeader
-  (Header
-    [
-      DeclTypedef
-        Typedef {
-          typedefName = CName "uint64_t",
-          typedefType = TypePrim
-            (PrimIntegral
-              PrimLong
-              Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:136:25"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "uint32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:131:25"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "foo"))
-            DeclPathTop,
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "sixty_four",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint64_t"),
-              fieldSourceLoc =
-              "fixedwidth.h:4:11"},
-            StructField {
-              fieldName = CName "thirty_two",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint32_t"),
-              fieldSourceLoc =
-              "fixedwidth.h:5:11"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "fixedwidth.h:3:8"}])
+Header
+  [
+    DeclTypedef
+      Typedef {
+        typedefName = CName "uint64_t",
+        typedefType = TypePrim
+          (PrimIntegral
+            PrimLong
+            Unsigned),
+        typedefSourceLoc =
+        "alltypes.h:136:25"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "uint32_t",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        typedefSourceLoc =
+        "alltypes.h:131:25"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "foo"))
+          DeclPathTop,
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "sixty_four",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "uint64_t"),
+            fieldSourceLoc =
+            "fixedwidth.h:4:11"},
+          StructField {
+            fieldName = CName "thirty_two",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "uint32_t"),
+            fieldSourceLoc =
+            "fixedwidth.h:5:11"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "fixedwidth.h:3:8"}]

@@ -1,187 +1,186 @@
-WrapCHeader
-  (Header
-    [
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "enums.h:2:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "ENUMS_H",
-            macroArgs = [],
-            macroBody = MEmpty},
-          macroDeclMacroTy = "Empty",
-          macroDeclSourceLoc =
-          "enums.h:2:9"},
-      DeclEnum
-        Enu {
-          enumTag = CName "first",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "FIRST1",
-              valueValue = 0,
-              valueSourceLoc = "enums.h:5:5"},
-            EnumValue {
-              valueName = CName "FIRST2",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:6:5"}],
-          enumSourceLoc = "enums.h:4:6"},
-      DeclEnum
-        Enu {
-          enumTag = CName "second",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "SECOND_A",
-              valueValue = `-1`,
-              valueSourceLoc =
-              "enums.h:10:5"},
-            EnumValue {
-              valueName = CName "SECOND_B",
-              valueValue = 0,
-              valueSourceLoc =
-              "enums.h:11:5"},
-            EnumValue {
-              valueName = CName "SECOND_C",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:12:5"}],
-          enumSourceLoc = "enums.h:9:6"},
-      DeclEnum
-        Enu {
-          enumTag = CName "same",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "SAME_A",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:16:5"},
-            EnumValue {
-              valueName = CName "SAME_B",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:17:5"}],
-          enumSourceLoc = "enums.h:15:6"},
-      DeclEnum
-        Enu {
-          enumTag = CName "packad",
-          enumType = TypePrim
-            (PrimChar (Just Unsigned)),
-          enumSizeof = 1,
-          enumAlignment = 1,
-          enumValues = [
-            EnumValue {
-              valueName = CName "PACKED_A",
-              valueValue = 0,
-              valueSourceLoc =
-              "enums.h:21:5"},
-            EnumValue {
-              valueName = CName "PACKED_B",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:21:15"},
-            EnumValue {
-              valueName = CName "PACKED_C",
-              valueValue = 2,
-              valueSourceLoc =
-              "enums.h:21:25"}],
-          enumSourceLoc = "enums.h:20:6"},
-      DeclEnum
-        Enu {
-          enumTag = CName "enumA",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "A_FOO",
-              valueValue = 0,
-              valueSourceLoc =
-              "enums.h:24:16"},
-            EnumValue {
-              valueName = CName "A_BAR",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:24:23"}],
-          enumSourceLoc = "enums.h:24:9"},
-      DeclEnum
-        Enu {
-          enumTag = CName "enumB",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "B_FOO",
-              valueValue = 0,
-              valueSourceLoc =
-              "enums.h:26:22"},
-            EnumValue {
-              valueName = CName "B_BAR",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:26:29"}],
-          enumSourceLoc =
-          "enums.h:26:14"},
-      DeclEnum
-        Enu {
-          enumTag = CName "enumC",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "C_FOO",
-              valueValue = 0,
-              valueSourceLoc =
-              "enums.h:28:14"},
-            EnumValue {
-              valueName = CName "C_BAR",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:28:21"}],
-          enumSourceLoc = "enums.h:28:6"},
-      DeclEnum
-        Enu {
-          enumTag = CName "enumD",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "D_FOO",
-              valueValue = 0,
-              valueSourceLoc =
-              "enums.h:31:14"},
-            EnumValue {
-              valueName = CName "D_BAR",
-              valueValue = 1,
-              valueSourceLoc =
-              "enums.h:31:21"}],
-          enumSourceLoc = "enums.h:31:6"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "enumD_t",
-          typedefType = TypeEnum
-            (CName "enumD"),
-          typedefSourceLoc =
-          "enums.h:32:20"}])
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "enums.h:2:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "ENUMS_H",
+          macroArgs = [],
+          macroBody = MEmpty},
+        macroDeclMacroTy = "Empty",
+        macroDeclSourceLoc =
+        "enums.h:2:9"},
+    DeclEnum
+      Enu {
+        enumTag = CName "first",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "FIRST1",
+            valueValue = 0,
+            valueSourceLoc = "enums.h:5:5"},
+          EnumValue {
+            valueName = CName "FIRST2",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:6:5"}],
+        enumSourceLoc = "enums.h:4:6"},
+    DeclEnum
+      Enu {
+        enumTag = CName "second",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "SECOND_A",
+            valueValue = `-1`,
+            valueSourceLoc =
+            "enums.h:10:5"},
+          EnumValue {
+            valueName = CName "SECOND_B",
+            valueValue = 0,
+            valueSourceLoc =
+            "enums.h:11:5"},
+          EnumValue {
+            valueName = CName "SECOND_C",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:12:5"}],
+        enumSourceLoc = "enums.h:9:6"},
+    DeclEnum
+      Enu {
+        enumTag = CName "same",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "SAME_A",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:16:5"},
+          EnumValue {
+            valueName = CName "SAME_B",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:17:5"}],
+        enumSourceLoc = "enums.h:15:6"},
+    DeclEnum
+      Enu {
+        enumTag = CName "packad",
+        enumType = TypePrim
+          (PrimChar (Just Unsigned)),
+        enumSizeof = 1,
+        enumAlignment = 1,
+        enumValues = [
+          EnumValue {
+            valueName = CName "PACKED_A",
+            valueValue = 0,
+            valueSourceLoc =
+            "enums.h:21:5"},
+          EnumValue {
+            valueName = CName "PACKED_B",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:21:15"},
+          EnumValue {
+            valueName = CName "PACKED_C",
+            valueValue = 2,
+            valueSourceLoc =
+            "enums.h:21:25"}],
+        enumSourceLoc = "enums.h:20:6"},
+    DeclEnum
+      Enu {
+        enumTag = CName "enumA",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "A_FOO",
+            valueValue = 0,
+            valueSourceLoc =
+            "enums.h:24:16"},
+          EnumValue {
+            valueName = CName "A_BAR",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:24:23"}],
+        enumSourceLoc = "enums.h:24:9"},
+    DeclEnum
+      Enu {
+        enumTag = CName "enumB",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "B_FOO",
+            valueValue = 0,
+            valueSourceLoc =
+            "enums.h:26:22"},
+          EnumValue {
+            valueName = CName "B_BAR",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:26:29"}],
+        enumSourceLoc =
+        "enums.h:26:14"},
+    DeclEnum
+      Enu {
+        enumTag = CName "enumC",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "C_FOO",
+            valueValue = 0,
+            valueSourceLoc =
+            "enums.h:28:14"},
+          EnumValue {
+            valueName = CName "C_BAR",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:28:21"}],
+        enumSourceLoc = "enums.h:28:6"},
+    DeclEnum
+      Enu {
+        enumTag = CName "enumD",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "D_FOO",
+            valueValue = 0,
+            valueSourceLoc =
+            "enums.h:31:14"},
+          EnumValue {
+            valueName = CName "D_BAR",
+            valueValue = 1,
+            valueSourceLoc =
+            "enums.h:31:21"}],
+        enumSourceLoc = "enums.h:31:6"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "enumD_t",
+        typedefType = TypeEnum
+          (CName "enumD"),
+        typedefSourceLoc =
+        "enums.h:32:20"}]

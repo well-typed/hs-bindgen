@@ -1,92 +1,91 @@
-WrapCHeader
-  (Header
-    [
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "bool.h:13:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "BOOL",
-            macroArgs = [],
-            macroBody = MTerm
-              (MType (TypePrim PrimBool))},
-          macroDeclMacroTy = "PrimTy",
-          macroDeclSourceLoc =
-          "bool.h:13:9"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "bools1"))
-            DeclPathTop,
-          structSizeof = 2,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc = "bool.h:2:11"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:3:11"}],
-          structFlam = Nothing,
-          structSourceLoc = "bool.h:1:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "bools2"))
-            DeclPathTop,
-          structSizeof = 2,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc = "bool.h:9:10"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "bool.h:10:10"}],
-          structFlam = Nothing,
-          structSourceLoc = "bool.h:8:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "bools3"))
-            DeclPathTop,
-          structSizeof = 2,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "BOOL"),
-              fieldSourceLoc =
-              "bool.h:16:10"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "BOOL"),
-              fieldSourceLoc =
-              "bool.h:17:10"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "bool.h:15:8"}])
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "bool.h:13:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "BOOL",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType (TypePrim PrimBool))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "bool.h:13:9"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "bools1"))
+          DeclPathTop,
+        structSizeof = 2,
+        structAlignment = 1,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim PrimBool,
+            fieldSourceLoc = "bool.h:2:11"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 8,
+            fieldWidth = Nothing,
+            fieldType = TypePrim PrimBool,
+            fieldSourceLoc =
+            "bool.h:3:11"}],
+        structFlam = Nothing,
+        structSourceLoc = "bool.h:1:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "bools2"))
+          DeclPathTop,
+        structSizeof = 2,
+        structAlignment = 1,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim PrimBool,
+            fieldSourceLoc = "bool.h:9:10"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 8,
+            fieldWidth = Nothing,
+            fieldType = TypePrim PrimBool,
+            fieldSourceLoc =
+            "bool.h:10:10"}],
+        structFlam = Nothing,
+        structSourceLoc = "bool.h:8:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "bools3"))
+          DeclPathTop,
+        structSizeof = 2,
+        structAlignment = 1,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "BOOL"),
+            fieldSourceLoc =
+            "bool.h:16:10"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 8,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "BOOL"),
+            fieldSourceLoc =
+            "bool.h:17:10"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "bool.h:15:8"}]

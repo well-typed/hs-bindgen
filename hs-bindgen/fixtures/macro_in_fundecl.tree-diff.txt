@@ -1,312 +1,311 @@
-WrapCHeader
-  (Header
-    [
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "macro_in_fundecl.h:5:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "I",
-            macroArgs = [],
-            macroBody = MTerm
-              (MType
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
-          macroDeclMacroTy = "PrimTy",
-          macroDeclSourceLoc =
-          "macro_in_fundecl.h:5:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "macro_in_fundecl.h:6:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "C",
-            macroArgs = [],
-            macroBody = MTerm
-              (MType
-                (TypePrim (PrimChar Nothing)))},
-          macroDeclMacroTy = "PrimTy",
-          macroDeclSourceLoc =
-          "macro_in_fundecl.h:6:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "macro_in_fundecl.h:7:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "F",
-            macroArgs = [],
-            macroBody = MTerm
-              (MType
-                (TypePrim
-                  (PrimFloating PrimFloat)))},
-          macroDeclMacroTy = "PrimTy",
-          macroDeclSourceLoc =
-          "macro_in_fundecl.h:7:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "macro_in_fundecl.h:8:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "L",
-            macroArgs = [],
-            macroBody = MTerm
-              (MType
-                (TypePrim
-                  (PrimIntegral
-                    PrimLong
-                    Signed)))},
-          macroDeclMacroTy = "PrimTy",
-          macroDeclSourceLoc =
-          "macro_in_fundecl.h:8:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "macro_in_fundecl.h:9:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "S",
-            macroArgs = [],
-            macroBody = MTerm
-              (MType
-                (TypePrim
-                  (PrimIntegral
-                    PrimShort
-                    Signed)))},
-          macroDeclMacroTy = "PrimTy",
-          macroDeclSourceLoc =
-          "macro_in_fundecl.h:9:9"},
-      DeclFunction
-        Function {
-          functionName = CName "quux",
-          functionType = TypeFun
-            [
-              TypeTypedef (CName "F"),
-              TypePrim (PrimChar Nothing)]
-            (TypePrim (PrimChar Nothing)),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:12:6"},
-      DeclFunction
-        Function {
-          functionName = CName "wam",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimFloat),
-              TypePointer
-                (TypeTypedef (CName "C"))]
-            (TypePointer
-              (TypeTypedef (CName "C"))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:13:4"},
-      DeclFunction
-        Function {
-          functionName = CName "foo1",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimFloat),
-              TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)))]
-            (TypePointer
-              (TypePrim (PrimChar Nothing))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:16:7"},
-      DeclFunction
-        Function {
-          functionName = CName "foo2",
-          functionType = TypeFun
-            [
-              TypeTypedef (CName "F"),
-              TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)))]
-            (TypePointer
-              (TypePrim (PrimChar Nothing))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:17:7"},
-      DeclFunction
-        Function {
-          functionName = CName "foo3",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimFloat),
-              TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)))]
-            (TypePointer
-              (TypeTypedef (CName "C"))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:18:4"},
-      DeclFunction
-        Function {
-          functionName = CName "bar1",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimLong Signed)]
-            (TypePointer
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:5:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "I",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_in_fundecl.h:5:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:6:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "C",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim (PrimChar Nothing)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_in_fundecl.h:6:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:7:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "F",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimFloating PrimFloat)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_in_fundecl.h:7:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:8:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "L",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_in_fundecl.h:8:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl.h:9:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "S",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Signed)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_in_fundecl.h:9:9"},
+    DeclFunction
+      Function {
+        functionName = CName "quux",
+        functionType = TypeFun
+          [
+            TypeTypedef (CName "F"),
+            TypePrim (PrimChar Nothing)]
+          (TypePrim (PrimChar Nothing)),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:12:6"},
+    DeclFunction
+      Function {
+        functionName = CName "wam",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeTypedef (CName "C"))]
+          (TypePointer
+            (TypeTypedef (CName "C"))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:13:4"},
+    DeclFunction
+      Function {
+        functionName = CName "foo1",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
               (TypeFun
                 [
                   TypePrim
-                    (PrimIntegral PrimShort Signed)]
+                    (PrimIntegral PrimInt Signed)]
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:21:7"},
-      DeclFunction
-        Function {
-          functionName = CName "bar2",
-          functionType = TypeFun
-            [TypeTypedef (CName "L")]
-            (TypePointer
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePointer
+            (TypePrim (PrimChar Nothing))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:16:7"},
+    DeclFunction
+      Function {
+        functionName = CName "foo2",
+        functionType = TypeFun
+          [
+            TypeTypedef (CName "F"),
+            TypePointer
               (TypeFun
                 [
                   TypePrim
-                    (PrimIntegral PrimShort Signed)]
+                    (PrimIntegral PrimInt Signed)]
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:22:7"},
-      DeclFunction
-        Function {
-          functionName = CName "bar3",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimLong Signed)]
-            (TypePointer
-              (TypeFun
-                [TypeTypedef (CName "S")]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:23:7"},
-      DeclFunction
-        Function {
-          functionName = CName "bar4",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimLong Signed)]
-            (TypePointer
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePointer
+            (TypePrim (PrimChar Nothing))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:17:7"},
+    DeclFunction
+      Function {
+        functionName = CName "foo3",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
               (TypeFun
                 [
                   TypePrim
-                    (PrimIntegral PrimShort Signed)]
-                (TypeTypedef (CName "I")))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:24:5"},
-      DeclFunction
-        Function {
-          functionName = CName "baz1",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePointer
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePointer
+            (TypeTypedef (CName "C"))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:18:4"},
+    DeclFunction
+      Function {
+        functionName = CName "bar1",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimLong Signed)]
+          (TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:21:7"},
+    DeclFunction
+      Function {
+        functionName = CName "bar2",
+        functionType = TypeFun
+          [TypeTypedef (CName "L")]
+          (TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:22:7"},
+    DeclFunction
+      Function {
+        functionName = CName "bar3",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimLong Signed)]
+          (TypePointer
+            (TypeFun
+              [TypeTypedef (CName "S")]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:23:7"},
+    DeclFunction
+      Function {
+        functionName = CName "bar4",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimLong Signed)]
+          (TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypeTypedef (CName "I")))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:24:5"},
+    DeclFunction
+      Function {
+        functionName = CName "baz1",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePointer
+            (TypeConstArray
+              2
               (TypeConstArray
-                2
-                (TypeConstArray
-                  3
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:27:7"},
-      DeclFunction
-        Function {
-          functionName = CName "baz2",
-          functionType = TypeFun
-            [TypeTypedef (CName "I")]
-            (TypePointer
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:27:7"},
+    DeclFunction
+      Function {
+        functionName = CName "baz2",
+        functionType = TypeFun
+          [TypeTypedef (CName "I")]
+          (TypePointer
+            (TypeConstArray
+              2
               (TypeConstArray
-                2
-                (TypeConstArray
-                  3
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:35:7"},
-      DeclFunction
-        Function {
-          functionName = CName "baz3",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePointer
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:35:7"},
+    DeclFunction
+      Function {
+        functionName = CName "baz3",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePointer
+            (TypeConstArray
+              2
               (TypeConstArray
-                2
-                (TypeConstArray
-                  3
-                  (TypeTypedef (CName "I"))))),
-          functionHeader =
-          "macro_in_fundecl.h",
-          functionSourceLoc =
-          "macro_in_fundecl.h:43:5"}])
+                3
+                (TypeTypedef (CName "I"))))),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:43:5"}]

@@ -1,43 +1,42 @@
-WrapCHeader
-  (Header
-    [
-      DeclFunction
-        Function {
-          functionName = CName "erf",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimDouble)]
-            (TypePrim
-              (PrimFloating PrimDouble)),
-          functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:1:8"},
-      DeclFunction
-        Function {
-          functionName = CName "bad_fma",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimDouble),
-              TypePrim
-                (PrimFloating PrimDouble),
-              TypePrim
-                (PrimFloating PrimDouble)]
-            (TypePrim
-              (PrimFloating PrimDouble)),
-          functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:3:22"},
-      DeclFunction
-        Function {
-          functionName = CName "no_args",
-          functionType = TypeFun
-            []
-            TypeVoid,
-          functionHeader =
-          "simple_func.h",
-          functionSourceLoc =
-          "simple_func.h:7:6"}])
+Header
+  [
+    DeclFunction
+      Function {
+        functionName = CName "erf",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimFloating PrimDouble)),
+        functionHeader =
+        "simple_func.h",
+        functionSourceLoc =
+        "simple_func.h:1:8"},
+    DeclFunction
+      Function {
+        functionName = CName "bad_fma",
+        functionType = TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimFloating PrimDouble)),
+        functionHeader =
+        "simple_func.h",
+        functionSourceLoc =
+        "simple_func.h:3:22"},
+    DeclFunction
+      Function {
+        functionName = CName "no_args",
+        functionType = TypeFun
+          []
+          TypeVoid,
+        functionHeader =
+        "simple_func.h",
+        functionSourceLoc =
+        "simple_func.h:7:6"}]

@@ -1,40 +1,39 @@
-WrapCHeader
-  (Header
-    [
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "uses_utf8.h:2:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "USES_UTF8_H",
-            macroArgs = [],
-            macroBody = MEmpty},
-          macroDeclMacroTy = "Empty",
-          macroDeclSourceLoc =
-          "uses_utf8.h:2:9"},
-      DeclEnum
-        Enu {
-          enumTag = CName "MyEnum",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName
-                "Say\20320\22909",
-              valueValue = 0,
-              valueSourceLoc =
-              "uses_utf8.h:5:9"},
-            EnumValue {
-              valueName = CName
-                "Say\25308\25308",
-              valueValue = 1,
-              valueSourceLoc =
-              "uses_utf8.h:6:9"}],
-          enumSourceLoc =
-          "uses_utf8.h:4:6"}])
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "uses_utf8.h:2:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "USES_UTF8_H",
+          macroArgs = [],
+          macroBody = MEmpty},
+        macroDeclMacroTy = "Empty",
+        macroDeclSourceLoc =
+        "uses_utf8.h:2:9"},
+    DeclEnum
+      Enu {
+        enumTag = CName "MyEnum",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName
+              "Say\20320\22909",
+            valueValue = 0,
+            valueSourceLoc =
+            "uses_utf8.h:5:9"},
+          EnumValue {
+            valueName = CName
+              "Say\25308\25308",
+            valueValue = 1,
+            valueSourceLoc =
+            "uses_utf8.h:6:9"}],
+        enumSourceLoc =
+        "uses_utf8.h:4:6"}]
