@@ -35,7 +35,6 @@ import Text.SimplePrettyPrint
 import C.Char (CharValue(..))
 import DeBruijn (EmptyCtx, Env (..), lookupEnv, Add (..))
 
-
 {-------------------------------------------------------------------------------
   Rendering
 -------------------------------------------------------------------------------}
@@ -190,7 +189,6 @@ prettyType env prec = \case
 
 prettyPrimType :: HsPrimType -> CtxDoc
 prettyPrimType = prettyType EmptyEnv 0 . TGlobal . PrimType
-
 
 {-------------------------------------------------------------------------------
   PatEpxr pretty-printing

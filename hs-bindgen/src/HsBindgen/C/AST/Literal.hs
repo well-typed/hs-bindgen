@@ -93,7 +93,6 @@ data CharLiteral =
   deriving stock ( Eq, Show, Generic )
   deriving anyclass PrettyVal
 
-
 data StringLiteral =
   StringLiteral
     { stringLiteralText :: Text

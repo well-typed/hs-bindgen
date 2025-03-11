@@ -51,7 +51,6 @@ reparseMacro = do
     functionLike loc name = Macro loc name <$> formalArgs <*> mExprTuple
     objectLike   loc name = Macro loc name [] <$> mExprTuple
 
-
 formalArgs :: Reparse [CName]
 formalArgs = parens $ formalArg `sepBy` comma
 
@@ -216,7 +215,6 @@ mExpr = buildExpressionParser ops term <?> "expression"
 
     ap2 :: MFun (S (S Z)) -> MExpr -> MExpr -> MExpr
     ap2 op arg1 arg2 = MApp op ( arg1 ::: arg2 ::: VNil )
-
 
 sepBy2 :: ParsecT s u m a -> ParsecT s u m sep -> ParsecT s u m (a, a, [a])
 {-# INLINEABLE sepBy2 #-}

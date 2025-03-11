@@ -264,7 +264,6 @@ mfunGlobal = \case
   C.MLogicalOr  -> Logical_or
   C.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
 
-
 hsPrimIntTy :: C.IntegralType -> HsPrimType
 hsPrimIntTy = \case
   C.Bool -> HsPrimCBool

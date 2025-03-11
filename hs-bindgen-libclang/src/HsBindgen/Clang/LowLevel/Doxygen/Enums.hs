@@ -88,7 +88,6 @@ data CXCommentKind =
     -- > \endverbatim
   | CXComment_VerbatimBlockCommand
 
-
     -- | A line of text that is contained within a
     -- 'CXComment_VerbatimBlockCommand' node.
   | CXComment_VerbatimBlockLine

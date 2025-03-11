@@ -58,7 +58,6 @@ callProcessCwd pwd cmd args = do
       ExitSuccess    -> return ()
       ExitFailure _r -> fail "callProcessCwd"
 
-
 getRustBindgen' :: IO FilePath
 getRustBindgen' = do
     tmpDir <- getCanonicalTemporaryDirectory

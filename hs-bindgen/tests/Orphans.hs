@@ -152,7 +152,6 @@ instance ToExpr (CMacro.ClassTyCon arity) where
     CMacro.BitwiseTyCon    -> Expr.App "BitwiseTyCon"    []
     CMacro.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
 
-
 instance ToExpr (CMacro.TyCon args resKi) where
   toExpr = \case
     CMacro.GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]

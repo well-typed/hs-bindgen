@@ -255,7 +255,6 @@ data TyVar
   deriving stock Generic
   deriving anyclass PrettyVal
 
-
 tyVarName :: TyVar -> Name
 tyVarName = \case
   SkolemTv sk  -> skolemTyVarName sk
@@ -1425,10 +1424,8 @@ pattern Empty = Data EmptyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 
-
 pattern Tuple :: () => ( nbArgs ~ S (S n) ) => Word -> Vec nbArgs (Type Ty) -> Type Ty
 pattern Tuple l as = Data ( TupleTyCon l ) as
-
 
 pattern PlusRes :: Type Ty -> Type Ty
 pattern PlusRes a = FamApp PlusResTyCon ( a ::: VNil )
