@@ -65,6 +65,7 @@ main' packageRoot bg = testGroup "golden"
     , golden "simple_func"
     , golden "weird01"
     , golden "bitfields"
+    , golden "unions"
     ]
   where
     golden name =

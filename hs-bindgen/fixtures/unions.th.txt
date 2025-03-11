@@ -1,0 +1,31 @@
+data Dim2 = Dim2 {dim2_x :: CInt, dim2_y :: CInt}
+instance Storable Dim2
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Dim2 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Dim2 dim2_x_3
+                                          dim2_y_4 -> pokeByteOff ptr_1 (0 :: Int) dim2_x_3 >> pokeByteOff ptr_1 (4 :: Int) dim2_y_4}}
+deriving stock instance Show Dim2
+deriving stock instance Eq Dim2
+data Dim3 = Dim3 {dim3_x :: CInt, dim3_y :: CInt, dim3_z :: CInt}
+instance Storable Dim3
+    where {sizeOf = \_ -> 12 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> ((pure Dim3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Dim3 dim3_x_3
+                                          dim3_y_4
+                                          dim3_z_5 -> pokeByteOff ptr_1 (0 :: Int) dim3_x_3 >> (pokeByteOff ptr_1 (4 :: Int) dim3_y_4 >> pokeByteOff ptr_1 (8 :: Int) dim3_z_5)}}
+deriving stock instance Show Dim3
+deriving stock instance Eq Dim3
+data Dim = Dim {dim_tag :: CInt, dim_payload :: CFloat}
+instance Storable Dim
+    where {sizeOf = \_ -> 12 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Dim <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Dim dim_tag_3
+                                         dim_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dim_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dim_payload_4}}
+deriving stock instance Show Dim
+deriving stock instance Eq Dim
