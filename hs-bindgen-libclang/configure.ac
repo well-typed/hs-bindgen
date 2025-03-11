@@ -16,7 +16,7 @@ AC_ARG_VAR(LLVM_PATH, [Location of LLVM installation])
 AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
 if test -z "$LLVM_CONFIG"; then
   if test -z "$LLVM_PATH"; then
-    AC_MSG_ERROR([could not find llvm-config])
+    AC_MSG_ERROR([could not find llvm-config; LLVM_PATH is also not set])
   else
     AC_MSG_NOTICE([could not find llvm-config; using LLVM_PATH=$LLVM_PATH])
   fi
