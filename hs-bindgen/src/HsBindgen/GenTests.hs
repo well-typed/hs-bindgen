@@ -13,6 +13,7 @@ import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
 import HsBindgen.GenTests.Readme (genTestsReadme)
 import HsBindgen.Hs.AST (Decl)
+import HsBindgen.Hs.NameMangler (defaultNameMangler)
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 
@@ -75,6 +76,7 @@ genTests headerIncludePath cHeader moduleName lineLength testSuitePath = do
       Hs.generateDeclarations
         headerIncludePath
         Hs.defaultTranslationOpts
+        defaultNameMangler
         cHeader
 
 {-------------------------------------------------------------------------------

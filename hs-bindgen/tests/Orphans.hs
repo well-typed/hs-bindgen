@@ -15,6 +15,7 @@ import System.FilePath qualified as FilePath
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.Clang.Paths qualified as Paths
+import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType

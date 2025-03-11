@@ -1,6 +1,5 @@
 -- {-# OPTIONS_GHC -ddump-splices #-}
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ExplicitForAll #-}
@@ -11,14 +10,9 @@
 
 module Test01 where
 
-import HsBindgen.Lib
-import System.FilePath ((</>))
-import Foreign.C.Types
+import HsBindgen.TH
 
-#ifdef MIN_VERSION_th_compat
-import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
-#else
-import Language.Haskell.TH.Syntax (getPackageRoot)
-#endif
+-- Used by generated code
+import Foreign.C.Types
 
 $(getPackageRoot >>= \dir -> genBindings' [dir </> "examples"] "test_01.h")

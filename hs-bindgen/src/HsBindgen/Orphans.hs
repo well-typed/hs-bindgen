@@ -2,6 +2,7 @@
 
 module HsBindgen.Orphans () where
 
+import Control.Exception (Exception(displayException))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
 import Data.GADT.Compare (GEq(geq))
@@ -19,7 +20,9 @@ import HsBindgen.Clang.Paths
 
 instance Aeson.FromJSON CHeaderIncludePath where
   parseJSON = Aeson.withText "CHeaderIncludePath" $
-    either Aeson.parseFail return . parseCHeaderIncludePath . Text.unpack
+      either (Aeson.parseFail . displayException) return
+    . parseCHeaderIncludePath
+    . Text.unpack
 
 deriving newtype instance Aeson.FromJSON CNameSpelling
 

@@ -1,11 +1,10 @@
-{-# LANGUAGE CPP               #-}
+{-# LANGUAGE CPP #-}
 
 module Main (main) where
 
 import Data.Foldable (toList)
 import Data.List (sort)
 import Data.TreeDiff.Golden (ediffGolden1)
-import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 
@@ -18,9 +17,10 @@ import Misc
 import TH
 #endif
 
+import HsBindgen.C.Parser (getTargetTriple)
 import HsBindgen.Clang.Paths
 import HsBindgen.Lib
-import HsBindgen.Backend.PP.Render qualified as Backend.PP
+import HsBindgen.Pipeline qualified as Pipeline
 
 main :: IO ()
 main = do
@@ -30,10 +30,7 @@ main = do
 main' :: FilePath -> IO FilePath -> TestTree
 main' packageRoot bg = testGroup "golden"
     [ testCase "target-triple" $ do
-        let headerIncludePath = CHeaderQuoteIncludePath "simple_structs.h"
-            args = clangArgs packageRoot
-        src <- resolveHeader args headerIncludePath
-        triple <- withC nullTracer args src getTargetTriple
+        triple <- getTargetTriple $ clangArgs packageRoot
 
         -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
         -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
@@ -85,75 +82,53 @@ main' packageRoot bg = testGroup "golden"
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do
-        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-            args = clangArgs packageRoot
-            tracer = mkTracer report report report False
-        src <- resolveHeader args headerIncludePath
-        parseC tracer args src
+        let headerIncludePath = mkHeaderIncludePath name
+        snd <$> Pipeline.parseCHeader (mkOpts report) headerIncludePath
 
     goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
-        -- -<.> does weird stuff for filenames with multiple dots;
-        -- I usually simply avoid using it.
-        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-            args = clangArgs packageRoot
-            tracer = mkTracer report report report False
-        src <- resolveHeader args headerIncludePath
-        header <- parseC tracer args src
-        return $ genHsDecls headerIncludePath defaultTranslationOpts header
+        let headerIncludePath = mkHeaderIncludePath name
+            opts' = mkOpts report
+        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
+        return $ Pipeline.genHsDecls opts' headerIncludePath header
 
     goldenExtensions name = goldenVsStringDiff_ "exts" ("fixtures" </> (name ++ ".exts.txt")) $ \report -> do
-        -- -<.> does weird stuff for filenames with multiple dots;
-        -- I usually simply avoid using it.
-        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-            args = clangArgs packageRoot
-            tracer = mkTracer report report report False
-        src <- resolveHeader args headerIncludePath
-        header <- parseC tracer args src
+        let headerIncludePath = mkHeaderIncludePath name
+            opts' = mkOpts report
+        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
         return $ unlines $ map show $ sort $ toList $
-            genExtensions headerIncludePath defaultTranslationOpts header
+              Pipeline.genExtensions
+            . Pipeline.genSHsDecls
+            $ Pipeline.genHsDecls opts' headerIncludePath header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
-        -- -<.> does weird stuff for filenames with multiple dots;
-        -- I usually simply avoid using it.
-        let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-            args = clangArgs packageRoot
-            tracer = mkTracer report report report False
-        src <- resolveHeader args headerIncludePath
-        header <- parseC tracer args src
+        let headerIncludePath = mkHeaderIncludePath name
+            opts' = mkOpts report
+        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
 
         -- TODO: PP.render should add trailing '\n' itself.
-        return $ (Backend.PP.render renderOpts $ unwrapHsModule $
-          genModule headerIncludePath defaultTranslationOpts moduleOpts header) ++ "\n"
-      where
-        moduleOpts :: HsModuleOpts
-        moduleOpts = HsModuleOpts
-            { hsModuleOptsName = "Example"
+        return $
+          Pipeline.preprocessPure opts' ppOpts headerIncludePath header ++ "\n"
+
+    -- -<.> does weird stuff for filenames with multiple dots;
+    -- I usually simply avoid using it.
+    mkHeaderIncludePath :: String -> CHeaderIncludePath
+    mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
+
+    opts :: Pipeline.Opts
+    opts = Pipeline.defaultOpts {
+        Pipeline.optsClangArgs  = clangArgs packageRoot
+      }
+
+    mkOpts :: (String -> IO ()) -> Pipeline.Opts
+    mkOpts report =
+      let tracer = mkTracer report report report False
+      in  opts {
+              Pipeline.optsDiagTracer = tracer
+            , Pipeline.optsSkipTracer = tracer
             }
 
-        renderOpts :: HsRenderOpts
-        renderOpts = HsRenderOpts
-            { hsLineLength = 120
-            }
-
-withC ::
-     Tracer IO String
-  -> ClangArgs
-  -> SourcePath
-  -> (CXTranslationUnit -> IO r)
-  -> IO r
-withC tracer args src =
-    withTranslationUnit tracerD args src
-  where
-    tracerD = contramap show tracer
-
-parseC ::
-     Tracer IO String
-  -> ClangArgs
-  -> SourcePath
-  -> IO CHeader
-parseC tracer args src =
-    withC tracer args src $
-      parseCHeader tracerP SelectFromMainFile emptyExtBindings
-  where
-    tracerP = contramap prettyLogMsg tracer
+    ppOpts :: Pipeline.PPOpts
+    ppOpts = Pipeline.defaultPPOpts {
+        Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
+      }

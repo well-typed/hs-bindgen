@@ -2,15 +2,12 @@
 module Main (main) where
 
 import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
-import Control.Monad
 import Text.Read (readMaybe)
 import System.Exit (ExitCode, exitFailure)
-import System.IO qualified as IO
 
 import HsBindgen.App.Cmdline
-import HsBindgen.Clang.Paths
-import HsBindgen.Lib
 import HsBindgen.Errors
+import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   Main application
@@ -35,84 +32,74 @@ instance Exception LiterateFileException where
       "error loading " ++ path ++ ": " ++ err
 
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
-execMode cmdline tracer = \case
+execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
-      src <- resolveHeader (cmdClangArgs cmdline) preprocessInput
-      extBindings <-
-        loadExtBindings (cmdClangArgs cmdline) (cmdExtBindings cmdline)
-      cHeader <- parseC cmdline tracer extBindings src
-      let hsModl = genModule preprocessInput preprocessTranslationOpts preprocessModuleOpts cHeader
-      prettyHs preprocessRenderOpts preprocessOutput hsModl
-    ModeGenTests{..} -> do
-      src <- resolveHeader (cmdClangArgs cmdline) genTestsInput
-      extBindings <-
-        loadExtBindings (cmdClangArgs cmdline) (cmdExtBindings cmdline)
-      cHeader <- parseC cmdline tracer extBindings src
-      genTests genTestsInput cHeader genTestsModuleOpts genTestsRenderOpts genTestsOutput
-    ModeLiterate input output -> do
-      lit <- readFile input
-      args <- maybe (throwIO $ LiterateFileException input "cannot parse literate file") return $ readMaybe lit
-      case pureParseModePreprocess args of
-        Just cmdline' -> execMode cmdline' tracer $ case cmdMode cmdline' of
-          mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
-          mode                  -> mode
-        Nothing -> throwIO $
-          LiterateFileException input "cannot parse arguments in literate file"
+      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      let opts = cmdOpts {
+              optsExtBindings = extBindings
+            , optsTranslation = preprocessTranslationOpts
+            }
+          ppOpts = defaultPPOpts {
+              ppOptsModule = preprocessModuleOpts
+            , ppOptsRender = preprocessRenderOpts
+            }
+      preprocessIO opts ppOpts preprocessInput preprocessOutput
+        =<< parseCHeader opts preprocessInput
 
-    Dev devMode ->
-      execDevMode cmdline tracer devMode
+    ModeGenTests{..} -> do
+      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      let opts = defaultOpts {
+              optsExtBindings = extBindings
+            }
+          ppOpts = defaultPPOpts {
+              ppOptsModule = genTestsModuleOpts
+            , ppOptsRender = genTestsRenderOpts
+            }
+      genTests ppOpts genTestsInput genTestsOutput
+        =<< parseCHeader opts genTestsInput
+
+    ModeLiterate input output -> execLiterate input output tracer
+
+    Dev devMode -> execDevMode cmdline tracer devMode
+  where
+    cmdOpts :: Opts
+    cmdOpts = defaultOpts {
+        optsClangArgs  = cmdClangArgs
+      , optsPredicate  = cmdPredicate
+      , optsDiagTracer = tracer
+      , optsSkipTracer = tracer
+      }
+
+execLiterate :: FilePath -> FilePath -> Tracer IO String -> IO ()
+execLiterate input output tracer = do
+    args <- maybe (throw' "cannot parse literate file") return . readMaybe
+      =<< readFile input
+    case pureParseModePreprocess args of
+      Just cmdline -> execMode cmdline tracer $ case cmdMode cmdline of
+        mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
+        mode                  -> mode
+      Nothing -> throw' "cannot parse arguments in literate file"
+  where
+    throw' :: String -> IO a
+    throw' = throwIO . LiterateFileException input
+
 
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
-execDevMode cmdline@Cmdline{..} tracer = \case
+execDevMode Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
-      src <- resolveHeader cmdClangArgs parseCHeaderInput
       extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
-      prettyC =<< parseC cmdline tracer extBindings src
-    DevModePrelude{..} -> do
-      src <- resolveHeader cmdClangArgs preludeInput
-      IO.withFile preludeLogPath IO.WriteMode $ \logHandle -> do
-        void . withC cmdline tracer src $
-          bootstrapPrelude tracer (preludeLogTracer logHandle)
+      let opts = cmdOpts {
+              optsExtBindings = extBindings
+            }
+      dumpCHeader =<< parseCHeader opts parseCHeaderInput
   where
-    preludeLogPath :: FilePath
-    preludeLogPath = "macros-recognized.log"
-
-    preludeLogTracer :: IO.Handle -> Tracer IO String
-    preludeLogTracer logHandle =
-      mkTracer
-        (IO.hPutStrLn logHandle . ("Error: "   ++))
-        (IO.hPutStrLn logHandle . ("Warning: " ++))
-        (IO.hPutStrLn logHandle)
-        True
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary
--------------------------------------------------------------------------------}
-
-withC ::
-     Cmdline
-  -> Tracer IO String
-  -> SourcePath
-  -> (CXTranslationUnit -> IO r)
-  -> IO r
-withC cmdline tracer src =
-    withTranslationUnit traceWarnings (cmdClangArgs cmdline) src
-  where
-    traceWarnings :: Tracer IO Diagnostic
-    traceWarnings = contramap show tracer
-
-parseC ::
-     Cmdline
-  -> Tracer IO String
-  -> ExtBindings
-  -> SourcePath
-  -> IO CHeader
-parseC cmdline tracer extBindings src =
-    withC cmdline tracer src $
-      parseCHeader traceSkipped (cmdPredicate cmdline) extBindings
-  where
-    traceSkipped :: Tracer IO Skipped
-    traceSkipped = (contramap prettyLogMsg tracer)
+    cmdOpts :: Opts
+    cmdOpts = defaultOpts {
+        optsClangArgs  = cmdClangArgs
+      , optsPredicate  = cmdPredicate
+      , optsDiagTracer = tracer
+      , optsSkipTracer = tracer
+      }
 
 {-------------------------------------------------------------------------------
   Exception handling

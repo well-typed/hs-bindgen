@@ -7,6 +7,7 @@ module HsBindgen.Clang.Paths (
     -- * C header paths
   , CHeaderIncludePath(..)
   , getCHeaderIncludePath
+  , ParseCHeaderIncludePathException(..)
   , parseCHeaderIncludePath
   , renderCHeaderIncludePath
 
@@ -14,6 +15,7 @@ module HsBindgen.Clang.Paths (
   , CIncludePathDir(..)
   ) where
 
+import Control.Exception (Exception(displayException))
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.List qualified as List
@@ -69,6 +71,21 @@ getCHeaderIncludePath = \case
   CHeaderSystemIncludePath path -> path
   CHeaderQuoteIncludePath  path -> path
 
+-- | Failed to parse a 'CHeaderIncludePath'
+data ParseCHeaderIncludePathException =
+    -- | Path contains a backslash
+    ParseCHeaderIncludePathBackslash String
+  | -- | Path is not relative
+    ParseCHeaderIncludePathNotRelative String
+  deriving (Show)
+
+instance Exception ParseCHeaderIncludePathException where
+  displayException = \case
+    ParseCHeaderIncludePathBackslash path ->
+      "C header include path contains a backslash: " ++ path
+    ParseCHeaderIncludePathNotRelative path ->
+      "C header include path not relative: " ++ path
+
 -- | Parse a 'CHeaderIncludePath'
 --
 -- Prefix @system:@ is used to construct a 'CHeaderSystemIncludePath'.  No
@@ -76,17 +93,18 @@ getCHeaderIncludePath = \case
 --
 -- This function returns an error if the path is not relative or if it contains
 -- a backslash.
-parseCHeaderIncludePath :: String -> Either String CHeaderIncludePath
+parseCHeaderIncludePath ::
+     String
+  -> Either ParseCHeaderIncludePathException CHeaderIncludePath
 parseCHeaderIncludePath path = case List.stripPrefix "system:" path of
     Just path' -> CHeaderSystemIncludePath <$> aux path'
     Nothing    -> CHeaderQuoteIncludePath  <$> aux path
   where
-    aux :: FilePath -> Either String FilePath
+    aux :: FilePath -> Either ParseCHeaderIncludePathException FilePath
     aux path'
-      | '\\' `elem` path' =
-          Left $ "C header include path contains a backslash: " ++ path
+      | '\\' `elem` path' = Left $ ParseCHeaderIncludePathBackslash path
       | FilePath.isRelative path' = Right path'
-      | otherwise = Left $ "C header include path not relative: " ++ path
+      | otherwise = Left $ ParseCHeaderIncludePathNotRelative path
 
 -- | Render a 'CHeaderIncludePath'
 --

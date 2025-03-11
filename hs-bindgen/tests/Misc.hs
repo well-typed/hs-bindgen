@@ -8,7 +8,7 @@ module Misc (
 import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
 import System.Directory (doesFileExist, setCurrentDirectory, getCurrentDirectory)
-import System.FilePath ((</>), (-<.>))
+import System.FilePath ((-<.>))
 import Test.Tasty (TestTree, TestName)
 
 import AnsiDiff (ansidiff)

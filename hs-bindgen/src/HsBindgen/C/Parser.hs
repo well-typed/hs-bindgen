@@ -8,19 +8,30 @@ module HsBindgen.C.Parser (
     TranslationUnitException(..)
   , withTranslationUnit
     -- * Processing the 'CXTranslationUnit'
-  , getTranslationUnitTargetTriple
   , foldTranslationUnitWith
+    -- * Parsing
+  , parseCHeader
+    -- * Debugging/development
+  , getTargetTriple
   ) where
 
 import Control.Exception
 import Data.List (partition)
+import Data.Text qualified as Text
 import System.IO
 
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.Clang.Args
+import HsBindgen.C.AST qualified as C
+import HsBindgen.C.Fold qualified as C
+import HsBindgen.C.Fold.DeclState qualified as C
+import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
+import HsBindgen.Errors
+import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
@@ -106,13 +117,6 @@ withTranslationUnit tracer args src k =
   Processing the 'CXTranslationUnit'
 -------------------------------------------------------------------------------}
 
-getTranslationUnitTargetTriple :: CXTranslationUnit -> IO Text
-getTranslationUnitTargetTriple unit =
-    bracket
-        (clang_getTranslationUnitTargetInfo unit)
-        clang_TargetInfo_dispose
-        clang_TargetInfo_getTriple
-
 foldTranslationUnitWith :: MonadUnliftIO m =>
      CXTranslationUnit
   -> (m [a] -> IO b)
@@ -121,3 +125,55 @@ foldTranslationUnitWith :: MonadUnliftIO m =>
 foldTranslationUnitWith unit runFold fold = do
     cursor <- clang_getTranslationUnitCursor unit
     runFold $ HighLevel.clang_visitChildren cursor fold
+
+{-------------------------------------------------------------------------------
+  Parsing
+-------------------------------------------------------------------------------}
+
+parseCHeader ::
+     Tracer IO C.Skipped
+  -> ExtBindings                 -- ^ External bindings
+  -> Predicate                   -- ^ Selection predicate
+  -> CXTranslationUnit
+  -> IO ([SourcePath], C.Header) -- ^ List of included headers and parsed header
+parseCHeader skipTracer extBindings p unit = do
+    (decls, finalDeclState) <-
+      foldTranslationUnitWith
+        unit
+        (C.runFoldState C.initDeclState)
+        (C.foldDecls skipTracer p extBindings unit)
+    let decls' =
+          [ d | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState) ]
+        depPaths = DynGraph.vertices $ C.cIncludePathGraph finalDeclState
+    return (depPaths, C.Header (decls ++ decls'))
+
+{-------------------------------------------------------------------------------
+  Debugging/development
+-------------------------------------------------------------------------------}
+
+getTargetTriple :: ClangArgs -> IO Text
+getTargetTriple args =
+    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
+      HighLevel.withUnsavedFile hName hContent $ \unsavedFile ->
+        HighLevel.withTranslationUnit2 index hPath args [unsavedFile] opts $
+          \case
+            Left err -> panicPure $
+              "Clang parse translation unit error while getting target triple: "
+                ++ show err
+            Right unit ->
+              bracket
+                (clang_getTranslationUnitTargetInfo unit)
+                clang_TargetInfo_dispose
+                clang_TargetInfo_getTriple
+  where
+    hName :: FilePath
+    hName = "hs-bindgen-triple.h"
+
+    hPath :: SourcePath
+    hPath = SourcePath $ Text.pack hName
+
+    hContent :: String
+    hContent = ""
+
+    opts :: BitfieldEnum CXTranslationUnit_Flags
+    opts = bitfieldEnum []

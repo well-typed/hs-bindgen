@@ -1,92 +1,84 @@
+{-# LANGUAGE CPP #-}
+
 -- | Main entry point for using @hs-bindgen@ in TH mode
 module HsBindgen.TH (
-    genBindings
-  , genBindings'
+    -- * Template Haskell API
+    Pipeline.genBindings
+  , Pipeline.genBindings'
+
+    -- * Options
+  , Pipeline.Opts(..)
+  , Pipeline.defaultOpts
+
+    -- ** Clang arguments
+  , Args.ClangArgs(..)
+  , Args.defaultClangArgs
+  , Args.Target(..)
+  , Args.TargetEnv(..)
+  , Args.targetTriple
+  , Args.CStandard(..)
+
+    -- ** External bindings
+  , ExtBindings.ExtBindings -- opaque
+  , ExtBindings.emptyExtBindings
+  , loadExtBindings
+
+    -- ** Translation options
+  , Hs.TranslationOpts(..)
+  , Hs.defaultTranslationOpts
+  , Hs.Strategy(..)
+  , Hs.TypeClass(..)
+
+    -- ** Predicates
+  , Predicate.Predicate(..)
+  , Predicate.Regex -- opaque
+
+    -- ** Logging
+  , Tracer.Tracer
+  , Tracer.nullTracer
+  , Tracer.mkTracerIO
+  , Tracer.mkTracerQ
+  , Tracer.mkTracer
+  , Tracer.contramap
+
+    -- * Paths
+  , Paths.CIncludePathDir(..)
+  , (FilePath.</>)
+  , FilePath.joinPath
+  , THSyntax.getPackageRoot
   ) where
 
-import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
+import System.FilePath qualified as FilePath
 
-import Data.DynGraph qualified as DynGraph
-import HsBindgen.Backend.Extensions
-import HsBindgen.Backend.TH.Translation qualified as Backend.TH
-import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Fold qualified as C
-import HsBindgen.C.Fold.DeclState qualified as C
-import HsBindgen.C.Parser qualified as C
-import HsBindgen.C.Predicate (Predicate(..))
-import HsBindgen.Clang.Args
-import HsBindgen.Clang.Paths
-import HsBindgen.ExtBindings
-import HsBindgen.Hs.Translation qualified as LowLevel
-import HsBindgen.Imports
-import HsBindgen.Resolve
-import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Util.Tracer
+import HsBindgen.C.Predicate qualified as Predicate
+import HsBindgen.Clang.Args qualified as Args
+import HsBindgen.Clang.Paths qualified as Paths
+import HsBindgen.ExtBindings qualified as ExtBindings
+import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Hs.Translation qualified as Hs
+import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Util.Tracer qualified as Tracer
+
+#ifdef MIN_VERSION_th_compat
+import Language.Haskell.TH.Syntax.Compat qualified as THSyntax
+#else
+import Language.Haskell.TH.Syntax qualified as THSyntax
+#endif
 
 {-------------------------------------------------------------------------------
-  Template Haskell API
+  External bindings
 -------------------------------------------------------------------------------}
 
--- | Generate bindings for the given C header
+-- | Load external bindings from configuration files
 --
--- TODO: add TranslationOpts argument
-genBindings ::
-     FilePath -- ^ Input header, as written in C @#include@
-  -> ExtBindings
-  -> ClangArgs
-  -> TH.Q [TH.Dec]
-genBindings fp extBindings args = do
-    headerIncludePath <- either fail return $ parseCHeaderIncludePath fp
-
-    (cheader, depPaths) <- TH.runIO $ do
-      src <- resolveHeader args headerIncludePath
-      C.withTranslationUnit nullTracer args src $ \unit -> do
-        (decls, finalDeclState) <-
-          C.foldTranslationUnitWith
-            unit
-            (C.runFoldState C.initDeclState)
-            (C.foldDecls nullTracer SelectFromMainFile extBindings unit)
-        let decls' =
-              [ d
-              | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState)
-              ]
-            depPaths = DynGraph.vertices $ C.cIncludePathGraph finalDeclState
-        return (C.Header (decls ++ decls'), depPaths)
-
-    -- record dependencies, including transitively included headers
-    mapM_ (TH.addDependentFile . getSourcePath) depPaths
-
-    let sdecls = map SHs.translateDecl $
-          LowLevel.generateDeclarations
-            headerIncludePath
-            LowLevel.defaultTranslationOpts
-            cheader
-
-    -- extensions checks.
-    -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
-    enabledExts <- Set.fromList <$> TH.extsEnabled
-    let requiredExts = foldMap requiredExtensions sdecls
-        missingExts  = requiredExts `Set.difference` enabledExts
-    unless (null missingExts) $ do
-      TH.reportError $ "Missing LANGUAGE extensions: " ++ unwords (map show (toList missingExts))
-
-    -- generate TH declarations
-    concat <$> traverse Backend.TH.mkDecl sdecls
-
--- | Generate bindings for the given C header
+-- The format is determined by filename extension.  The following formats are
+-- supported:
 --
--- This function uses default Clang arguments but allows you to add directories
--- to the include search path.  Use 'genBindings' when more configuration is
--- required.
-genBindings' ::
-     [FilePath] -- ^ Quote include search path directories
-  -> FilePath   -- ^ Input header, as written in C @#include@
-  -> TH.Q [TH.Dec]
-genBindings' quoteIncPathDirs fp = genBindings fp emptyExtBindings args
-  where
-    args :: ClangArgs
-    args = defaultClangArgs {
-        clangQuoteIncludePathDirs  = CIncludePathDir <$> quoteIncPathDirs
-      }
+-- * YAML (@.yaml@ extension)
+-- * JSON (@.json@ extension)
+loadExtBindings ::
+     Args.ClangArgs
+  -> [FilePath]
+  -> TH.Q ExtBindings.ExtBindings
+loadExtBindings args = TH.runIO . ExtBindings.loadExtBindings args

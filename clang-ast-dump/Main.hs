@@ -436,11 +436,13 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       ]
 
     fileArgument :: OA.Parser CHeaderIncludePath
-    fileArgument = OA.argument (OA.eitherReader parseCHeaderIncludePath) $
-      mconcat
-        [ OA.metavar "FILE"
-        , OA.help "C (header) file to parse"
-        ]
+    fileArgument =
+      OA.argument
+        (OA.eitherReader $ first displayException . parseCHeaderIncludePath)
+        $ mconcat [
+              OA.metavar "FILE"
+            , OA.help "C (header) file to parse"
+            ]
 
     mkFlag :: String -> String -> OA.Parser Bool
     mkFlag flag doc = OA.switch $ OA.long flag <> OA.help doc
