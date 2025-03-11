@@ -54,4 +54,10 @@ WrapCHeader
         OpaqueEnum {
           opaqueEnumTag = CName "quu",
           opaqueEnumSourceLoc =
-          "opaque_declaration.h:11:6"}])
+          "opaque_declaration.h:11:6"},
+      DeclOpaqueStruct
+        OpaqueStruct {
+          opaqueStructTag = CName
+            "opaque_union",
+          opaqueStructSourceLoc =
+          "opaque_declaration.h:13:7"}])

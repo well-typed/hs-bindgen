@@ -740,16 +740,21 @@
           fieldName = HsName
             "@NsVar"
             "dim_payload",
-          fieldType = HsPrimType
-            HsPrimCFloat,
+          fieldType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "DimPayload"),
           fieldOrigin =
           FieldOriginStructField
             StructField {
               fieldName = CName "payload",
               fieldOffset = 32,
               fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimFloat),
+              fieldType = TypeUnion
+                (DeclPathUnion
+                  (DeclNameTag
+                    (CName "DimPayload"))
+                  DeclPathTop),
               fieldSourceLoc =
               "unions.h:19:22"}}],
       structOrigin =
@@ -773,8 +778,11 @@
               fieldName = CName "payload",
               fieldOffset = 32,
               fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimFloat),
+              fieldType = TypeUnion
+                (DeclPathUnion
+                  (DeclNameTag
+                    (CName "DimPayload"))
+                  DeclPathTop),
               fieldSourceLoc =
               "unions.h:19:22"}],
           structFlam = Nothing,
@@ -810,16 +818,21 @@
             fieldName = HsName
               "@NsVar"
               "dim_payload",
-            fieldType = HsPrimType
-              HsPrimCFloat,
+            fieldType = HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "DimPayload"),
             fieldOrigin =
             FieldOriginStructField
               StructField {
                 fieldName = CName "payload",
                 fieldOffset = 32,
                 fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimFloat),
+                fieldType = TypeUnion
+                  (DeclPathUnion
+                    (DeclNameTag
+                      (CName "DimPayload"))
+                    DeclPathTop),
                 fieldSourceLoc =
                 "unions.h:19:22"}}],
         structOrigin =
@@ -843,8 +856,11 @@
                 fieldName = CName "payload",
                 fieldOffset = 32,
                 fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimFloat),
+                fieldType = TypeUnion
+                  (DeclPathUnion
+                    (DeclNameTag
+                      (CName "DimPayload"))
+                    DeclPathTop),
                 fieldSourceLoc =
                 "unions.h:19:22"}],
             structFlam = Nothing,
@@ -885,16 +901,21 @@
                     fieldName = HsName
                       "@NsVar"
                       "dim_payload",
-                    fieldType = HsPrimType
-                      HsPrimCFloat,
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "DimPayload"),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                        fieldType = TypeUnion
+                          (DeclPathUnion
+                            (DeclNameTag
+                              (CName "DimPayload"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "unions.h:19:22"}}],
                 structOrigin =
@@ -918,8 +939,11 @@
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                        fieldType = TypeUnion
+                          (DeclPathUnion
+                            (DeclNameTag
+                              (CName "DimPayload"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "unions.h:19:22"}],
                     structFlam = Nothing,
@@ -962,16 +986,21 @@
                     fieldName = HsName
                       "@NsVar"
                       "dim_payload",
-                    fieldType = HsPrimType
-                      HsPrimCFloat,
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "DimPayload"),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                        fieldType = TypeUnion
+                          (DeclPathUnion
+                            (DeclNameTag
+                              (CName "DimPayload"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "unions.h:19:22"}}],
                 structOrigin =
@@ -995,8 +1024,11 @@
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimFloat),
+                        fieldType = TypeUnion
+                          (DeclPathUnion
+                            (DeclNameTag
+                              (CName "DimPayload"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "unions.h:19:22"}],
                     structFlam = Nothing,

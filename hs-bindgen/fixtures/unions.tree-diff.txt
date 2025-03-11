@@ -83,8 +83,11 @@ WrapCHeader
               fieldName = CName "payload",
               fieldOffset = 32,
               fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimFloat),
+              fieldType = TypeUnion
+                (DeclPathUnion
+                  (DeclNameTag
+                    (CName "DimPayload"))
+                  DeclPathTop),
               fieldSourceLoc =
               "unions.h:19:22"}],
           structFlam = Nothing,

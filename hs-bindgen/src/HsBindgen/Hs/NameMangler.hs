@@ -355,6 +355,10 @@ translateDeclPath
         DeclNameNone         -> Nothing
         DeclNameTag name     -> Just name
         DeclNameTypedef name -> Just name
+      DeclPathUnion declName _declPath -> case declName of
+        DeclNameNone         -> Nothing
+        DeclNameTag name     -> Just name
+        DeclNameTypedef name -> Just name
       DeclPathPtr path -> getCName' path
       DeclPathField{} -> Nothing
 
@@ -366,6 +370,10 @@ getDeclPathParts = aux
     aux = \case
       DeclPathTop -> ["ANONYMOUS"] -- shouldn't happen
       DeclPathStruct declName path -> case declName of
+        DeclNameNone      -> aux path
+        DeclNameTag n     -> [n]
+        DeclNameTypedef n -> [n]
+      DeclPathUnion declName path -> case declName of
         DeclNameNone      -> aux path
         DeclNameTag n     -> [n]
         DeclNameTypedef n -> [n]

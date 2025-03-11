@@ -472,4 +472,8 @@
     Eq
     (HsName "@NsTypeConstr" "Baz"),
   DeclEmpty
-    (HsName "@NsTypeConstr" "Quu")]
+    (HsName "@NsTypeConstr" "Quu"),
+  DeclEmpty
+    (HsName
+      "@NsTypeConstr"
+      "Opaque_union")]

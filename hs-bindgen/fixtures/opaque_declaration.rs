@@ -27,3 +27,8 @@ const _: () = {
     ["Alignment of baz"][::std::mem::align_of::<baz>() - 1usize];
 };
 pub type quu = i32;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct opaque_union {
+    _unused: [u8; 0],
+}
