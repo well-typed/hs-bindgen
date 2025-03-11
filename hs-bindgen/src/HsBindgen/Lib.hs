@@ -83,7 +83,6 @@ import HsBindgen.Clang.Args qualified as Args
 import HsBindgen.Clang.Paths qualified as Paths
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Imports (Generic)
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
@@ -99,7 +98,6 @@ import HsBindgen.Util.Tracer qualified as Tracer
 newtype CHeader = WrapCHeader {
       unwrapCHeader :: C.Header
     }
-  deriving Generic
 
 -- | Parse a C header
 parseCHeader :: Pipeline.Opts -> Paths.CHeaderIncludePath -> IO CHeader

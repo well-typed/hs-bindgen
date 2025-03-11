@@ -19,7 +19,6 @@ import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
-import HsBindgen.Lib
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Enum.Simple
 
@@ -38,8 +37,6 @@ instance ToExpr CInt where
 {-------------------------------------------------------------------------------
   hs-bindgen
 -------------------------------------------------------------------------------}
-
-instance ToExpr CHeader
 
 instance ToExpr C.Attribute
 instance ToExpr C.CName
