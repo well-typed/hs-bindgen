@@ -1,6 +1,7 @@
 packages: hs-bindgen-runtime
 packages: hs-bindgen
 packages: hs-bindgen-libclang
+packages: hs-bindgen-testlib
 packages: ansi-diff
 packages: c-expr
 packages: clang-ast-dump

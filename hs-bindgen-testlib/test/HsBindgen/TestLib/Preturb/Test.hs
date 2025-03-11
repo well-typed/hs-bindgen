@@ -21,7 +21,7 @@ import HsBindgen.TestLib.Preturb qualified as Preturb
 -- | Test a 'Num'
 testNum :: forall a.
      (Arbitrary a, Num a, Preturb a, SameSemantics a, Show a, Typeable a)
-  => (FC.CLong -> a -> IO a)
+  => (FC.CLLong -> a -> IO a)
   -> TestTree
 testNum cX = testGroup (show (typeRep (Proxy @a)))
     [ testGroup Preturb.namePreturb0XSameSemanticsX
@@ -57,7 +57,7 @@ testBoundedNum :: forall a.
      , Show a
      , Typeable a
      )
-  => (FC.CLong -> a -> IO a)
+  => (FC.CLLong -> a -> IO a)
   -> TestTree
 testBoundedNum cX = testGroup (show (typeRep (Proxy @a)))
     [ testGroup Preturb.namePreturb0XSameSemanticsX
@@ -108,7 +108,7 @@ testRealFloat :: forall a.
      , Show a
      , Typeable a
      )
-  => (FC.CLong -> a -> IO a)
+  => (FC.CLLong -> a -> IO a)
   -> TestTree
 testRealFloat cX = testGroup (show (typeRep (Proxy @a)))
     [ testGroup Preturb.namePreturb0XSameSemanticsX

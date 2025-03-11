@@ -40,7 +40,7 @@ class Preturb a where
   -- The @size@ is interpreted on a per-type basis.  Intuitively, smaller
   -- perturbations should be easier to understand (to support shrinking).
   --
-  -- Type 'FC.CLong' is used so that the Haskell implementation can match the C
+  -- Type 'FC.CLLong' is used so that the Haskell implementation can match the C
   -- implementation.
   --
   -- prop> preturb 0 x `sameSemantics` x
@@ -48,7 +48,7 @@ class Preturb a where
   -- prop> not (preturb 1 x `sameSemantics` x)
   --
   -- prop> preturb (negate size) (preturb size x) `sameSemantics` x
-  preturb :: FC.CLong -> a -> a
+  preturb :: FC.CLLong -> a -> a
 
 instance Preturb FC.CChar where
   preturb size n = n + fromIntegral size
@@ -72,7 +72,7 @@ instance Preturb FC.CUInt where
   preturb size n = n + fromIntegral size
 
 instance Preturb FC.CLong where
-  preturb size n = n + size
+  preturb size n = n + fromIntegral size
 
 instance Preturb FC.CULong where
   preturb size n = n + fromIntegral size
@@ -90,7 +90,7 @@ instance Preturb FC.CSigAtomic where
   preturb size n = n + fromIntegral size
 
 instance Preturb FC.CLLong where
-  preturb size n = n + fromIntegral size
+  preturb size n = n + size
 
 instance Preturb FC.CULLong where
   preturb size n = n + fromIntegral size
@@ -184,7 +184,7 @@ namePreturbNegateNPreturbNXSameSemanticsX =
 -- This property does not apply when the size is @0@ or @minBound@.
 prop_PreturbNegateNPreturbNXSameSemanticsX ::
      (Preturb a, SameSemantics a, Show a)
-  => FC.CLong
+  => FC.CLLong
   -> a
   -> Property
 prop_PreturbNegateNPreturbNXSameSemanticsX size x
@@ -200,7 +200,7 @@ prop_PreturbNegateNPreturbNXSameSemanticsX size x
 -- This property does not apply when the size is @minBound@.
 assertPreturbNegateNPreturbNXSameSemanticsX ::
      (Preturb a, SameSemantics a, Show a)
-  => FC.CLong
+  => FC.CLLong
   -> a
   -> Assertion
 assertPreturbNegateNPreturbNXSameSemanticsX size x =
@@ -216,8 +216,8 @@ nameHsPreturbNXSameSemanticsCPreturbNX = "HsPreturbNXSameSemanticsCPreturbNX"
 -- preturbed using C (using the same size)
 prop_HsPreturbNXSameSemanticsCPreturbNX ::
      (Preturb a, SameSemantics a)
-  => (FC.CLong -> a -> IO a)
-  -> FC.CLong
+  => (FC.CLLong -> a -> IO a)
+  -> FC.CLLong
   -> a
   -> Property
 prop_HsPreturbNXSameSemanticsCPreturbNX cPreturb size x = QCM.monadicIO $ do
@@ -228,8 +228,8 @@ prop_HsPreturbNXSameSemanticsCPreturbNX cPreturb size x = QCM.monadicIO $ do
 -- preturbed using C (using the same size)
 assertHsPreturbNXSameSemanticsCPreturbNX ::
      (Preturb a, SameSemantics a, Show a)
-  => (FC.CLong -> a -> IO a)
-  -> FC.CLong
+  => (FC.CLLong -> a -> IO a)
+  -> FC.CLLong
   -> a
   -> Assertion
 assertHsPreturbNXSameSemanticsCPreturbNX cPreturb size x = do
@@ -253,22 +253,22 @@ assertHsPreturbNXSameSemanticsCPreturbNX cPreturb size x = do
 --     1. Fraction
 --     2. Exponent
 --     3. Sign
-preturbFloat :: FC.CLong -> Float -> Float
+preturbFloat :: FC.CLLong -> Float -> Float
 -- Any changes to this implementation must also be made in the C implementation.
 -- Note that the @'@ character is not used in variable names so that variable
 -- names can be translated to C, making it easier to compare the two
 -- implementations.
 preturbFloat size x
-    | isNaN x          = if size `mod` 2 == 0 then RF.nan     else RF.negZero
-    | isNegativeZero x = if size `mod` 2 == 0 then RF.negZero else RF.nan
-    | isInfinite x     = if size `mod` 2 == 0 then x          else negate x
+    | isNaN x          = if even size then RF.nan     else RF.negZero
+    | isNegativeZero x = if even size then RF.negZero else RF.nan
+    | isInfinite x     = if even size then x          else negate x
     | e == 0 = RF.floatFromWord32 $
-        let sR = if (sizeDiv + fDiv) `mod` 2 == 0 then s else sC
+        let sR = if even (sizeDiv + fDiv) then s else sC
         in  sR + fromIntegral fMod
     | otherwise = RF.floatFromWord32 $
         let (eDiv, eMod) = fmap (+ 1) $
               (fDiv + sizeDiv + fromIntegral e - 1) `divMod` eSize
-            sR = if eDiv `mod` 2 == 0 then s else sC
+            sR = if even eDiv then s else sC
         in  sR + Bits.shiftL (fromIntegral eMod) eIdx + fromIntegral fMod
   where
     -- Single-precision floating-point values are represented as follows:
@@ -303,7 +303,7 @@ preturbFloat size x
     eIdx = 23
 
     -- Exponent size (not including special values), fraction size
-    eSize, fSize :: FC.CLong
+    eSize, fSize :: FC.CLLong
     eSize = fromIntegral $ eMask - 1
     fSize = fromIntegral $ fMask + 1
 
@@ -319,8 +319,8 @@ preturbFloat size x
     e  = Bits.shiftR w eIdx Bits..&. eMask
     f  = w Bits..&. fMask
 
-    -- Avoid overflow in CLong domain
-    sizeDiv, sizeMod, fDiv, fMod :: FC.CLong
+    -- Avoid overflow in CLLong domain
+    sizeDiv, sizeMod, fDiv, fMod :: FC.CLLong
     (sizeDiv, sizeMod) = size `divMod` fSize
     (fDiv, fMod) = (sizeMod + fromIntegral f) `divMod` fSize
 
@@ -337,22 +337,22 @@ preturbFloat size x
 --     1. Fraction
 --     2. Exponent
 --     3. Sign
-preturbDouble :: FC.CLong -> Double -> Double
+preturbDouble :: FC.CLLong -> Double -> Double
 -- Any changes to this implementation must also be made in the C implementation.
 -- Note that the @'@ character is not used in variable names so that variable
 -- names can be translated to C, making it easier to compare the two
 -- implementations.
 preturbDouble size x
-    | isNaN x          = if size `mod` 2 == 0 then RF.nan     else RF.negZero
-    | isNegativeZero x = if size `mod` 2 == 0 then RF.negZero else RF.nan
-    | isInfinite x     = if size `mod` 2 == 0 then x          else negate x
+    | isNaN x          = if even size then RF.nan     else RF.negZero
+    | isNegativeZero x = if even size then RF.negZero else RF.nan
+    | isInfinite x     = if even size then x          else negate x
     | e == 0 = RF.doubleFromWord64 $
-        let sR = if (sizeDiv + fDiv) `mod` 2 == 0 then s else sC
+        let sR = if even (sizeDiv + fDiv) then s else sC
         in  sR + fromIntegral fMod
     | otherwise = RF.doubleFromWord64 $
         let (eDiv, eMod) = fmap (+ 1) $
               (fDiv + sizeDiv + fromIntegral e - 1) `divMod` eSize
-            sR = if eDiv `mod` 2 == 0 then s else sC
+            sR = if even eDiv then s else sC
         in  sR + Bits.shiftL (fromIntegral eMod) eIdx + fromIntegral fMod
   where
     -- Double-precision floating-point values are represented as follows:
@@ -387,7 +387,7 @@ preturbDouble size x
     eIdx = 52
 
     -- Exponent size (not including special values), fraction size
-    eSize, fSize :: FC.CLong
+    eSize, fSize :: FC.CLLong
     eSize = fromIntegral $ eMask - 1
     fSize = fromIntegral $ fMask + 1
 
@@ -403,7 +403,7 @@ preturbDouble size x
     e  = Bits.shiftR w eIdx Bits..&. eMask
     f  = w Bits..&. fMask
 
-    -- Avoid overflow in CLong domain
-    sizeDiv, sizeMod, fDiv, fMod :: FC.CLong
+    -- Avoid overflow in CLLong domain
+    sizeDiv, sizeMod, fDiv, fMod :: FC.CLLong
     (sizeDiv, sizeMod) = size `divMod` fSize
     (fDiv, fMod) = (sizeMod + fromIntegral f) `divMod` fSize
