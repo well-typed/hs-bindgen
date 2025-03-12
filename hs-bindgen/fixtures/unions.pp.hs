@@ -71,7 +71,7 @@ deriving stock instance Eq Dim3
 
 data Dim = Dim
   { dim_tag :: FC.CInt
-  , dim_payload :: FC.CFloat
+  , dim_payload :: DimPayload
   }
 
 instance F.Storable Dim where

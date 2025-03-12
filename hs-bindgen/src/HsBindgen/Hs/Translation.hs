@@ -403,6 +403,9 @@ typ nm = go CTop
         Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext c)) -- wrong
     go _ (C.TypeStruct declPath) =
         Hs.HsTypRef (mangleTypeConstrName nm (StructTypeConstrContext declPath))
+    go _ (C.TypeUnion declPath) =
+        -- TODO: UnionTypeConstrContext?
+        Hs.HsTypRef (mangleTypeConstrName nm (StructTypeConstrContext declPath))
     go _ (C.TypeEnum name) =
         Hs.HsTypRef (mangleTypeConstrName nm (TypeConstrContext name))
     go c C.TypeVoid =

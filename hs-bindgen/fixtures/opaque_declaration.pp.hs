@@ -61,3 +61,5 @@ deriving stock instance Show Baz
 deriving stock instance Eq Baz
 
 data Quu
+
+data Opaque_union

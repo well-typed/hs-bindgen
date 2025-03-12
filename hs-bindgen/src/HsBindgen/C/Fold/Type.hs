@@ -241,8 +241,63 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                     }
 
             Right CXCursor_UnionDecl -> do
-                -- TODO: for now return some garbage
-                return $ TypePrim $ PrimFloating $ PrimFloat
+                name <- liftIO (clang_getTypeSpelling ty)
+                anon <- liftIO (clang_Cursor_isAnonymous decl)
+
+                -- dtraceIO "union" (decl, name, anon)
+
+                let declPath
+                      | anon      = DeclPathUnion DeclNameNone path
+                      | otherwise = case T.stripPrefix "union " name of
+                          Just n  -> DeclPathUnion (DeclNameTag (CName n))        path
+                          Nothing -> DeclPathUnion (DeclNameTypedef (CName name)) path
+
+                -- name for opaque types.
+                let name'
+                      | anon      = ""
+                      | otherwise =  case T.stripPrefix "union " name of
+                          Just n  -> n
+                          Nothing -> name
+
+                if declPath == DeclPathUnion DeclNameNone DeclPathTop
+                then do
+                    -- Anonymous top-level declaration: nothing to do but warn, as there
+                    -- shouldn't be one in "good" code.
+                    return TypeVoid
+
+                else do
+                    addTypeDeclProcessing ty $ TypeUnion declPath
+                    sloc <- liftIO $
+                        HighLevel.clang_getExpansionLocation
+                            =<< clang_getCursorLocation decl
+
+                    -- TODO: ExtBindings?
+                    liftIO (HighLevel.classifyDeclaration decl) >>= \case
+                            DeclarationOpaque ->
+                                -- opaque struct and opaque union look the same.
+                                addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                                      opaqueStructTag       = CName name'
+                                    , opaqueStructSourceLoc = sloc
+                                    }
+
+                            DeclarationForward _defn -> do
+                                liftIO $ panicIO "should not happen"
+
+                            DeclarationRegular -> do
+                                -- the below is TODO:
+                                sizeof    <- liftIO (clang_Type_getSizeOf  ty)
+                                alignment <- liftIO (clang_Type_getAlignOf ty)
+
+                                {-
+                                fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                                    mfield <- mkStructField extBindings unit declPath cursor
+                                    return $ Continue mfield
+                                -}
+
+                                let _unused = (sizeof, alignment)
+
+                                -- TODO: for now return some garbage
+                                return $ TypePrim $ PrimFloating $ PrimFloat
 
             _ -> panicIO $ show ki
     -- enum

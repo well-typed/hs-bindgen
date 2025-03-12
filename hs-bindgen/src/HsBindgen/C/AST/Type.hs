@@ -36,6 +36,7 @@ import HsBindgen.C.AST.Name
 data Type =
     TypePrim PrimType
   | TypeStruct DeclPath
+  | TypeUnion DeclPath
   | TypeEnum CName
   | TypeTypedef CName
   | TypePointer Type
@@ -247,7 +248,7 @@ data Typedef = Typedef {
 data DeclPath
     = DeclPathTop
     | DeclPathStruct DeclName DeclPath
-    -- TODO | DeclPathUnion (Maybe CName) DeclPath
+    | DeclPathUnion DeclName DeclPath
     | DeclPathField CName DeclPath
     | DeclPathPtr DeclPath
     -- TODO | DeclPathConstArray Natural Path

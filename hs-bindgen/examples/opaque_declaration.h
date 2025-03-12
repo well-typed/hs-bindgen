@@ -9,3 +9,5 @@ struct bar {
 struct baz {}; /* not opaque */
 
 enum quu;
+
+union opaque_union;
