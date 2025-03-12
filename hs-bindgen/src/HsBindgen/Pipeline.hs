@@ -6,6 +6,7 @@ module HsBindgen.Pipeline (
   , defaultPPOpts
 
     -- * Translation pipeline components
+  , parseCHeader
   , genHsDecls
   , genSHsDecls
   , genModule
@@ -15,7 +16,7 @@ module HsBindgen.Pipeline (
   , genExtensions
 
     -- * Preprocessor API
-  , parseCHeader
+  , translateCHeader
   , preprocessPure
   , preprocessIO
 
@@ -70,6 +71,7 @@ data Opts = Opts {
     , optsSkipTracer  :: Tracer IO String
     }
 
+-- | Default 'Opts'
 defaultOpts :: Opts
 defaultOpts = Opts {
       optsClangArgs   = defaultClangArgs
@@ -87,6 +89,7 @@ data PPOpts = PPOpts {
     , ppOptsRender :: HsRenderOpts -- ^ Default line length: 120
     }
 
+-- | Default 'PPOpts'
 defaultPPOpts :: PPOpts
 defaultPPOpts = PPOpts {
       ppOptsModule = HsModuleOpts { hsModuleOptsName = "Generated" }
@@ -95,32 +98,6 @@ defaultPPOpts = PPOpts {
 
 {-------------------------------------------------------------------------------
   Translation pipeline components
--------------------------------------------------------------------------------}
-
-genHsDecls :: Opts -> CHeaderIncludePath -> C.Header -> [Hs.Decl]
-genHsDecls Opts{..} headerIncludePath =
-    Hs.generateDeclarations headerIncludePath optsTranslation optsNameMangler
-
-genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
-genSHsDecls = map SHs.translateDecl
-
-genModule :: PPOpts -> [SHs.SDecl] -> Backend.PP.HsModule
-genModule PPOpts{..} = Backend.PP.translateModule ppOptsModule
-
-genPP :: PPOpts -> Maybe FilePath -> Backend.PP.HsModule -> IO ()
-genPP PPOpts{..} fp = Backend.PP.renderIO ppOptsRender fp
-
-genPPString :: PPOpts -> Backend.PP.HsModule -> String
-genPPString PPOpts{..} = Backend.PP.render ppOptsRender
-
-genTH :: TH.Quote q => [SHs.SDecl] -> q [TH.Dec]
-genTH = fmap concat . traverse Backend.TH.mkDecl
-
-genExtensions :: [SHs.SDecl] -> Set TH.Extension
-genExtensions = foldMap requiredExtensions
-
-{-------------------------------------------------------------------------------
-  Preprocessor API
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header
@@ -136,32 +113,56 @@ parseCHeader Opts{..} headerIncludePath = do
     skipTracer :: Tracer IO C.Skipped
     skipTracer = contramap prettyLogMsg optsSkipTracer
 
+-- | Generate @Hs@ declarations
+genHsDecls :: Opts -> CHeaderIncludePath -> C.Header -> [Hs.Decl]
+genHsDecls Opts{..} headerIncludePath =
+    Hs.generateDeclarations headerIncludePath optsTranslation optsNameMangler
+
+-- | Generate @SHs@ declarations
+genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
+genSHsDecls = map SHs.translateDecl
+
+-- | Generate a preprocessor 'Backend.PP.HsModule'
+genModule :: PPOpts -> [SHs.SDecl] -> Backend.PP.HsModule
+genModule PPOpts{..} = Backend.PP.translateModule ppOptsModule
+
+-- | Generate bindings source code, written to a file or @STDOUT@
+genPP :: PPOpts -> Maybe FilePath -> Backend.PP.HsModule -> IO ()
+genPP PPOpts{..} fp = Backend.PP.renderIO ppOptsRender fp
+
+-- | Generate bindings source code
+genPPString :: PPOpts -> Backend.PP.HsModule -> String
+genPPString PPOpts{..} = Backend.PP.render ppOptsRender
+
+-- | Generate Template Haskell declarations
+genTH :: TH.Quote q => [SHs.SDecl] -> q [TH.Dec]
+genTH = fmap concat . traverse Backend.TH.mkDecl
+
+-- | Generate set of required extensions
+genExtensions :: [SHs.SDecl] -> Set TH.Extension
+genExtensions = foldMap requiredExtensions
+
+{-------------------------------------------------------------------------------
+  Preprocessor API
+-------------------------------------------------------------------------------}
+
+-- | Parse a C header and generate @Hs@ declarations
+translateCHeader :: Opts -> CHeaderIncludePath -> IO [Hs.Decl]
+translateCHeader opts headerIncludePath = do
+    (_depPaths, header) <- parseCHeader opts headerIncludePath
+    return $ genHsDecls opts headerIncludePath header
+
 -- | Generate bindings for the given C header
-preprocessPure ::
-     Opts
-  -> PPOpts
-  -> CHeaderIncludePath
-  -> C.Header
-  -> String
-preprocessPure opts ppOpts headerIncludePath =
-    genPPString ppOpts
-      . genModule ppOpts
-      . genSHsDecls
-      . genHsDecls opts headerIncludePath
+preprocessPure :: PPOpts -> [Hs.Decl] -> String
+preprocessPure ppOpts = genPPString ppOpts . genModule ppOpts . genSHsDecls
 
 -- | Generate bindings for the given C header
 preprocessIO ::
-     Opts
-  -> PPOpts
-  -> CHeaderIncludePath
+     PPOpts
   -> Maybe FilePath     -- ^ Output file or 'Nothing' for @STDOUT@
-  -> C.Header
+  -> [Hs.Decl]
   -> IO ()
-preprocessIO opts ppOpts headerIncludePath fp =
-    genPP ppOpts fp
-      . genModule ppOpts
-      . genSHsDecls
-      . genHsDecls opts headerIncludePath
+preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
 
 {-------------------------------------------------------------------------------
   Template Haskell API
@@ -213,11 +214,11 @@ genBindings' quoteIncPathDirs = genBindings defaultOpts {
   Test generation
 -------------------------------------------------------------------------------}
 
-genTests :: PPOpts -> CHeaderIncludePath -> FilePath -> C.Header -> IO ()
-genTests PPOpts{..} headerIncludePath testDir cheader =
+genTests :: PPOpts -> CHeaderIncludePath -> FilePath -> [Hs.Decl] -> IO ()
+genTests PPOpts{..} headerIncludePath testDir decls =
     GenTests.genTests
       headerIncludePath
-      cheader
+      decls
       (hsModuleOptsName ppOptsModule)
       (hsLineLength ppOptsRender)
       testDir

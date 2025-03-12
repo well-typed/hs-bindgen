@@ -7,14 +7,11 @@ import Data.List qualified as List
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
-import HsBindgen.C.AST qualified as C
 import HsBindgen.Clang.Paths
 import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
 import HsBindgen.GenTests.Readme (genTestsReadme)
-import HsBindgen.Hs.AST (Decl)
-import HsBindgen.Hs.NameMangler (defaultNameMangler)
-import HsBindgen.Hs.Translation qualified as Hs
+import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -24,12 +21,12 @@ import HsBindgen.Imports
 -- | Generate test suite
 genTests ::
      CHeaderIncludePath
-  -> C.Header
+  -> [Hs.Decl]
   -> String   -- ^ Generated Haskell module name
   -> Int      -- ^ Maximum line length
   -> FilePath -- ^ Test suite directory path
   -> IO ()
-genTests headerIncludePath cHeader moduleName lineLength testSuitePath = do
+genTests headerIncludePath decls moduleName lineLength testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
@@ -70,14 +67,6 @@ genTests headerIncludePath cHeader moduleName lineLength testSuitePath = do
     hsTestPath                = FilePath.combine modulePath "Test.hs"
     hsSpecPath                = FilePath.combine srcPath "Spec.hs"
     hsMainPath                = FilePath.combine srcPath "Main.hs"
-
-    decls :: [Decl]
-    decls =
-      Hs.generateDeclarations
-        headerIncludePath
-        Hs.defaultTranslationOpts
-        defaultNameMangler
-        cHeader
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

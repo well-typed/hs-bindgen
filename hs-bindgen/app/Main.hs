@@ -3,11 +3,13 @@ module Main (main) where
 
 import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
 import Text.Read (readMaybe)
+import Text.Show.Pretty qualified as Pretty
 import System.Exit (ExitCode, exitFailure)
 
 import HsBindgen.App.Cmdline
 import HsBindgen.Errors
 import HsBindgen.Lib
+import HsBindgen.Pipeline qualified as Pipeline
 
 {-------------------------------------------------------------------------------
   Main application
@@ -43,8 +45,8 @@ execMode cmdline@Cmdline{..} tracer = \case
               ppOptsModule = preprocessModuleOpts
             , ppOptsRender = preprocessRenderOpts
             }
-      preprocessIO opts ppOpts preprocessInput preprocessOutput
-        =<< parseCHeader opts preprocessInput
+      preprocessIO ppOpts preprocessOutput
+        =<< translateCHeader opts preprocessInput
 
     ModeGenTests{..} -> do
       extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
@@ -56,7 +58,7 @@ execMode cmdline@Cmdline{..} tracer = \case
             , ppOptsRender = genTestsRenderOpts
             }
       genTests ppOpts genTestsInput genTestsOutput
-        =<< parseCHeader opts genTestsInput
+        =<< translateCHeader opts genTestsInput
 
     ModeLiterate input output -> execLiterate input output tracer
 
@@ -91,7 +93,7 @@ execDevMode Cmdline{..} tracer = \case
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
-      dumpCHeader =<< parseCHeader opts parseCHeaderInput
+      Pretty.dumpIO . snd =<< Pipeline.parseCHeader opts parseCHeaderInput
   where
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
