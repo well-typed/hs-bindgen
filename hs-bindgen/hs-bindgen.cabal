@@ -178,6 +178,7 @@ executable hs-bindgen
   build-depends:
       -- Inherited dependencies
     , data-default
+    , pretty-show
   build-depends:
     , optparse-applicative >= 0.18 && < 0.19
 

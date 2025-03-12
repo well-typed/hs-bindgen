@@ -104,11 +104,10 @@ main' packageRoot bg = testGroup "golden"
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
         let headerIncludePath = mkHeaderIncludePath name
             opts' = mkOpts report
-        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
+        decls <- Pipeline.translateCHeader opts' headerIncludePath
 
         -- TODO: PP.render should add trailing '\n' itself.
-        return $
-          Pipeline.preprocessPure opts' ppOpts headerIncludePath header ++ "\n"
+        return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
 
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.

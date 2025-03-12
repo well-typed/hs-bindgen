@@ -10,9 +10,9 @@ module HsBindgen.Lib (
   , Paths.parseCHeaderIncludePath
   , Resolve.resolveHeader
 
-    -- * Parsing
-  , CHeader -- opaque
-  , parseCHeader
+    -- * Parsing and translating
+  , HsDecls -- opaque
+  , translateCHeader
 
     -- * Preprocessor
   , preprocessPure
@@ -20,9 +20,6 @@ module HsBindgen.Lib (
 
     -- * Test generation
   , genTests
-
-    -- * Development/debugging
-  , dumpCHeader
 
     -- * Options
   , Pipeline.Opts(..)
@@ -73,11 +70,9 @@ module HsBindgen.Lib (
   ) where
 
 import System.FilePath qualified as FilePath
-import Text.Show.Pretty qualified as Pretty
 
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
-import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.Args qualified as Args
 import HsBindgen.Clang.Paths qualified as Paths
@@ -89,44 +84,35 @@ import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Util.Tracer qualified as Tracer
 
 {-------------------------------------------------------------------------------
-  Parsing
+  Parsing and translating
 
   An opaque newtype is used because the C and Haskell ASTs are /not/ part of the
   public API.
 -------------------------------------------------------------------------------}
 
-newtype CHeader = WrapCHeader {
-      unwrapCHeader :: C.Header
+-- | Haskell declarations, translated from a C header
+newtype HsDecls = WrapHsDecls {
+      unwrapHsDecls :: [Hs.Decl]
     }
 
--- | Parse a C header
-parseCHeader :: Pipeline.Opts -> Paths.CHeaderIncludePath -> IO CHeader
-parseCHeader opts = fmap (WrapCHeader . snd) . Pipeline.parseCHeader opts
+translateCHeader :: Pipeline.Opts -> Paths.CHeaderIncludePath -> IO HsDecls
+translateCHeader opts = fmap WrapHsDecls . Pipeline.translateCHeader opts
 
 {-------------------------------------------------------------------------------
   Preprocessor
 -------------------------------------------------------------------------------}
 
 -- | Generate bindings for the given C header
-preprocessPure ::
-     Pipeline.Opts
-  -> Pipeline.PPOpts
-  -> Paths.CHeaderIncludePath
-  -> CHeader
-  -> String
-preprocessPure opts ppOpts headerIncludePath =
-    Pipeline.preprocessPure opts ppOpts headerIncludePath . unwrapCHeader
+preprocessPure :: Pipeline.PPOpts -> HsDecls -> String
+preprocessPure ppOpts = Pipeline.preprocessPure ppOpts . unwrapHsDecls
 
 -- | Generate bindings for the given C header
 preprocessIO ::
-     Pipeline.Opts
-  -> Pipeline.PPOpts
-  -> Paths.CHeaderIncludePath
+     Pipeline.PPOpts
   -> Maybe FilePath -- ^ Output file or 'Nothing' for @STDOUT@
-  -> CHeader
+  -> HsDecls
   -> IO ()
-preprocessIO opts ppOpts headerIncludePath fp =
-    Pipeline.preprocessIO opts ppOpts headerIncludePath fp . unwrapCHeader
+preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Test generation
@@ -136,14 +122,7 @@ genTests ::
      Pipeline.PPOpts
   -> Paths.CHeaderIncludePath
   -> FilePath -- ^ Test suite directory path
-  -> CHeader
+  -> HsDecls
   -> IO ()
 genTests ppOpts headerIncludePath testDir =
-    Pipeline.genTests ppOpts headerIncludePath testDir . unwrapCHeader
-
-{-------------------------------------------------------------------------------
-  Development/debugging
--------------------------------------------------------------------------------}
-
-dumpCHeader :: CHeader -> IO ()
-dumpCHeader = Pretty.dumpIO . unwrapCHeader
+    Pipeline.genTests ppOpts headerIncludePath testDir . unwrapHsDecls
