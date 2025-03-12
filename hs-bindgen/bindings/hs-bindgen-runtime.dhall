@@ -1,4 +1,4 @@
--- hs-bindgen shared library configuration for hs-bindgen-runtime
+-- hs-bindgen external bindings configuration for hs-bindgen-runtime
 
 let map = https://prelude.dhall-lang.org/List/map
 
