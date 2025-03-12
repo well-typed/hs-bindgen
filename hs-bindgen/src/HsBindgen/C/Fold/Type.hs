@@ -175,18 +175,23 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
         ki <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
         case ki of
             Right CXCursor_StructDecl -> do
-                -- TODO: don't use getCursorSpelling.
-                tag <- liftIO (clang_getCursorSpelling decl)
                 name <- liftIO (clang_getTypeSpelling ty)
                 anon <- liftIO (clang_Cursor_isAnonymous decl)
 
-                -- dtraceIO "record" (decl, tag, name, anon)
+                -- dtraceIO "record" (decl, name, anon)
 
                 let declPath
                       | anon      = DeclPathStruct DeclNameNone path
                       | otherwise = case T.stripPrefix "struct " name of
                           Just n  -> DeclPathStruct (DeclNameTag (CName n))        path
                           Nothing -> DeclPathStruct (DeclNameTypedef (CName name)) path
+
+                -- name for opaque types.
+                let name'
+                      | anon      = ""
+                      | otherwise =  case T.stripPrefix "struct " name of
+                          Just n  -> n
+                          Nothing -> name
 
                 if declPath == DeclPathStruct DeclNameNone DeclPathTop
                 then do
@@ -208,9 +213,8 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                         Just extId -> addAlias ty $ TypeExtBinding extId
                         Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
                             DeclarationOpaque ->
-                                -- TODO: use defnname
                                 addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                                      opaqueStructTag       = CName tag
+                                      opaqueStructTag       = CName name'
                                     , opaqueStructSourceLoc = sloc
                                     }
 
