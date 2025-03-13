@@ -101,6 +101,7 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.Debug
+      HsBindgen.ExtBindings.Gen
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs

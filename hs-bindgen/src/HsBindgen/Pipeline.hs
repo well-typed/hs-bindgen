@@ -24,11 +24,16 @@ module HsBindgen.Pipeline (
   , genBindings
   , genBindings'
 
+    -- * External bindings generation
+  , genExtBindings
+
     -- * Test generation
   , genTests
   ) where
 
+import Control.Monad ((<=<))
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 
@@ -45,7 +50,9 @@ import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.Paths
+import HsBindgen.Errors
 import HsBindgen.ExtBindings
+import HsBindgen.ExtBindings.Gen qualified as GenExtBindings
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.NameMangler qualified as Hs
@@ -211,9 +218,30 @@ genBindings' quoteIncPathDirs = genBindings defaultOpts {
     }
 
 {-------------------------------------------------------------------------------
+  External bindings generation
+-------------------------------------------------------------------------------}
+
+-- | Generate external bindings configuration
+genExtBindings ::
+     PPOpts
+  -> CHeaderIncludePath
+  -> HsPackageName
+  -> FilePath
+  -> [Hs.Decl]
+  -> IO ()
+genExtBindings PPOpts{..} headerIncludePath packageName path =
+        either (throwIO . HsBindgenException) return
+    <=< writeUnresolvedExtBindings path
+    .   GenExtBindings.genExtBindings headerIncludePath packageName moduleName
+  where
+    moduleName :: HsModuleName
+    moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)
+
+{-------------------------------------------------------------------------------
   Test generation
 -------------------------------------------------------------------------------}
 
+-- | Generate tests
 genTests :: PPOpts -> CHeaderIncludePath -> FilePath -> [Hs.Decl] -> IO ()
 genTests PPOpts{..} headerIncludePath testDir decls =
     GenTests.genTests
