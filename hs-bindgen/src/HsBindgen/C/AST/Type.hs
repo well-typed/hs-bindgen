@@ -12,6 +12,8 @@ module HsBindgen.C.AST.Type (
   , Struct(..)
   , StructField(..)
   , OpaqueStruct(..)
+    -- * Unions
+  , Union(..)
     -- * Enums
   , Enu(..)
   , EnumValue(..)
@@ -178,6 +180,21 @@ data StructField = StructField {
 data OpaqueStruct = OpaqueStruct {
       opaqueStructTag       :: CName
     , opaqueStructSourceLoc :: SingleLoc
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (PrettyVal)
+
+{-------------------------------------------------------------------------------
+  Unions
+-------------------------------------------------------------------------------}
+
+-- | Definition of an union
+data Union = Union {
+      unionDeclPath  :: DeclPath
+    , unionSizeof    :: Int
+    , unionAlignment :: Int
+    -- TODO: , unionFields    :: [UnionField]
+    , unionSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyVal)

@@ -1,4 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
@@ -68,6 +69,8 @@ instance F.Storable Dim3 where
 deriving stock instance Show Dim3
 
 deriving stock instance Eq Dim3
+
+data DimPayload
 
 data Dim = Dim
   { dim_tag :: FC.CInt

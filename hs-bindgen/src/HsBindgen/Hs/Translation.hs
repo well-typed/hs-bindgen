@@ -128,6 +128,7 @@ instance ToHs C.Header where
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
   toHs _ opts nm (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts nm struct
+  toHs _ opts nm (C.DeclUnion union)    = unionDecs opts nm union
   toHs _ opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm $ C.opaqueStructTag o
   toHs _ opts nm (C.DeclEnum e)         = enumDecs opts nm e
   toHs _ opts nm (C.DeclOpaqueEnum o)   = opaqueStructDecs opts nm $ C.opaqueEnumTag o -- TODO?
@@ -212,6 +213,19 @@ opaqueStructDecs _opts NameMangler{..} cname =
     ]
   where
     typeConstrCtx = TypeConstrContext cname
+    hsName = mangleTypeConstrName typeConstrCtx
+
+{-------------------------------------------------------------------------------
+  Unions
+-------------------------------------------------------------------------------}
+
+unionDecs :: TranslationOpts -> NameMangler -> C.Union -> [Hs.Decl]
+unionDecs _opts NameMangler{..} union =
+    -- TODO: only empty data declaration for now
+    [ Hs.DeclEmpty hsName
+    ]
+  where
+    typeConstrCtx = StructTypeConstrContext $ C.unionDeclPath union
     hsName = mangleTypeConstrName typeConstrCtx
 
 {-------------------------------------------------------------------------------
