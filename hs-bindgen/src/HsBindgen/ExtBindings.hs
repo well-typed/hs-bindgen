@@ -12,6 +12,7 @@ module HsBindgen.ExtBindings (
   , MergeExtBindingsException(..)
   , ExtBindingsException(..)
   , ExtBindingsExceptions(..)
+  , WriteUnresolvedExtBindingsException(..)
     -- * API
   , emptyExtBindings
   , resolveExtBindings
@@ -22,6 +23,9 @@ module HsBindgen.ExtBindings (
   , loadUnresolvedExtBindings
   , loadUnresolvedExtBindingsJson
   , loadUnresolvedExtBindingsYaml
+  , writeUnresolvedExtBindings
+  , writeUnresolvedExtBindingsJson
+  , writeUnresolvedExtBindingsYaml
     -- ** Public API
   , loadExtBindings'
   , loadExtBindings
@@ -56,14 +60,14 @@ import HsBindgen.Resolve
 -- Example: @hs-bindgen-runtime@
 newtype HsPackageName = HsPackageName { getHsPackageName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
 
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
 newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
 
 -- | Haskell identifier
 --
@@ -73,7 +77,7 @@ newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
 -- include a 'HsBindgen.Hs.AST.Namespace'.
 newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
@@ -206,6 +210,16 @@ instance Exception ExtBindingsExceptions where
   displayException (ExtBindingsExceptions es) =
     unlines $ map displayException es
 
+-- | Failed to write external bindings configuration file
+newtype WriteUnresolvedExtBindingsException =
+    WriteUnresolvedExtBindingsUnknownExtension FilePath
+  deriving stock (Show)
+
+instance Exception WriteUnresolvedExtBindingsException where
+  displayException = \case
+    WriteUnresolvedExtBindingsUnknownExtension path ->
+      "unknown extension: " ++ path
+
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
@@ -335,6 +349,31 @@ loadUnresolvedExtBindingsYaml path = do
         Left (LoadUnresolvedExtBindingsYamlWarning path warnings)
       Left err -> Left (LoadUnresolvedExtBindingsYamlError path err)
 
+-- | Write 'UnresolvedExtBindings' to a configuration file
+--
+-- The format is determined by the filename extension.
+writeUnresolvedExtBindings ::
+     FilePath
+  -> UnresolvedExtBindings
+  -> IO (Either WriteUnresolvedExtBindingsException ())
+writeUnresolvedExtBindings path bindings
+    | ".yaml" `List.isSuffixOf` path =
+        Right <$> writeUnresolvedExtBindingsYaml path bindings
+    | ".json" `List.isSuffixOf` path =
+        Right <$> writeUnresolvedExtBindingsJson path bindings
+    | otherwise =
+        return $ Left (WriteUnresolvedExtBindingsUnknownExtension path)
+
+-- | Write 'UnresolvedExtBindings' to a JSON file
+writeUnresolvedExtBindingsJson :: FilePath -> UnresolvedExtBindings -> IO ()
+writeUnresolvedExtBindingsJson path =
+    Aeson.encodeFile path . encodeUnresolvedExtBindings
+
+-- | Write 'UnresolvedExtBindings' to a YAML file
+writeUnresolvedExtBindingsYaml :: FilePath -> UnresolvedExtBindings -> IO ()
+writeUnresolvedExtBindingsYaml path =
+    Yaml.encodeFile path . encodeUnresolvedExtBindings
+
 {-------------------------------------------------------------------------------
   Public API
 -------------------------------------------------------------------------------}
@@ -379,10 +418,15 @@ newtype Config = Config {
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Config where
-  parseJSON = Aeson.genericParseJSON $
-    Aeson.defaultOptions {
-        Aeson.fieldLabelModifier = stripPrefix "config"
-      }
+  parseJSON = Aeson.genericParseJSON aesonConfigOptions
+
+instance Aeson.ToJSON Config where
+  toJSON = Aeson.genericToJSON aesonConfigOptions
+
+aesonConfigOptions :: Aeson.Options
+aesonConfigOptions = Aeson.defaultOptions {
+      Aeson.fieldLabelModifier = stripPrefix "config"
+    }
 
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
@@ -395,10 +439,15 @@ data Mapping = Mapping {
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Mapping where
-  parseJSON = Aeson.genericParseJSON $
-    Aeson.defaultOptions {
-        Aeson.fieldLabelModifier = stripPrefix "mapping"
-      }
+  parseJSON = Aeson.genericParseJSON aesonMappingOptions
+
+instance Aeson.ToJSON Mapping where
+  toJSON = Aeson.genericToJSON aesonMappingOptions
+
+aesonMappingOptions :: Aeson.Options
+aesonMappingOptions = Aeson.defaultOptions {
+      Aeson.fieldLabelModifier = stripPrefix "mapping"
+    }
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions (Internal)
@@ -470,3 +519,19 @@ mkUnresolvedExtBindings path Config{..} = do
       in  if Set.null commonHeaders
             then dupMap
             else Map.insertWith Set.union cname commonHeaders dupMap
+
+encodeUnresolvedExtBindings :: UnresolvedExtBindings -> Config
+encodeUnresolvedExtBindings UnresolvedExtBindings{..} = Config{..}
+  where
+    configTypes :: [Mapping]
+    configTypes = [
+        Mapping {
+            mappingCname      = cname
+          , mappingHeaders    = Set.toAscList headerSet
+          , mappingIdentifier = extIdentifierIdentifier
+          , mappingModule     = extIdentifierModule
+          , mappingPackage    = extIdentifierPackage
+          }
+      | (cname, rs) <- Map.toAscList unresolvedExtBindingsTypes
+      , (headerSet, ExtIdentifier{..}) <- rs
+      ]

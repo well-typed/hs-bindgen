@@ -24,6 +24,15 @@ main = handle exceptionHandler $ do
 
     execMode cmdline tracer (cmdMode)
 
+data PackageNameRequiredException = PackageNameRequiredException
+  deriving Show
+
+instance Exception PackageNameRequiredException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException PackageNameRequiredException =
+      "--package must be specified when using --gen-external-bindings"
+
 data LiterateFileException = LiterateFileException FilePath String
   deriving Show
 
@@ -36,6 +45,12 @@ instance Exception LiterateFileException where
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
+      mGenExtBindings <-
+        case (preprocessGenExtBindings, preprocessPackageName) of
+          (Nothing, _packageName) -> return Nothing
+          (Just extBindingsPath, Just packageName) ->
+            return $ Just (extBindingsPath, packageName)
+          (Just{}, Nothing) -> throwIO PackageNameRequiredException
       extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
       let opts = cmdOpts {
               optsExtBindings = extBindings
@@ -45,8 +60,12 @@ execMode cmdline@Cmdline{..} tracer = \case
               ppOptsModule = preprocessModuleOpts
             , ppOptsRender = preprocessRenderOpts
             }
-      preprocessIO ppOpts preprocessOutput
-        =<< translateCHeader opts preprocessInput
+      decls <- translateCHeader opts preprocessInput
+      preprocessIO ppOpts preprocessOutput decls
+      case mGenExtBindings of
+        Nothing -> return ()
+        Just (path, packageName) ->
+          genExtBindings ppOpts preprocessInput packageName path decls
 
     ModeGenTests{..} -> do
       extBindings <- loadExtBindings cmdClangArgs cmdExtBindings

@@ -18,6 +18,9 @@ module HsBindgen.Lib (
   , preprocessPure
   , preprocessIO
 
+    -- * External bindings generation
+  , genExtBindings
+
     -- * Test generation
   , genTests
 
@@ -34,6 +37,7 @@ module HsBindgen.Lib (
   , Args.CStandard(..)
 
     -- ** External bindings
+  , ExtBindings.HsPackageName(..)
   , ExtBindings.ExtBindings
   , ExtBindings.emptyExtBindings
   , ExtBindings.loadExtBindings
@@ -113,6 +117,21 @@ preprocessIO ::
   -> HsDecls
   -> IO ()
 preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
+
+{-------------------------------------------------------------------------------
+  External bindings generation
+-------------------------------------------------------------------------------}
+
+genExtBindings ::
+     Pipeline.PPOpts
+  -> Paths.CHeaderIncludePath
+  -> ExtBindings.HsPackageName
+  -> FilePath
+  -> HsDecls
+  -> IO ()
+genExtBindings ppOpts headerIncludePath packageName fp =
+      Pipeline.genExtBindings ppOpts headerIncludePath packageName fp
+    . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Test generation
