@@ -10,25 +10,29 @@ import Control.Monad.State.Strict (State, get, put, evalState)
 import Data.Generics qualified as SYB
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import System.FilePath ((</>))
 import Test.Tasty (TestTree, TestName)
 
 import Misc
 import HsBindgen.Clang.Paths
 import HsBindgen.Lib
+import HsBindgen.Pipeline qualified as Pipeline
 
 goldenTh :: FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-        args = clangArgs packageRoot
         tracer = mkTracer report report report False
-    src <- resolveHeader args headerIncludePath
+        opts = Pipeline.defaultOpts {
+            Pipeline.optsClangArgs  = clangArgs packageRoot
+          , Pipeline.optsDiagTracer = tracer
+          , Pipeline.optsSkipTracer = tracer
+          }
+    header <- snd <$> Pipeline.parseCHeader opts headerIncludePath
 
-    header <- parseC tracer args src
     let decls :: Qu [TH.Dec]
-        decls = genTH headerIncludePath defaultTranslationOpts header
+        decls = Pipeline.genTH . Pipeline.genSHsDecls $
+          Pipeline.genHsDecls opts headerIncludePath header
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.
@@ -54,15 +58,3 @@ instance TH.Quote Qu where
 
 runQu :: Qu a -> a
 runQu (Qu m) = evalState m 0
-
-parseC ::
-     Tracer IO String
-  -> ClangArgs
-  -> SourcePath
-  -> IO CHeader
-parseC tracer args src =
-    withTranslationUnit tracerD args src $
-      parseCHeader tracerP SelectFromMainFile emptyExtBindings
-  where
-    tracerD = contramap show tracer
-    tracerP = contramap prettyLogMsg tracer

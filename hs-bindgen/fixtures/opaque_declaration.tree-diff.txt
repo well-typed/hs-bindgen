@@ -1,63 +1,62 @@
-WrapCHeader
-  (Header
-    [
-      DeclOpaqueStruct
-        OpaqueStruct {
-          opaqueStructTag = CName "foo",
-          opaqueStructSourceLoc =
-          "opaque_declaration.h:1:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "bar"))
-            DeclPathTop,
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "ptrA",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathStruct
-                    (DeclNameTag (CName "foo"))
-                    DeclPathTop)),
-              fieldSourceLoc =
-              "opaque_declaration.h:5:17"},
-            StructField {
-              fieldName = CName "ptrB",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathStruct
-                    (DeclNameTag (CName "bar"))
-                    DeclPathTop)),
-              fieldSourceLoc =
-              "opaque_declaration.h:6:17"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "opaque_declaration.h:4:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "baz"))
-            DeclPathTop,
-          structSizeof = 0,
-          structAlignment = 1,
-          structFields = [],
-          structFlam = Nothing,
-          structSourceLoc =
-          "opaque_declaration.h:9:8"},
-      DeclOpaqueEnum
-        OpaqueEnum {
-          opaqueEnumTag = CName "quu",
-          opaqueEnumSourceLoc =
-          "opaque_declaration.h:11:6"},
-      DeclOpaqueStruct
-        OpaqueStruct {
-          opaqueStructTag = CName
-            "opaque_union",
-          opaqueStructSourceLoc =
-          "opaque_declaration.h:13:7"}])
+Header
+  [
+    DeclOpaqueStruct
+      OpaqueStruct {
+        opaqueStructTag = CName "foo",
+        opaqueStructSourceLoc =
+        "opaque_declaration.h:1:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "bar"))
+          DeclPathTop,
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "ptrA",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypeStruct
+                (DeclPathStruct
+                  (DeclNameTag (CName "foo"))
+                  DeclPathTop)),
+            fieldSourceLoc =
+            "opaque_declaration.h:5:17"},
+          StructField {
+            fieldName = CName "ptrB",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypeStruct
+                (DeclPathStruct
+                  (DeclNameTag (CName "bar"))
+                  DeclPathTop)),
+            fieldSourceLoc =
+            "opaque_declaration.h:6:17"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "opaque_declaration.h:4:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "baz"))
+          DeclPathTop,
+        structSizeof = 0,
+        structAlignment = 1,
+        structFields = [],
+        structFlam = Nothing,
+        structSourceLoc =
+        "opaque_declaration.h:9:8"},
+    DeclOpaqueEnum
+      OpaqueEnum {
+        opaqueEnumTag = CName "quu",
+        opaqueEnumSourceLoc =
+        "opaque_declaration.h:11:6"},
+    DeclOpaqueStruct
+      OpaqueStruct {
+        opaqueStructTag = CName
+          "opaque_union",
+        opaqueStructSourceLoc =
+        "opaque_declaration.h:13:7"}]

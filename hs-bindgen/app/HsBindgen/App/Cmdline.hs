@@ -7,6 +7,8 @@ module HsBindgen.App.Cmdline (
   , pureParseModePreprocess
   ) where
 
+import Control.Exception (Exception(displayException))
+import Data.Bifunctor (first)
 import Data.Char qualified as Char
 import Data.Default
 import Data.List qualified as List
@@ -70,10 +72,6 @@ data DevMode =
     DevModeParseCHeader {
         parseCHeaderInput :: CHeaderIncludePath
       }
-    -- | Generate prelude (bootstrap)
-  | DevModePrelude {
-        preludeInput :: CHeaderIncludePath
-      }
   deriving (Show)
 
 {-------------------------------------------------------------------------------
@@ -120,9 +118,6 @@ parseDevMode = fmap Dev $ subparser $ mconcat [
       cmd "parse" parseDevModeParseCHeader $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
-    , cmd "prelude" parseDevModePrelude $ mconcat [
-          progDesc "Trawl the C standard libraries to generate the hs-bindgen prelude"
-       ]
     ]
 
 {-------------------------------------------------------------------------------
@@ -161,11 +156,6 @@ parseModeLiterate = do
 parseDevModeParseCHeader :: Parser DevMode
 parseDevModeParseCHeader =
     DevModeParseCHeader
-      <$> parseInput
-
-parseDevModePrelude :: Parser DevMode
-parseDevModePrelude =
-    DevModePrelude
       <$> parseInput
 
 {-------------------------------------------------------------------------------
@@ -310,12 +300,13 @@ parseTarget = option (maybeReader readTarget) $ mconcat [
 
 parseInput :: Parser CHeaderIncludePath
 parseInput =
-    option (eitherReader parseCHeaderIncludePath) $ mconcat $ [
-           help "Input C header, relative to an include path directory"
-         , metavar "PATH"
-         , long "input"
-         , short 'i'
-         ]
+    option (eitherReader $ first displayException . parseCHeaderIncludePath) $
+      mconcat $ [
+          help "Input C header, relative to an include path directory"
+        , metavar "PATH"
+        , long "input"
+        , short 'i'
+        ]
 
 parsePredicate :: Parser Predicate
 parsePredicate = fmap aux . many . asum $ [

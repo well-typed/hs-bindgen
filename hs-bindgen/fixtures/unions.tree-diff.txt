@@ -1,95 +1,94 @@
-WrapCHeader
-  (Header
-    [
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "Dim2"))
-            DeclPathTop,
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:2:9"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:3:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:1:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "Dim3"))
-            DeclPathTop,
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:7:9"},
-            StructField {
-              fieldName = CName "y",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:8:9"},
-            StructField {
-              fieldName = CName "z",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:9:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:6:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "Dim"))
-            DeclPathTop,
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "tag",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "unions.h:18:9"},
-            StructField {
-              fieldName = CName "payload",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeUnion
-                (DeclPathUnion
-                  (DeclNameTag
-                    (CName "DimPayload"))
-                  DeclPathTop),
-              fieldSourceLoc =
-              "unions.h:19:22"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "unions.h:17:8"}])
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "Dim2"))
+          DeclPathTop,
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "unions.h:2:9"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "unions.h:3:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "unions.h:1:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "Dim3"))
+          DeclPathTop,
+        structSizeof = 12,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "unions.h:7:9"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "unions.h:8:9"},
+          StructField {
+            fieldName = CName "z",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "unions.h:9:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "unions.h:6:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "Dim"))
+          DeclPathTop,
+        structSizeof = 12,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "tag",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "unions.h:18:9"},
+          StructField {
+            fieldName = CName "payload",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypeUnion
+              (DeclPathUnion
+                (DeclNameTag
+                  (CName "DimPayload"))
+                DeclPathTop),
+            fieldSourceLoc =
+            "unions.h:19:22"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "unions.h:17:8"}]

@@ -1,55 +1,54 @@
-WrapCHeader
-  (Header
-    [
-      DeclFunction
-        Function {
-          functionName = CName "func",
-          functionType = TypeFun
-            [
-              TypePointer
-                (TypeStruct
-                  (DeclPathStruct
-                    (DeclNameTag (CName "bar"))
-                    (DeclPathPtr DeclPathTop)))]
-            TypeVoid,
-          functionHeader = "weird01.h",
-          functionSourceLoc =
-          "weird01.h:8:6"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "foo"))
-            DeclPathTop,
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "z",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "weird01.h:2:13"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "weird01.h:1:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "bar"))
-            (DeclPathPtr DeclPathTop),
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "x",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "weird01.h:4:21"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "weird01.h:3:16"}])
+Header
+  [
+    DeclFunction
+      Function {
+        functionName = CName "func",
+        functionType = TypeFun
+          [
+            TypePointer
+              (TypeStruct
+                (DeclPathStruct
+                  (DeclNameTag (CName "bar"))
+                  (DeclPathPtr DeclPathTop)))]
+          TypeVoid,
+        functionHeader = "weird01.h",
+        functionSourceLoc =
+        "weird01.h:8:6"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "foo"))
+          DeclPathTop,
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "z",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "weird01.h:2:13"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "weird01.h:1:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "bar"))
+          (DeclPathPtr DeclPathTop),
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "weird01.h:4:21"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "weird01.h:3:16"}]

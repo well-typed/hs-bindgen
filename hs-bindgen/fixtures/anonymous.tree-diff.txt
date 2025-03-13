@@ -1,168 +1,167 @@
-WrapCHeader
-  (Header
-    [
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            DeclNameNone
-            (DeclPathField
-              (CName "c")
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          DeclNameNone
+          (DeclPathField
+            (CName "c")
+            (DeclPathStruct
+              (DeclNameTag (CName "S1"))
+              DeclPathTop)),
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:4:9"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:5:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:3:3"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S1"))
+          DeclPathTop,
+        structSizeof = 12,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "c",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
               (DeclPathStruct
-                (DeclNameTag (CName "S1"))
-                DeclPathTop)),
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "anonymous.h:4:9"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "anonymous.h:5:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "anonymous.h:3:3"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S1"))
-            DeclPathTop,
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "c",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
+                DeclNameNone
+                (DeclPathField
+                  (CName "c")
+                  (DeclPathStruct
+                    (DeclNameTag (CName "S1"))
+                    DeclPathTop))),
+            fieldSourceLoc =
+            "anonymous.h:6:5"},
+          StructField {
+            fieldName = CName "d",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:8:7"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:2:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          DeclNameNone
+          (DeclPathField
+            (CName "deep")
+            (DeclPathStruct
+              DeclNameNone
+              (DeclPathField
+                (CName "inner")
                 (DeclPathStruct
-                  DeclNameNone
-                  (DeclPathField
-                    (CName "c")
-                    (DeclPathStruct
-                      (DeclNameTag (CName "S1"))
-                      DeclPathTop))),
-              fieldSourceLoc =
-              "anonymous.h:6:5"},
-            StructField {
-              fieldName = CName "d",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "anonymous.h:8:7"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "anonymous.h:2:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            DeclNameNone
-            (DeclPathField
-              (CName "deep")
+                  (DeclNameTag (CName "S2"))
+                  DeclPathTop)))),
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:16:11"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:15:5"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          DeclNameNone
+          (DeclPathField
+            (CName "inner")
+            (DeclPathStruct
+              (DeclNameTag (CName "S2"))
+              DeclPathTop)),
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:14:9"},
+          StructField {
+            fieldName = CName "deep",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
+              (DeclPathStruct
+                DeclNameNone
+                (DeclPathField
+                  (CName "deep")
+                  (DeclPathStruct
+                    DeclNameNone
+                    (DeclPathField
+                      (CName "inner")
+                      (DeclPathStruct
+                        (DeclNameTag (CName "S2"))
+                        DeclPathTop))))),
+            fieldSourceLoc =
+            "anonymous.h:17:7"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:13:3"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S2"))
+          DeclPathTop,
+        structSizeof = 12,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "inner",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
               (DeclPathStruct
                 DeclNameNone
                 (DeclPathField
                   (CName "inner")
                   (DeclPathStruct
                     (DeclNameTag (CName "S2"))
-                    DeclPathTop)))),
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "anonymous.h:16:11"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "anonymous.h:15:5"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            DeclNameNone
-            (DeclPathField
-              (CName "inner")
-              (DeclPathStruct
-                (DeclNameTag (CName "S2"))
-                DeclPathTop)),
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "anonymous.h:14:9"},
-            StructField {
-              fieldName = CName "deep",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathStruct
-                  DeclNameNone
-                  (DeclPathField
-                    (CName "deep")
-                    (DeclPathStruct
-                      DeclNameNone
-                      (DeclPathField
-                        (CName "inner")
-                        (DeclPathStruct
-                          (DeclNameTag (CName "S2"))
-                          DeclPathTop))))),
-              fieldSourceLoc =
-              "anonymous.h:17:7"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "anonymous.h:13:3"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S2"))
-            DeclPathTop,
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "inner",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathStruct
-                  DeclNameNone
-                  (DeclPathField
-                    (CName "inner")
-                    (DeclPathStruct
-                      (DeclNameTag (CName "S2"))
-                      DeclPathTop))),
-              fieldSourceLoc =
-              "anonymous.h:18:5"},
-            StructField {
-              fieldName = CName "d",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "anonymous.h:20:7"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "anonymous.h:12:8"}])
+                    DeclPathTop))),
+            fieldSourceLoc =
+            "anonymous.h:18:5"},
+          StructField {
+            fieldName = CName "d",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:20:7"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:12:8"}]

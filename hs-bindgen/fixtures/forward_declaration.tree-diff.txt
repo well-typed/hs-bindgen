@@ -1,50 +1,49 @@
-WrapCHeader
-  (Header
-    [
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S1"))
+          DeclPathTop,
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "forward_declaration.h:4:7"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "forward_declaration.h:3:8"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "S1_t",
+        typedefType = TypeStruct
+          (DeclPathStruct
             (DeclNameTag (CName "S1"))
-            DeclPathTop,
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "forward_declaration.h:4:7"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "forward_declaration.h:3:8"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "S1_t",
-          typedefType = TypeStruct
-            (DeclPathStruct
-              (DeclNameTag (CName "S1"))
-              DeclPathTop),
-          typedefSourceLoc =
-          "forward_declaration.h:1:19"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S2"))
-            DeclPathTop,
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "forward_declaration.h:10:7"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "forward_declaration.h:9:8"}])
+            DeclPathTop),
+        typedefSourceLoc =
+        "forward_declaration.h:1:19"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S2"))
+          DeclPathTop,
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "forward_declaration.h:10:7"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "forward_declaration.h:9:8"}]

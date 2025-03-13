@@ -108,6 +108,7 @@ defaultTranslationOpts = TranslationOpts {
 generateDeclarations ::
      CHeaderIncludePath
   -> TranslationOpts
+  -> NameMangler
   -> C.Header
   -> [Hs.Decl]
 generateDeclarations = toHs
@@ -118,21 +119,21 @@ generateDeclarations = toHs
 
 class ToHs (a :: Star) where
   type InHs a :: Star
-  toHs :: CHeaderIncludePath -> TranslationOpts -> a -> InHs a
+  toHs :: CHeaderIncludePath -> TranslationOpts -> NameMangler -> a -> InHs a
 
 instance ToHs C.Header where
   type InHs C.Header = [Hs.Decl]
-  toHs fp opts (C.Header decs) = concatMap (toHs fp opts) decs
+  toHs p opts nm (C.Header decs) = concatMap (toHs p opts nm) decs
 
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
-  toHs _ opts (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts struct
-  toHs _ opts (C.DeclOpaqueStruct o) = opaqueStructDecs opts $ C.opaqueStructTag o
-  toHs _ opts (C.DeclEnum e)         = enumDecs opts e
-  toHs _ opts (C.DeclOpaqueEnum o)   = opaqueStructDecs opts $ C.opaqueEnumTag o -- TODO?
-  toHs _ opts (C.DeclTypedef d)      = typedefDecs opts d
-  toHs _ opts (C.DeclMacro m)        = macroDecs opts m
-  toHs p opts (C.DeclFunction f)     = functionDecs p opts f
+  toHs _ opts nm (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts nm struct
+  toHs _ opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm $ C.opaqueStructTag o
+  toHs _ opts nm (C.DeclEnum e)         = enumDecs opts nm e
+  toHs _ opts nm (C.DeclOpaqueEnum o)   = opaqueStructDecs opts nm $ C.opaqueEnumTag o -- TODO?
+  toHs _ opts nm (C.DeclTypedef d)      = typedefDecs opts nm d
+  toHs _ opts nm (C.DeclMacro m)        = macroDecs opts nm m
+  toHs p opts nm (C.DeclFunction f)     = functionDecs p opts nm f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -148,8 +149,9 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 structDecs :: forall n.
      SNatI n
   => TranslationOpts
+  -> NameMangler
   -> C.Struct -> Vec n C.StructField -> [Hs.Decl]
-structDecs opts struct fields = concat
+structDecs opts nm@NameMangler{..} struct fields = concat
     [ [ Hs.DeclData hs ]
     , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable]
     , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
@@ -158,8 +160,6 @@ structDecs opts struct fields = concat
     , flamInstance
     ]
   where
-    nm@NameMangler{..} = defaultNameMangler
-
     hs :: Hs.Struct n
     hs =
       let typeConstrCtx = StructTypeConstrContext $ C.structDeclPath struct
@@ -206,12 +206,11 @@ structDecs opts struct fields = concat
   Opaque struct
 -------------------------------------------------------------------------------}
 
-opaqueStructDecs :: TranslationOpts -> C.CName -> [Hs.Decl]
-opaqueStructDecs _opts cname =
+opaqueStructDecs :: TranslationOpts -> NameMangler -> C.CName -> [Hs.Decl]
+opaqueStructDecs _opts NameMangler{..} cname =
     [ Hs.DeclEmpty hsName
     ]
   where
-    NameMangler{..} = defaultNameMangler
     typeConstrCtx = TypeConstrContext cname
     hsName = mangleTypeConstrName typeConstrCtx
 
@@ -219,8 +218,8 @@ opaqueStructDecs _opts cname =
   Enum
 -------------------------------------------------------------------------------}
 
-enumDecs :: TranslationOpts -> C.Enu -> [Hs.Decl]
-enumDecs opts e = concat [
+enumDecs :: TranslationOpts -> NameMangler -> C.Enu -> [Hs.Decl]
+enumDecs opts nm@NameMangler{..} e = concat [
       [ Hs.DeclNewtype Hs.Newtype{..} ]
     , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable ]
     , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
@@ -229,17 +228,16 @@ enumDecs opts e = concat [
     , valueDecls
     ]
   where
-    cEnumName          = C.enumTag e
-    nm@NameMangler{..} = defaultNameMangler
-    typeConstrCtx      = TypeConstrContext cEnumName
-    newtypeName        = mangleTypeConstrName typeConstrCtx
-    newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
-    newtypeField       = Hs.Field {
+    cEnumName     = C.enumTag e
+    typeConstrCtx = TypeConstrContext cEnumName
+    newtypeName   = mangleTypeConstrName typeConstrCtx
+    newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField  = Hs.Field {
         fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
       , fieldType   = typ nm (C.enumType e)
       , fieldOrigin = Hs.FieldOriginNone
       }
-    newtypeOrigin      = Hs.NewtypeOriginEnum e
+    newtypeOrigin = Hs.NewtypeOriginEnum e
 
     hs :: Hs.Struct (S Z)
     hs =
@@ -281,8 +279,8 @@ enumDecs opts e = concat [
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs :: TranslationOpts -> C.Typedef -> [Hs.Decl]
-typedefDecs opts d = concat [
+typedefDecs :: TranslationOpts -> NameMangler -> C.Typedef -> [Hs.Decl]
+typedefDecs opts nm@NameMangler{..} d = concat [
       [ Hs.DeclNewtype Hs.Newtype{..} ]
     , [ Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName ]
     , [ Hs.DeclDeriveInstance strat clss newtypeName
@@ -292,17 +290,16 @@ typedefDecs opts d = concat [
       ]
     ]
   where
-    cName              = C.typedefName d
-    nm@NameMangler{..} = defaultNameMangler
-    typeConstrCtx      = TypeConstrContext cName
-    newtypeName        = mangleTypeConstrName typeConstrCtx
-    newtypeConstr      = mangleConstrName $ ConstrContext typeConstrCtx
-    newtypeField       = Hs.Field {
+    cName         = C.typedefName d
+    typeConstrCtx = TypeConstrContext cName
+    newtypeName   = mangleTypeConstrName typeConstrCtx
+    newtypeConstr = mangleConstrName $ ConstrContext typeConstrCtx
+    newtypeField  = Hs.Field {
         fieldName   = mangleVarName $ EnumVarContext typeConstrCtx
       , fieldType   = typ nm (C.typedefType d)
       , fieldOrigin = Hs.FieldOriginNone
       }
-    newtypeOrigin      = Hs.NewtypeOriginTypedef d
+    newtypeOrigin = Hs.NewtypeOriginTypedef d
 
 primTypeInstances :: C.PrimType -> [Hs.TypeClass]
 primTypeInstances (C.PrimFloating _) = [
@@ -339,21 +336,21 @@ primTypeInstances _otherwise = [
   Macros
 -------------------------------------------------------------------------------}
 
-macroDecs :: TranslationOpts -> C.MacroDecl -> [Hs.Decl]
-macroDecs opts C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
+macroDecs :: TranslationOpts -> NameMangler -> C.MacroDecl -> [Hs.Decl]
+macroDecs opts nm C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | Macro.Quant bf <- ty
     , Macro.isPrimTy bf
-    = macroDecsTypedef opts m
+    = macroDecsTypedef opts nm m
 
     | otherwise
-    = macroVarDecs m ty
+    = macroVarDecs nm m ty
     where
 
-macroDecs _ C.MacroReparseError {} = []
-macroDecs _ C.MacroTcError {}      = []
+macroDecs _ _ C.MacroReparseError {} = []
+macroDecs _ _ C.MacroTcError {}      = []
 
-macroDecsTypedef :: TranslationOpts -> C.Macro -> [Hs.Decl]
-macroDecsTypedef opts m =
+macroDecsTypedef :: TranslationOpts -> NameMangler -> C.Macro -> [Hs.Decl]
+macroDecsTypedef opts nm@NameMangler{..} m =
     case C.macroBody m of
       C.MTerm (C.MType ty) ->
         let newtypeField = mkField ty in
@@ -369,8 +366,6 @@ macroDecsTypedef opts m =
       _otherwise ->
         []
   where
-    nm@NameMangler{..} = defaultNameMangler
-
     cName         = C.macroName m
     typeConstrCtx = TypeConstrContext cName
     newtypeName   = mangleTypeConstrName typeConstrCtx
@@ -469,8 +464,13 @@ floatingType = \case
   Function
 -------------------------------------------------------------------------------}
 
-functionDecs :: CHeaderIncludePath -> TranslationOpts -> C.Function -> [Hs.Decl]
-functionDecs headerIncludePath _opts f =
+functionDecs ::
+     CHeaderIncludePath
+  -> TranslationOpts
+  -> NameMangler
+  -> C.Function
+  -> [Hs.Decl]
+functionDecs headerIncludePath _opts nm f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangleVarName nm $ VarContext $ C.functionName f
         , foreignImportType       = typ nm $ C.functionType f
@@ -479,15 +479,17 @@ functionDecs headerIncludePath _opts f =
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]
-  where
-    nm = defaultNameMangler
 
 {-------------------------------------------------------------------------------
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.Macro -> Macro.Quant ( Macro.Type Macro.Ty ) -> [Hs.Decl]
-macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
+macroVarDecs ::
+     NameMangler
+  -> C.Macro
+  -> Macro.Quant ( Macro.Type Macro.Ty )
+  -> [Hs.Decl]
+macroVarDecs nm (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
   [
     Hs.DeclVar $
       Hs.VarDecl
@@ -495,10 +497,10 @@ macroVarDecs (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body }
         , varDeclType = quantTyHsTy qty
         , varDeclBody = hsBody
         }
-  | hsBody <- toList $ macroLamHsExpr cVarNm args body
+  | hsBody <- toList $ macroLamHsExpr nm cVarNm args body
   ]
   where
-    hsVarName = mangleVarName defaultNameMangler $ VarContext cVarNm
+    hsVarName = mangleVarName nm $ VarContext cVarNm
 
 quantTyHsTy :: Macro.Quant ( Macro.Type Macro.Ty ) -> Hs.SigmaType
 quantTyHsTy qty@(Macro.Quant @kis _) =
@@ -541,19 +543,28 @@ quantTyHsTy qty@(Macro.Quant @kis _) =
 
 newtype U n = U { unU :: Vec n (Idx n) }
 
-macroLamHsExpr :: C.CName -> [C.CName] -> C.MExpr -> Maybe (Hs.VarDeclRHS EmptyCtx)
-macroLamHsExpr _macroName macroArgs expr =
+macroLamHsExpr ::
+     NameMangler
+  -> C.CName
+  -> [C.CName]
+  -> C.MExpr
+  -> Maybe (Hs.VarDeclRHS EmptyCtx)
+macroLamHsExpr nm _macroName macroArgs expr =
     makeNames macroArgs Map.empty
   where
     makeNames :: [C.CName] -> Map C.CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
-    makeNames []     env = macroExprHsExpr env expr
+    makeNames []     env = macroExprHsExpr nm env expr
     makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
 
 cnameToHint :: C.CName -> NameHint
 cnameToHint (C.CName t) = fromString (T.unpack t)
 
-macroExprHsExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
-macroExprHsExpr = goExpr where
+macroExprHsExpr ::
+     NameMangler
+  -> Map C.CName (Idx ctx)
+  -> C.MExpr
+  -> Maybe (Hs.VarDeclRHS ctx)
+macroExprHsExpr nm = goExpr where
     goExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
@@ -567,12 +578,12 @@ macroExprHsExpr = goExpr where
       C.MFloat f -> goFloat f
       C.MChar c -> goChar c
       C.MString s -> goString s
-      C.MVar nm args ->
+      C.MVar cname args ->
         --  TODO: removed the macro argument used as a function check.
-        case Map.lookup nm env of
+        case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
-            let hsVar = mangleVarName defaultNameMangler $ VarContext nm
+            let hsVar = mangleVarName nm $ VarContext cname
             in  goApp env (Hs.VarAppHead hsVar) args
 
       C.MType {} -> Nothing

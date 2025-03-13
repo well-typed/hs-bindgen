@@ -1,275 +1,274 @@
-WrapCHeader
-  (Header
-    [
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S1"))
-            DeclPathTop,
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:3:9"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:4:10"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:2:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S1"))
+          DeclPathTop,
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:3:9"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:4:10"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:2:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S2"))
+          DeclPathTop,
+        structSizeof = 12,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:9:10"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:10:9"},
+          StructField {
+            fieldName = CName "c",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimFloat),
+            fieldSourceLoc =
+            "simple_structs.h:11:11"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:8:16"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "S2_t",
+        typedefType = TypeStruct
+          (DeclPathStruct
             (DeclNameTag (CName "S2"))
-            DeclPathTop,
-          structSizeof = 12,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:9:10"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:10:9"},
-            StructField {
-              fieldName = CName "c",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimFloat),
-              fieldSourceLoc =
-              "simple_structs.h:11:11"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:8:16"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "S2_t",
-          typedefType = TypeStruct
+            DeclPathTop),
+        typedefSourceLoc =
+        "simple_structs.h:12:3"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTypedef (CName "S3_t"))
+          DeclPathTop,
+        structSizeof = 1,
+        structAlignment = 1,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:16:10"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:15:9"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S4"))
+          DeclPathTop,
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:20:10"},
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:21:9"},
+          StructField {
+            fieldName = CName "c",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            fieldSourceLoc =
+            "simple_structs.h:22:10"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:19:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S5"))
+          DeclPathTop,
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:27:10"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:28:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:26:16"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag (CName "S6"))
+          DeclPathTop,
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:31:18"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:31:25"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:31:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          DeclNameNone
+          (DeclPathPtr
             (DeclPathStruct
-              (DeclNameTag (CName "S2"))
-              DeclPathTop),
-          typedefSourceLoc =
-          "simple_structs.h:12:3"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTypedef (CName "S3_t"))
-            DeclPathTop,
-          structSizeof = 1,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:16:10"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:15:9"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S4"))
-            DeclPathTop,
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:20:10"},
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:21:9"},
-            StructField {
-              fieldName = CName "c",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)),
-              fieldSourceLoc =
-              "simple_structs.h:22:10"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:19:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S5"))
-            DeclPathTop,
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:27:10"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:28:9"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:26:16"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag (CName "S6"))
-            DeclPathTop,
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:31:18"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:31:25"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:31:8"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            DeclNameNone
-            (DeclPathPtr
-              (DeclPathStruct
-                (DeclNameTypedef (CName "S7a"))
-                DeclPathTop)),
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:34:23"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:34:30"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:34:9"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "S7a",
-          typedefType = TypePointer
-            (TypeStruct
-              (DeclPathStruct
-                DeclNameNone
-                (DeclPathPtr
-                  (DeclPathStruct
-                    (DeclNameTypedef (CName "S7a"))
-                    DeclPathTop)))),
-          typedefSourceLoc =
-          "simple_structs.h:34:36"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            DeclNameNone
+              (DeclNameTypedef (CName "S7a"))
+              DeclPathTop)),
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:34:23"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:34:30"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:34:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "S7a",
+        typedefType = TypePointer
+          (TypeStruct
+            (DeclPathStruct
+              DeclNameNone
+              (DeclPathPtr
+                (DeclPathStruct
+                  (DeclNameTypedef (CName "S7a"))
+                  DeclPathTop)))),
+        typedefSourceLoc =
+        "simple_structs.h:34:36"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          DeclNameNone
+          (DeclPathPtr
             (DeclPathPtr
               (DeclPathPtr
-                (DeclPathPtr
-                  (DeclPathStruct
-                    (DeclNameTypedef (CName "S7b"))
-                    DeclPathTop)))),
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "a",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "simple_structs.h:35:23"},
-            StructField {
-              fieldName = CName "b",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "simple_structs.h:35:30"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "simple_structs.h:35:9"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "S7b",
-          typedefType = TypePointer
+                (DeclPathStruct
+                  (DeclNameTypedef (CName "S7b"))
+                  DeclPathTop)))),
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "simple_structs.h:35:23"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "simple_structs.h:35:30"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "simple_structs.h:35:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "S7b",
+        typedefType = TypePointer
+          (TypePointer
             (TypePointer
-              (TypePointer
-                (TypeStruct
-                  (DeclPathStruct
-                    DeclNameNone
+              (TypeStruct
+                (DeclPathStruct
+                  DeclNameNone
+                  (DeclPathPtr
                     (DeclPathPtr
                       (DeclPathPtr
-                        (DeclPathPtr
-                          (DeclPathStruct
-                            (DeclNameTypedef (CName "S7b"))
-                            DeclPathTop)))))))),
-          typedefSourceLoc =
-          "simple_structs.h:35:38"}])
+                        (DeclPathStruct
+                          (DeclNameTypedef (CName "S7b"))
+                          DeclPathTop)))))))),
+        typedefSourceLoc =
+        "simple_structs.h:35:38"}]

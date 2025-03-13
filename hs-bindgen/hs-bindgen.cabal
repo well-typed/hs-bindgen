@@ -61,6 +61,7 @@ library
   hs-source-dirs: src
 
   exposed-modules:
+      HsBindgen.Hs.NameMangler
       HsBindgen.Lib
       HsBindgen.TH
   exposed-modules:
@@ -69,12 +70,15 @@ library
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.TH.Translation
       HsBindgen.C.AST
+      HsBindgen.C.Parser
       HsBindgen.C.Tc.Macro
       HsBindgen.Eff
+      HsBindgen.ExtBindings
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
       HsBindgen.NameHint
+      HsBindgen.Pipeline
       HsBindgen.Errors
   other-modules:
       Data.DynGraph
@@ -87,7 +91,6 @@ library
       HsBindgen.C.Fold.DeclState
       HsBindgen.C.Fold.Prelude
       HsBindgen.C.Fold.Type
-      HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
       HsBindgen.C.Reparse.Common
@@ -97,13 +100,11 @@ library
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.Debug
-      HsBindgen.ExtBindings
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
-      HsBindgen.Hs.NameMangler
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Orphans
@@ -154,6 +155,10 @@ library
 
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
+
+  -- for getPackageRoot
+  if !impl(ghc >=9.4)
+    build-depends: th-compat ^>=0.1.6
 
 executable hs-bindgen
   import:         lang
@@ -219,8 +224,6 @@ test-suite test-th
       Test02
 
   default-language: Haskell2010
-  other-extensions:
-      TemplateHaskell
   build-depends:
       -- Internal dependencies
     , hs-bindgen
@@ -228,17 +231,11 @@ test-suite test-th
   build-depends:
       -- Inherited dependencies
     , base <5
-    , filepath
-    , template-haskell
   build-depends:
       -- External dependencies
     , tasty ^>= 1.5
     , tasty-hunit ^>=0.10.2
     , vector ^>=0.13.2.0
-
-  -- for getPackageRoot
-  if !impl(ghc >=9.4)
-    build-depends: th-compat ^>=0.1.6
 
 test-suite test-pp
   type:           exitcode-stdio-1.0
@@ -266,7 +263,6 @@ test-suite test-pp
   build-depends:
       -- Inherited dependencies
     , base <5
-    , template-haskell
   build-depends:
       -- External dependencies
     , tasty ^>= 1.5

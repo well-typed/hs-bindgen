@@ -3,6 +3,9 @@
 module HsBindgen.Hs.NameMangler (
     -- * Definition
     NameMangler(..)
+  , CName(..)
+  , HsName(..)
+  , Namespace(..)
     -- ** Contexts
   , TypeConstrContext(..)
   , ConstrContext(..)

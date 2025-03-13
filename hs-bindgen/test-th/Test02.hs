@@ -1,5 +1,4 @@
 -- {-# OPTIONS_GHC -ddump-splices #-}
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -7,28 +6,24 @@
 
 module Test02 where
 
-import Data.String (IsString (..))
+import HsBindgen.TH
+
+-- Used by generated code
 import Data.Word qualified
-import Language.Haskell.TH qualified as TH
-import System.FilePath ((</>), joinPath)
-
-import HsBindgen.Lib
 import HsBindgen.Runtime.LibC qualified
-
-#ifdef MIN_VERSION_th_compat
-import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
-#else
-import Language.Haskell.TH.Syntax (getPackageRoot)
-#endif
 
 $(do
     dir <- getPackageRoot
     let args = defaultClangArgs {
-            clangQuoteIncludePathDirs = [fromString (dir </> "examples")]
+            clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-    extBindings <- TH.runIO $ loadExtBindings args [
+    extBindings <- loadExtBindings args [
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
       ]
-    genBindings "test_02.h" extBindings args
+    let opts = defaultOpts {
+            optsClangArgs   = args
+          , optsExtBindings = extBindings
+          }
+    genBindings opts "test_02.h"
  )

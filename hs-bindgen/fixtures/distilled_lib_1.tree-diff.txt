@@ -1,594 +1,593 @@
-WrapCHeader
-  (Header
-    [
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:10:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "A",
-            macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "5",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
-                  integerLiteralValue = 5})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:10:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:11:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "B",
-            macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "3",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
-                  integerLiteralValue = 3})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:11:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:12:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName
-              "SOME_DEFINED_CONSTANT",
-            macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "4",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
-                  integerLiteralValue = 4})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:12:9"},
-      DeclMacro
-        MacroTcError {
-          macroTcErrorMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:17:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "PACK_START",
-            macroArgs = [],
-            macroBody = MTerm
-              (MVar
-                (CName "_Pragma")
-                [
-                  MTerm
-                    (MString
-                      StringLiteral {
-                        stringLiteralText =
-                        "\"pack(1)\"",
-                        stringLiteralValue = [
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [112],
-                            unicodeCodePoint = Just 'p'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [97],
-                            unicodeCodePoint = Just 'a'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [99],
-                            unicodeCodePoint = Just 'c'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [107],
-                            unicodeCodePoint = Just 'k'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [40],
-                            unicodeCodePoint = Just `'('`},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [49],
-                            unicodeCodePoint = Just '1'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [41],
-                            unicodeCodePoint = Just
-                              `')'`}]})])},
-          macroTcError = T.concat
-            [
-              "Failed to typecheck macro:\n",
-              "Unbound variable: '_Pragma'\n"]},
-      DeclMacro
-        MacroTcError {
-          macroTcErrorMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:18:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "PACK_FINISH",
-            macroArgs = [],
-            macroBody = MTerm
-              (MVar
-                (CName "_Pragma")
-                [
-                  MTerm
-                    (MString
-                      StringLiteral {
-                        stringLiteralText =
-                        "\"pack()\"",
-                        stringLiteralValue = [
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [112],
-                            unicodeCodePoint = Just 'p'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [97],
-                            unicodeCodePoint = Just 'a'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [99],
-                            unicodeCodePoint = Just 'c'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [107],
-                            unicodeCodePoint = Just 'k'},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [40],
-                            unicodeCodePoint = Just `'('`},
-                          CharValue {
-                            charValue =
-                            Prim.byteArrayFromList [41],
-                            unicodeCodePoint = Just
-                              `')'`}]})])},
-          macroTcError = T.concat
-            [
-              "Failed to typecheck macro:\n",
-              "Unbound variable: '_Pragma'\n"]},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:25:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "PACK_ENUM",
-            macroArgs = [],
-            macroBody = MTerm
-              (MAttr
-                (Attribute
-                  [
-                    Token {
-                      tokenKind = SimpleEnum 2,
-                      tokenSpelling = TokenSpelling
-                        "packed",
-                      tokenExtent = Range {
-                        rangeStart = MultiLoc {
-                          multiLocExpansion =
-                          "distilled_lib_1.h:25:34",
-                          multiLocPresumed = Nothing,
-                          multiLocSpelling = Nothing,
-                          multiLocFile = Nothing},
-                        rangeEnd = MultiLoc {
-                          multiLocExpansion =
-                          "distilled_lib_1.h:25:40",
-                          multiLocPresumed = Nothing,
-                          multiLocSpelling = Nothing,
-                          multiLocFile = Nothing}},
-                      tokenCursorKind = SimpleEnum
-                        501}])
-                Nothing)},
-          macroDeclMacroTy = "Empty",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:25:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:52:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "A_DEFINE_0",
-            macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "0x00",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
-                  integerLiteralValue = 0})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:52:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:53:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "A_DEFINE_1",
-            macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "0x5050U",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Unsigned),
-                  integerLiteralValue = 20560})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Unsigned)))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:53:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:54:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "A_DEFINE_2",
-            macroArgs = [],
-            macroBody = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "2",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
-                  integerLiteralValue = 2})},
-          macroDeclMacroTy =
-          "IntLike (CIntegralType (IntLike (Int Signed)))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:54:9"},
-      DeclMacro
-        MacroDecl {
-          macroDeclMacro = Macro {
-            macroLoc = MultiLoc {
-              multiLocExpansion =
-              "distilled_lib_1.h:55:9",
-              multiLocPresumed = Nothing,
-              multiLocSpelling = Nothing,
-              multiLocFile = Nothing},
-            macroName = CName "TWO_ARGS",
-            macroArgs = [],
-            macroBody = MApp
-              MTuple
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:10:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "A",
+          macroArgs = [],
+          macroBody = MTerm
+            (MInt
+              IntegerLiteral {
+                integerLiteralText = "5",
+                integerLiteralType = Just
+                  (_×_ PrimInt Signed),
+                integerLiteralValue = 5})},
+        macroDeclMacroTy =
+        "IntLike (CIntegralType (IntLike (Int Signed)))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:10:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:11:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "B",
+          macroArgs = [],
+          macroBody = MTerm
+            (MInt
+              IntegerLiteral {
+                integerLiteralText = "3",
+                integerLiteralType = Just
+                  (_×_ PrimInt Signed),
+                integerLiteralValue = 3})},
+        macroDeclMacroTy =
+        "IntLike (CIntegralType (IntLike (Int Signed)))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:11:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:12:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName
+            "SOME_DEFINED_CONSTANT",
+          macroArgs = [],
+          macroBody = MTerm
+            (MInt
+              IntegerLiteral {
+                integerLiteralText = "4",
+                integerLiteralType = Just
+                  (_×_ PrimInt Signed),
+                integerLiteralValue = 4})},
+        macroDeclMacroTy =
+        "IntLike (CIntegralType (IntLike (Int Signed)))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:12:9"},
+    DeclMacro
+      MacroTcError {
+        macroTcErrorMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:17:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "PACK_START",
+          macroArgs = [],
+          macroBody = MTerm
+            (MVar
+              (CName "_Pragma")
               [
                 MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "0x3456",
-                      integerLiteralType = Just
-                        (_×_ PrimInt Signed),
-                      integerLiteralValue = 13398}),
+                  (MString
+                    StringLiteral {
+                      stringLiteralText =
+                      "\"pack(1)\"",
+                      stringLiteralValue = [
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [112],
+                          unicodeCodePoint = Just 'p'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [97],
+                          unicodeCodePoint = Just 'a'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [99],
+                          unicodeCodePoint = Just 'c'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [107],
+                          unicodeCodePoint = Just 'k'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [40],
+                          unicodeCodePoint = Just `'('`},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [49],
+                          unicodeCodePoint = Just '1'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [41],
+                          unicodeCodePoint = Just
+                            `')'`}]})])},
+        macroTcError = T.concat
+          [
+            "Failed to typecheck macro:\n",
+            "Unbound variable: '_Pragma'\n"]},
+    DeclMacro
+      MacroTcError {
+        macroTcErrorMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:18:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "PACK_FINISH",
+          macroArgs = [],
+          macroBody = MTerm
+            (MVar
+              (CName "_Pragma")
+              [
                 MTerm
-                  (MInt
-                    IntegerLiteral {
-                      integerLiteralText = "0x789A",
-                      integerLiteralType = Just
-                        (_×_ PrimInt Signed),
-                      integerLiteralValue = 30874})]},
-          macroDeclMacroTy =
-          "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
-          macroDeclSourceLoc =
-          "distilled_lib_1.h:55:9"},
-      DeclFunction
-        Function {
-          functionName = CName "some_fun",
-          functionType = TypeFun
+                  (MString
+                    StringLiteral {
+                      stringLiteralText =
+                      "\"pack()\"",
+                      stringLiteralValue = [
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [112],
+                          unicodeCodePoint = Just 'p'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [97],
+                          unicodeCodePoint = Just 'a'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [99],
+                          unicodeCodePoint = Just 'c'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [107],
+                          unicodeCodePoint = Just 'k'},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [40],
+                          unicodeCodePoint = Just `'('`},
+                        CharValue {
+                          charValue =
+                          Prim.byteArrayFromList [41],
+                          unicodeCodePoint = Just
+                            `')'`}]})])},
+        macroTcError = T.concat
+          [
+            "Failed to typecheck macro:\n",
+            "Unbound variable: '_Pragma'\n"]},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:25:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "PACK_ENUM",
+          macroArgs = [],
+          macroBody = MTerm
+            (MAttr
+              (Attribute
+                [
+                  Token {
+                    tokenKind = SimpleEnum 2,
+                    tokenSpelling = TokenSpelling
+                      "packed",
+                    tokenExtent = Range {
+                      rangeStart = MultiLoc {
+                        multiLocExpansion =
+                        "distilled_lib_1.h:25:34",
+                        multiLocPresumed = Nothing,
+                        multiLocSpelling = Nothing,
+                        multiLocFile = Nothing},
+                      rangeEnd = MultiLoc {
+                        multiLocExpansion =
+                        "distilled_lib_1.h:25:40",
+                        multiLocPresumed = Nothing,
+                        multiLocSpelling = Nothing,
+                        multiLocFile = Nothing}},
+                    tokenCursorKind = SimpleEnum
+                      501}])
+              Nothing)},
+        macroDeclMacroTy = "Empty",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:25:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:52:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "A_DEFINE_0",
+          macroArgs = [],
+          macroBody = MTerm
+            (MInt
+              IntegerLiteral {
+                integerLiteralText = "0x00",
+                integerLiteralType = Just
+                  (_×_ PrimInt Signed),
+                integerLiteralValue = 0})},
+        macroDeclMacroTy =
+        "IntLike (CIntegralType (IntLike (Int Signed)))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:52:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:53:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "A_DEFINE_1",
+          macroArgs = [],
+          macroBody = MTerm
+            (MInt
+              IntegerLiteral {
+                integerLiteralText = "0x5050U",
+                integerLiteralType = Just
+                  (_×_ PrimInt Unsigned),
+                integerLiteralValue = 20560})},
+        macroDeclMacroTy =
+        "IntLike (CIntegralType (IntLike (Int Unsigned)))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:53:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:54:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "A_DEFINE_2",
+          macroArgs = [],
+          macroBody = MTerm
+            (MInt
+              IntegerLiteral {
+                integerLiteralText = "2",
+                integerLiteralType = Just
+                  (_×_ PrimInt Signed),
+                integerLiteralValue = 2})},
+        macroDeclMacroTy =
+        "IntLike (CIntegralType (IntLike (Int Signed)))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:54:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "distilled_lib_1.h:55:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "TWO_ARGS",
+          macroArgs = [],
+          macroBody = MApp
+            MTuple
             [
-              TypePointer
-                (TypeTypedef
-                  (CName "a_type_t")),
-              TypeTypedef (CName "uint32_t"),
-              TypeIncompleteArray
-                (TypeTypedef (CName "uint8_t"))]
-            (TypeTypedef (CName "int32_t")),
-          functionHeader =
-          "distilled_lib_1.h",
-          functionSourceLoc =
-          "distilled_lib_1.h:71:9"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTypedef
-              (CName
-                "another_typedef_struct_t"))
-            DeclPathTop,
-          structSizeof = 8,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "foo",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              fieldSourceLoc =
-              "distilled_lib_1.h:8:22"},
-            StructField {
-              fieldName = CName "bar",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimChar Nothing),
-              fieldSourceLoc =
-              "distilled_lib_1.h:8:32"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "distilled_lib_1.h:8:9"},
-      DeclEnum
-        Enu {
-          enumTag = CName
-            "another_typedef_enum_e",
-          enumType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          enumSizeof = 4,
-          enumAlignment = 4,
-          enumValues = [
-            EnumValue {
-              valueName = CName "FOO",
-              valueValue = 0,
-              valueSourceLoc =
-              "distilled_lib_1.h:9:16"},
-            EnumValue {
-              valueName = CName "BAR",
-              valueValue = 1,
-              valueSourceLoc =
-              "distilled_lib_1.h:9:21"}],
-          enumSourceLoc =
-          "distilled_lib_1.h:9:9"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "a_type_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "distilled_lib_1.h:13:13"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "var_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "distilled_lib_1.h:14:13"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "uint8_t",
-          typedefType = TypePrim
-            (PrimChar (Just Unsigned)),
-          typedefSourceLoc =
-          "alltypes.h:121:25"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "uint16_t",
-          typedefType = TypePrim
-            (PrimIntegral
-              PrimShort
-              Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:126:25"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "uint32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:131:25"},
-      DeclStruct
-        Struct {
-          structDeclPath = DeclPathStruct
-            (DeclNameTag
-              (CName "a_typedef_struct"))
-            DeclPathTop,
-          structSizeof = 140,
-          structAlignment = 1,
-          structFields = [
-            StructField {
-              fieldName = CName "field_0",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypePrim PrimBool,
-              fieldSourceLoc =
-              "distilled_lib_1.h:36:31"},
-            StructField {
-              fieldName = CName "field_1",
-              fieldOffset = 8,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint8_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:37:31"},
-            StructField {
-              fieldName = CName "field_2",
-              fieldOffset = 16,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint16_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:38:31"},
-            StructField {
-              fieldName = CName "field_3",
-              fieldOffset = 32,
-              fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "uint32_t"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:39:31"},
-            StructField {
-              fieldName = CName "field_4",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
+              MTerm
+                (MInt
+                  IntegerLiteral {
+                    integerLiteralText = "0x3456",
+                    integerLiteralType = Just
+                      (_×_ PrimInt Signed),
+                    integerLiteralValue = 13398}),
+              MTerm
+                (MInt
+                  IntegerLiteral {
+                    integerLiteralText = "0x789A",
+                    integerLiteralType = Just
+                      (_×_ PrimInt Signed),
+                    integerLiteralValue = 30874})]},
+        macroDeclMacroTy =
+        "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))",
+        macroDeclSourceLoc =
+        "distilled_lib_1.h:55:9"},
+    DeclFunction
+      Function {
+        functionName = CName "some_fun",
+        functionType = TypeFun
+          [
+            TypePointer
+              (TypeTypedef
+                (CName "a_type_t")),
+            TypeTypedef (CName "uint32_t"),
+            TypeIncompleteArray
+              (TypeTypedef (CName "uint8_t"))]
+          (TypeTypedef (CName "int32_t")),
+        functionHeader =
+        "distilled_lib_1.h",
+        functionSourceLoc =
+        "distilled_lib_1.h:71:9"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTypedef
+            (CName
+              "another_typedef_struct_t"))
+          DeclPathTop,
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "foo",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "distilled_lib_1.h:8:22"},
+          StructField {
+            fieldName = CName "bar",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimChar Nothing),
+            fieldSourceLoc =
+            "distilled_lib_1.h:8:32"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "distilled_lib_1.h:8:9"},
+    DeclEnum
+      Enu {
+        enumTag = CName
+          "another_typedef_enum_e",
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "FOO",
+            valueValue = 0,
+            valueSourceLoc =
+            "distilled_lib_1.h:9:16"},
+          EnumValue {
+            valueName = CName "BAR",
+            valueValue = 1,
+            valueSourceLoc =
+            "distilled_lib_1.h:9:21"}],
+        enumSourceLoc =
+        "distilled_lib_1.h:9:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "a_type_t",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "distilled_lib_1.h:13:13"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "var_t",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "distilled_lib_1.h:14:13"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "uint8_t",
+        typedefType = TypePrim
+          (PrimChar (Just Unsigned)),
+        typedefSourceLoc =
+        "alltypes.h:121:25"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "uint16_t",
+        typedefType = TypePrim
+          (PrimIntegral
+            PrimShort
+            Unsigned),
+        typedefSourceLoc =
+        "alltypes.h:126:25"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "uint32_t",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        typedefSourceLoc =
+        "alltypes.h:131:25"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathStruct
+          (DeclNameTag
+            (CName "a_typedef_struct"))
+          DeclPathTop,
+        structSizeof = 140,
+        structAlignment = 1,
+        structFields = [
+          StructField {
+            fieldName = CName "field_0",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim PrimBool,
+            fieldSourceLoc =
+            "distilled_lib_1.h:36:31"},
+          StructField {
+            fieldName = CName "field_1",
+            fieldOffset = 8,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "uint8_t"),
+            fieldSourceLoc =
+            "distilled_lib_1.h:37:31"},
+          StructField {
+            fieldName = CName "field_2",
+            fieldOffset = 16,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "uint16_t"),
+            fieldSourceLoc =
+            "distilled_lib_1.h:38:31"},
+          StructField {
+            fieldName = CName "field_3",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypeTypedef
+              (CName "uint32_t"),
+            fieldSourceLoc =
+            "distilled_lib_1.h:39:31"},
+          StructField {
+            fieldName = CName "field_4",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
+              (DeclPathStruct
+                (DeclNameTypedef
+                  (CName
+                    "another_typedef_struct_t"))
+                DeclPathTop),
+            fieldSourceLoc =
+            "distilled_lib_1.h:40:31"},
+          StructField {
+            fieldName = CName "field_5",
+            fieldOffset = 128,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypeStruct
                 (DeclPathStruct
                   (DeclNameTypedef
                     (CName
                       "another_typedef_struct_t"))
-                  DeclPathTop),
-              fieldSourceLoc =
-              "distilled_lib_1.h:40:31"},
-            StructField {
-              fieldName = CName "field_5",
-              fieldOffset = 128,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                (TypeStruct
-                  (DeclPathStruct
-                    (DeclNameTypedef
-                      (CName
-                        "another_typedef_struct_t"))
-                    DeclPathTop)),
-              fieldSourceLoc =
-              "distilled_lib_1.h:41:31"},
-            StructField {
-              fieldName = CName "field_6",
-              fieldOffset = 192,
-              fieldWidth = Nothing,
-              fieldType = TypePointer
-                TypeVoid,
-              fieldSourceLoc =
-              "distilled_lib_1.h:42:31"},
-            StructField {
-              fieldName = CName "field_7",
-              fieldOffset = 256,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                7
-                (TypeTypedef
-                  (CName "uint32_t")),
-              fieldSourceLoc =
-              "distilled_lib_1.h:43:31"},
-            StructField {
-              fieldName = CName "field_8",
-              fieldOffset = 480,
-              fieldWidth = Nothing,
-              fieldType = TypeEnum
+                  DeclPathTop)),
+            fieldSourceLoc =
+            "distilled_lib_1.h:41:31"},
+          StructField {
+            fieldName = CName "field_6",
+            fieldOffset = 192,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              TypeVoid,
+            fieldSourceLoc =
+            "distilled_lib_1.h:42:31"},
+          StructField {
+            fieldName = CName "field_7",
+            fieldOffset = 256,
+            fieldWidth = Nothing,
+            fieldType = TypeConstArray
+              7
+              (TypeTypedef
+                (CName "uint32_t")),
+            fieldSourceLoc =
+            "distilled_lib_1.h:43:31"},
+          StructField {
+            fieldName = CName "field_8",
+            fieldOffset = 480,
+            fieldWidth = Nothing,
+            fieldType = TypeEnum
+              (CName
+                "another_typedef_enum_e"),
+            fieldSourceLoc =
+            "distilled_lib_1.h:44:31"},
+          StructField {
+            fieldName = CName "field_9",
+            fieldOffset = 512,
+            fieldWidth = Nothing,
+            fieldType = TypeConstArray
+              4
+              (TypeEnum
                 (CName
-                  "another_typedef_enum_e"),
-              fieldSourceLoc =
-              "distilled_lib_1.h:44:31"},
-            StructField {
-              fieldName = CName "field_9",
-              fieldOffset = 512,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                4
+                  "another_typedef_enum_e")),
+            fieldSourceLoc =
+            "distilled_lib_1.h:45:31"},
+          StructField {
+            fieldName = CName "field_10",
+            fieldOffset = 640,
+            fieldWidth = Nothing,
+            fieldType = TypeConstArray
+              5
+              (TypeConstArray
+                3
                 (TypeEnum
                   (CName
-                    "another_typedef_enum_e")),
-              fieldSourceLoc =
-              "distilled_lib_1.h:45:31"},
-            StructField {
-              fieldName = CName "field_10",
-              fieldOffset = 640,
-              fieldWidth = Nothing,
-              fieldType = TypeConstArray
-                5
-                (TypeConstArray
-                  3
-                  (TypeEnum
-                    (CName
-                      "another_typedef_enum_e"))),
-              fieldSourceLoc =
-              "distilled_lib_1.h:46:31"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "distilled_lib_1.h:34:16"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName
-            "a_typedef_struct_t",
-          typedefType = TypeStruct
-            (DeclPathStruct
-              (DeclNameTag
-                (CName "a_typedef_struct"))
-              DeclPathTop),
-          typedefSourceLoc =
-          "distilled_lib_1.h:47:3"},
-      DeclEnum
-        Enu {
-          enumTag = CName
-            "a_typedef_enum_e",
-          enumType = TypePrim
-            (PrimChar (Just Unsigned)),
-          enumSizeof = 1,
-          enumAlignment = 1,
-          enumValues = [
-            EnumValue {
-              valueName = CName "ENUM_CASE_0",
-              valueValue = 0,
-              valueSourceLoc =
-              "distilled_lib_1.h:62:3"},
-            EnumValue {
-              valueName = CName "ENUM_CASE_1",
-              valueValue = 1,
-              valueSourceLoc =
-              "distilled_lib_1.h:63:3"},
-            EnumValue {
-              valueName = CName "ENUM_CASE_2",
-              valueValue = 2,
-              valueSourceLoc =
-              "distilled_lib_1.h:64:3"},
-            EnumValue {
-              valueName = CName "ENUM_CASE_3",
-              valueValue = 3,
-              valueSourceLoc =
-              "distilled_lib_1.h:65:3"}],
-          enumSourceLoc =
-          "distilled_lib_1.h:60:9"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName "int32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "alltypes.h:106:25"},
-      DeclTypedef
-        Typedef {
-          typedefName = CName
-            "callback_t",
-          typedefType = TypePointer
-            (TypeFun
-              [
-                TypePointer TypeVoid,
-                TypeTypedef (CName "uint32_t")]
-              (TypeTypedef
-                (CName "uint32_t"))),
-          typedefSourceLoc =
-          "distilled_lib_1.h:76:19"}])
+                    "another_typedef_enum_e"))),
+            fieldSourceLoc =
+            "distilled_lib_1.h:46:31"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "distilled_lib_1.h:34:16"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName
+          "a_typedef_struct_t",
+        typedefType = TypeStruct
+          (DeclPathStruct
+            (DeclNameTag
+              (CName "a_typedef_struct"))
+            DeclPathTop),
+        typedefSourceLoc =
+        "distilled_lib_1.h:47:3"},
+    DeclEnum
+      Enu {
+        enumTag = CName
+          "a_typedef_enum_e",
+        enumType = TypePrim
+          (PrimChar (Just Unsigned)),
+        enumSizeof = 1,
+        enumAlignment = 1,
+        enumValues = [
+          EnumValue {
+            valueName = CName "ENUM_CASE_0",
+            valueValue = 0,
+            valueSourceLoc =
+            "distilled_lib_1.h:62:3"},
+          EnumValue {
+            valueName = CName "ENUM_CASE_1",
+            valueValue = 1,
+            valueSourceLoc =
+            "distilled_lib_1.h:63:3"},
+          EnumValue {
+            valueName = CName "ENUM_CASE_2",
+            valueValue = 2,
+            valueSourceLoc =
+            "distilled_lib_1.h:64:3"},
+          EnumValue {
+            valueName = CName "ENUM_CASE_3",
+            valueValue = 3,
+            valueSourceLoc =
+            "distilled_lib_1.h:65:3"}],
+        enumSourceLoc =
+        "distilled_lib_1.h:60:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "int32_t",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "alltypes.h:106:25"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName
+          "callback_t",
+        typedefType = TypePointer
+          (TypeFun
+            [
+              TypePointer TypeVoid,
+              TypeTypedef (CName "uint32_t")]
+            (TypeTypedef
+              (CName "uint32_t"))),
+        typedefSourceLoc =
+        "distilled_lib_1.h:76:19"}]
