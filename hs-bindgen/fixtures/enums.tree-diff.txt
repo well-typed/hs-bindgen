@@ -17,7 +17,10 @@ Header
         "enums.h:2:9"},
     DeclEnum
       Enu {
-        enumTag = CName "first",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "first"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -35,7 +38,10 @@ Header
         enumSourceLoc = "enums.h:4:6"},
     DeclEnum
       Enu {
-        enumTag = CName "second",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "second"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Signed),
         enumSizeof = 4,
@@ -59,7 +65,10 @@ Header
         enumSourceLoc = "enums.h:9:6"},
     DeclEnum
       Enu {
-        enumTag = CName "same",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "same"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -78,7 +87,10 @@ Header
         enumSourceLoc = "enums.h:15:6"},
     DeclEnum
       Enu {
-        enumTag = CName "packad",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "packad"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimChar (Just Unsigned)),
         enumSizeof = 1,
@@ -102,7 +114,11 @@ Header
         enumSourceLoc = "enums.h:20:6"},
     DeclEnum
       Enu {
-        enumTag = CName "enumA",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTypedef
+            (CName "enumA"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -121,7 +137,10 @@ Header
         enumSourceLoc = "enums.h:24:9"},
     DeclEnum
       Enu {
-        enumTag = CName "enumB",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "enumB"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -141,7 +160,10 @@ Header
         "enums.h:26:14"},
     DeclEnum
       Enu {
-        enumTag = CName "enumC",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "enumC"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -160,7 +182,10 @@ Header
         enumSourceLoc = "enums.h:28:6"},
     DeclEnum
       Enu {
-        enumTag = CName "enumD",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "enumD"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -181,6 +206,9 @@ Header
       Typedef {
         typedefName = CName "enumD_t",
         typedefType = TypeEnum
-          (CName "enumD"),
+          (DeclPathConstr
+            DeclConstrEnum
+            (DeclNameTag (CName "enumD"))
+            DeclPathTop),
         typedefSourceLoc =
         "enums.h:32:20"}]
