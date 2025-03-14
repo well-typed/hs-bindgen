@@ -290,7 +290,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTypedef
               (CName
                 "another_typedef_struct_t"))
@@ -362,7 +363,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTypedef
                 (CName
                   "another_typedef_struct_t"))
@@ -439,7 +441,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -518,7 +521,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -583,8 +587,12 @@
       newtypeOrigin =
       NewtypeOriginEnum
         Enu {
-          enumTag = CName
-            "another_typedef_enum_e",
+          enumDeclPath = DeclPathConstr
+            DeclConstrEnum
+            (DeclNameTypedef
+              (CName
+                "another_typedef_enum_e"))
+            DeclPathTop,
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
@@ -621,8 +629,12 @@
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
-            enumTag = CName
-              "another_typedef_enum_e",
+            enumDeclPath = DeclPathConstr
+              DeclConstrEnum
+              (DeclNameTypedef
+                (CName
+                  "another_typedef_enum_e"))
+              DeclPathTop,
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -664,8 +676,12 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumTag = CName
-                      "another_typedef_enum_e",
+                    enumDeclPath = DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName
+                          "another_typedef_enum_e"))
+                      DeclPathTop,
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -707,8 +723,12 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumTag = CName
-                      "another_typedef_enum_e",
+                    enumDeclPath = DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName
+                          "another_typedef_enum_e"))
+                      DeclPathTop,
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -1401,7 +1421,8 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTypedef
                     (CName
                       "another_typedef_struct_t"))
@@ -1425,7 +1446,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1485,8 +1507,12 @@
               fieldOffset = 480,
               fieldWidth = Nothing,
               fieldType = TypeEnum
-                (CName
-                  "another_typedef_enum_e"),
+                (DeclPathConstr
+                  DeclConstrEnum
+                  (DeclNameTypedef
+                    (CName
+                      "another_typedef_enum_e"))
+                  DeclPathTop),
               fieldSourceLoc =
               "distilled_lib_1.h:44:31"}},
         Field {
@@ -1508,8 +1534,12 @@
               fieldType = TypeConstArray
                 4
                 (TypeEnum
-                  (CName
-                    "another_typedef_enum_e")),
+                  (DeclPathConstr
+                    DeclConstrEnum
+                    (DeclNameTypedef
+                      (CName
+                        "another_typedef_enum_e"))
+                    DeclPathTop)),
               fieldSourceLoc =
               "distilled_lib_1.h:45:31"}},
         Field {
@@ -1535,14 +1565,19 @@
                 (TypeConstArray
                   3
                   (TypeEnum
-                    (CName
-                      "another_typedef_enum_e"))),
+                    (DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName
+                          "another_typedef_enum_e"))
+                      DeclPathTop))),
               fieldSourceLoc =
               "distilled_lib_1.h:46:31"}}],
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag
               (CName "a_typedef_struct"))
             DeclPathTop,
@@ -1585,7 +1620,8 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTypedef
                     (CName
                       "another_typedef_struct_t"))
@@ -1598,7 +1634,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1628,8 +1665,12 @@
               fieldOffset = 480,
               fieldWidth = Nothing,
               fieldType = TypeEnum
-                (CName
-                  "another_typedef_enum_e"),
+                (DeclPathConstr
+                  DeclConstrEnum
+                  (DeclNameTypedef
+                    (CName
+                      "another_typedef_enum_e"))
+                  DeclPathTop),
               fieldSourceLoc =
               "distilled_lib_1.h:44:31"},
             StructField {
@@ -1639,8 +1680,12 @@
               fieldType = TypeConstArray
                 4
                 (TypeEnum
-                  (CName
-                    "another_typedef_enum_e")),
+                  (DeclPathConstr
+                    DeclConstrEnum
+                    (DeclNameTypedef
+                      (CName
+                        "another_typedef_enum_e"))
+                    DeclPathTop)),
               fieldSourceLoc =
               "distilled_lib_1.h:45:31"},
             StructField {
@@ -1652,8 +1697,12 @@
                 (TypeConstArray
                   3
                   (TypeEnum
-                    (CName
-                      "another_typedef_enum_e"))),
+                    (DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName
+                          "another_typedef_enum_e"))
+                      DeclPathTop))),
               fieldSourceLoc =
               "distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
@@ -1753,7 +1802,8 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1777,7 +1827,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -1837,8 +1888,12 @@
                 fieldOffset = 480,
                 fieldWidth = Nothing,
                 fieldType = TypeEnum
-                  (CName
-                    "another_typedef_enum_e"),
+                  (DeclPathConstr
+                    DeclConstrEnum
+                    (DeclNameTypedef
+                      (CName
+                        "another_typedef_enum_e"))
+                    DeclPathTop),
                 fieldSourceLoc =
                 "distilled_lib_1.h:44:31"}},
           Field {
@@ -1860,8 +1915,12 @@
                 fieldType = TypeConstArray
                   4
                   (TypeEnum
-                    (CName
-                      "another_typedef_enum_e")),
+                    (DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName
+                          "another_typedef_enum_e"))
+                      DeclPathTop)),
                 fieldSourceLoc =
                 "distilled_lib_1.h:45:31"}},
           Field {
@@ -1887,14 +1946,19 @@
                   (TypeConstArray
                     3
                     (TypeEnum
-                      (CName
-                        "another_typedef_enum_e"))),
+                      (DeclPathConstr
+                        DeclConstrEnum
+                        (DeclNameTypedef
+                          (CName
+                            "another_typedef_enum_e"))
+                        DeclPathTop))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:46:31"}}],
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop,
@@ -1937,7 +2001,8 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1950,7 +2015,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -1980,8 +2046,12 @@
                 fieldOffset = 480,
                 fieldWidth = Nothing,
                 fieldType = TypeEnum
-                  (CName
-                    "another_typedef_enum_e"),
+                  (DeclPathConstr
+                    DeclConstrEnum
+                    (DeclNameTypedef
+                      (CName
+                        "another_typedef_enum_e"))
+                    DeclPathTop),
                 fieldSourceLoc =
                 "distilled_lib_1.h:44:31"},
               StructField {
@@ -1991,8 +2061,12 @@
                 fieldType = TypeConstArray
                   4
                   (TypeEnum
-                    (CName
-                      "another_typedef_enum_e")),
+                    (DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName
+                          "another_typedef_enum_e"))
+                      DeclPathTop)),
                 fieldSourceLoc =
                 "distilled_lib_1.h:45:31"},
               StructField {
@@ -2004,8 +2078,12 @@
                   (TypeConstArray
                     3
                     (TypeEnum
-                      (CName
-                        "another_typedef_enum_e"))),
+                      (DeclPathConstr
+                        DeclConstrEnum
+                        (DeclNameTypedef
+                          (CName
+                            "another_typedef_enum_e"))
+                        DeclPathTop))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
@@ -2110,7 +2188,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2134,7 +2213,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2194,8 +2274,12 @@
                         fieldOffset = 480,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (CName
-                            "another_typedef_enum_e"),
+                          (DeclPathConstr
+                            DeclConstrEnum
+                            (DeclNameTypedef
+                              (CName
+                                "another_typedef_enum_e"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "distilled_lib_1.h:44:31"}},
                   Field {
@@ -2217,8 +2301,12 @@
                         fieldType = TypeConstArray
                           4
                           (TypeEnum
-                            (CName
-                              "another_typedef_enum_e")),
+                            (DeclPathConstr
+                              DeclConstrEnum
+                              (DeclNameTypedef
+                                (CName
+                                  "another_typedef_enum_e"))
+                              DeclPathTop)),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"}},
                   Field {
@@ -2244,14 +2332,19 @@
                           (TypeConstArray
                             3
                             (TypeEnum
-                              (CName
-                                "another_typedef_enum_e"))),
+                              (DeclPathConstr
+                                DeclConstrEnum
+                                (DeclNameTypedef
+                                  (CName
+                                    "another_typedef_enum_e"))
+                                DeclPathTop))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "a_typedef_struct"))
                       DeclPathTop,
@@ -2294,7 +2387,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2307,7 +2401,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2337,8 +2432,12 @@
                         fieldOffset = 480,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (CName
-                            "another_typedef_enum_e"),
+                          (DeclPathConstr
+                            DeclConstrEnum
+                            (DeclNameTypedef
+                              (CName
+                                "another_typedef_enum_e"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "distilled_lib_1.h:44:31"},
                       StructField {
@@ -2348,8 +2447,12 @@
                         fieldType = TypeConstArray
                           4
                           (TypeEnum
-                            (CName
-                              "another_typedef_enum_e")),
+                            (DeclPathConstr
+                              DeclConstrEnum
+                              (DeclNameTypedef
+                                (CName
+                                  "another_typedef_enum_e"))
+                              DeclPathTop)),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"},
                       StructField {
@@ -2361,8 +2464,12 @@
                           (TypeConstArray
                             3
                             (TypeEnum
-                              (CName
-                                "another_typedef_enum_e"))),
+                              (DeclPathConstr
+                                DeclConstrEnum
+                                (DeclNameTypedef
+                                  (CName
+                                    "another_typedef_enum_e"))
+                                DeclPathTop))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
@@ -2478,7 +2585,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2502,7 +2610,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2562,8 +2671,12 @@
                         fieldOffset = 480,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (CName
-                            "another_typedef_enum_e"),
+                          (DeclPathConstr
+                            DeclConstrEnum
+                            (DeclNameTypedef
+                              (CName
+                                "another_typedef_enum_e"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "distilled_lib_1.h:44:31"}},
                   Field {
@@ -2585,8 +2698,12 @@
                         fieldType = TypeConstArray
                           4
                           (TypeEnum
-                            (CName
-                              "another_typedef_enum_e")),
+                            (DeclPathConstr
+                              DeclConstrEnum
+                              (DeclNameTypedef
+                                (CName
+                                  "another_typedef_enum_e"))
+                              DeclPathTop)),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"}},
                   Field {
@@ -2612,14 +2729,19 @@
                           (TypeConstArray
                             3
                             (TypeEnum
-                              (CName
-                                "another_typedef_enum_e"))),
+                              (DeclPathConstr
+                                DeclConstrEnum
+                                (DeclNameTypedef
+                                  (CName
+                                    "another_typedef_enum_e"))
+                                DeclPathTop))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "a_typedef_struct"))
                       DeclPathTop,
@@ -2662,7 +2784,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2675,7 +2798,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2705,8 +2829,12 @@
                         fieldOffset = 480,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (CName
-                            "another_typedef_enum_e"),
+                          (DeclPathConstr
+                            DeclConstrEnum
+                            (DeclNameTypedef
+                              (CName
+                                "another_typedef_enum_e"))
+                            DeclPathTop),
                         fieldSourceLoc =
                         "distilled_lib_1.h:44:31"},
                       StructField {
@@ -2716,8 +2844,12 @@
                         fieldType = TypeConstArray
                           4
                           (TypeEnum
-                            (CName
-                              "another_typedef_enum_e")),
+                            (DeclPathConstr
+                              DeclConstrEnum
+                              (DeclNameTypedef
+                                (CName
+                                  "another_typedef_enum_e"))
+                              DeclPathTop)),
                         fieldSourceLoc =
                         "distilled_lib_1.h:45:31"},
                       StructField {
@@ -2729,8 +2861,12 @@
                           (TypeConstArray
                             3
                             (TypeEnum
-                              (CName
-                                "another_typedef_enum_e"))),
+                              (DeclPathConstr
+                                DeclConstrEnum
+                                (DeclNameTypedef
+                                  (CName
+                                    "another_typedef_enum_e"))
+                                DeclPathTop))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
@@ -2788,7 +2924,8 @@
           typedefName = CName
             "a_typedef_struct_t",
           typedefType = TypeStruct
-            (DeclPathStruct
+            (DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop),
@@ -2818,8 +2955,11 @@
       newtypeOrigin =
       NewtypeOriginEnum
         Enu {
-          enumTag = CName
-            "a_typedef_enum_e",
+          enumDeclPath = DeclPathConstr
+            DeclConstrEnum
+            (DeclNameTypedef
+              (CName "a_typedef_enum_e"))
+            DeclPathTop,
           enumType = TypePrim
             (PrimChar (Just Unsigned)),
           enumSizeof = 1,
@@ -2866,8 +3006,11 @@
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
-            enumTag = CName
-              "a_typedef_enum_e",
+            enumDeclPath = DeclPathConstr
+              DeclConstrEnum
+              (DeclNameTypedef
+                (CName "a_typedef_enum_e"))
+              DeclPathTop,
             enumType = TypePrim
               (PrimChar (Just Unsigned)),
             enumSizeof = 1,
@@ -2919,8 +3062,11 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumTag = CName
-                      "a_typedef_enum_e",
+                    enumDeclPath = DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName "a_typedef_enum_e"))
+                      DeclPathTop,
                     enumType = TypePrim
                       (PrimChar (Just Unsigned)),
                     enumSizeof = 1,
@@ -2972,8 +3118,11 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumTag = CName
-                      "a_typedef_enum_e",
+                    enumDeclPath = DeclPathConstr
+                      DeclConstrEnum
+                      (DeclNameTypedef
+                        (CName "a_typedef_enum_e"))
+                      DeclPathTop,
                     enumType = TypePrim
                       (PrimChar (Just Unsigned)),
                     enumSizeof = 1,

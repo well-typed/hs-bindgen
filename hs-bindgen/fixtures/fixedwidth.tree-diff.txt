@@ -18,7 +18,8 @@ Header
         "alltypes.h:131:25"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structSizeof = 16,

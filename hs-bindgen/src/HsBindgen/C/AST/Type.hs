@@ -22,6 +22,7 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
     -- * DeclPath
   , DeclPath(..)
+  , DeclConstr(..)
   , DeclName(..)
   ) where
 
@@ -39,7 +40,7 @@ data Type =
     TypePrim PrimType
   | TypeStruct DeclPath
   | TypeUnion DeclPath
-  | TypeEnum CName
+  | TypeEnum DeclPath
   | TypeTypedef CName
   | TypePointer Type
   | TypeConstArray Natural Type
@@ -178,7 +179,7 @@ data StructField = StructField {
 --
 -- > struct foo;
 data OpaqueStruct = OpaqueStruct {
-      opaqueStructTag       :: CName
+      opaqueStructDeclPath  :: DeclPath
     , opaqueStructSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
@@ -204,7 +205,7 @@ data Union = Union {
 -------------------------------------------------------------------------------}
 
 data Enu = Enu {
-      enumTag       :: CName
+      enumDeclPath  :: DeclPath
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -229,7 +230,7 @@ data EnumValue = EnumValue {
 --
 -- > enum foo;
 data OpaqueEnum = OpaqueEnum {
-      opaqueEnumTag       :: CName
+      opaqueEnumDeclPath  :: DeclPath
     , opaqueEnumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
@@ -264,11 +265,17 @@ data Typedef = Typedef {
 -- creation of the corresponding Haskell name.
 data DeclPath
     = DeclPathTop
-    | DeclPathStruct DeclName DeclPath
-    | DeclPathUnion DeclName DeclPath
+    | DeclPathConstr DeclConstr DeclName DeclPath
     | DeclPathField CName DeclPath
     | DeclPathPtr DeclPath
     -- TODO | DeclPathConstArray Natural Path
+  deriving stock (Eq, Generic, Show)
+  deriving anyclass (PrettyVal)
+
+data DeclConstr =
+    DeclConstrStruct
+  | DeclConstrUnion
+  | DeclConstrEnum
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)
 

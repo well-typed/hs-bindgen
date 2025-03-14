@@ -17,7 +17,10 @@ Header
         "uses_utf8.h:2:9"},
     DeclEnum
       Enu {
-        enumTag = CName "MyEnum",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "MyEnum"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
