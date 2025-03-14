@@ -39,7 +39,7 @@ mangleFieldName nm declPath fname = NM.mangleVarName nm ctx
     ctx = NM.FieldVarContext (toCtx declPath) fname
 
 -- | Create destructor name, @name Tycon = Datacon { decon :: ... }@
-mangleDeconName :: NM.NameMangler -> NM.CName -> HsName NsVar
+mangleDeconName :: ToTypeConstrContext ctx => NM.NameMangler -> ctx -> HsName NsVar
 mangleDeconName nm declPath = NM.mangleVarName nm ctx
   where
     ctx = NM.EnumVarContext $ toCtx declPath

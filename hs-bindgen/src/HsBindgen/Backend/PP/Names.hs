@@ -15,6 +15,7 @@ module HsBindgen.Backend.PP.Names (
 import Data.Char qualified as Char
 import Data.List qualified as L
 
+import HsBindgen.Imports
 import HsBindgen.SHs.AST
 import HsBindgen.Hs.AST.Type
 
@@ -280,6 +281,8 @@ resolveGlobal = \case
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble
     CFloat_constructor -> importQ ''Foreign.C.CFloat
     CDouble_constructor -> importQ ''Foreign.C.CDouble
+
+    ByteArray_type -> importQ ''ByteArray
 
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void

@@ -711,10 +711,31 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "Dim3"),
-  DeclEmpty
-    (HsName
-      "@NsTypeConstr"
-      "DimPayload"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "DimPayload",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "DimPayload",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unDimPayload",
+        fieldType = HsByteArray,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginUnion
+        Union {
+          unionDeclPath = DeclPathUnion
+            (DeclNameTag
+              (CName "DimPayload"))
+            DeclPathTop,
+          unionSizeof = 8,
+          unionAlignment = 4,
+          unionSourceLoc =
+          "unions.h:12:7"}},
   DeclData
     Struct {
       structName = HsName

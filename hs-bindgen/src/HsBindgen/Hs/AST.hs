@@ -113,6 +113,7 @@ data Newtype = Newtype {
 data NewtypeOrigin =
       NewtypeOriginEnum C.Enu
     | NewtypeOriginTypedef C.Typedef
+    | NewtypeOriginUnion C.Union
     | NewtypeOriginMacro C.Macro
   deriving stock (Generic, Show)
 

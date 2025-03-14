@@ -137,6 +137,7 @@ translateType (Hs.HsType _)         = TGlobal (PrimType HsPrimVoid)
 translateType (Hs.HsIO t)           = TApp (TGlobal IO_type) (translateType t)
 translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
 translateType (Hs.HsExtBinding i)   = TExt i
+translateType Hs.HsByteArray        = TGlobal ByteArray_type
 
 {-------------------------------------------------------------------------------
   Sigma/Phi/Tau types

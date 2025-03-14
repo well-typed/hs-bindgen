@@ -1,10 +1,10 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
 module Example where
 
+import qualified Data.Array.Byte
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -70,7 +70,9 @@ deriving stock instance Show Dim3
 
 deriving stock instance Eq Dim3
 
-data DimPayload
+newtype DimPayload = DimPayload
+  { unDimPayload :: Data.Array.Byte.ByteArray
+  }
 
 data Dim = Dim
   { dim_tag :: FC.CInt
