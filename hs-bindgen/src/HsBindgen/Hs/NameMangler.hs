@@ -860,7 +860,7 @@ mangleDataconName nm declPath = mangleConstrContext nm ctx
 mangleFieldName :: NameMangler -> DeclPath -> CName -> HsName NsVar
 mangleFieldName nm declPath fname = mangleVarContext nm ctx
   where
-    ctx = FieldVarContext (toCtx declPath) fname
+    ctx = FieldVarContext (StructTypeConstrContext declPath) fname
 
 -- | Create destructor name, @name Tycon = Datacon { decon :: ... }@
 mangleDeconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsVar
