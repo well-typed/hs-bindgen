@@ -153,8 +153,9 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                         | declName == DeclNameTag tag -> addAlias ty use
                         | declName == DeclNameTypedef tag -> addAlias ty use
 
-                    TypeEnum n | n == tag ->
-                        addAlias ty use
+                    TypeEnum (DeclPathConstr DeclConstrEnum declName _declPath)
+                        | declName == DeclNameTag tag -> addAlias ty use
+                        | declName == DeclNameTypedef tag -> addAlias ty use
 
                     _ -> do
                         --
@@ -312,17 +313,23 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
         if anon
         then do
             -- anonymous declaration, nothing to do
-
-            -- TODO: check with struct foo { struct { ... } field; };
+            -- TODO: This is wrong, they can be nested.
             return TypeVoid
-
         else do
-            let defnName :: CName
-                defnName = case enumSpelling name of
-                    Left n -> CName n
-                    Right n -> CName n
+            let declPath
+                  | anon      = DeclPathConstr DeclConstrEnum DeclNameNone path
+                  | otherwise = case T.stripPrefix "enum " name of
+                      Just n  -> DeclPathConstr DeclConstrEnum (DeclNameTag (CName n))        path
+                      Nothing -> DeclPathConstr DeclConstrEnum (DeclNameTypedef (CName name)) path
 
-            addTypeDeclProcessing ty $ TypeEnum defnName
+            -- name for opaque types.
+            let name'
+                  | anon      = ""
+                  | otherwise =  case T.stripPrefix "enum " name of
+                      Just n  -> n
+                      Nothing -> name
+
+            addTypeDeclProcessing ty $ TypeEnum declPath
             sloc <- liftIO $
                 HighLevel.clang_getExpansionLocation
                     =<< clang_getCursorLocation decl
@@ -333,7 +340,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                 Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
                     DeclarationOpaque -> do
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
-                            opaqueEnumTag       = defnName
+                            opaqueEnumTag       = CName name'
                           , opaqueEnumSourceLoc = sloc
                           }
 
@@ -351,7 +358,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             return $ Continue mvalue
 
                         addDecl ty $ DeclEnum $ Enu
-                            { enumTag       = defnName
+                            { enumDeclPath  = declPath
                             , enumType      = ety
                             , enumSizeof    = fromIntegral sizeof
                             , enumAlignment = fromIntegral alignment
@@ -461,11 +468,6 @@ lookupExtBinding cname sloc extBindings =
         graph <- gets cIncludePathGraph
         let path = singleLocPath sloc
         return $ lookupExtIdentifier (graph `DynGraph.reaches` path) ps
-
-enumSpelling :: Text -> Either Text Text
-enumSpelling n
-    | Just sfx <- T.stripPrefix "enum " n = Left sfx
-    | otherwise                           = Right n
 
 addAlias :: CXType -> Type -> Eff (State DeclState) Type
 addAlias ty t = do

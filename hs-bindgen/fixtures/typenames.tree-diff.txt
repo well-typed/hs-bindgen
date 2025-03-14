@@ -2,7 +2,10 @@ Header
   [
     DeclEnum
       Enu {
-        enumTag = CName "foo",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "foo"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
