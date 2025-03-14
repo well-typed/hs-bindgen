@@ -2,7 +2,8 @@ Header
   [
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "flags"))
           DeclPathTop,
         structSizeof = 4,
@@ -61,7 +62,8 @@ Header
         "bitfields.h:1:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "overflow32"))
           DeclPathTop,
@@ -97,7 +99,8 @@ Header
         "bitfields.h:12:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "overflow32b"))
           DeclPathTop,
@@ -133,7 +136,8 @@ Header
         "bitfields.h:18:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "overflow32c"))
           DeclPathTop,
@@ -169,7 +173,8 @@ Header
         "bitfields.h:24:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "overflow64"))
           DeclPathTop,
@@ -197,7 +202,8 @@ Header
         "bitfields.h:30:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "alignA"))
           DeclPathTop,
         structSizeof = 4,
@@ -224,7 +230,8 @@ Header
         "bitfields.h:36:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "alignB"))
           DeclPathTop,
         structSizeof = 8,

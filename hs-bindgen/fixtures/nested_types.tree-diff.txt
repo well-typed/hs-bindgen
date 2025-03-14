@@ -2,7 +2,8 @@ Header
   [
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structSizeof = 8,
@@ -29,7 +30,8 @@ Header
         "nested_types.h:1:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "bar"))
           DeclPathTop,
         structSizeof = 16,
@@ -40,7 +42,8 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypeStruct
-              (DeclPathStruct
+              (DeclPathConstr
+                DeclConstrStruct
                 (DeclNameTag (CName "foo"))
                 DeclPathTop),
             fieldSourceLoc =
@@ -50,7 +53,8 @@ Header
             fieldOffset = 64,
             fieldWidth = Nothing,
             fieldType = TypeStruct
-              (DeclPathStruct
+              (DeclPathConstr
+                DeclConstrStruct
                 (DeclNameTag (CName "foo"))
                 DeclPathTop),
             fieldSourceLoc =
@@ -60,7 +64,8 @@ Header
         "nested_types.h:6:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "ex3"))
           DeclPathTop,
         structSizeof = 12,
@@ -79,12 +84,14 @@ Header
         "nested_types.h:11:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "ex4_even"))
           (DeclPathPtr
             (DeclPathField
               (CName "next")
-              (DeclPathStruct
+              (DeclPathConstr
+                DeclConstrStruct
                 (DeclNameTag (CName "ex4_odd"))
                 DeclPathTop))),
         structSizeof = 16,
@@ -104,7 +111,8 @@ Header
             fieldWidth = Nothing,
             fieldType = TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "ex4_odd"))
                   DeclPathTop)),
             fieldSourceLoc =
@@ -114,7 +122,8 @@ Header
         "nested_types.h:24:12"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "ex4_odd"))
           DeclPathTop,
         structSizeof = 16,
@@ -134,12 +143,14 @@ Header
             fieldWidth = Nothing,
             fieldType = TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "ex4_even"))
                   (DeclPathPtr
                     (DeclPathField
                       (CName "next")
-                      (DeclPathStruct
+                      (DeclPathConstr
+                        DeclConstrStruct
                         (DeclNameTag (CName "ex4_odd"))
                         DeclPathTop))))),
             fieldSourceLoc =

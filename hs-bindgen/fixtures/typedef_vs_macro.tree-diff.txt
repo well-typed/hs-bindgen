@@ -161,7 +161,8 @@ Header
         "typedef_vs_macro.h:2:14"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "ExampleStruct"))
           DeclPathTop,
@@ -205,7 +206,8 @@ Header
         "typedef_vs_macro.h:9:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structSizeof = 8,

@@ -540,7 +540,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag
               (CName "ExampleStruct"))
             DeclPathTop,
@@ -659,7 +660,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "ExampleStruct"))
               DeclPathTop,
@@ -783,7 +785,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "ExampleStruct"))
                       DeclPathTop,
@@ -911,7 +914,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "ExampleStruct"))
                       DeclPathTop,
@@ -1007,7 +1011,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "foo"))
             DeclPathTop,
           structSizeof = 8,
@@ -1058,7 +1063,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag (CName "foo"))
               DeclPathTop,
             structSizeof = 8,
@@ -1114,7 +1120,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
                     structSizeof = 8,
@@ -1170,7 +1177,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
                     structSizeof = 8,

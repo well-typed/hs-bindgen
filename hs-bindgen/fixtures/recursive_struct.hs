@@ -41,7 +41,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
@@ -50,7 +51,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag
               (CName "linked_list_A_s"))
             DeclPathTop,
@@ -71,7 +73,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
@@ -123,7 +126,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
@@ -132,7 +136,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "linked_list_A_s"))
               DeclPathTop,
@@ -153,7 +158,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
@@ -210,7 +216,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -219,7 +226,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop,
@@ -240,7 +248,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -299,7 +308,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -308,7 +318,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop,
@@ -329,7 +340,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -381,7 +393,8 @@
           typedefName = CName
             "linked_list_A_t",
           typedefType = TypeStruct
-            (DeclPathStruct
+            (DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "linked_list_A_s"))
               DeclPathTop),
@@ -435,7 +448,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
@@ -444,7 +458,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag
               (CName "linked_list_B_t"))
             DeclPathTop,
@@ -465,7 +480,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
@@ -517,7 +533,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
@@ -526,7 +543,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "linked_list_B_t"))
               DeclPathTop,
@@ -547,7 +565,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
@@ -604,7 +623,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
@@ -613,7 +633,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop,
@@ -634,7 +655,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
@@ -693,7 +715,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
@@ -702,7 +725,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop,
@@ -723,7 +747,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
