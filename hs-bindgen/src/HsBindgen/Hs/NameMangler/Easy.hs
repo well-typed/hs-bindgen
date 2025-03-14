@@ -26,25 +26,25 @@ instance ToTypeConstrContext NM.CName where
     toCtx = NM.TypeConstrContext
 
 mangleTyconName :: ToTypeConstrContext ctx => NM.NameMangler -> ctx -> HsName NsTypeConstr
-mangleTyconName nm declPath = NM.mangleTypeConstrName nm (toCtx declPath)
+mangleTyconName nm declPath = NM.mangleTypeConstrContext nm (toCtx declPath)
 
 mangleDataconName :: ToTypeConstrContext ctx => NM.NameMangler -> ctx -> HsName NsConstr
-mangleDataconName nm declPath = NM.mangleConstrName nm ctx
+mangleDataconName nm declPath = NM.mangleConstrContext nm ctx
   where
     ctx = NM.ConstrContext $ toCtx declPath
 
 mangleFieldName :: NM.NameMangler -> DeclPath -> NM.CName -> HsName NsVar
-mangleFieldName nm declPath fname = NM.mangleVarName nm ctx
+mangleFieldName nm declPath fname = NM.mangleVarContext nm ctx
   where
     ctx = NM.FieldVarContext (toCtx declPath) fname
 
 -- | Create destructor name, @name Tycon = Datacon { decon :: ... }@
 mangleDeconName :: ToTypeConstrContext ctx => NM.NameMangler -> ctx -> HsName NsVar
-mangleDeconName nm declPath = NM.mangleVarName nm ctx
+mangleDeconName nm declPath = NM.mangleVarContext nm ctx
   where
     ctx = NM.EnumVarContext $ toCtx declPath
 
 mangleVarName :: NM.NameMangler -> NM.CName -> HsName NsVar
-mangleVarName nm varName = NM.mangleVarName nm ctx
+mangleVarName nm varName = NM.mangleVarContext nm ctx
   where
     ctx = NM.VarContext varName

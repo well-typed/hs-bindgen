@@ -74,13 +74,13 @@ import HsBindgen.Imports
 -- | Name mangler functions
 data NameMangler = NameMangler {
       -- | Create a Haskell type constructor name
-      mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
+      mangleTypeConstrContext :: TypeConstrContext -> HsName NsTypeConstr
 
       -- | Create a Haskell constructor name
-    , mangleConstrName :: ConstrContext -> HsName NsConstr
+    , mangleConstrContext :: ConstrContext -> HsName NsConstr
 
       -- | Create a Haskell variable name
-    , mangleVarName :: VarContext -> HsName NsVar
+    , mangleVarContext :: VarContext -> HsName NsVar
     }
 
 {-------------------------------------------------------------------------------
@@ -156,8 +156,8 @@ data VarContext =
 defaultNameMangler :: NameMangler
 defaultNameMangler = NameMangler{..}
   where
-    mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
-    mangleTypeConstrName = \case
+    mangleTypeConstrContext :: TypeConstrContext -> HsName NsTypeConstr
+    mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
@@ -176,12 +176,12 @@ defaultNameMangler = NameMangler{..}
           (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxStructTypeConstrDeclPath
 
-    mangleConstrName :: ConstrContext -> HsName NsConstr
-    mangleConstrName ConstrContext{..} =
-      HsName $ getHsName (mangleTypeConstrName ctxConstrTypeCtx)
+    mangleConstrContext :: ConstrContext -> HsName NsConstr
+    mangleConstrContext ConstrContext{..} =
+      HsName $ getHsName (mangleTypeConstrContext ctxConstrTypeCtx)
 
-    mangleVarName :: VarContext -> HsName NsVar
-    mangleVarName = \case
+    mangleVarContext :: VarContext -> HsName NsVar
+    mangleVarContext = \case
       VarContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
@@ -191,12 +191,12 @@ defaultNameMangler = NameMangler{..}
           (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
       EnumVarContext{..} ->
-        HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
+        HsName $ "un" <> getHsName (mangleTypeConstrContext ctxEnumVarTypeCtx)
       FieldVarContext{..} ->
         translateName
           (maintainCName escapeInvalidChar)
           (Just $ joinWithSnakeCase{extraPrefixes =
-              [getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)]
+              [getHsName (mangleTypeConstrContext ctxFieldVarTypeCtx)]
             })
           mkHsVarName
           handleOverrideNone
@@ -220,8 +220,8 @@ defaultNameMangler = NameMangler{..}
 haskellNameMangler :: NameMangler
 haskellNameMangler = NameMangler{..}
   where
-    mangleTypeConstrName :: TypeConstrContext -> HsName NsTypeConstr
-    mangleTypeConstrName = \case
+    mangleTypeConstrContext :: TypeConstrContext -> HsName NsTypeConstr
+    mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
@@ -240,12 +240,12 @@ haskellNameMangler = NameMangler{..}
           (handleReservedNames appendSingleQuote reservedTypeNames)
           ctxStructTypeConstrDeclPath
 
-    mangleConstrName :: ConstrContext -> HsName NsConstr
-    mangleConstrName ConstrContext{..} =
-      HsName $ "Mk" <> getHsName (mangleTypeConstrName ctxConstrTypeCtx)
+    mangleConstrContext :: ConstrContext -> HsName NsConstr
+    mangleConstrContext ConstrContext{..} =
+      HsName $ "Mk" <> getHsName (mangleTypeConstrContext ctxConstrTypeCtx)
 
-    mangleVarName :: VarContext -> HsName NsVar
-    mangleVarName = \case
+    mangleVarContext :: VarContext -> HsName NsVar
+    mangleVarContext = \case
       VarContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
@@ -255,12 +255,12 @@ haskellNameMangler = NameMangler{..}
           (handleReservedNames appendSingleQuote reservedVarNames)
           ctxVarCName
       EnumVarContext{..} ->
-        HsName $ "un" <> getHsName (mangleTypeConstrName ctxEnumVarTypeCtx)
+        HsName $ "un" <> getHsName (mangleTypeConstrContext ctxEnumVarTypeCtx)
       FieldVarContext{..} ->
         translateName
           (camelCaseCName dropInvalidChar)
           (Just $ joinWithCamelCase{extraPrefixes =
-               [getHsName (mangleTypeConstrName ctxFieldVarTypeCtx)]
+               [getHsName (mangleTypeConstrContext ctxFieldVarTypeCtx)]
              })
           mkHsVarName
           handleOverrideNone
