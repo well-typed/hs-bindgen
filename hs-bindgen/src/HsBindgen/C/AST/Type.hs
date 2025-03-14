@@ -179,7 +179,7 @@ data StructField = StructField {
 --
 -- > struct foo;
 data OpaqueStruct = OpaqueStruct {
-      opaqueStructTag       :: CName
+      opaqueStructDeclPath  :: DeclPath
     , opaqueStructSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
@@ -230,7 +230,7 @@ data EnumValue = EnumValue {
 --
 -- > enum foo;
 data OpaqueEnum = OpaqueEnum {
-      opaqueEnumTag       :: CName
+      opaqueEnumDeclPath  :: DeclPath
     , opaqueEnumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)

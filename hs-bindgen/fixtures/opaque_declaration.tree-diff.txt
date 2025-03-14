@@ -2,7 +2,11 @@ Header
   [
     DeclOpaqueStruct
       OpaqueStruct {
-        opaqueStructTag = CName "foo",
+        opaqueStructDeclPath =
+        DeclPathConstr
+          DeclConstrStruct
+          (DeclNameTag (CName "foo"))
+          DeclPathTop,
         opaqueStructSourceLoc =
         "opaque_declaration.h:1:8"},
     DeclStruct
@@ -55,12 +59,20 @@ Header
         "opaque_declaration.h:9:8"},
     DeclOpaqueEnum
       OpaqueEnum {
-        opaqueEnumTag = CName "quu",
+        opaqueEnumDeclPath =
+        DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTag (CName "quu"))
+          DeclPathTop,
         opaqueEnumSourceLoc =
         "opaque_declaration.h:11:6"},
     DeclOpaqueStruct
       OpaqueStruct {
-        opaqueStructTag = CName
-          "opaque_union",
+        opaqueStructDeclPath =
+        DeclPathConstr
+          DeclConstrUnion
+          (DeclNameTag
+            (CName "opaque_union"))
+          DeclPathTop,
         opaqueStructSourceLoc =
         "opaque_declaration.h:13:7"}]

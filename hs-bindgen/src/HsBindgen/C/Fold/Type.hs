@@ -187,13 +187,6 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           Just n  -> DeclPathConstr DeclConstrStruct (DeclNameTag (CName n))        path
                           Nothing -> DeclPathConstr DeclConstrStruct (DeclNameTypedef (CName name)) path
 
-                -- name for opaque types.
-                let name'
-                      | anon      = ""
-                      | otherwise =  case T.stripPrefix "struct " name of
-                          Just n  -> n
-                          Nothing -> name
-
                 if declPath == DeclPathConstr DeclConstrStruct DeclNameNone DeclPathTop
                 then do
                     -- Anonymous top-level declaration: nothing to do but warn, as there
@@ -215,7 +208,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                         Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
                             DeclarationOpaque ->
                                 addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                                      opaqueStructTag       = CName name'
+                                      opaqueStructDeclPath  = declPath
                                     , opaqueStructSourceLoc = sloc
                                     }
 
@@ -253,13 +246,6 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           Just n  -> DeclPathConstr DeclConstrUnion (DeclNameTag (CName n))        path
                           Nothing -> DeclPathConstr DeclConstrUnion (DeclNameTypedef (CName name)) path
 
-                -- name for opaque types.
-                let name'
-                      | anon      = ""
-                      | otherwise =  case T.stripPrefix "union " name of
-                          Just n  -> n
-                          Nothing -> name
-
                 if declPath == DeclPathConstr DeclConstrUnion DeclNameNone DeclPathTop
                 then do
                     -- Anonymous top-level declaration: nothing to do but warn, as there
@@ -277,7 +263,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             DeclarationOpaque ->
                                 -- opaque struct and opaque union look the same.
                                 addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                                      opaqueStructTag       = CName name'
+                                      opaqueStructDeclPath  = declPath
                                     , opaqueStructSourceLoc = sloc
                                     }
 
@@ -322,13 +308,6 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                       Just n  -> DeclPathConstr DeclConstrEnum (DeclNameTag (CName n))        path
                       Nothing -> DeclPathConstr DeclConstrEnum (DeclNameTypedef (CName name)) path
 
-            -- name for opaque types.
-            let name'
-                  | anon      = ""
-                  | otherwise =  case T.stripPrefix "enum " name of
-                      Just n  -> n
-                      Nothing -> name
-
             addTypeDeclProcessing ty $ TypeEnum declPath
             sloc <- liftIO $
                 HighLevel.clang_getExpansionLocation
@@ -340,7 +319,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                 Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
                     DeclarationOpaque -> do
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
-                            opaqueEnumTag       = CName name'
+                            opaqueEnumDeclPath  = declPath
                           , opaqueEnumSourceLoc = sloc
                           }
 
