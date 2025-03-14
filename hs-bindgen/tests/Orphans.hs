@@ -62,6 +62,7 @@ instance ToExpr C.StructField
 instance ToExpr C.TokenSpelling
 instance ToExpr C.Type
 instance ToExpr C.Typedef
+instance ToExpr C.Union
 
 instance ToExpr CExpr.CharValue
 

@@ -62,6 +62,16 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "unions.h:6:8"},
+    DeclUnion
+      Union {
+        unionDeclPath = DeclPathUnion
+          (DeclNameTag
+            (CName "DimPayload"))
+          DeclPathTop,
+        unionSizeof = 8,
+        unionAlignment = 4,
+        unionSourceLoc =
+        "unions.h:12:7"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathStruct

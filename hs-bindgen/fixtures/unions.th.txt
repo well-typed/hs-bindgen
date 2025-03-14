@@ -19,6 +19,7 @@ instance Storable Dim3
                                           dim3_z_5 -> pokeByteOff ptr_1 (0 :: Int) dim3_x_3 >> (pokeByteOff ptr_1 (4 :: Int) dim3_y_4 >> pokeByteOff ptr_1 (8 :: Int) dim3_z_5)}}
 deriving stock instance Show Dim3
 deriving stock instance Eq Dim3
+data DimPayload
 data Dim = Dim {dim_tag :: CInt, dim_payload :: DimPayload}
 instance Storable Dim
     where {sizeOf = \_ -> 12 :: Int;

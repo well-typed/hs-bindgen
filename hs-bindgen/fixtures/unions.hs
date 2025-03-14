@@ -711,6 +711,10 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "Dim3"),
+  DeclEmpty
+    (HsName
+      "@NsTypeConstr"
+      "DimPayload"),
   DeclData
     Struct {
       structName = HsName

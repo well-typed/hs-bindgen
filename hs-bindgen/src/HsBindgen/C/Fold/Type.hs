@@ -294,10 +294,13 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                     return $ Continue mfield
                                 -}
 
-                                let _unused = (sizeof, alignment)
-
-                                -- TODO: for now return some garbage
-                                return $ TypePrim $ PrimFloating $ PrimFloat
+                                addDecl ty $ DeclUnion Union
+                                    { unionDeclPath  = declPath
+                                    , unionSizeof    = fromIntegral sizeof
+                                    , unionAlignment = fromIntegral alignment
+                                    -- , unionFields    = fields
+                                    , unionSourceLoc = sloc
+                                    }
 
             _ -> panicIO $ show ki
     -- enum

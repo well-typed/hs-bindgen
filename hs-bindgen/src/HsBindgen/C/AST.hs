@@ -23,6 +23,8 @@ module HsBindgen.C.AST (
   , Struct(..)
   , StructField(..)
   , OpaqueStruct(..)
+    -- ** Unions
+  , Union(..)
     -- ** Enums
   , Enu(..)
   , EnumValue(..)
@@ -92,6 +94,7 @@ data Header = Header {
 data Decl =
     DeclStruct Struct
   | DeclOpaqueStruct OpaqueStruct
+  | DeclUnion Union
   | DeclTypedef Typedef
   | DeclEnum Enu
   | DeclOpaqueEnum OpaqueEnum
