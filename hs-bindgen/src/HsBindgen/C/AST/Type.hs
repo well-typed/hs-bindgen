@@ -254,8 +254,8 @@ data Typedef = Typedef {
 
 -- | Declaration path
 --
--- This type tracks how declarations are defined.  This information is used to
--- create Haskell names, and it is also used in test generation.
+-- This type tracks how declarations are defined.  This information is used in
+-- name mangling, external bindings generation, and test generation.
 --
 -- Syntax @struct {...}@ and @union {...}@ are /types/ that can be used in the
 -- definition of a variable or field.  They may even be nested.  When in a
@@ -263,6 +263,10 @@ data Typedef = Typedef {
 -- @union bar {..}@, they /also/ act as declarations in the global scope.  When
 -- a @struct@ or @union@ is not given a name, the field name may be used in
 -- creation of the corresponding Haskell name.
+--
+-- Note that @typedef@ declarations are /not/ part of a path.  Clang processes a
+-- /separate/ @typedef@ AST node /after/ the underlying type has already been
+-- processed.
 data DeclPath
     = DeclPathTop
     | DeclPathConstr DeclConstr DeclName DeclPath
@@ -285,7 +289,7 @@ data DeclName
       DeclNameNone
     | -- Structure/union tag specified
       DeclNameTag CName
-    | -- Typedef name specified
+    | -- Structure/union has no tag, but typedef name specified
       DeclNameTypedef CName
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)
