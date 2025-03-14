@@ -2,7 +2,8 @@ Header
   [
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "Dim2"))
           DeclPathTop,
         structSizeof = 8,
@@ -29,7 +30,8 @@ Header
         "unions.h:1:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "Dim3"))
           DeclPathTop,
         structSizeof = 12,
@@ -64,7 +66,8 @@ Header
         "unions.h:6:8"},
     DeclUnion
       Union {
-        unionDeclPath = DeclPathUnion
+        unionDeclPath = DeclPathConstr
+          DeclConstrUnion
           (DeclNameTag
             (CName "DimPayload"))
           DeclPathTop,
@@ -74,7 +77,8 @@ Header
         "unions.h:12:7"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "Dim"))
           DeclPathTop,
         structSizeof = 12,
@@ -93,7 +97,8 @@ Header
             fieldOffset = 32,
             fieldWidth = Nothing,
             fieldType = TypeUnion
-              (DeclPathUnion
+              (DeclPathConstr
+                DeclConstrUnion
                 (DeclNameTag
                   (CName "DimPayload"))
                 DeclPathTop),

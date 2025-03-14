@@ -2,7 +2,8 @@ Header
   [
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "S1"))
           DeclPathTop,
         structSizeof = 4,
@@ -23,14 +24,16 @@ Header
       Typedef {
         typedefName = CName "S1_t",
         typedefType = TypeStruct
-          (DeclPathStruct
+          (DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "S1"))
             DeclPathTop),
         typedefSourceLoc =
         "forward_declaration.h:1:19"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "S2"))
           DeclPathTop,
         structSizeof = 4,

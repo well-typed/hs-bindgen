@@ -7,7 +7,8 @@ Header
           [
             TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "bar"))
                   (DeclPathPtr DeclPathTop)))]
           TypeVoid,
@@ -16,7 +17,8 @@ Header
         "weird01.h:8:6"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structSizeof = 4,
@@ -35,7 +37,8 @@ Header
         "weird01.h:1:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "bar"))
           (DeclPathPtr DeclPathTop),
         structSizeof = 4,

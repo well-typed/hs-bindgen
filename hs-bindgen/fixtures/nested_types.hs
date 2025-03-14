@@ -43,7 +43,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "foo"))
             DeclPathTop,
           structSizeof = 8,
@@ -113,7 +114,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag (CName "foo"))
               DeclPathTop,
             structSizeof = 8,
@@ -188,7 +190,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
                     structSizeof = 8,
@@ -265,7 +268,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
                     structSizeof = 8,
@@ -328,7 +332,8 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
@@ -346,7 +351,8 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
@@ -354,7 +360,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "bar"))
             DeclPathTop,
           structSizeof = 16,
@@ -365,7 +372,8 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
@@ -375,7 +383,8 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop),
               fieldSourceLoc =
@@ -406,7 +415,8 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
@@ -424,7 +434,8 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
@@ -432,7 +443,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag (CName "bar"))
               DeclPathTop,
             structSizeof = 16,
@@ -443,7 +455,8 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
@@ -453,7 +466,8 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop),
                 fieldSourceLoc =
@@ -489,7 +503,8 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -507,7 +522,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -515,7 +531,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop,
                     structSizeof = 16,
@@ -526,7 +543,8 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -536,7 +554,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -574,7 +593,8 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -592,7 +612,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -600,7 +621,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop,
                     structSizeof = 16,
@@ -611,7 +633,8 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -621,7 +644,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "foo"))
                             DeclPathTop),
                         fieldSourceLoc =
@@ -673,7 +697,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "ex3"))
             DeclPathTop,
           structSizeof = 12,
@@ -719,7 +744,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag (CName "ex3"))
               DeclPathTop,
             structSizeof = 12,
@@ -770,7 +796,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex3"))
                       DeclPathTop,
                     structSizeof = 12,
@@ -821,7 +848,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex3"))
                       DeclPathTop,
                     structSizeof = 12,
@@ -895,7 +923,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop)),
               fieldSourceLoc =
@@ -903,12 +932,14 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "ex4_even"))
             (DeclPathPtr
               (DeclPathField
                 (CName "next")
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "ex4_odd"))
                   DeclPathTop))),
           structSizeof = 16,
@@ -928,7 +959,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop)),
               fieldSourceLoc =
@@ -979,7 +1011,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop)),
                 fieldSourceLoc =
@@ -987,12 +1020,14 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag (CName "ex4_even"))
               (DeclPathPtr
                 (DeclPathField
                   (CName "next")
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop))),
             structSizeof = 16,
@@ -1012,7 +1047,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop)),
                 fieldSourceLoc =
@@ -1068,7 +1104,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -1076,12 +1113,14 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_even"))
                       (DeclPathPtr
                         (DeclPathField
                           (CName "next")
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))),
                     structSizeof = 16,
@@ -1101,7 +1140,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -1159,7 +1199,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -1167,12 +1208,14 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_even"))
                       (DeclPathPtr
                         (DeclPathField
                           (CName "next")
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))),
                     structSizeof = 16,
@@ -1192,7 +1235,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_odd"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -1262,12 +1306,14 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "ex4_even"))
                     (DeclPathPtr
                       (DeclPathField
                         (CName "next")
-                        (DeclPathStruct
+                        (DeclPathConstr
+                          DeclConstrStruct
                           (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop))))),
               fieldSourceLoc =
@@ -1275,7 +1321,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag (CName "ex4_odd"))
             DeclPathTop,
           structSizeof = 16,
@@ -1295,12 +1342,14 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTag (CName "ex4_even"))
                     (DeclPathPtr
                       (DeclPathField
                         (CName "next")
-                        (DeclPathStruct
+                        (DeclPathConstr
+                          DeclConstrStruct
                           (DeclNameTag (CName "ex4_odd"))
                           DeclPathTop))))),
               fieldSourceLoc =
@@ -1351,12 +1400,14 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_even"))
                       (DeclPathPtr
                         (DeclPathField
                           (CName "next")
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))))),
                 fieldSourceLoc =
@@ -1364,7 +1415,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag (CName "ex4_odd"))
               DeclPathTop,
             structSizeof = 16,
@@ -1384,12 +1436,14 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_even"))
                       (DeclPathPtr
                         (DeclPathField
                           (CName "next")
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))))),
                 fieldSourceLoc =
@@ -1445,12 +1499,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_even"))
                               (DeclPathPtr
                                 (DeclPathField
                                   (CName "next")
-                                  (DeclPathStruct
+                                  (DeclPathConstr
+                                    DeclConstrStruct
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
@@ -1458,7 +1514,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop,
                     structSizeof = 16,
@@ -1478,12 +1535,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_even"))
                               (DeclPathPtr
                                 (DeclPathField
                                   (CName "next")
-                                  (DeclPathStruct
+                                  (DeclPathConstr
+                                    DeclConstrStruct
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
@@ -1541,12 +1600,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_even"))
                               (DeclPathPtr
                                 (DeclPathField
                                   (CName "next")
-                                  (DeclPathStruct
+                                  (DeclPathConstr
+                                    DeclConstrStruct
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
@@ -1554,7 +1615,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop,
                     structSizeof = 16,
@@ -1574,12 +1636,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTag (CName "ex4_even"))
                               (DeclPathPtr
                                 (DeclPathField
                                   (CName "next")
-                                  (DeclPathStruct
+                                  (DeclPathConstr
+                                    DeclConstrStruct
                                     (DeclNameTag (CName "ex4_odd"))
                                     DeclPathTop))))),
                         fieldSourceLoc =
