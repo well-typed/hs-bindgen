@@ -7,7 +7,8 @@ Header
         "opaque_declaration.h:1:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "bar"))
           DeclPathTop,
         structSizeof = 16,
@@ -19,7 +20,8 @@ Header
             fieldWidth = Nothing,
             fieldType = TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop)),
             fieldSourceLoc =
@@ -30,7 +32,8 @@ Header
             fieldWidth = Nothing,
             fieldType = TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag (CName "bar"))
                   DeclPathTop)),
             fieldSourceLoc =
@@ -40,7 +43,8 @@ Header
         "opaque_declaration.h:4:8"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag (CName "baz"))
           DeclPathTop,
         structSizeof = 0,

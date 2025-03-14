@@ -22,6 +22,7 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
     -- * DeclPath
   , DeclPath(..)
+  , DeclConstr(..)
   , DeclName(..)
   ) where
 
@@ -264,11 +265,16 @@ data Typedef = Typedef {
 -- creation of the corresponding Haskell name.
 data DeclPath
     = DeclPathTop
-    | DeclPathStruct DeclName DeclPath
-    | DeclPathUnion DeclName DeclPath
+    | DeclPathConstr DeclConstr DeclName DeclPath
     | DeclPathField CName DeclPath
     | DeclPathPtr DeclPath
     -- TODO | DeclPathConstArray Natural Path
+  deriving stock (Eq, Generic, Show)
+  deriving anyclass (PrettyVal)
+
+data DeclConstr =
+    DeclConstrStruct
+  | DeclConstrUnion
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)
 

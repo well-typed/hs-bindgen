@@ -2,7 +2,8 @@ Header
   [
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "linked_list_A_s"))
           DeclPathTop,
@@ -23,7 +24,8 @@ Header
             fieldWidth = Nothing,
             fieldType = TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag
                     (CName "linked_list_A_s"))
                   DeclPathTop)),
@@ -37,7 +39,8 @@ Header
         typedefName = CName
           "linked_list_A_t",
         typedefType = TypeStruct
-          (DeclPathStruct
+          (DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag
               (CName "linked_list_A_s"))
             DeclPathTop),
@@ -45,7 +48,8 @@ Header
         "recursive_struct.h:4:3"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathStruct
+        structDeclPath = DeclPathConstr
+          DeclConstrStruct
           (DeclNameTag
             (CName "linked_list_B_t"))
           DeclPathTop,
@@ -66,7 +70,8 @@ Header
             fieldWidth = Nothing,
             fieldType = TypePointer
               (TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTag
                     (CName "linked_list_B_t"))
                   DeclPathTop)),

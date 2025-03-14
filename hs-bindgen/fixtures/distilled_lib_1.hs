@@ -290,7 +290,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTypedef
               (CName
                 "another_typedef_struct_t"))
@@ -362,7 +363,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTypedef
                 (CName
                   "another_typedef_struct_t"))
@@ -439,7 +441,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -518,7 +521,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -1401,7 +1405,8 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTypedef
                     (CName
                       "another_typedef_struct_t"))
@@ -1425,7 +1430,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1542,7 +1548,8 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathStruct
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
             (DeclNameTag
               (CName "a_typedef_struct"))
             DeclPathTop,
@@ -1585,7 +1592,8 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathStruct
+                (DeclPathConstr
+                  DeclConstrStruct
                   (DeclNameTypedef
                     (CName
                       "another_typedef_struct_t"))
@@ -1598,7 +1606,8 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1753,7 +1762,8 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1777,7 +1787,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -1894,7 +1905,8 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathStruct
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop,
@@ -1937,7 +1949,8 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathStruct
+                  (DeclPathConstr
+                    DeclConstrStruct
                     (DeclNameTypedef
                       (CName
                         "another_typedef_struct_t"))
@@ -1950,7 +1963,8 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathStruct
+                    (DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTypedef
                         (CName
                           "another_typedef_struct_t"))
@@ -2110,7 +2124,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2134,7 +2149,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2251,7 +2267,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "a_typedef_struct"))
                       DeclPathTop,
@@ -2294,7 +2311,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2307,7 +2325,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2478,7 +2497,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2502,7 +2522,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2619,7 +2640,8 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathStruct
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
                       (DeclNameTag
                         (CName "a_typedef_struct"))
                       DeclPathTop,
@@ -2662,7 +2684,8 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathStruct
+                          (DeclPathConstr
+                            DeclConstrStruct
                             (DeclNameTypedef
                               (CName
                                 "another_typedef_struct_t"))
@@ -2675,7 +2698,8 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathStruct
+                            (DeclPathConstr
+                              DeclConstrStruct
                               (DeclNameTypedef
                                 (CName
                                   "another_typedef_struct_t"))
@@ -2788,7 +2812,8 @@
           typedefName = CName
             "a_typedef_struct_t",
           typedefType = TypeStruct
-            (DeclPathStruct
+            (DeclPathConstr
+              DeclConstrStruct
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop),

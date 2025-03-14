@@ -354,11 +354,7 @@ translateDeclPath
     getCName' :: DeclPath -> Maybe CName
     getCName' = \case
       DeclPathTop -> Nothing
-      DeclPathStruct declName _declPath -> case declName of
-        DeclNameNone         -> Nothing
-        DeclNameTag name     -> Just name
-        DeclNameTypedef name -> Just name
-      DeclPathUnion declName _declPath -> case declName of
+      DeclPathConstr _constr declName _declPath -> case declName of
         DeclNameNone         -> Nothing
         DeclNameTag name     -> Just name
         DeclNameTypedef name -> Just name
@@ -372,11 +368,7 @@ getDeclPathParts = aux
     aux :: DeclPath -> [CName]
     aux = \case
       DeclPathTop -> ["ANONYMOUS"] -- shouldn't happen
-      DeclPathStruct declName path -> case declName of
-        DeclNameNone      -> aux path
-        DeclNameTag n     -> [n]
-        DeclNameTypedef n -> [n]
-      DeclPathUnion declName path -> case declName of
+      DeclPathConstr _constr declName path -> case declName of
         DeclNameNone      -> aux path
         DeclNameTag n     -> [n]
         DeclNameTypedef n -> [n]
