@@ -2,18 +2,17 @@
 
 module HsBindgen.Hs.NameMangler (
     -- * Definition
-    NameMangler(..)
-  , CName(..)
-  , HsName(..)
-  , Namespace(..)
-    -- ** Contexts
-  , TypeConstrContext(..)
-  , ConstrContext(..)
-  , VarContext(..)
+    NameMangler -- opaque
     -- * Default Name Manglers
   , defaultNameMangler
   , haskellNameMangler
-    -- * DSL
+    -- * Using the name mangler
+  , mangleTyconName
+  , mangleDataconName
+  , mangleDeconName
+  , mangleFieldName
+  , mangleVarName
+    -- * Defining name manglers
   , translateName
   , translateDeclPath
   , getDeclPathParts
@@ -835,3 +834,41 @@ sanityReservedVarNames :: [Text]
 sanityReservedVarNames =
     [
     ]
+
+{-------------------------------------------------------------------------------
+  Simplified API
+-------------------------------------------------------------------------------}
+
+-- | Type context might be whole declaration path (e.g. nested anonymous structs)
+class ToTypeConstrContext ctx where
+    toCtx :: ctx -> TypeConstrContext
+
+instance ToTypeConstrContext DeclPath where
+    toCtx = StructTypeConstrContext
+
+instance ToTypeConstrContext CName where
+    toCtx = TypeConstrContext
+
+mangleTyconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsTypeConstr
+mangleTyconName nm declPath = mangleTypeConstrContext nm (toCtx declPath)
+
+mangleDataconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsConstr
+mangleDataconName nm declPath = mangleConstrContext nm ctx
+  where
+    ctx = ConstrContext $ toCtx declPath
+
+mangleFieldName :: NameMangler -> DeclPath -> CName -> HsName NsVar
+mangleFieldName nm declPath fname = mangleVarContext nm ctx
+  where
+    ctx = FieldVarContext (toCtx declPath) fname
+
+-- | Create destructor name, @name Tycon = Datacon { decon :: ... }@
+mangleDeconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsVar
+mangleDeconName nm declPath = mangleVarContext nm ctx
+  where
+    ctx = EnumVarContext $ toCtx declPath
+
+mangleVarName :: NameMangler -> CName -> HsName NsVar
+mangleVarName nm varName = mangleVarContext nm ctx
+  where
+    ctx = VarContext varName

@@ -34,7 +34,7 @@ import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type
-import HsBindgen.Hs.NameMangler.Easy
+import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
 import HsBindgen.NameHint
 
