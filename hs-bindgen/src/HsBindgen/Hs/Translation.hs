@@ -218,11 +218,19 @@ opaqueStructDecs _opts nm cname =
 
 unionDecs :: TranslationOpts -> NameMangler -> C.Union -> [Hs.Decl]
 unionDecs _opts nm union =
-    -- TODO: only empty data declaration for now
-    [ Hs.DeclEmpty hsName
+    [ Hs.DeclNewtype Hs.Newtype {..}
+    -- TODO: storable instance
+    -- TODO: getters and builders
     ]
   where
-    hsName = mangleTyconName nm $ C.unionDeclPath union
+    newtypeName   = mangleTyconName nm $ C.unionDeclPath union
+    newtypeConstr = mangleDataconName nm  $ C.unionDeclPath union
+    newtypeField  = Hs.Field {
+        fieldName   = mangleDeconName nm $ C.unionDeclPath union
+      , fieldType   = Hs.HsByteArray
+      , fieldOrigin = Hs.FieldOriginNone
+      }
+    newtypeOrigin = Hs.NewtypeOriginUnion union
 
 {-------------------------------------------------------------------------------
   Enum

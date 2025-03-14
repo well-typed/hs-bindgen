@@ -146,6 +146,8 @@ mkGlobal = \case
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
+      ByteArray_type       -> ''ByteArray
+
       PrimType t           -> mkGlobalP t
 
 -- | A version of 'TH.tupleTypeName' that always uses the @(,,)@ syntax rather

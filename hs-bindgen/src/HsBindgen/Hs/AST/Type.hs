@@ -58,5 +58,6 @@ data HsType =
   | HsIO HsType
   | HsFun HsType HsType
   | HsExtBinding ExtIdentifier
+  | HsByteArray
   deriving stock (Generic, Show)
 

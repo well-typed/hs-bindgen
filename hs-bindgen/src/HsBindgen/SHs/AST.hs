@@ -135,6 +135,7 @@ data Global =
   | GHC_Float_castWord32ToFloat
   | GHC_Float_castWord64ToDouble
 
+  | ByteArray_type
   | PrimType HsPrimType
   deriving stock (Eq, Show)
 
