@@ -40,7 +40,7 @@ data Type =
     TypePrim PrimType
   | TypeStruct DeclPath
   | TypeUnion DeclPath
-  | TypeEnum CName
+  | TypeEnum DeclPath
   | TypeTypedef CName
   | TypePointer Type
   | TypeConstArray Natural Type
@@ -205,7 +205,7 @@ data Union = Union {
 -------------------------------------------------------------------------------}
 
 data Enu = Enu {
-      enumTag       :: CName
+      enumDeclPath  :: DeclPath
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -275,6 +275,7 @@ data DeclPath
 data DeclConstr =
     DeclConstrStruct
   | DeclConstrUnion
+  | DeclConstrEnum
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)
 

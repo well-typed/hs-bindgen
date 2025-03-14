@@ -355,8 +355,12 @@ Header
         "distilled_lib_1.h:8:9"},
     DeclEnum
       Enu {
-        enumTag = CName
-          "another_typedef_enum_e",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTypedef
+            (CName
+              "another_typedef_enum_e"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -502,8 +506,12 @@ Header
             fieldOffset = 480,
             fieldWidth = Nothing,
             fieldType = TypeEnum
-              (CName
-                "another_typedef_enum_e"),
+              (DeclPathConstr
+                DeclConstrEnum
+                (DeclNameTypedef
+                  (CName
+                    "another_typedef_enum_e"))
+                DeclPathTop),
             fieldSourceLoc =
             "distilled_lib_1.h:44:31"},
           StructField {
@@ -513,8 +521,12 @@ Header
             fieldType = TypeConstArray
               4
               (TypeEnum
-                (CName
-                  "another_typedef_enum_e")),
+                (DeclPathConstr
+                  DeclConstrEnum
+                  (DeclNameTypedef
+                    (CName
+                      "another_typedef_enum_e"))
+                  DeclPathTop)),
             fieldSourceLoc =
             "distilled_lib_1.h:45:31"},
           StructField {
@@ -526,8 +538,12 @@ Header
               (TypeConstArray
                 3
                 (TypeEnum
-                  (CName
-                    "another_typedef_enum_e"))),
+                  (DeclPathConstr
+                    DeclConstrEnum
+                    (DeclNameTypedef
+                      (CName
+                        "another_typedef_enum_e"))
+                    DeclPathTop))),
             fieldSourceLoc =
             "distilled_lib_1.h:46:31"}],
         structFlam = Nothing,
@@ -547,8 +563,11 @@ Header
         "distilled_lib_1.h:47:3"},
     DeclEnum
       Enu {
-        enumTag = CName
-          "a_typedef_enum_e",
+        enumDeclPath = DeclPathConstr
+          DeclConstrEnum
+          (DeclNameTypedef
+            (CName "a_typedef_enum_e"))
+          DeclPathTop,
         enumType = TypePrim
           (PrimChar (Just Unsigned)),
         enumSizeof = 1,

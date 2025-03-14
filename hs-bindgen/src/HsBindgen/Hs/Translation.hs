@@ -238,11 +238,11 @@ enumDecs opts nm e = concat [
     , valueDecls
     ]
   where
-    cEnumName     = C.enumTag e
-    newtypeName   = mangleTyconName nm cEnumName
-    newtypeConstr = mangleDataconName nm cEnumName
+    declPath      = C.enumDeclPath e
+    newtypeName   = mangleTyconName nm declPath
+    newtypeConstr = mangleDataconName nm declPath
     newtypeField  = Hs.Field {
-        fieldName   = mangleDeconName nm cEnumName
+        fieldName   = mangleDeconName nm declPath
       , fieldType   = typ nm (C.enumType e)
       , fieldOrigin = Hs.FieldOriginNone
       }
