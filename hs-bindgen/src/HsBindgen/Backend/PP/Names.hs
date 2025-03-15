@@ -35,6 +35,7 @@ import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
+import HsBindgen.Runtime.SizedByteArray qualified
 
 {-------------------------------------------------------------------------------
   Imports
@@ -283,6 +284,7 @@ resolveGlobal = \case
     CDouble_constructor -> importQ ''Foreign.C.CDouble
 
     ByteArray_type -> importQ ''ByteArray
+    SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
 
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void

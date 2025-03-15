@@ -48,6 +48,7 @@ library
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal
       HsBindgen.Runtime.Syntax
+      HsBindgen.Runtime.SizedByteArray
       HsBindgen.Runtime.Bitfield
   hs-source-dirs:
       src
@@ -55,6 +56,8 @@ library
     , pretty-show >= 1.10 && < 1.11
     , vector ^>=0.13.2.0
     , primitive ^>=0.9.0.0
+  if impl(ghc < 9.4)
+    build-depends: data-array-byte >=0.1.0.1 && <0.2
   build-tool-depends:
       hsc2hs:hsc2hs
 

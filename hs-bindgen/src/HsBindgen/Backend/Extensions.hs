@@ -63,7 +63,8 @@ typeExtensions = \case
 predicateExtensions :: SType ctx' -> Set TH.Extension
 predicateExtensions _ = Set.singleton TH.FlexibleContexts
 
-strategyExtensions :: Strategy -> Set TH.Extension
+strategyExtensions :: Strategy ClosedType -> Set TH.Extension
 strategyExtensions = \case
     DeriveNewtype -> Set.singleton TH.GeneralizedNewtypeDeriving
     DeriveStock   -> Set.empty
+    DeriveVia t   -> Set.insert TH.DerivingVia (typeExtensions t)

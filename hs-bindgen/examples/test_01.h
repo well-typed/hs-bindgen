@@ -59,4 +59,11 @@ static inline void flam_deinit(struct StructFLAM *ptr) {
     free(ptr);
 }
 
+/* unions */
+
+union longDouble {
+    long long l;
+    double d;
+};
+
 #endif

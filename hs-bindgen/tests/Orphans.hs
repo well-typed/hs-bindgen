@@ -207,7 +207,7 @@ instance ToExpr Hs.NewtypeOrigin
 instance ToExpr Hs.PatSyn
 instance ToExpr Hs.PatSynOrigin
 instance ToExpr Hs.StorableInstance
-instance ToExpr Hs.Strategy
+instance ToExpr t => ToExpr (Hs.Strategy t)
 instance ToExpr Hs.StructOrigin
 instance ToExpr Hs.TypeClass
 instance ToExpr Hs.VarDecl
