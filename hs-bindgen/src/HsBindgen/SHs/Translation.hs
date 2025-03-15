@@ -78,8 +78,8 @@ translateNewtype n = DNewtype $ Newtype
     , newtypeOrigin = Hs.newtypeOrigin n
     }
 
-translateDeriveInstance :: Hs.Strategy -> Hs.TypeClass -> HsName NsTypeConstr -> SDecl
-translateDeriveInstance s tc n = DDerivingInstance s $ TApp (translateTypeClass tc) (TCon n)
+translateDeriveInstance :: Hs.Strategy Hs.HsType -> Hs.TypeClass -> HsName NsTypeConstr -> SDecl
+translateDeriveInstance s tc n = DDerivingInstance (fmap translateType s) $ TApp (translateTypeClass tc) (TCon n)
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass Hs.Bits       = TGlobal Bits_class
@@ -138,6 +138,7 @@ translateType (Hs.HsIO t)           = TApp (TGlobal IO_type) (translateType t)
 translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
 translateType (Hs.HsExtBinding i)   = TExt i
 translateType Hs.HsByteArray        = TGlobal ByteArray_type
+translateType (Hs.HsSizedByteArray n m) = TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
 
 {-------------------------------------------------------------------------------
   Sigma/Phi/Tau types

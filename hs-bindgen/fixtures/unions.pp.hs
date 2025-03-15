@@ -1,4 +1,6 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
@@ -7,6 +9,7 @@ module Example where
 import qualified Data.Array.Byte
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 data Dim2 = Dim2
@@ -73,6 +76,8 @@ deriving stock instance Eq Dim3
 newtype DimPayload = DimPayload
   { unDimPayload :: Data.Array.Byte.ByteArray
   }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
 
 data Dim = Dim
   { dim_tag :: FC.CInt

@@ -159,17 +159,18 @@ data Decl where
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
     DeclDefineInstance  :: InstanceDecl -> Decl
-    DeclDeriveInstance  :: Strategy -> TypeClass -> HsName NsTypeConstr -> Decl
+    DeclDeriveInstance  :: Strategy HsType -> TypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
 
 deriving instance Show Decl
 
 -- | Deriving strategy
-data Strategy =
+data Strategy ty =
     DeriveNewtype
   | DeriveStock
-  deriving stock (Generic, Show)
+  | DeriveVia ty
+  deriving stock (Generic, Show, Functor, Foldable, Traversable)
 
 -- | Class instance names (for instances that /ghc/ generates)
 data TypeClass =
