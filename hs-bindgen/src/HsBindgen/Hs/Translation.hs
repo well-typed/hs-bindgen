@@ -47,10 +47,10 @@ import DeBruijn
 
 data TranslationOpts = TranslationOpts {
       -- | Default set of classes to derive for structs
-      translationDeriveStruct :: [(Hs.Strategy, Hs.TypeClass)]
+      translationDeriveStruct :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
 
       -- | Default set of classes to derive for enums
-    , translationDeriveEnum :: [(Hs.Strategy, Hs.TypeClass)]
+    , translationDeriveEnum :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
 
       -- | Default set of classes to derive for typedefs around primitive types
       --
@@ -63,7 +63,7 @@ data TranslationOpts = TranslationOpts {
       -- (primitive) type will simply not be generated, so it's okay for this
       -- to contain classes such as 'Num' which are only supported by /some/
       -- primitive types.
-    , translationDeriveTypedefPrim :: [(Hs.Strategy, Hs.TypeClass)]
+    , translationDeriveTypedefPrim :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
     }
   deriving stock (Show)
 
@@ -219,6 +219,7 @@ opaqueStructDecs _opts nm cname =
 unionDecs :: TranslationOpts -> NameMangler -> C.Union -> [Hs.Decl]
 unionDecs _opts nm union =
     [ Hs.DeclNewtype Hs.Newtype {..}
+    , Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
     -- TODO: storable instance
     -- TODO: getters and builders
     ]
@@ -231,6 +232,9 @@ unionDecs _opts nm union =
       , fieldOrigin = Hs.FieldOriginNone
       }
     newtypeOrigin = Hs.NewtypeOriginUnion union
+
+    sba :: Hs.HsType
+    sba = HsSizedByteArray (fromIntegral (C.unionSizeof union)) (fromIntegral (C.unionAlignment union))
 
 {-------------------------------------------------------------------------------
   Enum

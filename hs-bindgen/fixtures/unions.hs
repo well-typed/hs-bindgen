@@ -745,6 +745,13 @@
           unionAlignment = 4,
           unionSourceLoc =
           "unions.h:12:7"}},
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsSizedByteArray 8 4))
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "DimPayload"),
   DeclData
     Struct {
       structName = HsName

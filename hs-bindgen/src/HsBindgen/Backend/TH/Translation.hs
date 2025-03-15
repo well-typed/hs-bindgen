@@ -36,6 +36,7 @@ import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
+import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.SHs.AST
 
 import DeBruijn
@@ -147,6 +148,7 @@ mkGlobal = \case
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
       ByteArray_type       -> ''ByteArray
+      SizedByteArray_type  -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
 
       PrimType t           -> mkGlobalP t
 
@@ -313,8 +315,9 @@ mkDecl = \case
                 (mkType EmptyEnv (fieldType (newtypeField n)))
         in singleton <$> TH.newtypeD (TH.cxt []) (hsNameToTH $ newtypeName n) [] Nothing (TH.recC (hsNameToTH (newtypeCon n)) [field]) []
 
-      DDerivingInstance s ty ->
-          singleton <$> TH.standaloneDerivWithStrategyD (Just $ strategy s) (TH.cxt []) (mkType EmptyEnv ty)
+      DDerivingInstance s ty -> do
+          s' <- strategy s
+          singleton <$> TH.standaloneDerivWithStrategyD (Just s') (TH.cxt []) (mkType EmptyEnv ty)
 
       DForeignImport ForeignImport {..} ->
            singleton . TH.ForeignD . TH.ImportF TH.CApi TH.Safe
@@ -337,9 +340,10 @@ mkDecl = \case
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
 
-strategy :: Hs.Strategy -> TH.DerivStrategy
-strategy Hs.DeriveNewtype = TH.NewtypeStrategy
-strategy Hs.DeriveStock   = TH.StockStrategy
+strategy :: Quote q => Hs.Strategy ClosedType -> q TH.DerivStrategy
+strategy Hs.DeriveNewtype  = return TH.NewtypeStrategy
+strategy Hs.DeriveStock    = return TH.StockStrategy
+strategy (Hs.DeriveVia ty) = TH.ViaStrategy <$> mkType EmptyEnv ty
 
 {-------------------------------------------------------------------------------
   Monad functionality

@@ -59,5 +59,6 @@ data HsType =
   | HsFun HsType HsType
   | HsExtBinding ExtIdentifier
   | HsByteArray
+  | HsSizedByteArray Natural Natural
   deriving stock (Generic, Show)
 

@@ -48,6 +48,7 @@ library
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal
       HsBindgen.Runtime.Syntax
+      HsBindgen.Runtime.SizedByteArray
       HsBindgen.Runtime.Bitfield
   hs-source-dirs:
       src
