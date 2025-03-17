@@ -30,33 +30,31 @@ genExtBindings headerIncludePath extIdentifierPackage extIdentifierModule =
   where
     aux :: Hs.Decl -> UnresolvedExtBindings -> UnresolvedExtBindings
     aux = \case
-      Hs.DeclData struct      -> maybeInsertType $ getStructExtBinding struct
+      Hs.DeclData struct      -> insertTypes $ getStructExtBindings struct
       Hs.DeclEmpty{}          -> id
-      Hs.DeclNewtype ntype    -> maybeInsertType $ getNewtypeExtBinding ntype
+      Hs.DeclNewtype ntype    -> insertTypes $ getNewtypeExtBindings ntype
       Hs.DeclPatSyn{}         -> id
       Hs.DeclDefineInstance{} -> id
       Hs.DeclDeriveInstance{} -> id
       Hs.DeclForeignImport{}  -> id
       Hs.DeclVar{}            -> id
 
-    insertType ::
-         (CNameSpelling, HsIdentifier)
+    insertTypes ::
+         [(CNameSpelling, HsIdentifier)]
       -> UnresolvedExtBindings
       -> UnresolvedExtBindings
-    insertType (cname, extIdentifierIdentifier) UnresolvedExtBindings{..} =
+    insertTypes cnids UnresolvedExtBindings{..} =
       UnresolvedExtBindings {
           unresolvedExtBindingsTypes =
-            Map.insert
-              cname
-              [(headerSet, ExtIdentifier{..})]
-              unresolvedExtBindingsTypes
+            foldr insertType unresolvedExtBindingsTypes cnids
         }
 
-    maybeInsertType ::
-         Maybe (CNameSpelling, HsIdentifier)
-      -> UnresolvedExtBindings
-      -> UnresolvedExtBindings
-    maybeInsertType = maybe id insertType
+    insertType ::
+         (CNameSpelling, HsIdentifier)
+      -> Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
+      -> Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
+    insertType (cname, extIdentifierIdentifier) =
+      Map.insert cname [(headerSet, ExtIdentifier{..})]
 
     headerSet :: Set CHeaderIncludePath
     headerSet = Set.singleton headerIncludePath
@@ -70,23 +68,27 @@ genExtBindings headerIncludePath extIdentifierPackage extIdentifierModule =
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-getStructExtBinding :: Hs.Struct n -> Maybe (CNameSpelling, HsIdentifier)
-getStructExtBinding hsStruct = fmap (, hsId) $
+getStructExtBindings :: Hs.Struct n -> [(CNameSpelling, HsIdentifier)]
+getStructExtBindings hsStruct = fmap (, hsId) . catMaybes $
     case Hs.structOrigin hsStruct of
-      Hs.StructOriginStruct C.Struct{..} -> getCNS structDeclPath
-      Hs.StructOriginEnum C.Enu{..}      -> getCNS enumDeclPath
+      Hs.StructOriginStruct C.Struct{..} ->
+        getCNS structDeclPath : map getCNS structAliases
+      Hs.StructOriginEnum C.Enu{..} ->
+        getCNS enumDeclPath : map getCNS enumAliases
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.structName hsStruct)
 
-getNewtypeExtBinding :: Hs.Newtype -> Maybe (CNameSpelling, HsIdentifier)
-getNewtypeExtBinding hsNewtype = fmap (, hsId) $
+getNewtypeExtBindings :: Hs.Newtype -> [(CNameSpelling, HsIdentifier)]
+getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
     case Hs.newtypeOrigin hsNewtype of
-      Hs.NewtypeOriginEnum C.Enu{..} -> getCNS enumDeclPath
+      Hs.NewtypeOriginEnum C.Enu{..} ->
+        getCNS enumDeclPath : map getCNS enumAliases
       Hs.NewtypeOriginTypedef C.Typedef{..} ->
-        Just $ CNameSpelling (getCName typedefName)
-      Hs.NewtypeOriginUnion C.Union{..} -> getCNS unionDeclPath
-      Hs.NewtypeOriginMacro{} -> Nothing
+        [Just (CNameSpelling (getCName typedefName))]
+      Hs.NewtypeOriginUnion C.Union{..} ->
+        getCNS unionDeclPath : map getCNS unionAliases
+      Hs.NewtypeOriginMacro{} -> []
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
