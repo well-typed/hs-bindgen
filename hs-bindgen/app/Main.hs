@@ -51,7 +51,7 @@ execMode cmdline@Cmdline{..} tracer = \case
           (Just extBindingsPath, Just packageName) ->
             return $ Just (extBindingsPath, packageName)
           (Just{}, Nothing) -> throwIO PackageNameRequiredException
-      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
       let opts = cmdOpts {
               optsExtBindings = extBindings
             , optsTranslation = preprocessTranslationOpts
@@ -68,7 +68,7 @@ execMode cmdline@Cmdline{..} tracer = \case
           genExtBindings ppOpts preprocessInput packageName path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
       let opts = defaultOpts {
               optsExtBindings = extBindings
             }
@@ -108,7 +108,7 @@ execLiterate input output tracer = do
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
-      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
@@ -121,6 +121,20 @@ execDevMode Cmdline{..} tracer = \case
       , optsDiagTracer = tracer
       , optsSkipTracer = tracer
       }
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+loadExtBindings' ::
+     Tracer IO String
+  -> ClangArgs
+  -> [FilePath]
+  -> IO ExtBindings
+loadExtBindings' tracer args paths = do
+    (resolveErrs, extBindings) <- loadExtBindings args paths
+    mapM_ (traceWith tracer Warning . displayException) resolveErrs
+    return extBindings
 
 {-------------------------------------------------------------------------------
   Exception handling

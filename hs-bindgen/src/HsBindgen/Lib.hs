@@ -54,11 +54,13 @@ module HsBindgen.Lib (
 
     -- ** Logging
   , Tracer.Tracer
+  , Tracer.Level(..)
   , Tracer.nullTracer
   , Tracer.mkTracerIO
   , Tracer.mkTracerQ
   , Tracer.mkTracer
   , Tracer.contramap
+  , Tracer.traceWith
 
     -- ** Preprocessor
   , Pipeline.PPOpts(..)

@@ -48,6 +48,7 @@ module HsBindgen.TH (
   , THSyntax.getPackageRoot
   ) where
 
+import Control.Exception (Exception(displayException))
 import Language.Haskell.TH qualified as TH
 import System.FilePath qualified as FilePath
 
@@ -81,4 +82,7 @@ loadExtBindings ::
      Args.ClangArgs
   -> [FilePath]
   -> TH.Q ExtBindings.ExtBindings
-loadExtBindings args = TH.runIO . ExtBindings.loadExtBindings args
+loadExtBindings args paths = do
+    (resolveErrs, bindings) <- TH.runIO $ ExtBindings.loadExtBindings args paths
+    mapM_ (TH.reportWarning . displayException) resolveErrs
+    return bindings

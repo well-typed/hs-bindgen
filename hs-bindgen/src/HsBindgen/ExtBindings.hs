@@ -8,7 +8,6 @@ module HsBindgen.ExtBindings (
   , ExtBindings(..)
     -- ** Exceptions
   , LoadUnresolvedExtBindingsException(..)
-  , ResolveExtBindingsException(..)
   , MergeExtBindingsException(..)
   , ExtBindingsException(..)
   , ExtBindingsExceptions(..)
@@ -166,19 +165,6 @@ instance Exception LoadUnresolvedExtBindingsException where
               )
             : map format conflicts
 
--- | Failed to resolve external bindings header(s)
-newtype ResolveExtBindingsException =
-    -- | One or more C headers were not found
-    ResolveExtBindingsNotFound [CHeaderIncludePath]
-  deriving stock (Show)
-
-instance Exception ResolveExtBindingsException where
-  displayException = \case
-    ResolveExtBindingsNotFound headers ->
-      unlines $
-          "external bindings header(s) not found"
-        : map (("  " ++) . getCHeaderIncludePath) headers
-
 -- | Failed to merge external bindings
 newtype MergeExtBindingsException =
     -- | Multiple external bindings configurations for the same C name and
@@ -196,14 +182,12 @@ instance Exception MergeExtBindingsException where
 -- | Failed loading, resolving, or merging external bindings
 data ExtBindingsException =
     LoadUnresolvedExtBindingsException LoadUnresolvedExtBindingsException
-  | ResolveExtBindingsException        ResolveExtBindingsException
   | MergeExtBindingsException          MergeExtBindingsException
   deriving stock (Show)
 
 instance Exception ExtBindingsException where
   displayException = \case
     LoadUnresolvedExtBindingsException e -> displayException e
-    ResolveExtBindingsException        e -> displayException e
     MergeExtBindingsException          e -> displayException e
 
 -- | Failed loading, resolving, or merging external bindings
@@ -236,26 +220,15 @@ emptyExtBindings = ExtBindings Map.empty
 resolveExtBindings ::
      ClangArgs
   -> UnresolvedExtBindings
-  -> IO (Either ResolveExtBindingsException ExtBindings)
+  -> IO ([ResolveHeaderException], ExtBindings)
 resolveExtBindings args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
-    (mErr, headerMap) <- bimap convertErrors Map.fromList . partitionEithers
+    (errs, headerMap) <- fmap Map.fromList . partitionEithers
       <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' args cPath) cPaths
-    return $ case mErr of
-      Nothing -> Right $
-        let resolve' = map $ first $ Set.map (headerMap Map.!)
-            extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
-        in  ExtBindings{..}
-      Just err -> Left err
-  where
-    convertErrors ::
-         [ResolveHeaderException]
-      -> Maybe ResolveExtBindingsException
-    convertErrors = \case
-        []   -> Nothing
-        errs -> Just . ResolveExtBindingsNotFound . List.sort $
-          map (\(ResolveHeaderNotFound cPath) -> cPath) errs
+    let resolve' = map $ first $ Set.map (headerMap Map.!)
+        extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
+    return (errs, ExtBindings{..})
 
 -- | Merge external bindings
 mergeExtBindings ::
@@ -396,18 +369,16 @@ writeUnresolvedExtBindingsYaml path =
 loadExtBindings' ::
      ClangArgs
   -> [FilePath]
-  -> IO (Either ExtBindingsExceptions ExtBindings)
+  -> IO (Either ExtBindingsExceptions ([ResolveHeaderException], ExtBindings))
 loadExtBindings' args paths = do
-    (loadErrs, uebs) <-
+    (errs, uebs) <-
       first (map LoadUnresolvedExtBindingsException) . partitionEithers
         <$> mapM loadUnresolvedExtBindings paths
     (resolveErrs, ebs) <-
-      first (map ResolveExtBindingsException) . partitionEithers
-        <$> mapM (resolveExtBindings args) uebs
-    let errs = loadErrs ++ resolveErrs
+      first concat . unzip <$> mapM (resolveExtBindings args) uebs
     return $ case first MergeExtBindingsException (mergeExtBindings ebs) of
       Right extBindings
-        | null errs -> Right extBindings
+        | null errs -> Right (resolveErrs, extBindings)
         | otherwise -> Left $ ExtBindingsExceptions errs
       Left mergeErr -> Left $ ExtBindingsExceptions (errs ++ [mergeErr])
 
@@ -415,7 +386,10 @@ loadExtBindings' args paths = do
 -- 'HsBindgenException' on error
 --
 -- The format is determined by filename extension.
-loadExtBindings :: ClangArgs -> [FilePath] -> IO ExtBindings
+loadExtBindings ::
+     ClangArgs
+  -> [FilePath]
+  -> IO ([ResolveHeaderException], ExtBindings)
 loadExtBindings args =
     either (throwIO . HsBindgenException) return <=< loadExtBindings' args
 
