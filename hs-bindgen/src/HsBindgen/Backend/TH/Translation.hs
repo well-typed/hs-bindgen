@@ -304,8 +304,8 @@ mkDecl = \case
         in singleton <$>
           TH.dataD (TH.cxt []) (hsNameToTH $ dataType d) [] Nothing [TH.recC (hsNameToTH (dataCon d)) fields] []
 
-      DEmptyData n -> singleton <$>
-          TH.dataD (TH.cxt []) (hsNameToTH n) [] Nothing [] []
+      DEmptyData d -> singleton <$>
+          TH.dataD (TH.cxt []) (hsNameToTH (emptyDataName d)) [] Nothing [] []
 
       DNewtype n ->
         let field :: q TH.VarBangType

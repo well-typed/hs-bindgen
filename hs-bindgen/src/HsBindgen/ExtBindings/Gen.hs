@@ -31,7 +31,7 @@ genExtBindings headerIncludePath extIdentifierPackage extIdentifierModule =
     aux :: Hs.Decl -> UnresolvedExtBindings -> UnresolvedExtBindings
     aux = \case
       Hs.DeclData struct      -> insertTypes $ getStructExtBindings struct
-      Hs.DeclEmpty{}          -> id
+      Hs.DeclEmpty edata      -> insertTypes $ getEmptyDataExtBindings edata
       Hs.DeclNewtype ntype    -> insertTypes $ getNewtypeExtBindings ntype
       Hs.DeclPatSyn{}         -> id
       Hs.DeclDefineInstance{} -> id
@@ -78,6 +78,17 @@ getStructExtBindings hsStruct = fmap (, hsId) . catMaybes $
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.structName hsStruct)
+
+getEmptyDataExtBindings :: Hs.EmptyData -> [(CNameSpelling, HsIdentifier)]
+getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
+    case Hs.emptyDataOrigin edata of
+      Hs.EmptyDataOriginOpaqueStruct C.OpaqueStruct{..} ->
+        [Just (CNameSpelling (getCName opaqueStructTag))]
+      Hs.EmptyDataOriginOpaqueEnum C.OpaqueEnum{..} ->
+        [Just (CNameSpelling (getCName opaqueEnumTag))]
+  where
+    hsId :: HsIdentifier
+    hsId = HsIdentifier $ getHsName (Hs.emptyDataName edata)
 
 getNewtypeExtBindings :: Hs.Newtype -> [(CNameSpelling, HsIdentifier)]
 getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $

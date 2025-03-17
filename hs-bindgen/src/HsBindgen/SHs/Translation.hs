@@ -30,7 +30,7 @@ import Data.Proxy (Proxy(..))
 
 translateDecl :: Hs.Decl -> SDecl
 translateDecl (Hs.DeclData d) = translateDeclData d
-translateDecl (Hs.DeclEmpty n) = translateDeclEmpty n
+translateDecl (Hs.DeclEmpty d) = translateDeclEmpty d
 translateDecl (Hs.DeclNewtype n) = translateNewtype n
 translateDecl (Hs.DeclDefineInstance i) = translateDefineInstanceDecl i
 translateDecl (Hs.DeclDeriveInstance s tc c) = translateDeriveInstance s tc c
@@ -63,8 +63,11 @@ translateDeclData struct = DRecord $ Record
     , dataOrigin = Hs.structOrigin struct
     }
 
-translateDeclEmpty :: HsName NsTypeConstr -> SDecl
-translateDeclEmpty n = DEmptyData n
+translateDeclEmpty :: Hs.EmptyData -> SDecl
+translateDeclEmpty d = DEmptyData $ EmptyData
+    { emptyDataName   = Hs.emptyDataName d
+    , emptyDataOrigin = Hs.emptyDataOrigin d
+    }
 
 translateNewtype :: Hs.Newtype -> SDecl
 translateNewtype n = DNewtype $ Newtype

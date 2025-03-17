@@ -1,6 +1,15 @@
 [
   DeclEmpty
-    (HsName "@NsTypeConstr" "Foo"),
+    EmptyData {
+      emptyDataName = HsName
+        "@NsTypeConstr"
+        "Foo",
+      emptyDataOrigin =
+      EmptyDataOriginOpaqueStruct
+        OpaqueStruct {
+          opaqueStructTag = CName "foo",
+          opaqueStructSourceLoc =
+          "opaque_declaration.h:1:8"}},
   DeclData
     Struct {
       structName = HsName
@@ -504,8 +513,25 @@
     Eq
     (HsName "@NsTypeConstr" "Baz"),
   DeclEmpty
-    (HsName "@NsTypeConstr" "Quu"),
+    EmptyData {
+      emptyDataName = HsName
+        "@NsTypeConstr"
+        "Quu",
+      emptyDataOrigin =
+      EmptyDataOriginOpaqueEnum
+        OpaqueEnum {
+          opaqueEnumTag = CName "quu",
+          opaqueEnumSourceLoc =
+          "opaque_declaration.h:11:6"}},
   DeclEmpty
-    (HsName
-      "@NsTypeConstr"
-      "Opaque_union")]
+    EmptyData {
+      emptyDataName = HsName
+        "@NsTypeConstr"
+        "Opaque_union",
+      emptyDataOrigin =
+      EmptyDataOriginOpaqueStruct
+        OpaqueStruct {
+          opaqueStructTag = CName
+            "opaque_union",
+          opaqueStructSourceLoc =
+          "opaque_declaration.h:13:7"}}]
