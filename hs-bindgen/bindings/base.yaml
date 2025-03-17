@@ -204,6 +204,7 @@ types:
       - system:stdlib.h
       - system:string.h
       - system:time.h
+      - system:uchar.h
       - system:wchar.h
     identifier: CSize
     module: Foreign.C.Types
