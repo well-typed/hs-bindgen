@@ -2,6 +2,7 @@
 
 module Main (main) where
 
+import Data.ByteString.UTF8 qualified as UTF8
 import Data.Foldable (toList)
 import Data.List (sort)
 import Data.TreeDiff.Golden (ediffGolden1)
@@ -19,6 +20,8 @@ import TH
 
 import HsBindgen.C.Parser (getTargetTriple)
 import HsBindgen.Clang.Paths
+import HsBindgen.ExtBindings qualified as ExtBindings
+import HsBindgen.ExtBindings.Gen qualified as ExtBindings
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
@@ -79,6 +82,7 @@ main' packageRoot bg = testGroup "golden"
         , goldenTh packageRoot name
 #endif
         , goldenPP name
+        , goldenExtBindings name
         ]
 
     goldenTreeDiff name = ediffGolden1 goldenTestSteps "treediff" ("fixtures" </> (name ++ ".tree-diff.txt")) $ \report -> do
@@ -108,6 +112,18 @@ main' packageRoot bg = testGroup "golden"
 
         -- TODO: PP.render should add trailing '\n' itself.
         return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
+
+    goldenExtBindings :: TestName -> TestTree
+    goldenExtBindings name = goldenVsStringDiff_ "extbindings" ("fixtures" </> (name ++ ".extbindings.yaml")) $ \report -> do
+        let headerIncludePath = mkHeaderIncludePath name
+            opts' = mkOpts report
+        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
+        return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
+          ExtBindings.genExtBindings
+            headerIncludePath
+            (ExtBindings.HsPackageName "example")
+            (ExtBindings.HsModuleName "Example")
+            (Pipeline.genHsDecls opts' headerIncludePath header)
 
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.

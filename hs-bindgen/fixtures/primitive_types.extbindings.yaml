@@ -1,0 +1,7 @@
+types:
+- cname: struct primitive
+  headers:
+  - primitive_types.h
+  identifier: Primitive
+  module: Example
+  package: example

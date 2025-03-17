@@ -1,0 +1,31 @@
+types:
+- cname: struct bar
+  headers:
+  - nested_types.h
+  identifier: Bar
+  module: Example
+  package: example
+- cname: struct ex3
+  headers:
+  - nested_types.h
+  identifier: Ex3
+  module: Example
+  package: example
+- cname: struct ex4_even
+  headers:
+  - nested_types.h
+  identifier: Ex4_even
+  module: Example
+  package: example
+- cname: struct ex4_odd
+  headers:
+  - nested_types.h
+  identifier: Ex4_odd
+  module: Example
+  package: example
+- cname: struct foo
+  headers:
+  - nested_types.h
+  identifier: Foo
+  module: Example
+  package: example

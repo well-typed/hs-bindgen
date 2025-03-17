@@ -1,0 +1,67 @@
+types:
+- cname: enum enumB
+  headers:
+  - enums.h
+  identifier: EnumB
+  module: Example
+  package: example
+- cname: enum enumC
+  headers:
+  - enums.h
+  identifier: EnumC
+  module: Example
+  package: example
+- cname: enum enumD
+  headers:
+  - enums.h
+  identifier: EnumD
+  module: Example
+  package: example
+- cname: enum first
+  headers:
+  - enums.h
+  identifier: First
+  module: Example
+  package: example
+- cname: enum packad
+  headers:
+  - enums.h
+  identifier: Packad
+  module: Example
+  package: example
+- cname: enum same
+  headers:
+  - enums.h
+  identifier: Same
+  module: Example
+  package: example
+- cname: enum second
+  headers:
+  - enums.h
+  identifier: Second
+  module: Example
+  package: example
+- cname: enumA
+  headers:
+  - enums.h
+  identifier: EnumA
+  module: Example
+  package: example
+- cname: enumB
+  headers:
+  - enums.h
+  identifier: EnumB
+  module: Example
+  package: example
+- cname: enumC
+  headers:
+  - enums.h
+  identifier: EnumC
+  module: Example
+  package: example
+- cname: enumD_t
+  headers:
+  - enums.h
+  identifier: EnumD_t
+  module: Example
+  package: example

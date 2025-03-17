@@ -23,6 +23,8 @@ module HsBindgen.ExtBindings (
   , loadUnresolvedExtBindings
   , loadUnresolvedExtBindingsJson
   , loadUnresolvedExtBindingsYaml
+  , encodeUnresolvedExtBindingsJson
+  , encodeUnresolvedExtBindingsYaml
   , writeUnresolvedExtBindings
   , writeUnresolvedExtBindingsJson
   , writeUnresolvedExtBindingsYaml
@@ -35,6 +37,8 @@ import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified
+import Data.ByteString (ByteString)
+import Data.ByteString.Lazy qualified as BSL
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
@@ -348,6 +352,14 @@ loadUnresolvedExtBindingsYaml path = do
       Right (warnings, _) ->
         Left (LoadUnresolvedExtBindingsYamlWarning path warnings)
       Left err -> Left (LoadUnresolvedExtBindingsYamlError path err)
+
+-- | Encode 'UnresolvedExtBindings' as JSON
+encodeUnresolvedExtBindingsJson :: UnresolvedExtBindings -> BSL.ByteString
+encodeUnresolvedExtBindingsJson = Aeson.encode . encodeUnresolvedExtBindings
+
+-- | Encode 'UnresolvedExtBindings' as YAML
+encodeUnresolvedExtBindingsYaml :: UnresolvedExtBindings -> ByteString
+encodeUnresolvedExtBindingsYaml = Yaml.encode . encodeUnresolvedExtBindings
 
 -- | Write 'UnresolvedExtBindings' to a configuration file
 --

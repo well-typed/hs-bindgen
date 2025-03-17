@@ -1,0 +1,43 @@
+types:
+- cname: struct alignA
+  headers:
+  - bitfields.h
+  identifier: AlignA
+  module: Example
+  package: example
+- cname: struct alignB
+  headers:
+  - bitfields.h
+  identifier: AlignB
+  module: Example
+  package: example
+- cname: struct flags
+  headers:
+  - bitfields.h
+  identifier: Flags
+  module: Example
+  package: example
+- cname: struct overflow32
+  headers:
+  - bitfields.h
+  identifier: Overflow32
+  module: Example
+  package: example
+- cname: struct overflow32b
+  headers:
+  - bitfields.h
+  identifier: Overflow32b
+  module: Example
+  package: example
+- cname: struct overflow32c
+  headers:
+  - bitfields.h
+  identifier: Overflow32c
+  module: Example
+  package: example
+- cname: struct overflow64
+  headers:
+  - bitfields.h
+  identifier: Overflow64
+  module: Example
+  package: example
