@@ -1115,4 +1115,398 @@
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "Dim")]
+    (HsName "@NsTypeConstr" "Dim"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "DimPayloadB",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "DimPayloadB",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "unDimPayloadB",
+        fieldType = HsByteArray,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginUnion
+        Union {
+          unionDeclPath = DeclPathConstr
+            DeclConstrUnion
+            (DeclNameTag
+              (CName "DimPayloadB"))
+            DeclPathTop,
+          unionAliases = [
+            DeclPathConstr
+              DeclConstrStruct
+              (DeclNameTypedef
+                (CName "DimPayloadB"))
+              DeclPathTop],
+          unionSizeof = 8,
+          unionAlignment = 4,
+          unionSourceLoc =
+          "unions.h:23:15"}},
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsSizedByteArray 8 4))
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "DimPayloadB"),
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "DimB",
+      structConstr = HsName
+        "@NsConstr"
+        "DimB",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "dimB_tag",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "tag",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              fieldSourceLoc =
+              "unions.h:29:9"}},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "dimB_payload",
+          fieldType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "DimPayloadB"),
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "payload",
+              fieldOffset = 32,
+              fieldWidth = Nothing,
+              fieldType = TypeUnion
+                (DeclPathConstr
+                  DeclConstrUnion
+                  (DeclNameTag
+                    (CName "DimPayloadB"))
+                  DeclPathTop),
+              fieldSourceLoc =
+              "unions.h:30:17"}}],
+      structOrigin =
+      StructOriginStruct
+        Struct {
+          structDeclPath = DeclPathConstr
+            DeclConstrStruct
+            (DeclNameTag (CName "DimB"))
+            DeclPathTop,
+          structAliases = [],
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "tag",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              fieldSourceLoc =
+              "unions.h:29:9"},
+            StructField {
+              fieldName = CName "payload",
+              fieldOffset = 32,
+              fieldWidth = Nothing,
+              fieldType = TypeUnion
+                (DeclPathConstr
+                  DeclConstrUnion
+                  (DeclNameTag
+                    (CName "DimPayloadB"))
+                  DeclPathTop),
+              fieldSourceLoc =
+              "unions.h:30:17"}],
+          structFlam = Nothing,
+          structSourceLoc =
+          "unions.h:28:8"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "DimB",
+        structConstr = HsName
+          "@NsConstr"
+          "DimB",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "dimB_tag",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "tag",
+                fieldOffset = 0,
+                fieldWidth = Nothing,
+                fieldType = TypePrim
+                  (PrimIntegral PrimInt Signed),
+                fieldSourceLoc =
+                "unions.h:29:9"}},
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "dimB_payload",
+            fieldType = HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "DimPayloadB"),
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "payload",
+                fieldOffset = 32,
+                fieldWidth = Nothing,
+                fieldType = TypeUnion
+                  (DeclPathConstr
+                    DeclConstrUnion
+                    (DeclNameTag
+                      (CName "DimPayloadB"))
+                    DeclPathTop),
+                fieldSourceLoc =
+                "unions.h:30:17"}}],
+        structOrigin =
+        StructOriginStruct
+          Struct {
+            structDeclPath = DeclPathConstr
+              DeclConstrStruct
+              (DeclNameTag (CName "DimB"))
+              DeclPathTop,
+            structAliases = [],
+            structSizeof = 12,
+            structAlignment = 4,
+            structFields = [
+              StructField {
+                fieldName = CName "tag",
+                fieldOffset = 0,
+                fieldWidth = Nothing,
+                fieldType = TypePrim
+                  (PrimIntegral PrimInt Signed),
+                fieldSourceLoc =
+                "unions.h:29:9"},
+              StructField {
+                fieldName = CName "payload",
+                fieldOffset = 32,
+                fieldWidth = Nothing,
+                fieldType = TypeUnion
+                  (DeclPathConstr
+                    DeclConstrUnion
+                    (DeclNameTag
+                      (CName "DimPayloadB"))
+                    DeclPathTop),
+                fieldSourceLoc =
+                "unions.h:30:17"}],
+            structFlam = Nothing,
+            structSourceLoc =
+            "unions.h:28:8"}}
+      StorableInstance {
+        storableSizeOf = 12,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "DimB",
+                structConstr = HsName
+                  "@NsConstr"
+                  "DimB",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "dimB_tag",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "tag",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        fieldSourceLoc =
+                        "unions.h:29:9"}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "dimB_payload",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "DimPayloadB"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "payload",
+                        fieldOffset = 32,
+                        fieldWidth = Nothing,
+                        fieldType = TypeUnion
+                          (DeclPathConstr
+                            DeclConstrUnion
+                            (DeclNameTag
+                              (CName "DimPayloadB"))
+                            DeclPathTop),
+                        fieldSourceLoc =
+                        "unions.h:30:17"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
+                      (DeclNameTag (CName "DimB"))
+                      DeclPathTop,
+                    structAliases = [],
+                    structSizeof = 12,
+                    structAlignment = 4,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "tag",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        fieldSourceLoc =
+                        "unions.h:29:9"},
+                      StructField {
+                        fieldName = CName "payload",
+                        fieldOffset = 32,
+                        fieldWidth = Nothing,
+                        fieldType = TypeUnion
+                          (DeclPathConstr
+                            DeclConstrUnion
+                            (DeclNameTag
+                              (CName "DimPayloadB"))
+                            DeclPathTop),
+                        fieldSourceLoc =
+                        "unions.h:30:17"}],
+                    structFlam = Nothing,
+                    structSourceLoc =
+                    "unions.h:28:8"}})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 4]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "DimB",
+                structConstr = HsName
+                  "@NsConstr"
+                  "DimB",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "dimB_tag",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "tag",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        fieldSourceLoc =
+                        "unions.h:29:9"}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "dimB_payload",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "DimPayloadB"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "payload",
+                        fieldOffset = 32,
+                        fieldWidth = Nothing,
+                        fieldType = TypeUnion
+                          (DeclPathConstr
+                            DeclConstrUnion
+                            (DeclNameTag
+                              (CName "DimPayloadB"))
+                            DeclPathTop),
+                        fieldSourceLoc =
+                        "unions.h:30:17"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathConstr
+                      DeclConstrStruct
+                      (DeclNameTag (CName "DimB"))
+                      DeclPathTop,
+                    structAliases = [],
+                    structSizeof = 12,
+                    structAlignment = 4,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "tag",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        fieldSourceLoc =
+                        "unions.h:29:9"},
+                      StructField {
+                        fieldName = CName "payload",
+                        fieldOffset = 32,
+                        fieldWidth = Nothing,
+                        fieldType = TypeUnion
+                          (DeclPathConstr
+                            DeclConstrUnion
+                            (DeclNameTag
+                              (CName "DimPayloadB"))
+                            DeclPathTop),
+                        fieldSourceLoc =
+                        "unions.h:30:17"}],
+                    structFlam = Nothing,
+                    structSourceLoc =
+                    "unions.h:28:8"}}
+              (Add 2)
+              (Seq
+                [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
+                  PokeByteOff
+                    (Idx 3)
+                    4
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "DimB"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "DimB")]
