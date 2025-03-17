@@ -8,6 +8,7 @@
       EmptyDataOriginOpaqueStruct
         OpaqueStruct {
           opaqueStructTag = CName "foo",
+          opaqueStructAliases = [],
           opaqueStructSourceLoc =
           "opaque_declaration.h:1:8"}},
   DeclData
@@ -521,6 +522,7 @@
       EmptyDataOriginOpaqueEnum
         OpaqueEnum {
           opaqueEnumTag = CName "quu",
+          opaqueEnumAliases = [],
           opaqueEnumSourceLoc =
           "opaque_declaration.h:11:6"}},
   DeclEmpty
@@ -533,5 +535,6 @@
         OpaqueStruct {
           opaqueStructTag = CName
             "opaque_union",
+          opaqueStructAliases = [],
           opaqueStructSourceLoc =
           "opaque_declaration.h:13:7"}}]

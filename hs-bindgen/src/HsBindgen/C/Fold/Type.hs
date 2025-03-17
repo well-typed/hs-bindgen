@@ -227,6 +227,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             DeclarationOpaque ->
                                 addDecl ty $ DeclOpaqueStruct OpaqueStruct {
                                       opaqueStructTag       = CName name'
+                                    , opaqueStructAliases   = []
                                     , opaqueStructSourceLoc = sloc
                                     }
 
@@ -290,6 +291,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                 -- opaque struct and opaque union look the same.
                                 addDecl ty $ DeclOpaqueStruct OpaqueStruct {
                                       opaqueStructTag       = CName name'
+                                    , opaqueStructAliases   = []
                                     , opaqueStructSourceLoc = sloc
                                     }
 
@@ -354,6 +356,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     DeclarationOpaque -> do
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
                             opaqueEnumTag       = CName name'
+                          , opaqueEnumAliases   = []
                           , opaqueEnumSourceLoc = sloc
                           }
 
@@ -548,10 +551,18 @@ updateDeclAddAliases :: [DeclPath] -> Decl -> Maybe Decl
 updateDeclAddAliases declPaths = \case
     DeclStruct struct -> Just $
         DeclStruct struct{ structAliases = declPaths ++ structAliases struct }
+    DeclOpaqueStruct ostruct -> Just $
+        DeclOpaqueStruct ostruct{
+                opaqueStructAliases = declPaths ++ opaqueStructAliases ostruct
+            }
     DeclUnion union -> Just $
         DeclUnion union{ unionAliases = declPaths ++ unionAliases union }
     DeclEnum enu -> Just $
         DeclEnum enu{ enumAliases = declPaths ++ enumAliases enu }
+    DeclOpaqueEnum oenum -> Just $
+        DeclOpaqueEnum oenum{
+                opaqueEnumAliases = declPaths ++ opaqueEnumAliases oenum
+            }
     _otherwise -> Nothing
 
 -- https://github.com/dmwit/ordered-containers/issues/29

@@ -3,6 +3,7 @@ Header
     DeclOpaqueStruct
       OpaqueStruct {
         opaqueStructTag = CName "foo",
+        opaqueStructAliases = [],
         opaqueStructSourceLoc =
         "opaque_declaration.h:1:8"},
     DeclStruct
@@ -58,11 +59,13 @@ Header
     DeclOpaqueEnum
       OpaqueEnum {
         opaqueEnumTag = CName "quu",
+        opaqueEnumAliases = [],
         opaqueEnumSourceLoc =
         "opaque_declaration.h:11:6"},
     DeclOpaqueStruct
       OpaqueStruct {
         opaqueStructTag = CName
           "opaque_union",
+        opaqueStructAliases = [],
         opaqueStructSourceLoc =
         "opaque_declaration.h:13:7"}]

@@ -83,9 +83,11 @@ getEmptyDataExtBindings :: Hs.EmptyData -> [(CNameSpelling, HsIdentifier)]
 getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
     case Hs.emptyDataOrigin edata of
       Hs.EmptyDataOriginOpaqueStruct C.OpaqueStruct{..} ->
-        [Just (CNameSpelling (getCName opaqueStructTag))]
+        Just (CNameSpelling (getCName opaqueStructTag))
+          : map getCNS opaqueStructAliases
       Hs.EmptyDataOriginOpaqueEnum C.OpaqueEnum{..} ->
-        [Just (CNameSpelling (getCName opaqueEnumTag))]
+        Just (CNameSpelling (getCName opaqueEnumTag))
+          : map getCNS opaqueEnumAliases
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.emptyDataName edata)
