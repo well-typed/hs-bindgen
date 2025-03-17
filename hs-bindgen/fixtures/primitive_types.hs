@@ -500,6 +500,7 @@
             (DeclNameTag
               (CName "primitive"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 176,
           structAlignment = 16,
           structFields = [
@@ -1260,6 +1261,7 @@
               (DeclNameTag
                 (CName "primitive"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 176,
             structAlignment = 16,
             structFields = [
@@ -2025,6 +2027,7 @@
                       (DeclNameTag
                         (CName "primitive"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 176,
                     structAlignment = 16,
                     structFields = [
@@ -2819,6 +2822,7 @@
                       (DeclNameTag
                         (CName "primitive"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 176,
                     structAlignment = 16,
                     structFields = [

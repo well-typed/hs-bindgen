@@ -47,6 +47,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "Dim2"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -118,6 +119,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "Dim2"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -194,6 +196,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Dim2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -272,6 +275,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Dim2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -374,6 +378,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "Dim3"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -469,6 +474,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "Dim3"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
             structFields = [
@@ -569,6 +575,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Dim3"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -672,6 +679,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Dim3"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -741,6 +749,7 @@
             (DeclNameTag
               (CName "DimPayload"))
             DeclPathTop,
+          unionAliases = [],
           unionSizeof = 8,
           unionAlignment = 4,
           unionSourceLoc =
@@ -806,6 +815,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "Dim"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -887,6 +897,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "Dim"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
             structFields = [
@@ -973,6 +984,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Dim"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -1061,6 +1073,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Dim"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [

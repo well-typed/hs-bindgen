@@ -125,6 +125,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "bools1"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 2,
           structAlignment = 1,
           structFields = [
@@ -191,6 +192,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "bools1"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 2,
             structAlignment = 1,
             structFields = [
@@ -261,6 +263,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bools1"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 2,
                     structAlignment = 1,
                     structFields = [
@@ -334,6 +337,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bools1"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 2,
                     structAlignment = 1,
                     structFields = [
@@ -418,6 +422,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "bools2"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 2,
           structAlignment = 1,
           structFields = [
@@ -484,6 +489,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "bools2"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 2,
             structAlignment = 1,
             structFields = [
@@ -554,6 +560,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bools2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 2,
                     structAlignment = 1,
                     structFields = [
@@ -627,6 +634,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bools2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 2,
                     structAlignment = 1,
                     structFields = [
@@ -713,6 +721,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "bools3"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 2,
           structAlignment = 1,
           structFields = [
@@ -784,6 +793,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "bools3"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 2,
             structAlignment = 1,
             structFields = [
@@ -860,6 +870,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bools3"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 2,
                     structAlignment = 1,
                     structFields = [
@@ -938,6 +949,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bools3"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 2,
                     structAlignment = 1,
                     structFields = [

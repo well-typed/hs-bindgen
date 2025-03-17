@@ -60,6 +60,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "foo"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -107,6 +108,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "foo"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -159,6 +161,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -211,6 +214,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -272,6 +276,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "bar"))
             (DeclPathPtr DeclPathTop),
+          structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -319,6 +324,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "bar"))
               (DeclPathPtr DeclPathTop),
+            structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -371,6 +377,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       (DeclPathPtr DeclPathTop),
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -423,6 +430,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       (DeclPathPtr DeclPathTop),
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [

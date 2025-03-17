@@ -153,6 +153,7 @@ data PrimSign = Signed | Unsigned
 -- | Definition of a struct
 data Struct = Struct {
       structDeclPath  :: DeclPath
+    , structAliases   :: [DeclPath]
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -192,6 +193,7 @@ data OpaqueStruct = OpaqueStruct {
 -- | Definition of an union
 data Union = Union {
       unionDeclPath  :: DeclPath
+    , unionAliases   :: [DeclPath]
     , unionSizeof    :: Int
     , unionAlignment :: Int
     -- TODO: , unionFields    :: [UnionField]
@@ -206,6 +208,7 @@ data Union = Union {
 
 data Enu = Enu {
       enumDeclPath  :: DeclPath
+    , enumAliases   :: [DeclPath]
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int

@@ -44,10 +44,10 @@ processTypeDecl extBindings unit declCursor ty = do
     -- dtraceIO "processTypeDecl" ty
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                      -> processTypeDecl' DeclPathTop extBindings unit declCursor ty
-        Just (TypeDecl t _)          -> return t
-        Just (TypeDeclAlias t)       -> return t
-        Just (TypeDeclProcessing t') -> liftIO $ panicIO $ "Incomplete type declaration: " ++ show t'
+        Nothing                        -> processTypeDecl' DeclPathTop extBindings unit declCursor ty
+        Just (TypeDecl t _)            -> return t
+        Just (TypeDeclAlias t)         -> return t
+        Just (TypeDeclProcessing t' _) -> liftIO $ panicIO $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
      DeclPath
@@ -59,10 +59,10 @@ processTypeDeclRec ::
 processTypeDeclRec path extBindings unit curr ty = do
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                     -> processTypeDecl' path extBindings unit curr ty
-        Just (TypeDecl t _)         -> return t
-        Just (TypeDeclAlias t)      -> return t
-        Just (TypeDeclProcessing t) -> return t
+        Nothing                       -> processTypeDecl' path extBindings unit curr ty
+        Just (TypeDecl t _)           -> return t
+        Just (TypeDeclAlias t)        -> return t
+        Just (TypeDeclProcessing t _) -> return t
 
 -- Process types.
 --
@@ -136,8 +136,9 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             Just extId -> addAlias ty $ TypeExtBinding extId
             Nothing -> do
                 tag <- CName <$> liftIO (clang_getCursorSpelling decl)
-                ty' <- liftIO (clang_getTypedefDeclUnderlyingType decl)
-                use <- processTypeDeclRec (DeclPathConstr DeclConstrStruct (DeclNameTypedef tag) DeclPathTop) extBindings unit Nothing ty'
+                ty' <- liftIO $ getElaborated =<< clang_getTypedefDeclUnderlyingType decl
+                let declPath = DeclPathConstr DeclConstrStruct (DeclNameTypedef tag) DeclPathTop
+                use <- processTypeDeclRec declPath extBindings unit Nothing ty'
 
                 -- we could check whether typedef has a transparent tag,
                 -- like in case of `typedef struct foo { ..} foo;`
@@ -150,11 +151,21 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
                     -- in typedef struct { ... } foo; the typedef does not have transparent tag.
                     TypeStruct (DeclPathConstr DeclConstrStruct declName _declPath)
-                        | declName == DeclNameTag tag -> addAlias ty use
+                        | declName == DeclNameTag tag -> do
+                            updateDeclAddAlias ty' declPath
+                            addAlias ty use
+                        | declName == DeclNameTypedef tag -> addAlias ty use
+
+                    TypeUnion (DeclPathConstr DeclConstrUnion declName _declPath)
+                        | declName == DeclNameTag tag -> do
+                            updateDeclAddAlias ty' declPath
+                            addAlias ty use
                         | declName == DeclNameTypedef tag -> addAlias ty use
 
                     TypeEnum (DeclPathConstr DeclConstrEnum declName _declPath)
-                        | declName == DeclNameTag tag -> addAlias ty use
+                        | declName == DeclNameTag tag -> do
+                            updateDeclAddAlias ty' declPath
+                            addAlias ty use
                         | declName == DeclNameTypedef tag -> addAlias ty use
 
                     _ -> do
@@ -234,6 +245,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
                                 addDecl ty $ DeclStruct Struct
                                     { structDeclPath  = declPath
+                                    , structAliases   = []
                                     , structSizeof    = fromIntegral sizeof
                                     , structAlignment = fromIntegral alignment
                                     , structFields    = fields
@@ -297,6 +309,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
                                 addDecl ty $ DeclUnion Union
                                     { unionDeclPath  = declPath
+                                    , unionAliases   = []
                                     , unionSizeof    = fromIntegral sizeof
                                     , unionAlignment = fromIntegral alignment
                                     -- , unionFields    = fields
@@ -359,6 +372,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
                         addDecl ty $ DeclEnum $ Enu
                             { enumDeclPath  = declPath
+                            , enumAliases   = []
                             , enumType      = ety
                             , enumSizeof    = fromIntegral sizeof
                             , enumAlignment = fromIntegral alignment
@@ -456,6 +470,11 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
       liftIO $ print name
       unrecognizedType ty
 
+getElaborated :: CXType -> IO CXType
+getElaborated ty = case fromSimpleEnum (cxtKind ty) of
+    Right CXType_Elaborated -> getElaborated =<< clang_Type_getNamedType ty
+    _otherwise              -> return ty
+
 lookupExtBinding ::
      CNameSpelling
   -> SingleLoc
@@ -475,7 +494,7 @@ addAlias ty t = do
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
         Nothing -> liftIO $ panicIO "type not being processed"
-        Just (TypeDeclProcessing _t) -> do
+        Just (TypeDeclProcessing _t _as) -> do
             put s { typeDeclarations = omapInsertBack ty (TypeDeclAlias t) ds }
             return t
         Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
@@ -486,8 +505,8 @@ addTypeDeclProcessing ty t = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
-        Nothing -> put s { typeDeclarations = omapInsertBack ty (TypeDeclProcessing t) ds }
-        Just (TypeDeclProcessing t') -> liftIO $ panicIO $ "type already processed (1)" ++ show (t, t')
+        Nothing -> put s { typeDeclarations = omapInsertBack ty (TypeDeclProcessing t []) ds }
+        Just (TypeDeclProcessing t' _as) -> liftIO $ panicIO $ "type already processed (1)" ++ show (t, t')
         Just (TypeDecl t' _) -> liftIO $ panicIO $ "type already processed (2)" ++ show (t, t')
         Just (TypeDeclAlias t') -> liftIO $ panicIO $ "type already processed (3)" ++ show (t, t')
 
@@ -497,11 +516,43 @@ addDecl ty d = do
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
         Nothing -> liftIO $ panicIO "type not being processed"
-        Just (TypeDeclProcessing t) -> do
-            put s { typeDeclarations = omapInsertBack ty (TypeDecl t d) ds }
+        Just (TypeDeclProcessing t aliases) -> do
+            let err = "updateDeclAddAliases not implemented for type: " ++ show t
+            d' <- maybe (liftIO (panicIO err)) return $
+                    if null aliases
+                        then Just d
+                        else updateDeclAddAliases aliases d
+            put s { typeDeclarations = omapInsertBack ty (TypeDecl t d') ds }
             return t
         Just (TypeDecl _ _)    -> liftIO $ panicIO "type already processed"
         Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
+
+updateDeclAddAlias :: CXType -> DeclPath -> Eff (State DeclState) ()
+updateDeclAddAlias ty declPath = do
+    s <- get
+    let ds = typeDeclarations s
+    case OMap.lookup ty ds of
+        Nothing -> liftIO $ panicIO "type not found"
+        Just (TypeDeclProcessing typ aliases) ->
+            let d = TypeDeclProcessing typ (declPath : aliases)
+            in  put s { typeDeclarations = (ty, d) OMap.<| ds }
+        Just (TypeDecl typ decl) -> case updateDeclAddAliases [declPath] decl of
+            Just decl' ->
+                put s { typeDeclarations = (ty, TypeDecl typ decl') OMap.<| ds }
+            Nothing -> liftIO $ panicIO $
+              "updateDeclAddAliases not implemented for type: " ++ show typ
+        Just (TypeDeclAlias typ) -> liftIO $ panicIO $
+          "cannot add alias to an alias: " ++ show typ
+
+updateDeclAddAliases :: [DeclPath] -> Decl -> Maybe Decl
+updateDeclAddAliases declPaths = \case
+    DeclStruct struct -> Just $
+        DeclStruct struct{ structAliases = declPaths ++ structAliases struct }
+    DeclUnion union -> Just $
+        DeclUnion union{ unionAliases = declPaths ++ unionAliases union }
+    DeclEnum enu -> Just $
+        DeclEnum enu{ enumAliases = declPaths ++ enumAliases enu }
+    _otherwise -> Nothing
 
 -- https://github.com/dmwit/ordered-containers/issues/29
 omapInsertBack :: Ord k => k -> v -> OMap.OMap k v -> OMap.OMap k v

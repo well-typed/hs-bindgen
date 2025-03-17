@@ -166,6 +166,7 @@ Header
           (DeclNameTag
             (CName "ExampleStruct"))
           DeclPathTop,
+        structAliases = [],
         structSizeof = 16,
         structAlignment = 4,
         structFields = [
@@ -210,6 +211,7 @@ Header
           DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
+        structAliases = [],
         structSizeof = 8,
         structAlignment = 8,
         structFields = [

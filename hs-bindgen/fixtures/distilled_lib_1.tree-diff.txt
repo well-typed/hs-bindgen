@@ -331,6 +331,7 @@ Header
             (CName
               "another_typedef_struct_t"))
           DeclPathTop,
+        structAliases = [],
         structSizeof = 8,
         structAlignment = 4,
         structFields = [
@@ -361,6 +362,7 @@ Header
             (CName
               "another_typedef_enum_e"))
           DeclPathTop,
+        enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -422,6 +424,7 @@ Header
           (DeclNameTag
             (CName "a_typedef_struct"))
           DeclPathTop,
+        structAliases = [],
         structSizeof = 140,
         structAlignment = 1,
         structFields = [
@@ -568,6 +571,7 @@ Header
           (DeclNameTypedef
             (CName "a_typedef_enum_e"))
           DeclPathTop,
+        enumAliases = [],
         enumType = TypePrim
           (PrimChar (Just Unsigned)),
         enumSizeof = 1,

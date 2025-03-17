@@ -16,7 +16,7 @@ import Data.Set qualified as Set
 
 import Data.DynGraph (DynGraph)
 import Data.DynGraph qualified as DynGraph
-import HsBindgen.C.AST (CName, Type, Decl)
+import HsBindgen.C.AST (CName, Decl, DeclPath, Type)
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
@@ -51,8 +51,15 @@ data DeclState = DeclState {
     }
 
 data TypeDecl
-    = TypeDeclProcessing Type  -- ^ the type is processing (recursive definitions)
-    | TypeDeclAlias Type       -- ^ an alias, for typedefs etc.
+    = -- | The type is processing with the specified aliases
+      --
+      -- The list of aliases contains aliases where more than one C spelling
+      -- are mapped to the same C AST node, when a @typedef@ name is the same
+      -- as a @struct@, @union@, or @enum@ tag.  This is a subset of the
+      -- aliases tracked in the following constructor.
+      TypeDeclProcessing Type [DeclPath]
+    | -- | An alias, for @typedef@s, etc.
+      TypeDeclAlias Type
     | TypeDecl Type Decl
   deriving Show
 

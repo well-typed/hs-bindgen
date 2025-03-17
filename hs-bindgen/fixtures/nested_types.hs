@@ -47,6 +47,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "foo"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -118,6 +119,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "foo"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -194,6 +196,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -272,6 +275,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -364,6 +368,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "bar"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 16,
           structAlignment = 4,
           structFields = [
@@ -447,6 +452,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "bar"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 16,
             structAlignment = 4,
             structFields = [
@@ -535,6 +541,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 4,
                     structFields = [
@@ -625,6 +632,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 4,
                     structFields = [
@@ -701,6 +709,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "ex3"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -748,6 +757,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "ex3"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
             structFields = [
@@ -800,6 +810,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "ex3"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -852,6 +863,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "ex3"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -942,6 +954,7 @@
                   DeclConstrStruct
                   (DeclNameTag (CName "ex4_odd"))
                   DeclPathTop))),
+          structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -1030,6 +1043,7 @@
                     DeclConstrStruct
                     (DeclNameTag (CName "ex4_odd"))
                     DeclPathTop))),
+            structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -1123,6 +1137,7 @@
                             DeclConstrStruct
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))),
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1218,6 +1233,7 @@
                             DeclConstrStruct
                             (DeclNameTag (CName "ex4_odd"))
                             DeclPathTop))),
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1325,6 +1341,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "ex4_odd"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -1419,6 +1436,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "ex4_odd"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -1518,6 +1536,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1619,6 +1638,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "ex4_odd"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [

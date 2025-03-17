@@ -31,6 +31,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "S1"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -78,6 +79,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "S1"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -130,6 +132,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -182,6 +185,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -273,6 +277,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "S2"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -320,6 +325,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "S2"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -372,6 +378,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -424,6 +431,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
