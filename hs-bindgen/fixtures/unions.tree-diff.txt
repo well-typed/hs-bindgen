@@ -72,6 +72,23 @@ Header
         unionAliases = [],
         unionSizeof = 8,
         unionAlignment = 4,
+        unionFields = [
+          UnionField {
+            ufieldName = CName "dim2",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "Dim2")
+                DeclPathCtxtTop),
+            ufieldSourceLoc =
+            "unions.h:13:17"},
+          UnionField {
+            ufieldName = CName "dim3",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "Dim2")
+                DeclPathCtxtTop),
+            ufieldSourceLoc =
+            "unions.h:14:17"}],
         unionSourceLoc =
         "unions.h:12:7"},
     DeclStruct
@@ -112,6 +129,23 @@ Header
         unionAliases = [],
         unionSizeof = 8,
         unionAlignment = 4,
+        unionFields = [
+          UnionField {
+            ufieldName = CName "dim2",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "Dim2")
+                DeclPathCtxtTop),
+            ufieldSourceLoc =
+            "unions.h:24:17"},
+          UnionField {
+            ufieldName = CName "dim3",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "Dim2")
+                DeclPathCtxtTop),
+            ufieldSourceLoc =
+            "unions.h:25:17"}],
         unionSourceLoc =
         "unions.h:23:15"},
     DeclTypedef

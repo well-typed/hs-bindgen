@@ -742,6 +742,23 @@
           unionAliases = [],
           unionSizeof = 8,
           unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              ufieldName = CName "dim2",
+              ufieldType = TypeStruct
+                (DeclPathName
+                  (CName "Dim2")
+                  DeclPathCtxtTop),
+              ufieldSourceLoc =
+              "unions.h:13:17"},
+            UnionField {
+              ufieldName = CName "dim3",
+              ufieldType = TypeStruct
+                (DeclPathName
+                  (CName "Dim2")
+                  DeclPathCtxtTop),
+              ufieldSourceLoc =
+              "unions.h:14:17"}],
           unionSourceLoc =
           "unions.h:12:7"}},
   DeclNewtypeInstance
@@ -751,6 +768,42 @@
     (HsName
       "@NsTypeConstr"
       "DimPayload"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayload")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "get_dimPayload_dim2"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayload")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "set_dimPayload_dim2"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayload")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "get_dimPayload_dim3"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayload")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "set_dimPayload_dim3"),
   DeclData
     Struct {
       structName = HsName
@@ -1109,6 +1162,23 @@
           unionAliases = [],
           unionSizeof = 8,
           unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              ufieldName = CName "dim2",
+              ufieldType = TypeStruct
+                (DeclPathName
+                  (CName "Dim2")
+                  DeclPathCtxtTop),
+              ufieldSourceLoc =
+              "unions.h:24:17"},
+            UnionField {
+              ufieldName = CName "dim3",
+              ufieldType = TypeStruct
+                (DeclPathName
+                  (CName "Dim2")
+                  DeclPathCtxtTop),
+              ufieldSourceLoc =
+              "unions.h:25:17"}],
           unionSourceLoc =
           "unions.h:23:15"}},
   DeclNewtypeInstance
@@ -1118,6 +1188,42 @@
     (HsName
       "@NsTypeConstr"
       "DimPayloadB"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayloadB")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "get_dimPayloadB_dim2"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayloadB")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "set_dimPayloadB_dim2"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayloadB")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "get_dimPayloadB_dim3"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "DimPayloadB")
+    (HsTypRef
+      (HsName "@NsTypeConstr" "Dim2"))
+    (HsName
+      "@NsVar"
+      "set_dimPayloadB_dim3"),
   DeclNewtype
     Newtype {
       newtypeName = HsName

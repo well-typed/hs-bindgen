@@ -167,8 +167,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             , typedefSourceLoc = sloc
                             }
 
-    -- structs
-    -- TODO: CXType_Record also applies to unions.
+    -- structs and unions
     Right CXType_Record -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
         ki <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
@@ -302,18 +301,16 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                 sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                                 alignment <- liftIO (clang_Type_getAlignOf ty)
 
-                                {-
-                                fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                                    mfield <- mkStructField extBindings unit declPath cursor
+                                fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                                    mfield <- mkUnionField extBindings unit (if anon then Nothing else Just $ CName name') ctxt cursor
                                     return $ Continue mfield
-                                -}
 
                                 addDecl ty $ DeclUnion Union
                                     { unionDeclPath  = declPath
                                     , unionAliases   = []
                                     , unionSizeof    = fromIntegral sizeof
                                     , unionAlignment = fromIntegral alignment
-                                    -- , unionFields    = fields
+                                    , unionFields    = fields
                                     , unionSourceLoc = sloc
                                     }
 
@@ -674,6 +671,69 @@ mkStructField extBindings unit mStructName ctxt current = do
 isIncompleteArrayType :: Type -> Bool
 isIncompleteArrayType (TypeIncompleteArray {}) = True
 isIncompleteArrayType _ = False
+
+{-------------------------------------------------------------------------------
+  Unions
+-------------------------------------------------------------------------------}
+
+mkUnionField
+    :: ExtBindings
+    -> CXTranslationUnit
+    -> Maybe CName         -- ^ Name of the union (unless anonymous)
+    -> DeclPathCtxt
+    -> CXCursor
+    -> Eff (State DeclState) (Maybe UnionField)
+mkUnionField extBindings unit mUnionName ctxt current = do
+    ufieldSourceLoc <- liftIO $
+      HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
+    cursorKind <- liftIO $ clang_getCursorKind current
+    case fromSimpleEnum cursorKind of
+      Right CXCursor_UnexposedAttr ->
+        return Nothing
+
+      Right CXCursor_FieldDecl -> do
+        extent   <- liftIO $ HighLevel.clang_getCursorExtent current
+        hasMacro <- gets $ containsMacroExpansion extent
+
+        -- TODO: the macro code is untested.
+        mbNameTypeWithMacros <-
+          if hasMacro
+          then do
+            tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+            macroTyEnv <- macroTypes <$> get
+            case reparseWith (reparseFieldDecl macroTyEnv) tokens of
+              Left err -> do
+                -- TODO: improve mechanism for reporting warnings
+                liftIO $ putStrLn $ unlines
+                  [ "\nWarning: failed to re-parse struct field containing macro expansion."
+                  , "Proceeding with macros expanded."
+                  , ""
+                  , "Parse error:"
+                  , prettyLogMsg err
+                  , ""
+                  ]
+                return Nothing
+              Right (fieldType, fieldName) ->
+                return $ Just (fieldName, fieldType)
+          else
+            return Nothing
+
+        (ufieldName, ufieldType) <-
+          case mbNameTypeWithMacros of
+            Just declNameAndTy -> return declNameAndTy
+            Nothing -> do
+              fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
+              ty          <- liftIO (clang_getCursorType current)
+              fieldType <- processTypeDeclRec (DeclPathCtxtField mUnionName fieldName ctxt) extBindings unit Nothing ty
+              return (fieldName, fieldType)
+
+        return $ Just $ UnionField{ufieldName, ufieldType, ufieldSourceLoc}
+
+      -- TODO: inner definitions
+      -- Right CXCursor_StructDecl -> return Nothing
+
+      _other ->
+        unrecognizedCursor current
 
 {-------------------------------------------------------------------------------
   Enums

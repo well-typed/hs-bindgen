@@ -10,10 +10,14 @@ module HsBindgen.Hs.NameMangler.API (
   , mangleDeconName
   , mangleFieldName
   , mangleVarName
+  , mangleGetterName
+  , mangleBuilderName
   ) where
 
 import HsBindgen.Hs.AST.Name
 import HsBindgen.C.AST
+import Data.Text (Text)
+import Data.Coerce
 
 {-------------------------------------------------------------------------------
   Definition
@@ -115,3 +119,15 @@ mangleVarName :: NameMangler -> CName -> HsName NsVar
 mangleVarName nm varName = mangleVarContext nm ctx
   where
     ctx = VarContext varName
+
+-- | getters for unions
+mangleGetterName :: ToTypeConstrContext ctx => NameMangler -> ctx -> CName -> HsName NsVar
+mangleGetterName nm declPath fname = coerce (("get_" :: Text) <>) $ mangleVarContext nm ctx
+  where
+    ctx = FieldVarContext (toCtx declPath) fname
+
+-- | builders for unions
+mangleBuilderName :: ToTypeConstrContext ctx => NameMangler -> ctx -> CName -> HsName NsVar
+mangleBuilderName nm declPath fname = coerce (("set_" :: Text) <>) $ mangleVarContext nm ctx
+  where
+    ctx = FieldVarContext (toCtx declPath) fname

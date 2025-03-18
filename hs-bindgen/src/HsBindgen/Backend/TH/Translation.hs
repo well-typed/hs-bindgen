@@ -33,6 +33,7 @@ import HsBindgen.Hs.AST.Type
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
+import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
@@ -149,6 +150,9 @@ mkGlobal = \case
 
       ByteArray_type       -> ''ByteArray
       SizedByteArray_type  -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+
+      ByteArray_getUnionPayload -> 'HsBindgen.Runtime.ByteArray.getUnionPayload
+      ByteArray_setUnionPayload -> 'HsBindgen.Runtime.ByteArray.setUnionPayload
 
       PrimType t           -> mkGlobalP t
 

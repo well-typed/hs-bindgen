@@ -10,6 +10,8 @@ module HsBindgen.Hs.NameMangler (
   , mangleDeconName
   , mangleFieldName
   , mangleVarName
+  , mangleGetterName
+  , mangleBuilderName
     -- * Defining name manglers
   , translateName
   , translateDeclPath

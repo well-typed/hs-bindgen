@@ -63,6 +63,7 @@ instance ToExpr C.TokenSpelling
 instance ToExpr C.Type
 instance ToExpr C.Typedef
 instance ToExpr C.Union
+instance ToExpr C.UnionField
 
 instance ToExpr CExpr.CharValue
 
@@ -239,6 +240,10 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclForeignImport" [toExpr foreignImport]
     Hs.DeclVar v ->
       Expr.App "DeclVar" [toExpr v]
+    Hs.DeclUnionGetter u f n ->
+      Expr.App "DeclUnionGetter" [toExpr u, toExpr f, toExpr n]
+    Hs.DeclUnionSetter u f n ->
+      Expr.App "DeclUnionSetter" [toExpr u, toExpr f, toExpr n]
 
 instance ToExpr a => ToExpr (Vec n a) where
   toExpr = Expr.Lst . map toExpr . Vec.toList

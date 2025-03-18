@@ -37,6 +37,8 @@ translateDecl (Hs.DeclDeriveInstance s tc c) = translateDeriveInstance s tc c
 translateDecl (Hs.DeclVar v) = translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
+translateDecl (Hs.DeclUnionGetter u f n) = translateUnionGetter u f n
+translateDecl (Hs.DeclUnionSetter u f n) = translateUnionSetter u f n
 
 translateDefineInstanceDecl :: Hs.InstanceDecl -> SDecl
 translateDefineInstanceDecl (Hs.InstanceStorable struct i) =
@@ -362,6 +364,20 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
 
 toNameHint :: HsName 'NsVar -> NameHint
 toNameHint (HsName t) = NameHint (T.unpack t)
+
+{-------------------------------------------------------------------------------
+  Unions
+-------------------------------------------------------------------------------}
+
+translateUnionGetter :: HsName NsTypeConstr -> HsType -> HsName NsVar -> SDecl
+translateUnionGetter u f n = DVar n
+    (Just $ TFun (TCon u) (translateType f))
+    (EGlobal ByteArray_getUnionPayload)
+
+translateUnionSetter :: HsName NsTypeConstr -> HsType -> HsName NsVar -> SDecl
+translateUnionSetter u f n = DVar n
+    (Just $ TFun (translateType f) (TCon u))
+    (EGlobal ByteArray_setUnionPayload)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality

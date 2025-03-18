@@ -14,6 +14,7 @@ module HsBindgen.C.AST.Type (
   , OpaqueStruct(..)
     -- * Unions
   , Union(..)
+  , UnionField(..)
     -- * Enums
   , Enu(..)
   , EnumValue(..)
@@ -188,8 +189,15 @@ data Union = Union {
     , unionAliases   :: [CName]
     , unionSizeof    :: Int
     , unionAlignment :: Int
-    -- TODO: , unionFields    :: [UnionField]
+    , unionFields    :: [UnionField]
     , unionSourceLoc :: SingleLoc
+    }
+  deriving stock (Show, Eq, Generic)
+
+data UnionField = UnionField {
+      ufieldName      :: CName
+    , ufieldType      :: Type
+    , ufieldSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
 
@@ -286,10 +294,10 @@ data DeclPathCtxt =
     -- > typedef struct { char a; int b; } *Foo;
   | DeclPathCtxtPtr DeclPathCtxt
 
-    -- | Declaration as part of a field in a struct
+    -- | Declaration as part of a field in a struct or union
     --
-    -- The declared type itself might be a struct, but could also be a union or
-    -- an enum.
+    -- The nature of the declared type (struct, union, enum) is unrelated to the
+    -- nature of the outer type.
     --
     -- Example: this is the declaration of an anonymous struct inside a field:
     --
