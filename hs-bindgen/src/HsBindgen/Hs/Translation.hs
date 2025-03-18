@@ -433,8 +433,8 @@ typ nm = go CTop
     go _ (C.TypeUnion declPath) =
         -- TODO: UnionTypeConstrContext?
         Hs.HsTypRef (mangleTyconName nm declPath)
-    go _ (C.TypeEnum name) =
-        Hs.HsTypRef (mangleTyconName nm name)
+    go _ (C.TypeEnum declPath) =
+        Hs.HsTypRef (mangleTyconName nm declPath)
     go c C.TypeVoid =
         Hs.HsPrimType (goVoid c)
     go _ (C.TypePrim p) =
