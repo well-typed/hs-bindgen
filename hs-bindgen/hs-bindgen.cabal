@@ -269,3 +269,5 @@ test-suite test-pp
     , tasty ^>= 1.5
     , tasty-hunit ^>=0.10.2
     , vector ^>=0.13.2.0
+  if impl(ghc < 9.4)
+    build-depends: data-array-byte

@@ -136,6 +136,7 @@ data Global =
   | GHC_Float_castWord64ToDouble
 
   | ByteArray_type
+  | SizedByteArray_type
   | PrimType HsPrimType
   deriving stock (Eq, Show)
 
@@ -193,7 +194,7 @@ data SDecl =
   | DRecord Record
   | DNewtype Newtype
   | DEmptyData (HsName NsTypeConstr)
-  | DDerivingInstance Hs.Strategy ClosedType
+  | DDerivingInstance (Hs.Strategy ClosedType) ClosedType
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
   deriving stock (Show)

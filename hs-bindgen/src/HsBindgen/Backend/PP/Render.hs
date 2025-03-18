@@ -158,9 +158,10 @@ instance Pretty SDecl where
       , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
       ]
 
-strategy :: Hs.Strategy -> CtxDoc
-strategy Hs.DeriveNewtype = "newtype"
-strategy Hs.DeriveStock   = "stock"
+strategy :: Hs.Strategy ClosedType -> CtxDoc
+strategy Hs.DeriveNewtype  = "newtype"
+strategy Hs.DeriveStock    = "stock"
+strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
 
 {-------------------------------------------------------------------------------
   Type pretty-printing

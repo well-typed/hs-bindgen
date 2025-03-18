@@ -19,6 +19,7 @@ import Data.Text qualified as Text
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Names
 import HsBindgen.ExtBindings
+import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
@@ -145,7 +146,7 @@ resolveDeclImports = \case
       map (resolveTypeImports . fieldType) dataFields
     DEmptyData _name -> mempty
     DNewtype Newtype{..} -> resolveTypeImports $ fieldType newtypeField
-    DDerivingInstance _s ty -> resolveTypeImports ty
+    DDerivingInstance s ty -> resolveStrategyImports s <> resolveTypeImports ty
     DForeignImport ForeignImport {..} -> resolveTypeImports foreignImportType
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
@@ -210,6 +211,12 @@ resolveTypeImports = \case
 
 resolvePrimTypeImports :: Hs.HsPrimType -> ImportAcc
 resolvePrimTypeImports = resolveGlobalImports . PrimType
+
+resolveStrategyImports :: Hs.Strategy ClosedType -> ImportAcc
+resolveStrategyImports = \case
+    Hs.DeriveNewtype -> mempty
+    Hs.DeriveStock -> mempty
+    Hs.DeriveVia ty -> resolveTypeImports ty
 
 resolveExtIdentifierImports :: ExtIdentifier -> ImportAcc
 resolveExtIdentifierImports ExtIdentifier{..} =

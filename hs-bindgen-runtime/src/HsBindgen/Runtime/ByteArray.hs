@@ -31,8 +31,8 @@ import System.IO.Unsafe (unsafePerformIO)
   Support for defining 'Storable' instances for union types
 -------------------------------------------------------------------------------}
 
-peekByteArray :: Ptr a -> Int -> IO ByteArray
-peekByteArray src n = do
+peekByteArray :: Int -> Ptr a -> IO ByteArray
+peekByteArray n src = do
     pinnedCopy <- BA.newPinnedByteArray n
     BA.withMutableByteArrayContents pinnedCopy $ \dest ->
       copyBytes dest (castPtr src) n
