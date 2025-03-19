@@ -31,3 +31,15 @@ instance Storable Dim
                                          dim_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dim_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dim_payload_4}}
 deriving stock instance Show Dim
 deriving stock instance Eq Dim
+newtype DimPayloadB = DimPayloadB {unDimPayloadB :: ByteArray}
+deriving via (SizedByteArray 8 4) instance Storable DimPayloadB
+data DimB = DimB {dimB_tag :: CInt, dimB_payload :: DimPayloadB}
+instance Storable DimB
+    where {sizeOf = \_ -> 12 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure DimB <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {DimB dimB_tag_3
+                                          dimB_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dimB_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dimB_payload_4}}
+deriving stock instance Show DimB
+deriving stock instance Eq DimB

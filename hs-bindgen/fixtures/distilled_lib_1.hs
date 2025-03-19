@@ -296,6 +296,7 @@
               (CName
                 "another_typedef_struct_t"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -369,6 +370,7 @@
                 (CName
                   "another_typedef_struct_t"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -447,6 +449,7 @@
                         (CName
                           "another_typedef_struct_t"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -527,6 +530,7 @@
                         (CName
                           "another_typedef_struct_t"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -593,6 +597,7 @@
               (CName
                 "another_typedef_enum_e"))
             DeclPathTop,
+          enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
@@ -635,6 +640,7 @@
                 (CName
                   "another_typedef_enum_e"))
               DeclPathTop,
+            enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -682,6 +688,7 @@
                         (CName
                           "another_typedef_enum_e"))
                       DeclPathTop,
+                    enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -729,6 +736,7 @@
                         (CName
                           "another_typedef_enum_e"))
                       DeclPathTop,
+                    enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -1581,6 +1589,7 @@
             (DeclNameTag
               (CName "a_typedef_struct"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 140,
           structAlignment = 1,
           structFields = [
@@ -1962,6 +1971,7 @@
               (DeclNameTag
                 (CName "a_typedef_struct"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 140,
             structAlignment = 1,
             structFields = [
@@ -2348,6 +2358,7 @@
                       (DeclNameTag
                         (CName "a_typedef_struct"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 140,
                     structAlignment = 1,
                     structFields = [
@@ -2745,6 +2756,7 @@
                       (DeclNameTag
                         (CName "a_typedef_struct"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 140,
                     structAlignment = 1,
                     structFields = [
@@ -2960,6 +2972,7 @@
             (DeclNameTypedef
               (CName "a_typedef_enum_e"))
             DeclPathTop,
+          enumAliases = [],
           enumType = TypePrim
             (PrimChar (Just Unsigned)),
           enumSizeof = 1,
@@ -3011,6 +3024,7 @@
               (DeclNameTypedef
                 (CName "a_typedef_enum_e"))
               DeclPathTop,
+            enumAliases = [],
             enumType = TypePrim
               (PrimChar (Just Unsigned)),
             enumSizeof = 1,
@@ -3067,6 +3081,7 @@
                       (DeclNameTypedef
                         (CName "a_typedef_enum_e"))
                       DeclPathTop,
+                    enumAliases = [],
                     enumType = TypePrim
                       (PrimChar (Just Unsigned)),
                     enumSizeof = 1,
@@ -3123,6 +3138,7 @@
                       (DeclNameTypedef
                         (CName "a_typedef_enum_e"))
                       DeclPathTop,
+                    enumAliases = [],
                     enumType = TypePrim
                       (PrimChar (Just Unsigned)),
                     enumSizeof = 1,

@@ -3,11 +3,13 @@ module Main (main) where
 
 import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
 import Text.Read (readMaybe)
+import Text.Show.Pretty qualified as Pretty
 import System.Exit (ExitCode, exitFailure)
 
 import HsBindgen.App.Cmdline
 import HsBindgen.Errors
 import HsBindgen.Lib
+import HsBindgen.Pipeline qualified as Pipeline
 
 {-------------------------------------------------------------------------------
   Main application
@@ -22,6 +24,15 @@ main = handle exceptionHandler $ do
 
     execMode cmdline tracer (cmdMode)
 
+data PackageNameRequiredException = PackageNameRequiredException
+  deriving Show
+
+instance Exception PackageNameRequiredException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException PackageNameRequiredException =
+      "--package must be specified when using --gen-external-bindings"
+
 data LiterateFileException = LiterateFileException FilePath String
   deriving Show
 
@@ -34,7 +45,13 @@ instance Exception LiterateFileException where
 execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
 execMode cmdline@Cmdline{..} tracer = \case
     ModePreprocess{..} -> do
-      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      mGenExtBindings <-
+        case (preprocessGenExtBindings, preprocessPackageName) of
+          (Nothing, _packageName) -> return Nothing
+          (Just extBindingsPath, Just packageName) ->
+            return $ Just (extBindingsPath, packageName)
+          (Just{}, Nothing) -> throwIO PackageNameRequiredException
+      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
       let opts = cmdOpts {
               optsExtBindings = extBindings
             , optsTranslation = preprocessTranslationOpts
@@ -43,11 +60,15 @@ execMode cmdline@Cmdline{..} tracer = \case
               ppOptsModule = preprocessModuleOpts
             , ppOptsRender = preprocessRenderOpts
             }
-      preprocessIO opts ppOpts preprocessInput preprocessOutput
-        =<< parseCHeader opts preprocessInput
+      decls <- translateCHeader opts preprocessInput
+      preprocessIO ppOpts preprocessOutput decls
+      case mGenExtBindings of
+        Nothing -> return ()
+        Just (path, packageName) ->
+          genExtBindings ppOpts preprocessInput packageName path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
       let opts = defaultOpts {
               optsExtBindings = extBindings
             }
@@ -56,7 +77,7 @@ execMode cmdline@Cmdline{..} tracer = \case
             , ppOptsRender = genTestsRenderOpts
             }
       genTests ppOpts genTestsInput genTestsOutput
-        =<< parseCHeader opts genTestsInput
+        =<< translateCHeader opts genTestsInput
 
     ModeLiterate input output -> execLiterate input output tracer
 
@@ -87,11 +108,11 @@ execLiterate input output tracer = do
 execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
 execDevMode Cmdline{..} tracer = \case
     DevModeParseCHeader{..} -> do
-      extBindings <- loadExtBindings cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
-      dumpCHeader =<< parseCHeader opts parseCHeaderInput
+      Pretty.dumpIO . snd =<< Pipeline.parseCHeader opts parseCHeaderInput
   where
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
@@ -100,6 +121,20 @@ execDevMode Cmdline{..} tracer = \case
       , optsDiagTracer = tracer
       , optsSkipTracer = tracer
       }
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+loadExtBindings' ::
+     Tracer IO String
+  -> ClangArgs
+  -> [FilePath]
+  -> IO ExtBindings
+loadExtBindings' tracer args paths = do
+    (resolveErrs, extBindings) <- loadExtBindings args paths
+    mapM_ (traceWith tracer Warning . displayException) resolveErrs
+    return extBindings
 
 {-------------------------------------------------------------------------------
   Exception handling

@@ -18,3 +18,14 @@ struct Dim {
     int tag;
     union DimPayload payload;
 };
+
+// typedef name matches union tag
+typedef union DimPayloadB {
+    struct Dim2 dim2;
+    struct Dim2 dim3;
+} DimPayloadB;
+
+struct DimB {
+    int tag;
+    DimPayloadB payload;
+};

@@ -129,9 +129,9 @@ instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
   toHs _ opts nm (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts nm struct
   toHs _ opts nm (C.DeclUnion union)    = unionDecs opts nm union
-  toHs _ opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm $ C.opaqueStructTag o
+  toHs _ opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm o
   toHs _ opts nm (C.DeclEnum e)         = enumDecs opts nm e
-  toHs _ opts nm (C.DeclOpaqueEnum o)   = opaqueStructDecs opts nm $ C.opaqueEnumTag o -- TODO?
+  toHs _ opts nm (C.DeclOpaqueEnum o)   = opaqueEnumDecs opts nm o -- TODO?
   toHs _ opts nm (C.DeclTypedef d)      = typedefDecs opts nm d
   toHs _ opts nm (C.DeclMacro m)        = macroDecs opts nm m
   toHs p opts nm (C.DeclFunction f)     = functionDecs p opts nm f
@@ -202,15 +202,28 @@ structDecs opts nm struct fields = concat
         (C.fieldOffset flam `div` 8)
 
 {-------------------------------------------------------------------------------
-  Opaque struct
+  Opaque struct and opaque enum
 -------------------------------------------------------------------------------}
 
-opaqueStructDecs :: TranslationOpts -> NameMangler -> C.CName -> [Hs.Decl]
-opaqueStructDecs _opts nm cname =
-    [ Hs.DeclEmpty hsName
+opaqueStructDecs ::
+     TranslationOpts
+  -> NameMangler
+  -> C.OpaqueStruct
+  -> [Hs.Decl]
+opaqueStructDecs _opts nm o =
+    [ Hs.DeclEmpty Hs.EmptyData {
+          emptyDataName   = mangleTyconName nm $ C.opaqueStructTag o
+        , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
+        }
     ]
-  where
-    hsName = mangleTyconName nm cname
+
+opaqueEnumDecs :: TranslationOpts -> NameMangler -> C.OpaqueEnum -> [Hs.Decl]
+opaqueEnumDecs _opts nm o =
+    [ Hs.DeclEmpty Hs.EmptyData {
+          emptyDataName   = mangleTyconName nm $ C.opaqueEnumTag o
+        , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
+        }
+    ]
 
 {-------------------------------------------------------------------------------
   Unions

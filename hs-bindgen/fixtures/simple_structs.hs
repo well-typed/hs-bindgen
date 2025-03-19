@@ -47,6 +47,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "S1"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -118,6 +119,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "S1"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -194,6 +196,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -272,6 +275,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -374,6 +378,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "S2"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -469,6 +474,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "S2"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
             structFields = [
@@ -569,6 +575,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -672,6 +679,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -781,6 +789,7 @@
             DeclConstrStruct
             (DeclNameTypedef (CName "S3_t"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 1,
           structAlignment = 1,
           structFields = [
@@ -828,6 +837,7 @@
               DeclConstrStruct
               (DeclNameTypedef (CName "S3_t"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 1,
             structAlignment = 1,
             structFields = [
@@ -880,6 +890,7 @@
                       DeclConstrStruct
                       (DeclNameTypedef (CName "S3_t"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 1,
                     structAlignment = 1,
                     structFields = [
@@ -932,6 +943,7 @@
                       DeclConstrStruct
                       (DeclNameTypedef (CName "S3_t"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 1,
                     structAlignment = 1,
                     structFields = [
@@ -1026,6 +1038,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "S4"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -1123,6 +1136,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "S4"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -1225,6 +1239,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S4"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1330,6 +1345,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S4"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1426,6 +1442,11 @@
             DeclConstrStruct
             (DeclNameTag (CName "S5"))
             DeclPathTop,
+          structAliases = [
+            DeclPathConstr
+              DeclConstrStruct
+              (DeclNameTypedef (CName "S5"))
+              DeclPathTop],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -1497,6 +1518,11 @@
               DeclConstrStruct
               (DeclNameTag (CName "S5"))
               DeclPathTop,
+            structAliases = [
+              DeclPathConstr
+                DeclConstrStruct
+                (DeclNameTypedef (CName "S5"))
+                DeclPathTop],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -1573,6 +1599,11 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S5"))
                       DeclPathTop,
+                    structAliases = [
+                      DeclPathConstr
+                        DeclConstrStruct
+                        (DeclNameTypedef (CName "S5"))
+                        DeclPathTop],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -1651,6 +1682,11 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S5"))
                       DeclPathTop,
+                    structAliases = [
+                      DeclPathConstr
+                        DeclConstrStruct
+                        (DeclNameTypedef (CName "S5"))
+                        DeclPathTop],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -1737,6 +1773,11 @@
             DeclConstrStruct
             (DeclNameTag (CName "S6"))
             DeclPathTop,
+          structAliases = [
+            DeclPathConstr
+              DeclConstrStruct
+              (DeclNameTypedef (CName "S6"))
+              DeclPathTop],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -1808,6 +1849,11 @@
               DeclConstrStruct
               (DeclNameTag (CName "S6"))
               DeclPathTop,
+            structAliases = [
+              DeclPathConstr
+                DeclConstrStruct
+                (DeclNameTypedef (CName "S6"))
+                DeclPathTop],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -1884,6 +1930,11 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S6"))
                       DeclPathTop,
+                    structAliases = [
+                      DeclPathConstr
+                        DeclConstrStruct
+                        (DeclNameTypedef (CName "S6"))
+                        DeclPathTop],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -1962,6 +2013,11 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "S6"))
                       DeclPathTop,
+                    structAliases = [
+                      DeclPathConstr
+                        DeclConstrStruct
+                        (DeclNameTypedef (CName "S6"))
+                        DeclPathTop],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -2052,6 +2108,7 @@
                 DeclConstrStruct
                 (DeclNameTypedef (CName "S7a"))
                 DeclPathTop)),
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -2127,6 +2184,7 @@
                   DeclConstrStruct
                   (DeclNameTypedef (CName "S7a"))
                   DeclPathTop)),
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -2207,6 +2265,7 @@
                           DeclConstrStruct
                           (DeclNameTypedef (CName "S7a"))
                           DeclPathTop)),
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -2289,6 +2348,7 @@
                           DeclConstrStruct
                           (DeclNameTypedef (CName "S7a"))
                           DeclPathTop)),
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -2423,6 +2483,7 @@
                     DeclConstrStruct
                     (DeclNameTypedef (CName "S7b"))
                     DeclPathTop)))),
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -2500,6 +2561,7 @@
                       DeclConstrStruct
                       (DeclNameTypedef (CName "S7b"))
                       DeclPathTop)))),
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -2582,6 +2644,7 @@
                               DeclConstrStruct
                               (DeclNameTypedef (CName "S7b"))
                               DeclPathTop)))),
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -2666,6 +2729,7 @@
                               DeclConstrStruct
                               (DeclNameTypedef (CName "S7b"))
                               DeclPathTop)))),
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [

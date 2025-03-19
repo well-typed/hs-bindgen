@@ -89,6 +89,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "Example"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 48,
           structAlignment = 4,
           structFields = [
@@ -176,6 +177,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "Example"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 48,
             structAlignment = 4,
             structFields = [
@@ -268,6 +270,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Example"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 48,
                     structAlignment = 4,
                     structFields = [
@@ -362,6 +365,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "Example"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 48,
                     structAlignment = 4,
                     structFields = [

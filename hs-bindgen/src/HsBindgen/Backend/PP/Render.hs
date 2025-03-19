@@ -134,8 +134,8 @@ instance Pretty SDecl where
             | f <- dataFields
             ]
 
-    DEmptyData n ->
-      hsep ["data", pretty n]
+    DEmptyData d ->
+      hsep ["data", pretty (emptyDataName d)]
 
     DNewtype Newtype{..} ->
       let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]

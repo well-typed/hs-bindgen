@@ -15,6 +15,8 @@ module HsBindgen.Hs.AST (
   , FieldOrigin(..)
   , Struct(..)
   , StructOrigin(..)
+  , EmptyData(..)
+  , EmptyDataOrigin(..)
   , Newtype(..)
   , NewtypeOrigin(..)
     -- * Types
@@ -102,6 +104,17 @@ data StructOrigin =
     | StructOriginEnum C.Enu
   deriving stock (Generic, Show)
 
+data EmptyData = EmptyData {
+      emptyDataName   :: HsName NsTypeConstr
+    , emptyDataOrigin :: EmptyDataOrigin
+    }
+  deriving stock (Generic, Show)
+
+data EmptyDataOrigin =
+      EmptyDataOriginOpaqueStruct C.OpaqueStruct
+    | EmptyDataOriginOpaqueEnum C.OpaqueEnum
+  deriving stock (Generic, Show)
+
 data Newtype = Newtype {
       newtypeName   :: HsName NsTypeConstr
     , newtypeConstr :: HsName NsConstr
@@ -155,7 +168,7 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 type Decl :: Star
 data Decl where
     DeclData            :: SNatI n => Struct n -> Decl
-    DeclEmpty           :: HsName NsTypeConstr -> Decl
+    DeclEmpty           :: EmptyData -> Decl
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
     DeclDefineInstance  :: InstanceDecl -> Decl

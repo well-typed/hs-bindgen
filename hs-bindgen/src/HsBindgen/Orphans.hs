@@ -24,7 +24,12 @@ instance Aeson.FromJSON CHeaderIncludePath where
     . parseCHeaderIncludePath
     . Text.unpack
 
+instance Aeson.ToJSON CHeaderIncludePath where
+  toJSON = Aeson.String . Text.pack . getCHeaderIncludePath
+
 deriving newtype instance Aeson.FromJSON CNameSpelling
+
+deriving newtype instance Aeson.ToJSON CNameSpelling
 
 {-------------------------------------------------------------------------------
   DeBruijn

@@ -1,0 +1,19 @@
+types:
+- cname: struct bools1
+  headers:
+  - bool.h
+  identifier: Bools1
+  module: Example
+  package: example
+- cname: struct bools2
+  headers:
+  - bool.h
+  identifier: Bools2
+  module: Example
+  package: example
+- cname: struct bools3
+  headers:
+  - bool.h
+  identifier: Bools3
+  module: Example
+  package: example

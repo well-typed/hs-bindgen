@@ -21,6 +21,7 @@
             DeclConstrEnum
             (DeclNameTag (CName "MyEnum"))
             DeclPathTop,
+          enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
@@ -63,6 +64,7 @@
               DeclConstrEnum
               (DeclNameTag (CName "MyEnum"))
               DeclPathTop,
+            enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -110,6 +112,7 @@
                       DeclConstrEnum
                       (DeclNameTag (CName "MyEnum"))
                       DeclPathTop,
+                    enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -157,6 +160,7 @@
                       DeclConstrEnum
                       (DeclNameTag (CName "MyEnum"))
                       DeclPathTop,
+                    enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,

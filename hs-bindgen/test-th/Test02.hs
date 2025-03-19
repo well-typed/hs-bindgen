@@ -17,7 +17,7 @@ $(do
     let args = defaultClangArgs {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-    extBindings <- loadExtBindings args [
+    extBindings <- snd <$> loadExtBindings args [
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
       ]

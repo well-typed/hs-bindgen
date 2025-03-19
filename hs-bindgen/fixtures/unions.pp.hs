@@ -107,3 +107,38 @@ instance F.Storable Dim where
 deriving stock instance Show Dim
 
 deriving stock instance Eq Dim
+
+newtype DimPayloadB = DimPayloadB
+  { unDimPayloadB :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
+
+data DimB = DimB
+  { dimB_tag :: FC.CInt
+  , dimB_payload :: DimPayloadB
+  }
+
+instance F.Storable DimB where
+
+  sizeOf = \_ -> (12 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure DimB
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          DimB dimB_tag2 dimB_payload3 ->
+               F.pokeByteOff ptr0 (0 :: Int) dimB_tag2
+            >> F.pokeByteOff ptr0 (4 :: Int) dimB_payload3
+
+deriving stock instance Show DimB
+
+deriving stock instance Eq DimB

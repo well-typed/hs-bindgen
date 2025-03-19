@@ -20,6 +20,7 @@ extra-source-files: bindings/*.yaml
                     fixtures/*.hs
                     fixtures/*.rs
                     fixtures/*.txt
+                    fixtures/*.yaml
                     musl-include/**/*.h
 
 common lang
@@ -75,6 +76,7 @@ library
       HsBindgen.C.Tc.Macro
       HsBindgen.Eff
       HsBindgen.ExtBindings
+      HsBindgen.ExtBindings.Gen
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type
@@ -133,6 +135,7 @@ library
   build-depends:
       -- External dependencies
     , aeson              >= 2         && < 2.3
+    , bytestring         >= 0.11.4.0  && < 0.13
     , containers         >= 0.6.5.1   && < 0.8
     , contra-tracer      >= 0.2       && < 0.3
     , data-default       >= 0.8       && < 0.9
@@ -178,6 +181,7 @@ executable hs-bindgen
   build-depends:
       -- Inherited dependencies
     , data-default
+    , pretty-show
   build-depends:
     , optparse-applicative >= 0.18 && < 0.19
 

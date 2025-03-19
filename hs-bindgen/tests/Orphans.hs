@@ -198,6 +198,8 @@ instance ToExpr (CMacro.FamilyTyCon n) where
 instance ToExpr HsType.HsType
 instance ToExpr HsType.HsPrimType
 
+instance ToExpr Hs.EmptyData
+instance ToExpr Hs.EmptyDataOrigin
 instance ToExpr Hs.Field
 instance ToExpr Hs.FieldOrigin
 instance ToExpr Hs.ForeignImportDecl

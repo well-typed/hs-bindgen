@@ -1,4 +1,4 @@
--- hs-bindgen shared library configuration for base
+-- hs-bindgen external bindings configuration for base
 
 let map = https://prelude.dhall-lang.org/List/map
 
@@ -59,6 +59,7 @@ let types
           , "stdlib.h"
           , "string.h"
           , "time.h"
+          , "uchar.h"
           , "wchar.h"
           ]
       , mkM "ptrdiff_t" "CPtrdiff" "Foreign.C.Types" [ "stddef.h" ]

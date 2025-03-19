@@ -8,10 +8,10 @@ module HsBindgen.ExtBindings (
   , ExtBindings(..)
     -- ** Exceptions
   , LoadUnresolvedExtBindingsException(..)
-  , ResolveExtBindingsException(..)
   , MergeExtBindingsException(..)
   , ExtBindingsException(..)
   , ExtBindingsExceptions(..)
+  , WriteUnresolvedExtBindingsException(..)
     -- * API
   , emptyExtBindings
   , resolveExtBindings
@@ -22,6 +22,11 @@ module HsBindgen.ExtBindings (
   , loadUnresolvedExtBindings
   , loadUnresolvedExtBindingsJson
   , loadUnresolvedExtBindingsYaml
+  , encodeUnresolvedExtBindingsJson
+  , encodeUnresolvedExtBindingsYaml
+  , writeUnresolvedExtBindings
+  , writeUnresolvedExtBindingsJson
+  , writeUnresolvedExtBindingsYaml
     -- ** Public API
   , loadExtBindings'
   , loadExtBindings
@@ -31,6 +36,8 @@ import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified
+import Data.ByteString (ByteString)
+import Data.ByteString.Lazy qualified as BSL
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
@@ -56,14 +63,14 @@ import HsBindgen.Resolve
 -- Example: @hs-bindgen-runtime@
 newtype HsPackageName = HsPackageName { getHsPackageName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
 
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
 newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
 
 -- | Haskell identifier
 --
@@ -73,7 +80,7 @@ newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
 -- include a 'HsBindgen.Hs.AST.Namespace'.
 newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
@@ -158,19 +165,6 @@ instance Exception LoadUnresolvedExtBindingsException where
               )
             : map format conflicts
 
--- | Failed to resolve external bindings header(s)
-newtype ResolveExtBindingsException =
-    -- | One or more C headers were not found
-    ResolveExtBindingsNotFound [CHeaderIncludePath]
-  deriving stock (Show)
-
-instance Exception ResolveExtBindingsException where
-  displayException = \case
-    ResolveExtBindingsNotFound headers ->
-      unlines $
-          "external bindings header(s) not found"
-        : map (("  " ++) . getCHeaderIncludePath) headers
-
 -- | Failed to merge external bindings
 newtype MergeExtBindingsException =
     -- | Multiple external bindings configurations for the same C name and
@@ -188,14 +182,12 @@ instance Exception MergeExtBindingsException where
 -- | Failed loading, resolving, or merging external bindings
 data ExtBindingsException =
     LoadUnresolvedExtBindingsException LoadUnresolvedExtBindingsException
-  | ResolveExtBindingsException        ResolveExtBindingsException
   | MergeExtBindingsException          MergeExtBindingsException
   deriving stock (Show)
 
 instance Exception ExtBindingsException where
   displayException = \case
     LoadUnresolvedExtBindingsException e -> displayException e
-    ResolveExtBindingsException        e -> displayException e
     MergeExtBindingsException          e -> displayException e
 
 -- | Failed loading, resolving, or merging external bindings
@@ -205,6 +197,16 @@ newtype ExtBindingsExceptions = ExtBindingsExceptions [ExtBindingsException]
 instance Exception ExtBindingsExceptions where
   displayException (ExtBindingsExceptions es) =
     unlines $ map displayException es
+
+-- | Failed to write external bindings configuration file
+newtype WriteUnresolvedExtBindingsException =
+    WriteUnresolvedExtBindingsUnknownExtension FilePath
+  deriving stock (Show)
+
+instance Exception WriteUnresolvedExtBindingsException where
+  displayException = \case
+    WriteUnresolvedExtBindingsUnknownExtension path ->
+      "unknown extension: " ++ path
 
 {-------------------------------------------------------------------------------
   API
@@ -218,26 +220,15 @@ emptyExtBindings = ExtBindings Map.empty
 resolveExtBindings ::
      ClangArgs
   -> UnresolvedExtBindings
-  -> IO (Either ResolveExtBindingsException ExtBindings)
+  -> IO ([ResolveHeaderException], ExtBindings)
 resolveExtBindings args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
-    (mErr, headerMap) <- bimap convertErrors Map.fromList . partitionEithers
+    (errs, headerMap) <- fmap Map.fromList . partitionEithers
       <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' args cPath) cPaths
-    return $ case mErr of
-      Nothing -> Right $
-        let resolve' = map $ first $ Set.map (headerMap Map.!)
-            extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
-        in  ExtBindings{..}
-      Just err -> Left err
-  where
-    convertErrors ::
-         [ResolveHeaderException]
-      -> Maybe ResolveExtBindingsException
-    convertErrors = \case
-        []   -> Nothing
-        errs -> Just . ResolveExtBindingsNotFound . List.sort $
-          map (\(ResolveHeaderNotFound cPath) -> cPath) errs
+    let resolve' = map $ first $ Set.map (headerMap Map.!)
+        extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
+    return (errs, ExtBindings{..})
 
 -- | Merge external bindings
 mergeExtBindings ::
@@ -335,6 +326,39 @@ loadUnresolvedExtBindingsYaml path = do
         Left (LoadUnresolvedExtBindingsYamlWarning path warnings)
       Left err -> Left (LoadUnresolvedExtBindingsYamlError path err)
 
+-- | Encode 'UnresolvedExtBindings' as JSON
+encodeUnresolvedExtBindingsJson :: UnresolvedExtBindings -> BSL.ByteString
+encodeUnresolvedExtBindingsJson = Aeson.encode . encodeUnresolvedExtBindings
+
+-- | Encode 'UnresolvedExtBindings' as YAML
+encodeUnresolvedExtBindingsYaml :: UnresolvedExtBindings -> ByteString
+encodeUnresolvedExtBindingsYaml = Yaml.encode . encodeUnresolvedExtBindings
+
+-- | Write 'UnresolvedExtBindings' to a configuration file
+--
+-- The format is determined by the filename extension.
+writeUnresolvedExtBindings ::
+     FilePath
+  -> UnresolvedExtBindings
+  -> IO (Either WriteUnresolvedExtBindingsException ())
+writeUnresolvedExtBindings path bindings
+    | ".yaml" `List.isSuffixOf` path =
+        Right <$> writeUnresolvedExtBindingsYaml path bindings
+    | ".json" `List.isSuffixOf` path =
+        Right <$> writeUnresolvedExtBindingsJson path bindings
+    | otherwise =
+        return $ Left (WriteUnresolvedExtBindingsUnknownExtension path)
+
+-- | Write 'UnresolvedExtBindings' to a JSON file
+writeUnresolvedExtBindingsJson :: FilePath -> UnresolvedExtBindings -> IO ()
+writeUnresolvedExtBindingsJson path =
+    Aeson.encodeFile path . encodeUnresolvedExtBindings
+
+-- | Write 'UnresolvedExtBindings' to a YAML file
+writeUnresolvedExtBindingsYaml :: FilePath -> UnresolvedExtBindings -> IO ()
+writeUnresolvedExtBindingsYaml path =
+    Yaml.encodeFile path . encodeUnresolvedExtBindings
+
 {-------------------------------------------------------------------------------
   Public API
 -------------------------------------------------------------------------------}
@@ -345,18 +369,16 @@ loadUnresolvedExtBindingsYaml path = do
 loadExtBindings' ::
      ClangArgs
   -> [FilePath]
-  -> IO (Either ExtBindingsExceptions ExtBindings)
+  -> IO (Either ExtBindingsExceptions ([ResolveHeaderException], ExtBindings))
 loadExtBindings' args paths = do
-    (loadErrs, uebs) <-
+    (errs, uebs) <-
       first (map LoadUnresolvedExtBindingsException) . partitionEithers
         <$> mapM loadUnresolvedExtBindings paths
     (resolveErrs, ebs) <-
-      first (map ResolveExtBindingsException) . partitionEithers
-        <$> mapM (resolveExtBindings args) uebs
-    let errs = loadErrs ++ resolveErrs
+      first concat . unzip <$> mapM (resolveExtBindings args) uebs
     return $ case first MergeExtBindingsException (mergeExtBindings ebs) of
       Right extBindings
-        | null errs -> Right extBindings
+        | null errs -> Right (resolveErrs, extBindings)
         | otherwise -> Left $ ExtBindingsExceptions errs
       Left mergeErr -> Left $ ExtBindingsExceptions (errs ++ [mergeErr])
 
@@ -364,7 +386,10 @@ loadExtBindings' args paths = do
 -- 'HsBindgenException' on error
 --
 -- The format is determined by filename extension.
-loadExtBindings :: ClangArgs -> [FilePath] -> IO ExtBindings
+loadExtBindings ::
+     ClangArgs
+  -> [FilePath]
+  -> IO ([ResolveHeaderException], ExtBindings)
 loadExtBindings args =
     either (throwIO . HsBindgenException) return <=< loadExtBindings' args
 
@@ -379,10 +404,15 @@ newtype Config = Config {
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Config where
-  parseJSON = Aeson.genericParseJSON $
-    Aeson.defaultOptions {
-        Aeson.fieldLabelModifier = stripPrefix "config"
-      }
+  parseJSON = Aeson.genericParseJSON aesonConfigOptions
+
+instance Aeson.ToJSON Config where
+  toJSON = Aeson.genericToJSON aesonConfigOptions
+
+aesonConfigOptions :: Aeson.Options
+aesonConfigOptions = Aeson.defaultOptions {
+      Aeson.fieldLabelModifier = stripPrefix "config"
+    }
 
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
@@ -395,10 +425,15 @@ data Mapping = Mapping {
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Mapping where
-  parseJSON = Aeson.genericParseJSON $
-    Aeson.defaultOptions {
-        Aeson.fieldLabelModifier = stripPrefix "mapping"
-      }
+  parseJSON = Aeson.genericParseJSON aesonMappingOptions
+
+instance Aeson.ToJSON Mapping where
+  toJSON = Aeson.genericToJSON aesonMappingOptions
+
+aesonMappingOptions :: Aeson.Options
+aesonMappingOptions = Aeson.defaultOptions {
+      Aeson.fieldLabelModifier = stripPrefix "mapping"
+    }
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions (Internal)
@@ -470,3 +505,19 @@ mkUnresolvedExtBindings path Config{..} = do
       in  if Set.null commonHeaders
             then dupMap
             else Map.insertWith Set.union cname commonHeaders dupMap
+
+encodeUnresolvedExtBindings :: UnresolvedExtBindings -> Config
+encodeUnresolvedExtBindings UnresolvedExtBindings{..} = Config{..}
+  where
+    configTypes :: [Mapping]
+    configTypes = [
+        Mapping {
+            mappingCname      = cname
+          , mappingHeaders    = Set.toAscList headerSet
+          , mappingIdentifier = extIdentifierIdentifier
+          , mappingModule     = extIdentifierModule
+          , mappingPackage    = extIdentifierPackage
+          }
+      | (cname, rs) <- Map.toAscList unresolvedExtBindingsTypes
+      , (headerSet, ExtIdentifier{..}) <- rs
+      ]

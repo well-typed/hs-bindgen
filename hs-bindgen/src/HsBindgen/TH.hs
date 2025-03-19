@@ -22,6 +22,7 @@ module HsBindgen.TH (
   , ExtBindings.ExtBindings -- opaque
   , ExtBindings.emptyExtBindings
   , loadExtBindings
+  , Resolve.ResolveHeaderException(..)
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -58,6 +59,7 @@ import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
 
 #ifdef MIN_VERSION_th_compat
@@ -80,5 +82,5 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 loadExtBindings ::
      Args.ClangArgs
   -> [FilePath]
-  -> TH.Q ExtBindings.ExtBindings
+  -> TH.Q ([Resolve.ResolveHeaderException], ExtBindings.ExtBindings)
 loadExtBindings args = TH.runIO . ExtBindings.loadExtBindings args

@@ -58,3 +58,33 @@ const _: () = {
     ["Offset of field: Dim::tag"][::std::mem::offset_of!(Dim, tag) - 0usize];
     ["Offset of field: Dim::payload"][::std::mem::offset_of!(Dim, payload) - 4usize];
 };
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union DimPayloadB {
+    pub dim2: Dim2,
+    pub dim3: Dim2,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of DimPayloadB"][::std::mem::size_of::<DimPayloadB>() - 8usize];
+    ["Alignment of DimPayloadB"][::std::mem::align_of::<DimPayloadB>() - 4usize];
+    [
+        "Offset of field: DimPayloadB::dim2",
+    ][::std::mem::offset_of!(DimPayloadB, dim2) - 0usize];
+    [
+        "Offset of field: DimPayloadB::dim3",
+    ][::std::mem::offset_of!(DimPayloadB, dim3) - 0usize];
+};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DimB {
+    pub tag: ::std::os::raw::c_int,
+    pub payload: DimPayloadB,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of DimB"][::std::mem::size_of::<DimB>() - 12usize];
+    ["Alignment of DimB"][::std::mem::align_of::<DimB>() - 4usize];
+    ["Offset of field: DimB::tag"][::std::mem::offset_of!(DimB, tag) - 0usize];
+    ["Offset of field: DimB::payload"][::std::mem::offset_of!(DimB, payload) - 4usize];
+};

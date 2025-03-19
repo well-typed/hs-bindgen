@@ -111,6 +111,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "flags"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -278,6 +279,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "flags"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -450,6 +452,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "flags"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -628,6 +631,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "flags"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -784,6 +788,7 @@
             (DeclNameTag
               (CName "overflow32"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -880,6 +885,7 @@
               (DeclNameTag
                 (CName "overflow32"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
             structFields = [
@@ -981,6 +987,7 @@
                       (DeclNameTag
                         (CName "overflow32"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -1085,6 +1092,7 @@
                       (DeclNameTag
                         (CName "overflow32"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
                     structFields = [
@@ -1210,6 +1218,7 @@
             (DeclNameTag
               (CName "overflow32b"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 8,
           structFields = [
@@ -1306,6 +1315,7 @@
               (DeclNameTag
                 (CName "overflow32b"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 8,
             structFields = [
@@ -1407,6 +1417,7 @@
                       (DeclNameTag
                         (CName "overflow32b"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 8,
                     structFields = [
@@ -1511,6 +1522,7 @@
                       (DeclNameTag
                         (CName "overflow32b"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 8,
                     structFields = [
@@ -1636,6 +1648,7 @@
             (DeclNameTag
               (CName "overflow32c"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -1732,6 +1745,7 @@
               (DeclNameTag
                 (CName "overflow32c"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -1833,6 +1847,7 @@
                       (DeclNameTag
                         (CName "overflow32c"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -1937,6 +1952,7 @@
                       (DeclNameTag
                         (CName "overflow32c"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -2046,6 +2062,7 @@
             (DeclNameTag
               (CName "overflow64"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -2118,6 +2135,7 @@
               (DeclNameTag
                 (CName "overflow64"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -2195,6 +2213,7 @@
                       (DeclNameTag
                         (CName "overflow64"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -2274,6 +2293,7 @@
                       (DeclNameTag
                         (CName "overflow64"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -2369,6 +2389,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "alignA"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -2440,6 +2461,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "alignA"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
@@ -2516,6 +2538,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "alignA"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -2594,6 +2617,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "alignA"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
@@ -2689,6 +2713,7 @@
             DeclConstrStruct
             (DeclNameTag (CName "alignB"))
             DeclPathTop,
+          structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -2760,6 +2785,7 @@
               DeclConstrStruct
               (DeclNameTag (CName "alignB"))
               DeclPathTop,
+            structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -2836,6 +2862,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "alignB"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -2914,6 +2941,7 @@
                       DeclConstrStruct
                       (DeclNameTag (CName "alignB"))
                       DeclPathTop,
+                    structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [

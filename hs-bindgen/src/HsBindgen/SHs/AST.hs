@@ -13,6 +13,7 @@ module HsBindgen.SHs.AST (
     Instance (..),
     Field (..),
     Record (..),
+    EmptyData (..),
     Newtype (..),
     ForeignImport (..),
     PatternSynonym (..),
@@ -193,7 +194,7 @@ data SDecl =
   | DInst Instance
   | DRecord Record
   | DNewtype Newtype
-  | DEmptyData (HsName NsTypeConstr)
+  | DEmptyData EmptyData
   | DDerivingInstance (Hs.Strategy ClosedType) ClosedType
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
@@ -236,6 +237,12 @@ data Record = Record {
     , dataCon    :: HsName NsConstr
     , dataFields :: [Field]
     , dataOrigin :: Hs.StructOrigin
+    }
+  deriving stock (Show)
+
+data EmptyData = EmptyData {
+      emptyDataName   :: HsName NsTypeConstr
+    , emptyDataOrigin :: Hs.EmptyDataOrigin
     }
   deriving stock (Show)
 
