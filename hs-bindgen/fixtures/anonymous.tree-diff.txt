@@ -3,12 +3,10 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           DeclNameNone
           (DeclPathField
             (CName "c")
             (DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S1"))
               DeclPathTop)),
         structAliases = [],
@@ -37,7 +35,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "S1"))
           DeclPathTop,
         structAliases = [],
@@ -50,12 +47,10 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 DeclNameNone
                 (DeclPathField
                   (CName "c")
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "S1"))
                     DeclPathTop))),
             fieldSourceLoc =
@@ -74,17 +69,14 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           DeclNameNone
           (DeclPathField
             (CName "deep")
             (DeclPathConstr
-              DeclConstrStruct
               DeclNameNone
               (DeclPathField
                 (CName "inner")
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTag (CName "S2"))
                   DeclPathTop)))),
         structAliases = [],
@@ -105,12 +97,10 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           DeclNameNone
           (DeclPathField
             (CName "inner")
             (DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S2"))
               DeclPathTop)),
         structAliases = [],
@@ -131,17 +121,14 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 DeclNameNone
                 (DeclPathField
                   (CName "deep")
                   (DeclPathConstr
-                    DeclConstrStruct
                     DeclNameNone
                     (DeclPathField
                       (CName "inner")
                       (DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTag (CName "S2"))
                         DeclPathTop))))),
             fieldSourceLoc =
@@ -152,7 +139,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "S2"))
           DeclPathTop,
         structAliases = [],
@@ -165,12 +151,10 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 DeclNameNone
                 (DeclPathField
                   (CName "inner")
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "S2"))
                     DeclPathTop))),
             fieldSourceLoc =

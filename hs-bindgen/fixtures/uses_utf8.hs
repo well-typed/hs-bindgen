@@ -18,7 +18,6 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathConstr
-            DeclConstrEnum
             (DeclNameTag (CName "MyEnum"))
             DeclPathTop,
           enumAliases = [],
@@ -61,7 +60,6 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathConstr
-              DeclConstrEnum
               (DeclNameTag (CName "MyEnum"))
               DeclPathTop,
             enumAliases = [],
@@ -109,7 +107,6 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathConstr
-                      DeclConstrEnum
                       (DeclNameTag (CName "MyEnum"))
                       DeclPathTop,
                     enumAliases = [],
@@ -157,7 +154,6 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathConstr
-                      DeclConstrEnum
                       (DeclNameTag (CName "MyEnum"))
                       DeclPathTop,
                     enumAliases = [],

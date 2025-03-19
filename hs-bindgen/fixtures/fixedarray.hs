@@ -86,7 +86,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "Example"))
             DeclPathTop,
           structAliases = [],
@@ -174,7 +173,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "Example"))
               DeclPathTop,
             structAliases = [],
@@ -267,7 +265,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "Example"))
                       DeclPathTop,
                     structAliases = [],
@@ -362,7 +359,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "Example"))
                       DeclPathTop,
                     structAliases = [],

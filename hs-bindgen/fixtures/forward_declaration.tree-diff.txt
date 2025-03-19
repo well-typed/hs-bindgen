@@ -3,7 +3,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "S1"))
           DeclPathTop,
         structAliases = [],
@@ -26,7 +25,6 @@ Header
         typedefName = CName "S1_t",
         typedefType = TypeStruct
           (DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "S1"))
             DeclPathTop),
         typedefSourceLoc =
@@ -34,7 +32,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "S2"))
           DeclPathTop,
         structAliases = [],

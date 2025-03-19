@@ -137,7 +137,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             Nothing -> do
                 tag <- CName <$> liftIO (clang_getCursorSpelling decl)
                 ty' <- liftIO $ getElaborated =<< clang_getTypedefDeclUnderlyingType decl
-                let declPath = DeclPathConstr DeclConstrStruct (DeclNameTypedef tag) DeclPathTop
+                let declPath = DeclPathConstr (DeclNameTypedef tag) DeclPathTop
                 use <- processTypeDeclRec declPath extBindings unit Nothing ty'
 
                 -- we could check whether typedef has a transparent tag,
@@ -150,19 +150,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     -- If names match, skip.
                     -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
                     -- in typedef struct { ... } foo; the typedef does not have transparent tag.
-                    TypeStruct (DeclPathConstr DeclConstrStruct declName _declPath)
-                        | declName == DeclNameTag tag -> do
-                            updateDeclAddAlias ty' declPath
-                            addAlias ty use
-                        | declName == DeclNameTypedef tag -> addAlias ty use
-
-                    TypeUnion (DeclPathConstr DeclConstrUnion declName _declPath)
-                        | declName == DeclNameTag tag -> do
-                            updateDeclAddAlias ty' declPath
-                            addAlias ty use
-                        | declName == DeclNameTypedef tag -> addAlias ty use
-
-                    TypeEnum (DeclPathConstr DeclConstrEnum declName _declPath)
+                    TypeStruct (DeclPathConstr declName _declPath)
                         | declName == DeclNameTag tag -> do
                             updateDeclAddAlias ty' declPath
                             addAlias ty use
@@ -193,10 +181,10 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                 -- dtraceIO "record" (decl, name, anon)
 
                 let declPath
-                      | anon      = DeclPathConstr DeclConstrStruct DeclNameNone path
+                      | anon      = DeclPathConstr DeclNameNone path
                       | otherwise = case T.stripPrefix "struct " name of
-                          Just n  -> DeclPathConstr DeclConstrStruct (DeclNameTag (CName n))        path
-                          Nothing -> DeclPathConstr DeclConstrStruct (DeclNameTypedef (CName name)) path
+                          Just n  -> DeclPathConstr (DeclNameTag (CName n))        path
+                          Nothing -> DeclPathConstr (DeclNameTypedef (CName name)) path
 
                 -- name for opaque types.
                 let name'
@@ -205,7 +193,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           Just n  -> n
                           Nothing -> name
 
-                if declPath == DeclPathConstr DeclConstrStruct DeclNameNone DeclPathTop
+                if declPath == DeclPathConstr DeclNameNone DeclPathTop
                 then do
                     -- Anonymous top-level declaration: nothing to do but warn, as there
                     -- shouldn't be one in "good" code.
@@ -218,7 +206,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             =<< clang_getCursorLocation decl
 
                     mExtId <- case declPath of
-                        DeclPathConstr DeclConstrStruct DeclNameTag{} _path ->
+                        DeclPathConstr DeclNameTag{} _path ->
                             lookupExtBinding (CNameSpelling name) sloc extBindings
                         _otherwise -> return Nothing
                     case mExtId of
@@ -261,10 +249,10 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                 -- dtraceIO "union" (decl, name, anon)
 
                 let declPath
-                      | anon      = DeclPathConstr DeclConstrUnion DeclNameNone path
+                      | anon      = DeclPathConstr DeclNameNone path
                       | otherwise = case T.stripPrefix "union " name of
-                          Just n  -> DeclPathConstr DeclConstrUnion (DeclNameTag (CName n))        path
-                          Nothing -> DeclPathConstr DeclConstrUnion (DeclNameTypedef (CName name)) path
+                          Just n  -> DeclPathConstr (DeclNameTag (CName n))        path
+                          Nothing -> DeclPathConstr (DeclNameTypedef (CName name)) path
 
                 -- name for opaque types.
                 let name'
@@ -273,7 +261,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           Just n  -> n
                           Nothing -> name
 
-                if declPath == DeclPathConstr DeclConstrUnion DeclNameNone DeclPathTop
+                if declPath == DeclPathConstr DeclNameNone DeclPathTop
                 then do
                     -- Anonymous top-level declaration: nothing to do but warn, as there
                     -- shouldn't be one in "good" code.
@@ -332,10 +320,10 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             return TypeVoid
         else do
             let declPath
-                  | anon      = DeclPathConstr DeclConstrEnum DeclNameNone path
+                  | anon      = DeclPathConstr DeclNameNone path
                   | otherwise = case T.stripPrefix "enum " name of
-                      Just n  -> DeclPathConstr DeclConstrEnum (DeclNameTag (CName n))        path
-                      Nothing -> DeclPathConstr DeclConstrEnum (DeclNameTypedef (CName name)) path
+                      Just n  -> DeclPathConstr (DeclNameTag (CName n))        path
+                      Nothing -> DeclPathConstr (DeclNameTypedef (CName name)) path
 
             -- name for opaque types.
             let name'

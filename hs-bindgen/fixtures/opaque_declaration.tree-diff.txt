@@ -9,7 +9,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "bar"))
           DeclPathTop,
         structAliases = [],
@@ -23,7 +22,6 @@ Header
             fieldType = TypePointer
               (TypeStruct
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTag (CName "foo"))
                   DeclPathTop)),
             fieldSourceLoc =
@@ -35,7 +33,6 @@ Header
             fieldType = TypePointer
               (TypeStruct
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTag (CName "bar"))
                   DeclPathTop)),
             fieldSourceLoc =
@@ -46,7 +43,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "baz"))
           DeclPathTop,
         structAliases = [],

@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
@@ -113,6 +114,12 @@ newtype DimPayloadB = DimPayloadB
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
+
+newtype DimPayloadB = DimPayloadB
+  { unDimPayloadB :: DimPayloadB
+  }
+
+deriving newtype instance F.Storable DimPayloadB
 
 data DimB = DimB
   { dimB_tag :: FC.CInt

@@ -3,7 +3,6 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathConstr
-          DeclConstrEnum
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         enumAliases = [],

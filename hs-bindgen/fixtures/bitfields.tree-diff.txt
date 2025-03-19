@@ -3,7 +3,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "flags"))
           DeclPathTop,
         structAliases = [],
@@ -64,7 +63,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag
             (CName "overflow32"))
           DeclPathTop,
@@ -102,7 +100,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag
             (CName "overflow32b"))
           DeclPathTop,
@@ -140,7 +137,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag
             (CName "overflow32c"))
           DeclPathTop,
@@ -178,7 +174,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag
             (CName "overflow64"))
           DeclPathTop,
@@ -208,7 +203,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "alignA"))
           DeclPathTop,
         structAliases = [],
@@ -237,7 +231,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "alignB"))
           DeclPathTop,
         structAliases = [],

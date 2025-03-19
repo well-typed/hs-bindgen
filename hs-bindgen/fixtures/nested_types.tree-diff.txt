@@ -3,7 +3,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structAliases = [],
@@ -32,7 +31,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "bar"))
           DeclPathTop,
         structAliases = [],
@@ -45,7 +43,6 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTag (CName "foo"))
                 DeclPathTop),
             fieldSourceLoc =
@@ -56,7 +53,6 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTag (CName "foo"))
                 DeclPathTop),
             fieldSourceLoc =
@@ -67,7 +63,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "ex3"))
           DeclPathTop,
         structAliases = [],
@@ -88,13 +83,11 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "ex4_even"))
           (DeclPathPtr
             (DeclPathField
               (CName "next")
               (DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTag (CName "ex4_odd"))
                 DeclPathTop))),
         structAliases = [],
@@ -116,7 +109,6 @@ Header
             fieldType = TypePointer
               (TypeStruct
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTag (CName "ex4_odd"))
                   DeclPathTop)),
             fieldSourceLoc =
@@ -127,7 +119,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "ex4_odd"))
           DeclPathTop,
         structAliases = [],
@@ -149,13 +140,11 @@ Header
             fieldType = TypePointer
               (TypeStruct
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTag (CName "ex4_even"))
                   (DeclPathPtr
                     (DeclPathField
                       (CName "next")
                       (DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTag (CName "ex4_odd"))
                         DeclPathTop))))),
             fieldSourceLoc =

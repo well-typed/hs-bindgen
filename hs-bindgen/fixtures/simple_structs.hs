@@ -44,7 +44,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "S1"))
             DeclPathTop,
           structAliases = [],
@@ -116,7 +115,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S1"))
               DeclPathTop,
             structAliases = [],
@@ -193,7 +191,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop,
                     structAliases = [],
@@ -272,7 +269,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S1"))
                       DeclPathTop,
                     structAliases = [],
@@ -375,7 +371,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "S2"))
             DeclPathTop,
           structAliases = [],
@@ -471,7 +466,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S2"))
               DeclPathTop,
             structAliases = [],
@@ -572,7 +566,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop,
                     structAliases = [],
@@ -676,7 +669,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S2"))
                       DeclPathTop,
                     structAliases = [],
@@ -748,7 +740,6 @@
           typedefName = CName "S2_t",
           typedefType = TypeStruct
             (DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S2"))
               DeclPathTop),
           typedefSourceLoc =
@@ -786,7 +777,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTypedef (CName "S3_t"))
             DeclPathTop,
           structAliases = [],
@@ -834,7 +824,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTypedef (CName "S3_t"))
               DeclPathTop,
             structAliases = [],
@@ -887,7 +876,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTypedef (CName "S3_t"))
                       DeclPathTop,
                     structAliases = [],
@@ -940,7 +928,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTypedef (CName "S3_t"))
                       DeclPathTop,
                     structAliases = [],
@@ -1035,7 +1022,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "S4"))
             DeclPathTop,
           structAliases = [],
@@ -1133,7 +1119,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S4"))
               DeclPathTop,
             structAliases = [],
@@ -1236,7 +1221,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S4"))
                       DeclPathTop,
                     structAliases = [],
@@ -1342,7 +1326,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S4"))
                       DeclPathTop,
                     structAliases = [],
@@ -1439,12 +1422,10 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "S5"))
             DeclPathTop,
           structAliases = [
             DeclPathConstr
-              DeclConstrStruct
               (DeclNameTypedef (CName "S5"))
               DeclPathTop],
           structSizeof = 8,
@@ -1515,12 +1496,10 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S5"))
               DeclPathTop,
             structAliases = [
               DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTypedef (CName "S5"))
                 DeclPathTop],
             structSizeof = 8,
@@ -1596,12 +1575,10 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S5"))
                       DeclPathTop,
                     structAliases = [
                       DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTypedef (CName "S5"))
                         DeclPathTop],
                     structSizeof = 8,
@@ -1679,12 +1656,10 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S5"))
                       DeclPathTop,
                     structAliases = [
                       DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTypedef (CName "S5"))
                         DeclPathTop],
                     structSizeof = 8,
@@ -1770,12 +1745,10 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "S6"))
             DeclPathTop,
           structAliases = [
             DeclPathConstr
-              DeclConstrStruct
               (DeclNameTypedef (CName "S6"))
               DeclPathTop],
           structSizeof = 8,
@@ -1846,12 +1819,10 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "S6"))
               DeclPathTop,
             structAliases = [
               DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTypedef (CName "S6"))
                 DeclPathTop],
             structSizeof = 8,
@@ -1927,12 +1898,10 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S6"))
                       DeclPathTop,
                     structAliases = [
                       DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTypedef (CName "S6"))
                         DeclPathTop],
                     structSizeof = 8,
@@ -2010,12 +1979,10 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "S6"))
                       DeclPathTop,
                     structAliases = [
                       DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTypedef (CName "S6"))
                         DeclPathTop],
                     structSizeof = 8,
@@ -2101,11 +2068,9 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             DeclNameNone
             (DeclPathPtr
               (DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTypedef (CName "S7a"))
                 DeclPathTop)),
           structAliases = [],
@@ -2177,11 +2142,9 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               DeclNameNone
               (DeclPathPtr
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTypedef (CName "S7a"))
                   DeclPathTop)),
             structAliases = [],
@@ -2258,11 +2221,9 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       DeclNameNone
                       (DeclPathPtr
                         (DeclPathConstr
-                          DeclConstrStruct
                           (DeclNameTypedef (CName "S7a"))
                           DeclPathTop)),
                     structAliases = [],
@@ -2341,11 +2302,9 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       DeclNameNone
                       (DeclPathPtr
                         (DeclPathConstr
-                          DeclConstrStruct
                           (DeclNameTypedef (CName "S7a"))
                           DeclPathTop)),
                     structAliases = [],
@@ -2416,11 +2375,9 @@
           typedefType = TypePointer
             (TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 DeclNameNone
                 (DeclPathPtr
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTypedef (CName "S7a"))
                     DeclPathTop)))),
           typedefSourceLoc =
@@ -2474,13 +2431,11 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             DeclNameNone
             (DeclPathPtr
               (DeclPathPtr
                 (DeclPathPtr
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTypedef (CName "S7b"))
                     DeclPathTop)))),
           structAliases = [],
@@ -2552,13 +2507,11 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               DeclNameNone
               (DeclPathPtr
                 (DeclPathPtr
                   (DeclPathPtr
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTypedef (CName "S7b"))
                       DeclPathTop)))),
             structAliases = [],
@@ -2635,13 +2588,11 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       DeclNameNone
                       (DeclPathPtr
                         (DeclPathPtr
                           (DeclPathPtr
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTypedef (CName "S7b"))
                               DeclPathTop)))),
                     structAliases = [],
@@ -2720,13 +2671,11 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       DeclNameNone
                       (DeclPathPtr
                         (DeclPathPtr
                           (DeclPathPtr
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTypedef (CName "S7b"))
                               DeclPathTop)))),
                     structAliases = [],
@@ -2801,13 +2750,11 @@
               (TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     DeclNameNone
                     (DeclPathPtr
                       (DeclPathPtr
                         (DeclPathPtr
                           (DeclPathConstr
-                            DeclConstrStruct
                             (DeclNameTypedef (CName "S7b"))
                             DeclPathTop)))))))),
           typedefSourceLoc =

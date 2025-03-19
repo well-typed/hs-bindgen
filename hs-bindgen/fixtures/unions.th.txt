@@ -33,6 +33,8 @@ deriving stock instance Show Dim
 deriving stock instance Eq Dim
 newtype DimPayloadB = DimPayloadB {unDimPayloadB :: ByteArray}
 deriving via (SizedByteArray 8 4) instance Storable DimPayloadB
+newtype DimPayloadB = DimPayloadB {unDimPayloadB :: DimPayloadB}
+deriving newtype instance Storable DimPayloadB
 data DimB = DimB {dimB_tag :: CInt, dimB_payload :: DimPayloadB}
 instance Storable DimB
     where {sizeOf = \_ -> 12 :: Int;

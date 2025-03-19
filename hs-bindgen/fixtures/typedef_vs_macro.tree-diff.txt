@@ -162,7 +162,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag
             (CName "ExampleStruct"))
           DeclPathTop,
@@ -208,7 +207,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structAliases = [],
