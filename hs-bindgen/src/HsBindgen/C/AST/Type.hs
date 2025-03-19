@@ -147,7 +147,7 @@ data PrimSign = Signed | Unsigned
 -- | Definition of a struct
 data Struct = Struct {
       structDeclPath  :: DeclPath
-    , structAliases   :: [DeclPath]
+    , structAliases   :: [CName]
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -173,7 +173,7 @@ data StructField = StructField {
 -- > struct foo;
 data OpaqueStruct = OpaqueStruct {
       opaqueStructTag       :: CName
-    , opaqueStructAliases   :: [DeclPath]
+    , opaqueStructAliases   :: [CName]
     , opaqueStructSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
@@ -185,7 +185,7 @@ data OpaqueStruct = OpaqueStruct {
 -- | Definition of an union
 data Union = Union {
       unionDeclPath  :: DeclPath
-    , unionAliases   :: [DeclPath]
+    , unionAliases   :: [CName]
     , unionSizeof    :: Int
     , unionAlignment :: Int
     -- TODO: , unionFields    :: [UnionField]
@@ -199,7 +199,7 @@ data Union = Union {
 
 data Enu = Enu {
       enumDeclPath  :: DeclPath
-    , enumAliases   :: [DeclPath]
+    , enumAliases   :: [CName]
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -223,7 +223,7 @@ data EnumValue = EnumValue {
 -- > enum foo;
 data OpaqueEnum = OpaqueEnum {
       opaqueEnumTag       :: CName
-    , opaqueEnumAliases   :: [DeclPath]
+    , opaqueEnumAliases   :: [CName]
     , opaqueEnumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)

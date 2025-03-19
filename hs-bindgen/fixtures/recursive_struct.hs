@@ -453,10 +453,7 @@
               (CName "linked_list_B_t"))
             DeclPathTop,
           structAliases = [
-            DeclPathConstr
-              (DeclNameTypedef
-                (CName "linked_list_B_t"))
-              DeclPathTop],
+            CName "linked_list_B_t"],
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -540,10 +537,7 @@
                 (CName "linked_list_B_t"))
               DeclPathTop,
             structAliases = [
-              DeclPathConstr
-                (DeclNameTypedef
-                  (CName "linked_list_B_t"))
-                DeclPathTop],
+              CName "linked_list_B_t"],
             structSizeof = 16,
             structAlignment = 8,
             structFields = [
@@ -632,10 +626,7 @@
                         (CName "linked_list_B_t"))
                       DeclPathTop,
                     structAliases = [
-                      DeclPathConstr
-                        (DeclNameTypedef
-                          (CName "linked_list_B_t"))
-                        DeclPathTop],
+                      CName "linked_list_B_t"],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [
@@ -726,10 +717,7 @@
                         (CName "linked_list_B_t"))
                       DeclPathTop,
                     structAliases = [
-                      DeclPathConstr
-                        (DeclNameTypedef
-                          (CName "linked_list_B_t"))
-                        DeclPathTop],
+                      CName "linked_list_B_t"],
                     structSizeof = 16,
                     structAlignment = 8,
                     structFields = [

@@ -16,7 +16,7 @@ import Data.Set qualified as Set
 
 import Data.DynGraph (DynGraph)
 import Data.DynGraph qualified as DynGraph
-import HsBindgen.C.AST (CName, Decl, DeclPath, Type)
+import HsBindgen.C.AST (CName, Decl, Type)
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
@@ -57,7 +57,7 @@ data TypeDecl
       -- are mapped to the same C AST node, when a @typedef@ name is the same
       -- as a @struct@, @union@, or @enum@ tag.  This is a subset of the
       -- aliases tracked in the following constructor.
-      TypeDeclProcessing Type [DeclPath]
+      TypeDeclProcessing Type [CName]
     | -- | An alias, for @typedef@s, etc.
       TypeDeclAlias Type
     | TypeDecl Type Decl
