@@ -24,16 +24,12 @@ import Data.Type.Equality
 import Data.Type.Nat (SNatI)
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
-import Text.Show.Pretty (PrettyVal(..))
-import Text.Show.Pretty qualified as Pretty
 
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Type
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.Paths
-import HsBindgen.Pretty.Orphans
-  ()
 import HsBindgen.Util.TestEquality
   ( equals1 )
 
@@ -48,7 +44,6 @@ data Macro = Macro {
     , macroBody :: MExpr
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -62,11 +57,6 @@ data MExpr =
   -- | Exactly saturated non-nullary function application.
   | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
 deriving stock instance Show MExpr
-instance PrettyVal MExpr where
-  prettyVal = \case
-    MTerm tm    -> Pretty.Con "MTerm"  [prettyVal tm]
-    MEmpty      -> Pretty.Con "MEmpty" []
-    MApp f args -> Pretty.Con "MApp"   [prettyVal f, prettyVal args]
 
 instance Eq MExpr where
   MTerm m1 == MTerm m2 = m1 == m2
@@ -153,9 +143,6 @@ instance GEq MFun where
   geq MLogicalOr  MLogicalOr  = Just Refl
   geq _           _           = Nothing
 
-instance PrettyVal ( MFun arity ) where
-  prettyVal f = Pretty.Con (show f) []
-
 data MTerm =
 
     -- | Integer literal
@@ -197,7 +184,6 @@ data MTerm =
     -- * <https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html>
   | MConcat MTerm MTerm
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Attributes
@@ -211,7 +197,6 @@ data MTerm =
 -- For now we make no attempt to parse what's actually inside the attribute.
 data Attribute = Attribute [Token TokenSpelling]
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Classification

@@ -15,7 +15,6 @@ import C.Char qualified as C
 
 import HsBindgen.Imports
 import HsBindgen.C.AST.Type
-import HsBindgen.Pretty.Orphans ()
 
 {-------------------------------------------------------------------------------
   Integer literals
@@ -39,7 +38,6 @@ data IntegerLiteral =
     , integerLiteralValue :: Integer
     }
   deriving stock ( Eq, Show, Generic )
-  deriving anyclass PrettyVal
 
 {-------------------------------------------------------------------------------
   Floating-point literals
@@ -65,7 +63,6 @@ data FloatingLiteral =
     , floatingLiteralDoubleValue :: Double
     }
   deriving stock ( Eq, Show, Generic )
-  deriving anyclass PrettyVal
 
 {-# SPECIALISE canBeRepresentedAsRational :: Float -> Bool #-}
 {-# SPECIALISE canBeRepresentedAsRational :: Double -> Bool #-}
@@ -91,7 +88,6 @@ data CharLiteral =
     , charLiteralValue :: C.CharValue
     }
   deriving stock ( Eq, Show, Generic )
-  deriving anyclass PrettyVal
 
 data StringLiteral =
   StringLiteral
@@ -99,7 +95,6 @@ data StringLiteral =
     , stringLiteralValue :: [ C.CharValue ]
     }
   deriving stock ( Eq, Show, Generic )
-  deriving anyclass PrettyVal
 
 fromBytes :: Bits i => [i] -> i
 fromBytes = foldl' (\ acc b -> ( acc `shiftL` 8 ) .|. b) zeroBits

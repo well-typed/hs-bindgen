@@ -35,7 +35,6 @@ import Data.List (intercalate)
 import Data.Text (Text)
 import Foreign.C
 import GHC.Generics (Generic)
-import Text.Show.Pretty (PrettyVal(..))
 import GHC.Stack
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
@@ -233,18 +232,6 @@ prettySourceRangeWith path pretty Range{rangeStart, rangeEnd} = concat [
     , pretty (path rangeStart /= path rangeEnd) rangeEnd
     , ">"
     ]
-
-{-------------------------------------------------------------------------------
-  PrettyVal instances
-
-  These just piggy-back on the 'Show' instances.
--------------------------------------------------------------------------------}
-
-instance PrettyVal SingleLoc where prettyVal = prettyVal . show
-instance PrettyVal MultiLoc  where prettyVal = prettyVal . show
-
-instance Show a => PrettyVal (Range a) where
-  prettyVal = prettyVal. show
 
 {-------------------------------------------------------------------------------
   Conversion

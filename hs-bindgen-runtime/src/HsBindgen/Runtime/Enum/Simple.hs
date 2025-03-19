@@ -20,8 +20,6 @@ import Foreign.C
 import GHC.Generics (Generic)
 import GHC.Show (appPrec1, showSpace)
 import GHC.Stack
-import Text.Show.Pretty (PrettyVal(..))
-import Text.Show.Pretty qualified as Pretty
 
 {-------------------------------------------------------------------------------
   Definition
@@ -106,21 +104,6 @@ instance (IsSimpleEnum hs, Show hs) => Show (SimpleEnum hs) where
       showHs hs =
              showString "simpleEnum "
            . showsPrec appPrec1 hs
-
-instance (IsSimpleEnum hs, PrettyVal hs) => PrettyVal (SimpleEnum hs) where
-  prettyVal =
-      either (uncurry showC) showHs . showSimpleEnum
-    where
-      showC :: CInt -> TypeRep -> Pretty.Value
-      showC c typ = Pretty.Con "SimpleEnum" [
-            Pretty.Con ("@" ++ show typ) []
-          , prettyVal (fromIntegral c :: Int)
-          ]
-
-      showHs :: hs -> Pretty.Value
-      showHs hs = Pretty.Con "simpleEnum" [
-            prettyVal hs
-          ]
 
 -- | Internal auxiliary for showing 'SimpleEnum'
 showSimpleEnum :: forall hs.

@@ -21,7 +21,6 @@ import Data.Text qualified as Text
 import Data.List qualified as List
 import Data.String (IsString(fromString))
 import System.FilePath qualified as FilePath
-import Text.Show.Pretty (PrettyVal(prettyVal))
 
 {-------------------------------------------------------------------------------
   Source paths
@@ -36,9 +35,6 @@ import Text.Show.Pretty (PrettyVal(prettyVal))
 -- directory separators are used on different platforms.
 newtype SourcePath = SourcePath Text
   deriving newtype (Eq, Ord, Show)
-
-instance PrettyVal SourcePath where
-  prettyVal = prettyVal . show
 
 -- | Get the 'FilePath' representation of a 'SourcePath'
 getSourcePath :: SourcePath -> FilePath

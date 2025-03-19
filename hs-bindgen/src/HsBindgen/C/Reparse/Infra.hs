@@ -78,7 +78,7 @@ data ReparseError = ReparseError {
     , reparseErrorTokens :: [Token TokenSpelling]
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (Exception, PrettyVal)
+  deriving anyclass (Exception)
 
 instance PrettyLogMsg ReparseError where
   prettyLogMsg ReparseError{

@@ -63,7 +63,6 @@ data Type =
   | TypeIncompleteArray Type
   | TypeExtBinding ExtIdentifier
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Primitives types
@@ -110,7 +109,6 @@ data PrimType =
     -- | @_Bool@
   | PrimBool
   deriving stock (Show, Eq, Ord, Generic)
-  deriving anyclass (PrettyVal)
 
 -- | An integral type, such as @int@ or @unsigned long int@.
 data PrimIntType
@@ -126,7 +124,6 @@ data PrimIntType
     -- | @[signed | unsigned] long long [int]@
   | PrimLongLong
   deriving stock (Show, Eq, Enum, Ord, Generic)
-  deriving anyclass (PrettyVal)
 
 data PrimFloatType
     -- | @float@
@@ -138,12 +135,10 @@ data PrimFloatType
     -- | @long double@
   | PrimLongDouble
   deriving stock (Show, Eq, Ord, Generic)
-  deriving anyclass (PrettyVal)
 
 -- | Sign of a primitive type
 data PrimSign = Signed | Unsigned
   deriving stock (Show, Eq, Ord, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Structs
@@ -160,7 +155,6 @@ data Struct = Struct {
     , structSourceLoc :: SingleLoc
   }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 data StructField = StructField {
       fieldName      :: CName
@@ -170,7 +164,6 @@ data StructField = StructField {
     , fieldSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 -- | Opaque structure
 --
@@ -184,7 +177,6 @@ data OpaqueStruct = OpaqueStruct {
     , opaqueStructSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Unions
@@ -200,7 +192,6 @@ data Union = Union {
     , unionSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Enums
@@ -216,7 +207,6 @@ data Enu = Enu {
     , enumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 data EnumValue = EnumValue {
       valueName      :: CName
@@ -224,7 +214,6 @@ data EnumValue = EnumValue {
     , valueSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 -- | Opaque enum
 --
@@ -238,7 +227,6 @@ data OpaqueEnum = OpaqueEnum {
     , opaqueEnumSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Typedefs
@@ -250,7 +238,6 @@ data Typedef = Typedef {
     , typedefSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   DeclPath
@@ -278,7 +265,6 @@ data DeclPath
     | DeclPathPtr DeclPath
     -- TODO | DeclPathConstArray Natural Path
   deriving stock (Eq, Generic, Show)
-  deriving anyclass (PrettyVal)
 
 -- | Declaration name
 data DeclName
@@ -289,4 +275,3 @@ data DeclName
     | -- Structure/union has no tag, but typedef name specified
       DeclNameTypedef CName
   deriving stock (Eq, Generic, Show)
-  deriving anyclass (PrettyVal)

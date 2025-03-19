@@ -3,7 +3,6 @@ module Main (main) where
 
 import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
 import Text.Read (readMaybe)
-import Text.Show.Pretty qualified as Pretty
 import System.Exit (ExitCode, exitFailure)
 
 import HsBindgen.App.Cmdline
@@ -112,7 +111,7 @@ execDevMode Cmdline{..} tracer = \case
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
-      Pretty.dumpIO . snd =<< Pipeline.parseCHeader opts parseCHeaderInput
+      print . snd =<< Pipeline.parseCHeader opts parseCHeaderInput
   where
     cmdOpts :: Opts
     cmdOpts = defaultOpts {

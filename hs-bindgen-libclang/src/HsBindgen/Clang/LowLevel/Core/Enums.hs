@@ -14,7 +14,6 @@ module HsBindgen.Clang.LowLevel.Core.Enums (
   ) where
 
 import GHC.Generics (Generic)
-import Text.Show.Pretty (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXErrorCode
@@ -46,7 +45,6 @@ data CXErrorCode =
     -- | An AST deserialization error has occurred.
   | CXError_ASTReadError
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXTranslationUnit_Flag
@@ -162,7 +160,6 @@ data CXTranslationUnit_Flags =
     -- | Tells the preprocessor not to skip excluded conditional blocks.
   | CXTranslationUnit_RetainExcludedConditionalBlocks
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXTypeKind
@@ -255,7 +252,6 @@ data CXTypeKind =
     -- E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
   | CXType_Elaborated
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXChildVisitResult
@@ -280,7 +276,6 @@ data CXChildVisitResult =
     -- visitor and client data.
   | CXChildVisit_Recurse
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXTypeLayoutError
@@ -313,7 +308,6 @@ data CXTypeLayoutError =
     -- | The type is undeduced.
   | CXTypeLayoutError_Undeduced
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXTokenKind
@@ -338,7 +332,6 @@ data CXTokenKind =
     -- | A comment.
   | CXToken_Comment
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXCursorKind
@@ -1181,7 +1174,6 @@ data CXCursorKind =
     -- | A code completion overload candidate.
   | CXCursor_OverloadCandidate
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXDiagnosticDisplayOptions
@@ -1239,7 +1231,6 @@ data CXDiagnosticDisplayOptions =
     -- @-fdiagnostics-show-category=name@.
   | CXDiagnostic_DisplayCategoryName
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   CXDiagnosticSeverity
@@ -1266,4 +1257,3 @@ data CXDiagnosticSeverity =
     -- parser recovery is unlikely to produce useful results.
   | CXDiagnostic_Fatal
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)

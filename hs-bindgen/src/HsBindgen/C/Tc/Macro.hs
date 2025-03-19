@@ -85,11 +85,6 @@ import Control.Monad.Writer qualified as Writer
 import Control.Monad.Trans
   ( lift )
 
--- pretty-show
-import Text.Show.Pretty
-  ( PrettyVal(..) )
-import Text.Show.Pretty qualified as Pretty
-
 -- text
 import Data.Text qualified as Text
 
@@ -112,8 +107,6 @@ import HsBindgen.C.AST.Name
   ( CName(..) )
 import HsBindgen.C.AST.Type
   ( PrimIntType(..), PrimSign(..), PrimFloatType(..) )
-import HsBindgen.Pretty.Orphans
-  ()
 import HsBindgen.Util.TestEquality
   ( equals2 )
 
@@ -125,7 +118,6 @@ type Name = Text
 newtype Unique = Unique { uniqueInt :: Int }
   deriving newtype ( Enum, Eq, Show )
   deriving stock Generic
-  deriving anyclass PrettyVal
 
 data Kind
   -- | The kind of types.
@@ -176,7 +168,6 @@ data QuantTyBody body
   , quantTyBody  :: !body
   }
   deriving stock ( Show, Generic, Functor, Foldable, Traversable )
-  deriving anyclass PrettyVal
 
 instance Eq ( QuantTyBody ( Type ki ) ) where
   QuantTyBody cts1 body1 == QuantTyBody cts2 body2 =
@@ -204,13 +195,6 @@ instance Show ( Type ki ) where
     NomEqPred a b ->
       showParen (p >= 5) $
         showsPrec 5 a . showString " ~ " . showsPrec 5 b
-
-instance PrettyVal ( Type ki ) where
-  prettyVal = \case
-    TyVarTy tv -> Pretty.Con "TyVarTy" [ prettyVal tv ]
-    TyConAppTy tc tys -> Pretty.Con "TyConAppTy" [ prettyVal tc, prettyVal tys ]
-    FunTy args res -> Pretty.Con "FunTy" [ prettyVal args, prettyVal res ]
-    NomEqPred a b -> Pretty.Con "NomEqPred" [ prettyVal a, prettyVal b ]
 
 instance Show body => Show ( Quant body ) where
   showsPrec p0 quantTy@( Quant @nbBinders _ ) =
@@ -245,15 +229,10 @@ mkQuantTyBody ( Quant @nbBinders body ) =
     mkSkol :: Int -> Name -> Type Ty
     mkSkol i tv = TyVarTy $ SkolemTv $ SkolemTyVar tv ( Unique i )
 
-instance PrettyVal body => PrettyVal ( Quant body ) where
-  prettyVal quantTy =
-    Pretty.Con "Quant" [ prettyVal $ mkQuantTyBody quantTy ]
-
 data TyVar
   = SkolemTv {-# UNPACK #-} !SkolemTyVar
   | MetaTv   {-# UNPACK #-} !MetaTyVar
   deriving stock Generic
-  deriving anyclass PrettyVal
 
 tyVarName :: TyVar -> Name
 tyVarName = \case
@@ -281,7 +260,6 @@ data SkolemTyVar
     , skolemTyVarUnique :: !Unique
     }
   deriving stock Generic
-  deriving anyclass PrettyVal
 instance Show SkolemTyVar where
   show sk = show ( SkolemTv sk )
 instance Show MetaTyVar where
@@ -294,7 +272,6 @@ data MetaTyVar
     , metaOrigin      :: !MetaOrigin
     }
   deriving stock Generic
-  deriving anyclass PrettyVal
 
 type TyCon :: Nat -> Kind -> Hs.Type
 data TyCon nbArgs res where
@@ -307,14 +284,6 @@ data GenerativeTyCon nbArgs res where
   DataTyCon      :: !( DataTyCon   nbArgs ) -> GenerativeTyCon nbArgs Ty
   ClassTyCon     :: !( ClassTyCon  nbArgs ) -> GenerativeTyCon nbArgs Ct
 deriving stock instance Eq ( GenerativeTyCon nbArgs res )
-
-instance PrettyVal ( TyCon nbArgs k ) where
-  prettyVal ( GenerativeTyCon tc  ) = Pretty.Con "GenerativeTyCon" [ prettyVal tc  ]
-  prettyVal ( FamilyTyCon     fam ) = Pretty.Con     "FamilyTyCon" [ prettyVal fam ]
-
-instance PrettyVal ( GenerativeTyCon nbArgs k ) where
-  prettyVal ( DataTyCon   dc  ) = Pretty.Con   "DataTyCon" [ prettyVal dc  ]
-  prettyVal ( ClassTyCon  cls ) = Pretty.Con  "ClassTyCon" [ prettyVal cls ]
 
 type DataTyCon :: Nat -> Hs.Type
 data DataTyCon nbArgs where
@@ -351,9 +320,6 @@ data IntegralType
 deriving stock instance Eq  ( DataTyCon nbArgs )
 deriving stock instance Ord ( DataTyCon nbArgs )
 
-instance PrettyVal ( DataTyCon nbArgs ) where
-  prettyVal c = Pretty.Con ( show c ) []
-
 type FamilyTyCon :: Nat -> Hs.Type
 data FamilyTyCon nbArgs where
   -- | Return type of unary addition.
@@ -380,9 +346,6 @@ data FamilyTyCon nbArgs where
 
 deriving stock instance Eq  ( FamilyTyCon nbArgs )
 deriving stock instance Ord ( FamilyTyCon nbArgs )
-
-instance PrettyVal ( FamilyTyCon nbArgs ) where
-  prettyVal c = Pretty.Con ( show c ) []
 
 type ClassTyCon :: Nat -> Hs.Type
 data ClassTyCon nbArgs where
@@ -417,9 +380,6 @@ data ClassTyCon nbArgs where
 
 deriving stock instance Eq  ( ClassTyCon nbArgs )
 deriving stock instance Ord ( ClassTyCon nbArgs )
-
-instance PrettyVal ( ClassTyCon nbArgs ) where
-  prettyVal con = Pretty.Con (show con) []
 
 instance Show ( TyCon n ki ) where
   showsPrec p = \case
@@ -615,8 +575,6 @@ instance Show FunName where
     case funName of
       Left ( CName f ) -> Text.unpack f
       Right f -> show f
-instance PrettyVal FunName where
-  prettyVal f = prettyVal ( show f )
 
 -- | Why did we emit a constraint?
 data CtOrigin
@@ -625,7 +583,6 @@ data CtOrigin
   | ClassInstOrigin !( Quant ( Type Ct ) ) !CtOrigin
   | DefaultingOrigin !CtOrigin
   deriving stock ( Generic, Show )
-  deriving anyclass PrettyVal
 
 pprCtOrigin :: CtOrigin -> Text
 pprCtOrigin = \case
@@ -652,13 +609,11 @@ data MetaOrigin
   | IntLitMeta !IntegerLiteral
   | FloatLitMeta !FloatingLiteral
   deriving stock ( Generic, Show )
-  deriving anyclass PrettyVal
 
 data InstOrigin
   = FunInstMetaOrigin !FunName
   | ClassInstMetaOrigin !( Quant ( Type Ct ) )
   deriving stock ( Generic, Show )
-  deriving anyclass PrettyVal
 
 pprMetaOrigin :: MetaOrigin -> Text
 pprMetaOrigin = \case
@@ -696,19 +651,6 @@ data UnificationError
   = forall k. Typeable k => CouldNotUnify !CouldNotUnifyReason !CtOrigin !( Type k ) !( Type k )
 deriving stock instance Show UnificationError
 
-instance PrettyVal TcError where
-  prettyVal = \case
-    UnificationError err ->
-      Pretty.Con "UnificationError" [ prettyVal err ]
-    UnexpectedMTerm mTerm ->
-      Pretty.Con "UnexpectedMTerm" [ prettyVal mTerm ]
-    UnboundVariable nm ->
-      Pretty.Con "UnboundVariable" [ prettyVal nm ]
-instance PrettyVal UnificationError where
-  prettyVal = \case
-    CouldNotUnify rea orig ty1 ty2 ->
-      Pretty.Con "CouldNotUnify" [ prettyVal rea, prettyVal orig, prettyVal ty1, prettyVal ty2 ]
-
 pprTcError :: TcError -> Text
 pprTcError = \case
   UnificationError err ->
@@ -740,7 +682,6 @@ data CouldNotUnifyReason
   -- | Trying to unify a skolem variable with another type.
   | RigidSkolem !SkolemTyVar
   deriving stock ( Generic, Show )
-  deriving anyclass PrettyVal
 
 pprCouldNotUnifyReason :: CouldNotUnifyReason -> Text
 pprCouldNotUnifyReason = \case
@@ -761,7 +702,6 @@ pprCouldNotUnifyReason = \case
 
 data SrcSpan = SrcSpan
   deriving stock ( Eq, Ord, Generic )
-  deriving anyclass PrettyVal
 instance Show SrcSpan where
   show _ = "<<noSrcSpan>>"
 
@@ -2194,7 +2134,6 @@ data TcMacroError
   -- | A collection of class constraints was inconsistent.
   | TcInconsistentConstraints !( NE.NonEmpty Cts )
   deriving stock ( Show, Generic )
-  deriving anyclass PrettyVal
 
 instance Eq TcMacroError where
   _ == _ = True
