@@ -24,7 +24,6 @@ import Data.String as X (IsString (fromString))
 import GHC.Generics as X (Generic)
 import GHC.Stack as X (HasCallStack)
 import Numeric.Natural as X (Natural)
-import Text.Show.Pretty as X (PrettyVal)
 
 -- types
 import Data.IntMap.Strict as X (IntMap)
@@ -41,16 +40,11 @@ import Debug.Trace as X (traceShowId, traceShow, traceM)
 import HsBindgen.Debug as X
 import Data.Array.Byte as X
 
-import Text.Show.Pretty (PrettyVal(..))
-
 -- | @Type@ is very clashy name: there's TH.Type, we may want to use Type for
 -- representation of C types, etc.
 --
 -- Let's use Star to refer to Haskell's kind.
 type Star = Data.Kind.Type
-
-instance PrettyVal Natural where
-    prettyVal = prettyVal . toInteger
 
 singleton :: a -> [a]
 singleton x = [x]

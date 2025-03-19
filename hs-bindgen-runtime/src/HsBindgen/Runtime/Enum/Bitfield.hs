@@ -13,8 +13,6 @@ import Data.Typeable
 import Foreign.C
 import GHC.Generics (Generic)
 import GHC.Show (appPrec1, showSpace)
-import Text.Show.Pretty (PrettyVal(..))
-import Text.Show.Pretty qualified as Pretty
 
 {-------------------------------------------------------------------------------
   Definition
@@ -75,22 +73,6 @@ instance (IsSingleFlag hs, Enum hs, Bounded hs, Show hs)
       showHs hs =
              showString "simpleEnum "
            . showsPrec appPrec1 hs
-
-instance (IsSingleFlag hs, Enum hs, Bounded hs, PrettyVal hs)
-      => PrettyVal (BitfieldEnum hs) where
-  prettyVal =
-      either (uncurry showC) showHs . showBitfieldEnum
-    where
-      showC :: CUInt -> TypeRep -> Pretty.Value
-      showC c typ = Pretty.Con "BitfieldEnum" [
-            Pretty.Con ("@" ++ show typ) []
-          , prettyVal (fromIntegral c :: Int)
-          ]
-
-      showHs :: [hs] -> Pretty.Value
-      showHs hs = Pretty.Con "bitfieldEnum" [
-            prettyVal hs
-          ]
 
 -- | Internal auxiliary for showing 'SimpleEnum'
 showBitfieldEnum :: forall hs.

@@ -67,7 +67,6 @@ module HsBindgen.C.AST (
   ) where
 
 import GHC.Generics (Generic)
-import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
@@ -88,7 +87,6 @@ data Header = Header {
       headerDecls :: [Decl]
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 -- | Top-level declaration
 data Decl =
@@ -101,7 +99,6 @@ data Decl =
   | DeclMacro MacroDecl
   | DeclFunction Function
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 data MacroDecl
   = MacroReparseError ReparseError
@@ -112,7 +109,6 @@ data MacroDecl
       , macroDeclSourceLoc :: SingleLoc
       }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)
 
 data Function = Function
     { functionName :: CName
@@ -124,4 +120,3 @@ data Function = Function
     , functionSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyVal)

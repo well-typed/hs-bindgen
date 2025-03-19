@@ -32,7 +32,6 @@ data IntSuffix =
   | IntSuffixLongLong
   | IntSuffixSize
   deriving stock (Eq, Show, Generic)
-  deriving anyclass PrettyVal
 
 intSuffix :: TokenParser IntSuffix
 intSuffix = choice [

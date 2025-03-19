@@ -111,7 +111,6 @@ library
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Orphans
-      HsBindgen.Pretty.Orphans
       HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
@@ -147,7 +146,6 @@ library
     , ordered-containers ^>=0.2.4
     , parsec             >= 3.1       && < 3.2
     , pretty             >= 1.1       && < 1.2
-    , pretty-show        >= 1.10      && < 1.11
     , regex-pcre-builtin >= 0.95      && < 0.96
     , scientific         >= 0.3.7     && < 0.4
     , some
@@ -181,7 +179,6 @@ executable hs-bindgen
   build-depends:
       -- Inherited dependencies
     , data-default
-    , pretty-show
   build-depends:
     , optparse-applicative >= 0.18 && < 0.19
 

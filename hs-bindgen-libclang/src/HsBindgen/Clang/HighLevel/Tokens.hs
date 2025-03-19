@@ -9,7 +9,6 @@ import Control.Monad
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import GHC.Stack
-import Text.Show.Pretty (PrettyVal(..))
 
 import HsBindgen.Clang.HighLevel.SourceLoc (Range, MultiLoc, SingleLoc)
 import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
@@ -29,15 +28,11 @@ data Token a = Token {
     , tokenCursorKind :: !(SimpleEnum CXCursorKind)
     }
   deriving stock (Show, Eq, Functor, Foldable, Traversable, Generic)
-  deriving anyclass (PrettyVal)
 
 newtype TokenSpelling = TokenSpelling {
       getTokenSpelling :: Text
     }
   deriving stock (Show, Eq, Generic)
-
-instance PrettyVal TokenSpelling where
-  prettyVal = prettyVal . show
 
 {-------------------------------------------------------------------------------
   Extraction

@@ -63,14 +63,14 @@ import HsBindgen.Resolve
 -- Example: @hs-bindgen-runtime@
 newtype HsPackageName = HsPackageName { getHsPackageName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, Show)
 
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
 newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, Show)
 
 -- | Haskell identifier
 --
@@ -80,7 +80,7 @@ newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
 -- include a 'HsBindgen.Hs.AST.Namespace'.
 newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, PrettyVal, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, Show)
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
@@ -89,7 +89,6 @@ data ExtIdentifier = ExtIdentifier {
     , extIdentifierIdentifier :: HsIdentifier
     }
   deriving stock (Eq, Generic, Ord, Show)
-  deriving anyclass (PrettyVal)
 
 -- | External bindings with unresolved header paths
 --

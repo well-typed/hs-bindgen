@@ -12,7 +12,6 @@ import Control.Monad (unless)
 import Foreign.C
 import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
-import Text.Show.Pretty (PrettyVal)
 import System.IO.Unsafe (unsafePerformIO)
 
 import HsBindgen.Clang.Internal.Results (callFailed)
@@ -46,7 +45,6 @@ data ClangVersion =
   | Clang17_or_18_or_19 -- ^ @clang >= 17.0 && < 20.0@
   | ClangNewerThan19    -- ^ @clang >= 20.0@
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
-  deriving anyclass (PrettyVal)
 
 {-------------------------------------------------------------------------------
   Current version
