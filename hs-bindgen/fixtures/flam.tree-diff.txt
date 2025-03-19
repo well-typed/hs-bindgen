@@ -3,7 +3,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "pascal"))
           DeclPathTop,
         structAliases = [],
@@ -29,12 +28,10 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           DeclNameNone
           (DeclPathField
             (CName "bar")
             (DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "foo"))
               DeclPathTop)),
         structAliases = [],
@@ -62,7 +59,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structAliases = [],
@@ -83,12 +79,10 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeStruct
               (DeclPathConstr
-                DeclConstrStruct
                 DeclNameNone
                 (DeclPathField
                   (CName "bar")
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop))),
             fieldSourceLoc = "flam.h:13:4"},
@@ -96,7 +90,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "diff"))
           DeclPathTop,
         structAliases = [],

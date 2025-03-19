@@ -8,7 +8,6 @@ Header
             TypePointer
               (TypeStruct
                 (DeclPathConstr
-                  DeclConstrStruct
                   (DeclNameTag (CName "bar"))
                   (DeclPathPtr DeclPathTop)))]
           TypeVoid,
@@ -18,7 +17,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "foo"))
           DeclPathTop,
         structAliases = [],
@@ -39,7 +37,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "bar"))
           (DeclPathPtr DeclPathTop),
         structAliases = [],

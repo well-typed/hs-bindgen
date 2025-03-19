@@ -82,6 +82,8 @@ pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
+newtype EnumA = EnumA {unEnumA :: EnumA}
+deriving newtype instance Storable EnumA
 newtype EnumB = EnumB {unEnumB :: CUInt}
 instance Storable EnumB
     where {sizeOf = \_ -> 4 :: Int;
@@ -98,6 +100,8 @@ pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
+newtype EnumB = EnumB {unEnumB :: EnumB}
+deriving newtype instance Storable EnumB
 newtype EnumC = EnumC {unEnumC :: CUInt}
 instance Storable EnumC
     where {sizeOf = \_ -> 4 :: Int;
@@ -114,6 +118,8 @@ pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
+newtype EnumC = EnumC {unEnumC :: EnumC}
+deriving newtype instance Storable EnumC
 newtype EnumD = EnumD {unEnumD :: CUInt}
 instance Storable EnumD
     where {sizeOf = \_ -> 4 :: Int;

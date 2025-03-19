@@ -3,7 +3,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag
             (CName "primitive"))
           DeclPathTop,

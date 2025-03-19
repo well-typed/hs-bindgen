@@ -22,7 +22,6 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
     -- * DeclPath
   , DeclPath(..)
-  , DeclConstr(..)
   , DeclName(..)
   ) where
 
@@ -274,17 +273,10 @@ data Typedef = Typedef {
 -- processed.
 data DeclPath
     = DeclPathTop
-    | DeclPathConstr DeclConstr DeclName DeclPath
+    | DeclPathConstr DeclName DeclPath
     | DeclPathField CName DeclPath
     | DeclPathPtr DeclPath
     -- TODO | DeclPathConstArray Natural Path
-  deriving stock (Eq, Generic, Show)
-  deriving anyclass (PrettyVal)
-
-data DeclConstr =
-    DeclConstrStruct
-  | DeclConstrUnion
-  | DeclConstrEnum
   deriving stock (Eq, Generic, Show)
   deriving anyclass (PrettyVal)
 

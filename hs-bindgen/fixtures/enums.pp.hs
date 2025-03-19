@@ -201,6 +201,12 @@ pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
 
+newtype EnumA = EnumA
+  { unEnumA :: EnumA
+  }
+
+deriving newtype instance F.Storable EnumA
+
 newtype EnumB = EnumB
   { unEnumB :: FC.CUInt
   }
@@ -238,6 +244,12 @@ pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
 
+newtype EnumB = EnumB
+  { unEnumB :: EnumB
+  }
+
+deriving newtype instance F.Storable EnumB
+
 newtype EnumC = EnumC
   { unEnumC :: FC.CUInt
   }
@@ -274,6 +286,12 @@ pattern C_FOO = EnumC 0
 
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
+
+newtype EnumC = EnumC
+  { unEnumC :: EnumC
+  }
+
+deriving newtype instance F.Storable EnumC
 
 newtype EnumD = EnumD
   { unEnumD :: FC.CUInt

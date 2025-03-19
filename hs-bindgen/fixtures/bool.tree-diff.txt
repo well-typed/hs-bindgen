@@ -19,7 +19,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "bools1"))
           DeclPathTop,
         structAliases = [],
@@ -44,7 +43,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "bools2"))
           DeclPathTop,
         structAliases = [],
@@ -69,7 +67,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathConstr
-          DeclConstrStruct
           (DeclNameTag (CName "bools3"))
           DeclPathTop,
         structAliases = [],

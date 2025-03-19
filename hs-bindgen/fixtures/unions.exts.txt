@@ -2,3 +2,4 @@ DataKinds
 StandaloneDeriving
 DerivingStrategies
 DerivingVia
+GeneralizedNewtypeDeriving

@@ -36,7 +36,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
               fieldSourceLoc =
@@ -57,7 +56,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
               fieldSourceLoc =
@@ -66,7 +64,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "bar"))
             DeclPathTop,
           structAliases = [],
@@ -80,7 +77,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "foo"))
                     DeclPathTop)),
               fieldSourceLoc =
@@ -92,7 +88,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag (CName "bar"))
                     DeclPathTop)),
               fieldSourceLoc =
@@ -126,7 +121,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop)),
                 fieldSourceLoc =
@@ -147,7 +141,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop)),
                 fieldSourceLoc =
@@ -156,7 +149,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "bar"))
               DeclPathTop,
             structAliases = [],
@@ -170,7 +162,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "foo"))
                       DeclPathTop)),
                 fieldSourceLoc =
@@ -182,7 +173,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop)),
                 fieldSourceLoc =
@@ -221,7 +211,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -242,7 +231,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -251,7 +239,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop,
                     structAliases = [],
@@ -265,7 +252,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -277,7 +263,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -318,7 +303,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -339,7 +323,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -348,7 +331,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bar"))
                       DeclPathTop,
                     structAliases = [],
@@ -362,7 +344,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "foo"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -374,7 +355,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag (CName "bar"))
                               DeclPathTop)),
                         fieldSourceLoc =
@@ -411,7 +391,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "baz"))
             DeclPathTop,
           structAliases = [],
@@ -435,7 +414,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "baz"))
               DeclPathTop,
             structAliases = [],
@@ -464,7 +442,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "baz"))
                       DeclPathTop,
                     structAliases = [],
@@ -493,7 +470,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "baz"))
                       DeclPathTop,
                     structAliases = [],

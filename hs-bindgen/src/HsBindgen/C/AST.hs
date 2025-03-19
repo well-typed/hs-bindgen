@@ -59,7 +59,6 @@ module HsBindgen.C.AST (
   , pprTcMacroError
     -- * DeclPath
   , DeclPath(..)
-  , DeclConstr(..)
   , DeclName(..)
     -- * Source locations
   , SingleLoc(..)

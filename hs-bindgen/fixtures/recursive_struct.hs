@@ -42,7 +42,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
@@ -52,7 +51,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag
               (CName "linked_list_A_s"))
             DeclPathTop,
@@ -75,7 +73,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_A_s"))
                     DeclPathTop)),
@@ -128,7 +125,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
@@ -138,7 +134,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag
                 (CName "linked_list_A_s"))
               DeclPathTop,
@@ -161,7 +156,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop)),
@@ -219,7 +213,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -229,7 +222,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop,
@@ -252,7 +244,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -312,7 +303,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -322,7 +312,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_A_s"))
                       DeclPathTop,
@@ -345,7 +334,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_A_s"))
                               DeclPathTop)),
@@ -398,7 +386,6 @@
             "linked_list_A_t",
           typedefType = TypeStruct
             (DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag
                 (CName "linked_list_A_s"))
               DeclPathTop),
@@ -453,7 +440,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
@@ -463,13 +449,11 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag
               (CName "linked_list_B_t"))
             DeclPathTop,
           structAliases = [
             DeclPathConstr
-              DeclConstrStruct
               (DeclNameTypedef
                 (CName "linked_list_B_t"))
               DeclPathTop],
@@ -491,7 +475,6 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathConstr
-                    DeclConstrStruct
                     (DeclNameTag
                       (CName "linked_list_B_t"))
                     DeclPathTop)),
@@ -544,7 +527,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
@@ -554,13 +536,11 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag
                 (CName "linked_list_B_t"))
               DeclPathTop,
             structAliases = [
               DeclPathConstr
-                DeclConstrStruct
                 (DeclNameTypedef
                   (CName "linked_list_B_t"))
                 DeclPathTop],
@@ -582,7 +562,6 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop)),
@@ -640,7 +619,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
@@ -650,13 +628,11 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop,
                     structAliases = [
                       DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTypedef
                           (CName "linked_list_B_t"))
                         DeclPathTop],
@@ -678,7 +654,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
@@ -738,7 +713,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),
@@ -748,13 +722,11 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "linked_list_B_t"))
                       DeclPathTop,
                     structAliases = [
                       DeclPathConstr
-                        DeclConstrStruct
                         (DeclNameTypedef
                           (CName "linked_list_B_t"))
                         DeclPathTop],
@@ -776,7 +748,6 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathConstr
-                              DeclConstrStruct
                               (DeclNameTag
                                 (CName "linked_list_B_t"))
                               DeclPathTop)),

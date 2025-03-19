@@ -72,9 +72,9 @@ getStructExtBindings :: Hs.Struct n -> [(CNameSpelling, HsIdentifier)]
 getStructExtBindings hsStruct = fmap (, hsId) . catMaybes $
     case Hs.structOrigin hsStruct of
       Hs.StructOriginStruct C.Struct{..} ->
-        getCNS structDeclPath : map getCNS structAliases
+        getCNS "struct " structDeclPath : map (getCNS "struct ") structAliases
       Hs.StructOriginEnum C.Enu{..} ->
-        getCNS enumDeclPath : map getCNS enumAliases
+        getCNS "enum " enumDeclPath : map (getCNS "enum ") enumAliases
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.structName hsStruct)
@@ -84,10 +84,10 @@ getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
     case Hs.emptyDataOrigin edata of
       Hs.EmptyDataOriginOpaqueStruct C.OpaqueStruct{..} ->
         Just (CNameSpelling (getCName opaqueStructTag))
-          : map getCNS opaqueStructAliases
+          : map (getCNS "struct ") opaqueStructAliases
       Hs.EmptyDataOriginOpaqueEnum C.OpaqueEnum{..} ->
         Just (CNameSpelling (getCName opaqueEnumTag))
-          : map getCNS opaqueEnumAliases
+          : map (getCNS "enum ") opaqueEnumAliases
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.emptyDataName edata)
@@ -96,25 +96,22 @@ getNewtypeExtBindings :: Hs.Newtype -> [(CNameSpelling, HsIdentifier)]
 getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
     case Hs.newtypeOrigin hsNewtype of
       Hs.NewtypeOriginEnum C.Enu{..} ->
-        getCNS enumDeclPath : map getCNS enumAliases
+        getCNS "enum " enumDeclPath : map (getCNS "enum ") enumAliases
       Hs.NewtypeOriginTypedef C.Typedef{..} ->
         [Just (CNameSpelling (getCName typedefName))]
       Hs.NewtypeOriginUnion C.Union{..} ->
-        getCNS unionDeclPath : map getCNS unionAliases
+        getCNS "union " unionDeclPath : map (getCNS "union ") unionAliases
       Hs.NewtypeOriginMacro{} -> []
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
 
-getCNS :: C.DeclPath -> Maybe CNameSpelling
-getCNS declPath = do
-    (prefix, declName) <- case declPath of
-      C.DeclPathConstr declConstr declName _declPath -> case declConstr of
-        C.DeclConstrStruct -> Just ("struct ", declName)
-        C.DeclConstrUnion  -> Just ("union ",  declName)
-        C.DeclConstrEnum   -> Just ("enum ",   declName)
-      _otherwise -> Nothing
-    case declName of
+getCNS :: Text -> C.DeclPath -> Maybe CNameSpelling
+getCNS prefix declPath = do
+    mDeclName <- case declPath of
+      C.DeclPathConstr declName _declPath -> Just declName
+      _otherwise                          -> Nothing
+    case mDeclName of
       C.DeclNameTag     cname -> Just $ CNameSpelling (prefix <> getCName cname)
       C.DeclNameTypedef cname -> Just $ CNameSpelling (getCName cname)
       C.DeclNameNone          -> Nothing

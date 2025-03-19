@@ -122,7 +122,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "bools1"))
             DeclPathTop,
           structAliases = [],
@@ -189,7 +188,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "bools1"))
               DeclPathTop,
             structAliases = [],
@@ -260,7 +258,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bools1"))
                       DeclPathTop,
                     structAliases = [],
@@ -334,7 +331,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bools1"))
                       DeclPathTop,
                     structAliases = [],
@@ -419,7 +415,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "bools2"))
             DeclPathTop,
           structAliases = [],
@@ -486,7 +481,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "bools2"))
               DeclPathTop,
             structAliases = [],
@@ -557,7 +551,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bools2"))
                       DeclPathTop,
                     structAliases = [],
@@ -631,7 +624,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bools2"))
                       DeclPathTop,
                     structAliases = [],
@@ -718,7 +710,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag (CName "bools3"))
             DeclPathTop,
           structAliases = [],
@@ -790,7 +781,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag (CName "bools3"))
               DeclPathTop,
             structAliases = [],
@@ -867,7 +857,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bools3"))
                       DeclPathTop,
                     structAliases = [],
@@ -946,7 +935,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag (CName "bools3"))
                       DeclPathTop,
                     structAliases = [],

@@ -496,7 +496,6 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathConstr
-            DeclConstrStruct
             (DeclNameTag
               (CName "primitive"))
             DeclPathTop,
@@ -1257,7 +1256,6 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathConstr
-              DeclConstrStruct
               (DeclNameTag
                 (CName "primitive"))
               DeclPathTop,
@@ -2023,7 +2021,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "primitive"))
                       DeclPathTop,
@@ -2818,7 +2815,6 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathConstr
-                      DeclConstrStruct
                       (DeclNameTag
                         (CName "primitive"))
                       DeclPathTop,
