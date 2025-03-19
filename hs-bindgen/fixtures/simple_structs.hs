@@ -1424,10 +1424,7 @@
           structDeclPath = DeclPathConstr
             (DeclNameTag (CName "S5"))
             DeclPathTop,
-          structAliases = [
-            DeclPathConstr
-              (DeclNameTypedef (CName "S5"))
-              DeclPathTop],
+          structAliases = [CName "S5"],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -1498,10 +1495,7 @@
             structDeclPath = DeclPathConstr
               (DeclNameTag (CName "S5"))
               DeclPathTop,
-            structAliases = [
-              DeclPathConstr
-                (DeclNameTypedef (CName "S5"))
-                DeclPathTop],
+            structAliases = [CName "S5"],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -1577,10 +1571,7 @@
                     structDeclPath = DeclPathConstr
                       (DeclNameTag (CName "S5"))
                       DeclPathTop,
-                    structAliases = [
-                      DeclPathConstr
-                        (DeclNameTypedef (CName "S5"))
-                        DeclPathTop],
+                    structAliases = [CName "S5"],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -1658,10 +1649,7 @@
                     structDeclPath = DeclPathConstr
                       (DeclNameTag (CName "S5"))
                       DeclPathTop,
-                    structAliases = [
-                      DeclPathConstr
-                        (DeclNameTypedef (CName "S5"))
-                        DeclPathTop],
+                    structAliases = [CName "S5"],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -1747,10 +1735,7 @@
           structDeclPath = DeclPathConstr
             (DeclNameTag (CName "S6"))
             DeclPathTop,
-          structAliases = [
-            DeclPathConstr
-              (DeclNameTypedef (CName "S6"))
-              DeclPathTop],
+          structAliases = [CName "S6"],
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -1821,10 +1806,7 @@
             structDeclPath = DeclPathConstr
               (DeclNameTag (CName "S6"))
               DeclPathTop,
-            structAliases = [
-              DeclPathConstr
-                (DeclNameTypedef (CName "S6"))
-                DeclPathTop],
+            structAliases = [CName "S6"],
             structSizeof = 8,
             structAlignment = 4,
             structFields = [
@@ -1900,10 +1882,7 @@
                     structDeclPath = DeclPathConstr
                       (DeclNameTag (CName "S6"))
                       DeclPathTop,
-                    structAliases = [
-                      DeclPathConstr
-                        (DeclNameTypedef (CName "S6"))
-                        DeclPathTop],
+                    structAliases = [CName "S6"],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [
@@ -1981,10 +1960,7 @@
                     structDeclPath = DeclPathConstr
                       (DeclNameTag (CName "S6"))
                       DeclPathTop,
-                    structAliases = [
-                      DeclPathConstr
-                        (DeclNameTypedef (CName "S6"))
-                        DeclPathTop],
+                    structAliases = [CName "S6"],
                     structSizeof = 8,
                     structAlignment = 4,
                     structFields = [

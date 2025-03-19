@@ -152,7 +152,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     -- in typedef struct { ... } foo; the typedef does not have transparent tag.
                     TypeStruct (DeclPathConstr declName _declPath)
                         | declName == DeclNameTag tag -> do
-                            updateDeclAddAlias ty' declPath
+                            updateDeclAddAlias ty' tag
                             addAlias ty use
                         | declName == DeclNameTypedef tag -> addAlias ty use
 
@@ -518,16 +518,16 @@ addDecl ty d = do
         Just (TypeDecl _ _)    -> liftIO $ panicIO "type already processed"
         Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
 
-updateDeclAddAlias :: CXType -> DeclPath -> Eff (State DeclState) ()
-updateDeclAddAlias ty declPath = do
+updateDeclAddAlias :: CXType -> CName -> Eff (State DeclState) ()
+updateDeclAddAlias ty alias = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
         Nothing -> liftIO $ panicIO "type not found"
         Just (TypeDeclProcessing typ aliases) ->
-            let d = TypeDeclProcessing typ (declPath : aliases)
+            let d = TypeDeclProcessing typ (alias : aliases)
             in  put s { typeDeclarations = (ty, d) OMap.<| ds }
-        Just (TypeDecl typ decl) -> case updateDeclAddAliases [declPath] decl of
+        Just (TypeDecl typ decl) -> case updateDeclAddAliases [alias] decl of
             Just decl' ->
                 put s { typeDeclarations = (ty, TypeDecl typ decl') OMap.<| ds }
             Nothing -> liftIO $ panicIO $
@@ -535,21 +535,21 @@ updateDeclAddAlias ty declPath = do
         Just (TypeDeclAlias typ) -> liftIO $ panicIO $
           "cannot add alias to an alias: " ++ show typ
 
-updateDeclAddAliases :: [DeclPath] -> Decl -> Maybe Decl
-updateDeclAddAliases declPaths = \case
+updateDeclAddAliases :: [CName] -> Decl -> Maybe Decl
+updateDeclAddAliases aliases = \case
     DeclStruct struct -> Just $
-        DeclStruct struct{ structAliases = declPaths ++ structAliases struct }
+        DeclStruct struct{ structAliases = aliases ++ structAliases struct }
     DeclOpaqueStruct ostruct -> Just $
         DeclOpaqueStruct ostruct{
-                opaqueStructAliases = declPaths ++ opaqueStructAliases ostruct
+                opaqueStructAliases = aliases ++ opaqueStructAliases ostruct
             }
     DeclUnion union -> Just $
-        DeclUnion union{ unionAliases = declPaths ++ unionAliases union }
+        DeclUnion union{ unionAliases = aliases ++ unionAliases union }
     DeclEnum enu -> Just $
-        DeclEnum enu{ enumAliases = declPaths ++ enumAliases enu }
+        DeclEnum enu{ enumAliases = aliases ++ enumAliases enu }
     DeclOpaqueEnum oenum -> Just $
         DeclOpaqueEnum oenum{
-                opaqueEnumAliases = declPaths ++ opaqueEnumAliases oenum
+                opaqueEnumAliases = aliases ++ opaqueEnumAliases oenum
             }
     _otherwise -> Nothing
 

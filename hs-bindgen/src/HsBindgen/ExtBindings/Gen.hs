@@ -72,9 +72,9 @@ getStructExtBindings :: Hs.Struct n -> [(CNameSpelling, HsIdentifier)]
 getStructExtBindings hsStruct = fmap (, hsId) . catMaybes $
     case Hs.structOrigin hsStruct of
       Hs.StructOriginStruct C.Struct{..} ->
-        getCNS "struct " structDeclPath : map (getCNS "struct ") structAliases
+        getCNS "struct " structDeclPath : map (Just . getCNS_alias) structAliases
       Hs.StructOriginEnum C.Enu{..} ->
-        getCNS "enum " enumDeclPath : map (getCNS "enum ") enumAliases
+        getCNS "enum " enumDeclPath : map (Just . getCNS_alias) enumAliases
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.structName hsStruct)
@@ -84,10 +84,10 @@ getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
     case Hs.emptyDataOrigin edata of
       Hs.EmptyDataOriginOpaqueStruct C.OpaqueStruct{..} ->
         Just (CNameSpelling (getCName opaqueStructTag))
-          : map (getCNS "struct ") opaqueStructAliases
+          : map (Just . getCNS_alias) opaqueStructAliases
       Hs.EmptyDataOriginOpaqueEnum C.OpaqueEnum{..} ->
         Just (CNameSpelling (getCName opaqueEnumTag))
-          : map (getCNS "enum ") opaqueEnumAliases
+          : map (Just . getCNS_alias) opaqueEnumAliases
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.emptyDataName edata)
@@ -96,11 +96,11 @@ getNewtypeExtBindings :: Hs.Newtype -> [(CNameSpelling, HsIdentifier)]
 getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
     case Hs.newtypeOrigin hsNewtype of
       Hs.NewtypeOriginEnum C.Enu{..} ->
-        getCNS "enum " enumDeclPath : map (getCNS "enum ") enumAliases
+        getCNS "enum " enumDeclPath : map (Just . getCNS_alias) enumAliases
       Hs.NewtypeOriginTypedef C.Typedef{..} ->
         [Just (CNameSpelling (getCName typedefName))]
       Hs.NewtypeOriginUnion C.Union{..} ->
-        getCNS "union " unionDeclPath : map (getCNS "union ") unionAliases
+        getCNS "union " unionDeclPath : map (Just . getCNS_alias) unionAliases
       Hs.NewtypeOriginMacro{} -> []
   where
     hsId :: HsIdentifier
@@ -115,3 +115,7 @@ getCNS prefix declPath = do
       C.DeclNameTag     cname -> Just $ CNameSpelling (prefix <> getCName cname)
       C.DeclNameTypedef cname -> Just $ CNameSpelling (getCName cname)
       C.DeclNameNone          -> Nothing
+
+getCNS_alias :: CName -> CNameSpelling
+getCNS_alias = CNameSpelling . getCName
+
