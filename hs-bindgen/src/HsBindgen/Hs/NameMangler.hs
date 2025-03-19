@@ -57,6 +57,7 @@ import Control.Exception
 import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
+import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 import Data.Text qualified as T
 import Numeric (showHex)
@@ -353,27 +354,24 @@ translateDeclPath
   where
     getCName' :: DeclPath -> Maybe CName
     getCName' = \case
-      DeclPathTop -> Nothing
-      DeclPathConstr declName _declPath -> case declName of
-        DeclNameNone         -> Nothing
-        DeclNameTag name     -> Just name
-        DeclNameTypedef name -> Just name
-      DeclPathPtr path -> getCName' path
-      DeclPathField{} -> Nothing
+      DeclPathAnon      _ctxt -> Nothing
+      DeclPathName name _ctxt -> Just name
 
 -- | Default 'DeclPath' translation
 getDeclPathParts :: DeclPath -> [CName]
-getDeclPathParts = aux
+getDeclPathParts = \case
+    DeclPathAnon ctxt    -> aux ctxt
+    DeclPathName n _ctxt -> [n]
   where
-    aux :: DeclPath -> [CName]
-    aux = \case
-      DeclPathTop -> ["ANONYMOUS"] -- shouldn't happen
-      DeclPathConstr declName path -> case declName of
-        DeclNameNone      -> aux path
-        DeclNameTag n     -> [n]
-        DeclNameTypedef n -> [n]
-      DeclPathField n path -> aux path ++ [n]
-      DeclPathPtr path -> aux path ++ ["Deref"]
+    aux :: DeclPathCtxt -> [CName]
+    aux DeclPathCtxtTop =
+        []
+    aux (DeclPathCtxtField struct field ctxt) =
+        aux ctxt ++ maybeToList struct ++ [field]
+    aux (DeclPathCtxtTypedef name) =
+        [name]
+    aux (DeclPathCtxtPtr ctxt) =
+        aux ctxt ++ ["Deref"]
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible

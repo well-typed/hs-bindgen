@@ -22,7 +22,7 @@ module HsBindgen.C.AST.Type (
   , Typedef(..)
     -- * DeclPath
   , DeclPath(..)
-  , DeclName(..)
+  , DeclPathCtxt(..)
   ) where
 
 import HsBindgen.Clang.HighLevel.Types (SingleLoc)
@@ -243,35 +243,62 @@ data Typedef = Typedef {
   DeclPath
 -------------------------------------------------------------------------------}
 
--- | Declaration path
+-- | Type declaration in context
 --
--- This type tracks how declarations are defined.  This information is used in
--- name mangling, external bindings generation, and test generation.
---
--- Syntax @struct {...}@ and @union {...}@ are /types/ that can be used in the
--- definition of a variable or field.  They may even be nested.  When in a
--- top-level declaration and given a name, like @struct foo {..}@ or
--- @union bar {..}@, they /also/ act as declarations in the global scope.  When
--- a @struct@ or @union@ is not given a name, the field name may be used in
--- creation of the corresponding Haskell name.
---
--- Note that @typedef@ declarations are /not/ part of a path.  Clang processes a
--- /separate/ @typedef@ AST node /after/ the underlying type has already been
--- processed.
-data DeclPath
-    = DeclPathTop
-    | DeclPathConstr DeclName DeclPath
-    | DeclPathField CName DeclPath
-    | DeclPathPtr DeclPath
-    -- TODO | DeclPathConstArray Natural Path
+-- C allows types to be declared in various contexts; we need to keep track of
+-- these contexts for name mangling, external bindings generation, and test
+-- generation.
+data DeclPath =
+    -- | Named type
+    DeclPathName CName DeclPathCtxt
+
+    -- | Anonymous type
+    --
+    -- TODO: Ideally we should be able to insist that we have a non-empty
+    -- context here.
+  | DeclPathAnon DeclPathCtxt
   deriving stock (Eq, Generic, Show)
 
--- | Declaration name
-data DeclName
-    = -- No name specified (anonymous)
-      DeclNameNone
-    | -- Structure/union tag specified
-      DeclNameTag CName
-    | -- Structure/union has no tag, but typedef name specified
-      DeclNameTypedef CName
+data DeclPathCtxt =
+    -- | Top-level declaration
+    --
+    -- Example:
+    --
+    -- > struct Foo { .. };
+    DeclPathCtxtTop
+
+    -- | Declaration inside a typedef
+    --
+    -- Example: @Foo_t@ is a typedef context for the declaration of @Foo@ in
+    --
+    -- > typedef struct Foo { .. } Foo_t;
+    --
+    -- The inner declaration might also be anonymous.
+    --
+    -- Since @typedef@ can only appear at the top-level, this constructor is
+    -- not recursive.
+  | DeclPathCtxtTypedef CName
+
+    -- | Declaration inside pointer definition
+    --
+    -- Example: this is the declaration of a pointer to an anonymous struct:
+    --
+    -- > typedef struct { char a; int b; } *Foo;
+  | DeclPathCtxtPtr DeclPathCtxt
+
+    -- | Declaration as part of a field in a struct
+    --
+    -- The declared type itself might be a struct, but could also be a union or
+    -- an enum.
+    --
+    -- Example: this is the declaration of an anonymous struct inside a field:
+    --
+    -- > struct outer {
+    -- >   struct { .. } field;
+    -- > };
+    --
+    -- We record the name of the struct (@outer@), if available (that is, if not
+    -- itself anonymous), as well as the name of the field (@field@); the field
+    -- name alone is not unique.
+  | DeclPathCtxtField (Maybe CName) CName DeclPathCtxt
   deriving stock (Eq, Generic, Show)

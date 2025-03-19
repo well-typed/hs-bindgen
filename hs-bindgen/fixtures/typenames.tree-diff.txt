@@ -2,9 +2,9 @@ Header
   [
     DeclEnum
       Enu {
-        enumDeclPath = DeclPathConstr
-          (DeclNameTag (CName "foo"))
-          DeclPathTop,
+        enumDeclPath = DeclPathName
+          (CName "foo")
+          DeclPathCtxtTop,
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),

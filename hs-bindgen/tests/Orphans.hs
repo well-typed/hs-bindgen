@@ -41,8 +41,8 @@ instance ToExpr CInt where
 instance ToExpr C.Attribute
 instance ToExpr C.CName
 instance ToExpr C.Decl
-instance ToExpr C.DeclName
 instance ToExpr C.DeclPath
+instance ToExpr C.DeclPathCtxt
 instance ToExpr C.Enu
 instance ToExpr C.EnumValue
 instance ToExpr C.Function

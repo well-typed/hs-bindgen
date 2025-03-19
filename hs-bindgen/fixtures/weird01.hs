@@ -20,9 +20,10 @@
             [
               TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTag (CName "bar"))
-                    (DeclPathPtr DeclPathTop)))]
+                  (DeclPathName
+                    (CName "bar")
+                    (DeclPathCtxtPtr
+                      DeclPathCtxtTop)))]
             TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
@@ -55,9 +56,9 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag (CName "foo"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "foo")
+            DeclPathCtxtTop,
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -102,9 +103,9 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag (CName "foo"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "foo")
+              DeclPathCtxtTop,
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -154,9 +155,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "foo"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "foo")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -206,9 +207,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "foo"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "foo")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -267,9 +268,10 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag (CName "bar"))
-            (DeclPathPtr DeclPathTop),
+          structDeclPath = DeclPathName
+            (CName "bar")
+            (DeclPathCtxtPtr
+              DeclPathCtxtTop),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -314,9 +316,10 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag (CName "bar"))
-              (DeclPathPtr DeclPathTop),
+            structDeclPath = DeclPathName
+              (CName "bar")
+              (DeclPathCtxtPtr
+                DeclPathCtxtTop),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -366,9 +369,10 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "bar"))
-                      (DeclPathPtr DeclPathTop),
+                    structDeclPath = DeclPathName
+                      (CName "bar")
+                      (DeclPathCtxtPtr
+                        DeclPathCtxtTop),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -418,9 +422,10 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "bar"))
-                      (DeclPathPtr DeclPathTop),
+                    structDeclPath = DeclPathName
+                      (CName "bar")
+                      (DeclPathCtxtPtr
+                        DeclPathCtxtTop),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,

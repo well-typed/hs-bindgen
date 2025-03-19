@@ -290,11 +290,10 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTypedef
+          structDeclPath = DeclPathAnon
+            (DeclPathCtxtTypedef
               (CName
-                "another_typedef_struct_t"))
-            DeclPathTop,
+                "another_typedef_struct_t")),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
@@ -363,11 +362,10 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTypedef
+            structDeclPath = DeclPathAnon
+              (DeclPathCtxtTypedef
                 (CName
-                  "another_typedef_struct_t"))
-              DeclPathTop,
+                  "another_typedef_struct_t")),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
@@ -441,11 +439,10 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTypedef
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtTypedef
                         (CName
-                          "another_typedef_struct_t"))
-                      DeclPathTop,
+                          "another_typedef_struct_t")),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -521,11 +518,10 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTypedef
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtTypedef
                         (CName
-                          "another_typedef_struct_t"))
-                      DeclPathTop,
+                          "another_typedef_struct_t")),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -587,11 +583,10 @@
       newtypeOrigin =
       NewtypeOriginEnum
         Enu {
-          enumDeclPath = DeclPathConstr
-            (DeclNameTypedef
+          enumDeclPath = DeclPathAnon
+            (DeclPathCtxtTypedef
               (CName
-                "another_typedef_enum_e"))
-            DeclPathTop,
+                "another_typedef_enum_e")),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -629,11 +624,10 @@
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
-            enumDeclPath = DeclPathConstr
-              (DeclNameTypedef
+            enumDeclPath = DeclPathAnon
+              (DeclPathCtxtTypedef
                 (CName
-                  "another_typedef_enum_e"))
-              DeclPathTop,
+                  "another_typedef_enum_e")),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -676,11 +670,10 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumDeclPath = DeclPathConstr
-                      (DeclNameTypedef
+                    enumDeclPath = DeclPathAnon
+                      (DeclPathCtxtTypedef
                         (CName
-                          "another_typedef_enum_e"))
-                      DeclPathTop,
+                          "another_typedef_enum_e")),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -723,11 +716,10 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumDeclPath = DeclPathConstr
-                      (DeclNameTypedef
+                    enumDeclPath = DeclPathAnon
+                      (DeclPathCtxtTypedef
                         (CName
-                          "another_typedef_enum_e"))
-                      DeclPathTop,
+                          "another_typedef_enum_e")),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -844,11 +836,10 @@
           typedefName = CName
             "another_typedef_enum_e",
           typedefType = TypeEnum
-            (DeclPathConstr
-              (DeclNameTypedef
+            (DeclPathAnon
+              (DeclPathCtxtTypedef
                 (CName
-                  "another_typedef_enum_e"))
-              DeclPathTop),
+                  "another_typedef_enum_e"))),
           typedefSourceLoc =
           "distilled_lib_1.h:9:27"}},
   DeclNewtypeInstance
@@ -1457,11 +1448,10 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  (DeclNameTypedef
+                (DeclPathAnon
+                  (DeclPathCtxtTypedef
                     (CName
-                      "another_typedef_struct_t"))
-                  DeclPathTop),
+                      "another_typedef_struct_t"))),
               fieldSourceLoc =
               "distilled_lib_1.h:40:31"}},
         Field {
@@ -1481,11 +1471,10 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTypedef
+                  (DeclPathAnon
+                    (DeclPathCtxtTypedef
                       (CName
-                        "another_typedef_struct_t"))
-                    DeclPathTop)),
+                        "another_typedef_struct_t")))),
               fieldSourceLoc =
               "distilled_lib_1.h:41:31"}},
         Field {
@@ -1598,10 +1587,9 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag
-              (CName "a_typedef_struct"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "a_typedef_struct")
+            DeclPathCtxtTop,
           structAliases = [],
           structSizeof = 140,
           structAlignment = 1,
@@ -1642,11 +1630,10 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  (DeclNameTypedef
+                (DeclPathAnon
+                  (DeclPathCtxtTypedef
                     (CName
-                      "another_typedef_struct_t"))
-                  DeclPathTop),
+                      "another_typedef_struct_t"))),
               fieldSourceLoc =
               "distilled_lib_1.h:40:31"},
             StructField {
@@ -1655,11 +1642,10 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTypedef
+                  (DeclPathAnon
+                    (DeclPathCtxtTypedef
                       (CName
-                        "another_typedef_struct_t"))
-                    DeclPathTop)),
+                        "another_typedef_struct_t")))),
               fieldSourceLoc =
               "distilled_lib_1.h:41:31"},
             StructField {
@@ -1810,11 +1796,10 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTypedef
+                  (DeclPathAnon
+                    (DeclPathCtxtTypedef
                       (CName
-                        "another_typedef_struct_t"))
-                    DeclPathTop),
+                        "another_typedef_struct_t"))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:40:31"}},
           Field {
@@ -1834,11 +1819,10 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathConstr
-                      (DeclNameTypedef
+                    (DeclPathAnon
+                      (DeclPathCtxtTypedef
                         (CName
-                          "another_typedef_struct_t"))
-                      DeclPathTop)),
+                          "another_typedef_struct_t")))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:41:31"}},
           Field {
@@ -1951,10 +1935,9 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag
-                (CName "a_typedef_struct"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "a_typedef_struct")
+              DeclPathCtxtTop,
             structAliases = [],
             structSizeof = 140,
             structAlignment = 1,
@@ -1995,11 +1978,10 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTypedef
+                  (DeclPathAnon
+                    (DeclPathCtxtTypedef
                       (CName
-                        "another_typedef_struct_t"))
-                    DeclPathTop),
+                        "another_typedef_struct_t"))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:40:31"},
               StructField {
@@ -2008,11 +1990,10 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathConstr
-                      (DeclNameTypedef
+                    (DeclPathAnon
+                      (DeclPathCtxtTypedef
                         (CName
-                          "another_typedef_struct_t"))
-                      DeclPathTop)),
+                          "another_typedef_struct_t")))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:41:31"},
               StructField {
@@ -2168,11 +2149,10 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            (DeclNameTypedef
+                          (DeclPathAnon
+                            (DeclPathCtxtTypedef
                               (CName
-                                "another_typedef_struct_t"))
-                            DeclPathTop),
+                                "another_typedef_struct_t"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:40:31"}},
                   Field {
@@ -2192,11 +2172,10 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTypedef
+                            (DeclPathAnon
+                              (DeclPathCtxtTypedef
                                 (CName
-                                  "another_typedef_struct_t"))
-                              DeclPathTop)),
+                                  "another_typedef_struct_t")))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:41:31"}},
                   Field {
@@ -2309,10 +2288,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "a_typedef_struct"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "a_typedef_struct")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 140,
                     structAlignment = 1,
@@ -2353,11 +2331,10 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            (DeclNameTypedef
+                          (DeclPathAnon
+                            (DeclPathCtxtTypedef
                               (CName
-                                "another_typedef_struct_t"))
-                            DeclPathTop),
+                                "another_typedef_struct_t"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:40:31"},
                       StructField {
@@ -2366,11 +2343,10 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTypedef
+                            (DeclPathAnon
+                              (DeclPathCtxtTypedef
                                 (CName
-                                  "another_typedef_struct_t"))
-                              DeclPathTop)),
+                                  "another_typedef_struct_t")))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:41:31"},
                       StructField {
@@ -2537,11 +2513,10 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            (DeclNameTypedef
+                          (DeclPathAnon
+                            (DeclPathCtxtTypedef
                               (CName
-                                "another_typedef_struct_t"))
-                            DeclPathTop),
+                                "another_typedef_struct_t"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:40:31"}},
                   Field {
@@ -2561,11 +2536,10 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTypedef
+                            (DeclPathAnon
+                              (DeclPathCtxtTypedef
                                 (CName
-                                  "another_typedef_struct_t"))
-                              DeclPathTop)),
+                                  "another_typedef_struct_t")))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:41:31"}},
                   Field {
@@ -2678,10 +2652,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "a_typedef_struct"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "a_typedef_struct")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 140,
                     structAlignment = 1,
@@ -2722,11 +2695,10 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            (DeclNameTypedef
+                          (DeclPathAnon
+                            (DeclPathCtxtTypedef
                               (CName
-                                "another_typedef_struct_t"))
-                            DeclPathTop),
+                                "another_typedef_struct_t"))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:40:31"},
                       StructField {
@@ -2735,11 +2707,10 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTypedef
+                            (DeclPathAnon
+                              (DeclPathCtxtTypedef
                                 (CName
-                                  "another_typedef_struct_t"))
-                              DeclPathTop)),
+                                  "another_typedef_struct_t")))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:41:31"},
                       StructField {
@@ -2848,10 +2819,9 @@
           typedefName = CName
             "a_typedef_struct_t",
           typedefType = TypeStruct
-            (DeclPathConstr
-              (DeclNameTag
-                (CName "a_typedef_struct"))
-              DeclPathTop),
+            (DeclPathName
+              (CName "a_typedef_struct")
+              DeclPathCtxtTop),
           typedefSourceLoc =
           "distilled_lib_1.h:47:3"}},
   DeclNewtypeInstance
@@ -2878,10 +2848,9 @@
       newtypeOrigin =
       NewtypeOriginEnum
         Enu {
-          enumDeclPath = DeclPathConstr
-            (DeclNameTypedef
-              (CName "a_typedef_enum_e"))
-            DeclPathTop,
+          enumDeclPath = DeclPathAnon
+            (DeclPathCtxtTypedef
+              (CName "a_typedef_enum_e")),
           enumAliases = [],
           enumType = TypePrim
             (PrimChar (Just Unsigned)),
@@ -2929,10 +2898,9 @@
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
-            enumDeclPath = DeclPathConstr
-              (DeclNameTypedef
-                (CName "a_typedef_enum_e"))
-              DeclPathTop,
+            enumDeclPath = DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName "a_typedef_enum_e")),
             enumAliases = [],
             enumType = TypePrim
               (PrimChar (Just Unsigned)),
@@ -2985,10 +2953,9 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumDeclPath = DeclPathConstr
-                      (DeclNameTypedef
-                        (CName "a_typedef_enum_e"))
-                      DeclPathTop,
+                    enumDeclPath = DeclPathAnon
+                      (DeclPathCtxtTypedef
+                        (CName "a_typedef_enum_e")),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimChar (Just Unsigned)),
@@ -3041,10 +3008,9 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumDeclPath = DeclPathConstr
-                      (DeclNameTypedef
-                        (CName "a_typedef_enum_e"))
-                      DeclPathTop,
+                    enumDeclPath = DeclPathAnon
+                      (DeclPathCtxtTypedef
+                        (CName "a_typedef_enum_e")),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimChar (Just Unsigned)),
@@ -3209,10 +3175,9 @@
           typedefName = CName
             "a_typedef_enum_e",
           typedefType = TypeEnum
-            (DeclPathConstr
-              (DeclNameTypedef
-                (CName "a_typedef_enum_e"))
-              DeclPathTop),
+            (DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName "a_typedef_enum_e"))),
           typedefSourceLoc =
           "distilled_lib_1.h:66:13"}},
   DeclNewtypeInstance
