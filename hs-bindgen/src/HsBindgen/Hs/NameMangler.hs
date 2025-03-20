@@ -14,17 +14,13 @@ module HsBindgen.Hs.NameMangler (
   , translateName
   , translateDeclPath
   , getDeclPathParts
-  , camelCaseCName
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
   ) where
 
-import Data.Char qualified as Char
-import Data.List qualified as List
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
-import Data.Text qualified as T
 
 import HsBindgen.C.AST
 import HsBindgen.Hs.AST.Name
@@ -66,14 +62,12 @@ defaultNameMangler = NameMangler{..}
     mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
-          id
           generateName
           DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           [ctxTypeConstrCName]
       StructTypeConstrContext{..} ->
         translateDeclPath
-          id
           generateName
           DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
@@ -87,7 +81,6 @@ defaultNameMangler = NameMangler{..}
     mangleVarContext = \case
       VarContext{..} ->
         translateName
-          id
           generateName
           DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
@@ -96,7 +89,6 @@ defaultNameMangler = NameMangler{..}
         HsName $ "un" <> getHsName (mangleTypeConstrContext ctxEnumVarTypeCtx)
       FieldVarContext{..} ->
         translateName
-          id
           generateName
           DSL.overridesNone
           handleReservedNone  -- not needed since contains underscore
@@ -123,7 +115,8 @@ haskellNameMangler = NameMangler{..}
   where
     generateName :: DSL.GenerateName
     generateName = DSL.GenerateName{
-          onInvalidChar = DSL.dropInvalidChar
+          processCName  = DSL.camelCaseCName
+        , onInvalidChar = DSL.dropInvalidChar
         , joinNames     = DSL.joinNamesCamelCase
         , applyRuleSet  = DSL.modifyFirstLetter DSL.dropInvalidFirst
         }
@@ -132,7 +125,6 @@ haskellNameMangler = NameMangler{..}
     mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
-          camelCaseCName
           generateName
           DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
@@ -141,7 +133,6 @@ haskellNameMangler = NameMangler{..}
           ]
       StructTypeConstrContext{..} ->
         translateDeclPath
-          camelCaseCName
           generateName
           DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
@@ -155,7 +146,6 @@ haskellNameMangler = NameMangler{..}
     mangleVarContext = \case
       VarContext{..} ->
         translateName
-          camelCaseCName
           generateName
           DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
@@ -164,7 +154,6 @@ haskellNameMangler = NameMangler{..}
         HsName $ "un" <> getHsName (mangleTypeConstrContext ctxEnumVarTypeCtx)
       FieldVarContext{..} ->
         translateName
-          camelCaseCName
           generateName
           DSL.overridesNone
           handleReservedNone
@@ -209,18 +198,16 @@ haskellNameMangler = NameMangler{..}
 -- in this module: 'handleReservedNone' and 'handleReservedNames'.
 translateName ::
      SingNamespace ns
-  => (CName -> CName)         -- ^ Translate a 'CName'
-  -> DSL.GenerateName         -- ^ Construct an 'HsName'
+  => DSL.GenerateName         -- ^ Construct an 'HsName'
   -> DSL.Overrides            -- ^ Override translation
   -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> [CName] -> HsName ns
 translateName
-  translate
   mkHsName
   overrides
   handleReserved
   cnames =
-    let name = DSL.generateName mkHsName $ map translate cnames
+    let name = DSL.generateName mkHsName cnames
     in  handleReserved $ DSL.useOverride cnames name $
           DSL.override overrides cnames name
 
@@ -232,20 +219,18 @@ translateName
 -- See 'translateName' for documentation of the other parameters.
 translateDeclPath ::
      SingNamespace ns
-  => (CName -> CName)         -- ^ Translate a 'CName'
-  -> DSL.GenerateName         -- ^ Construct an 'HsName'
+  => DSL.GenerateName         -- ^ Construct an 'HsName'
   -> DSL.Overrides            -- ^ Override translation
   -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> DeclPath
   -> HsName ns
 translateDeclPath
-  translate
   mkHsName
   overrides
   handleReserved
   declPath =
     let cnames = getDeclPathParts declPath
-        name   = DSL.generateName mkHsName $ map translate cnames
+        name   = DSL.generateName mkHsName cnames
     in  handleReserved $ DSL.useOverride cnames name $
           DSL.override overrides cnames name
 
@@ -265,28 +250,6 @@ getDeclPathParts = \case
     aux (DeclPathCtxtPtr ctxt) =
         aux ctxt ++ ["Deref"]
 
--- | Translate a C name to a Haskell name, converting from @snake_case@ to
--- @camelCase@
---
--- Leading and trailing underscores are assumed to have special meaning and
--- are preserved.  All other underscores are removed.  Letters following
--- (preserved or removed) underscores are changed to uppercase.
-camelCaseCName :: CName -> CName
-camelCaseCName = CName . T.pack . start False . T.unpack . getCName
-  where
-    start :: Bool -> String -> String
-    start isUp = \case
-      c:cs
-        | c == '_'  -> c : start True cs
-        | otherwise -> (if isUp then Char.toUpper c else c) : aux 0 cs
-      []            -> []
-
-    aux :: Int -> String -> String
-    aux !numUs = \case
-      c:cs
-        | c == '_'  -> aux (numUs + 1) cs
-        | otherwise -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
-      []            -> List.replicate numUs '_'
 
 -- | Do not handle reserved names
 handleReservedNone :: HsName ns -> HsName ns

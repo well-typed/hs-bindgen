@@ -2,6 +2,8 @@
 module HsBindgen.Hs.NameMangler.DSL.GenerateName (
     GenerateName(..)
   , defaultGenerateName
+    -- * Process C names
+  , camelCaseCName
     -- * Dealing with invalid characters
   , dropInvalidChar
   , escapeInvalidChar
@@ -22,6 +24,7 @@ module HsBindgen.Hs.NameMangler.DSL.GenerateName (
   ) where
 
 import Data.Char qualified as Char
+import Data.List qualified as List
 import Data.Proxy
 import Data.Text qualified as Text
 import Numeric (showHex)
@@ -41,10 +44,13 @@ import HsBindgen.Imports
 -- circumstances in which we cannot generate a name). When this happens, we
 -- require a name override.
 data GenerateName = GenerateName {
+      -- | Process C names prior to further name generation
+      processCName :: CName -> CName
+
       -- | Process invalid characters
       --
       -- Called on characters that are invalid anywhere in a Haskell identifier.
-      onInvalidChar :: Char -> String
+    , onInvalidChar :: Char -> String
 
       -- | Combine multiple C names
     , joinNames :: [Text] -> Text
@@ -55,10 +61,38 @@ data GenerateName = GenerateName {
 
 defaultGenerateName :: GenerateName
 defaultGenerateName = GenerateName {
-      onInvalidChar = escapeInvalidChar
+      processCName  = id
+    , onInvalidChar = escapeInvalidChar
     , joinNames     = joinNamesSnakeCase
     , applyRuleSet  = modifyFirstLetter (prefixInvalidFirst "C")
     }
+
+{-------------------------------------------------------------------------------
+  Process C names
+-------------------------------------------------------------------------------}
+
+-- | Converting from @snake_case@ to @camelCase@
+--
+-- Leading and trailing underscores are assumed to have special meaning and
+-- are preserved.  All other underscores are removed.  Letters following
+-- (preserved or removed) underscores are changed to uppercase.
+camelCaseCName :: CName -> CName
+camelCaseCName =
+    CName . Text.pack . start False . Text.unpack . getCName
+  where
+    start :: Bool -> String -> String
+    start isUp = \case
+      c:cs
+        | c == '_'  -> c : start True cs
+        | otherwise -> (if isUp then Char.toUpper c else c) : aux 0 cs
+      []            -> []
+
+    aux :: Int -> String -> String
+    aux !numUs = \case
+      c:cs
+        | c == '_'  -> aux (numUs + 1) cs
+        | otherwise -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
+      []            -> List.replicate numUs '_'
 
 {-------------------------------------------------------------------------------
   Dealing with invalid characters
@@ -185,10 +219,15 @@ dropInvalidFirst _nonletters rest = do
 generateName ::
      SingNamespace ns
   => GenerateName -> [CName] -> Maybe (HsName ns)
-generateName GenerateName{onInvalidChar, joinNames, applyRuleSet} =
+generateName GenerateName{
+                processCName
+              , onInvalidChar
+              , joinNames
+              , applyRuleSet
+              } =
       applyRuleSet
     . joinNames
-    . map (processInvalidChars . getCName)
+    . map (processInvalidChars . getCName . processCName)
   where
     processInvalidChars :: Text -> Text
     processInvalidChars = Text.pack . go . Text.unpack
