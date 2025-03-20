@@ -63,7 +63,7 @@ library
 
   exposed-modules:
       HsBindgen.Hs.NameMangler
-      HsBindgen.Hs.NameMangler.Easy
+      HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Lib
       HsBindgen.TH
   exposed-modules:
@@ -108,6 +108,10 @@ library
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
+      HsBindgen.Hs.NameMangler.API
+      HsBindgen.Hs.NameMangler.DSL.ReservedNames
+      HsBindgen.Hs.NameMangler.DSL.GenerateName
+      HsBindgen.Hs.NameMangler.DSL.Overrides
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Orphans
