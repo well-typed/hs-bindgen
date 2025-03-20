@@ -63,6 +63,7 @@ library
 
   exposed-modules:
       HsBindgen.Hs.NameMangler
+      HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Lib
       HsBindgen.TH
   exposed-modules:
