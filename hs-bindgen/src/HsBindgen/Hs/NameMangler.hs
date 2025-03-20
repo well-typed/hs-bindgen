@@ -16,9 +16,6 @@ module HsBindgen.Hs.NameMangler (
   , getDeclPathParts
   , maintainCName
   , camelCaseCName
-  , dropInvalidChar
-  , escapeInvalidChar
-  , isValidChar
   , handleReservedNone
   , handleReservedNames
   , appendSingleQuote
@@ -29,7 +26,6 @@ import Data.List qualified as List
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 import Data.Text qualified as T
-import Numeric (showHex)
 
 import HsBindgen.C.AST
 import HsBindgen.Hs.AST.Name
@@ -68,7 +64,7 @@ defaultNameMangler = NameMangler{..}
     mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
-          (maintainCName escapeInvalidChar)
+          maintainCName
           Nothing
           (DSL.mkHsNamePrefixInvalid "C")
           DSL.handleOverrideNone
@@ -76,7 +72,7 @@ defaultNameMangler = NameMangler{..}
           ctxTypeConstrCName
       StructTypeConstrContext{..} ->
         translateDeclPath
-          (maintainCName escapeInvalidChar)
+          maintainCName
           DSL.joinWithSnakeCase
           (DSL.mkHsNamePrefixInvalid "C")
           DSL.handleOverrideNone
@@ -91,7 +87,7 @@ defaultNameMangler = NameMangler{..}
     mangleVarContext = \case
       VarContext{..} ->
         translateName
-          (maintainCName escapeInvalidChar)
+          maintainCName
           Nothing
           DSL.mkHsVarName
           DSL.handleOverrideNone
@@ -101,7 +97,7 @@ defaultNameMangler = NameMangler{..}
         HsName $ "un" <> getHsName (mangleTypeConstrContext ctxEnumVarTypeCtx)
       FieldVarContext{..} ->
         translateName
-          (maintainCName escapeInvalidChar)
+          maintainCName
           (Just $ DSL.joinWithSnakeCase{DSL.extraPrefixes =
               [getHsName (mangleTypeConstrContext ctxFieldVarTypeCtx)]
             })
@@ -131,17 +127,21 @@ haskellNameMangler = NameMangler{..}
     mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
-          (camelCaseCName dropInvalidChar)
+          camelCaseCName
           (Just $ DSL.joinWithCamelCase{DSL.extraPrefixes = ["C"]})
-          DSL.mkHsNameDropInvalid
+          (DSL.mkHsNameDropInvalid{
+              DSL.onInvalid = DSL.dropInvalidChar
+            })
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxTypeConstrCName
       StructTypeConstrContext{..} ->
         translateDeclPath
-          (camelCaseCName dropInvalidChar)
+          camelCaseCName
           DSL.joinWithCamelCase
-          (DSL.mkHsNamePrefixInvalid "C")
+          ((DSL.mkHsNamePrefixInvalid "C"){
+              DSL.onInvalid = DSL.dropInvalidChar
+            })
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxStructTypeConstrDeclPath
@@ -154,9 +154,11 @@ haskellNameMangler = NameMangler{..}
     mangleVarContext = \case
       VarContext{..} ->
         translateName
-          (camelCaseCName dropInvalidChar)
+          camelCaseCName
           Nothing
-          DSL.mkHsVarName
+          (DSL.mkHsVarName{
+              DSL.onInvalid = DSL.dropInvalidChar
+            })
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
           ctxVarCName
@@ -164,11 +166,13 @@ haskellNameMangler = NameMangler{..}
         HsName $ "un" <> getHsName (mangleTypeConstrContext ctxEnumVarTypeCtx)
       FieldVarContext{..} ->
         translateName
-          (camelCaseCName dropInvalidChar)
+          camelCaseCName
           (Just $ DSL.joinWithCamelCase{DSL.extraPrefixes =
                [getHsName (mangleTypeConstrContext ctxFieldVarTypeCtx)]
              })
-          DSL.mkHsVarName
+          (DSL.mkHsVarName{
+               DSL.onInvalid = DSL.dropInvalidChar
+            })
           DSL.handleOverrideNone
           handleReservedNone
           ctxFieldVarCName
@@ -279,24 +283,8 @@ getDeclPathParts = \case
 
 -- | Translate a C name to a Haskell name, making it as close to the C name as
 -- possible
---
--- The invalid character function must return a 'String' that only contains
--- valid characters.  Two invalid character functions are provided in this
--- module: 'dropInvalidChar' and 'escapeInvalidChar'.
---
--- Note that a single quote (@'@) is not valid in C names, and it is handled
--- specially.  Any single quotes in the input are treated as invalid.
-maintainCName ::
-     (Char -> String) -- ^ invalid character function
-  -> CName
-  -> Text
-maintainCName f = T.pack . aux . T.unpack . getCName
-  where
-    aux :: String -> String
-    aux (c:cs)
-      | isValidChar c = c : aux cs
-      | otherwise     = f c ++ aux cs
-    aux []            = ""
+maintainCName :: CName -> Text
+maintainCName = getCName
 
 -- | Translate a C name to a Haskell name, converting from @snake_case@ to
 -- @camelCase@
@@ -304,52 +292,22 @@ maintainCName f = T.pack . aux . T.unpack . getCName
 -- Leading and trailing underscores are assumed to have special meaning and
 -- are preserved.  All other underscores are removed.  Letters following
 -- (preserved or removed) underscores are changed to uppercase.
---
--- The invalid character function must return a 'String' that only contains
--- valid characters.  Two invalid character functions are provided in this
--- module: 'dropInvalidChar' and 'escapeInvalidChar'.
---
--- Note that a single quote (@'@) is not valid in C names, and it is handled
--- specially.  Any single quotes in the input are treated as invalid.
-camelCaseCName :: (Char -> String) -> CName -> Text
-camelCaseCName f = T.pack . start False . T.unpack . getCName
+camelCaseCName :: CName -> Text
+camelCaseCName = T.pack . start False . T.unpack . getCName
   where
     start :: Bool -> String -> String
     start isUp = \case
       c:cs
-        | c == '_'      -> c : start True cs
-        | isValidChar c -> (if isUp then Char.toUpper c else c) : aux 0 cs
-        | otherwise     -> f c ++ aux 0 cs
-      []                -> []
+        | c == '_'  -> c : start True cs
+        | otherwise -> (if isUp then Char.toUpper c else c) : aux 0 cs
+      []            -> []
 
     aux :: Int -> String -> String
     aux !numUs = \case
       c:cs
-        | c == '_'      -> aux (numUs + 1) cs
-        | isValidChar c -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
-        | otherwise     -> f c ++ aux 0 cs
-      []                -> List.replicate numUs '_'
-
--- | Drop invalid characters
-dropInvalidChar :: Char -> String
-dropInvalidChar = const ""
-
--- | Escape invalid characters
---
--- An invalid character transformed to a single quote (@'@) followed by the
--- Unicode code point (four lowercase hex digits).
-escapeInvalidChar :: Char -> String
-escapeInvalidChar c =
-    let hex = showHex (Char.ord c) ""
-    in  '\'' : replicate (max 0 (4 - length hex)) '0' ++ hex
-
--- | Valid character predicate
---
--- Since 'escapeInvalidChar' uses the single quote (@'@) as an escape
--- character, it is treated specially.  It should never occur in a 'CName',
--- and this predicate does not consider it valid.
-isValidChar :: Char -> Bool
-isValidChar c = Char.isAlphaNum c || c == '_'
+        | c == '_'  -> aux (numUs + 1) cs
+        | otherwise -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
+      []            -> List.replicate numUs '_'
 
 -- | Do not handle reserved names
 handleReservedNone :: HsName ns -> HsName ns

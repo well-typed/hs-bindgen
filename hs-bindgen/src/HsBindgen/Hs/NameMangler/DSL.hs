@@ -29,6 +29,9 @@ module HsBindgen.Hs.NameMangler.DSL (
   , NameRuleSet(..)
   , NamespaceRuleSet
   , GenerateName(..)
+  , generateName
+  , dropInvalidChar
+  , escapeInvalidChar
   , mkHsNamePrefixInvalid
   , mkHsNameDropInvalid
   , mkHsVarName
@@ -47,6 +50,7 @@ import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Text (Text)
 import Data.Text qualified as Text
+import Numeric (showHex)
 
 import HsBindgen.C.AST
 import HsBindgen.Errors
@@ -270,22 +274,61 @@ maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
   Constructing Haskell identifiers
 -------------------------------------------------------------------------------}
 
--- | Generate name
---
--- Name generation is allowed to fail (depending on the policy, there are
--- circumstances in which we cannot generate a name). When this happens, we
--- require a name override.
+-- | Generate Haskell name from C name
 data GenerateName ns = GenerateName {
-      generateName :: Text -> Maybe (HsName ns)
+      -- | Process invalid characters
+      --
+      -- Called on characters that are invalid anywhere in a Haskell identifier.
+      -- Defaults to 'escapeInvalidChar'; see also 'dropInvalidChar'.
+      onInvalid :: Char -> String
+
+      -- | Generate the final name, after other processing is complete
+      --
+      -- Name generation is allowed to fail (depending on the policy, there are
+      -- circumstances in which we cannot generate a name). When this happens,
+      -- we require a name override.
+    , generateFinalName :: Text -> Maybe (HsName ns)
     }
+
+generateName :: GenerateName ns -> Text -> Maybe (HsName ns)
+generateName GenerateName{onInvalid, generateFinalName} =
+      generateFinalName
+    . processInvalid
+  where
+    processInvalid :: Text -> Text
+    processInvalid = Text.pack . go . Text.unpack
+      where
+        go :: String -> String
+        go (c:cs)
+          | isValidChar c = c : go cs
+          | otherwise     = onInvalid c ++ go cs
+        go []            = ""
+
+        isValidChar :: Char -> Bool
+        isValidChar c = Char.isAlphaNum c || c == '_'
 
 mkGenerateName ::
      (Text -> Maybe (HsName ns))
      -- ^ Produce the final name
   -> GenerateName ns
 mkGenerateName generateFinalName = GenerateName {
-      generateName = generateFinalName
+      onInvalid = escapeInvalidChar
+    , generateFinalName
     }
+
+-- | Drop invalid characters
+dropInvalidChar :: Char -> String
+dropInvalidChar = const ""
+
+-- | Escape invalid characters
+--
+-- An invalid character transformed to a single quote (@'@) followed by the
+-- Unicode code point (four lowercase hex digits).
+escapeInvalidChar :: Char -> String
+escapeInvalidChar c =
+    let hex = showHex (Char.ord c) ""
+    in  '\'' : replicate (max 0 (4 - length hex)) '0' ++ hex
+
 
 data NameRuleSet =
     -- | Variables and type variables
