@@ -68,14 +68,14 @@ defaultNameMangler = NameMangler{..}
         translateName
           id
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           [ctxTypeConstrCName]
       StructTypeConstrContext{..} ->
         translateDeclPath
           id
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxStructTypeConstrDeclPath
 
@@ -89,7 +89,7 @@ defaultNameMangler = NameMangler{..}
         translateName
           id
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
           [ctxVarCName]
       EnumVarContext{..} ->
@@ -98,7 +98,7 @@ defaultNameMangler = NameMangler{..}
         translateName
           id
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           handleReservedNone  -- not needed since contains underscore
           [ CName . getHsName $ mangleTypeConstrContext ctxFieldVarTypeCtx
           , ctxFieldVarCName
@@ -134,7 +134,7 @@ haskellNameMangler = NameMangler{..}
         translateName
           camelCaseCName
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           [ "C"
           , ctxTypeConstrCName
@@ -143,7 +143,7 @@ haskellNameMangler = NameMangler{..}
         translateDeclPath
           camelCaseCName
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxStructTypeConstrDeclPath
 
@@ -157,7 +157,7 @@ haskellNameMangler = NameMangler{..}
         translateName
           camelCaseCName
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
           [ctxVarCName]
       EnumVarContext{..} ->
@@ -166,7 +166,7 @@ haskellNameMangler = NameMangler{..}
         translateName
           camelCaseCName
           generateName
-          DSL.handleOverrideNone
+          DSL.overridesNone
           handleReservedNone
           [ CName . getHsName $ mangleTypeConstrContext ctxFieldVarTypeCtx
           , ctxFieldVarCName
@@ -201,7 +201,7 @@ haskellNameMangler = NameMangler{..}
 --
 -- The override function may be used to override translations of Haskell names.
 -- The returned Haskell name must be valid for the specified namespace.  Two
--- override functions are provided in this module: 'handleOverrideNone' and
+-- override functions are provided in this module: 'overridesNone' and
 -- 'handleOverrideMap'.
 --
 -- The reserved name function may be used to change names that would cause
