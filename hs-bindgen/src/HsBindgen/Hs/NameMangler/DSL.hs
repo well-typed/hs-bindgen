@@ -29,12 +29,13 @@ module HsBindgen.Hs.NameMangler.DSL (
   , NameRuleSet(..)
   , NamespaceRuleSet
   , GenerateName(..)
+  , defaultGenerateName
   , generateName
+  , modifyFirstLetter
   , dropInvalidChar
   , escapeInvalidChar
-  , mkHsNamePrefixInvalid
-  , mkHsNameDropInvalid
-  , mkHsVarName
+  , prefixInvalidFirst
+  , dropInvalidFirst
     -- * Overrides
   , Overrides(..)
   , handleOverrideNone
@@ -44,17 +45,16 @@ module HsBindgen.Hs.NameMangler.DSL (
 
 import Control.Exception
 import Data.Char qualified as Char
-import Data.Map (Map)
 import Data.Map qualified as Map
-import Data.Set (Set)
 import Data.Set qualified as Set
-import Data.Text (Text)
 import Data.Text qualified as Text
 import Numeric (showHex)
 
 import HsBindgen.C.AST
 import HsBindgen.Errors
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Imports
+import Data.Proxy
 
 {-------------------------------------------------------------------------------
   Reserved Names
@@ -275,46 +275,79 @@ maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
 -------------------------------------------------------------------------------}
 
 -- | Generate Haskell name from C name
-data GenerateName ns = GenerateName {
+--
+-- Name generation is allowed to fail (depending on the policy, there are
+-- circumstances in which we cannot generate a name). When this happens, we
+-- require a name override.
+data GenerateName = GenerateName {
       -- | Process invalid characters
       --
       -- Called on characters that are invalid anywhere in a Haskell identifier.
-      -- Defaults to 'escapeInvalidChar'; see also 'dropInvalidChar'.
-      onInvalid :: Char -> String
+      onInvalidChar :: Char -> String
 
-      -- | Generate the final name, after other processing is complete
-      --
-      -- Name generation is allowed to fail (depending on the policy, there are
-      -- circumstances in which we cannot generate a name). When this happens,
-      -- we require a name override.
-    , generateFinalName :: Text -> Maybe (HsName ns)
+      -- | Make the name conform to the name rule set
+    , applyRuleSet :: forall ns. SingNamespace ns => Text -> Maybe (HsName ns)
     }
 
-generateName :: GenerateName ns -> Text -> Maybe (HsName ns)
-generateName GenerateName{onInvalid, generateFinalName} =
-      generateFinalName
-    . processInvalid
+defaultGenerateName :: GenerateName
+defaultGenerateName = GenerateName {
+      onInvalidChar = escapeInvalidChar
+    , applyRuleSet  = modifyFirstLetter (prefixInvalidFirst "C")
+    }
+
+generateName ::
+     SingNamespace ns
+  => GenerateName -> CName -> Maybe (HsName ns)
+generateName GenerateName{onInvalidChar, applyRuleSet} =
+      applyRuleSet
+    . processInvalidChars
+    . getCName
   where
-    processInvalid :: Text -> Text
-    processInvalid = Text.pack . go . Text.unpack
+    processInvalidChars :: Text -> Text
+    processInvalidChars = Text.pack . go . Text.unpack
       where
         go :: String -> String
         go (c:cs)
           | isValidChar c = c : go cs
-          | otherwise     = onInvalid c ++ go cs
+          | otherwise     = onInvalidChar c ++ go cs
         go []            = ""
 
         isValidChar :: Char -> Bool
         isValidChar c = Char.isAlphaNum c || c == '_'
 
-mkGenerateName ::
-     (Text -> Maybe (HsName ns))
-     -- ^ Produce the final name
-  -> GenerateName ns
-mkGenerateName generateFinalName = GenerateName {
-      onInvalid = escapeInvalidChar
-    , generateFinalName
-    }
+-- | Make first letter conform the name rule set
+--
+-- Assumes invalid characters are processed.
+--
+-- Haskell identifiers have different rules for the first character and the rest
+-- of the identifier. Since we started with a valid C identifier, and we have
+-- processed all characters that are "invalid everywhere" (see 'onInvalidChar'),
+-- the identifier must start with a letter or an underscore:
+--
+-- * If we are generating a 'NameRuleSetVar' name, the underscore is fine
+--   as-is; any letters can be made uppercase.
+-- * If we are generating a 'NameRuleSetOther', and the identifier starts
+--   with an underscore, we strip off everything that's not a letter and
+--   call @onInvalidFirst@ on this prefix and the remaining suffix.
+modifyFirstLetter :: forall ns.
+     SingNamespace ns
+  => (Text -> Text -> Maybe Text)
+     -- ^ @onInvalidFirst@ (see 'prefixInvalidFirst' and 'dropInvalidFirst')
+  -> Text -> Maybe (HsName ns)
+modifyFirstLetter onInvalidFirst = \t -> fmap HsName $
+    case singNameRuleSet (Proxy @ns) of
+      SNameRuleSetVar   -> Just $ changeCase Char.toLower t
+      SNameRuleSetOther ->
+        let (nonletters, rest) = Text.break Char.isLetter t in
+        if Text.null nonletters
+          then Just $ changeCase Char.toUpper rest
+          else onInvalidFirst nonletters rest
+  where
+    changeCase :: (Char -> Char) -> Text -> Text
+    changeCase f t =
+        case Text.uncons t of
+          Just (c, t') -> Text.cons (f c) t'
+          Nothing      -> panicEmptyName
 
 -- | Drop invalid characters
 dropInvalidChar :: Char -> String
@@ -329,6 +362,15 @@ escapeInvalidChar c =
     let hex = showHex (Char.ord c) ""
     in  '\'' : replicate (max 0 (4 - length hex)) '0' ++ hex
 
+prefixInvalidFirst :: Text -> Text -> Text -> Maybe Text
+prefixInvalidFirst prefix nonletters rest =
+    Just $ prefix <> nonletters <> rest
+
+dropInvalidFirst :: Text -> Text -> Maybe Text
+dropInvalidFirst _nonletters rest = do
+    (c, t) <- Text.uncons rest
+    Just $ Text.cons (Char.toUpper c) t
+
 
 data NameRuleSet =
     -- | Variables and type variables
@@ -342,69 +384,18 @@ type family NamespaceRuleSet (ns :: Namespace) :: NameRuleSet where
   NamespaceRuleSet NsConstr     = NameRuleSetOther
   NamespaceRuleSet NsVar        = NameRuleSetVar
 
--- | Construct an 'HsName', changing the case of the first character or adding a
--- prefix if the first character is invalid
---
--- >>> mkHsNamePrefixInvalid @NsTypeConstr "C" "_foo"
--- "C_foo"
-mkHsNamePrefixInvalid :: forall ns.
-     NamespaceRuleSet ns ~ NameRuleSetOther
-  => Text  -- ^ Prefix to use when first character invalid
-  -> GenerateName ns
-mkHsNamePrefixInvalid prefix =
-    mkHsOtherName $ \nonletters rest ->
-     Just $ HsName $ prefix <> nonletters <> rest
+data SNameRuleSet :: NameRuleSet -> Star where
+  SNameRuleSetVar   :: SNameRuleSet NameRuleSetVar
+  SNameRuleSetOther :: SNameRuleSet NameRuleSetOther
 
--- | Construct an 'HsName', changing the case of the first character after
--- dropping any invalid first characters
---
--- Can return 'Nothing' if the C identifier started with an underscore, and then
--- contained only non-letters (e.g., @_123@).
---
--- >>> mkHsNameDropInvalid @NsTypeConstr "_foo"
--- "Foo"
-mkHsNameDropInvalid :: NamespaceRuleSet ns ~ NameRuleSetOther => GenerateName ns
-mkHsNameDropInvalid = mkHsOtherName $ \_nonletters rest -> do
-    (c, t) <- Text.uncons rest
-    Just $ HsName $ Text.cons (Char.toUpper c) t
-
--- | Construct Haskell (type or value) constructor identifier
---
--- Precondition: the name must not be empty.
---
--- The assumption is that the input is a C identifier, and so must start with
--- a letter or an underscore.
---
--- * If it is a letter, we make that letter uppercase.
--- * If it is an underscore, we strip off everything that's not a letter, and
---   then call the specified function on this prefix and the remaining suffix.
-mkHsOtherName ::
-     NamespaceRuleSet ns ~ NameRuleSetOther
-  => (Text -> Text -> Maybe (HsName ns))
-  -> GenerateName ns
-mkHsOtherName f = mkGenerateName $ \t ->
-    let (nonletters, rest) = Text.break Char.isLetter t in
-    if Text.null nonletters then
-      case Text.uncons rest of
-        Just (c, t') -> Just $ HsName $ Text.cons (Char.toUpper c) t'
-        Nothing      -> panicEmptyName
-    else
-      f nonletters rest
-
--- | Construct Haskell variable identifier
---
--- The assumption is that the input is a C identifier, and so must start with
--- a letter or an underscore:
---
--- * If it is a letter, we make that letter lowercase.
--- * If it is an underscore, there is nothing to do.
-mkHsVarName :: forall ns.
-     NamespaceRuleSet ns ~ NameRuleSetVar
-  => GenerateName ns
-mkHsVarName = mkGenerateName $ \t -> Just $ HsName $
-    case Text.uncons t of
-      Just (c, t') -> Text.cons (Char.toLower c) t'
-      Nothing      -> panicEmptyName
+singNameRuleSet :: forall ns.
+     SingNamespace ns
+  => Proxy ns -> SNameRuleSet (NamespaceRuleSet ns)
+singNameRuleSet _ =
+    case singNamespace @ns of
+      SNsTypeConstr -> SNameRuleSetOther
+      SNsConstr     -> SNameRuleSetOther
+      SNsVar        -> SNameRuleSetVar
 
 panicEmptyName :: a
 panicEmptyName = panicPure "mkHsNameDropInvalid: empty name"

@@ -60,13 +60,16 @@ import HsBindgen.Imports
 defaultNameMangler :: NameMangler
 defaultNameMangler = NameMangler{..}
   where
+    generateName :: DSL.GenerateName
+    generateName = DSL.defaultGenerateName
+
     mangleTypeConstrContext :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
           maintainCName
           Nothing
-          (DSL.mkHsNamePrefixInvalid "C")
+          generateName
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxTypeConstrCName
@@ -74,7 +77,7 @@ defaultNameMangler = NameMangler{..}
         translateDeclPath
           maintainCName
           DSL.joinWithSnakeCase
-          (DSL.mkHsNamePrefixInvalid "C")
+          generateName
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxStructTypeConstrDeclPath
@@ -89,7 +92,7 @@ defaultNameMangler = NameMangler{..}
         translateName
           maintainCName
           Nothing
-          DSL.mkHsVarName
+          generateName
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
           ctxVarCName
@@ -101,10 +104,11 @@ defaultNameMangler = NameMangler{..}
           (Just $ DSL.joinWithSnakeCase{DSL.extraPrefixes =
               [getHsName (mangleTypeConstrContext ctxFieldVarTypeCtx)]
             })
-          DSL.mkHsVarName
+          generateName
           DSL.handleOverrideNone
           handleReservedNone  -- not needed since contains underscore
           ctxFieldVarCName
+
 
 -- | Haskell-style name mangler
 --
@@ -123,15 +127,19 @@ defaultNameMangler = NameMangler{..}
 haskellNameMangler :: NameMangler
 haskellNameMangler = NameMangler{..}
   where
+    generateName :: DSL.GenerateName
+    generateName = DSL.GenerateName{
+          onInvalidChar = DSL.dropInvalidChar
+        , applyRuleSet  = DSL.modifyFirstLetter DSL.dropInvalidFirst
+        }
+
     mangleTypeConstrContext :: TypeConstrContext -> HsName NsTypeConstr
     mangleTypeConstrContext = \case
       TypeConstrContext{..} ->
         translateName
           camelCaseCName
           (Just $ DSL.joinWithCamelCase{DSL.extraPrefixes = ["C"]})
-          (DSL.mkHsNameDropInvalid{
-              DSL.onInvalid = DSL.dropInvalidChar
-            })
+          generateName
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxTypeConstrCName
@@ -139,9 +147,7 @@ haskellNameMangler = NameMangler{..}
         translateDeclPath
           camelCaseCName
           DSL.joinWithCamelCase
-          ((DSL.mkHsNamePrefixInvalid "C"){
-              DSL.onInvalid = DSL.dropInvalidChar
-            })
+          generateName
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedTypeNames)
           ctxStructTypeConstrDeclPath
@@ -156,9 +162,7 @@ haskellNameMangler = NameMangler{..}
         translateName
           camelCaseCName
           Nothing
-          (DSL.mkHsVarName{
-              DSL.onInvalid = DSL.dropInvalidChar
-            })
+          generateName
           DSL.handleOverrideNone
           (handleReservedNames appendSingleQuote DSL.reservedVarNames)
           ctxVarCName
@@ -170,9 +174,7 @@ haskellNameMangler = NameMangler{..}
           (Just $ DSL.joinWithCamelCase{DSL.extraPrefixes =
                [getHsName (mangleTypeConstrContext ctxFieldVarTypeCtx)]
              })
-          (DSL.mkHsVarName{
-               DSL.onInvalid = DSL.dropInvalidChar
-            })
+          generateName
           DSL.handleOverrideNone
           handleReservedNone
           ctxFieldVarCName
@@ -216,7 +218,7 @@ translateName ::
      SingNamespace ns
   => (CName -> Text)          -- ^ Translate a 'CName'
   -> Maybe DSL.JoinParts      -- ^ Join parts (if any)
-  -> DSL.GenerateName ns      -- ^ Construct an 'HsName'
+  -> DSL.GenerateName         -- ^ Construct an 'HsName'
   -> DSL.Overrides            -- ^ Override translation
   -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> CName
@@ -229,7 +231,7 @@ translateName
   handleReserved
   cname =
     let input = DSL.maybeJoinPartsWith joinParts (translate cname)
-        name  = DSL.generateName mkHsName input
+        name  = DSL.generateName mkHsName (CName input)
     in  handleReserved $ DSL.useOverride input name $
           DSL.override overrides (Just cname) name
 
@@ -243,7 +245,7 @@ translateDeclPath ::
      SingNamespace ns
   => (CName -> Text)          -- ^ Translate a 'CName'
   -> DSL.JoinParts            -- ^ Join parts of a name
-  -> DSL.GenerateName ns      -- ^ Construct an 'HsName'
+  -> DSL.GenerateName         -- ^ Construct an 'HsName'
   -> DSL.Overrides            -- ^ Override translation
   -> (HsName ns -> HsName ns) -- ^ Handle reserved names
   -> DeclPath
@@ -256,7 +258,7 @@ translateDeclPath
   handleReserved
   declPath =
     let input = DSL.joinPartsWith joinParts $ map translate (getDeclPathParts declPath)
-        name  = DSL.generateName mkHsName input
+        name  = DSL.generateName mkHsName (CName input)
     in  handleReserved $ DSL.useOverride input name $
           DSL.override overrides (getCName' declPath) name
   where
