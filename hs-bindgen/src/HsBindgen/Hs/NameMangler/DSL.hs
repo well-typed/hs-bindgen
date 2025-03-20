@@ -28,7 +28,7 @@ module HsBindgen.Hs.NameMangler.DSL (
     -- * Constructing Haskell identifiers
   , NameRuleSet(..)
   , NamespaceRuleSet
-  , GenerateName
+  , GenerateName(..)
   , mkHsNamePrefixInvalid
   , mkHsNameDropInvalid
   , mkHsVarName
@@ -275,7 +275,17 @@ maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
 -- Name generation is allowed to fail (depending on the policy, there are
 -- circumstances in which we cannot generate a name). When this happens, we
 -- require a name override.
-type GenerateName ns = Text -> Maybe (HsName ns)
+data GenerateName ns = GenerateName {
+      generateName :: Text -> Maybe (HsName ns)
+    }
+
+mkGenerateName ::
+     (Text -> Maybe (HsName ns))
+     -- ^ Produce the final name
+  -> GenerateName ns
+mkGenerateName generateFinalName = GenerateName {
+      generateName = generateFinalName
+    }
 
 data NameRuleSet =
     -- | Variables and type variables
@@ -329,15 +339,14 @@ mkHsOtherName ::
      NamespaceRuleSet ns ~ NameRuleSetOther
   => (Text -> Text -> Maybe (HsName ns))
   -> GenerateName ns
-mkHsOtherName f t
-  | Text.null nonletters
-  = case Text.uncons rest of
-      Just (c, t') -> Just $ HsName $ Text.cons (Char.toUpper c) t'
-      Nothing      -> panicEmptyName
-  | otherwise
-  = f nonletters rest
-  where
-    (nonletters, rest) = Text.break Char.isLetter t
+mkHsOtherName f = mkGenerateName $ \t ->
+    let (nonletters, rest) = Text.break Char.isLetter t in
+    if Text.null nonletters then
+      case Text.uncons rest of
+        Just (c, t') -> Just $ HsName $ Text.cons (Char.toUpper c) t'
+        Nothing      -> panicEmptyName
+    else
+      f nonletters rest
 
 -- | Construct Haskell variable identifier
 --
@@ -349,7 +358,7 @@ mkHsOtherName f t
 mkHsVarName :: forall ns.
      NamespaceRuleSet ns ~ NameRuleSetVar
   => GenerateName ns
-mkHsVarName t = Just $ HsName $
+mkHsVarName = mkGenerateName $ \t -> Just $ HsName $
     case Text.uncons t of
       Just (c, t') -> Text.cons (Char.toLower c) t'
       Nothing      -> panicEmptyName

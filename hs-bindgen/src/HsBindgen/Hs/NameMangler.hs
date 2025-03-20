@@ -225,7 +225,7 @@ translateName
   handleReserved
   cname =
     let input = DSL.maybeJoinPartsWith joinParts (translate cname)
-        name  = mkHsName input
+        name  = DSL.generateName mkHsName input
     in  handleReserved $ DSL.useOverride input name $
           DSL.override overrides (Just cname) name
 
@@ -252,7 +252,7 @@ translateDeclPath
   handleReserved
   declPath =
     let input = DSL.joinPartsWith joinParts $ map translate (getDeclPathParts declPath)
-        name  = mkHsName input
+        name  = DSL.generateName mkHsName input
     in  handleReserved $ DSL.useOverride input name $
           DSL.override overrides (getCName' declPath) name
   where
