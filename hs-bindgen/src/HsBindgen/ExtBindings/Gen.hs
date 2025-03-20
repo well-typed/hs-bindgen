@@ -107,14 +107,14 @@ getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
     hsId = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
 
 getCNS :: Text -> C.DeclPath -> Maybe CNameSpelling
-getCNS prefix declPath = do
-    mDeclName <- case declPath of
-      C.DeclPathConstr declName _declPath -> Just declName
-      _otherwise                          -> Nothing
-    case mDeclName of
-      C.DeclNameTag     cname -> Just $ CNameSpelling (prefix <> getCName cname)
-      C.DeclNameTypedef cname -> Just $ CNameSpelling (getCName cname)
-      C.DeclNameNone          -> Nothing
+getCNS prefix (C.DeclPathName cname _ctxt) =
+    Just $ CNameSpelling (prefix <> getCName cname)
+getCNS _prefix (C.DeclPathAnon ctxt) =
+    case ctxt of
+      C.DeclPathCtxtTypedef typedefName ->
+        Just $ CNameSpelling (getCName typedefName)
+      _otherwise ->
+        Nothing
 
 getCNS_alias :: CName -> CNameSpelling
 getCNS_alias = CNameSpelling . getCName

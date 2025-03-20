@@ -41,19 +41,17 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTag
-                      (CName "linked_list_A_s"))
-                    DeclPathTop)),
+                  (DeclPathName
+                    (CName "linked_list_A_s")
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "recursive_struct.h:3:27"}}],
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag
-              (CName "linked_list_A_s"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "linked_list_A_s")
+            DeclPathCtxtTop,
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -72,10 +70,9 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTag
-                      (CName "linked_list_A_s"))
-                    DeclPathTop)),
+                  (DeclPathName
+                    (CName "linked_list_A_s")
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "recursive_struct.h:3:27"}],
           structFlam = Nothing,
@@ -124,19 +121,17 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_A_s"))
-                      DeclPathTop)),
+                    (DeclPathName
+                      (CName "linked_list_A_s")
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "recursive_struct.h:3:27"}}],
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag
-                (CName "linked_list_A_s"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "linked_list_A_s")
+              DeclPathCtxtTop,
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -155,10 +150,9 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_A_s"))
-                      DeclPathTop)),
+                    (DeclPathName
+                      (CName "linked_list_A_s")
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "recursive_struct.h:3:27"}],
             structFlam = Nothing,
@@ -212,19 +206,17 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_A_s"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_A_s")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:3:27"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_A_s"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "linked_list_A_s")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -243,10 +235,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_A_s"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_A_s")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
@@ -302,19 +293,17 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_A_s"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_A_s")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:3:27"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_A_s"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "linked_list_A_s")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -333,10 +322,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_A_s"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_A_s")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
@@ -385,10 +373,9 @@
           typedefName = CName
             "linked_list_A_t",
           typedefType = TypeStruct
-            (DeclPathConstr
-              (DeclNameTag
-                (CName "linked_list_A_s"))
-              DeclPathTop),
+            (DeclPathName
+              (CName "linked_list_A_s")
+              DeclPathCtxtTop),
           typedefSourceLoc =
           "recursive_struct.h:4:3"}},
   DeclNewtypeInstance
@@ -439,19 +426,17 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTag
-                      (CName "linked_list_B_t"))
-                    DeclPathTop)),
+                  (DeclPathName
+                    (CName "linked_list_B_t")
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "recursive_struct.h:11:20"}}],
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag
-              (CName "linked_list_B_t"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "linked_list_B_t")
+            DeclPathCtxtTop,
           structAliases = [
             CName "linked_list_B_t"],
           structSizeof = 16,
@@ -471,10 +456,9 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathConstr
-                    (DeclNameTag
-                      (CName "linked_list_B_t"))
-                    DeclPathTop)),
+                  (DeclPathName
+                    (CName "linked_list_B_t")
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "recursive_struct.h:11:20"}],
           structFlam = Nothing,
@@ -523,19 +507,17 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_B_t"))
-                      DeclPathTop)),
+                    (DeclPathName
+                      (CName "linked_list_B_t")
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "recursive_struct.h:11:20"}}],
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag
-                (CName "linked_list_B_t"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "linked_list_B_t")
+              DeclPathCtxtTop,
             structAliases = [
               CName "linked_list_B_t"],
             structSizeof = 16,
@@ -555,10 +537,9 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_B_t"))
-                      DeclPathTop)),
+                    (DeclPathName
+                      (CName "linked_list_B_t")
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "recursive_struct.h:11:20"}],
             structFlam = Nothing,
@@ -612,19 +593,17 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_B_t"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_B_t")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:11:20"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_B_t"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "linked_list_B_t")
+                      DeclPathCtxtTop,
                     structAliases = [
                       CName "linked_list_B_t"],
                     structSizeof = 16,
@@ -644,10 +623,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_B_t"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_B_t")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
@@ -703,19 +681,17 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_B_t"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_B_t")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:11:20"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "linked_list_B_t"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "linked_list_B_t")
+                      DeclPathCtxtTop,
                     structAliases = [
                       CName "linked_list_B_t"],
                     structSizeof = 16,
@@ -735,10 +711,9 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathConstr
-                              (DeclNameTag
-                                (CName "linked_list_B_t"))
-                              DeclPathTop)),
+                            (DeclPathName
+                              (CName "linked_list_B_t")
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,

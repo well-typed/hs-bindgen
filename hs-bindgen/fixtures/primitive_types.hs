@@ -495,10 +495,9 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag
-              (CName "primitive"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "primitive")
+            DeclPathCtxtTop,
           structAliases = [],
           structSizeof = 176,
           structAlignment = 16,
@@ -1255,10 +1254,9 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag
-                (CName "primitive"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "primitive")
+              DeclPathCtxtTop,
             structAliases = [],
             structSizeof = 176,
             structAlignment = 16,
@@ -2020,10 +2018,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "primitive"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "primitive")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 176,
                     structAlignment = 16,
@@ -2814,10 +2811,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag
-                        (CName "primitive"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "primitive")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 176,
                     structAlignment = 16,

@@ -101,11 +101,14 @@ getTestSourceDefns cFunPrefix = \case
 getStructCTypeSpelling :: Hs.StructOrigin -> Maybe CTypeSpelling
 getStructCTypeSpelling = \case
     Hs.StructOriginStruct C.Struct{..} -> case structDeclPath of
-      C.DeclPathConstr declName _declPath -> case declName of
-        C.DeclNameNone -> Nothing
-        C.DeclNameTag cName -> Just $ "struct " ++ T.unpack (C.getCName cName)
-        C.DeclNameTypedef cName -> Just $ T.unpack (C.getCName cName)
-      _otherwise -> Nothing
+      C.DeclPathAnon ctxt ->
+        case ctxt of
+          C.DeclPathCtxtTypedef typedefName ->
+            Just $ T.unpack (C.getCName typedefName)
+          _otherwise ->
+            Nothing
+      C.DeclPathName cName _ctxt ->
+          Just $ "struct " ++ T.unpack (C.getCName cName)
     Hs.StructOriginEnum{} -> Nothing
 
 getFieldP :: Hs.Field -> FieldP

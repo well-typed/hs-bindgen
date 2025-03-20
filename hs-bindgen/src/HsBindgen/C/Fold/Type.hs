@@ -44,22 +44,22 @@ processTypeDecl extBindings unit declCursor ty = do
     -- dtraceIO "processTypeDecl" ty
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                        -> processTypeDecl' DeclPathTop extBindings unit declCursor ty
+        Nothing                        -> processTypeDecl' DeclPathCtxtTop extBindings unit declCursor ty
         Just (TypeDecl t _)            -> return t
         Just (TypeDeclAlias t)         -> return t
         Just (TypeDeclProcessing t' _) -> liftIO $ panicIO $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
-     DeclPath
+     DeclPathCtxt
   -> ExtBindings
   -> CXTranslationUnit
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDeclRec path extBindings unit curr ty = do
+processTypeDeclRec ctxt extBindings unit curr ty = do
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                       -> processTypeDecl' path extBindings unit curr ty
+        Nothing                       -> processTypeDecl' ctxt extBindings unit curr ty
         Just (TypeDecl t _)           -> return t
         Just (TypeDeclAlias t)        -> return t
         Just (TypeDeclProcessing t _) -> return t
@@ -103,7 +103,7 @@ processTypeDeclRec path extBindings unit curr ty = do
 -- https://github.com/well-typed/hs-bindgen/issues/314
 --
 processTypeDecl' ::
-     DeclPath
+     DeclPathCtxt
   -> ExtBindings
   -> CXTranslationUnit
   -> Maybe CXCursor
@@ -111,14 +111,14 @@ processTypeDecl' ::
       -- function declarations containing macros
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- liftIO $ clang_Type_getNamedType ty
-        processTypeDeclRec path extBindings unit Nothing ty'
+        processTypeDeclRec ctxt extBindings unit Nothing ty'
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -137,8 +137,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             Nothing -> do
                 tag <- CName <$> liftIO (clang_getCursorSpelling decl)
                 ty' <- liftIO $ getElaborated =<< clang_getTypedefDeclUnderlyingType decl
-                let declPath = DeclPathConstr (DeclNameTypedef tag) DeclPathTop
-                use <- processTypeDeclRec declPath extBindings unit Nothing ty'
+                use <- processTypeDeclRec (DeclPathCtxtTypedef tag) extBindings unit Nothing ty'
 
                 -- we could check whether typedef has a transparent tag,
                 -- like in case of `typedef struct foo { ..} foo;`
@@ -150,11 +149,11 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     -- If names match, skip.
                     -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
                     -- in typedef struct { ... } foo; the typedef does not have transparent tag.
-                    TypeStruct (DeclPathConstr declName _declPath)
-                        | declName == DeclNameTag tag -> do
+                    TypeStruct (DeclPathName declName _ctxt) | declName == tag -> do
                             updateDeclAddAlias ty' tag
                             addAlias ty use
-                        | declName == DeclNameTypedef tag -> addAlias ty use
+                    TypeStruct (DeclPathAnon (DeclPathCtxtTypedef typedefName)) | typedefName == tag ->
+                            addAlias ty use
 
                     _ -> do
                         --
@@ -180,20 +179,31 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
                 -- dtraceIO "record" (decl, name, anon)
 
+                -- Something like
+                --
+                -- > typedef struct {
+                -- >     char a;
+                -- > } S3_t;
+                --
+                -- is not considered an anonymous struct by @clang@, but we /do/
+                -- treat it as one.
+
                 let declPath
-                      | anon      = DeclPathConstr DeclNameNone path
+                      | anon      = DeclPathAnon ctxt
                       | otherwise = case T.stripPrefix "struct " name of
-                          Just n  -> DeclPathConstr (DeclNameTag (CName n))        path
-                          Nothing -> DeclPathConstr (DeclNameTypedef (CName name)) path
+                          Just n  -> DeclPathName (CName n) ctxt
+                          Nothing -> DeclPathAnon (DeclPathCtxtTypedef (CName name))
 
                 -- name for opaque types.
+                --
+                -- TODO: Could we use 'Nothing' for @anon@?
                 let name'
                       | anon      = ""
                       | otherwise =  case T.stripPrefix "struct " name of
                           Just n  -> n
                           Nothing -> name
 
-                if declPath == DeclPathConstr DeclNameNone DeclPathTop
+                if declPath == DeclPathAnon DeclPathCtxtTop
                 then do
                     -- Anonymous top-level declaration: nothing to do but warn, as there
                     -- shouldn't be one in "good" code.
@@ -206,9 +216,10 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             =<< clang_getCursorLocation decl
 
                     mExtId <- case declPath of
-                        DeclPathConstr DeclNameTag{} _path ->
+                        DeclPathName{}->
                             lookupExtBinding (CNameSpelling name) sloc extBindings
-                        _otherwise -> return Nothing
+                        DeclPathAnon{} ->
+                            return Nothing
                     case mExtId of
                         Just extId -> addAlias ty $ TypeExtBinding extId
                         Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
@@ -227,7 +238,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                 alignment <- liftIO (clang_Type_getAlignOf ty)
 
                                 fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                                    mfield <- mkStructField extBindings unit declPath cursor
+                                    mfield <- mkStructField extBindings unit (if anon then Nothing else Just $ CName name') ctxt cursor
                                     return $ Continue mfield
 
                                 (fields, flam) <- partitionFields fields'
@@ -249,10 +260,10 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                 -- dtraceIO "union" (decl, name, anon)
 
                 let declPath
-                      | anon      = DeclPathConstr DeclNameNone path
+                      | anon      = DeclPathAnon ctxt
                       | otherwise = case T.stripPrefix "union " name of
-                          Just n  -> DeclPathConstr (DeclNameTag (CName n))        path
-                          Nothing -> DeclPathConstr (DeclNameTypedef (CName name)) path
+                          Just n  -> DeclPathName (CName n) ctxt
+                          Nothing -> DeclPathAnon (DeclPathCtxtTypedef (CName name))
 
                 -- name for opaque types.
                 let name'
@@ -261,7 +272,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           Just n  -> n
                           Nothing -> name
 
-                if declPath == DeclPathConstr DeclNameNone DeclPathTop
+                if declPath == DeclPathAnon DeclPathCtxtTop
                 then do
                     -- Anonymous top-level declaration: nothing to do but warn, as there
                     -- shouldn't be one in "good" code.
@@ -320,10 +331,10 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             return TypeVoid
         else do
             let declPath
-                  | anon      = DeclPathConstr DeclNameNone path
+                  | anon      = DeclPathAnon ctxt
                   | otherwise = case T.stripPrefix "enum " name of
-                      Just n  -> DeclPathConstr (DeclNameTag (CName n))        path
-                      Nothing -> DeclPathConstr (DeclNameTypedef (CName name)) path
+                      Just n  -> DeclPathName (CName n) ctxt
+                      Nothing -> DeclPathAnon (DeclPathCtxtTypedef (CName name))
 
             -- name for opaque types.
             let name'
@@ -355,7 +366,7 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                         alignment <- liftIO (clang_Type_getAlignOf ty)
                         ety       <- liftIO (clang_getEnumDeclIntegerType decl)
-                          >>= processTypeDeclRec DeclPathTop extBindings unit Nothing
+                          >>= processTypeDeclRec DeclPathCtxtTop extBindings unit Nothing
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -373,13 +384,14 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     Right CXType_Pointer -> do
         pointee <- liftIO $ clang_getPointeeType ty
-        pointee' <- processTypeDeclRec (DeclPathPtr path) extBindings unit Nothing pointee
+        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) extBindings unit Nothing pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- liftIO $ clang_getArraySize ty
         e <- liftIO $ clang_getArrayElementType ty
-        e' <- processTypeDeclRec path extBindings unit Nothing e
+        -- TODO: This context should use 'DeclPathCtxtConstArray'
+        e' <- processTypeDeclRec ctxt extBindings unit Nothing e
         return (TypeConstArray (fromIntegral n) e')
 
     Right CXType_Void -> do
@@ -439,11 +451,11 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             -- but for CApiFFI it's irrelevant as it creates C wrappers with known convention
 
             res <- liftIO $ clang_getResultType ty
-            res' <- processTypeDeclRec path extBindings unit Nothing res
+            res' <- processTypeDeclRec ctxt extBindings unit Nothing res
             nargs <- liftIO $ clang_getNumArgTypes ty
             args' <- forM [0 .. nargs - 1] $ \i -> do
               arg <- liftIO $ clang_getArgType ty (fromIntegral i)
-              processTypeDeclRec path extBindings unit Nothing arg
+              processTypeDeclRec ctxt extBindings unit Nothing arg
 
             -- There are no macros in the function, hence no macros in the
             -- function argument or return types either. This is why it's OK
@@ -453,7 +465,8 @@ processTypeDecl' path extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     Right CXType_IncompleteArray -> do
         e <- liftIO $ clang_getArrayElementType ty
-        e' <- processTypeDeclRec path extBindings unit Nothing e
+        -- TODO: Should this also use 'DeclPathCtxtConstArray'?
+        e' <- processTypeDeclRec ctxt extBindings unit Nothing e
         return (TypeIncompleteArray e')
 
     _ -> do
@@ -579,10 +592,11 @@ partitionFields = go id where
 mkStructField ::
      ExtBindings
   -> CXTranslationUnit
-  -> DeclPath
+  -> Maybe CName         -- ^ Name of the struct (unless anonymous)
+  -> DeclPathCtxt
   -> CXCursor
   -> Eff (State DeclState) (Maybe Field) -- ^ Left values are flexible array members.
-mkStructField extBindings unit path current = do
+mkStructField extBindings unit mStructName ctxt current = do
     fieldSourceLoc <- liftIO $
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
@@ -624,10 +638,10 @@ mkStructField extBindings unit path current = do
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
                   e <- liftIO $ clang_getArrayElementType ty
-                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) extBindings unit Nothing e
+                  fieldType <- processTypeDeclRec (DeclPathCtxtField mStructName fieldName ctxt) extBindings unit Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
-                  fieldType <- processTypeDeclRec (DeclPathField fieldName path) extBindings unit Nothing ty
+                  fieldType <- processTypeDeclRec (DeclPathCtxtField mStructName fieldName ctxt) extBindings unit Nothing ty
                   return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)

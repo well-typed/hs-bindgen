@@ -43,13 +43,11 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            DeclNameNone
-            (DeclPathField
+          structDeclPath = DeclPathAnon
+            (DeclPathCtxtField
+              (Just (CName "S1"))
               (CName "c")
-              (DeclPathConstr
-                (DeclNameTag (CName "S1"))
-                DeclPathTop)),
+              DeclPathCtxtTop),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
@@ -118,13 +116,11 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              DeclNameNone
-              (DeclPathField
+            structDeclPath = DeclPathAnon
+              (DeclPathCtxtField
+                (Just (CName "S1"))
                 (CName "c")
-                (DeclPathConstr
-                  (DeclNameTag (CName "S1"))
-                  DeclPathTop)),
+                DeclPathCtxtTop),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
@@ -198,13 +194,11 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtField
+                        (Just (CName "S1"))
                         (CName "c")
-                        (DeclPathConstr
-                          (DeclNameTag (CName "S1"))
-                          DeclPathTop)),
+                        DeclPathCtxtTop),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -280,13 +274,11 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtField
+                        (Just (CName "S1"))
                         (CName "c")
-                        (DeclPathConstr
-                          (DeclNameTag (CName "S1"))
-                          DeclPathTop)),
+                        DeclPathCtxtTop),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -348,13 +340,11 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "S1"))
                     (CName "c")
-                    (DeclPathConstr
-                      (DeclNameTag (CName "S1"))
-                      DeclPathTop))),
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "anonymous.h:6:5"}},
         Field {
@@ -376,9 +366,9 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag (CName "S1"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "S1")
+            DeclPathCtxtTop,
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -388,13 +378,11 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "S1"))
                     (CName "c")
-                    (DeclPathConstr
-                      (DeclNameTag (CName "S1"))
-                      DeclPathTop))),
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "anonymous.h:6:5"},
             StructField {
@@ -431,13 +419,11 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    DeclNameNone
-                    (DeclPathField
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "S1"))
                       (CName "c")
-                      (DeclPathConstr
-                        (DeclNameTag (CName "S1"))
-                        DeclPathTop))),
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "anonymous.h:6:5"}},
           Field {
@@ -459,9 +445,9 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag (CName "S1"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "S1")
+              DeclPathCtxtTop,
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -471,13 +457,11 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    DeclNameNone
-                    (DeclPathField
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "S1"))
                       (CName "c")
-                      (DeclPathConstr
-                        (DeclNameTag (CName "S1"))
-                        DeclPathTop))),
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "anonymous.h:6:5"},
               StructField {
@@ -519,13 +503,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S1"))
                               (CName "c")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S1"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:6:5"}},
                   Field {
@@ -547,9 +529,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "S1"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "S1")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -559,13 +541,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S1"))
                               (CName "c")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S1"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:6:5"},
                       StructField {
@@ -609,13 +589,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S1"))
                               (CName "c")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S1"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:6:5"}},
                   Field {
@@ -637,9 +615,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "S1"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "S1")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -649,13 +627,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S1"))
                               (CName "c")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S1"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:6:5"},
                       StructField {
@@ -713,17 +689,14 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            DeclNameNone
-            (DeclPathField
+          structDeclPath = DeclPathAnon
+            (DeclPathCtxtField
+              Nothing
               (CName "deep")
-              (DeclPathConstr
-                DeclNameNone
-                (DeclPathField
-                  (CName "inner")
-                  (DeclPathConstr
-                    (DeclNameTag (CName "S2"))
-                    DeclPathTop)))),
+              (DeclPathCtxtField
+                (Just (CName "S2"))
+                (CName "inner")
+                DeclPathCtxtTop)),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -768,17 +741,14 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              DeclNameNone
-              (DeclPathField
+            structDeclPath = DeclPathAnon
+              (DeclPathCtxtField
+                Nothing
                 (CName "deep")
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
-                    (CName "inner")
-                    (DeclPathConstr
-                      (DeclNameTag (CName "S2"))
-                      DeclPathTop)))),
+                (DeclPathCtxtField
+                  (Just (CName "S2"))
+                  (CName "inner")
+                  DeclPathCtxtTop)),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -828,17 +798,14 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtField
+                        Nothing
                         (CName "deep")
-                        (DeclPathConstr
-                          DeclNameNone
-                          (DeclPathField
-                            (CName "inner")
-                            (DeclPathConstr
-                              (DeclNameTag (CName "S2"))
-                              DeclPathTop)))),
+                        (DeclPathCtxtField
+                          (Just (CName "S2"))
+                          (CName "inner")
+                          DeclPathCtxtTop)),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -888,17 +855,14 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtField
+                        Nothing
                         (CName "deep")
-                        (DeclPathConstr
-                          DeclNameNone
-                          (DeclPathField
-                            (CName "inner")
-                            (DeclPathConstr
-                              (DeclNameTag (CName "S2"))
-                              DeclPathTop)))),
+                        (DeclPathCtxtField
+                          (Just (CName "S2"))
+                          (CName "inner")
+                          DeclPathCtxtTop)),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -973,29 +937,24 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    Nothing
                     (CName "deep")
-                    (DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
-                        (CName "inner")
-                        (DeclPathConstr
-                          (DeclNameTag (CName "S2"))
-                          DeclPathTop))))),
+                    (DeclPathCtxtField
+                      (Just (CName "S2"))
+                      (CName "inner")
+                      DeclPathCtxtTop))),
               fieldSourceLoc =
               "anonymous.h:17:7"}}],
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            DeclNameNone
-            (DeclPathField
+          structDeclPath = DeclPathAnon
+            (DeclPathCtxtField
+              (Just (CName "S2"))
               (CName "inner")
-              (DeclPathConstr
-                (DeclNameTag (CName "S2"))
-                DeclPathTop)),
+              DeclPathCtxtTop),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
@@ -1013,17 +972,14 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    Nothing
                     (CName "deep")
-                    (DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
-                        (CName "inner")
-                        (DeclPathConstr
-                          (DeclNameTag (CName "S2"))
-                          DeclPathTop))))),
+                    (DeclPathCtxtField
+                      (Just (CName "S2"))
+                      (CName "inner")
+                      DeclPathCtxtTop))),
               fieldSourceLoc =
               "anonymous.h:17:7"}],
           structFlam = Nothing,
@@ -1070,29 +1026,24 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    DeclNameNone
-                    (DeclPathField
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      Nothing
                       (CName "deep")
-                      (DeclPathConstr
-                        DeclNameNone
-                        (DeclPathField
-                          (CName "inner")
-                          (DeclPathConstr
-                            (DeclNameTag (CName "S2"))
-                            DeclPathTop))))),
+                      (DeclPathCtxtField
+                        (Just (CName "S2"))
+                        (CName "inner")
+                        DeclPathCtxtTop))),
                 fieldSourceLoc =
                 "anonymous.h:17:7"}}],
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              DeclNameNone
-              (DeclPathField
+            structDeclPath = DeclPathAnon
+              (DeclPathCtxtField
+                (Just (CName "S2"))
                 (CName "inner")
-                (DeclPathConstr
-                  (DeclNameTag (CName "S2"))
-                  DeclPathTop)),
+                DeclPathCtxtTop),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
@@ -1110,17 +1061,14 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    DeclNameNone
-                    (DeclPathField
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      Nothing
                       (CName "deep")
-                      (DeclPathConstr
-                        DeclNameNone
-                        (DeclPathField
-                          (CName "inner")
-                          (DeclPathConstr
-                            (DeclNameTag (CName "S2"))
-                            DeclPathTop))))),
+                      (DeclPathCtxtField
+                        (Just (CName "S2"))
+                        (CName "inner")
+                        DeclPathCtxtTop))),
                 fieldSourceLoc =
                 "anonymous.h:17:7"}],
             structFlam = Nothing,
@@ -1172,29 +1120,24 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              Nothing
                               (CName "deep")
-                              (DeclPathConstr
-                                DeclNameNone
-                                (DeclPathField
-                                  (CName "inner")
-                                  (DeclPathConstr
-                                    (DeclNameTag (CName "S2"))
-                                    DeclPathTop))))),
+                              (DeclPathCtxtField
+                                (Just (CName "S2"))
+                                (CName "inner")
+                                DeclPathCtxtTop))),
                         fieldSourceLoc =
                         "anonymous.h:17:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtField
+                        (Just (CName "S2"))
                         (CName "inner")
-                        (DeclPathConstr
-                          (DeclNameTag (CName "S2"))
-                          DeclPathTop)),
+                        DeclPathCtxtTop),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -1212,17 +1155,14 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              Nothing
                               (CName "deep")
-                              (DeclPathConstr
-                                DeclNameNone
-                                (DeclPathField
-                                  (CName "inner")
-                                  (DeclPathConstr
-                                    (DeclNameTag (CName "S2"))
-                                    DeclPathTop))))),
+                              (DeclPathCtxtField
+                                (Just (CName "S2"))
+                                (CName "inner")
+                                DeclPathCtxtTop))),
                         fieldSourceLoc =
                         "anonymous.h:17:7"}],
                     structFlam = Nothing,
@@ -1276,29 +1216,24 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              Nothing
                               (CName "deep")
-                              (DeclPathConstr
-                                DeclNameNone
-                                (DeclPathField
-                                  (CName "inner")
-                                  (DeclPathConstr
-                                    (DeclNameTag (CName "S2"))
-                                    DeclPathTop))))),
+                              (DeclPathCtxtField
+                                (Just (CName "S2"))
+                                (CName "inner")
+                                DeclPathCtxtTop))),
                         fieldSourceLoc =
                         "anonymous.h:17:7"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      DeclNameNone
-                      (DeclPathField
+                    structDeclPath = DeclPathAnon
+                      (DeclPathCtxtField
+                        (Just (CName "S2"))
                         (CName "inner")
-                        (DeclPathConstr
-                          (DeclNameTag (CName "S2"))
-                          DeclPathTop)),
+                        DeclPathCtxtTop),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -1316,17 +1251,14 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              Nothing
                               (CName "deep")
-                              (DeclPathConstr
-                                DeclNameNone
-                                (DeclPathField
-                                  (CName "inner")
-                                  (DeclPathConstr
-                                    (DeclNameTag (CName "S2"))
-                                    DeclPathTop))))),
+                              (DeclPathCtxtField
+                                (Just (CName "S2"))
+                                (CName "inner")
+                                DeclPathCtxtTop))),
                         fieldSourceLoc =
                         "anonymous.h:17:7"}],
                     structFlam = Nothing,
@@ -1376,13 +1308,11 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "S2"))
                     (CName "inner")
-                    (DeclPathConstr
-                      (DeclNameTag (CName "S2"))
-                      DeclPathTop))),
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "anonymous.h:18:5"}},
         Field {
@@ -1404,9 +1334,9 @@
       structOrigin =
       StructOriginStruct
         Struct {
-          structDeclPath = DeclPathConstr
-            (DeclNameTag (CName "S2"))
-            DeclPathTop,
+          structDeclPath = DeclPathName
+            (CName "S2")
+            DeclPathCtxtTop,
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -1416,13 +1346,11 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathConstr
-                  DeclNameNone
-                  (DeclPathField
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "S2"))
                     (CName "inner")
-                    (DeclPathConstr
-                      (DeclNameTag (CName "S2"))
-                      DeclPathTop))),
+                    DeclPathCtxtTop)),
               fieldSourceLoc =
               "anonymous.h:18:5"},
             StructField {
@@ -1461,13 +1389,11 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    DeclNameNone
-                    (DeclPathField
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "S2"))
                       (CName "inner")
-                      (DeclPathConstr
-                        (DeclNameTag (CName "S2"))
-                        DeclPathTop))),
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "anonymous.h:18:5"}},
           Field {
@@ -1489,9 +1415,9 @@
         structOrigin =
         StructOriginStruct
           Struct {
-            structDeclPath = DeclPathConstr
-              (DeclNameTag (CName "S2"))
-              DeclPathTop,
+            structDeclPath = DeclPathName
+              (CName "S2")
+              DeclPathCtxtTop,
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -1501,13 +1427,11 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathConstr
-                    DeclNameNone
-                    (DeclPathField
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "S2"))
                       (CName "inner")
-                      (DeclPathConstr
-                        (DeclNameTag (CName "S2"))
-                        DeclPathTop))),
+                      DeclPathCtxtTop)),
                 fieldSourceLoc =
                 "anonymous.h:18:5"},
               StructField {
@@ -1551,13 +1475,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S2"))
                               (CName "inner")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S2"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:18:5"}},
                   Field {
@@ -1579,9 +1501,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "S2"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "S2")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1591,13 +1513,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S2"))
                               (CName "inner")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S2"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:18:5"},
                       StructField {
@@ -1643,13 +1563,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S2"))
                               (CName "inner")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S2"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:18:5"}},
                   Field {
@@ -1671,9 +1589,9 @@
                 structOrigin =
                 StructOriginStruct
                   Struct {
-                    structDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "S2"))
-                      DeclPathTop,
+                    structDeclPath = DeclPathName
+                      (CName "S2")
+                      DeclPathCtxtTop,
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1683,13 +1601,11 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathConstr
-                            DeclNameNone
-                            (DeclPathField
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "S2"))
                               (CName "inner")
-                              (DeclPathConstr
-                                (DeclNameTag (CName "S2"))
-                                DeclPathTop))),
+                              DeclPathCtxtTop)),
                         fieldSourceLoc =
                         "anonymous.h:18:5"},
                       StructField {

@@ -11,9 +11,9 @@ Header
         "fixedarray.h:1:13"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathConstr
-          (DeclNameTag (CName "Example"))
-          DeclPathTop,
+        structDeclPath = DeclPathName
+          (CName "Example")
+          DeclPathCtxtTop,
         structAliases = [],
         structSizeof = 48,
         structAlignment = 4,

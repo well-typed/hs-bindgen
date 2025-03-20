@@ -17,9 +17,9 @@
       newtypeOrigin =
       NewtypeOriginEnum
         Enu {
-          enumDeclPath = DeclPathConstr
-            (DeclNameTag (CName "MyEnum"))
-            DeclPathTop,
+          enumDeclPath = DeclPathName
+            (CName "MyEnum")
+            DeclPathCtxtTop,
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -59,9 +59,9 @@
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
-            enumDeclPath = DeclPathConstr
-              (DeclNameTag (CName "MyEnum"))
-              DeclPathTop,
+            enumDeclPath = DeclPathName
+              (CName "MyEnum")
+              DeclPathCtxtTop,
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -106,9 +106,9 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "MyEnum"))
-                      DeclPathTop,
+                    enumDeclPath = DeclPathName
+                      (CName "MyEnum")
+                      DeclPathCtxtTop,
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -153,9 +153,9 @@
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
-                    enumDeclPath = DeclPathConstr
-                      (DeclNameTag (CName "MyEnum"))
-                      DeclPathTop,
+                    enumDeclPath = DeclPathName
+                      (CName "MyEnum")
+                      DeclPathCtxtTop,
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
