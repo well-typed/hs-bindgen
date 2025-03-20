@@ -18,13 +18,6 @@ module HsBindgen.Hs.NameMangler.DSL (
   , hsBindgenReservedVarNames
   , sanityReservedTypeNames
   , sanityReservedVarNames
-    -- * Joining parts of a name
-  , JoinParts(..)
-  , joinWithSnakeCase
-  , joinWithCamelCase
-  , joinWithConcat
-  , joinPartsWith
-  , maybeJoinPartsWith
     -- * Constructing Haskell identifiers
   , NameRuleSet(..)
   , NamespaceRuleSet
@@ -36,6 +29,8 @@ module HsBindgen.Hs.NameMangler.DSL (
   , escapeInvalidChar
   , prefixInvalidFirst
   , dropInvalidFirst
+  , joinNamesSnakeCase
+  , joinNamesCamelCase
     -- * Overrides
   , Overrides(..)
   , handleOverrideNone
@@ -46,6 +41,7 @@ module HsBindgen.Hs.NameMangler.DSL (
 import Control.Exception
 import Data.Char qualified as Char
 import Data.Map qualified as Map
+import Data.Proxy
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Numeric (showHex)
@@ -54,7 +50,6 @@ import HsBindgen.C.AST
 import HsBindgen.Errors
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Imports
-import Data.Proxy
 
 {-------------------------------------------------------------------------------
   Reserved Names
@@ -220,57 +215,6 @@ sanityReservedVarNames =
     ]
 
 {-------------------------------------------------------------------------------
-  Joining parts of a name
--------------------------------------------------------------------------------}
-
--- | Prefix and/or suffix for a name
-data JoinParts = JoinParts {
-      extraPrefixes :: [Text]
-    , extraSuffixes :: [Text]
-    , joinParts     :: [Text] -> Text
-    }
-
-mkJoinParts :: ([Text] -> Text) -> JoinParts
-mkJoinParts joinParts = JoinParts {
-      extraPrefixes = []
-    , extraSuffixes = []
-    , joinParts
-    }
-
--- | Join parts of a name by concatenating them
-joinWithConcat :: JoinParts
-joinWithConcat = mkJoinParts Text.concat
-
--- | Join parts of a name with underscores (@_@)
-joinWithSnakeCase :: JoinParts
-joinWithSnakeCase = mkJoinParts $ Text.intercalate "_"
-
--- | Join parts of a name in @camelCase@ style
---
--- The first character of all parts but the first is changed to uppercase (if it
--- is a letter), and the results are concatenated.
---
--- Since this function may change the case of letters, it can cause name
--- collisions when different C names only differ by case of the first letter.
-joinWithCamelCase :: JoinParts
-joinWithCamelCase = mkJoinParts $ \case
-    (t:ts) -> Text.concat $ t : map upperFirstChar ts
-    []     -> Text.empty
-  where
-    upperFirstChar :: Text -> Text
-    upperFirstChar t = case Text.uncons t of
-      Just (c, t') -> Text.cons (Char.toUpper c) t'
-      Nothing      -> t
-
-joinPartsWith :: JoinParts -> [Text] -> Text
-joinPartsWith JoinParts{extraPrefixes, extraSuffixes, joinParts} parts =
-    joinParts $ extraPrefixes ++ parts ++ extraSuffixes
-
-maybeJoinPartsWith :: Maybe JoinParts -> Text -> Text
-maybeJoinPartsWith Nothing         = id
-maybeJoinPartsWith (Just joinParts) = joinPartsWith joinParts . (:[])
-
-{-------------------------------------------------------------------------------
   Constructing Haskell identifiers
 -------------------------------------------------------------------------------}
 
@@ -285,6 +229,9 @@ data GenerateName = GenerateName {
       -- Called on characters that are invalid anywhere in a Haskell identifier.
       onInvalidChar :: Char -> String
 
+      -- | Combine multiple C names
+    , joinNames :: [Text] -> Text
+
       -- | Make the name conform to the name rule set
     , applyRuleSet :: forall ns. SingNamespace ns => Text -> Maybe (HsName ns)
     }
@@ -292,16 +239,38 @@ data GenerateName = GenerateName {
 defaultGenerateName :: GenerateName
 defaultGenerateName = GenerateName {
       onInvalidChar = escapeInvalidChar
+    , joinNames     = joinNamesSnakeCase
     , applyRuleSet  = modifyFirstLetter (prefixInvalidFirst "C")
     }
 
+-- | Join parts of a name with underscores (@_@)
+joinNamesSnakeCase :: [Text] -> Text
+joinNamesSnakeCase = Text.intercalate "_"
+
+-- | Join parts of a name in @camelCase@ style
+--
+-- The first character of all parts but the first is changed to uppercase (if it
+-- is a letter), and the results are concatenated.
+--
+-- Since this function may change the case of letters, it can cause name
+-- collisions when different C names only differ by case of the first letter.
+joinNamesCamelCase :: [Text] -> Text
+joinNamesCamelCase = \case
+    (t:ts) -> Text.concat $ t : map upperFirstChar ts
+    []     -> Text.empty
+  where
+    upperFirstChar :: Text -> Text
+    upperFirstChar t = case Text.uncons t of
+      Just (c, t') -> Text.cons (Char.toUpper c) t'
+      Nothing      -> t
+
 generateName ::
      SingNamespace ns
-  => GenerateName -> CName -> Maybe (HsName ns)
-generateName GenerateName{onInvalidChar, applyRuleSet} =
+  => GenerateName -> [CName] -> Maybe (HsName ns)
+generateName GenerateName{onInvalidChar, joinNames, applyRuleSet} =
       applyRuleSet
-    . processInvalidChars
-    . getCName
+    . joinNames
+    . map (processInvalidChars . getCName)
   where
     processInvalidChars :: Text -> Text
     processInvalidChars = Text.pack . go . Text.unpack
@@ -413,11 +382,11 @@ panicEmptyName = panicPure "mkHsNameDropInvalid: empty name"
 data Overrides = Overrides {
       override :: forall ns.
            SingNamespace ns
-        => Maybe CName
-           -- ^ C name, if available.
+        => [CName]
+           -- ^ C names
            --
-           -- An example situation in which the C name is unavailable is
-           -- anonymous structs nested inside other structs.
+           -- This will be a singleton list for types declared at the top level,
+           -- and a longer list for nested types.
         -> Maybe (HsName ns)
            -- ^ Haskell name
            --
@@ -435,20 +404,20 @@ handleOverrideNone = Overrides $ \_cname _name -> Nothing
 
 -- | Override translations of Haskell names using a map
 handleOverrideMap ::
-     Map Namespace (Map (Maybe Text) (Map (Maybe CName) Text))
+     Map Namespace (Map (Maybe Text) (Map [CName] Text))
   -> Overrides
 handleOverrideMap overrideMap = Overrides aux
   where
     aux :: forall ns.
          SingNamespace ns
-      => Maybe CName -> Maybe (HsName ns) -> Maybe (HsName ns)
-    aux cname name = do
+      => [CName] -> Maybe (HsName ns) -> Maybe (HsName ns)
+    aux cnames name = do
         nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
         nMap  <- Map.lookup (getHsName <$> name) nsMap
-        HsName <$> Map.lookup cname nMap
+        HsName <$> Map.lookup cnames nMap
 
 useOverride ::
-     Text               -- ^ Input to name generation
+     [CName]            -- ^ Input to name generation
   -> Maybe (HsName ns)  -- ^ Generated name (unless failed)
   -> Maybe (HsName ns)  -- ^ Override (if any)
   -> HsName ns
@@ -456,7 +425,7 @@ useOverride _     _           (Just name) = name
 useOverride _     (Just name) _           = name
 useOverride input Nothing     Nothing     = throw $ RequireOverride input
 
-data RequireOverride = RequireOverride Text
+data RequireOverride = RequireOverride [CName]
   deriving stock (Show)
 
 instance Exception RequireOverride where
