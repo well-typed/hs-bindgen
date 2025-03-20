@@ -32,6 +32,7 @@ import Foreign.C.String qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
 import HsBindgen.Runtime.Bitfield qualified
+import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
@@ -285,6 +286,9 @@ resolveGlobal = \case
 
     ByteArray_type -> importQ ''ByteArray
     SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+
+    ByteArray_getUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.getUnionPayload
+    ByteArray_setUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.setUnionPayload
 
     PrimType hsPrimType  -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void

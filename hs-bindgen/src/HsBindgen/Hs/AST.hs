@@ -175,6 +175,8 @@ data Decl where
     DeclDeriveInstance  :: Strategy HsType -> TypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
+    DeclUnionGetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
+    DeclUnionSetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
 
 deriving instance Show Decl
 

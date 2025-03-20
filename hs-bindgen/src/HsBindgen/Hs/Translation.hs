@@ -233,14 +233,18 @@ unionDecs :: TranslationOpts -> NameMangler -> C.Union -> [Hs.Decl]
 unionDecs _opts nm union =
     [ Hs.DeclNewtype Hs.Newtype {..}
     , Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
-    -- TODO: storable instance
-    -- TODO: getters and builders
+    ] ++ concat
+    [ [ Hs.DeclUnionGetter newtypeName (typ nm ufieldType) (mangleGetterName nm declPath ufieldName)
+      , Hs.DeclUnionSetter newtypeName (typ nm ufieldType) (mangleBuilderName nm declPath ufieldName)
+      ]
+    | C.UnionField {..} <- C.unionFields union
     ]
   where
-    newtypeName   = mangleTyconName nm $ C.unionDeclPath union
-    newtypeConstr = mangleDataconName nm  $ C.unionDeclPath union
+    declPath      = C.unionDeclPath union
+    newtypeName   = mangleTyconName nm declPath
+    newtypeConstr = mangleDataconName nm declPath
     newtypeField  = Hs.Field {
-        fieldName   = mangleDeconName nm $ C.unionDeclPath union
+        fieldName   = mangleDeconName nm declPath
       , fieldType   = Hs.HsByteArray
       , fieldOrigin = Hs.FieldOriginNone
       }

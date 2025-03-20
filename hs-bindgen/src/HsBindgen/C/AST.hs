@@ -25,6 +25,7 @@ module HsBindgen.C.AST (
   , OpaqueStruct(..)
     -- ** Unions
   , Union(..)
+  , UnionField(..)
     -- ** Enums
   , Enu(..)
   , EnumValue(..)

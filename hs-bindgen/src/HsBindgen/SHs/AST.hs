@@ -59,6 +59,8 @@ data Global =
   | CharValue_tycon
   | CharValue_constructor
   | CharValue_fromAddr
+  | ByteArray_setUnionPayload
+  | ByteArray_getUnionPayload
 
     -- Other type classes
   | Bits_class

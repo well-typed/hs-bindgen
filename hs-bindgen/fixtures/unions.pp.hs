@@ -10,6 +10,7 @@ module Example where
 import qualified Data.Array.Byte
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -80,6 +81,18 @@ newtype DimPayload = DimPayload
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
 
+get_dimPayload_dim2 :: DimPayload -> Dim2
+get_dimPayload_dim2 = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_dimPayload_dim2 :: Dim2 -> DimPayload
+set_dimPayload_dim2 = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+get_dimPayload_dim3 :: DimPayload -> Dim2
+get_dimPayload_dim3 = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_dimPayload_dim3 :: Dim2 -> DimPayload
+set_dimPayload_dim3 = HsBindgen.Runtime.ByteArray.setUnionPayload
+
 data Dim = Dim
   { dim_tag :: FC.CInt
   , dim_payload :: DimPayload
@@ -114,6 +127,18 @@ newtype DimPayloadB = DimPayloadB
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
+
+get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
+get_dimPayloadB_dim2 = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_dimPayloadB_dim2 :: Dim2 -> DimPayloadB
+set_dimPayloadB_dim2 = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
+get_dimPayloadB_dim3 = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
+set_dimPayloadB_dim3 = HsBindgen.Runtime.ByteArray.setUnionPayload
 
 newtype DimPayloadB = DimPayloadB
   { unDimPayloadB :: DimPayloadB

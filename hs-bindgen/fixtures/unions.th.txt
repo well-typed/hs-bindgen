@@ -21,6 +21,14 @@ deriving stock instance Show Dim3
 deriving stock instance Eq Dim3
 newtype DimPayload = DimPayload {unDimPayload :: ByteArray}
 deriving via (SizedByteArray 8 4) instance Storable DimPayload
+get_dimPayload_dim2 :: DimPayload -> Dim2
+get_dimPayload_dim2 = getUnionPayload
+set_dimPayload_dim2 :: Dim2 -> DimPayload
+set_dimPayload_dim2 = setUnionPayload
+get_dimPayload_dim3 :: DimPayload -> Dim2
+get_dimPayload_dim3 = getUnionPayload
+set_dimPayload_dim3 :: Dim2 -> DimPayload
+set_dimPayload_dim3 = setUnionPayload
 data Dim = Dim {dim_tag :: CInt, dim_payload :: DimPayload}
 instance Storable Dim
     where {sizeOf = \_ -> 12 :: Int;
@@ -33,6 +41,14 @@ deriving stock instance Show Dim
 deriving stock instance Eq Dim
 newtype DimPayloadB = DimPayloadB {unDimPayloadB :: ByteArray}
 deriving via (SizedByteArray 8 4) instance Storable DimPayloadB
+get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
+get_dimPayloadB_dim2 = getUnionPayload
+set_dimPayloadB_dim2 :: Dim2 -> DimPayloadB
+set_dimPayloadB_dim2 = setUnionPayload
+get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
+get_dimPayloadB_dim3 = getUnionPayload
+set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
+set_dimPayloadB_dim3 = setUnionPayload
 newtype DimPayloadB = DimPayloadB {unDimPayloadB :: DimPayloadB}
 deriving newtype instance Storable DimPayloadB
 data DimB = DimB {dimB_tag :: CInt, dimB_payload :: DimPayloadB}

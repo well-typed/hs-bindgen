@@ -38,6 +38,8 @@ genExtBindings headerIncludePath extIdentifierPackage extIdentifierModule =
       Hs.DeclDeriveInstance{} -> id
       Hs.DeclForeignImport{}  -> id
       Hs.DeclVar{}            -> id
+      Hs.DeclUnionGetter{}    -> id
+      Hs.DeclUnionSetter{}    -> id
 
     insertTypes ::
          [(CNameSpelling, HsIdentifier)]
