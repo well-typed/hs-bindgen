@@ -167,7 +167,6 @@ defaultNameMangler = NameMangler{..}
           ctxTypeConstrCName
       StructTypeConstrContext{..} ->
         translateDeclPath
-          getDeclPathParts
           (maintainCName escapeInvalidChar)
           joinWithSnakeCase
           (mkHsNamePrefixInvalid "C")
@@ -231,7 +230,6 @@ haskellNameMangler = NameMangler{..}
           ctxTypeConstrCName
       StructTypeConstrContext{..} ->
         translateDeclPath
-          getDeclPathParts
           (camelCaseCName dropInvalidChar)
           joinWithCamelCase
           (mkHsNamePrefixInvalid "C")
@@ -330,8 +328,7 @@ translateName
 -- See 'translateName' for documentation of the other parameters.
 translateDeclPath ::
      SingNamespace ns
-  => (DeclPath -> [CName])    -- ^ Get parts from a 'DeclPath'
-  -> (CName -> Text)          -- ^ Translate a 'CName'
+  => (CName -> Text)          -- ^ Translate a 'CName'
   -> JoinParts                -- ^ Join parts of a name
   -> GenerateName ns          -- ^ Construct an 'HsName'
   -> Overrides                -- ^ Override translation
@@ -339,14 +336,13 @@ translateDeclPath ::
   -> DeclPath
   -> HsName ns
 translateDeclPath
-  getParts
   translate
   joinParts
   mkHsName
   overrides
   handleReserved
   declPath =
-    let input = joinPartsWith joinParts $ map translate (getParts declPath)
+    let input = joinPartsWith joinParts $ map translate (getDeclPathParts declPath)
         name  = mkHsName input
     in  handleReserved $ useOverride input name $
           override overrides (getCName' declPath) name
