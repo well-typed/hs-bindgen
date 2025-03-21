@@ -5,13 +5,8 @@
 -- NOTE: Client code should /NOT/ have to import from @hs-bindgen-libclang@;
 -- that library should be considered internal to @hs-bindgen@.
 module HsBindgen.Lib (
-    -- * Header resolution
-    Paths.CHeaderIncludePath -- opaque
-  , Paths.parseCHeaderIncludePath
-  , Resolve.resolveHeader
-
     -- * Parsing and translating
-  , HsDecls -- opaque
+    HsDecls -- opaque
   , translateCHeader
 
     -- * Preprocessor
@@ -69,7 +64,8 @@ module HsBindgen.Lib (
   , Backend.PP.HsRenderOpts(..)
 
     -- * Paths
-  , Paths.SourcePath(..)
+  , Paths.CHeaderIncludePath -- opaque
+  , Paths.parseCHeaderIncludePath
   , Paths.CIncludePathDir(..)
   , (FilePath.</>)
   , FilePath.joinPath
@@ -84,7 +80,6 @@ import HsBindgen.Clang.Args qualified as Args
 import HsBindgen.Clang.Paths qualified as Paths
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Util.Tracer qualified as Tracer

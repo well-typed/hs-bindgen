@@ -82,6 +82,7 @@ library
       HsBindgen.Hs.AST.Type
       HsBindgen.NameHint
       HsBindgen.Pipeline
+      HsBindgen.Resolve
       HsBindgen.Errors
   other-modules:
       Data.DynGraph
@@ -114,7 +115,6 @@ library
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Orphans
-      HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec
