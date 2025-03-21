@@ -13,7 +13,6 @@ import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.HighLevel (withTranslationUnit2)
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
@@ -48,8 +47,8 @@ resolveHeader' ::
   -> IO (Either ResolveHeaderException SourcePath)
 resolveHeader' args headerIncludePath =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withUnsavedFile headerName headerContent $ \unsavedFile ->
-        withTranslationUnit2 index headerSourcePath args [unsavedFile] opts $
+      HighLevel.withUnsavedFile headerName headerContent $ \file ->
+        HighLevel.withTranslationUnit2 index headerSourcePath args [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error during header resolution: "

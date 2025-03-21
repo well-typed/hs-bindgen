@@ -3,6 +3,7 @@ module HsBindgen.C.Fold.DeclState (
   , TypeDecl (..)
     -- * Construction
   , initDeclState
+  , registerMainHeader
   , registerMacroExpansion
   , registerMacroType
   , registerInclude
@@ -29,6 +30,8 @@ import HsBindgen.Imports
 
 -- | Declaration state, maintained during AST construction
 data DeclState = DeclState {
+      -- | Main header currently being processed
+      currentMainHeader :: Maybe (CHeaderIncludePath, SourcePath)
       -- | Macro expansions
       --
       -- Whenever @clang@ expands a macro, we get a (faux?) AST node of type
@@ -36,7 +39,7 @@ data DeclState = DeclState {
       -- expanded. We keep track of these, so that we know to look out for them;
       -- for example, it can alert us to the fact that a struct field has a
       -- type which is macro defined.
-      macroExpansions  :: !(Set SingleLoc)
+    , macroExpansions  :: !(Set SingleLoc)
     , macroTypes       :: !Macro.TypeEnv
     -- | Type declarations
     --
@@ -69,10 +72,16 @@ data TypeDecl
 
 initDeclState :: DeclState
 initDeclState = DeclState {
-      macroExpansions   = Set.empty
+      currentMainHeader = Nothing
+    , macroExpansions   = Set.empty
     , macroTypes        = Map.empty
     , typeDeclarations  = OMap.empty
     , cIncludePathGraph = DynGraph.empty
+    }
+
+registerMainHeader :: CHeaderIncludePath -> SourcePath -> DeclState -> DeclState
+registerMainHeader headerIncludePath sourcePath st = st{
+      currentMainHeader = Just (headerIncludePath, sourcePath)
     }
 
 registerMacroExpansion :: MultiLoc -> DeclState -> DeclState

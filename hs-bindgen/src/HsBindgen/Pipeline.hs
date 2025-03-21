@@ -44,11 +44,9 @@ import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Clang.Args
-import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
@@ -58,7 +56,6 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.NameMangler qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
-import HsBindgen.Resolve
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Tracer
@@ -109,16 +106,14 @@ defaultPPOpts = PPOpts {
 
 -- | Parse a C header
 parseCHeader :: Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
-parseCHeader Opts{..} headerIncludePath = do
-    src <- resolveHeader optsClangArgs headerIncludePath
-    C.withTranslationUnit diagTracer optsClangArgs src $
-      C.parseCHeader skipTracer optsExtBindings optsPredicate headerIncludePath
-  where
-    diagTracer :: Tracer IO Diagnostic
-    diagTracer = contramap show optsDiagTracer
-
-    skipTracer :: Tracer IO C.Skipped
-    skipTracer = contramap prettyLogMsg optsSkipTracer
+parseCHeader Opts{..} headerIncludePath =
+    C.parseCHeaders
+      (contramap show optsDiagTracer)
+      (contramap prettyLogMsg optsSkipTracer)
+      optsClangArgs
+      optsPredicate
+      optsExtBindings
+      [headerIncludePath]
 
 -- | Generate @Hs@ declarations
 genHsDecls :: Opts -> C.Header -> [Hs.Decl]

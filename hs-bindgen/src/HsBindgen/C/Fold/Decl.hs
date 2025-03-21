@@ -6,9 +6,11 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
+import Data.List qualified as List
 
 import HsBindgen.Imports
 import HsBindgen.Eff
+import HsBindgen.Errors
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
@@ -34,22 +36,32 @@ foldDecls ::
   => Tracer IO Skipped
   -> Predicate
   -> ExtBindings
-  -> CHeaderIncludePath
+  -> [CHeaderIncludePath]
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p extBindings headerIncludePath unit current = do
+foldDecls tracer p extBindings headerIncludePaths unit current = do
     loc <- liftIO $ clang_getCursorLocation current
     sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
     eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind current
 
     -- process include directives even when predicate does not match
     when (eCursorKind == Right CXCursor_InclusionDirective) $ do
+      -- update the include graph
       incHeader <- liftIO $
             fmap SourcePath . clang_getFileName
         =<< clang_getIncludedFile current
       modify $ registerInclude (singleLocPath sloc) incHeader
 
-    whenPredicateMatches tracer p current $ case eCursorKind of
+      -- update the current main header
+      isFromMainFile <- liftIO $ clang_Location_isFromMainFile loc
+      when isFromMainFile $
+        case headerIncludePaths List.!? (singleLocLine sloc - 1) of
+          Just headerIncludePath ->
+            modify $ registerMainHeader headerIncludePath incHeader
+          Nothing -> panicIO "root header unknown include"
+
+    mHeader <- gets currentMainHeader
+    whenPredicateMatches tracer p mHeader current sloc $ \headerIncludePath -> case eCursorKind of
       Right CXCursor_TypedefDecl -> typeDecl
       Right CXCursor_StructDecl  -> typeDecl
       Right CXCursor_EnumDecl    -> typeDecl
