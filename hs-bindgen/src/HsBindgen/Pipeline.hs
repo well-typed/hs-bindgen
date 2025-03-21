@@ -112,7 +112,7 @@ parseCHeader :: Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
 parseCHeader Opts{..} headerIncludePath = do
     src <- resolveHeader optsClangArgs headerIncludePath
     C.withTranslationUnit diagTracer optsClangArgs src $
-      C.parseCHeader skipTracer optsExtBindings optsPredicate
+      C.parseCHeader skipTracer optsExtBindings optsPredicate headerIncludePath
   where
     diagTracer :: Tracer IO Diagnostic
     diagTracer = contramap show optsDiagTracer
@@ -121,9 +121,8 @@ parseCHeader Opts{..} headerIncludePath = do
     skipTracer = contramap prettyLogMsg optsSkipTracer
 
 -- | Generate @Hs@ declarations
-genHsDecls :: Opts -> CHeaderIncludePath -> C.Header -> [Hs.Decl]
-genHsDecls Opts{..} headerIncludePath =
-    Hs.generateDeclarations headerIncludePath optsTranslation optsNameMangler
+genHsDecls :: Opts -> C.Header -> [Hs.Decl]
+genHsDecls Opts{..} = Hs.generateDeclarations optsTranslation optsNameMangler
 
 -- | Generate @SHs@ declarations
 genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
@@ -157,7 +156,7 @@ genExtensions = foldMap requiredExtensions
 translateCHeader :: Opts -> CHeaderIncludePath -> IO [Hs.Decl]
 translateCHeader opts headerIncludePath = do
     (_depPaths, header) <- parseCHeader opts headerIncludePath
-    return $ genHsDecls opts headerIncludePath header
+    return $ genHsDecls opts header
 
 -- | Generate bindings for the given C header
 preprocessPure :: PPOpts -> [Hs.Decl] -> String
@@ -188,7 +187,7 @@ genBindings opts fp = do
     -- record dependencies, including transitively included headers
     mapM_ (TH.addDependentFile . getSourcePath) depPaths
 
-    let sdecls = genSHsDecls $ genHsDecls opts headerIncludePath cheader
+    let sdecls = genSHsDecls $ genHsDecls opts cheader
 
     -- extensions checks.
     -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)

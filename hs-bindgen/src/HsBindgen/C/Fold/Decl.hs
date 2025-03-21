@@ -6,8 +6,6 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
-import Data.Text qualified as Text
-import System.FilePath qualified as FilePath
 
 import HsBindgen.Imports
 import HsBindgen.Eff
@@ -36,9 +34,10 @@ foldDecls ::
   => Tracer IO Skipped
   -> Predicate
   -> ExtBindings
+  -> CHeaderIncludePath
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p extBindings unit current = do
+foldDecls tracer p extBindings headerIncludePath unit current = do
     loc <- liftIO $ clang_getCursorLocation current
     sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
     eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind current
@@ -90,12 +89,11 @@ foldDecls tracer p extBindings unit current = do
         spelling <- liftIO $ clang_getCursorSpelling current
         ty <- liftIO $ clang_getCursorType current
         ty' <- processTypeDecl extBindings unit (Just current) ty
-        (path, _, _) <- liftIO $ clang_getPresumedLocation loc
 
         return $ Continue $ Just $ DeclFunction $ Function
           { functionName      = CName spelling
           , functionType      = ty'
-          , functionHeader    = FilePath.takeFileName (Text.unpack path)
+          , functionHeader    = headerIncludePath
           , functionSourceLoc = sloc
           }
 

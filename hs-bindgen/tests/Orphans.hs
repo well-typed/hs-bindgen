@@ -38,6 +38,9 @@ instance ToExpr CInt where
   hs-bindgen
 -------------------------------------------------------------------------------}
 
+instance ToExpr Paths.CHeaderIncludePath where
+  toExpr = toExpr . Paths.getCHeaderIncludePath
+
 instance ToExpr C.Attribute
 instance ToExpr C.CName
 instance ToExpr C.Decl

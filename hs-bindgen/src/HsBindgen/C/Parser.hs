@@ -134,14 +134,15 @@ parseCHeader ::
      Tracer IO C.Skipped
   -> ExtBindings                 -- ^ External bindings
   -> Predicate                   -- ^ Selection predicate
+  -> CHeaderIncludePath
   -> CXTranslationUnit
   -> IO ([SourcePath], C.Header) -- ^ List of included headers and parsed header
-parseCHeader skipTracer extBindings p unit = do
+parseCHeader skipTracer extBindings p headerIncludePath unit = do
     (decls, finalDeclState) <-
       foldTranslationUnitWith
         unit
         (C.runFoldState C.initDeclState)
-        (C.foldDecls skipTracer p extBindings unit)
+        (C.foldDecls skipTracer p extBindings headerIncludePath unit)
     let decls' =
           [ d | C.TypeDecl _ d <- toList (C.typeDeclarations finalDeclState) ]
         depPaths = DynGraph.vertices $ C.cIncludePathGraph finalDeclState

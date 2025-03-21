@@ -78,6 +78,7 @@ import HsBindgen.C.Tc.Macro
   ( TcMacroError(..), pprTcMacroError )
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.HighLevel.Types
+import HsBindgen.Clang.Paths
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -112,12 +113,9 @@ data MacroDecl
   deriving stock (Show, Eq, Generic)
 
 data Function = Function
-    { functionName :: CName
-    , functionType :: Type
-
-    -- TODO: we might not need functionHeader field,
-    -- https://github.com/well-typed/hs-bindgen/issues/333
-    , functionHeader :: FilePath
+    { functionName      :: CName
+    , functionType      :: Type
+    , functionHeader    :: CHeaderIncludePath
     , functionSourceLoc :: SingleLoc
     }
   deriving stock (Show, Eq, Generic)
