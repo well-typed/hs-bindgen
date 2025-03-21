@@ -729,8 +729,8 @@ mkUnionField extBindings unit mUnionName ctxt current = do
 
         return $ Just $ UnionField{ufieldName, ufieldType, ufieldSourceLoc}
 
-      -- TODO: inner definitions
-      -- Right CXCursor_StructDecl -> return Nothing
+      -- inner structs: skip, processed as part of fields if needed.
+      Right CXCursor_StructDecl -> return Nothing
 
       _other ->
         unrecognizedCursor current
