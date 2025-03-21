@@ -1,7 +1,6 @@
 module HsBindgen.C.Fold.Common (
     -- * Predicates
     Skipped(..)
-  , checkPredicate
   , whenPredicateMatches
     -- * Errors
   , UnrecognizedCursor(..)
@@ -45,22 +44,6 @@ instance PrettyLogMsg Skipped where
       , ": "
       , skippedReason
       ]
-
-checkPredicate ::
-     MonadIO m
-  => Tracer IO Skipped
-  -> Predicate
-  -> Fold m a
-  -> Fold m a
-checkPredicate tracer p k current = do
-    isMatch <- liftIO $ Predicate.match current p
-    case isMatch of
-      Right ()     -> k current
-      Left  reason -> liftIO $ do
-        name <- clang_getCursorSpelling current
-        loc  <- HighLevel.clang_getCursorLocation current
-        traceWith tracer Info $ Skipped name loc reason
-        return $ Continue Nothing
 
 whenPredicateMatches ::
      MonadIO m
