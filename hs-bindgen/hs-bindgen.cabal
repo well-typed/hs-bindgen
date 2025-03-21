@@ -92,7 +92,6 @@ library
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
       HsBindgen.C.Fold.DeclState
-      HsBindgen.C.Fold.Prelude
       HsBindgen.C.Fold.Type
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
