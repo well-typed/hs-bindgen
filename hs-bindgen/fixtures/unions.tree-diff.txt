@@ -185,4 +185,95 @@ Header
             "unions.h:30:17"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:28:8"}]
+        "unions.h:28:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathAnon
+          (DeclPathCtxtField
+            (Just (CName "AnonA"))
+            (CName "xy")
+            DeclPathCtxtTop),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "unions.h:35:21"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "unions.h:35:31"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "unions.h:35:5"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathAnon
+          (DeclPathCtxtField
+            (Just (CName "AnonA"))
+            (CName "polar")
+            DeclPathCtxtTop),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "r",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "unions.h:36:21"},
+          StructField {
+            fieldName = CName "p",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "unions.h:36:31"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "unions.h:36:5"},
+    DeclUnion
+      Union {
+        unionDeclPath = DeclPathName
+          (CName "AnonA")
+          DeclPathCtxtTop,
+        unionAliases = [],
+        unionSizeof = 16,
+        unionAlignment = 8,
+        unionFields = [
+          UnionField {
+            ufieldName = CName "xy",
+            ufieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "AnonA"))
+                  (CName "xy")
+                  DeclPathCtxtTop)),
+            ufieldSourceLoc =
+            "unions.h:35:36"},
+          UnionField {
+            ufieldName = CName "polar",
+            ufieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "AnonA"))
+                  (CName "polar")
+                  DeclPathCtxtTop)),
+            ufieldSourceLoc =
+            "unions.h:36:36"}],
+        unionSourceLoc =
+        "unions.h:34:7"}]

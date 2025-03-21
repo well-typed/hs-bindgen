@@ -29,3 +29,9 @@ struct DimB {
     int tag;
     DimPayloadB payload;
 };
+
+// union with anonymous struct fields
+union AnonA {
+    struct { double x; double y; } xy;
+    struct { double r; double p; } polar;
+};

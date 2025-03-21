@@ -88,3 +88,58 @@ const _: () = {
     ["Offset of field: DimB::tag"][::std::mem::offset_of!(DimB, tag) - 0usize];
     ["Offset of field: DimB::payload"][::std::mem::offset_of!(DimB, payload) - 4usize];
 };
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union AnonA {
+    pub xy: AnonA__bindgen_ty_1,
+    pub polar: AnonA__bindgen_ty_2,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AnonA__bindgen_ty_1 {
+    pub x: f64,
+    pub y: f64,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    [
+        "Size of AnonA__bindgen_ty_1",
+    ][::std::mem::size_of::<AnonA__bindgen_ty_1>() - 16usize];
+    [
+        "Alignment of AnonA__bindgen_ty_1",
+    ][::std::mem::align_of::<AnonA__bindgen_ty_1>() - 8usize];
+    [
+        "Offset of field: AnonA__bindgen_ty_1::x",
+    ][::std::mem::offset_of!(AnonA__bindgen_ty_1, x) - 0usize];
+    [
+        "Offset of field: AnonA__bindgen_ty_1::y",
+    ][::std::mem::offset_of!(AnonA__bindgen_ty_1, y) - 8usize];
+};
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AnonA__bindgen_ty_2 {
+    pub r: f64,
+    pub p: f64,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    [
+        "Size of AnonA__bindgen_ty_2",
+    ][::std::mem::size_of::<AnonA__bindgen_ty_2>() - 16usize];
+    [
+        "Alignment of AnonA__bindgen_ty_2",
+    ][::std::mem::align_of::<AnonA__bindgen_ty_2>() - 8usize];
+    [
+        "Offset of field: AnonA__bindgen_ty_2::r",
+    ][::std::mem::offset_of!(AnonA__bindgen_ty_2, r) - 0usize];
+    [
+        "Offset of field: AnonA__bindgen_ty_2::p",
+    ][::std::mem::offset_of!(AnonA__bindgen_ty_2, p) - 8usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of AnonA"][::std::mem::size_of::<AnonA>() - 16usize];
+    ["Alignment of AnonA"][::std::mem::align_of::<AnonA>() - 8usize];
+    ["Offset of field: AnonA::xy"][::std::mem::offset_of!(AnonA, xy) - 0usize];
+    ["Offset of field: AnonA::polar"][::std::mem::offset_of!(AnonA, polar) - 0usize];
+};
