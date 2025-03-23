@@ -117,6 +117,7 @@ library
       HsBindgen.Orphans
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
+      HsBindgen.Util.Compat
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer

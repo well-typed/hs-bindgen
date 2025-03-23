@@ -6,7 +6,6 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
-import Data.List qualified as List
 
 import HsBindgen.Imports
 import HsBindgen.Eff
@@ -23,6 +22,7 @@ import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
 import HsBindgen.ExtBindings
 import HsBindgen.Runtime.Enum.Simple
+import HsBindgen.Util.Compat ((!?))
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
 import C.Type (hostPlatform)
@@ -55,7 +55,7 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
       -- update the current main header
       isFromMainFile <- liftIO $ clang_Location_isFromMainFile loc
       when isFromMainFile $
-        case headerIncludePaths List.!? (singleLocLine sloc - 1) of
+        case headerIncludePaths !? (singleLocLine sloc - 1) of
           Just headerIncludePath ->
             modify $ registerMainHeader headerIncludePath incHeader
           Nothing -> panicIO "root header unknown include"

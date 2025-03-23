@@ -31,6 +31,7 @@ import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
+import HsBindgen.Util.Compat ((!?))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -125,7 +126,7 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
       let sloc = multiLocExpansion diagnosticLocation
       guard $ singleLocPath sloc == C.rootHeaderName
       guard $ " file not found" `Text.isSuffixOf` diagnosticSpelling
-      headerIncludePath <- headerIncludePaths List.!? (singleLocLine sloc - 1)
+      headerIncludePath <- headerIncludePaths !? (singleLocLine sloc - 1)
       return $ ParseCHeadersInputFileNotFound headerIncludePath
 
 {-------------------------------------------------------------------------------
