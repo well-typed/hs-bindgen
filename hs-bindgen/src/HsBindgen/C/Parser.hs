@@ -4,9 +4,8 @@
 --
 -- > import HsBindgen.C.Parser qualified as C
 module HsBindgen.C.Parser (
-    -- * Main entry point into libclang
-    TranslationUnitException(..)
     -- * Parsing
+    ParseCHeadersException(..)
   , parseCHeaders
     -- * Debugging/development
   , getTargetTriple
@@ -14,6 +13,7 @@ module HsBindgen.C.Parser (
 
 import Control.Exception
 import Data.List qualified as List
+import Data.Maybe qualified as Maybe
 import Data.Text qualified as Text
 
 import Data.DynGraph qualified as DynGraph
@@ -34,28 +34,36 @@ import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
-  Main entry point into libclang
+  Parsing
 -------------------------------------------------------------------------------}
 
 -- | Failed to parse the C source
 --
--- This is thrown by 'withTranslationUnit'.
-data TranslationUnitException =
+-- This is thrown by 'parseCHeaders'.
+data ParseCHeadersException =
+    -- | Input header file not found
+    ParseCHeadersInputFileNotFound CHeaderIncludePath
+
     -- | Errors in the C file
     --
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/174> We should
     -- have a pretty renderer for diagnostics. For now we rely on
     -- 'diagnosticFormatted'.
-    TranslationUnitCErrors [Text]
+  | ParseCHeadersCErrors [Text]
 
     -- | We failed to process file for some other reason
-  | TranslationUnitUnknownError (SimpleEnum CXErrorCode)
+  | ParseCHeadersUnknownError (SimpleEnum CXErrorCode)
   deriving stock (Show)
-  deriving anyclass (Exception)
 
-{-------------------------------------------------------------------------------
-  Parsing
--------------------------------------------------------------------------------}
+instance Exception ParseCHeadersException where
+  toException = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+  displayException = \case
+    ParseCHeadersInputFileNotFound path ->
+      "header not found: " ++ getCHeaderIncludePath path
+    ParseCHeadersCErrors errs -> unlines $ map Text.unpack errs
+    ParseCHeadersUnknownError errCode ->
+      "unknown error parsing C headers: " ++ show errCode
 
 parseCHeaders ::
      Tracer IO Diagnostic  -- ^ Tracer for warnings
@@ -70,12 +78,11 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
         HighLevel.withTranslationUnit2 index C.rootHeaderName args [file] opts $
           \case
-            Left err -> throwIO $ TranslationUnitUnknownError err
+            Left err -> throwIO $ ParseCHeadersUnknownError err
             Right unit -> do
               (errors, warnings) <- List.partition diagnosticIsError
                 <$> HighLevel.clang_getDiagnostics unit Nothing
-              unless (null errors) . throwIO $
-                TranslationUnitCErrors (map diagnosticFormatted errors)
+              unless (null errors) $ throwIO (getError errors)
               -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
               -- We should print warnings only optionally.
               forM_ warnings $ traceWith diagTracer Warning
@@ -106,6 +113,20 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
         , CXTranslationUnit_IncludeAttributedTypes
         , CXTranslationUnit_VisitImplicitAttributes
         ]
+
+    getError :: [Diagnostic] -> ParseCHeadersException
+    getError diags =
+      case (Maybe.listToMaybe (mapMaybe getInputFileNotFoundError diags)) of
+        Just e  -> e
+        Nothing -> ParseCHeadersCErrors $ map diagnosticFormatted diags
+
+    getInputFileNotFoundError :: Diagnostic -> Maybe ParseCHeadersException
+    getInputFileNotFoundError Diagnostic{..} = do
+      let sloc = multiLocExpansion diagnosticLocation
+      guard $ singleLocPath sloc == C.rootHeaderName
+      guard $ " file not found" `Text.isSuffixOf` diagnosticSpelling
+      headerIncludePath <- headerIncludePaths List.!? (singleLocLine sloc - 1)
+      return $ ParseCHeadersInputFileNotFound headerIncludePath
 
 {-------------------------------------------------------------------------------
   Debugging/development
