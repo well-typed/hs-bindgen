@@ -2,7 +2,7 @@ packages: hs-bindgen-runtime
 packages: hs-bindgen
 packages: clang
 packages: clang-bootstrap
-packages: hs-bindgen-testlib
+packages: hs-bindgen-test-runtime
 packages: c-expr
 packages: ansi-diff
 packages: userland-capi
@@ -16,4 +16,4 @@ package clang
 
 package hs-bindgen-runtime
 
-package hs-bindgen-testlib
+package hs-bindgen-test-runtime

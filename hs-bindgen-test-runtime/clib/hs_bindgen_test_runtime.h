@@ -1,7 +1,7 @@
 // Copyright (c) 2024 Well-Typed LLP and Anduril Industries Inc.
 
-#ifndef HS_BINDGEN_TESTLIB_H
-#define HS_BINDGEN_TESTLIB_H
+#ifndef HS_BINDGEN_TEST_RUNTIME_H
+#define HS_BINDGEN_TEST_RUNTIME_H
 
 #include <signal.h>
 #include <stdbool.h>
@@ -217,4 +217,4 @@ float hsbg_preturb_CFloat(long long, float);
 
 double hsbg_preturb_CDouble(long long, double);
 
-#endif // HS_BINDGEN_TESTLIB_H
+#endif // HS_BINDGEN_TEST_RUNTIME_H

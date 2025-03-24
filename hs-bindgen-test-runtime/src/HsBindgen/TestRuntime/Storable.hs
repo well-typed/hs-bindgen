@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.Storable (
+module HsBindgen.TestRuntime.Storable (
     -- * Properties
     nameHsSizeOfXEqCSizeOfX
   , assertHsSizeOfXEqCSizeOfX
@@ -16,7 +16,9 @@ import Test.QuickCheck.Monadic qualified as QCM
 import Test.Tasty.HUnit ((@=?), Assertion)
 import Test.Tasty.QuickCheck (Property)
 
-import HsBindgen.TestLib.SameSemantics ((@==~?), SameSemantics(sameSemantics))
+import HsBindgen.TestRuntime.SameSemantics (
+    (@==~?), SameSemantics(sameSemantics)
+  )
 
 {-------------------------------------------------------------------------------
   Properties

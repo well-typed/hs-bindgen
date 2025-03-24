@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.RepZero (
+module HsBindgen.TestRuntime.RepZero (
     -- * RepZero
     RepZero(..)
   ) where

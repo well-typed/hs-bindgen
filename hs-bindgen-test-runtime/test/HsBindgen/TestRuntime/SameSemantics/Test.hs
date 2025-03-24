@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.SameSemantics.Test (tests) where
+module HsBindgen.TestRuntime.SameSemantics.Test (tests) where
 
 import Data.Typeable (Typeable, typeRep)
 import Data.Proxy (Proxy(Proxy))
@@ -7,10 +7,10 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
 import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
-import HsBindgen.TestLib.Arbitrary ()
-import HsBindgen.TestLib.RealFloat qualified as RF
-import HsBindgen.TestLib.SameSemantics (SameSemantics)
-import HsBindgen.TestLib.SameSemantics qualified as SameSemantics
+import HsBindgen.TestRuntime.Arbitrary ()
+import HsBindgen.TestRuntime.RealFloat qualified as RF
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics)
+import HsBindgen.TestRuntime.SameSemantics qualified as SameSemantics
 
 {-------------------------------------------------------------------------------
   Tests
@@ -65,7 +65,7 @@ testRealFloat proxy = testGroup (show (typeRep proxy))
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "HsBindgen.TestLib.SameSemantics"
+tests = testGroup "HsBindgen.TestRuntime.SameSemantics"
     [ testBoundedNum (Proxy @FC.CChar)
     , testBoundedNum (Proxy @FC.CSChar)
     , testBoundedNum (Proxy @FC.CUChar)

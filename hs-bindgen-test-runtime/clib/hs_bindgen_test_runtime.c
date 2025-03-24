@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "hs_bindgen_testlib.h"
+#include "hs_bindgen_test_runtime.h"
 
 /*******************************************************************************
   GenSeq

@@ -1,7 +1,7 @@
 packages: hs-bindgen-runtime
 packages: hs-bindgen
 packages: clang
-packages: hs-bindgen-testlib
+packages: hs-bindgen-test-runtime
 packages: ansi-diff
 packages: c-expr
 packages: userland-capi

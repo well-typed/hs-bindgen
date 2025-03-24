@@ -59,7 +59,7 @@ genTestsC cTestHeaderPath cTestSourcePath lineLength cHeaderPath decls = do
 
     cTestSourceUsrIncludes, cTestSourceSysIncludes :: [IncludeFile]
     cTestSourceUsrIncludes = List.sort
-      ["hs_bindgen_testlib.h" , cHeaderFilename , cTestHeaderFilename]
+      ["hs_bindgen_test_runtime.h" , cHeaderFilename , cTestHeaderFilename]
     cTestSourceSysIncludes = ["stdalign.h", "stdbool.h", "stddef.h"]
 
     cTestSourceDefns :: [CTestDefn]

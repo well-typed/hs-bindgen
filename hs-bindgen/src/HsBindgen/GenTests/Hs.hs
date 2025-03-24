@@ -61,19 +61,19 @@ genTestsHs
     hsTestModuleImports :: [Import]
     hsTestModuleImports = List.sort
       -- source below ordered by abbreviation
-      [ ("Foreign",                         "F")
-      , ("Foreign.C",                       "FC")
-      , ("HsBindgen.TestLib.GenSeq",        "GenSeq")
-      , ("HsBindgen.TestLib.Preturb",       "Preturb")
-      , ("Data.Proxy",                      "Proxy")
-      , ("Test.QuickCheck",                 "QC")
-      , ("HsBindgen.TestLib.RepZero",       "RepZero")
-      , ("HsBindgen.TestLib.SameSemantics", "SameSemantics")
-      , ("HsBindgen.TestLib.Storable",      "Storable")
-      , ("Test.Tasty",                      "Tasty")
-      , ("Test.Tasty.HUnit",                "THU")
-      , ("Test.Tasty.QuickCheck",           "TQC")
-      , (moduleName,                        "X")
+      [ ("Foreign",                             "F")
+      , ("Foreign.C",                           "FC")
+      , ("HsBindgen.TestRuntime.GenSeq",        "GenSeq")
+      , ("HsBindgen.TestRuntime.Preturb",       "Preturb")
+      , ("Data.Proxy",                          "Proxy")
+      , ("Test.QuickCheck",                     "QC")
+      , ("HsBindgen.TestRuntime.RepZero",       "RepZero")
+      , ("HsBindgen.TestRuntime.SameSemantics", "SameSemantics")
+      , ("HsBindgen.TestRuntime.Storable",      "Storable")
+      , ("Test.Tasty",                          "Tasty")
+      , ("Test.Tasty.HUnit",                    "THU")
+      , ("Test.Tasty.QuickCheck",               "TQC")
+      , (moduleName,                            "X")
       ]
 
     hsTestModuleFfiFunctions :: [FfiFunction]

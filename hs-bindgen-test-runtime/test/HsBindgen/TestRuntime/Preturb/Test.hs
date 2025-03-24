@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.Preturb.Test (tests) where
+module HsBindgen.TestRuntime.Preturb.Test (tests) where
 
 import Data.Typeable (Typeable, typeRep)
 import Data.Proxy (Proxy(Proxy))
@@ -7,12 +7,12 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
 import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
-import HsBindgen.TestLib.Arbitrary ()
-import HsBindgen.TestLib.CLib qualified as CLib
-import HsBindgen.TestLib.RealFloat qualified as RF
-import HsBindgen.TestLib.SameSemantics (SameSemantics)
-import HsBindgen.TestLib.Preturb (Preturb)
-import HsBindgen.TestLib.Preturb qualified as Preturb
+import HsBindgen.TestRuntime.Arbitrary ()
+import HsBindgen.TestRuntime.CLib qualified as CLib
+import HsBindgen.TestRuntime.RealFloat qualified as RF
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics)
+import HsBindgen.TestRuntime.Preturb (Preturb)
+import HsBindgen.TestRuntime.Preturb qualified as Preturb
 
 {-------------------------------------------------------------------------------
   Tests
@@ -175,7 +175,7 @@ testRealFloat cX = testGroup (show (typeRep (Proxy @a)))
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "HsBindgen.TestLib.Preturb"
+tests = testGroup "HsBindgen.TestRuntime.Preturb"
     [ testBoundedNum CLib.preturbCChar
     , testBoundedNum CLib.preturbCSChar
     , testBoundedNum CLib.preturbCUChar

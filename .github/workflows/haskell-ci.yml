@@ -157,7 +157,7 @@ jobs:
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-runtime" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/clang" >> cabal.project
-          echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-testlib" >> cabal.project
+          echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-test-runtime" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/ansi-diff" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/c-expr" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/userland-capi" >> cabal.project
@@ -178,8 +178,8 @@ jobs:
           echo "PKGDIR_hs_bindgen=${PKGDIR_hs_bindgen}" >> "$GITHUB_ENV"
           PKGDIR_clang="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/clang-[0-9.]*')"
           echo "PKGDIR_clang=${PKGDIR_clang}" >> "$GITHUB_ENV"
-          PKGDIR_hs_bindgen_testlib="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-testlib-[0-9.]*')"
-          echo "PKGDIR_hs_bindgen_testlib=${PKGDIR_hs_bindgen_testlib}" >> "$GITHUB_ENV"
+          PKGDIR_hs_bindgen_test_runtime="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-test-runtime-[0-9.]*')"
+          echo "PKGDIR_hs_bindgen_test_runtime=${PKGDIR_hs_bindgen_test_runtime}" >> "$GITHUB_ENV"
           PKGDIR_ansi_diff="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/ansi-diff-[0-9.]*')"
           echo "PKGDIR_ansi_diff=${PKGDIR_ansi_diff}" >> "$GITHUB_ENV"
           PKGDIR_c_expr="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/c-expr-[0-9.]*')"
@@ -192,7 +192,7 @@ jobs:
           echo "packages: ${PKGDIR_hs_bindgen_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen}" >> cabal.project
           echo "packages: ${PKGDIR_clang}" >> cabal.project
-          echo "packages: ${PKGDIR_hs_bindgen_testlib}" >> cabal.project
+          echo "packages: ${PKGDIR_hs_bindgen_test_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_ansi_diff}" >> cabal.project
           echo "packages: ${PKGDIR_c_expr}" >> cabal.project
           echo "packages: ${PKGDIR_userland_capi}" >> cabal.project
@@ -202,7 +202,7 @@ jobs:
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package clang" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
-          echo "package hs-bindgen-testlib" >> cabal.project
+          echo "package hs-bindgen-test-runtime" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package ansi-diff" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
@@ -223,7 +223,7 @@ jobs:
           package ansi-diff
             ghc-options: -Werror
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr|clang|hs-bindgen|hs-bindgen-runtime|hs-bindgen-testlib|userland-capi)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr|clang|hs-bindgen|hs-bindgen-runtime|hs-bindgen-test-runtime|userland-capi)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -257,7 +257,7 @@ jobs:
           ${CABAL} -vnormal check
           cd ${PKGDIR_clang} || false
           ${CABAL} -vnormal check
-          cd ${PKGDIR_hs_bindgen_testlib} || false
+          cd ${PKGDIR_hs_bindgen_test_runtime} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_ansi_diff} || false
           ${CABAL} -vnormal check

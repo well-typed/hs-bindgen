@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.SameSemantics (
+module HsBindgen.TestRuntime.SameSemantics (
     -- * SameSemantics
     SameSemantics(..)
   , sameSemanticsOn

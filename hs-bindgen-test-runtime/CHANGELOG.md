@@ -1,4 +1,4 @@
-# Revision history for hs-bindgen-testlib
+# Revision history for hs-bindgen-test-runtime
 
 ## 0.1.0 -- YYYY-mm-dd
 

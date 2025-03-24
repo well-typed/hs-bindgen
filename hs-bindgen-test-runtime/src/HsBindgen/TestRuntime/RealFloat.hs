@@ -1,5 +1,5 @@
 -- TODO documentation
-module HsBindgen.TestLib.RealFloat (
+module HsBindgen.TestRuntime.RealFloat (
     -- * Constants
     zero
   , negZero

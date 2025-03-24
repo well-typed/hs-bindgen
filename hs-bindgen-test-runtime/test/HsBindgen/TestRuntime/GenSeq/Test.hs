@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.GenSeq.Test (tests) where
+module HsBindgen.TestRuntime.GenSeq.Test (tests) where
 
 import Data.Typeable (Typeable, typeRep)
 import Data.Proxy (Proxy(Proxy))
@@ -7,10 +7,10 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
 import Test.Tasty.QuickCheck (testProperty)
 
-import HsBindgen.TestLib.CLib qualified as CLib
-import HsBindgen.TestLib.GenSeq (GenSeq)
-import HsBindgen.TestLib.GenSeq qualified as GenSeq
-import HsBindgen.TestLib.SameSemantics (SameSemantics)
+import HsBindgen.TestRuntime.CLib qualified as CLib
+import HsBindgen.TestRuntime.GenSeq (GenSeq)
+import HsBindgen.TestRuntime.GenSeq qualified as GenSeq
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics)
 
 {-------------------------------------------------------------------------------
   Tests
@@ -37,7 +37,7 @@ testA cGenSeq = testGroup (show (typeRep (Proxy @a)))
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "HsBindgen.TestLib.GenSeq"
+tests = testGroup "HsBindgen.TestRuntime.GenSeq"
     [ testA CLib.genSeqCChar
     , testA CLib.genSeqCSChar
     , testA CLib.genSeqCUChar

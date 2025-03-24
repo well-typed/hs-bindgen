@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.Preturb (
+module HsBindgen.TestRuntime.Preturb (
     -- * Preturb
     Preturb(..)
     -- * Properties
@@ -24,9 +24,9 @@ import Test.QuickCheck.Monadic qualified as QCM
 import Test.Tasty.HUnit (Assertion)
 import Test.Tasty.QuickCheck (Property, discard)
 
-import HsBindgen.TestLib.RealFloat qualified as RF
-import HsBindgen.TestLib.SameSemantics
-  ( (==~), (/=~), (@==~?), (@/=~?), SameSemantics(sameSemantics)
+import HsBindgen.TestRuntime.RealFloat qualified as RF
+import HsBindgen.TestRuntime.SameSemantics (
+    (==~), (/=~), (@==~?), (@/=~?), SameSemantics(sameSemantics)
   )
 
 {-------------------------------------------------------------------------------

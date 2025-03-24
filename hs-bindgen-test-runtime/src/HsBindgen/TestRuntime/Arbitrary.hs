@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module HsBindgen.TestLib.Arbitrary () where
+module HsBindgen.TestRuntime.Arbitrary () where
 
 import Foreign.C qualified as FC
 import Test.QuickCheck

@@ -44,7 +44,7 @@ genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
       , "      " ++ testSuite ++ "/cbits/" ++ FilePath.takeFileName cSourcePath
       , "  build-depends:"
       , "      base"
-      , "    , hs-bindgen-testlib"
+      , "    , hs-bindgen-test-runtime"
       , "    , QuickCheck"
       , "    , tasty"
       , "    , tasty-hunit"

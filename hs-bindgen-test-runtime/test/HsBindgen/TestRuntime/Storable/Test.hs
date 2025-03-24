@@ -1,4 +1,4 @@
-module HsBindgen.TestLib.Storable.Test (tests) where
+module HsBindgen.TestRuntime.Storable.Test (tests) where
 
 import Data.Typeable (Typeable, typeRep)
 import Data.Proxy (Proxy(Proxy))
@@ -8,11 +8,11 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
 import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
-import HsBindgen.TestLib.Arbitrary ()
-import HsBindgen.TestLib.CLib qualified as CLib
-import HsBindgen.TestLib.RealFloat qualified as RF
-import HsBindgen.TestLib.SameSemantics (SameSemantics)
-import HsBindgen.TestLib.Storable qualified as Storable
+import HsBindgen.TestRuntime.Arbitrary ()
+import HsBindgen.TestRuntime.CLib qualified as CLib
+import HsBindgen.TestRuntime.RealFloat qualified as RF
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics)
+import HsBindgen.TestRuntime.Storable qualified as Storable
 
 {-------------------------------------------------------------------------------
   Tests
@@ -99,7 +99,7 @@ testRealFloat proxy cSizeOf cAlignOf = testGroup (show (typeRep proxy))
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "HsBindgen.TestLib.Storable"
+tests = testGroup "HsBindgen.TestRuntime.Storable"
     [ testBoundedNum @FC.CChar Proxy CLib.sizeofCChar CLib.alignofCChar
     , testBoundedNum @FC.CSChar Proxy CLib.sizeofCSChar CLib.alignofCSChar
     , testBoundedNum @FC.CUChar Proxy CLib.sizeofCUChar CLib.alignofCUChar

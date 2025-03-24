@@ -1,5 +1,5 @@
 cabal-version:      3.0
-name:               hs-bindgen-testlib
+name:               hs-bindgen-test-runtime
 version:            0.1.0
 license:            BSD-3-Clause
 license-file:       LICENSE
@@ -52,35 +52,35 @@ library
   import: lang
   hs-source-dirs: src
   exposed-modules:
-      HsBindgen.TestLib.Arbitrary
-      HsBindgen.TestLib.CLib
-      HsBindgen.TestLib.GenSeq
-      HsBindgen.TestLib.Preturb
-      HsBindgen.TestLib.RealFloat
-      HsBindgen.TestLib.RepZero
-      HsBindgen.TestLib.SameSemantics
-      HsBindgen.TestLib.Storable
+      HsBindgen.TestRuntime.Arbitrary
+      HsBindgen.TestRuntime.CLib
+      HsBindgen.TestRuntime.GenSeq
+      HsBindgen.TestRuntime.Preturb
+      HsBindgen.TestRuntime.RealFloat
+      HsBindgen.TestRuntime.RepZero
+      HsBindgen.TestRuntime.SameSemantics
+      HsBindgen.TestRuntime.Storable
   include-dirs: clib
-  install-includes: hs_bindgen_testlib.h
-  c-sources: clib/hs_bindgen_testlib.c
+  install-includes: hs_bindgen_test_runtime.h
+  c-sources: clib/hs_bindgen_test_runtime.c
   build-depends:
     , QuickCheck >= 2.14.3 && <2.16
     , tasty-hunit ^>= 0.10.2
     , tasty-quickcheck >= 0.10.2 && <0.12
 
-test-suite test-hs-bindgen-testlib
+test-suite test-hs-bindgen-test-runtime
   import: lang
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules:
-      HsBindgen.TestLib.GenSeq.Test
-      HsBindgen.TestLib.Preturb.Test
-      HsBindgen.TestLib.SameSemantics.Test
-      HsBindgen.TestLib.Storable.Test
+      HsBindgen.TestRuntime.GenSeq.Test
+      HsBindgen.TestRuntime.Preturb.Test
+      HsBindgen.TestRuntime.SameSemantics.Test
+      HsBindgen.TestRuntime.Storable.Test
   build-depends:
       -- Internal dependencies
-    , hs-bindgen-testlib
+    , hs-bindgen-test-runtime
   build-depends:
       -- Inherited dependencies
     , tasty-hunit
