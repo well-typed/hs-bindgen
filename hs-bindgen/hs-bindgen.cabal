@@ -168,11 +168,12 @@ library
 
 executable hs-bindgen-cli
   import:         lang
-  main-is:        Main.hs
+  main-is:        hs-bindgen-cli.hs
   hs-source-dirs: app
 
   other-modules:
-      HsBindgen.App.Cmdline
+      HsBindgen.App.Cli
+      HsBindgen.App.Common
       Paths_hs_bindgen
   autogen-modules:
       Paths_hs_bindgen
@@ -183,6 +184,24 @@ executable hs-bindgen-cli
   build-depends:
       -- Inherited dependencies
     , data-default
+  build-depends:
+      -- External dependencies
+    , optparse-applicative >= 0.18 && < 0.19
+
+executable hs-bindgen-dev
+  import:         lang
+  main-is:        hs-bindgen-dev.hs
+  hs-source-dirs: app
+
+  other-modules:
+      HsBindgen.App.Common
+      HsBindgen.App.Dev
+      Paths_hs_bindgen
+  autogen-modules:
+      Paths_hs_bindgen
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
   build-depends:
       -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19

@@ -1,14 +1,13 @@
-{-# LANGUAGE RecordWildCards #-}
 module Main (main) where
 
 import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
 import Text.Read (readMaybe)
 import System.Exit (ExitCode, exitFailure)
 
-import HsBindgen.App.Cmdline
+import HsBindgen.App.Cli
+import HsBindgen.App.Common
 import HsBindgen.Errors
 import HsBindgen.Lib
-import HsBindgen.Pipeline qualified as Pipeline
 
 {-------------------------------------------------------------------------------
   Main application
@@ -16,12 +15,12 @@ import HsBindgen.Pipeline qualified as Pipeline
 
 main :: IO ()
 main = handle exceptionHandler $ do
-    cmdline@Cmdline{..} <- getCmdline
+    cli@Cli{..} <- getCli
 
     let tracer :: Tracer IO String
-        tracer = mkTracerIO cmdVerbosity
+        tracer = mkTracerIO $ globalOptsVerbosity cliGlobalOpts
 
-    execMode cmdline tracer (cmdMode)
+    execMode cli tracer cliMode
 
 data PackageNameRequiredException = PackageNameRequiredException
   deriving Show
@@ -41,8 +40,8 @@ instance Exception LiterateFileException where
     displayException (LiterateFileException path err) =
       "error loading " ++ path ++ ": " ++ err
 
-execMode :: Cmdline -> Tracer IO String -> Mode -> IO ()
-execMode cmdline@Cmdline{..} tracer = \case
+execMode :: Cli -> Tracer IO String -> Mode -> IO ()
+execMode Cli{..} tracer = \case
     ModePreprocess{..} -> do
       mGenExtBindings <-
         case (preprocessGenExtBindings, preprocessPackageName) of
@@ -50,7 +49,7 @@ execMode cmdline@Cmdline{..} tracer = \case
           (Just extBindingsPath, Just packageName) ->
             return $ Just (extBindingsPath, packageName)
           (Just{}, Nothing) -> throwIO PackageNameRequiredException
-      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cliGlobalOpts
       let opts = cmdOpts {
               optsExtBindings = extBindings
             , optsTranslation = preprocessTranslationOpts
@@ -67,7 +66,7 @@ execMode cmdline@Cmdline{..} tracer = \case
           genExtBindings ppOpts preprocessInput packageName path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
+      extBindings <- loadExtBindings' tracer cliGlobalOpts
       let opts = defaultOpts {
               optsExtBindings = extBindings
             }
@@ -79,13 +78,11 @@ execMode cmdline@Cmdline{..} tracer = \case
         =<< translateCHeader opts genTestsInput
 
     ModeLiterate input output -> execLiterate input output tracer
-
-    Dev devMode -> execDevMode cmdline tracer devMode
   where
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
-        optsClangArgs  = cmdClangArgs
-      , optsPredicate  = cmdPredicate
+        optsClangArgs  = globalOptsClangArgs cliGlobalOpts
+      , optsPredicate  = globalOptsPredicate cliGlobalOpts
       , optsDiagTracer = tracer
       , optsSkipTracer = tracer
       }
@@ -95,45 +92,13 @@ execLiterate input output tracer = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
       =<< readFile input
     case pureParseModePreprocess args of
-      Just cmdline -> execMode cmdline tracer $ case cmdMode cmdline of
+      Just cli -> execMode cli tracer $ case cliMode cli of
         mode@ModePreprocess{} -> mode { preprocessOutput = Just output }
         mode                  -> mode
       Nothing -> throw' "cannot parse arguments in literate file"
   where
     throw' :: String -> IO a
     throw' = throwIO . LiterateFileException input
-
-
-execDevMode :: Cmdline -> Tracer IO String -> DevMode -> IO ()
-execDevMode Cmdline{..} tracer = \case
-    DevModeParseCHeader{..} -> do
-      extBindings <- loadExtBindings' tracer cmdClangArgs cmdExtBindings
-      let opts = cmdOpts {
-              optsExtBindings = extBindings
-            }
-      print . snd =<< Pipeline.parseCHeader opts parseCHeaderInput
-  where
-    cmdOpts :: Opts
-    cmdOpts = defaultOpts {
-        optsClangArgs  = cmdClangArgs
-      , optsPredicate  = cmdPredicate
-      , optsDiagTracer = tracer
-      , optsSkipTracer = tracer
-      }
-
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
-
-loadExtBindings' ::
-     Tracer IO String
-  -> ClangArgs
-  -> [FilePath]
-  -> IO ExtBindings
-loadExtBindings' tracer args paths = do
-    (resolveErrs, extBindings) <- loadExtBindings args paths
-    mapM_ (traceWith tracer Warning . displayException) resolveErrs
-    return extBindings
 
 {-------------------------------------------------------------------------------
   Exception handling
