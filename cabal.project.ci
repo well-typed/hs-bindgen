@@ -1,20 +1,20 @@
-packages: hs-bindgen-runtime
-packages: hs-bindgen
-packages: clang
-packages: hs-bindgen-test-runtime
 packages: ansi-diff
 packages: c-expr
+packages: clang
+packages: hs-bindgen
+packages: hs-bindgen-runtime
+packages: hs-bindgen-test-runtime
 packages: userland-capi
+
+package ansi-diff
+  ghc-options: -Werror
+
+package clang
+  ghc-options: -Werror
 
 package hs-bindgen
   ghc-options: -Werror
   flags: +dev
 
-package clang
-  ghc-options: -Werror
-
 package hs-bindgen-runtime
-  ghc-options: -Werror
-
-package ansi-diff
   ghc-options: -Werror
