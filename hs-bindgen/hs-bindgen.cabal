@@ -61,44 +61,24 @@ common lang
     default-extensions:
       TypeAbstractions
 
-
-library
+library internal
   import:         lang
-  hs-source-dirs: src
+  hs-source-dirs: src-internal
 
   exposed-modules:
-      HsBindgen.Hs.NameMangler
-      HsBindgen.Hs.NameMangler.DSL
-      HsBindgen.Lib
-      HsBindgen.TH
-  exposed-modules:
-      -- Exposed for the sake of tests
-      -- TODO: We should reconsider the proper way to export these.
-      HsBindgen.Backend.PP.Render
-      HsBindgen.Backend.TH.Translation
-      HsBindgen.C.AST
-      HsBindgen.C.Parser
-      HsBindgen.C.Tc.Macro
-      HsBindgen.Eff
-      HsBindgen.ExtBindings
-      HsBindgen.ExtBindings.Gen
-      HsBindgen.Hs.AST
-      HsBindgen.Hs.AST.Name
-      HsBindgen.Hs.AST.Type
-      HsBindgen.NameHint
-      HsBindgen.Pipeline
-      HsBindgen.Resolve
-      HsBindgen.Errors
-  other-modules:
       Data.DynGraph
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.PP.Names
+      HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
+      HsBindgen.Backend.TH.Translation
+      HsBindgen.C.AST
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
       HsBindgen.C.Fold.DeclState
       HsBindgen.C.Fold.Type
+      HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
       HsBindgen.C.Reparse.Common
@@ -107,19 +87,32 @@ library
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
+      HsBindgen.C.Tc.Macro
       HsBindgen.Debug
+      HsBindgen.Eff
+      HsBindgen.Errors
+      HsBindgen.ExtBindings
+      HsBindgen.ExtBindings.Gen
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
+      HsBindgen.Hs.AST
+      HsBindgen.Hs.AST.Name
+      HsBindgen.Hs.AST.Type
+      HsBindgen.Hs.NameMangler
       HsBindgen.Hs.NameMangler.API
-      HsBindgen.Hs.NameMangler.DSL.ReservedNames
+      HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Hs.NameMangler.DSL.GenerateName
       HsBindgen.Hs.NameMangler.DSL.Overrides
+      HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.NameHint
       HsBindgen.Orphans
+      HsBindgen.Pipeline
+      HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec
@@ -171,6 +164,27 @@ library
   if !impl(ghc >=9.4)
     build-depends: th-compat ^>=0.1.6
 
+library
+  import:         lang
+  hs-source-dirs: src
+
+  exposed-modules:
+      HsBindgen.Lib
+      HsBindgen.TH
+  reexported-modules:
+      HsBindgen.Errors
+    , HsBindgen.Hs.NameMangler
+    , HsBindgen.Hs.NameMangler.DSL
+
+  build-depends:
+      -- Internal dependencies
+    , clang
+    , hs-bindgen:internal
+  build-depends:
+      -- Inherited dependencies
+    , filepath
+    , template-haskell
+
 executable hs-bindgen-cli
   import:         lang
   main-is:        hs-bindgen-cli.hs
@@ -211,6 +225,7 @@ executable hs-bindgen-dev
   build-depends:
       -- Internal dependencies
     , hs-bindgen
+    , hs-bindgen:internal
   build-depends:
       -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
@@ -227,7 +242,7 @@ executable clang-ast-dump
   build-depends:
       -- Internal dependencies
     , clang
-    , hs-bindgen
+    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
     , text
@@ -246,6 +261,7 @@ test-suite golden
     , c-expr
     , clang
     , hs-bindgen
+    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
     , bytestring
