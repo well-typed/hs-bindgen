@@ -23,6 +23,8 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
@@ -30,8 +32,6 @@ import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

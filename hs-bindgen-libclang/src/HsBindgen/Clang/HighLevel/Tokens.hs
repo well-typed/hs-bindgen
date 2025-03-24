@@ -10,9 +10,9 @@ import Data.Text (Text)
 import GHC.Generics (Generic)
 import GHC.Stack
 
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.HighLevel.SourceLoc (Range, MultiLoc, SingleLoc)
 import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
-import HsBindgen.Runtime.Enum.Simple
 
 import HsBindgen.Clang.LowLevel.Core qualified as Core
 import HsBindgen.Clang.LowLevel.Core hiding (clang_tokenize)

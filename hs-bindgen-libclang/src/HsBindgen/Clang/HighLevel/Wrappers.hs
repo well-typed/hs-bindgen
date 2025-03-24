@@ -12,10 +12,10 @@ import Foreign.C.String (withCString, withCStringLen)
 import GHC.Stack (HasCallStack)
 
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 
 -- | Brackets 'clang_createIndex' with 'clang_disposeIndex'
 withIndex ::

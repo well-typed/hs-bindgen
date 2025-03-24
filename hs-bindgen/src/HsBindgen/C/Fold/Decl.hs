@@ -17,12 +17,12 @@ import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Fold.Type
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Reparse
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
 import HsBindgen.ExtBindings
-import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
 import C.Type (hostPlatform)

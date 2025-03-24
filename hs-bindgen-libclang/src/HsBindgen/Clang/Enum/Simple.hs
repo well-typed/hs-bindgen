@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 
-module HsBindgen.Runtime.Enum.Simple (
+module HsBindgen.Clang.Enum.Simple (
     SimpleEnum(..)
   , IsSimpleEnum(..)
   , SimpleEnumOutOfRange(..)
@@ -146,7 +146,7 @@ simpleEnumInRange = either (const False) (const True) . fromSimpleEnum
 
 -- | Like 'fromSimpleEnum', but throws 'SimpleEnumOutOfRange' if out of range
 unsafeFromSimpleEnum :: forall hs.
-     (HasCallStack, IsSimpleEnum hs, Typeable hs)
+     (HasCallStack, IsSimpleEnum hs)
   => SimpleEnum hs -> hs
 unsafeFromSimpleEnum = either (throw . err) id . fromSimpleEnum
   where

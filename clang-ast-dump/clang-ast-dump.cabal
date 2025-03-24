@@ -22,7 +22,6 @@ executable clang-ast-dump
       -- Internal dependencies
     , hs-bindgen
     , hs-bindgen-libclang
-    , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
     , text

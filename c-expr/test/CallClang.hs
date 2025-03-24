@@ -44,19 +44,17 @@ import Data.Vec.Lazy
 import Data.Vec.Lazy qualified as Vec
 
 -- hs-bindgen-libclang
+import HsBindgen.Clang.Args qualified as Clang
+import HsBindgen.Clang.Enum.Bitfield qualified as Clang
+  ( BitfieldEnum, bitfieldEnum )
+import HsBindgen.Clang.Enum.Simple qualified as Clang
+  ( fromSimpleEnum )
 import HsBindgen.Clang.HighLevel qualified as Clang
   hiding ( clang_getCursorLocation )
 import HsBindgen.Clang.HighLevel.Types qualified as Clang
 import HsBindgen.Clang.LowLevel.Core qualified as Clang
   hiding ( clang_visitChildren, clang_getCursorSpelling )
-import HsBindgen.Clang.Args qualified as Clang
 import HsBindgen.Clang.Paths qualified as Paths
-
--- hs-bindgen-runtime
-import HsBindgen.Runtime.Enum.Simple qualified as Clang
-  ( fromSimpleEnum )
-import HsBindgen.Runtime.Enum.Bitfield qualified as Clang
-  ( BitfieldEnum, bitfieldEnum )
 
 -- c-expr
 import C.Type

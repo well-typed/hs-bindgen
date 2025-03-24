@@ -39,11 +39,8 @@ library
   import:
       lang
   exposed-modules:
-      HsBindgen.Runtime.Backtrace
       HsBindgen.Runtime.ByteArray
       HsBindgen.Runtime.ConstantArray
-      HsBindgen.Runtime.Enum.Bitfield
-      HsBindgen.Runtime.Enum.Simple
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal

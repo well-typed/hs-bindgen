@@ -13,9 +13,9 @@ import Control.Monad.IO.Class (liftIO)
 import Control.Monad.IO.Unlift (MonadUnliftIO (withRunInIO))
 import Data.IORef (IORef, writeIORef, readIORef, modifyIORef, newIORef)
 
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core hiding (clang_visitChildren)
 import HsBindgen.Clang.LowLevel.Core qualified as Core
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Definition

@@ -2,10 +2,10 @@
 
 module HsBindgen.Clang.LowLevel.Doxygen.Instances () where
 
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Doxygen.Enums
 import HsBindgen.Clang.LowLevel.Doxygen.Structs
 import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Runtime.Enum.Simple
 
 #include <clang-c/Documentation.h>
 

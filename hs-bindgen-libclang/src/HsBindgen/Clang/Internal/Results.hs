@@ -19,9 +19,9 @@ import Data.Coerce
 import Foreign
 import GHC.Stack
 
+import HsBindgen.Clang.Backtrace
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core.Instances ()
-import HsBindgen.Runtime.Backtrace
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Failed calls

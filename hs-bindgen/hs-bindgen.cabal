@@ -196,7 +196,6 @@ test-suite golden
       -- Internal dependencies
     , hs-bindgen
     , hs-bindgen-libclang
-    , hs-bindgen-runtime
     , c-expr
   build-depends:
       -- Inherited dependencies

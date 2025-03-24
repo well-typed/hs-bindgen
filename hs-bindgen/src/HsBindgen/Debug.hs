@@ -15,9 +15,9 @@ import Data.Word (Word8)
 import Foreign.C.Types (CInt)
 import GHC.Exts qualified
 import GHC.Generics (from, (:*:) (..), M1 (..), K1 (..))
+import HsBindgen.Clang.Enum.Simple (fromSimpleEnum)
 import HsBindgen.Clang.Internal.ByValue (OnHaskellHeap (..))
 import HsBindgen.Clang.LowLevel.Core (CXType (..), CXCursor (..), CXSourceLocation, clang_getPresumedLocation, cxtKind, clang_getCursorKind)
-import HsBindgen.Runtime.Enum.Simple (fromSimpleEnum)
 
 dtraceIO :: (MonadIO m, Repr a) => String -> a -> m ()
 dtraceIO tag xs = liftIO $ do

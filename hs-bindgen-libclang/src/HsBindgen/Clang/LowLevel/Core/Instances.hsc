@@ -12,11 +12,11 @@
 -- This module should only be imported by "HsBingen.Clang.LowLevel".
 module HsBindgen.Clang.LowLevel.Core.Instances () where
 
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
+import HsBindgen.Clang.Internal.ByValue
 import HsBindgen.Clang.LowLevel.Core.Enums
 import HsBindgen.Clang.LowLevel.Core.Structs
-import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 
 #include <clang-c/Index.h>
 #include "clang_wrappers.h"

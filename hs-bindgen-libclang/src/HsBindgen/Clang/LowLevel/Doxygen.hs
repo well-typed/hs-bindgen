@@ -61,15 +61,15 @@ module HsBindgen.Clang.LowLevel.Doxygen (
 import Data.Text (Text)
 import Foreign.C
 
+import HsBindgen.Clang.Enum.Simple
+import HsBindgen.Clang.Internal.ByValue
+import HsBindgen.Clang.Internal.CXString ()
+import HsBindgen.Clang.Internal.Results
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Core.Structs
 import HsBindgen.Clang.LowLevel.Doxygen.Enums
 import HsBindgen.Clang.LowLevel.Doxygen.Instances ()
 import HsBindgen.Clang.LowLevel.Doxygen.Structs
-import HsBindgen.Clang.Internal.ByValue
-import HsBindgen.Clang.Internal.CXString ()
-import HsBindgen.Clang.Internal.Results
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Top-level

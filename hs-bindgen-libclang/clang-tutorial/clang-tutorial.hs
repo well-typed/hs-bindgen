@@ -8,10 +8,10 @@ import Data.Text qualified as Text
 import System.Environment
 
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Reproduce the clang tutorial in Haskell

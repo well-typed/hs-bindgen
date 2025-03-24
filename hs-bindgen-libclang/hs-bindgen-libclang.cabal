@@ -56,7 +56,10 @@ library
       AllowAmbiguousTypes
   exposed-modules:
       HsBindgen.Clang.Args
+      HsBindgen.Clang.Backtrace
       HsBindgen.Clang.CNameSpelling
+      HsBindgen.Clang.Enum.Bitfield
+      HsBindgen.Clang.Enum.Simple
       HsBindgen.Clang.Paths
       HsBindgen.Clang.Version
 
@@ -87,9 +90,6 @@ library
       HsBindgen.Clang.HighLevel.UserProvided
       HsBindgen.Clang.HighLevel.Wrappers
   build-depends:
-      -- Internal dependencies
-    , hs-bindgen-runtime
-  build-depends:
       -- External dependencies
     , filepath      >= 1.4     && < 1.6
     , mtl           >= 2.2     && < 2.4
@@ -118,7 +118,6 @@ test-suite clang-tutorial
   build-depends:
       -- Internal dependencies
     , hs-bindgen-libclang
-    , hs-bindgen-runtime
   build-depends:
       -- Inherited dependencies
     , text

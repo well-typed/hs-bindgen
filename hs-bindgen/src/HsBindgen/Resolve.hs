@@ -13,14 +13,14 @@ import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Error type

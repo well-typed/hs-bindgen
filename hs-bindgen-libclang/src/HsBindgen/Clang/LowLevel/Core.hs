@@ -205,6 +205,8 @@ import GHC.Stack
 import System.IO.Unsafe (unsafePerformIO, unsafeDupablePerformIO)
 
 import HsBindgen.Clang.Args
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.FFI
 import HsBindgen.Clang.LowLevel.Core.Enums
 import HsBindgen.Clang.LowLevel.Core.Instances ()
@@ -216,8 +218,6 @@ import HsBindgen.Clang.Internal.FFI
 import HsBindgen.Clang.Internal.Results
 import HsBindgen.Clang.Paths
 import HsBindgen.Clang.Version
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Top-level

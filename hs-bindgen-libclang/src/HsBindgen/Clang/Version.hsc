@@ -14,8 +14,8 @@ import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
 import System.IO.Unsafe (unsafePerformIO)
 
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.Internal.Results (callFailed)
-import HsBindgen.Runtime.Enum.Simple
 
 #include "clang_wrappers.h"
 

@@ -10,8 +10,8 @@ import Text.Parsec hiding (token)
 import HsBindgen.Imports
 import HsBindgen.C.AST
 import HsBindgen.C.Reparse.Infra
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Identifiers

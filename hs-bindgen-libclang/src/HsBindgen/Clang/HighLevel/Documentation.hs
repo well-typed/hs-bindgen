@@ -16,9 +16,9 @@ import Control.Monad
 import Data.Either
 import Data.Text (Text)
 
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.LowLevel.Doxygen
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Definition

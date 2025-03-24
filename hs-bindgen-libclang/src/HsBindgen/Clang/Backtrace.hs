@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 
 -- | Shim to provide backtrace support
-module HsBindgen.Runtime.Backtrace (
+module HsBindgen.Clang.Backtrace (
     Backtrace
   , prettyBacktrace
   , collectBacktrace

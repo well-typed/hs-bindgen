@@ -10,11 +10,11 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign.C
 
+import HsBindgen.Clang.Enum.Bitfield
+import HsBindgen.Clang.Enum.Simple
 import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.HighLevel.SourceLoc (MultiLoc, Range)
 import HsBindgen.Clang.HighLevel.SourceLoc qualified as SourceLoc
-import HsBindgen.Runtime.Enum.Bitfield
-import HsBindgen.Runtime.Enum.Simple
 
 {-------------------------------------------------------------------------------
   Definition
