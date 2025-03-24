@@ -69,6 +69,8 @@ module HsBindgen.C.AST (
 
 import GHC.Generics (Generic)
 
+import Clang.HighLevel.Types
+import Clang.Paths
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
@@ -77,8 +79,6 @@ import HsBindgen.C.Reparse.Infra (ReparseError(..))
 import HsBindgen.C.Tc.Macro
   ( TcMacroError(..), pprTcMacroError )
 import HsBindgen.C.Tc.Macro qualified as Macro
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.Paths
 
 {-------------------------------------------------------------------------------
   Top-level

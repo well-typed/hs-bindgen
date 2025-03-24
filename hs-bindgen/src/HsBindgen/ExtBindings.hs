@@ -46,9 +46,9 @@ import Data.Text qualified as Text
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
 
-import HsBindgen.Clang.Args
-import HsBindgen.Clang.CNameSpelling
-import HsBindgen.Clang.Paths
+import Clang.Args
+import Clang.CNameSpelling
+import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Orphans ()

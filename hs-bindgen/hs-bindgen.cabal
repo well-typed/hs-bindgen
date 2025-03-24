@@ -131,9 +131,9 @@ library
       TemplateHaskellQuotes
   build-depends:
       -- Internal dependencies
-    , hs-bindgen-libclang
-    , hs-bindgen-runtime
     , c-expr
+    , clang
+    , hs-bindgen-runtime
   build-depends:
       -- External dependencies
     , aeson              >= 2         && < 2.3
@@ -178,8 +178,8 @@ executable hs-bindgen
       Paths_hs_bindgen
   build-depends:
       -- Internal dependencies
+    , clang
     , hs-bindgen
-    , hs-bindgen-libclang
   build-depends:
       -- Inherited dependencies
     , data-default
@@ -194,9 +194,9 @@ test-suite golden
   other-modules:  Orphans TH TastyGolden Misc Rust
   build-depends:
       -- Internal dependencies
-    , hs-bindgen
-    , hs-bindgen-libclang
     , c-expr
+    , clang
+    , hs-bindgen
   build-depends:
       -- Inherited dependencies
     , bytestring

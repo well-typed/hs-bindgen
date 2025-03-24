@@ -25,11 +25,11 @@ import Data.Type.Nat (SNatI)
 import GHC.Generics (Generic)
 import System.FilePath (takeBaseName)
 
+import Clang.HighLevel.Types
+import Clang.Paths
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Type
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.Paths
 import HsBindgen.Util.TestEquality
   ( equals1 )
 

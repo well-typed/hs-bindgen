@@ -11,8 +11,8 @@ import Data.Type.Equality ((:~:)(Refl))
 import DeBruijn.Idx (Idx, idxToInt)
 import Unsafe.Coerce (unsafeCoerce)
 
-import HsBindgen.Clang.CNameSpelling
-import HsBindgen.Clang.Paths
+import Clang.CNameSpelling
+import Clang.Paths
 
 {-------------------------------------------------------------------------------
   Aeson

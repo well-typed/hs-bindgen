@@ -12,10 +12,10 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Test.Tasty (TestTree, TestName)
 
-import Misc
-import HsBindgen.Clang.Paths
+import Clang.Paths
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
+import Misc
 
 goldenTh :: FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do

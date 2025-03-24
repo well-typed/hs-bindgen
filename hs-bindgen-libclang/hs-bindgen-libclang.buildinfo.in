@@ -1,3 +1,0 @@
-extra-libraries: @HS_BINDGEN_EXTRA_LIBS@
-include-dirs:    @HS_BINDGEN_INCLUDEDIR@
-extra-lib-dirs:  @HS_BINDGEN_LIBDIR@

@@ -8,24 +8,24 @@ module HsBindgen.C.Fold.Decl (
 import Control.Monad.State
 import Data.List.Compat ((!?))
 
-import HsBindgen.Imports
-import HsBindgen.Eff
-import HsBindgen.Errors
+import C.Type (hostPlatform)
+import Clang.Enum.Simple
+import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Fold.Type
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Reparse
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.HighLevel qualified as HighLevel
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
-import HsBindgen.ExtBindings
-import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
-import C.Type (hostPlatform)
+import HsBindgen.Eff
+import HsBindgen.Errors
+import HsBindgen.ExtBindings
+import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Top-level

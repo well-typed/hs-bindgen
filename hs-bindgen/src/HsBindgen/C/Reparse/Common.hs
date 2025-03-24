@@ -7,11 +7,11 @@ module HsBindgen.C.Reparse.Common (
 
 import Text.Parsec hiding (token)
 
-import HsBindgen.Imports
+import Clang.Enum.Simple
+import Clang.LowLevel.Core
 import HsBindgen.C.AST
 import HsBindgen.C.Reparse.Infra
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Identifiers

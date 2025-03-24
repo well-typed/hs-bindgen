@@ -20,8 +20,8 @@ executable clang-ast-dump
 
   build-depends:
       -- Internal dependencies
+    , clang
     , hs-bindgen
-    , hs-bindgen-libclang
   build-depends:
       -- Inherited dependencies
     , text

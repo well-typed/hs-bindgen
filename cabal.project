@@ -1,7 +1,7 @@
 packages: hs-bindgen-runtime
 packages: hs-bindgen
-packages: hs-bindgen-libclang
-packages: hs-bindgen-bootstrap
+packages: clang
+packages: clang-bootstrap
 packages: hs-bindgen-testlib
 packages: c-expr
 packages: clang-ast-dump
@@ -13,7 +13,7 @@ benchmarks: True
 
 package hs-bindgen
 
-package hs-bindgen-libclang
+package clang
 
 package hs-bindgen-runtime
 

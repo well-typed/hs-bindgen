@@ -16,9 +16,9 @@ import Control.Monad.IO.Class
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text () -- instances only
 
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

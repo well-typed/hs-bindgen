@@ -17,18 +17,18 @@ import Data.List.Compat ((!?))
 import Data.Maybe qualified as Maybe
 import Data.Text qualified as Text
 
+import Clang.Args
+import Clang.Enum.Bitfield
+import Clang.Enum.Simple
+import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import Data.DynGraph qualified as DynGraph
-import HsBindgen.Clang.Args
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Predicate (Predicate)
-import HsBindgen.Clang.Enum.Bitfield
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.HighLevel qualified as HighLevel
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports

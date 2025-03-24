@@ -14,17 +14,17 @@ import Foreign.C
 
 import HsBindgen.C.AST
 
+import Clang.CNameSpelling
+import Clang.Enum.Simple
+import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
 import Data.DynGraph qualified as DynGraph
 import HsBindgen.Imports
 import HsBindgen.Errors
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Reparse
-import HsBindgen.Clang.CNameSpelling
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.HighLevel qualified as HighLevel
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Eff
 import HsBindgen.ExtBindings
 import HsBindgen.Util.Tracer (prettyLogMsg)

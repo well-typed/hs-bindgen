@@ -6,10 +6,10 @@ module HsBindgen.ExtBindings.Gen (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Clang.CNameSpelling
+import Clang.Paths
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type qualified as C
-import HsBindgen.Clang.CNameSpelling
-import HsBindgen.Clang.Paths
 import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name

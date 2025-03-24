@@ -28,9 +28,9 @@ import GHC.Exts qualified as IsList (IsList(..))
 
 import C.Char qualified as C
 
+import Clang.Paths
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
-import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type

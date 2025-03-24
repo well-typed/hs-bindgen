@@ -122,7 +122,7 @@ test-suite tests
   build-depends:
       -- Internal dependencies
       c-expr:c-expr-core
-    , hs-bindgen-libclang
+    , clang
   build-depends:
       -- Inherited dependencies
       fin

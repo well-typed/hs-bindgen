@@ -15,7 +15,7 @@ import Data.List qualified as List
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
-import HsBindgen.Clang.Paths
+import Clang.Paths
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------

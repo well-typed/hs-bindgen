@@ -9,6 +9,8 @@ import Text.Parsec
 import Text.Parsec.Expr
 import Data.Text qualified as Text
 
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
 import HsBindgen.Imports
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
@@ -18,8 +20,6 @@ import HsBindgen.C.Reparse.Common
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
 import HsBindgen.C.Reparse.Type
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
   Top-level

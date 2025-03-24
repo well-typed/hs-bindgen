@@ -15,13 +15,13 @@ import Data.Map.Ordered.Strict qualified as OMap
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import Data.DynGraph (DynGraph)
 import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST (CName, Decl, Type)
 import HsBindgen.C.Tc.Macro qualified as Macro
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

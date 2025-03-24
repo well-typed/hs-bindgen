@@ -17,16 +17,15 @@ module HsBindgen.C.Fold.Common (
 
 import Data.Tree (Tree (Node))
 
-import HsBindgen.Imports
-import HsBindgen.C.AST
+import Clang.Backtrace
+import Clang.Enum.Simple
+import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Backtrace
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.HighLevel qualified as HighLevel
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

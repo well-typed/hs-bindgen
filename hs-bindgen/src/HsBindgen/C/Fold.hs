@@ -2,7 +2,7 @@
 --
 -- Intended for unqualified import.
 module HsBindgen.C.Fold (
-    -- * Executing folds (re-exports from @hs-bindgen-libclang@)
+    -- * Executing folds (re-exports from @clang@)
     Fold
   , runFoldIdentity
   , runFoldReader
@@ -18,7 +18,7 @@ module HsBindgen.C.Fold (
   , Skipped
   ) where
 
+import Clang.HighLevel.Types
 import HsBindgen.Eff
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.Decl
-import HsBindgen.Clang.HighLevel.Types

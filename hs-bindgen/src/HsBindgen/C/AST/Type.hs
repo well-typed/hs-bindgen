@@ -26,7 +26,7 @@ module HsBindgen.C.AST.Type (
   , DeclPathCtxt(..)
   ) where
 
-import HsBindgen.Clang.HighLevel.Types (SingleLoc)
+import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name

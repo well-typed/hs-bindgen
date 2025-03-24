@@ -7,7 +7,7 @@ import Data.List qualified as List
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
-import HsBindgen.Clang.Paths
+import Clang.Paths
 import HsBindgen.GenTests.C (genTestsC)
 import HsBindgen.GenTests.Hs (genTestsHs)
 import HsBindgen.GenTests.Readme (genTestsReadme)

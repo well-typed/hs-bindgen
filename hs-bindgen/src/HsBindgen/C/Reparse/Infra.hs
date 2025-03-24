@@ -28,12 +28,12 @@ import Text.Parsec hiding (token, tokens)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos
 
-import HsBindgen.Imports
+import Clang.Enum.Simple
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import HsBindgen.Errors
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyLogMsg(..))
 
 {-------------------------------------------------------------------------------

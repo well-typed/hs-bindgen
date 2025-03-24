@@ -1,0 +1,123 @@
+cabal-version:      3.0
+name:               clang
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+category:           Development
+build-type:         Configure
+synopsis:           libclang bindings
+tested-with:      , GHC==9.2.8
+                  , GHC==9.4.8
+                  , GHC==9.6.6
+                  , GHC==9.8.2
+                  , GHC==9.10.1
+extra-source-files: cbits/*.c
+                    cbits/*.h
+                    configure
+                    clang.buildinfo.in
+
+common lang
+  ghc-options:
+      -Wall
+      -Widentities
+      -Wprepositive-qualified-module
+      -Wredundant-constraints
+      -Wunused-packages
+  build-depends:
+      base >= 4.16 && < 4.21
+  default-language:
+      GHC2021
+  default-extensions:
+      -- We don't provide a shared list of default extension between the library
+      -- and the clang-tutorial example; this way we can ensure that mere
+      -- /usage/ of the library does not result in requirements for enabled
+      -- language extensions.
+
+library
+  import:         lang
+  hs-source-dirs: src
+
+  default-extensions:
+      CApiFFI
+      DataKinds
+      DeriveAnyClass
+      DerivingStrategies
+      DerivingVia
+      LambdaCase
+      MagicHash
+      TypeFamilies
+      UnboxedTuples
+      UndecidableInstances
+      UnliftedFFITypes
+      UnliftedNewtypes
+  other-extensions:
+      AllowAmbiguousTypes
+  exposed-modules:
+      Clang.Args
+      Clang.Backtrace
+      Clang.CNameSpelling
+      Clang.Enum.Bitfield
+      Clang.Enum.Simple
+      Clang.Paths
+      Clang.Version
+
+      Clang.LowLevel.Core
+      Clang.LowLevel.Doxygen
+      Clang.Internal.ByValue
+
+      Clang.HighLevel
+      Clang.HighLevel.Types
+  other-modules:
+      Clang.LowLevel.FFI
+      Clang.LowLevel.Core.Enums
+      Clang.LowLevel.Core.Instances
+      Clang.LowLevel.Core.Pointers
+      Clang.LowLevel.Core.Structs
+      Clang.LowLevel.Doxygen.Enums
+      Clang.LowLevel.Doxygen.Instances
+      Clang.LowLevel.Doxygen.Structs
+      Clang.Internal.CXString
+      Clang.Internal.FFI
+      Clang.Internal.Results
+      Clang.HighLevel.Declaration
+      Clang.HighLevel.Diagnostics
+      Clang.HighLevel.Documentation
+      Clang.HighLevel.Fold
+      Clang.HighLevel.SourceLoc
+      Clang.HighLevel.Tokens
+      Clang.HighLevel.UserProvided
+      Clang.HighLevel.Wrappers
+  build-depends:
+      -- External dependencies
+    , filepath      >= 1.4     && < 1.6
+    , mtl           >= 2.2     && < 2.4
+    , text          >= 1.2     && < 2.2
+    , unliftio-core ^>=0.2.1.0
+
+  if impl(ghc < 9.4)
+    build-depends: data-array-byte >=0.1.0.1 && <0.2
+
+  -- C bindings
+  include-dirs: cbits
+  cc-options:   -Wall
+
+  c-sources:
+      cbits/clang_wrappers.c
+
+  build-tool-depends:
+      hsc2hs:hsc2hs
+
+test-suite clang-tutorial
+  import:         lang
+  type:           exitcode-stdio-1.0
+  main-is:        clang-tutorial.hs
+  hs-source-dirs: clang-tutorial
+
+  build-depends:
+      -- Internal dependencies
+    , clang
+  build-depends:
+      -- Inherited dependencies
+    , text

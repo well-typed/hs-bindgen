@@ -59,7 +59,7 @@ import HsBindgen.C.Reparse.Macro
 
 import HsBindgen.C.Tc.Macro qualified as TcMacro
 
-import HsBindgen.Clang.LowLevel.Core
+import Clang.LowLevel.Core
   ( CXTokenKind(..) )
 import HsBindgen.Errors
 

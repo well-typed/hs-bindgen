@@ -37,6 +37,8 @@ import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 
+import Clang.Args
+import Clang.Paths
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
@@ -46,8 +48,6 @@ import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
-import HsBindgen.Clang.Args
-import HsBindgen.Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as GenExtBindings

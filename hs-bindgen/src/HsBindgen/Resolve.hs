@@ -12,13 +12,13 @@ import Control.Monad.Except (runExceptT, throwError)
 import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 
-import HsBindgen.Clang.Args
-import HsBindgen.Clang.Enum.Bitfield
-import HsBindgen.Clang.Enum.Simple
-import HsBindgen.Clang.HighLevel qualified as HighLevel
-import HsBindgen.Clang.HighLevel.Types
-import HsBindgen.Clang.LowLevel.Core
-import HsBindgen.Clang.Paths
+import Clang.Args
+import Clang.Enum.Bitfield
+import Clang.Enum.Simple
+import Clang.HighLevel qualified as HighLevel
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
 

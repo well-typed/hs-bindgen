@@ -10,10 +10,10 @@ import Data.Vec.Lazy qualified as Vec
 import System.FilePath qualified as FilePath
 import System.FilePath.Posix qualified as Posix
 
+import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.AST.Name
-import HsBindgen.Clang.Paths
 import HsBindgen.GenTests.Internal
     ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Hs.AST qualified as Hs

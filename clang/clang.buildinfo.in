@@ -1,0 +1,3 @@
+extra-libraries: @CLANG_EXTRA_LIBS@
+include-dirs:    @CLANG_INCLUDEDIR@
+extra-lib-dirs:  @CLANG_LIBDIR@
