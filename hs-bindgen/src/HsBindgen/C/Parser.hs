@@ -13,6 +13,7 @@ module HsBindgen.C.Parser (
 
 import Control.Exception
 import Data.List qualified as List
+import Data.List.Compat ((!?))
 import Data.Maybe qualified as Maybe
 import Data.Text qualified as Text
 
@@ -31,7 +32,6 @@ import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Runtime.Enum.Bitfield
 import HsBindgen.Runtime.Enum.Simple
-import HsBindgen.Util.Compat ((!?))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

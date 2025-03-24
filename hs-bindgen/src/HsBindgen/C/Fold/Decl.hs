@@ -6,6 +6,7 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
+import Data.List.Compat ((!?))
 
 import HsBindgen.Imports
 import HsBindgen.Eff
@@ -22,7 +23,6 @@ import HsBindgen.Clang.LowLevel.Core
 import HsBindgen.Clang.Paths
 import HsBindgen.ExtBindings
 import HsBindgen.Runtime.Enum.Simple
-import HsBindgen.Util.Compat ((!?))
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro (tcMacro)
 import C.Type (hostPlatform)
