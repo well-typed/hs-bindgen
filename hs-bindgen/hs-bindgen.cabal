@@ -166,7 +166,7 @@ library
   if !impl(ghc >=9.4)
     build-depends: th-compat ^>=0.1.6
 
-executable hs-bindgen
+executable hs-bindgen-cli
   import:         lang
   main-is:        Main.hs
   hs-source-dirs: app
@@ -258,9 +258,9 @@ test-suite test-pp
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
-  ghc-options: -pgmL hs-bindgen -optL literate
+  ghc-options: -pgmL hs-bindgen-cli -optL literate
 
-  build-tool-depends: hs-bindgen:hs-bindgen
+  build-tool-depends: hs-bindgen:hs-bindgen-cli
   build-depends:
       -- Internal dependencies
     , c-expr
