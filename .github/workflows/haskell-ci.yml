@@ -213,6 +213,7 @@ jobs:
           cat >> cabal.project <<EOF
           package hs-bindgen
             ghc-options: -Werror
+            flags:       +dev
 
           package clang
             ghc-options: -Werror

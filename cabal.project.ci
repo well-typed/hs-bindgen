@@ -8,6 +8,7 @@ packages: userland-capi
 
 package hs-bindgen
   ghc-options: -Werror
+  flags: +dev
 
 package clang
   ghc-options: -Werror

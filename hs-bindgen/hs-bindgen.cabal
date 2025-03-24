@@ -23,6 +23,11 @@ extra-source-files: bindings/*.yaml
                     fixtures/*.yaml
                     musl-include/**/*.h
 
+flag dev
+  description: Build debugging utilities for developing hs-bindgen itself
+  default: False
+  manual: True
+
 common lang
   ghc-options:
       -Wall
@@ -192,6 +197,10 @@ executable hs-bindgen-dev
   import:         lang
   main-is:        hs-bindgen-dev.hs
   hs-source-dirs: app
+  if flag(dev)
+    buildable: True
+  else
+    buildable: False
 
   other-modules:
       HsBindgen.App.Common
