@@ -184,6 +184,23 @@ executable hs-bindgen-cli
       -- Inherited dependencies
     , data-default
   build-depends:
+      -- External dependencies
+    , optparse-applicative >= 0.18 && < 0.19
+
+executable clang-ast-dump
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: clang-ast-dump
+
+  build-depends:
+      -- Internal dependencies
+    , clang
+    , hs-bindgen
+  build-depends:
+      -- Inherited dependencies
+    , text
+  build-depends:
+      -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
 test-suite golden

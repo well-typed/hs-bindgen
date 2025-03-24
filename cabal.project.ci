@@ -4,7 +4,6 @@ packages: clang
 packages: hs-bindgen-testlib
 packages: ansi-diff
 packages: c-expr
-packages: clang-ast-dump
 packages: userland-capi
 
 package hs-bindgen

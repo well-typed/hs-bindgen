@@ -160,7 +160,6 @@ jobs:
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-testlib" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/ansi-diff" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/c-expr" >> cabal.project
-          echo "packages: $GITHUB_WORKSPACE/source/clang-ast-dump" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/userland-capi" >> cabal.project
           cat cabal.project
       - name: sdist
@@ -185,8 +184,6 @@ jobs:
           echo "PKGDIR_ansi_diff=${PKGDIR_ansi_diff}" >> "$GITHUB_ENV"
           PKGDIR_c_expr="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/c-expr-[0-9.]*')"
           echo "PKGDIR_c_expr=${PKGDIR_c_expr}" >> "$GITHUB_ENV"
-          PKGDIR_clang_ast_dump="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/clang-ast-dump-[0-9.]*')"
-          echo "PKGDIR_clang_ast_dump=${PKGDIR_clang_ast_dump}" >> "$GITHUB_ENV"
           PKGDIR_userland_capi="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/userland-capi-[0-9.]*')"
           echo "PKGDIR_userland_capi=${PKGDIR_userland_capi}" >> "$GITHUB_ENV"
           rm -f cabal.project cabal.project.local
@@ -198,7 +195,6 @@ jobs:
           echo "packages: ${PKGDIR_hs_bindgen_testlib}" >> cabal.project
           echo "packages: ${PKGDIR_ansi_diff}" >> cabal.project
           echo "packages: ${PKGDIR_c_expr}" >> cabal.project
-          echo "packages: ${PKGDIR_clang_ast_dump}" >> cabal.project
           echo "packages: ${PKGDIR_userland_capi}" >> cabal.project
           echo "package hs-bindgen-runtime" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
@@ -211,8 +207,6 @@ jobs:
           echo "package ansi-diff" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package c-expr" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
-          echo "package clang-ast-dump" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           echo "package userland-capi" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
@@ -229,7 +223,7 @@ jobs:
           package ansi-diff
             ghc-options: -Werror
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr|clang|clang-ast-dump|hs-bindgen|hs-bindgen-runtime|hs-bindgen-testlib|userland-capi)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr|clang|hs-bindgen|hs-bindgen-runtime|hs-bindgen-testlib|userland-capi)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -268,8 +262,6 @@ jobs:
           cd ${PKGDIR_ansi_diff} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_c_expr} || false
-          ${CABAL} -vnormal check
-          cd ${PKGDIR_clang_ast_dump} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_userland_capi} || false
           ${CABAL} -vnormal check
