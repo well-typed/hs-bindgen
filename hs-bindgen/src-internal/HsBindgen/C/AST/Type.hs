@@ -64,6 +64,7 @@ data Type =
   | TypeIncompleteArray Type
   | TypeExtBinding ExtIdentifier
   deriving stock (Show, Eq, Generic)
+  deriving Repr via ReprShow Type
 
 {-------------------------------------------------------------------------------
   Primitives types

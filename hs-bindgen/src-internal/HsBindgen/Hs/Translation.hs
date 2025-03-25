@@ -426,7 +426,10 @@ data TypeContext =
   deriving stock (Show)
 
 typ :: NameMangler -> C.Type -> Hs.HsType
-typ nm = go CTop
+typ = typ' CTop
+
+typ' :: TypeContext -> NameMangler -> C.Type -> Hs.HsType
+typ' ctx nm = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
     go _ (C.TypeTypedef c) =
@@ -507,12 +510,15 @@ functionDecs ::
 functionDecs _opts nm f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangleVarName nm $ C.functionName f
-        , foreignImportType       = typ nm $ C.functionType f
+        , foreignImportType       = ty
         , foreignImportOrigName   = C.getCName $ C.functionName f
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]
+  where
+    ty :: HsType
+    ty = foldr HsFun (HsIO $ typ' CFunRes nm $ C.functionRes f) (typ' CFunArg nm <$> C.functionArgs f)
 
 {-------------------------------------------------------------------------------
   Macro

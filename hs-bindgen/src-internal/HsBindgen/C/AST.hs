@@ -114,7 +114,8 @@ data MacroDecl
 
 data Function = Function
     { functionName      :: CName
-    , functionType      :: Type
+    , functionArgs      :: [Type]
+    , functionRes       :: Type
     , functionHeader    :: CHeaderIncludePath
     , functionSourceLoc :: SingleLoc
     }

@@ -15,12 +15,11 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "erf",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimDouble)]
-            (TypePrim
-              (PrimFloating PrimDouble)),
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
+            (PrimFloating PrimDouble),
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
@@ -46,16 +45,15 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "bad_fma",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimDouble),
-              TypePrim
-                (PrimFloating PrimDouble),
-              TypePrim
-                (PrimFloating PrimDouble)]
-            (TypePrim
-              (PrimFloating PrimDouble)),
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
+            (PrimFloating PrimDouble),
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
@@ -75,10 +73,36 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "no_args",
-          functionType = TypeFun
-            []
-            TypeVoid,
+          functionArgs = [],
+          functionRes = TypeVoid,
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "simple_func.h:7:6"}}]
+          "simple_func.h:7:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCChar)
+        (HsFun
+          (HsPrimType HsPrimCDouble)
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName = "fun",
+      foreignImportHeader =
+      "simple_func.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "fun",
+          functionArgs = [
+            TypePrim (PrimChar Nothing),
+            TypePrim
+              (PrimFloating PrimDouble)],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "simple_func.h",
+          functionSourceLoc =
+          "simple_func.h:9:5"}}]

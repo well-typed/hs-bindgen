@@ -103,9 +103,14 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
           ty <- liftIO $ clang_getCursorType current
           ty' <- processTypeDecl extBindings unit (Just current) ty
 
+          (args, res) <- case ty' of
+            TypeFun args res -> return (args, res)
+            _                -> panicIO $ "function declaration with a non-function type: " ++ show ty'
+
           return $ Continue $ Just $ DeclFunction $ Function
             { functionName      = CName spelling
-            , functionType      = ty'
+            , functionArgs      = args
+            , functionRes       = res
             , functionHeader    = headerIncludePath
             , functionSourceLoc = sloc
             }
