@@ -11,6 +11,7 @@ package ansi-diff
 
 package clang
   ghc-options: -Werror
+  flags: +dev
 
 package hs-bindgen
   ghc-options: -Werror

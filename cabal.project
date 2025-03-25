@@ -1,7 +1,6 @@
 packages: ansi-diff
 packages: c-expr
 packages: clang
-packages: clang-bootstrap
 packages: hs-bindgen
 packages: hs-bindgen-runtime
 packages: hs-bindgen-test-runtime

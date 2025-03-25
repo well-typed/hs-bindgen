@@ -17,7 +17,7 @@ import Text.Parsec.ByteString (Parser)
 
 main :: IO ()
 main = do
-    bs <- BS.readFile "clang-bootstrap/imports.h"
+    bs <- BS.readFile "clang/bootstrap/imports.h"
     decls <- case P.parse (whitespace *> many declP <* P.eof) "imports.h" bs of
         Left err    -> print err >> fail "parse error"
         Right decls -> return decls
