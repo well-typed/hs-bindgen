@@ -160,10 +160,6 @@ library internal
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
 
-  -- for getPackageRoot
-  if !impl(ghc >=9.4)
-    build-depends: th-compat ^>=0.1.6
-
 library
   import:         lang
   hs-source-dirs: src
@@ -184,6 +180,10 @@ library
       -- Inherited dependencies
     , filepath
     , template-haskell
+
+  -- for getPackageRoot
+  if !impl(ghc >=9.4)
+    build-depends: th-compat ^>=0.1.6
 
 executable hs-bindgen-cli
   import:         lang
