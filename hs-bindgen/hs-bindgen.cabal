@@ -250,12 +250,20 @@ executable clang-ast-dump
       -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
-test-suite golden
+test-suite tests
   import:         lang
   type:           exitcode-stdio-1.0
-  main-is:        golden.hs
+  main-is:        Main.hs
   hs-source-dirs: tests
-  other-modules:  Orphans TH TastyGolden Misc Rust
+
+  other-modules:
+      HsBindgen.C.Parser.Test
+      Misc
+      Orphans
+      Rust
+      TastyGolden
+      TH
+
   build-depends:
       -- Internal dependencies
     , c-expr
@@ -266,6 +274,8 @@ test-suite golden
       -- Inherited dependencies
     , bytestring
     , debruijn
+    , directory
+    , filepath
     , mtl
     , template-haskell
     , vec
@@ -273,8 +283,6 @@ test-suite golden
       -- External dependencies
     , ansi-diff
     , deepseq
-    , directory     ^>=1.3.6.2
-    , filepath      ^>=1.4.2.2 || ^>=1.5.2.0
     , process
     , syb           ^>=0.7.2.4
     , tasty         ^>=1.5
