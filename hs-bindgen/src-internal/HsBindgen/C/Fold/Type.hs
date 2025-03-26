@@ -237,7 +237,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                 alignment <- liftIO (clang_Type_getAlignOf ty)
 
                                 fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                                    mfield <- mkStructField extBindings unit (if anon then Nothing else Just $ CName name') ctxt cursor
+                                    let mkCtxt :: CName -> DeclPathCtxt
+                                        mkCtxt fieldName
+                                          | anon      = DeclPathCtxtField Nothing              fieldName ctxt
+                                          | otherwise = DeclPathCtxtField (Just $ CName name') fieldName ctxt
+                                    mfield <- mkStructField extBindings unit mkCtxt cursor
                                     return $ Continue mfield
 
                                 (fields, flam) <- partitionFields fields'
@@ -302,7 +306,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                                 alignment <- liftIO (clang_Type_getAlignOf ty)
 
                                 fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                                    mfield <- mkUnionField extBindings unit (if anon then Nothing else Just $ CName name') ctxt cursor
+                                    let mkCtxt :: CName -> DeclPathCtxt
+                                        mkCtxt fieldName
+                                          | anon      = DeclPathCtxtField Nothing              fieldName ctxt
+                                          | otherwise = DeclPathCtxtField (Just $ CName name') fieldName ctxt
+                                    mfield <- mkUnionField extBindings unit mkCtxt cursor
                                     return $ Continue mfield
 
                                 addDecl ty $ DeclUnion Union
@@ -589,11 +597,10 @@ partitionFields = go id where
 mkStructField ::
      ExtBindings
   -> CXTranslationUnit
-  -> Maybe CName         -- ^ Name of the struct (unless anonymous)
-  -> DeclPathCtxt
+  -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
   -> CXCursor
   -> Eff (State DeclState) (Maybe Field) -- ^ Left values are flexible array members.
-mkStructField extBindings unit mStructName ctxt current = do
+mkStructField extBindings unit mkCtxt current = do
     fieldSourceLoc <- liftIO $
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
@@ -635,10 +642,10 @@ mkStructField extBindings unit mStructName ctxt current = do
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
                   e <- liftIO $ clang_getArrayElementType ty
-                  fieldType <- processTypeDeclRec (DeclPathCtxtField mStructName fieldName ctxt) extBindings unit Nothing e
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
-                  fieldType <- processTypeDeclRec (DeclPathCtxtField mStructName fieldName ctxt) extBindings unit Nothing ty
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing ty
                   return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
@@ -679,11 +686,10 @@ isIncompleteArrayType _ = False
 mkUnionField
     :: ExtBindings
     -> CXTranslationUnit
-    -> Maybe CName         -- ^ Name of the union (unless anonymous)
-    -> DeclPathCtxt
+    -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
     -> CXCursor
     -> Eff (State DeclState) (Maybe UnionField)
-mkUnionField extBindings unit mUnionName ctxt current = do
+mkUnionField extBindings unit mkCtxt current = do
     ufieldSourceLoc <- liftIO $
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- liftIO $ clang_getCursorKind current
@@ -724,7 +730,7 @@ mkUnionField extBindings unit mUnionName ctxt current = do
             Nothing -> do
               fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
               ty          <- liftIO (clang_getCursorType current)
-              fieldType <- processTypeDeclRec (DeclPathCtxtField mUnionName fieldName ctxt) extBindings unit Nothing ty
+              fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing ty
               return (fieldName, fieldType)
 
         return $ Just $ UnionField{ufieldName, ufieldType, ufieldSourceLoc}
