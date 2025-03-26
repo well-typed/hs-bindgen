@@ -9,14 +9,11 @@ module HsBindgen.C.Fold (
   , runFoldState
     -- * Specific folds
     -- ** AST
+  , rootHeaderName
+  , rootHeaderContent
   , DeclState
   , initDeclState
   , foldDecls
-    -- ** Debugging/development
-    -- *** Process the C prelude
-  , PreludeEntry
-  , GenPreludeMsg
-  , foldPrelude
     -- * Logging
   , Skipped
   ) where
@@ -24,5 +21,4 @@ module HsBindgen.C.Fold (
 import HsBindgen.Eff
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.Decl
-import HsBindgen.C.Fold.Prelude
 import HsBindgen.Clang.HighLevel.Types

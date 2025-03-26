@@ -93,7 +93,7 @@ main' packageRoot bg = testGroup "golden"
         let headerIncludePath = mkHeaderIncludePath name
             opts' = mkOpts report
         header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
-        return $ Pipeline.genHsDecls opts' headerIncludePath header
+        return $ Pipeline.genHsDecls opts' header
 
     goldenExtensions name = goldenVsStringDiff_ "exts" ("fixtures" </> (name ++ ".exts.txt")) $ \report -> do
         let headerIncludePath = mkHeaderIncludePath name
@@ -102,7 +102,7 @@ main' packageRoot bg = testGroup "golden"
         return $ unlines $ map show $ sort $ toList $
               Pipeline.genExtensions
             . Pipeline.genSHsDecls
-            $ Pipeline.genHsDecls opts' headerIncludePath header
+            $ Pipeline.genHsDecls opts' header
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
@@ -123,7 +123,7 @@ main' packageRoot bg = testGroup "golden"
             headerIncludePath
             (ExtBindings.HsPackageName "example")
             (ExtBindings.HsModuleName "Example")
-            (Pipeline.genHsDecls opts' headerIncludePath header)
+            (Pipeline.genHsDecls opts' header)
 
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.

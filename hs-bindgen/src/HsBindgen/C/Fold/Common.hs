@@ -1,7 +1,9 @@
 module HsBindgen.C.Fold.Common (
+    -- * Root header
+    rootHeaderName
+  , rootHeaderContent
     -- * Predicates
-    Skipped(..)
-  , checkPredicate
+  , Skipped(..)
   , whenPredicateMatches
     -- * Errors
   , UnrecognizedCursor(..)
@@ -22,9 +24,25 @@ import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Clang.HighLevel qualified as HighLevel
 import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
 import HsBindgen.Runtime.Backtrace
 import HsBindgen.Runtime.Enum.Simple
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Root header
+-------------------------------------------------------------------------------}
+
+rootHeaderName :: SourcePath
+rootHeaderName = SourcePath "hs-bindgen-root.h"
+
+rootHeaderContent :: [CHeaderIncludePath] -> String
+rootHeaderContent = unlines . map toLine
+  where
+    toLine :: CHeaderIncludePath -> String
+    toLine = \case
+      CHeaderSystemIncludePath path -> "#include <" ++ path ++ ">"
+      CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
 
 {-------------------------------------------------------------------------------
   Predicates
@@ -46,38 +64,27 @@ instance PrettyLogMsg Skipped where
       , skippedReason
       ]
 
-checkPredicate ::
-     MonadIO m
-  => Tracer IO Skipped
-  -> Predicate
-  -> Fold m a
-  -> Fold m a
-checkPredicate tracer p k current = do
-    isMatch <- liftIO $ Predicate.match current p
-    case isMatch of
-      Right ()     -> k current
-      Left  reason -> liftIO $ do
-        name <- clang_getCursorSpelling current
-        loc  <- HighLevel.clang_getCursorLocation current
-        traceWith tracer Info $ Skipped name loc reason
-        return $ Continue Nothing
-
 whenPredicateMatches ::
      MonadIO m
   => Tracer IO Skipped
   -> Predicate
+  -> Maybe (CHeaderIncludePath, SourcePath)
   -> CXCursor
+  -> SingleLoc
+  -> (CHeaderIncludePath -> m (Next m a))
   -> m (Next m a)
-  -> m (Next m a)
-whenPredicateMatches tracer p current k = do
-    isMatch <- liftIO $ Predicate.match current p
-    case isMatch of
-      Right ()     -> k
-      Left  reason -> liftIO $ do
-        name <- clang_getCursorSpelling current
-        loc  <- HighLevel.clang_getCursorLocation current
-        traceWith tracer Info $ Skipped name loc reason
-        return $ Continue Nothing
+whenPredicateMatches tracer p mMainHeader current sloc k =
+    case mMainHeader of
+      Just (mainHeaderIncludePath, mainSourcePath) -> do
+        isMatch <- liftIO $ Predicate.match mainSourcePath current sloc p
+        case isMatch of
+          Right ()     -> k mainHeaderIncludePath
+          Left  reason -> liftIO $ do
+            name <- clang_getCursorSpelling current
+            loc  <- HighLevel.clang_getCursorLocation current
+            traceWith tracer Info $ Skipped name loc reason
+            return $ Continue Nothing
+      Nothing -> return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Errors

@@ -16,8 +16,10 @@ import Control.Monad.IO.Class
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text () -- instances only
 
-import HsBindgen.Imports
+import HsBindgen.Clang.HighLevel.Types
 import HsBindgen.Clang.LowLevel.Core
+import HsBindgen.Clang.Paths
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -63,25 +65,25 @@ instance Monoid Predicate where
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
-match :: CXCursor -> Predicate -> IO (Either String ())
-match current = runExceptT . go
+match ::
+     SourcePath -- ^ Path of current main header file
+  -> CXCursor
+  -> SingleLoc
+  -> Predicate
+  -> IO (Either String ())
+match mainSourcePath current sloc = runExceptT . go
   where
     go :: Predicate -> ExceptT String IO ()
     go SelectAll      = return ()
     go (SelectIfBoth p q) = go p >> go q
 
-    go SelectFromMainFile = do
-        isFromMainFile <- liftIO $ do
-          location <- clang_getCursorLocation current
-          clang_Location_isFromMainFile location
-        unless isFromMainFile $
+    go SelectFromMainFile =
+        unless (singleLocPath sloc == mainSourcePath) $
           throwError $ "Not from the main file"
 
     go (SelectByFileName re) = do
-        filename <- liftIO $ do
-          location <- clang_getCursorLocation current
-          (file, _line, _col, _offset) <- clang_getSpellingLocation location
-          clang_getFileName file
+        let filename = case singleLocPath sloc of
+              SourcePath t -> t
         unless (matchTest re filename) $
           throwError $ mconcat [
               "File name "

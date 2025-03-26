@@ -82,6 +82,7 @@ library
       HsBindgen.Hs.AST.Type
       HsBindgen.NameHint
       HsBindgen.Pipeline
+      HsBindgen.Resolve
       HsBindgen.Errors
   other-modules:
       Data.DynGraph
@@ -92,7 +93,6 @@ library
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
       HsBindgen.C.Fold.DeclState
-      HsBindgen.C.Fold.Prelude
       HsBindgen.C.Fold.Type
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
@@ -115,7 +115,6 @@ library
       HsBindgen.Hs.Translation
       HsBindgen.Imports
       HsBindgen.Orphans
-      HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec
@@ -138,6 +137,7 @@ library
   build-depends:
       -- External dependencies
     , aeson              >= 2         && < 2.3
+    , base-compat        >= 0.13.1    && < 0.15
     , bytestring         >= 0.11.4.0  && < 0.13
     , containers         >= 0.6.5.1   && < 0.8
     , contra-tracer      >= 0.2       && < 0.3

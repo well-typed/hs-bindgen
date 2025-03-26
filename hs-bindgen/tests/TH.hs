@@ -32,7 +32,7 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
 
     let decls :: Qu [TH.Dec]
         decls = Pipeline.genTH . Pipeline.genSHsDecls $
-          Pipeline.genHsDecls opts headerIncludePath header
+          Pipeline.genHsDecls opts header
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.

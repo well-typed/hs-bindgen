@@ -106,8 +106,7 @@ defaultTranslationOpts = TranslationOpts {
 
 -- filepath argument https://github.com/well-typed/hs-bindgen/issues/333
 generateDeclarations ::
-     CHeaderIncludePath
-  -> TranslationOpts
+     TranslationOpts
   -> NameMangler
   -> C.Header
   -> [Hs.Decl]
@@ -119,22 +118,22 @@ generateDeclarations = toHs
 
 class ToHs (a :: Star) where
   type InHs a :: Star
-  toHs :: CHeaderIncludePath -> TranslationOpts -> NameMangler -> a -> InHs a
+  toHs :: TranslationOpts -> NameMangler -> a -> InHs a
 
 instance ToHs C.Header where
   type InHs C.Header = [Hs.Decl]
-  toHs p opts nm (C.Header decs) = concatMap (toHs p opts nm) decs
+  toHs opts nm (C.Header decs) = concatMap (toHs opts nm) decs
 
 instance ToHs C.Decl where
   type InHs C.Decl = [Hs.Decl]
-  toHs _ opts nm (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts nm struct
-  toHs _ opts nm (C.DeclUnion union)    = unionDecs opts nm union
-  toHs _ opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm o
-  toHs _ opts nm (C.DeclEnum e)         = enumDecs opts nm e
-  toHs _ opts nm (C.DeclOpaqueEnum o)   = opaqueEnumDecs opts nm o -- TODO?
-  toHs _ opts nm (C.DeclTypedef d)      = typedefDecs opts nm d
-  toHs _ opts nm (C.DeclMacro m)        = macroDecs opts nm m
-  toHs p opts nm (C.DeclFunction f)     = functionDecs p opts nm f
+  toHs opts nm (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts nm struct
+  toHs opts nm (C.DeclUnion union)    = unionDecs opts nm union
+  toHs opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm o
+  toHs opts nm (C.DeclEnum e)         = enumDecs opts nm e
+  toHs opts nm (C.DeclOpaqueEnum o)   = opaqueEnumDecs opts nm o -- TODO?
+  toHs opts nm (C.DeclTypedef d)      = typedefDecs opts nm d
+  toHs opts nm (C.DeclMacro m)        = macroDecs opts nm m
+  toHs opts nm (C.DeclFunction f)     = functionDecs opts nm f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -501,17 +500,16 @@ floatingType = \case
 -------------------------------------------------------------------------------}
 
 functionDecs ::
-     CHeaderIncludePath
-  -> TranslationOpts
+     TranslationOpts
   -> NameMangler
   -> C.Function
   -> [Hs.Decl]
-functionDecs headerIncludePath _opts nm f =
+functionDecs _opts nm f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangleVarName nm $ C.functionName f
         , foreignImportType       = typ nm $ C.functionType f
-        , foreignImportOrigName   = C.getCName (C.functionName f)
-        , foreignImportHeader     = getCHeaderIncludePath headerIncludePath
+        , foreignImportOrigName   = C.getCName $ C.functionName f
+        , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
     ]
