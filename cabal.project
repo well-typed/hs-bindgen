@@ -10,8 +10,10 @@ tests: True
 benchmarks: True
 
 package clang
+  flags: +dev
 
 package hs-bindgen
+  flags: +dev
 
 package hs-bindgen-runtime
 
