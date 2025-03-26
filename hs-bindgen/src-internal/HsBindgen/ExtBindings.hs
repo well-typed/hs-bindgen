@@ -105,7 +105,7 @@ newtype UnresolvedExtBindings = UnresolvedExtBindings {
       unresolvedExtBindingsTypes ::
         Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
     }
-  deriving Show
+  deriving (Eq, Show)
 
 -- | External bindings with resolved header paths
 newtype ExtBindings = ExtBindings {
@@ -115,7 +115,7 @@ newtype ExtBindings = ExtBindings {
       extBindingsTypes ::
         Map CNameSpelling [(Set SourcePath, ExtIdentifier)]
     }
-  deriving Show
+  deriving (Eq, Show)
 
 {-------------------------------------------------------------------------------
   Exceptions
@@ -135,8 +135,8 @@ data LoadUnresolvedExtBindingsException =
     -- header in the same configuration file
   | LoadUnresolvedExtBindingsConflict
       FilePath
-      [(CNameSpelling, CHeaderIncludePath)]
-  deriving stock (Show)
+      (Set (CNameSpelling, CHeaderIncludePath))
+  deriving stock Show
 
 instance Exception LoadUnresolvedExtBindingsException where
   displayException = \case
@@ -155,28 +155,30 @@ instance Exception LoadUnresolvedExtBindingsException where
               ("duplicate keys in YAML file: " ++ path)
             : map format warnings
     LoadUnresolvedExtBindingsConflict path conflicts ->
-      let format (cname, header) =
-            "  " ++ Text.unpack (getCNameSpelling cname)
+      unlines $
+          ( "multiple external bindings for same C name and header: "
+              ++ path
+          )
+        : [ "  " ++ Text.unpack (getCNameSpelling cname)
               ++ ' ' : getCHeaderIncludePath header
-      in  unlines $
-              ( "multiple external bindings for same C name and header: "
-                  ++ path
-              )
-            : map format conflicts
+          | (cname, header) <- Set.toAscList conflicts
+          ]
 
 -- | Failed to merge external bindings
 newtype MergeExtBindingsException =
     -- | Multiple external bindings configurations for the same C name and
     -- header
-    MergeExtBindingsConflict [CNameSpelling]
-  deriving stock (Show)
+    MergeExtBindingsConflict (Set CNameSpelling)
+  deriving stock (Eq, Show)
 
 instance Exception MergeExtBindingsException where
   displayException = \case
-    MergeExtBindingsConflict cnames ->
+    MergeExtBindingsConflict cnameSet ->
       unlines $
           "multiple external bindings for same C name and header"
-        : map (\cname -> "  " ++ Text.unpack (getCNameSpelling cname)) cnames
+        : [ "  " ++ Text.unpack (getCNameSpelling cname)
+          | cname <- Set.toAscList cnameSet
+          ]
 
 -- | Failed loading, resolving, or merging external bindings
 data ExtBindingsException =
@@ -219,14 +221,32 @@ emptyExtBindings = ExtBindings Map.empty
 resolveExtBindings ::
      ClangArgs
   -> UnresolvedExtBindings
-  -> IO ([ResolveHeaderException], ExtBindings)
+  -> IO (Set ResolveHeaderException, ExtBindings)
 resolveExtBindings args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
-    (errs, headerMap) <- fmap Map.fromList . partitionEithers
+    (errs, headerMap) <- bimap Set.fromList Map.fromList . partitionEithers
       <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' args cPath) cPaths
-    let resolve' = map $ first $ Set.map (headerMap Map.!)
-        extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
+    let resolveSet :: Set CHeaderIncludePath -> Set SourcePath
+        resolveSet =
+            Set.fromList
+          . mapMaybe (`Map.lookup` headerMap)
+          . Set.toList
+        aux1 ::
+             (Set CHeaderIncludePath, ExtIdentifier)
+          -> Maybe (Set SourcePath, ExtIdentifier)
+        aux1 (sU, eId) = case resolveSet sU of
+          sR
+            | Set.null sR -> Nothing
+            | otherwise   -> Just (sR, eId)
+        aux ::
+             [(Set CHeaderIncludePath, ExtIdentifier)]
+          -> Maybe [(Set SourcePath, ExtIdentifier)]
+        aux lU = case mapMaybe aux1 lU of
+          lR
+            | null lR   -> Nothing
+            | otherwise -> Just lR
+        extBindingsTypes = Map.mapMaybe aux unresolvedExtBindingsTypes
     return (errs, ExtBindings{..})
 
 -- | Merge external bindings
@@ -250,7 +270,7 @@ mergeExtBindings = \case
     aux dupSet acc = \case
       []
         | Set.null dupSet -> Right acc
-        | otherwise -> Left (MergeExtBindingsConflict (Set.toAscList dupSet))
+        | otherwise -> Left $ MergeExtBindingsConflict dupSet
       (cname, rs):ps ->
         case Map.insertLookupWithKey (const (++)) cname rs acc of
           (Nothing, acc') -> aux dupSet acc' ps
@@ -368,13 +388,13 @@ writeUnresolvedExtBindingsYaml path =
 loadExtBindings' ::
      ClangArgs
   -> [FilePath]
-  -> IO (Either ExtBindingsExceptions ([ResolveHeaderException], ExtBindings))
+  -> IO (Either ExtBindingsExceptions (Set ResolveHeaderException, ExtBindings))
 loadExtBindings' args paths = do
     (errs, uebs) <-
       first (map LoadUnresolvedExtBindingsException) . partitionEithers
         <$> mapM loadUnresolvedExtBindings paths
     (resolveErrs, ebs) <-
-      first concat . unzip <$> mapM (resolveExtBindings args) uebs
+      first Set.unions . unzip <$> mapM (resolveExtBindings args) uebs
     return $ case first MergeExtBindingsException (mergeExtBindings ebs) of
       Right extBindings
         | null errs -> Right (resolveErrs, extBindings)
@@ -388,7 +408,7 @@ loadExtBindings' args paths = do
 loadExtBindings ::
      ClangArgs
   -> [FilePath]
-  -> IO ([ResolveHeaderException], ExtBindings)
+  -> IO (Set ResolveHeaderException, ExtBindings)
 loadExtBindings args =
     either (throwIO . HsBindgenException) return <=< loadExtBindings' args
 
@@ -466,10 +486,10 @@ mkUnresolvedExtBindings path Config{..} = do
       -> Either LoadUnresolvedExtBindingsException a
     mkMapErr (dupMap, x)
       | Map.null dupMap = Right x
-      | otherwise = Left $ LoadUnresolvedExtBindingsConflict path
+      | otherwise = Left . LoadUnresolvedExtBindingsConflict path $ Set.fromList
           [ (cname, header)
-          | (cname, headerSet) <- Map.toAscList dupMap
-          , header <- Set.toAscList headerSet
+          | (cname, headerSet) <- Map.toList dupMap
+          , header <- Set.toList headerSet
           ]
 
     mkMapInsert ::

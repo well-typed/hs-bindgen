@@ -15,6 +15,8 @@ import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
 import HsBindgen.C.Parser.Test qualified
+import HsBindgen.ExtBindings.Test qualified
+import HsBindgen.ExtBindings.Gen.Test qualified
 import Misc
 import Orphans ()
 import Rust
@@ -43,6 +45,8 @@ main = do
 unitTests :: FilePath -> TestTree
 unitTests packageRoot = testGroup "unit"
     [ HsBindgen.C.Parser.Test.tests args
+    , HsBindgen.ExtBindings.Test.tests args
+    , HsBindgen.ExtBindings.Gen.Test.tests
     ]
   where
     args :: ClangArgs

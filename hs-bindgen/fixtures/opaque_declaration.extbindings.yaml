@@ -1,17 +1,5 @@
 types:
-- cname: foo
-  headers:
-  - opaque_declaration.h
-  identifier: Foo
-  module: Example
-  package: example
-- cname: opaque_union
-  headers:
-  - opaque_declaration.h
-  identifier: Opaque_union
-  module: Example
-  package: example
-- cname: quu
+- cname: enum quu
   headers:
   - opaque_declaration.h
   identifier: Quu
@@ -27,5 +15,17 @@ types:
   headers:
   - opaque_declaration.h
   identifier: Baz
+  module: Example
+  package: example
+- cname: struct foo
+  headers:
+  - opaque_declaration.h
+  identifier: Foo
+  module: Example
+  package: example
+- cname: struct opaque_union
+  headers:
+  - opaque_declaration.h
+  identifier: Opaque_union
   module: Example
   package: example

@@ -178,6 +178,7 @@ library
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , containers
     , filepath
     , template-haskell
 
@@ -258,6 +259,9 @@ test-suite tests
 
   other-modules:
       HsBindgen.C.Parser.Test
+      HsBindgen.ExtBindings.Test
+      HsBindgen.ExtBindings.Gen.Test
+      Hidden
       Misc
       Orphans
       Rust
@@ -273,12 +277,15 @@ test-suite tests
   build-depends:
       -- Inherited dependencies
     , bytestring
+    , containers
     , debruijn
     , directory
     , filepath
     , mtl
     , template-haskell
+    , text
     , vec
+    , yaml
   build-depends:
       -- External dependencies
     , ansi-diff
