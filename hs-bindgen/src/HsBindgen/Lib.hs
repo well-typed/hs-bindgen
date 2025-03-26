@@ -2,8 +2,7 @@
 --
 -- Intended for unqualified import.
 --
--- NOTE: Client code should /NOT/ have to import from @hs-bindgen-libclang@;
--- that library should be considered internal to @hs-bindgen@.
+-- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
     -- * Parsing and translating
     HsDecls -- opaque
@@ -73,11 +72,11 @@ module HsBindgen.Lib (
 
 import System.FilePath qualified as FilePath
 
+import Clang.Args qualified as Args
+import Clang.Paths qualified as Paths
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.Clang.Args qualified as Args
-import HsBindgen.Clang.Paths qualified as Paths
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs

@@ -12,9 +12,9 @@ import System.FilePath ((-<.>))
 import Test.Tasty (TestTree, TestName)
 
 import AnsiDiff (ansidiff)
-import TastyGolden
-import HsBindgen.Clang.Paths
+import Clang.Paths
 import HsBindgen.Lib
+import TastyGolden
 
 -------------------------------------------------------------------------------
 -- tasty-golden wrapper

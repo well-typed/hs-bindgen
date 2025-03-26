@@ -18,8 +18,8 @@ import Misc
 import TH
 #endif
 
+import Clang.Paths
 import HsBindgen.C.Parser (getTargetTriple)
-import HsBindgen.Clang.Paths
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as ExtBindings
 import HsBindgen.Lib

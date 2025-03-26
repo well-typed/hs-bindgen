@@ -23,6 +23,11 @@ extra-source-files: bindings/*.yaml
                     fixtures/*.yaml
                     musl-include/**/*.h
 
+flag dev
+  description: Build debugging utilities for developing hs-bindgen itself
+  default: False
+  manual: True
+
 common lang
   ghc-options:
       -Wall
@@ -56,44 +61,24 @@ common lang
     default-extensions:
       TypeAbstractions
 
-
-library
+library internal
   import:         lang
-  hs-source-dirs: src
+  hs-source-dirs: src-internal
 
   exposed-modules:
-      HsBindgen.Hs.NameMangler
-      HsBindgen.Hs.NameMangler.DSL
-      HsBindgen.Lib
-      HsBindgen.TH
-  exposed-modules:
-      -- Exposed for the sake of tests
-      -- TODO: We should reconsider the proper way to export these.
-      HsBindgen.Backend.PP.Render
-      HsBindgen.Backend.TH.Translation
-      HsBindgen.C.AST
-      HsBindgen.C.Parser
-      HsBindgen.C.Tc.Macro
-      HsBindgen.Eff
-      HsBindgen.ExtBindings
-      HsBindgen.ExtBindings.Gen
-      HsBindgen.Hs.AST
-      HsBindgen.Hs.AST.Name
-      HsBindgen.Hs.AST.Type
-      HsBindgen.NameHint
-      HsBindgen.Pipeline
-      HsBindgen.Resolve
-      HsBindgen.Errors
-  other-modules:
       Data.DynGraph
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.PP.Names
+      HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
+      HsBindgen.Backend.TH.Translation
+      HsBindgen.C.AST
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
       HsBindgen.C.Fold.Decl
       HsBindgen.C.Fold.DeclState
       HsBindgen.C.Fold.Type
+      HsBindgen.C.Parser
       HsBindgen.C.Predicate
       HsBindgen.C.Reparse
       HsBindgen.C.Reparse.Common
@@ -102,19 +87,32 @@ library
       HsBindgen.C.Reparse.Literal
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
+      HsBindgen.C.Tc.Macro
       HsBindgen.Debug
+      HsBindgen.Eff
+      HsBindgen.Errors
+      HsBindgen.ExtBindings
+      HsBindgen.ExtBindings.Gen
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
+      HsBindgen.Hs.AST
+      HsBindgen.Hs.AST.Name
+      HsBindgen.Hs.AST.Type
+      HsBindgen.Hs.NameMangler
       HsBindgen.Hs.NameMangler.API
-      HsBindgen.Hs.NameMangler.DSL.ReservedNames
+      HsBindgen.Hs.NameMangler.DSL
       HsBindgen.Hs.NameMangler.DSL.GenerateName
       HsBindgen.Hs.NameMangler.DSL.Overrides
+      HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.NameHint
       HsBindgen.Orphans
+      HsBindgen.Pipeline
+      HsBindgen.Resolve
       HsBindgen.SHs.AST
       HsBindgen.SHs.Translation
       HsBindgen.Util.Parsec
@@ -131,9 +129,9 @@ library
       TemplateHaskellQuotes
   build-depends:
       -- Internal dependencies
-    , hs-bindgen-libclang
-    , hs-bindgen-runtime
     , c-expr
+    , clang
+    , hs-bindgen-runtime
   build-depends:
       -- External dependencies
     , aeson              >= 2         && < 2.3
@@ -162,28 +160,94 @@ library
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
 
+library
+  import:         lang
+  hs-source-dirs: src
+
+  exposed-modules:
+      HsBindgen.Lib
+      HsBindgen.TH
+  reexported-modules:
+      HsBindgen.Errors
+    , HsBindgen.Hs.NameMangler
+    , HsBindgen.Hs.NameMangler.DSL
+
+  build-depends:
+      -- Internal dependencies
+    , clang
+    , hs-bindgen:internal
+  build-depends:
+      -- Inherited dependencies
+    , filepath
+    , template-haskell
+
   -- for getPackageRoot
   if !impl(ghc >=9.4)
     build-depends: th-compat ^>=0.1.6
 
-executable hs-bindgen
+executable hs-bindgen-cli
   import:         lang
-  main-is:        Main.hs
+  main-is:        hs-bindgen-cli.hs
   hs-source-dirs: app
 
   other-modules:
-      HsBindgen.App.Cmdline
+      HsBindgen.App.Cli
+      HsBindgen.App.Common
+      Paths_hs_bindgen
+  autogen-modules:
+      Paths_hs_bindgen
+  build-depends:
+      -- Internal dependencies
+    , clang
+    , hs-bindgen
+  build-depends:
+      -- Inherited dependencies
+    , data-default
+  build-depends:
+      -- External dependencies
+    , optparse-applicative >= 0.18 && < 0.19
+
+executable hs-bindgen-dev
+  import:         lang
+  main-is:        hs-bindgen-dev.hs
+  hs-source-dirs: app
+  if flag(dev)
+    buildable: True
+  else
+    buildable: False
+
+  other-modules:
+      HsBindgen.App.Common
+      HsBindgen.App.Dev
       Paths_hs_bindgen
   autogen-modules:
       Paths_hs_bindgen
   build-depends:
       -- Internal dependencies
     , hs-bindgen
-    , hs-bindgen-libclang
+    , hs-bindgen:internal
+  build-depends:
+      -- External dependencies
+    , optparse-applicative >= 0.18 && < 0.19
+
+executable clang-ast-dump
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: clang-ast-dump
+  if flag(dev)
+    buildable: True
+  else
+    buildable: False
+
+  build-depends:
+      -- Internal dependencies
+    , clang
+    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
-    , data-default
+    , text
   build-depends:
+      -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
 test-suite golden
@@ -194,10 +258,10 @@ test-suite golden
   other-modules:  Orphans TH TastyGolden Misc Rust
   build-depends:
       -- Internal dependencies
-    , hs-bindgen
-    , hs-bindgen-libclang
-    , hs-bindgen-runtime
     , c-expr
+    , clang
+    , hs-bindgen
+    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
     , bytestring
@@ -259,9 +323,9 @@ test-suite test-pp
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
-  ghc-options: -pgmL hs-bindgen -optL literate
+  ghc-options: -pgmL hs-bindgen-cli -optL literate
 
-  build-tool-depends: hs-bindgen:hs-bindgen
+  build-tool-depends: hs-bindgen:hs-bindgen-cli
   build-depends:
       -- Internal dependencies
     , c-expr

@@ -48,8 +48,8 @@ import Data.Text qualified as Text
 import Data.Vec.Lazy
   ( Vec(..) )
 
--- hs-bindgen
-import HsBindgen.Clang.Args qualified as Clang
+-- clang
+import Clang.Args qualified as Clang
 
 -- c-expr
 import C.Type

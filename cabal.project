@@ -1,20 +1,18 @@
-packages: hs-bindgen-runtime
-packages: hs-bindgen
-packages: hs-bindgen-libclang
-packages: hs-bindgen-bootstrap
-packages: hs-bindgen-testlib
-packages: c-expr
-packages: clang-ast-dump
 packages: ansi-diff
+packages: c-expr
+packages: clang
+packages: hs-bindgen
+packages: hs-bindgen-runtime
+packages: hs-bindgen-test-runtime
 packages: userland-capi
 
 tests: True
 benchmarks: True
 
-package hs-bindgen
+package clang
 
-package hs-bindgen-libclang
+package hs-bindgen
 
 package hs-bindgen-runtime
 
-package hs-bindgen-testlib
+package hs-bindgen-test-runtime
