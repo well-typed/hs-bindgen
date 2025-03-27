@@ -61,6 +61,7 @@ module HsBindgen.C.AST (
     -- * DeclPath
   , DeclPath(..)
   , DeclPathCtxt(..)
+  , topLevel
     -- * Source locations
   , SingleLoc(..)
   , MultiLoc(..)

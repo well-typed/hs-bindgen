@@ -53,7 +53,9 @@ import HsBindgen.ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as GenExtBindings
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
-import HsBindgen.Hs.NameMangler qualified as Hs
+import HsBindgen.Hs.NameMangler (NameMangler)
+import HsBindgen.Hs.NameMangler qualified as NameMangler
+import HsBindgen.Hs.NameMangler.DSL qualified as NameMangler.DSL
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.SHs.AST qualified as SHs
@@ -69,7 +71,7 @@ data Opts = Opts {
       optsClangArgs   :: ClangArgs
     , optsExtBindings :: ExtBindings
     , optsTranslation :: Hs.TranslationOpts
-    , optsNameMangler :: Hs.NameMangler
+    , optsNameMangler :: NameMangler
     , optsPredicate   :: Predicate
     , optsDiagTracer  :: Tracer IO String
     , optsSkipTracer  :: Tracer IO String
@@ -81,11 +83,17 @@ defaultOpts = Opts {
       optsClangArgs   = defaultClangArgs
     , optsExtBindings = emptyExtBindings
     , optsTranslation = Hs.defaultTranslationOpts
-    , optsNameMangler = Hs.defaultNameMangler
+    , optsNameMangler = nameMangler
     , optsPredicate   = SelectFromMainFile
     , optsDiagTracer  = nullTracer
     , optsSkipTracer  = nullTracer
     }
+  where
+    -- TODO: Make it possible to specify overrides through the CLI
+    nameMangler :: NameMangler
+    nameMangler =
+        NameMangler.DSL.applyOverrides NameMangler.DSL.overridesNone $
+          NameMangler.nameManglerDefault
 
 -- | Additional options for the preprocessor API
 data PPOpts = PPOpts {

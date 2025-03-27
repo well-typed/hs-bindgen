@@ -1,18 +1,17 @@
 module HsBindgen.Hs.NameMangler.DSL.Overrides (
     Overrides(..)
-    -- * Construction
   , overridesNone
+  , applyOverrides
+    -- * Map representation
+  , OverridesMap(..)
+  , OverridesFor
   , overridesMap
-    -- * Using overrides
-  , useOverride
   ) where
 
-import Control.Exception
 import Data.Map qualified as Map
 
-import HsBindgen.C.AST
-import HsBindgen.Errors
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.NameMangler.API
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -28,13 +27,10 @@ import HsBindgen.Imports
 data Overrides = Overrides {
       override :: forall ns.
            SingNamespace ns
-        => [CName]
-           -- ^ C names
-           --
-           -- This will be a singleton list for types declared at the top level,
-           -- and a longer list for nested types.
+        => NameSpec ns
+           -- ^ Specification of the name we're trying to construct
         -> Maybe (HsName ns)
-           -- ^ Haskell name
+           -- ^ The Haskell name we construct by default
            --
            -- This will be 'Nothing' only if we fail to construct the Haskell
            -- name altogether. For example, this can happen if a C type is
@@ -44,49 +40,64 @@ data Overrides = Overrides {
         -> Maybe (HsName ns)
     }
 
-{-------------------------------------------------------------------------------
-  Construction
--------------------------------------------------------------------------------}
-
 -- | Do not override any translations
 overridesNone :: Overrides
 overridesNone = Overrides $ \_cname _name -> Nothing
 
--- | Override translations of Haskell names using a map
-overridesMap ::
-     Map Namespace (Map (Maybe Text) (Map [CName] Text))
-  -> Overrides
-overridesMap overrideMap = Overrides aux
-  where
-    aux :: forall ns.
-         SingNamespace ns
-      => [CName] -> Maybe (HsName ns) -> Maybe (HsName ns)
-    aux cnames name = do
-        nsMap <- Map.lookup (namespaceOf (singNamespace @ns)) overrideMap
-        nMap  <- Map.lookup (getHsName <$> name) nsMap
-        HsName <$> Map.lookup cnames nMap
-
 {-------------------------------------------------------------------------------
-  Using overrides
+  Map representation
+
+  This is more amenable to JSON/YAML serialization.
 -------------------------------------------------------------------------------}
 
-useOverride ::
-     [CName]            -- ^ Input to name generation
-  -> Maybe (HsName ns)  -- ^ Generated name (unless failed)
-  -> Maybe (HsName ns)  -- ^ Override (if any)
-  -> HsName ns
-useOverride _     _           (Just name) = name
-useOverride _     (Just name) _           = name
-useOverride input Nothing     Nothing     = throw $ RequireOverride input
+type OverridesFor ns = Map (NameSpec ns, Maybe (HsName ns)) (HsName ns)
 
-data RequireOverride = RequireOverride [CName]
-  deriving stock (Show)
+data OverridesMap = OverridesMap {
+      overridesNsTypeConstr :: OverridesFor NsTypeConstr
+    , overridesNsConstr     :: OverridesFor NsConstr
+    , overridesNsVar        :: OverridesFor NsVar
+    }
 
-instance Exception RequireOverride where
-  toException   = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
+-- | Override translations of Haskell names using a map
+overridesMap :: OverridesMap -> Overrides
+overridesMap overrideMap = Overrides $
+    caseNamespace singNamespace
+  where
+    caseNamespace ::
+         SNamespace ns
+      -> NameSpec ns
+      -> Maybe (HsName ns)
+      -> Maybe (HsName ns)
+    caseNamespace SNsTypeConstr = aux overridesNsTypeConstr
+    caseNamespace SNsConstr     = aux overridesNsConstr
+    caseNamespace SNsVar        = aux overridesNsVar
 
-  displayException (RequireOverride input) = concat [
-        "Require name override for "
-      , show input
-      ]
+    aux ::
+         (OverridesMap -> OverridesFor ns)
+      -> NameSpec ns -> Maybe (HsName ns) -> Maybe (HsName ns)
+    aux f spec defName =
+        case Map.lookup (spec, defName) (f overrideMap) of
+          Just override -> Just override
+          Nothing       -> defName
+
+
+{-------------------------------------------------------------------------------
+  Applying overrides
+-------------------------------------------------------------------------------}
+
+applyOverrides ::
+     Overrides
+  -> NameMangler' Maybe
+  -> NameMangler' (Either NameManglerErr)
+applyOverrides overrides nm = NameMangler $ \spec -> do
+    let generated = mangle' nm spec
+    aux spec generated (override overrides spec generated)
+  where
+    aux ::
+         NameSpec ns       -- Input to name generation
+      -> Maybe (HsName ns) -- Generated name  (unless failed)
+      -> Maybe (HsName ns) -- Override (if any)
+      -> Either NameManglerErr (HsName ns)
+    aux _    _                (Just override) = Right override
+    aux _    (Just generated) _               = Right generated
+    aux spec Nothing          Nothing         = Left $ RequireOverride spec

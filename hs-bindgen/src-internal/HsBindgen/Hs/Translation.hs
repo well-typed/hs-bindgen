@@ -162,10 +162,10 @@ structDecs opts nm struct fields = concat
   where
     hs :: Hs.Struct n
     hs =
-      let structName = mangleTyconName nm $ C.structDeclPath struct
-          structConstr = mangleDataconName nm $ C.structDeclPath struct
+      let structName = mangle nm $ NameTycon $ C.structDeclPath struct
+          structConstr = mangle nm $ NameDatacon $ C.structDeclPath struct
           structFields = flip Vec.map fields $ \f -> Hs.Field {
-              fieldName   = mangleFieldName nm (C.structDeclPath struct) (C.fieldName f)
+              fieldName   = mangle nm $ NameField (C.structDeclPath struct) (C.fieldName f)
             , fieldType   = typ nm (C.fieldType f)
             , fieldOrigin = Hs.FieldOriginStructField f
             }
@@ -211,7 +211,7 @@ opaqueStructDecs ::
   -> [Hs.Decl]
 opaqueStructDecs _opts nm o =
     [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangleTyconName nm $ C.opaqueStructTag o
+          emptyDataName   = mangle nm $ NameTycon $ C.topLevel (C.opaqueStructTag o)
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
         }
     ]
@@ -219,7 +219,7 @@ opaqueStructDecs _opts nm o =
 opaqueEnumDecs :: TranslationOpts -> NameMangler -> C.OpaqueEnum -> [Hs.Decl]
 opaqueEnumDecs _opts nm o =
     [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangleTyconName nm $ C.opaqueEnumTag o
+          emptyDataName   = mangle nm $ NameTycon $ C.topLevel (C.opaqueEnumTag o)
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
         }
     ]
@@ -233,17 +233,17 @@ unionDecs _opts nm union =
     [ Hs.DeclNewtype Hs.Newtype {..}
     , Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
     ] ++ concat
-    [ [ Hs.DeclUnionGetter newtypeName (typ nm ufieldType) (mangleGetterName nm declPath ufieldName)
-      , Hs.DeclUnionSetter newtypeName (typ nm ufieldType) (mangleBuilderName nm declPath ufieldName)
+    [ [ Hs.DeclUnionGetter newtypeName (typ nm ufieldType) (mangle nm $ NameGetter declPath ufieldName)
+      , Hs.DeclUnionSetter newtypeName (typ nm ufieldType) (mangle nm $ NameBuilder declPath ufieldName)
       ]
     | C.UnionField {..} <- C.unionFields union
     ]
   where
     declPath      = C.unionDeclPath union
-    newtypeName   = mangleTyconName nm declPath
-    newtypeConstr = mangleDataconName nm declPath
+    newtypeName   = mangle nm $ NameTycon declPath
+    newtypeConstr = mangle nm $ NameDatacon declPath
     newtypeField  = Hs.Field {
-        fieldName   = mangleDeconName nm declPath
+        fieldName   = mangle nm $ NameDecon declPath
       , fieldType   = Hs.HsByteArray
       , fieldOrigin = Hs.FieldOriginNone
       }
@@ -267,10 +267,10 @@ enumDecs opts nm e = concat [
     ]
   where
     declPath      = C.enumDeclPath e
-    newtypeName   = mangleTyconName nm declPath
-    newtypeConstr = mangleDataconName nm declPath
+    newtypeName   = mangle nm $ NameTycon declPath
+    newtypeConstr = mangle nm $ NameDatacon declPath
     newtypeField  = Hs.Field {
-        fieldName   = mangleDeconName nm declPath
+        fieldName   = mangle nm $ NameDecon declPath
       , fieldType   = typ nm (C.enumType e)
       , fieldOrigin = Hs.FieldOriginNone
       }
@@ -303,7 +303,7 @@ enumDecs opts nm e = concat [
     valueDecls :: [Hs.Decl]
     valueDecls =
         [ Hs.DeclPatSyn Hs.PatSyn
-          { patSynName   = mangleDataconName nm valueName
+          { patSynName   = mangle nm $ NameDatacon (C.topLevel valueName)
           , patSynType   = newtypeName
           , patSynConstr = newtypeConstr
           , patSynValue  = valueValue
@@ -328,10 +328,10 @@ typedefDecs opts nm d = concat [
     ]
   where
     cName         = C.typedefName d
-    newtypeName   = mangleTyconName nm cName
-    newtypeConstr = mangleDataconName nm cName
+    newtypeName   = mangle nm $ NameTycon (C.topLevel cName)
+    newtypeConstr = mangle nm $ NameDatacon (C.topLevel cName)
     newtypeField  = Hs.Field {
-        fieldName   = mangleDeconName nm cName
+        fieldName   = mangle nm $ NameDecon (C.topLevel cName)
       , fieldType   = typ nm (C.typedefType d)
       , fieldOrigin = Hs.FieldOriginNone
       }
@@ -403,13 +403,13 @@ macroDecsTypedef opts nm m =
         []
   where
     cName         = C.macroName m
-    newtypeName   = mangleTyconName nm cName
-    newtypeConstr = mangleDataconName nm cName
+    newtypeName   = mangle nm $ NameTycon (C.topLevel cName)
+    newtypeConstr = mangle nm $ NameDatacon (C.topLevel cName)
     newtypeOrigin = Hs.NewtypeOriginMacro m
 
     mkField :: C.Type -> Hs.Field
     mkField ty = Hs.Field {
-          fieldName   = mangleDeconName nm cName
+          fieldName   = mangle nm $ NameDecon (C.topLevel cName)
         , fieldType   = typ nm ty
         , fieldOrigin = Hs.FieldOriginNone
         }
@@ -433,14 +433,14 @@ typ' ctx nm = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
     go _ (C.TypeTypedef c) =
-        Hs.HsTypRef (mangleTyconName nm c) -- wrong
+        Hs.HsTypRef (mangle nm $ NameTycon (C.topLevel c)) -- wrong
     go _ (C.TypeStruct declPath) =
-        Hs.HsTypRef (mangleTyconName nm declPath)
+        Hs.HsTypRef (mangle nm $ NameTycon declPath)
     go _ (C.TypeUnion declPath) =
         -- TODO: UnionTypeConstrContext?
-        Hs.HsTypRef (mangleTyconName nm declPath)
+        Hs.HsTypRef (mangle nm $ NameTycon declPath)
     go _ (C.TypeEnum declPath) =
-        Hs.HsTypRef (mangleTyconName nm declPath)
+        Hs.HsTypRef (mangle nm $ NameTycon declPath)
     go c C.TypeVoid =
         Hs.HsPrimType (goVoid c)
     go _ (C.TypePrim p) =
@@ -509,7 +509,7 @@ functionDecs ::
   -> [Hs.Decl]
 functionDecs _opts nm f =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = mangleVarName nm $ C.functionName f
+        { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
         , foreignImportOrigName   = C.getCName $ C.functionName f
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
@@ -540,7 +540,7 @@ macroVarDecs nm (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = bod
   | hsBody <- toList $ macroLamHsExpr nm cVarNm args body
   ]
   where
-    hsVarName = mangleVarName nm cVarNm
+    hsVarName = mangle nm $ NameVar cVarNm
 
 quantTyHsTy :: Macro.Quant ( Macro.Type Macro.Ty ) -> Hs.SigmaType
 quantTyHsTy qty@(Macro.Quant @kis _) =
@@ -623,7 +623,7 @@ macroExprHsExpr nm = goExpr where
         case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
-            let hsVar = mangleVarName nm cname
+            let hsVar = mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
 
       C.MType {} -> Nothing
