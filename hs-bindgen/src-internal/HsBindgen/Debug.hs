@@ -77,6 +77,13 @@ deriving via ReprShow Int instance Repr Int
 deriving via ReprShow () instance Repr ()
 deriving via ReprShow CInt instance Repr CInt
 
+instance Repr a => Repr [a] where
+    repr xs = do
+        ys <- traverse repr xs
+        let ys' :: String
+            ys' = '[' : unwords (foldr id [] ys) ++ "]"
+        return $ \zs -> ys' : zs
+
 -------------------------------------------------------------------------------
 -- Repr libclang
 -------------------------------------------------------------------------------

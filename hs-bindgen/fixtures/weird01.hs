@@ -16,15 +16,14 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "func",
-          functionType = TypeFun
-            [
-              TypePointer
-                (TypeStruct
-                  (DeclPathName
-                    (CName "bar")
-                    (DeclPathCtxtPtr
-                      DeclPathCtxtTop)))]
-            TypeVoid,
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "bar")
+                  (DeclPathCtxtPtr
+                    DeclPathCtxtTop)))],
+          functionRes = TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
           "weird01.h:8:6"}},

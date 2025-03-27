@@ -430,11 +430,11 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "quux",
-          functionType = TypeFun
-            [
-              TypeTypedef (CName "F"),
-              TypePrim (PrimChar Nothing)]
-            (TypePrim (PrimChar Nothing)),
+          functionArgs = [
+            TypeTypedef (CName "F"),
+            TypePrim (PrimChar Nothing)],
+          functionRes = TypePrim
+            (PrimChar Nothing),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -463,14 +463,13 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "wam",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimFloat),
-              TypePointer
-                (TypeTypedef (CName "C"))]
-            (TypePointer
-              (TypeTypedef (CName "C"))),
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeTypedef (CName "C"))],
+          functionRes = TypePointer
+            (TypeTypedef (CName "C")),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -497,19 +496,20 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "foo1",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimFloat),
-              TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)))]
-            (TypePointer
-              (TypePrim (PrimChar Nothing))),
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionRes = TypePointer
+            (TypePrim (PrimChar Nothing)),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -537,18 +537,19 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "foo2",
-          functionType = TypeFun
-            [
-              TypeTypedef (CName "F"),
-              TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)))]
-            (TypePointer
-              (TypePrim (PrimChar Nothing))),
+          functionArgs = [
+            TypeTypedef (CName "F"),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionRes = TypePointer
+            (TypePrim (PrimChar Nothing)),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -578,19 +579,20 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "foo3",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimFloating PrimFloat),
-              TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral PrimInt Signed)))]
-            (TypePointer
-              (TypeTypedef (CName "C"))),
+          functionArgs = [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionRes = TypePointer
+            (TypeTypedef (CName "C")),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -615,19 +617,16 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "bar1",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimLong Signed)]
-            (TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimShort Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))),
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -653,17 +652,15 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "bar2",
-          functionType = TypeFun
-            [TypeTypedef (CName "L")]
-            (TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimShort Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))),
+          functionArgs = [
+            TypeTypedef (CName "L")],
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -689,17 +686,14 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "bar3",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimLong Signed)]
-            (TypePointer
-              (TypeFun
-                [TypeTypedef (CName "S")]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))),
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
+          functionRes = TypePointer
+            (TypeFun
+              [TypeTypedef (CName "S")]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -727,16 +721,15 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "bar4",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimLong Signed)]
-            (TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimShort Signed)]
-                (TypeTypedef (CName "I")))),
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypeTypedef (CName "I"))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -762,19 +755,18 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "baz1",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePointer
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePointer
+            (TypeConstArray
+              2
               (TypeConstArray
-                2
-                (TypeConstArray
-                  3
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))),
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -801,17 +793,17 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "baz2",
-          functionType = TypeFun
-            [TypeTypedef (CName "I")]
-            (TypePointer
+          functionArgs = [
+            TypeTypedef (CName "I")],
+          functionRes = TypePointer
+            (TypeConstArray
+              2
               (TypeConstArray
-                2
-                (TypeConstArray
-                  3
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))),
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -840,16 +832,15 @@
       ForeignImportDeclOriginFunction
         Function {
           functionName = CName "baz3",
-          functionType = TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePointer
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
+          functionRes = TypePointer
+            (TypeConstArray
+              2
               (TypeConstArray
-                2
-                (TypeConstArray
-                  3
-                  (TypeTypedef (CName "I"))))),
+                3
+                (TypeTypedef (CName "I")))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =

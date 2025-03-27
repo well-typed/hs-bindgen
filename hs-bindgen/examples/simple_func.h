@@ -5,3 +5,5 @@ static inline double bad_fma(double x, double y, double z) {
 }
 
 void no_args(void);
+
+int fun(char x, double y);
