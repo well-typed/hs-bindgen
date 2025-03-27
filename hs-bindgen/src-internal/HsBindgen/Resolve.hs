@@ -29,7 +29,7 @@ import HsBindgen.Imports
 -- | Failed to resolve a header
 newtype ResolveHeaderException =
     ResolveHeaderNotFound CHeaderIncludePath
-  deriving stock (Show)
+  deriving stock (Eq, Ord, Show)
 
 instance Exception ResolveHeaderException where
   displayException = \case

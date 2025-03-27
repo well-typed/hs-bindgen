@@ -1,4 +1,22 @@
 types:
+- cname: M1
+  headers:
+  - typedef_vs_macro.h
+  identifier: M1
+  module: Example
+  package: example
+- cname: M2
+  headers:
+  - typedef_vs_macro.h
+  identifier: M2
+  module: Example
+  package: example
+- cname: M3
+  headers:
+  - typedef_vs_macro.h
+  identifier: M3
+  module: Example
+  package: example
 - cname: T1
   headers:
   - typedef_vs_macro.h
@@ -21,5 +39,11 @@ types:
   headers:
   - typedef_vs_macro.h
   identifier: Foo
+  module: Example
+  package: example
+- cname: uint64_t
+  headers:
+  - typedef_vs_macro.h
+  identifier: Uint64_t
   module: Example
   package: example
