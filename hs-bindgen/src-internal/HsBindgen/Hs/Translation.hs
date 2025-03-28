@@ -507,7 +507,10 @@ functionDecs ::
   -> NameMangler
   -> C.Function
   -> [Hs.Decl]
-functionDecs _opts nm f =
+functionDecs _opts nm f
+  | any isFancy (C.functionRes f : C.functionArgs f)
+  = throwPure_TODO 37 "Struct value arguments and results are not supported"
+  | otherwise =
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
@@ -517,6 +520,14 @@ functionDecs _opts nm f =
         }
     ]
   where
+    -- types which we cannot pass directly using C FFI.
+    isFancy :: C.Type -> Bool
+    isFancy C.TypeStruct {}     = True
+    isFancy C.TypeUnion {}      = True
+    isFancy C.TypeConstArray {} = True
+    isFancy C.TypeTypedef {}    = False -- TODO: we need to look through typedefs
+    isFancy _ = False
+
     ty :: HsType
     ty = foldr HsFun (HsIO $ typ' CFunRes nm $ C.functionRes f) (typ' CFunArg nm <$> C.functionArgs f)
 

@@ -74,6 +74,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         ]
     , testGroup "failing-examples" [
           failing "long_double"
+        , failing "struct_arg_a"
         ]
     ]
   where
