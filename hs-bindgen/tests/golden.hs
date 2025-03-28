@@ -72,6 +72,7 @@ main' packageRoot bg = testGroup "golden"
 
     , testGroup "failures"
         [ failing "long_double"
+        , failing "struct_arg_a"
         ]
     ]
   where
