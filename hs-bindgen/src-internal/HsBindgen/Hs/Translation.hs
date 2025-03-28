@@ -496,7 +496,7 @@ floatingType :: C.PrimFloatType -> HsPrimType
 floatingType = \case
   C.PrimFloat      -> HsPrimCFloat
   C.PrimDouble     -> HsPrimCDouble
-  C.PrimLongDouble -> HsPrimCDouble -- wrong (see #247)
+  C.PrimLongDouble -> throwPure_TODO 349 "long double not supported"
 
 {-------------------------------------------------------------------------------
   Function

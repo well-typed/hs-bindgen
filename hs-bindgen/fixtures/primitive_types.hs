@@ -475,23 +475,7 @@
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "primitive_types.h:38:12"}},
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "primitive_ld",
-          fieldType = HsPrimType
-            HsPrimCDouble,
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "ld",
-              fieldOffset = 1280,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimLongDouble),
-              fieldSourceLoc =
-              "primitive_types.h:39:17"}}],
+              "primitive_types.h:38:12"}}],
       structOrigin =
       StructOriginStruct
         Struct {
@@ -499,8 +483,8 @@
             (CName "primitive")
             DeclPathCtxtTop,
           structAliases = [],
-          structSizeof = 176,
-          structAlignment = 16,
+          structSizeof = 152,
+          structAlignment = 8,
           structFields = [
             StructField {
               fieldName = CName "c",
@@ -745,15 +729,7 @@
               fieldType = TypePrim
                 (PrimFloating PrimDouble),
               fieldSourceLoc =
-              "primitive_types.h:38:12"},
-            StructField {
-              fieldName = CName "ld",
-              fieldOffset = 1280,
-              fieldWidth = Nothing,
-              fieldType = TypePrim
-                (PrimFloating PrimLongDouble),
-              fieldSourceLoc =
-              "primitive_types.h:39:17"}],
+              "primitive_types.h:38:12"}],
           structFlam = Nothing,
           structSourceLoc =
           "primitive_types.h:1:8"}},
@@ -1234,23 +1210,7 @@
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
-                "primitive_types.h:38:12"}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "primitive_ld",
-            fieldType = HsPrimType
-              HsPrimCDouble,
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "ld",
-                fieldOffset = 1280,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimLongDouble),
-                fieldSourceLoc =
-                "primitive_types.h:39:17"}}],
+                "primitive_types.h:38:12"}}],
         structOrigin =
         StructOriginStruct
           Struct {
@@ -1258,8 +1218,8 @@
               (CName "primitive")
               DeclPathCtxtTop,
             structAliases = [],
-            structSizeof = 176,
-            structAlignment = 16,
+            structSizeof = 152,
+            structAlignment = 8,
             structFields = [
               StructField {
                 fieldName = CName "c",
@@ -1504,21 +1464,13 @@
                 fieldType = TypePrim
                   (PrimFloating PrimDouble),
                 fieldSourceLoc =
-                "primitive_types.h:38:12"},
-              StructField {
-                fieldName = CName "ld",
-                fieldOffset = 1280,
-                fieldWidth = Nothing,
-                fieldType = TypePrim
-                  (PrimFloating PrimLongDouble),
-                fieldSourceLoc =
-                "primitive_types.h:39:17"}],
+                "primitive_types.h:38:12"}],
             structFlam = Nothing,
             structSourceLoc =
             "primitive_types.h:1:8"}}
       StorableInstance {
-        storableSizeOf = 176,
-        storableAlignment = 16,
+        storableSizeOf = 152,
+        storableAlignment = 8,
         storablePeek = Lambda
           (NameHint "ptr")
           (Ap
@@ -1998,23 +1950,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "primitive_types.h:38:12"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "primitive_ld",
-                    fieldType = HsPrimType
-                      HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "ld",
-                        fieldOffset = 1280,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimLongDouble),
-                        fieldSourceLoc =
-                        "primitive_types.h:39:17"}}],
+                        "primitive_types.h:38:12"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2022,8 +1958,8 @@
                       (CName "primitive")
                       DeclPathCtxtTop,
                     structAliases = [],
-                    structSizeof = 176,
-                    structAlignment = 16,
+                    structSizeof = 152,
+                    structAlignment = 8,
                     structFields = [
                       StructField {
                         fieldName = CName "c",
@@ -2268,15 +2204,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "primitive_types.h:38:12"},
-                      StructField {
-                        fieldName = CName "ld",
-                        fieldOffset = 1280,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimLongDouble),
-                        fieldSourceLoc =
-                        "primitive_types.h:39:17"}],
+                        "primitive_types.h:38:12"}],
                     structFlam = Nothing,
                     structSourceLoc =
                     "primitive_types.h:1:8"}})
@@ -2308,8 +2236,7 @@
               PeekByteOff (Idx 0) 120,
               PeekByteOff (Idx 0) 128,
               PeekByteOff (Idx 0) 136,
-              PeekByteOff (Idx 0) 144,
-              PeekByteOff (Idx 0) 160]),
+              PeekByteOff (Idx 0) 144]),
         storablePoke = Lambda
           (NameHint "ptr")
           (Lambda
@@ -2791,23 +2718,7 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "primitive_types.h:38:12"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "primitive_ld",
-                    fieldType = HsPrimType
-                      HsPrimCDouble,
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "ld",
-                        fieldOffset = 1280,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimLongDouble),
-                        fieldSourceLoc =
-                        "primitive_types.h:39:17"}}],
+                        "primitive_types.h:38:12"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
@@ -2815,8 +2726,8 @@
                       (CName "primitive")
                       DeclPathCtxtTop,
                     structAliases = [],
-                    structSizeof = 176,
-                    structAlignment = 16,
+                    structSizeof = 152,
+                    structAlignment = 8,
                     structFields = [
                       StructField {
                         fieldName = CName "c",
@@ -3061,107 +2972,95 @@
                         fieldType = TypePrim
                           (PrimFloating PrimDouble),
                         fieldSourceLoc =
-                        "primitive_types.h:38:12"},
-                      StructField {
-                        fieldName = CName "ld",
-                        fieldOffset = 1280,
-                        fieldWidth = Nothing,
-                        fieldType = TypePrim
-                          (PrimFloating PrimLongDouble),
-                        fieldSourceLoc =
-                        "primitive_types.h:39:17"}],
+                        "primitive_types.h:38:12"}],
                     structFlam = Nothing,
                     structSourceLoc =
                     "primitive_types.h:1:8"}}
-              (Add 29)
+              (Add 28)
               (Seq
                 [
-                  PokeByteOff (Idx 30) 0 (Idx 0),
-                  PokeByteOff (Idx 30) 1 (Idx 1),
-                  PokeByteOff (Idx 30) 2 (Idx 2),
-                  PokeByteOff (Idx 30) 4 (Idx 3),
-                  PokeByteOff (Idx 30) 6 (Idx 4),
-                  PokeByteOff (Idx 30) 8 (Idx 5),
-                  PokeByteOff (Idx 30) 10 (Idx 6),
-                  PokeByteOff (Idx 30) 12 (Idx 7),
-                  PokeByteOff (Idx 30) 14 (Idx 8),
-                  PokeByteOff (Idx 30) 16 (Idx 9),
+                  PokeByteOff (Idx 29) 0 (Idx 0),
+                  PokeByteOff (Idx 29) 1 (Idx 1),
+                  PokeByteOff (Idx 29) 2 (Idx 2),
+                  PokeByteOff (Idx 29) 4 (Idx 3),
+                  PokeByteOff (Idx 29) 6 (Idx 4),
+                  PokeByteOff (Idx 29) 8 (Idx 5),
+                  PokeByteOff (Idx 29) 10 (Idx 6),
+                  PokeByteOff (Idx 29) 12 (Idx 7),
+                  PokeByteOff (Idx 29) 14 (Idx 8),
+                  PokeByteOff (Idx 29) 16 (Idx 9),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     20
                     (Idx 10),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     24
                     (Idx 11),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     28
                     (Idx 12),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     32
                     (Idx 13),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     40
                     (Idx 14),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     48
                     (Idx 15),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     56
                     (Idx 16),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     64
                     (Idx 17),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     72
                     (Idx 18),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     80
                     (Idx 19),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     88
                     (Idx 20),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     96
                     (Idx 21),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     104
                     (Idx 22),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     112
                     (Idx 23),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     120
                     (Idx 24),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     128
                     (Idx 25),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     136
                     (Idx 26),
                   PokeByteOff
-                    (Idx 30)
+                    (Idx 29)
                     144
-                    (Idx 27),
-                  PokeByteOff
-                    (Idx 30)
-                    160
-                    (Idx 28)])))}),
+                    (Idx 27)])))}),
   DeclNewtypeInstance
     DeriveStock
     Show
