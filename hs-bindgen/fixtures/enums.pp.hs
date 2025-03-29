@@ -11,7 +11,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
 
 newtype First = First
-  { unFirst :: FC.CUInt
+  { un_First :: FC.CUInt
   }
 
 instance F.Storable First where
@@ -29,7 +29,7 @@ instance F.Storable First where
     \ptr0 ->
       \s1 ->
         case s1 of
-          First unFirst2 -> F.pokeByteOff ptr0 (0 :: Int) unFirst2
+          First un_First2 -> F.pokeByteOff ptr0 (0 :: Int) un_First2
 
 deriving stock instance Show First
 
@@ -48,7 +48,7 @@ pattern FIRST2 :: First
 pattern FIRST2 = First 1
 
 newtype Second = Second
-  { unSecond :: FC.CInt
+  { un_Second :: FC.CInt
   }
 
 instance F.Storable Second where
@@ -66,7 +66,7 @@ instance F.Storable Second where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Second unSecond2 -> F.pokeByteOff ptr0 (0 :: Int) unSecond2
+          Second un_Second2 -> F.pokeByteOff ptr0 (0 :: Int) un_Second2
 
 deriving stock instance Show Second
 
@@ -88,7 +88,7 @@ pattern SECOND_C :: Second
 pattern SECOND_C = Second 1
 
 newtype Same = Same
-  { unSame :: FC.CUInt
+  { un_Same :: FC.CUInt
   }
 
 instance F.Storable Same where
@@ -106,7 +106,7 @@ instance F.Storable Same where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Same unSame2 -> F.pokeByteOff ptr0 (0 :: Int) unSame2
+          Same un_Same2 -> F.pokeByteOff ptr0 (0 :: Int) un_Same2
 
 deriving stock instance Show Same
 
@@ -125,7 +125,7 @@ pattern SAME_B :: Same
 pattern SAME_B = Same 1
 
 newtype Packad = Packad
-  { unPackad :: FC.CSChar
+  { un_Packad :: FC.CSChar
   }
 
 instance F.Storable Packad where
@@ -143,7 +143,7 @@ instance F.Storable Packad where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Packad unPackad2 -> F.pokeByteOff ptr0 (0 :: Int) unPackad2
+          Packad un_Packad2 -> F.pokeByteOff ptr0 (0 :: Int) un_Packad2
 
 deriving stock instance Show Packad
 
@@ -165,7 +165,7 @@ pattern PACKED_C :: Packad
 pattern PACKED_C = Packad 2
 
 newtype EnumA = EnumA
-  { unEnumA :: FC.CUInt
+  { un_EnumA :: FC.CUInt
   }
 
 instance F.Storable EnumA where
@@ -183,7 +183,7 @@ instance F.Storable EnumA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumA unEnumA2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumA2
+          EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
 deriving stock instance Show EnumA
 
@@ -202,13 +202,13 @@ pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
 
 newtype EnumA = EnumA
-  { unEnumA :: EnumA
+  { un_EnumA :: EnumA
   }
 
 deriving newtype instance F.Storable EnumA
 
 newtype EnumB = EnumB
-  { unEnumB :: FC.CUInt
+  { un_EnumB :: FC.CUInt
   }
 
 instance F.Storable EnumB where
@@ -226,7 +226,7 @@ instance F.Storable EnumB where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumB unEnumB2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumB2
+          EnumB un_EnumB2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
 
 deriving stock instance Show EnumB
 
@@ -245,13 +245,13 @@ pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
 
 newtype EnumB = EnumB
-  { unEnumB :: EnumB
+  { un_EnumB :: EnumB
   }
 
 deriving newtype instance F.Storable EnumB
 
 newtype EnumC = EnumC
-  { unEnumC :: FC.CUInt
+  { un_EnumC :: FC.CUInt
   }
 
 instance F.Storable EnumC where
@@ -269,7 +269,7 @@ instance F.Storable EnumC where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumC unEnumC2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumC2
+          EnumC un_EnumC2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
 
 deriving stock instance Show EnumC
 
@@ -288,13 +288,13 @@ pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
 
 newtype EnumC = EnumC
-  { unEnumC :: EnumC
+  { un_EnumC :: EnumC
   }
 
 deriving newtype instance F.Storable EnumC
 
 newtype EnumD = EnumD
-  { unEnumD :: FC.CUInt
+  { un_EnumD :: FC.CUInt
   }
 
 instance F.Storable EnumD where
@@ -312,7 +312,7 @@ instance F.Storable EnumD where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumD unEnumD2 -> F.pokeByteOff ptr0 (0 :: Int) unEnumD2
+          EnumD un_EnumD2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumD2
 
 deriving stock instance Show EnumD
 
@@ -331,7 +331,7 @@ pattern D_BAR :: EnumD
 pattern D_BAR = EnumD 1
 
 newtype EnumD_t = EnumD_t
-  { unEnumD_t :: EnumD
+  { un_EnumD_t :: EnumD
   }
 
 deriving newtype instance F.Storable EnumD_t

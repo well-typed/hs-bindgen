@@ -11,7 +11,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
 
 newtype Foo = Foo
-  { unFoo :: FC.CUInt
+  { un_Foo :: FC.CUInt
   }
 
 instance F.Storable Foo where
@@ -29,7 +29,7 @@ instance F.Storable Foo where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo unFoo2 -> F.pokeByteOff ptr0 (0 :: Int) unFoo2
+          Foo un_Foo2 -> F.pokeByteOff ptr0 (0 :: Int) un_Foo2
 
 deriving stock instance Show Foo
 
@@ -48,7 +48,7 @@ pattern FOO2 :: Foo
 pattern FOO2 = Foo 1
 
 newtype Foo = Foo
-  { unFoo :: FC.CDouble
+  { un_Foo :: FC.CDouble
   }
 
 deriving newtype instance F.Storable Foo

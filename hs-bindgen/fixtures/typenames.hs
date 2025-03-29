@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unFoo",
+          "un_Foo",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -51,7 +51,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unFoo",
+              "un_Foo",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -96,7 +96,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unFoo",
+                      "un_Foo",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -141,7 +141,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unFoo",
+                      "un_Foo",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -244,7 +244,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unFoo",
+          "un_Foo",
         fieldType = HsPrimType
           HsPrimCDouble,
         fieldOrigin = FieldOriginNone},

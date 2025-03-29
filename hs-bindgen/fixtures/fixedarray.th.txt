@@ -1,4 +1,4 @@
-newtype Triple = Triple {unTriple :: (ConstantArray 3 CInt)}
+newtype Triple = Triple {un_Triple :: (ConstantArray 3 CInt)}
 deriving newtype instance Storable Triple
 data Example
     = Example {example_triple :: (ConstantArray 3 CInt),

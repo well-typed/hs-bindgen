@@ -19,7 +19,7 @@ instance Storable Dim3
                                           dim3_z_5 -> pokeByteOff ptr_1 (0 :: Int) dim3_x_3 >> (pokeByteOff ptr_1 (4 :: Int) dim3_y_4 >> pokeByteOff ptr_1 (8 :: Int) dim3_z_5)}}
 deriving stock instance Show Dim3
 deriving stock instance Eq Dim3
-newtype DimPayload = DimPayload {unDimPayload :: ByteArray}
+newtype DimPayload = DimPayload {un_DimPayload :: ByteArray}
 deriving via (SizedByteArray 8 4) instance Storable DimPayload
 get_dimPayload_dim2 :: DimPayload -> Dim2
 get_dimPayload_dim2 = getUnionPayload
@@ -39,7 +39,7 @@ instance Storable Dim
                                          dim_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dim_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dim_payload_4}}
 deriving stock instance Show Dim
 deriving stock instance Eq Dim
-newtype DimPayloadB = DimPayloadB {unDimPayloadB :: ByteArray}
+newtype DimPayloadB = DimPayloadB {un_DimPayloadB :: ByteArray}
 deriving via (SizedByteArray 8 4) instance Storable DimPayloadB
 get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
 get_dimPayloadB_dim2 = getUnionPayload
@@ -49,7 +49,7 @@ get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
 get_dimPayloadB_dim3 = getUnionPayload
 set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 set_dimPayloadB_dim3 = setUnionPayload
-newtype DimPayloadB = DimPayloadB {unDimPayloadB :: DimPayloadB}
+newtype DimPayloadB = DimPayloadB {un_DimPayloadB :: DimPayloadB}
 deriving newtype instance Storable DimPayloadB
 data DimB = DimB {dimB_tag :: CInt, dimB_payload :: DimPayloadB}
 instance Storable DimB
@@ -83,7 +83,7 @@ instance Storable AnonA_polar
                                                  anonA_polar_p_4 -> pokeByteOff ptr_1 (0 :: Int) anonA_polar_r_3 >> pokeByteOff ptr_1 (8 :: Int) anonA_polar_p_4}}
 deriving stock instance Show AnonA_polar
 deriving stock instance Eq AnonA_polar
-newtype AnonA = AnonA {unAnonA :: ByteArray}
+newtype AnonA = AnonA {un_AnonA :: ByteArray}
 deriving via (SizedByteArray 16 8) instance Storable AnonA
 get_anonA_xy :: AnonA -> AnonA_xy
 get_anonA_xy = getUnionPayload

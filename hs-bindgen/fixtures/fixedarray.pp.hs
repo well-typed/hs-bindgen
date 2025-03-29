@@ -12,7 +12,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 newtype Triple = Triple
-  { unTriple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { un_Triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
 
 deriving newtype instance F.Storable Triple

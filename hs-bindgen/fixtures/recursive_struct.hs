@@ -361,7 +361,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unLinked_list_A_t",
+          "un_Linked_list_A_t",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"

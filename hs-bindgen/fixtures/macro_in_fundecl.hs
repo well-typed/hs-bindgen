@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unI",
+          "un_I",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -94,7 +94,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unC",
+          "un_C",
         fieldType = HsPrimType
           HsPrimCChar,
         fieldOrigin = FieldOriginNone},
@@ -176,7 +176,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unF",
+          "un_F",
         fieldType = HsPrimType
           HsPrimCFloat,
         fieldOrigin = FieldOriginNone},
@@ -254,7 +254,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unL",
+          "un_L",
         fieldType = HsPrimType
           HsPrimCLong,
         fieldOrigin = FieldOriginNone},
@@ -338,7 +338,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unS",
+          "un_S",
         fieldType = HsPrimType
           HsPrimCShort,
         fieldOrigin = FieldOriginNone},

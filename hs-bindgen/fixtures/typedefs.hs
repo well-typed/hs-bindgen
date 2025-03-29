@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unMyint",
+          "un_Myint",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -111,7 +111,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unIntptr",
+          "un_Intptr",
         fieldType = HsPtr
           (HsPrimType HsPrimCInt),
         fieldOrigin = FieldOriginNone},

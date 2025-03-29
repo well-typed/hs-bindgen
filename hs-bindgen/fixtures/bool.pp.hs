@@ -13,7 +13,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype BOOL = BOOL
-  { unBOOL :: FC.CBool
+  { un_BOOL :: FC.CBool
   }
 
 deriving newtype instance F.Storable BOOL

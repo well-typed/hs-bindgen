@@ -730,7 +730,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unDimPayload",
+          "un_DimPayload",
         fieldType = HsByteArray,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
@@ -1150,7 +1150,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unDimPayloadB",
+          "un_DimPayloadB",
         fieldType = HsByteArray,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
@@ -1235,7 +1235,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unDimPayloadB",
+          "un_DimPayloadB",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -2234,7 +2234,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unAnonA",
+          "un_AnonA",
         fieldType = HsByteArray,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =

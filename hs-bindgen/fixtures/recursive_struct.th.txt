@@ -11,7 +11,7 @@ instance Storable Linked_list_A_s
 deriving stock instance Show Linked_list_A_s
 deriving stock instance Eq Linked_list_A_s
 newtype Linked_list_A_t
-    = Linked_list_A_t {unLinked_list_A_t :: Linked_list_A_s}
+    = Linked_list_A_t {un_Linked_list_A_t :: Linked_list_A_s}
 deriving newtype instance Storable Linked_list_A_t
 data Linked_list_B_t
     = Linked_list_B_t {linked_list_B_t_x :: CInt,

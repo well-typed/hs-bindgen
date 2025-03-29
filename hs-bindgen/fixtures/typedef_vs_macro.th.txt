@@ -1,4 +1,4 @@
-newtype M1 = M1 {unM1 :: CInt}
+newtype M1 = M1 {un_M1 :: CInt}
 deriving newtype instance Storable M1
 deriving stock instance Eq M1
 deriving stock instance Ord M1
@@ -12,7 +12,7 @@ deriving newtype instance FiniteBits M1
 deriving newtype instance Integral M1
 deriving newtype instance Num M1
 deriving newtype instance Real M1
-newtype M2 = M2 {unM2 :: CChar}
+newtype M2 = M2 {un_M2 :: CChar}
 deriving newtype instance Storable M2
 deriving stock instance Eq M2
 deriving stock instance Ord M2
@@ -26,9 +26,9 @@ deriving newtype instance FiniteBits M2
 deriving newtype instance Integral M2
 deriving newtype instance Num M2
 deriving newtype instance Real M2
-newtype M3 = M3 {unM3 :: (ConstantArray 3 CInt)}
+newtype M3 = M3 {un_M3 :: (ConstantArray 3 CInt)}
 deriving newtype instance Storable M3
-newtype Uint64_t = Uint64_t {unUint64_t :: CInt}
+newtype Uint64_t = Uint64_t {un_Uint64_t :: CInt}
 deriving newtype instance Storable Uint64_t
 deriving stock instance Eq Uint64_t
 deriving stock instance Ord Uint64_t
@@ -42,7 +42,7 @@ deriving newtype instance FiniteBits Uint64_t
 deriving newtype instance Integral Uint64_t
 deriving newtype instance Num Uint64_t
 deriving newtype instance Real Uint64_t
-newtype T1 = T1 {unT1 :: CInt}
+newtype T1 = T1 {un_T1 :: CInt}
 deriving newtype instance Storable T1
 deriving stock instance Eq T1
 deriving stock instance Ord T1
@@ -56,7 +56,7 @@ deriving newtype instance FiniteBits T1
 deriving newtype instance Integral T1
 deriving newtype instance Num T1
 deriving newtype instance Real T1
-newtype T2 = T2 {unT2 :: CChar}
+newtype T2 = T2 {un_T2 :: CChar}
 deriving newtype instance Storable T2
 deriving stock instance Eq T2
 deriving stock instance Ord T2

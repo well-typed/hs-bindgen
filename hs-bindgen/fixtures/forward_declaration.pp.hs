@@ -35,7 +35,7 @@ deriving stock instance Show S1
 deriving stock instance Eq S1
 
 newtype S1_t = S1_t
-  { unS1_t :: S1
+  { un_S1_t :: S1
   }
 
 deriving newtype instance F.Storable S1_t

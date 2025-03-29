@@ -1,4 +1,4 @@
-newtype BOOL = BOOL {unBOOL :: CBool}
+newtype BOOL = BOOL {un_BOOL :: CBool}
 deriving newtype instance Storable BOOL
 deriving stock instance Eq BOOL
 deriving stock instance Ord BOOL

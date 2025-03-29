@@ -1,4 +1,4 @@
-newtype Uint64_t = Uint64_t {unUint64_t :: CULong}
+newtype Uint64_t = Uint64_t {un_Uint64_t :: CULong}
 deriving newtype instance Storable Uint64_t
 deriving stock instance Eq Uint64_t
 deriving stock instance Ord Uint64_t
@@ -12,7 +12,7 @@ deriving newtype instance FiniteBits Uint64_t
 deriving newtype instance Integral Uint64_t
 deriving newtype instance Num Uint64_t
 deriving newtype instance Real Uint64_t
-newtype Uint32_t = Uint32_t {unUint32_t :: CUInt}
+newtype Uint32_t = Uint32_t {un_Uint32_t :: CUInt}
 deriving newtype instance Storable Uint32_t
 deriving stock instance Eq Uint32_t
 deriving stock instance Ord Uint32_t

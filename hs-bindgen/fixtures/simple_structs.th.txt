@@ -19,7 +19,7 @@ instance Storable S2
                                         s2_c_5 -> pokeByteOff ptr_1 (0 :: Int) s2_a_3 >> (pokeByteOff ptr_1 (4 :: Int) s2_b_4 >> pokeByteOff ptr_1 (8 :: Int) s2_c_5)}}
 deriving stock instance Show S2
 deriving stock instance Eq S2
-newtype S2_t = S2_t {unS2_t :: S2}
+newtype S2_t = S2_t {un_S2_t :: S2}
 deriving newtype instance Storable S2_t
 data S3_t = S3_t {s3_t_a :: CChar}
 instance Storable S3_t
@@ -72,7 +72,7 @@ instance Storable S7a_Deref
                                                s7a_Deref_b_4 -> pokeByteOff ptr_1 (0 :: Int) s7a_Deref_a_3 >> pokeByteOff ptr_1 (4 :: Int) s7a_Deref_b_4}}
 deriving stock instance Show S7a_Deref
 deriving stock instance Eq S7a_Deref
-newtype S7a = S7a {unS7a :: (Ptr S7a_Deref)}
+newtype S7a = S7a {un_S7a :: (Ptr S7a_Deref)}
 deriving newtype instance Storable S7a
 data S7b_Deref_Deref_Deref
     = S7b_Deref_Deref_Deref {s7b_Deref_Deref_Deref_a :: CChar,
@@ -87,5 +87,5 @@ instance Storable S7b_Deref_Deref_Deref
 deriving stock instance Show S7b_Deref_Deref_Deref
 deriving stock instance Eq S7b_Deref_Deref_Deref
 newtype S7b
-    = S7b {unS7b :: (Ptr (Ptr (Ptr S7b_Deref_Deref_Deref)))}
+    = S7b {un_S7b :: (Ptr (Ptr (Ptr S7b_Deref_Deref_Deref)))}
 deriving newtype instance Storable S7b

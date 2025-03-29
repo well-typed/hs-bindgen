@@ -15,7 +15,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 newtype I = I
-  { unI :: FC.CInt
+  { un_I :: FC.CInt
   }
 
 deriving newtype instance F.Storable I
@@ -45,7 +45,7 @@ deriving newtype instance Num I
 deriving newtype instance Real I
 
 newtype C = C
-  { unC :: FC.CChar
+  { un_C :: FC.CChar
   }
 
 deriving newtype instance F.Storable C
@@ -75,7 +75,7 @@ deriving newtype instance Num C
 deriving newtype instance Real C
 
 newtype F = F
-  { unF :: FC.CFloat
+  { un_F :: FC.CFloat
   }
 
 deriving newtype instance F.Storable F
@@ -103,7 +103,7 @@ deriving newtype instance RealFloat F
 deriving newtype instance RealFrac F
 
 newtype L = L
-  { unL :: FC.CLong
+  { un_L :: FC.CLong
   }
 
 deriving newtype instance F.Storable L
@@ -133,7 +133,7 @@ deriving newtype instance Num L
 deriving newtype instance Real L
 
 newtype S = S
-  { unS :: FC.CShort
+  { un_S :: FC.CShort
   }
 
 deriving newtype instance F.Storable S

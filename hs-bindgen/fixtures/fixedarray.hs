@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unTriple",
+          "un_Triple",
         fieldType = HsConstArray
           3
           (HsPrimType HsPrimCInt),
