@@ -37,14 +37,13 @@ data Primitive = Primitive
   , primitive_ulli :: FC.CULLong
   , primitive_f :: FC.CFloat
   , primitive_d :: FC.CDouble
-  , primitive_ld :: FC.CDouble
   }
 
 instance F.Storable Primitive where
 
-  sizeOf = \_ -> (176 :: Int)
+  sizeOf = \_ -> (152 :: Int)
 
-  alignment = \_ -> (16 :: Int)
+  alignment = \_ -> (8 :: Int)
 
   peek =
     \ptr0 ->
@@ -77,7 +76,6 @@ instance F.Storable Primitive where
       <*> F.peekByteOff ptr0 (128 :: Int)
       <*> F.peekByteOff ptr0 (136 :: Int)
       <*> F.peekByteOff ptr0 (144 :: Int)
-      <*> F.peekByteOff ptr0 (160 :: Int)
 
   poke =
     \ptr0 ->
@@ -111,8 +109,7 @@ instance F.Storable Primitive where
             primitive_ull26
             primitive_ulli27
             primitive_f28
-            primitive_d29
-            primitive_ld30 ->
+            primitive_d29 ->
                  F.pokeByteOff ptr0 (0 :: Int) primitive_c2
               >> F.pokeByteOff ptr0 (1 :: Int) primitive_sc3
               >> F.pokeByteOff ptr0 (2 :: Int) primitive_uc4
@@ -141,7 +138,6 @@ instance F.Storable Primitive where
               >> F.pokeByteOff ptr0 (128 :: Int) primitive_ulli27
               >> F.pokeByteOff ptr0 (136 :: Int) primitive_f28
               >> F.pokeByteOff ptr0 (144 :: Int) primitive_d29
-              >> F.pokeByteOff ptr0 (160 :: Int) primitive_ld30
 
 deriving stock instance Show Primitive
 

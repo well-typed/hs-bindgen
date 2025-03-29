@@ -6,8 +6,8 @@ Header
           (CName "primitive")
           DeclPathCtxtTop,
         structAliases = [],
-        structSizeof = 176,
-        structAlignment = 16,
+        structSizeof = 152,
+        structAlignment = 8,
         structFields = [
           StructField {
             fieldName = CName "c",
@@ -252,15 +252,7 @@ Header
             fieldType = TypePrim
               (PrimFloating PrimDouble),
             fieldSourceLoc =
-            "primitive_types.h:38:12"},
-          StructField {
-            fieldName = CName "ld",
-            fieldOffset = 1280,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimFloating PrimLongDouble),
-            fieldSourceLoc =
-            "primitive_types.h:39:17"}],
+            "primitive_types.h:38:12"}],
         structFlam = Nothing,
         structSourceLoc =
         "primitive_types.h:1:8"}]

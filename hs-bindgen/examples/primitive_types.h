@@ -36,5 +36,5 @@ struct primitive {
 
     float f;
     double d;
-    long double ld;
+    // long double ld; #349 long double not supported
 };

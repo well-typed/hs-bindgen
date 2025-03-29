@@ -262,6 +262,7 @@ test-suite golden
     , clang
     , hs-bindgen
     , hs-bindgen:internal
+    , deepseq
   build-depends:
       -- Inherited dependencies
     , bytestring

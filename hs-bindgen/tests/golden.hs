@@ -2,6 +2,8 @@
 
 module Main (main) where
 
+import Control.Exception (try, displayException, evaluate)
+import Control.DeepSeq (force)
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.Foldable (toList)
 import Data.List (sort)
@@ -19,6 +21,7 @@ import TH
 #endif
 
 import Clang.Paths
+import HsBindgen.Errors
 import HsBindgen.C.Parser (getTargetTriple)
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as ExtBindings
@@ -66,6 +69,10 @@ main' packageRoot bg = testGroup "golden"
     , golden "weird01"
     , golden "bitfields"
     , golden "unions"
+
+    , testGroup "failures"
+        [ failing "long_double"
+        ]
     ]
   where
     golden name =
@@ -147,3 +154,21 @@ main' packageRoot bg = testGroup "golden"
     ppOpts = Pipeline.defaultPPOpts {
         Pipeline.ppOptsModule = HsModuleOpts { hsModuleOptsName = "Example" }
       }
+
+    failing :: TestName -> TestTree
+    failing name = goldenVsStringDiff_ name ("fixtures" </> (name ++ ".failure.txt")) $ \report -> do
+        result <- try $ do
+            let headerIncludePath = mkHeaderIncludePath name
+                opts' = mkOpts report
+            decls <- Pipeline.translateCHeader opts' headerIncludePath
+
+            -- TODO: PP.render should add trailing '\n' itself.
+            evaluate $ force $ Pipeline.preprocessPure ppOpts decls ++ "\n"
+
+        case result of
+            Right result'  -> fail $ "Expected failure; unexpected success\n" ++ result'
+            Left exc -> return $ map windows $ displayException (exc :: HsBindgenException)
+
+    windows :: Char -> Char
+    windows '\\' = '/'
+    windows c    = c
