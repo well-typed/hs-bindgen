@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unFirst",
+          "un_First",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -49,7 +49,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unFirst",
+              "un_First",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -92,7 +92,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unFirst",
+                      "un_First",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -135,7 +135,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unFirst",
+                      "un_First",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -246,7 +246,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unSecond",
+          "un_Second",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -291,7 +291,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unSecond",
+              "un_Second",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin = FieldOriginNone}],
@@ -340,7 +340,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unSecond",
+                      "un_Second",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = FieldOriginNone}],
@@ -389,7 +389,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unSecond",
+                      "un_Second",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin = FieldOriginNone}],
@@ -525,7 +525,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unSame",
+          "un_Same",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -566,7 +566,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unSame",
+              "un_Same",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -610,7 +610,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unSame",
+                      "un_Same",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -655,7 +655,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unSame",
+                      "un_Same",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -757,7 +757,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unPackad",
+          "un_Packad",
         fieldType = HsPrimType
           HsPrimCSChar,
         fieldOrigin = FieldOriginNone},
@@ -803,7 +803,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unPackad",
+              "un_Packad",
             fieldType = HsPrimType
               HsPrimCSChar,
             fieldOrigin = FieldOriginNone}],
@@ -852,7 +852,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unPackad",
+                      "un_Packad",
                     fieldType = HsPrimType
                       HsPrimCSChar,
                     fieldOrigin = FieldOriginNone}],
@@ -902,7 +902,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unPackad",
+                      "un_Packad",
                     fieldType = HsPrimType
                       HsPrimCSChar,
                     fieldOrigin = FieldOriginNone}],
@@ -1038,7 +1038,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumA",
+          "un_EnumA",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -1079,7 +1079,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unEnumA",
+              "un_EnumA",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -1123,7 +1123,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumA",
+                      "un_EnumA",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1168,7 +1168,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumA",
+                      "un_EnumA",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1280,7 +1280,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumA",
+          "un_EnumA",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -1313,7 +1313,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumB",
+          "un_EnumB",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -1354,7 +1354,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unEnumB",
+              "un_EnumB",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -1399,7 +1399,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumB",
+                      "un_EnumB",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1444,7 +1444,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumB",
+                      "un_EnumB",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1557,7 +1557,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumB",
+          "un_EnumB",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -1590,7 +1590,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumC",
+          "un_EnumC",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -1631,7 +1631,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unEnumC",
+              "un_EnumC",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -1675,7 +1675,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumC",
+                      "un_EnumC",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1720,7 +1720,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumC",
+                      "un_EnumC",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1832,7 +1832,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumC",
+          "un_EnumC",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -1865,7 +1865,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumD",
+          "un_EnumD",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -1906,7 +1906,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unEnumD",
+              "un_EnumD",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -1950,7 +1950,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumD",
+                      "un_EnumD",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -1995,7 +1995,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unEnumD",
+                      "un_EnumD",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -2107,7 +2107,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unEnumD_t",
+          "un_EnumD_t",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"

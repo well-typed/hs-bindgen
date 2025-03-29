@@ -76,7 +76,7 @@ deriving stock instance Show Dim3
 deriving stock instance Eq Dim3
 
 newtype DimPayload = DimPayload
-  { unDimPayload :: Data.Array.Byte.ByteArray
+  { un_DimPayload :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
@@ -123,7 +123,7 @@ deriving stock instance Show Dim
 deriving stock instance Eq Dim
 
 newtype DimPayloadB = DimPayloadB
-  { unDimPayloadB :: Data.Array.Byte.ByteArray
+  { un_DimPayloadB :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
@@ -141,7 +141,7 @@ set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 set_dimPayloadB_dim3 = HsBindgen.Runtime.ByteArray.setUnionPayload
 
 newtype DimPayloadB = DimPayloadB
-  { unDimPayloadB :: DimPayloadB
+  { un_DimPayloadB :: DimPayloadB
   }
 
 deriving newtype instance F.Storable DimPayloadB
@@ -234,7 +234,7 @@ deriving stock instance Show AnonA_polar
 deriving stock instance Eq AnonA_polar
 
 newtype AnonA = AnonA
-  { unAnonA :: Data.Array.Byte.ByteArray
+  { un_AnonA :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA

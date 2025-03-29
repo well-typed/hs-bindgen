@@ -41,6 +41,9 @@ data ProduceCandidate = ProduceCandidate {
       -- | Prefix used for 'NameDatacon'
     , partDatacon :: Text
 
+      -- | Prefix used for 'NameDecon'
+    , partDecon :: Text
+
       -- | Suffix to be used when constructing a name for 'DeclPathCtxtPtr'
     , partCtxtPtr :: Text
 
@@ -49,13 +52,6 @@ data ProduceCandidate = ProduceCandidate {
 
       -- | Prefix used for 'NameBuilder'
     , partBuilder :: Text
-
-      -- | Prefix used for 'NameDecon'
-      --
-      -- TODO: This is called @prefixDecon@ rather than @partDecon@ because in
-      -- the default name mangler we add @un@ rather than @un_@. This is
-      -- inconsistent with everything else, we might want to reconsider this.
-    , prefixDecon :: Text
     }
 
 {-------------------------------------------------------------------------------
@@ -67,10 +63,10 @@ produceCandidateDefault = ProduceCandidate {
       processCName  = id
     , prefixPart    = prefixSnakeCase
     , partDatacon   = ""
+    , partDecon     = "un"
     , partCtxtPtr   = "Deref"
     , partGetter    = "get"
     , partBuilder   = "set"
-    , prefixDecon   = "un"
     }
 
 -- | Attempt to produce idiomatic Haskell names
@@ -110,7 +106,7 @@ produceCandidate nm prod = aux
         prefixPart prod (partDatacon prod) <$>
           generatedName (NameTycon declPath)
     aux (NameDecon declPath) =
-        mappend (prefixDecon prod) <$>
+        prefixPart prod (partDecon prod) <$>
           generatedName (NameTycon declPath)
     aux (NameGetter declPath cname) =
         prefixPart prod (partGetter prod) <$>

@@ -14,7 +14,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype M1 = M1
-  { unM1 :: FC.CInt
+  { un_M1 :: FC.CInt
   }
 
 deriving newtype instance F.Storable M1
@@ -44,7 +44,7 @@ deriving newtype instance Num M1
 deriving newtype instance Real M1
 
 newtype M2 = M2
-  { unM2 :: FC.CChar
+  { un_M2 :: FC.CChar
   }
 
 deriving newtype instance F.Storable M2
@@ -74,13 +74,13 @@ deriving newtype instance Num M2
 deriving newtype instance Real M2
 
 newtype M3 = M3
-  { unM3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { un_M3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
 
 deriving newtype instance F.Storable M3
 
 newtype Uint64_t = Uint64_t
-  { unUint64_t :: FC.CInt
+  { un_Uint64_t :: FC.CInt
   }
 
 deriving newtype instance F.Storable Uint64_t
@@ -110,7 +110,7 @@ deriving newtype instance Num Uint64_t
 deriving newtype instance Real Uint64_t
 
 newtype T1 = T1
-  { unT1 :: FC.CInt
+  { un_T1 :: FC.CInt
   }
 
 deriving newtype instance F.Storable T1
@@ -140,7 +140,7 @@ deriving newtype instance Num T1
 deriving newtype instance Real T1
 
 newtype T2 = T2
-  { unT2 :: FC.CChar
+  { un_T2 :: FC.CChar
   }
 
 deriving newtype instance F.Storable T2

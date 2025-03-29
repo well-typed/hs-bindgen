@@ -71,7 +71,7 @@ deriving stock instance Show Another_typedef_struct_t
 deriving stock instance Eq Another_typedef_struct_t
 
 newtype Another_typedef_enum_e = Another_typedef_enum_e
-  { unAnother_typedef_enum_e :: FC.CUInt
+  { un_Another_typedef_enum_e :: FC.CUInt
   }
 
 instance F.Storable Another_typedef_enum_e where
@@ -89,8 +89,8 @@ instance F.Storable Another_typedef_enum_e where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Another_typedef_enum_e unAnother_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unAnother_typedef_enum_e2
+          Another_typedef_enum_e un_Another_typedef_enum_e2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_Another_typedef_enum_e2
 
 deriving stock instance Show Another_typedef_enum_e
 
@@ -109,13 +109,13 @@ pattern BAR :: Another_typedef_enum_e
 pattern BAR = Another_typedef_enum_e 1
 
 newtype Another_typedef_enum_e = Another_typedef_enum_e
-  { unAnother_typedef_enum_e :: Another_typedef_enum_e
+  { un_Another_typedef_enum_e :: Another_typedef_enum_e
   }
 
 deriving newtype instance F.Storable Another_typedef_enum_e
 
 newtype A_type_t = A_type_t
-  { unA_type_t :: FC.CInt
+  { un_A_type_t :: FC.CInt
   }
 
 deriving newtype instance F.Storable A_type_t
@@ -145,7 +145,7 @@ deriving newtype instance Num A_type_t
 deriving newtype instance Real A_type_t
 
 newtype Var_t = Var_t
-  { unVar_t :: FC.CInt
+  { un_Var_t :: FC.CInt
   }
 
 deriving newtype instance F.Storable Var_t
@@ -175,7 +175,7 @@ deriving newtype instance Num Var_t
 deriving newtype instance Real Var_t
 
 newtype Uint8_t = Uint8_t
-  { unUint8_t :: FC.CSChar
+  { un_Uint8_t :: FC.CSChar
   }
 
 deriving newtype instance F.Storable Uint8_t
@@ -205,7 +205,7 @@ deriving newtype instance Num Uint8_t
 deriving newtype instance Real Uint8_t
 
 newtype Uint16_t = Uint16_t
-  { unUint16_t :: FC.CUShort
+  { un_Uint16_t :: FC.CUShort
   }
 
 deriving newtype instance F.Storable Uint16_t
@@ -235,7 +235,7 @@ deriving newtype instance Num Uint16_t
 deriving newtype instance Real Uint16_t
 
 newtype Uint32_t = Uint32_t
-  { unUint32_t :: FC.CUInt
+  { un_Uint32_t :: FC.CUInt
   }
 
 deriving newtype instance F.Storable Uint32_t
@@ -332,13 +332,13 @@ deriving stock instance Show A_typedef_struct
 deriving stock instance Eq A_typedef_struct
 
 newtype A_typedef_struct_t = A_typedef_struct_t
-  { unA_typedef_struct_t :: A_typedef_struct
+  { un_A_typedef_struct_t :: A_typedef_struct
   }
 
 deriving newtype instance F.Storable A_typedef_struct_t
 
 newtype A_typedef_enum_e = A_typedef_enum_e
-  { unA_typedef_enum_e :: FC.CSChar
+  { un_A_typedef_enum_e :: FC.CSChar
   }
 
 instance F.Storable A_typedef_enum_e where
@@ -356,8 +356,8 @@ instance F.Storable A_typedef_enum_e where
     \ptr0 ->
       \s1 ->
         case s1 of
-          A_typedef_enum_e unA_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unA_typedef_enum_e2
+          A_typedef_enum_e un_A_typedef_enum_e2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_A_typedef_enum_e2
 
 deriving stock instance Show A_typedef_enum_e
 
@@ -382,13 +382,13 @@ pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
 newtype A_typedef_enum_e = A_typedef_enum_e
-  { unA_typedef_enum_e :: A_typedef_enum_e
+  { un_A_typedef_enum_e :: A_typedef_enum_e
   }
 
 deriving newtype instance F.Storable A_typedef_enum_e
 
 newtype Int32_t = Int32_t
-  { unInt32_t :: FC.CInt
+  { un_Int32_t :: FC.CInt
   }
 
 deriving newtype instance F.Storable Int32_t
@@ -418,7 +418,7 @@ deriving newtype instance Num Int32_t
 deriving newtype instance Real Int32_t
 
 newtype Callback_t = Callback_t
-  { unCallback_t :: F.FunPtr ((F.Ptr Void) -> Uint32_t -> IO Uint32_t)
+  { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> Uint32_t -> IO Uint32_t)
   }
 
 deriving newtype instance F.Storable Callback_t

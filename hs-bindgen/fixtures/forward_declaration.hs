@@ -222,7 +222,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unS1_t",
+          "un_S1_t",
         fieldType = HsTypRef
           (HsName "@NsTypeConstr" "S1"),
         fieldOrigin = FieldOriginNone},

@@ -577,7 +577,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unAnother_typedef_enum_e",
+          "un_Another_typedef_enum_e",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -619,7 +619,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unAnother_typedef_enum_e",
+              "un_Another_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCUInt,
             fieldOrigin = FieldOriginNone}],
@@ -665,7 +665,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unAnother_typedef_enum_e",
+                      "un_Another_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -711,7 +711,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unAnother_typedef_enum_e",
+                      "un_Another_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCUInt,
                     fieldOrigin = FieldOriginNone}],
@@ -825,7 +825,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unAnother_typedef_enum_e",
+          "un_Another_typedef_enum_e",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -860,7 +860,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unA_type_t",
+          "un_A_type_t",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -961,7 +961,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unVar_t",
+          "un_Var_t",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -1062,7 +1062,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unUint8_t",
+          "un_Uint8_t",
         fieldType = HsPrimType
           HsPrimCSChar,
         fieldOrigin = FieldOriginNone},
@@ -1163,7 +1163,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unUint16_t",
+          "un_Uint16_t",
         fieldType = HsPrimType
           HsPrimCUShort,
         fieldOrigin = FieldOriginNone},
@@ -1266,7 +1266,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unUint32_t",
+          "un_Uint32_t",
         fieldType = HsPrimType
           HsPrimCUInt,
         fieldOrigin = FieldOriginNone},
@@ -2808,7 +2808,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unA_typedef_struct_t",
+          "un_A_typedef_struct_t",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -2842,7 +2842,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unA_typedef_enum_e",
+          "un_A_typedef_enum_e",
         fieldType = HsPrimType
           HsPrimCSChar,
         fieldOrigin = FieldOriginNone},
@@ -2893,7 +2893,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "unA_typedef_enum_e",
+              "un_A_typedef_enum_e",
             fieldType = HsPrimType
               HsPrimCSChar,
             fieldOrigin = FieldOriginNone}],
@@ -2948,7 +2948,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unA_typedef_enum_e",
+                      "un_A_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCSChar,
                     fieldOrigin = FieldOriginNone}],
@@ -3003,7 +3003,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "unA_typedef_enum_e",
+                      "un_A_typedef_enum_e",
                     fieldType = HsPrimType
                       HsPrimCSChar,
                     fieldOrigin = FieldOriginNone}],
@@ -3164,7 +3164,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unA_typedef_enum_e",
+          "un_A_typedef_enum_e",
         fieldType = HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -3198,7 +3198,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unInt32_t",
+          "un_Int32_t",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -3299,7 +3299,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unCallback_t",
+          "un_Callback_t",
         fieldType = HsFunPtr
           (HsFun
             (HsPtr (HsPrimType HsPrimVoid))

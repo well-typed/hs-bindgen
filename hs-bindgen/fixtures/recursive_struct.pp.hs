@@ -39,7 +39,7 @@ deriving stock instance Show Linked_list_A_s
 deriving stock instance Eq Linked_list_A_s
 
 newtype Linked_list_A_t = Linked_list_A_t
-  { unLinked_list_A_t :: Linked_list_A_s
+  { un_Linked_list_A_t :: Linked_list_A_s
   }
 
 deriving newtype instance F.Storable Linked_list_A_t

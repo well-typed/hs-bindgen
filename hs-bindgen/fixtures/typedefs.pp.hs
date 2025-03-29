@@ -13,7 +13,7 @@ import qualified Foreign.C as FC
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 newtype Myint = Myint
-  { unMyint :: FC.CInt
+  { un_Myint :: FC.CInt
   }
 
 deriving newtype instance F.Storable Myint
@@ -43,7 +43,7 @@ deriving newtype instance Num Myint
 deriving newtype instance Real Myint
 
 newtype Intptr = Intptr
-  { unIntptr :: F.Ptr FC.CInt
+  { un_Intptr :: F.Ptr FC.CInt
   }
 
 deriving newtype instance F.Storable Intptr

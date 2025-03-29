@@ -730,7 +730,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unS2_t",
+          "un_S2_t",
         fieldType = HsTypRef
           (HsName "@NsTypeConstr" "S2"),
         fieldOrigin = FieldOriginNone},
@@ -2329,7 +2329,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unS7a",
+          "un_S7a",
         fieldType = HsPtr
           (HsTypRef
             (HsName
@@ -2690,7 +2690,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unS7b",
+          "un_S7b",
         fieldType = HsPtr
           (HsPtr
             (HsPtr

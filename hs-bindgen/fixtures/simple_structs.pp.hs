@@ -71,7 +71,7 @@ deriving stock instance Show S2
 deriving stock instance Eq S2
 
 newtype S2_t = S2_t
-  { unS2_t :: S2
+  { un_S2_t :: S2
   }
 
 deriving newtype instance F.Storable S2_t
@@ -221,7 +221,7 @@ deriving stock instance Show S7a_Deref
 deriving stock instance Eq S7a_Deref
 
 newtype S7a = S7a
-  { unS7a :: F.Ptr S7a_Deref
+  { un_S7a :: F.Ptr S7a_Deref
   }
 
 deriving newtype instance F.Storable S7a
@@ -256,7 +256,7 @@ deriving stock instance Show S7b_Deref_Deref_Deref
 deriving stock instance Eq S7b_Deref_Deref_Deref
 
 newtype S7b = S7b
-  { unS7b :: F.Ptr (F.Ptr (F.Ptr S7b_Deref_Deref_Deref))
+  { un_S7b :: F.Ptr (F.Ptr (F.Ptr S7b_Deref_Deref_Deref))
   }
 
 deriving newtype instance F.Storable S7b

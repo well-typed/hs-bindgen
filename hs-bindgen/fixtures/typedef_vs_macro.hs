@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unM1",
+          "un_M1",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -94,7 +94,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unM2",
+          "un_M2",
         fieldType = HsPrimType
           HsPrimCChar,
         fieldOrigin = FieldOriginNone},
@@ -176,7 +176,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unM3",
+          "un_M3",
         fieldType = HsConstArray
           3
           (HsPrimType HsPrimCInt),
@@ -215,7 +215,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unUint64_t",
+          "un_Uint64_t",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -325,7 +325,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unT1",
+          "un_T1",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = FieldOriginNone},
@@ -400,7 +400,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unT2",
+          "un_T2",
         fieldType = HsPrimType
           HsPrimCChar,
         fieldOrigin = FieldOriginNone},

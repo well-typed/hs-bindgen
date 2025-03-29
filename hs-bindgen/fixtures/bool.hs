@@ -10,7 +10,7 @@
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "unBOOL",
+          "un_BOOL",
         fieldType = HsPrimType
           HsPrimCBool,
         fieldOrigin = FieldOriginNone},

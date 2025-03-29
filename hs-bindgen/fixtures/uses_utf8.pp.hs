@@ -11,7 +11,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
 
 newtype MyEnum = MyEnum
-  { unMyEnum :: FC.CUInt
+  { un_MyEnum :: FC.CUInt
   }
 
 instance F.Storable MyEnum where
@@ -29,7 +29,7 @@ instance F.Storable MyEnum where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MyEnum unMyEnum2 -> F.pokeByteOff ptr0 (0 :: Int) unMyEnum2
+          MyEnum un_MyEnum2 -> F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
 
 deriving stock instance Show MyEnum
 

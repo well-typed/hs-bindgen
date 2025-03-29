@@ -13,7 +13,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 newtype Uint64_t = Uint64_t
-  { unUint64_t :: FC.CULong
+  { un_Uint64_t :: FC.CULong
   }
 
 deriving newtype instance F.Storable Uint64_t
@@ -43,7 +43,7 @@ deriving newtype instance Num Uint64_t
 deriving newtype instance Real Uint64_t
 
 newtype Uint32_t = Uint32_t
-  { unUint32_t :: FC.CUInt
+  { un_Uint32_t :: FC.CUInt
   }
 
 deriving newtype instance F.Storable Uint32_t

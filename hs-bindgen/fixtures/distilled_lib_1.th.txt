@@ -28,13 +28,13 @@ instance Storable Another_typedef_struct_t
 deriving stock instance Show Another_typedef_struct_t
 deriving stock instance Eq Another_typedef_struct_t
 newtype Another_typedef_enum_e
-    = Another_typedef_enum_e {unAnother_typedef_enum_e :: CUInt}
+    = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
 instance Storable Another_typedef_enum_e
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
            peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Another_typedef_enum_e unAnother_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) unAnother_typedef_enum_e_3}}
+                                    {Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3}}
 deriving stock instance Show Another_typedef_enum_e
 deriving stock instance Read Another_typedef_enum_e
 deriving stock instance Eq Another_typedef_enum_e
@@ -45,9 +45,9 @@ pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
 pattern BAR = Another_typedef_enum_e 1
 newtype Another_typedef_enum_e
-    = Another_typedef_enum_e {unAnother_typedef_enum_e :: Another_typedef_enum_e}
+    = Another_typedef_enum_e {un_Another_typedef_enum_e :: Another_typedef_enum_e}
 deriving newtype instance Storable Another_typedef_enum_e
-newtype A_type_t = A_type_t {unA_type_t :: CInt}
+newtype A_type_t = A_type_t {un_A_type_t :: CInt}
 deriving newtype instance Storable A_type_t
 deriving stock instance Eq A_type_t
 deriving stock instance Ord A_type_t
@@ -61,7 +61,7 @@ deriving newtype instance FiniteBits A_type_t
 deriving newtype instance Integral A_type_t
 deriving newtype instance Num A_type_t
 deriving newtype instance Real A_type_t
-newtype Var_t = Var_t {unVar_t :: CInt}
+newtype Var_t = Var_t {un_Var_t :: CInt}
 deriving newtype instance Storable Var_t
 deriving stock instance Eq Var_t
 deriving stock instance Ord Var_t
@@ -75,7 +75,7 @@ deriving newtype instance FiniteBits Var_t
 deriving newtype instance Integral Var_t
 deriving newtype instance Num Var_t
 deriving newtype instance Real Var_t
-newtype Uint8_t = Uint8_t {unUint8_t :: CSChar}
+newtype Uint8_t = Uint8_t {un_Uint8_t :: CSChar}
 deriving newtype instance Storable Uint8_t
 deriving stock instance Eq Uint8_t
 deriving stock instance Ord Uint8_t
@@ -89,7 +89,7 @@ deriving newtype instance FiniteBits Uint8_t
 deriving newtype instance Integral Uint8_t
 deriving newtype instance Num Uint8_t
 deriving newtype instance Real Uint8_t
-newtype Uint16_t = Uint16_t {unUint16_t :: CUShort}
+newtype Uint16_t = Uint16_t {un_Uint16_t :: CUShort}
 deriving newtype instance Storable Uint16_t
 deriving stock instance Eq Uint16_t
 deriving stock instance Ord Uint16_t
@@ -103,7 +103,7 @@ deriving newtype instance FiniteBits Uint16_t
 deriving newtype instance Integral Uint16_t
 deriving newtype instance Num Uint16_t
 deriving newtype instance Real Uint16_t
-newtype Uint32_t = Uint32_t {unUint32_t :: CUInt}
+newtype Uint32_t = Uint32_t {un_Uint32_t :: CUInt}
 deriving newtype instance Storable Uint32_t
 deriving stock instance Eq Uint32_t
 deriving stock instance Ord Uint32_t
@@ -151,16 +151,16 @@ instance Storable A_typedef_struct
 deriving stock instance Show A_typedef_struct
 deriving stock instance Eq A_typedef_struct
 newtype A_typedef_struct_t
-    = A_typedef_struct_t {unA_typedef_struct_t :: A_typedef_struct}
+    = A_typedef_struct_t {un_A_typedef_struct_t :: A_typedef_struct}
 deriving newtype instance Storable A_typedef_struct_t
 newtype A_typedef_enum_e
-    = A_typedef_enum_e {unA_typedef_enum_e :: CSChar}
+    = A_typedef_enum_e {un_A_typedef_enum_e :: CSChar}
 instance Storable A_typedef_enum_e
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
            peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {A_typedef_enum_e unA_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) unA_typedef_enum_e_3}}
+                                    {A_typedef_enum_e un_A_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_A_typedef_enum_e_3}}
 deriving stock instance Show A_typedef_enum_e
 deriving stock instance Read A_typedef_enum_e
 deriving stock instance Eq A_typedef_enum_e
@@ -175,9 +175,9 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 newtype A_typedef_enum_e
-    = A_typedef_enum_e {unA_typedef_enum_e :: A_typedef_enum_e}
+    = A_typedef_enum_e {un_A_typedef_enum_e :: A_typedef_enum_e}
 deriving newtype instance Storable A_typedef_enum_e
-newtype Int32_t = Int32_t {unInt32_t :: CInt}
+newtype Int32_t = Int32_t {un_Int32_t :: CInt}
 deriving newtype instance Storable Int32_t
 deriving stock instance Eq Int32_t
 deriving stock instance Ord Int32_t
@@ -192,6 +192,6 @@ deriving newtype instance Integral Int32_t
 deriving newtype instance Num Int32_t
 deriving newtype instance Real Int32_t
 newtype Callback_t
-    = Callback_t {unCallback_t :: (FunPtr (Ptr Void ->
-                                           Uint32_t -> IO Uint32_t))}
+    = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
+                                            Uint32_t -> IO Uint32_t))}
 deriving newtype instance Storable Callback_t
