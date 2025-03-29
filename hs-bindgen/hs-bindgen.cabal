@@ -104,8 +104,9 @@ library internal
       HsBindgen.Hs.NameMangler
       HsBindgen.Hs.NameMangler.API
       HsBindgen.Hs.NameMangler.DSL
-      HsBindgen.Hs.NameMangler.DSL.GenerateName
+      HsBindgen.Hs.NameMangler.DSL.FixCandidate
       HsBindgen.Hs.NameMangler.DSL.Overrides
+      HsBindgen.Hs.NameMangler.DSL.ProduceCandidate
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports

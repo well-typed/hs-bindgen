@@ -1,98 +1,123 @@
--- | Basic policy for generating C names from Haskell names
-module HsBindgen.Hs.NameMangler.DSL.GenerateName (
-    GenerateName(..)
-  , defaultGenerateName
-    -- * Process C names
-  , camelCaseCName
-    -- * Dealing with invalid characters
+module HsBindgen.Hs.NameMangler.DSL.FixCandidate (
+    -- * Definition
+    FixCandidate(..)
+  , fixCandidate
+    -- * Standard instances
+  , fixCandidateDefault
+  , fixCandidateHaskell
+    -- * Constructing new instances
+    -- ** Dealing with invalid characters
   , dropInvalidChar
   , escapeInvalidChar
-    -- * Joining names
-  , joinNamesSnakeCase
-  , joinNamesCamelCase
-    -- * Name rule sets
+    -- ** Name rule sets
   , NameRuleSet(..)
   , NamespaceRuleSet
   , SNameRuleSet(..)
   , singNameRuleSet
-    -- * Applying name rule sets
   , modifyFirstLetter
   , prefixInvalidFirst
   , dropInvalidFirst
-    -- * Applying 'GenerateName'
-  , generateName
+    -- ** Reserved names
+  , appendSingleQuote
   ) where
 
+import Control.Monad
 import Data.Char qualified as Char
-import Data.List qualified as List
 import Data.Proxy
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Numeric (showHex)
 
-import HsBindgen.C.AST
-import HsBindgen.Errors
 import HsBindgen.Hs.AST.Name
+import HsBindgen.Hs.NameMangler.DSL.ReservedNames (allReservedNames)
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | Generate Haskell name from C name
+-- | Fix candidate name to conform to Haskell's naming rules
 --
 -- Name generation is allowed to fail (depending on the policy, there are
 -- circumstances in which we cannot generate a name). When this happens, we
 -- require a name override.
-data GenerateName = GenerateName {
-      -- | Process C names prior to further name generation
-      processCName :: CName -> CName
-
+data FixCandidate m = FixCandidate {
       -- | Process invalid characters
       --
       -- Called on characters that are invalid anywhere in a Haskell identifier.
-    , onInvalidChar :: Char -> String
-
-      -- | Combine multiple C names
-    , joinNames :: [Text] -> Text
+      --
+      -- See 'dropInvalidChar' and 'escapeInvalidChar'.
+      onInvalidChar :: Char -> m String
 
       -- | Make the name conform to the name rule set
-    , applyRuleSet :: forall ns. SingNamespace ns => Text -> Maybe (HsName ns)
-    }
+      --
+      --See 'modifyFirstLetter'
+    , applyRuleSet :: forall ns. SingNamespace ns => Text -> m (HsName ns)
 
-defaultGenerateName :: GenerateName
-defaultGenerateName = GenerateName {
-      processCName  = id
-    , onInvalidChar = escapeInvalidChar
-    , joinNames     = joinNamesSnakeCase
-    , applyRuleSet  = modifyFirstLetter (prefixInvalidFirst "C")
+      -- | Reserved names
+    , reservedNames :: Set Text
+
+      -- | How to modify reserved names
+      --
+      -- The transformation function must return a valid Haskell name.
+      --
+      -- See 'appendSingleQuote'.
+    , onReservedName :: Text -> Text
     }
 
 {-------------------------------------------------------------------------------
-  Process C names
+  Instances
 -------------------------------------------------------------------------------}
 
--- | Converting from @snake_case@ to @camelCase@
---
--- Leading and trailing underscores are assumed to have special meaning and
--- are preserved.  All other underscores are removed.  Letters following
--- (preserved or removed) underscores are changed to uppercase.
-camelCaseCName :: CName -> CName
-camelCaseCName =
-    CName . Text.pack . start False . Text.unpack . getCName
-  where
-    start :: Bool -> String -> String
-    start isUp = \case
-      c:cs
-        | c == '_'  -> c : start True cs
-        | otherwise -> (if isUp then Char.toUpper c else c) : aux 0 cs
-      []            -> []
+fixCandidateDefault :: FixCandidate Maybe
+fixCandidateDefault = FixCandidate {
+      onInvalidChar  = return . escapeInvalidChar
+    , applyRuleSet   = modifyFirstLetter (prefixInvalidFirst "C")
+    , reservedNames  = allReservedNames
+    , onReservedName = appendSingleQuote
+    }
 
-    aux :: Int -> String -> String
-    aux !numUs = \case
-      c:cs
-        | c == '_'  -> aux (numUs + 1) cs
-        | otherwise -> (if numUs > 0 then Char.toUpper c else c) : aux 0 cs
-      []            -> List.replicate numUs '_'
+fixCandidateHaskell :: FixCandidate Maybe
+fixCandidateHaskell = fixCandidateDefault {
+      onInvalidChar = return . dropInvalidChar
+    , applyRuleSet  = modifyFirstLetter dropInvalidFirst
+    }
+
+{-------------------------------------------------------------------------------
+  Execution
+-------------------------------------------------------------------------------}
+
+fixCandidate :: forall ns m.
+     (Monad m, SingNamespace ns)
+  => FixCandidate m -> Text -> m (HsName ns)
+fixCandidate FixCandidate{
+                onInvalidChar
+              , applyRuleSet
+              , reservedNames
+              , onReservedName
+              } =
+        handleReservedNames
+    <=< applyRuleSet
+    <=< processInvalidChars
+  where
+    processInvalidChars :: Text -> m Text
+    processInvalidChars = fmap Text.pack . go [] . Text.unpack
+      where
+        go :: [String] -> String -> m String
+        go acc (c:cs)
+          | isValidChar c = go ([c] : acc) cs
+          | otherwise     = onInvalidChar c >>= \c' -> go (c':acc) cs
+        go acc []         = return $ concat (reverse acc)
+
+        -- NOTE: @isAlphaNum@ is @True@ for non-ASCII characters too (e.g. '你')
+        isValidChar :: Char -> Bool
+        isValidChar c = Char.isAlphaNum c || c == '_'
+
+    handleReservedNames :: HsName ns -> m (HsName ns)
+    handleReservedNames name@(HsName t) = return $
+        if t `Set.member` reservedNames
+          then HsName $ onReservedName t
+          else name
 
 {-------------------------------------------------------------------------------
   Dealing with invalid characters
@@ -110,31 +135,6 @@ escapeInvalidChar :: Char -> String
 escapeInvalidChar c =
     let hex = showHex (Char.ord c) ""
     in  '\'' : replicate (max 0 (4 - length hex)) '0' ++ hex
-
-{-------------------------------------------------------------------------------
-  Joining names
--------------------------------------------------------------------------------}
-
--- | Join parts of a name with underscores (@_@)
-joinNamesSnakeCase :: [Text] -> Text
-joinNamesSnakeCase = Text.intercalate "_"
-
--- | Join parts of a name in @camelCase@ style
---
--- The first character of all parts but the first is changed to uppercase (if it
--- is a letter), and the results are concatenated.
---
--- Since this function may change the case of letters, it can cause name
--- collisions when different C names only differ by case of the first letter.
-joinNamesCamelCase :: [Text] -> Text
-joinNamesCamelCase = \case
-    (t:ts) -> Text.concat $ t : map upperFirstChar ts
-    []     -> Text.empty
-  where
-    upperFirstChar :: Text -> Text
-    upperFirstChar t = case Text.uncons t of
-      Just (c, t') -> Text.cons (Char.toUpper c) t'
-      Nothing      -> t
 
 {-------------------------------------------------------------------------------
   Name rule sets
@@ -190,18 +190,17 @@ modifyFirstLetter :: forall ns.
   -> Text -> Maybe (HsName ns)
 modifyFirstLetter onInvalidFirst = \t -> fmap HsName $
     case singNameRuleSet (Proxy @ns) of
-      SNameRuleSetVar   -> Just $ changeCase Char.toLower t
+      SNameRuleSetVar   -> changeCase Char.toLower t
       SNameRuleSetOther ->
         let (nonletters, rest) = Text.break Char.isLetter t in
         if Text.null nonletters
-          then Just $ changeCase Char.toUpper rest
+          then changeCase Char.toUpper rest
           else onInvalidFirst nonletters rest
   where
-    changeCase :: (Char -> Char) -> Text -> Text
-    changeCase f t =
-        case Text.uncons t of
-          Just (c, t') -> Text.cons (f c) t'
-          Nothing      -> panicEmptyName
+    changeCase :: (Char -> Char) -> Text -> Maybe Text
+    changeCase f t = do
+        (c, t') <- Text.uncons t
+        return $ Text.cons (f c) t'
 
 prefixInvalidFirst :: Text -> Text -> Text -> Maybe Text
 prefixInvalidFirst prefix nonletters rest =
@@ -213,38 +212,9 @@ dropInvalidFirst _nonletters rest = do
     Just $ Text.cons (Char.toUpper c) t
 
 {-------------------------------------------------------------------------------
-  Applying 'GenerateName'
+  Reserved names
 -------------------------------------------------------------------------------}
 
-generateName ::
-     SingNamespace ns
-  => GenerateName -> [CName] -> Maybe (HsName ns)
-generateName GenerateName{
-                processCName
-              , onInvalidChar
-              , joinNames
-              , applyRuleSet
-              } =
-      applyRuleSet
-    . joinNames
-    . map (processInvalidChars . getCName . processCName)
-  where
-    processInvalidChars :: Text -> Text
-    processInvalidChars = Text.pack . go . Text.unpack
-      where
-        go :: String -> String
-        go (c:cs)
-          | isValidChar c = c : go cs
-          | otherwise     = onInvalidChar c ++ go cs
-        go []            = ""
-
-        isValidChar :: Char -> Bool
-        isValidChar c = Char.isAlphaNum c || c == '_'
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary
--------------------------------------------------------------------------------}
-
-panicEmptyName :: a
-panicEmptyName = panicPure "mkHsNameDropInvalid: empty name"
-
+-- | Append a single quote (@'@) to a name
+appendSingleQuote :: Text -> Text
+appendSingleQuote = (<> "'")

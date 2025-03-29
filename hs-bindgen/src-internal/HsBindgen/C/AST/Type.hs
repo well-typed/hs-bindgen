@@ -24,6 +24,7 @@ module HsBindgen.C.AST.Type (
     -- * DeclPath
   , DeclPath(..)
   , DeclPathCtxt(..)
+  , topLevel
   ) where
 
 import Clang.HighLevel.Types (SingleLoc)
@@ -266,7 +267,7 @@ data DeclPath =
     -- TODO: Ideally we should be able to insist that we have a non-empty
     -- context here.
   | DeclPathAnon DeclPathCtxt
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Eq, Ord, Generic, Show)
 
 data DeclPathCtxt =
     -- | Top-level declaration
@@ -310,4 +311,7 @@ data DeclPathCtxt =
     -- itself anonymous), as well as the name of the field (@field@); the field
     -- name alone is not unique.
   | DeclPathCtxtField (Maybe CName) CName DeclPathCtxt
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Eq, Ord, Generic, Show)
+
+topLevel :: CName -> DeclPath
+topLevel cname = DeclPathName cname DeclPathCtxtTop

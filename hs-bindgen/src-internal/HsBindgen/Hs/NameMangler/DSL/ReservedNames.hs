@@ -1,6 +1,7 @@
 module HsBindgen.Hs.NameMangler.DSL.ReservedNames (
     -- $ReservedNames
-    reservedVarNames
+    allReservedNames
+  , reservedVarNames
   , reservedTypeNames
   , haskellKeywords
   , ghcExtensionKeywords
@@ -32,6 +33,12 @@ responsibility of users who create their own name manglers to reserve names to
 work with the implementation of their name manglers.
 
 -}
+
+allReservedNames :: Set Text
+allReservedNames = Set.unions [
+      reservedVarNames
+    , reservedTypeNames
+    ]
 
 reservedVarNames :: Set Text
 reservedVarNames = Set.fromList $

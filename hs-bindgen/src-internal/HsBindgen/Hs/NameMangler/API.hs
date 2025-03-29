@@ -1,133 +1,79 @@
 module HsBindgen.Hs.NameMangler.API (
-    NameMangler(..)
-    -- * Contexts
-  , TypeConstrContext(..)
-  , ConstrContext(..)
-  , VarContext(..)
-    -- * Using the name mangler
-  , mangleTyconName
-  , mangleDataconName
-  , mangleDeconName
-  , mangleFieldName
-  , mangleVarName
-  , mangleGetterName
-  , mangleBuilderName
+    -- * Definition
+    NameMangler'(..)
+  , NameSpec(..)
+    -- * Dealing with errors
+  , NameManglerErr(..)
+  , NameMangler
+  , mangle
   ) where
 
-import HsBindgen.Hs.AST.Name
+import Control.Exception
+
 import HsBindgen.C.AST
-import Data.Text (Text)
-import Data.Coerce
+import HsBindgen.Hs.AST.Name
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
 -- | Name mangler functions
-data NameMangler = NameMangler {
-      -- | Create a Haskell type constructor name
-      mangleTypeConstrContext :: TypeConstrContext -> HsName NsTypeConstr
-
-      -- | Create a Haskell constructor name
-    , mangleConstrContext :: ConstrContext -> HsName NsConstr
-
-      -- | Create a Haskell variable name
-    , mangleVarContext :: VarContext -> HsName NsVar
+newtype NameMangler' m = NameMangler {
+      mangle' :: forall ns. SingNamespace ns => NameSpec ns -> m (HsName ns)
     }
+
+-- | Specification of the Haskell name we're trying to create
+data NameSpec ns where
+  -- | Top-level variable (e.g. a function name)
+  NameVar :: CName -> NameSpec NsVar
+
+  -- | Field of a struct or union
+  NameField :: DeclPath -> CName -> NameSpec NsVar
+
+  -- | Type constructor
+  NameTycon :: DeclPath -> NameSpec NsTypeConstr
+
+  -- | Data constructor
+  NameDatacon :: DeclPath -> NameSpec NsConstr
+
+  -- | Destructor name
+  --
+  -- > data Tycon = Datacon { decon :: ... }
+  NameDecon :: DeclPath -> NameSpec NsVar
+
+  -- | Union getter
+  NameGetter :: DeclPath -> CName -> NameSpec NsVar
+
+  -- | Union builder
+  NameBuilder :: DeclPath -> CName -> NameSpec NsVar
+
+deriving stock instance Show (NameSpec ns)
+deriving stock instance Eq   (NameSpec ns)
+deriving stock instance Ord  (NameSpec ns)
 
 {-------------------------------------------------------------------------------
-  Contexts
+  Dealing with errors
 -------------------------------------------------------------------------------}
 
--- | Context for creating Haskell type constructor names
-data TypeConstrContext =
-    -- | Context for general cases
-    TypeConstrContext {
-      -- | C name for the type
-      ctxTypeConstrCName :: CName
-    }
-  | -- | Context for structures
-    StructTypeConstrContext {
-      -- | Structure declaration path
-      ctxStructTypeConstrDeclPath :: DeclPath
-    }
-  deriving stock (Eq, Show)
+data NameManglerErr where
+    -- | We were unable to produce a name, and therefore need a user override
+    RequireOverride :: NameSpec ns -> NameManglerErr
 
--- | Context for creating Haskell constructor names
-newtype ConstrContext = ConstrContext {
-      -- | Type that the constructor is for
-      ctxConstrTypeCtx :: TypeConstrContext
-    }
-  deriving stock (Eq, Show)
+deriving stock instance Show NameManglerErr
 
--- | Context for creating Haskell variable names
-data VarContext =
-    -- | Context for general cases
-    VarContext {
-      -- | C variable name
-      ctxVarCName :: CName
-    }
-  | -- | Context for enumeration fields
-    EnumVarContext {
-      -- | Enumeration type context
-      ctxEnumVarTypeCtx :: TypeConstrContext
-    }
-  | -- | Context for record fields
-    FieldVarContext {
-      -- | Record type context
-      ctxFieldVarTypeCtx :: TypeConstrContext
-    , -- | C field name
-      ctxFieldVarCName :: CName
-    }
-  deriving stock (Eq, Show)
+instance Exception NameManglerErr where
+  displayException = \case
+      RequireOverride spec -> concat [
+          "Unable to produce a name for " ++ show spec ++ ". "
+        , "Please provide an override."
+        ]
 
+type NameMangler = NameMangler' (Either NameManglerErr)
 
-{-------------------------------------------------------------------------------
-  Simplified API
--------------------------------------------------------------------------------}
+-- | Run the default NameMangler monad
+mangle :: SingNamespace ns => NameMangler -> NameSpec ns -> HsName ns
+mangle nm spec =
+    case mangle' nm spec of
+      Left  err  -> throw err
+      Right name -> name
 
--- | Type context might be whole declaration path (e.g. nested anonymous structs)
-class ToTypeConstrContext ctx where
-    toCtx :: ctx -> TypeConstrContext
-
-instance ToTypeConstrContext DeclPath where
-    toCtx = StructTypeConstrContext
-
-instance ToTypeConstrContext CName where
-    toCtx = TypeConstrContext
-
-mangleTyconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsTypeConstr
-mangleTyconName nm declPath = mangleTypeConstrContext nm (toCtx declPath)
-
-mangleDataconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsConstr
-mangleDataconName nm declPath = mangleConstrContext nm ctx
-  where
-    ctx = ConstrContext $ toCtx declPath
-
-mangleFieldName :: NameMangler -> DeclPath -> CName -> HsName NsVar
-mangleFieldName nm declPath fname = mangleVarContext nm ctx
-  where
-    ctx = FieldVarContext (StructTypeConstrContext declPath) fname
-
--- | Create destructor name, @name Tycon = Datacon { decon :: ... }@
-mangleDeconName :: ToTypeConstrContext ctx => NameMangler -> ctx -> HsName NsVar
-mangleDeconName nm declPath = mangleVarContext nm ctx
-  where
-    ctx = EnumVarContext $ toCtx declPath
-
-mangleVarName :: NameMangler -> CName -> HsName NsVar
-mangleVarName nm varName = mangleVarContext nm ctx
-  where
-    ctx = VarContext varName
-
--- | getters for unions
-mangleGetterName :: ToTypeConstrContext ctx => NameMangler -> ctx -> CName -> HsName NsVar
-mangleGetterName nm declPath fname = coerce (("get_" :: Text) <>) $ mangleVarContext nm ctx
-  where
-    ctx = FieldVarContext (toCtx declPath) fname
-
--- | builders for unions
-mangleBuilderName :: ToTypeConstrContext ctx => NameMangler -> ctx -> CName -> HsName NsVar
-mangleBuilderName nm declPath fname = coerce (("set_" :: Text) <>) $ mangleVarContext nm ctx
-  where
-    ctx = FieldVarContext (toCtx declPath) fname
