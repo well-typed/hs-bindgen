@@ -225,8 +225,26 @@ resolveExtBindings args UnresolvedExtBindings{..} = do
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
     (errs, headerMap) <- fmap Map.fromList . partitionEithers
       <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' args cPath) cPaths
-    let resolve' = map $ first $ Set.map (headerMap Map.!)
-        extBindingsTypes = Map.map resolve' unresolvedExtBindingsTypes
+    let resolveSet :: Set CHeaderIncludePath -> Set SourcePath
+        resolveSet =
+            Set.fromList
+          . mapMaybe (`Map.lookup` headerMap)
+          . Set.toList
+        resolve1 ::
+             (Set CHeaderIncludePath, ExtIdentifier)
+          -> Maybe (Set SourcePath, ExtIdentifier)
+        resolve1 (sU, eId) = case resolveSet sU of
+          sR
+            | Set.null sR -> Nothing
+            | otherwise   -> Just (sR, eId)
+        resolve ::
+             [(Set CHeaderIncludePath, ExtIdentifier)]
+          -> Maybe [(Set SourcePath, ExtIdentifier)]
+        resolve lU = case mapMaybe resolve1 lU of
+          lR
+            | null lR   -> Nothing
+            | otherwise -> Just lR
+        extBindingsTypes = Map.mapMaybe resolve unresolvedExtBindingsTypes
     return (errs, ExtBindings{..})
 
 -- | Merge external bindings
