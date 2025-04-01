@@ -91,18 +91,14 @@ main' packageRoot bg = testGroup "golden"
 
     goldenHs name = ediffGolden1 goldenTestSteps "hs" ("fixtures" </> (name ++ ".hs")) $ \report -> do
         let headerIncludePath = mkHeaderIncludePath name
-            opts' = mkOpts report
-        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
-        return $ Pipeline.genHsDecls opts' header
+        Pipeline.translateCHeader (mkOpts report) headerIncludePath
 
     goldenExtensions name = goldenVsStringDiff_ "exts" ("fixtures" </> (name ++ ".exts.txt")) $ \report -> do
         let headerIncludePath = mkHeaderIncludePath name
-            opts' = mkOpts report
-        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
+        decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
         return $ unlines $ map show $ sort $ toList $
               Pipeline.genExtensions
-            . Pipeline.genSHsDecls
-            $ Pipeline.genHsDecls opts' header
+            $ Pipeline.genSHsDecls decls
 
     goldenPP :: TestName -> TestTree
     goldenPP name = goldenVsStringDiff_ "pp" ("fixtures" </> (name ++ ".pp.hs")) $ \report -> do
@@ -116,14 +112,13 @@ main' packageRoot bg = testGroup "golden"
     goldenExtBindings :: TestName -> TestTree
     goldenExtBindings name = goldenVsStringDiff_ "extbindings" ("fixtures" </> (name ++ ".extbindings.yaml")) $ \report -> do
         let headerIncludePath = mkHeaderIncludePath name
-            opts' = mkOpts report
-        header <- snd <$> Pipeline.parseCHeader opts' headerIncludePath
+        decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
         return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
           ExtBindings.genExtBindings
             headerIncludePath
             (ExtBindings.HsPackageName "example")
             (ExtBindings.HsModuleName "Example")
-            (Pipeline.genHsDecls opts' header)
+            decls
 
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
