@@ -3,6 +3,7 @@ module Clang.CNameSpelling (
     CNameSpelling(..)
   ) where
 
+import Data.String
 import Data.Text (Text)
 
 {-------------------------------------------------------------------------------
@@ -15,4 +16,5 @@ import Data.Text (Text)
 --
 -- Examples: @int8_t@, @struct tm@
 newtype CNameSpelling = CNameSpelling { getCNameSpelling :: Text }
-  deriving newtype (Eq, Ord, Show)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Eq, IsString, Ord, Show)

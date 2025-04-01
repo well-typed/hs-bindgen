@@ -63,14 +63,16 @@ import HsBindgen.Resolve
 -- Example: @hs-bindgen-runtime@
 newtype HsPackageName = HsPackageName { getHsPackageName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, Show)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
 newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, Show)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
 -- | Haskell identifier
 --
@@ -80,7 +82,8 @@ newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
 -- include a 'HsBindgen.Hs.AST.Namespace'.
 newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
   deriving stock (Generic)
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, Ord, Show)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
