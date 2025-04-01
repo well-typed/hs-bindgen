@@ -1,1 +1,0 @@
-../test-th/test-th.hs
