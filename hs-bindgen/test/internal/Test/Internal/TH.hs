@@ -2,7 +2,7 @@
 -- | Separate module for TH tests.
 --
 -- This module exists mainly to avoid hassle with unused imports and packages.
-module TH (
+module Test.Internal.TH (
     goldenTh,
 ) where
 
@@ -15,7 +15,7 @@ import Test.Tasty (TestTree, TestName)
 import Clang.Paths
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
-import Misc
+import Test.Internal.Misc
 
 goldenTh :: FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do

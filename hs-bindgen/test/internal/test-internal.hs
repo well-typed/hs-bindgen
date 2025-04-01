@@ -11,13 +11,13 @@ import Data.TreeDiff.Golden (ediffGolden1)
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 
-import TastyGolden (goldenTestSteps)
-import Orphans ()
-import Rust
-import Misc
+import Test.Internal.Misc
+import Test.Internal.Rust
+import Test.Internal.TastyGolden (goldenTestSteps)
+import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
-import TH
+import Test.Internal.TH
 #endif
 
 import Clang.Paths

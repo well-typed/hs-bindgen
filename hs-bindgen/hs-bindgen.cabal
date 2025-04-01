@@ -256,7 +256,12 @@ test-suite test-internal
   type:           exitcode-stdio-1.0
   main-is:        test-internal.hs
   hs-source-dirs: test/internal
-  other-modules:  Orphans TH TastyGolden Misc Rust
+  other-modules:
+      Test.Internal.Misc
+      Test.Internal.Rust
+      Test.Internal.TastyGolden
+      Test.Internal.TH
+      Test.Internal.TreeDiff.Orphans
   build-depends:
       -- Internal dependencies
     , c-expr

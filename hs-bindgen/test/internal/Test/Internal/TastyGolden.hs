@@ -1,5 +1,5 @@
 -- | A fork of @tasty-golden" allowing to report progress. 'goldenTest' with 'testCaseSteps'.
-module TastyGolden (
+module Test.Internal.TastyGolden (
     goldenTestSteps,
 ) where
 
