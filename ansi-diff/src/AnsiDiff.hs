@@ -5,8 +5,8 @@ module AnsiDiff (
 import Control.Monad (forM_)
 import Control.Monad.ST (ST)
 import Data.Primitive.Types (Prim)
-import Data.Primitive.Array
-import Data.Primitive.PrimArray
+import Data.Primitive.Array qualified as P
+import Data.Primitive.PrimArray qualified as P
 import Control.Monad.Trans.State.Strict qualified as S
 import System.Console.ANSI qualified as ANSI
 
@@ -53,11 +53,11 @@ alignment :: forall a b. (a ~ Char, b ~ Char) => [String] -> [String] -> [D Char
 alignment xs' ys' = do
     reverse $ walk xn yn
   where
-    xs :: Array [a]
-    xs = arrayFromList xs'
+    xs :: P.Array [a]
+    xs = P.arrayFromList xs'
 
-    ys :: Array [b]
-    ys = arrayFromList ys'
+    ys :: P.Array [b]
+    ys = P.arrayFromList ys'
 
     xn :: Int
     xn = length xs
@@ -65,11 +65,11 @@ alignment xs' ys' = do
     yn :: Int
     yn = length ys
 
-    diffs :: PrimArray Double
+    diffs :: P.PrimArray Double
     diffs = createPrimArray (xn * yn) $ \arr -> do
         forM_ [0..xn-1] $ \i -> forM_ [0..yn-1] $ \j -> do
-            let xc = indexArray xs i
-            let yc = indexArray ys j
+            let xc = P.indexArray xs i
+            let yc = P.indexArray ys j
             let xm = length xc
             let ym = length yc
             let mi = min xm ym
@@ -90,37 +90,37 @@ alignment xs' ys' = do
                     -- potentially a lot. Thus we care about worse case performance i.e. O (nm) is the same as O(nd).
                    | otherwise = fromIntegral (ED.levenshteinDistance ED.defaultEditCosts xc yc) / fromIntegral ma
 
-            writePrimArray arr (i + j * xn) r
+            P.writePrimArray arr (i + j * xn) r
 
     indexDiff :: Int -> Int -> Double
-    indexDiff i j = indexPrimArray diffs (i + j * xn)
+    indexDiff i j = P.indexPrimArray diffs (i + j * xn)
     {-# INLINE indexDiff #-}
 
-    distances :: PrimArray Double
+    distances :: P.PrimArray Double
     distances = createPrimArray ((xn + 1) * (yn + 1)) $ \arr -> do
         forM_ [0..xn] $ \i -> do
-            writePrimArray arr i (fromIntegral i)
+            P.writePrimArray arr i (fromIntegral i)
 
         forM_ [1..yn] $ \j -> do
-            writePrimArray arr (j * (xn + 1)) (fromIntegral j)
+            P.writePrimArray arr (j * (xn + 1)) (fromIntegral j)
 
             forM_ [1..xn] $ \i -> do
                 let r = indexDiff (i - 1) (j - 1)
 
                 if r == 0
                 then do
-                    !z <- readPrimArray arr ((i - 1) + (j - 1) * (xn + 1))
-                    writePrimArray arr (i + j * (xn + 1)) z
+                    !z <- P.readPrimArray arr ((i - 1) + (j - 1) * (xn + 1))
+                    P.writePrimArray arr (i + j * (xn + 1)) z
                 else do
-                    !x <- readPrimArray arr ((i    ) + (j - 1) * (xn + 1))
-                    !y <- readPrimArray arr ((i - 1) + (j    ) * (xn + 1))
-                    !z <- readPrimArray arr ((i - 1) + (j - 1) * (xn + 1))
+                    !x <- P.readPrimArray arr ((i    ) + (j - 1) * (xn + 1))
+                    !y <- P.readPrimArray arr ((i - 1) + (j    ) * (xn + 1))
+                    !z <- P.readPrimArray arr ((i - 1) + (j - 1) * (xn + 1))
 
-                    writePrimArray arr (i + j * (xn + 1)) $!
+                    P.writePrimArray arr (i + j * (xn + 1)) $!
                         min (r + z) $ min (x + 1) (y + 1)
 
     indexDistance :: Int -> Int -> Double
-    indexDistance i j = indexPrimArray distances (i + j * (xn + 1))
+    indexDistance i j = P.indexPrimArray distances (i + j * (xn + 1))
     {-# INLINE indexDistance #-}
 
     -- trace back walk
@@ -130,10 +130,10 @@ alignment xs' ys' = do
         = []
 
         | i == 0
-        = Ins (indexArray ys (j - 1)) : walk i (j - 1)
+        = Ins (P.indexArray ys (j - 1)) : walk i (j - 1)
 
         | j == 0
-        = Del (indexArray xs (i - 1)) : walk (i - 1) j
+        = Del (P.indexArray xs (i - 1)) : walk (i - 1) j
 
         | otherwise
         = do
@@ -146,8 +146,8 @@ alignment xs' ys' = do
                     if z <= y
                     -- z is smallest
                     then do
-                        let xc = indexArray xs (i - 1)
-                        let yc = indexArray ys (j - 1)
+                        let xc = P.indexArray xs (i - 1)
+                        let yc = P.indexArray ys (j - 1)
                         let !r = indexDiff (i - 1) (j - 1)
                         if predicate r
                         then do
@@ -157,16 +157,16 @@ alignment xs' ys' = do
                             Del xc : Ins yc : walk (i - 1) (j - 1)
 
                     -- y is smallest
-                    else Del (indexArray xs (i - 1)) : walk (i - 1) j
+                    else Del (P.indexArray xs (i - 1)) : walk (i - 1) j
 
                 else
                     if y <= x
 
                     -- y is smallest
-                    then Del (indexArray xs (i - 1)) : walk (i - 1) j
+                    then Del (P.indexArray xs (i - 1)) : walk (i - 1) j
 
                     -- x is smallest
-                    else Ins (indexArray ys (j - 1)) : walk i (j - 1)
+                    else Ins (P.indexArray ys (j - 1)) : walk i (j - 1)
 
 data D a b
     = Del [a]
@@ -178,9 +178,9 @@ data D a b
 -- primitive extras
 -------------------------------------------------------------------------------
 
-createPrimArray :: Prim a => Int -> (forall s. MutablePrimArray s a -> ST s ()) -> PrimArray a
-createPrimArray n action = runPrimArray $ do
-    arr <- newPrimArray n
+createPrimArray :: Prim a => Int -> (forall s. P.MutablePrimArray s a -> ST s ()) -> P.PrimArray a
+createPrimArray n action = P.runPrimArray $ do
+    arr <- P.newPrimArray n
     action arr
     return arr
 
