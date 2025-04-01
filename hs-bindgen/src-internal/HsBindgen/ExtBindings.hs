@@ -108,7 +108,7 @@ newtype UnresolvedExtBindings = UnresolvedExtBindings {
       unresolvedExtBindingsTypes ::
         Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
     }
-  deriving Show
+  deriving (Eq, Show)
 
 -- | External bindings with resolved header paths
 newtype ExtBindings = ExtBindings {
@@ -118,7 +118,7 @@ newtype ExtBindings = ExtBindings {
       extBindingsTypes ::
         Map CNameSpelling [(Set SourcePath, ExtIdentifier)]
     }
-  deriving Show
+  deriving (Eq, Show)
 
 {-------------------------------------------------------------------------------
   Exceptions
