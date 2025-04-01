@@ -9,8 +9,8 @@ import Data.Foldable (toList)
 import Data.List (sort)
 import Data.TreeDiff.Golden (ediffGolden1)
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
-import Test.Tasty.HUnit (testCase, (@?=))
 
+import Test.HsBindgen.C.Parser qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
@@ -22,7 +22,6 @@ import Test.Internal.TH
 
 import Clang.Paths
 import HsBindgen.Errors
-import HsBindgen.C.Parser (getTargetTriple)
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as ExtBindings
 import HsBindgen.Lib
@@ -35,13 +34,7 @@ main = do
 
 main' :: FilePath -> IO FilePath -> TestTree
 main' packageRoot bg = testGroup "golden"
-    [ testCase "target-triple" $ do
-        triple <- getTargetTriple $ clangArgs packageRoot
-
-        -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
-        -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
-        triple @?= "x86_64-pc-linux-gnu"
-
+    [ Test.HsBindgen.C.Parser.tests $ clangArgs packageRoot
     , golden "simple_structs"
     , golden "recursive_struct"
     , golden "nested_types"

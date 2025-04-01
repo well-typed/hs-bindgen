@@ -257,6 +257,7 @@ test-suite test-internal
   main-is:        test-internal.hs
   hs-source-dirs: test/internal
   other-modules:
+      Test.HsBindgen.C.Parser
       Test.Internal.Misc
       Test.Internal.Rust
       Test.Internal.TastyGolden
