@@ -1639,15 +1639,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "S3_c_Deref_Deref",
+        "S3_c_Deref",
       structConstr = HsName
         "@NsConstr"
-        "S3_c_Deref_Deref",
+        "S3_c_Deref",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "s3_c_Deref_Deref_a",
+            "s3_c_Deref_a",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin =
@@ -1663,7 +1663,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "s3_c_Deref_Deref_b",
+            "s3_c_Deref_b",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin =
@@ -1714,15 +1714,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "S3_c_Deref_Deref",
+          "S3_c_Deref",
         structConstr = HsName
           "@NsConstr"
-          "S3_c_Deref_Deref",
+          "S3_c_Deref",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "s3_c_Deref_Deref_a",
+              "s3_c_Deref_a",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin =
@@ -1738,7 +1738,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "s3_c_Deref_Deref_b",
+              "s3_c_Deref_b",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin =
@@ -1794,15 +1794,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S3_c_Deref_Deref",
+                  "S3_c_Deref",
                 structConstr = HsName
                   "@NsConstr"
-                  "S3_c_Deref_Deref",
+                  "S3_c_Deref",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s3_c_Deref_Deref_a",
+                      "s3_c_Deref_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
@@ -1818,7 +1818,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s3_c_Deref_Deref_b",
+                      "s3_c_Deref_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
@@ -1876,15 +1876,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S3_c_Deref_Deref",
+                  "S3_c_Deref",
                 structConstr = HsName
                   "@NsConstr"
-                  "S3_c_Deref_Deref",
+                  "S3_c_Deref",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s3_c_Deref_Deref_a",
+                      "s3_c_Deref_a",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
@@ -1900,7 +1900,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s3_c_Deref_Deref_b",
+                      "s3_c_Deref_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
@@ -1959,13 +1959,13 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "S3_c_Deref_Deref"),
+      "S3_c_Deref"),
   DeclNewtypeInstance
     DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
-      "S3_c_Deref_Deref"),
+      "S3_c_Deref"),
   DeclData
     Struct {
       structName = HsName
@@ -1984,7 +1984,7 @@
               (HsTypRef
                 (HsName
                   "@NsTypeConstr"
-                  "S3_c_Deref_Deref"))),
+                  "S3_c_Deref"))),
           fieldOrigin =
           FieldOriginStructField
             StructField {
@@ -2075,7 +2075,7 @@
                 (HsTypRef
                   (HsName
                     "@NsTypeConstr"
-                    "S3_c_Deref_Deref"))),
+                    "S3_c_Deref"))),
             fieldOrigin =
             FieldOriginStructField
               StructField {
@@ -2171,7 +2171,7 @@
                         (HsTypRef
                           (HsName
                             "@NsTypeConstr"
-                            "S3_c_Deref_Deref"))),
+                            "S3_c_Deref"))),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
@@ -2269,7 +2269,7 @@
                         (HsTypRef
                           (HsName
                             "@NsTypeConstr"
-                            "S3_c_Deref_Deref"))),
+                            "S3_c_Deref"))),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {

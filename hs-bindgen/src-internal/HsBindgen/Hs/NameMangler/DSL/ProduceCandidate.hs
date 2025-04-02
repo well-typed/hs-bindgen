@@ -137,10 +137,20 @@ fromDeclPath prod = \case
         ]
     aux (DeclPathCtxtTypedef name) =
         [fromCName prod name]
-    aux (DeclPathCtxtPtr ctxt) = concat [
-          aux ctxt
-        , [partCtxtPtr prod]
-        ]
+    aux (DeclPathCtxtPtr ctxt) =
+        flattenCtxtPtr ctxt
+
+    -- | Avoid generating multiple suffixes for multiple levels of pointer
+    --
+    -- For example, if we have
+    --
+    -- > typedef struct { char a; int b; } ***S7b;
+    --
+    -- we should generate @S7b_Deref@, not @S7b_Deref_Deref_Deref@ for the
+    -- inner anonymous struct.
+    flattenCtxtPtr :: DeclPathCtxt -> [Text]
+    flattenCtxtPtr (DeclPathCtxtPtr ctxt) = flattenCtxtPtr ctxt
+    flattenCtxtPtr ctxt = aux ctxt ++ [partCtxtPtr prod]
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: variations on 'prefixPart'
