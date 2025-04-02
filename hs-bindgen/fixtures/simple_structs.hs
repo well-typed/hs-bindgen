@@ -2356,15 +2356,15 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "S7b_Deref_Deref_Deref",
+        "S7b_Deref",
       structConstr = HsName
         "@NsConstr"
-        "S7b_Deref_Deref_Deref",
+        "S7b_Deref",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "s7b_Deref_Deref_Deref_a",
+            "s7b_Deref_a",
           fieldType = HsPrimType
             HsPrimCChar,
           fieldOrigin =
@@ -2380,7 +2380,7 @@
         Field {
           fieldName = HsName
             "@NsVar"
-            "s7b_Deref_Deref_Deref_b",
+            "s7b_Deref_b",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin =
@@ -2430,15 +2430,15 @@
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "S7b_Deref_Deref_Deref",
+          "S7b_Deref",
         structConstr = HsName
           "@NsConstr"
-          "S7b_Deref_Deref_Deref",
+          "S7b_Deref",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "s7b_Deref_Deref_Deref_a",
+              "s7b_Deref_a",
             fieldType = HsPrimType
               HsPrimCChar,
             fieldOrigin =
@@ -2454,7 +2454,7 @@
           Field {
             fieldName = HsName
               "@NsVar"
-              "s7b_Deref_Deref_Deref_b",
+              "s7b_Deref_b",
             fieldType = HsPrimType
               HsPrimCInt,
             fieldOrigin =
@@ -2509,15 +2509,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S7b_Deref_Deref_Deref",
+                  "S7b_Deref",
                 structConstr = HsName
                   "@NsConstr"
-                  "S7b_Deref_Deref_Deref",
+                  "S7b_Deref",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s7b_Deref_Deref_Deref_a",
+                      "s7b_Deref_a",
                     fieldType = HsPrimType
                       HsPrimCChar,
                     fieldOrigin =
@@ -2533,7 +2533,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s7b_Deref_Deref_Deref_b",
+                      "s7b_Deref_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
@@ -2590,15 +2590,15 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "S7b_Deref_Deref_Deref",
+                  "S7b_Deref",
                 structConstr = HsName
                   "@NsConstr"
-                  "S7b_Deref_Deref_Deref",
+                  "S7b_Deref",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s7b_Deref_Deref_Deref_a",
+                      "s7b_Deref_a",
                     fieldType = HsPrimType
                       HsPrimCChar,
                     fieldOrigin =
@@ -2614,7 +2614,7 @@
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "s7b_Deref_Deref_Deref_b",
+                      "s7b_Deref_b",
                     fieldType = HsPrimType
                       HsPrimCInt,
                     fieldOrigin =
@@ -2672,13 +2672,13 @@
     Show
     (HsName
       "@NsTypeConstr"
-      "S7b_Deref_Deref_Deref"),
+      "S7b_Deref"),
   DeclNewtypeInstance
     DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
-      "S7b_Deref_Deref_Deref"),
+      "S7b_Deref"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2697,7 +2697,7 @@
               (HsTypRef
                 (HsName
                   "@NsTypeConstr"
-                  "S7b_Deref_Deref_Deref")))),
+                  "S7b_Deref")))),
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
       NewtypeOriginTypedef

@@ -226,12 +226,12 @@ newtype S7a = S7a
 
 deriving newtype instance F.Storable S7a
 
-data S7b_Deref_Deref_Deref = S7b_Deref_Deref_Deref
-  { s7b_Deref_Deref_Deref_a :: FC.CChar
-  , s7b_Deref_Deref_Deref_b :: FC.CInt
+data S7b_Deref = S7b_Deref
+  { s7b_Deref_a :: FC.CChar
+  , s7b_Deref_b :: FC.CInt
   }
 
-instance F.Storable S7b_Deref_Deref_Deref where
+instance F.Storable S7b_Deref where
 
   sizeOf = \_ -> (8 :: Int)
 
@@ -239,7 +239,7 @@ instance F.Storable S7b_Deref_Deref_Deref where
 
   peek =
     \ptr0 ->
-          pure S7b_Deref_Deref_Deref
+          pure S7b_Deref
       <*> F.peekByteOff ptr0 (0 :: Int)
       <*> F.peekByteOff ptr0 (4 :: Int)
 
@@ -247,16 +247,16 @@ instance F.Storable S7b_Deref_Deref_Deref where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S7b_Deref_Deref_Deref s7b_Deref_Deref_Deref_a2 s7b_Deref_Deref_Deref_b3 ->
-               F.pokeByteOff ptr0 (0 :: Int) s7b_Deref_Deref_Deref_a2
-            >> F.pokeByteOff ptr0 (4 :: Int) s7b_Deref_Deref_Deref_b3
+          S7b_Deref s7b_Deref_a2 s7b_Deref_b3 ->
+               F.pokeByteOff ptr0 (0 :: Int) s7b_Deref_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) s7b_Deref_b3
 
-deriving stock instance Show S7b_Deref_Deref_Deref
+deriving stock instance Show S7b_Deref
 
-deriving stock instance Eq S7b_Deref_Deref_Deref
+deriving stock instance Eq S7b_Deref
 
 newtype S7b = S7b
-  { un_S7b :: F.Ptr (F.Ptr (F.Ptr S7b_Deref_Deref_Deref))
+  { un_S7b :: F.Ptr (F.Ptr (F.Ptr S7b_Deref))
   }
 
 deriving newtype instance F.Storable S7b
