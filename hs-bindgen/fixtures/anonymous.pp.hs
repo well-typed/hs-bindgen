@@ -148,3 +148,61 @@ instance F.Storable S2 where
 deriving stock instance Show S2
 
 deriving stock instance Eq S2
+
+data S3_c_Deref_Deref = S3_c_Deref_Deref
+  { s3_c_Deref_Deref_a :: FC.CInt
+  , s3_c_Deref_Deref_b :: FC.CInt
+  }
+
+instance F.Storable S3_c_Deref_Deref where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure S3_c_Deref_Deref
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          S3_c_Deref_Deref s3_c_Deref_Deref_a2 s3_c_Deref_Deref_b3 ->
+               F.pokeByteOff ptr0 (0 :: Int) s3_c_Deref_Deref_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) s3_c_Deref_Deref_b3
+
+deriving stock instance Show S3_c_Deref_Deref
+
+deriving stock instance Eq S3_c_Deref_Deref
+
+data S3 = S3
+  { s3_c :: F.Ptr (F.Ptr S3_c_Deref_Deref)
+  , s3_d :: FC.CInt
+  }
+
+instance F.Storable S3 where
+
+  sizeOf = \_ -> (16 :: Int)
+
+  alignment = \_ -> (8 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure S3
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          S3 s3_c2 s3_d3 ->
+               F.pokeByteOff ptr0 (0 :: Int) s3_c2
+            >> F.pokeByteOff ptr0 (8 :: Int) s3_d3
+
+deriving stock instance Show S3
+
+deriving stock instance Eq S3

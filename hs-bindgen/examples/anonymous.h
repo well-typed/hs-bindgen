@@ -19,3 +19,13 @@ struct S2 {
 
   int d;
 };
+
+// Struct containing a _pointer to_ an anonymous inner struct
+struct S3 {
+  struct {
+    int a;
+    int b;
+  } **c;
+
+  int d;
+};
