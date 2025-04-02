@@ -87,6 +87,13 @@ jobs:
           echo $SDKROOT
           echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
 
+      - name: Install ICU (windows)
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        run: |
+          echo "C:\msys64\mingw64\bin" | Out-File -FilePath "$env:GITHUB_PATH" -Append
+          $env:PATH = "C:\msys64\usr\bin;$env:PATH"
+          pacman --noconfirm -S mingw-w64-x86_64-pkg-config mingw-w64-x86_64-icu
+
       - name: Checkout
         uses: actions/checkout@v4
 
