@@ -155,4 +155,72 @@ Header
             "anonymous.h:20:7"}],
         structFlam = Nothing,
         structSourceLoc =
-        "anonymous.h:12:8"}]
+        "anonymous.h:12:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathAnon
+          (DeclPathCtxtPtr
+            (DeclPathCtxtPtr
+              (DeclPathCtxtField
+                (Just (CName "S3"))
+                (CName "c")
+                DeclPathCtxtTop))),
+        structAliases = [],
+        structSizeof = 8,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:26:9"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:27:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:25:3"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "S3")
+          DeclPathCtxtTop,
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "c",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypePointer
+                (TypeStruct
+                  (DeclPathAnon
+                    (DeclPathCtxtPtr
+                      (DeclPathCtxtPtr
+                        (DeclPathCtxtField
+                          (Just (CName "S3"))
+                          (CName "c")
+                          DeclPathCtxtTop)))))),
+            fieldSourceLoc =
+            "anonymous.h:28:7"},
+          StructField {
+            fieldName = CName "d",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "anonymous.h:30:7"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "anonymous.h:24:8"}]
