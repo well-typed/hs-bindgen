@@ -259,8 +259,12 @@ test-suite test-internal
   hs-source-dirs: test/internal
   other-modules:
       Test.HsBindgen.C.Parser
+      Test.HsBindgen.ExtBindings
       Test.Internal.Misc
+      Test.Internal.QuickCheck
+      Test.Internal.QuickCheck.Orphans
       Test.Internal.Rust
+      Test.Internal.Tasty
       Test.Internal.TastyGolden
       Test.Internal.TH
       Test.Internal.TreeDiff.Orphans
@@ -274,23 +278,28 @@ test-suite test-internal
   build-depends:
       -- Inherited dependencies
     , bytestring
+    , containers
     , debruijn
     , mtl
     , template-haskell
+    , text
     , vec
   build-depends:
       -- External dependencies
     , ansi-diff
     , deepseq
-    , directory     ^>=1.3.6.2
-    , filepath      ^>=1.4.2.2 || ^>=1.5.2.0
+    , directory        ^>=1.3.6.2
+    , filepath         ^>=1.4.2.2 || ^>=1.5.2.0
     , process
-    , syb           ^>=0.7.2.4
-    , tasty         ^>=1.5
-    , tasty-hunit   ^>=0.10.2
+    , QuickCheck       ^>=2.15.0.1
+    , syb              ^>=0.7.2.4
+    , tasty            ^>=1.5
+    , tasty-hunit      ^>=0.10.2
+    , tasty-quickcheck ^>=0.11.1
     , temporary
-    , tree-diff     ^>=0.3.4
-    , utf8-string   ^>=1.0.2
+    , text-icu         ^>=0.8
+    , tree-diff        ^>=0.3.4
+    , utf8-string      ^>=1.0.2
 
 test-suite test-th
   type:           exitcode-stdio-1.0
