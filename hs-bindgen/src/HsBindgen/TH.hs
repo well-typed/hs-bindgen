@@ -49,6 +49,7 @@ module HsBindgen.TH (
   , THSyntax.getPackageRoot
   ) where
 
+import Data.Set (Set)
 import Language.Haskell.TH qualified as TH
 import System.FilePath qualified as FilePath
 
@@ -82,5 +83,5 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 loadExtBindings ::
      Args.ClangArgs
   -> [FilePath]
-  -> TH.Q ([Resolve.ResolveHeaderException], ExtBindings.ExtBindings)
+  -> TH.Q (Set Resolve.ResolveHeaderException, ExtBindings.ExtBindings)
 loadExtBindings args = TH.runIO . ExtBindings.loadExtBindings args

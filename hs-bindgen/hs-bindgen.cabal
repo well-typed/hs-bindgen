@@ -179,6 +179,7 @@ library
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , containers
     , filepath
     , template-haskell
 

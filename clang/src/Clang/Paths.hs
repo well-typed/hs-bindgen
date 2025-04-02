@@ -16,10 +16,10 @@ module Clang.Paths (
   ) where
 
 import Control.Exception (Exception(displayException))
+import Data.String
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.List qualified as List
-import Data.String (IsString(fromString))
 import System.FilePath qualified as FilePath
 
 {-------------------------------------------------------------------------------
@@ -34,7 +34,8 @@ import System.FilePath qualified as FilePath
 -- The format of the path is platform-dependent.  For example, different
 -- directory separators are used on different platforms.
 newtype SourcePath = SourcePath Text
-  deriving newtype (Eq, Ord, Show)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Eq, IsString, Ord, Show)
 
 -- | Get the 'FilePath' representation of a 'SourcePath'
 getSourcePath :: SourcePath -> FilePath
@@ -130,7 +131,5 @@ renderCHeaderIncludePath = \case
 -- that contains 'CIncludePathDir' @/usr/include@ may resolve to 'SourcePath'
 -- @/usr/include/stdint.h@.
 newtype CIncludePathDir = CIncludePathDir { getCIncludePathDir :: FilePath }
-  deriving newtype (Eq, Ord, Show)
-
-instance IsString CIncludePathDir where
-  fromString = CIncludePathDir
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Eq, IsString, Ord, Show)

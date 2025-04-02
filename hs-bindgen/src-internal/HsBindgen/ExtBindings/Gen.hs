@@ -8,6 +8,7 @@ import Data.Set qualified as Set
 
 import Clang.CNameSpelling
 import Clang.Paths
+import HsBindgen.C.AST.Macro qualified as C
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.ExtBindings
@@ -85,10 +86,10 @@ getEmptyDataExtBindings :: Hs.EmptyData -> [(CNameSpelling, HsIdentifier)]
 getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
     case Hs.emptyDataOrigin edata of
       Hs.EmptyDataOriginOpaqueStruct C.OpaqueStruct{..} ->
-        Just (CNameSpelling (getCName opaqueStructTag))
+        Just (CNameSpelling ("struct " <> getCName opaqueStructTag))
           : map (Just . getCNS_alias) opaqueStructAliases
       Hs.EmptyDataOriginOpaqueEnum C.OpaqueEnum{..} ->
-        Just (CNameSpelling (getCName opaqueEnumTag))
+        Just (CNameSpelling ("enum " <> getCName opaqueEnumTag))
           : map (Just . getCNS_alias) opaqueEnumAliases
   where
     hsId :: HsIdentifier
@@ -103,7 +104,8 @@ getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
         [Just (CNameSpelling (getCName typedefName))]
       Hs.NewtypeOriginUnion C.Union{..} ->
         getCNS "union " unionDeclPath : map (Just . getCNS_alias) unionAliases
-      Hs.NewtypeOriginMacro{} -> []
+      Hs.NewtypeOriginMacro C.Macro{..} ->
+        [Just (CNameSpelling (getCName macroName))]
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)

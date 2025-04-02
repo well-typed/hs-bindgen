@@ -25,7 +25,7 @@ instance Aeson.FromJSON CHeaderIncludePath where
     . Text.unpack
 
 instance Aeson.ToJSON CHeaderIncludePath where
-  toJSON = Aeson.String . Text.pack . getCHeaderIncludePath
+  toJSON = Aeson.String . Text.pack . renderCHeaderIncludePath
 
 deriving newtype instance Aeson.FromJSON CNameSpelling
 
