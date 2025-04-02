@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
-module Orphans where
+module Test.Internal.TreeDiff.Orphans where
 
 import Data.Foldable (toList)
 import Data.List qualified as List

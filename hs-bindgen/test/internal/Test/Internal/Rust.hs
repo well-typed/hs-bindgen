@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 -- | Separate module for running Rust's @bindgen@ (as comparison) tests.
-module Rust (
+module Test.Internal.Rust (
     goldenRust,
     withRustBindgen,
 ) where
@@ -36,7 +36,7 @@ import System.IO.Temp (getCanonicalTemporaryDirectory, createTempDirectory)
 import System.Process qualified as P
 import System.Exit (ExitCode (..))
 
-import Misc
+import Test.Internal.Misc
 
 withRustBindgen :: (IO FilePath -> TestTree) -> TestTree
 withRustBindgen k = withResource getRustBindgen cleanupRustBindgen (k . fmap snd) -- TODO: unlink

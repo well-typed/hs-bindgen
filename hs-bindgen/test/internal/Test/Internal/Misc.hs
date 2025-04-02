@@ -1,5 +1,5 @@
 -- | Miscellaneous test utilities
-module Misc (
+module Test.Internal.Misc (
     goldenVsStringDiff_,
     findPackageDirectory,
     clangArgs,
@@ -14,7 +14,7 @@ import Test.Tasty (TestTree, TestName)
 import AnsiDiff (ansidiff)
 import Clang.Paths
 import HsBindgen.Lib
-import TastyGolden
+import Test.Internal.TastyGolden
 
 -------------------------------------------------------------------------------
 -- tasty-golden wrapper

@@ -251,12 +251,18 @@ executable clang-ast-dump
       -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
-test-suite golden
+test-suite test-internal
   import:         lang
   type:           exitcode-stdio-1.0
-  main-is:        golden.hs
-  hs-source-dirs: tests
-  other-modules:  Orphans TH TastyGolden Misc Rust
+  main-is:        test-internal.hs
+  hs-source-dirs: test/internal
+  other-modules:
+      Test.HsBindgen.C.Parser
+      Test.Internal.Misc
+      Test.Internal.Rust
+      Test.Internal.TastyGolden
+      Test.Internal.TH
+      Test.Internal.TreeDiff.Orphans
   build-depends:
       -- Internal dependencies
     , c-expr
@@ -288,7 +294,7 @@ test-suite golden
 test-suite test-th
   type:           exitcode-stdio-1.0
   main-is:        test-th.hs
-  hs-source-dirs: test-th
+  hs-source-dirs: test/th
   include-dirs:   examples
 
   other-modules:
@@ -312,7 +318,7 @@ test-suite test-th
 test-suite test-pp
   type:           exitcode-stdio-1.0
   main-is:        test-pp.hs
-  hs-source-dirs: test-pp
+  hs-source-dirs: test/pp
   include-dirs:   examples
 
   other-modules:
