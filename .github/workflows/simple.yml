@@ -69,6 +69,15 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
 
+      - name: ICU PKG_CONFIG_PATH (macos)
+        shell: bash
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: |
+          export PKG_CONFIG_PATH=$(brew --prefix)/opt/icu4c/lib/pkgconfig
+          echo "PKG_CONFIG_PATH=${PKG_CONFIG_PATH}" >> "$GITHUB_ENV"
+          echo "${PKG_CONFIG_PATH}"
+          ls -l "${PKG_CONFIG_PATH}"
+
       # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
       - name: macOS SDKROOT
         shell: bash
