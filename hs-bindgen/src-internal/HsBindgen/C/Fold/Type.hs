@@ -169,205 +169,111 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     -- structs and unions
     Right CXType_Record -> do
-        decl <- liftIO (clang_getTypeDeclaration ty)
-        ki <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
+        decl <- liftIO $ clang_getTypeDeclaration ty
+        ki   <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
+        sloc <- liftIO $ HighLevel.clang_getExpansionLocation
+                     =<< clang_getCursorLocation decl
+
         case ki of
             Right CXCursor_StructDecl -> do
-                name <- liftIO (clang_getTypeSpelling ty)
-                anon <- liftIO (clang_Cursor_isAnonymous decl)
-
-                -- dtraceIO "record" (decl, name, anon)
-
-                -- Something like
-                --
-                -- > typedef struct {
-                -- >     char a;
-                -- > } S3_t;
-                --
-                -- is not considered an anonymous struct by @clang@, but we /do/
-                -- treat it as one.
-
-                let declPath
-                      | anon      = DeclPathAnon ctxt
-                      | otherwise = case T.stripPrefix "struct " name of
-                          Just n  -> DeclPathName (CName n) ctxt
-                          Nothing -> DeclPathAnon (DeclPathCtxtTypedef (CName name))
-
-                -- name for opaque types.
-                --
-                -- TODO: Could we use 'Nothing' for @anon@?
-                let name'
-                      | anon      = ""
-                      | otherwise =  case T.stripPrefix "struct " name of
-                          Just n  -> n
-                          Nothing -> name
-
-                if declPath == DeclPathAnon DeclPathCtxtTop
-                then do
-                    -- Anonymous top-level declaration: nothing to do but warn, as there
-                    -- shouldn't be one in "good" code.
-                    return TypeVoid
-
-                else do
+                mFlavour <- classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc)
+                case mFlavour of
+                  Left (AnonTopLevel replacement) ->
+                    return replacement
+                  Right (declPath, flavour) -> do
                     addTypeDeclProcessing ty $ TypeStruct declPath
-                    sloc <- liftIO $
-                        HighLevel.clang_getExpansionLocation
-                            =<< clang_getCursorLocation decl
+                    case flavour of
+                      TypeDeclExternal extId ->
+                        addAlias ty $ TypeExtBinding extId
+                      TypeDeclOpaque name -> do
+                        addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                            opaqueStructTag       = name
+                          , opaqueStructAliases   = []
+                          , opaqueStructSourceLoc = sloc
+                          }
+                      TypeDeclRegular -> do
+                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
+                        alignment <- liftIO (clang_Type_getAlignOf ty)
+                        fields'   <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                            let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
+                            mfield <- mkStructField extBindings unit mkCtxt cursor
+                            return $ Continue mfield
 
-                    mExtId <- case declPath of
-                        DeclPathName{}->
-                            lookupExtBinding (CNameSpelling name) sloc extBindings
-                        DeclPathAnon{} ->
-                            return Nothing
-                    case mExtId of
-                        Just extId -> addAlias ty $ TypeExtBinding extId
-                        Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
-                            DeclarationOpaque ->
-                                addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                                      opaqueStructTag       = CName name'
-                                    , opaqueStructAliases   = []
-                                    , opaqueStructSourceLoc = sloc
-                                    }
+                        (fields, flam) <- partitionFields fields'
 
-                            DeclarationForward _defn -> do
-                                liftIO $ panicIO "should not happen"
-
-                            DeclarationRegular -> do
-                                sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                                alignment <- liftIO (clang_Type_getAlignOf ty)
-
-                                fields' <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                                    let mkCtxt :: CName -> DeclPathCtxt
-                                        mkCtxt fieldName
-                                          | anon      = DeclPathCtxtField Nothing              fieldName ctxt
-                                          | otherwise = DeclPathCtxtField (Just $ CName name') fieldName ctxt
-                                    mfield <- mkStructField extBindings unit mkCtxt cursor
-                                    return $ Continue mfield
-
-                                (fields, flam) <- partitionFields fields'
-
-                                addDecl ty $ DeclStruct Struct
-                                    { structDeclPath  = declPath
-                                    , structAliases   = []
-                                    , structSizeof    = fromIntegral sizeof
-                                    , structAlignment = fromIntegral alignment
-                                    , structFields    = fields
-                                    , structFlam      = flam
-                                    , structSourceLoc = sloc
-                                    }
+                        addDecl ty $ DeclStruct Struct
+                            { structDeclPath  = declPath
+                            , structAliases   = []
+                            , structSizeof    = fromIntegral sizeof
+                            , structAlignment = fromIntegral alignment
+                            , structFields    = fields
+                            , structFlam      = flam
+                            , structSourceLoc = sloc
+                            }
 
             Right CXCursor_UnionDecl -> do
-                name <- liftIO (clang_getTypeSpelling ty)
-                anon <- liftIO (clang_Cursor_isAnonymous decl)
+                mFlavour <- classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc)
 
-                -- dtraceIO "union" (decl, name, anon)
-
-                let declPath
-                      | anon      = DeclPathAnon ctxt
-                      | otherwise = case T.stripPrefix "union " name of
-                          Just n  -> DeclPathName (CName n) ctxt
-                          Nothing -> DeclPathAnon (DeclPathCtxtTypedef (CName name))
-
-                -- name for opaque types.
-                let name'
-                      | anon      = ""
-                      | otherwise =  case T.stripPrefix "union " name of
-                          Just n  -> n
-                          Nothing -> name
-
-                if declPath == DeclPathAnon DeclPathCtxtTop
-                then do
-                    -- Anonymous top-level declaration: nothing to do but warn, as there
-                    -- shouldn't be one in "good" code.
-                    return TypeVoid
-
-                else do
+                case mFlavour of
+                  Left (AnonTopLevel replacement) ->
+                    return replacement
+                  Right (declPath, flavour) -> do
                     addTypeDeclProcessing ty $ TypeUnion declPath
-                    sloc <- liftIO $
-                        HighLevel.clang_getExpansionLocation
-                            =<< clang_getCursorLocation decl
+                    case flavour of
+                      TypeDeclExternal _extId ->
+                        panicIO "external bindings for unions not implemented #537"
+                      TypeDeclOpaque name ->
+                        -- opaque struct and opaque union look the same.
+                        addDecl ty $ DeclOpaqueStruct OpaqueStruct {
+                              opaqueStructTag       = name
+                            , opaqueStructAliases   = []
+                            , opaqueStructSourceLoc = sloc
+                            }
+                      TypeDeclRegular -> do
+                        -- the below is TODO:
+                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
+                        alignment <- liftIO (clang_Type_getAlignOf ty)
+                        fields    <- HighLevel.clang_visitChildren decl $ \cursor -> do
+                            let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
+                            mfield <- mkUnionField extBindings unit mkCtxt cursor
+                            return $ Continue mfield
 
-                    -- TODO: ExtBindings?
-                    liftIO (HighLevel.classifyDeclaration decl) >>= \case
-                            DeclarationOpaque ->
-                                -- opaque struct and opaque union look the same.
-                                addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                                      opaqueStructTag       = CName name'
-                                    , opaqueStructAliases   = []
-                                    , opaqueStructSourceLoc = sloc
-                                    }
-
-                            DeclarationForward _defn -> do
-                                liftIO $ panicIO "should not happen"
-
-                            DeclarationRegular -> do
-                                -- the below is TODO:
-                                sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                                alignment <- liftIO (clang_Type_getAlignOf ty)
-
-                                fields <- HighLevel.clang_visitChildren decl $ \cursor -> do
-                                    let mkCtxt :: CName -> DeclPathCtxt
-                                        mkCtxt fieldName
-                                          | anon      = DeclPathCtxtField Nothing              fieldName ctxt
-                                          | otherwise = DeclPathCtxtField (Just $ CName name') fieldName ctxt
-                                    mfield <- mkUnionField extBindings unit mkCtxt cursor
-                                    return $ Continue mfield
-
-                                addDecl ty $ DeclUnion Union
-                                    { unionDeclPath  = declPath
-                                    , unionAliases   = []
-                                    , unionSizeof    = fromIntegral sizeof
-                                    , unionAlignment = fromIntegral alignment
-                                    , unionFields    = fields
-                                    , unionSourceLoc = sloc
-                                    }
+                        addDecl ty $ DeclUnion Union
+                            { unionDeclPath  = declPath
+                            , unionAliases   = []
+                            , unionSizeof    = fromIntegral sizeof
+                            , unionAlignment = fromIntegral alignment
+                            , unionFields    = fields
+                            , unionSourceLoc = sloc
+                            }
 
             _ -> panicIO $ show ki
+
     -- enum
     Right CXType_Enum -> do
         decl <- liftIO (clang_getTypeDeclaration ty)
-        name <- liftIO (clang_getTypeSpelling ty)
-        anon <- liftIO (clang_Cursor_isAnonymous decl)
+        ki   <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
+        sloc <- liftIO $ HighLevel.clang_getExpansionLocation
+                     =<< clang_getCursorLocation decl
 
-        if anon
-        then do
-            -- anonymous declaration, nothing to do
-            -- TODO: This is wrong, they can be nested.
-            return TypeVoid
-        else do
-            let declPath
-                  | anon      = DeclPathAnon ctxt
-                  | otherwise = case T.stripPrefix "enum " name of
-                      Just n  -> DeclPathName (CName n) ctxt
-                      Nothing -> DeclPathAnon (DeclPathCtxtTypedef (CName name))
-
-            -- name for opaque types.
-            let name'
-                  | anon      = ""
-                  | otherwise =  case T.stripPrefix "enum " name of
-                      Just n  -> n
-                      Nothing -> name
-
-            addTypeDeclProcessing ty $ TypeEnum declPath
-            sloc <- liftIO $
-                HighLevel.clang_getExpansionLocation
-                    =<< clang_getCursorLocation decl
-
-            mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
-            case mExtId of
-                Just extId -> addAlias ty $ TypeExtBinding extId
-                Nothing -> liftIO (HighLevel.classifyDeclaration decl) >>= \case
-                    DeclarationOpaque -> do
+        case ki of
+            Right CXCursor_EnumDecl -> do
+                mFlavour <- classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc)
+                case mFlavour of
+                  Left (AnonTopLevel replacement) ->
+                    return replacement
+                  Right (declPath, flavour) -> do
+                    addTypeDeclProcessing ty $ TypeEnum declPath
+                    case flavour of
+                      TypeDeclExternal extId ->
+                        addAlias ty $ TypeExtBinding extId
+                      TypeDeclOpaque name ->
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
-                            opaqueEnumTag       = CName name'
+                            opaqueEnumTag       = name
                           , opaqueEnumAliases   = []
                           , opaqueEnumSourceLoc = sloc
                           }
-
-                    DeclarationForward _defn -> do
-                        liftIO $ panicIO "should not happen"
-
-                    DeclarationRegular -> do
+                      TypeDeclRegular -> do
                         sizeof    <- liftIO (clang_Type_getSizeOf  ty)
                         alignment <- liftIO (clang_Type_getAlignOf ty)
                         ety       <- liftIO (clang_getEnumDeclIntegerType decl)
@@ -386,6 +292,8 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             , enumValues    = values
                             , enumSourceLoc = sloc
                             }
+
+            _ -> panicIO $ show ki
 
     Right CXType_Pointer -> do
         pointee <- liftIO $ clang_getPointeeType ty
@@ -574,6 +482,84 @@ updateDeclAddAliases aliases = \case
 -- https://github.com/dmwit/ordered-containers/issues/29
 omapInsertBack :: Ord k => k -> v -> OMap.OMap k v -> OMap.OMap k v
 omapInsertBack k v m = m OMap.>| (k, v)
+
+{-------------------------------------------------------------------------------
+  Internal auxiliary: classify type declarations
+-------------------------------------------------------------------------------}
+
+data TypeDeclFlavour =
+    -- | Type declaration for which we have external bindings
+    TypeDeclExternal ExtIdentifier
+
+    -- | Opaque type declaration
+  | TypeDeclOpaque CName
+
+    -- | All other cases
+  | TypeDeclRegular
+
+-- | Anonymous top-level declaration
+--
+-- Since (even in C) these are unusable, we replace them by essentially an
+-- arbitrary type.
+--
+-- TODO: Should we warn when we see these?
+data AnonTopLevel = AnonTopLevel Type
+
+-- | Classify type declaration
+classifyTypeDecl ::
+     DeclPathCtxt
+  -> ExtBindings
+  -> (CXType, CXCursor, Either CInt CXCursorKind, SingleLoc)
+  -> Eff (State DeclState) (Either AnonTopLevel (DeclPath, TypeDeclFlavour))
+classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
+    anon <- liftIO $ clang_Cursor_isAnonymous decl
+
+    if anon then
+      case ctxt of
+        DeclPathCtxtTop ->
+          return $ Left $ AnonTopLevel TypeVoid
+        _otherwise ->
+          -- We assume anonymous type declarations are never opaque, and
+          -- cannot have external bindings.
+          --
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/536>
+          -- We might want to support external bindings for anonymous types.
+          return $ Right (DeclPathAnon ctxt, TypeDeclRegular)
+    else do
+      spelling <- liftIO $ clang_getTypeSpelling ty
+      mExtId   <- lookupExtBinding (CNameSpelling spelling) sloc extBindings
+
+      let mTag     = CName <$> T.stripPrefix expectedPrefix spelling
+          declPath = mkDeclPath spelling mTag
+
+      fmap (Right . (declPath,)) $ do
+        case mExtId of
+          Just extId -> return $ TypeDeclExternal extId
+          Nothing    -> do
+            classified <- liftIO $ HighLevel.classifyDeclaration decl
+            case classified of
+              DeclarationOpaque ->
+                case mTag of
+                  Just tag -> return $ TypeDeclOpaque tag
+                  Nothing  -> panicIO "opaque definition without tag"
+              DeclarationForward _defn ->
+                panicIO "should not happen"
+              DeclarationRegular ->
+                return $ TypeDeclRegular
+  where
+    expectedPrefix :: Text
+    expectedPrefix =
+        case ki of
+          Right CXCursor_StructDecl -> "struct "
+          Right CXCursor_UnionDecl  -> "union "
+          Right CXCursor_EnumDecl   -> "enum "
+          kind -> panicPure $ "classifyTypeDecl called on " ++ show kind
+
+    mkDeclPath :: Text -> Maybe CName -> DeclPath
+    mkDeclPath spelling mTag =
+        case mTag of
+          Just tag -> DeclPathName tag ctxt
+          Nothing  -> DeclPathAnon (DeclPathCtxtTypedef (CName spelling))
 
 {-------------------------------------------------------------------------------
   Structs
