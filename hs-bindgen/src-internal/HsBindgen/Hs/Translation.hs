@@ -110,30 +110,22 @@ generateDeclarations ::
   -> NameMangler
   -> C.Header
   -> [Hs.Decl]
-generateDeclarations = toHs
+generateDeclarations opts nm (C.Header decs) = concatMap (generateDecs opts nm) decs
 
 {-------------------------------------------------------------------------------
-  Translation
--------------------------------------------------------------------------------}
+  Declarations
+------------------------------------------------------------------------------}
 
-class ToHs (a :: Star) where
-  type InHs a :: Star
-  toHs :: TranslationOpts -> NameMangler -> a -> InHs a
-
-instance ToHs C.Header where
-  type InHs C.Header = [Hs.Decl]
-  toHs opts nm (C.Header decs) = concatMap (toHs opts nm) decs
-
-instance ToHs C.Decl where
-  type InHs C.Decl = [Hs.Decl]
-  toHs opts nm (C.DeclStruct struct)  = reifyStructFields struct $ structDecs opts nm struct
-  toHs opts nm (C.DeclUnion union)    = unionDecs opts nm union
-  toHs opts nm (C.DeclOpaqueStruct o) = opaqueStructDecs opts nm o
-  toHs opts nm (C.DeclEnum e)         = enumDecs opts nm e
-  toHs opts nm (C.DeclOpaqueEnum o)   = opaqueEnumDecs opts nm o -- TODO?
-  toHs opts nm (C.DeclTypedef d)      = typedefDecs opts nm d
-  toHs opts nm (C.DeclMacro m)        = macroDecs opts nm m
-  toHs opts nm (C.DeclFunction f)     = functionDecs opts nm f
+generateDecs :: TranslationOpts -> NameMangler -> C.Decl -> [Hs.Decl]
+generateDecs opts nm = \case
+  C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
+  C.DeclUnion union    -> unionDecs opts nm union
+  C.DeclOpaqueStruct o -> opaqueStructDecs opts nm o
+  C.DeclEnum e         -> enumDecs opts nm e
+  C.DeclOpaqueEnum o   -> opaqueEnumDecs opts nm o -- TODO?
+  C.DeclTypedef d      -> typedefDecs opts nm d
+  C.DeclMacro m        -> macroDecs opts nm m
+  C.DeclFunction f     -> functionDecs opts nm f
 
 {-------------------------------------------------------------------------------
   Structs
