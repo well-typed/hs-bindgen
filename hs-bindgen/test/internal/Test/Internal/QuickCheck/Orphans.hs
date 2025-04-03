@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Test.Internal.QuickCheck.Orphans () where
@@ -8,8 +9,11 @@ import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Text.ICU.Char as ICU
 import Test.QuickCheck
+
+#ifdef linux_HOST_OS
+import Data.Text.ICU.Char as ICU
+#endif
 
 import Clang.CNameSpelling
 import Clang.Paths
@@ -92,16 +96,20 @@ instance Arbitrary C.CName where
       startCharset = ['A'..'Z'] ++ ['a'..'z']
       contCharset  = ['0'..'9'] ++ startCharset
 
+#ifdef linux_HOST_OS
+
+      -- On Linux, use ICU to cover the full range of characters that are valid
+      -- in C names.
       genStartCharUnicode, genContCharUnicode :: Gen Char
       genStartCharUnicode =
         frequency [
             (19, arbitraryUnicodeChar `suchThat` isXidStartLetter)
-          , (1, arbitraryUnicodeChar `suchThat` isXidStartNotLetter)
+          , (1,  arbitraryUnicodeChar `suchThat` isXidStartNotLetter)
           ]
       genContCharUnicode =
         frequency [
             (19, arbitraryUnicodeChar `suchThat` isXidContAlphaNum)
-          , (1, arbitraryUnicodeChar `suchThat` isXidContNotAlphaNum)
+          , (1,  arbitraryUnicodeChar `suchThat` isXidContNotAlphaNum)
           ]
 
       isXidStartLetter, isXidStartNotLetter :: Char -> Bool
@@ -115,6 +123,44 @@ instance Arbitrary C.CName where
         liftA2 (&&) (ICU.property ICU.XidContinue) Char.isAlphaNum
       isXidContNotAlphaNum =
         liftA2 (&&) (ICU.property ICU.XidContinue) (not . Char.isAlphaNum)
+
+#else
+
+      -- On non-Linux OSes, avoid ICU because the dependency makes it more
+      -- difficult to configure a development environment.  Some hard-coded
+      -- ranges of code points are used instead, with no attempt to cover edge
+      -- cases.
+      genStartCharUnicode, genContCharUnicode :: Gen Char
+      genStartCharUnicode = oneof [
+          -- Basic Latin, Latin-1 Supplement, Latin Extended-A, Latin Extened-B
+          -- 453/527 85%
+          genCharInRange (0x0041, 0x024f) `suchThat` Char.isLetter
+        , -- CJK Unified Ideographs
+          -- 20,992
+          genCharInRange (0x4e00, 0x9fff)
+        , -- Hangul Syllables
+          -- 11,172
+          genCharInRange (0xac00, 0xd7a3)
+        ]
+      genContCharUnicode = oneof [
+          -- Basic Latin
+          -- 62/75 82%
+          genCharInRange (0x0030, 0x007a) `suchThat` Char.isAlphaNum
+        , -- Latin-1 Supplement, Latin Extended-A, Latin Extened-B
+          -- 398/400 99%
+          genCharInRange (0x00c0, 0x024f) `suchThat` Char.isAlphaNum
+        , -- CJK Unified Ideographs
+          -- 20,992
+          genCharInRange (0x4e00, 0x9fff)
+        , -- Hangul Syllables
+          -- 11,172
+          genCharInRange (0xac00, 0xd7a3)
+        ]
+
+      genCharInRange :: (Int, Int) -> Gen Char
+      genCharInRange = fmap Char.chr . chooseInt
+
+#endif
 
       reservedCNames :: [C.CName]
       reservedCNames = [

@@ -297,9 +297,11 @@ test-suite test-internal
     , tasty-hunit      ^>=0.10.2
     , tasty-quickcheck ^>=0.11.1
     , temporary
-    , text-icu         ^>=0.8
     , tree-diff        ^>=0.3.4
     , utf8-string      ^>=1.0.2
+  if os(linux)
+    build-depends:
+      , text-icu ^>=0.8
 
 test-suite test-th
   type:           exitcode-stdio-1.0
