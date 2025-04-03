@@ -650,13 +650,14 @@ mkStructField extBindings unit mkCtxt current = do
             assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
             return $ Just $ Normal StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc, fieldWidth = Nothing}
 
-      -- inner structs, there are two approaches:
+      -- nested type declarations, there are two approaches:
       -- * process eagerly
       -- * process when encountered in a field
       --
       -- For now we chose the latter.
-      Right CXCursor_StructDecl ->
-        return Nothing
+      Right CXCursor_StructDecl -> return Nothing
+      Right CXCursor_EnumDecl   -> return Nothing
+      Right CXCursor_UnionDecl  -> return Nothing
 
       _other ->
         unrecognizedCursor current
