@@ -25,6 +25,7 @@ module HsBindgen.C.AST.Type (
   , DeclPath(..)
   , DeclPathCtxt(..)
   , topLevel
+  , declPathName
   ) where
 
 import Clang.HighLevel.Types (SingleLoc)
@@ -315,3 +316,8 @@ data DeclPathCtxt =
 
 topLevel :: CName -> DeclPath
 topLevel cname = DeclPathName cname DeclPathCtxtTop
+
+-- | Name of the declared type, or 'Nothing' if anonymous
+declPathName :: DeclPath -> Maybe CName
+declPathName (DeclPathName name _ctxt) = Just name
+declPathName (DeclPathAnon _ctxt) = Nothing
