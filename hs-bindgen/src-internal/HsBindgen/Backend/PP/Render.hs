@@ -200,7 +200,7 @@ instance Pretty PatExpr where
 
 prettyPatExpr :: Int -> PatExpr -> CtxDoc
 prettyPatExpr prec = \case
-    PELit i -> showToCtxDoc i
+    PELit i -> parensWhen (i < 0) $ showToCtxDoc i
     PEApps n ps -> parensWhen (prec > 3) $ pretty n <+> hsep (map (prettyPatExpr 4) ps)
 
 {-------------------------------------------------------------------------------
