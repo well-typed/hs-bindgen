@@ -1,16 +1,17 @@
 {-# LANGUAGE CPP #-}
-
 module Main (main) where
 
 import Control.DeepSeq (force)
 import Control.Exception (try, displayException, evaluate)
 import Data.ByteString.UTF8 qualified as UTF8
-import Data.Foldable qualified as Foldable
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
 import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
+import Text.Regex.Applicative qualified as R
+import Text.Regex.Applicative.Common qualified as R
 
 import Clang.Paths
+import HsBindgen.Imports
 import HsBindgen.Errors
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as ExtBindings
@@ -122,7 +123,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "exts" target $ \report -> do
         decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
-        return $ unlines $ map show $ List.sort $ Foldable.toList $
+        return $ unlines $ map show $ List.sort $ toList $
               Pipeline.genExtensions
             $ Pipeline.genSHsDecls decls
 
@@ -186,9 +187,24 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         case result of
           Right result' -> fail $
             "Expected failure; unexpected success\n" ++ result'
-          Left exc -> return $ map windows $
+          Left exc -> return $ normalise $
             displayException (exc :: HsBindgenException)
 
+-- | Normalise the test fixture output so it doesn't change that often, nor across various systems.
+normalise :: String -> String
+normalise s =
+    R.replace pkgname $
+    R.replace rowcol $
+    map windows s
+  where
     windows :: Char -> Char
     windows '\\' = '/'
     windows c    = c
+
+    rowcol :: R.RE Char String
+    rowcol = sequenceA [ R.sym ':', digits, R.sym ':', digits ]
+      where
+        digits = '0' <$ R.few (R.digit @Int)
+
+    pkgname :: R.RE Char String
+    pkgname = concat <$> sequenceA [ "hs-bindgen-", "0" <$ R.few R.anySym, "-inplace" ]
