@@ -1,21 +1,26 @@
 {-# LANGUAGE ViewPatterns #-}
-module Main (main) where
 
-import Test.Tasty (defaultMain, testGroup)
-import Test.Tasty.QuickCheck (testProperty)
-import Test.QuickCheck (Property, Positive (..), NonNegative (..), Small (..), (===), (==>), label, counterexample, ioProperty)
+module Test.HsBindgen.Runtime.Bitfield (tests) where
 
+import Data.Bits (Bits (..))
+import Data.Word (Word64)
 import Foreign (Ptr)
 import Foreign.C.Types (CInt)
 import Foreign.Marshal.Alloc (allocaBytes)
 import Foreign.Marshal.Utils (fillBytes)
-import Data.Bits (Bits (..))
-import Data.Word (Word64)
+import Test.QuickCheck (Property, Positive (..), NonNegative (..), Small (..), (===), (==>), label, counterexample, ioProperty)
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.QuickCheck (testProperty)
+
 import HsBindgen.Runtime.Bitfield (Bitfield (..), hiMask, loMask, peekBitOffWidth, pokeBitOffWidth)
 
-main :: IO ()
-main = defaultMain $ testGroup "runtime"
-    [ testProperty "extend . narrow" extend_narrow_prop
+{-------------------------------------------------------------------------------
+  Tests
+-------------------------------------------------------------------------------}
+
+tests :: TestTree
+tests = testGroup "HsBindgen.Runtime.Bitfield" [
+      testProperty "extend . narrow" extend_narrow_prop
     , testProperty "bit peek . poke" bit_peek_poke_prop
     ]
 
