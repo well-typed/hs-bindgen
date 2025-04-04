@@ -1,0 +1,14 @@
+newtype Adio'0301s = Adio'0301s {un_Adio'0301s :: CInt}
+deriving newtype instance Storable Adio'0301s
+deriving stock instance Eq Adio'0301s
+deriving stock instance Ord Adio'0301s
+deriving stock instance Read Adio'0301s
+deriving stock instance Show Adio'0301s
+deriving newtype instance Enum Adio'0301s
+deriving newtype instance Ix Adio'0301s
+deriving newtype instance Bounded Adio'0301s
+deriving newtype instance Bits Adio'0301s
+deriving newtype instance FiniteBits Adio'0301s
+deriving newtype instance Integral Adio'0301s
+deriving newtype instance Num Adio'0301s
+deriving newtype instance Real Adio'0301s

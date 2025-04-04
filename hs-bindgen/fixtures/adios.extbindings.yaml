@@ -1,0 +1,7 @@
+types:
+- cname: adiós
+  headers:
+  - adios.h
+  identifier: Adio'0301s
+  module: Example
+  package: example
