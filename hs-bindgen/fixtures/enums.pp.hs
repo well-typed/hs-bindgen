@@ -79,7 +79,7 @@ deriving stock instance Ord Second
 deriving newtype instance Enum Second
 
 pattern SECOND_A :: Second
-pattern SECOND_A = Second -1
+pattern SECOND_A = Second (-1)
 
 pattern SECOND_B :: Second
 pattern SECOND_B = Second 0
