@@ -62,11 +62,13 @@ test-suite test-runtime
   hs-source-dirs: test
   type:           exitcode-stdio-1.0
   main-is:        test-runtime.hs
+  other-modules:
+      Test.HsBindgen.Runtime.Bitfield
   build-depends:
-    , base
+      -- Internal dependencies
     , hs-bindgen-runtime
-
   build-depends:
+      -- External dependencies
     , QuickCheck        ^>=2.15.0.1
     , tasty             ^>=1.5
     , tasty-quickcheck  ^>=0.11.1
