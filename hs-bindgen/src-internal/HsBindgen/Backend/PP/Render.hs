@@ -220,7 +220,7 @@ prettyExpr env prec = \case
 
     EIntegral i Nothing  -> showToCtxDoc i
     EIntegral i (Just t) -> parens $ hcat [
-          showToCtxDoc i
+          parensWhen (i < 0) (showToCtxDoc i)
         , " :: "
         , prettyPrimType t
         ]
