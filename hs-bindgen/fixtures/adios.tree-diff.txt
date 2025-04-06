@@ -1,0 +1,9 @@
+Header
+  [
+    DeclTypedef
+      Typedef {
+        typedefName = CName "adio\769s",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "adios.h:3:13"}]

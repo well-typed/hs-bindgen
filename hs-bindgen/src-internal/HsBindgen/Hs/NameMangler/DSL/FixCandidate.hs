@@ -110,8 +110,11 @@ fixCandidate FixCandidate{
         go acc []         = return $ concat (reverse acc)
 
         -- NOTE: @isAlphaNum@ is @True@ for non-ASCII characters too (e.g. '你')
+        -- NOTE: C names cannot include single quotes, but they can arise when
+        -- we define one class of name (say, a data constructor) from the name
+        -- that we generate for another (say, the data type).
         isValidChar :: Char -> Bool
-        isValidChar c = Char.isAlphaNum c || c == '_'
+        isValidChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
     handleReservedNames :: HsName ns -> m (HsName ns)
     handleReservedNames name@(HsName t) = return $
