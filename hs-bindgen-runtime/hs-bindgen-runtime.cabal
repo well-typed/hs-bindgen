@@ -67,7 +67,10 @@ test-suite test-runtime
   type:           exitcode-stdio-1.0
   main-is:        test-runtime.hs
   other-modules:
+      Test.HsBindgen.Runtime.CEnum.General
+      Test.HsBindgen.Runtime.CEnum.Sequential
       Test.HsBindgen.Runtime.Bitfield
+      Test.Internal.Tasty
   build-depends:
       -- Internal dependencies
     , hs-bindgen-runtime
@@ -75,4 +78,5 @@ test-suite test-runtime
       -- External dependencies
     , QuickCheck        ^>=2.15.0.1
     , tasty             ^>=1.5
+    , tasty-hunit       ^>=0.10.2
     , tasty-quickcheck  ^>=0.11.1
