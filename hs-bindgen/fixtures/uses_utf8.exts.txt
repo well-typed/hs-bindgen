@@ -1,4 +1,5 @@
+TypeFamilies
 StandaloneDeriving
 DerivingStrategies
-GeneralizedNewtypeDeriving
+DerivingVia
 PatternSynonyms

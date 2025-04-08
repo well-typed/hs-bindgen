@@ -113,19 +113,21 @@ instance Pretty SDecl where
         , nest 2 $ pretty expr
         ]
 
-    DInst Instance{..} -> vsep $
-        hsep
-          ([ "instance"
-          , pretty (resolve instanceClass)
-          ] ++
-          map pretty instanceArgs ++
-          [ "where"
-          ])
-      : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ ppUnqualBackendName (resolve name) <+> char '='
-            , nest 2 $ pretty expr
+    DInst Instance{..} ->
+      let inst = hsep $
+            ["instance", pretty (resolve instanceClass)]
+              ++ map pretty instanceArgs
+              ++ ["where"]
+          typs = flip map instanceTypes $ \(g, typArg, typSyn) -> nest 2 $ fsep
+            [ "type" <+> ppUnqualBackendName (resolve g) <+> prettyPrec 1 typArg
+                <+> char '='
+            , pretty typSyn
             ]
-        )
+          decs = flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
+            [ ppUnqualBackendName (resolve name) <+> char '='
+            , nest 2 (pretty expr)
+            ]
+      in  vsep $ inst : typs ++ decs
 
     DRecord Record{..} ->
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
@@ -313,6 +315,8 @@ prettyExpr env prec = \case
 
             | SAlt cnst add hints body <- alts
             ]
+
+    EListIntegral ns -> vlist '[' ']' (map showToCtxDoc ns)
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.

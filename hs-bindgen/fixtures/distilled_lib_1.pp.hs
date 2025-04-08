@@ -1,11 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
@@ -15,6 +17,7 @@ import qualified Data.Ix as Ix
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CEnum.Sequential
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -100,7 +103,21 @@ deriving stock instance Eq Another_typedef_enum_e
 
 deriving stock instance Ord Another_typedef_enum_e
 
-deriving newtype instance Enum Another_typedef_enum_e
+instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum Another_typedef_enum_e where
+
+  type SequentialCEnumZ Another_typedef_enum_e = FC.CUInt
+
+  toSequentialCEnum = Another_typedef_enum_e
+
+  fromSequentialCEnum = un_Another_typedef_enum_e
+
+  sequentialCEnumMin = \_ -> 0
+
+  sequentialCEnumMax = \_ -> 1
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Another_typedef_enum_e instance Bounded Another_typedef_enum_e
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Another_typedef_enum_e instance Enum Another_typedef_enum_e
 
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
@@ -361,7 +378,21 @@ deriving stock instance Eq A_typedef_enum_e
 
 deriving stock instance Ord A_typedef_enum_e
 
-deriving newtype instance Enum A_typedef_enum_e
+instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum A_typedef_enum_e where
+
+  type SequentialCEnumZ A_typedef_enum_e = FC.CSChar
+
+  toSequentialCEnum = A_typedef_enum_e
+
+  fromSequentialCEnum = un_A_typedef_enum_e
+
+  sequentialCEnumMin = \_ -> 0
+
+  sequentialCEnumMax = \_ -> 3
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum A_typedef_enum_e instance Bounded A_typedef_enum_e
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum A_typedef_enum_e instance Enum A_typedef_enum_e
 
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0

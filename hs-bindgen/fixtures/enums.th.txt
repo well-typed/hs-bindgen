@@ -9,7 +9,14 @@ deriving stock instance Show First
 deriving stock instance Read First
 deriving stock instance Eq First
 deriving stock instance Ord First
-deriving newtype instance Enum First
+instance SequentialCEnum First
+    where {type SequentialCEnumZ First = CUInt;
+           toSequentialCEnum = First;
+           fromSequentialCEnum = un_First;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum First) instance Bounded First
+deriving via (SeqCEnum First) instance Enum First
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
 pattern FIRST2 :: First
@@ -25,7 +32,14 @@ deriving stock instance Show Second
 deriving stock instance Read Second
 deriving stock instance Eq Second
 deriving stock instance Ord Second
-deriving newtype instance Enum Second
+instance SequentialCEnum Second
+    where {type SequentialCEnumZ Second = CInt;
+           toSequentialCEnum = Second;
+           fromSequentialCEnum = un_Second;
+           sequentialCEnumMin = \_ -> -1;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum Second) instance Bounded Second
+deriving via (SeqCEnum Second) instance Enum Second
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
 pattern SECOND_B :: Second
@@ -43,7 +57,14 @@ deriving stock instance Show Same
 deriving stock instance Read Same
 deriving stock instance Eq Same
 deriving stock instance Ord Same
-deriving newtype instance Enum Same
+instance SequentialCEnum Same
+    where {type SequentialCEnumZ Same = CUInt;
+           toSequentialCEnum = Same;
+           fromSequentialCEnum = un_Same;
+           sequentialCEnumMin = \_ -> 1;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum Same) instance Bounded Same
+deriving via (SeqCEnum Same) instance Enum Same
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
 pattern SAME_B :: Same
@@ -59,7 +80,14 @@ deriving stock instance Show Packad
 deriving stock instance Read Packad
 deriving stock instance Eq Packad
 deriving stock instance Ord Packad
-deriving newtype instance Enum Packad
+instance SequentialCEnum Packad
+    where {type SequentialCEnumZ Packad = CSChar;
+           toSequentialCEnum = Packad;
+           fromSequentialCEnum = un_Packad;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 2}
+deriving via (SeqCEnum Packad) instance Bounded Packad
+deriving via (SeqCEnum Packad) instance Enum Packad
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
 pattern PACKED_B :: Packad
@@ -77,7 +105,14 @@ deriving stock instance Show EnumA
 deriving stock instance Read EnumA
 deriving stock instance Eq EnumA
 deriving stock instance Ord EnumA
-deriving newtype instance Enum EnumA
+instance SequentialCEnum EnumA
+    where {type SequentialCEnumZ EnumA = CUInt;
+           toSequentialCEnum = EnumA;
+           fromSequentialCEnum = un_EnumA;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum EnumA) instance Bounded EnumA
+deriving via (SeqCEnum EnumA) instance Enum EnumA
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
@@ -93,7 +128,14 @@ deriving stock instance Show EnumB
 deriving stock instance Read EnumB
 deriving stock instance Eq EnumB
 deriving stock instance Ord EnumB
-deriving newtype instance Enum EnumB
+instance SequentialCEnum EnumB
+    where {type SequentialCEnumZ EnumB = CUInt;
+           toSequentialCEnum = EnumB;
+           fromSequentialCEnum = un_EnumB;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum EnumB) instance Bounded EnumB
+deriving via (SeqCEnum EnumB) instance Enum EnumB
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
@@ -109,7 +151,14 @@ deriving stock instance Show EnumC
 deriving stock instance Read EnumC
 deriving stock instance Eq EnumC
 deriving stock instance Ord EnumC
-deriving newtype instance Enum EnumC
+instance SequentialCEnum EnumC
+    where {type SequentialCEnumZ EnumC = CUInt;
+           toSequentialCEnum = EnumC;
+           fromSequentialCEnum = un_EnumC;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum EnumC) instance Bounded EnumC
+deriving via (SeqCEnum EnumC) instance Enum EnumC
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
@@ -125,7 +174,14 @@ deriving stock instance Show EnumD
 deriving stock instance Read EnumD
 deriving stock instance Eq EnumD
 deriving stock instance Ord EnumD
-deriving newtype instance Enum EnumD
+instance SequentialCEnum EnumD
+    where {type SequentialCEnumZ EnumD = CUInt;
+           toSequentialCEnum = EnumD;
+           fromSequentialCEnum = un_EnumD;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum EnumD) instance Bounded EnumD
+deriving via (SeqCEnum EnumD) instance Enum EnumD
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0
 pattern D_BAR :: EnumD

@@ -189,6 +189,7 @@ resolveExprImports = \case
       : [ resolveExprImports body
         | SAlt _con _add _hints body <- alts
         ]
+    EListIntegral {} -> mempty
 
 -- | Resolve imports in a pattern|expression
 resolvePatExprImports :: PatExpr -> ImportAcc

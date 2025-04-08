@@ -14,9 +14,14 @@ requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
     DVar _name ty _expr ->
         foldMap typeExtensions ty
-    DInst x
-        | length (instanceArgs x) >= 2 -> Set.singleton TH.MultiParamTypeClasses
-        | otherwise -> Set.empty
+    DInst x -> Set.fromList $ catMaybes [
+          if length (instanceArgs x) >= 2
+            then Just TH.MultiParamTypeClasses
+            else Nothing
+        , if null (instanceTypes x)
+            then Nothing
+            else Just TH.TypeFamilies
+        ]
     DRecord r ->
         recordExtensions r
     DNewtype{} ->

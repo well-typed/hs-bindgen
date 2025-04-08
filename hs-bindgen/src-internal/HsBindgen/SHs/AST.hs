@@ -138,6 +138,21 @@ data Global =
   | GHC_Float_castWord32ToFloat
   | GHC_Float_castWord64ToDouble
 
+  | GeneralCEnum_class
+  | GeneralCEnumZ_tycon
+  | GeneralCEnum_toGeneralCEnum
+  | GeneralCEnum_fromGeneralCEnum
+  | GeneralCEnum_generalCEnumValues
+  | GenCEnum_type
+
+  | SequentialCEnum_class
+  | SequentialCEnumZ_tycon
+  | SequentialCEnum_toSequentialCEnum
+  | SequentialCEnum_fromSequentialCEnum
+  | SequentialCEnum_sequentialCEnumMin
+  | SequentialCEnum_sequentialCEnumMax
+  | SeqCEnum_type
+
   | ByteArray_type
   | SizedByteArray_type
   | PrimType HsPrimType
@@ -162,6 +177,7 @@ data SExpr ctx =
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
+  | EListIntegral [Integer]
   deriving stock (Show)
 
 -- | Pattern&Expressions
@@ -223,6 +239,7 @@ deriving stock instance Show (SType ctx)
 data Instance  = Instance {
       instanceClass :: Global
     , instanceArgs  :: [ClosedType]
+    , instanceTypes :: [(Global, ClosedType, ClosedType)]
     , instanceDecs  :: [(Global, ClosedExpr)]
     }
   deriving stock (Show)

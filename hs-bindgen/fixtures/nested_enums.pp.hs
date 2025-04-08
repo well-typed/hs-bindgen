@@ -1,14 +1,16 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
+import qualified HsBindgen.Runtime.CEnum.Sequential
+import Prelude ((<*>), Bounded, Enum, Eq, Int, Ord, Read, Show, pure)
 
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
@@ -39,7 +41,21 @@ deriving stock instance Eq EnumA
 
 deriving stock instance Ord EnumA
 
-deriving newtype instance Enum EnumA
+instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum EnumA where
+
+  type SequentialCEnumZ EnumA = FC.CUInt
+
+  toSequentialCEnum = EnumA
+
+  fromSequentialCEnum = un_EnumA
+
+  sequentialCEnumMin = \_ -> 0
+
+  sequentialCEnumMax = \_ -> 1
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum EnumA instance Bounded EnumA
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum EnumA instance Enum EnumA
 
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
@@ -101,7 +117,21 @@ deriving stock instance Eq ExB_fieldB1
 
 deriving stock instance Ord ExB_fieldB1
 
-deriving newtype instance Enum ExB_fieldB1
+instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum ExB_fieldB1 where
+
+  type SequentialCEnumZ ExB_fieldB1 = FC.CUInt
+
+  toSequentialCEnum = ExB_fieldB1
+
+  fromSequentialCEnum = un_ExB_fieldB1
+
+  sequentialCEnumMin = \_ -> 0
+
+  sequentialCEnumMax = \_ -> 1
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum ExB_fieldB1 instance Bounded ExB_fieldB1
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum ExB_fieldB1 instance Enum ExB_fieldB1
 
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0

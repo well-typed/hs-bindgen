@@ -5,6 +5,7 @@ module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
 
+import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Ix qualified
 import Data.Text qualified as Text
@@ -34,6 +35,8 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
+import HsBindgen.Runtime.CEnum.General qualified
+import HsBindgen.Runtime.CEnum.Sequential qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
@@ -148,6 +151,30 @@ mkGlobal = \case
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
+      GeneralCEnum_class -> ''HsBindgen.Runtime.CEnum.General.GeneralCEnum
+      GeneralCEnumZ_tycon -> ''HsBindgen.Runtime.CEnum.General.GeneralCEnumZ
+      GeneralCEnum_toGeneralCEnum ->
+        'HsBindgen.Runtime.CEnum.General.toGeneralCEnum
+      GeneralCEnum_fromGeneralCEnum ->
+        'HsBindgen.Runtime.CEnum.General.fromGeneralCEnum
+      GeneralCEnum_generalCEnumValues ->
+        'HsBindgen.Runtime.CEnum.General.generalCEnumValues
+      GenCEnum_type -> ''HsBindgen.Runtime.CEnum.General.GenCEnum
+
+      SequentialCEnum_class ->
+        ''HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum
+      SequentialCEnumZ_tycon ->
+        ''HsBindgen.Runtime.CEnum.Sequential.SequentialCEnumZ
+      SequentialCEnum_toSequentialCEnum ->
+        'HsBindgen.Runtime.CEnum.Sequential.toSequentialCEnum
+      SequentialCEnum_fromSequentialCEnum ->
+        'HsBindgen.Runtime.CEnum.Sequential.fromSequentialCEnum
+      SequentialCEnum_sequentialCEnumMin ->
+        'HsBindgen.Runtime.CEnum.Sequential.sequentialCEnumMin
+      SequentialCEnum_sequentialCEnumMax ->
+        'HsBindgen.Runtime.CEnum.Sequential.sequentialCEnumMax
+      SeqCEnum_type -> ''HsBindgen.Runtime.CEnum.Sequential.SeqCEnum
+
       ByteArray_type       -> ''ByteArray
       SizedByteArray_type  -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
 
@@ -250,6 +277,7 @@ mkExpr env = \case
                                  []
                          | SAlt c add hints b <- alts
                          ]
+      EListIntegral ns -> TH.listE (TH.litE . TH.IntegerL <$> ns)
 
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
@@ -293,8 +321,8 @@ mkDecl = \case
                     (return [])
                     (appsT (TH.conT $ mkGlobal $ instanceClass i)
                         (map (mkType EmptyEnv) $ instanceArgs i))
-                    ( map (\(x, f) -> simpleDecl (mkGlobal x) f) $
-                        instanceDecs i
+                    ( map instTySyn (instanceTypes i)
+                        ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
                     )
       DRecord d ->
         let fields :: [q TH.VarBangType]
@@ -343,6 +371,14 @@ mkDecl = \case
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
+
+      instTySyn :: (Global, ClosedType, ClosedType) -> q TH.Dec
+      instTySyn (g, typArg, typSyn) =
+        TH.TySynInstD
+          <$> liftM2
+                (TH.TySynEqn Nothing)
+                (mkType EmptyEnv (TApp (TGlobal g) typArg))
+                (mkType EmptyEnv typSyn)
 
 strategy :: Quote q => Hs.Strategy ClosedType -> q TH.DerivStrategy
 strategy Hs.DeriveNewtype  = return TH.NewtypeStrategy

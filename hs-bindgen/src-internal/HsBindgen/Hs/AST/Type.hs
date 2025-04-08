@@ -60,5 +60,7 @@ data HsType =
   | HsExtBinding ExtIdentifier
   | HsByteArray
   | HsSizedByteArray Natural Natural
+  | HsGenCEnum (HsName NsTypeConstr)
+  | HsSeqCEnum (HsName NsTypeConstr)
   deriving stock (Generic, Show)
 

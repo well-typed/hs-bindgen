@@ -39,7 +39,14 @@ deriving stock instance Show Another_typedef_enum_e
 deriving stock instance Read Another_typedef_enum_e
 deriving stock instance Eq Another_typedef_enum_e
 deriving stock instance Ord Another_typedef_enum_e
-deriving newtype instance Enum Another_typedef_enum_e
+instance SequentialCEnum Another_typedef_enum_e
+    where {type SequentialCEnumZ Another_typedef_enum_e = CUInt;
+           toSequentialCEnum = Another_typedef_enum_e;
+           fromSequentialCEnum = un_Another_typedef_enum_e;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum Another_typedef_enum_e) instance Bounded Another_typedef_enum_e
+deriving via (SeqCEnum Another_typedef_enum_e) instance Enum Another_typedef_enum_e
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
@@ -162,7 +169,14 @@ deriving stock instance Show A_typedef_enum_e
 deriving stock instance Read A_typedef_enum_e
 deriving stock instance Eq A_typedef_enum_e
 deriving stock instance Ord A_typedef_enum_e
-deriving newtype instance Enum A_typedef_enum_e
+instance SequentialCEnum A_typedef_enum_e
+    where {type SequentialCEnumZ A_typedef_enum_e = CSChar;
+           toSequentialCEnum = A_typedef_enum_e;
+           fromSequentialCEnum = un_A_typedef_enum_e;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 3}
+deriving via (SeqCEnum A_typedef_enum_e) instance Bounded A_typedef_enum_e
+deriving via (SeqCEnum A_typedef_enum_e) instance Enum A_typedef_enum_e
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0
 pattern ENUM_CASE_1 :: A_typedef_enum_e
