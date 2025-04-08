@@ -9,7 +9,14 @@ deriving stock instance Show Foo
 deriving stock instance Read Foo
 deriving stock instance Eq Foo
 deriving stock instance Ord Foo
-deriving newtype instance Enum Foo
+instance SequentialCEnum Foo
+    where {type SequentialCEnumZ Foo = CUInt;
+           toSequentialCEnum = Foo;
+           fromSequentialCEnum = un_Foo;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum Foo) instance Bounded Foo
+deriving via (SeqCEnum Foo) instance Enum Foo
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo

@@ -191,8 +191,59 @@
     DeriveStock
     Ord
     (HsName "@NsTypeConstr" "Foo"),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Foo",
+        structConstr = HsName
+          "@NsConstr"
+          "Foo",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Foo",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "foo")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "FOO1",
+                valueValue = 0,
+                valueSourceLoc =
+                "typenames.h:15:2"},
+              EnumValue {
+                valueName = CName "FOO2",
+                valueValue = 1,
+                valueSourceLoc =
+                "typenames.h:16:2"}],
+            enumSourceLoc =
+            "typenames.h:14:6"}}
+      (HsPrimType HsPrimCUInt)
+      0
+      1),
   DeclNewtypeInstance
-    DeriveNewtype
+    (DeriveVia
+      (HsSeqCEnum
+        (HsName "@NsTypeConstr" "Foo")))
+    Bounded
+    (HsName "@NsTypeConstr" "Foo"),
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsSeqCEnum
+        (HsName "@NsTypeConstr" "Foo")))
     Enum
     (HsName "@NsTypeConstr" "Foo"),
   DeclPatSyn

@@ -34,6 +34,8 @@ import GHC.Ptr qualified
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.ConstantArray qualified
+import HsBindgen.Runtime.CEnum.General qualified
+import HsBindgen.Runtime.CEnum.Sequential qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -283,6 +285,31 @@ resolveGlobal = \case
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble
     CFloat_constructor -> importQ ''Foreign.C.CFloat
     CDouble_constructor -> importQ ''Foreign.C.CDouble
+
+    GeneralCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.General.GeneralCEnum
+    GeneralCEnumZ_tycon ->
+      importQ ''HsBindgen.Runtime.CEnum.General.GeneralCEnumZ
+    GeneralCEnum_toGeneralCEnum ->
+      importQ 'HsBindgen.Runtime.CEnum.General.toGeneralCEnum
+    GeneralCEnum_fromGeneralCEnum ->
+      importQ 'HsBindgen.Runtime.CEnum.General.fromGeneralCEnum
+    GeneralCEnum_generalCEnumValues ->
+      importQ 'HsBindgen.Runtime.CEnum.General.generalCEnumValues
+    GenCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.General.GenCEnum
+
+    SequentialCEnum_class ->
+      importQ ''HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum
+    SequentialCEnumZ_tycon ->
+      importQ ''HsBindgen.Runtime.CEnum.Sequential.SequentialCEnumZ
+    SequentialCEnum_toSequentialCEnum ->
+      importQ 'HsBindgen.Runtime.CEnum.Sequential.toSequentialCEnum
+    SequentialCEnum_fromSequentialCEnum ->
+      importQ 'HsBindgen.Runtime.CEnum.Sequential.fromSequentialCEnum
+    SequentialCEnum_sequentialCEnumMin ->
+      importQ 'HsBindgen.Runtime.CEnum.Sequential.sequentialCEnumMin
+    SequentialCEnum_sequentialCEnumMax ->
+      importQ 'HsBindgen.Runtime.CEnum.Sequential.sequentialCEnumMax
+    SeqCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.Sequential.SeqCEnum
 
     ByteArray_type -> importQ ''ByteArray
     SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray

@@ -1,14 +1,17 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
+import qualified HsBindgen.Runtime.CEnum.Sequential
+import Prelude ((<*>), Bounded, Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
 
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
@@ -39,7 +42,21 @@ deriving stock instance Eq Foo
 
 deriving stock instance Ord Foo
 
-deriving newtype instance Enum Foo
+instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum Foo where
+
+  type SequentialCEnumZ Foo = FC.CUInt
+
+  toSequentialCEnum = Foo
+
+  fromSequentialCEnum = un_Foo
+
+  sequentialCEnumMin = \_ -> 0
+
+  sequentialCEnumMax = \_ -> 1
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Foo instance Bounded Foo
+
+deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Foo instance Enum Foo
 
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0

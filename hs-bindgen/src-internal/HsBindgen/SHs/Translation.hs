@@ -5,7 +5,9 @@ module HsBindgen.SHs.Translation (
 
 -- previously Backend.Common.Translation
 
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as T
+import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as C hiding ( IntegralType )
@@ -47,8 +49,13 @@ translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
     DInst Instance
       { instanceClass = HasFlexibleArrayMember_class
       , instanceArgs  = [ translateType fty, TCon $ Hs.structName struct ]
+      , instanceTypes = []
       , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
       }
+translateDefineInstanceDecl (Hs.InstanceGeneralCEnum struct fTyp ns) =
+    DInst $ translateGeneralCEnumInstance struct fTyp ns
+translateDefineInstanceDecl (Hs.InstanceSequentialCEnum struct fTyp nMin nMax) =
+    DInst $ translateSequentialCEnumInstance struct fTyp nMin nMax
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord $ Record
@@ -144,6 +151,8 @@ translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
 translateType (Hs.HsExtBinding i)   = TExt i
 translateType Hs.HsByteArray        = TGlobal ByteArray_type
 translateType (Hs.HsSizedByteArray n m) = TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+translateType (Hs.HsGenCEnum t)     = TApp (TGlobal GenCEnum_type) (TCon t)
+translateType (Hs.HsSeqCEnum t)     = TApp (TGlobal SeqCEnum_type) (TCon t)
 
 {-------------------------------------------------------------------------------
   Sigma/Phi/Tau types
@@ -335,6 +344,7 @@ translateStorableInstance struct Hs.StorableInstance{..} = do
     Instance
       { instanceClass = Storable_class
       , instanceArgs  = [TCon $ Hs.structName struct]
+      , instanceTypes = []
       , instanceDecs  = [
             (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
           , (Storable_alignment , EUnusedLam $ EInt storableAlignment)
@@ -378,6 +388,58 @@ translateUnionSetter :: HsName NsTypeConstr -> HsType -> HsName NsVar -> SDecl
 translateUnionSetter u f n = DVar n
     (Just $ TFun (translateType f) (TCon u))
     (EGlobal ByteArray_setUnionPayload)
+
+{-------------------------------------------------------------------------------
+  Enums
+-------------------------------------------------------------------------------}
+
+translateGeneralCEnumInstance ::
+     Hs.Struct (S Z)
+  -> HsType
+  -> [Integer]
+  -> Instance
+translateGeneralCEnumInstance struct fTyp ns = Instance {
+      instanceClass = GeneralCEnum_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = [(GeneralCEnumZ_tycon, tcon, translateType fTyp)]
+    , instanceDecs  = [
+          (GeneralCEnum_toGeneralCEnum, ECon (Hs.structConstr struct))
+        , (GeneralCEnum_fromGeneralCEnum, EFree fname)
+        , (GeneralCEnum_generalCEnumValues, EUnusedLam (EListIntegral ns))
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+    fname :: HsName NsVar
+    fname = Hs.fieldName $
+      NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
+
+translateSequentialCEnumInstance ::
+     Hs.Struct (S Z)
+  -> HsType
+  -> Integer
+  -> Integer
+  -> Instance
+translateSequentialCEnumInstance struct fTyp nMin nMax = Instance {
+      instanceClass = SequentialCEnum_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = [(SequentialCEnumZ_tycon, tcon, translateType fTyp)]
+    , instanceDecs  = [
+          (SequentialCEnum_toSequentialCEnum, ECon (Hs.structConstr struct))
+        , (SequentialCEnum_fromSequentialCEnum, EFree fname)
+        , (SequentialCEnum_sequentialCEnumMin, EUnusedLam (EIntegral nMin Nothing))
+        , (SequentialCEnum_sequentialCEnumMax, EUnusedLam (EIntegral nMax Nothing))
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+    fname :: HsName NsVar
+    fname = Hs.fieldName $
+      NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality
