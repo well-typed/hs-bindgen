@@ -66,4 +66,33 @@ union longDouble {
     double d;
 };
 
+/* Basic enumeration. */
+enum EnumBasic {
+    ENUM_BASIC_A,
+    ENUM_BASIC_B,
+    ENUM_BASIC_C
+};
+
+/* Enumeration starting with negative value. */
+enum EnumNeg {
+    ENUM_NEG_A = -1,
+    ENUM_NEG_B,
+    ENUM_NEG_C
+};
+
+/* Enumeration with non-sequential values. */
+enum EnumNonSeq {
+    ENUM_NON_SEQ_A = 200,
+    ENUM_NON_SEQ_B = 301,
+    ENUM_NON_SEQ_C = 404
+};
+
+/* Enumeration with multiple constants with the same value. */
+enum EnumSame {
+    ENUM_SAME_A = 0,
+    ENUM_SAME_B = 100,
+    ENUM_SAME_C = 100,
+    ENUM_SAME_D = 200
+};
+
 #endif
