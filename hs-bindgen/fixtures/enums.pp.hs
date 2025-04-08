@@ -10,6 +10,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CEnum.General
 import qualified HsBindgen.Runtime.CEnum.Sequential
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Ord, Read, Show, pure)
 
@@ -168,6 +169,63 @@ pattern SAME_A = Same 1
 
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
+
+newtype Nonseq = Nonseq
+  { un_Nonseq :: FC.CUInt
+  }
+
+instance F.Storable Nonseq where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Nonseq
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Nonseq un_Nonseq2 -> F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
+
+deriving stock instance Show Nonseq
+
+deriving stock instance Read Nonseq
+
+deriving stock instance Eq Nonseq
+
+deriving stock instance Ord Nonseq
+
+instance HsBindgen.Runtime.CEnum.General.GeneralCEnum Nonseq where
+
+  type GeneralCEnumZ Nonseq = FC.CUInt
+
+  toGeneralCEnum = Nonseq
+
+  fromGeneralCEnum = un_Nonseq
+
+  generalCEnumValues =
+    \_ ->
+      [ 200
+      , 301
+      , 404
+      ]
+
+deriving via HsBindgen.Runtime.CEnum.General.GenCEnum Nonseq instance Bounded Nonseq
+
+deriving via HsBindgen.Runtime.CEnum.General.GenCEnum Nonseq instance Enum Nonseq
+
+pattern NONSEQ_A :: Nonseq
+pattern NONSEQ_A = Nonseq 200
+
+pattern NONSEQ_B :: Nonseq
+pattern NONSEQ_B = Nonseq 301
+
+pattern NONSEQ_C :: Nonseq
+pattern NONSEQ_C = Nonseq 404
 
 newtype Packad = Packad
   { un_Packad :: FC.CSChar

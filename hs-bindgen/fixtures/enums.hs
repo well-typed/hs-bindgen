@@ -920,6 +920,347 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Nonseq",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Nonseq",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Nonseq",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "nonseq")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "NONSEQ_A",
+              valueValue = 200,
+              valueSourceLoc =
+              "enums.h:21:5"},
+            EnumValue {
+              valueName = CName "NONSEQ_B",
+              valueValue = 301,
+              valueSourceLoc =
+              "enums.h:22:5"},
+            EnumValue {
+              valueName = CName "NONSEQ_C",
+              valueValue = 404,
+              valueSourceLoc =
+              "enums.h:23:5"}],
+          enumSourceLoc =
+          "enums.h:20:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Nonseq",
+        structConstr = HsName
+          "@NsConstr"
+          "Nonseq",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Nonseq",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "nonseq")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "NONSEQ_A",
+                valueValue = 200,
+                valueSourceLoc =
+                "enums.h:21:5"},
+              EnumValue {
+                valueName = CName "NONSEQ_B",
+                valueValue = 301,
+                valueSourceLoc =
+                "enums.h:22:5"},
+              EnumValue {
+                valueName = CName "NONSEQ_C",
+                valueValue = 404,
+                valueSourceLoc =
+                "enums.h:23:5"}],
+            enumSourceLoc = "enums.h:20:6"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Nonseq",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Nonseq",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Nonseq",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "nonseq")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "NONSEQ_A",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "enums.h:21:5"},
+                      EnumValue {
+                        valueName = CName "NONSEQ_B",
+                        valueValue = 301,
+                        valueSourceLoc =
+                        "enums.h:22:5"},
+                      EnumValue {
+                        valueName = CName "NONSEQ_C",
+                        valueValue = 404,
+                        valueSourceLoc =
+                        "enums.h:23:5"}],
+                    enumSourceLoc =
+                    "enums.h:20:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Nonseq",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Nonseq",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Nonseq",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "nonseq")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "NONSEQ_A",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "enums.h:21:5"},
+                      EnumValue {
+                        valueName = CName "NONSEQ_B",
+                        valueValue = 301,
+                        valueSourceLoc =
+                        "enums.h:22:5"},
+                      EnumValue {
+                        valueName = CName "NONSEQ_C",
+                        valueValue = 404,
+                        valueSourceLoc =
+                        "enums.h:23:5"}],
+                    enumSourceLoc = "enums.h:20:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Nonseq"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Nonseq"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Nonseq"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Nonseq"),
+  DeclInstance
+    (InstanceGeneralCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Nonseq",
+        structConstr = HsName
+          "@NsConstr"
+          "Nonseq",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Nonseq",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "nonseq")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "NONSEQ_A",
+                valueValue = 200,
+                valueSourceLoc =
+                "enums.h:21:5"},
+              EnumValue {
+                valueName = CName "NONSEQ_B",
+                valueValue = 301,
+                valueSourceLoc =
+                "enums.h:22:5"},
+              EnumValue {
+                valueName = CName "NONSEQ_C",
+                valueValue = 404,
+                valueSourceLoc =
+                "enums.h:23:5"}],
+            enumSourceLoc = "enums.h:20:6"}}
+      (HsPrimType HsPrimCUInt)
+      [200, 301, 404]),
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsGenCEnum
+        (HsName
+          "@NsTypeConstr"
+          "Nonseq")))
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Nonseq"),
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsGenCEnum
+        (HsName
+          "@NsTypeConstr"
+          "Nonseq")))
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Nonseq"),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "NONSEQ_A",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Nonseq",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Nonseq",
+      patSynValue = 200,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "NONSEQ_A",
+          valueValue = 200,
+          valueSourceLoc =
+          "enums.h:21:5"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "NONSEQ_B",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Nonseq",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Nonseq",
+      patSynValue = 301,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "NONSEQ_B",
+          valueValue = 301,
+          valueSourceLoc =
+          "enums.h:22:5"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "NONSEQ_C",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Nonseq",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Nonseq",
+      patSynValue = 404,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "NONSEQ_C",
+          valueValue = 404,
+          valueSourceLoc =
+          "enums.h:23:5"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Packad",
       newtypeConstr = HsName
         "@NsConstr"
@@ -947,19 +1288,19 @@
               valueName = CName "PACKED_A",
               valueValue = 0,
               valueSourceLoc =
-              "enums.h:21:5"},
+              "enums.h:27:5"},
             EnumValue {
               valueName = CName "PACKED_B",
               valueValue = 1,
               valueSourceLoc =
-              "enums.h:21:15"},
+              "enums.h:27:15"},
             EnumValue {
               valueName = CName "PACKED_C",
               valueValue = 2,
               valueSourceLoc =
-              "enums.h:21:25"}],
+              "enums.h:27:25"}],
           enumSourceLoc =
-          "enums.h:20:6"}},
+          "enums.h:26:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -992,18 +1333,18 @@
                 valueName = CName "PACKED_A",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:21:5"},
+                "enums.h:27:5"},
               EnumValue {
                 valueName = CName "PACKED_B",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:21:15"},
+                "enums.h:27:15"},
               EnumValue {
                 valueName = CName "PACKED_C",
                 valueValue = 2,
                 valueSourceLoc =
-                "enums.h:21:25"}],
-            enumSourceLoc = "enums.h:20:6"}}
+                "enums.h:27:25"}],
+            enumSourceLoc = "enums.h:26:6"}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -1041,19 +1382,19 @@
                         valueName = CName "PACKED_A",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:21:5"},
+                        "enums.h:27:5"},
                       EnumValue {
                         valueName = CName "PACKED_B",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:21:15"},
+                        "enums.h:27:15"},
                       EnumValue {
                         valueName = CName "PACKED_C",
                         valueValue = 2,
                         valueSourceLoc =
-                        "enums.h:21:25"}],
+                        "enums.h:27:25"}],
                     enumSourceLoc =
-                    "enums.h:20:6"}})
+                    "enums.h:26:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1091,18 +1432,18 @@
                         valueName = CName "PACKED_A",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:21:5"},
+                        "enums.h:27:5"},
                       EnumValue {
                         valueName = CName "PACKED_B",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:21:15"},
+                        "enums.h:27:15"},
                       EnumValue {
                         valueName = CName "PACKED_C",
                         valueValue = 2,
                         valueSourceLoc =
-                        "enums.h:21:25"}],
-                    enumSourceLoc = "enums.h:20:6"}}
+                        "enums.h:27:25"}],
+                    enumSourceLoc = "enums.h:26:6"}}
               (Add 1)
               (Seq
                 [
@@ -1166,18 +1507,18 @@
                 valueName = CName "PACKED_A",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:21:5"},
+                "enums.h:27:5"},
               EnumValue {
                 valueName = CName "PACKED_B",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:21:15"},
+                "enums.h:27:15"},
               EnumValue {
                 valueName = CName "PACKED_C",
                 valueValue = 2,
                 valueSourceLoc =
-                "enums.h:21:25"}],
-            enumSourceLoc = "enums.h:20:6"}}
+                "enums.h:27:25"}],
+            enumSourceLoc = "enums.h:26:6"}}
       (HsPrimType HsPrimCSChar)
       0
       2),
@@ -1219,7 +1560,7 @@
           valueName = CName "PACKED_A",
           valueValue = 0,
           valueSourceLoc =
-          "enums.h:21:5"}},
+          "enums.h:27:5"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1238,7 +1579,7 @@
           valueName = CName "PACKED_B",
           valueValue = 1,
           valueSourceLoc =
-          "enums.h:21:15"}},
+          "enums.h:27:15"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1257,7 +1598,7 @@
           valueName = CName "PACKED_C",
           valueValue = 2,
           valueSourceLoc =
-          "enums.h:21:25"}},
+          "enums.h:27:25"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1289,14 +1630,14 @@
               valueName = CName "A_FOO",
               valueValue = 0,
               valueSourceLoc =
-              "enums.h:24:16"},
+              "enums.h:30:16"},
             EnumValue {
               valueName = CName "A_BAR",
               valueValue = 1,
               valueSourceLoc =
-              "enums.h:24:23"}],
+              "enums.h:30:23"}],
           enumSourceLoc =
-          "enums.h:24:9"}},
+          "enums.h:30:9"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1329,13 +1670,13 @@
                 valueName = CName "A_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:24:16"},
+                "enums.h:30:16"},
               EnumValue {
                 valueName = CName "A_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:24:23"}],
-            enumSourceLoc = "enums.h:24:9"}}
+                "enums.h:30:23"}],
+            enumSourceLoc = "enums.h:30:9"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1373,14 +1714,14 @@
                         valueName = CName "A_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:24:16"},
+                        "enums.h:30:16"},
                       EnumValue {
                         valueName = CName "A_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:24:23"}],
+                        "enums.h:30:23"}],
                     enumSourceLoc =
-                    "enums.h:24:9"}})
+                    "enums.h:30:9"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1418,13 +1759,13 @@
                         valueName = CName "A_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:24:16"},
+                        "enums.h:30:16"},
                       EnumValue {
                         valueName = CName "A_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:24:23"}],
-                    enumSourceLoc = "enums.h:24:9"}}
+                        "enums.h:30:23"}],
+                    enumSourceLoc = "enums.h:30:9"}}
               (Add 1)
               (Seq
                 [
@@ -1488,13 +1829,13 @@
                 valueName = CName "A_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:24:16"},
+                "enums.h:30:16"},
               EnumValue {
                 valueName = CName "A_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:24:23"}],
-            enumSourceLoc = "enums.h:24:9"}}
+                "enums.h:30:23"}],
+            enumSourceLoc = "enums.h:30:9"}}
       (HsPrimType HsPrimCUInt)
       0
       1),
@@ -1536,7 +1877,7 @@
           valueName = CName "A_FOO",
           valueValue = 0,
           valueSourceLoc =
-          "enums.h:24:16"}},
+          "enums.h:30:16"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1555,7 +1896,7 @@
           valueName = CName "A_BAR",
           valueValue = 1,
           valueSourceLoc =
-          "enums.h:24:23"}},
+          "enums.h:30:23"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1587,14 +1928,14 @@
               valueName = CName "B_FOO",
               valueValue = 0,
               valueSourceLoc =
-              "enums.h:26:22"},
+              "enums.h:32:22"},
             EnumValue {
               valueName = CName "B_BAR",
               valueValue = 1,
               valueSourceLoc =
-              "enums.h:26:29"}],
+              "enums.h:32:29"}],
           enumSourceLoc =
-          "enums.h:26:14"}},
+          "enums.h:32:14"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1627,14 +1968,14 @@
                 valueName = CName "B_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:26:22"},
+                "enums.h:32:22"},
               EnumValue {
                 valueName = CName "B_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:26:29"}],
+                "enums.h:32:29"}],
             enumSourceLoc =
-            "enums.h:26:14"}}
+            "enums.h:32:14"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1672,14 +2013,14 @@
                         valueName = CName "B_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:26:22"},
+                        "enums.h:32:22"},
                       EnumValue {
                         valueName = CName "B_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:26:29"}],
+                        "enums.h:32:29"}],
                     enumSourceLoc =
-                    "enums.h:26:14"}})
+                    "enums.h:32:14"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1717,14 +2058,14 @@
                         valueName = CName "B_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:26:22"},
+                        "enums.h:32:22"},
                       EnumValue {
                         valueName = CName "B_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:26:29"}],
+                        "enums.h:32:29"}],
                     enumSourceLoc =
-                    "enums.h:26:14"}}
+                    "enums.h:32:14"}}
               (Add 1)
               (Seq
                 [
@@ -1778,7 +2119,7 @@
             enumDeclPath = DeclPathName
               (CName "enumB")
               DeclPathCtxtTop,
-            enumAliases = [],
+            enumAliases = [CName "enumB"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -1788,14 +2129,14 @@
                 valueName = CName "B_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:26:22"},
+                "enums.h:32:22"},
               EnumValue {
                 valueName = CName "B_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:26:29"}],
+                "enums.h:32:29"}],
             enumSourceLoc =
-            "enums.h:26:14"}}
+            "enums.h:32:14"}}
       (HsPrimType HsPrimCUInt)
       0
       1),
@@ -1837,7 +2178,7 @@
           valueName = CName "B_FOO",
           valueValue = 0,
           valueSourceLoc =
-          "enums.h:26:22"}},
+          "enums.h:32:22"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1856,7 +2197,7 @@
           valueName = CName "B_BAR",
           valueValue = 1,
           valueSourceLoc =
-          "enums.h:26:29"}},
+          "enums.h:32:29"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1888,14 +2229,14 @@
               valueName = CName "C_FOO",
               valueValue = 0,
               valueSourceLoc =
-              "enums.h:28:14"},
+              "enums.h:34:14"},
             EnumValue {
               valueName = CName "C_BAR",
               valueValue = 1,
               valueSourceLoc =
-              "enums.h:28:21"}],
+              "enums.h:34:21"}],
           enumSourceLoc =
-          "enums.h:28:6"}},
+          "enums.h:34:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1928,13 +2269,13 @@
                 valueName = CName "C_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:28:14"},
+                "enums.h:34:14"},
               EnumValue {
                 valueName = CName "C_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:28:21"}],
-            enumSourceLoc = "enums.h:28:6"}}
+                "enums.h:34:21"}],
+            enumSourceLoc = "enums.h:34:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1972,14 +2313,14 @@
                         valueName = CName "C_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:28:14"},
+                        "enums.h:34:14"},
                       EnumValue {
                         valueName = CName "C_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:28:21"}],
+                        "enums.h:34:21"}],
                     enumSourceLoc =
-                    "enums.h:28:6"}})
+                    "enums.h:34:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2017,13 +2358,13 @@
                         valueName = CName "C_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:28:14"},
+                        "enums.h:34:14"},
                       EnumValue {
                         valueName = CName "C_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:28:21"}],
-                    enumSourceLoc = "enums.h:28:6"}}
+                        "enums.h:34:21"}],
+                    enumSourceLoc = "enums.h:34:6"}}
               (Add 1)
               (Seq
                 [
@@ -2077,7 +2418,7 @@
             enumDeclPath = DeclPathName
               (CName "enumC")
               DeclPathCtxtTop,
-            enumAliases = [],
+            enumAliases = [CName "enumC"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -2087,13 +2428,13 @@
                 valueName = CName "C_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:28:14"},
+                "enums.h:34:14"},
               EnumValue {
                 valueName = CName "C_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:28:21"}],
-            enumSourceLoc = "enums.h:28:6"}}
+                "enums.h:34:21"}],
+            enumSourceLoc = "enums.h:34:6"}}
       (HsPrimType HsPrimCUInt)
       0
       1),
@@ -2135,7 +2476,7 @@
           valueName = CName "C_FOO",
           valueValue = 0,
           valueSourceLoc =
-          "enums.h:28:14"}},
+          "enums.h:34:14"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2154,7 +2495,7 @@
           valueName = CName "C_BAR",
           valueValue = 1,
           valueSourceLoc =
-          "enums.h:28:21"}},
+          "enums.h:34:21"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2186,14 +2527,14 @@
               valueName = CName "D_FOO",
               valueValue = 0,
               valueSourceLoc =
-              "enums.h:31:14"},
+              "enums.h:37:14"},
             EnumValue {
               valueName = CName "D_BAR",
               valueValue = 1,
               valueSourceLoc =
-              "enums.h:31:21"}],
+              "enums.h:37:21"}],
           enumSourceLoc =
-          "enums.h:31:6"}},
+          "enums.h:37:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2226,13 +2567,13 @@
                 valueName = CName "D_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:31:14"},
+                "enums.h:37:14"},
               EnumValue {
                 valueName = CName "D_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:31:21"}],
-            enumSourceLoc = "enums.h:31:6"}}
+                "enums.h:37:21"}],
+            enumSourceLoc = "enums.h:37:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -2270,14 +2611,14 @@
                         valueName = CName "D_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:31:14"},
+                        "enums.h:37:14"},
                       EnumValue {
                         valueName = CName "D_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:31:21"}],
+                        "enums.h:37:21"}],
                     enumSourceLoc =
-                    "enums.h:31:6"}})
+                    "enums.h:37:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2315,13 +2656,13 @@
                         valueName = CName "D_FOO",
                         valueValue = 0,
                         valueSourceLoc =
-                        "enums.h:31:14"},
+                        "enums.h:37:14"},
                       EnumValue {
                         valueName = CName "D_BAR",
                         valueValue = 1,
                         valueSourceLoc =
-                        "enums.h:31:21"}],
-                    enumSourceLoc = "enums.h:31:6"}}
+                        "enums.h:37:21"}],
+                    enumSourceLoc = "enums.h:37:6"}}
               (Add 1)
               (Seq
                 [
@@ -2385,13 +2726,13 @@
                 valueName = CName "D_FOO",
                 valueValue = 0,
                 valueSourceLoc =
-                "enums.h:31:14"},
+                "enums.h:37:14"},
               EnumValue {
                 valueName = CName "D_BAR",
                 valueValue = 1,
                 valueSourceLoc =
-                "enums.h:31:21"}],
-            enumSourceLoc = "enums.h:31:6"}}
+                "enums.h:37:21"}],
+            enumSourceLoc = "enums.h:37:6"}}
       (HsPrimType HsPrimCUInt)
       0
       1),
@@ -2433,7 +2774,7 @@
           valueName = CName "D_FOO",
           valueValue = 0,
           valueSourceLoc =
-          "enums.h:31:14"}},
+          "enums.h:37:14"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2452,7 +2793,7 @@
           valueName = CName "D_BAR",
           valueValue = 1,
           valueSourceLoc =
-          "enums.h:31:21"}},
+          "enums.h:37:21"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2479,7 +2820,7 @@
               (CName "enumD")
               DeclPathCtxtTop),
           typedefSourceLoc =
-          "enums.h:32:20"}},
+          "enums.h:38:20"}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
