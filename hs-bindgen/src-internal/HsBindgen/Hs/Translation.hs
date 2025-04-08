@@ -110,14 +110,34 @@ generateDeclarations ::
   -> NameMangler
   -> C.Header
   -> [Hs.Decl]
-generateDeclarations opts nm (C.Header decs) = concatMap (generateDecs opts nm) decs
+generateDeclarations opts nm (C.Header decs) =
+    concatMap (generateDecs opts (Map.union typedefs pseudoTypedefs) nm) decs
+  where
+    -- typedef lookup table
+    -- shallow: only one layer of typedefs is stripped.
+    typedefs :: Map C.CName C.Type
+    typedefs = Map.fromList
+        [ (n, t)
+        | C.DeclTypedef (C.Typedef { typedefName = n, typedefType = t }) <- decs
+        ]
+
+    -- macros also act as "typedef"s
+    pseudoTypedefs :: Map C.CName C.Type
+    pseudoTypedefs = Map.fromList
+        [ (n, ty)
+        | C.DeclMacro (C.MacroDecl
+          { macroDeclMacro = C.Macro { C.macroName = n, C.macroBody = C.MTerm (C.MType ty)}
+          , macroDeclMacroTy = Macro.Quant bf
+          }) <- decs
+        , Macro.isPrimTy bf
+        ]
 
 {-------------------------------------------------------------------------------
   Declarations
 ------------------------------------------------------------------------------}
 
-generateDecs :: TranslationOpts -> NameMangler -> C.Decl -> [Hs.Decl]
-generateDecs opts nm = \case
+generateDecs :: TranslationOpts -> Map C.CName C.Type -> NameMangler -> C.Decl -> [Hs.Decl]
+generateDecs opts typedefs nm = \case
   C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
   C.DeclUnion union    -> unionDecs opts nm union
   C.DeclOpaqueStruct o -> opaqueStructDecs opts nm o
@@ -125,7 +145,7 @@ generateDecs opts nm = \case
   C.DeclOpaqueEnum o   -> opaqueEnumDecs opts nm o -- TODO?
   C.DeclTypedef d      -> typedefDecs opts nm d
   C.DeclMacro m        -> macroDecs opts nm m
-  C.DeclFunction f     -> functionDecs opts nm f
+  C.DeclFunction f     -> functionDecs opts typedefs nm f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -496,10 +516,11 @@ floatingType = \case
 
 functionDecs ::
      TranslationOpts
+  -> Map C.CName C.Type -- ^ typedefs
   -> NameMangler
   -> C.Function
   -> [Hs.Decl]
-functionDecs _opts nm f
+functionDecs _opts typedefs nm f
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =
@@ -517,7 +538,9 @@ functionDecs _opts nm f
     isFancy C.TypeStruct {}     = True
     isFancy C.TypeUnion {}      = True
     isFancy C.TypeConstArray {} = True
-    isFancy C.TypeTypedef {}    = False -- TODO: we need to look through typedefs
+    isFancy (C.TypeTypedef n)   =
+        let t = Map.findWithDefault (panicPure $ "Unbound typedef " ++ show n) n typedefs
+        in isFancy t
     isFancy _ = False
 
     ty :: HsType
