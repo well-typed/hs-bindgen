@@ -1,0 +1,208 @@
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_in_fundecl_vs_typedef.h:4:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "MC",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim (PrimChar Nothing)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:4:9"},
+    DeclFunction
+      Function {
+        functionName = CName "quux1",
+        functionArgs = [
+          TypeTypedef (CName "MC"),
+          TypeTypedef (CName "TC")],
+        functionRes = TypePrim
+          (PrimChar Nothing),
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:8:6"},
+    DeclFunction
+      Function {
+        functionName = CName "quux2",
+        functionArgs = [
+          TypeTypedef (CName "MC"),
+          TypePrim (PrimChar Nothing)],
+        functionRes = TypeTypedef
+          (CName "TC"),
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:9:4"},
+    DeclFunction
+      Function {
+        functionName = CName "wam1",
+        functionArgs = [
+          TypePrim
+            (PrimFloating PrimFloat),
+          TypePointer
+            (TypeTypedef (CName "TC"))],
+        functionRes = TypePointer
+          (TypeTypedef (CName "MC")),
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:10:5"},
+    DeclFunction
+      Function {
+        functionName = CName "wam2",
+        functionArgs = [
+          TypePrim
+            (PrimFloating PrimFloat),
+          TypePointer
+            (TypeTypedef (CName "MC"))],
+        functionRes = TypePointer
+          (TypeTypedef (CName "TC")),
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:11:5"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_typedef1",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef (CName "struct2")),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:23:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_typedef2",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef
+              (CName "struct3_t")),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:24:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_typedef3",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef (CName "struct4")),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:25:6"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "TC",
+        typedefType = TypePrim
+          (PrimChar Nothing),
+        typedefSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:5:14"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "struct1")
+          DeclPathCtxtTop,
+        structAliases = [],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "macro_in_fundecl_vs_typedef.h:18:30"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:18:16"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathAnon
+          (DeclPathCtxtTypedef
+            (CName "struct2")),
+        structAliases = [],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "macro_in_fundecl_vs_typedef.h:19:30"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:19:9"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "struct3")
+          DeclPathCtxtTop,
+        structAliases = [],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "macro_in_fundecl_vs_typedef.h:20:30"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:20:16"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "struct3_t",
+        typedefType = TypeStruct
+          (DeclPathName
+            (CName "struct3")
+            DeclPathCtxtTop),
+        typedefSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:20:35"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "struct4")
+          DeclPathCtxtTop,
+        structAliases = [
+          CName "struct4"],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "macro_in_fundecl_vs_typedef.h:21:30"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:21:16"}]

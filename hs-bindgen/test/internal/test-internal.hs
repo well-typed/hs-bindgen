@@ -55,6 +55,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         , testGroup "macro_strings" $ goldenNoRust "macro_strings" -- rs-bindgen panics on this
         , golden "macro_functions"
         , golden "macro_in_fundecl"
+        , golden "macro_in_fundecl_vs_typedef"
         , golden "uses_utf8"
         , golden "typedef_vs_macro"
         , golden "headers"

@@ -11,7 +11,8 @@ module HsBindgen.C.Tc.Macro
   , TcMacroError(..)
   , pprTcMacroError
 
-  , TypeEnv
+  , TypeEnv(..)
+  , MacroTypes
 
     -- ** Macro type-system
   , Type(..), Kind(..)
@@ -711,8 +712,15 @@ data TcEnv s =
     , tcLclEnv :: !TcLclEnv
     }
 
-type TypeEnv = Map CName ( Quant ( Type Ty ) )
-type VarEnv  = Map CName ( Type Ty )
+data TypeEnv =
+   TypeEnv
+     { typeEnvMacros   :: MacroTypes
+     , typeEnvTypedefs :: Set CName
+     }
+  deriving stock Show
+
+type MacroTypes = Map CName ( Quant ( Type Ty ) )
+type VarEnv     = Map CName ( Type Ty )
 
 data TcGblEnv s
   = TcGblEnv
@@ -762,7 +770,7 @@ getPlatform =
 lookupTyEnv :: CName -> TcPureM ( Maybe ( Quant ( Type Ty ) ) )
 lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) -> do
   tyEnv <- readSTRef tcTypeEnv
-  return $ Map.lookup varNm tyEnv
+  return $ Map.lookup varNm (typeEnvMacros tyEnv)
 
 lookupVarType :: CName -> TcPureM ( Maybe ( Type Ty ) )
 lookupVarType varNm = TcPureM \ ( TcEnv _ lcl ) ->

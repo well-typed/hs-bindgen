@@ -31,6 +31,7 @@ import Numeric.Natural
 
 -- containers
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 -- parsec
 import Text.Parsec
@@ -670,19 +671,22 @@ reparseTypeQualifier = choice
   <?> "type qualifier"
 
 reparseTypeSpecifier :: TcMacro.TypeEnv -> Reparse TypeSpecifier
-reparseTypeSpecifier macroTys =
+reparseTypeSpecifier macroTypeEnv =
   choice
   [ TypeSpecifier <$> reparsePrimType
   , try $
     do { nm <- reparseName
-       ; case Map.lookup nm macroTys of
-           Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
-           Just ty
-              | TcMacro.Quant bf <- ty
-              , TcMacro.isPrimTy bf
-              -> return $ TypeDefTypeSpecifier nm
-              | otherwise
-              -> unexpected $ "macro name does not refer to a type: " ++ show nm
+       ; if Set.member nm (TcMacro.typeEnvTypedefs macroTypeEnv) then
+           return $ TypeDefTypeSpecifier nm
+         else
+           case Map.lookup nm (TcMacro.typeEnvMacros   macroTypeEnv) of
+             Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
+             Just ty
+                | TcMacro.Quant bf <- ty
+                , TcMacro.isPrimTy bf
+                -> return $ TypeDefTypeSpecifier nm
+                | otherwise
+                -> unexpected $ "macro name does not refer to a type: " ++ show nm
        }
   ] <?> "type"
 
