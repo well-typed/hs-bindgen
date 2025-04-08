@@ -69,6 +69,30 @@ pattern SAME_A :: Same
 pattern SAME_A = Same 1
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
+newtype Nonseq = Nonseq {un_Nonseq :: CUInt}
+instance Storable Nonseq
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3}}
+deriving stock instance Show Nonseq
+deriving stock instance Read Nonseq
+deriving stock instance Eq Nonseq
+deriving stock instance Ord Nonseq
+instance GeneralCEnum Nonseq
+    where {type GeneralCEnumZ Nonseq = CUInt;
+           toGeneralCEnum = Nonseq;
+           fromGeneralCEnum = un_Nonseq;
+           generalCEnumValues = \_ -> [200, 301, 404]}
+deriving via (GenCEnum Nonseq) instance Bounded Nonseq
+deriving via (GenCEnum Nonseq) instance Enum Nonseq
+pattern NONSEQ_A :: Nonseq
+pattern NONSEQ_A = Nonseq 200
+pattern NONSEQ_B :: Nonseq
+pattern NONSEQ_B = Nonseq 301
+pattern NONSEQ_C :: Nonseq
+pattern NONSEQ_C = Nonseq 404
 newtype Packad = Packad {un_Packad :: CSChar}
 instance Storable Packad
     where {sizeOf = \_ -> 1 :: Int;
