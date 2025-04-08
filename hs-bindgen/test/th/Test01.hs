@@ -6,12 +6,16 @@
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Test01 where
 
 import HsBindgen.TH
+import HsBindgen.Runtime.CEnum.General (GenCEnum (..))
+import HsBindgen.Runtime.CEnum.Sequential (SeqCEnum (..))
 import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..)) -- TODO: GHC issue, we need to import this
 
 -- Used by generated code

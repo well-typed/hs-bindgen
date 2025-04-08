@@ -81,6 +81,26 @@ test01 = testGroup "test_01"
 
             struct <- FLAM.peekWithFLAM ptr
             FLAM.flamExtra struct @?= VS.fromList [0..9]
+
+    , testCase "EnumBasic" $
+        [minBound..maxBound]
+          @?= [Test01.ENUM_BASIC_A, Test01.ENUM_BASIC_B, Test01.ENUM_BASIC_C]
+
+    , testCase "EnumNeg" $
+        [minBound..maxBound]
+          @?= [Test01.ENUM_NEG_A, Test01.ENUM_NEG_B, Test01.ENUM_NEG_C]
+
+    , testCase "EnumNonSeq" $
+        [minBound..maxBound]
+          @?= [ Test01.ENUM_NON_SEQ_A
+              , Test01.ENUM_NON_SEQ_B
+              , Test01.ENUM_NON_SEQ_C
+              ]
+
+    , testCase "EnumSame" $ do
+        Test01.ENUM_SAME_B @?= Test01.ENUM_SAME_C
+        [minBound..maxBound]
+          @?= [Test01.ENUM_SAME_A, Test01.ENUM_SAME_B, Test01.ENUM_SAME_D]
     ]
 
 {-------------------------------------------------------------------------------
