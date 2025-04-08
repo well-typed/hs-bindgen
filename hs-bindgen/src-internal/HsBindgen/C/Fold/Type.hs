@@ -20,13 +20,13 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Data.DynGraph qualified as DynGraph
-import HsBindgen.Imports
-import HsBindgen.Errors
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Reparse
 import HsBindgen.Eff
+import HsBindgen.Errors
 import HsBindgen.ExtBindings
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer (prettyLogMsg)
 
 {-------------------------------------------------------------------------------
@@ -338,7 +338,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
               -- TODO: if macro expansion is confined to the function parameters,
               -- we don't need to reparse the whole function as we do here.
               tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> protoExtent)
-              macroTyEnv <- macroTypes <$> get
+              macroTyEnv <- macroTypeEnv <$> get
               case reparseWith (reparseFunDecl macroTyEnv) tokens of
                   Left err -> do
                     -- TODO: improve mechanism for reporting warnings
@@ -602,7 +602,7 @@ mkStructField extBindings unit mkCtxt current = do
           if hasMacro
           then do
             tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
-            macroTyEnv <- macroTypes <$> get
+            macroTyEnv <- macroTypeEnv <$> get
             case reparseWith (reparseFieldDecl macroTyEnv) tokens of
               Left err -> do
                 -- TODO: improve mechanism for reporting warnings
@@ -693,7 +693,7 @@ mkUnionField extBindings unit mkCtxt current = do
           if hasMacro
           then do
             tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
-            macroTyEnv <- macroTypes <$> get
+            macroTyEnv <- macroTypeEnv <$> get
             case reparseWith (reparseFieldDecl macroTyEnv) tokens of
               Left err -> do
                 -- TODO: improve mechanism for reporting warnings

@@ -1,0 +1,49 @@
+types:
+- cname: MC
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: MC
+  module: Example
+  package: example
+- cname: TC
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: TC
+  module: Example
+  package: example
+- cname: struct struct1
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: Struct1
+  module: Example
+  package: example
+- cname: struct struct3
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: Struct3
+  module: Example
+  package: example
+- cname: struct struct4
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: Struct4
+  module: Example
+  package: example
+- cname: struct2
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: Struct2
+  module: Example
+  package: example
+- cname: struct3_t
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: Struct3_t
+  module: Example
+  package: example
+- cname: struct4
+  headers:
+  - macro_in_fundecl_vs_typedef.h
+  identifier: Struct4
+  module: Example
+  package: example
