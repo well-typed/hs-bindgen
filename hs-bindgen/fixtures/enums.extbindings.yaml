@@ -23,6 +23,12 @@ types:
   identifier: First
   module: Example
   package: example
+- cname: enum nonseq
+  headers:
+  - enums.h
+  identifier: Nonseq
+  module: Example
+  package: example
 - cname: enum packad
   headers:
   - enums.h

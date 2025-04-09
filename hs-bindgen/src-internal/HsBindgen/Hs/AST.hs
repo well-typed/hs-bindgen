@@ -217,7 +217,10 @@ data TypeClass =
 type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
-    InstanceHasFLAM  :: Struct n -> HsType -> Int -> InstanceDecl
+    InstanceHasFLAM :: Struct n -> HsType -> Int -> InstanceDecl
+    InstanceGeneralCEnum :: Struct (S Z) -> HsType -> [Integer] -> InstanceDecl
+    InstanceSequentialCEnum ::
+      Struct (S Z) -> HsType -> Integer -> Integer -> InstanceDecl
 
 deriving instance Show InstanceDecl
 

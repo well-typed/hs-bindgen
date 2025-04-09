@@ -9,7 +9,14 @@ deriving stock instance Show MyEnum
 deriving stock instance Read MyEnum
 deriving stock instance Eq MyEnum
 deriving stock instance Ord MyEnum
-deriving newtype instance Enum MyEnum
+instance SequentialCEnum MyEnum
+    where {type SequentialCEnumZ MyEnum = CUInt;
+           toSequentialCEnum = MyEnum;
+           fromSequentialCEnum = un_MyEnum;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum MyEnum) instance Bounded MyEnum
+deriving via (SeqCEnum MyEnum) instance Enum MyEnum
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0
 pattern Say拜拜 :: MyEnum

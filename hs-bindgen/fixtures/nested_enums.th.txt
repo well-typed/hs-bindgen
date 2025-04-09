@@ -9,7 +9,14 @@ deriving stock instance Show EnumA
 deriving stock instance Read EnumA
 deriving stock instance Eq EnumA
 deriving stock instance Ord EnumA
-deriving newtype instance Enum EnumA
+instance SequentialCEnum EnumA
+    where {type SequentialCEnumZ EnumA = CUInt;
+           toSequentialCEnum = EnumA;
+           fromSequentialCEnum = un_EnumA;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum EnumA) instance Bounded EnumA
+deriving via (SeqCEnum EnumA) instance Enum EnumA
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
 pattern VALA_2 :: EnumA
@@ -34,7 +41,14 @@ deriving stock instance Show ExB_fieldB1
 deriving stock instance Read ExB_fieldB1
 deriving stock instance Eq ExB_fieldB1
 deriving stock instance Ord ExB_fieldB1
-deriving newtype instance Enum ExB_fieldB1
+instance SequentialCEnum ExB_fieldB1
+    where {type SequentialCEnumZ ExB_fieldB1 = CUInt;
+           toSequentialCEnum = ExB_fieldB1;
+           fromSequentialCEnum = un_ExB_fieldB1;
+           sequentialCEnumMin = \_ -> 0;
+           sequentialCEnumMax = \_ -> 1}
+deriving via (SeqCEnum ExB_fieldB1) instance Bounded ExB_fieldB1
+deriving via (SeqCEnum ExB_fieldB1) instance Enum ExB_fieldB1
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0
 pattern VALB_2 :: ExB_fieldB1
