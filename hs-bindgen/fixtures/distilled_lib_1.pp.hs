@@ -108,12 +108,6 @@ pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
 pattern BAR = Another_typedef_enum_e 1
 
-newtype Another_typedef_enum_e = Another_typedef_enum_e
-  { un_Another_typedef_enum_e :: Another_typedef_enum_e
-  }
-
-deriving newtype instance F.Storable Another_typedef_enum_e
-
 newtype A_type_t = A_type_t
   { un_A_type_t :: FC.CInt
   }
@@ -380,12 +374,6 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
-
-newtype A_typedef_enum_e = A_typedef_enum_e
-  { un_A_typedef_enum_e :: A_typedef_enum_e
-  }
-
-deriving newtype instance F.Storable A_typedef_enum_e
 
 newtype Int32_t = Int32_t
   { un_Int32_t :: FC.CInt
