@@ -1,3 +1,6 @@
+foreign import capi safe "adios.h \978" cϒ :: IO Unit
+foreign import capi safe "adios.h \25308\25308" 拜拜 :: IO Unit
+foreign import capi safe "adios.h Say\25308\25308" say拜拜 :: IO Unit
 newtype Adio'0301s = Adio'0301s {un_Adio'0301s :: CInt}
 deriving newtype instance Storable Adio'0301s
 deriving stock instance Eq Adio'0301s
@@ -12,3 +15,17 @@ deriving newtype instance FiniteBits Adio'0301s
 deriving newtype instance Integral Adio'0301s
 deriving newtype instance Num Adio'0301s
 deriving newtype instance Real Adio'0301s
+newtype C数字 = C数字 {un_C数字 :: CInt}
+deriving newtype instance Storable C数字
+deriving stock instance Eq C数字
+deriving stock instance Ord C数字
+deriving stock instance Read C数字
+deriving stock instance Show C数字
+deriving newtype instance Enum C数字
+deriving newtype instance Ix C数字
+deriving newtype instance Bounded C数字
+deriving newtype instance Bits C数字
+deriving newtype instance FiniteBits C数字
+deriving newtype instance Integral C数字
+deriving newtype instance Num C数字
+deriving newtype instance Real C数字
