@@ -1273,39 +1273,6 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
-        "EnumA",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "EnumA",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_EnumA",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "EnumA"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "enumA",
-          typedefType = TypeEnum
-            (DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "enumA"))),
-          typedefSourceLoc =
-          "enums.h:24:31"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "EnumA"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
         "EnumB",
       newtypeConstr = HsName
         "@NsConstr"
@@ -1323,7 +1290,7 @@
           enumDeclPath = DeclPathName
             (CName "enumB")
             DeclPathCtxtTop,
-          enumAliases = [],
+          enumAliases = [CName "enumB"],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
@@ -1363,7 +1330,7 @@
             enumDeclPath = DeclPathName
               (CName "enumB")
               DeclPathCtxtTop,
-            enumAliases = [],
+            enumAliases = [CName "enumB"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -1408,7 +1375,7 @@
                     enumDeclPath = DeclPathName
                       (CName "enumB")
                       DeclPathCtxtTop,
-                    enumAliases = [],
+                    enumAliases = [CName "enumB"],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -1453,7 +1420,7 @@
                     enumDeclPath = DeclPathName
                       (CName "enumB")
                       DeclPathCtxtTop,
-                    enumAliases = [],
+                    enumAliases = [CName "enumB"],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -1550,39 +1517,6 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
-        "EnumB",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "EnumB",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_EnumB",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "EnumB"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "enumB",
-          typedefType = TypeEnum
-            (DeclPathName
-              (CName "enumB")
-              DeclPathCtxtTop),
-          typedefSourceLoc =
-          "enums.h:26:37"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "EnumB"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
         "EnumC",
       newtypeConstr = HsName
         "@NsConstr"
@@ -1600,7 +1534,7 @@
           enumDeclPath = DeclPathName
             (CName "enumC")
             DeclPathCtxtTop,
-          enumAliases = [],
+          enumAliases = [CName "enumC"],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           enumSizeof = 4,
@@ -1640,7 +1574,7 @@
             enumDeclPath = DeclPathName
               (CName "enumC")
               DeclPathCtxtTop,
-            enumAliases = [],
+            enumAliases = [CName "enumC"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
             enumSizeof = 4,
@@ -1684,7 +1618,7 @@
                     enumDeclPath = DeclPathName
                       (CName "enumC")
                       DeclPathCtxtTop,
-                    enumAliases = [],
+                    enumAliases = [CName "enumC"],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -1729,7 +1663,7 @@
                     enumDeclPath = DeclPathName
                       (CName "enumC")
                       DeclPathCtxtTop,
-                    enumAliases = [],
+                    enumAliases = [CName "enumC"],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
                     enumSizeof = 4,
@@ -1821,39 +1755,6 @@
           valueValue = 1,
           valueSourceLoc =
           "enums.h:28:21"}},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "EnumC",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "EnumC",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_EnumC",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "EnumC"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "enumC",
-          typedefType = TypeEnum
-            (DeclPathName
-              (CName "enumC")
-              DeclPathCtxtTop),
-          typedefSourceLoc =
-          "enums.h:29:20"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "EnumC"),
   DeclNewtype
     Newtype {
       newtypeName = HsName

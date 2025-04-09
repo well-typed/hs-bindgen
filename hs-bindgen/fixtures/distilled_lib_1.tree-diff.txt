@@ -379,17 +379,6 @@ Header
         "distilled_lib_1.h:9:9"},
     DeclTypedef
       Typedef {
-        typedefName = CName
-          "another_typedef_enum_e",
-        typedefType = TypeEnum
-          (DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName
-                "another_typedef_enum_e"))),
-        typedefSourceLoc =
-        "distilled_lib_1.h:9:27"},
-    DeclTypedef
-      Typedef {
         typedefName = CName "a_type_t",
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
@@ -510,9 +499,11 @@ Header
             fieldName = CName "field_8",
             fieldOffset = 480,
             fieldWidth = Nothing,
-            fieldType = TypeTypedef
-              (CName
-                "another_typedef_enum_e"),
+            fieldType = TypeEnum
+              (DeclPathAnon
+                (DeclPathCtxtTypedef
+                  (CName
+                    "another_typedef_enum_e"))),
             fieldSourceLoc =
             "distilled_lib_1.h:44:31"},
           StructField {
@@ -521,9 +512,11 @@ Header
             fieldWidth = Nothing,
             fieldType = TypeConstArray
               4
-              (TypeTypedef
-                (CName
-                  "another_typedef_enum_e")),
+              (TypeEnum
+                (DeclPathAnon
+                  (DeclPathCtxtTypedef
+                    (CName
+                      "another_typedef_enum_e")))),
             fieldSourceLoc =
             "distilled_lib_1.h:45:31"},
           StructField {
@@ -534,9 +527,11 @@ Header
               5
               (TypeConstArray
                 3
-                (TypeTypedef
-                  (CName
-                    "another_typedef_enum_e"))),
+                (TypeEnum
+                  (DeclPathAnon
+                    (DeclPathCtxtTypedef
+                      (CName
+                        "another_typedef_enum_e"))))),
             fieldSourceLoc =
             "distilled_lib_1.h:46:31"}],
         structFlam = Nothing,
@@ -585,16 +580,6 @@ Header
             "distilled_lib_1.h:65:3"}],
         enumSourceLoc =
         "distilled_lib_1.h:60:9"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName
-          "a_typedef_enum_e",
-        typedefType = TypeEnum
-          (DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName "a_typedef_enum_e"))),
-        typedefSourceLoc =
-        "distilled_lib_1.h:66:13"},
     DeclTypedef
       Typedef {
         typedefName = CName "int32_t",

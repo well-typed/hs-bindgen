@@ -134,21 +134,12 @@ Header
             valueSourceLoc =
             "enums.h:24:23"}],
         enumSourceLoc = "enums.h:24:9"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "enumA",
-        typedefType = TypeEnum
-          (DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName "enumA"))),
-        typedefSourceLoc =
-        "enums.h:24:31"},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
           (CName "enumB")
           DeclPathCtxtTop,
-        enumAliases = [],
+        enumAliases = [CName "enumB"],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -166,21 +157,12 @@ Header
             "enums.h:26:29"}],
         enumSourceLoc =
         "enums.h:26:14"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "enumB",
-        typedefType = TypeEnum
-          (DeclPathName
-            (CName "enumB")
-            DeclPathCtxtTop),
-        typedefSourceLoc =
-        "enums.h:26:37"},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
           (CName "enumC")
           DeclPathCtxtTop,
-        enumAliases = [],
+        enumAliases = [CName "enumC"],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         enumSizeof = 4,
@@ -197,15 +179,6 @@ Header
             valueSourceLoc =
             "enums.h:28:21"}],
         enumSourceLoc = "enums.h:28:6"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "enumC",
-        typedefType = TypeEnum
-          (DeclPathName
-            (CName "enumC")
-            DeclPathCtxtTop),
-        typedefSourceLoc =
-        "enums.h:29:20"},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
