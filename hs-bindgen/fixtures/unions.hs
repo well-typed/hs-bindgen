@@ -1159,7 +1159,8 @@
           unionDeclPath = DeclPathName
             (CName "DimPayloadB")
             DeclPathCtxtTop,
-          unionAliases = [],
+          unionAliases = [
+            CName "DimPayloadB"],
           unionSizeof = 8,
           unionAlignment = 4,
           unionFields = [
@@ -1224,40 +1225,6 @@
     (HsName
       "@NsVar"
       "set_dimPayloadB_dim3"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "DimPayloadB",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "DimPayloadB",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_DimPayloadB",
-        fieldType = HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "DimPayloadB"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName
-            "DimPayloadB",
-          typedefType = TypeUnion
-            (DeclPathName
-              (CName "DimPayloadB")
-              DeclPathCtxtTop),
-          typedefSourceLoc =
-          "unions.h:26:3"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "DimPayloadB"),
   DeclData
     Struct {
       structName = HsName
@@ -1297,8 +1264,10 @@
               fieldName = CName "payload",
               fieldOffset = 32,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "DimPayloadB"),
+              fieldType = TypeUnion
+                (DeclPathName
+                  (CName "DimPayloadB")
+                  DeclPathCtxtTop),
               fieldSourceLoc =
               "unions.h:30:17"}}],
       structOrigin =
@@ -1323,8 +1292,10 @@
               fieldName = CName "payload",
               fieldOffset = 32,
               fieldWidth = Nothing,
-              fieldType = TypeTypedef
-                (CName "DimPayloadB"),
+              fieldType = TypeUnion
+                (DeclPathName
+                  (CName "DimPayloadB")
+                  DeclPathCtxtTop),
               fieldSourceLoc =
               "unions.h:30:17"}],
           structFlam = Nothing,
@@ -1370,8 +1341,10 @@
                 fieldName = CName "payload",
                 fieldOffset = 32,
                 fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "DimPayloadB"),
+                fieldType = TypeUnion
+                  (DeclPathName
+                    (CName "DimPayloadB")
+                    DeclPathCtxtTop),
                 fieldSourceLoc =
                 "unions.h:30:17"}}],
         structOrigin =
@@ -1396,8 +1369,10 @@
                 fieldName = CName "payload",
                 fieldOffset = 32,
                 fieldWidth = Nothing,
-                fieldType = TypeTypedef
-                  (CName "DimPayloadB"),
+                fieldType = TypeUnion
+                  (DeclPathName
+                    (CName "DimPayloadB")
+                    DeclPathCtxtTop),
                 fieldSourceLoc =
                 "unions.h:30:17"}],
             structFlam = Nothing,
@@ -1448,8 +1423,10 @@
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DimPayloadB"),
+                        fieldType = TypeUnion
+                          (DeclPathName
+                            (CName "DimPayloadB")
+                            DeclPathCtxtTop),
                         fieldSourceLoc =
                         "unions.h:30:17"}}],
                 structOrigin =
@@ -1474,8 +1451,10 @@
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DimPayloadB"),
+                        fieldType = TypeUnion
+                          (DeclPathName
+                            (CName "DimPayloadB")
+                            DeclPathCtxtTop),
                         fieldSourceLoc =
                         "unions.h:30:17"}],
                     structFlam = Nothing,
@@ -1528,8 +1507,10 @@
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DimPayloadB"),
+                        fieldType = TypeUnion
+                          (DeclPathName
+                            (CName "DimPayloadB")
+                            DeclPathCtxtTop),
                         fieldSourceLoc =
                         "unions.h:30:17"}}],
                 structOrigin =
@@ -1554,8 +1535,10 @@
                         fieldName = CName "payload",
                         fieldOffset = 32,
                         fieldWidth = Nothing,
-                        fieldType = TypeTypedef
-                          (CName "DimPayloadB"),
+                        fieldType = TypeUnion
+                          (DeclPathName
+                            (CName "DimPayloadB")
+                            DeclPathCtxtTop),
                         fieldSourceLoc =
                         "unions.h:30:17"}],
                     structFlam = Nothing,

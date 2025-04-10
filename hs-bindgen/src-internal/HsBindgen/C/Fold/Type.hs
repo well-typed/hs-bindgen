@@ -161,6 +161,12 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     TypeEnum (DeclPathAnon (DeclPathCtxtTypedef typedefName)) | typedefName == tag ->
                             addAlias ty use
 
+                    TypeUnion (DeclPathName declName _ctxt) | declName == tag -> do
+                            updateDeclAddAlias ty' tag
+                            addAlias ty use
+                    TypeUnion (DeclPathAnon (DeclPathCtxtTypedef typedefName)) | typedefName == tag ->
+                            addAlias ty use
+
                     _ -> do
                         --
                         -- record name-path properly in underlying struct. (something like Path)

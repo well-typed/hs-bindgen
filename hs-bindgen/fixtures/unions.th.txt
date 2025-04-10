@@ -49,8 +49,6 @@ get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
 get_dimPayloadB_dim3 = getUnionPayload
 set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 set_dimPayloadB_dim3 = setUnionPayload
-newtype DimPayloadB = DimPayloadB {un_DimPayloadB :: DimPayloadB}
-deriving newtype instance Storable DimPayloadB
 data DimB = DimB {dimB_tag :: CInt, dimB_payload :: DimPayloadB}
 instance Storable DimB
     where {sizeOf = \_ -> 12 :: Int;

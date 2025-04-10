@@ -126,7 +126,8 @@ Header
         unionDeclPath = DeclPathName
           (CName "DimPayloadB")
           DeclPathCtxtTop,
-        unionAliases = [],
+        unionAliases = [
+          CName "DimPayloadB"],
         unionSizeof = 8,
         unionAlignment = 4,
         unionFields = [
@@ -148,16 +149,6 @@ Header
             "unions.h:25:17"}],
         unionSourceLoc =
         "unions.h:23:15"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName
-          "DimPayloadB",
-        typedefType = TypeUnion
-          (DeclPathName
-            (CName "DimPayloadB")
-            DeclPathCtxtTop),
-        typedefSourceLoc =
-        "unions.h:26:3"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -179,8 +170,10 @@ Header
             fieldName = CName "payload",
             fieldOffset = 32,
             fieldWidth = Nothing,
-            fieldType = TypeTypedef
-              (CName "DimPayloadB"),
+            fieldType = TypeUnion
+              (DeclPathName
+                (CName "DimPayloadB")
+                DeclPathCtxtTop),
             fieldSourceLoc =
             "unions.h:30:17"}],
         structFlam = Nothing,
