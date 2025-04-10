@@ -1,0 +1,34 @@
+cabal-version: 3.0
+name:          union-experiment2
+version:       0.1.0
+license:       BSD-3-Clause
+author:        Edsko de Vries
+maintainer:    edsko@well-typed.com
+build-type:    Simple
+
+common lang
+  ghc-options:      -Wall
+  build-depends:    base >= 4.16
+  default-language: GHC2021
+
+  default-extensions:
+      CApiFFI
+      DataKinds
+      DerivingVia
+      LambdaCase
+      PatternSynonyms
+
+executable union-experiment2
+  import:         lang
+  hs-source-dirs: app
+  main-is:        Main.hs
+
+  other-modules:
+      Shape
+      UnionInfrastructure
+
+  -- C options
+  c-sources:    cbits/shape.c
+  include-dirs: cbits
+  cc-options:   -Wall
+

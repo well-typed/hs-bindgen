@@ -5,6 +5,7 @@ packages: hs-bindgen
 packages: hs-bindgen-runtime
 packages: hs-bindgen-test-runtime
 packages: userland-capi
+packages: union-experiment-2
 
 tests: True
 benchmarks: True
