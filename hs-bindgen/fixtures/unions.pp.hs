@@ -1,7 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
@@ -139,12 +138,6 @@ get_dimPayloadB_dim3 = HsBindgen.Runtime.ByteArray.getUnionPayload
 
 set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 set_dimPayloadB_dim3 = HsBindgen.Runtime.ByteArray.setUnionPayload
-
-newtype DimPayloadB = DimPayloadB
-  { un_DimPayloadB :: DimPayloadB
-  }
-
-deriving newtype instance F.Storable DimPayloadB
 
 data DimB = DimB
   { dimB_tag :: FC.CInt
