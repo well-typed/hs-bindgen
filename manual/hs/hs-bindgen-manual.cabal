@@ -1,0 +1,23 @@
+cabal-version:      3.0
+name:               hs-bindgen-manual
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+
+common lang
+  default-language: GHC2021
+  build-depends:    base >= 4.16 && < 5
+  ghc-options:      -Wall
+
+executable hs-bindgen-manual
+  import:          lang
+  main-is:         Main.hs
+  other-modules:   Example
+  hs-source-dirs:  app, generated
+  build-depends:   c-expr, hs-bindgen-runtime
+  extra-libraries: example
+
