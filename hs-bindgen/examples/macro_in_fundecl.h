@@ -48,3 +48,6 @@ I (*baz3(const int i))[2][3] {
     arr[1][1] = i;
     return &arr;
 }
+
+// neither arguments nor keyword void
+I no_args_no_void();

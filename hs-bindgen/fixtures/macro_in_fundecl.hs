@@ -844,4 +844,28 @@
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
-          "macro_in_fundecl.h:43:5"}}]
+          "macro_in_fundecl.h:43:5"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "no_args_no_void",
+      foreignImportType = HsIO
+        (HsTypRef
+          (HsName "@NsTypeConstr" "I")),
+      foreignImportOrigName =
+      "no_args_no_void",
+      foreignImportHeader =
+      "macro_in_fundecl.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "no_args_no_void",
+          functionArgs = [],
+          functionRes = TypeTypedef
+            (CName "I"),
+          functionHeader =
+          "macro_in_fundecl.h",
+          functionSourceLoc =
+          "macro_in_fundecl.h:53:3"}}]

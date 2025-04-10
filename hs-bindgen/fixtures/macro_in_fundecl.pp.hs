@@ -185,3 +185,5 @@ foreign import capi safe "macro_in_fundecl.h baz1" baz1 :: FC.CInt -> IO (F.Ptr 
 foreign import capi safe "macro_in_fundecl.h baz2" baz2 :: I -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 foreign import capi safe "macro_in_fundecl.h baz3" baz3 :: FC.CInt -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
+
+foreign import capi safe "macro_in_fundecl.h no_args_no_void" no_args_no_void :: IO I
