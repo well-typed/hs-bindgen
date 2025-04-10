@@ -149,7 +149,12 @@ instance Pretty SDecl where
 
     DForeignImport ForeignImport{..} ->
       let importStr = foreignImportHeader ++ " " ++ Text.unpack foreignImportOrigName
-      in "foreign import capi safe" <+> fromString (show importStr) <+> pretty foreignImportName <+> "::" <+> pretty foreignImportType
+      in hsep [ "foreign import capi safe"
+              , "\"" >< string importStr >< "\""
+              , pretty foreignImportName
+              , "::"
+              , pretty foreignImportType
+              ]
 
     DDerivingInstance s t -> "deriving" <+> strategy s <+> "instance" <+> pretty t
 

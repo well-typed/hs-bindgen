@@ -72,7 +72,7 @@ data FixCandidate m = FixCandidate {
 fixCandidateDefault :: FixCandidate Maybe
 fixCandidateDefault = FixCandidate {
       onInvalidChar  = return . escapeInvalidChar
-    , applyRuleSet   = modifyFirstLetter (prefixInvalidFirst "C")
+    , applyRuleSet   = modifyFirstLetter (Just . prefixInvalidFirst "C" "c")
     , reservedNames  = allReservedNames
     , onReservedName = appendSingleQuote
     }
@@ -172,47 +172,123 @@ singNameRuleSet _ =
   Applying name rule sets
 -------------------------------------------------------------------------------}
 
+data CannotApplyRuleset ns = CannotApplyRuleset{
+      -- | The ruleset we failed to apply
+      cannotApplyRuleset :: SNameRuleSet (NamespaceRuleSet ns)
+
+      -- | The prefix we cannot handle
+      --
+      -- This contains characters for which 'toUpper' to 'toLower' is
+      -- insufficient to enforce the ruleset.
+    , unhandledPrefix :: Text
+
+      -- | The remainder of the name
+      --
+      -- The rest of the name, after the unhandled prefix, if any; we single out
+      -- the first character, both as it appears in the original name as well as
+      -- (potentially) modified to adhere to the ruleset (or unmodified if the
+      -- remainder happens to already adhere to the rule).
+    , usableSuffix :: Maybe (Char, Char, Text)
+    }
+
 -- | Make first letter conform the name rule set
 --
--- Assumes invalid characters are processed.
---
 -- Haskell identifiers have different rules for the first character and the rest
--- of the identifier. Since we started with a valid C identifier, and we have
--- processed all characters that are "invalid everywhere" (see 'onInvalidChar'),
--- the identifier must start with a letter or an underscore:
+-- of the identifier. In particular, names in 'NameRuleSetOther' must start with
+-- an uppercase letter, whereas names in 'NameRuleSetVar' must start with a
+-- not-uppercase letter. This is not the same as a lowercase letter!
 --
--- * If we are generating a 'NameRuleSetVar' name, the underscore is fine
---   as-is; any letters can be made uppercase.
--- * If we are generating a 'NameRuleSetOther', and the identifier starts
---   with an underscore, we strip off everything that's not a letter and
---   call @onInvalidFirst@ on this prefix and the remaining suffix.
+-- > isAlphaNum '事' == True
+-- > isUpper    '事' == False
+-- > isLower    '事' == False
+--
+-- To ensure that this rule is satisfied, we
+--
+-- 1. First check if the rule is already satisfied; if so, nothing to do.
+--
+-- 2. If the rule is not satisfied, we attempt to change the first character
+--    to uppercase or lowercase, as appropriate. If this succeeds, we are done.
+--
+-- 3. Step (2) may fail; for example;
+--
+--    > toUpper '_' == '_'
+--    > toUpper '事' == '事'
+--
+--    When this happens, we call the supplied function with the unusable prefix
+--    and the remainder of the identifier.
 modifyFirstLetter :: forall ns.
      SingNamespace ns
-  => (Text -> Text -> Maybe Text)
+  => (CannotApplyRuleset ns -> Maybe (HsName ns))
      -- ^ @onInvalidFirst@ (see 'prefixInvalidFirst' and 'dropInvalidFirst')
   -> Text -> Maybe (HsName ns)
-modifyFirstLetter onInvalidFirst = \t -> fmap HsName $
-    case singNameRuleSet (Proxy @ns) of
-      SNameRuleSetVar   -> changeCase Char.toLower t
-      SNameRuleSetOther ->
-        let (nonletters, rest) = Text.break Char.isLetter t in
-        if Text.null nonletters
-          then changeCase Char.toUpper rest
-          else onInvalidFirst nonletters rest
+modifyFirstLetter onInvalidFirst =
+    aux (singNameRuleSet (Proxy @ns))
   where
-    changeCase :: (Char -> Char) -> Text -> Maybe Text
-    changeCase f t = do
-        (c, t') <- Text.uncons t
-        return $ Text.cons (f c) t'
+    aux :: SNameRuleSet (NamespaceRuleSet ns) -> Text -> Maybe (HsName ns)
+    aux ruleset = \t -> do
+        (firstChar, rest) <- Text.uncons t
+        if | matchesRule firstChar ->
+               Just . HsName $ Text.cons firstChar rest
+           | matchesRule (adjustForRule firstChar) ->
+               Just . HsName $ Text.cons (adjustForRule firstChar) rest
+           | otherwise -> do
+               let unhandledPrefix, afterUnhandled :: Text
+                   (unhandledPrefix, afterUnhandled) = Text.span unusable t
 
-prefixInvalidFirst :: Text -> Text -> Text -> Maybe Text
-prefixInvalidFirst prefix nonletters rest =
-    Just $ prefix <> nonletters <> rest
+                   usableSuffix :: Maybe (Char, Char, Text)
+                   usableSuffix =
+                       (\(c, cs) -> if matchesRule c
+                                      then (c, c, cs)
+                                      else (c, adjustForRule c, cs)
+                       ) <$>
+                          Text.uncons afterUnhandled
 
-dropInvalidFirst :: Text -> Text -> Maybe Text
-dropInvalidFirst _nonletters rest = do
-    (c, t) <- Text.uncons rest
-    Just $ Text.cons (Char.toUpper c) t
+                   cannotApply :: CannotApplyRuleset ns
+                   cannotApply = CannotApplyRuleset{
+                         cannotApplyRuleset = ruleset
+                       , unhandledPrefix
+                       , usableSuffix
+                       }
+               onInvalidFirst cannotApply
+      where
+        matchesRule   :: Char -> Bool
+        adjustForRule :: Char -> Char
+        (matchesRule, adjustForRule) =
+            case ruleset of
+              SNameRuleSetVar   -> (not . Char.isUpper , Char.toLower)
+              SNameRuleSetOther -> (      Char.isUpper , Char.toUpper)
+
+        unusable :: Char -> Bool
+        unusable c =
+               not (matchesRule                 $ c)
+            && not (matchesRule . adjustForRule $ c)
+
+prefixInvalidFirst ::
+     Text  -- ^ Prefix for 'SNameRuleSetOther'
+  -> Text  -- ^ Prefix for 'SNameRuleSetVar' (rarely needed)
+  -> CannotApplyRuleset ns -> HsName ns
+prefixInvalidFirst prefixOther prefixVar cannotApply =
+     let prefix :: Text
+         prefix = case cannotApplyRuleset of
+               SNameRuleSetOther -> prefixOther
+               SNameRuleSetVar   -> prefixVar
+     in HsName $ prefix <> unhandledPrefix <> aux usableSuffix
+  where
+    CannotApplyRuleset{
+        cannotApplyRuleset
+      , unhandledPrefix
+      , usableSuffix} = cannotApply
+
+    aux :: Maybe (Char, Char, Text) -> Text
+    aux Nothing           = ""
+    aux (Just (_, c, cs)) = Text.cons c cs
+
+dropInvalidFirst :: CannotApplyRuleset ns -> Maybe (HsName ns)
+dropInvalidFirst CannotApplyRuleset{usableSuffix} =
+    aux <$> usableSuffix
+  where
+    aux :: (Char, Char, Text) -> HsName ns
+    aux (_, c, cs) = HsName $ Text.cons c cs
 
 {-------------------------------------------------------------------------------
   Reserved names

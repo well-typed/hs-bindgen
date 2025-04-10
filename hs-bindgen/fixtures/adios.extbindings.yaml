@@ -5,3 +5,9 @@ types:
   identifier: Adio'0301s
   module: Example
   package: example
+- cname: 数字
+  headers:
+  - adios.h
+  identifier: C数字
+  module: Example
+  package: example
