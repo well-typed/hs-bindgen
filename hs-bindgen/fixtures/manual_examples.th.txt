@@ -46,23 +46,20 @@ deriving newtype instance FiniteBits DAY
 deriving newtype instance Integral DAY
 deriving newtype instance Num DAY
 deriving newtype instance Real DAY
-foreign import capi safe "manual_examples.h mk_triple" mk_triple :: CInt ->
-                                                                    CInt ->
-                                                                    CInt -> Ptr Triple -> IO Unit
-foreign import capi safe "manual_examples.h index_triple" index_triple :: Ptr Triple ->
-                                                                          Index -> IO CInt
-foreign import capi safe "manual_examples.h sum_triple" sum_triple :: Ptr Triple ->
-                                                                      IO Sum
-foreign import capi safe "manual_examples.h average_triple" average_triple :: Ptr Triple ->
-                                                                              IO Average
-foreign import capi safe "manual_examples.h getYear" getYear :: Ptr Date ->
-                                                                IO YEAR
-foreign import capi safe "manual_examples.h print_occupation" print_occupation :: CInt ->
-                                                                                  Ptr Occupation ->
-                                                                                  IO Unit
-foreign import capi safe "manual_examples.h \25308\25308" 拜拜 :: IO Unit
-foreign import capi safe "manual_examples.h \978" cϒ :: IO Unit
-foreign import capi safe "manual_examples.h import" import' :: IO Unit
+foreign import ccall safe "mk_triple" mk_triple :: CInt ->
+                                                   CInt -> CInt -> Ptr Triple -> IO Unit
+foreign import ccall safe "index_triple" index_triple :: Ptr Triple ->
+                                                         Index -> IO CInt
+foreign import ccall safe "sum_triple" sum_triple :: Ptr Triple ->
+                                                     IO Sum
+foreign import ccall safe "average_triple" average_triple :: Ptr Triple ->
+                                                             IO Average
+foreign import ccall safe "getYear" getYear :: Ptr Date -> IO YEAR
+foreign import ccall safe "print_occupation" print_occupation :: CInt ->
+                                                                 Ptr Occupation -> IO Unit
+foreign import ccall safe "\25308\25308" 拜拜 :: IO Unit
+foreign import ccall safe "\978" cϒ :: IO Unit
+foreign import ccall safe "import" import' :: IO Unit
 data Triple
     = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
 instance Storable Triple

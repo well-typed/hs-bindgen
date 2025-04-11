@@ -67,36 +67,27 @@ deriving newtype instance FiniteBits S
 deriving newtype instance Integral S
 deriving newtype instance Num S
 deriving newtype instance Real S
-foreign import capi safe "macro_in_fundecl.h quux" quux :: F ->
-                                                           CChar -> IO CChar
-foreign import capi safe "macro_in_fundecl.h wam" wam :: CFloat ->
-                                                         Ptr C -> IO (Ptr C)
-foreign import capi safe "macro_in_fundecl.h foo1" foo1 :: CFloat ->
-                                                           FunPtr (CInt -> IO CInt) ->
-                                                           IO (Ptr CChar)
-foreign import capi safe "macro_in_fundecl.h foo2" foo2 :: F ->
-                                                           FunPtr (CInt -> IO CInt) ->
-                                                           IO (Ptr CChar)
-foreign import capi safe "macro_in_fundecl.h foo3" foo3 :: CFloat ->
-                                                           FunPtr (CInt -> IO CInt) -> IO (Ptr C)
-foreign import capi safe "macro_in_fundecl.h bar1" bar1 :: CLong ->
-                                                           IO (FunPtr (CShort -> IO CInt))
-foreign import capi safe "macro_in_fundecl.h bar2" bar2 :: L ->
-                                                           IO (FunPtr (CShort -> IO CInt))
-foreign import capi safe "macro_in_fundecl.h bar3" bar3 :: CLong ->
-                                                           IO (FunPtr (S -> IO CInt))
-foreign import capi safe "macro_in_fundecl.h bar4" bar4 :: CLong ->
-                                                           IO (FunPtr (CShort -> IO I))
-foreign import capi safe "macro_in_fundecl.h baz1" baz1 :: CInt ->
-                                                           IO (Ptr (ConstantArray 2
-                                                                                  (ConstantArray 3
-                                                                                                 CInt)))
-foreign import capi safe "macro_in_fundecl.h baz2" baz2 :: I ->
-                                                           IO (Ptr (ConstantArray 2
-                                                                                  (ConstantArray 3
-                                                                                                 CInt)))
-foreign import capi safe "macro_in_fundecl.h baz3" baz3 :: CInt ->
-                                                           IO (Ptr (ConstantArray 2
-                                                                                  (ConstantArray 3
-                                                                                                 I)))
-foreign import capi safe "macro_in_fundecl.h no_args_no_void" no_args_no_void :: IO I
+foreign import ccall safe "quux" quux :: F -> CChar -> IO CChar
+foreign import ccall safe "wam" wam :: CFloat ->
+                                       Ptr C -> IO (Ptr C)
+foreign import ccall safe "foo1" foo1 :: CFloat ->
+                                         FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+foreign import ccall safe "foo2" foo2 :: F ->
+                                         FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+foreign import ccall safe "foo3" foo3 :: CFloat ->
+                                         FunPtr (CInt -> IO CInt) -> IO (Ptr C)
+foreign import ccall safe "bar1" bar1 :: CLong ->
+                                         IO (FunPtr (CShort -> IO CInt))
+foreign import ccall safe "bar2" bar2 :: L ->
+                                         IO (FunPtr (CShort -> IO CInt))
+foreign import ccall safe "bar3" bar3 :: CLong ->
+                                         IO (FunPtr (S -> IO CInt))
+foreign import ccall safe "bar4" bar4 :: CLong ->
+                                         IO (FunPtr (CShort -> IO I))
+foreign import ccall safe "baz1" baz1 :: CInt ->
+                                         IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+foreign import ccall safe "baz2" baz2 :: I ->
+                                         IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+foreign import ccall safe "baz3" baz3 :: CInt ->
+                                         IO (Ptr (ConstantArray 2 (ConstantArray 3 I)))
+foreign import ccall safe "no_args_no_void" no_args_no_void :: IO I
