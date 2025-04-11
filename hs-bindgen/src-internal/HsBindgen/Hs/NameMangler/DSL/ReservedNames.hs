@@ -90,34 +90,37 @@ haskellKeywords =
 -- * [Arrow notation](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L964-966)
 -- * [cases](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L871)
 -- * [role](https://gitlab.haskell.org/ghc/ghc/-/issues/18941)
+--
+-- Some keywords are context specific and are valid Haskell identifiers netvertheless.
+-- We list them but have commented out.
 ghcExtensionKeywords :: [Text]
 ghcExtensionKeywords =
     [ "anyclass"
     , "by"
-    , "capi"
+    -- , "capi"
     , "cases"
-    , "ccall"
+    -- , "ccall"
     , "dynamic"
     , "export"
     , "family"
     , "forall"
     , "group"
-    , "interruptible"
-    , "javascript"
+    -- , "interruptible"
+    -- , "javascript"
     , "label"
     , "mdo"
     , "pattern"
-    , "prim"
+    -- , "prim"
     , "proc"
     , "rec"
     , "role"
-    , "safe"
+    -- , "safe"
     , "static"
-    , "stdcall"
+    -- , "stdcall"
     , "stock"
-    , "unsafe"
-    , "using"
-    , "via"
+    -- , "unsafe"
+    -- , "using"
+    -- , "via"
     ]
 
 -- | Names in the type namespace that @hs-bindgen@ may use unqualified

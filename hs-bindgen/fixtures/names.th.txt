@@ -1,0 +1,10 @@
+foreign import capi safe "names.h capi" capi :: IO Unit
+foreign import capi safe "names.h ccall" ccall :: IO Unit
+foreign import capi safe "names.h interruptible" interruptible :: IO Unit
+foreign import capi safe "names.h javascript" javascript :: IO Unit
+foreign import capi safe "names.h prim" prim :: IO Unit
+foreign import capi safe "names.h safe" safe :: IO Unit
+foreign import capi safe "names.h stdcall" stdcall :: IO Unit
+foreign import capi safe "names.h unsafe" unsafe :: IO Unit
+foreign import capi safe "names.h using" using :: IO Unit
+foreign import capi safe "names.h via" via :: IO Unit
