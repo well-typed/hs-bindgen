@@ -1,0 +1,204 @@
+Header
+  [
+    DeclFunction
+      Function {
+        functionName = CName "by",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:3:6"},
+    DeclFunction
+      Function {
+        functionName = CName "forall",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:4:6"},
+    DeclFunction
+      Function {
+        functionName = CName "mdo",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:5:6"},
+    DeclFunction
+      Function {
+        functionName = CName "pattern",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:6:6"},
+    DeclFunction
+      Function {
+        functionName = CName "proc",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:7:6"},
+    DeclFunction
+      Function {
+        functionName = CName "rec",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:8:6"},
+    DeclFunction
+      Function {
+        functionName = CName "using",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:9:6"},
+    DeclFunction
+      Function {
+        functionName = CName "anyclass",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:12:6"},
+    DeclFunction
+      Function {
+        functionName = CName "capi",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:13:6"},
+    DeclFunction
+      Function {
+        functionName = CName "cases",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:14:6"},
+    DeclFunction
+      Function {
+        functionName = CName "ccall",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:15:6"},
+    DeclFunction
+      Function {
+        functionName = CName "dynamic",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:16:6"},
+    DeclFunction
+      Function {
+        functionName = CName "export",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:17:6"},
+    DeclFunction
+      Function {
+        functionName = CName "family",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:18:6"},
+    DeclFunction
+      Function {
+        functionName = CName "group",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:19:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "interruptible",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:20:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "javascript",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:21:6"},
+    DeclFunction
+      Function {
+        functionName = CName "label",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:22:6"},
+    DeclFunction
+      Function {
+        functionName = CName "prim",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:23:6"},
+    DeclFunction
+      Function {
+        functionName = CName "role",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:24:6"},
+    DeclFunction
+      Function {
+        functionName = CName "safe",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:25:6"},
+    DeclFunction
+      Function {
+        functionName = CName "stdcall",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:26:6"},
+    DeclFunction
+      Function {
+        functionName = CName "stock",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:27:6"},
+    DeclFunction
+      Function {
+        functionName = CName "unsafe",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:28:6"},
+    DeclFunction
+      Function {
+        functionName = CName "via",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader = "names.h",
+        functionSourceLoc =
+        "names.h:29:6"}]
