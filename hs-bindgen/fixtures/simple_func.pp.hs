@@ -12,4 +12,6 @@ foreign import capi safe "simple_func.h bad_fma" bad_fma :: FC.CDouble -> FC.CDo
 
 foreign import capi safe "simple_func.h no_args" no_args :: IO ()
 
+foreign import capi safe "simple_func.h no_args_no_void" no_args_no_void :: IO ()
+
 foreign import capi safe "simple_func.h fun" fun :: FC.CChar -> FC.CDouble -> IO FC.CInt

@@ -299,4 +299,15 @@ Header
         functionHeader =
         "macro_in_fundecl.h",
         functionSourceLoc =
-        "macro_in_fundecl.h:43:5"}]
+        "macro_in_fundecl.h:43:5"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "no_args_no_void",
+        functionArgs = [],
+        functionRes = TypeTypedef
+          (CName "I"),
+        functionHeader =
+        "macro_in_fundecl.h",
+        functionSourceLoc =
+        "macro_in_fundecl.h:53:3"}]

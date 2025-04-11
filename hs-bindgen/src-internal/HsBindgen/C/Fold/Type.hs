@@ -325,7 +325,27 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
     Right CXType_Bool -> do
         return $ TypePrim PrimBool
 
-    Right CXType_FunctionProto -> do
+    Right CXType_FunctionProto -> processFun
+
+    -- For a function declarator without a parameter type list: the effect is as
+    -- if it were declared with a parameter type list consisting of the keyword
+    -- void.
+    Right CXType_FunctionNoProto -> processFun
+
+    Right CXType_IncompleteArray -> do
+        e <- liftIO $ clang_getArrayElementType ty
+        -- TODO: Should this also use 'DeclPathCtxtConstArray'?
+        e' <- processTypeDeclRec ctxt extBindings unit Nothing e
+        return (TypeIncompleteArray e')
+
+    _ -> do
+      name <- CName <$> liftIO (clang_getTypeSpelling ty)
+      liftIO $ print name
+      unrecognizedType ty
+
+  where
+    processFun :: Eff (State DeclState) Type
+    processFun = do
         mbProtoWithMacros <-
           case declCursor of
             Nothing ->
@@ -387,17 +407,6 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             -- to pass 'Nothing' as a CXCursor above (it is only used for re-parsing).
 
             return $ TypeFun args' res'
-
-    Right CXType_IncompleteArray -> do
-        e <- liftIO $ clang_getArrayElementType ty
-        -- TODO: Should this also use 'DeclPathCtxtConstArray'?
-        e' <- processTypeDeclRec ctxt extBindings unit Nothing e
-        return (TypeIncompleteArray e')
-
-    _ -> do
-      name <- CName <$> liftIO (clang_getTypeSpelling ty)
-      liftIO $ print name
-      unrecognizedType ty
 
 getElaborated :: CXType -> IO CXType
 getElaborated ty = case fromSimpleEnum (cxtKind ty) of

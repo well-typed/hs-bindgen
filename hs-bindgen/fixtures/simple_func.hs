@@ -83,6 +83,28 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
+        "no_args_no_void",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportOrigName =
+      "no_args_no_void",
+      foreignImportHeader =
+      "simple_func.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "no_args_no_void",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "simple_func.h",
+          functionSourceLoc =
+          "simple_func.h:9:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
         "fun",
       foreignImportType = HsFun
         (HsPrimType HsPrimCChar)
@@ -105,4 +127,4 @@
           functionHeader =
           "simple_func.h",
           functionSourceLoc =
-          "simple_func.h:9:5"}}]
+          "simple_func.h:11:5"}}]

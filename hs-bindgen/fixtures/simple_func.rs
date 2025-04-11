@@ -7,5 +7,8 @@ extern "C" {
     pub fn no_args();
 }
 extern "C" {
+    pub fn no_args_no_void();
+}
+extern "C" {
     pub fn fun(x: ::std::os::raw::c_char, y: f64) -> ::std::os::raw::c_int;
 }

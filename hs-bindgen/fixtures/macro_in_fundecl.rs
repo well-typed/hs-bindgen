@@ -73,3 +73,6 @@ extern "C" {
         i: ::std::os::raw::c_int,
     ) -> *mut [[::std::os::raw::c_int; 3usize]; 2usize];
 }
+extern "C" {
+    pub fn no_args_no_void() -> ::std::os::raw::c_int;
+}

@@ -39,6 +39,16 @@ Header
         "simple_func.h:7:6"},
     DeclFunction
       Function {
+        functionName = CName
+          "no_args_no_void",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader =
+        "simple_func.h",
+        functionSourceLoc =
+        "simple_func.h:9:6"},
+    DeclFunction
+      Function {
         functionName = CName "fun",
         functionArgs = [
           TypePrim (PrimChar Nothing),
@@ -49,4 +59,4 @@ Header
         functionHeader =
         "simple_func.h",
         functionSourceLoc =
-        "simple_func.h:9:5"}]
+        "simple_func.h:11:5"}]
