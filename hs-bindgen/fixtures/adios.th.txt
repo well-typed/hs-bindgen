@@ -1,6 +1,6 @@
-foreign import capi safe "adios.h \978" cϒ :: IO Unit
-foreign import capi safe "adios.h \25308\25308" 拜拜 :: IO Unit
-foreign import capi safe "adios.h Say\25308\25308" say拜拜 :: IO Unit
+foreign import ccall safe "\978" cϒ :: IO Unit
+foreign import ccall safe "\25308\25308" 拜拜 :: IO Unit
+foreign import ccall safe "Say\25308\25308" say拜拜 :: IO Unit
 newtype Adio'0301s = Adio'0301s {un_Adio'0301s :: CInt}
 deriving newtype instance Storable Adio'0301s
 deriving stock instance Eq Adio'0301s

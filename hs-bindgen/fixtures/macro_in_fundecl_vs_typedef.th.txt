@@ -12,23 +12,18 @@ deriving newtype instance FiniteBits MC
 deriving newtype instance Integral MC
 deriving newtype instance Num MC
 deriving newtype instance Real MC
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux1" quux1 :: MC ->
-                                                                        TC -> IO CChar
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux2" quux2 :: MC ->
-                                                                        CChar -> IO TC
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam1" wam1 :: CFloat ->
-                                                                      Ptr TC -> IO (Ptr MC)
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam2" wam2 :: CFloat ->
-                                                                      Ptr MC -> IO (Ptr TC)
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef1" struct_typedef1 :: Ptr Struct2 ->
-                                                                                            MC ->
-                                                                                            IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_typedef2 :: Ptr Struct3_t ->
-                                                                                            MC ->
-                                                                                            IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: Ptr Struct4 ->
-                                                                                            MC ->
-                                                                                            IO Unit
+foreign import ccall safe "quux1" quux1 :: MC -> TC -> IO CChar
+foreign import ccall safe "quux2" quux2 :: MC -> CChar -> IO TC
+foreign import ccall safe "wam1" wam1 :: CFloat ->
+                                         Ptr TC -> IO (Ptr MC)
+foreign import ccall safe "wam2" wam2 :: CFloat ->
+                                         Ptr MC -> IO (Ptr TC)
+foreign import ccall safe "struct_typedef1" struct_typedef1 :: Ptr Struct2 ->
+                                                               MC -> IO Unit
+foreign import ccall safe "struct_typedef2" struct_typedef2 :: Ptr Struct3_t ->
+                                                               MC -> IO Unit
+foreign import ccall safe "struct_typedef3" struct_typedef3 :: Ptr Struct4 ->
+                                                               MC -> IO Unit
 newtype TC = TC {un_TC :: CChar}
 deriving newtype instance Storable TC
 deriving stock instance Eq TC

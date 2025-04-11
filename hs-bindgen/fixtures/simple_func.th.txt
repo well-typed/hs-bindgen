@@ -1,8 +1,6 @@
-foreign import capi safe "simple_func.h erf" erf :: CDouble ->
-                                                    IO CDouble
-foreign import capi safe "simple_func.h bad_fma" bad_fma :: CDouble ->
-                                                            CDouble -> CDouble -> IO CDouble
-foreign import capi safe "simple_func.h no_args" no_args :: IO Unit
-foreign import capi safe "simple_func.h no_args_no_void" no_args_no_void :: IO Unit
-foreign import capi safe "simple_func.h fun" fun :: CChar ->
-                                                    CDouble -> IO CInt
+foreign import ccall safe "erf" erf :: CDouble -> IO CDouble
+foreign import ccall safe "bad_fma" bad_fma :: CDouble ->
+                                               CDouble -> CDouble -> IO CDouble
+foreign import ccall safe "no_args" no_args :: IO Unit
+foreign import ccall safe "no_args_no_void" no_args_no_void :: IO Unit
+foreign import ccall safe "fun" fun :: CChar -> CDouble -> IO CInt
