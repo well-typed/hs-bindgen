@@ -77,6 +77,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         , golden "nested_unions"
         , golden "adios"
         , golden "manual_examples"
+        , golden "names"
         ]
     , testGroup "failing-examples" [
           failing "long_double"
