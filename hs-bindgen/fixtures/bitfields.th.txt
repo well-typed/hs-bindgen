@@ -1,3 +1,4 @@
+-- addDependentFile examples/bitfields.h
 data Flags
     = Flags {flags_fieldX :: CChar,
              flags_flagA :: CInt,

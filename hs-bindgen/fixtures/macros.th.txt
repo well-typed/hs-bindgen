@@ -1,3 +1,4 @@
+-- addDependentFile examples/macros.h
 oBJECTLIKE1 :: CInt
 oBJECTLIKE1 = 1 :: CInt
 oBJECTLIKE2 :: CInt

@@ -1,3 +1,4 @@
+-- addDependentFile examples/nested_types.h
 data Foo = Foo {foo_i :: CInt, foo_c :: CChar}
 instance Storable Foo
     where {sizeOf = \_ -> 8 :: Int;

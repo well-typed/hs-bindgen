@@ -1,3 +1,4 @@
+-- addDependentFile examples/nested_enums.h
 newtype EnumA = EnumA {un_EnumA :: CUInt}
 instance Storable EnumA
     where {sizeOf = \_ -> 4 :: Int;

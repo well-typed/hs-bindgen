@@ -1,3 +1,4 @@
+-- addDependentFile examples/macro_in_fundecl.h
 newtype I = I {un_I :: CInt}
 deriving newtype instance Storable I
 deriving stock instance Eq I

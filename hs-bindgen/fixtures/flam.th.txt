@@ -1,3 +1,4 @@
+-- addDependentFile examples/flam.h
 data Pascal = Pascal {pascal_len :: CInt}
 instance Storable Pascal
     where {sizeOf = \_ -> 4 :: Int;

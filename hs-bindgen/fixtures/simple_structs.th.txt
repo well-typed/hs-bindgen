@@ -1,3 +1,4 @@
+-- addDependentFile examples/simple_structs.h
 data S1 = S1 {s1_a :: CInt, s1_b :: CChar}
 instance Storable S1
     where {sizeOf = \_ -> 8 :: Int;

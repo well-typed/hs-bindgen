@@ -22,6 +22,7 @@ module HsBindgen.Pipeline (
 
     -- * Template Haskell API
   , genBindings
+  , genBindingsFromCHeader
   , genBindings'
 
     -- * External bindings generation
@@ -35,7 +36,6 @@ import Control.Monad ((<=<))
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
-import Language.Haskell.TH.Syntax qualified as TH (addDependentFile)
 
 import Clang.Args
 import Clang.Paths
@@ -61,6 +61,7 @@ import HsBindgen.Imports
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Tracer
+import HsBindgen.Guasi
 
 {-------------------------------------------------------------------------------
   Options
@@ -144,7 +145,7 @@ genPPString :: PPOpts -> Backend.PP.HsModule -> String
 genPPString PPOpts{..} = Backend.PP.render ppOptsRender
 
 -- | Generate Template Haskell declarations
-genTH :: TH.Quote q => [SHs.SDecl] -> q [TH.Dec]
+genTH :: Guasi q => [SHs.SDecl] -> q [TH.Dec]
 genTH = fmap concat . traverse Backend.TH.mkDecl
 
 -- | Generate set of required extensions
@@ -186,19 +187,28 @@ genBindings opts fp = do
     headerIncludePath <- either (TH.runIO . throwIO) return $
       parseCHeaderIncludePath fp
     (depPaths, cheader) <- TH.runIO $ parseCHeader opts headerIncludePath
+    genBindingsFromCHeader opts depPaths cheader
 
+-- | Non-IO part of 'genBindings'
+genBindingsFromCHeader
+    :: Guasi q
+    => Opts
+    -> [SourcePath]
+    -> C.Header
+    -> q [TH.Dec]
+genBindingsFromCHeader opts depPaths cheader = do
     -- record dependencies, including transitively included headers
-    mapM_ (TH.addDependentFile . getSourcePath) depPaths
+    mapM_ (addDependentFile . getSourcePath) depPaths
 
     let sdecls = genSHsDecls $ genHsDecls opts cheader
 
     -- extensions checks.
     -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)
-    enabledExts <- Set.fromList <$> TH.extsEnabled
+    enabledExts <- Set.fromList <$> extsEnabled
     let requiredExts = genExtensions sdecls
         missingExts  = requiredExts `Set.difference` enabledExts
     unless (null missingExts) $ do
-      TH.reportError $ "Missing LANGUAGE extensions: "
+      reportError $ "Missing LANGUAGE extensions: "
         ++ unwords (map show (toList missingExts))
 
     -- generate TH declarations

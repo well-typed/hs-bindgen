@@ -1,3 +1,4 @@
+-- addDependentFile examples/uses_utf8.h
 newtype MyEnum = MyEnum {un_MyEnum :: CUInt}
 instance Storable MyEnum
     where {sizeOf = \_ -> 4 :: Int;

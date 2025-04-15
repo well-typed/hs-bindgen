@@ -1,3 +1,4 @@
+-- addDependentFile examples/macro_strings.h
 c1 :: CharValue
 c1 = CharValue (addrToByteArray 1 "<binary data>") (Just 'a')
 c2 :: CharValue
