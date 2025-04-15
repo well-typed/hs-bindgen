@@ -1,5 +1,4 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -7,10 +6,12 @@
 
 module Example where
 
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.CEnum.Sequential
-import Prelude ((<*>), Bounded, Enum, Eq, Int, Ord, Read, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
+import qualified Prelude as P
 
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
@@ -33,29 +34,28 @@ instance F.Storable EnumA where
         case s1 of
           EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
-deriving stock instance Show EnumA
-
-deriving stock instance Read EnumA
-
 deriving stock instance Eq EnumA
 
 deriving stock instance Ord EnumA
 
-instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum EnumA where
+deriving stock instance Read EnumA
 
-  type SequentialCEnumZ EnumA = FC.CUInt
+instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
-  toSequentialCEnum = EnumA
+  type CEnumZ EnumA = FC.CUInt
 
-  fromSequentialCEnum = un_EnumA
+  wrap = EnumA
 
-  sequentialCEnumMin = \_ -> 0
+  unwrap = un_EnumA
 
-  sequentialCEnumMax = \_ -> 1
+  declaredValueMap =
+    \_ -> Data.Map.Strict.fromList [(0, pure "VALA_1"), (1, pure "VALA_2")]
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum EnumA instance Bounded EnumA
+  sequentialValueBounds = \_ -> P.Just (0, 1)
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum EnumA instance Enum EnumA
+instance Show EnumA where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "EnumA"
 
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
@@ -109,29 +109,28 @@ instance F.Storable ExB_fieldB1 where
         case s1 of
           ExB_fieldB1 un_ExB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
 
-deriving stock instance Show ExB_fieldB1
-
-deriving stock instance Read ExB_fieldB1
-
 deriving stock instance Eq ExB_fieldB1
 
 deriving stock instance Ord ExB_fieldB1
 
-instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum ExB_fieldB1 where
+deriving stock instance Read ExB_fieldB1
 
-  type SequentialCEnumZ ExB_fieldB1 = FC.CUInt
+instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
-  toSequentialCEnum = ExB_fieldB1
+  type CEnumZ ExB_fieldB1 = FC.CUInt
 
-  fromSequentialCEnum = un_ExB_fieldB1
+  wrap = ExB_fieldB1
 
-  sequentialCEnumMin = \_ -> 0
+  unwrap = un_ExB_fieldB1
 
-  sequentialCEnumMax = \_ -> 1
+  declaredValueMap =
+    \_ -> Data.Map.Strict.fromList [(0, pure "VALB_1"), (1, pure "VALB_2")]
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum ExB_fieldB1 instance Bounded ExB_fieldB1
+  sequentialValueBounds = \_ -> P.Just (0, 1)
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum ExB_fieldB1 instance Enum ExB_fieldB1
+instance Show ExB_fieldB1 where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "ExB_fieldB1"
 
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0

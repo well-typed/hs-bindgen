@@ -18,6 +18,7 @@
 -- different underlying library or write our own.
 module Text.SimplePrettyPrint where
 
+import Data.List qualified as List
 import Data.String (IsString(fromString))
 import Text.PrettyPrint.HughesPJ qualified as PP
 
@@ -214,6 +215,11 @@ parensWhen :: Bool -> CtxDoc -> CtxDoc
 parensWhen = \case
     False -> id
     True  -> parens
+
+-- | Format a list horizontally
+hlist :: Char -> Char -> [CtxDoc] -> CtxDoc
+hlist cL cR ds =
+    hcat $ char cL : (List.intersperse (string ", ") ds) ++ [char cR]
 
 -- | Parenthesize a document vertically
 vparens :: CtxDoc -> CtxDoc

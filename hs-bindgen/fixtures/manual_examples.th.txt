@@ -82,11 +82,19 @@ instance Storable Index
            peek = \ptr_0 -> pure Index <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Index un_Index_3 -> pokeByteOff ptr_1 (0 :: Int) un_Index_3}}
-deriving stock instance Show Index
-deriving stock instance Read Index
 deriving stock instance Eq Index
 deriving stock instance Ord Index
-deriving newtype instance Enum Index
+deriving stock instance Read Index
+instance CEnum Index
+    where {type CEnumZ Index = CUInt;
+           wrap = Index;
+           unwrap = un_Index;
+           declaredValueMap = \_ -> fromList [(0, pure "A"),
+                                              (1, pure "B"),
+                                              (2, pure "C")];
+           sequentialValueBounds = \_ -> Just (0, 2)}
+instance Show Index
+    where {show = showCEnum "Index"}
 pattern A :: Index
 pattern A = Index 0
 pattern B :: Index

@@ -1,7 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -14,12 +13,14 @@ module Example where
 import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Map.Strict
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.CEnum.Sequential
+import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, show)
+import qualified Prelude as P
 
 a :: FC.CInt
 a = (5 :: FC.CInt)
@@ -95,29 +96,28 @@ instance F.Storable Another_typedef_enum_e where
           Another_typedef_enum_e un_Another_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Another_typedef_enum_e2
 
-deriving stock instance Show Another_typedef_enum_e
-
-deriving stock instance Read Another_typedef_enum_e
-
 deriving stock instance Eq Another_typedef_enum_e
 
 deriving stock instance Ord Another_typedef_enum_e
 
-instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum Another_typedef_enum_e where
+deriving stock instance Read Another_typedef_enum_e
 
-  type SequentialCEnumZ Another_typedef_enum_e = FC.CUInt
+instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
-  toSequentialCEnum = Another_typedef_enum_e
+  type CEnumZ Another_typedef_enum_e = FC.CUInt
 
-  fromSequentialCEnum = un_Another_typedef_enum_e
+  wrap = Another_typedef_enum_e
 
-  sequentialCEnumMin = \_ -> 0
+  unwrap = un_Another_typedef_enum_e
 
-  sequentialCEnumMax = \_ -> 1
+  declaredValueMap =
+    \_ -> Data.Map.Strict.fromList [(0, pure "FOO"), (1, pure "BAR")]
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Another_typedef_enum_e instance Bounded Another_typedef_enum_e
+  sequentialValueBounds = \_ -> P.Just (0, 1)
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Another_typedef_enum_e instance Enum Another_typedef_enum_e
+instance Show Another_typedef_enum_e where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Another_typedef_enum_e"
 
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
@@ -370,29 +370,29 @@ instance F.Storable A_typedef_enum_e where
           A_typedef_enum_e un_A_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_A_typedef_enum_e2
 
-deriving stock instance Show A_typedef_enum_e
-
-deriving stock instance Read A_typedef_enum_e
-
 deriving stock instance Eq A_typedef_enum_e
 
 deriving stock instance Ord A_typedef_enum_e
 
-instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum A_typedef_enum_e where
+deriving stock instance Read A_typedef_enum_e
 
-  type SequentialCEnumZ A_typedef_enum_e = FC.CSChar
+instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
-  toSequentialCEnum = A_typedef_enum_e
+  type CEnumZ A_typedef_enum_e = FC.CSChar
 
-  fromSequentialCEnum = un_A_typedef_enum_e
+  wrap = A_typedef_enum_e
 
-  sequentialCEnumMin = \_ -> 0
+  unwrap = un_A_typedef_enum_e
 
-  sequentialCEnumMax = \_ -> 3
+  declaredValueMap =
+    \_ ->
+      Data.Map.Strict.fromList [(0, pure "ENUM_CASE_0"), (1, pure "ENUM_CASE_1"), (2, pure "ENUM_CASE_2"), (3, pure "ENUM_CASE_3")]
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum A_typedef_enum_e instance Bounded A_typedef_enum_e
+  sequentialValueBounds = \_ -> P.Just (0, 3)
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum A_typedef_enum_e instance Enum A_typedef_enum_e
+instance Show A_typedef_enum_e where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "A_typedef_enum_e"
 
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0

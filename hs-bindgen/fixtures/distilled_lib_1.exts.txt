@@ -3,7 +3,6 @@ TypeFamilies
 DataKinds
 StandaloneDeriving
 DerivingStrategies
-DerivingVia
 GeneralizedNewtypeDeriving
 ExplicitForAll
 PatternSynonyms

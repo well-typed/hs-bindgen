@@ -58,6 +58,7 @@ module HsBindgen.Hs.AST (
   , PatSynOrigin(..)
   ) where
 
+import Data.List.NonEmpty (NonEmpty)
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 
@@ -218,9 +219,13 @@ type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
     InstanceHasFLAM :: Struct n -> HsType -> Int -> InstanceDecl
-    InstanceGeneralCEnum :: Struct (S Z) -> HsType -> [Integer] -> InstanceDecl
-    InstanceSequentialCEnum ::
-      Struct (S Z) -> HsType -> Integer -> Integer -> InstanceDecl
+    InstanceCEnum ::
+         Struct (S Z)
+      -> HsType
+      -> Map Integer (NonEmpty String)
+      -> Maybe (Integer, Integer)
+      -> InstanceDecl
+    InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
 
 deriving instance Show InstanceDecl
 

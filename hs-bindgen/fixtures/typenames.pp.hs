@@ -1,5 +1,4 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
@@ -8,10 +7,12 @@
 
 module Example where
 
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.CEnum.Sequential
-import Prelude ((<*>), Bounded, Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
+import qualified Prelude as P
 
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
@@ -34,29 +35,28 @@ instance F.Storable Foo where
         case s1 of
           Foo un_Foo2 -> F.pokeByteOff ptr0 (0 :: Int) un_Foo2
 
-deriving stock instance Show Foo
-
-deriving stock instance Read Foo
-
 deriving stock instance Eq Foo
 
 deriving stock instance Ord Foo
 
-instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum Foo where
+deriving stock instance Read Foo
 
-  type SequentialCEnumZ Foo = FC.CUInt
+instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
-  toSequentialCEnum = Foo
+  type CEnumZ Foo = FC.CUInt
 
-  fromSequentialCEnum = un_Foo
+  wrap = Foo
 
-  sequentialCEnumMin = \_ -> 0
+  unwrap = un_Foo
 
-  sequentialCEnumMax = \_ -> 1
+  declaredValueMap =
+    \_ -> Data.Map.Strict.fromList [(0, pure "FOO1"), (1, pure "FOO2")]
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Foo instance Bounded Foo
+  sequentialValueBounds = \_ -> P.Just (0, 1)
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum Foo instance Enum Foo
+instance Show Foo where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Foo"
 
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0

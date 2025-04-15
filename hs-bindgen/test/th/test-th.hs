@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 -- For flexible array members:
 {-# OPTIONS_GHC -Wno-orphans #-}
@@ -14,6 +16,7 @@ import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, testGroup, defaultMain)
 import Test.Tasty.HUnit (testCase, (@?=))
 
+import HsBindgen.Runtime.CEnum qualified as CEnum
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.LibC qualified as LibC
@@ -43,6 +46,16 @@ _t01MyPlus x y = Test01.pLUS x y
 -- Flexible array member (orphan instance)
 instance FLAM.HasFlexibleArrayLength CLong Test01.StructFLAM where
     flexibleArrayMemberLength x = fromIntegral (Test01.structFLAM_length x)
+
+-- Bounded and Enum orphan instances
+deriving via CEnum.AsCEnum Test01.EnumBasic  instance Bounded Test01.EnumBasic
+deriving via CEnum.AsCEnum Test01.EnumBasic  instance Enum    Test01.EnumBasic
+deriving via CEnum.AsCEnum Test01.EnumNeg    instance Bounded Test01.EnumNeg
+deriving via CEnum.AsCEnum Test01.EnumNeg    instance Enum    Test01.EnumNeg
+deriving via CEnum.AsCEnum Test01.EnumNonSeq instance Bounded Test01.EnumNonSeq
+deriving via CEnum.AsCEnum Test01.EnumNonSeq instance Enum    Test01.EnumNonSeq
+deriving via CEnum.AsCEnum Test01.EnumSame   instance Bounded Test01.EnumSame
+deriving via CEnum.AsCEnum Test01.EnumSame   instance Enum    Test01.EnumSame
 
 -- Unit tests
 test01 :: TestTree

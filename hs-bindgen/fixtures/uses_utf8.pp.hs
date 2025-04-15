@@ -1,5 +1,4 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -7,10 +6,12 @@
 
 module Example where
 
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.CEnum.Sequential
-import Prelude ((<*>), Bounded, Enum, Eq, Int, Ord, Read, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
+import qualified Prelude as P
 
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
@@ -33,29 +34,29 @@ instance F.Storable MyEnum where
         case s1 of
           MyEnum un_MyEnum2 -> F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
 
-deriving stock instance Show MyEnum
-
-deriving stock instance Read MyEnum
-
 deriving stock instance Eq MyEnum
 
 deriving stock instance Ord MyEnum
 
-instance HsBindgen.Runtime.CEnum.Sequential.SequentialCEnum MyEnum where
+deriving stock instance Read MyEnum
 
-  type SequentialCEnumZ MyEnum = FC.CUInt
+instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
-  toSequentialCEnum = MyEnum
+  type CEnumZ MyEnum = FC.CUInt
 
-  fromSequentialCEnum = un_MyEnum
+  wrap = MyEnum
 
-  sequentialCEnumMin = \_ -> 0
+  unwrap = un_MyEnum
 
-  sequentialCEnumMax = \_ -> 1
+  declaredValueMap =
+    \_ ->
+      Data.Map.Strict.fromList [(0, pure "Say\20320\22909"), (1, pure "Say\25308\25308")]
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum MyEnum instance Bounded MyEnum
+  sequentialValueBounds = \_ -> P.Just (0, 1)
 
-deriving via HsBindgen.Runtime.CEnum.Sequential.SeqCEnum MyEnum instance Enum MyEnum
+instance Show MyEnum where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "MyEnum"
 
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0

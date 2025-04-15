@@ -22,7 +22,6 @@ module HsBindgen.Hs.Translation (
 
 import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
-import Data.Set qualified as Set
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList(..))
@@ -75,10 +74,9 @@ defaultTranslationOpts = TranslationOpts {
         , (Hs.DeriveStock, Hs.Eq)
         ]
     , translationDeriveEnum = [
-          (Hs.DeriveStock, Hs.Show)
-        , (Hs.DeriveStock, Hs.Read)
-        , (Hs.DeriveStock, Hs.Eq)
+          (Hs.DeriveStock, Hs.Eq)
         , (Hs.DeriveStock, Hs.Ord)
+        , (Hs.DeriveStock, Hs.Read)
         ]
     , translationDeriveTypedefPrim = [
           (Hs.DeriveStock, Hs.Eq)
@@ -275,7 +273,7 @@ enumDecs opts nm e = concat [
     , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
       | (strat, clss) <- translationDeriveEnum opts
       ]
-    , boundedEnumInstanceDecls
+    , cEnumInstanceDecls
     , valueDecls
     ]
   where
@@ -325,37 +323,23 @@ enumDecs opts nm e = concat [
         | enumValue@C.EnumValue{..} <- C.enumValues e
         ]
 
-    boundedEnumInstanceDecls :: [Hs.Decl]
-    boundedEnumInstanceDecls =
-      let nSet = Set.fromList (C.valueValue <$> C.enumValues e)
+    cEnumInstanceDecls :: [Hs.Decl]
+    cEnumInstanceDecls =
+      let vMap = Map.fromListWith (<>) [
+              ( C.valueValue ev
+              , pure (T.unpack . C.getCName $ C.valueName ev)
+              )
+            | ev <- C.enumValues e
+            ]
           fTyp = Hs.fieldType newtypeField
-      in  case (Set.lookupMin nSet, Set.lookupMax nSet) of
-            (Just nMin, Just nMax)
-              | nMax - nMin + 1 == fromIntegral (Set.size nSet) ->
-                  [ Hs.DeclDefineInstance $
-                      Hs.InstanceSequentialCEnum hs fTyp nMin nMax
-                  , Hs.DeclDeriveInstance
-                      (Hs.DeriveVia $ HsSeqCEnum newtypeName)
-                      Hs.Bounded
-                      newtypeName
-                  , Hs.DeclDeriveInstance
-                      (Hs.DeriveVia $ HsSeqCEnum newtypeName)
-                      Hs.Enum
-                      newtypeName
-                  ]
-              | otherwise ->
-                  [ Hs.DeclDefineInstance $
-                      Hs.InstanceGeneralCEnum hs fTyp (Set.toAscList nSet)
-                  , Hs.DeclDeriveInstance
-                      (Hs.DeriveVia $ HsGenCEnum newtypeName)
-                      Hs.Bounded
-                      newtypeName
-                  , Hs.DeclDeriveInstance
-                      (Hs.DeriveVia $ HsGenCEnum newtypeName)
-                      Hs.Enum
-                      newtypeName
-                  ]
-            _otherwise -> [] -- no instances for enum with no values
+          mSeqBounds = do
+            nMin <- fst <$> Map.lookupMin vMap
+            nMax <- fst <$> Map.lookupMax vMap
+            guard $ nMax - nMin + 1 == fromIntegral (Map.size vMap)
+            return (nMin, nMax)
+      in  [ Hs.DeclDefineInstance $ Hs.InstanceCEnum hs fTyp vMap mSeqBounds
+          , Hs.DeclDefineInstance $ Hs.InstanceCEnumShow hs
+          ]
 
 {-------------------------------------------------------------------------------
   Typedef

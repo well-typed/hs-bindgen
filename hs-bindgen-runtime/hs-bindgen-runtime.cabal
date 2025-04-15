@@ -40,9 +40,7 @@ library
       lang
   exposed-modules:
       HsBindgen.Runtime.ByteArray
-      HsBindgen.Runtime.CEnum.Exception
-      HsBindgen.Runtime.CEnum.General
-      HsBindgen.Runtime.CEnum.Sequential
+      HsBindgen.Runtime.CEnum
       HsBindgen.Runtime.ConstantArray
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
@@ -53,7 +51,7 @@ library
   hs-source-dirs:
       src
   build-depends:
-    , base-compat >= 0.13.1 && < 0.15
+    , containers >= 0.6.5.1 && < 0.8
     , vector ^>=0.13.2.0
     , primitive ^>=0.9.0.0
   if impl(ghc < 9.4)
@@ -67,13 +65,15 @@ test-suite test-runtime
   type:           exitcode-stdio-1.0
   main-is:        test-runtime.hs
   other-modules:
-      Test.HsBindgen.Runtime.CEnum.General
-      Test.HsBindgen.Runtime.CEnum.Sequential
       Test.HsBindgen.Runtime.Bitfield
+      Test.HsBindgen.Runtime.CEnum
       Test.Internal.Tasty
   build-depends:
       -- Internal dependencies
     , hs-bindgen-runtime
+  build-depends:
+      -- Inherited dependencies
+    , containers
   build-depends:
       -- External dependencies
     , QuickCheck        ^>=2.15.0.1

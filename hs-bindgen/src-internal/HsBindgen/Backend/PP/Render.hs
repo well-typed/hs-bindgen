@@ -238,6 +238,7 @@ prettyExpr env prec = \case
         <+> case mbUnicode of { Nothing -> "Nothing"; Just c -> parens ("Just" <+> string (show c)) }
       where
         (str, len) = addrLiteral ba
+    EString s -> showToCtxDoc s
     ECString bs ->
       -- Use unboxed Addr# literals to turn a string literal into a
       -- value of type CStringLen.
@@ -316,7 +317,14 @@ prettyExpr env prec = \case
             | SAlt cnst add hints body <- alts
             ]
 
-    EListIntegral ns -> vlist '[' ']' (map showToCtxDoc ns)
+    ETup xs ->
+      let ds = prettyExpr env 0 <$> xs
+          l  = hlist '(' ')' ds
+      in  ifFits l l $ vlist '(' ')' ds
+    EList xs ->
+      let ds = prettyExpr env 0 <$> xs
+          l  = hlist '[' ']' ds
+      in  ifFits l l $ vlist '[' ']' ds
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.

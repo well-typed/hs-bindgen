@@ -5,7 +5,9 @@ module HsBindgen.SHs.Translation (
 
 -- previously Backend.Common.Translation
 
+import Data.List.NonEmpty (NonEmpty((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
@@ -52,10 +54,10 @@ translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
       , instanceTypes = []
       , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
       }
-translateDefineInstanceDecl (Hs.InstanceGeneralCEnum struct fTyp ns) =
-    DInst $ translateGeneralCEnumInstance struct fTyp ns
-translateDefineInstanceDecl (Hs.InstanceSequentialCEnum struct fTyp nMin nMax) =
-    DInst $ translateSequentialCEnumInstance struct fTyp nMin nMax
+translateDefineInstanceDecl (Hs.InstanceCEnum struct fTyp vMap mBounds) =
+    DInst $ translateCEnumInstance struct fTyp vMap mBounds
+translateDefineInstanceDecl (Hs.InstanceCEnumShow struct) =
+    DInst $ translateCEnumInstanceShow struct
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord $ Record
@@ -151,8 +153,6 @@ translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
 translateType (Hs.HsExtBinding i)   = TExt i
 translateType Hs.HsByteArray        = TGlobal ByteArray_type
 translateType (Hs.HsSizedByteArray n m) = TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-translateType (Hs.HsGenCEnum t)     = TApp (TGlobal GenCEnum_type) (TCon t)
-translateType (Hs.HsSeqCEnum t)     = TApp (TGlobal SeqCEnum_type) (TCon t)
 
 {-------------------------------------------------------------------------------
   Sigma/Phi/Tau types
@@ -393,19 +393,21 @@ translateUnionSetter u f n = DVar n
   Enums
 -------------------------------------------------------------------------------}
 
-translateGeneralCEnumInstance ::
+translateCEnumInstance ::
      Hs.Struct (S Z)
   -> HsType
-  -> [Integer]
+  -> Map Integer (NonEmpty String)
+  -> Maybe (Integer, Integer)
   -> Instance
-translateGeneralCEnumInstance struct fTyp ns = Instance {
-      instanceClass = GeneralCEnum_class
+translateCEnumInstance struct fTyp vMap mBounds = Instance {
+      instanceClass = CEnum_class
     , instanceArgs  = [tcon]
-    , instanceTypes = [(GeneralCEnumZ_tycon, tcon, translateType fTyp)]
+    , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
     , instanceDecs  = [
-          (GeneralCEnum_toGeneralCEnum, ECon (Hs.structConstr struct))
-        , (GeneralCEnum_fromGeneralCEnum, EFree fname)
-        , (GeneralCEnum_generalCEnumValues, EUnusedLam (EListIntegral ns))
+          (CEnum_wrap, ECon (Hs.structConstr struct))
+        , (CEnum_unwrap, EFree fname)
+        , (CEnum_declaredValueMap, EUnusedLam vMapE)
+        , (CEnum_sequentialValueBounds, EUnusedLam mBoundsE)
         ]
     }
   where
@@ -416,30 +418,44 @@ translateGeneralCEnumInstance struct fTyp ns = Instance {
     fname = Hs.fieldName $
       NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
 
-translateSequentialCEnumInstance ::
+    vMapE :: SExpr ctx
+    vMapE = EApp (EGlobal Map_fromList) $ EList [
+        ETup [
+            EIntegral v Nothing
+          , if null names
+              then EApp (EGlobal Applicative_pure) (EString name)
+              else
+                EInfix
+                  NonEmpty_constructor
+                  (EString name)
+                  (EList (EString <$> names))
+          ]
+      | (v, name :| names) <- Map.toList vMap
+      ]
+
+    mBoundsE :: SExpr ctx
+    mBoundsE = case mBounds of
+      Just (nMin, nMax) -> EApp (EGlobal Maybe_Just) $
+        ETup [EIntegral nMin Nothing, EIntegral nMax Nothing]
+      Nothing -> EGlobal Maybe_Nothing
+
+translateCEnumInstanceShow ::
      Hs.Struct (S Z)
-  -> HsType
-  -> Integer
-  -> Integer
   -> Instance
-translateSequentialCEnumInstance struct fTyp nMin nMax = Instance {
-      instanceClass = SequentialCEnum_class
+translateCEnumInstanceShow struct = Instance {
+      instanceClass = Show_class
     , instanceArgs  = [tcon]
-    , instanceTypes = [(SequentialCEnumZ_tycon, tcon, translateType fTyp)]
+    , instanceTypes = []
     , instanceDecs  = [
-          (SequentialCEnum_toSequentialCEnum, ECon (Hs.structConstr struct))
-        , (SequentialCEnum_fromSequentialCEnum, EFree fname)
-        , (SequentialCEnum_sequentialCEnumMin, EUnusedLam (EIntegral nMin Nothing))
-        , (SequentialCEnum_sequentialCEnumMax, EUnusedLam (EIntegral nMax Nothing))
+          (Show_show, EApp (EGlobal CEnum_showCEnum) dconStrE)
         ]
     }
   where
     tcon :: ClosedType
     tcon = TCon $ Hs.structName struct
 
-    fname :: HsName NsVar
-    fname = Hs.fieldName $
-      NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
+    dconStrE :: SExpr ctx
+    dconStrE = EString . T.unpack $ getHsName (Hs.structConstr struct)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality

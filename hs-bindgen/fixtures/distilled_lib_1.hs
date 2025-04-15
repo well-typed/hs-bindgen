@@ -748,18 +748,6 @@
                     (Idx 0)])))}),
   DeclNewtypeInstance
     DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Another_typedef_enum_e"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Another_typedef_enum_e"),
-  DeclNewtypeInstance
-    DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
@@ -770,8 +758,14 @@
     (HsName
       "@NsTypeConstr"
       "Another_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Another_typedef_enum_e"),
   DeclInstance
-    (InstanceSequentialCEnum
+    (InstanceCEnum
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -812,28 +806,52 @@
             enumSourceLoc =
             "distilled_lib_1.h:9:9"}}
       (HsPrimType HsPrimCUInt)
-      0
-      1),
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSeqCEnum
-        (HsName
+      (Map.fromList
+        [
+          _×_ 0 (NE.fromList ["FOO"]),
+          _×_ 1 (NE.fromList ["BAR"])])
+      (Just (_×_ 0 1))),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
           "@NsTypeConstr"
-          "Another_typedef_enum_e")))
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Another_typedef_enum_e"),
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSeqCEnum
-        (HsName
-          "@NsTypeConstr"
-          "Another_typedef_enum_e")))
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Another_typedef_enum_e"),
+          "Another_typedef_enum_e",
+        structConstr = HsName
+          "@NsConstr"
+          "Another_typedef_enum_e",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Another_typedef_enum_e",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName
+                  "another_typedef_enum_e")),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "FOO",
+                valueValue = 0,
+                valueSourceLoc =
+                "distilled_lib_1.h:9:16"},
+              EnumValue {
+                valueName = CName "BAR",
+                valueValue = 1,
+                valueSourceLoc =
+                "distilled_lib_1.h:9:21"}],
+            enumSourceLoc =
+            "distilled_lib_1.h:9:9"}}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3120,18 +3138,6 @@
                     (Idx 0)])))}),
   DeclNewtypeInstance
     DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "A_typedef_enum_e"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "A_typedef_enum_e"),
-  DeclNewtypeInstance
-    DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
@@ -3142,8 +3148,14 @@
     (HsName
       "@NsTypeConstr"
       "A_typedef_enum_e"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_enum_e"),
   DeclInstance
-    (InstanceSequentialCEnum
+    (InstanceCEnum
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -3193,28 +3205,71 @@
             enumSourceLoc =
             "distilled_lib_1.h:60:9"}}
       (HsPrimType HsPrimCSChar)
-      0
-      3),
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSeqCEnum
-        (HsName
+      (Map.fromList
+        [
+          _×_
+            0
+            (NE.fromList ["ENUM_CASE_0"]),
+          _×_
+            1
+            (NE.fromList ["ENUM_CASE_1"]),
+          _×_
+            2
+            (NE.fromList ["ENUM_CASE_2"]),
+          _×_
+            3
+            (NE.fromList ["ENUM_CASE_3"])])
+      (Just (_×_ 0 3))),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
           "@NsTypeConstr"
-          "A_typedef_enum_e")))
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "A_typedef_enum_e"),
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSeqCEnum
-        (HsName
-          "@NsTypeConstr"
-          "A_typedef_enum_e")))
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "A_typedef_enum_e"),
+          "A_typedef_enum_e",
+        structConstr = HsName
+          "@NsConstr"
+          "A_typedef_enum_e",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_A_typedef_enum_e",
+            fieldType = HsPrimType
+              HsPrimCSChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName "a_typedef_enum_e")),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar (Just Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "ENUM_CASE_0",
+                valueValue = 0,
+                valueSourceLoc =
+                "distilled_lib_1.h:62:3"},
+              EnumValue {
+                valueName = CName "ENUM_CASE_1",
+                valueValue = 1,
+                valueSourceLoc =
+                "distilled_lib_1.h:63:3"},
+              EnumValue {
+                valueName = CName "ENUM_CASE_2",
+                valueValue = 2,
+                valueSourceLoc =
+                "distilled_lib_1.h:64:3"},
+              EnumValue {
+                valueName = CName "ENUM_CASE_3",
+                valueValue = 3,
+                valueSourceLoc =
+                "distilled_lib_1.h:65:3"}],
+            enumSourceLoc =
+            "distilled_lib_1.h:60:9"}}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName

@@ -79,6 +79,7 @@ data Global =
   | RealFloat_class
   | RealFrac_class
   | Show_class
+  | Show_show
 
     -- | Primitive (unboxed) type equality
   | NomEq_class
@@ -138,20 +139,19 @@ data Global =
   | GHC_Float_castWord32ToFloat
   | GHC_Float_castWord64ToDouble
 
-  | GeneralCEnum_class
-  | GeneralCEnumZ_tycon
-  | GeneralCEnum_toGeneralCEnum
-  | GeneralCEnum_fromGeneralCEnum
-  | GeneralCEnum_generalCEnumValues
-  | GenCEnum_type
+  | Maybe_Just
+  | Maybe_Nothing
+  | NonEmpty_constructor
+  | Map_fromList
 
-  | SequentialCEnum_class
-  | SequentialCEnumZ_tycon
-  | SequentialCEnum_toSequentialCEnum
-  | SequentialCEnum_fromSequentialCEnum
-  | SequentialCEnum_sequentialCEnumMin
-  | SequentialCEnum_sequentialCEnumMax
-  | SeqCEnum_type
+  | CEnum_class
+  | CEnumZ_tycon
+  | CEnum_wrap
+  | CEnum_unwrap
+  | CEnum_declaredValueMap
+  | CEnum_sequentialValueBounds
+  | CEnum_showCEnum
+  | AsCEnum_type
 
   | ByteArray_type
   | SizedByteArray_type
@@ -171,13 +171,15 @@ data SExpr ctx =
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
   | EChar CExpr.CharValue
+  | EString String
   | ECString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix Global (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
-  | EListIntegral [Integer]
+  | ETup [SExpr ctx]
+  | EList [SExpr ctx]
   deriving stock (Show)
 
 -- | Pattern&Expressions

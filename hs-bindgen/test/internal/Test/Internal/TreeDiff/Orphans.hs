@@ -263,11 +263,11 @@ instance ToExpr Hs.InstanceDecl where
       Expr.App "InstanceStorable" [toExpr struct, toExpr inst]
     Hs.InstanceHasFLAM struct fty i ->
       Expr.App "InstanceHasFLAM" [toExpr struct, toExpr fty, toExpr i]
-    Hs.InstanceGeneralCEnum struct typ ns ->
-      Expr.App "InstanceGeneralCEnum" [toExpr struct, toExpr typ, toExpr ns]
-    Hs.InstanceSequentialCEnum struct typ nMin nMax ->
-      Expr.App "InstanceSequentialCEnum"
-        [toExpr struct, toExpr typ, toExpr nMin, toExpr nMax]
+    Hs.InstanceCEnum struct typ vMap mBounds ->
+      Expr.App "InstanceCEnum"
+        [toExpr struct, toExpr typ, toExpr vMap, toExpr mBounds]
+    Hs.InstanceCEnumShow struct ->
+      Expr.App "InstanceCEnumShow" [toExpr struct]
 
 instance ToExpr (t (S ctx)) => ToExpr (Hs.Lambda t ctx) where
   toExpr (Hs.Lambda name body) = Expr.App "Lambda" [toExpr name, toExpr body]

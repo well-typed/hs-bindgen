@@ -5,18 +5,18 @@ instance Storable MyEnum
            peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {MyEnum un_MyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) un_MyEnum_3}}
-deriving stock instance Show MyEnum
-deriving stock instance Read MyEnum
 deriving stock instance Eq MyEnum
 deriving stock instance Ord MyEnum
-instance SequentialCEnum MyEnum
-    where {type SequentialCEnumZ MyEnum = CUInt;
-           toSequentialCEnum = MyEnum;
-           fromSequentialCEnum = un_MyEnum;
-           sequentialCEnumMin = \_ -> 0;
-           sequentialCEnumMax = \_ -> 1}
-deriving via (SeqCEnum MyEnum) instance Bounded MyEnum
-deriving via (SeqCEnum MyEnum) instance Enum MyEnum
+deriving stock instance Read MyEnum
+instance CEnum MyEnum
+    where {type CEnumZ MyEnum = CUInt;
+           wrap = MyEnum;
+           unwrap = un_MyEnum;
+           declaredValueMap = \_ -> fromList [(0, pure "Say\20320\22909"),
+                                              (1, pure "Say\25308\25308")];
+           sequentialValueBounds = \_ -> Just (0, 1)}
+instance Show MyEnum
+    where {show = showCEnum "MyEnum"}
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0
 pattern Say拜拜 :: MyEnum
