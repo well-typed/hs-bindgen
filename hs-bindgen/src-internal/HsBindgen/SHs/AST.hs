@@ -156,7 +156,7 @@ data SExpr ctx =
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
   | EChar CExpr.CharValue
-  | EString ByteArray
+  | ECString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix Global (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))

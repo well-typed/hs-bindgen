@@ -220,7 +220,7 @@ mkExpr env = \case
           )
           (mkPrimType t)
       EChar c -> [| c |]
-      EString ba@(ByteArray ba#) ->
+      ECString ba@(ByteArray ba#) ->
         let
           len :: Integer
           len = fromIntegral (I# (sizeofByteArray# ba#))
