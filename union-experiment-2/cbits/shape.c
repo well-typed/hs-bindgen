@@ -43,3 +43,20 @@ void print_shape_details(int tag, shape_details* details) {
 void print_shape(shape* s) {
     print_shape_details(s->tag, &s->details);
 }
+
+void random_shape_details(int* tag, shape_details* details) {
+    *tag = rand() % 2;
+    switch(*tag) {
+        case 0:
+          details->rectangle.x1 = rand() % 100;
+          details->rectangle.y1 = rand() % 100;
+          details->rectangle.x2 = rand() % 100;
+          details->rectangle.y2 = rand() % 100;
+          break;
+        case 1:
+          details->circle.x = rand() % 100;
+          details->circle.y = rand() % 100;
+          details->circle.d = (rand() % 100) / 99.0;
+          break;
+    }
+}

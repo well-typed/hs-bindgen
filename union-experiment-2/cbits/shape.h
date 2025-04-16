@@ -32,3 +32,5 @@ shape* new_rect(int x1, int y1, int x2, int y2);
 shape* new_circle(int x, int y, float d);
 void print_shape(shape* s);
 
+void print_shape_details(int tag, shape_details* details);
+void random_shape_details(int* tag, shape_details* details);

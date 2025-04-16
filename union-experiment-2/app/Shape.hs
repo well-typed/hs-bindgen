@@ -14,9 +14,10 @@ module Shape (
   , new_rect
   , new_circle
   , print_shape
+  , print_shape_details
+  , random_shape_details
   ) where
 
-import Data.Proxy
 import Foreign
 import Foreign.C
 
@@ -33,19 +34,20 @@ data Shape_details =
   | ShapeCircle Circle
   deriving stock (Show)
 
+instance StaticSize Shape_details where
+  staticSizeOf    _ = 16
+  staticAlignment _ = 4
+
 instance WriteRaw Shape_details where
   writeRaw p (ShapeRectangle x) = poke (castPtr p) x
   writeRaw p (ShapeCircle    x) = poke (castPtr p) x
 
-instance StructHasUnionTag Shape "shape.tag"
-      => StorableInContext Shape Shape_details where
-  peekInCtxt ctxt p =
-      case structUnionTag (Proxy @"shape.tag") ctxt of
-        0 -> ShapeRectangle <$> peek (castPtr p)
-        1 -> ShapeCircle    <$> peek (castPtr p)
-        n -> error $ "Shape_details: invalid tag " ++ show n
+instance ReadRawWithCtxt CUInt Shape_details where
+  readRawWithCtxt 0 p = ShapeRectangle <$> peek (castPtr p)
+  readRawWithCtxt 1 p = ShapeCircle    <$> peek (castPtr p)
+  readRawWithCtxt n _ = error $ "Shape_details: invalid tag " ++ show n
 
-instance StructHasUnionTag Shape "shape.tag"
+instance ReadRawWithCtxt (StructField "shape.tag" Shape) Shape_details
       => Storable Shape where
   sizeOf    _ = 20
   alignment _ = 4
@@ -53,7 +55,7 @@ instance StructHasUnionTag Shape "shape.tag"
   peek p = do
       shape_tag <- peekByteOff p 0
       let partialShape = Shape{shape_tag, shape_details = undefined}
-      shape_details <- peekByteOffInCtxt partialShape p 4
+      shape_details <- readRawWithCtxtOff (StructField @"shape.tag" partialShape) p 4
       return Shape{shape_tag, shape_details}
 
   poke p Shape{shape_tag, shape_details} =
@@ -155,3 +157,9 @@ foreign import capi safe "shape.h new_circle"
 
 foreign import capi safe "shape.h print_shape"
   print_shape :: Ptr Shape -> IO ()
+
+foreign import capi safe "shape.h print_shape_details"
+  print_shape_details :: CUInt -> Ptr Shape_details -> IO ()
+
+foreign import capi safe "shape.h random_shape_details"
+  random_shape_details :: Ptr CUInt -> Ptr Shape_details -> IO ()

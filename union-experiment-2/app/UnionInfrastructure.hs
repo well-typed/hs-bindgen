@@ -2,25 +2,36 @@
 --
 -- This would be part of hs-bindgen-runtime
 module UnionInfrastructure (
-    -- * 'WriteRaw'
-    WriteRaw(..)
+    -- * Features of 'Storable'
+    StaticSize(..)
+  , staticAlloca
+  , WriteRaw(..)
   , writeRawOff
+  , withWritten
     -- * 'StorableInContext'
-  , StorableInContext(..)
-  , peekByteOffInCtxt
-    -- * 'StructHasUnionTag'
-  , StructHasUnionTag(..)
+  , ReadRawWithCtxt(..)
+  , readRawWithCtxtOff
+    -- * 'StructField'
+  , StructField(..)
   ) where
 
-import Data.Kind
 import Foreign
 import GHC.TypeLits
-import Foreign.C
 import Data.Proxy
 
 {-------------------------------------------------------------------------------
-  Subset of 'Storable'
+  Subsets of 'Storable'
 -------------------------------------------------------------------------------}
+
+class StaticSize a where
+  staticSizeOf    :: Proxy a -> Int
+  staticAlignment :: Proxy a -> Int
+
+staticAlloca :: forall a b. StaticSize a => (Ptr a -> IO b) -> IO b
+staticAlloca =
+    allocaBytesAligned
+      (staticSizeOf    (Proxy @a))
+      (staticAlignment (Proxy @a))
 
 class WriteRaw a where
   writeRaw :: Ptr a -> a -> IO ()
@@ -28,33 +39,27 @@ class WriteRaw a where
 writeRawOff :: WriteRaw a => Ptr b -> Int -> a -> IO ()
 writeRawOff addr off = writeRaw (addr `plusPtr` off)
 
-{-------------------------------------------------------------------------------
-  'StorableInContext'
+withWritten :: (WriteRaw a, StaticSize a) => a -> (Ptr a -> IO b) -> IO b
+withWritten a k = staticAlloca $ \ptr -> writeRaw ptr a >> k ptr
 
-  Instances of this class would be derived by hs-bindgen.
+{-------------------------------------------------------------------------------
+  'ReadRawWithCtxt'
+
+  One instance of this class would be derived by @hs-bindgen@ (where we are
+  given the tag directly). Further instances can be used-defined.
 -------------------------------------------------------------------------------}
 
-class StorableInContext (ctxt :: Type) a where
-  peekInCtxt ::       ctxt -> Ptr a      -> IO a
+class ReadRawWithCtxt ctxt a where
+  readRawWithCtxt :: ctxt -> Ptr a -> IO a
 
-
-peekByteOffInCtxt ::
-     StorableInContext ctxt a
+readRawWithCtxtOff ::
+     ReadRawWithCtxt ctxt a
   => ctxt -> Ptr b -> Int -> IO a
-peekByteOffInCtxt ctxt addr off = peekInCtxt ctxt (addr `plusPtr` off)
+readRawWithCtxtOff ctxt addr off = readRawWithCtxt ctxt (addr `plusPtr` off)
 
 {-------------------------------------------------------------------------------
-  Used when deriving 'Storable' instances for structs containing unions
-
-  Instances of this class would be hand-written by users of hs-bindgen.
-
-  The general infrastructure above makes no assumptions about what the context
-  is; 'StructHasUnionTag' is used in the /instance/ we generate. Note that the
-  only thing struct-specific about 'StructHasUnionTag' is that we pass the field
-  name of the union; this can be used to disambiguate multiple unions nested
-  inside a struct.
+  'StructField' allows to distinguish multiple unions in the (very rare?) case
+  where the same union type occurs more than once in the same struct type.
 -------------------------------------------------------------------------------}
 
-class StructHasUnionTag ctxt (field :: Symbol) where
-  structUnionTag :: Proxy field -> ctxt -> CUInt
-
+newtype StructField (field :: Symbol) a = StructField a
