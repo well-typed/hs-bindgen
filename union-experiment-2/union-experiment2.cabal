@@ -17,6 +17,7 @@ common lang
       DerivingVia
       LambdaCase
       PatternSynonyms
+      UndecidableInstances
 
 executable union-experiment2
   import:         lang
@@ -24,6 +25,7 @@ executable union-experiment2
   main-is:        Main.hs
 
   other-modules:
+      Handwritten
       Shape
       UnionInfrastructure
 
