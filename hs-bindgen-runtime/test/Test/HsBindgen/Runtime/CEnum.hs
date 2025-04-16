@@ -41,10 +41,10 @@ newtype NoValue = NoValue {
 instance CEnum NoValue where
   type CEnumZ NoValue = FC.CUInt
 
-  wrap                    = NoValue
-  unwrap                  = un_NoValue
-  declaredValueMap      _ = Map.empty
-  sequentialValueBounds _ = Nothing
+  fromCEnumZ          = NoValue
+  toCEnumZ            = un_NoValue
+  declaredValues    _ = Map.empty
+  rangeIsSequential _ = Nothing
 
 deriving via AsCEnum NoValue instance Bounded NoValue
 
@@ -99,10 +99,10 @@ newtype SingleValue = SingleValue {
 instance CEnum SingleValue where
   type CEnumZ SingleValue = FC.CUInt
 
-  wrap                    = SingleValue
-  unwrap                  = un_SingleValue
-  declaredValueMap      _ = Map.singleton 1 ("OK" :| ["SUCCESS"])
-  sequentialValueBounds _ = Just (1, 1)
+  fromCEnumZ          = SingleValue
+  toCEnumZ            = un_SingleValue
+  declaredValues    _ = Map.singleton 1 ("OK" :| ["SUCCESS"])
+  rangeIsSequential _ = Just (1, 1)
 
 deriving via AsCEnum SingleValue instance Bounded SingleValue
 
@@ -196,9 +196,9 @@ newtype SeqPosValue = SeqPosValue {
 instance CEnum SeqPosValue where
   type CEnumZ SeqPosValue = FC.CUInt
 
-  wrap                    = SeqPosValue
-  unwrap                  = un_SeqPosValue
-  declaredValueMap      _ = Map.fromList [
+  fromCEnumZ          = SeqPosValue
+  toCEnumZ            = un_SeqPosValue
+  declaredValues    _ = Map.fromList [
       (1,  "A" :| ["ALPHA"])
     , (2,  "B" :| ["BETA"])
     , (3,  pure "C")
@@ -210,7 +210,7 @@ instance CEnum SeqPosValue where
     , (9,  pure "I")
     , (10, pure "J")
     ]
-  sequentialValueBounds _ = Just (1, 10)
+  rangeIsSequential _ = Just (1, 10)
 
 deriving via AsCEnum SeqPosValue instance Bounded SeqPosValue
 
@@ -337,9 +337,9 @@ newtype SeqNegValue = SeqNegValue {
 instance CEnum SeqNegValue where
   type CEnumZ SeqNegValue = FC.CInt
 
-  wrap                    = SeqNegValue
-  unwrap                  = un_SeqNegValue
-  declaredValueMap      _ = Map.fromList [
+  fromCEnumZ          = SeqNegValue
+  toCEnumZ            = un_SeqNegValue
+  declaredValues    _ = Map.fromList [
       (-5, pure "GARBAGE")
     , (-4, pure "TERRIBLE")
     , (-3, pure "BAD")
@@ -352,7 +352,7 @@ instance CEnum SeqNegValue where
     , (4,  pure "GREAT")
     , (5,  pure "SPECTACULAR")
     ]
-  sequentialValueBounds _ = Just (-5, 5)
+  rangeIsSequential _ = Just (-5, 5)
 
 deriving via AsCEnum SeqNegValue instance Bounded SeqNegValue
 
@@ -482,9 +482,9 @@ newtype GenPosValue = GenPosValue {
 instance CEnum GenPosValue where
   type CEnumZ GenPosValue = FC.CUInt
 
-  wrap                    = GenPosValue
-  unwrap                  = un_GenPosValue
-  declaredValueMap      _ = Map.fromList [
+  fromCEnumZ          = GenPosValue
+  toCEnumZ            = un_GenPosValue
+  declaredValues    _ = Map.fromList [
       (100, pure "CONTINUE")
     , (101, pure "SWITCHING_PROTOCOLS")
     , (200, pure "OK")
@@ -496,7 +496,7 @@ instance CEnum GenPosValue where
     , (403, pure "FORBIDDEN")
     , (404, pure "NOT_FOUND")
     ]
-  sequentialValueBounds _ = Nothing
+  rangeIsSequential _ = Nothing
 
 deriving via AsCEnum GenPosValue instance Bounded GenPosValue
 
@@ -632,9 +632,9 @@ newtype GenNegValue = GenNegValue {
 instance CEnum GenNegValue where
   type CEnumZ GenNegValue = FC.CInt
 
-  wrap                    = GenNegValue
-  unwrap                  = un_GenNegValue
-  declaredValueMap      _ = Map.fromList [
+  fromCEnumZ          = GenNegValue
+  toCEnumZ            = un_GenNegValue
+  declaredValues    _ = Map.fromList [
       (-201, pure "REALLY_TERRIBLE")
     , (-200, pure "TERRIBLE")
     , (-101, pure "REALLY_BAD")
@@ -645,7 +645,7 @@ instance CEnum GenNegValue where
     , (200,  pure "GREAT")
     , (201,  pure "REALLY_GREAT")
     ]
-  sequentialValueBounds _ = Nothing
+  rangeIsSequential _ = Nothing
 
 deriving via AsCEnum GenNegValue instance Bounded GenNegValue
 

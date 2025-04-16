@@ -404,10 +404,10 @@ translateCEnumInstance struct fTyp vMap mBounds = Instance {
     , instanceArgs  = [tcon]
     , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
     , instanceDecs  = [
-          (CEnum_wrap, ECon (Hs.structConstr struct))
-        , (CEnum_unwrap, EFree fname)
-        , (CEnum_declaredValueMap, EUnusedLam vMapE)
-        , (CEnum_sequentialValueBounds, EUnusedLam mBoundsE)
+          (CEnum_fromCEnumZ, ECon (Hs.structConstr struct))
+        , (CEnum_toCEnumZ, EFree fname)
+        , (CEnum_declaredValues, EUnusedLam vMapE)
+        , (CEnum_rangeIsSequential, EUnusedLam mBoundsE)
         ]
     }
   where

@@ -44,14 +44,14 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   type CEnumZ EnumA = FC.CUInt
 
-  wrap = EnumA
+  fromCEnumZ = EnumA
 
-  unwrap = un_EnumA
+  toCEnumZ = un_EnumA
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "VALA_1"), (1, pure "VALA_2")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show EnumA where
 
@@ -119,14 +119,14 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
   type CEnumZ ExB_fieldB1 = FC.CUInt
 
-  wrap = ExB_fieldB1
+  fromCEnumZ = ExB_fieldB1
 
-  unwrap = un_ExB_fieldB1
+  toCEnumZ = un_ExB_fieldB1
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "VALB_1"), (1, pure "VALB_2")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show ExB_fieldB1 where
 

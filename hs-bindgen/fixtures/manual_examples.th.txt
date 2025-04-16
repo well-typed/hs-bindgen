@@ -87,12 +87,12 @@ deriving stock instance Ord Index
 deriving stock instance Read Index
 instance CEnum Index
     where {type CEnumZ Index = CUInt;
-           wrap = Index;
-           unwrap = un_Index;
-           declaredValueMap = \_ -> fromList [(0, pure "A"),
-                                              (1, pure "B"),
-                                              (2, pure "C")];
-           sequentialValueBounds = \_ -> Just (0, 2)}
+           fromCEnumZ = Index;
+           toCEnumZ = un_Index;
+           declaredValues = \_ -> fromList [(0, pure "A"),
+                                            (1, pure "B"),
+                                            (2, pure "C")];
+           rangeIsSequential = \_ -> Just (0, 2)}
 instance Show Index
     where {show = showCEnum "Index"}
 pattern A :: Index

@@ -45,14 +45,14 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
   type CEnumZ Foo = FC.CUInt
 
-  wrap = Foo
+  fromCEnumZ = Foo
 
-  unwrap = un_Foo
+  toCEnumZ = un_Foo
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "FOO1"), (1, pure "FOO2")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show Foo where
 

@@ -208,14 +208,14 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
 
   type CEnumZ Index = FC.CUInt
 
-  wrap = Index
+  fromCEnumZ = Index
 
-  unwrap = un_Index
+  toCEnumZ = un_Index
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "A"), (1, pure "B"), (2, pure "C")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 2)
+  rangeIsSequential = \_ -> P.Just (0, 2)
 
 instance Show Index where
 

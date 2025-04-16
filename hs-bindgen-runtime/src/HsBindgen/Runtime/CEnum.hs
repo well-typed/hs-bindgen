@@ -34,31 +34,30 @@ import Data.Proxy (Proxy(Proxy))
 
 -- | C enumeration
 --
--- This class implements an API for `newtype` Haskell representations of C
--- enumerations.
+-- This class implements an API for Haskell representations of C enumerations.
 class Integral (CEnumZ a) => CEnum a where
-  -- | Wrapped integral type
+  -- | Integral representation type
   type CEnumZ a
 
-  -- | Wrap the integral type
+  -- | Construct a value from the integral representation
   --
-  -- prop> unwrap . wrap === id
-  wrap :: CEnumZ a -> a
+  -- prop> toCEnumZ . fromCEnumZ === id
+  fromCEnumZ :: CEnumZ a -> a
 
-  -- | Unwrap the integral type
+  -- | Get the integral representation for a value
   --
-  -- prop> wrap . unwrap === id
-  unwrap :: a -> CEnumZ a
+  -- prop> fromCEnumZ . toCEnumZ === id
+  toCEnumZ :: a -> CEnumZ a
 
   -- | Declared values and associated names
-  declaredValueMap :: proxy a -> Map (CEnumZ a) (NonEmpty String)
+  declaredValues :: proxy a -> Map (CEnumZ a) (NonEmpty String)
 
   -- | Lower and upper bounds when declared values are sequential
   --
   -- This is an optimization.  When set, the first value must be be the minimum
-  -- key in 'declaredValueMap' and the second value must be the maximum key in
-  -- 'declaredValueMap'.
-  sequentialValueBounds :: proxy a -> Maybe (CEnumZ a, CEnumZ a)
+  -- key in 'declaredValues' and the second value must be the maximum key in
+  -- 'declaredValues'.
+  rangeIsSequential :: proxy a -> Maybe (CEnumZ a, CEnumZ a)
 
 {-------------------------------------------------------------------------------
   API
@@ -66,21 +65,22 @@ class Integral (CEnumZ a) => CEnum a where
 
 -- | Determine if the specified value is declared
 isDeclared :: forall a. CEnum a => a -> Bool
-isDeclared x = case sequentialValueBounds (Proxy :: Proxy a) of
+isDeclared x = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ) -> i >= minZ && i <= maxZ
-    Nothing -> i `Map.member` declaredValueMap (Proxy :: Proxy a)
+    Nothing -> i `Map.member` declaredValues (Proxy :: Proxy a)
   where
     i :: CEnumZ a
-    i = unwrap x
+    i = toCEnumZ x
 
 -- | Construct a value only if it is declared
 mkDeclared :: forall a. CEnum a => CEnumZ a -> Maybe a
-mkDeclared i = case sequentialValueBounds (Proxy :: Proxy a) of
+mkDeclared i = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ)
-      | i >= minZ && i <= maxZ -> Just (wrap i)
+      | i >= minZ && i <= maxZ -> Just (fromCEnumZ i)
       | otherwise -> Nothing
     Nothing
-      | i `Map.member` declaredValueMap (Proxy :: Proxy a) -> Just (wrap i)
+      | i `Map.member` declaredValues (Proxy :: Proxy a) ->
+          Just (fromCEnumZ i)
       | otherwise -> Nothing
 
 -- | Get all names associated with a value
@@ -88,7 +88,7 @@ mkDeclared i = case sequentialValueBounds (Proxy :: Proxy a) of
 -- An empty list is returned when the specified value is not declared.
 getNames :: forall a. CEnum a => a -> [String]
 getNames x = maybe [] NonEmpty.toList $
-    Map.lookup (unwrap x) (declaredValueMap (Proxy :: Proxy a))
+    Map.lookup (toCEnumZ x) (declaredValues (Proxy :: Proxy a))
 
 {-------------------------------------------------------------------------------
   Show instance support
@@ -108,12 +108,12 @@ getNames x = maybe [] NonEmpty.toList $
 -- > showName "StatusCode" (StatusCode 418) == "StatusCode 418"
 showCEnum :: forall a. CEnum a => String -> a -> String
 showCEnum constructorName x =
-    case Map.lookup i (declaredValueMap (Proxy :: Proxy a)) of
+    case Map.lookup i (declaredValues (Proxy :: Proxy a)) of
       Just (name :| _names) -> name
       Nothing -> constructorName ++ ' ' : show (toInteger i)
   where
     i :: CEnumZ a
-    i = unwrap x
+    i = toCEnumZ x
 
 {-------------------------------------------------------------------------------
   Deriving via support
@@ -174,17 +174,17 @@ instance Exception CEnumException where
 -------------------------------------------------------------------------------}
 
 minBound' :: forall a. CEnum a => a
-minBound' = case sequentialValueBounds (Proxy :: Proxy a) of
-    Just (minZ, _maxZ) -> wrap minZ
-    Nothing -> case Map.lookupMin (declaredValueMap (Proxy :: Proxy a)) of
-      Just (i, _names) -> wrap i
+minBound' = case rangeIsSequential (Proxy :: Proxy a) of
+    Just (minZ, _maxZ) -> fromCEnumZ minZ
+    Nothing -> case Map.lookupMin (declaredValues (Proxy :: Proxy a)) of
+      Just (i, _names) -> fromCEnumZ i
       Nothing -> throw CEnumEmpty
 
 maxBound' :: forall a. CEnum a => a
-maxBound' = case sequentialValueBounds (Proxy :: Proxy a) of
-    Just (_minZ, maxZ) -> wrap maxZ
-    Nothing -> case Map.lookupMax (declaredValueMap (Proxy :: Proxy a)) of
-      Just (k, _names) -> wrap k
+maxBound' = case rangeIsSequential (Proxy :: Proxy a) of
+    Just (_minZ, maxZ) -> fromCEnumZ maxZ
+    Nothing -> case Map.lookupMax (declaredValues (Proxy :: Proxy a)) of
+      Just (k, _names) -> fromCEnumZ k
       Nothing -> throw CEnumEmpty
 
 {-------------------------------------------------------------------------------
@@ -192,34 +192,34 @@ maxBound' = case sequentialValueBounds (Proxy :: Proxy a) of
 -------------------------------------------------------------------------------}
 
 succ' :: forall a. CEnum a => a -> a
-succ' x = case sequentialValueBounds (Proxy :: Proxy a) of
+succ' x = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ)
-      | i >= minZ && i < maxZ -> wrap (i + 1)
+      | i >= minZ && i < maxZ -> fromCEnumZ (i + 1)
       | i == maxZ -> throw $ CEnumNoSuccessor (toInteger i)
       | otherwise -> throw $ CEnumNotDeclared (toInteger i)
     Nothing -> either (throw . CEnumNotDeclared) id $ do
-      (_ltMap, gtMap) <- splitMap i (declaredValueMap (Proxy :: Proxy a))
+      (_ltMap, gtMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
       case Map.lookupMin gtMap of
-        Just (j, _names) -> return $ wrap j
+        Just (j, _names) -> return $ fromCEnumZ j
         Nothing -> throw $ CEnumNoSuccessor (toInteger i)
   where
     i :: CEnumZ a
-    i = unwrap x
+    i = toCEnumZ x
 
 pred' :: forall a. CEnum a => a -> a
-pred' y = case sequentialValueBounds (Proxy :: Proxy a) of
+pred' y = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ)
-      | j > minZ && j <= maxZ -> wrap (j - 1)
+      | j > minZ && j <= maxZ -> fromCEnumZ (j - 1)
       | j == minZ -> throw $ CEnumNoPredecessor (toInteger j)
       | otherwise -> throw $ CEnumNotDeclared (toInteger j)
     Nothing -> either (throw . CEnumNotDeclared) id $ do
-      (ltMap, _gtMap) <- splitMap j (declaredValueMap (Proxy :: Proxy a))
+      (ltMap, _gtMap) <- splitMap j (declaredValues (Proxy :: Proxy a))
       case Map.lookupMax ltMap of
-        Just (i, _names) -> return $ wrap i
+        Just (i, _names) -> return $ fromCEnumZ i
         Nothing -> throw $ CEnumNoPredecessor (toInteger j)
   where
     j :: CEnumZ a
-    j = unwrap y
+    j = toCEnumZ y
 
 toEnum' :: CEnum a => Int -> a
 toEnum' i = case mkDeclared (fromIntegral i) of
@@ -227,110 +227,110 @@ toEnum' i = case mkDeclared (fromIntegral i) of
     Nothing -> throw $ CEnumNotDeclared (toInteger i)
 
 fromEnum' :: forall a. CEnum a => a -> Int
-fromEnum' x = case sequentialValueBounds (Proxy :: Proxy a) of
+fromEnum' x = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ)
       | i >= minZ && i <= maxZ -> fromIntegral i
       | otherwise -> throw $ CEnumNotDeclared (toInteger i)
     Nothing
-      | i `Map.member` declaredValueMap (Proxy :: Proxy a) -> fromIntegral i
+      | i `Map.member` declaredValues (Proxy :: Proxy a) -> fromIntegral i
       | otherwise -> throw $ CEnumNotDeclared (toInteger i)
   where
     i :: CEnumZ a
-    i = unwrap x
+    i = toCEnumZ x
 
 enumFrom' :: forall a. CEnum a => a -> [a]
-enumFrom' x = case sequentialValueBounds (Proxy :: Proxy a) of
+enumFrom' x = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ)
-      | i >= minZ && i <= maxZ -> map wrap [i .. maxZ]
+      | i >= minZ && i <= maxZ -> map fromCEnumZ [i .. maxZ]
       | otherwise -> throw $ CEnumNotDeclared (toInteger i)
     Nothing -> either (throw . CEnumNotDeclared) id $ do
-      (_ltMap, gtMap) <- splitMap i (declaredValueMap (Proxy :: Proxy a))
-      return $ x : map wrap (Map.keys gtMap)
+      (_ltMap, gtMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
+      return $ x : map fromCEnumZ (Map.keys gtMap)
   where
     i :: CEnumZ a
-    i = unwrap x
+    i = toCEnumZ x
 
 enumFromThen' :: forall a. CEnum a => a -> a -> [a]
 enumFromThen' x y = case compare i j of
-    LT -> case sequentialValueBounds (Proxy :: Proxy a) of
+    LT -> case rangeIsSequential (Proxy :: Proxy a) of
       Just (minZ, maxZ)
         | i < minZ || i > maxZ -> throw $ CEnumNotDeclared (toInteger i)
         | j < minZ || j > maxZ -> throw $ CEnumNotDeclared (toInteger j)
-        | otherwise -> map wrap [i, j .. maxZ]
+        | otherwise -> map fromCEnumZ [i, j .. maxZ]
       Nothing -> either (throw . CEnumNotDeclared) id $ do
-        (_ltIMap, gtIMap) <- splitMap i (declaredValueMap (Proxy :: Proxy a))
+        (_ltIMap, gtIMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
         (ltJMap,  gtJMap) <- splitMap j gtIMap
         let w  = Map.size ltJMap + 1
             js = j : Map.keys gtJMap
-        return $ x : map (wrap . NonEmpty.head) (nonEmptyChunksOf w js)
-    GT -> case sequentialValueBounds (Proxy :: Proxy a) of
+        return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
+    GT -> case rangeIsSequential (Proxy :: Proxy a) of
       Just (minZ, maxZ)
         | i < minZ || i > maxZ -> throw $ CEnumNotDeclared (toInteger i)
         | j < minZ || j > maxZ -> throw $ CEnumNotDeclared (toInteger j)
-        | otherwise -> map wrap [i, j .. minZ]
+        | otherwise -> map fromCEnumZ [i, j .. minZ]
       Nothing -> either (throw . CEnumNotDeclared) id $ do
-        (ltIMap, _gtIMap) <- splitMap i (declaredValueMap (Proxy :: Proxy a))
+        (ltIMap, _gtIMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
         (ltJMap, gtJMap)  <- splitMap j ltIMap
         let w  = Map.size gtJMap + 1
             js = j : reverse (Map.keys ltJMap)
-        return $ x : map (wrap . NonEmpty.head) (nonEmptyChunksOf w js)
+        return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
     -- consistently prioritized over CEnumNotDeclared errors
     EQ -> throw $ CEnumFromEqThen (toInteger i)
   where
     i, j :: CEnumZ a
-    i = unwrap x
-    j = unwrap y
+    i = toCEnumZ x
+    j = toCEnumZ y
 
 enumFromTo' :: forall a. CEnum a => a -> a -> [a]
-enumFromTo' x z = case sequentialValueBounds (Proxy :: Proxy a) of
+enumFromTo' x z = case rangeIsSequential (Proxy :: Proxy a) of
     Just (minZ, maxZ)
       | i < minZ || i > maxZ -> throw $ CEnumNotDeclared (toInteger i)
       | k < minZ || k > maxZ -> throw $ CEnumNotDeclared (toInteger k)
-      | otherwise -> map wrap [i .. k]
+      | otherwise -> map fromCEnumZ [i .. k]
     Nothing -> either (throw . CEnumNotDeclared) id $ do
-      (_ltIMap, gtIMap)  <- splitMap i (declaredValueMap (Proxy :: Proxy a))
+      (_ltIMap, gtIMap)  <- splitMap i (declaredValues (Proxy :: Proxy a))
       (ltKMap,  _gtKMap) <- splitMap k gtIMap
-      return $ x : map wrap (Map.keys ltKMap) ++ [z]
+      return $ x : map fromCEnumZ (Map.keys ltKMap) ++ [z]
   where
     i, k :: CEnumZ a
-    i = unwrap x
-    k = unwrap z
+    i = toCEnumZ x
+    k = toCEnumZ z
 
 enumFromThenTo' :: forall a. CEnum a => a -> a -> a -> [a]
 enumFromThenTo' x y z = case compare i j of
-    LT -> case sequentialValueBounds (Proxy :: Proxy a) of
+    LT -> case rangeIsSequential (Proxy :: Proxy a) of
       Just (minZ, maxZ)
         | i < minZ || i > maxZ -> throw $ CEnumNotDeclared (toInteger i)
         | j < minZ || j > maxZ -> throw $ CEnumNotDeclared (toInteger j)
         | k < minZ || k > maxZ -> throw $ CEnumNotDeclared (toInteger k)
-        | otherwise -> map wrap [i, j .. k]
+        | otherwise -> map fromCEnumZ [i, j .. k]
       Nothing -> either (throw . CEnumNotDeclared) id $ do
-        (_ltIMap, gtIMap)  <- splitMap i (declaredValueMap (Proxy :: Proxy a))
+        (_ltIMap, gtIMap)  <- splitMap i (declaredValues (Proxy :: Proxy a))
         (ltJMap,  gtJMap)  <- splitMap j gtIMap
         (ltKMap,  _gtKMap) <- splitMap k gtJMap
         let w  = Map.size ltJMap + 1
             js = j : Map.keys ltKMap ++ [k]
-        return $ x : map (wrap . NonEmpty.head) (nonEmptyChunksOf w js)
-    GT -> case sequentialValueBounds (Proxy :: Proxy a) of
+        return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
+    GT -> case rangeIsSequential (Proxy :: Proxy a) of
       Just (minZ, maxZ)
         | i < minZ || i > maxZ -> throw $ CEnumNotDeclared (toInteger i)
         | j < minZ || j > maxZ -> throw $ CEnumNotDeclared (toInteger j)
         | k < minZ || k > maxZ -> throw $ CEnumNotDeclared (toInteger k)
-        | otherwise -> map wrap [i, j .. k]
+        | otherwise -> map fromCEnumZ [i, j .. k]
       Nothing -> either (throw . CEnumNotDeclared) id $ do
-        (ltIMap,  _gtIMap) <- splitMap i (declaredValueMap (Proxy :: Proxy a))
+        (ltIMap,  _gtIMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
         (ltJMap,  gtJMap)  <- splitMap j ltIMap
         (_ltKMap, gtKMap)  <- splitMap k ltJMap
         let w  = Map.size gtJMap + 1
             js = j : reverse (k : Map.keys gtKMap)
-        return $ x : map (wrap . NonEmpty.head) (nonEmptyChunksOf w js)
+        return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
     -- consistently prioritized over CEnumNotDeclared errors
     EQ -> throw $ CEnumFromEqThen (toInteger i)
   where
     i, j, k :: CEnumZ a
-    i = unwrap x
-    j = unwrap y
-    k = unwrap z
+    i = toCEnumZ x
+    j = toCEnumZ y
+    k = toCEnumZ z
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

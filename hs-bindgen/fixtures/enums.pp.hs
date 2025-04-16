@@ -46,14 +46,14 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
   type CEnumZ First = FC.CUInt
 
-  wrap = First
+  fromCEnumZ = First
 
-  unwrap = un_First
+  toCEnumZ = un_First
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "FIRST1"), (1, pure "FIRST2")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show First where
 
@@ -96,15 +96,15 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   type CEnumZ Second = FC.CInt
 
-  wrap = Second
+  fromCEnumZ = Second
 
-  unwrap = un_Second
+  toCEnumZ = un_Second
 
-  declaredValueMap =
+  declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(-1, pure "SECOND_A"), (0, pure "SECOND_B"), (1, pure "SECOND_C")]
 
-  sequentialValueBounds = \_ -> P.Just (-1, 1)
+  rangeIsSequential = \_ -> P.Just (-1, 1)
 
 instance Show Second where
 
@@ -150,15 +150,15 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   type CEnumZ Same = FC.CUInt
 
-  wrap = Same
+  fromCEnumZ = Same
 
-  unwrap = un_Same
+  toCEnumZ = un_Same
 
-  declaredValueMap =
+  declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
 
-  sequentialValueBounds = \_ -> P.Just (1, 1)
+  rangeIsSequential = \_ -> P.Just (1, 1)
 
 instance Show Same where
 
@@ -201,15 +201,15 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   type CEnumZ Nonseq = FC.CUInt
 
-  wrap = Nonseq
+  fromCEnumZ = Nonseq
 
-  unwrap = un_Nonseq
+  toCEnumZ = un_Nonseq
 
-  declaredValueMap =
+  declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(200, pure "NONSEQ_A"), (301, pure "NONSEQ_B"), (404, pure "NONSEQ_C")]
 
-  sequentialValueBounds = \_ -> P.Nothing
+  rangeIsSequential = \_ -> P.Nothing
 
 instance Show Nonseq where
 
@@ -255,15 +255,15 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
   type CEnumZ Packad = FC.CSChar
 
-  wrap = Packad
+  fromCEnumZ = Packad
 
-  unwrap = un_Packad
+  toCEnumZ = un_Packad
 
-  declaredValueMap =
+  declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(0, pure "PACKED_A"), (1, pure "PACKED_B"), (2, pure "PACKED_C")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 2)
+  rangeIsSequential = \_ -> P.Just (0, 2)
 
 instance Show Packad where
 
@@ -309,14 +309,14 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   type CEnumZ EnumA = FC.CUInt
 
-  wrap = EnumA
+  fromCEnumZ = EnumA
 
-  unwrap = un_EnumA
+  toCEnumZ = un_EnumA
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "A_FOO"), (1, pure "A_BAR")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show EnumA where
 
@@ -359,14 +359,14 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   type CEnumZ EnumB = FC.CUInt
 
-  wrap = EnumB
+  fromCEnumZ = EnumB
 
-  unwrap = un_EnumB
+  toCEnumZ = un_EnumB
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "B_FOO"), (1, pure "B_BAR")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show EnumB where
 
@@ -409,14 +409,14 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   type CEnumZ EnumC = FC.CUInt
 
-  wrap = EnumC
+  fromCEnumZ = EnumC
 
-  unwrap = un_EnumC
+  toCEnumZ = un_EnumC
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "C_FOO"), (1, pure "C_BAR")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show EnumC where
 
@@ -459,14 +459,14 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
   type CEnumZ EnumD = FC.CUInt
 
-  wrap = EnumD
+  fromCEnumZ = EnumD
 
-  unwrap = un_EnumD
+  toCEnumZ = un_EnumD
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "D_FOO"), (1, pure "D_BAR")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show EnumD where
 

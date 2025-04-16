@@ -106,14 +106,14 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
   type CEnumZ Another_typedef_enum_e = FC.CUInt
 
-  wrap = Another_typedef_enum_e
+  fromCEnumZ = Another_typedef_enum_e
 
-  unwrap = un_Another_typedef_enum_e
+  toCEnumZ = un_Another_typedef_enum_e
 
-  declaredValueMap =
+  declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "FOO"), (1, pure "BAR")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show Another_typedef_enum_e where
 
@@ -380,15 +380,15 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
   type CEnumZ A_typedef_enum_e = FC.CSChar
 
-  wrap = A_typedef_enum_e
+  fromCEnumZ = A_typedef_enum_e
 
-  unwrap = un_A_typedef_enum_e
+  toCEnumZ = un_A_typedef_enum_e
 
-  declaredValueMap =
+  declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(0, pure "ENUM_CASE_0"), (1, pure "ENUM_CASE_1"), (2, pure "ENUM_CASE_2"), (3, pure "ENUM_CASE_3")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 3)
+  rangeIsSequential = \_ -> P.Just (0, 3)
 
 instance Show A_typedef_enum_e where
 

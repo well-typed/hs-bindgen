@@ -146,10 +146,10 @@ data Global =
 
   | CEnum_class
   | CEnumZ_tycon
-  | CEnum_wrap
-  | CEnum_unwrap
-  | CEnum_declaredValueMap
-  | CEnum_sequentialValueBounds
+  | CEnum_fromCEnumZ
+  | CEnum_toCEnumZ
+  | CEnum_declaredValues
+  | CEnum_rangeIsSequential
   | CEnum_showCEnum
   | AsCEnum_type
 

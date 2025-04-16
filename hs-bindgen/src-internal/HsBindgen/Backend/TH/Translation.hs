@@ -161,11 +161,10 @@ mkGlobal = \case
 
       CEnum_class -> ''HsBindgen.Runtime.CEnum.CEnum
       CEnumZ_tycon -> ''HsBindgen.Runtime.CEnum.CEnumZ
-      CEnum_wrap -> 'HsBindgen.Runtime.CEnum.wrap
-      CEnum_unwrap -> 'HsBindgen.Runtime.CEnum.unwrap
-      CEnum_declaredValueMap -> 'HsBindgen.Runtime.CEnum.declaredValueMap
-      CEnum_sequentialValueBounds ->
-        'HsBindgen.Runtime.CEnum.sequentialValueBounds
+      CEnum_fromCEnumZ -> 'HsBindgen.Runtime.CEnum.fromCEnumZ
+      CEnum_toCEnumZ -> 'HsBindgen.Runtime.CEnum.toCEnumZ
+      CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
+      CEnum_rangeIsSequential -> 'HsBindgen.Runtime.CEnum.rangeIsSequential
       CEnum_showCEnum -> 'HsBindgen.Runtime.CEnum.showCEnum
       AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
 
@@ -325,14 +324,14 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     NonEmpty_constructor -> TH.conE name
     Map_fromList         -> TH.varE name
 
-    CEnum_class                 -> panicPure "class in expression"
-    CEnumZ_tycon                -> TH.conE name
-    CEnum_wrap                  -> TH.varE name
-    CEnum_unwrap                -> TH.varE name
-    CEnum_declaredValueMap      -> TH.varE name
-    CEnum_sequentialValueBounds -> TH.varE name
-    CEnum_showCEnum             -> TH.varE name
-    AsCEnum_type                -> panicPure "type in expression"
+    CEnum_class             -> panicPure "class in expression"
+    CEnumZ_tycon            -> TH.conE name
+    CEnum_fromCEnumZ        -> TH.varE name
+    CEnum_toCEnumZ          -> TH.varE name
+    CEnum_declaredValues    -> TH.varE name
+    CEnum_rangeIsSequential -> TH.varE name
+    CEnum_showCEnum         -> TH.varE name
+    AsCEnum_type            -> panicPure "type in expression"
 
     ByteArray_type      -> panicPure "type in expression"
     SizedByteArray_type -> panicPure "type in expression"

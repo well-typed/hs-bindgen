@@ -44,15 +44,15 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   type CEnumZ MyEnum = FC.CUInt
 
-  wrap = MyEnum
+  fromCEnumZ = MyEnum
 
-  unwrap = un_MyEnum
+  toCEnumZ = un_MyEnum
 
-  declaredValueMap =
+  declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(0, pure "Say\20320\22909"), (1, pure "Say\25308\25308")]
 
-  sequentialValueBounds = \_ -> P.Just (0, 1)
+  rangeIsSequential = \_ -> P.Just (0, 1)
 
 instance Show MyEnum where
 

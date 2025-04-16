@@ -298,11 +298,11 @@ resolveGlobal = \case
 
     CEnum_class -> importQ ''HsBindgen.Runtime.CEnum.CEnum
     CEnumZ_tycon -> importQ ''HsBindgen.Runtime.CEnum.CEnumZ
-    CEnum_wrap -> importQ 'HsBindgen.Runtime.CEnum.wrap
-    CEnum_unwrap -> importQ 'HsBindgen.Runtime.CEnum.unwrap
-    CEnum_declaredValueMap -> importQ 'HsBindgen.Runtime.CEnum.declaredValueMap
-    CEnum_sequentialValueBounds ->
-      importQ 'HsBindgen.Runtime.CEnum.sequentialValueBounds
+    CEnum_fromCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.fromCEnumZ
+    CEnum_toCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.toCEnumZ
+    CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
+    CEnum_rangeIsSequential ->
+      importQ 'HsBindgen.Runtime.CEnum.rangeIsSequential
     CEnum_showCEnum -> importQ 'HsBindgen.Runtime.CEnum.showCEnum
     AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
 

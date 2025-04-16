@@ -10,11 +10,11 @@ deriving stock instance Ord EnumA
 deriving stock instance Read EnumA
 instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
-           wrap = EnumA;
-           unwrap = un_EnumA;
-           declaredValueMap = \_ -> fromList [(0, pure "VALA_1"),
-                                              (1, pure "VALA_2")];
-           sequentialValueBounds = \_ -> Just (0, 1)}
+           fromCEnumZ = EnumA;
+           toCEnumZ = un_EnumA;
+           declaredValues = \_ -> fromList [(0, pure "VALA_1"),
+                                            (1, pure "VALA_2")];
+           rangeIsSequential = \_ -> Just (0, 1)}
 instance Show EnumA
     where {show = showCEnum "EnumA"}
 pattern VALA_1 :: EnumA
@@ -42,11 +42,11 @@ deriving stock instance Ord ExB_fieldB1
 deriving stock instance Read ExB_fieldB1
 instance CEnum ExB_fieldB1
     where {type CEnumZ ExB_fieldB1 = CUInt;
-           wrap = ExB_fieldB1;
-           unwrap = un_ExB_fieldB1;
-           declaredValueMap = \_ -> fromList [(0, pure "VALB_1"),
-                                              (1, pure "VALB_2")];
-           sequentialValueBounds = \_ -> Just (0, 1)}
+           fromCEnumZ = ExB_fieldB1;
+           toCEnumZ = un_ExB_fieldB1;
+           declaredValues = \_ -> fromList [(0, pure "VALB_1"),
+                                            (1, pure "VALB_2")];
+           rangeIsSequential = \_ -> Just (0, 1)}
 instance Show ExB_fieldB1
     where {show = showCEnum "ExB_fieldB1"}
 pattern VALB_1 :: ExB_fieldB1
