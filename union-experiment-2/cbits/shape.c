@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "shape.h"
@@ -19,4 +20,26 @@ shape* new_circle(int x, int y, float d) {
     res->details.circle.y = y;
     res->details.circle.d = d;
     return res;
+}
+
+void print_shape_details(int tag, shape_details* details) {
+    switch(tag) {
+        case RECT:
+            printf("{%d, %d, %d, %d}\n",
+                details->rectangle.x1,
+                details->rectangle.y1,
+                details->rectangle.x2,
+                details->rectangle.y2);
+            break;
+         case CIRCLE:
+            printf("{%d, %d, %f}\n",
+                details->circle.x,
+                details->circle.y,
+                details->circle.d);
+            break;
+    }
+}
+
+void print_shape(shape* s) {
+    print_shape_details(s->tag, &s->details);
 }

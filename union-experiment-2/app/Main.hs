@@ -11,8 +11,22 @@ import Shape
 
 main :: IO ()
 main = do
-    r <- new_rect 1 2 3 4
-    print =<< peek r
+    --
+    -- Through 'Shape'
+    --
 
-    c <- new_circle 5 6 7
-    print =<< peek c
+    r <- peek =<< new_rect 1 2 3 4
+    print r
+    with r $ print_shape
+
+    c <- peek =<< new_circle 5 6 7
+    print c
+    with c $ print_shape
+
+    --
+    -- Using 'Shape_details' directly
+    --
+
+--    with (shape_details r) $ _
+
+

@@ -4,13 +4,16 @@
 -- Only the definition of 'Shape_details' is significantly different (the rest
 -- is only cleaned up for formatting).
 module Shape (
+    -- * Types
     Shape_tag(Shape_tag, un_Shape_tag, RECT, CIRCLE)
   , Rectangle(..)
   , Circle(..)
   , Shape_details(..)
   , Shape(..)
+    -- * Functions
   , new_rect
   , new_circle
+  , print_shape
   ) where
 
 import Data.Proxy
@@ -30,11 +33,12 @@ data Shape_details =
   | ShapeCircle Circle
   deriving stock (Show)
 
+instance WriteRaw Shape_details where
+  writeRaw p (ShapeRectangle x) = poke (castPtr p) x
+  writeRaw p (ShapeCircle    x) = poke (castPtr p) x
+
 instance StructHasUnionTag Shape "shape.tag"
       => StorableInContext Shape Shape_details where
-  pokeInCtxt _ p (ShapeRectangle x) = poke (castPtr p) x
-  pokeInCtxt _ p (ShapeCircle    x) = poke (castPtr p) x
-
   peekInCtxt ctxt p =
       case structUnionTag (Proxy @"shape.tag") ctxt of
         0 -> ShapeRectangle <$> peek (castPtr p)
@@ -54,7 +58,7 @@ instance StructHasUnionTag Shape "shape.tag"
 
   poke p Shape{shape_tag, shape_details} =
           pokeByteOff p 0 shape_tag
-       >> pokeByteOffInCtxt p p 4 shape_details
+       >> writeRawOff p 4 shape_details
 
 {-------------------------------------------------------------------------------
   Regular datatypes (all of this is hs-bindgen generated)
@@ -149,3 +153,5 @@ foreign import capi safe "shape.h new_rect"
 foreign import capi safe "shape.h new_circle"
   new_circle :: CInt -> CInt -> CFloat -> IO (Ptr Shape)
 
+foreign import capi safe "shape.h print_shape"
+  print_shape :: Ptr Shape -> IO ()

@@ -30,4 +30,5 @@ typedef struct shape {
 
 shape* new_rect(int x1, int y1, int x2, int y2);
 shape* new_circle(int x, int y, float d);
+void print_shape(shape* s);
 

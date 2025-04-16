@@ -2,9 +2,11 @@
 --
 -- This would be part of hs-bindgen-runtime
 module UnionInfrastructure (
+    -- * 'WriteRaw'
+    WriteRaw(..)
+  , writeRawOff
     -- * 'StorableInContext'
-    StorableInContext(..)
-  , pokeByteOffInCtxt
+  , StorableInContext(..)
   , peekByteOffInCtxt
     -- * 'StructHasUnionTag'
   , StructHasUnionTag(..)
@@ -17,19 +19,24 @@ import Foreign.C
 import Data.Proxy
 
 {-------------------------------------------------------------------------------
+  Subset of 'Storable'
+-------------------------------------------------------------------------------}
+
+class WriteRaw a where
+  writeRaw :: Ptr a -> a -> IO ()
+
+writeRawOff :: WriteRaw a => Ptr b -> Int -> a -> IO ()
+writeRawOff addr off = writeRaw (addr `plusPtr` off)
+
+{-------------------------------------------------------------------------------
   'StorableInContext'
 
   Instances of this class would be derived by hs-bindgen.
 -------------------------------------------------------------------------------}
 
 class StorableInContext (ctxt :: Type) a where
-  pokeInCtxt :: proxy ctxt -> Ptr a -> a -> IO ()
   peekInCtxt ::       ctxt -> Ptr a      -> IO a
 
-pokeByteOffInCtxt ::
-     StorableInContext ctxt a
-  => proxy ctxt -> Ptr b -> Int -> a -> IO ()
-pokeByteOffInCtxt ctxt addr off = pokeInCtxt ctxt (addr `plusPtr` off)
 
 peekByteOffInCtxt ::
      StorableInContext ctxt a
