@@ -2,14 +2,8 @@
 --
 -- This would be part of hs-bindgen-runtime
 module UnionInfrastructure (
-    -- * Features of 'Storable'
-    StaticSize(..)
-  , staticAlloca
-  , WriteRaw(..)
-  , writeRawOff
-  , withWritten
     -- * 'StorableInContext'
-  , ReadRawWithCtxt(..)
+    ReadRawWithCtxt(..)
   , readRawWithCtxtOff
     -- * 'StructField'
   , StructField(..)
@@ -17,30 +11,6 @@ module UnionInfrastructure (
 
 import Foreign
 import GHC.TypeLits
-import Data.Proxy
-
-{-------------------------------------------------------------------------------
-  Subsets of 'Storable'
--------------------------------------------------------------------------------}
-
-class StaticSize a where
-  staticSizeOf    :: Proxy a -> Int
-  staticAlignment :: Proxy a -> Int
-
-staticAlloca :: forall a b. StaticSize a => (Ptr a -> IO b) -> IO b
-staticAlloca =
-    allocaBytesAligned
-      (staticSizeOf    (Proxy @a))
-      (staticAlignment (Proxy @a))
-
-class WriteRaw a where
-  writeRaw :: Ptr a -> a -> IO ()
-
-writeRawOff :: WriteRaw a => Ptr b -> Int -> a -> IO ()
-writeRawOff addr off = writeRaw (addr `plusPtr` off)
-
-withWritten :: (WriteRaw a, StaticSize a) => a -> (Ptr a -> IO b) -> IO b
-withWritten a k = staticAlloca $ \ptr -> writeRaw ptr a >> k ptr
 
 {-------------------------------------------------------------------------------
   'ReadRawWithCtxt'

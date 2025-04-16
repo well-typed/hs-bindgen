@@ -10,17 +10,20 @@ module Shape (
   , Circle(..)
   , Shape_details(..)
   , Shape(..)
+  , Double_shape(..)
     -- * Functions
   , new_rect
   , new_circle
   , print_shape
   , print_shape_details
   , random_shape_details
+  , double_it
   ) where
 
 import Foreign
 import Foreign.C
 
+import Prelims
 import UnionInfrastructure
 
 {-------------------------------------------------------------------------------
@@ -47,20 +50,60 @@ instance ReadRawWithCtxt CUInt Shape_details where
   readRawWithCtxt 1 p = ShapeCircle    <$> peek (castPtr p)
   readRawWithCtxt n _ = error $ "Shape_details: invalid tag " ++ show n
 
-instance ReadRawWithCtxt (StructField "shape.tag" Shape) Shape_details
-      => Storable Shape where
+instance ReadRawWithCtxt Shape Shape_details => Storable Shape where
   sizeOf    _ = 20
   alignment _ = 4
 
+  poke p Shape{shape_tag, shape_details} = do
+      pokeByteOff p 0 shape_tag
+      writeRawOff p 4 shape_details
+
   peek p = do
       shape_tag <- peekByteOff p 0
-      let partialShape = Shape{shape_tag, shape_details = undefined}
-      shape_details <- readRawWithCtxtOff (StructField @"shape.tag" partialShape) p 4
+      let partial = Shape{shape_tag, shape_details = undefined}
+      shape_details <- readRawWithCtxtOff partial p 4
       return Shape{shape_tag, shape_details}
 
-  poke p Shape{shape_tag, shape_details} =
-          pokeByteOff p 0 shape_tag
-       >> writeRawOff p 4 shape_details
+instance ( ReadRawWithCtxt
+             (StructField "double_shape.details1" Double_shape)
+             Shape_details
+         , ReadRawWithCtxt
+             (StructField "double_shape.details2" Double_shape)
+             Shape_details
+         ) => Storable Double_shape where
+  sizeOf    _ = 40
+  alignment _ = 4
+
+  poke p Double_shape{
+             double_shape_tag1
+           , double_shape_details1
+           , double_shape_tag2
+           , double_shape_details2
+           } = do
+      pokeByteOff p 0  double_shape_tag1
+      writeRawOff p 4  double_shape_details1
+      pokeByteOff p 20 double_shape_tag2
+      writeRawOff p 24 double_shape_details2
+
+  peek p = do
+      double_shape_tag1 <- peekByteOff p 0
+      double_shape_tag2 <- peekByteOff p 20
+      let partial = Double_shape{
+              double_shape_tag1
+            , double_shape_details1 = undefined
+            , double_shape_tag2
+            , double_shape_details2 = undefined
+            }
+          ctxt_details1 = StructField @"double_shape.details1" partial
+          ctxt_details2 = StructField @"double_shape.details2" partial
+      double_shape_details1 <- readRawWithCtxtOff ctxt_details1 p 4
+      double_shape_details2 <- readRawWithCtxtOff ctxt_details2 p 24
+      return Double_shape{
+          double_shape_tag1
+        , double_shape_details1
+        , double_shape_tag2
+        , double_shape_details2
+        }
 
 {-------------------------------------------------------------------------------
   Regular datatypes (all of this is hs-bindgen generated)
@@ -95,6 +138,14 @@ data Circle = Circle {
 data Shape = Shape {
       shape_tag     :: Shape_tag
     , shape_details :: Shape_details
+    }
+  deriving stock (Show)
+
+data Double_shape = Double_shape {
+      double_shape_tag1     :: Shape_tag
+    , double_shape_details1 :: Shape_details
+    , double_shape_tag2     :: Shape_tag
+    , double_shape_details2 :: Shape_details
     }
   deriving stock (Show)
 
@@ -163,3 +214,6 @@ foreign import capi safe "shape.h print_shape_details"
 
 foreign import capi safe "shape.h random_shape_details"
   random_shape_details :: Ptr CUInt -> Ptr Shape_details -> IO ()
+
+foreign import capi safe "shape.h double_it"
+  double_it :: Ptr Shape -> IO (Ptr Double_shape)

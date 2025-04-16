@@ -47,16 +47,48 @@ void print_shape(shape* s) {
 void random_shape_details(int* tag, shape_details* details) {
     *tag = rand() % 2;
     switch(*tag) {
-        case 0:
+        case RECT:
           details->rectangle.x1 = rand() % 100;
           details->rectangle.y1 = rand() % 100;
           details->rectangle.x2 = rand() % 100;
           details->rectangle.y2 = rand() % 100;
           break;
-        case 1:
+        case CIRCLE:
           details->circle.x = rand() % 100;
           details->circle.y = rand() % 100;
           details->circle.d = (rand() % 100) / 99.0;
           break;
     }
+}
+
+double_shape* double_it(shape* s) {
+    double_shape* res = malloc(sizeof(double_shape));
+
+    res->tag1 = s->tag;
+    res->tag2 = s->tag;
+
+    switch(s->tag) {
+        case RECT:
+            res->details1.rectangle.x1 = s->details.rectangle.x1;
+            res->details1.rectangle.y1 = s->details.rectangle.y1;
+            res->details1.rectangle.x2 = s->details.rectangle.x2;
+            res->details1.rectangle.y2 = s->details.rectangle.y2;
+
+            res->details2.rectangle.x1 = s->details.rectangle.x1;
+            res->details2.rectangle.y1 = s->details.rectangle.y1;
+            res->details2.rectangle.x2 = s->details.rectangle.x2;
+            res->details2.rectangle.y2 = s->details.rectangle.y2;
+            break;
+        case CIRCLE:
+            res->details1.circle.x = s->details.circle.x;
+            res->details1.circle.y = s->details.circle.y;
+            res->details1.circle.d = s->details.circle.d;
+
+            res->details2.circle.x = s->details.circle.x;
+            res->details2.circle.y = s->details.circle.y;
+            res->details2.circle.d = s->details.circle.d;
+            break;
+    }
+
+    return res;
 }

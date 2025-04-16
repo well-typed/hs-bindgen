@@ -3,6 +3,7 @@ module Main where
 import Control.Monad
 import Foreign
 
+import Prelims
 import Shape
 import UnionInfrastructure
 
@@ -42,6 +43,18 @@ main = do
     putStrLn "\n# peek Shape_details"
 
     replicateM_ 5 $ print =<< getRandomShape
+
+    --
+    -- 'Double_shape'
+    --
+
+    putStrLn "\n# peek Double_shape"
+
+    dr <- peek =<< with r double_it
+    print dr
+    dc <- peek =<< with c double_it
+    print dc
+
 
 getRandomShape :: IO Shape
 getRandomShape =
