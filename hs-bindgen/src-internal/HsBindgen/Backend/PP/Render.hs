@@ -236,7 +236,7 @@ prettyExpr env prec = \case
         <+> case mbUnicode of { Nothing -> "Nothing"; Just c -> parens ("Just" <+> string (show c)) }
       where
         (str, len) = addrLiteral ba
-    EString bs ->
+    ECString bs ->
       -- Use unboxed Addr# literals to turn a string literal into a
       -- value of type CStringLen.
       let (str, len) = addrLiteral bs

@@ -175,8 +175,8 @@ resolveExprImports = \case
                   , CharValue_constructor
                   , CharValue_fromAddr
                   ]
-    EString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen
-               <> resolveGlobalImports Ptr_constructor
+    ECString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen
+                <> resolveGlobalImports Ptr_constructor
     EFloat _ t -> resolvePrimTypeImports t
     EDouble _ t -> resolvePrimTypeImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x
