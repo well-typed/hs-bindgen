@@ -10,8 +10,9 @@ module HsBindgen.Runtime.CEnum (
     -- * API
   , isDeclared
   , mkDeclared
-  , showCEnum
   , getNames
+    -- * Show instance support
+  , showCEnum
     -- * Deriving via support
   , AsCEnum(..)
     -- ** Exceptions
@@ -82,7 +83,21 @@ mkDeclared i = case sequentialValueBounds (Proxy :: Proxy a) of
       | i `Map.member` declaredValueMap (Proxy :: Proxy a) -> Just (wrap i)
       | otherwise -> Nothing
 
+-- | Get all names associated with a value
+--
+-- An empty list is returned when the specified value is not declared.
+getNames :: forall a. CEnum a => a -> [String]
+getNames x = maybe [] NonEmpty.toList $
+    Map.lookup (unwrap x) (declaredValueMap (Proxy :: Proxy a))
+
+{-------------------------------------------------------------------------------
+  Show instance support
+-------------------------------------------------------------------------------}
+
 -- | Show the specified value
+--
+-- This function may be used in the definition of a 'Show' instance for a
+-- @newtype@ representation of a C enumeration.
 --
 -- When the value is declared, a corresponding name is returned.  Otherwise,
 -- a string consisting of the constructor name and the integral value separated
@@ -99,13 +114,6 @@ showCEnum constructorName x =
   where
     i :: CEnumZ a
     i = unwrap x
-
--- | Get all names associated with a value
---
--- An empty list is returned when the specified value is not declared.
-getNames :: forall a. CEnum a => a -> [String]
-getNames x = maybe [] NonEmpty.toList $
-    Map.lookup (unwrap x) (declaredValueMap (Proxy :: Proxy a))
 
 {-------------------------------------------------------------------------------
   Deriving via support
