@@ -119,7 +119,10 @@
         Function {
           functionName = CName "fun",
           functionArgs = [
-            TypePrim (PrimChar Nothing),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             TypePrim
               (PrimFloating PrimDouble)],
           functionRes = TypePrim

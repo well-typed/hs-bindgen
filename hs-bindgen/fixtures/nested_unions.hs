@@ -35,7 +35,9 @@
             UnionField {
               ufieldName = CName "b",
               ufieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               ufieldSourceLoc =
               "nested_unions.h:4:22"}],
           unionSourceLoc =
@@ -374,7 +376,9 @@
             UnionField {
               ufieldName = CName "b",
               ufieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               ufieldSourceLoc =
               "nested_unions.h:11:22"}],
           unionSourceLoc =

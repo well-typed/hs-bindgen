@@ -59,6 +59,7 @@ instance ToExpr C.OpaqueStruct
 instance ToExpr C.PrimFloatType
 instance ToExpr C.PrimIntType
 instance ToExpr C.PrimSign
+instance ToExpr C.PrimSignChar
 instance ToExpr C.PrimType
 instance ToExpr C.Struct
 instance ToExpr C.StructField

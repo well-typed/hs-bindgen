@@ -22,7 +22,9 @@ Header
             fieldOffset = 32,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:4:10"}],
         structFlam = Nothing,
@@ -42,7 +44,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:9:10"},
           StructField {
@@ -87,7 +91,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:16:10"}],
         structFlam = Nothing,
@@ -107,7 +113,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:20:10"},
           StructField {
@@ -144,7 +152,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:27:10"},
           StructField {
@@ -172,7 +182,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:31:18"},
           StructField {
@@ -201,7 +213,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:34:23"},
           StructField {
@@ -243,7 +257,9 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "simple_structs.h:35:23"},
           StructField {

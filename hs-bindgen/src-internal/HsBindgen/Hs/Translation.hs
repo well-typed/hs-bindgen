@@ -495,13 +495,15 @@ typ' ctx nm = go ctx
         Hs.HsExtBinding extId
 
     goPrim :: C.PrimType -> HsPrimType
-    goPrim C.PrimBool                     = HsPrimCBool
-    goPrim (C.PrimChar Nothing)           = HsPrimCChar
-    goPrim (C.PrimChar (Just C.Signed))   = HsPrimCSChar
-    goPrim (C.PrimChar (Just C.Unsigned)) = HsPrimCSChar
-    goPrim (C.PrimIntegral i s)           = integralType i s
-    goPrim (C.PrimFloating f)             = floatingType f
-    goPrim C.PrimPtrDiff                  = HsPrimCPtrDiff
+    goPrim C.PrimBool           = HsPrimCBool
+    goPrim (C.PrimIntegral i s) = integralType i s
+    goPrim (C.PrimFloating f)   = floatingType f
+    goPrim C.PrimPtrDiff        = HsPrimCPtrDiff
+    goPrim (C.PrimChar sign)    =
+        case sign of
+          C.PrimSignImplicit _          -> HsPrimCChar
+          C.PrimSignExplicit C.Signed   -> HsPrimCSChar
+          C.PrimSignExplicit C.Unsigned -> HsPrimCSChar
 
     goVoid :: TypeContext -> HsPrimType
     goVoid CFunRes = HsPrimUnit

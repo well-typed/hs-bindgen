@@ -37,7 +37,9 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "nested_types.h:3:10"}}],
       structOrigin =
@@ -63,7 +65,9 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "nested_types.h:3:10"}],
           structFlam = Nothing,
@@ -108,7 +112,9 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "nested_types.h:3:10"}}],
         structOrigin =
@@ -134,7 +140,9 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "nested_types.h:3:10"}],
             structFlam = Nothing,
@@ -184,7 +192,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "nested_types.h:3:10"}}],
                 structOrigin =
@@ -210,7 +220,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "nested_types.h:3:10"}],
                     structFlam = Nothing,
@@ -262,7 +274,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "nested_types.h:3:10"}}],
                 structOrigin =
@@ -288,7 +302,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "nested_types.h:3:10"}],
                     structFlam = Nothing,

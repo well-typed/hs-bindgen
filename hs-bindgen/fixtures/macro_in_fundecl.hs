@@ -112,7 +112,8 @@
           macroBody = MTerm
             (MType
               (TypePrim
-                (PrimChar Nothing)))}},
+                (PrimChar
+                  (PrimSignImplicit Nothing))))}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -432,9 +433,12 @@
           functionName = CName "quux",
           functionArgs = [
             TypeTypedef (CName "F"),
-            TypePrim (PrimChar Nothing)],
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))],
           functionRes = TypePrim
-            (PrimChar Nothing),
+            (PrimChar
+              (PrimSignImplicit Nothing)),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -509,7 +513,10 @@
                     PrimInt
                     Signed)))],
           functionRes = TypePointer
-            (TypePrim (PrimChar Nothing)),
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =
@@ -549,7 +556,9 @@
                     PrimInt
                     Signed)))],
           functionRes = TypePointer
-            (TypePrim (PrimChar Nothing)),
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))),
           functionHeader =
           "macro_in_fundecl.h",
           functionSourceLoc =

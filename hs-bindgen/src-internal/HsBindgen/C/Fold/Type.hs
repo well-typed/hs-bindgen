@@ -782,9 +782,10 @@ primType :: Either CInt CXTypeKind -> Maybe PrimType
 primType (Left _)     = Nothing
 primType (Right kind) =
     case kind of
-      CXType_Char_S     -> Just $ PrimChar     Nothing
-      CXType_SChar      -> Just $ PrimChar     (Just Signed)
-      CXType_UChar      -> Just $ PrimChar     (Just Unsigned)
+      CXType_Char_S     -> Just $ PrimChar $ PrimSignImplicit (Just Signed)
+      CXType_Char_U     -> Just $ PrimChar $ PrimSignImplicit (Just Unsigned)
+      CXType_SChar      -> Just $ PrimChar $ PrimSignExplicit Signed
+      CXType_UChar      -> Just $ PrimChar $ PrimSignExplicit Unsigned
       CXType_Short      -> Just $ PrimIntegral PrimShort    Signed
       CXType_UShort     -> Just $ PrimIntegral PrimShort    Unsigned
       CXType_Int        -> Just $ PrimIntegral PrimInt      Signed

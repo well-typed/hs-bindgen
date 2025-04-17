@@ -19,6 +19,7 @@ module HsBindgen.C.AST (
   , PrimIntType(..)
   , PrimFloatType(..)
   , PrimSign(..)
+  , PrimSignChar(..)
     -- ** Structs
   , Struct(..)
   , StructField(..)

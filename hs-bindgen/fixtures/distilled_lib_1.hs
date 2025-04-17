@@ -285,7 +285,9 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "distilled_lib_1.h:8:32"}}],
       structOrigin =
@@ -312,7 +314,9 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
@@ -357,7 +361,9 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:8:32"}}],
         structOrigin =
@@ -384,7 +390,9 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "distilled_lib_1.h:8:32"}],
             structFlam = Nothing,
@@ -434,7 +442,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:8:32"}}],
                 structOrigin =
@@ -461,7 +471,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
@@ -513,7 +525,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:8:32"}}],
                 structOrigin =
@@ -540,7 +554,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
@@ -1154,7 +1170,8 @@
         Typedef {
           typedefName = CName "uint8_t",
           typedefType = TypePrim
-            (PrimChar (Just Unsigned)),
+            (PrimChar
+              (PrimSignExplicit Unsigned)),
           typedefSourceLoc =
           "alltypes.h:121:25"}},
   DeclNewtypeInstance
@@ -2985,7 +3002,8 @@
               (CName "a_typedef_enum_e")),
           enumAliases = [],
           enumType = TypePrim
-            (PrimChar (Just Unsigned)),
+            (PrimChar
+              (PrimSignExplicit Unsigned)),
           enumSizeof = 1,
           enumAlignment = 1,
           enumValues = [
@@ -3035,7 +3053,8 @@
                 (CName "a_typedef_enum_e")),
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [
@@ -3090,7 +3109,8 @@
                         (CName "a_typedef_enum_e")),
                     enumAliases = [],
                     enumType = TypePrim
-                      (PrimChar (Just Unsigned)),
+                      (PrimChar
+                        (PrimSignExplicit Unsigned)),
                     enumSizeof = 1,
                     enumAlignment = 1,
                     enumValues = [
@@ -3145,7 +3165,8 @@
                         (CName "a_typedef_enum_e")),
                     enumAliases = [],
                     enumType = TypePrim
-                      (PrimChar (Just Unsigned)),
+                      (PrimChar
+                        (PrimSignExplicit Unsigned)),
                     enumSizeof = 1,
                     enumAlignment = 1,
                     enumValues = [
@@ -3220,7 +3241,8 @@
                 (CName "a_typedef_enum_e")),
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [
@@ -3286,7 +3308,8 @@
                 (CName "a_typedef_enum_e")),
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [
@@ -3342,7 +3365,8 @@
                 (CName "a_typedef_enum_e")),
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [

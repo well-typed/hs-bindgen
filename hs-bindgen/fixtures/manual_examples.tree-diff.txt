@@ -396,7 +396,10 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePointer
-              (TypePrim (PrimChar Nothing)),
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
             fieldSourceLoc =
             "manual_examples.h:71:11"},
           StructField {
@@ -434,7 +437,10 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypePointer
-              (TypePrim (PrimChar Nothing)),
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
             fieldSourceLoc =
             "manual_examples.h:76:11"},
           StructField {

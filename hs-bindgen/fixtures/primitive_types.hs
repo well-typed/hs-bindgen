@@ -21,7 +21,9 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "primitive_types.h:2:10"}},
         Field {
@@ -37,7 +39,8 @@
               fieldOffset = 8,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar (Just Signed)),
+                (PrimChar
+                  (PrimSignExplicit Signed)),
               fieldSourceLoc =
               "primitive_types.h:3:17"}},
         Field {
@@ -53,7 +56,8 @@
               fieldOffset = 16,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar (Just Unsigned)),
+                (PrimChar
+                  (PrimSignExplicit Unsigned)),
               fieldSourceLoc =
               "primitive_types.h:4:19"}},
         Field {
@@ -491,7 +495,9 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "primitive_types.h:2:10"},
             StructField {
@@ -499,7 +505,8 @@
               fieldOffset = 8,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar (Just Signed)),
+                (PrimChar
+                  (PrimSignExplicit Signed)),
               fieldSourceLoc =
               "primitive_types.h:3:17"},
             StructField {
@@ -507,7 +514,8 @@
               fieldOffset = 16,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar (Just Unsigned)),
+                (PrimChar
+                  (PrimSignExplicit Unsigned)),
               fieldSourceLoc =
               "primitive_types.h:4:19"},
             StructField {
@@ -756,7 +764,9 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "primitive_types.h:2:10"}},
           Field {
@@ -772,7 +782,8 @@
                 fieldOffset = 8,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar (Just Signed)),
+                  (PrimChar
+                    (PrimSignExplicit Signed)),
                 fieldSourceLoc =
                 "primitive_types.h:3:17"}},
           Field {
@@ -788,7 +799,8 @@
                 fieldOffset = 16,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar (Just Unsigned)),
+                  (PrimChar
+                    (PrimSignExplicit Unsigned)),
                 fieldSourceLoc =
                 "primitive_types.h:4:19"}},
           Field {
@@ -1226,7 +1238,9 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "primitive_types.h:2:10"},
               StructField {
@@ -1234,7 +1248,8 @@
                 fieldOffset = 8,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar (Just Signed)),
+                  (PrimChar
+                    (PrimSignExplicit Signed)),
                 fieldSourceLoc =
                 "primitive_types.h:3:17"},
               StructField {
@@ -1242,7 +1257,8 @@
                 fieldOffset = 16,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar (Just Unsigned)),
+                  (PrimChar
+                    (PrimSignExplicit Unsigned)),
                 fieldSourceLoc =
                 "primitive_types.h:4:19"},
               StructField {
@@ -1496,7 +1512,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "primitive_types.h:2:10"}},
                   Field {
@@ -1512,7 +1530,8 @@
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Signed)),
+                          (PrimChar
+                            (PrimSignExplicit Signed)),
                         fieldSourceLoc =
                         "primitive_types.h:3:17"}},
                   Field {
@@ -1528,7 +1547,8 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "primitive_types.h:4:19"}},
                   Field {
@@ -1966,7 +1986,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "primitive_types.h:2:10"},
                       StructField {
@@ -1974,7 +1996,8 @@
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Signed)),
+                          (PrimChar
+                            (PrimSignExplicit Signed)),
                         fieldSourceLoc =
                         "primitive_types.h:3:17"},
                       StructField {
@@ -1982,7 +2005,8 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "primitive_types.h:4:19"},
                       StructField {
@@ -2264,7 +2288,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "primitive_types.h:2:10"}},
                   Field {
@@ -2280,7 +2306,8 @@
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Signed)),
+                          (PrimChar
+                            (PrimSignExplicit Signed)),
                         fieldSourceLoc =
                         "primitive_types.h:3:17"}},
                   Field {
@@ -2296,7 +2323,8 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "primitive_types.h:4:19"}},
                   Field {
@@ -2734,7 +2762,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "primitive_types.h:2:10"},
                       StructField {
@@ -2742,7 +2772,8 @@
                         fieldOffset = 8,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Signed)),
+                          (PrimChar
+                            (PrimSignExplicit Signed)),
                         fieldSourceLoc =
                         "primitive_types.h:3:17"},
                       StructField {
@@ -2750,7 +2781,8 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "primitive_types.h:4:19"},
                       StructField {

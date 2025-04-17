@@ -13,7 +13,9 @@ Header
           macroArgs = [],
           macroBody = MTerm
             (MType
-              (TypePrim (PrimChar Nothing)))},
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing))))},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "macro_in_fundecl_vs_typedef.h:4:9"},
@@ -24,7 +26,8 @@ Header
           TypeTypedef (CName "MC"),
           TypeTypedef (CName "TC")],
         functionRes = TypePrim
-          (PrimChar Nothing),
+          (PrimChar
+            (PrimSignImplicit Nothing)),
         functionHeader =
         "macro_in_fundecl_vs_typedef.h",
         functionSourceLoc =
@@ -34,7 +37,9 @@ Header
         functionName = CName "quux2",
         functionArgs = [
           TypeTypedef (CName "MC"),
-          TypePrim (PrimChar Nothing)],
+          TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing))],
         functionRes = TypeTypedef
           (CName "TC"),
         functionHeader =
@@ -113,7 +118,9 @@ Header
       Typedef {
         typedefName = CName "TC",
         typedefType = TypePrim
-          (PrimChar Nothing),
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed))),
         typedefSourceLoc =
         "macro_in_fundecl_vs_typedef.h:5:14"},
     DeclStruct

@@ -21,7 +21,9 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "bitfields.h:2:10"}},
         Field {
@@ -85,7 +87,9 @@
               fieldOffset = 16,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "bitfields.h:6:10"}},
         Field {
@@ -119,7 +123,9 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "bitfields.h:2:10"},
             StructField {
@@ -151,7 +157,9 @@
               fieldOffset = 16,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "bitfields.h:6:10"},
             StructField {
@@ -188,7 +196,9 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "bitfields.h:2:10"}},
           Field {
@@ -252,7 +262,9 @@
                 fieldOffset = 16,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "bitfields.h:6:10"}},
           Field {
@@ -286,7 +298,9 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "bitfields.h:2:10"},
               StructField {
@@ -318,7 +332,9 @@
                 fieldOffset = 16,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "bitfields.h:6:10"},
               StructField {
@@ -360,7 +376,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:2:10"}},
                   Field {
@@ -424,7 +442,9 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:6:10"}},
                   Field {
@@ -458,7 +478,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:2:10"},
                       StructField {
@@ -490,7 +512,9 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:6:10"},
                       StructField {
@@ -538,7 +562,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:2:10"}},
                   Field {
@@ -602,7 +628,9 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:6:10"}},
                   Field {
@@ -636,7 +664,9 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:2:10"},
                       StructField {
@@ -668,7 +698,9 @@
                         fieldOffset = 16,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "bitfields.h:6:10"},
                       StructField {
@@ -2327,7 +2359,8 @@
               fieldOffset = 0,
               fieldWidth = Just 1,
               fieldType = TypePrim
-                (PrimChar (Just Unsigned)),
+                (PrimChar
+                  (PrimSignExplicit Unsigned)),
               fieldSourceLoc =
               "bitfields.h:37:16"}},
         Field {
@@ -2361,7 +2394,8 @@
               fieldOffset = 0,
               fieldWidth = Just 1,
               fieldType = TypePrim
-                (PrimChar (Just Unsigned)),
+                (PrimChar
+                  (PrimSignExplicit Unsigned)),
               fieldSourceLoc =
               "bitfields.h:37:16"},
             StructField {
@@ -2398,7 +2432,8 @@
                 fieldOffset = 0,
                 fieldWidth = Just 1,
                 fieldType = TypePrim
-                  (PrimChar (Just Unsigned)),
+                  (PrimChar
+                    (PrimSignExplicit Unsigned)),
                 fieldSourceLoc =
                 "bitfields.h:37:16"}},
           Field {
@@ -2432,7 +2467,8 @@
                 fieldOffset = 0,
                 fieldWidth = Just 1,
                 fieldType = TypePrim
-                  (PrimChar (Just Unsigned)),
+                  (PrimChar
+                    (PrimSignExplicit Unsigned)),
                 fieldSourceLoc =
                 "bitfields.h:37:16"},
               StructField {
@@ -2474,7 +2510,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 1,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:37:16"}},
                   Field {
@@ -2508,7 +2545,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 1,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:37:16"},
                       StructField {
@@ -2552,7 +2590,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 1,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:37:16"}},
                   Field {
@@ -2586,7 +2625,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 1,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:37:16"},
                       StructField {
@@ -2647,7 +2687,8 @@
               fieldOffset = 0,
               fieldWidth = Just 7,
               fieldType = TypePrim
-                (PrimChar (Just Unsigned)),
+                (PrimChar
+                  (PrimSignExplicit Unsigned)),
               fieldSourceLoc =
               "bitfields.h:42:16"}},
         Field {
@@ -2681,7 +2722,8 @@
               fieldOffset = 0,
               fieldWidth = Just 7,
               fieldType = TypePrim
-                (PrimChar (Just Unsigned)),
+                (PrimChar
+                  (PrimSignExplicit Unsigned)),
               fieldSourceLoc =
               "bitfields.h:42:16"},
             StructField {
@@ -2718,7 +2760,8 @@
                 fieldOffset = 0,
                 fieldWidth = Just 7,
                 fieldType = TypePrim
-                  (PrimChar (Just Unsigned)),
+                  (PrimChar
+                    (PrimSignExplicit Unsigned)),
                 fieldSourceLoc =
                 "bitfields.h:42:16"}},
           Field {
@@ -2752,7 +2795,8 @@
                 fieldOffset = 0,
                 fieldWidth = Just 7,
                 fieldType = TypePrim
-                  (PrimChar (Just Unsigned)),
+                  (PrimChar
+                    (PrimSignExplicit Unsigned)),
                 fieldSourceLoc =
                 "bitfields.h:42:16"},
               StructField {
@@ -2794,7 +2838,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 7,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:42:16"}},
                   Field {
@@ -2828,7 +2873,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 7,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:42:16"},
                       StructField {
@@ -2872,7 +2918,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 7,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:42:16"}},
                   Field {
@@ -2906,7 +2953,8 @@
                         fieldOffset = 0,
                         fieldWidth = Just 7,
                         fieldType = TypePrim
-                          (PrimChar (Just Unsigned)),
+                          (PrimChar
+                            (PrimSignExplicit Unsigned)),
                         fieldSourceLoc =
                         "bitfields.h:42:16"},
                       StructField {
