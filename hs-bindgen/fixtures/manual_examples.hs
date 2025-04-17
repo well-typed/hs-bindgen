@@ -2117,7 +2117,10 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePointer
-                (TypePrim (PrimChar Nothing)),
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
               fieldSourceLoc =
               "manual_examples.h:71:11"}},
         Field {
@@ -2154,7 +2157,10 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePointer
-                (TypePrim (PrimChar Nothing)),
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
               fieldSourceLoc =
               "manual_examples.h:71:11"},
             StructField {
@@ -2191,7 +2197,10 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePointer
-                  (TypePrim (PrimChar Nothing)),
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed)))),
                 fieldSourceLoc =
                 "manual_examples.h:71:11"}},
           Field {
@@ -2228,7 +2237,10 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePointer
-                  (TypePrim (PrimChar Nothing)),
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed)))),
                 fieldSourceLoc =
                 "manual_examples.h:71:11"},
               StructField {
@@ -2270,7 +2282,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:71:11"}},
                   Field {
@@ -2307,7 +2322,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:71:11"},
                       StructField {
@@ -2351,7 +2369,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:71:11"}},
                   Field {
@@ -2388,7 +2409,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:71:11"},
                       StructField {
@@ -2457,7 +2481,10 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePointer
-                (TypePrim (PrimChar Nothing)),
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
               fieldSourceLoc =
               "manual_examples.h:76:11"}},
         Field {
@@ -2523,7 +2550,10 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypePointer
-                (TypePrim (PrimChar Nothing)),
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
               fieldSourceLoc =
               "manual_examples.h:76:11"},
             StructField {
@@ -2578,7 +2608,10 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePointer
-                  (TypePrim (PrimChar Nothing)),
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed)))),
                 fieldSourceLoc =
                 "manual_examples.h:76:11"}},
           Field {
@@ -2644,7 +2677,10 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypePointer
-                  (TypePrim (PrimChar Nothing)),
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed)))),
                 fieldSourceLoc =
                 "manual_examples.h:76:11"},
               StructField {
@@ -2704,7 +2740,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:76:11"}},
                   Field {
@@ -2770,7 +2809,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:76:11"},
                       StructField {
@@ -2833,7 +2875,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:76:11"}},
                   Field {
@@ -2899,7 +2944,10 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypePointer
-                          (TypePrim (PrimChar Nothing)),
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed)))),
                         fieldSourceLoc =
                         "manual_examples.h:76:11"},
                       StructField {

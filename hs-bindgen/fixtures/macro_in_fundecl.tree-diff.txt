@@ -33,7 +33,9 @@ Header
           macroArgs = [],
           macroBody = MTerm
             (MType
-              (TypePrim (PrimChar Nothing)))},
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing))))},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "macro_in_fundecl.h:6:9"},
@@ -100,9 +102,12 @@ Header
         functionName = CName "quux",
         functionArgs = [
           TypeTypedef (CName "F"),
-          TypePrim (PrimChar Nothing)],
+          TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing))],
         functionRes = TypePrim
-          (PrimChar Nothing),
+          (PrimChar
+            (PrimSignImplicit Nothing)),
         functionHeader =
         "macro_in_fundecl.h",
         functionSourceLoc =
@@ -137,7 +142,10 @@ Header
                   PrimInt
                   Signed)))],
         functionRes = TypePointer
-          (TypePrim (PrimChar Nothing)),
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))),
         functionHeader =
         "macro_in_fundecl.h",
         functionSourceLoc =
@@ -157,7 +165,9 @@ Header
                   PrimInt
                   Signed)))],
         functionRes = TypePointer
-          (TypePrim (PrimChar Nothing)),
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing))),
         functionHeader =
         "macro_in_fundecl.h",
         functionSourceLoc =

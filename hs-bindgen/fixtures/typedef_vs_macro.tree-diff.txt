@@ -33,7 +33,9 @@ Header
           macroArgs = [],
           macroBody = MTerm
             (MType
-              (TypePrim (PrimChar Nothing)))},
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing))))},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "typedef_vs_macro.h:5:9"},
@@ -156,7 +158,9 @@ Header
       Typedef {
         typedefName = CName "T2",
         typedefType = TypePrim
-          (PrimChar Nothing),
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed))),
         typedefSourceLoc =
         "typedef_vs_macro.h:2:14"},
     DeclStruct

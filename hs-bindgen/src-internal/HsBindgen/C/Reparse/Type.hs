@@ -36,9 +36,9 @@ reparsePrimType = do
     kws <- many1 primTypeKeyword
     case kws of
       -- char
-      [             "char"] -> return $ TypePrim $ PrimChar Nothing
-      ["signed"   , "char"] -> return $ TypePrim $ PrimChar (Just Signed)
-      ["unsigned" , "char"] -> return $ TypePrim $ PrimChar (Just Unsigned)
+      [             "char"] -> return $ TypePrim $ PrimChar (PrimSignImplicit Nothing)
+      ["signed"   , "char"] -> return $ TypePrim $ PrimChar (PrimSignExplicit Signed)
+      ["unsigned" , "char"] -> return $ TypePrim $ PrimChar (PrimSignExplicit Unsigned)
       -- short
       [             "short"        ] -> return $ TypePrim $ PrimIntegral PrimShort Signed
       ["signed"   , "short"        ] -> return $ TypePrim $ PrimIntegral PrimShort Signed

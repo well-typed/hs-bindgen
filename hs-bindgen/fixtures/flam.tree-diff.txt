@@ -22,7 +22,9 @@ Header
             fieldOffset = 32,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc = "flam.h:4:10"},
         structSourceLoc = "flam.h:2:8"},
     DeclStruct
@@ -104,7 +106,9 @@ Header
             fieldOffset = 64,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc =
             "flam.h:19:7"}],
         structFlam = Just
@@ -113,7 +117,9 @@ Header
             fieldOffset = 72,
             fieldWidth = Nothing,
             fieldType = TypePrim
-              (PrimChar Nothing),
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             fieldSourceLoc = "flam.h:20:7"},
         structSourceLoc =
         "flam.h:17:8"}]

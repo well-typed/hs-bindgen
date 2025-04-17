@@ -1509,7 +1509,8 @@
             DeclPathCtxtTop,
           enumAliases = [],
           enumType = TypePrim
-            (PrimChar (Just Unsigned)),
+            (PrimChar
+              (PrimSignExplicit Unsigned)),
           enumSizeof = 1,
           enumAlignment = 1,
           enumValues = [
@@ -1554,7 +1555,8 @@
               DeclPathCtxtTop,
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [
@@ -1603,7 +1605,8 @@
                       DeclPathCtxtTop,
                     enumAliases = [],
                     enumType = TypePrim
-                      (PrimChar (Just Unsigned)),
+                      (PrimChar
+                        (PrimSignExplicit Unsigned)),
                     enumSizeof = 1,
                     enumAlignment = 1,
                     enumValues = [
@@ -1653,7 +1656,8 @@
                       DeclPathCtxtTop,
                     enumAliases = [],
                     enumType = TypePrim
-                      (PrimChar (Just Unsigned)),
+                      (PrimChar
+                        (PrimSignExplicit Unsigned)),
                     enumSizeof = 1,
                     enumAlignment = 1,
                     enumValues = [
@@ -1722,7 +1726,8 @@
               DeclPathCtxtTop,
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [
@@ -1779,7 +1784,8 @@
               DeclPathCtxtTop,
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [
@@ -1827,7 +1833,8 @@
               DeclPathCtxtTop,
             enumAliases = [],
             enumType = TypePrim
-              (PrimChar (Just Unsigned)),
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
             enumSizeof = 1,
             enumAlignment = 1,
             enumValues = [

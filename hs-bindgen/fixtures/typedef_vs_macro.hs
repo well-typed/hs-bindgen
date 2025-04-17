@@ -112,7 +112,8 @@
           macroBody = MTerm
             (MType
               (TypePrim
-                (PrimChar Nothing)))}},
+                (PrimChar
+                  (PrimSignImplicit Nothing))))}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -409,7 +410,9 @@
         Typedef {
           typedefName = CName "T2",
           typedefType = TypePrim
-            (PrimChar Nothing),
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))),
           typedefSourceLoc =
           "typedef_vs_macro.h:2:14"}},
   DeclNewtypeInstance

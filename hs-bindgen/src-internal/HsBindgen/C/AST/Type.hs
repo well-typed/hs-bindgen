@@ -8,6 +8,7 @@ module HsBindgen.C.AST.Type (
   , PrimIntType(..)
   , PrimFloatType(..)
   , PrimSign(..)
+  , PrimSignChar(..)
     -- * Structs
   , Struct(..)
   , StructField(..)
@@ -92,14 +93,7 @@ data Type =
 -- We don't force the decision here, but simply represent the C AST faithfully.
 data PrimType =
     -- | @[signed | unsigned] char@
-    --
-    -- The C standard distinguishes between /three/ kinds of @char@: @char@,
-    -- @signed char@ and @unsigned char@. Unlike the other integer types,
-    -- the interpretation of @char@ as either @signed char@ or @unsigned char@
-    -- is implementation defined.
-    --
-    -- See also <https://eel.is/c++draft/basic#fundamental>.
-    PrimChar (Maybe PrimSign)
+    PrimChar PrimSignChar
 
     -- | An integral type, such as @int@ or @unsigned long int@.
   | PrimIntegral PrimIntType PrimSign
@@ -112,6 +106,32 @@ data PrimType =
 
     -- | @_Bool@
   | PrimBool
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Sign for @char@
+--
+-- The C standard distinguishes between /three/ kinds of @char@: @char@, @signed
+-- char@ and @unsigned char@. Unlike the other integer types, the interpretation
+-- of @char@ as either @signed char@ or @unsigned char@ is implementation
+-- defined (see also <https://eel.is/c++draft/basic#fundamental>).
+--
+-- Our general approach in @hs-bindgen@ is to generate machine code but with a
+-- machine independent API. For example, we might know that @int@ is 32 bits on
+-- a particular platform, and use this information to define 'sizeOf' in
+-- 'Storable' instances, but still use 'CInt' in the type definition (rather
+-- than 'Word32'). For this reason, /if/ the sign was compiler inferred, we
+-- record this as a special case, so that we can generate 'CChar' instead of
+-- 'CUChar' or 'CSChar'.
+data PrimSignChar =
+    -- ^ User explicitly specified sign
+    PrimSignExplicit PrimSign
+
+    -- ^ Sign was left implicit
+    --
+    -- In most cases we know the compiler-determined sign, but currently not in
+    -- all cases. That's probably fixable but it's not trivial; at present we
+    -- don't need the information and so we can leave this as a 'Maybe'.
+  | PrimSignImplicit (Maybe PrimSign)
   deriving stock (Show, Eq, Ord, Generic)
 
 -- | An integral type, such as @int@ or @unsigned long int@.

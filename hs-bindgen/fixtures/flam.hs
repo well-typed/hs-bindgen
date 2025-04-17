@@ -47,7 +47,9 @@
               fieldOffset = 32,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc = "flam.h:4:10"},
           structSourceLoc =
           "flam.h:2:8"}},
@@ -100,7 +102,9 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc = "flam.h:4:10"},
             structSourceLoc = "flam.h:2:8"}}
       StorableInstance {
@@ -157,7 +161,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc = "flam.h:4:10"},
                     structSourceLoc =
                     "flam.h:2:8"}})
@@ -215,7 +221,9 @@
                         fieldOffset = 32,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc = "flam.h:4:10"},
                     structSourceLoc = "flam.h:2:8"}}
               (Add 1)
@@ -286,7 +294,9 @@
                 fieldOffset = 32,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc = "flam.h:4:10"},
             structSourceLoc = "flam.h:2:8"}}
       (HsPrimType HsPrimCChar)
@@ -959,7 +969,9 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "flam.h:19:7"}}],
       structOrigin =
@@ -984,7 +996,9 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc =
               "flam.h:19:7"}],
           structFlam = Just
@@ -993,7 +1007,9 @@
               fieldOffset = 72,
               fieldWidth = Nothing,
               fieldType = TypePrim
-                (PrimChar Nothing),
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
               fieldSourceLoc = "flam.h:20:7"},
           structSourceLoc =
           "flam.h:17:8"}},
@@ -1036,7 +1052,9 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "flam.h:19:7"}}],
         structOrigin =
@@ -1061,7 +1079,9 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "flam.h:19:7"}],
             structFlam = Just
@@ -1070,7 +1090,9 @@
                 fieldOffset = 72,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc = "flam.h:20:7"},
             structSourceLoc =
             "flam.h:17:8"}}
@@ -1118,7 +1140,9 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "flam.h:19:7"}}],
                 structOrigin =
@@ -1143,7 +1167,9 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "flam.h:19:7"}],
                     structFlam = Just
@@ -1152,7 +1178,9 @@
                         fieldOffset = 72,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc = "flam.h:20:7"},
                     structSourceLoc =
                     "flam.h:17:8"}})
@@ -1202,7 +1230,9 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "flam.h:19:7"}}],
                 structOrigin =
@@ -1227,7 +1257,9 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc =
                         "flam.h:19:7"}],
                     structFlam = Just
@@ -1236,7 +1268,9 @@
                         fieldOffset = 72,
                         fieldWidth = Nothing,
                         fieldType = TypePrim
-                          (PrimChar Nothing),
+                          (PrimChar
+                            (PrimSignImplicit
+                              (Just Signed))),
                         fieldSourceLoc = "flam.h:20:7"},
                     structSourceLoc =
                     "flam.h:17:8"}}
@@ -1295,7 +1329,9 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "flam.h:19:7"}}],
         structOrigin =
@@ -1320,7 +1356,9 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc =
                 "flam.h:19:7"}],
             structFlam = Just
@@ -1329,7 +1367,9 @@
                 fieldOffset = 72,
                 fieldWidth = Nothing,
                 fieldType = TypePrim
-                  (PrimChar Nothing),
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))),
                 fieldSourceLoc = "flam.h:20:7"},
             structSourceLoc =
             "flam.h:17:8"}}
