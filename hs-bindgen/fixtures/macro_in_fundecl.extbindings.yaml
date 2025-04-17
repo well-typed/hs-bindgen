@@ -1,31 +1,26 @@
 types:
 - cname: C
-  headers:
-  - macro_in_fundecl.h
+  headers: macro_in_fundecl.h
   identifier: C
   module: Example
   package: example
 - cname: F
-  headers:
-  - macro_in_fundecl.h
+  headers: macro_in_fundecl.h
   identifier: F
   module: Example
   package: example
 - cname: I
-  headers:
-  - macro_in_fundecl.h
+  headers: macro_in_fundecl.h
   identifier: I
   module: Example
   package: example
 - cname: L
-  headers:
-  - macro_in_fundecl.h
+  headers: macro_in_fundecl.h
   identifier: L
   module: Example
   package: example
 - cname: S
-  headers:
-  - macro_in_fundecl.h
+  headers: macro_in_fundecl.h
   identifier: S
   module: Example
   package: example
