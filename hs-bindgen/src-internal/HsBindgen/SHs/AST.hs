@@ -142,6 +142,7 @@ data Global =
   | Maybe_Just
   | Maybe_Nothing
   | NonEmpty_constructor
+  | NonEmpty_singleton
   | Map_fromList
 
   | CEnum_class

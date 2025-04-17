@@ -7,6 +7,7 @@
 
 module Example where
 
+import qualified Data.List.NonEmpty
 import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -49,7 +50,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
   toCEnumZ = un_Foo
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "FOO1"), (1, pure "FOO2")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO1"), (1, Data.List.NonEmpty.singleton "FOO2")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
 

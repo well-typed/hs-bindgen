@@ -13,6 +13,7 @@ module Example where
 import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.List.NonEmpty
 import qualified Data.Map.Strict
 import Data.Void (Void)
 import qualified Foreign as F
@@ -110,7 +111,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
   toCEnumZ = un_Another_typedef_enum_e
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "FOO"), (1, pure "BAR")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
 
@@ -389,7 +391,11 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, pure "ENUM_CASE_0"), (1, pure "ENUM_CASE_1"), (2, pure "ENUM_CASE_2"), (3, pure "ENUM_CASE_3")]
+      Data.Map.Strict.fromList [ (0, Data.List.NonEmpty.singleton "ENUM_CASE_0")
+                               , (1, Data.List.NonEmpty.singleton "ENUM_CASE_1")
+                               , (2, Data.List.NonEmpty.singleton "ENUM_CASE_2")
+                               , (3, Data.List.NonEmpty.singleton "ENUM_CASE_3")
+                               ]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
 

@@ -19,6 +19,7 @@ import qualified Data.Array.Byte
 import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.List.NonEmpty
 import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -212,7 +213,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
   toCEnumZ = un_Index
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "A"), (1, pure "B"), (2, pure "C")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A"), (1, Data.List.NonEmpty.singleton "B"), (2, Data.List.NonEmpty.singleton "C")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
 

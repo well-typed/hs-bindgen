@@ -423,7 +423,7 @@ translateCEnumInstance struct fTyp vMap = Instance {
         ETup [
             EIntegral v Nothing
           , if null names
-              then EApp (EGlobal Applicative_pure) (EString name)
+              then EApp (EGlobal NonEmpty_singleton) (EString name)
               else
                 EInfix
                   NonEmpty_constructor

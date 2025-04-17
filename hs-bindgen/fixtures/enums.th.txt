@@ -12,8 +12,8 @@ instance CEnum First
     where {type CEnumZ First = CUInt;
            fromCEnumZ = First;
            toCEnumZ = un_First;
-           declaredValues = \_ -> fromList [(0, pure "FIRST1"),
-                                            (1, pure "FIRST2")]}
+           declaredValues = \_ -> fromList [(0, singleton "FIRST1"),
+                                            (1, singleton "FIRST2")]}
 instance SequentialCEnum First
     where {minValue = FIRST1; maxValue = FIRST2}
 instance Show First
@@ -36,9 +36,9 @@ instance CEnum Second
     where {type CEnumZ Second = CInt;
            fromCEnumZ = Second;
            toCEnumZ = un_Second;
-           declaredValues = \_ -> fromList [(-1, pure "SECOND_A"),
-                                            (0, pure "SECOND_B"),
-                                            (1, pure "SECOND_C")]}
+           declaredValues = \_ -> fromList [(-1, singleton "SECOND_A"),
+                                            (0, singleton "SECOND_B"),
+                                            (1, singleton "SECOND_C")]}
 instance SequentialCEnum Second
     where {minValue = SECOND_A; maxValue = SECOND_C}
 instance Show Second
@@ -86,9 +86,9 @@ instance CEnum Nonseq
     where {type CEnumZ Nonseq = CUInt;
            fromCEnumZ = Nonseq;
            toCEnumZ = un_Nonseq;
-           declaredValues = \_ -> fromList [(200, pure "NONSEQ_A"),
-                                            (301, pure "NONSEQ_B"),
-                                            (404, pure "NONSEQ_C")]}
+           declaredValues = \_ -> fromList [(200, singleton "NONSEQ_A"),
+                                            (301, singleton "NONSEQ_B"),
+                                            (404, singleton "NONSEQ_C")]}
 instance Show Nonseq
     where {show = showCEnum "Nonseq"}
 pattern NONSEQ_A :: Nonseq
@@ -111,9 +111,9 @@ instance CEnum Packad
     where {type CEnumZ Packad = CSChar;
            fromCEnumZ = Packad;
            toCEnumZ = un_Packad;
-           declaredValues = \_ -> fromList [(0, pure "PACKED_A"),
-                                            (1, pure "PACKED_B"),
-                                            (2, pure "PACKED_C")]}
+           declaredValues = \_ -> fromList [(0, singleton "PACKED_A"),
+                                            (1, singleton "PACKED_B"),
+                                            (2, singleton "PACKED_C")]}
 instance SequentialCEnum Packad
     where {minValue = PACKED_A; maxValue = PACKED_C}
 instance Show Packad
@@ -138,8 +138,8 @@ instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
-           declaredValues = \_ -> fromList [(0, pure "A_FOO"),
-                                            (1, pure "A_BAR")]}
+           declaredValues = \_ -> fromList [(0, singleton "A_FOO"),
+                                            (1, singleton "A_BAR")]}
 instance SequentialCEnum EnumA
     where {minValue = A_FOO; maxValue = A_BAR}
 instance Show EnumA
@@ -162,8 +162,8 @@ instance CEnum EnumB
     where {type CEnumZ EnumB = CUInt;
            fromCEnumZ = EnumB;
            toCEnumZ = un_EnumB;
-           declaredValues = \_ -> fromList [(0, pure "B_FOO"),
-                                            (1, pure "B_BAR")]}
+           declaredValues = \_ -> fromList [(0, singleton "B_FOO"),
+                                            (1, singleton "B_BAR")]}
 instance SequentialCEnum EnumB
     where {minValue = B_FOO; maxValue = B_BAR}
 instance Show EnumB
@@ -186,8 +186,8 @@ instance CEnum EnumC
     where {type CEnumZ EnumC = CUInt;
            fromCEnumZ = EnumC;
            toCEnumZ = un_EnumC;
-           declaredValues = \_ -> fromList [(0, pure "C_FOO"),
-                                            (1, pure "C_BAR")]}
+           declaredValues = \_ -> fromList [(0, singleton "C_FOO"),
+                                            (1, singleton "C_BAR")]}
 instance SequentialCEnum EnumC
     where {minValue = C_FOO; maxValue = C_BAR}
 instance Show EnumC
@@ -210,8 +210,8 @@ instance CEnum EnumD
     where {type CEnumZ EnumD = CUInt;
            fromCEnumZ = EnumD;
            toCEnumZ = un_EnumD;
-           declaredValues = \_ -> fromList [(0, pure "D_FOO"),
-                                            (1, pure "D_BAR")]}
+           declaredValues = \_ -> fromList [(0, singleton "D_FOO"),
+                                            (1, singleton "D_BAR")]}
 instance SequentialCEnum EnumD
     where {minValue = D_FOO; maxValue = D_BAR}
 instance Show EnumD

@@ -12,8 +12,8 @@ instance CEnum Foo
     where {type CEnumZ Foo = CUInt;
            fromCEnumZ = Foo;
            toCEnumZ = un_Foo;
-           declaredValues = \_ -> fromList [(0, pure "FOO1"),
-                                            (1, pure "FOO2")]}
+           declaredValues = \_ -> fromList [(0, singleton "FOO1"),
+                                            (1, singleton "FOO2")]}
 instance SequentialCEnum Foo
     where {minValue = FOO1; maxValue = FOO2}
 instance Show Foo

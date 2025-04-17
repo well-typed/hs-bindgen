@@ -42,7 +42,8 @@ instance CEnum Another_typedef_enum_e
     where {type CEnumZ Another_typedef_enum_e = CUInt;
            fromCEnumZ = Another_typedef_enum_e;
            toCEnumZ = un_Another_typedef_enum_e;
-           declaredValues = \_ -> fromList [(0, pure "FOO"), (1, pure "BAR")]}
+           declaredValues = \_ -> fromList [(0, singleton "FOO"),
+                                            (1, singleton "BAR")]}
 instance SequentialCEnum Another_typedef_enum_e
     where {minValue = FOO; maxValue = BAR}
 instance Show Another_typedef_enum_e
@@ -172,10 +173,10 @@ instance CEnum A_typedef_enum_e
     where {type CEnumZ A_typedef_enum_e = CSChar;
            fromCEnumZ = A_typedef_enum_e;
            toCEnumZ = un_A_typedef_enum_e;
-           declaredValues = \_ -> fromList [(0, pure "ENUM_CASE_0"),
-                                            (1, pure "ENUM_CASE_1"),
-                                            (2, pure "ENUM_CASE_2"),
-                                            (3, pure "ENUM_CASE_3")]}
+           declaredValues = \_ -> fromList [(0, singleton "ENUM_CASE_0"),
+                                            (1, singleton "ENUM_CASE_1"),
+                                            (2, singleton "ENUM_CASE_2"),
+                                            (3, singleton "ENUM_CASE_3")]}
 instance SequentialCEnum A_typedef_enum_e
     where {minValue = ENUM_CASE_0; maxValue = ENUM_CASE_3}
 instance Show A_typedef_enum_e

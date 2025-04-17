@@ -89,9 +89,9 @@ instance CEnum Index
     where {type CEnumZ Index = CUInt;
            fromCEnumZ = Index;
            toCEnumZ = un_Index;
-           declaredValues = \_ -> fromList [(0, pure "A"),
-                                            (1, pure "B"),
-                                            (2, pure "C")]}
+           declaredValues = \_ -> fromList [(0, singleton "A"),
+                                            (1, singleton "B"),
+                                            (2, singleton "C")]}
 instance SequentialCEnum Index
     where {minValue = A; maxValue = C}
 instance Show Index

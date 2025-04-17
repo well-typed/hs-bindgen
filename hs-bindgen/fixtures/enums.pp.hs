@@ -50,7 +50,8 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
   toCEnumZ = un_First
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "FIRST1"), (1, pure "FIRST2")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
 
@@ -105,7 +106,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(-1, pure "SECOND_A"), (0, pure "SECOND_B"), (1, pure "SECOND_C")]
+      Data.Map.Strict.fromList [ (-1, Data.List.NonEmpty.singleton "SECOND_A")
+                               , (0, Data.List.NonEmpty.singleton "SECOND_B")
+                               , (1, Data.List.NonEmpty.singleton "SECOND_C")
+                               ]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
 
@@ -218,7 +222,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(200, pure "NONSEQ_A"), (301, pure "NONSEQ_B"), (404, pure "NONSEQ_C")]
+      Data.Map.Strict.fromList [ (200, Data.List.NonEmpty.singleton "NONSEQ_A")
+                               , (301, Data.List.NonEmpty.singleton "NONSEQ_B")
+                               , (404, Data.List.NonEmpty.singleton "NONSEQ_C")
+                               ]
 
 instance Show Nonseq where
 
@@ -270,7 +277,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, pure "PACKED_A"), (1, pure "PACKED_B"), (2, pure "PACKED_C")]
+      Data.Map.Strict.fromList [ (0, Data.List.NonEmpty.singleton "PACKED_A")
+                               , (1, Data.List.NonEmpty.singleton "PACKED_B")
+                               , (2, Data.List.NonEmpty.singleton "PACKED_C")
+                               ]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
 
@@ -327,7 +337,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
   toCEnumZ = un_EnumA
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "A_FOO"), (1, pure "A_BAR")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
@@ -381,7 +392,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
   toCEnumZ = un_EnumB
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "B_FOO"), (1, pure "B_BAR")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
 
@@ -435,7 +447,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
   toCEnumZ = un_EnumC
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "C_FOO"), (1, pure "C_BAR")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
 
@@ -489,7 +502,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
   toCEnumZ = un_EnumD
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "D_FOO"), (1, pure "D_BAR")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
 

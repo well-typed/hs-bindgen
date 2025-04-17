@@ -6,6 +6,7 @@
 
 module Example where
 
+import qualified Data.List.NonEmpty
 import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -48,7 +49,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
   toCEnumZ = un_EnumA
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "VALA_1"), (1, pure "VALA_2")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "VALA_1"), (1, Data.List.NonEmpty.singleton "VALA_2")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
@@ -127,7 +129,8 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
   toCEnumZ = un_ExB_fieldB1
 
   declaredValues =
-    \_ -> Data.Map.Strict.fromList [(0, pure "VALB_1"), (1, pure "VALB_2")]
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "VALB_1"), (1, Data.List.NonEmpty.singleton "VALB_2")]
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
 

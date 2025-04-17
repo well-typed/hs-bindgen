@@ -157,6 +157,7 @@ mkGlobal = \case
       Maybe_Just           -> 'Just
       Maybe_Nothing        -> 'Nothing
       NonEmpty_constructor -> '(NonEmpty.:|)
+      NonEmpty_singleton   -> 'NonEmpty.singleton
       Map_fromList         -> 'Map.fromList
 
       CEnum_class -> ''HsBindgen.Runtime.CEnum.CEnum
@@ -325,6 +326,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Maybe_Just           -> TH.conE name
     Maybe_Nothing        -> TH.conE name
     NonEmpty_constructor -> TH.conE name
+    NonEmpty_singleton   -> TH.varE name
     Map_fromList         -> TH.varE name
 
     CEnum_class              -> panicPure "class in expression"

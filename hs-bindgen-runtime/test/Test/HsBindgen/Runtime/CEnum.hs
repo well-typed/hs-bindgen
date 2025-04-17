@@ -4,6 +4,7 @@ module Test.HsBindgen.Runtime.CEnum (tests) where
 
 import Control.Monad (forM_)
 import Data.List.NonEmpty (NonEmpty((:|)))
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Foreign.C qualified as FC
 import Test.Tasty (TestTree, testGroup)
@@ -205,16 +206,16 @@ instance CEnum GenPosValue where
   fromCEnumZ       = GenPosValue
   toCEnumZ         = un_GenPosValue
   declaredValues _ = Map.fromList [
-      (100, pure "CONTINUE")
-    , (101, pure "SWITCHING_PROTOCOLS")
-    , (200, pure "OK")
-    , (201, pure "CREATED")
-    , (202, pure "ACCEPTED")
-    , (301, pure "MOVED_PERMANENTLY")
-    , (400, pure "BAD_REQUEST")
-    , (401, pure "UNAUTHORIZED")
-    , (403, pure "FORBIDDEN")
-    , (404, pure "NOT_FOUND")
+      (100, NonEmpty.singleton "CONTINUE")
+    , (101, NonEmpty.singleton "SWITCHING_PROTOCOLS")
+    , (200, NonEmpty.singleton "OK")
+    , (201, NonEmpty.singleton "CREATED")
+    , (202, NonEmpty.singleton "ACCEPTED")
+    , (301, NonEmpty.singleton "MOVED_PERMANENTLY")
+    , (400, NonEmpty.singleton "BAD_REQUEST")
+    , (401, NonEmpty.singleton "UNAUTHORIZED")
+    , (403, NonEmpty.singleton "FORBIDDEN")
+    , (404, NonEmpty.singleton "NOT_FOUND")
     ]
 
 deriving via AsCEnum GenPosValue instance Bounded GenPosValue
@@ -354,15 +355,15 @@ instance CEnum GenNegValue where
   fromCEnumZ       = GenNegValue
   toCEnumZ         = un_GenNegValue
   declaredValues _ = Map.fromList [
-      (-201, pure "REALLY_TERRIBLE")
-    , (-200, pure "TERRIBLE")
-    , (-101, pure "REALLY_BAD")
-    , (-100, pure "BAD")
+      (-201, NonEmpty.singleton "REALLY_TERRIBLE")
+    , (-200, NonEmpty.singleton "TERRIBLE")
+    , (-101, NonEmpty.singleton "REALLY_BAD")
+    , (-100, NonEmpty.singleton "BAD")
     , (0,    "NEUTRAL" :| ["UNREMARKABLE"])
-    , (100,  pure "GOOD")
-    , (101,  pure "REALLY_GOOD")
-    , (200,  pure "GREAT")
-    , (201,  pure "REALLY_GREAT")
+    , (100,  NonEmpty.singleton "GOOD")
+    , (101,  NonEmpty.singleton "REALLY_GOOD")
+    , (200,  NonEmpty.singleton "GREAT")
+    , (201,  NonEmpty.singleton "REALLY_GREAT")
     ]
 
 deriving via AsCEnum GenNegValue instance Bounded GenNegValue
@@ -605,14 +606,14 @@ instance CEnum SeqPosValue where
   declaredValues _ = Map.fromList [
       (1,  "A" :| ["ALPHA"])
     , (2,  "B" :| ["BETA"])
-    , (3,  pure "C")
-    , (4,  pure "D")
-    , (5,  pure "E")
-    , (6,  pure "F")
-    , (7,  pure "G")
-    , (8,  pure "H")
-    , (9,  pure "I")
-    , (10, pure "J")
+    , (3,  NonEmpty.singleton "C")
+    , (4,  NonEmpty.singleton "D")
+    , (5,  NonEmpty.singleton "E")
+    , (6,  NonEmpty.singleton "F")
+    , (7,  NonEmpty.singleton "G")
+    , (8,  NonEmpty.singleton "H")
+    , (9,  NonEmpty.singleton "I")
+    , (10, NonEmpty.singleton "J")
     ]
 
 instance SequentialCEnum SeqPosValue where
@@ -747,17 +748,17 @@ instance CEnum SeqNegValue where
   fromCEnumZ       = SeqNegValue
   toCEnumZ         = un_SeqNegValue
   declaredValues _ = Map.fromList [
-      (-5, pure "GARBAGE")
-    , (-4, pure "TERRIBLE")
-    , (-3, pure "BAD")
-    , (-2, pure "DISAPPOINTING")
-    , (-1, pure "UGH")
+      (-5, NonEmpty.singleton "GARBAGE")
+    , (-4, NonEmpty.singleton "TERRIBLE")
+    , (-3, NonEmpty.singleton "BAD")
+    , (-2, NonEmpty.singleton "DISAPPOINTING")
+    , (-1, NonEmpty.singleton "UGH")
     , (0,  "NEUTRAL" :| ["UNREMARKABLE"])
-    , (1,  pure "MEH")
-    , (2,  pure "OK")
-    , (3,  pure "GOOD")
-    , (4,  pure "GREAT")
-    , (5,  pure "SPECTACULAR")
+    , (1,  NonEmpty.singleton "MEH")
+    , (2,  NonEmpty.singleton "OK")
+    , (3,  NonEmpty.singleton "GOOD")
+    , (4,  NonEmpty.singleton "GREAT")
+    , (5,  NonEmpty.singleton "SPECTACULAR")
     ]
 
 instance SequentialCEnum SeqNegValue where

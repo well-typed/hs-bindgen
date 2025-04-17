@@ -12,8 +12,8 @@ instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
-           declaredValues = \_ -> fromList [(0, pure "VALA_1"),
-                                            (1, pure "VALA_2")]}
+           declaredValues = \_ -> fromList [(0, singleton "VALA_1"),
+                                            (1, singleton "VALA_2")]}
 instance SequentialCEnum EnumA
     where {minValue = VALA_1; maxValue = VALA_2}
 instance Show EnumA
@@ -45,8 +45,8 @@ instance CEnum ExB_fieldB1
     where {type CEnumZ ExB_fieldB1 = CUInt;
            fromCEnumZ = ExB_fieldB1;
            toCEnumZ = un_ExB_fieldB1;
-           declaredValues = \_ -> fromList [(0, pure "VALB_1"),
-                                            (1, pure "VALB_2")]}
+           declaredValues = \_ -> fromList [(0, singleton "VALB_1"),
+                                            (1, singleton "VALB_2")]}
 instance SequentialCEnum ExB_fieldB1
     where {minValue = VALB_1; maxValue = VALB_2}
 instance Show ExB_fieldB1

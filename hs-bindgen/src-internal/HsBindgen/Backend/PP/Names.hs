@@ -294,6 +294,7 @@ resolveGlobal = \case
     Maybe_Just           -> importQ 'Just
     Maybe_Nothing        -> importQ 'Nothing
     NonEmpty_constructor -> importQ '(NonEmpty.:|)
+    NonEmpty_singleton   -> importQ 'NonEmpty.singleton
     Map_fromList         -> importQ 'Map.fromList
 
     CEnum_class -> importQ ''HsBindgen.Runtime.CEnum.CEnum

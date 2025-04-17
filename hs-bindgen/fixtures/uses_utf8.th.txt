@@ -12,8 +12,8 @@ instance CEnum MyEnum
     where {type CEnumZ MyEnum = CUInt;
            fromCEnumZ = MyEnum;
            toCEnumZ = un_MyEnum;
-           declaredValues = \_ -> fromList [(0, pure "Say\20320\22909"),
-                                            (1, pure "Say\25308\25308")]}
+           declaredValues = \_ -> fromList [(0, singleton "Say\20320\22909"),
+                                            (1, singleton "Say\25308\25308")]}
 instance SequentialCEnum MyEnum
     where {minValue = Say你好; maxValue = Say拜拜}
 instance Show MyEnum
