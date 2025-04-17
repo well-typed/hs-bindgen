@@ -1,1 +1,6 @@
-packages: ., ../../c-expr, ../../hs-bindgen-runtime
+packages: 
+  hs-vector 
+  hs-game
+  manual
+  ../../c-expr 
+  ../../hs-bindgen-runtime

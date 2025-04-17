@@ -1,0 +1,17 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
+
+module Game.State where
+
+import qualified Foreign as F
+
+data Game_state_details
+
+newtype Game_state = Game_state
+  { un_Game_state :: F.Ptr Game_state_details
+  }
+
+deriving newtype instance F.Storable Game_state

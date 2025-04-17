@@ -22,6 +22,7 @@ int index_triple(triple* triple, index ix) {
         case B: return triple->b;
         case C: return triple->c;
     }
+    return 0;
 }
 
 /**
