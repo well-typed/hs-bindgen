@@ -226,8 +226,8 @@ data InstanceDecl where
       -> InstanceDecl
     InstanceSequentialCEnum ::
          Struct (S Z)
-      -> Integer
-      -> Integer
+      -> HsName NsConstr
+      -> HsName NsConstr
       -> InstanceDecl
     InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
 

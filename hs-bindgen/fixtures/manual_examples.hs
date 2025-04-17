@@ -1403,8 +1403,8 @@
                 "manual_examples.h:29:5"}],
             enumSourceLoc =
             "manual_examples.h:26:14"}}
-      0
-      2),
+      (HsName "@NsConstr" "A")
+      (HsName "@NsConstr" "C")),
   DeclInstance
     (InstanceCEnumShow
       Struct {

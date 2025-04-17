@@ -851,8 +851,8 @@
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
             "distilled_lib_1.h:9:9"}}
-      0
-      1),
+      (HsName "@NsConstr" "FOO")
+      (HsName "@NsConstr" "BAR")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -3312,8 +3312,12 @@
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
             "distilled_lib_1.h:60:9"}}
-      0
-      3),
+      (HsName
+        "@NsConstr"
+        "ENUM_CASE_0")
+      (HsName
+        "@NsConstr"
+        "ENUM_CASE_3")),
   DeclInstance
     (InstanceCEnumShow
       Struct {

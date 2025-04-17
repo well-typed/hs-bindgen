@@ -298,8 +298,8 @@
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
             "nested_enums.h:2:14"}}
-      0
-      1),
+      (HsName "@NsConstr" "VALA_1")
+      (HsName "@NsConstr" "VALA_2")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -934,8 +934,8 @@
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
             "nested_enums.h:9:9"}}
-      0
-      1),
+      (HsName "@NsConstr" "VALB_1")
+      (HsName "@NsConstr" "VALB_2")),
   DeclInstance
     (InstanceCEnumShow
       Struct {

@@ -52,9 +52,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
-  minValue = EnumA 0
+  minValue = VALA_1
 
-  maxValue = EnumA 1
+  maxValue = VALA_2
 
 instance Show EnumA where
 
@@ -131,9 +131,9 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
 
-  minValue = ExB_fieldB1 0
+  minValue = VALB_1
 
-  maxValue = ExB_fieldB1 1
+  maxValue = VALB_2
 
 instance Show ExB_fieldB1 where
 

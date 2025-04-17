@@ -20,6 +20,8 @@ module HsBindgen.Hs.Translation (
   , floatingType
   ) where
 
+import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
@@ -33,6 +35,7 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
@@ -326,22 +329,23 @@ enumDecs opts nm e = concat [
     cEnumInstanceDecls :: [Hs.Decl]
     cEnumInstanceDecls =
       let vMap = Map.fromListWith (<>) [
-              ( C.valueValue ev
-              , pure (T.unpack . C.getCName $ C.valueName ev)
+              ( Hs.patSynValue pat
+              , NonEmpty.singleton (Hs.patSynName pat)
               )
-            | ev <- C.enumValues e
+            | Hs.DeclPatSyn pat <- valueDecls
             ]
-          fTyp = Hs.fieldType newtypeField
-          cEnumDecl = Hs.DeclDefineInstance $ Hs.InstanceCEnum hs fTyp vMap
-          cEnumShowDecl = [Hs.DeclDefineInstance $ Hs.InstanceCEnumShow hs]
           mSeqBounds = do
-            minV <- fst <$> Map.lookupMin vMap
-            maxV <- fst <$> Map.lookupMax vMap
+            (minV, minNames) <- Map.lookupMin vMap
+            (maxV, maxNames) <- Map.lookupMax vMap
             guard $ maxV - minV + 1 == fromIntegral (Map.size vMap)
-            return (minV, maxV)
+            return (NonEmpty.head minNames, NonEmpty.head maxNames)
+          fTyp = Hs.fieldType newtypeField
+          cEnumDecl = Hs.DeclDefineInstance $
+            Hs.InstanceCEnum hs fTyp (fmap (T.unpack . getHsName) <$> vMap)
+          cEnumShowDecl = [Hs.DeclDefineInstance (Hs.InstanceCEnumShow hs)]
           sequentialCEnumDecl = case mSeqBounds of
-            Just (minV, maxV) ->
-              [Hs.DeclDefineInstance (Hs.InstanceSequentialCEnum hs minV maxV)]
+            Just (nameMin, nameMax) -> List.singleton . Hs.DeclDefineInstance $
+              Hs.InstanceSequentialCEnum hs nameMin nameMax
             Nothing -> []
       in  cEnumDecl : sequentialCEnumDecl ++ cEnumShowDecl
 

@@ -54,9 +54,9 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
 
-  minValue = First 0
+  minValue = FIRST1
 
-  maxValue = First 1
+  maxValue = FIRST2
 
 instance Show First where
 
@@ -109,9 +109,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
 
-  minValue = Second (-1)
+  minValue = SECOND_A
 
-  maxValue = Second 1
+  maxValue = SECOND_C
 
 instance Show Second where
 
@@ -167,9 +167,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
 
-  minValue = Same 1
+  minValue = SAME_B
 
-  maxValue = Same 1
+  maxValue = SAME_B
 
 instance Show Same where
 
@@ -274,9 +274,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
 
-  minValue = Packad 0
+  minValue = PACKED_A
 
-  maxValue = Packad 2
+  maxValue = PACKED_C
 
 instance Show Packad where
 
@@ -331,9 +331,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
-  minValue = EnumA 0
+  minValue = A_FOO
 
-  maxValue = EnumA 1
+  maxValue = A_BAR
 
 instance Show EnumA where
 
@@ -385,9 +385,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
 
-  minValue = EnumB 0
+  minValue = B_FOO
 
-  maxValue = EnumB 1
+  maxValue = B_BAR
 
 instance Show EnumB where
 
@@ -439,9 +439,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
 
-  minValue = EnumC 0
+  minValue = C_FOO
 
-  maxValue = EnumC 1
+  maxValue = C_BAR
 
 instance Show EnumC where
 
@@ -493,9 +493,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
 
-  minValue = EnumD 0
+  minValue = D_FOO
 
-  maxValue = EnumD 1
+  maxValue = D_BAR
 
 instance Show EnumD where
 

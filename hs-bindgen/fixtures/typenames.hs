@@ -272,8 +272,8 @@
                 "typenames.h:16:2"}],
             enumSourceLoc =
             "typenames.h:14:6"}}
-      0
-      1),
+      (HsName "@NsConstr" "FOO1")
+      (HsName "@NsConstr" "FOO2")),
   DeclInstance
     (InstanceCEnumShow
       Struct {

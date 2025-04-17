@@ -268,8 +268,8 @@
                 valueSourceLoc =
                 "enums.h:6:5"}],
             enumSourceLoc = "enums.h:4:6"}}
-      0
-      1),
+      (HsName "@NsConstr" "FIRST1")
+      (HsName "@NsConstr" "FIRST2")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -657,8 +657,10 @@
                 valueSourceLoc =
                 "enums.h:12:5"}],
             enumSourceLoc = "enums.h:9:6"}}
-      `-1`
-      1),
+      (HsName "@NsConstr" "SECOND_A")
+      (HsName
+        "@NsConstr"
+        "SECOND_C")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -1032,8 +1034,8 @@
                 valueSourceLoc =
                 "enums.h:17:5"}],
             enumSourceLoc = "enums.h:15:6"}}
-      1
-      1),
+      (HsName "@NsConstr" "SAME_B")
+      (HsName "@NsConstr" "SAME_B")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -1794,8 +1796,10 @@
                 valueSourceLoc =
                 "enums.h:27:25"}],
             enumSourceLoc = "enums.h:26:6"}}
-      0
-      2),
+      (HsName "@NsConstr" "PACKED_A")
+      (HsName
+        "@NsConstr"
+        "PACKED_C")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -2175,8 +2179,8 @@
                 valueSourceLoc =
                 "enums.h:30:23"}],
             enumSourceLoc = "enums.h:30:9"}}
-      0
-      1),
+      (HsName "@NsConstr" "A_FOO")
+      (HsName "@NsConstr" "A_BAR")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -2536,8 +2540,8 @@
                 "enums.h:32:29"}],
             enumSourceLoc =
             "enums.h:32:14"}}
-      0
-      1),
+      (HsName "@NsConstr" "B_FOO")
+      (HsName "@NsConstr" "B_BAR")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -2893,8 +2897,8 @@
                 valueSourceLoc =
                 "enums.h:34:21"}],
             enumSourceLoc = "enums.h:34:6"}}
-      0
-      1),
+      (HsName "@NsConstr" "C_FOO")
+      (HsName "@NsConstr" "C_BAR")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -3250,8 +3254,8 @@
                 valueSourceLoc =
                 "enums.h:37:21"}],
             enumSourceLoc = "enums.h:37:6"}}
-      0
-      1),
+      (HsName "@NsConstr" "D_FOO")
+      (HsName "@NsConstr" "D_BAR")),
   DeclInstance
     (InstanceCEnumShow
       Struct {

@@ -296,8 +296,12 @@
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
             "uses_utf8.h:4:6"}}
-      0
-      1),
+      (HsName
+        "@NsConstr"
+        "Say\20320\22909")
+      (HsName
+        "@NsConstr"
+        "Say\25308\25308")),
   DeclInstance
     (InstanceCEnumShow
       Struct {
