@@ -182,7 +182,7 @@ prettyType env prec = \case
     TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
     TLit n -> showToCtxDoc n
-    TExt i -> pretty i
+    TExt i _ctype -> pretty i
     TApp c x -> parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
     TFun a b -> parensWhen (prec > 0) $

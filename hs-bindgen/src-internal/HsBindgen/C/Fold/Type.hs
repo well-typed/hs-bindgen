@@ -133,7 +133,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
         mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
         case mExtId of
-            Just extId -> addAlias ty $ TypeExtBinding extId
+            Just extId -> addAlias ty $ TypeExtBinding extId ctype
             Nothing -> do
                 tag <- CName <$> liftIO (clang_getCursorSpelling decl)
                 ty' <- liftIO $ getElaborated =<< clang_getTypedefDeclUnderlyingType decl
@@ -193,10 +193,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                   Left (AnonTopLevel replacement) ->
                     return replacement
                   Right (declPath, flavour) -> do
-                    addTypeDeclProcessing ty $ TypeStruct declPath
+                    let ctype = TypeStruct declPath
+                    addTypeDeclProcessing ty ctype
                     case flavour of
                       TypeDeclExternal extId ->
-                        addAlias ty $ TypeExtBinding extId
+                        addAlias ty $ TypeExtBinding extId ctype
                       TypeDeclOpaque name -> do
                         addDecl ty $ DeclOpaqueStruct OpaqueStruct {
                             opaqueStructTag       = name
@@ -275,10 +276,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                   Left (AnonTopLevel replacement) ->
                     return replacement
                   Right (declPath, flavour) -> do
-                    addTypeDeclProcessing ty $ TypeEnum declPath
+                    let ctype = TypeEnum declPath
+                    addTypeDeclProcessing ty ctype
                     case flavour of
                       TypeDeclExternal extId ->
-                        addAlias ty $ TypeExtBinding extId
+                        addAlias ty $ TypeExtBinding extId ctype
                       TypeDeclOpaque name ->
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
                             opaqueEnumTag       = name
