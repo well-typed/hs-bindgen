@@ -7,7 +7,7 @@ import Data.Char
 import Control.Monad
 
 data S = S
-    { lname :: Name
+    { unique :: String -- ^ unique string identifying package&module
     , includes :: [String]
     , csource :: [String]
     , decs :: [DecQ]
@@ -35,9 +35,7 @@ addInclude incl = UC $ \ref -> do
 freshCName :: String -> UC String
 freshCName n = UC $ \ref -> do
     s <- readIORef ref
-    return $ case lname s of
-        Name _ (NameG _ (PkgName p) (ModName m)) -> filter isLetter (p++m)++"_"++n++"_wrapper"
-        _ -> n ++ "_wrapper"
+    return $ unique s ++"_"++n++"_wrapper"
 
 addC :: String -> UC ()
 addC c = UC $ \ref -> do
@@ -49,7 +47,7 @@ addDec d = UC $ \ref -> do
     s <- readIORef ref
     writeIORef ref s { decs = decs s ++ [d] }
 
-runUC :: Name -> UC () -> IO S
+runUC :: String -> UC () -> IO S
 runUC n m = do
     ref <- newIORef (S n [] [] [])
     unUC m ref
@@ -59,14 +57,14 @@ foreignImport :: String -> String -> TypeQ -> DecQ
 foreignImport cname hsname ty = ForeignD . ImportF CCall Safe cname (mkName hsname) <$> ty
 
 userlandCApi
-    :: Name -- ^ This name is used to create unique identifiers, based on unit-id and current module.
-    -> UC ()
+    :: UC ()
     -> DecsQ
-userlandCApi localname uc = do
-    runIO $ putStrLn "hello at compile time"
-    s <- runIO (runUC localname uc)
+userlandCApi uc = do
+    loc <- location
+    runIO $ putStrLn $ "hello at compile time: " ++ show loc
+    let unitid' = filter isLetter (loc_package loc) ++ "_" ++ filter isLetter (loc_module loc)
+    s <- runIO (runUC unitid' uc)
     let source' = source s
-    runIO $ print localname
     runIO $ putStrLn source'
     addForeignSource LangC source'
     sequence (decs s)
