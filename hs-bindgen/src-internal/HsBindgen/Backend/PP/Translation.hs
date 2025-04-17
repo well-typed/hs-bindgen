@@ -205,7 +205,7 @@ resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
     TCon _n -> mempty
     TLit _n -> mempty
-    TExt i -> resolveExtIdentifierImports i
+    TExt i _ctype -> resolveExtIdentifierImports i
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound {} -> mempty

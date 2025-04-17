@@ -426,7 +426,7 @@ mkType env = \case
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
-    TExt ExtIdentifier{..} ->
+    TExt ExtIdentifier{..} _ctype ->
         TH.conT . TH.mkName $ concat [
               Text.unpack (getHsModuleName extIdentifierModule)
             , "."

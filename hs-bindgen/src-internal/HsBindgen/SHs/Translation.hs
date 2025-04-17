@@ -152,7 +152,7 @@ translateType (Hs.HsConstArray n t) = TGlobal ConstantArray `TApp` TLit n `TApp`
 translateType (Hs.HsType _)         = TGlobal (PrimType HsPrimVoid)
 translateType (Hs.HsIO t)           = TApp (TGlobal IO_type) (translateType t)
 translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
-translateType (Hs.HsExtBinding i)   = TExt i
+translateType (Hs.HsExtBinding i t) = TExt i t
 translateType Hs.HsByteArray        = TGlobal ByteArray_type
 translateType (Hs.HsSizedByteArray n m) = TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
 

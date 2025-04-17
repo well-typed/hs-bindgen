@@ -3,6 +3,7 @@ module HsBindgen.Hs.AST.Type (
   HsType (..)
 ) where
 
+import HsBindgen.C.AST qualified as C
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Hs.AST.Name
@@ -57,7 +58,7 @@ data HsType =
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
-  | HsExtBinding ExtIdentifier
+  | HsExtBinding ExtIdentifier C.Type
   | HsByteArray
   | HsSizedByteArray Natural Natural
   deriving stock (Generic, Show)
