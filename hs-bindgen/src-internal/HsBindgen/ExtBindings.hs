@@ -34,6 +34,7 @@ module HsBindgen.ExtBindings (
 
 import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
+import Data.Aeson ((.=), (.:))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified
 import Data.ByteString (ByteString)
@@ -426,19 +427,20 @@ newtype Config = Config {
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Config where
-  parseJSON = Aeson.genericParseJSON aesonConfigOptions
+  parseJSON = Aeson.withObject "Config" $ \obj -> do
+      configTypes <- obj .: "types"
+      return Config{configTypes}
 
 instance Aeson.ToJSON Config where
-  toJSON = Aeson.genericToJSON aesonConfigOptions
-
-aesonConfigOptions :: Aeson.Options
-aesonConfigOptions = Aeson.defaultOptions {
-      Aeson.fieldLabelModifier = stripPrefix "config"
-    }
+  toJSON config = Aeson.object [
+        "types" .= configTypes
+      ]
+    where
+      Config{configTypes} = config
 
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
-      mappingCname      :: CNameSpelling
+      mappingCName      :: CNameSpelling
     , mappingHeaders    :: [CHeaderIncludePath]
     , mappingIdentifier :: HsIdentifier
     , mappingModule     :: HsModuleName
@@ -447,26 +449,40 @@ data Mapping = Mapping {
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Mapping where
-  parseJSON = Aeson.genericParseJSON aesonMappingOptions
+  parseJSON = Aeson.withObject "Mapping" $ \obj -> do
+      mappingCName      <- obj .: "cname"
+      mappingHeaders    <- obj .: "headers"
+      mappingIdentifier <- obj .: "identifier"
+      mappingModule     <- obj .: "module"
+      mappingPackage    <- obj .: "package"
+      return Mapping {
+          mappingCName
+        , mappingHeaders
+        , mappingIdentifier
+        , mappingModule
+        , mappingPackage
+        }
 
 instance Aeson.ToJSON Mapping where
-  toJSON = Aeson.genericToJSON aesonMappingOptions
-
-aesonMappingOptions :: Aeson.Options
-aesonMappingOptions = Aeson.defaultOptions {
-      Aeson.fieldLabelModifier = stripPrefix "mapping"
-    }
+  toJSON mapping = Aeson.object [
+        "cname"      .= mappingCName
+      , "headers"    .= mappingHeaders
+      , "identifier" .= mappingIdentifier
+      , "module"     .= mappingModule
+      , "package"    .= mappingPackage
+      ]
+    where
+      Mapping {
+          mappingCName
+        , mappingHeaders
+        , mappingIdentifier
+        , mappingModule
+        , mappingPackage
+        } = mapping
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions (Internal)
 -------------------------------------------------------------------------------}
-
--- | Convert a field name to a JSON object key by stripping a prefix and
--- converting to @snake_case@
-stripPrefix :: String -> String -> String
-stripPrefix prefix s = case List.stripPrefix prefix s of
-    Just s' | not (null s') -> Aeson.camelTo2 '_' s'
-    _otherwise  -> s
 
 -- | Create 'UnresolvedExtBindings' from a 'Config'
 mkUnresolvedExtBindings ::
@@ -510,10 +526,10 @@ mkUnresolvedExtBindings path Config{..} = do
             , extIdentifierIdentifier = mappingIdentifier
             }
           newV = [(Set.fromList mappingHeaders, extIdentifier)]
-      in  case Map.insertLookupWithKey (const (++)) mappingCname newV accMap of
+      in  case Map.insertLookupWithKey (const (++)) mappingCName newV accMap of
             (Nothing,   accMap') -> (dupMap, accMap')
             (Just oldV, accMap') ->
-              (mkMapDup mappingCname newV oldV dupMap, accMap')
+              (mkMapDup mappingCName newV oldV dupMap, accMap')
 
     mkMapDup ::
          CNameSpelling
@@ -534,7 +550,7 @@ encodeUnresolvedExtBindings UnresolvedExtBindings{..} = Config{..}
     configTypes :: [Mapping]
     configTypes = [
         Mapping {
-            mappingCname      = cname
+            mappingCName      = cname
           , mappingHeaders    = Set.toAscList headerSet
           , mappingIdentifier = extIdentifierIdentifier
           , mappingModule     = extIdentifierModule
