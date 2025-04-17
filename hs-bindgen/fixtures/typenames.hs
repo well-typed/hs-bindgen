@@ -231,7 +231,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["FOO1"]),
-          _×_ 1 (NE.fromList ["FOO2"])])),
+          _×_ 1 (NE.fromList ["FOO2"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {

@@ -14,7 +14,9 @@ instance CEnum MyEnum
            fromCEnumZ = MyEnum;
            toCEnumZ = un_MyEnum;
            declaredValues = \_ -> fromList [(0, singleton "Say\20320\22909"),
-                                            (1, singleton "Say\25308\25308")]}
+                                            (1, singleton "Say\25308\25308")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum MyEnum
     where {minDeclaredValue = Say你好; maxDeclaredValue = Say拜拜}
 instance Show MyEnum

@@ -53,6 +53,10 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
 
   minDeclaredValue = FIRST1
@@ -111,6 +115,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
                                , (1, Data.List.NonEmpty.singleton "SECOND_C")
                                ]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
 
   minDeclaredValue = SECOND_A
@@ -168,6 +176,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
   declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
 
@@ -282,6 +294,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
                                , (2, Data.List.NonEmpty.singleton "PACKED_C")
                                ]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
 
   minDeclaredValue = PACKED_A
@@ -340,6 +356,10 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
   minDeclaredValue = A_FOO
@@ -394,6 +414,10 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
   declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
 
@@ -450,6 +474,10 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
 
   minDeclaredValue = C_FOO
@@ -504,6 +532,10 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
   declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
 

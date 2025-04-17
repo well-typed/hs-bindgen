@@ -92,7 +92,9 @@ instance CEnum Index
            toCEnumZ = un_Index;
            declaredValues = \_ -> fromList [(0, singleton "A"),
                                             (1, singleton "B"),
-                                            (2, singleton "C")]}
+                                            (2, singleton "C")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum Index
     where {minDeclaredValue = A; maxDeclaredValue = C}
 instance Show Index

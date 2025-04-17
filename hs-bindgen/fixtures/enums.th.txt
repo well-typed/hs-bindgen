@@ -14,7 +14,9 @@ instance CEnum First
            fromCEnumZ = First;
            toCEnumZ = un_First;
            declaredValues = \_ -> fromList [(0, singleton "FIRST1"),
-                                            (1, singleton "FIRST2")]}
+                                            (1, singleton "FIRST2")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum First
     where {minDeclaredValue = FIRST1; maxDeclaredValue = FIRST2}
 instance Show First
@@ -39,7 +41,9 @@ instance CEnum Second
            toCEnumZ = un_Second;
            declaredValues = \_ -> fromList [(-1, singleton "SECOND_A"),
                                             (0, singleton "SECOND_B"),
-                                            (1, singleton "SECOND_C")]}
+                                            (1, singleton "SECOND_C")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum Second
     where {minDeclaredValue = SECOND_A; maxDeclaredValue = SECOND_C}
 instance Show Second
@@ -64,7 +68,9 @@ instance CEnum Same
     where {type CEnumZ Same = CUInt;
            fromCEnumZ = Same;
            toCEnumZ = un_Same;
-           declaredValues = \_ -> fromList [(1, "SAME_B" :| ["SAME_A"])]}
+           declaredValues = \_ -> fromList [(1, "SAME_B" :| ["SAME_A"])];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum Same
     where {minDeclaredValue = SAME_B; maxDeclaredValue = SAME_B}
 instance Show Same
@@ -114,7 +120,9 @@ instance CEnum Packad
            toCEnumZ = un_Packad;
            declaredValues = \_ -> fromList [(0, singleton "PACKED_A"),
                                             (1, singleton "PACKED_B"),
-                                            (2, singleton "PACKED_C")]}
+                                            (2, singleton "PACKED_C")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum Packad
     where {minDeclaredValue = PACKED_A; maxDeclaredValue = PACKED_C}
 instance Show Packad
@@ -140,7 +148,9 @@ instance CEnum EnumA
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
            declaredValues = \_ -> fromList [(0, singleton "A_FOO"),
-                                            (1, singleton "A_BAR")]}
+                                            (1, singleton "A_BAR")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumA
     where {minDeclaredValue = A_FOO; maxDeclaredValue = A_BAR}
 instance Show EnumA
@@ -164,7 +174,9 @@ instance CEnum EnumB
            fromCEnumZ = EnumB;
            toCEnumZ = un_EnumB;
            declaredValues = \_ -> fromList [(0, singleton "B_FOO"),
-                                            (1, singleton "B_BAR")]}
+                                            (1, singleton "B_BAR")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumB
     where {minDeclaredValue = B_FOO; maxDeclaredValue = B_BAR}
 instance Show EnumB
@@ -188,7 +200,9 @@ instance CEnum EnumC
            fromCEnumZ = EnumC;
            toCEnumZ = un_EnumC;
            declaredValues = \_ -> fromList [(0, singleton "C_FOO"),
-                                            (1, singleton "C_BAR")]}
+                                            (1, singleton "C_BAR")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumC
     where {minDeclaredValue = C_FOO; maxDeclaredValue = C_BAR}
 instance Show EnumC
@@ -212,7 +226,9 @@ instance CEnum EnumD
            fromCEnumZ = EnumD;
            toCEnumZ = un_EnumD;
            declaredValues = \_ -> fromList [(0, singleton "D_FOO"),
-                                            (1, singleton "D_BAR")]}
+                                            (1, singleton "D_BAR")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumD
     where {minDeclaredValue = D_FOO; maxDeclaredValue = D_BAR}
 instance Show EnumD

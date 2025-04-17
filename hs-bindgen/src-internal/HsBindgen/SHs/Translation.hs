@@ -54,8 +54,8 @@ translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
       , instanceTypes = []
       , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
       }
-translateDefineInstanceDecl (Hs.InstanceCEnum struct fTyp vMap) =
-    DInst $ translateCEnumInstance struct fTyp vMap
+translateDefineInstanceDecl (Hs.InstanceCEnum struct fTyp vMap isSequential) =
+    DInst $ translateCEnumInstance struct fTyp vMap isSequential
 translateDefineInstanceDecl (Hs.InstanceSequentialCEnum struct nameMin nameMax) =
     DInst $ translateSequentialCEnum struct nameMin nameMax
 translateDefineInstanceDecl (Hs.InstanceCEnumShow struct) =
@@ -399,8 +399,9 @@ translateCEnumInstance ::
      Hs.Struct (S Z)
   -> HsType
   -> Map Integer (NonEmpty String)
+  -> Bool
   -> Instance
-translateCEnumInstance struct fTyp vMap = Instance {
+translateCEnumInstance struct fTyp vMap isSequential = Instance {
       instanceClass = CEnum_class
     , instanceArgs  = [tcon]
     , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
@@ -408,7 +409,7 @@ translateCEnumInstance struct fTyp vMap = Instance {
           (CEnum_fromCEnumZ, ECon (Hs.structConstr struct))
         , (CEnum_toCEnumZ, EFree fname)
         , (CEnum_declaredValues, EUnusedLam vMapE)
-        ]
+        ] ++ seqDecs
     }
   where
     tcon :: ClosedType
@@ -432,6 +433,14 @@ translateCEnumInstance struct fTyp vMap = Instance {
           ]
       | (v, name :| names) <- Map.toList vMap
       ]
+
+    seqDecs :: [(Global, ClosedExpr)]
+    seqDecs
+      | isSequential = [
+            (CEnum_isDeclared, EGlobal CEnum_seqIsDeclared)
+          , (CEnum_mkDeclared, EGlobal CEnum_seqMkDeclared)
+          ]
+      | otherwise = []
 
 translateSequentialCEnum ::
      Hs.Struct (S Z)

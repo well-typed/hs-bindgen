@@ -48,7 +48,9 @@ instance CEnum Another_typedef_enum_e
            fromCEnumZ = Another_typedef_enum_e;
            toCEnumZ = un_Another_typedef_enum_e;
            declaredValues = \_ -> fromList [(0, singleton "FOO"),
-                                            (1, singleton "BAR")]}
+                                            (1, singleton "BAR")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum Another_typedef_enum_e
     where {minDeclaredValue = FOO; maxDeclaredValue = BAR}
 instance Show Another_typedef_enum_e
@@ -181,7 +183,9 @@ instance CEnum A_typedef_enum_e
            declaredValues = \_ -> fromList [(0, singleton "ENUM_CASE_0"),
                                             (1, singleton "ENUM_CASE_1"),
                                             (2, singleton "ENUM_CASE_2"),
-                                            (3, singleton "ENUM_CASE_3")]}
+                                            (3, singleton "ENUM_CASE_3")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum A_typedef_enum_e
     where {minDeclaredValue = ENUM_CASE_0;
            maxDeclaredValue = ENUM_CASE_3}

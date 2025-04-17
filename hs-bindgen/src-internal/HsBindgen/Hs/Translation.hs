@@ -328,20 +328,21 @@ enumDecs opts nm e = concat [
 
     cEnumInstanceDecls :: [Hs.Decl]
     cEnumInstanceDecls =
-      let vMap = Map.fromListWith (<>) [
+      let vNames = Map.fromListWith (<>) [
               ( Hs.patSynValue pat
               , NonEmpty.singleton (Hs.patSynName pat)
               )
             | Hs.DeclPatSyn pat <- valueDecls
             ]
           mSeqBounds = do
-            (minV, minNames) <- Map.lookupMin vMap
-            (maxV, maxNames) <- Map.lookupMax vMap
-            guard $ maxV - minV + 1 == fromIntegral (Map.size vMap)
+            (minV, minNames) <- Map.lookupMin vNames
+            (maxV, maxNames) <- Map.lookupMax vNames
+            guard $ maxV - minV + 1 == fromIntegral (Map.size vNames)
             return (NonEmpty.head minNames, NonEmpty.head maxNames)
           fTyp = Hs.fieldType newtypeField
+          vStrs = fmap (T.unpack . getHsName) <$> vNames
           cEnumDecl = Hs.DeclDefineInstance $
-            Hs.InstanceCEnum hs fTyp (fmap (T.unpack . getHsName) <$> vMap)
+            Hs.InstanceCEnum hs fTyp vStrs (isJust mSeqBounds)
           cEnumShowDecl = [Hs.DeclDefineInstance (Hs.InstanceCEnumShow hs)]
           sequentialCEnumDecl = case mSeqBounds of
             Just (nameMin, nameMax) -> List.singleton . Hs.DeclDefineInstance $

@@ -52,6 +52,10 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "Say\20320\22909"), (1, Data.List.NonEmpty.singleton "Say\25308\25308")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
 
   minDeclaredValue = Say你好

@@ -300,10 +300,14 @@ resolveGlobal = \case
     CEnum_fromCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.fromCEnumZ
     CEnum_toCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.toCEnumZ
     CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
+    CEnum_isDeclared -> importQ 'HsBindgen.Runtime.CEnum.isDeclared
+    CEnum_mkDeclared -> importQ 'HsBindgen.Runtime.CEnum.mkDeclared
     SequentialCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
     SequentialCEnum_minDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.minDeclaredValue
     SequentialCEnum_maxDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.maxDeclaredValue
     CEnum_showCEnum -> importQ 'HsBindgen.Runtime.CEnum.showCEnum
+    CEnum_seqIsDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
+    CEnum_seqMkDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared
     AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
     AsSequentialCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 

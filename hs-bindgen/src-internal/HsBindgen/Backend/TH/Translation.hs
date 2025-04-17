@@ -163,10 +163,14 @@ mkGlobal = \case
       CEnum_fromCEnumZ -> 'HsBindgen.Runtime.CEnum.fromCEnumZ
       CEnum_toCEnumZ -> 'HsBindgen.Runtime.CEnum.toCEnumZ
       CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
+      CEnum_isDeclared -> 'HsBindgen.Runtime.CEnum.isDeclared
+      CEnum_mkDeclared -> 'HsBindgen.Runtime.CEnum.mkDeclared
       SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
       SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
       SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
       CEnum_showCEnum -> 'HsBindgen.Runtime.CEnum.showCEnum
+      CEnum_seqIsDeclared -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
+      CEnum_seqMkDeclared -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
       AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
       AsSequentialCEnum_type -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
@@ -330,10 +334,14 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CEnum_fromCEnumZ                 -> TH.varE name
     CEnum_toCEnumZ                   -> TH.varE name
     CEnum_declaredValues             -> TH.varE name
+    CEnum_isDeclared                 -> TH.varE name
+    CEnum_mkDeclared                 -> TH.varE name
     SequentialCEnum_class            -> panicPure "class in expression"
     SequentialCEnum_minDeclaredValue -> TH.varE name
     SequentialCEnum_maxDeclaredValue -> TH.varE name
     CEnum_showCEnum                  -> TH.varE name
+    CEnum_seqIsDeclared              -> TH.varE name
+    CEnum_seqMkDeclared              -> TH.varE name
     AsCEnum_type                     -> panicPure "type in expression"
     AsSequentialCEnum_type           -> panicPure "type in expression"
 

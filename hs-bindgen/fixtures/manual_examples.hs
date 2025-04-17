@@ -1357,7 +1357,8 @@
         [
           _×_ 0 (NE.fromList ["A"]),
           _×_ 1 (NE.fromList ["B"]),
-          _×_ 2 (NE.fromList ["C"])])),
+          _×_ 2 (NE.fromList ["C"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
