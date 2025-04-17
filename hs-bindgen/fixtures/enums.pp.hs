@@ -55,9 +55,9 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
 
-  minValue = FIRST1
+  minDeclaredValue = FIRST1
 
-  maxValue = FIRST2
+  maxDeclaredValue = FIRST2
 
 instance Show First where
 
@@ -113,9 +113,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
 
-  minValue = SECOND_A
+  minDeclaredValue = SECOND_A
 
-  maxValue = SECOND_C
+  maxDeclaredValue = SECOND_C
 
 instance Show Second where
 
@@ -171,9 +171,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
 
-  minValue = SAME_B
+  minDeclaredValue = SAME_B
 
-  maxValue = SAME_B
+  maxDeclaredValue = SAME_B
 
 instance Show Same where
 
@@ -284,9 +284,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
 
-  minValue = PACKED_A
+  minDeclaredValue = PACKED_A
 
-  maxValue = PACKED_C
+  maxDeclaredValue = PACKED_C
 
 instance Show Packad where
 
@@ -342,9 +342,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
-  minValue = A_FOO
+  minDeclaredValue = A_FOO
 
-  maxValue = A_BAR
+  maxDeclaredValue = A_BAR
 
 instance Show EnumA where
 
@@ -397,9 +397,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
 
-  minValue = B_FOO
+  minDeclaredValue = B_FOO
 
-  maxValue = B_BAR
+  maxDeclaredValue = B_BAR
 
 instance Show EnumB where
 
@@ -452,9 +452,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
 
-  minValue = C_FOO
+  minDeclaredValue = C_FOO
 
-  maxValue = C_BAR
+  maxDeclaredValue = C_BAR
 
 instance Show EnumC where
 
@@ -507,9 +507,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
 
-  minValue = D_FOO
+  minDeclaredValue = D_FOO
 
-  maxValue = D_BAR
+  maxDeclaredValue = D_BAR
 
 instance Show EnumD where
 

@@ -116,9 +116,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
 
-  minValue = FOO
+  minDeclaredValue = FOO
 
-  maxValue = BAR
+  maxDeclaredValue = BAR
 
 instance Show Another_typedef_enum_e where
 
@@ -399,9 +399,9 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
 
-  minValue = ENUM_CASE_0
+  minDeclaredValue = ENUM_CASE_0
 
-  maxValue = ENUM_CASE_3
+  maxDeclaredValue = ENUM_CASE_3
 
 instance Show A_typedef_enum_e where
 

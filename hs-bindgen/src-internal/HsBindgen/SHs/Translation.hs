@@ -443,8 +443,8 @@ translateSequentialCEnum struct nameMin nameMax = Instance {
     , instanceArgs  = [tcon]
     , instanceTypes = []
     , instanceDecs  = [
-          (SequentialCEnum_minValue, ECon nameMin)
-        , (SequentialCEnum_maxValue, ECon nameMax)
+          (SequentialCEnum_minDeclaredValue, ECon nameMin)
+        , (SequentialCEnum_maxDeclaredValue, ECon nameMax)
         ]
     }
   where

@@ -15,7 +15,7 @@ instance CEnum Foo
            declaredValues = \_ -> fromList [(0, singleton "FOO1"),
                                             (1, singleton "FOO2")]}
 instance SequentialCEnum Foo
-    where {minValue = FOO1; maxValue = FOO2}
+    where {minDeclaredValue = FOO1; maxDeclaredValue = FOO2}
 instance Show Foo
     where {show = showCEnum "Foo"}
 pattern FOO1 :: Foo

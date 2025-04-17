@@ -149,8 +149,8 @@ data Global =
   | CEnum_toCEnumZ
   | CEnum_declaredValues
   | SequentialCEnum_class
-  | SequentialCEnum_minValue
-  | SequentialCEnum_maxValue
+  | SequentialCEnum_minDeclaredValue
+  | SequentialCEnum_maxDeclaredValue
   | CEnum_showCEnum
   | AsCEnum_type
   | AsSequentialCEnum_type

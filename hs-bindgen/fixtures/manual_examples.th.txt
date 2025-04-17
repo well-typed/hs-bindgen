@@ -93,7 +93,7 @@ instance CEnum Index
                                             (1, singleton "B"),
                                             (2, singleton "C")]}
 instance SequentialCEnum Index
-    where {minValue = A; maxValue = C}
+    where {minDeclaredValue = A; maxDeclaredValue = C}
 instance Show Index
     where {show = showCEnum "Index"}
 pattern A :: Index

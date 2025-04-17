@@ -218,9 +218,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
 
-  minValue = A
+  minDeclaredValue = A
 
-  maxValue = C
+  maxDeclaredValue = C
 
 instance Show Index where
 

@@ -15,7 +15,7 @@ instance CEnum EnumA
            declaredValues = \_ -> fromList [(0, singleton "VALA_1"),
                                             (1, singleton "VALA_2")]}
 instance SequentialCEnum EnumA
-    where {minValue = VALA_1; maxValue = VALA_2}
+    where {minDeclaredValue = VALA_1; maxDeclaredValue = VALA_2}
 instance Show EnumA
     where {show = showCEnum "EnumA"}
 pattern VALA_1 :: EnumA
@@ -48,7 +48,7 @@ instance CEnum ExB_fieldB1
            declaredValues = \_ -> fromList [(0, singleton "VALB_1"),
                                             (1, singleton "VALB_2")]}
 instance SequentialCEnum ExB_fieldB1
-    where {minValue = VALB_1; maxValue = VALB_2}
+    where {minDeclaredValue = VALB_1; maxDeclaredValue = VALB_2}
 instance Show ExB_fieldB1
     where {show = showCEnum "ExB_fieldB1"}
 pattern VALB_1 :: ExB_fieldB1

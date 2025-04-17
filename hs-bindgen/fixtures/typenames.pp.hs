@@ -55,9 +55,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
 
-  minValue = FOO1
+  minDeclaredValue = FOO1
 
-  maxValue = FOO2
+  maxDeclaredValue = FOO2
 
 instance Show Foo where
 

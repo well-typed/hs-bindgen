@@ -15,7 +15,7 @@ instance CEnum MyEnum
            declaredValues = \_ -> fromList [(0, singleton "Say\20320\22909"),
                                             (1, singleton "Say\25308\25308")]}
 instance SequentialCEnum MyEnum
-    where {minValue = Say你好; maxValue = Say拜拜}
+    where {minDeclaredValue = Say你好; maxDeclaredValue = Say拜拜}
 instance Show MyEnum
     where {show = showCEnum "MyEnum"}
 pattern Say你好 :: MyEnum

@@ -164,8 +164,8 @@ mkGlobal = \case
       CEnum_toCEnumZ -> 'HsBindgen.Runtime.CEnum.toCEnumZ
       CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
       SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
-      SequentialCEnum_minValue -> 'HsBindgen.Runtime.CEnum.minValue
-      SequentialCEnum_maxValue -> 'HsBindgen.Runtime.CEnum.maxValue
+      SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
+      SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
       CEnum_showCEnum -> 'HsBindgen.Runtime.CEnum.showCEnum
       AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
       AsSequentialCEnum_type -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
@@ -325,17 +325,17 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     NonEmpty_singleton   -> TH.varE name
     Map_fromList         -> TH.varE name
 
-    CEnum_class              -> panicPure "class in expression"
-    CEnumZ_tycon             -> TH.conE name
-    CEnum_fromCEnumZ         -> TH.varE name
-    CEnum_toCEnumZ           -> TH.varE name
-    CEnum_declaredValues     -> TH.varE name
-    SequentialCEnum_class    -> panicPure "class in expression"
-    SequentialCEnum_minValue -> TH.varE name
-    SequentialCEnum_maxValue -> TH.varE name
-    CEnum_showCEnum          -> TH.varE name
-    AsCEnum_type             -> panicPure "type in expression"
-    AsSequentialCEnum_type   -> panicPure "type in expression"
+    CEnum_class                      -> panicPure "class in expression"
+    CEnumZ_tycon                     -> TH.conE name
+    CEnum_fromCEnumZ                 -> TH.varE name
+    CEnum_toCEnumZ                   -> TH.varE name
+    CEnum_declaredValues             -> TH.varE name
+    SequentialCEnum_class            -> panicPure "class in expression"
+    SequentialCEnum_minDeclaredValue -> TH.varE name
+    SequentialCEnum_maxDeclaredValue -> TH.varE name
+    CEnum_showCEnum                  -> TH.varE name
+    AsCEnum_type                     -> panicPure "type in expression"
+    AsSequentialCEnum_type           -> panicPure "type in expression"
 
     ByteArray_type      -> panicPure "type in expression"
     SizedByteArray_type -> panicPure "type in expression"

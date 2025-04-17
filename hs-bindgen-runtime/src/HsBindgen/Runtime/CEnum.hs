@@ -78,19 +78,19 @@ class Integral (CEnumZ a) => CEnum a where
 -- This class may also be used with Haskell sum-type representations of
 -- enumerations.
 --
--- prop> all isDeclared [minValue..maxValue]
+-- prop> all isDeclared [minDeclaredValue..maxDeclaredValue]
 class CEnum a => SequentialCEnum a where
-  -- | The minimum value
+  -- | The minimum declared value
   --
-  -- prop> Just minValue === fst <$> Map.lookupMin (declaredValues proxy)
-  minValue :: a
+  -- prop> Just minDeclaredValue === fst <$> Map.lookupMin (declaredValues proxy)
+  minDeclaredValue :: a
 
-  -- | The maximum value
+  -- | The maximum declared value
   --
-  -- prop> Just maxValue === fst <$> Map.lookupMax (declaredValues proxy)
+  -- prop> Just maxDeclaredValue === fst <$> Map.lookupMax (declaredValues proxy)
   --
-  -- prop> minValue <= maxValue
-  maxValue :: a
+  -- prop> minDeclaredValue <= maxDeclaredValue
+  maxDeclaredValue :: a
 
 {-------------------------------------------------------------------------------
   API
@@ -242,7 +242,7 @@ minBoundGen = case Map.lookupMin (declaredValues (Proxy :: Proxy a)) of
     Nothing -> throw CEnumEmpty
 
 minBoundSeq :: SequentialCEnum a => a
-minBoundSeq = minValue
+minBoundSeq = minDeclaredValue
 
 maxBoundGen :: forall a. CEnum a => a
 maxBoundGen = case Map.lookupMax (declaredValues (Proxy :: Proxy a)) of
@@ -250,7 +250,7 @@ maxBoundGen = case Map.lookupMax (declaredValues (Proxy :: Proxy a)) of
     Nothing -> throw CEnumEmpty
 
 maxBoundSeq :: SequentialCEnum a => a
-maxBoundSeq = maxValue
+maxBoundSeq = maxDeclaredValue
 
 {-------------------------------------------------------------------------------
   Enum instance implementation
@@ -273,8 +273,8 @@ succSeq x
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = toCEnumZ x
 
 predGen :: forall a. CEnum a => a -> a
@@ -294,8 +294,8 @@ predSeq y
     | otherwise = throw $ CEnumNotDeclared (toInteger j)
   where
     minZ, maxZ, j :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     j    = toCEnumZ y
 
 toEnumGen :: CEnum a => Int -> a
@@ -309,8 +309,8 @@ toEnumSeq n
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = fromIntegral n
 
 fromEnumGen :: forall a. CEnum a => a -> Int
@@ -327,8 +327,8 @@ fromEnumSeq x
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = toCEnumZ x
 
 enumFromGen :: forall a. CEnum a => a -> [a]
@@ -345,8 +345,8 @@ enumFromSeq x
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = toCEnumZ x
 
 enumFromThenGen :: forall a. CEnum a => a -> a -> [a]
@@ -378,8 +378,8 @@ enumFromThenSeq x y
     | otherwise = map fromCEnumZ [i, j .. minZ]
   where
     minZ, maxZ, i, j :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = toCEnumZ x
     j    = toCEnumZ y
 
@@ -403,8 +403,8 @@ enumFromToSeq x z
     | otherwise = map fromCEnumZ [i .. k]
   where
     minZ, maxZ, i, k :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = toCEnumZ x
     k    = toCEnumZ z
 
@@ -440,8 +440,8 @@ enumFromThenToSeq x y z
     | otherwise = map fromCEnumZ [i, j .. k]
   where
     minZ, maxZ, i, j, k :: CEnumZ a
-    minZ = toCEnumZ (minValue @a)
-    maxZ = toCEnumZ (maxValue @a)
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
     i    = toCEnumZ x
     j    = toCEnumZ y
     k    = toCEnumZ z

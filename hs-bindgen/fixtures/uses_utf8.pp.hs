@@ -54,9 +54,9 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
 
-  minValue = Say你好
+  minDeclaredValue = Say你好
 
-  maxValue = Say拜拜
+  maxDeclaredValue = Say拜拜
 
 instance Show MyEnum where
 

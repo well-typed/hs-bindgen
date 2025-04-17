@@ -506,8 +506,8 @@ instance CEnum SeqSingleValue where
   declaredValues _ = Map.singleton 1 ("OK" :| ["SUCCESS"])
 
 instance SequentialCEnum SeqSingleValue where
-  minValue = SeqSingleValue 1
-  maxValue = SeqSingleValue 1
+  minDeclaredValue = SeqSingleValue 1
+  maxDeclaredValue = SeqSingleValue 1
 
 deriving via AsCEnum SeqSingleValue instance Bounded SeqSingleValue
 
@@ -617,8 +617,8 @@ instance CEnum SeqPosValue where
     ]
 
 instance SequentialCEnum SeqPosValue where
-  minValue = SeqPosValue 1
-  maxValue = SeqPosValue 10
+  minDeclaredValue = SeqPosValue 1
+  maxDeclaredValue = SeqPosValue 10
 
 deriving via AsSequentialCEnum SeqPosValue instance Bounded SeqPosValue
 
@@ -762,8 +762,8 @@ instance CEnum SeqNegValue where
     ]
 
 instance SequentialCEnum SeqNegValue where
-  minValue = SeqNegValue (-5)
-  maxValue = SeqNegValue 5
+  minDeclaredValue = SeqNegValue (-5)
+  maxDeclaredValue = SeqNegValue 5
 
 deriving via AsSequentialCEnum SeqNegValue instance Bounded SeqNegValue
 
