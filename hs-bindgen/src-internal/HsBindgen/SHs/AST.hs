@@ -139,8 +139,6 @@ data Global =
   | GHC_Float_castWord32ToFloat
   | GHC_Float_castWord64ToDouble
 
-  | Maybe_Just
-  | Maybe_Nothing
   | NonEmpty_constructor
   | NonEmpty_singleton
   | Map_fromList

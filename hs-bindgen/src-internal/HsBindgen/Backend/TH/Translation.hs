@@ -154,8 +154,6 @@ mkGlobal = \case
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
-      Maybe_Just           -> 'Just
-      Maybe_Nothing        -> 'Nothing
       NonEmpty_constructor -> '(NonEmpty.:|)
       NonEmpty_singleton   -> 'NonEmpty.singleton
       Map_fromList         -> 'Map.fromList
@@ -323,8 +321,6 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     GHC_Float_castWord32ToFloat  -> TH.varE name
     GHC_Float_castWord64ToDouble -> TH.varE name
 
-    Maybe_Just           -> TH.conE name
-    Maybe_Nothing        -> TH.conE name
     NonEmpty_constructor -> TH.conE name
     NonEmpty_singleton   -> TH.varE name
     Map_fromList         -> TH.varE name

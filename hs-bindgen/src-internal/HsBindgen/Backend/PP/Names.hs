@@ -291,8 +291,6 @@ resolveGlobal = \case
     CFloat_constructor -> importQ ''Foreign.C.CFloat
     CDouble_constructor -> importQ ''Foreign.C.CDouble
 
-    Maybe_Just           -> importQ 'Just
-    Maybe_Nothing        -> importQ 'Nothing
     NonEmpty_constructor -> importQ '(NonEmpty.:|)
     NonEmpty_singleton   -> importQ 'NonEmpty.singleton
     Map_fromList         -> importQ 'Map.fromList
