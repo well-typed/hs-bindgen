@@ -252,9 +252,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["VALA_1"]),
-          _×_
-            1
-            (NE.fromList ["VALA_2"])])),
+          _×_ 1 (NE.fromList ["VALA_2"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -889,9 +888,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["VALB_1"]),
-          _×_
-            1
-            (NE.fromList ["VALB_2"])])),
+          _×_ 1 (NE.fromList ["VALB_2"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {

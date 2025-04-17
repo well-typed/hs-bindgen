@@ -223,6 +223,7 @@ data InstanceDecl where
          Struct (S Z)
       -> HsType
       -> Map Integer (NonEmpty String)
+      -> Bool  -- is sequential?
       -> InstanceDecl
     InstanceSequentialCEnum ::
          Struct (S Z)

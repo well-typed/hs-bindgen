@@ -253,7 +253,8 @@
           _×_
             1
             (NE.fromList
-              ["Say\25308\25308"])])),
+              ["Say\25308\25308"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {

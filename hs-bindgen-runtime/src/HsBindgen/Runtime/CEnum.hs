@@ -9,11 +9,11 @@ module HsBindgen.Runtime.CEnum (
     CEnum(..)
   , SequentialCEnum(..)
     -- * API
-  , isDeclared
-  , mkDeclared
   , getNames
-    -- * Show instance support
+    -- * Instance support
   , showCEnum
+  , seqIsDeclared
+  , seqMkDeclared
     -- * Deriving via support
   , AsCEnum(..)
   , AsSequentialCEnum(..)
@@ -68,6 +68,16 @@ class Integral (CEnumZ a) => CEnum a where
   -- | Declared values and associated names
   declaredValues :: proxy a -> Map (CEnumZ a) (NonEmpty String)
 
+  -- | Determine if the specified value is declared
+  isDeclared :: a -> Bool
+  isDeclared x = (toCEnumZ x) `Map.member` declaredValues (Proxy :: Proxy a)
+
+  -- | Construct a value only if it is declared
+  mkDeclared :: CEnumZ a -> Maybe a
+  mkDeclared i
+    | i `Map.member` declaredValues (Proxy :: Proxy a) = Just (fromCEnumZ i)
+    | otherwise = Nothing
+
 -- | C enumeration with sequential values
 --
 -- 'Bounded' and 'Enum' methods may be implemented more efficiently when the
@@ -96,19 +106,6 @@ class CEnum a => SequentialCEnum a where
   API
 -------------------------------------------------------------------------------}
 
--- | Determine if the specified value is declared
-isDeclared :: forall a. CEnum a => a -> Bool
-isDeclared x = i `Map.member` declaredValues (Proxy :: Proxy a)
-  where
-    i :: CEnumZ a
-    i = toCEnumZ x
-
--- | Construct a value only if it is declared
-mkDeclared :: forall a. CEnum a => CEnumZ a -> Maybe a
-mkDeclared i
-    | i `Map.member` declaredValues (Proxy :: Proxy a) = Just (fromCEnumZ i)
-    | otherwise = Nothing
-
 -- | Get all names associated with a value
 --
 -- An empty list is returned when the specified value is not declared.
@@ -117,7 +114,7 @@ getNames x = maybe [] NonEmpty.toList $
     Map.lookup (toCEnumZ x) (declaredValues (Proxy :: Proxy a))
 
 {-------------------------------------------------------------------------------
-  Show instance support
+  Instance support
 -------------------------------------------------------------------------------}
 
 -- | Show the specified value
@@ -140,6 +137,29 @@ showCEnum constructorName x =
   where
     i :: CEnumZ a
     i = toCEnumZ x
+
+-- | Determine if the specified value is declared
+--
+-- This implementation is optimized for 'SequentialCEnum'.
+seqIsDeclared :: forall a. SequentialCEnum a => a -> Bool
+seqIsDeclared x = i >= minZ && i <= maxZ
+  where
+    minZ, maxZ, i :: CEnumZ a
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
+    i    = toCEnumZ x
+
+-- | Construct a value only if it is declared
+--
+-- This implementation is optimized for 'SequentialCEnum'.
+seqMkDeclared :: forall a. SequentialCEnum a => CEnumZ a -> Maybe a
+seqMkDeclared i
+    | i >= minZ && i <= maxZ = Just (fromCEnumZ i)
+    | otherwise = Nothing
+  where
+    minZ, maxZ :: CEnumZ a
+    minZ = toCEnumZ (minDeclaredValue @a)
+    maxZ = toCEnumZ (maxDeclaredValue @a)
 
 {-------------------------------------------------------------------------------
   Deriving via support

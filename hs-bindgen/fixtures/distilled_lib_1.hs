@@ -809,7 +809,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["FOO"]),
-          _×_ 1 (NE.fromList ["BAR"])])),
+          _×_ 1 (NE.fromList ["BAR"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -3260,8 +3261,8 @@
             (NE.fromList ["ENUM_CASE_2"]),
           _×_
             3
-            (NE.fromList
-              ["ENUM_CASE_3"])])),
+            (NE.fromList ["ENUM_CASE_3"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {

@@ -14,7 +14,9 @@ instance CEnum EnumA
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
            declaredValues = \_ -> fromList [(0, singleton "VALA_1"),
-                                            (1, singleton "VALA_2")]}
+                                            (1, singleton "VALA_2")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumA
     where {minDeclaredValue = VALA_1; maxDeclaredValue = VALA_2}
 instance Show EnumA
@@ -47,7 +49,9 @@ instance CEnum ExB_fieldB1
            fromCEnumZ = ExB_fieldB1;
            toCEnumZ = un_ExB_fieldB1;
            declaredValues = \_ -> fromList [(0, singleton "VALB_1"),
-                                            (1, singleton "VALB_2")]}
+                                            (1, singleton "VALB_2")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
 instance SequentialCEnum ExB_fieldB1
     where {minDeclaredValue = VALB_1; maxDeclaredValue = VALB_2}
 instance Show ExB_fieldB1

@@ -216,6 +216,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A"), (1, Data.List.NonEmpty.singleton "B"), (2, Data.List.NonEmpty.singleton "C")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
 
   minDeclaredValue = A

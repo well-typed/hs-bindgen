@@ -53,6 +53,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO1"), (1, Data.List.NonEmpty.singleton "FOO2")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
 
   minDeclaredValue = FOO1

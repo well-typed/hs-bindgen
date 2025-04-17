@@ -227,9 +227,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["FIRST1"]),
-          _×_
-            1
-            (NE.fromList ["FIRST2"])])),
+          _×_ 1 (NE.fromList ["FIRST2"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -612,7 +611,8 @@
             (NE.fromList ["SECOND_B"]),
           _×_
             1
-            (NE.fromList ["SECOND_C"])])),
+            (NE.fromList ["SECOND_C"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -994,7 +994,8 @@
           _×_
             1
             (NE.fromList
-              ["SAME_B", "SAME_A"])])),
+              ["SAME_B", "SAME_A"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -1381,7 +1382,8 @@
             (NE.fromList ["NONSEQ_B"]),
           _×_
             404
-            (NE.fromList ["NONSEQ_C"])])),
+            (NE.fromList ["NONSEQ_C"])])
+      False),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -1751,7 +1753,8 @@
             (NE.fromList ["PACKED_B"]),
           _×_
             2
-            (NE.fromList ["PACKED_C"])])),
+            (NE.fromList ["PACKED_C"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -2137,9 +2140,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["A_FOO"]),
-          _×_
-            1
-            (NE.fromList ["A_BAR"])])),
+          _×_ 1 (NE.fromList ["A_BAR"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -2497,9 +2499,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["B_FOO"]),
-          _×_
-            1
-            (NE.fromList ["B_BAR"])])),
+          _×_ 1 (NE.fromList ["B_BAR"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -2855,9 +2856,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["C_FOO"]),
-          _×_
-            1
-            (NE.fromList ["C_BAR"])])),
+          _×_ 1 (NE.fromList ["C_BAR"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {
@@ -3212,9 +3212,8 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["D_FOO"]),
-          _×_
-            1
-            (NE.fromList ["D_BAR"])])),
+          _×_ 1 (NE.fromList ["D_BAR"])])
+      True),
   DeclInstance
     (InstanceSequentialCEnum
       Struct {

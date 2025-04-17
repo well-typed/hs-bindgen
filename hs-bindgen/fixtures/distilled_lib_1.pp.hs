@@ -114,6 +114,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
 
   minDeclaredValue = FOO
@@ -396,6 +400,10 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
                                , (2, Data.List.NonEmpty.singleton "ENUM_CASE_2")
                                , (3, Data.List.NonEmpty.singleton "ENUM_CASE_3")
                                ]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
 

@@ -52,6 +52,10 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "VALA_1"), (1, Data.List.NonEmpty.singleton "VALA_2")]
 
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
 instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
   minDeclaredValue = VALA_1
@@ -131,6 +135,10 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
   declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "VALB_1"), (1, Data.List.NonEmpty.singleton "VALB_2")]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
 
