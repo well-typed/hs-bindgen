@@ -1,73 +1,61 @@
 types:
 - cname: a_type_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: A_type_t
   module: Example
   package: example
 - cname: a_typedef_enum_e
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: A_typedef_enum_e
   module: Example
   package: example
 - cname: a_typedef_struct_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: A_typedef_struct_t
   module: Example
   package: example
 - cname: another_typedef_enum_e
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Another_typedef_enum_e
   module: Example
   package: example
 - cname: another_typedef_struct_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Another_typedef_struct_t
   module: Example
   package: example
 - cname: callback_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Callback_t
   module: Example
   package: example
 - cname: int32_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Int32_t
   module: Example
   package: example
 - cname: struct a_typedef_struct
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: A_typedef_struct
   module: Example
   package: example
 - cname: uint16_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Uint16_t
   module: Example
   package: example
 - cname: uint32_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Uint32_t
   module: Example
   package: example
 - cname: uint8_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Uint8_t
   module: Example
   package: example
 - cname: var_t
-  headers:
-  - distilled_lib_1.h
+  headers: distilled_lib_1.h
   identifier: Var_t
   module: Example
   package: example

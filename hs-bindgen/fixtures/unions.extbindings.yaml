@@ -1,49 +1,41 @@
 types:
 - cname: DimPayloadB
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: DimPayloadB
   module: Example
   package: example
 - cname: struct Dim
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: Dim
   module: Example
   package: example
 - cname: struct Dim2
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: Dim2
   module: Example
   package: example
 - cname: struct Dim3
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: Dim3
   module: Example
   package: example
 - cname: struct DimB
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: DimB
   module: Example
   package: example
 - cname: union AnonA
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: AnonA
   module: Example
   package: example
 - cname: union DimPayload
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: DimPayload
   module: Example
   package: example
 - cname: union DimPayloadB
-  headers:
-  - unions.h
+  headers: unions.h
   identifier: DimPayloadB
   module: Example
   package: example
