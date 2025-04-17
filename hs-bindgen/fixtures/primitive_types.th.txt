@@ -1,3 +1,4 @@
+-- addDependentFile examples/primitive_types.h
 data Primitive
     = Primitive {primitive_c :: CChar,
                  primitive_sc :: CSChar,

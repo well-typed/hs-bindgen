@@ -1,3 +1,4 @@
+-- addDependentFile examples/fixedarray.h
 newtype Triple = Triple {un_Triple :: (ConstantArray 3 CInt)}
 deriving newtype instance Storable Triple
 data Example

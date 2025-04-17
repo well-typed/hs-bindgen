@@ -6,14 +6,16 @@ module Test.Internal.TH (
     goldenTh,
 ) where
 
-import Control.Monad.State.Strict (State, get, put, evalState)
+import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Generics qualified as SYB
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Test.Tasty (TestTree, TestName)
+import System.FilePath (makeRelative)
 
 import Clang.Paths
 import HsBindgen.Lib
+import HsBindgen.Guasi
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
 
@@ -28,11 +30,10 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
           , Pipeline.optsDiagTracer = tracer
           , Pipeline.optsSkipTracer = tracer
           }
-    header <- snd <$> Pipeline.parseCHeader opts headerIncludePath
+    (depPaths, cheader) <- Pipeline.parseCHeader opts headerIncludePath
 
     let decls :: Qu [TH.Dec]
-        decls = Pipeline.genTH . Pipeline.genSHsDecls $
-          Pipeline.genHsDecls opts header
+        decls = Pipeline.genBindingsFromCHeader opts depPaths cheader
 
         -- unqualify names, qualified names are noisy *and*
         -- GHC.Base names have moved.
@@ -44,17 +45,40 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
         mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
         mangleName n = n
 
-    return $ unlines $ map (show . TH.ppr) $ unqualNames $ runQu decls
+    let (depfiles, thdecs) = runQu decls
+    return $ unlines $
+        -- here we might have headers outside of our package,
+        -- but in our test setup that SHOULD cause an error, as we use bundled stdlib,
+        -- And we will cause those on CI, which runs tests on different systems
+        [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
+        [ show $ TH.ppr d | d <- unqualNames thdecs ]
+
+convertWindows :: FilePath -> FilePath
+convertWindows = map f where
+  f '\\' = '/'
+  f c    = c
 
 -- | Deterministic monad with TH.Quote instance
-newtype Qu a = Qu (State Integer a)
+newtype Qu a = Qu (State ([FilePath], Integer) a)
   deriving newtype (Functor, Applicative, Monad)
 
 instance TH.Quote Qu where
     newName n = Qu $ do
-        u <- get
-        put $! u + 1
+        (depfiles, u) <- get
+        put $! (depfiles, u + 1)
         return $ TH.Name (TH.OccName n) (TH.NameU u)
 
-runQu :: Qu a -> a
-runQu (Qu m) = evalState m 0
+instance Guasi Qu where
+    addDependentFile fp = Qu $ do
+        (depfiles, u) <- get
+        put $! (depfiles ++ [fp], u)
+
+    -- Note: we could mock these better, if we want to test error reporting
+    -- Currently (2025-04-15) we only report missing extensions,
+    -- so there isn't much to test.
+    extsEnabled = return []
+    reportError _ = return ()
+
+runQu :: Qu a -> ([FilePath], a)
+runQu (Qu m) = case runState m ([], 0) of
+    (x, (exts, _)) -> (exts, x)

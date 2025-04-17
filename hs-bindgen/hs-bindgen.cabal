@@ -98,6 +98,7 @@ library internal
       HsBindgen.GenTests.Hs
       HsBindgen.GenTests.Internal
       HsBindgen.GenTests.Readme
+      HsBindgen.Guasi
       HsBindgen.Hs.AST
       HsBindgen.Hs.AST.Name
       HsBindgen.Hs.AST.Type

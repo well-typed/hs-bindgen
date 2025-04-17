@@ -1,3 +1,4 @@
+-- addDependentFile examples/enums.h
 newtype First = First {un_First :: CUInt}
 instance Storable First
     where {sizeOf = \_ -> 4 :: Int;

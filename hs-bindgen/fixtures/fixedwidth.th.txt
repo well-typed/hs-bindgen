@@ -1,3 +1,7 @@
+-- addDependentFile examples/fixedwidth.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
 newtype Uint64_t = Uint64_t {un_Uint64_t :: CULong}
 deriving newtype instance Storable Uint64_t
 deriving stock instance Eq Uint64_t

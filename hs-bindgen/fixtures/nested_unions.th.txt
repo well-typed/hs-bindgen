@@ -1,3 +1,4 @@
+-- addDependentFile examples/nested_unions.h
 newtype UnionA = UnionA {un_UnionA :: ByteArray}
 deriving via (SizedByteArray 4 4) instance Storable UnionA
 get_unionA_a :: UnionA -> CInt

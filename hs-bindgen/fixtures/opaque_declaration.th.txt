@@ -1,3 +1,4 @@
+-- addDependentFile examples/opaque_declaration.h
 data Foo
 data Bar = Bar {bar_ptrA :: (Ptr Foo), bar_ptrB :: (Ptr Bar)}
 instance Storable Bar

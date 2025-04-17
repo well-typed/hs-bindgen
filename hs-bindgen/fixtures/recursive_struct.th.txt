@@ -1,3 +1,4 @@
+-- addDependentFile examples/recursive_struct.h
 data Linked_list_A_s
     = Linked_list_A_s {linked_list_A_s_x :: CInt,
                        linked_list_A_s_next :: (Ptr Linked_list_A_s)}

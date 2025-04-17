@@ -1,3 +1,4 @@
+-- addDependentFile examples/anonymous.h
 data S1_c = S1_c {s1_c_a :: CInt, s1_c_b :: CInt}
 instance Storable S1_c
     where {sizeOf = \_ -> 8 :: Int;
