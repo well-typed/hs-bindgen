@@ -11,7 +11,6 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
-import qualified Prelude as P
 
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
@@ -51,7 +50,11 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "VALA_1"), (1, pure "VALA_2")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
+
+  minValue = EnumA 0
+
+  maxValue = EnumA 1
 
 instance Show EnumA where
 
@@ -126,7 +129,11 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "VALB_1"), (1, pure "VALB_2")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
+
+  minValue = ExB_fieldB1 0
+
+  maxValue = ExB_fieldB1 1
 
 instance Show ExB_fieldB1 where
 

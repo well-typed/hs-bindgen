@@ -13,8 +13,9 @@ instance CEnum First
            fromCEnumZ = First;
            toCEnumZ = un_First;
            declaredValues = \_ -> fromList [(0, pure "FIRST1"),
-                                            (1, pure "FIRST2")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "FIRST2")]}
+instance SequentialCEnum First
+    where {minValue = First 0; maxValue = First 1}
 instance Show First
     where {show = showCEnum "First"}
 pattern FIRST1 :: First
@@ -37,8 +38,9 @@ instance CEnum Second
            toCEnumZ = un_Second;
            declaredValues = \_ -> fromList [(-1, pure "SECOND_A"),
                                             (0, pure "SECOND_B"),
-                                            (1, pure "SECOND_C")];
-           rangeIsSequential = \_ -> Just (-1, 1)}
+                                            (1, pure "SECOND_C")]}
+instance SequentialCEnum Second
+    where {minValue = Second (-1); maxValue = Second 1}
 instance Show Second
     where {show = showCEnum "Second"}
 pattern SECOND_A :: Second
@@ -61,8 +63,9 @@ instance CEnum Same
     where {type CEnumZ Same = CUInt;
            fromCEnumZ = Same;
            toCEnumZ = un_Same;
-           declaredValues = \_ -> fromList [(1, "SAME_B" :| ["SAME_A"])];
-           rangeIsSequential = \_ -> Just (1, 1)}
+           declaredValues = \_ -> fromList [(1, "SAME_B" :| ["SAME_A"])]}
+instance SequentialCEnum Same
+    where {minValue = Same 1; maxValue = Same 1}
 instance Show Same
     where {show = showCEnum "Same"}
 pattern SAME_A :: Same
@@ -85,8 +88,7 @@ instance CEnum Nonseq
            toCEnumZ = un_Nonseq;
            declaredValues = \_ -> fromList [(200, pure "NONSEQ_A"),
                                             (301, pure "NONSEQ_B"),
-                                            (404, pure "NONSEQ_C")];
-           rangeIsSequential = \_ -> Nothing}
+                                            (404, pure "NONSEQ_C")]}
 instance Show Nonseq
     where {show = showCEnum "Nonseq"}
 pattern NONSEQ_A :: Nonseq
@@ -111,8 +113,9 @@ instance CEnum Packad
            toCEnumZ = un_Packad;
            declaredValues = \_ -> fromList [(0, pure "PACKED_A"),
                                             (1, pure "PACKED_B"),
-                                            (2, pure "PACKED_C")];
-           rangeIsSequential = \_ -> Just (0, 2)}
+                                            (2, pure "PACKED_C")]}
+instance SequentialCEnum Packad
+    where {minValue = Packad 0; maxValue = Packad 2}
 instance Show Packad
     where {show = showCEnum "Packad"}
 pattern PACKED_A :: Packad
@@ -136,8 +139,9 @@ instance CEnum EnumA
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
            declaredValues = \_ -> fromList [(0, pure "A_FOO"),
-                                            (1, pure "A_BAR")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "A_BAR")]}
+instance SequentialCEnum EnumA
+    where {minValue = EnumA 0; maxValue = EnumA 1}
 instance Show EnumA
     where {show = showCEnum "EnumA"}
 pattern A_FOO :: EnumA
@@ -159,8 +163,9 @@ instance CEnum EnumB
            fromCEnumZ = EnumB;
            toCEnumZ = un_EnumB;
            declaredValues = \_ -> fromList [(0, pure "B_FOO"),
-                                            (1, pure "B_BAR")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "B_BAR")]}
+instance SequentialCEnum EnumB
+    where {minValue = EnumB 0; maxValue = EnumB 1}
 instance Show EnumB
     where {show = showCEnum "EnumB"}
 pattern B_FOO :: EnumB
@@ -182,8 +187,9 @@ instance CEnum EnumC
            fromCEnumZ = EnumC;
            toCEnumZ = un_EnumC;
            declaredValues = \_ -> fromList [(0, pure "C_FOO"),
-                                            (1, pure "C_BAR")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "C_BAR")]}
+instance SequentialCEnum EnumC
+    where {minValue = EnumC 0; maxValue = EnumC 1}
 instance Show EnumC
     where {show = showCEnum "EnumC"}
 pattern C_FOO :: EnumC
@@ -205,8 +211,9 @@ instance CEnum EnumD
            fromCEnumZ = EnumD;
            toCEnumZ = un_EnumD;
            declaredValues = \_ -> fromList [(0, pure "D_FOO"),
-                                            (1, pure "D_BAR")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "D_BAR")]}
+instance SequentialCEnum EnumD
+    where {minValue = EnumD 0; maxValue = EnumD 1}
 instance Show EnumD
     where {show = showCEnum "EnumD"}
 pattern D_FOO :: EnumD

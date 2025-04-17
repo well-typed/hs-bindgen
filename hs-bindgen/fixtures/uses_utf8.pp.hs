@@ -11,7 +11,6 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
-import qualified Prelude as P
 
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
@@ -52,7 +51,11 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
     \_ ->
       Data.Map.Strict.fromList [(0, pure "Say\20320\22909"), (1, pure "Say\25308\25308")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
+
+  minValue = MyEnum 0
+
+  maxValue = MyEnum 1
 
 instance Show MyEnum where
 

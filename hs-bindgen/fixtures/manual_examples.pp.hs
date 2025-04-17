@@ -26,7 +26,6 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
-import qualified Prelude as P
 
 fIELD_OFFSET :: FC.CInt
 fIELD_OFFSET = (4 :: FC.CInt)
@@ -215,7 +214,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "A"), (1, pure "B"), (2, pure "C")]
 
-  rangeIsSequential = \_ -> P.Just (0, 2)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
+
+  minValue = Index 0
+
+  maxValue = Index 2
 
 instance Show Index where
 

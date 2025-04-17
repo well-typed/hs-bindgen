@@ -225,12 +225,9 @@ prettyExpr env prec = \case
     EFree x  -> pretty x
     ECon n   -> pretty n
 
-    EIntegral i Nothing  -> showToCtxDoc i
-    EIntegral i (Just t) -> parens $ hcat [
-          parensWhen (i < 0) (showToCtxDoc i)
-        , " :: "
-        , prettyPrimType t
-        ]
+    EIntegral i Nothing -> parensWhen (prec > 0 && i < 0) (showToCtxDoc i)
+    EIntegral i (Just t) ->
+      parens $ hcat [showToCtxDoc i, " :: ", prettyPrimType t]
     EChar (CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
       prettyExpr env 0 (EGlobal CharValue_fromAddr)
         <+> string str

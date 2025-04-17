@@ -13,7 +13,6 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
-import qualified Prelude as P
 
 newtype First = First
   { un_First :: FC.CUInt
@@ -53,7 +52,11 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "FIRST1"), (1, pure "FIRST2")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
+
+  minValue = First 0
+
+  maxValue = First 1
 
 instance Show First where
 
@@ -104,7 +107,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
     \_ ->
       Data.Map.Strict.fromList [(-1, pure "SECOND_A"), (0, pure "SECOND_B"), (1, pure "SECOND_C")]
 
-  rangeIsSequential = \_ -> P.Just (-1, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
+
+  minValue = Second (-1)
+
+  maxValue = Second 1
 
 instance Show Second where
 
@@ -158,7 +165,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
     \_ ->
       Data.Map.Strict.fromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
 
-  rangeIsSequential = \_ -> P.Just (1, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
+
+  minValue = Same 1
+
+  maxValue = Same 1
 
 instance Show Same where
 
@@ -208,8 +219,6 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
   declaredValues =
     \_ ->
       Data.Map.Strict.fromList [(200, pure "NONSEQ_A"), (301, pure "NONSEQ_B"), (404, pure "NONSEQ_C")]
-
-  rangeIsSequential = \_ -> P.Nothing
 
 instance Show Nonseq where
 
@@ -263,7 +272,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
     \_ ->
       Data.Map.Strict.fromList [(0, pure "PACKED_A"), (1, pure "PACKED_B"), (2, pure "PACKED_C")]
 
-  rangeIsSequential = \_ -> P.Just (0, 2)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
+
+  minValue = Packad 0
+
+  maxValue = Packad 2
 
 instance Show Packad where
 
@@ -316,7 +329,11 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "A_FOO"), (1, pure "A_BAR")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
+
+  minValue = EnumA 0
+
+  maxValue = EnumA 1
 
 instance Show EnumA where
 
@@ -366,7 +383,11 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "B_FOO"), (1, pure "B_BAR")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
+
+  minValue = EnumB 0
+
+  maxValue = EnumB 1
 
 instance Show EnumB where
 
@@ -416,7 +437,11 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "C_FOO"), (1, pure "C_BAR")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
+
+  minValue = EnumC 0
+
+  maxValue = EnumC 1
 
 instance Show EnumC where
 
@@ -466,7 +491,11 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "D_FOO"), (1, pure "D_BAR")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
+
+  minValue = EnumD 0
+
+  maxValue = EnumD 1
 
 instance Show EnumD where
 

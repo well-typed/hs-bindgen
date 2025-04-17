@@ -13,8 +13,9 @@ instance CEnum Foo
            fromCEnumZ = Foo;
            toCEnumZ = un_Foo;
            declaredValues = \_ -> fromList [(0, pure "FOO1"),
-                                            (1, pure "FOO2")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "FOO2")]}
+instance SequentialCEnum Foo
+    where {minValue = Foo 0; maxValue = Foo 1}
 instance Show Foo
     where {show = showCEnum "Foo"}
 pattern FOO1 :: Foo

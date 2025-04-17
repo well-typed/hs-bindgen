@@ -332,14 +332,18 @@ enumDecs opts nm e = concat [
             | ev <- C.enumValues e
             ]
           fTyp = Hs.fieldType newtypeField
+          cEnumDecl = Hs.DeclDefineInstance $ Hs.InstanceCEnum hs fTyp vMap
+          cEnumShowDecl = [Hs.DeclDefineInstance $ Hs.InstanceCEnumShow hs]
           mSeqBounds = do
-            nMin <- fst <$> Map.lookupMin vMap
-            nMax <- fst <$> Map.lookupMax vMap
-            guard $ nMax - nMin + 1 == fromIntegral (Map.size vMap)
-            return (nMin, nMax)
-      in  [ Hs.DeclDefineInstance $ Hs.InstanceCEnum hs fTyp vMap mSeqBounds
-          , Hs.DeclDefineInstance $ Hs.InstanceCEnumShow hs
-          ]
+            minV <- fst <$> Map.lookupMin vMap
+            maxV <- fst <$> Map.lookupMax vMap
+            guard $ maxV - minV + 1 == fromIntegral (Map.size vMap)
+            return (minV, maxV)
+          sequentialCEnumDecl = case mSeqBounds of
+            Just (minV, maxV) ->
+              [Hs.DeclDefineInstance (Hs.InstanceSequentialCEnum hs minV maxV)]
+            Nothing -> []
+      in  cEnumDecl : sequentialCEnumDecl ++ cEnumShowDecl
 
 {-------------------------------------------------------------------------------
   Typedef

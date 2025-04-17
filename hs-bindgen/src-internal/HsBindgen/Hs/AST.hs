@@ -223,7 +223,11 @@ data InstanceDecl where
          Struct (S Z)
       -> HsType
       -> Map Integer (NonEmpty String)
-      -> Maybe (Integer, Integer)
+      -> InstanceDecl
+    InstanceSequentialCEnum ::
+         Struct (S Z)
+      -> Integer
+      -> Integer
       -> InstanceDecl
     InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
 

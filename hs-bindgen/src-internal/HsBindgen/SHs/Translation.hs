@@ -54,8 +54,10 @@ translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
       , instanceTypes = []
       , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
       }
-translateDefineInstanceDecl (Hs.InstanceCEnum struct fTyp vMap mBounds) =
-    DInst $ translateCEnumInstance struct fTyp vMap mBounds
+translateDefineInstanceDecl (Hs.InstanceCEnum struct fTyp vMap) =
+    DInst $ translateCEnumInstance struct fTyp vMap
+translateDefineInstanceDecl (Hs.InstanceSequentialCEnum struct minV maxV) =
+    DInst $ translateSequentialCEnum struct minV maxV
 translateDefineInstanceDecl (Hs.InstanceCEnumShow struct) =
     DInst $ translateCEnumInstanceShow struct
 
@@ -397,9 +399,8 @@ translateCEnumInstance ::
      Hs.Struct (S Z)
   -> HsType
   -> Map Integer (NonEmpty String)
-  -> Maybe (Integer, Integer)
   -> Instance
-translateCEnumInstance struct fTyp vMap mBounds = Instance {
+translateCEnumInstance struct fTyp vMap = Instance {
       instanceClass = CEnum_class
     , instanceArgs  = [tcon]
     , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
@@ -407,7 +408,6 @@ translateCEnumInstance struct fTyp vMap mBounds = Instance {
           (CEnum_fromCEnumZ, ECon (Hs.structConstr struct))
         , (CEnum_toCEnumZ, EFree fname)
         , (CEnum_declaredValues, EUnusedLam vMapE)
-        , (CEnum_rangeIsSequential, EUnusedLam mBoundsE)
         ]
     }
   where
@@ -433,11 +433,22 @@ translateCEnumInstance struct fTyp vMap mBounds = Instance {
       | (v, name :| names) <- Map.toList vMap
       ]
 
-    mBoundsE :: SExpr ctx
-    mBoundsE = case mBounds of
-      Just (nMin, nMax) -> EApp (EGlobal Maybe_Just) $
-        ETup [EIntegral nMin Nothing, EIntegral nMax Nothing]
-      Nothing -> EGlobal Maybe_Nothing
+translateSequentialCEnum :: Hs.Struct (S Z) -> Integer -> Integer -> Instance
+translateSequentialCEnum struct minV maxV = Instance {
+      instanceClass = SequentialCEnum_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = []
+    , instanceDecs  = [
+          (SequentialCEnum_minValue, EApp vcon (EIntegral minV Nothing))
+        , (SequentialCEnum_maxValue, EApp vcon (EIntegral maxV Nothing))
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+    vcon :: SExpr ctx
+    vcon = ECon $ Hs.structConstr struct
 
 translateCEnumInstanceShow ::
      Hs.Struct (S Z)

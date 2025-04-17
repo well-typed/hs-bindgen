@@ -252,8 +252,54 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["VALA_1"]),
-          _×_ 1 (NE.fromList ["VALA_2"])])
-      (Just (_×_ 0 1))),
+          _×_
+            1
+            (NE.fromList ["VALA_2"])])),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "EnumA",
+        structConstr = HsName
+          "@NsConstr"
+          "EnumA",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_EnumA",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "enumA")
+              (DeclPathCtxtField
+                (Just (CName "exA"))
+                (CName "fieldA1")
+                DeclPathCtxtTop),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "VALA_1",
+                valueValue = 0,
+                valueSourceLoc =
+                "nested_enums.h:3:17"},
+              EnumValue {
+                valueName = CName "VALA_2",
+                valueValue = 1,
+                valueSourceLoc =
+                "nested_enums.h:4:17"}],
+            enumSourceLoc =
+            "nested_enums.h:2:14"}}
+      0
+      1),
   DeclInstance
     (InstanceCEnumShow
       Struct {
@@ -843,8 +889,53 @@
       (Map.fromList
         [
           _×_ 0 (NE.fromList ["VALB_1"]),
-          _×_ 1 (NE.fromList ["VALB_2"])])
-      (Just (_×_ 0 1))),
+          _×_
+            1
+            (NE.fromList ["VALB_2"])])),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "ExB_fieldB1",
+        structConstr = HsName
+          "@NsConstr"
+          "ExB_fieldB1",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_ExB_fieldB1",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathAnon
+              (DeclPathCtxtField
+                (Just (CName "exB"))
+                (CName "fieldB1")
+                DeclPathCtxtTop),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "VALB_1",
+                valueValue = 0,
+                valueSourceLoc =
+                "nested_enums.h:10:17"},
+              EnumValue {
+                valueName = CName "VALB_2",
+                valueValue = 1,
+                valueSourceLoc =
+                "nested_enums.h:11:17"}],
+            enumSourceLoc =
+            "nested_enums.h:9:9"}}
+      0
+      1),
   DeclInstance
     (InstanceCEnumShow
       Struct {

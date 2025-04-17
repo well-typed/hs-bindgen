@@ -13,8 +13,9 @@ instance CEnum MyEnum
            fromCEnumZ = MyEnum;
            toCEnumZ = un_MyEnum;
            declaredValues = \_ -> fromList [(0, pure "Say\20320\22909"),
-                                            (1, pure "Say\25308\25308")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "Say\25308\25308")]}
+instance SequentialCEnum MyEnum
+    where {minValue = MyEnum 0; maxValue = MyEnum 1}
 instance Show MyEnum
     where {show = showCEnum "MyEnum"}
 pattern Say你好 :: MyEnum

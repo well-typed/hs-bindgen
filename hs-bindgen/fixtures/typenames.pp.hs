@@ -12,7 +12,6 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
-import qualified Prelude as P
 
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
@@ -52,7 +51,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "FOO1"), (1, pure "FOO2")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
+
+  minValue = Foo 0
+
+  maxValue = Foo 1
 
 instance Show Foo where
 

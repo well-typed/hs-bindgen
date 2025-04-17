@@ -91,8 +91,9 @@ instance CEnum Index
            toCEnumZ = un_Index;
            declaredValues = \_ -> fromList [(0, pure "A"),
                                             (1, pure "B"),
-                                            (2, pure "C")];
-           rangeIsSequential = \_ -> Just (0, 2)}
+                                            (2, pure "C")]}
+instance SequentialCEnum Index
+    where {minValue = Index 0; maxValue = Index 2}
 instance Show Index
     where {show = showCEnum "Index"}
 pattern A :: Index

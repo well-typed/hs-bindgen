@@ -301,10 +301,12 @@ resolveGlobal = \case
     CEnum_fromCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.fromCEnumZ
     CEnum_toCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.toCEnumZ
     CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
-    CEnum_rangeIsSequential ->
-      importQ 'HsBindgen.Runtime.CEnum.rangeIsSequential
+    SequentialCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
+    SequentialCEnum_minValue -> importQ 'HsBindgen.Runtime.CEnum.minValue
+    SequentialCEnum_maxValue -> importQ 'HsBindgen.Runtime.CEnum.maxValue
     CEnum_showCEnum -> importQ 'HsBindgen.Runtime.CEnum.showCEnum
     AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
+    AsSequentialCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
     ByteArray_type -> importQ ''ByteArray
     SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray

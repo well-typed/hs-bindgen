@@ -13,8 +13,9 @@ instance CEnum EnumA
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
            declaredValues = \_ -> fromList [(0, pure "VALA_1"),
-                                            (1, pure "VALA_2")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "VALA_2")]}
+instance SequentialCEnum EnumA
+    where {minValue = EnumA 0; maxValue = EnumA 1}
 instance Show EnumA
     where {show = showCEnum "EnumA"}
 pattern VALA_1 :: EnumA
@@ -45,8 +46,9 @@ instance CEnum ExB_fieldB1
            fromCEnumZ = ExB_fieldB1;
            toCEnumZ = un_ExB_fieldB1;
            declaredValues = \_ -> fromList [(0, pure "VALB_1"),
-                                            (1, pure "VALB_2")];
-           rangeIsSequential = \_ -> Just (0, 1)}
+                                            (1, pure "VALB_2")]}
+instance SequentialCEnum ExB_fieldB1
+    where {minValue = ExB_fieldB1 0; maxValue = ExB_fieldB1 1}
 instance Show ExB_fieldB1
     where {show = showCEnum "ExB_fieldB1"}
 pattern VALB_1 :: ExB_fieldB1

@@ -20,7 +20,6 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, show)
-import qualified Prelude as P
 
 a :: FC.CInt
 a = (5 :: FC.CInt)
@@ -113,7 +112,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
   declaredValues =
     \_ -> Data.Map.Strict.fromList [(0, pure "FOO"), (1, pure "BAR")]
 
-  rangeIsSequential = \_ -> P.Just (0, 1)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
+
+  minValue = Another_typedef_enum_e 0
+
+  maxValue = Another_typedef_enum_e 1
 
 instance Show Another_typedef_enum_e where
 
@@ -388,7 +391,11 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
     \_ ->
       Data.Map.Strict.fromList [(0, pure "ENUM_CASE_0"), (1, pure "ENUM_CASE_1"), (2, pure "ENUM_CASE_2"), (3, pure "ENUM_CASE_3")]
 
-  rangeIsSequential = \_ -> P.Just (0, 3)
+instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
+
+  minValue = A_typedef_enum_e 0
+
+  maxValue = A_typedef_enum_e 3
 
 instance Show A_typedef_enum_e where
 

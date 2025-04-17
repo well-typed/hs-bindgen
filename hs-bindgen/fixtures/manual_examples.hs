@@ -1357,8 +1357,54 @@
         [
           _×_ 0 (NE.fromList ["A"]),
           _×_ 1 (NE.fromList ["B"]),
-          _×_ 2 (NE.fromList ["C"])])
-      (Just (_×_ 0 2))),
+          _×_ 2 (NE.fromList ["C"])])),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Index",
+        structConstr = HsName
+          "@NsConstr"
+          "Index",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Index",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "index")
+              DeclPathCtxtTop,
+            enumAliases = [CName "index"],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "A",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:27:5"},
+              EnumValue {
+                valueName = CName "B",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:28:5"},
+              EnumValue {
+                valueName = CName "C",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:29:5"}],
+            enumSourceLoc =
+            "manual_examples.h:26:14"}}
+      0
+      2),
   DeclInstance
     (InstanceCEnumShow
       Struct {
