@@ -5,8 +5,11 @@ module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
 
+import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Ix qualified
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign.C.Types qualified
@@ -26,6 +29,7 @@ import GHC.Float
 import C.Char (CharValue(..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
+import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
@@ -34,6 +38,7 @@ import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
+import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
@@ -91,6 +96,7 @@ mkGlobal = \case
       RealFloat_class  -> ''RealFloat
       RealFrac_class   -> ''RealFrac
       Show_class       -> ''Show
+      Show_show        -> 'show
 
       NomEq_class -> ''(~)
 
@@ -148,6 +154,22 @@ mkGlobal = \case
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
+      NonEmpty_constructor -> '(NonEmpty.:|)
+      NonEmpty_singleton   -> 'NonEmpty.singleton
+      Map_fromList         -> 'Map.fromList
+
+      CEnum_class -> ''HsBindgen.Runtime.CEnum.CEnum
+      CEnumZ_tycon -> ''HsBindgen.Runtime.CEnum.CEnumZ
+      CEnum_fromCEnumZ -> 'HsBindgen.Runtime.CEnum.fromCEnumZ
+      CEnum_toCEnumZ -> 'HsBindgen.Runtime.CEnum.toCEnumZ
+      CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
+      SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
+      SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
+      SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
+      CEnum_showCEnum -> 'HsBindgen.Runtime.CEnum.showCEnum
+      AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
+      AsSequentialCEnum_type -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
+
       ByteArray_type       -> ''ByteArray
       SizedByteArray_type  -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
 
@@ -192,9 +214,139 @@ mkGlobalP HsPrimCPtrDiff   = ''Foreign.C.Types.CPtrdiff
 mkGlobalP HsPrimCStringLen = ''Foreign.C.String.CStringLen
 mkGlobalP HsPrimInt        = ''Int
 
+-- | Construct an 'TH.Exp' for a 'Global'
+mkGlobalExpr :: Quote q => Global -> q TH.Exp
+mkGlobalExpr n = case n of -- in definition order, no wildcards
+    Tuple_type{}         -> panicPure "type in expression"
+    Tuple_constructor{}  -> TH.conE name
+    Applicative_pure     -> TH.varE name
+    Applicative_seq      -> TH.varE name
+    Monad_return         -> TH.varE name
+    Monad_seq            -> TH.varE name
+    Storable_class       -> panicPure "class in expression"
+    Storable_sizeOf      -> TH.varE name
+    Storable_alignment   -> TH.varE name
+    Storable_peekByteOff -> TH.varE name
+    Storable_pokeByteOff -> TH.varE name
+    Storable_peek        -> TH.varE name
+    Storable_poke        -> TH.varE name
+    Foreign_Ptr          -> panicPure "type in expression"
+    Ptr_constructor      -> TH.conE name
+    Foreign_FunPtr       -> panicPure "type in expression"
+    ConstantArray        -> panicPure "type in expression"
+    IO_type              -> panicPure "type in expression"
+    HasFlexibleArrayMember_class -> panicPure "class in expression"
+    HasFlexibleArrayMember_offset -> TH.varE name
+    Bitfield_peekBitOffWidth -> TH.varE name
+    Bitfield_pokeBitOffWidth -> TH.varE name
+    CharValue_tycon      -> panicPure "type in expression"
+    CharValue_constructor -> TH.conE name
+    CharValue_fromAddr   -> TH.varE name
+    ByteArray_setUnionPayload -> TH.varE name
+    ByteArray_getUnionPayload -> TH.varE name
+
+    -- Other type classes
+    Bits_class       -> panicPure "class in expression"
+    Bounded_class    -> panicPure "class in expression"
+    Enum_class       -> panicPure "class in expression"
+    Eq_class         -> panicPure "class in expression"
+    FiniteBits_class -> panicPure "class in expression"
+    Floating_class   -> panicPure "class in expression"
+    Fractional_class -> panicPure "class in expression"
+    Integral_class   -> panicPure "class in expression"
+    Ix_class         -> panicPure "class in expression"
+    Num_class        -> panicPure "class in expression"
+    Ord_class        -> panicPure "class in expression"
+    Read_class       -> panicPure "class in expression"
+    Real_class       -> panicPure "class in expression"
+    RealFloat_class  -> panicPure "class in expression"
+    RealFrac_class   -> panicPure "class in expression"
+    Show_class       -> panicPure "class in expression"
+    Show_show        -> TH.varE name
+
+    NomEq_class -> panicPure "class in expression"
+
+    Not_class             -> panicPure "class in expression"
+    Not_not               -> TH.varE name
+    Logical_class         -> panicPure "class in expression"
+    Logical_and           -> TH.varE name
+    Logical_or            -> TH.varE name
+    RelEq_class           -> panicPure "class in expression"
+    RelEq_eq              -> TH.varE name
+    RelEq_uneq            -> TH.varE name
+    RelOrd_class          -> panicPure "class in expression"
+    RelOrd_lt             -> TH.varE name
+    RelOrd_le             -> TH.varE name
+    RelOrd_gt             -> TH.varE name
+    RelOrd_ge             -> TH.varE name
+    Plus_class            -> panicPure "class in expression"
+    Plus_resTyCon         -> TH.varE name
+    Plus_plus             -> TH.varE name
+    Minus_class           -> panicPure "class in expression"
+    Minus_resTyCon        -> TH.varE name
+    Minus_negate          -> TH.varE name
+    Add_class             -> panicPure "class in expression"
+    Add_resTyCon          -> TH.varE name
+    Add_add               -> TH.varE name
+    Sub_class             -> panicPure "class in expression"
+    Sub_resTyCon          -> TH.varE name
+    Sub_minus             -> TH.varE name
+    Mult_class            -> panicPure "class in expression"
+    Mult_resTyCon         -> TH.varE name
+    Mult_mult             -> TH.varE name
+    Div_class             -> panicPure "class in expression"
+    Div_div               -> TH.varE name
+    Div_resTyCon          -> TH.varE name
+    Rem_class             -> panicPure "class in expression"
+    Rem_resTyCon          -> TH.varE name
+    Rem_rem               -> TH.varE name
+    Complement_class      -> panicPure "class in expression"
+    Complement_resTyCon   -> TH.varE name
+    Complement_complement -> TH.varE name
+    Bitwise_class         -> panicPure "class in expression"
+    Bitwise_resTyCon      -> TH.varE name
+    Bitwise_and           -> TH.varE name
+    Bitwise_or            -> TH.varE name
+    Bitwise_xor           -> TH.varE name
+    Shift_class           -> panicPure "class in expression"
+    Shift_resTyCon        -> TH.varE name
+    Shift_shiftL          -> TH.varE name
+    Shift_shiftR          -> TH.varE name
+
+    IntLike_tycon   -> panicPure "type in expression"
+    FloatLike_tycon -> panicPure "type in expression"
+
+    CFloat_constructor           -> TH.conE name
+    CDouble_constructor          -> TH.conE name
+    GHC_Float_castWord32ToFloat  -> TH.varE name
+    GHC_Float_castWord64ToDouble -> TH.varE name
+
+    NonEmpty_constructor -> TH.conE name
+    NonEmpty_singleton   -> TH.varE name
+    Map_fromList         -> TH.varE name
+
+    CEnum_class                      -> panicPure "class in expression"
+    CEnumZ_tycon                     -> TH.conE name
+    CEnum_fromCEnumZ                 -> TH.varE name
+    CEnum_toCEnumZ                   -> TH.varE name
+    CEnum_declaredValues             -> TH.varE name
+    SequentialCEnum_class            -> panicPure "class in expression"
+    SequentialCEnum_minDeclaredValue -> TH.varE name
+    SequentialCEnum_maxDeclaredValue -> TH.varE name
+    CEnum_showCEnum                  -> TH.varE name
+    AsCEnum_type                     -> panicPure "type in expression"
+    AsSequentialCEnum_type           -> panicPure "type in expression"
+
+    ByteArray_type      -> panicPure "type in expression"
+    SizedByteArray_type -> panicPure "type in expression"
+    PrimType{}          -> panicPure "type in expression"
+  where
+    name :: TH.Name
+    name = mkGlobal n
+
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env = \case
-      EGlobal n     -> TH.varE (mkGlobal n)
+      EGlobal n     -> mkGlobalExpr n
       EFree n       -> hsVarE n
       EBound x      -> TH.varE (lookupEnv x env)
       ECon n        -> hsConE n
@@ -220,6 +372,7 @@ mkExpr env = \case
           )
           (mkPrimType t)
       EChar c -> [| c |]
+      EString s -> [| s |]
       ECString ba@(ByteArray ba#) ->
         let
           len :: Integer
@@ -234,7 +387,7 @@ mkExpr env = \case
       EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
       EInfix op x y -> TH.infixE
                          (Just $ mkExpr env x)
-                         (TH.varE $ mkGlobal op)
+                         (mkGlobalExpr op)
                          (Just $ mkExpr env y)
       ELam (NameHint x) f      -> do
           x' <- TH.newName x
@@ -250,6 +403,8 @@ mkExpr env = \case
                                  []
                          | SAlt c add hints b <- alts
                          ]
+      ETup xs -> TH.tupE $ mkExpr env <$> xs
+      EList xs -> TH.listE $ mkExpr env <$> xs
 
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
@@ -293,8 +448,8 @@ mkDecl = \case
                     (return [])
                     (appsT (TH.conT $ mkGlobal $ instanceClass i)
                         (map (mkType EmptyEnv) $ instanceArgs i))
-                    ( map (\(x, f) -> simpleDecl (mkGlobal x) f) $
-                        instanceDecs i
+                    ( map instTySyn (instanceTypes i)
+                        ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
                     )
       DRecord d ->
         let fields :: [q TH.VarBangType]
@@ -343,6 +498,14 @@ mkDecl = \case
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
+
+      instTySyn :: (Global, ClosedType, ClosedType) -> q TH.Dec
+      instTySyn (g, typArg, typSyn) =
+        TH.TySynInstD
+          <$> liftM2
+                (TH.TySynEqn Nothing)
+                (mkType EmptyEnv (TApp (TGlobal g) typArg))
+                (mkType EmptyEnv typSyn)
 
 strategy :: Quote q => Hs.Strategy ClosedType -> q TH.DerivStrategy
 strategy Hs.DeriveNewtype  = return TH.NewtypeStrategy

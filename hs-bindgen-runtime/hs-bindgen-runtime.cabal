@@ -40,6 +40,7 @@ library
       lang
   exposed-modules:
       HsBindgen.Runtime.ByteArray
+      HsBindgen.Runtime.CEnum
       HsBindgen.Runtime.ConstantArray
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.LibC
@@ -50,6 +51,7 @@ library
   hs-source-dirs:
       src
   build-depends:
+    , containers >= 0.6.5.1 && < 0.8
     , vector ^>=0.13.2.0
     , primitive ^>=0.9.0.0
   if impl(ghc < 9.4)
@@ -64,11 +66,17 @@ test-suite test-runtime
   main-is:        test-runtime.hs
   other-modules:
       Test.HsBindgen.Runtime.Bitfield
+      Test.HsBindgen.Runtime.CEnum
+      Test.Internal.Tasty
   build-depends:
       -- Internal dependencies
     , hs-bindgen-runtime
   build-depends:
+      -- Inherited dependencies
+    , containers
+  build-depends:
       -- External dependencies
     , QuickCheck        ^>=2.15.0.1
     , tasty             ^>=1.5
+    , tasty-hunit       ^>=0.10.2
     , tasty-quickcheck  ^>=0.11.1

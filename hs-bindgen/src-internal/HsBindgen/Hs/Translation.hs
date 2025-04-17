@@ -20,6 +20,8 @@ module HsBindgen.Hs.Translation (
   , floatingType
   ) where
 
+import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
@@ -33,6 +35,7 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.Hs.AST qualified as Hs
+import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
@@ -74,11 +77,9 @@ defaultTranslationOpts = TranslationOpts {
         , (Hs.DeriveStock, Hs.Eq)
         ]
     , translationDeriveEnum = [
-          (Hs.DeriveStock, Hs.Show)
-        , (Hs.DeriveStock, Hs.Read)
-        , (Hs.DeriveStock, Hs.Eq)
+          (Hs.DeriveStock, Hs.Eq)
         , (Hs.DeriveStock, Hs.Ord)
-        , (Hs.DeriveNewtype, Hs.Enum)
+        , (Hs.DeriveStock, Hs.Read)
         ]
     , translationDeriveTypedefPrim = [
           (Hs.DeriveStock, Hs.Eq)
@@ -275,6 +276,7 @@ enumDecs opts nm e = concat [
     , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
       | (strat, clss) <- translationDeriveEnum opts
       ]
+    , cEnumInstanceDecls
     , valueDecls
     ]
   where
@@ -323,6 +325,29 @@ enumDecs opts nm e = concat [
           }
         | enumValue@C.EnumValue{..} <- C.enumValues e
         ]
+
+    cEnumInstanceDecls :: [Hs.Decl]
+    cEnumInstanceDecls =
+      let vMap = Map.fromListWith (<>) [
+              ( Hs.patSynValue pat
+              , NonEmpty.singleton (Hs.patSynName pat)
+              )
+            | Hs.DeclPatSyn pat <- valueDecls
+            ]
+          mSeqBounds = do
+            (minV, minNames) <- Map.lookupMin vMap
+            (maxV, maxNames) <- Map.lookupMax vMap
+            guard $ maxV - minV + 1 == fromIntegral (Map.size vMap)
+            return (NonEmpty.head minNames, NonEmpty.head maxNames)
+          fTyp = Hs.fieldType newtypeField
+          cEnumDecl = Hs.DeclDefineInstance $
+            Hs.InstanceCEnum hs fTyp (fmap (T.unpack . getHsName) <$> vMap)
+          cEnumShowDecl = [Hs.DeclDefineInstance (Hs.InstanceCEnumShow hs)]
+          sequentialCEnumDecl = case mSeqBounds of
+            Just (nameMin, nameMax) -> List.singleton . Hs.DeclDefineInstance $
+              Hs.InstanceSequentialCEnum hs nameMin nameMax
+            Nothing -> []
+      in  cEnumDecl : sequentialCEnumDecl ++ cEnumShowDecl
 
 {-------------------------------------------------------------------------------
   Typedef

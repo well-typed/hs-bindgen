@@ -9,6 +9,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
@@ -18,11 +19,14 @@ import qualified Data.Array.Byte
 import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.List.NonEmpty
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.ByteArray
+import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
 
 fIELD_OFFSET :: FC.CInt
 fIELD_OFFSET = (4 :: FC.CInt)
@@ -194,15 +198,33 @@ instance F.Storable Index where
         case s1 of
           Index un_Index2 -> F.pokeByteOff ptr0 (0 :: Int) un_Index2
 
-deriving stock instance Show Index
-
-deriving stock instance Read Index
-
 deriving stock instance Eq Index
 
 deriving stock instance Ord Index
 
-deriving newtype instance Enum Index
+deriving stock instance Read Index
+
+instance HsBindgen.Runtime.CEnum.CEnum Index where
+
+  type CEnumZ Index = FC.CUInt
+
+  fromCEnumZ = Index
+
+  toCEnumZ = un_Index
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A"), (1, Data.List.NonEmpty.singleton "B"), (2, Data.List.NonEmpty.singleton "C")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
+
+  minDeclaredValue = A
+
+  maxDeclaredValue = C
+
+instance Show Index where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Index"
 
 pattern A :: Index
 pattern A = Index 0

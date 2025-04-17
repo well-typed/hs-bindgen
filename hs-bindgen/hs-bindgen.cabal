@@ -311,6 +311,7 @@ test-suite test-th
   build-depends:
       -- Inherited dependencies
     , base <5
+    , containers
   build-depends:
       -- External dependencies
     , tasty ^>= 1.5
@@ -343,6 +344,7 @@ test-suite test-pp
   build-depends:
       -- Inherited dependencies
     , base <5
+    , containers
   build-depends:
       -- External dependencies
     , tasty ^>= 1.5

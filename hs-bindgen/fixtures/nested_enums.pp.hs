@@ -1,14 +1,17 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
+import qualified Data.List.NonEmpty
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
 
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
@@ -31,15 +34,33 @@ instance F.Storable EnumA where
         case s1 of
           EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
-deriving stock instance Show EnumA
-
-deriving stock instance Read EnumA
-
 deriving stock instance Eq EnumA
 
 deriving stock instance Ord EnumA
 
-deriving newtype instance Enum EnumA
+deriving stock instance Read EnumA
+
+instance HsBindgen.Runtime.CEnum.CEnum EnumA where
+
+  type CEnumZ EnumA = FC.CUInt
+
+  fromCEnumZ = EnumA
+
+  toCEnumZ = un_EnumA
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "VALA_1"), (1, Data.List.NonEmpty.singleton "VALA_2")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
+
+  minDeclaredValue = VALA_1
+
+  maxDeclaredValue = VALA_2
+
+instance Show EnumA where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "EnumA"
 
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
@@ -93,15 +114,33 @@ instance F.Storable ExB_fieldB1 where
         case s1 of
           ExB_fieldB1 un_ExB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
 
-deriving stock instance Show ExB_fieldB1
-
-deriving stock instance Read ExB_fieldB1
-
 deriving stock instance Eq ExB_fieldB1
 
 deriving stock instance Ord ExB_fieldB1
 
-deriving newtype instance Enum ExB_fieldB1
+deriving stock instance Read ExB_fieldB1
+
+instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
+
+  type CEnumZ ExB_fieldB1 = FC.CUInt
+
+  fromCEnumZ = ExB_fieldB1
+
+  toCEnumZ = un_ExB_fieldB1
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "VALB_1"), (1, Data.List.NonEmpty.singleton "VALB_2")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
+
+  minDeclaredValue = VALB_1
+
+  maxDeclaredValue = VALB_2
+
+instance Show ExB_fieldB1 where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "ExB_fieldB1"
 
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0

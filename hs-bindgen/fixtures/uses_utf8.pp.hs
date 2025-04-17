@@ -1,14 +1,17 @@
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
+import qualified Data.List.NonEmpty
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
 
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
@@ -31,15 +34,33 @@ instance F.Storable MyEnum where
         case s1 of
           MyEnum un_MyEnum2 -> F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
 
-deriving stock instance Show MyEnum
-
-deriving stock instance Read MyEnum
-
 deriving stock instance Eq MyEnum
 
 deriving stock instance Ord MyEnum
 
-deriving newtype instance Enum MyEnum
+deriving stock instance Read MyEnum
+
+instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
+
+  type CEnumZ MyEnum = FC.CUInt
+
+  fromCEnumZ = MyEnum
+
+  toCEnumZ = un_MyEnum
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "Say\20320\22909"), (1, Data.List.NonEmpty.singleton "Say\25308\25308")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
+
+  minDeclaredValue = Say你好
+
+  maxDeclaredValue = Say拜拜
+
+instance Show MyEnum where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "MyEnum"
 
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0

@@ -3,12 +3,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
+import qualified Data.List.NonEmpty
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Int, Ord, Read, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
 
 newtype First = First
   { un_First :: FC.CUInt
@@ -31,15 +35,33 @@ instance F.Storable First where
         case s1 of
           First un_First2 -> F.pokeByteOff ptr0 (0 :: Int) un_First2
 
-deriving stock instance Show First
-
-deriving stock instance Read First
-
 deriving stock instance Eq First
 
 deriving stock instance Ord First
 
-deriving newtype instance Enum First
+deriving stock instance Read First
+
+instance HsBindgen.Runtime.CEnum.CEnum First where
+
+  type CEnumZ First = FC.CUInt
+
+  fromCEnumZ = First
+
+  toCEnumZ = un_First
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
+
+  minDeclaredValue = FIRST1
+
+  maxDeclaredValue = FIRST2
+
+instance Show First where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "First"
 
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
@@ -68,15 +90,36 @@ instance F.Storable Second where
         case s1 of
           Second un_Second2 -> F.pokeByteOff ptr0 (0 :: Int) un_Second2
 
-deriving stock instance Show Second
-
-deriving stock instance Read Second
-
 deriving stock instance Eq Second
 
 deriving stock instance Ord Second
 
-deriving newtype instance Enum Second
+deriving stock instance Read Second
+
+instance HsBindgen.Runtime.CEnum.CEnum Second where
+
+  type CEnumZ Second = FC.CInt
+
+  fromCEnumZ = Second
+
+  toCEnumZ = un_Second
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [ (-1, Data.List.NonEmpty.singleton "SECOND_A")
+                               , (0, Data.List.NonEmpty.singleton "SECOND_B")
+                               , (1, Data.List.NonEmpty.singleton "SECOND_C")
+                               ]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
+
+  minDeclaredValue = SECOND_A
+
+  maxDeclaredValue = SECOND_C
+
+instance Show Second where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Second"
 
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
@@ -108,21 +151,94 @@ instance F.Storable Same where
         case s1 of
           Same un_Same2 -> F.pokeByteOff ptr0 (0 :: Int) un_Same2
 
-deriving stock instance Show Same
-
-deriving stock instance Read Same
-
 deriving stock instance Eq Same
 
 deriving stock instance Ord Same
 
-deriving newtype instance Enum Same
+deriving stock instance Read Same
+
+instance HsBindgen.Runtime.CEnum.CEnum Same where
+
+  type CEnumZ Same = FC.CUInt
+
+  fromCEnumZ = Same
+
+  toCEnumZ = un_Same
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
+
+  minDeclaredValue = SAME_B
+
+  maxDeclaredValue = SAME_B
+
+instance Show Same where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Same"
 
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
 
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
+
+newtype Nonseq = Nonseq
+  { un_Nonseq :: FC.CUInt
+  }
+
+instance F.Storable Nonseq where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Nonseq
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Nonseq un_Nonseq2 -> F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
+
+deriving stock instance Eq Nonseq
+
+deriving stock instance Ord Nonseq
+
+deriving stock instance Read Nonseq
+
+instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
+
+  type CEnumZ Nonseq = FC.CUInt
+
+  fromCEnumZ = Nonseq
+
+  toCEnumZ = un_Nonseq
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [ (200, Data.List.NonEmpty.singleton "NONSEQ_A")
+                               , (301, Data.List.NonEmpty.singleton "NONSEQ_B")
+                               , (404, Data.List.NonEmpty.singleton "NONSEQ_C")
+                               ]
+
+instance Show Nonseq where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Nonseq"
+
+pattern NONSEQ_A :: Nonseq
+pattern NONSEQ_A = Nonseq 200
+
+pattern NONSEQ_B :: Nonseq
+pattern NONSEQ_B = Nonseq 301
+
+pattern NONSEQ_C :: Nonseq
+pattern NONSEQ_C = Nonseq 404
 
 newtype Packad = Packad
   { un_Packad :: FC.CSChar
@@ -145,15 +261,36 @@ instance F.Storable Packad where
         case s1 of
           Packad un_Packad2 -> F.pokeByteOff ptr0 (0 :: Int) un_Packad2
 
-deriving stock instance Show Packad
-
-deriving stock instance Read Packad
-
 deriving stock instance Eq Packad
 
 deriving stock instance Ord Packad
 
-deriving newtype instance Enum Packad
+deriving stock instance Read Packad
+
+instance HsBindgen.Runtime.CEnum.CEnum Packad where
+
+  type CEnumZ Packad = FC.CSChar
+
+  fromCEnumZ = Packad
+
+  toCEnumZ = un_Packad
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [ (0, Data.List.NonEmpty.singleton "PACKED_A")
+                               , (1, Data.List.NonEmpty.singleton "PACKED_B")
+                               , (2, Data.List.NonEmpty.singleton "PACKED_C")
+                               ]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
+
+  minDeclaredValue = PACKED_A
+
+  maxDeclaredValue = PACKED_C
+
+instance Show Packad where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Packad"
 
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
@@ -185,15 +322,33 @@ instance F.Storable EnumA where
         case s1 of
           EnumA un_EnumA2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
-deriving stock instance Show EnumA
-
-deriving stock instance Read EnumA
-
 deriving stock instance Eq EnumA
 
 deriving stock instance Ord EnumA
 
-deriving newtype instance Enum EnumA
+deriving stock instance Read EnumA
+
+instance HsBindgen.Runtime.CEnum.CEnum EnumA where
+
+  type CEnumZ EnumA = FC.CUInt
+
+  fromCEnumZ = EnumA
+
+  toCEnumZ = un_EnumA
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
+
+  minDeclaredValue = A_FOO
+
+  maxDeclaredValue = A_BAR
+
+instance Show EnumA where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "EnumA"
 
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
@@ -222,15 +377,33 @@ instance F.Storable EnumB where
         case s1 of
           EnumB un_EnumB2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
 
-deriving stock instance Show EnumB
-
-deriving stock instance Read EnumB
-
 deriving stock instance Eq EnumB
 
 deriving stock instance Ord EnumB
 
-deriving newtype instance Enum EnumB
+deriving stock instance Read EnumB
+
+instance HsBindgen.Runtime.CEnum.CEnum EnumB where
+
+  type CEnumZ EnumB = FC.CUInt
+
+  fromCEnumZ = EnumB
+
+  toCEnumZ = un_EnumB
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
+
+  minDeclaredValue = B_FOO
+
+  maxDeclaredValue = B_BAR
+
+instance Show EnumB where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "EnumB"
 
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
@@ -259,15 +432,33 @@ instance F.Storable EnumC where
         case s1 of
           EnumC un_EnumC2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
 
-deriving stock instance Show EnumC
-
-deriving stock instance Read EnumC
-
 deriving stock instance Eq EnumC
 
 deriving stock instance Ord EnumC
 
-deriving newtype instance Enum EnumC
+deriving stock instance Read EnumC
+
+instance HsBindgen.Runtime.CEnum.CEnum EnumC where
+
+  type CEnumZ EnumC = FC.CUInt
+
+  fromCEnumZ = EnumC
+
+  toCEnumZ = un_EnumC
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
+
+  minDeclaredValue = C_FOO
+
+  maxDeclaredValue = C_BAR
+
+instance Show EnumC where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "EnumC"
 
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
@@ -296,15 +487,33 @@ instance F.Storable EnumD where
         case s1 of
           EnumD un_EnumD2 -> F.pokeByteOff ptr0 (0 :: Int) un_EnumD2
 
-deriving stock instance Show EnumD
-
-deriving stock instance Read EnumD
-
 deriving stock instance Eq EnumD
 
 deriving stock instance Ord EnumD
 
-deriving newtype instance Enum EnumD
+deriving stock instance Read EnumD
+
+instance HsBindgen.Runtime.CEnum.CEnum EnumD where
+
+  type CEnumZ EnumD = FC.CUInt
+
+  fromCEnumZ = EnumD
+
+  toCEnumZ = un_EnumD
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
+
+  minDeclaredValue = D_FOO
+
+  maxDeclaredValue = D_BAR
+
+instance Show EnumD where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "EnumD"
 
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0

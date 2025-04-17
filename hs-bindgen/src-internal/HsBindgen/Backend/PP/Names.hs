@@ -14,6 +14,8 @@ module HsBindgen.Backend.PP.Names (
 
 import Data.Char qualified as Char
 import Data.List qualified as L
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
@@ -34,6 +36,7 @@ import GHC.Ptr qualified
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.ConstantArray qualified
+import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -128,6 +131,8 @@ moduleOf "CStringLen" _ =
   -- We want the same qualifier whether we get CStringLen
   -- from Foreign.C.String or GHC.Foreign, so special-case it here.
   HsImportModule "Foreign.C.String" (Just "FC")
+moduleOf "NonEmpty" _ = HsImportModule "Data.List.NonEmpty" Nothing
+moduleOf ":|"       _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf _ident m0 = case parts of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
     ["HsBindgen","Runtime","Syntax"] -> HsImportModule "HsBindgen.Runtime.Syntax" (Just "HsBindgen")
@@ -141,6 +146,7 @@ moduleOf _ident m0 = case parts of
     ["GHC", "Enum"]                  -> iPrelude
     ["GHC", "Float"]                 -> iPrelude
     ["GHC", "Num"]                   -> iPrelude
+    ["GHC", "Maybe"]                 -> iPrelude
     ["GHC", "Ix"]                    -> HsImportModule "Data.Ix" (Just "Ix")
     ("GHC" : "Foreign" : "C" : _)    -> HsImportModule "Foreign.C" (Just "FC")
     ("Foreign" : "C" : _)            -> HsImportModule "Foreign.C" (Just "FC")
@@ -219,6 +225,7 @@ resolveGlobal = \case
     RealFloat_class  -> importU ''RealFloat
     RealFrac_class   -> importU ''RealFrac
     Show_class       -> importU ''Show
+    Show_show        -> importU 'show
 
     -- We now import ~ from Prelude;
     -- but it's not always there; it's also not in Data.Type.Equality
@@ -283,6 +290,22 @@ resolveGlobal = \case
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble
     CFloat_constructor -> importQ ''Foreign.C.CFloat
     CDouble_constructor -> importQ ''Foreign.C.CDouble
+
+    NonEmpty_constructor -> importQ '(NonEmpty.:|)
+    NonEmpty_singleton   -> importQ 'NonEmpty.singleton
+    Map_fromList         -> importQ 'Map.fromList
+
+    CEnum_class -> importQ ''HsBindgen.Runtime.CEnum.CEnum
+    CEnumZ_tycon -> importQ ''HsBindgen.Runtime.CEnum.CEnumZ
+    CEnum_fromCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.fromCEnumZ
+    CEnum_toCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.toCEnumZ
+    CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
+    SequentialCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
+    SequentialCEnum_minDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.minDeclaredValue
+    SequentialCEnum_maxDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.maxDeclaredValue
+    CEnum_showCEnum -> importQ 'HsBindgen.Runtime.CEnum.showCEnum
+    AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
+    AsSequentialCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
     ByteArray_type -> importQ ''ByteArray
     SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray

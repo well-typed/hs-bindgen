@@ -5,7 +5,11 @@ module HsBindgen.SHs.Translation (
 
 -- previously Backend.Common.Translation
 
+import Data.List.NonEmpty (NonEmpty((:|)))
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
+import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as C hiding ( IntegralType )
@@ -47,8 +51,15 @@ translateDefineInstanceDecl (Hs.InstanceHasFLAM struct fty i) =
     DInst Instance
       { instanceClass = HasFlexibleArrayMember_class
       , instanceArgs  = [ translateType fty, TCon $ Hs.structName struct ]
+      , instanceTypes = []
       , instanceDecs  = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
       }
+translateDefineInstanceDecl (Hs.InstanceCEnum struct fTyp vMap) =
+    DInst $ translateCEnumInstance struct fTyp vMap
+translateDefineInstanceDecl (Hs.InstanceSequentialCEnum struct nameMin nameMax) =
+    DInst $ translateSequentialCEnum struct nameMin nameMax
+translateDefineInstanceDecl (Hs.InstanceCEnumShow struct) =
+    DInst $ translateCEnumInstanceShow struct
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord $ Record
@@ -335,6 +346,7 @@ translateStorableInstance struct Hs.StorableInstance{..} = do
     Instance
       { instanceClass = Storable_class
       , instanceArgs  = [TCon $ Hs.structName struct]
+      , instanceTypes = []
       , instanceDecs  = [
             (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
           , (Storable_alignment , EUnusedLam $ EInt storableAlignment)
@@ -378,6 +390,84 @@ translateUnionSetter :: HsName NsTypeConstr -> HsType -> HsName NsVar -> SDecl
 translateUnionSetter u f n = DVar n
     (Just $ TFun (translateType f) (TCon u))
     (EGlobal ByteArray_setUnionPayload)
+
+{-------------------------------------------------------------------------------
+  Enums
+-------------------------------------------------------------------------------}
+
+translateCEnumInstance ::
+     Hs.Struct (S Z)
+  -> HsType
+  -> Map Integer (NonEmpty String)
+  -> Instance
+translateCEnumInstance struct fTyp vMap = Instance {
+      instanceClass = CEnum_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
+    , instanceDecs  = [
+          (CEnum_fromCEnumZ, ECon (Hs.structConstr struct))
+        , (CEnum_toCEnumZ, EFree fname)
+        , (CEnum_declaredValues, EUnusedLam vMapE)
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+    fname :: HsName NsVar
+    fname = Hs.fieldName $
+      NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
+
+    vMapE :: SExpr ctx
+    vMapE = EApp (EGlobal Map_fromList) $ EList [
+        ETup [
+            EIntegral v Nothing
+          , if null names
+              then EApp (EGlobal NonEmpty_singleton) (EString name)
+              else
+                EInfix
+                  NonEmpty_constructor
+                  (EString name)
+                  (EList (EString <$> names))
+          ]
+      | (v, name :| names) <- Map.toList vMap
+      ]
+
+translateSequentialCEnum ::
+     Hs.Struct (S Z)
+  -> HsName NsConstr
+  -> HsName NsConstr
+  -> Instance
+translateSequentialCEnum struct nameMin nameMax = Instance {
+      instanceClass = SequentialCEnum_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = []
+    , instanceDecs  = [
+          (SequentialCEnum_minDeclaredValue, ECon nameMin)
+        , (SequentialCEnum_maxDeclaredValue, ECon nameMax)
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+translateCEnumInstanceShow ::
+     Hs.Struct (S Z)
+  -> Instance
+translateCEnumInstanceShow struct = Instance {
+      instanceClass = Show_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = []
+    , instanceDecs  = [
+          (Show_show, EApp (EGlobal CEnum_showCEnum) dconStrE)
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+    dconStrE :: SExpr ctx
+    dconStrE = EString . T.unpack $ getHsName (Hs.structConstr struct)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality

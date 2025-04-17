@@ -17,6 +17,12 @@ enum same {
     SAME_B = 1,
 };
 
+enum nonseq {
+    NONSEQ_A = 200,
+    NONSEQ_B = 301,
+    NONSEQ_C = 404
+};
+
 enum packad {
     PACKED_A, PACKED_B, PACKED_C
 } __attribute__((packed));

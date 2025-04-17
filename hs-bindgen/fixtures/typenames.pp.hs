@@ -3,12 +3,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
+import qualified Data.List.NonEmpty
+import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure)
+import qualified HsBindgen.Runtime.CEnum
+import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
 
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
@@ -31,15 +35,33 @@ instance F.Storable Foo where
         case s1 of
           Foo un_Foo2 -> F.pokeByteOff ptr0 (0 :: Int) un_Foo2
 
-deriving stock instance Show Foo
-
-deriving stock instance Read Foo
-
 deriving stock instance Eq Foo
 
 deriving stock instance Ord Foo
 
-deriving newtype instance Enum Foo
+deriving stock instance Read Foo
+
+instance HsBindgen.Runtime.CEnum.CEnum Foo where
+
+  type CEnumZ Foo = FC.CUInt
+
+  fromCEnumZ = Foo
+
+  toCEnumZ = un_Foo
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO1"), (1, Data.List.NonEmpty.singleton "FOO2")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
+
+  minDeclaredValue = FOO1
+
+  maxDeclaredValue = FOO2
+
+instance Show Foo where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Foo"
 
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0

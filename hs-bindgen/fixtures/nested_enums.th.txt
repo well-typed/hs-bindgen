@@ -5,11 +5,19 @@ instance Storable EnumA
            peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3}}
-deriving stock instance Show EnumA
-deriving stock instance Read EnumA
 deriving stock instance Eq EnumA
 deriving stock instance Ord EnumA
-deriving newtype instance Enum EnumA
+deriving stock instance Read EnumA
+instance CEnum EnumA
+    where {type CEnumZ EnumA = CUInt;
+           fromCEnumZ = EnumA;
+           toCEnumZ = un_EnumA;
+           declaredValues = \_ -> fromList [(0, singleton "VALA_1"),
+                                            (1, singleton "VALA_2")]}
+instance SequentialCEnum EnumA
+    where {minDeclaredValue = VALA_1; maxDeclaredValue = VALA_2}
+instance Show EnumA
+    where {show = showCEnum "EnumA"}
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
 pattern VALA_2 :: EnumA
@@ -30,11 +38,19 @@ instance Storable ExB_fieldB1
            peek = \ptr_0 -> pure ExB_fieldB1 <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {ExB_fieldB1 un_ExB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) un_ExB_fieldB1_3}}
-deriving stock instance Show ExB_fieldB1
-deriving stock instance Read ExB_fieldB1
 deriving stock instance Eq ExB_fieldB1
 deriving stock instance Ord ExB_fieldB1
-deriving newtype instance Enum ExB_fieldB1
+deriving stock instance Read ExB_fieldB1
+instance CEnum ExB_fieldB1
+    where {type CEnumZ ExB_fieldB1 = CUInt;
+           fromCEnumZ = ExB_fieldB1;
+           toCEnumZ = un_ExB_fieldB1;
+           declaredValues = \_ -> fromList [(0, singleton "VALB_1"),
+                                            (1, singleton "VALB_2")]}
+instance SequentialCEnum ExB_fieldB1
+    where {minDeclaredValue = VALB_1; maxDeclaredValue = VALB_2}
+instance Show ExB_fieldB1
+    where {show = showCEnum "ExB_fieldB1"}
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0
 pattern VALB_2 :: ExB_fieldB1

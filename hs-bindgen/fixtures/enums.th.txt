@@ -5,11 +5,19 @@ instance Storable First
            peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {First un_First_3 -> pokeByteOff ptr_1 (0 :: Int) un_First_3}}
-deriving stock instance Show First
-deriving stock instance Read First
 deriving stock instance Eq First
 deriving stock instance Ord First
-deriving newtype instance Enum First
+deriving stock instance Read First
+instance CEnum First
+    where {type CEnumZ First = CUInt;
+           fromCEnumZ = First;
+           toCEnumZ = un_First;
+           declaredValues = \_ -> fromList [(0, singleton "FIRST1"),
+                                            (1, singleton "FIRST2")]}
+instance SequentialCEnum First
+    where {minDeclaredValue = FIRST1; maxDeclaredValue = FIRST2}
+instance Show First
+    where {show = showCEnum "First"}
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
 pattern FIRST2 :: First
@@ -21,11 +29,20 @@ instance Storable Second
            peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Second un_Second_3 -> pokeByteOff ptr_1 (0 :: Int) un_Second_3}}
-deriving stock instance Show Second
-deriving stock instance Read Second
 deriving stock instance Eq Second
 deriving stock instance Ord Second
-deriving newtype instance Enum Second
+deriving stock instance Read Second
+instance CEnum Second
+    where {type CEnumZ Second = CInt;
+           fromCEnumZ = Second;
+           toCEnumZ = un_Second;
+           declaredValues = \_ -> fromList [(-1, singleton "SECOND_A"),
+                                            (0, singleton "SECOND_B"),
+                                            (1, singleton "SECOND_C")]}
+instance SequentialCEnum Second
+    where {minDeclaredValue = SECOND_A; maxDeclaredValue = SECOND_C}
+instance Show Second
+    where {show = showCEnum "Second"}
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
 pattern SECOND_B :: Second
@@ -39,15 +56,47 @@ instance Storable Same
            peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Same un_Same_3 -> pokeByteOff ptr_1 (0 :: Int) un_Same_3}}
-deriving stock instance Show Same
-deriving stock instance Read Same
 deriving stock instance Eq Same
 deriving stock instance Ord Same
-deriving newtype instance Enum Same
+deriving stock instance Read Same
+instance CEnum Same
+    where {type CEnumZ Same = CUInt;
+           fromCEnumZ = Same;
+           toCEnumZ = un_Same;
+           declaredValues = \_ -> fromList [(1, "SAME_B" :| ["SAME_A"])]}
+instance SequentialCEnum Same
+    where {minDeclaredValue = SAME_B; maxDeclaredValue = SAME_B}
+instance Show Same
+    where {show = showCEnum "Same"}
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
+newtype Nonseq = Nonseq {un_Nonseq :: CUInt}
+instance Storable Nonseq
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3}}
+deriving stock instance Eq Nonseq
+deriving stock instance Ord Nonseq
+deriving stock instance Read Nonseq
+instance CEnum Nonseq
+    where {type CEnumZ Nonseq = CUInt;
+           fromCEnumZ = Nonseq;
+           toCEnumZ = un_Nonseq;
+           declaredValues = \_ -> fromList [(200, singleton "NONSEQ_A"),
+                                            (301, singleton "NONSEQ_B"),
+                                            (404, singleton "NONSEQ_C")]}
+instance Show Nonseq
+    where {show = showCEnum "Nonseq"}
+pattern NONSEQ_A :: Nonseq
+pattern NONSEQ_A = Nonseq 200
+pattern NONSEQ_B :: Nonseq
+pattern NONSEQ_B = Nonseq 301
+pattern NONSEQ_C :: Nonseq
+pattern NONSEQ_C = Nonseq 404
 newtype Packad = Packad {un_Packad :: CSChar}
 instance Storable Packad
     where {sizeOf = \_ -> 1 :: Int;
@@ -55,11 +104,20 @@ instance Storable Packad
            peek = \ptr_0 -> pure Packad <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Packad un_Packad_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packad_3}}
-deriving stock instance Show Packad
-deriving stock instance Read Packad
 deriving stock instance Eq Packad
 deriving stock instance Ord Packad
-deriving newtype instance Enum Packad
+deriving stock instance Read Packad
+instance CEnum Packad
+    where {type CEnumZ Packad = CSChar;
+           fromCEnumZ = Packad;
+           toCEnumZ = un_Packad;
+           declaredValues = \_ -> fromList [(0, singleton "PACKED_A"),
+                                            (1, singleton "PACKED_B"),
+                                            (2, singleton "PACKED_C")]}
+instance SequentialCEnum Packad
+    where {minDeclaredValue = PACKED_A; maxDeclaredValue = PACKED_C}
+instance Show Packad
+    where {show = showCEnum "Packad"}
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
 pattern PACKED_B :: Packad
@@ -73,11 +131,19 @@ instance Storable EnumA
            peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3}}
-deriving stock instance Show EnumA
-deriving stock instance Read EnumA
 deriving stock instance Eq EnumA
 deriving stock instance Ord EnumA
-deriving newtype instance Enum EnumA
+deriving stock instance Read EnumA
+instance CEnum EnumA
+    where {type CEnumZ EnumA = CUInt;
+           fromCEnumZ = EnumA;
+           toCEnumZ = un_EnumA;
+           declaredValues = \_ -> fromList [(0, singleton "A_FOO"),
+                                            (1, singleton "A_BAR")]}
+instance SequentialCEnum EnumA
+    where {minDeclaredValue = A_FOO; maxDeclaredValue = A_BAR}
+instance Show EnumA
+    where {show = showCEnum "EnumA"}
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
@@ -89,11 +155,19 @@ instance Storable EnumB
            peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumB un_EnumB_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumB_3}}
-deriving stock instance Show EnumB
-deriving stock instance Read EnumB
 deriving stock instance Eq EnumB
 deriving stock instance Ord EnumB
-deriving newtype instance Enum EnumB
+deriving stock instance Read EnumB
+instance CEnum EnumB
+    where {type CEnumZ EnumB = CUInt;
+           fromCEnumZ = EnumB;
+           toCEnumZ = un_EnumB;
+           declaredValues = \_ -> fromList [(0, singleton "B_FOO"),
+                                            (1, singleton "B_BAR")]}
+instance SequentialCEnum EnumB
+    where {minDeclaredValue = B_FOO; maxDeclaredValue = B_BAR}
+instance Show EnumB
+    where {show = showCEnum "EnumB"}
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
@@ -105,11 +179,19 @@ instance Storable EnumC
            peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumC un_EnumC_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumC_3}}
-deriving stock instance Show EnumC
-deriving stock instance Read EnumC
 deriving stock instance Eq EnumC
 deriving stock instance Ord EnumC
-deriving newtype instance Enum EnumC
+deriving stock instance Read EnumC
+instance CEnum EnumC
+    where {type CEnumZ EnumC = CUInt;
+           fromCEnumZ = EnumC;
+           toCEnumZ = un_EnumC;
+           declaredValues = \_ -> fromList [(0, singleton "C_FOO"),
+                                            (1, singleton "C_BAR")]}
+instance SequentialCEnum EnumC
+    where {minDeclaredValue = C_FOO; maxDeclaredValue = C_BAR}
+instance Show EnumC
+    where {show = showCEnum "EnumC"}
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
@@ -121,11 +203,19 @@ instance Storable EnumD
            peek = \ptr_0 -> pure EnumD <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {EnumD un_EnumD_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_3}}
-deriving stock instance Show EnumD
-deriving stock instance Read EnumD
 deriving stock instance Eq EnumD
 deriving stock instance Ord EnumD
-deriving newtype instance Enum EnumD
+deriving stock instance Read EnumD
+instance CEnum EnumD
+    where {type CEnumZ EnumD = CUInt;
+           fromCEnumZ = EnumD;
+           toCEnumZ = un_EnumD;
+           declaredValues = \_ -> fromList [(0, singleton "D_FOO"),
+                                            (1, singleton "D_BAR")]}
+instance SequentialCEnum EnumD
+    where {minDeclaredValue = D_FOO; maxDeclaredValue = D_BAR}
+instance Show EnumD
+    where {show = showCEnum "EnumD"}
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0
 pattern D_BAR :: EnumD

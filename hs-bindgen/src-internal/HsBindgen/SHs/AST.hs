@@ -79,6 +79,7 @@ data Global =
   | RealFloat_class
   | RealFrac_class
   | Show_class
+  | Show_show
 
     -- | Primitive (unboxed) type equality
   | NomEq_class
@@ -138,6 +139,22 @@ data Global =
   | GHC_Float_castWord32ToFloat
   | GHC_Float_castWord64ToDouble
 
+  | NonEmpty_constructor
+  | NonEmpty_singleton
+  | Map_fromList
+
+  | CEnum_class
+  | CEnumZ_tycon
+  | CEnum_fromCEnumZ
+  | CEnum_toCEnumZ
+  | CEnum_declaredValues
+  | SequentialCEnum_class
+  | SequentialCEnum_minDeclaredValue
+  | SequentialCEnum_maxDeclaredValue
+  | CEnum_showCEnum
+  | AsCEnum_type
+  | AsSequentialCEnum_type
+
   | ByteArray_type
   | SizedByteArray_type
   | PrimType HsPrimType
@@ -156,12 +173,15 @@ data SExpr ctx =
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
   | EChar CExpr.CharValue
+  | EString String
   | ECString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix Global (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
+  | ETup [SExpr ctx]
+  | EList [SExpr ctx]
   deriving stock (Show)
 
 -- | Pattern&Expressions
@@ -223,6 +243,7 @@ deriving stock instance Show (SType ctx)
 data Instance  = Instance {
       instanceClass :: Global
     , instanceArgs  :: [ClosedType]
+    , instanceTypes :: [(Global, ClosedType, ClosedType)]
     , instanceDecs  :: [(Global, ClosedExpr)]
     }
   deriving stock (Show)

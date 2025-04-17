@@ -175,6 +175,7 @@ resolveExprImports = \case
                   , CharValue_constructor
                   , CharValue_fromAddr
                   ]
+    EString {} -> mempty
     ECString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen
                 <> resolveGlobalImports Ptr_constructor
     EFloat _ t -> resolvePrimTypeImports t
@@ -189,6 +190,8 @@ resolveExprImports = \case
       : [ resolveExprImports body
         | SAlt _con _add _hints body <- alts
         ]
+    ETup xs -> foldMap resolveExprImports xs
+    EList xs -> foldMap resolveExprImports xs
 
 -- | Resolve imports in a pattern|expression
 resolvePatExprImports :: PatExpr -> ImportAcc

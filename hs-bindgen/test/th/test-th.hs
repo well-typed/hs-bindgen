@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 -- For flexible array members:
 {-# OPTIONS_GHC -Wno-orphans #-}
@@ -14,6 +16,7 @@ import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, testGroup, defaultMain)
 import Test.Tasty.HUnit (testCase, (@?=))
 
+import HsBindgen.Runtime.CEnum qualified as CEnum
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.LibC qualified as LibC
@@ -43,6 +46,16 @@ _t01MyPlus x y = Test01.pLUS x y
 -- Flexible array member (orphan instance)
 instance FLAM.HasFlexibleArrayLength CLong Test01.StructFLAM where
     flexibleArrayMemberLength x = fromIntegral (Test01.structFLAM_length x)
+
+-- Bounded and Enum orphan instances
+deriving via CEnum.AsCEnum Test01.EnumBasic  instance Bounded Test01.EnumBasic
+deriving via CEnum.AsCEnum Test01.EnumBasic  instance Enum    Test01.EnumBasic
+deriving via CEnum.AsCEnum Test01.EnumNeg    instance Bounded Test01.EnumNeg
+deriving via CEnum.AsCEnum Test01.EnumNeg    instance Enum    Test01.EnumNeg
+deriving via CEnum.AsCEnum Test01.EnumNonSeq instance Bounded Test01.EnumNonSeq
+deriving via CEnum.AsCEnum Test01.EnumNonSeq instance Enum    Test01.EnumNonSeq
+deriving via CEnum.AsCEnum Test01.EnumSame   instance Bounded Test01.EnumSame
+deriving via CEnum.AsCEnum Test01.EnumSame   instance Enum    Test01.EnumSame
 
 -- Unit tests
 test01 :: TestTree
@@ -81,6 +94,26 @@ test01 = testGroup "test_01"
 
             struct <- FLAM.peekWithFLAM ptr
             FLAM.flamExtra struct @?= VS.fromList [0..9]
+
+    , testCase "EnumBasic" $
+        [minBound..maxBound]
+          @?= [Test01.ENUM_BASIC_A, Test01.ENUM_BASIC_B, Test01.ENUM_BASIC_C]
+
+    , testCase "EnumNeg" $
+        [minBound..maxBound]
+          @?= [Test01.ENUM_NEG_A, Test01.ENUM_NEG_B, Test01.ENUM_NEG_C]
+
+    , testCase "EnumNonSeq" $
+        [minBound..maxBound]
+          @?= [ Test01.ENUM_NON_SEQ_A
+              , Test01.ENUM_NON_SEQ_B
+              , Test01.ENUM_NON_SEQ_C
+              ]
+
+    , testCase "EnumSame" $ do
+        Test01.ENUM_SAME_B @?= Test01.ENUM_SAME_C
+        [minBound..maxBound]
+          @?= [Test01.ENUM_SAME_A, Test01.ENUM_SAME_B, Test01.ENUM_SAME_D]
     ]
 
 {-------------------------------------------------------------------------------

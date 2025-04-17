@@ -5,11 +5,19 @@ instance Storable Foo
            peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3}}
-deriving stock instance Show Foo
-deriving stock instance Read Foo
 deriving stock instance Eq Foo
 deriving stock instance Ord Foo
-deriving newtype instance Enum Foo
+deriving stock instance Read Foo
+instance CEnum Foo
+    where {type CEnumZ Foo = CUInt;
+           fromCEnumZ = Foo;
+           toCEnumZ = un_Foo;
+           declaredValues = \_ -> fromList [(0, singleton "FOO1"),
+                                            (1, singleton "FOO2")]}
+instance SequentialCEnum Foo
+    where {minDeclaredValue = FOO1; maxDeclaredValue = FOO2}
+instance Show Foo
+    where {show = showCEnum "Foo"}
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo

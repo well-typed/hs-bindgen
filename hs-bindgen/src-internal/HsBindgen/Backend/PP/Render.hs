@@ -113,19 +113,21 @@ instance Pretty SDecl where
         , nest 2 $ pretty expr
         ]
 
-    DInst Instance{..} -> vsep $
-        hsep
-          ([ "instance"
-          , pretty (resolve instanceClass)
-          ] ++
-          map pretty instanceArgs ++
-          [ "where"
-          ])
-      : ( flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ ppUnqualBackendName (resolve name) <+> char '='
-            , nest 2 $ pretty expr
+    DInst Instance{..} ->
+      let inst = hsep $
+            ["instance", pretty (resolve instanceClass)]
+              ++ map pretty instanceArgs
+              ++ ["where"]
+          typs = flip map instanceTypes $ \(g, typArg, typSyn) -> nest 2 $ fsep
+            [ "type" <+> ppUnqualBackendName (resolve g) <+> prettyPrec 1 typArg
+                <+> char '='
+            , pretty typSyn
             ]
-        )
+          decs = flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
+            [ ppUnqualBackendName (resolve name) <+> char '='
+            , nest 2 (pretty expr)
+            ]
+      in  vsep $ inst : typs ++ decs
 
     DRecord Record{..} ->
       let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
@@ -223,12 +225,9 @@ prettyExpr env prec = \case
     EFree x  -> pretty x
     ECon n   -> pretty n
 
-    EIntegral i Nothing  -> showToCtxDoc i
-    EIntegral i (Just t) -> parens $ hcat [
-          parensWhen (i < 0) (showToCtxDoc i)
-        , " :: "
-        , prettyPrimType t
-        ]
+    EIntegral i Nothing -> parensWhen (prec > 0 && i < 0) (showToCtxDoc i)
+    EIntegral i (Just t) ->
+      parens $ hcat [showToCtxDoc i, " :: ", prettyPrimType t]
     EChar (CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
       prettyExpr env 0 (EGlobal CharValue_fromAddr)
         <+> string str
@@ -236,6 +235,7 @@ prettyExpr env prec = \case
         <+> case mbUnicode of { Nothing -> "Nothing"; Just c -> parens ("Just" <+> string (show c)) }
       where
         (str, len) = addrLiteral ba
+    EString s -> showToCtxDoc s
     ECString bs ->
       -- Use unboxed Addr# literals to turn a string literal into a
       -- value of type CStringLen.
@@ -313,6 +313,15 @@ prettyExpr env prec = \case
 
             | SAlt cnst add hints body <- alts
             ]
+
+    ETup xs ->
+      let ds = prettyExpr env 0 <$> xs
+          l  = hlist '(' ')' ds
+      in  ifFits l l $ vlist '(' ')' ds
+    EList xs ->
+      let ds = prettyExpr env 0 <$> xs
+          l  = hlist '[' ']' ds
+      in  ifFits l l $ vlist '[' ']' ds
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.

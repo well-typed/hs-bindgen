@@ -6,17 +6,21 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Example where
 
 import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.List.NonEmpty
+import qualified Data.Map.Strict
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, show)
 
 a :: FC.CInt
 a = (5 :: FC.CInt)
@@ -92,15 +96,33 @@ instance F.Storable Another_typedef_enum_e where
           Another_typedef_enum_e un_Another_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Another_typedef_enum_e2
 
-deriving stock instance Show Another_typedef_enum_e
-
-deriving stock instance Read Another_typedef_enum_e
-
 deriving stock instance Eq Another_typedef_enum_e
 
 deriving stock instance Ord Another_typedef_enum_e
 
-deriving newtype instance Enum Another_typedef_enum_e
+deriving stock instance Read Another_typedef_enum_e
+
+instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
+
+  type CEnumZ Another_typedef_enum_e = FC.CUInt
+
+  fromCEnumZ = Another_typedef_enum_e
+
+  toCEnumZ = un_Another_typedef_enum_e
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
+
+  minDeclaredValue = FOO
+
+  maxDeclaredValue = BAR
+
+instance Show Another_typedef_enum_e where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Another_typedef_enum_e"
 
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
@@ -353,15 +375,37 @@ instance F.Storable A_typedef_enum_e where
           A_typedef_enum_e un_A_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_A_typedef_enum_e2
 
-deriving stock instance Show A_typedef_enum_e
-
-deriving stock instance Read A_typedef_enum_e
-
 deriving stock instance Eq A_typedef_enum_e
 
 deriving stock instance Ord A_typedef_enum_e
 
-deriving newtype instance Enum A_typedef_enum_e
+deriving stock instance Read A_typedef_enum_e
+
+instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
+
+  type CEnumZ A_typedef_enum_e = FC.CSChar
+
+  fromCEnumZ = A_typedef_enum_e
+
+  toCEnumZ = un_A_typedef_enum_e
+
+  declaredValues =
+    \_ ->
+      Data.Map.Strict.fromList [ (0, Data.List.NonEmpty.singleton "ENUM_CASE_0")
+                               , (1, Data.List.NonEmpty.singleton "ENUM_CASE_1")
+                               , (2, Data.List.NonEmpty.singleton "ENUM_CASE_2")
+                               , (3, Data.List.NonEmpty.singleton "ENUM_CASE_3")
+                               ]
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
+
+  minDeclaredValue = ENUM_CASE_0
+
+  maxDeclaredValue = ENUM_CASE_3
+
+instance Show A_typedef_enum_e where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "A_typedef_enum_e"
 
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0

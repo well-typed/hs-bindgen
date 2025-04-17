@@ -185,18 +185,6 @@
                     (Idx 0)])))}),
   DeclNewtypeInstance
     DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "MyEnum"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "MyEnum"),
-  DeclNewtypeInstance
-    DeriveStock
     Eq
     (HsName
       "@NsTypeConstr"
@@ -208,11 +196,154 @@
       "@NsTypeConstr"
       "MyEnum"),
   DeclNewtypeInstance
-    DeriveNewtype
-    Enum
+    DeriveStock
+    Read
     (HsName
       "@NsTypeConstr"
       "MyEnum"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "MyEnum",
+        structConstr = HsName
+          "@NsConstr"
+          "MyEnum",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_MyEnum",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "MyEnum")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "Say\20320\22909",
+                valueValue = 0,
+                valueSourceLoc =
+                "uses_utf8.h:5:9"},
+              EnumValue {
+                valueName = CName
+                  "Say\25308\25308",
+                valueValue = 1,
+                valueSourceLoc =
+                "uses_utf8.h:6:9"}],
+            enumSourceLoc =
+            "uses_utf8.h:4:6"}}
+      (HsPrimType HsPrimCUInt)
+      (Map.fromList
+        [
+          _×_
+            0
+            (NE.fromList
+              ["Say\20320\22909"]),
+          _×_
+            1
+            (NE.fromList
+              ["Say\25308\25308"])])),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "MyEnum",
+        structConstr = HsName
+          "@NsConstr"
+          "MyEnum",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_MyEnum",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "MyEnum")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "Say\20320\22909",
+                valueValue = 0,
+                valueSourceLoc =
+                "uses_utf8.h:5:9"},
+              EnumValue {
+                valueName = CName
+                  "Say\25308\25308",
+                valueValue = 1,
+                valueSourceLoc =
+                "uses_utf8.h:6:9"}],
+            enumSourceLoc =
+            "uses_utf8.h:4:6"}}
+      (HsName
+        "@NsConstr"
+        "Say\20320\22909")
+      (HsName
+        "@NsConstr"
+        "Say\25308\25308")),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "MyEnum",
+        structConstr = HsName
+          "@NsConstr"
+          "MyEnum",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_MyEnum",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "MyEnum")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "Say\20320\22909",
+                valueValue = 0,
+                valueSourceLoc =
+                "uses_utf8.h:5:9"},
+              EnumValue {
+                valueName = CName
+                  "Say\25308\25308",
+                valueValue = 1,
+                valueSourceLoc =
+                "uses_utf8.h:6:9"}],
+            enumSourceLoc =
+            "uses_utf8.h:4:6"}}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
