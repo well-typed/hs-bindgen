@@ -620,3 +620,364 @@ deriving newtype instance Integral Data
 deriving newtype instance Num Data
 
 deriving newtype instance Real Data
+
+newtype Signal = Signal
+  { un_Signal :: FC.CUInt
+  }
+
+instance F.Storable Signal where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Signal
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Signal un_Signal2 -> F.pokeByteOff ptr0 (0 :: Int) un_Signal2
+
+deriving stock instance Eq Signal
+
+deriving stock instance Ord Signal
+
+deriving stock instance Read Signal
+
+instance HsBindgen.Runtime.CEnum.CEnum Signal where
+
+  type CEnumZ Signal = FC.CUInt
+
+  fromCEnumZ = Signal
+
+  toCEnumZ = un_Signal
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (1, Data.List.NonEmpty.singleton "Start")
+                                                     , (2, Data.List.NonEmpty.singleton "Pause")
+                                                     , (3, Data.List.NonEmpty.singleton "Resume")
+                                                     , (4, Data.List.NonEmpty.singleton "Stop")
+                                                     ]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Signal where
+
+  minDeclaredValue = Start
+
+  maxDeclaredValue = Stop
+
+instance Show Signal where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Signal"
+
+pattern Start :: Signal
+pattern Start = Signal 1
+
+pattern Pause :: Signal
+pattern Pause = Signal 2
+
+pattern Resume :: Signal
+pattern Resume = Signal 3
+
+pattern Stop :: Signal
+pattern Stop = Signal 4
+
+newtype HTTP_status = HTTP_status
+  { un_HTTP_status :: FC.CUInt
+  }
+
+instance F.Storable HTTP_status where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure HTTP_status
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          HTTP_status un_HTTP_status2 -> F.pokeByteOff ptr0 (0 :: Int) un_HTTP_status2
+
+deriving stock instance Eq HTTP_status
+
+deriving stock instance Ord HTTP_status
+
+deriving stock instance Read HTTP_status
+
+instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
+
+  type CEnumZ HTTP_status = FC.CUInt
+
+  fromCEnumZ = HTTP_status
+
+  toCEnumZ = un_HTTP_status
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (200, Data.List.NonEmpty.singleton "Ok")
+                                                     , (301, Data.List.NonEmpty.singleton "Moved")
+                                                     , (400, Data.List.NonEmpty.singleton "Bad_request")
+                                                     , (401, Data.List.NonEmpty.singleton "Unauthorized")
+                                                     , (404, Data.List.NonEmpty.singleton "Not_found")
+                                                     ]
+
+instance Show HTTP_status where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "HTTP_status"
+
+pattern Ok :: HTTP_status
+pattern Ok = HTTP_status 200
+
+pattern Moved :: HTTP_status
+pattern Moved = HTTP_status 301
+
+pattern Bad_request :: HTTP_status
+pattern Bad_request = HTTP_status 400
+
+pattern Unauthorized :: HTTP_status
+pattern Unauthorized = HTTP_status 401
+
+pattern Not_found :: HTTP_status
+pattern Not_found = HTTP_status 404
+
+newtype Result = Result
+  { un_Result :: FC.CInt
+  }
+
+instance F.Storable Result where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Result
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Result un_Result2 -> F.pokeByteOff ptr0 (0 :: Int) un_Result2
+
+deriving stock instance Eq Result
+
+deriving stock instance Ord Result
+
+deriving stock instance Read Result
+
+instance HsBindgen.Runtime.CEnum.CEnum Result where
+
+  type CEnumZ Result = FC.CInt
+
+  fromCEnumZ = Result
+
+  toCEnumZ = un_Result
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (-1, Data.List.NonEmpty.singleton "Failed")
+                                                     , (0, Data.List.NonEmpty.singleton "Success")
+                                                     , (1, Data.List.NonEmpty.singleton "Postponed")
+                                                     , (2, Data.List.NonEmpty.singleton "Already_done")
+                                                     ]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Result where
+
+  minDeclaredValue = Failed
+
+  maxDeclaredValue = Already_done
+
+instance Show Result where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Result"
+
+pattern Failed :: Result
+pattern Failed = Result (-1)
+
+pattern Success :: Result
+pattern Success = Result 0
+
+pattern Postponed :: Result
+pattern Postponed = Result 1
+
+pattern Already_done :: Result
+pattern Already_done = Result 2
+
+newtype Vote = Vote
+  { un_Vote :: FC.CSChar
+  }
+
+instance F.Storable Vote where
+
+  sizeOf = \_ -> (1 :: Int)
+
+  alignment = \_ -> (1 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Vote
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Vote un_Vote2 -> F.pokeByteOff ptr0 (0 :: Int) un_Vote2
+
+deriving stock instance Eq Vote
+
+deriving stock instance Ord Vote
+
+deriving stock instance Read Vote
+
+instance HsBindgen.Runtime.CEnum.CEnum Vote where
+
+  type CEnumZ Vote = FC.CSChar
+
+  fromCEnumZ = Vote
+
+  toCEnumZ = un_Vote
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "Infavour")
+                                                     , (1, Data.List.NonEmpty.singleton "Against")
+                                                     , (2, Data.List.NonEmpty.singleton "Abstain")
+                                                     ]
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Vote where
+
+  minDeclaredValue = Infavour
+
+  maxDeclaredValue = Abstain
+
+instance Show Vote where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "Vote"
+
+pattern Infavour :: Vote
+pattern Infavour = Vote 0
+
+pattern Against :: Vote
+pattern Against = Vote 1
+
+pattern Abstain :: Vote
+pattern Abstain = Vote 2
+
+newtype CXCursorKind = CXCursorKind
+  { un_CXCursorKind :: FC.CUInt
+  }
+
+instance F.Storable CXCursorKind where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure CXCursorKind
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          CXCursorKind un_CXCursorKind2 -> F.pokeByteOff ptr0 (0 :: Int) un_CXCursorKind2
+
+deriving stock instance Eq CXCursorKind
+
+deriving stock instance Ord CXCursorKind
+
+deriving stock instance Read CXCursorKind
+
+instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
+
+  type CEnumZ CXCursorKind = FC.CUInt
+
+  fromCEnumZ = CXCursorKind
+
+  toCEnumZ = un_CXCursorKind
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (100, ("CXCursor_FirstExpr" Data.List.NonEmpty.:| ["CXCursor_UnexposedExpr"]))
+                                                     , (101, Data.List.NonEmpty.singleton "CXCursor_DeclRefExpr")
+                                                     , (102, Data.List.NonEmpty.singleton "CXCursor_MemberRefExpr")
+                                                     , (103, Data.List.NonEmpty.singleton "CXCursor_CallExpr")
+                                                     , (156, ("CXCursor_PackIndexingExpr" Data.List.NonEmpty.:| ["CXCursor_LastExpr"]))
+                                                     , (200, ("CXCursor_FirstStmt" Data.List.NonEmpty.:| ["CXCursor_UnexposedStmt"]))
+                                                     , (201, Data.List.NonEmpty.singleton "CXCursor_LabelStmt")
+                                                     , (202, Data.List.NonEmpty.singleton "CXCursor_CompoundStmt")
+                                                     , (203, Data.List.NonEmpty.singleton "CXCursor_CaseStmt")
+                                                     , (331, ("CXCursor_OpenACCUpdateConstruct" Data.List.NonEmpty.:| ["CXCursor_LastStmt"]))
+                                                     ]
+
+instance Show CXCursorKind where
+
+  show = HsBindgen.Runtime.CEnum.showCEnum "CXCursorKind"
+
+pattern CXCursor_FirstExpr :: CXCursorKind
+pattern CXCursor_FirstExpr = CXCursorKind 100
+
+pattern CXCursor_UnexposedExpr :: CXCursorKind
+pattern CXCursor_UnexposedExpr = CXCursorKind 100
+
+pattern CXCursor_DeclRefExpr :: CXCursorKind
+pattern CXCursor_DeclRefExpr = CXCursorKind 101
+
+pattern CXCursor_MemberRefExpr :: CXCursorKind
+pattern CXCursor_MemberRefExpr = CXCursorKind 102
+
+pattern CXCursor_CallExpr :: CXCursorKind
+pattern CXCursor_CallExpr = CXCursorKind 103
+
+pattern CXCursor_PackIndexingExpr :: CXCursorKind
+pattern CXCursor_PackIndexingExpr = CXCursorKind 156
+
+pattern CXCursor_LastExpr :: CXCursorKind
+pattern CXCursor_LastExpr = CXCursorKind 156
+
+pattern CXCursor_FirstStmt :: CXCursorKind
+pattern CXCursor_FirstStmt = CXCursorKind 200
+
+pattern CXCursor_UnexposedStmt :: CXCursorKind
+pattern CXCursor_UnexposedStmt = CXCursorKind 200
+
+pattern CXCursor_LabelStmt :: CXCursorKind
+pattern CXCursor_LabelStmt = CXCursorKind 201
+
+pattern CXCursor_CompoundStmt :: CXCursorKind
+pattern CXCursor_CompoundStmt = CXCursorKind 202
+
+pattern CXCursor_CaseStmt :: CXCursorKind
+pattern CXCursor_CaseStmt = CXCursorKind 203
+
+pattern CXCursor_OpenACCUpdateConstruct :: CXCursorKind
+pattern CXCursor_OpenACCUpdateConstruct = CXCursorKind 331
+
+pattern CXCursor_LastStmt :: CXCursorKind
+pattern CXCursor_LastStmt = CXCursorKind 331

@@ -31,11 +31,10 @@ constructor. There are however cases where we need to construct a derived name.
 
 ### Field names
 
-Field names. Fields in structs and unions do of course have a name in C, and we
-_could_ use those as the Haskell record field labels. Unlike their C
-counterparts, however, Haskell record field labels must be _globally_ unique. To
-avoid name clashes we therefore prefix fields with the name of the type. For
-example, given
+Fields in structs and unions do of course have a name in C, and we _could_ use
+those as the Haskell record field labels. Unlike their C counterparts, however,
+Haskell record field labels must be _globally_ unique. To avoid name clashes we
+therefore prefix fields with the name of the type. For example, given
 
 ```c
 typedef struct triple {

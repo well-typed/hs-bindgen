@@ -112,3 +112,57 @@ typedef int 数字;
 void ϒ(void);
 typedef int data;
 void import(void);
+
+/**
+ * Flavours of enums
+ */
+
+enum signal {
+  start = 1,
+  pause,
+  resume,
+  stop
+};
+
+enum HTTP_status {
+  ok           = 200,
+  moved        = 301,
+  bad_request  = 400,
+  unauthorized = 401,
+  not_found    = 404
+};
+
+enum result {
+  failed       = -1,
+  success      = 0,
+  postponed    = 1,
+  already_done = 2
+};
+
+enum vote {
+  infavour,
+  against,
+  abstain
+} __attribute__((packed));
+
+// Extract of `CXCursorKind` from `libclang`
+// https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+enum CXCursorKind {
+  CXCursor_FirstExpr        = 100,
+  CXCursor_UnexposedExpr    = 100,
+  CXCursor_DeclRefExpr      = 101,
+  CXCursor_MemberRefExpr    = 102,
+  CXCursor_CallExpr         = 103,
+  // .. many expressions omitted ..
+  CXCursor_PackIndexingExpr = 156,
+  CXCursor_LastExpr = CXCursor_PackIndexingExpr,
+
+  CXCursor_FirstStmt              = 200,
+  CXCursor_UnexposedStmt          = 200,
+  CXCursor_LabelStmt              = 201,
+  CXCursor_CompoundStmt           = 202,
+  CXCursor_CaseStmt               = 203,
+  // .. many statements omitted ..
+  CXCursor_OpenACCUpdateConstruct = 331,
+  CXCursor_LastStmt = CXCursor_OpenACCUpdateConstruct,
+};

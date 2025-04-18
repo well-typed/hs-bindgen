@@ -40,10 +40,35 @@ types:
   module: Example
   identifier: Date
 - headers: manual_examples.h
+  cname: enum CXCursorKind
+  package: example
+  module: Example
+  identifier: CXCursorKind
+- headers: manual_examples.h
+  cname: enum HTTP_status
+  package: example
+  module: Example
+  identifier: HTTP_status
+- headers: manual_examples.h
   cname: enum index
   package: example
   module: Example
   identifier: Index
+- headers: manual_examples.h
+  cname: enum result
+  package: example
+  module: Example
+  identifier: Result
+- headers: manual_examples.h
+  cname: enum signal
+  package: example
+  module: Example
+  identifier: Signal
+- headers: manual_examples.h
+  cname: enum vote
+  package: example
+  module: Example
+  identifier: Vote
 - headers: manual_examples.h
   cname: index
   package: example
