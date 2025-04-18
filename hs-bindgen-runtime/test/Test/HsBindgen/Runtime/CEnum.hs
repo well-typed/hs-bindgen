@@ -5,7 +5,6 @@ module Test.HsBindgen.Runtime.CEnum (tests) where
 import Control.Monad (forM_)
 import Data.List.NonEmpty (NonEmpty((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
-import Data.Map.Strict qualified as Map
 import Foreign.C qualified as FC
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit ((@=?), testCase)
@@ -52,7 +51,7 @@ instance CEnum NoValue where
 
   fromCEnumZ       = NoValue
   toCEnumZ         = un_NoValue
-  declaredValues _ = Map.empty
+  declaredValues _ = CEnum.declaredValuesFromList []
 
 deriving via AsCEnum NoValue instance Bounded NoValue
 
@@ -109,7 +108,7 @@ instance CEnum GenSingleValue where
 
   fromCEnumZ       = GenSingleValue
   toCEnumZ         = un_GenSingleValue
-  declaredValues _ = Map.singleton 1 ("OK" :| ["SUCCESS"])
+  declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
 
 deriving via AsCEnum GenSingleValue instance Bounded GenSingleValue
 
@@ -205,7 +204,7 @@ instance CEnum GenPosValue where
 
   fromCEnumZ       = GenPosValue
   toCEnumZ         = un_GenPosValue
-  declaredValues _ = Map.fromList [
+  declaredValues _ = CEnum.declaredValuesFromList [
       (100, NonEmpty.singleton "CONTINUE")
     , (101, NonEmpty.singleton "SWITCHING_PROTOCOLS")
     , (200, NonEmpty.singleton "OK")
@@ -354,7 +353,7 @@ instance CEnum GenNegValue where
 
   fromCEnumZ       = GenNegValue
   toCEnumZ         = un_GenNegValue
-  declaredValues _ = Map.fromList [
+  declaredValues _ = CEnum.declaredValuesFromList [
       (-201, NonEmpty.singleton "REALLY_TERRIBLE")
     , (-200, NonEmpty.singleton "TERRIBLE")
     , (-101, NonEmpty.singleton "REALLY_BAD")
@@ -503,7 +502,7 @@ instance CEnum SeqSingleValue where
 
   fromCEnumZ       = SeqSingleValue
   toCEnumZ         = un_SeqSingleValue
-  declaredValues _ = Map.singleton 1 ("OK" :| ["SUCCESS"])
+  declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
 
 instance SequentialCEnum SeqSingleValue where
   minDeclaredValue = SeqSingleValue 1
@@ -603,7 +602,7 @@ instance CEnum SeqPosValue where
 
   fromCEnumZ       = SeqPosValue
   toCEnumZ         = un_SeqPosValue
-  declaredValues _ = Map.fromList [
+  declaredValues _ = CEnum.declaredValuesFromList [
       (1,  "A" :| ["ALPHA"])
     , (2,  "B" :| ["BETA"])
     , (3,  NonEmpty.singleton "C")
@@ -747,7 +746,7 @@ instance CEnum SeqNegValue where
 
   fromCEnumZ       = SeqNegValue
   toCEnumZ         = un_SeqNegValue
-  declaredValues _ = Map.fromList [
+  declaredValues _ = CEnum.declaredValuesFromList [
       (-5, NonEmpty.singleton "GARBAGE")
     , (-4, NonEmpty.singleton "TERRIBLE")
     , (-3, NonEmpty.singleton "BAD")

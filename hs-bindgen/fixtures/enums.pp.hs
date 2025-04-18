@@ -8,7 +8,6 @@
 module Example where
 
 import qualified Data.List.NonEmpty
-import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
@@ -51,7 +50,7 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -110,10 +109,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [ (-1, Data.List.NonEmpty.singleton "SECOND_A")
-                               , (0, Data.List.NonEmpty.singleton "SECOND_B")
-                               , (1, Data.List.NonEmpty.singleton "SECOND_C")
-                               ]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (-1, Data.List.NonEmpty.singleton "SECOND_A")
+                                                     , (0, Data.List.NonEmpty.singleton "SECOND_B")
+                                                     , (1, Data.List.NonEmpty.singleton "SECOND_C")
+                                                     ]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -175,7 +174,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -234,10 +233,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [ (200, Data.List.NonEmpty.singleton "NONSEQ_A")
-                               , (301, Data.List.NonEmpty.singleton "NONSEQ_B")
-                               , (404, Data.List.NonEmpty.singleton "NONSEQ_C")
-                               ]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (200, Data.List.NonEmpty.singleton "NONSEQ_A")
+                                                     , (301, Data.List.NonEmpty.singleton "NONSEQ_B")
+                                                     , (404, Data.List.NonEmpty.singleton "NONSEQ_C")
+                                                     ]
 
 instance Show Nonseq where
 
@@ -289,10 +288,10 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [ (0, Data.List.NonEmpty.singleton "PACKED_A")
-                               , (1, Data.List.NonEmpty.singleton "PACKED_B")
-                               , (2, Data.List.NonEmpty.singleton "PACKED_C")
-                               ]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "PACKED_A")
+                                                     , (1, Data.List.NonEmpty.singleton "PACKED_B")
+                                                     , (2, Data.List.NonEmpty.singleton "PACKED_C")
+                                                     ]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -354,7 +353,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -413,7 +412,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -472,7 +471,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -531,7 +530,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 

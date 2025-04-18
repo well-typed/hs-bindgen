@@ -72,9 +72,6 @@ test-suite test-runtime
       -- Internal dependencies
     , hs-bindgen-runtime
   build-depends:
-      -- Inherited dependencies
-    , containers
-  build-depends:
       -- External dependencies
     , QuickCheck        ^>=2.15.0.1
     , tasty             ^>=1.5

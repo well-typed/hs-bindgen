@@ -168,6 +168,7 @@ mkGlobal = \case
       SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
       SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
       SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
+      CEnum_declaredValuesFromList -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
       CEnum_showCEnum -> 'HsBindgen.Runtime.CEnum.showCEnum
       CEnum_seqIsDeclared -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
       CEnum_seqMkDeclared -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -339,6 +340,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     SequentialCEnum_class            -> panicPure "class in expression"
     SequentialCEnum_minDeclaredValue -> TH.varE name
     SequentialCEnum_maxDeclaredValue -> TH.varE name
+    CEnum_declaredValuesFromList     -> TH.varE name
     CEnum_showCEnum                  -> TH.varE name
     CEnum_seqIsDeclared              -> TH.varE name
     CEnum_seqMkDeclared              -> TH.varE name

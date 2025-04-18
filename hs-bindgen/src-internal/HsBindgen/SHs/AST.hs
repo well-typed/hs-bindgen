@@ -154,6 +154,7 @@ data Global =
   | SequentialCEnum_class
   | SequentialCEnum_minDeclaredValue
   | SequentialCEnum_maxDeclaredValue
+  | CEnum_declaredValuesFromList
   | CEnum_showCEnum
   | CEnum_seqIsDeclared
   | CEnum_seqMkDeclared

@@ -13,8 +13,9 @@ instance CEnum MyEnum
     where {type CEnumZ MyEnum = CUInt;
            fromCEnumZ = MyEnum;
            toCEnumZ = un_MyEnum;
-           declaredValues = \_ -> fromList [(0, singleton "Say\20320\22909"),
-                                            (1, singleton "Say\25308\25308")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "Say\20320\22909"),
+                                                          (1, singleton "Say\25308\25308")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum MyEnum

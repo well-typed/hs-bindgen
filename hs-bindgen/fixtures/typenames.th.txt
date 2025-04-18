@@ -13,8 +13,9 @@ instance CEnum Foo
     where {type CEnumZ Foo = CUInt;
            fromCEnumZ = Foo;
            toCEnumZ = un_Foo;
-           declaredValues = \_ -> fromList [(0, singleton "FOO1"),
-                                            (1, singleton "FOO2")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "FOO1"),
+                                                          (1, singleton "FOO2")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Foo

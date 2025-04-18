@@ -13,8 +13,9 @@ instance CEnum First
     where {type CEnumZ First = CUInt;
            fromCEnumZ = First;
            toCEnumZ = un_First;
-           declaredValues = \_ -> fromList [(0, singleton "FIRST1"),
-                                            (1, singleton "FIRST2")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "FIRST1"),
+                                                          (1, singleton "FIRST2")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum First
@@ -39,9 +40,10 @@ instance CEnum Second
     where {type CEnumZ Second = CInt;
            fromCEnumZ = Second;
            toCEnumZ = un_Second;
-           declaredValues = \_ -> fromList [(-1, singleton "SECOND_A"),
-                                            (0, singleton "SECOND_B"),
-                                            (1, singleton "SECOND_C")];
+           declaredValues = \_ -> declaredValuesFromList [(-1,
+                                                           singleton "SECOND_A"),
+                                                          (0, singleton "SECOND_B"),
+                                                          (1, singleton "SECOND_C")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Second
@@ -68,7 +70,8 @@ instance CEnum Same
     where {type CEnumZ Same = CUInt;
            fromCEnumZ = Same;
            toCEnumZ = un_Same;
-           declaredValues = \_ -> fromList [(1, "SAME_B" :| ["SAME_A"])];
+           declaredValues = \_ -> declaredValuesFromList [(1,
+                                                           "SAME_B" :| ["SAME_A"])];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Same
@@ -93,9 +96,10 @@ instance CEnum Nonseq
     where {type CEnumZ Nonseq = CUInt;
            fromCEnumZ = Nonseq;
            toCEnumZ = un_Nonseq;
-           declaredValues = \_ -> fromList [(200, singleton "NONSEQ_A"),
-                                            (301, singleton "NONSEQ_B"),
-                                            (404, singleton "NONSEQ_C")]}
+           declaredValues = \_ -> declaredValuesFromList [(200,
+                                                           singleton "NONSEQ_A"),
+                                                          (301, singleton "NONSEQ_B"),
+                                                          (404, singleton "NONSEQ_C")]}
 instance Show Nonseq
     where {show = showCEnum "Nonseq"}
 pattern NONSEQ_A :: Nonseq
@@ -118,9 +122,10 @@ instance CEnum Packad
     where {type CEnumZ Packad = CSChar;
            fromCEnumZ = Packad;
            toCEnumZ = un_Packad;
-           declaredValues = \_ -> fromList [(0, singleton "PACKED_A"),
-                                            (1, singleton "PACKED_B"),
-                                            (2, singleton "PACKED_C")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "PACKED_A"),
+                                                          (1, singleton "PACKED_B"),
+                                                          (2, singleton "PACKED_C")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Packad
@@ -147,8 +152,9 @@ instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
            fromCEnumZ = EnumA;
            toCEnumZ = un_EnumA;
-           declaredValues = \_ -> fromList [(0, singleton "A_FOO"),
-                                            (1, singleton "A_BAR")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "A_FOO"),
+                                                          (1, singleton "A_BAR")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumA
@@ -173,8 +179,9 @@ instance CEnum EnumB
     where {type CEnumZ EnumB = CUInt;
            fromCEnumZ = EnumB;
            toCEnumZ = un_EnumB;
-           declaredValues = \_ -> fromList [(0, singleton "B_FOO"),
-                                            (1, singleton "B_BAR")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "B_FOO"),
+                                                          (1, singleton "B_BAR")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumB
@@ -199,8 +206,9 @@ instance CEnum EnumC
     where {type CEnumZ EnumC = CUInt;
            fromCEnumZ = EnumC;
            toCEnumZ = un_EnumC;
-           declaredValues = \_ -> fromList [(0, singleton "C_FOO"),
-                                            (1, singleton "C_BAR")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "C_FOO"),
+                                                          (1, singleton "C_BAR")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumC
@@ -225,8 +233,9 @@ instance CEnum EnumD
     where {type CEnumZ EnumD = CUInt;
            fromCEnumZ = EnumD;
            toCEnumZ = un_EnumD;
-           declaredValues = \_ -> fromList [(0, singleton "D_FOO"),
-                                            (1, singleton "D_BAR")];
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "D_FOO"),
+                                                          (1, singleton "D_BAR")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumD
