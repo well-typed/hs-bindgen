@@ -408,7 +408,7 @@ translateCEnumInstance struct fTyp vMap isSequential = Instance {
     , instanceDecs  = [
           (CEnum_fromCEnumZ, ECon (Hs.structConstr struct))
         , (CEnum_toCEnumZ, EFree fname)
-        , (CEnum_declaredValues, EUnusedLam vMapE)
+        , (CEnum_declaredValues, EUnusedLam declaredValuesE)
         ] ++ seqDecs
     }
   where
@@ -419,8 +419,8 @@ translateCEnumInstance struct fTyp vMap isSequential = Instance {
     fname = Hs.fieldName $
       NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
 
-    vMapE :: SExpr ctx
-    vMapE = EApp (EGlobal Map_fromList) $ EList [
+    declaredValuesE :: SExpr ctx
+    declaredValuesE = EApp (EGlobal CEnum_declaredValuesFromList) $ EList [
         ETup [
             EIntegral v Nothing
           , if null names

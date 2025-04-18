@@ -14,7 +14,6 @@ import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
-import qualified Data.Map.Strict
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -112,7 +111,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -395,11 +394,11 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [ (0, Data.List.NonEmpty.singleton "ENUM_CASE_0")
-                               , (1, Data.List.NonEmpty.singleton "ENUM_CASE_1")
-                               , (2, Data.List.NonEmpty.singleton "ENUM_CASE_2")
-                               , (3, Data.List.NonEmpty.singleton "ENUM_CASE_3")
-                               ]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "ENUM_CASE_0")
+                                                     , (1, Data.List.NonEmpty.singleton "ENUM_CASE_1")
+                                                     , (2, Data.List.NonEmpty.singleton "ENUM_CASE_2")
+                                                     , (3, Data.List.NonEmpty.singleton "ENUM_CASE_3")
+                                                     ]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 

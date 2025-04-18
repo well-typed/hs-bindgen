@@ -20,7 +20,6 @@ import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
-import qualified Data.Map.Strict
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.ByteArray
@@ -214,7 +213,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
 
   declaredValues =
     \_ ->
-      Data.Map.Strict.fromList [(0, Data.List.NonEmpty.singleton "A"), (1, Data.List.NonEmpty.singleton "B"), (2, Data.List.NonEmpty.singleton "C")]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "A"), (1, Data.List.NonEmpty.singleton "B"), (2, Data.List.NonEmpty.singleton "C")]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 

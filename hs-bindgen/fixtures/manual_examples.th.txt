@@ -90,9 +90,9 @@ instance CEnum Index
     where {type CEnumZ Index = CUInt;
            fromCEnumZ = Index;
            toCEnumZ = un_Index;
-           declaredValues = \_ -> fromList [(0, singleton "A"),
-                                            (1, singleton "B"),
-                                            (2, singleton "C")];
+           declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
+                                                          (1, singleton "B"),
+                                                          (2, singleton "C")];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Index

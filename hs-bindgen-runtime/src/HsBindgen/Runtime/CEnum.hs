@@ -11,6 +11,8 @@ module HsBindgen.Runtime.CEnum (
     -- * API
   , getNames
     -- * Instance support
+  , DeclaredValues
+  , declaredValuesFromList
   , showCEnum
   , seqIsDeclared
   , seqMkDeclared
@@ -66,16 +68,16 @@ class Integral (CEnumZ a) => CEnum a where
   toCEnumZ :: a -> CEnumZ a
 
   -- | Declared values and associated names
-  declaredValues :: proxy a -> Map (CEnumZ a) (NonEmpty String)
+  declaredValues :: proxy a -> DeclaredValues a
 
   -- | Determine if the specified value is declared
   isDeclared :: a -> Bool
-  isDeclared x = (toCEnumZ x) `Map.member` declaredValues (Proxy :: Proxy a)
+  isDeclared x = (toCEnumZ x) `Map.member` getDeclaredValues (Proxy :: Proxy a)
 
   -- | Construct a value only if it is declared
   mkDeclared :: CEnumZ a -> Maybe a
   mkDeclared i
-    | i `Map.member` declaredValues (Proxy :: Proxy a) = Just (fromCEnumZ i)
+    | i `Map.member` getDeclaredValues (Proxy :: Proxy a) = Just (fromCEnumZ i)
     | otherwise = Nothing
 
 -- | C enumeration with sequential values
@@ -92,14 +94,12 @@ class Integral (CEnumZ a) => CEnum a where
 class CEnum a => SequentialCEnum a where
   -- | The minimum declared value
   --
-  -- prop> Just minDeclaredValue === fst <$> Map.lookupMin (declaredValues proxy)
+  -- prop> minDeclaredValue == minimum (filter isDeclared (map fromCEnumZ [minBound..]))
   minDeclaredValue :: a
 
   -- | The maximum declared value
   --
-  -- prop> Just maxDeclaredValue === fst <$> Map.lookupMax (declaredValues proxy)
-  --
-  -- prop> minDeclaredValue <= maxDeclaredValue
+  -- prop> maxDeclaredValue == maximum (filter isDeclared (map fromCEnumZ [minBound..]))
   maxDeclaredValue :: a
 
 {-------------------------------------------------------------------------------
@@ -111,11 +111,23 @@ class CEnum a => SequentialCEnum a where
 -- An empty list is returned when the specified value is not declared.
 getNames :: forall a. CEnum a => a -> [String]
 getNames x = maybe [] NonEmpty.toList $
-    Map.lookup (toCEnumZ x) (declaredValues (Proxy :: Proxy a))
+    Map.lookup (toCEnumZ x) (getDeclaredValues (Proxy :: Proxy a))
 
 {-------------------------------------------------------------------------------
   Instance support
 -------------------------------------------------------------------------------}
+
+-- | Declared values and associated names (opaque)
+newtype DeclaredValues a = DeclaredValues
+    { unDeclaredValues :: Map (CEnumZ a) (NonEmpty String)
+    }
+
+-- | Construct 'DeclaredValues' from a list of values and associated names
+declaredValuesFromList ::
+     Ord (CEnumZ a)
+  => [(CEnumZ a, NonEmpty String)]
+  -> DeclaredValues a
+declaredValuesFromList = DeclaredValues . Map.fromList
 
 -- | Show the specified value
 --
@@ -131,7 +143,7 @@ getNames x = maybe [] NonEmpty.toList $
 -- > showName "StatusCode" (StatusCode 418) == "StatusCode 418"
 showCEnum :: forall a. CEnum a => String -> a -> String
 showCEnum constructorName x =
-    case Map.lookup i (declaredValues (Proxy :: Proxy a)) of
+    case Map.lookup i (getDeclaredValues (Proxy :: Proxy a)) of
       Just (name :| _names) -> name
       Nothing -> constructorName ++ ' ' : show (toInteger i)
   where
@@ -257,7 +269,7 @@ instance Exception CEnumException where
 -------------------------------------------------------------------------------}
 
 minBoundGen :: forall a. CEnum a => a
-minBoundGen = case Map.lookupMin (declaredValues (Proxy :: Proxy a)) of
+minBoundGen = case Map.lookupMin (getDeclaredValues (Proxy :: Proxy a)) of
     Just (i, _names) -> fromCEnumZ i
     Nothing -> throw CEnumEmpty
 
@@ -265,7 +277,7 @@ minBoundSeq :: SequentialCEnum a => a
 minBoundSeq = minDeclaredValue
 
 maxBoundGen :: forall a. CEnum a => a
-maxBoundGen = case Map.lookupMax (declaredValues (Proxy :: Proxy a)) of
+maxBoundGen = case Map.lookupMax (getDeclaredValues (Proxy :: Proxy a)) of
     Just (k, _names) -> fromCEnumZ k
     Nothing -> throw CEnumEmpty
 
@@ -278,7 +290,7 @@ maxBoundSeq = maxDeclaredValue
 
 succGen :: forall a. CEnum a => a -> a
 succGen x = either (throw . CEnumNotDeclared) id $ do
-    (_ltMap, gtMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
+    (_ltMap, gtMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
     case Map.lookupMin gtMap of
       Just (j, _names) -> return $ fromCEnumZ j
       Nothing -> throw $ CEnumNoSuccessor (toInteger i)
@@ -299,7 +311,7 @@ succSeq x
 
 predGen :: forall a. CEnum a => a -> a
 predGen y = either (throw . CEnumNotDeclared) id $ do
-    (ltMap, _gtMap) <- splitMap j (declaredValues (Proxy :: Proxy a))
+    (ltMap, _gtMap) <- splitMap j (getDeclaredValues (Proxy :: Proxy a))
     case Map.lookupMax ltMap of
       Just (i, _names) -> return $ fromCEnumZ i
       Nothing -> throw $ CEnumNoPredecessor (toInteger j)
@@ -335,7 +347,7 @@ toEnumSeq n
 
 fromEnumGen :: forall a. CEnum a => a -> Int
 fromEnumGen x
-    | i `Map.member` declaredValues (Proxy :: Proxy a) = fromIntegral i
+    | i `Map.member` getDeclaredValues (Proxy :: Proxy a) = fromIntegral i
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     i :: CEnumZ a
@@ -353,7 +365,7 @@ fromEnumSeq x
 
 enumFromGen :: forall a. CEnum a => a -> [a]
 enumFromGen x = either (throw . CEnumNotDeclared) id $ do
-    (_ltMap, gtMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
+    (_ltMap, gtMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
     return $ x : map fromCEnumZ (Map.keys gtMap)
   where
     i :: CEnumZ a
@@ -372,13 +384,13 @@ enumFromSeq x
 enumFromThenGen :: forall a. CEnum a => a -> a -> [a]
 enumFromThenGen x y = case compare i j of
     LT -> either (throw . CEnumNotDeclared) id $ do
-      (_ltIMap, gtIMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
+      (_ltIMap, gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap) <- splitMap j gtIMap
       let w  = Map.size ltJMap + 1
           js = j : Map.keys gtJMap
       return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
     GT -> either (throw . CEnumNotDeclared) id $ do
-      (ltIMap, _gtIMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
+      (ltIMap, _gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
       (ltJMap, gtJMap)  <- splitMap j ltIMap
       let w  = Map.size gtJMap + 1
           js = j : reverse (Map.keys ltJMap)
@@ -405,7 +417,7 @@ enumFromThenSeq x y
 
 enumFromToGen :: forall a. CEnum a => a -> a -> [a]
 enumFromToGen x z = either (throw . CEnumNotDeclared) id $ do
-    (_ltIMap, gtIMap)  <- splitMap i (declaredValues (Proxy :: Proxy a))
+    (_ltIMap, gtIMap)  <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
     if i == k
       then return [x]
       else do
@@ -431,14 +443,14 @@ enumFromToSeq x z
 enumFromThenToGen :: forall a. CEnum a => a -> a -> a -> [a]
 enumFromThenToGen x y z = case compare i j of
     LT -> either (throw . CEnumNotDeclared) id $ do
-      (_ltIMap, gtIMap)  <- splitMap i (declaredValues (Proxy :: Proxy a))
+      (_ltIMap, gtIMap)  <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap)  <- splitMap j gtIMap
       (ltKMap,  _gtKMap) <- splitMap k gtJMap
       let w  = Map.size ltJMap + 1
           js = j : Map.keys ltKMap ++ [k]
       return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
     GT -> either (throw . CEnumNotDeclared) id $ do
-      (ltIMap,  _gtIMap) <- splitMap i (declaredValues (Proxy :: Proxy a))
+      (ltIMap,  _gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap)  <- splitMap j ltIMap
       (_ltKMap, gtKMap)  <- splitMap k ltJMap
       let w  = Map.size gtJMap + 1
@@ -469,6 +481,9 @@ enumFromThenToSeq x y z
 {-------------------------------------------------------------------------------
   Auxiliary Functions
 -------------------------------------------------------------------------------}
+
+getDeclaredValues :: CEnum a => proxy a -> Map (CEnumZ a) (NonEmpty String)
+getDeclaredValues = unDeclaredValues . declaredValues
 
 nonEmptyChunksOf :: Int -> [a] -> [NonEmpty a]
 nonEmptyChunksOf n xs
