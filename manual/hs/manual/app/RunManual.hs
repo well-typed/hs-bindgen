@@ -1,10 +1,17 @@
-module Main where
+module RunManual (main) where
 
 import Foreign
+import Foreign.C
 import System.IO.Unsafe
 
 import Example
-import Foreign.C
+
+import Game.Player
+import Game.State
+import Game.World
+import Vector
+import Vector.Length
+import Vector.Rotate
 
 {-------------------------------------------------------------------------------
   Simple struct
@@ -102,3 +109,17 @@ main = do
     拜拜
     cϒ
     import'
+
+    --
+    -- External bindings
+    --
+
+    v <- new_vector 2 1
+    print =<< peek v
+    print =<< vector_length v
+    v' <- vector_rotate v (30 * pi / 180)
+    print =<< peek v'
+    print =<< vector_length v'
+
+    move_world  $ Game_state nullPtr
+    move_player $ Game_state nullPtr

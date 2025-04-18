@@ -1,0 +1,8 @@
+types:
+- headers: 
+  - game_world.h
+  - game_player.h
+  cname: game_state
+  package: hs-game
+  module: Game.State
+  identifier: Game_state

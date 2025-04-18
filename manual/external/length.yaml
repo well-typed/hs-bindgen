@@ -1,0 +1,6 @@
+types:
+- headers: vector_length.h
+  cname: len
+  package: hs-vector
+  module: Vector.Types
+  identifier: Length

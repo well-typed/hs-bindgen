@@ -1,0 +1,6 @@
+types:
+- headers: vector.h
+  cname: vector
+  package: hs-vector
+  module: Vector
+  identifier: Vector
