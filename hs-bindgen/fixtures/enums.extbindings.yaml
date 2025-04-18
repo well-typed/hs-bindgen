@@ -1,61 +1,61 @@
 types:
-- cname: enum enumB
-  headers: enums.h
+- headers: enums.h
+  cname: enum enumB
+  package: example
+  module: Example
   identifier: EnumB
-  module: Example
+- headers: enums.h
+  cname: enum enumC
   package: example
-- cname: enum enumC
-  headers: enums.h
+  module: Example
   identifier: EnumC
-  module: Example
+- headers: enums.h
+  cname: enum enumD
   package: example
-- cname: enum enumD
-  headers: enums.h
+  module: Example
   identifier: EnumD
-  module: Example
+- headers: enums.h
+  cname: enum first
   package: example
-- cname: enum first
-  headers: enums.h
+  module: Example
   identifier: First
-  module: Example
+- headers: enums.h
+  cname: enum nonseq
   package: example
-- cname: enum nonseq
-  headers: enums.h
+  module: Example
   identifier: Nonseq
-  module: Example
+- headers: enums.h
+  cname: enum packad
   package: example
-- cname: enum packad
-  headers: enums.h
+  module: Example
   identifier: Packad
-  module: Example
+- headers: enums.h
+  cname: enum same
   package: example
-- cname: enum same
-  headers: enums.h
+  module: Example
   identifier: Same
-  module: Example
+- headers: enums.h
+  cname: enum second
   package: example
-- cname: enum second
-  headers: enums.h
+  module: Example
   identifier: Second
-  module: Example
+- headers: enums.h
+  cname: enumA
   package: example
-- cname: enumA
-  headers: enums.h
+  module: Example
   identifier: EnumA
-  module: Example
+- headers: enums.h
+  cname: enumB
   package: example
-- cname: enumB
-  headers: enums.h
+  module: Example
   identifier: EnumB
-  module: Example
+- headers: enums.h
+  cname: enumC
   package: example
-- cname: enumC
-  headers: enums.h
+  module: Example
   identifier: EnumC
-  module: Example
+- headers: enums.h
+  cname: enumD_t
   package: example
-- cname: enumD_t
-  headers: enums.h
+  module: Example
   identifier: EnumD_t
-  module: Example
-  package: example

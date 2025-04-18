@@ -1,11 +1,11 @@
 types:
-- cname: struct Example
-  headers: fixedarray.h
+- headers: fixedarray.h
+  cname: struct Example
+  package: example
+  module: Example
   identifier: Example
-  module: Example
+- headers: fixedarray.h
+  cname: triple
   package: example
-- cname: triple
-  headers: fixedarray.h
+  module: Example
   identifier: Triple
-  module: Example
-  package: example

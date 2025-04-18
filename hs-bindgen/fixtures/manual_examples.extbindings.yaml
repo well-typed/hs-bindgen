@@ -1,106 +1,106 @@
 types:
-- cname: DAY
-  headers: manual_examples.h
+- headers: manual_examples.h
+  cname: DAY
+  package: example
+  module: Example
   identifier: DAY
-  module: Example
+- headers: manual_examples.h
+  cname: MONTH
   package: example
-- cname: MONTH
-  headers: manual_examples.h
+  module: Example
   identifier: MONTH
-  module: Example
+- headers: manual_examples.h
+  cname: YEAR
   package: example
-- cname: YEAR
-  headers: manual_examples.h
+  module: Example
   identifier: YEAR
-  module: Example
+- headers: manual_examples.h
+  cname: adiós
   package: example
-- cname: adiós
-  headers: manual_examples.h
+  module: Example
   identifier: Adio'0301s
-  module: Example
+- headers: manual_examples.h
+  cname: average
   package: example
-- cname: average
-  headers: manual_examples.h
+  module: Example
   identifier: Average
-  module: Example
+- headers: manual_examples.h
+  cname: config
   package: example
-- cname: config
-  headers: manual_examples.h
+  module: Example
   identifier: Config
-  module: Example
+- headers: manual_examples.h
+  cname: data
   package: example
-- cname: data
-  headers: manual_examples.h
+  module: Example
   identifier: Data
-  module: Example
+- headers: manual_examples.h
+  cname: date
   package: example
-- cname: date
-  headers: manual_examples.h
+  module: Example
   identifier: Date
-  module: Example
+- headers: manual_examples.h
+  cname: enum index
   package: example
-- cname: enum index
-  headers: manual_examples.h
+  module: Example
   identifier: Index
-  module: Example
+- headers: manual_examples.h
+  cname: index
   package: example
-- cname: index
-  headers: manual_examples.h
+  module: Example
   identifier: Index
-  module: Example
+- headers: manual_examples.h
+  cname: occupation
   package: example
-- cname: occupation
-  headers: manual_examples.h
+  module: Example
   identifier: Occupation
-  module: Example
+- headers: manual_examples.h
+  cname: struct date
   package: example
-- cname: struct date
-  headers: manual_examples.h
+  module: Example
   identifier: Date
-  module: Example
+- headers: manual_examples.h
+  cname: struct employee
   package: example
-- cname: struct employee
-  headers: manual_examples.h
+  module: Example
   identifier: Employee
-  module: Example
+- headers: manual_examples.h
+  cname: struct person
   package: example
-- cname: struct person
-  headers: manual_examples.h
+  module: Example
   identifier: Person
-  module: Example
+- headers: manual_examples.h
+  cname: struct rect
   package: example
-- cname: struct rect
-  headers: manual_examples.h
+  module: Example
   identifier: Rect
-  module: Example
+- headers: manual_examples.h
+  cname: struct student
   package: example
-- cname: struct student
-  headers: manual_examples.h
+  module: Example
   identifier: Student
-  module: Example
+- headers: manual_examples.h
+  cname: struct triple
   package: example
-- cname: struct triple
-  headers: manual_examples.h
+  module: Example
   identifier: Triple
-  module: Example
+- headers: manual_examples.h
+  cname: sum
   package: example
-- cname: sum
-  headers: manual_examples.h
+  module: Example
   identifier: Sum
-  module: Example
+- headers: manual_examples.h
+  cname: triple
   package: example
-- cname: triple
-  headers: manual_examples.h
+  module: Example
   identifier: Triple
-  module: Example
+- headers: manual_examples.h
+  cname: union occupation
   package: example
-- cname: union occupation
-  headers: manual_examples.h
+  module: Example
   identifier: Occupation
-  module: Example
+- headers: manual_examples.h
+  cname: 数字
   package: example
-- cname: 数字
-  headers: manual_examples.h
+  module: Example
   identifier: C数字
-  module: Example
-  package: example

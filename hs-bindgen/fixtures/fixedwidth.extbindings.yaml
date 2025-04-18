@@ -1,16 +1,16 @@
 types:
-- cname: struct foo
-  headers: fixedwidth.h
+- headers: fixedwidth.h
+  cname: struct foo
+  package: example
+  module: Example
   identifier: Foo
-  module: Example
+- headers: fixedwidth.h
+  cname: uint32_t
   package: example
-- cname: uint32_t
-  headers: fixedwidth.h
+  module: Example
   identifier: Uint32_t
-  module: Example
+- headers: fixedwidth.h
+  cname: uint64_t
   package: example
-- cname: uint64_t
-  headers: fixedwidth.h
+  module: Example
   identifier: Uint64_t
-  module: Example
-  package: example

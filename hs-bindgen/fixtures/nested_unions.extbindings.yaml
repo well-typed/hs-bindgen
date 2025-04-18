@@ -1,16 +1,16 @@
 types:
-- cname: struct exA
-  headers: nested_unions.h
+- headers: nested_unions.h
+  cname: struct exA
+  package: example
+  module: Example
   identifier: ExA
-  module: Example
+- headers: nested_unions.h
+  cname: struct exB
   package: example
-- cname: struct exB
-  headers: nested_unions.h
+  module: Example
   identifier: ExB
-  module: Example
+- headers: nested_unions.h
+  cname: union unionA
   package: example
-- cname: union unionA
-  headers: nested_unions.h
+  module: Example
   identifier: UnionA
-  module: Example
-  package: example

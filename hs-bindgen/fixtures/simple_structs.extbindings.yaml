@@ -1,56 +1,56 @@
 types:
-- cname: S2_t
-  headers: simple_structs.h
+- headers: simple_structs.h
+  cname: S2_t
+  package: example
+  module: Example
   identifier: S2_t
-  module: Example
+- headers: simple_structs.h
+  cname: S3_t
   package: example
-- cname: S3_t
-  headers: simple_structs.h
+  module: Example
   identifier: S3_t
-  module: Example
+- headers: simple_structs.h
+  cname: S5
   package: example
-- cname: S5
-  headers: simple_structs.h
+  module: Example
   identifier: S5
-  module: Example
+- headers: simple_structs.h
+  cname: S6
   package: example
-- cname: S6
-  headers: simple_structs.h
+  module: Example
   identifier: S6
-  module: Example
+- headers: simple_structs.h
+  cname: S7a
   package: example
-- cname: S7a
-  headers: simple_structs.h
+  module: Example
   identifier: S7a
-  module: Example
+- headers: simple_structs.h
+  cname: S7b
   package: example
-- cname: S7b
-  headers: simple_structs.h
+  module: Example
   identifier: S7b
-  module: Example
+- headers: simple_structs.h
+  cname: struct S1
   package: example
-- cname: struct S1
-  headers: simple_structs.h
+  module: Example
   identifier: S1
-  module: Example
+- headers: simple_structs.h
+  cname: struct S2
   package: example
-- cname: struct S2
-  headers: simple_structs.h
+  module: Example
   identifier: S2
-  module: Example
+- headers: simple_structs.h
+  cname: struct S4
   package: example
-- cname: struct S4
-  headers: simple_structs.h
+  module: Example
   identifier: S4
-  module: Example
+- headers: simple_structs.h
+  cname: struct S5
   package: example
-- cname: struct S5
-  headers: simple_structs.h
+  module: Example
   identifier: S5
-  module: Example
+- headers: simple_structs.h
+  cname: struct S6
   package: example
-- cname: struct S6
-  headers: simple_structs.h
+  module: Example
   identifier: S6
-  module: Example
-  package: example
