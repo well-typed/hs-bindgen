@@ -218,6 +218,42 @@ pub type data = ::std::os::raw::c_int;
 extern "C" {
     pub fn import();
 }
+pub const signal_start: signal = 1;
+pub const signal_pause: signal = 2;
+pub const signal_resume: signal = 3;
+pub const signal_stop: signal = 4;
+/// Flavours of enums
+pub type signal = ::std::os::raw::c_uint;
+pub const HTTP_status_ok: HTTP_status = 200;
+pub const HTTP_status_moved: HTTP_status = 301;
+pub const HTTP_status_bad_request: HTTP_status = 400;
+pub const HTTP_status_unauthorized: HTTP_status = 401;
+pub const HTTP_status_not_found: HTTP_status = 404;
+pub type HTTP_status = ::std::os::raw::c_uint;
+pub const result_failed: result = -1;
+pub const result_success: result = 0;
+pub const result_postponed: result = 1;
+pub const result_already_done: result = 2;
+pub type result = ::std::os::raw::c_int;
+pub const vote_infavour: vote = 0;
+pub const vote_against: vote = 1;
+pub const vote_abstain: vote = 2;
+pub type vote = ::std::os::raw::c_uchar;
+pub const CXCursorKind_CXCursor_FirstExpr: CXCursorKind = 100;
+pub const CXCursorKind_CXCursor_UnexposedExpr: CXCursorKind = 100;
+pub const CXCursorKind_CXCursor_DeclRefExpr: CXCursorKind = 101;
+pub const CXCursorKind_CXCursor_MemberRefExpr: CXCursorKind = 102;
+pub const CXCursorKind_CXCursor_CallExpr: CXCursorKind = 103;
+pub const CXCursorKind_CXCursor_PackIndexingExpr: CXCursorKind = 156;
+pub const CXCursorKind_CXCursor_LastExpr: CXCursorKind = 156;
+pub const CXCursorKind_CXCursor_FirstStmt: CXCursorKind = 200;
+pub const CXCursorKind_CXCursor_UnexposedStmt: CXCursorKind = 200;
+pub const CXCursorKind_CXCursor_LabelStmt: CXCursorKind = 201;
+pub const CXCursorKind_CXCursor_CompoundStmt: CXCursorKind = 202;
+pub const CXCursorKind_CXCursor_CaseStmt: CXCursorKind = 203;
+pub const CXCursorKind_CXCursor_OpenACCUpdateConstruct: CXCursorKind = 331;
+pub const CXCursorKind_CXCursor_LastStmt: CXCursorKind = 331;
+pub type CXCursorKind = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct person {

@@ -1,8 +1,13 @@
+{-# LANGUAGE DerivingVia #-}
+{-# OPTIONS_GHC -Wno-orphans #-}
+
 module RunManual (main) where
 
 import Foreign
 import Foreign.C
 import System.IO.Unsafe
+
+import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..))
 
 import Example
 
@@ -42,6 +47,16 @@ sumTriple triple = unsafePerformIO $
 averageTriple :: Triple -> Average
 averageTriple triple = unsafePerformIO $
     with triple $ \ptr -> average_triple ptr
+
+{-------------------------------------------------------------------------------
+  Enums
+-------------------------------------------------------------------------------}
+
+deriving via AsCEnum HTTP_status instance Enum HTTP_status
+deriving newtype instance Bounded HTTP_status
+
+deriving via AsSequentialCEnum Vote instance Enum    Vote
+deriving via AsSequentialCEnum Vote instance Bounded Vote
 
 {-------------------------------------------------------------------------------
   Main
@@ -123,3 +138,12 @@ main = do
 
     move_world  $ Game_state nullPtr
     move_player $ Game_state nullPtr
+
+    --
+    -- Enums
+    --
+
+    print [Ok, minBound]
+    putStrLn $ "After " ++ show Moved ++ " comes " ++ show (succ Moved)
+    putStrLn $ "Possible votes: " ++ show ([minBound .. maxBound] :: [Vote])
+    print CXCursor_UnexposedExpr

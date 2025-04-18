@@ -663,4 +663,236 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "manual_examples.h:113:13"}]
+        "manual_examples.h:113:13"},
+    DeclEnum
+      Enu {
+        enumDeclPath = DeclPathName
+          (CName "signal")
+          DeclPathCtxtTop,
+        enumAliases = [],
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "start",
+            valueValue = 1,
+            valueSourceLoc =
+            "manual_examples.h:121:3"},
+          EnumValue {
+            valueName = CName "pause",
+            valueValue = 2,
+            valueSourceLoc =
+            "manual_examples.h:122:3"},
+          EnumValue {
+            valueName = CName "resume",
+            valueValue = 3,
+            valueSourceLoc =
+            "manual_examples.h:123:3"},
+          EnumValue {
+            valueName = CName "stop",
+            valueValue = 4,
+            valueSourceLoc =
+            "manual_examples.h:124:3"}],
+        enumSourceLoc =
+        "manual_examples.h:120:6"},
+    DeclEnum
+      Enu {
+        enumDeclPath = DeclPathName
+          (CName "HTTP_status")
+          DeclPathCtxtTop,
+        enumAliases = [],
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "ok",
+            valueValue = 200,
+            valueSourceLoc =
+            "manual_examples.h:128:3"},
+          EnumValue {
+            valueName = CName "moved",
+            valueValue = 301,
+            valueSourceLoc =
+            "manual_examples.h:129:3"},
+          EnumValue {
+            valueName = CName "bad_request",
+            valueValue = 400,
+            valueSourceLoc =
+            "manual_examples.h:130:3"},
+          EnumValue {
+            valueName = CName
+              "unauthorized",
+            valueValue = 401,
+            valueSourceLoc =
+            "manual_examples.h:131:3"},
+          EnumValue {
+            valueName = CName "not_found",
+            valueValue = 404,
+            valueSourceLoc =
+            "manual_examples.h:132:3"}],
+        enumSourceLoc =
+        "manual_examples.h:127:6"},
+    DeclEnum
+      Enu {
+        enumDeclPath = DeclPathName
+          (CName "result")
+          DeclPathCtxtTop,
+        enumAliases = [],
+        enumType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "failed",
+            valueValue = `-1`,
+            valueSourceLoc =
+            "manual_examples.h:136:3"},
+          EnumValue {
+            valueName = CName "success",
+            valueValue = 0,
+            valueSourceLoc =
+            "manual_examples.h:137:3"},
+          EnumValue {
+            valueName = CName "postponed",
+            valueValue = 1,
+            valueSourceLoc =
+            "manual_examples.h:138:3"},
+          EnumValue {
+            valueName = CName
+              "already_done",
+            valueValue = 2,
+            valueSourceLoc =
+            "manual_examples.h:139:3"}],
+        enumSourceLoc =
+        "manual_examples.h:135:6"},
+    DeclEnum
+      Enu {
+        enumDeclPath = DeclPathName
+          (CName "vote")
+          DeclPathCtxtTop,
+        enumAliases = [],
+        enumType = TypePrim
+          (PrimChar
+            (PrimSignExplicit Unsigned)),
+        enumSizeof = 1,
+        enumAlignment = 1,
+        enumValues = [
+          EnumValue {
+            valueName = CName "infavour",
+            valueValue = 0,
+            valueSourceLoc =
+            "manual_examples.h:143:3"},
+          EnumValue {
+            valueName = CName "against",
+            valueValue = 1,
+            valueSourceLoc =
+            "manual_examples.h:144:3"},
+          EnumValue {
+            valueName = CName "abstain",
+            valueValue = 2,
+            valueSourceLoc =
+            "manual_examples.h:145:3"}],
+        enumSourceLoc =
+        "manual_examples.h:142:6"},
+    DeclEnum
+      Enu {
+        enumDeclPath = DeclPathName
+          (CName "CXCursorKind")
+          DeclPathCtxtTop,
+        enumAliases = [],
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName
+              "CXCursor_FirstExpr",
+            valueValue = 100,
+            valueSourceLoc =
+            "manual_examples.h:151:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_UnexposedExpr",
+            valueValue = 100,
+            valueSourceLoc =
+            "manual_examples.h:152:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_DeclRefExpr",
+            valueValue = 101,
+            valueSourceLoc =
+            "manual_examples.h:153:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_MemberRefExpr",
+            valueValue = 102,
+            valueSourceLoc =
+            "manual_examples.h:154:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_CallExpr",
+            valueValue = 103,
+            valueSourceLoc =
+            "manual_examples.h:155:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_PackIndexingExpr",
+            valueValue = 156,
+            valueSourceLoc =
+            "manual_examples.h:157:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_LastExpr",
+            valueValue = 156,
+            valueSourceLoc =
+            "manual_examples.h:158:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_FirstStmt",
+            valueValue = 200,
+            valueSourceLoc =
+            "manual_examples.h:160:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_UnexposedStmt",
+            valueValue = 200,
+            valueSourceLoc =
+            "manual_examples.h:161:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_LabelStmt",
+            valueValue = 201,
+            valueSourceLoc =
+            "manual_examples.h:162:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_CompoundStmt",
+            valueValue = 202,
+            valueSourceLoc =
+            "manual_examples.h:163:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_CaseStmt",
+            valueValue = 203,
+            valueSourceLoc =
+            "manual_examples.h:164:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_OpenACCUpdateConstruct",
+            valueValue = 331,
+            valueSourceLoc =
+            "manual_examples.h:166:3"},
+          EnumValue {
+            valueName = CName
+              "CXCursor_LastStmt",
+            valueValue = 331,
+            valueSourceLoc =
+            "manual_examples.h:167:3"}],
+        enumSourceLoc =
+        "manual_examples.h:150:6"}]

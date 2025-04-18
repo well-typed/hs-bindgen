@@ -4769,4 +4769,2911 @@
   DeclNewtypeInstance
     DeriveNewtype
     Real
-    (HsName "@NsTypeConstr" "Data")]
+    (HsName "@NsTypeConstr" "Data"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Signal",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Signal",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Signal",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "signal")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "start",
+              valueValue = 1,
+              valueSourceLoc =
+              "manual_examples.h:121:3"},
+            EnumValue {
+              valueName = CName "pause",
+              valueValue = 2,
+              valueSourceLoc =
+              "manual_examples.h:122:3"},
+            EnumValue {
+              valueName = CName "resume",
+              valueValue = 3,
+              valueSourceLoc =
+              "manual_examples.h:123:3"},
+            EnumValue {
+              valueName = CName "stop",
+              valueValue = 4,
+              valueSourceLoc =
+              "manual_examples.h:124:3"}],
+          enumSourceLoc =
+          "manual_examples.h:120:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Signal",
+        structConstr = HsName
+          "@NsConstr"
+          "Signal",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Signal",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "signal")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "start",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:121:3"},
+              EnumValue {
+                valueName = CName "pause",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:122:3"},
+              EnumValue {
+                valueName = CName "resume",
+                valueValue = 3,
+                valueSourceLoc =
+                "manual_examples.h:123:3"},
+              EnumValue {
+                valueName = CName "stop",
+                valueValue = 4,
+                valueSourceLoc =
+                "manual_examples.h:124:3"}],
+            enumSourceLoc =
+            "manual_examples.h:120:6"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Signal",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Signal",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Signal",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "signal")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "start",
+                        valueValue = 1,
+                        valueSourceLoc =
+                        "manual_examples.h:121:3"},
+                      EnumValue {
+                        valueName = CName "pause",
+                        valueValue = 2,
+                        valueSourceLoc =
+                        "manual_examples.h:122:3"},
+                      EnumValue {
+                        valueName = CName "resume",
+                        valueValue = 3,
+                        valueSourceLoc =
+                        "manual_examples.h:123:3"},
+                      EnumValue {
+                        valueName = CName "stop",
+                        valueValue = 4,
+                        valueSourceLoc =
+                        "manual_examples.h:124:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:120:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Signal",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Signal",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Signal",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "signal")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "start",
+                        valueValue = 1,
+                        valueSourceLoc =
+                        "manual_examples.h:121:3"},
+                      EnumValue {
+                        valueName = CName "pause",
+                        valueValue = 2,
+                        valueSourceLoc =
+                        "manual_examples.h:122:3"},
+                      EnumValue {
+                        valueName = CName "resume",
+                        valueValue = 3,
+                        valueSourceLoc =
+                        "manual_examples.h:123:3"},
+                      EnumValue {
+                        valueName = CName "stop",
+                        valueValue = 4,
+                        valueSourceLoc =
+                        "manual_examples.h:124:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:120:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Signal"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Signal"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Signal"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Signal",
+        structConstr = HsName
+          "@NsConstr"
+          "Signal",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Signal",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "signal")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "start",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:121:3"},
+              EnumValue {
+                valueName = CName "pause",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:122:3"},
+              EnumValue {
+                valueName = CName "resume",
+                valueValue = 3,
+                valueSourceLoc =
+                "manual_examples.h:123:3"},
+              EnumValue {
+                valueName = CName "stop",
+                valueValue = 4,
+                valueSourceLoc =
+                "manual_examples.h:124:3"}],
+            enumSourceLoc =
+            "manual_examples.h:120:6"}}
+      (HsPrimType HsPrimCUInt)
+      (Map.fromList
+        [
+          _×_ 1 (NE.fromList ["Start"]),
+          _×_ 2 (NE.fromList ["Pause"]),
+          _×_ 3 (NE.fromList ["Resume"]),
+          _×_ 4 (NE.fromList ["Stop"])])
+      True),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Signal",
+        structConstr = HsName
+          "@NsConstr"
+          "Signal",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Signal",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "signal")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "start",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:121:3"},
+              EnumValue {
+                valueName = CName "pause",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:122:3"},
+              EnumValue {
+                valueName = CName "resume",
+                valueValue = 3,
+                valueSourceLoc =
+                "manual_examples.h:123:3"},
+              EnumValue {
+                valueName = CName "stop",
+                valueValue = 4,
+                valueSourceLoc =
+                "manual_examples.h:124:3"}],
+            enumSourceLoc =
+            "manual_examples.h:120:6"}}
+      (HsName "@NsConstr" "Start")
+      (HsName "@NsConstr" "Stop")),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Signal",
+        structConstr = HsName
+          "@NsConstr"
+          "Signal",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Signal",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "signal")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "start",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:121:3"},
+              EnumValue {
+                valueName = CName "pause",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:122:3"},
+              EnumValue {
+                valueName = CName "resume",
+                valueValue = 3,
+                valueSourceLoc =
+                "manual_examples.h:123:3"},
+              EnumValue {
+                valueName = CName "stop",
+                valueValue = 4,
+                valueSourceLoc =
+                "manual_examples.h:124:3"}],
+            enumSourceLoc =
+            "manual_examples.h:120:6"}}),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Start",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Signal",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Signal",
+      patSynValue = 1,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "start",
+          valueValue = 1,
+          valueSourceLoc =
+          "manual_examples.h:121:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Pause",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Signal",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Signal",
+      patSynValue = 2,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "pause",
+          valueValue = 2,
+          valueSourceLoc =
+          "manual_examples.h:122:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Resume",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Signal",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Signal",
+      patSynValue = 3,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "resume",
+          valueValue = 3,
+          valueSourceLoc =
+          "manual_examples.h:123:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Stop",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Signal",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Signal",
+      patSynValue = 4,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "stop",
+          valueValue = 4,
+          valueSourceLoc =
+          "manual_examples.h:124:3"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "HTTP_status",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "HTTP_status",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_HTTP_status",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "HTTP_status")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "ok",
+              valueValue = 200,
+              valueSourceLoc =
+              "manual_examples.h:128:3"},
+            EnumValue {
+              valueName = CName "moved",
+              valueValue = 301,
+              valueSourceLoc =
+              "manual_examples.h:129:3"},
+            EnumValue {
+              valueName = CName "bad_request",
+              valueValue = 400,
+              valueSourceLoc =
+              "manual_examples.h:130:3"},
+            EnumValue {
+              valueName = CName
+                "unauthorized",
+              valueValue = 401,
+              valueSourceLoc =
+              "manual_examples.h:131:3"},
+            EnumValue {
+              valueName = CName "not_found",
+              valueValue = 404,
+              valueSourceLoc =
+              "manual_examples.h:132:3"}],
+          enumSourceLoc =
+          "manual_examples.h:127:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "HTTP_status",
+        structConstr = HsName
+          "@NsConstr"
+          "HTTP_status",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_HTTP_status",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "HTTP_status")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "ok",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:128:3"},
+              EnumValue {
+                valueName = CName "moved",
+                valueValue = 301,
+                valueSourceLoc =
+                "manual_examples.h:129:3"},
+              EnumValue {
+                valueName = CName "bad_request",
+                valueValue = 400,
+                valueSourceLoc =
+                "manual_examples.h:130:3"},
+              EnumValue {
+                valueName = CName
+                  "unauthorized",
+                valueValue = 401,
+                valueSourceLoc =
+                "manual_examples.h:131:3"},
+              EnumValue {
+                valueName = CName "not_found",
+                valueValue = 404,
+                valueSourceLoc =
+                "manual_examples.h:132:3"}],
+            enumSourceLoc =
+            "manual_examples.h:127:6"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "HTTP_status",
+                structConstr = HsName
+                  "@NsConstr"
+                  "HTTP_status",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_HTTP_status",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "HTTP_status")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "ok",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "manual_examples.h:128:3"},
+                      EnumValue {
+                        valueName = CName "moved",
+                        valueValue = 301,
+                        valueSourceLoc =
+                        "manual_examples.h:129:3"},
+                      EnumValue {
+                        valueName = CName "bad_request",
+                        valueValue = 400,
+                        valueSourceLoc =
+                        "manual_examples.h:130:3"},
+                      EnumValue {
+                        valueName = CName
+                          "unauthorized",
+                        valueValue = 401,
+                        valueSourceLoc =
+                        "manual_examples.h:131:3"},
+                      EnumValue {
+                        valueName = CName "not_found",
+                        valueValue = 404,
+                        valueSourceLoc =
+                        "manual_examples.h:132:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:127:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "HTTP_status",
+                structConstr = HsName
+                  "@NsConstr"
+                  "HTTP_status",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_HTTP_status",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "HTTP_status")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "ok",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "manual_examples.h:128:3"},
+                      EnumValue {
+                        valueName = CName "moved",
+                        valueValue = 301,
+                        valueSourceLoc =
+                        "manual_examples.h:129:3"},
+                      EnumValue {
+                        valueName = CName "bad_request",
+                        valueValue = 400,
+                        valueSourceLoc =
+                        "manual_examples.h:130:3"},
+                      EnumValue {
+                        valueName = CName
+                          "unauthorized",
+                        valueValue = 401,
+                        valueSourceLoc =
+                        "manual_examples.h:131:3"},
+                      EnumValue {
+                        valueName = CName "not_found",
+                        valueValue = 404,
+                        valueSourceLoc =
+                        "manual_examples.h:132:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:127:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "HTTP_status"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "HTTP_status"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "HTTP_status"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "HTTP_status",
+        structConstr = HsName
+          "@NsConstr"
+          "HTTP_status",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_HTTP_status",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "HTTP_status")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "ok",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:128:3"},
+              EnumValue {
+                valueName = CName "moved",
+                valueValue = 301,
+                valueSourceLoc =
+                "manual_examples.h:129:3"},
+              EnumValue {
+                valueName = CName "bad_request",
+                valueValue = 400,
+                valueSourceLoc =
+                "manual_examples.h:130:3"},
+              EnumValue {
+                valueName = CName
+                  "unauthorized",
+                valueValue = 401,
+                valueSourceLoc =
+                "manual_examples.h:131:3"},
+              EnumValue {
+                valueName = CName "not_found",
+                valueValue = 404,
+                valueSourceLoc =
+                "manual_examples.h:132:3"}],
+            enumSourceLoc =
+            "manual_examples.h:127:6"}}
+      (HsPrimType HsPrimCUInt)
+      (Map.fromList
+        [
+          _×_ 200 (NE.fromList ["Ok"]),
+          _×_ 301 (NE.fromList ["Moved"]),
+          _×_
+            400
+            (NE.fromList ["Bad_request"]),
+          _×_
+            401
+            (NE.fromList ["Unauthorized"]),
+          _×_
+            404
+            (NE.fromList ["Not_found"])])
+      False),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "HTTP_status",
+        structConstr = HsName
+          "@NsConstr"
+          "HTTP_status",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_HTTP_status",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "HTTP_status")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "ok",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:128:3"},
+              EnumValue {
+                valueName = CName "moved",
+                valueValue = 301,
+                valueSourceLoc =
+                "manual_examples.h:129:3"},
+              EnumValue {
+                valueName = CName "bad_request",
+                valueValue = 400,
+                valueSourceLoc =
+                "manual_examples.h:130:3"},
+              EnumValue {
+                valueName = CName
+                  "unauthorized",
+                valueValue = 401,
+                valueSourceLoc =
+                "manual_examples.h:131:3"},
+              EnumValue {
+                valueName = CName "not_found",
+                valueValue = 404,
+                valueSourceLoc =
+                "manual_examples.h:132:3"}],
+            enumSourceLoc =
+            "manual_examples.h:127:6"}}),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Ok",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "HTTP_status",
+      patSynConstr = HsName
+        "@NsConstr"
+        "HTTP_status",
+      patSynValue = 200,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "ok",
+          valueValue = 200,
+          valueSourceLoc =
+          "manual_examples.h:128:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Moved",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "HTTP_status",
+      patSynConstr = HsName
+        "@NsConstr"
+        "HTTP_status",
+      patSynValue = 301,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "moved",
+          valueValue = 301,
+          valueSourceLoc =
+          "manual_examples.h:129:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Bad_request",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "HTTP_status",
+      patSynConstr = HsName
+        "@NsConstr"
+        "HTTP_status",
+      patSynValue = 400,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "bad_request",
+          valueValue = 400,
+          valueSourceLoc =
+          "manual_examples.h:130:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Unauthorized",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "HTTP_status",
+      patSynConstr = HsName
+        "@NsConstr"
+        "HTTP_status",
+      patSynValue = 401,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "unauthorized",
+          valueValue = 401,
+          valueSourceLoc =
+          "manual_examples.h:131:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Not_found",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "HTTP_status",
+      patSynConstr = HsName
+        "@NsConstr"
+        "HTTP_status",
+      patSynValue = 404,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "not_found",
+          valueValue = 404,
+          valueSourceLoc =
+          "manual_examples.h:132:3"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Result",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Result",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Result",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "result")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimIntegral PrimInt Signed),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "failed",
+              valueValue = `-1`,
+              valueSourceLoc =
+              "manual_examples.h:136:3"},
+            EnumValue {
+              valueName = CName "success",
+              valueValue = 0,
+              valueSourceLoc =
+              "manual_examples.h:137:3"},
+            EnumValue {
+              valueName = CName "postponed",
+              valueValue = 1,
+              valueSourceLoc =
+              "manual_examples.h:138:3"},
+            EnumValue {
+              valueName = CName
+                "already_done",
+              valueValue = 2,
+              valueSourceLoc =
+              "manual_examples.h:139:3"}],
+          enumSourceLoc =
+          "manual_examples.h:135:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Result",
+        structConstr = HsName
+          "@NsConstr"
+          "Result",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Result",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "result")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "failed",
+                valueValue = `-1`,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "success",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "postponed",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName
+                  "already_done",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Result",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Result",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Result",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "result")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "failed",
+                        valueValue = `-1`,
+                        valueSourceLoc =
+                        "manual_examples.h:136:3"},
+                      EnumValue {
+                        valueName = CName "success",
+                        valueValue = 0,
+                        valueSourceLoc =
+                        "manual_examples.h:137:3"},
+                      EnumValue {
+                        valueName = CName "postponed",
+                        valueValue = 1,
+                        valueSourceLoc =
+                        "manual_examples.h:138:3"},
+                      EnumValue {
+                        valueName = CName
+                          "already_done",
+                        valueValue = 2,
+                        valueSourceLoc =
+                        "manual_examples.h:139:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:135:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Result",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Result",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Result",
+                    fieldType = HsPrimType
+                      HsPrimCInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "result")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "failed",
+                        valueValue = `-1`,
+                        valueSourceLoc =
+                        "manual_examples.h:136:3"},
+                      EnumValue {
+                        valueName = CName "success",
+                        valueValue = 0,
+                        valueSourceLoc =
+                        "manual_examples.h:137:3"},
+                      EnumValue {
+                        valueName = CName "postponed",
+                        valueValue = 1,
+                        valueSourceLoc =
+                        "manual_examples.h:138:3"},
+                      EnumValue {
+                        valueName = CName
+                          "already_done",
+                        valueValue = 2,
+                        valueSourceLoc =
+                        "manual_examples.h:139:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:135:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Result"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Result"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Result"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Result",
+        structConstr = HsName
+          "@NsConstr"
+          "Result",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Result",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "result")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "failed",
+                valueValue = `-1`,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "success",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "postponed",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName
+                  "already_done",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}
+      (HsPrimType HsPrimCInt)
+      (Map.fromList
+        [
+          _×_
+            `-1`
+            (NE.fromList ["Failed"]),
+          _×_ 0 (NE.fromList ["Success"]),
+          _×_
+            1
+            (NE.fromList ["Postponed"]),
+          _×_
+            2
+            (NE.fromList ["Already_done"])])
+      True),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Result",
+        structConstr = HsName
+          "@NsConstr"
+          "Result",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Result",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "result")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "failed",
+                valueValue = `-1`,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "success",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "postponed",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName
+                  "already_done",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}
+      (HsName "@NsConstr" "Failed")
+      (HsName
+        "@NsConstr"
+        "Already_done")),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Result",
+        structConstr = HsName
+          "@NsConstr"
+          "Result",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Result",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "result")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "failed",
+                valueValue = `-1`,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "success",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "postponed",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName
+                  "already_done",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Failed",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Result",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Result",
+      patSynValue = `-1`,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "failed",
+          valueValue = `-1`,
+          valueSourceLoc =
+          "manual_examples.h:136:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Success",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Result",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Result",
+      patSynValue = 0,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "success",
+          valueValue = 0,
+          valueSourceLoc =
+          "manual_examples.h:137:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Postponed",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Result",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Result",
+      patSynValue = 1,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "postponed",
+          valueValue = 1,
+          valueSourceLoc =
+          "manual_examples.h:138:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Already_done",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Result",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Result",
+      patSynValue = 2,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "already_done",
+          valueValue = 2,
+          valueSourceLoc =
+          "manual_examples.h:139:3"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Vote",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Vote",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Vote",
+        fieldType = HsPrimType
+          HsPrimCSChar,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "vote")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimChar
+              (PrimSignExplicit Unsigned)),
+          enumSizeof = 1,
+          enumAlignment = 1,
+          enumValues = [
+            EnumValue {
+              valueName = CName "infavour",
+              valueValue = 0,
+              valueSourceLoc =
+              "manual_examples.h:143:3"},
+            EnumValue {
+              valueName = CName "against",
+              valueValue = 1,
+              valueSourceLoc =
+              "manual_examples.h:144:3"},
+            EnumValue {
+              valueName = CName "abstain",
+              valueValue = 2,
+              valueSourceLoc =
+              "manual_examples.h:145:3"}],
+          enumSourceLoc =
+          "manual_examples.h:142:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Vote",
+        structConstr = HsName
+          "@NsConstr"
+          "Vote",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Vote",
+            fieldType = HsPrimType
+              HsPrimCSChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "vote")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "infavour",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:143:3"},
+              EnumValue {
+                valueName = CName "against",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:144:3"},
+              EnumValue {
+                valueName = CName "abstain",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:145:3"}],
+            enumSourceLoc =
+            "manual_examples.h:142:6"}}
+      StorableInstance {
+        storableSizeOf = 1,
+        storableAlignment = 1,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Vote",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Vote",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Vote",
+                    fieldType = HsPrimType
+                      HsPrimCSChar,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "vote")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimChar
+                        (PrimSignExplicit Unsigned)),
+                    enumSizeof = 1,
+                    enumAlignment = 1,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "infavour",
+                        valueValue = 0,
+                        valueSourceLoc =
+                        "manual_examples.h:143:3"},
+                      EnumValue {
+                        valueName = CName "against",
+                        valueValue = 1,
+                        valueSourceLoc =
+                        "manual_examples.h:144:3"},
+                      EnumValue {
+                        valueName = CName "abstain",
+                        valueValue = 2,
+                        valueSourceLoc =
+                        "manual_examples.h:145:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:142:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Vote",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Vote",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Vote",
+                    fieldType = HsPrimType
+                      HsPrimCSChar,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "vote")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimChar
+                        (PrimSignExplicit Unsigned)),
+                    enumSizeof = 1,
+                    enumAlignment = 1,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "infavour",
+                        valueValue = 0,
+                        valueSourceLoc =
+                        "manual_examples.h:143:3"},
+                      EnumValue {
+                        valueName = CName "against",
+                        valueValue = 1,
+                        valueSourceLoc =
+                        "manual_examples.h:144:3"},
+                      EnumValue {
+                        valueName = CName "abstain",
+                        valueValue = 2,
+                        valueSourceLoc =
+                        "manual_examples.h:145:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:142:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Vote"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "Vote"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "Vote"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Vote",
+        structConstr = HsName
+          "@NsConstr"
+          "Vote",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Vote",
+            fieldType = HsPrimType
+              HsPrimCSChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "vote")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "infavour",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:143:3"},
+              EnumValue {
+                valueName = CName "against",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:144:3"},
+              EnumValue {
+                valueName = CName "abstain",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:145:3"}],
+            enumSourceLoc =
+            "manual_examples.h:142:6"}}
+      (HsPrimType HsPrimCSChar)
+      (Map.fromList
+        [
+          _×_
+            0
+            (NE.fromList ["Infavour"]),
+          _×_ 1 (NE.fromList ["Against"]),
+          _×_
+            2
+            (NE.fromList ["Abstain"])])
+      True),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Vote",
+        structConstr = HsName
+          "@NsConstr"
+          "Vote",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Vote",
+            fieldType = HsPrimType
+              HsPrimCSChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "vote")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "infavour",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:143:3"},
+              EnumValue {
+                valueName = CName "against",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:144:3"},
+              EnumValue {
+                valueName = CName "abstain",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:145:3"}],
+            enumSourceLoc =
+            "manual_examples.h:142:6"}}
+      (HsName "@NsConstr" "Infavour")
+      (HsName "@NsConstr" "Abstain")),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Vote",
+        structConstr = HsName
+          "@NsConstr"
+          "Vote",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Vote",
+            fieldType = HsPrimType
+              HsPrimCSChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "vote")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "infavour",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:143:3"},
+              EnumValue {
+                valueName = CName "against",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:144:3"},
+              EnumValue {
+                valueName = CName "abstain",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:145:3"}],
+            enumSourceLoc =
+            "manual_examples.h:142:6"}}),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Infavour",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Vote",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Vote",
+      patSynValue = 0,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "infavour",
+          valueValue = 0,
+          valueSourceLoc =
+          "manual_examples.h:143:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Against",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Vote",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Vote",
+      patSynValue = 1,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "against",
+          valueValue = 1,
+          valueSourceLoc =
+          "manual_examples.h:144:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Abstain",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Vote",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Vote",
+      patSynValue = 2,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "abstain",
+          valueValue = 2,
+          valueSourceLoc =
+          "manual_examples.h:145:3"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_CXCursorKind",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "CXCursorKind")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName
+                "CXCursor_FirstExpr",
+              valueValue = 100,
+              valueSourceLoc =
+              "manual_examples.h:151:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_UnexposedExpr",
+              valueValue = 100,
+              valueSourceLoc =
+              "manual_examples.h:152:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_DeclRefExpr",
+              valueValue = 101,
+              valueSourceLoc =
+              "manual_examples.h:153:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_MemberRefExpr",
+              valueValue = 102,
+              valueSourceLoc =
+              "manual_examples.h:154:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_CallExpr",
+              valueValue = 103,
+              valueSourceLoc =
+              "manual_examples.h:155:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_PackIndexingExpr",
+              valueValue = 156,
+              valueSourceLoc =
+              "manual_examples.h:157:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_LastExpr",
+              valueValue = 156,
+              valueSourceLoc =
+              "manual_examples.h:158:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_FirstStmt",
+              valueValue = 200,
+              valueSourceLoc =
+              "manual_examples.h:160:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_UnexposedStmt",
+              valueValue = 200,
+              valueSourceLoc =
+              "manual_examples.h:161:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_LabelStmt",
+              valueValue = 201,
+              valueSourceLoc =
+              "manual_examples.h:162:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_CompoundStmt",
+              valueValue = 202,
+              valueSourceLoc =
+              "manual_examples.h:163:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_CaseStmt",
+              valueValue = 203,
+              valueSourceLoc =
+              "manual_examples.h:164:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_OpenACCUpdateConstruct",
+              valueValue = 331,
+              valueSourceLoc =
+              "manual_examples.h:166:3"},
+            EnumValue {
+              valueName = CName
+                "CXCursor_LastStmt",
+              valueValue = 331,
+              valueSourceLoc =
+              "manual_examples.h:167:3"}],
+          enumSourceLoc =
+          "manual_examples.h:150:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "CXCursorKind",
+        structConstr = HsName
+          "@NsConstr"
+          "CXCursorKind",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_CXCursorKind",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "CXCursorKind")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:151:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:152:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_DeclRefExpr",
+                valueValue = 101,
+                valueSourceLoc =
+                "manual_examples.h:153:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_MemberRefExpr",
+                valueValue = 102,
+                valueSourceLoc =
+                "manual_examples.h:154:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CallExpr",
+                valueValue = 103,
+                valueSourceLoc =
+                "manual_examples.h:155:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_PackIndexingExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:157:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:158:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:160:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:161:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LabelStmt",
+                valueValue = 201,
+                valueSourceLoc =
+                "manual_examples.h:162:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CompoundStmt",
+                valueValue = 202,
+                valueSourceLoc =
+                "manual_examples.h:163:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CaseStmt",
+                valueValue = 203,
+                valueSourceLoc =
+                "manual_examples.h:164:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_OpenACCUpdateConstruct",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:166:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastStmt",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:167:3"}],
+            enumSourceLoc =
+            "manual_examples.h:150:6"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "CXCursorKind",
+                structConstr = HsName
+                  "@NsConstr"
+                  "CXCursorKind",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_CXCursorKind",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "CXCursorKind")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_FirstExpr",
+                        valueValue = 100,
+                        valueSourceLoc =
+                        "manual_examples.h:151:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_UnexposedExpr",
+                        valueValue = 100,
+                        valueSourceLoc =
+                        "manual_examples.h:152:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_DeclRefExpr",
+                        valueValue = 101,
+                        valueSourceLoc =
+                        "manual_examples.h:153:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_MemberRefExpr",
+                        valueValue = 102,
+                        valueSourceLoc =
+                        "manual_examples.h:154:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_CallExpr",
+                        valueValue = 103,
+                        valueSourceLoc =
+                        "manual_examples.h:155:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_PackIndexingExpr",
+                        valueValue = 156,
+                        valueSourceLoc =
+                        "manual_examples.h:157:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_LastExpr",
+                        valueValue = 156,
+                        valueSourceLoc =
+                        "manual_examples.h:158:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_FirstStmt",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "manual_examples.h:160:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_UnexposedStmt",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "manual_examples.h:161:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_LabelStmt",
+                        valueValue = 201,
+                        valueSourceLoc =
+                        "manual_examples.h:162:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_CompoundStmt",
+                        valueValue = 202,
+                        valueSourceLoc =
+                        "manual_examples.h:163:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_CaseStmt",
+                        valueValue = 203,
+                        valueSourceLoc =
+                        "manual_examples.h:164:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_OpenACCUpdateConstruct",
+                        valueValue = 331,
+                        valueSourceLoc =
+                        "manual_examples.h:166:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_LastStmt",
+                        valueValue = 331,
+                        valueSourceLoc =
+                        "manual_examples.h:167:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:150:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "CXCursorKind",
+                structConstr = HsName
+                  "@NsConstr"
+                  "CXCursorKind",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_CXCursorKind",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "CXCursorKind")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_FirstExpr",
+                        valueValue = 100,
+                        valueSourceLoc =
+                        "manual_examples.h:151:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_UnexposedExpr",
+                        valueValue = 100,
+                        valueSourceLoc =
+                        "manual_examples.h:152:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_DeclRefExpr",
+                        valueValue = 101,
+                        valueSourceLoc =
+                        "manual_examples.h:153:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_MemberRefExpr",
+                        valueValue = 102,
+                        valueSourceLoc =
+                        "manual_examples.h:154:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_CallExpr",
+                        valueValue = 103,
+                        valueSourceLoc =
+                        "manual_examples.h:155:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_PackIndexingExpr",
+                        valueValue = 156,
+                        valueSourceLoc =
+                        "manual_examples.h:157:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_LastExpr",
+                        valueValue = 156,
+                        valueSourceLoc =
+                        "manual_examples.h:158:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_FirstStmt",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "manual_examples.h:160:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_UnexposedStmt",
+                        valueValue = 200,
+                        valueSourceLoc =
+                        "manual_examples.h:161:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_LabelStmt",
+                        valueValue = 201,
+                        valueSourceLoc =
+                        "manual_examples.h:162:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_CompoundStmt",
+                        valueValue = 202,
+                        valueSourceLoc =
+                        "manual_examples.h:163:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_CaseStmt",
+                        valueValue = 203,
+                        valueSourceLoc =
+                        "manual_examples.h:164:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_OpenACCUpdateConstruct",
+                        valueValue = 331,
+                        valueSourceLoc =
+                        "manual_examples.h:166:3"},
+                      EnumValue {
+                        valueName = CName
+                          "CXCursor_LastStmt",
+                        valueValue = 331,
+                        valueSourceLoc =
+                        "manual_examples.h:167:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:150:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "CXCursorKind"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "CXCursorKind"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "CXCursorKind"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "CXCursorKind",
+        structConstr = HsName
+          "@NsConstr"
+          "CXCursorKind",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_CXCursorKind",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "CXCursorKind")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:151:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:152:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_DeclRefExpr",
+                valueValue = 101,
+                valueSourceLoc =
+                "manual_examples.h:153:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_MemberRefExpr",
+                valueValue = 102,
+                valueSourceLoc =
+                "manual_examples.h:154:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CallExpr",
+                valueValue = 103,
+                valueSourceLoc =
+                "manual_examples.h:155:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_PackIndexingExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:157:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:158:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:160:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:161:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LabelStmt",
+                valueValue = 201,
+                valueSourceLoc =
+                "manual_examples.h:162:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CompoundStmt",
+                valueValue = 202,
+                valueSourceLoc =
+                "manual_examples.h:163:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CaseStmt",
+                valueValue = 203,
+                valueSourceLoc =
+                "manual_examples.h:164:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_OpenACCUpdateConstruct",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:166:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastStmt",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:167:3"}],
+            enumSourceLoc =
+            "manual_examples.h:150:6"}}
+      (HsPrimType HsPrimCUInt)
+      (Map.fromList
+        [
+          _×_
+            100
+            (NE.fromList
+              [
+                "CXCursor_FirstExpr",
+                "CXCursor_UnexposedExpr"]),
+          _×_
+            101
+            (NE.fromList
+              ["CXCursor_DeclRefExpr"]),
+          _×_
+            102
+            (NE.fromList
+              ["CXCursor_MemberRefExpr"]),
+          _×_
+            103
+            (NE.fromList
+              ["CXCursor_CallExpr"]),
+          _×_
+            156
+            (NE.fromList
+              [
+                "CXCursor_PackIndexingExpr",
+                "CXCursor_LastExpr"]),
+          _×_
+            200
+            (NE.fromList
+              [
+                "CXCursor_FirstStmt",
+                "CXCursor_UnexposedStmt"]),
+          _×_
+            201
+            (NE.fromList
+              ["CXCursor_LabelStmt"]),
+          _×_
+            202
+            (NE.fromList
+              ["CXCursor_CompoundStmt"]),
+          _×_
+            203
+            (NE.fromList
+              ["CXCursor_CaseStmt"]),
+          _×_
+            331
+            (NE.fromList
+              [
+                "CXCursor_OpenACCUpdateConstruct",
+                "CXCursor_LastStmt"])])
+      False),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "CXCursorKind",
+        structConstr = HsName
+          "@NsConstr"
+          "CXCursorKind",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_CXCursorKind",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "CXCursorKind")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:151:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:152:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_DeclRefExpr",
+                valueValue = 101,
+                valueSourceLoc =
+                "manual_examples.h:153:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_MemberRefExpr",
+                valueValue = 102,
+                valueSourceLoc =
+                "manual_examples.h:154:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CallExpr",
+                valueValue = 103,
+                valueSourceLoc =
+                "manual_examples.h:155:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_PackIndexingExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:157:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:158:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:160:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:161:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LabelStmt",
+                valueValue = 201,
+                valueSourceLoc =
+                "manual_examples.h:162:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CompoundStmt",
+                valueValue = 202,
+                valueSourceLoc =
+                "manual_examples.h:163:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CaseStmt",
+                valueValue = 203,
+                valueSourceLoc =
+                "manual_examples.h:164:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_OpenACCUpdateConstruct",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:166:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastStmt",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:167:3"}],
+            enumSourceLoc =
+            "manual_examples.h:150:6"}}),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_FirstExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 100,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_FirstExpr",
+          valueValue = 100,
+          valueSourceLoc =
+          "manual_examples.h:151:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_UnexposedExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 100,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_UnexposedExpr",
+          valueValue = 100,
+          valueSourceLoc =
+          "manual_examples.h:152:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_DeclRefExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 101,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_DeclRefExpr",
+          valueValue = 101,
+          valueSourceLoc =
+          "manual_examples.h:153:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_MemberRefExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 102,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_MemberRefExpr",
+          valueValue = 102,
+          valueSourceLoc =
+          "manual_examples.h:154:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_CallExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 103,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_CallExpr",
+          valueValue = 103,
+          valueSourceLoc =
+          "manual_examples.h:155:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_PackIndexingExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 156,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_PackIndexingExpr",
+          valueValue = 156,
+          valueSourceLoc =
+          "manual_examples.h:157:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_LastExpr",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 156,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_LastExpr",
+          valueValue = 156,
+          valueSourceLoc =
+          "manual_examples.h:158:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_FirstStmt",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 200,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_FirstStmt",
+          valueValue = 200,
+          valueSourceLoc =
+          "manual_examples.h:160:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_UnexposedStmt",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 200,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_UnexposedStmt",
+          valueValue = 200,
+          valueSourceLoc =
+          "manual_examples.h:161:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_LabelStmt",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 201,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_LabelStmt",
+          valueValue = 201,
+          valueSourceLoc =
+          "manual_examples.h:162:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_CompoundStmt",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 202,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_CompoundStmt",
+          valueValue = 202,
+          valueSourceLoc =
+          "manual_examples.h:163:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_CaseStmt",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 203,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_CaseStmt",
+          valueValue = 203,
+          valueSourceLoc =
+          "manual_examples.h:164:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_OpenACCUpdateConstruct",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 331,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_OpenACCUpdateConstruct",
+          valueValue = 331,
+          valueSourceLoc =
+          "manual_examples.h:166:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "CXCursor_LastStmt",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "CXCursorKind",
+      patSynConstr = HsName
+        "@NsConstr"
+        "CXCursorKind",
+      patSynValue = 331,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName
+            "CXCursor_LastStmt",
+          valueValue = 331,
+          valueSourceLoc =
+          "manual_examples.h:167:3"}}]

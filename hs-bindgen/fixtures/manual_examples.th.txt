@@ -272,3 +272,189 @@ deriving newtype instance FiniteBits Data
 deriving newtype instance Integral Data
 deriving newtype instance Num Data
 deriving newtype instance Real Data
+newtype Signal = Signal {un_Signal :: CUInt}
+instance Storable Signal
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Signal <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Signal un_Signal_3 -> pokeByteOff ptr_1 (0 :: Int) un_Signal_3}}
+deriving stock instance Eq Signal
+deriving stock instance Ord Signal
+deriving stock instance Read Signal
+instance CEnum Signal
+    where {type CEnumZ Signal = CUInt;
+           fromCEnumZ = Signal;
+           toCEnumZ = un_Signal;
+           declaredValues = \_ -> declaredValuesFromList [(1,
+                                                           singleton "Start"),
+                                                          (2, singleton "Pause"),
+                                                          (3, singleton "Resume"),
+                                                          (4, singleton "Stop")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
+instance SequentialCEnum Signal
+    where {minDeclaredValue = Start; maxDeclaredValue = Stop}
+instance Show Signal
+    where {show = showCEnum "Signal"}
+pattern Start :: Signal
+pattern Start = Signal 1
+pattern Pause :: Signal
+pattern Pause = Signal 2
+pattern Resume :: Signal
+pattern Resume = Signal 3
+pattern Stop :: Signal
+pattern Stop = Signal 4
+newtype HTTP_status = HTTP_status {un_HTTP_status :: CUInt}
+instance Storable HTTP_status
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure HTTP_status <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {HTTP_status un_HTTP_status_3 -> pokeByteOff ptr_1 (0 :: Int) un_HTTP_status_3}}
+deriving stock instance Eq HTTP_status
+deriving stock instance Ord HTTP_status
+deriving stock instance Read HTTP_status
+instance CEnum HTTP_status
+    where {type CEnumZ HTTP_status = CUInt;
+           fromCEnumZ = HTTP_status;
+           toCEnumZ = un_HTTP_status;
+           declaredValues = \_ -> declaredValuesFromList [(200,
+                                                           singleton "Ok"),
+                                                          (301, singleton "Moved"),
+                                                          (400, singleton "Bad_request"),
+                                                          (401, singleton "Unauthorized"),
+                                                          (404, singleton "Not_found")]}
+instance Show HTTP_status
+    where {show = showCEnum "HTTP_status"}
+pattern Ok :: HTTP_status
+pattern Ok = HTTP_status 200
+pattern Moved :: HTTP_status
+pattern Moved = HTTP_status 301
+pattern Bad_request :: HTTP_status
+pattern Bad_request = HTTP_status 400
+pattern Unauthorized :: HTTP_status
+pattern Unauthorized = HTTP_status 401
+pattern Not_found :: HTTP_status
+pattern Not_found = HTTP_status 404
+newtype Result = Result {un_Result :: CInt}
+instance Storable Result
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Result <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Result un_Result_3 -> pokeByteOff ptr_1 (0 :: Int) un_Result_3}}
+deriving stock instance Eq Result
+deriving stock instance Ord Result
+deriving stock instance Read Result
+instance CEnum Result
+    where {type CEnumZ Result = CInt;
+           fromCEnumZ = Result;
+           toCEnumZ = un_Result;
+           declaredValues = \_ -> declaredValuesFromList [(-1,
+                                                           singleton "Failed"),
+                                                          (0, singleton "Success"),
+                                                          (1, singleton "Postponed"),
+                                                          (2, singleton "Already_done")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
+instance SequentialCEnum Result
+    where {minDeclaredValue = Failed; maxDeclaredValue = Already_done}
+instance Show Result
+    where {show = showCEnum "Result"}
+pattern Failed :: Result
+pattern Failed = Result (-1)
+pattern Success :: Result
+pattern Success = Result 0
+pattern Postponed :: Result
+pattern Postponed = Result 1
+pattern Already_done :: Result
+pattern Already_done = Result 2
+newtype Vote = Vote {un_Vote :: CSChar}
+instance Storable Vote
+    where {sizeOf = \_ -> 1 :: Int;
+           alignment = \_ -> 1 :: Int;
+           peek = \ptr_0 -> pure Vote <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Vote un_Vote_3 -> pokeByteOff ptr_1 (0 :: Int) un_Vote_3}}
+deriving stock instance Eq Vote
+deriving stock instance Ord Vote
+deriving stock instance Read Vote
+instance CEnum Vote
+    where {type CEnumZ Vote = CSChar;
+           fromCEnumZ = Vote;
+           toCEnumZ = un_Vote;
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "Infavour"),
+                                                          (1, singleton "Against"),
+                                                          (2, singleton "Abstain")];
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
+instance SequentialCEnum Vote
+    where {minDeclaredValue = Infavour; maxDeclaredValue = Abstain}
+instance Show Vote
+    where {show = showCEnum "Vote"}
+pattern Infavour :: Vote
+pattern Infavour = Vote 0
+pattern Against :: Vote
+pattern Against = Vote 1
+pattern Abstain :: Vote
+pattern Abstain = Vote 2
+newtype CXCursorKind = CXCursorKind {un_CXCursorKind :: CUInt}
+instance Storable CXCursorKind
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure CXCursorKind <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {CXCursorKind un_CXCursorKind_3 -> pokeByteOff ptr_1 (0 :: Int) un_CXCursorKind_3}}
+deriving stock instance Eq CXCursorKind
+deriving stock instance Ord CXCursorKind
+deriving stock instance Read CXCursorKind
+instance CEnum CXCursorKind
+    where {type CEnumZ CXCursorKind = CUInt;
+           fromCEnumZ = CXCursorKind;
+           toCEnumZ = un_CXCursorKind;
+           declaredValues = \_ -> declaredValuesFromList [(100,
+                                                           "CXCursor_FirstExpr" :| ["CXCursor_UnexposedExpr"]),
+                                                          (101, singleton "CXCursor_DeclRefExpr"),
+                                                          (102, singleton "CXCursor_MemberRefExpr"),
+                                                          (103, singleton "CXCursor_CallExpr"),
+                                                          (156,
+                                                           "CXCursor_PackIndexingExpr" :| ["CXCursor_LastExpr"]),
+                                                          (200,
+                                                           "CXCursor_FirstStmt" :| ["CXCursor_UnexposedStmt"]),
+                                                          (201, singleton "CXCursor_LabelStmt"),
+                                                          (202, singleton "CXCursor_CompoundStmt"),
+                                                          (203, singleton "CXCursor_CaseStmt"),
+                                                          (331,
+                                                           "CXCursor_OpenACCUpdateConstruct" :| ["CXCursor_LastStmt"])]}
+instance Show CXCursorKind
+    where {show = showCEnum "CXCursorKind"}
+pattern CXCursor_FirstExpr :: CXCursorKind
+pattern CXCursor_FirstExpr = CXCursorKind 100
+pattern CXCursor_UnexposedExpr :: CXCursorKind
+pattern CXCursor_UnexposedExpr = CXCursorKind 100
+pattern CXCursor_DeclRefExpr :: CXCursorKind
+pattern CXCursor_DeclRefExpr = CXCursorKind 101
+pattern CXCursor_MemberRefExpr :: CXCursorKind
+pattern CXCursor_MemberRefExpr = CXCursorKind 102
+pattern CXCursor_CallExpr :: CXCursorKind
+pattern CXCursor_CallExpr = CXCursorKind 103
+pattern CXCursor_PackIndexingExpr :: CXCursorKind
+pattern CXCursor_PackIndexingExpr = CXCursorKind 156
+pattern CXCursor_LastExpr :: CXCursorKind
+pattern CXCursor_LastExpr = CXCursorKind 156
+pattern CXCursor_FirstStmt :: CXCursorKind
+pattern CXCursor_FirstStmt = CXCursorKind 200
+pattern CXCursor_UnexposedStmt :: CXCursorKind
+pattern CXCursor_UnexposedStmt = CXCursorKind 200
+pattern CXCursor_LabelStmt :: CXCursorKind
+pattern CXCursor_LabelStmt = CXCursorKind 201
+pattern CXCursor_CompoundStmt :: CXCursorKind
+pattern CXCursor_CompoundStmt = CXCursorKind 202
+pattern CXCursor_CaseStmt :: CXCursorKind
+pattern CXCursor_CaseStmt = CXCursorKind 203
+pattern CXCursor_OpenACCUpdateConstruct :: CXCursorKind
+pattern CXCursor_OpenACCUpdateConstruct = CXCursorKind 331
+pattern CXCursor_LastStmt :: CXCursorKind
+pattern CXCursor_LastStmt = CXCursorKind 331
