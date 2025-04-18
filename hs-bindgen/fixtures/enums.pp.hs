@@ -174,7 +174,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(1, ("SAME_B" Data.List.NonEmpty.:| ["SAME_A"]))]
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(1, ("SAME_A" Data.List.NonEmpty.:| ["SAME_B"]))]
 
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
@@ -182,9 +182,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
 instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
 
-  minDeclaredValue = SAME_B
+  minDeclaredValue = SAME_A
 
-  maxDeclaredValue = SAME_B
+  maxDeclaredValue = SAME_A
 
 instance Show Same where
 
