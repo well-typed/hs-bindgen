@@ -1,16 +1,16 @@
 types:
-- cname: struct diff
-  headers: flam.h
+- headers: flam.h
+  cname: struct diff
+  package: example
+  module: Example
   identifier: Diff
-  module: Example
+- headers: flam.h
+  cname: struct foo
   package: example
-- cname: struct foo
-  headers: flam.h
+  module: Example
   identifier: Foo
-  module: Example
+- headers: flam.h
+  cname: struct pascal
   package: example
-- cname: struct pascal
-  headers: flam.h
+  module: Example
   identifier: Pascal
-  module: Example
-  package: example

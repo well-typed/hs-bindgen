@@ -1,11 +1,11 @@
 types:
-- cname: adiós
-  headers: adios.h
+- headers: adios.h
+  cname: adiós
+  package: example
+  module: Example
   identifier: Adio'0301s
-  module: Example
+- headers: adios.h
+  cname: 数字
   package: example
-- cname: 数字
-  headers: adios.h
+  module: Example
   identifier: C数字
-  module: Example
-  package: example

@@ -1,41 +1,41 @@
 types:
-- cname: MC
-  headers: macro_in_fundecl_vs_typedef.h
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: MC
+  package: example
+  module: Example
   identifier: MC
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: TC
   package: example
-- cname: TC
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: TC
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct1
   package: example
-- cname: struct struct1
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: Struct1
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct3
   package: example
-- cname: struct struct3
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: Struct3
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct4
   package: example
-- cname: struct struct4
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: Struct4
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct2
   package: example
-- cname: struct2
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: Struct2
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct3_t
   package: example
-- cname: struct3_t
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: Struct3_t
-  module: Example
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct4
   package: example
-- cname: struct4
-  headers: macro_in_fundecl_vs_typedef.h
+  module: Example
   identifier: Struct4
-  module: Example
-  package: example

@@ -1,16 +1,16 @@
 types:
-- cname: S1_t
-  headers: forward_declaration.h
+- headers: forward_declaration.h
+  cname: S1_t
+  package: example
+  module: Example
   identifier: S1_t
-  module: Example
+- headers: forward_declaration.h
+  cname: struct S1
   package: example
-- cname: struct S1
-  headers: forward_declaration.h
+  module: Example
   identifier: S1
-  module: Example
+- headers: forward_declaration.h
+  cname: struct S2
   package: example
-- cname: struct S2
-  headers: forward_declaration.h
+  module: Example
   identifier: S2
-  module: Example
-  package: example

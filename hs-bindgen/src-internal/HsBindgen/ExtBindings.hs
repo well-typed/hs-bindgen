@@ -39,8 +39,10 @@ import Data.Aeson ((.=), (.:))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
 import Data.ByteString (ByteString)
+import Data.ByteString qualified as BSS
 import Data.ByteString.Lazy qualified as BSL
 import Data.Either (partitionEithers)
+import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -48,6 +50,7 @@ import Data.Text qualified as Text
 import Data.Typeable
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
+import Data.Yaml.Pretty qualified as Yaml.Pretty
 
 import Clang.Args
 import Clang.CNameSpelling
@@ -336,7 +339,7 @@ loadUnresolvedExtBindingsJson ::
 loadUnresolvedExtBindingsJson path = do
     eec <- Aeson.eitherDecodeFileStrict' path
     return $ case eec of
-      Right config -> mkUnresolvedExtBindings path config
+      Right config -> fromConfigFile path config
       Left err     -> Left (LoadUnresolvedExtBindingsAesonError path err)
 
 -- | Load 'UnresolvedExtBindings' from a YAML file
@@ -346,18 +349,18 @@ loadUnresolvedExtBindingsYaml ::
 loadUnresolvedExtBindingsYaml path = do
     eewc <- Yaml.decodeFileWithWarnings path
     return $ case eewc of
-      Right ([], config) -> mkUnresolvedExtBindings path config
+      Right ([], config) -> fromConfigFile path config
       Right (warnings, _) ->
         Left (LoadUnresolvedExtBindingsYamlWarning path warnings)
       Left err -> Left (LoadUnresolvedExtBindingsYamlError path err)
 
 -- | Encode 'UnresolvedExtBindings' as JSON
 encodeUnresolvedExtBindingsJson :: UnresolvedExtBindings -> BSL.ByteString
-encodeUnresolvedExtBindingsJson = Aeson.encode . encodeUnresolvedExtBindings
+encodeUnresolvedExtBindingsJson = encodeJSON . toConfigFile
 
 -- | Encode 'UnresolvedExtBindings' as YAML
 encodeUnresolvedExtBindingsYaml :: UnresolvedExtBindings -> ByteString
-encodeUnresolvedExtBindingsYaml = Yaml.encode . encodeUnresolvedExtBindings
+encodeUnresolvedExtBindingsYaml = encodeYaml . toConfigFile
 
 -- | Write 'UnresolvedExtBindings' to a configuration file
 --
@@ -377,12 +380,12 @@ writeUnresolvedExtBindings path bindings
 -- | Write 'UnresolvedExtBindings' to a JSON file
 writeUnresolvedExtBindingsJson :: FilePath -> UnresolvedExtBindings -> IO ()
 writeUnresolvedExtBindingsJson path =
-    Aeson.encodeFile path . encodeUnresolvedExtBindings
+    BSL.writeFile path . encodeJSON . toConfigFile
 
 -- | Write 'UnresolvedExtBindings' to a YAML file
 writeUnresolvedExtBindingsYaml :: FilePath -> UnresolvedExtBindings -> IO ()
 writeUnresolvedExtBindingsYaml path =
-    Yaml.encodeFile path . encodeUnresolvedExtBindings
+     BSS.writeFile path . encodeYaml . toConfigFile
 
 {-------------------------------------------------------------------------------
   Public API
@@ -423,22 +426,22 @@ loadExtBindings args =
 -------------------------------------------------------------------------------}
 
 -- | Configuration file
-newtype Config = Config {
+newtype ConfigFile = ConfigFile {
       configTypes :: [Mapping]
     }
   deriving (Generic, Show)
 
-instance Aeson.FromJSON Config where
+instance Aeson.FromJSON ConfigFile where
   parseJSON = Aeson.withObject "Config" $ \obj -> do
       configTypes <- obj .: "types"
-      return Config{configTypes}
+      return ConfigFile{configTypes}
 
-instance Aeson.ToJSON Config where
+instance Aeson.ToJSON ConfigFile where
   toJSON config = Aeson.object [
         "types" .= configTypes
       ]
     where
-      Config{configTypes} = config
+      ConfigFile{configTypes} = config
 
 -- | Mapping from C name and headers to Haskell package, module, and identifier
 data Mapping = Mapping {
@@ -483,15 +486,44 @@ instance Aeson.ToJSON Mapping where
         } = mapping
 
 {-------------------------------------------------------------------------------
+  Serialization
+-------------------------------------------------------------------------------}
+
+encodeJSON :: ConfigFile -> BSL.ByteString
+encodeJSON = Aeson.encode
+
+encodeYaml :: ConfigFile -> BSS.ByteString
+encodeYaml = Yaml.Pretty.encodePretty yamlConfig
+  where
+    yamlConfig :: Yaml.Pretty.Config
+    yamlConfig =
+          Yaml.Pretty.setConfCompare (compare `on` keyPosition)
+        $ Yaml.Pretty.defConfig
+
+    keyPosition :: Text -> Int
+    keyPosition key =
+        case key of
+          -- Config
+          "types" -> 1
+          -- Mapping
+          "headers"    -> 1
+          "cname"      -> 2
+          "package"    -> 3
+          "module"     -> 4
+          "identifier" -> 5
+          -- Unknown
+          _otherwise -> error $ "Unknown key: " ++ show key
+
+{-------------------------------------------------------------------------------
   Auxiliary Functions (Internal)
 -------------------------------------------------------------------------------}
 
 -- | Create 'UnresolvedExtBindings' from a 'Config'
-mkUnresolvedExtBindings ::
+fromConfigFile ::
      FilePath
-  -> Config
+  -> ConfigFile
   -> Either LoadUnresolvedExtBindingsException UnresolvedExtBindings
-mkUnresolvedExtBindings path Config{..} = do
+fromConfigFile path ConfigFile{..} = do
     unresolvedExtBindingsTypes <- mkMap configTypes
     return UnresolvedExtBindings{..}
   where
@@ -546,8 +578,8 @@ mkUnresolvedExtBindings path Config{..} = do
             then dupMap
             else Map.insertWith Set.union cname commonHeaders dupMap
 
-encodeUnresolvedExtBindings :: UnresolvedExtBindings -> Config
-encodeUnresolvedExtBindings UnresolvedExtBindings{..} = Config{..}
+toConfigFile :: UnresolvedExtBindings -> ConfigFile
+toConfigFile UnresolvedExtBindings{..} = ConfigFile{..}
   where
     configTypes :: [Mapping]
     configTypes = [

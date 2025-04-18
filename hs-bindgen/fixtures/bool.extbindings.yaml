@@ -1,21 +1,21 @@
 types:
-- cname: BOOL
-  headers: bool.h
+- headers: bool.h
+  cname: BOOL
+  package: example
+  module: Example
   identifier: BOOL
-  module: Example
+- headers: bool.h
+  cname: struct bools1
   package: example
-- cname: struct bools1
-  headers: bool.h
+  module: Example
   identifier: Bools1
-  module: Example
+- headers: bool.h
+  cname: struct bools2
   package: example
-- cname: struct bools2
-  headers: bool.h
+  module: Example
   identifier: Bools2
-  module: Example
+- headers: bool.h
+  cname: struct bools3
   package: example
-- cname: struct bools3
-  headers: bool.h
+  module: Example
   identifier: Bools3
-  module: Example
-  package: example
