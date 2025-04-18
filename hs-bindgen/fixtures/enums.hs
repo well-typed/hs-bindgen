@@ -994,7 +994,7 @@
           _×_
             1
             (NE.fromList
-              ["SAME_B", "SAME_A"])])
+              ["SAME_A", "SAME_B"])])
       True),
   DeclInstance
     (InstanceSequentialCEnum
@@ -1035,8 +1035,8 @@
                 valueSourceLoc =
                 "enums.h:17:5"}],
             enumSourceLoc = "enums.h:15:6"}}
-      (HsName "@NsConstr" "SAME_B")
-      (HsName "@NsConstr" "SAME_B")),
+      (HsName "@NsConstr" "SAME_A")
+      (HsName "@NsConstr" "SAME_A")),
   DeclInstance
     (InstanceCEnumShow
       Struct {

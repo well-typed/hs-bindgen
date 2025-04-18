@@ -71,11 +71,11 @@ instance CEnum Same
            fromCEnumZ = Same;
            toCEnumZ = un_Same;
            declaredValues = \_ -> declaredValuesFromList [(1,
-                                                           "SAME_B" :| ["SAME_A"])];
+                                                           "SAME_A" :| ["SAME_B"])];
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Same
-    where {minDeclaredValue = SAME_B; maxDeclaredValue = SAME_B}
+    where {minDeclaredValue = SAME_A; maxDeclaredValue = SAME_A}
 instance Show Same
     where {show = showCEnum "Same"}
 pattern SAME_A :: Same

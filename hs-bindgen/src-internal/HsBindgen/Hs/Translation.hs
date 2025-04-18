@@ -328,7 +328,7 @@ enumDecs opts nm e = concat [
 
     cEnumInstanceDecls :: [Hs.Decl]
     cEnumInstanceDecls =
-      let vNames = Map.fromListWith (<>) [
+      let vNames = Map.fromListWith (flip (<>)) [ -- preserve source order
               ( Hs.patSynValue pat
               , NonEmpty.singleton (Hs.patSynName pat)
               )
