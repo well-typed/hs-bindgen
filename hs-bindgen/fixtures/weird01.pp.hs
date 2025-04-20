@@ -9,6 +9,8 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
+-- void func (struct bar *arg1)
+
 foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO ()
 
 data Foo = Foo

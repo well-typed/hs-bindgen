@@ -5,6 +5,8 @@ module HsBindgen.C.AST.Type (
     Type(..)
     -- * Primitive types
   , PrimType(..)
+  , showsType
+  , showsFunctionType
   , PrimIntType(..)
   , PrimFloatType(..)
   , PrimSign(..)
@@ -29,10 +31,13 @@ module HsBindgen.C.AST.Type (
   , declPathName
   ) where
 
+import Data.Text qualified as T
+
 import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
+
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -68,6 +73,74 @@ data Type =
   | TypeExtBinding ExtIdentifier Type
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow Type
+
+-- | Show type in C syntax.
+-- Used to generate userland-capi C-code.
+--
+-- >>> showsType (showString "x") (TypePrim PrimBool) ""
+-- "_Bool x"
+--
+-- TODO: int (*baz2 (int arg1))[2][3] { ... }
+--
+--
+showsType :: ShowS -- ^ variable name
+  -> Type -> ShowS
+showsType x (TypePrim p)            = showsPrimType p . showChar ' ' . x
+showsType x (TypeStruct dp)         = showString "struct " . showDeclPath dp . showChar ' ' . x
+showsType x (TypeUnion dp)          = showString "union " . showDeclPath dp . showChar ' ' . x
+showsType x (TypeEnum dp)           = showString "enum " . showDeclPath dp . showChar ' ' . x
+showsType x (TypeTypedef n)         = showString (cnameToString n) . showChar ' ' . x
+showsType x (TypePointer t)         = showsType (showString "*" . x) t
+showsType x (TypeConstArray n t)    = showsType (x . showChar '[' . shows n . showChar ']') t
+showsType x (TypeFun args res)      = showsFunctionType (showParen True x) args res
+showsType x TypeVoid                = showString "void " . x
+showsType x (TypeIncompleteArray t) = showsType (x . showString "[]") t
+showsType x (TypeExtBinding _ t)    = showsType x t
+
+-- | by "construction" function arguments (where showsType is used), cannot be anonymous, so DeclPathAnon is shown as <anon>.
+-- FWIW, that's similar to how libclang show types referencing anonymous structs.
+showDeclPath :: DeclPath -> ShowS
+showDeclPath (DeclPathName n _) = showString (T.unpack (getCName n))
+showDeclPath (DeclPathAnon _)   = showString "<anon>"
+
+showsFunctionType
+  :: ShowS   -- ^ function name
+  -> [Type]  -- ^ argument types
+  -> Type    -- ^ return type
+  -> ShowS
+showsFunctionType n args res =
+    showsType n res . showChar ' ' . showParen True signatureArgs
+  where
+    signatureArgs :: ShowS
+    signatureArgs = case args of
+        [] -> showString "void"
+        p:ps -> foldr1 sep $ fmap showT $ (1, p) :| zip [2..] ps
+      where
+        sep a b = a . showString ", " . b
+
+        showT :: (Int, Type) -> ShowS
+        showT (i, p) = showsType (showString "arg" . shows i) p
+
+
+cnameToString :: CName -> String
+cnameToString = T.unpack . getCName
+
+{- TODO: function pointers
+
+static int arr[2][3];
+
+int (*baz2 (int arg1))[2][3] {
+
+        return &arr;
+}
+
+int main() {
+  int (*(*tmp) (int arg1))[2][3] = baz2;
+  int* (*ptr)(int);
+  return 0;
+}
+
+-}
 
 {-------------------------------------------------------------------------------
   Primitives types
@@ -163,6 +236,29 @@ data PrimFloatType
 -- | Sign of a primitive type
 data PrimSign = Signed | Unsigned
   deriving stock (Show, Eq, Ord, Generic)
+
+showsPrimType :: PrimType -> ShowS
+showsPrimType (PrimChar (PrimSignImplicit _)) = showString "char"
+showsPrimType (PrimChar (PrimSignExplicit s)) = showsPrimSign s . showString " char"
+showsPrimType (PrimIntegral i s) = showsPrimSign s . showChar ' ' . showsPrimIntType i
+showsPrimType (PrimFloating f) = showsPrimFloatType f
+showsPrimType PrimPtrDiff = showString "ptrdiff_t"
+showsPrimType PrimBool = showString "_Bool"
+
+showsPrimIntType :: PrimIntType -> ShowS
+showsPrimIntType PrimShort = showString "short"
+showsPrimIntType PrimInt = showString "int"
+showsPrimIntType PrimLong = showString "long"
+showsPrimIntType PrimLongLong = showString "long long"
+
+showsPrimFloatType :: PrimFloatType -> ShowS
+showsPrimFloatType PrimFloat = showString "float"
+showsPrimFloatType PrimDouble = showString "double"
+showsPrimFloatType PrimLongDouble = showString "long double"
+
+showsPrimSign :: PrimSign -> ShowS
+showsPrimSign Signed = showString "signed"
+showsPrimSign Unsigned = showString "unsigned"
 
 {-------------------------------------------------------------------------------
   Structs

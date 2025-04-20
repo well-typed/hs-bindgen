@@ -5,13 +5,13 @@ module HsBindgen.SHs.Translation (
 
 -- previously Backend.Common.Translation
 
-import Data.List.NonEmpty (NonEmpty((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.C.AST qualified as C (MFun(..))
+import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
@@ -32,17 +32,17 @@ import Data.Proxy (Proxy(..))
   Declarations
 -------------------------------------------------------------------------------}
 
-translateDecl :: Hs.Decl -> SDecl
-translateDecl (Hs.DeclData d) = translateDeclData d
-translateDecl (Hs.DeclEmpty d) = translateDeclEmpty d
-translateDecl (Hs.DeclNewtype n) = translateNewtype n
-translateDecl (Hs.DeclDefineInstance i) = translateDefineInstanceDecl i
-translateDecl (Hs.DeclDeriveInstance s tc c) = translateDeriveInstance s tc c
-translateDecl (Hs.DeclVar v) = translateVarDecl v
+translateDecl :: Hs.Decl -> [SDecl]
+translateDecl (Hs.DeclData d) = singleton $ translateDeclData d
+translateDecl (Hs.DeclEmpty d) = singleton $ translateDeclEmpty d
+translateDecl (Hs.DeclNewtype n) = singleton $ translateNewtype n
+translateDecl (Hs.DeclDefineInstance i) = singleton $ translateDefineInstanceDecl i
+translateDecl (Hs.DeclDeriveInstance s tc c) = singleton $ translateDeriveInstance s tc c
+translateDecl (Hs.DeclVar v) = singleton $ translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
-translateDecl (Hs.DeclPatSyn ps) = translatePatSyn ps
-translateDecl (Hs.DeclUnionGetter u f n) = translateUnionGetter u f n
-translateDecl (Hs.DeclUnionSetter u f n) = translateUnionSetter u f n
+translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
+translateDecl (Hs.DeclUnionGetter u f n) = singleton $ translateUnionGetter u f n
+translateDecl (Hs.DeclUnionSetter u f n) = singleton $ translateUnionSetter u f n
 
 translateDefineInstanceDecl :: Hs.InstanceDecl -> SDecl
 translateDefineInstanceDecl (Hs.InstanceStorable struct i) =
@@ -122,14 +122,23 @@ translateVarDecl Hs.VarDecl {..} = DVar
     (Just (translateSigma varDeclType))
     (translateBody varDeclBody)
 
-translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
-translateForeignImportDecl Hs.ForeignImportDecl {..} = DForeignImport ForeignImport
-    { foreignImportName     = foreignImportName
-    , foreignImportType     = translateType foreignImportType
-    , foreignImportOrigName = foreignImportOrigName
-    , foreignImportHeader   = foreignImportHeader
-    , foreignImportOrigin   = foreignImportDeclOrigin
-    }
+translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
+translateForeignImportDecl Hs.ForeignImportDecl {..} =
+    [ DComment $ signature ""
+    , DForeignImport ForeignImport
+        { foreignImportName     = foreignImportName
+        , foreignImportType     = translateType foreignImportType
+        , foreignImportOrigName = foreignImportOrigName
+        , foreignImportHeader   = foreignImportHeader
+        , foreignImportOrigin   = foreignImportDeclOrigin
+        }
+    ]
+  where
+    signature :: ShowS
+    signature = C.showsFunctionType
+      (showString (T.unpack foreignImportOrigName))
+      foreignImportCArgs
+      foreignImportCRes
 
 translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym

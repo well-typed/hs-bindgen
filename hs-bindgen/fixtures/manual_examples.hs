@@ -402,6 +402,19 @@
                     "Triple")))
               (HsIO
                 (HsPrimType HsPrimUnit))))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")
+              DeclPathCtxtTop))],
       foreignImportOrigName =
       "mk_triple",
       foreignImportHeader =
@@ -445,6 +458,18 @@
               "@NsTypeConstr"
               "Index"))
           (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportCRes = TypePrim
+        (PrimIntegral PrimInt Signed),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")
+              DeclPathCtxtTop)),
+        TypeEnum
+          (DeclPathName
+            (CName "index")
+            DeclPathCtxtTop)],
       foreignImportOrigName =
       "index_triple",
       foreignImportHeader =
@@ -486,6 +511,14 @@
             (HsName
               "@NsTypeConstr"
               "Sum"))),
+      foreignImportCRes = TypeTypedef
+        (CName "sum"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")
+              DeclPathCtxtTop))],
       foreignImportOrigName =
       "sum_triple",
       foreignImportHeader =
@@ -523,6 +556,14 @@
             (HsName
               "@NsTypeConstr"
               "Average"))),
+      foreignImportCRes = TypeTypedef
+        (CName "average"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")
+              DeclPathCtxtTop))],
       foreignImportOrigName =
       "average_triple",
       foreignImportHeader =
@@ -560,6 +601,11 @@
             (HsName
               "@NsTypeConstr"
               "YEAR"))),
+      foreignImportCRes = TypeTypedef
+        (CName "YEAR"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeTypedef (CName "date"))],
       foreignImportOrigName =
       "getYear",
       foreignImportHeader =
@@ -591,6 +637,15 @@
                 "@NsTypeConstr"
                 "Occupation")))
           (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePointer
+          (TypeUnion
+            (DeclPathName
+              (CName "occupation")
+              DeclPathCtxtTop))],
       foreignImportOrigName =
       "print_occupation",
       foreignImportHeader =
@@ -620,6 +675,8 @@
         "\25308\25308",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
       foreignImportOrigName =
       "\25308\25308",
       foreignImportHeader =
@@ -642,6 +699,8 @@
         "c\978",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
       foreignImportOrigName = "\978",
       foreignImportHeader =
       "manual_examples.h",
@@ -662,6 +721,8 @@
         "import'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
       foreignImportOrigName =
       "import",
       foreignImportHeader =

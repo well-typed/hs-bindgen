@@ -28,6 +28,7 @@ import Numeric.Natural as X (Natural)
 -- types
 import Data.IntMap.Strict as X (IntMap)
 import Data.IntSet as X (IntSet)
+import Data.List.NonEmpty as X (NonEmpty (..))
 import Data.Map.Strict as X (Map)
 import Data.Nat as X (Nat (Z, S))
 import Data.Set as X (Set)

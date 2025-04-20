@@ -12,6 +12,8 @@ import HsBindgen.Hs.AST (Strategy (..))
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
+    DComment {} ->
+        Set.empty
     DVar _name ty _expr ->
         foldMap typeExtensions ty
     DInst x -> Set.fromList $ catMaybes [

@@ -58,7 +58,6 @@ module HsBindgen.Hs.AST (
   , PatSynOrigin(..)
   ) where
 
-import Data.List.NonEmpty (NonEmpty)
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 
@@ -134,6 +133,8 @@ data NewtypeOrigin =
 data ForeignImportDecl = ForeignImportDecl
     { foreignImportName       :: HsName NsVar
     , foreignImportType       :: HsType
+    , foreignImportCRes       :: C.Type
+    , foreignImportCArgs      :: [C.Type]
     , foreignImportOrigName   :: Text
     , foreignImportHeader     :: FilePath -- TODO: https://github.com/well-typed/hs-bindgen/issues/333
     , foreignImportDeclOrigin :: ForeignImportDeclOrigin

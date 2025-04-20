@@ -452,6 +452,7 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Quote q => SDecl -> q [TH.Dec]
 mkDecl = \case
+      DComment {} -> return []
       DVar x Nothing   f -> singleton <$> simpleDecl (hsNameToTH x) f
       DVar x (Just ty) f -> sequence
           [ TH.sigD (hsNameToTH x) (mkType EmptyEnv ty)
