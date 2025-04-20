@@ -51,8 +51,9 @@
 # - flags:
 #   - {name: -w, within: []} # -w is allowed nowhere
 #
-# - modules:
-#   - {name: [Data.Set, Data.HashSet], as: Set} # if you import Data.Set qualified, it must be as 'Set'
+- modules:
+  - {name: [HsBindgen.C.Tc.Macro], as: Macro} # if you import HsBindgen.C.Tc.Macro qualified, it must be as 'M' (**not** C)
+  - {name: [C.Type], as: C.Type}
 #   - {name: Control.Arrow, within: []} # Certain modules are banned entirely
 
 

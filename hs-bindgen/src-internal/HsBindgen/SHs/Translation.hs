@@ -12,7 +12,7 @@ import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.C.AST qualified as C (MFun(..))
-import HsBindgen.C.Tc.Macro qualified as C hiding ( IntegralType )
+import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -21,7 +21,7 @@ import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import HsBindgen.Errors
 
-import C.Type qualified as C
+import C.Type qualified
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size(UnsafeSize))
@@ -184,77 +184,77 @@ translateTau = \case
     | otherwise
     -> foldl' TApp (tyConGlobal tc) (fmap translateTau args)
 
-simpleTyConApp :: C.TyCon args C.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
+simpleTyConApp :: Macro.TyCon args Macro.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
 simpleTyConApp
-  (C.GenerativeTyCon (C.DataTyCon C.IntLikeTyCon))
-  [Hs.TyConAppTy (Hs.ATyCon (C.GenerativeTyCon (C.DataTyCon (C.PrimIntInfoTyCon inty)))) []]
+  (Macro.GenerativeTyCon (Macro.DataTyCon Macro.IntLikeTyCon))
+  [Hs.TyConAppTy (Hs.ATyCon (Macro.GenerativeTyCon (Macro.DataTyCon (Macro.PrimIntInfoTyCon inty)))) []]
     = Just $ TGlobal $ PrimType $
         case inty of
-          C.HsIntType -> HsPrimInt
-          C.CIntegralType primIntTy -> hsPrimIntTy primIntTy
+          Macro.HsIntType -> HsPrimInt
+          Macro.CIntegralType primIntTy -> hsPrimIntTy primIntTy
 simpleTyConApp
-  (C.GenerativeTyCon (C.DataTyCon C.FloatLikeTyCon))
-  [Hs.TyConAppTy (Hs.ATyCon (C.GenerativeTyCon (C.DataTyCon (C.PrimFloatInfoTyCon floaty)))) []]
+  (Macro.GenerativeTyCon (Macro.DataTyCon Macro.FloatLikeTyCon))
+  [Hs.TyConAppTy (Hs.ATyCon (Macro.GenerativeTyCon (Macro.DataTyCon (Macro.PrimFloatInfoTyCon floaty)))) []]
     = Just $ TGlobal $ PrimType $ hsPrimFloatTy floaty
 simpleTyConApp _ _ = Nothing
 
-tyConGlobal :: C.TyCon args res -> SType ctx
+tyConGlobal :: Macro.TyCon args res -> SType ctx
 tyConGlobal = \case
-  C.GenerativeTyCon tc ->
+  Macro.GenerativeTyCon tc ->
     case tc of
-      C.DataTyCon dc ->
+      Macro.DataTyCon dc ->
         case dc of
-          C.TupleTyCon n ->
+          Macro.TupleTyCon n ->
             TGlobal $ Tuple_type n
-          C.VoidTyCon ->
+          Macro.VoidTyCon ->
             TGlobal $ PrimType HsPrimVoid
-          C.IntLikeTyCon   ->
+          Macro.IntLikeTyCon   ->
             TGlobal IntLike_tycon
-          C.FloatLikeTyCon ->
+          Macro.FloatLikeTyCon ->
             TGlobal FloatLike_tycon
-          C.PrimIntInfoTyCon inty ->
+          Macro.PrimIntInfoTyCon inty ->
             TGlobal $ PrimType $
               case inty of
-                C.CIntegralType primIntTy -> hsPrimIntTy primIntTy
-                C.HsIntType -> HsPrimInt
-          C.PrimFloatInfoTyCon floaty ->
+                Macro.CIntegralType primIntTy -> hsPrimIntTy primIntTy
+                Macro.HsIntType -> HsPrimInt
+          Macro.PrimFloatInfoTyCon floaty ->
             TGlobal $ PrimType $ hsPrimFloatTy floaty
-          C.PtrTyCon ->
+          Macro.PtrTyCon ->
             TGlobal Foreign_Ptr
-          C.CharLitTyCon ->
+          Macro.CharLitTyCon ->
             TGlobal CharValue_tycon
-          C.PrimTyTyCon ->
+          Macro.PrimTyTyCon ->
             panicPure "tyConGlobal PrimTyTyCon"
-          C.EmptyTyCon ->
+          Macro.EmptyTyCon ->
             panicPure "tyConGlobal EmptyTyCon"
-      C.ClassTyCon cls -> TGlobal $
+      Macro.ClassTyCon cls -> TGlobal $
         case cls of
-          C.NotTyCon        -> Not_class
-          C.LogicalTyCon    -> Logical_class
-          C.RelEqTyCon      -> RelEq_class
-          C.RelOrdTyCon     -> RelOrd_class
-          C.PlusTyCon       -> Plus_class
-          C.MinusTyCon      -> Minus_class
-          C.AddTyCon        -> Add_class
-          C.SubTyCon        -> Sub_class
-          C.MultTyCon       -> Mult_class
-          C.DivTyCon        -> Div_class
-          C.RemTyCon        -> Rem_class
-          C.ComplementTyCon -> Complement_class
-          C.BitwiseTyCon    -> Bitwise_class
-          C.ShiftTyCon      -> Shift_class
-  C.FamilyTyCon tc -> TGlobal $
+          Macro.NotTyCon        -> Not_class
+          Macro.LogicalTyCon    -> Logical_class
+          Macro.RelEqTyCon      -> RelEq_class
+          Macro.RelOrdTyCon     -> RelOrd_class
+          Macro.PlusTyCon       -> Plus_class
+          Macro.MinusTyCon      -> Minus_class
+          Macro.AddTyCon        -> Add_class
+          Macro.SubTyCon        -> Sub_class
+          Macro.MultTyCon       -> Mult_class
+          Macro.DivTyCon        -> Div_class
+          Macro.RemTyCon        -> Rem_class
+          Macro.ComplementTyCon -> Complement_class
+          Macro.BitwiseTyCon    -> Bitwise_class
+          Macro.ShiftTyCon      -> Shift_class
+  Macro.FamilyTyCon tc -> TGlobal $
     case tc of
-      C.PlusResTyCon       -> Plus_resTyCon
-      C.MinusResTyCon      -> Minus_resTyCon
-      C.AddResTyCon        -> Add_resTyCon
-      C.SubResTyCon        -> Sub_resTyCon
-      C.MultResTyCon       -> Mult_resTyCon
-      C.DivResTyCon        -> Div_resTyCon
-      C.RemResTyCon        -> Rem_resTyCon
-      C.ComplementResTyCon -> Complement_resTyCon
-      C.BitsResTyCon       -> Bitwise_resTyCon
-      C.ShiftResTyCon      -> Shift_resTyCon
+      Macro.PlusResTyCon       -> Plus_resTyCon
+      Macro.MinusResTyCon      -> Minus_resTyCon
+      Macro.AddResTyCon        -> Add_resTyCon
+      Macro.SubResTyCon        -> Sub_resTyCon
+      Macro.MultResTyCon       -> Mult_resTyCon
+      Macro.DivResTyCon        -> Div_resTyCon
+      Macro.RemResTyCon        -> Rem_resTyCon
+      Macro.ComplementResTyCon -> Complement_resTyCon
+      Macro.BitsResTyCon       -> Bitwise_resTyCon
+      Macro.ShiftResTyCon      -> Shift_resTyCon
 
 mfunGlobal :: C.MFun arity -> Global
 mfunGlobal = \case
@@ -282,37 +282,38 @@ mfunGlobal = \case
   C.MLogicalOr  -> Logical_or
   C.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
 
-hsPrimIntTy :: C.IntegralType -> HsPrimType
+hsPrimIntTy :: C.Type.IntegralType -> HsPrimType
 hsPrimIntTy = \case
-  C.Bool -> HsPrimCBool
-  C.CharLike c ->
+  C.Type.Bool -> HsPrimCBool
+  C.Type.CharLike c ->
     case c of
-      C.Char  -> HsPrimCChar
-      C.SChar -> HsPrimCSChar
-      C.UChar -> HsPrimCUChar
-  C.IntLike i ->
+      C.Type.Char  -> HsPrimCChar
+      C.Type.SChar -> HsPrimCSChar
+      C.Type.UChar -> HsPrimCUChar
+  C.Type.IntLike i ->
     case i of
-      C.Short    s ->
+      C.Type.Short    s ->
         case s of
-          C.Signed   -> HsPrimCShort
-          C.Unsigned -> HsPrimCUShort
-      C.Int      s ->
+          C.Type.Signed   -> HsPrimCShort
+          C.Type.Unsigned -> HsPrimCUShort
+      C.Type.Int      s ->
         case s of
-          C.Signed   -> HsPrimCInt
-          C.Unsigned -> HsPrimCUInt
-      C.Long     s ->
+          C.Type.Signed   -> HsPrimCInt
+          C.Type.Unsigned -> HsPrimCUInt
+      C.Type.Long     s ->
         case s of
-          C.Signed   -> HsPrimCLong
-          C.Unsigned -> HsPrimCULong
-      C.LongLong s ->
+          C.Type.Signed   -> HsPrimCLong
+          C.Type.Unsigned -> HsPrimCULong
+      C.Type.LongLong s ->
         case s of
-          C.Signed   -> HsPrimCLLong
-          C.Unsigned -> HsPrimCULLong
-      C.PtrDiff    -> HsPrimCPtrDiff
-hsPrimFloatTy :: C.FloatingType -> HsPrimType
+          C.Type.Signed   -> HsPrimCLLong
+          C.Type.Unsigned -> HsPrimCULLong
+      C.Type.PtrDiff    -> HsPrimCPtrDiff
+
+hsPrimFloatTy :: C.Type.FloatingType -> HsPrimType
 hsPrimFloatTy = \case
-  C.FloatType  -> HsPrimCFloat
-  C.DoubleType -> HsPrimCDouble
+  C.Type.FloatType  -> HsPrimCFloat
+  C.Type.DoubleType -> HsPrimCDouble
 
 {-------------------------------------------------------------------------------
  VarDeclRHS
