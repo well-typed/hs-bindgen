@@ -340,6 +340,38 @@ pattern Unauthorized :: HTTP_status
 pattern Unauthorized = HTTP_status 401
 pattern Not_found :: HTTP_status
 pattern Not_found = HTTP_status 404
+newtype Descending = Descending {un_Descending :: CUInt}
+instance Storable Descending
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Descending <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Descending un_Descending_3 -> pokeByteOff ptr_1 (0 :: Int) un_Descending_3}}
+deriving stock instance Eq Descending
+deriving stock instance Ord Descending
+deriving stock instance Read Descending
+instance CEnum Descending
+    where {type CEnumZ Descending = CUInt;
+           toCEnum = Descending;
+           fromCEnum = un_Descending;
+           declaredValues = \_ -> declaredValuesFromList [(98, singleton "Z"),
+                                                          (99, "Y" :| ["Y_alias"]),
+                                                          (100, singleton "X")];
+           showsUndeclared = showsWrappedUndeclared "Descending";
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
+instance SequentialCEnum Descending
+    where {minDeclaredValue = Z; maxDeclaredValue = X}
+instance Show Descending
+    where {showsPrec = showsCEnum}
+pattern X :: Descending
+pattern X = Descending 100
+pattern Y :: Descending
+pattern Y = Descending 99
+pattern Y_alias :: Descending
+pattern Y_alias = Descending 99
+pattern Z :: Descending
+pattern Z = Descending 98
 newtype Result = Result {un_Result :: CInt}
 instance Storable Result
     where {sizeOf = \_ -> 4 :: Int;
@@ -423,14 +455,12 @@ instance CEnum CXCursorKind
                                                            "CXCursor_FirstExpr" :| ["CXCursor_UnexposedExpr"]),
                                                           (101, singleton "CXCursor_DeclRefExpr"),
                                                           (102, singleton "CXCursor_MemberRefExpr"),
-                                                          (103, singleton "CXCursor_CallExpr"),
                                                           (156,
                                                            "CXCursor_PackIndexingExpr" :| ["CXCursor_LastExpr"]),
                                                           (200,
                                                            "CXCursor_FirstStmt" :| ["CXCursor_UnexposedStmt"]),
                                                           (201, singleton "CXCursor_LabelStmt"),
                                                           (202, singleton "CXCursor_CompoundStmt"),
-                                                          (203, singleton "CXCursor_CaseStmt"),
                                                           (331,
                                                            "CXCursor_OpenACCUpdateConstruct" :| ["CXCursor_LastStmt"])];
            showsUndeclared = showsWrappedUndeclared "CXCursorKind"}
@@ -444,8 +474,6 @@ pattern CXCursor_DeclRefExpr :: CXCursorKind
 pattern CXCursor_DeclRefExpr = CXCursorKind 101
 pattern CXCursor_MemberRefExpr :: CXCursorKind
 pattern CXCursor_MemberRefExpr = CXCursorKind 102
-pattern CXCursor_CallExpr :: CXCursorKind
-pattern CXCursor_CallExpr = CXCursorKind 103
 pattern CXCursor_PackIndexingExpr :: CXCursorKind
 pattern CXCursor_PackIndexingExpr = CXCursorKind 156
 pattern CXCursor_LastExpr :: CXCursorKind
@@ -458,8 +486,6 @@ pattern CXCursor_LabelStmt :: CXCursorKind
 pattern CXCursor_LabelStmt = CXCursorKind 201
 pattern CXCursor_CompoundStmt :: CXCursorKind
 pattern CXCursor_CompoundStmt = CXCursorKind 202
-pattern CXCursor_CaseStmt :: CXCursorKind
-pattern CXCursor_CaseStmt = CXCursorKind 203
 pattern CXCursor_OpenACCUpdateConstruct :: CXCursorKind
 pattern CXCursor_OpenACCUpdateConstruct = CXCursorKind 331
 pattern CXCursor_LastStmt :: CXCursorKind

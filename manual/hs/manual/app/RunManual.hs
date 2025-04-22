@@ -1,4 +1,3 @@
-{-# LANGUAGE DerivingVia #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module RunManual (main) where
@@ -7,7 +6,7 @@ import Foreign
 import Foreign.C
 import System.IO.Unsafe
 
-import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..))
+import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..), showCEnum)
 
 import Example
 
@@ -57,6 +56,14 @@ deriving newtype instance Bounded HTTP_status
 
 deriving via AsSequentialCEnum Vote instance Enum    Vote
 deriving via AsSequentialCEnum Vote instance Bounded Vote
+
+deriving via AsCEnum Descending instance Enum Descending
+
+showCursorKind :: CXCursorKind -> String
+showCursorKind = \case
+    CXCursor_UnexposedExpr -> "CXCursor_UnexposedExpr"
+    CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
+    kind -> showCEnum kind
 
 {-------------------------------------------------------------------------------
   Main
@@ -147,3 +154,5 @@ main = do
     putStrLn $ "After " ++ show Moved ++ " comes " ++ show (succ Moved)
     putStrLn $ "Possible votes: " ++ show ([minBound .. maxBound] :: [Vote])
     print CXCursor_UnexposedExpr
+    putStrLn $ showCursorKind CXCursor_UnexposedExpr
+    print (succ Y, pred Y)

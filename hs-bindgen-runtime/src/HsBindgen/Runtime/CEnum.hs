@@ -71,6 +71,11 @@ class Integral (CEnumZ a) => CEnum a where
   -- | Get the integral representation for a value
   --
   -- prop> toCEnum . fromCEnum === id
+  --
+  -- If @a@ has an 'Ord' instance, it should be compatible with the 'Ord'
+  -- instance on the underlying integral value:
+  --
+  -- prop> \x y -> (x <= y) === (fromCEnum x <= fromCEnum y)
   fromCEnum :: a -> CEnumZ a
   default fromCEnum :: Coercible a (CEnumZ a) => a -> CEnumZ a
   fromCEnum = coerce
@@ -243,22 +248,33 @@ seqMkDeclared i
 --   instance assumes that only the declared values are valid and throws a
 --   'CEnumException' if passed a value that is not declared.  This is /not/
 --   derived by default.
-newtype AsCEnum a = AsCEnum a
+--
+-- For /declared/ values we have
+--
+-- prop> toEnum   === coerce       . toCENum   . fromIntegral
+-- prop> fromEnum === fromIntegral . fromCEnum . coerce
+--
+-- In addition we guarantee that where 'pred' or 'succ' are defined, we have
+--
+-- prop> \x -> (pred x < x) && (x < succ x)
+newtype AsCEnum a = WrapCEnum { unwrapCEnum :: a }
 
 instance CEnum a => Bounded (AsCEnum a) where
-  minBound = AsCEnum minBoundGen
-  maxBound = AsCEnum maxBoundGen
+  minBound = WrapCEnum minBoundGen
+  maxBound = WrapCEnum maxBoundGen
 
 instance CEnum a => Enum (AsCEnum a) where
-  succ (AsCEnum x)                     = AsCEnum $ succGen x
-  pred (AsCEnum y)                     = AsCEnum $ predGen y
-  toEnum                               = AsCEnum . toEnumGen
-  fromEnum (AsCEnum x)                 = fromEnumGen x
-  enumFrom (AsCEnum x)                 = AsCEnum <$> enumFromGen x
-  enumFromThen (AsCEnum x) (AsCEnum y) = AsCEnum <$> enumFromThenGen x y
-  enumFromTo (AsCEnum x) (AsCEnum z)   = AsCEnum <$> enumFromToGen x z
-  enumFromThenTo (AsCEnum x) (AsCEnum y) (AsCEnum z) =
-    AsCEnum <$> enumFromThenToGen x y z
+  succ = WrapCEnum . succGen . unwrapCEnum
+  pred = WrapCEnum . predGen . unwrapCEnum
+
+  toEnum   = WrapCEnum   . toEnumGen
+  fromEnum = fromEnumGen . unwrapCEnum
+
+  enumFrom (WrapCEnum x)                   = WrapCEnum <$> enumFromGen x
+  enumFromThen (WrapCEnum x) (WrapCEnum y) = WrapCEnum <$> enumFromThenGen x y
+  enumFromTo (WrapCEnum x) (WrapCEnum z)   = WrapCEnum <$> enumFromToGen x z
+  enumFromThenTo (WrapCEnum x) (WrapCEnum y) (WrapCEnum z) =
+    WrapCEnum <$> enumFromThenToGen x y z
 
 -- | Type used to derive classes using @DerivingVia@ a type with a
 -- 'SequentialCEnum' instance
@@ -271,27 +287,31 @@ instance CEnum a => Enum (AsCEnum a) where
 --   instance assumes that only the declared values are valid and throws a
 --   'CEnumException' if passed a value that is not declared.  This is /not/
 --   derived by default.
-newtype AsSequentialCEnum a = AsSequentialCEnum a
+--
+-- 'AsSequentialCEnum' should have the same properties as 'AsCEnum'.
+newtype AsSequentialCEnum a = WrapSequentialCEnum { unwrapSequentialCEnum :: a }
 
 instance SequentialCEnum a => Bounded (AsSequentialCEnum a) where
-  minBound = AsSequentialCEnum minBoundSeq
-  maxBound = AsSequentialCEnum maxBoundSeq
+  minBound = WrapSequentialCEnum minBoundSeq
+  maxBound = WrapSequentialCEnum maxBoundSeq
 
 instance SequentialCEnum a => Enum (AsSequentialCEnum a) where
-  succ (AsSequentialCEnum x)     = AsSequentialCEnum $ succSeq x
-  pred (AsSequentialCEnum y)     = AsSequentialCEnum $ predSeq y
-  toEnum                         = AsSequentialCEnum . toEnumSeq
-  fromEnum (AsSequentialCEnum x) = fromEnumSeq x
-  enumFrom (AsSequentialCEnum x) = AsSequentialCEnum <$> enumFromSeq x
-  enumFromThen (AsSequentialCEnum x) (AsSequentialCEnum y) =
-    AsSequentialCEnum <$> enumFromThenSeq x y
-  enumFromTo (AsSequentialCEnum x) (AsSequentialCEnum z) =
-    AsSequentialCEnum <$> enumFromToSeq x z
+  succ = WrapSequentialCEnum . succSeq . unwrapSequentialCEnum
+  pred = WrapSequentialCEnum . predSeq . unwrapSequentialCEnum
+
+  toEnum   = WrapSequentialCEnum . toEnumSeq
+  fromEnum = fromEnumSeq . unwrapSequentialCEnum
+
+  enumFrom (WrapSequentialCEnum x) = WrapSequentialCEnum <$> enumFromSeq x
+  enumFromThen (WrapSequentialCEnum x) (WrapSequentialCEnum y) =
+    WrapSequentialCEnum <$> enumFromThenSeq x y
+  enumFromTo (WrapSequentialCEnum x) (WrapSequentialCEnum z) =
+    WrapSequentialCEnum <$> enumFromToSeq x z
   enumFromThenTo
-    (AsSequentialCEnum x)
-    (AsSequentialCEnum y)
-    (AsSequentialCEnum z) =
-      AsSequentialCEnum <$> enumFromThenToSeq x y z
+    (WrapSequentialCEnum x)
+    (WrapSequentialCEnum y)
+    (WrapSequentialCEnum z) =
+      WrapSequentialCEnum <$> enumFromThenToSeq x y z
 
 {-------------------------------------------------------------------------------
   Exceptions
