@@ -11,8 +11,8 @@ deriving stock instance Ord First
 deriving stock instance Read First
 instance CEnum First
     where {type CEnumZ First = CUInt;
-           fromCEnumZ = First;
-           toCEnumZ = un_First;
+           toCEnum = First;
+           fromCEnum = un_First;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "FIRST1"),
                                                           (1, singleton "FIRST2")];
@@ -38,8 +38,8 @@ deriving stock instance Ord Second
 deriving stock instance Read Second
 instance CEnum Second
     where {type CEnumZ Second = CInt;
-           fromCEnumZ = Second;
-           toCEnumZ = un_Second;
+           toCEnum = Second;
+           fromCEnum = un_Second;
            declaredValues = \_ -> declaredValuesFromList [(-1,
                                                            singleton "SECOND_A"),
                                                           (0, singleton "SECOND_B"),
@@ -68,8 +68,8 @@ deriving stock instance Ord Same
 deriving stock instance Read Same
 instance CEnum Same
     where {type CEnumZ Same = CUInt;
-           fromCEnumZ = Same;
-           toCEnumZ = un_Same;
+           toCEnum = Same;
+           fromCEnum = un_Same;
            declaredValues = \_ -> declaredValuesFromList [(1,
                                                            "SAME_A" :| ["SAME_B"])];
            isDeclared = seqIsDeclared;
@@ -94,8 +94,8 @@ deriving stock instance Ord Nonseq
 deriving stock instance Read Nonseq
 instance CEnum Nonseq
     where {type CEnumZ Nonseq = CUInt;
-           fromCEnumZ = Nonseq;
-           toCEnumZ = un_Nonseq;
+           toCEnum = Nonseq;
+           fromCEnum = un_Nonseq;
            declaredValues = \_ -> declaredValuesFromList [(200,
                                                            singleton "NONSEQ_A"),
                                                           (301, singleton "NONSEQ_B"),
@@ -120,8 +120,8 @@ deriving stock instance Ord Packad
 deriving stock instance Read Packad
 instance CEnum Packad
     where {type CEnumZ Packad = CSChar;
-           fromCEnumZ = Packad;
-           toCEnumZ = un_Packad;
+           toCEnum = Packad;
+           fromCEnum = un_Packad;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "PACKED_A"),
                                                           (1, singleton "PACKED_B"),
@@ -150,8 +150,8 @@ deriving stock instance Ord EnumA
 deriving stock instance Read EnumA
 instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
-           fromCEnumZ = EnumA;
-           toCEnumZ = un_EnumA;
+           toCEnum = EnumA;
+           fromCEnum = un_EnumA;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "A_FOO"),
                                                           (1, singleton "A_BAR")];
@@ -177,8 +177,8 @@ deriving stock instance Ord EnumB
 deriving stock instance Read EnumB
 instance CEnum EnumB
     where {type CEnumZ EnumB = CUInt;
-           fromCEnumZ = EnumB;
-           toCEnumZ = un_EnumB;
+           toCEnum = EnumB;
+           fromCEnum = un_EnumB;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "B_FOO"),
                                                           (1, singleton "B_BAR")];
@@ -204,8 +204,8 @@ deriving stock instance Ord EnumC
 deriving stock instance Read EnumC
 instance CEnum EnumC
     where {type CEnumZ EnumC = CUInt;
-           fromCEnumZ = EnumC;
-           toCEnumZ = un_EnumC;
+           toCEnum = EnumC;
+           fromCEnum = un_EnumC;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "C_FOO"),
                                                           (1, singleton "C_BAR")];
@@ -231,8 +231,8 @@ deriving stock instance Ord EnumD
 deriving stock instance Read EnumD
 instance CEnum EnumD
     where {type CEnumZ EnumD = CUInt;
-           fromCEnumZ = EnumD;
-           toCEnumZ = un_EnumD;
+           toCEnum = EnumD;
+           fromCEnum = un_EnumD;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "D_FOO"),
                                                           (1, singleton "D_BAR")];

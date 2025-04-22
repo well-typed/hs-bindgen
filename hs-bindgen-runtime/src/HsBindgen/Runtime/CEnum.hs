@@ -59,25 +59,25 @@ class Integral (CEnumZ a) => CEnum a where
 
   -- | Construct a value from the integral representation
   --
-  -- prop> toCEnumZ . fromCEnumZ === id
-  fromCEnumZ :: CEnumZ a -> a
+  -- prop> fromCEnum . toCEnum === id
+  toCEnum :: CEnumZ a -> a
 
   -- | Get the integral representation for a value
   --
-  -- prop> fromCEnumZ . toCEnumZ === id
-  toCEnumZ :: a -> CEnumZ a
+  -- prop> toCEnum . fromCEnum === id
+  fromCEnum :: a -> CEnumZ a
 
   -- | Declared values and associated names
   declaredValues :: proxy a -> DeclaredValues a
 
   -- | Determine if the specified value is declared
   isDeclared :: a -> Bool
-  isDeclared x = (toCEnumZ x) `Map.member` getDeclaredValues (Proxy :: Proxy a)
+  isDeclared x = (fromCEnum x) `Map.member` getDeclaredValues (Proxy :: Proxy a)
 
   -- | Construct a value only if it is declared
   mkDeclared :: CEnumZ a -> Maybe a
   mkDeclared i
-    | i `Map.member` getDeclaredValues (Proxy :: Proxy a) = Just (fromCEnumZ i)
+    | i `Map.member` getDeclaredValues (Proxy :: Proxy a) = Just (toCEnum i)
     | otherwise = Nothing
 
 -- | C enumeration with sequential values
@@ -94,12 +94,12 @@ class Integral (CEnumZ a) => CEnum a where
 class CEnum a => SequentialCEnum a where
   -- | The minimum declared value
   --
-  -- prop> minDeclaredValue == minimum (filter isDeclared (map fromCEnumZ [minBound..]))
+  -- prop> minDeclaredValue == minimum (filter isDeclared (map toCEnum [minBound..]))
   minDeclaredValue :: a
 
   -- | The maximum declared value
   --
-  -- prop> maxDeclaredValue == maximum (filter isDeclared (map fromCEnumZ [minBound..]))
+  -- prop> maxDeclaredValue == maximum (filter isDeclared (map toCEnum [minBound..]))
   maxDeclaredValue :: a
 
 {-------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ class CEnum a => SequentialCEnum a where
 -- An empty list is returned when the specified value is not declared.
 getNames :: forall a. CEnum a => a -> [String]
 getNames x = maybe [] NonEmpty.toList $
-    Map.lookup (toCEnumZ x) (getDeclaredValues (Proxy :: Proxy a))
+    Map.lookup (fromCEnum x) (getDeclaredValues (Proxy :: Proxy a))
 
 {-------------------------------------------------------------------------------
   Instance support
@@ -148,7 +148,7 @@ showCEnum constructorName x =
       Nothing -> constructorName ++ ' ' : show (toInteger i)
   where
     i :: CEnumZ a
-    i = toCEnumZ x
+    i = fromCEnum x
 
 -- | Determine if the specified value is declared
 --
@@ -157,21 +157,21 @@ seqIsDeclared :: forall a. SequentialCEnum a => a -> Bool
 seqIsDeclared x = i >= minZ && i <= maxZ
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
 
 -- | Construct a value only if it is declared
 --
 -- This implementation is optimized for 'SequentialCEnum'.
 seqMkDeclared :: forall a. SequentialCEnum a => CEnumZ a -> Maybe a
 seqMkDeclared i
-    | i >= minZ && i <= maxZ = Just (fromCEnumZ i)
+    | i >= minZ && i <= maxZ = Just (toCEnum i)
     | otherwise = Nothing
   where
     minZ, maxZ :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
 
 {-------------------------------------------------------------------------------
   Deriving via support
@@ -270,7 +270,7 @@ instance Exception CEnumException where
 
 minBoundGen :: forall a. CEnum a => a
 minBoundGen = case Map.lookupMin (getDeclaredValues (Proxy :: Proxy a)) of
-    Just (i, _names) -> fromCEnumZ i
+    Just (i, _names) -> toCEnum i
     Nothing -> throw CEnumEmpty
 
 minBoundSeq :: SequentialCEnum a => a
@@ -278,7 +278,7 @@ minBoundSeq = minDeclaredValue
 
 maxBoundGen :: forall a. CEnum a => a
 maxBoundGen = case Map.lookupMax (getDeclaredValues (Proxy :: Proxy a)) of
-    Just (k, _names) -> fromCEnumZ k
+    Just (k, _names) -> toCEnum k
     Nothing -> throw CEnumEmpty
 
 maxBoundSeq :: SequentialCEnum a => a
@@ -292,43 +292,43 @@ succGen :: forall a. CEnum a => a -> a
 succGen x = either (throw . CEnumNotDeclared) id $ do
     (_ltMap, gtMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
     case Map.lookupMin gtMap of
-      Just (j, _names) -> return $ fromCEnumZ j
+      Just (j, _names) -> return $ toCEnum j
       Nothing -> throw $ CEnumNoSuccessor (toInteger i)
   where
     i :: CEnumZ a
-    i = toCEnumZ x
+    i = fromCEnum x
 
 succSeq :: forall a. SequentialCEnum a => a -> a
 succSeq x
-    | i >= minZ && i < maxZ = fromCEnumZ (i + 1)
+    | i >= minZ && i < maxZ = toCEnum (i + 1)
     | i == maxZ = throw $ CEnumNoSuccessor (toInteger i)
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
 
 predGen :: forall a. CEnum a => a -> a
 predGen y = either (throw . CEnumNotDeclared) id $ do
     (ltMap, _gtMap) <- splitMap j (getDeclaredValues (Proxy :: Proxy a))
     case Map.lookupMax ltMap of
-      Just (i, _names) -> return $ fromCEnumZ i
+      Just (i, _names) -> return $ toCEnum i
       Nothing -> throw $ CEnumNoPredecessor (toInteger j)
   where
     j :: CEnumZ a
-    j = toCEnumZ y
+    j = fromCEnum y
 
 predSeq :: forall a. SequentialCEnum a => a -> a
 predSeq y
-    | j > minZ && j <= maxZ = fromCEnumZ (j - 1)
+    | j > minZ && j <= maxZ = toCEnum (j - 1)
     | j == minZ = throw $ CEnumNoPredecessor (toInteger j)
     | otherwise = throw $ CEnumNotDeclared (toInteger j)
   where
     minZ, maxZ, j :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    j    = toCEnumZ y
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    j    = fromCEnum y
 
 toEnumGen :: CEnum a => Int -> a
 toEnumGen i = case mkDeclared (fromIntegral i) of
@@ -337,12 +337,12 @@ toEnumGen i = case mkDeclared (fromIntegral i) of
 
 toEnumSeq :: forall a. SequentialCEnum a => Int -> a
 toEnumSeq n
-    | i >= minZ && i <= maxZ = fromCEnumZ i
+    | i >= minZ && i <= maxZ = toCEnum i
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
     i    = fromIntegral n
 
 fromEnumGen :: forall a. CEnum a => a -> Int
@@ -351,7 +351,7 @@ fromEnumGen x
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     i :: CEnumZ a
-    i = toCEnumZ x
+    i = fromCEnum x
 
 fromEnumSeq :: forall a. SequentialCEnum a => a -> Int
 fromEnumSeq x
@@ -359,27 +359,27 @@ fromEnumSeq x
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
 
 enumFromGen :: forall a. CEnum a => a -> [a]
 enumFromGen x = either (throw . CEnumNotDeclared) id $ do
     (_ltMap, gtMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
-    return $ x : map fromCEnumZ (Map.keys gtMap)
+    return $ x : map toCEnum (Map.keys gtMap)
   where
     i :: CEnumZ a
-    i = toCEnumZ x
+    i = fromCEnum x
 
 enumFromSeq :: forall a. SequentialCEnum a => a -> [a]
 enumFromSeq x
-    | i >= minZ && i <= maxZ = map fromCEnumZ [i .. maxZ]
+    | i >= minZ && i <= maxZ = map toCEnum [i .. maxZ]
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     minZ, maxZ, i :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
 
 enumFromThenGen :: forall a. CEnum a => a -> a -> [a]
 enumFromThenGen x y = case compare i j of
@@ -388,32 +388,32 @@ enumFromThenGen x y = case compare i j of
       (ltJMap,  gtJMap) <- splitMap j gtIMap
       let w  = Map.size ltJMap + 1
           js = j : Map.keys gtJMap
-      return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
+      return $ x : map (toCEnum . NonEmpty.head) (nonEmptyChunksOf w js)
     GT -> either (throw . CEnumNotDeclared) id $ do
       (ltIMap, _gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
       (ltJMap, gtJMap)  <- splitMap j ltIMap
       let w  = Map.size gtJMap + 1
           js = j : reverse (Map.keys ltJMap)
-      return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
+      return $ x : map (toCEnum . NonEmpty.head) (nonEmptyChunksOf w js)
     EQ -> throw $ CEnumFromEqThen (toInteger i)
   where
     i, j :: CEnumZ a
-    i = toCEnumZ x
-    j = toCEnumZ y
+    i = fromCEnum x
+    j = fromCEnum y
 
 enumFromThenSeq :: forall a. SequentialCEnum a => a -> a -> [a]
 enumFromThenSeq x y
     | i == j = throw $ CEnumFromEqThen (toInteger i)
     | i < minZ || i > maxZ = throw $ CEnumNotDeclared (toInteger i)
     | j < minZ || j > maxZ = throw $ CEnumNotDeclared (toInteger j)
-    | i < j = map fromCEnumZ [i, j .. maxZ]
-    | otherwise = map fromCEnumZ [i, j .. minZ]
+    | i < j = map toCEnum [i, j .. maxZ]
+    | otherwise = map toCEnum [i, j .. minZ]
   where
     minZ, maxZ, i, j :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
-    j    = toCEnumZ y
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
+    j    = fromCEnum y
 
 enumFromToGen :: forall a. CEnum a => a -> a -> [a]
 enumFromToGen x z = either (throw . CEnumNotDeclared) id $ do
@@ -422,23 +422,23 @@ enumFromToGen x z = either (throw . CEnumNotDeclared) id $ do
       then return [x]
       else do
         (ltKMap,  _gtKMap) <- splitMap k gtIMap
-        return $ x : map fromCEnumZ (Map.keys ltKMap) ++ [z]
+        return $ x : map toCEnum (Map.keys ltKMap) ++ [z]
   where
     i, k :: CEnumZ a
-    i = toCEnumZ x
-    k = toCEnumZ z
+    i = fromCEnum x
+    k = fromCEnum z
 
 enumFromToSeq :: forall a. SequentialCEnum a => a -> a -> [a]
 enumFromToSeq x z
     | i < minZ || i > maxZ = throw $ CEnumNotDeclared (toInteger i)
     | k < minZ || k > maxZ = throw $ CEnumNotDeclared (toInteger k)
-    | otherwise = map fromCEnumZ [i .. k]
+    | otherwise = map toCEnum [i .. k]
   where
     minZ, maxZ, i, k :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
-    k    = toCEnumZ z
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
+    k    = fromCEnum z
 
 enumFromThenToGen :: forall a. CEnum a => a -> a -> a -> [a]
 enumFromThenToGen x y z = case compare i j of
@@ -448,20 +448,20 @@ enumFromThenToGen x y z = case compare i j of
       (ltKMap,  _gtKMap) <- splitMap k gtJMap
       let w  = Map.size ltJMap + 1
           js = j : Map.keys ltKMap ++ [k]
-      return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
+      return $ x : map (toCEnum . NonEmpty.head) (nonEmptyChunksOf w js)
     GT -> either (throw . CEnumNotDeclared) id $ do
       (ltIMap,  _gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap)  <- splitMap j ltIMap
       (_ltKMap, gtKMap)  <- splitMap k ltJMap
       let w  = Map.size gtJMap + 1
           js = j : reverse (k : Map.keys gtKMap)
-      return $ x : map (fromCEnumZ . NonEmpty.head) (nonEmptyChunksOf w js)
+      return $ x : map (toCEnum . NonEmpty.head) (nonEmptyChunksOf w js)
     EQ -> throw $ CEnumFromEqThen (toInteger i)
   where
     i, j, k :: CEnumZ a
-    i = toCEnumZ x
-    j = toCEnumZ y
-    k = toCEnumZ z
+    i = fromCEnum x
+    j = fromCEnum y
+    k = fromCEnum z
 
 enumFromThenToSeq :: forall a. SequentialCEnum a => a -> a -> a -> [a]
 enumFromThenToSeq x y z
@@ -469,14 +469,14 @@ enumFromThenToSeq x y z
     | i < minZ || i > maxZ = throw $ CEnumNotDeclared (toInteger i)
     | j < minZ || j > maxZ = throw $ CEnumNotDeclared (toInteger j)
     | k < minZ || k > maxZ = throw $ CEnumNotDeclared (toInteger k)
-    | otherwise = map fromCEnumZ [i, j .. k]
+    | otherwise = map toCEnum [i, j .. k]
   where
     minZ, maxZ, i, j, k :: CEnumZ a
-    minZ = toCEnumZ (minDeclaredValue @a)
-    maxZ = toCEnumZ (maxDeclaredValue @a)
-    i    = toCEnumZ x
-    j    = toCEnumZ y
-    k    = toCEnumZ z
+    minZ = fromCEnum (minDeclaredValue @a)
+    maxZ = fromCEnum (maxDeclaredValue @a)
+    i    = fromCEnum x
+    j    = fromCEnum y
+    k    = fromCEnum z
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

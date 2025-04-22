@@ -121,8 +121,8 @@ The `hs-bindgen-runtime` library therefore defines an alternative class called
 class Integral (CEnumZ a) => CEnum a where
   type CEnumZ a -- ^ The underlying type
 
-  fromCEnumZ     :: CEnumZ a -> a
-  toCEnumZ       :: a -> CEnumZ a
+  toCEnum        :: CEnumZ a -> a
+  fromCEnum      :: a -> CEnumZ a
   declaredValues :: proxy a -> DeclaredValues a
 ```
 
@@ -132,8 +132,8 @@ The generated instance for `Index` is given by
 instance CEnum Index where
   type CEnumZ Index = FC.CUInt
 
-  fromCEnumZ     = Index
-  toCEnumZ       = un_Index
+  toCEnum        = Index
+  fromCEnum      = un_Index
   declaredValues = declaredValuesFromList [
       (0, NonEmpty.singleton "A")
     , (1, NonEmpty.singleton "B")
@@ -141,8 +141,8 @@ instance CEnum Index where
     ]
 ```
 
-Functions `fromCEnumZ` and `toCEnumZ` correspond directly to `fromEnum` and
-`toEnum`, but unlike `Enum` this makes no assumptions about successors or
+Functions `toCEnum` and `fromCEnum` correspond directly to `toEnum` and
+`fromEnum`, but unlike `Enum` this makes no assumptions about successors or
 predecessors. Instead we only declare a set of known values, and the names
 assigned to those values.
 

@@ -11,8 +11,8 @@ deriving stock instance Ord Foo
 deriving stock instance Read Foo
 instance CEnum Foo
     where {type CEnumZ Foo = CUInt;
-           fromCEnumZ = Foo;
-           toCEnumZ = un_Foo;
+           toCEnum = Foo;
+           fromCEnum = un_Foo;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "FOO1"),
                                                           (1, singleton "FOO2")];

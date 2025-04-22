@@ -49,8 +49,8 @@ newtype NoValue = NoValue {
 instance CEnum NoValue where
   type CEnumZ NoValue = FC.CUInt
 
-  fromCEnumZ       = NoValue
-  toCEnumZ         = un_NoValue
+  toCEnum          = NoValue
+  fromCEnum        = un_NoValue
   declaredValues _ = CEnum.declaredValuesFromList []
 
 deriving via AsCEnum NoValue instance Bounded NoValue
@@ -106,8 +106,8 @@ newtype GenSingleValue = GenSingleValue {
 instance CEnum GenSingleValue where
   type CEnumZ GenSingleValue = FC.CUInt
 
-  fromCEnumZ       = GenSingleValue
-  toCEnumZ         = un_GenSingleValue
+  toCEnum          = GenSingleValue
+  fromCEnum        = un_GenSingleValue
   declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
 
 deriving via AsCEnum GenSingleValue instance Bounded GenSingleValue
@@ -202,8 +202,8 @@ newtype GenPosValue = GenPosValue {
 instance CEnum GenPosValue where
   type CEnumZ GenPosValue = FC.CUInt
 
-  fromCEnumZ       = GenPosValue
-  toCEnumZ         = un_GenPosValue
+  toCEnum          = GenPosValue
+  fromCEnum        = un_GenPosValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (100, NonEmpty.singleton "CONTINUE")
     , (101, NonEmpty.singleton "SWITCHING_PROTOCOLS")
@@ -351,8 +351,8 @@ newtype GenNegValue = GenNegValue {
 instance CEnum GenNegValue where
   type CEnumZ GenNegValue = FC.CInt
 
-  fromCEnumZ       = GenNegValue
-  toCEnumZ         = un_GenNegValue
+  toCEnum          = GenNegValue
+  fromCEnum        = un_GenNegValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (-201, NonEmpty.singleton "REALLY_TERRIBLE")
     , (-200, NonEmpty.singleton "TERRIBLE")
@@ -500,8 +500,8 @@ newtype SeqSingleValue = SeqSingleValue {
 instance CEnum SeqSingleValue where
   type CEnumZ SeqSingleValue = FC.CUInt
 
-  fromCEnumZ       = SeqSingleValue
-  toCEnumZ         = un_SeqSingleValue
+  toCEnum          = SeqSingleValue
+  fromCEnum        = un_SeqSingleValue
   declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
 
 instance SequentialCEnum SeqSingleValue where
@@ -600,8 +600,8 @@ newtype SeqPosValue = SeqPosValue {
 instance CEnum SeqPosValue where
   type CEnumZ SeqPosValue = FC.CUInt
 
-  fromCEnumZ       = SeqPosValue
-  toCEnumZ         = un_SeqPosValue
+  toCEnum          = SeqPosValue
+  fromCEnum        = un_SeqPosValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (1,  "A" :| ["ALPHA"])
     , (2,  "B" :| ["BETA"])
@@ -744,8 +744,8 @@ newtype SeqNegValue = SeqNegValue {
 instance CEnum SeqNegValue where
   type CEnumZ SeqNegValue = FC.CInt
 
-  fromCEnumZ       = SeqNegValue
-  toCEnumZ         = un_SeqNegValue
+  toCEnum          = SeqNegValue
+  fromCEnum        = un_SeqNegValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (-5, NonEmpty.singleton "GARBAGE")
     , (-4, NonEmpty.singleton "TERRIBLE")

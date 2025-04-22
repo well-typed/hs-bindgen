@@ -44,9 +44,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
   type CEnumZ Foo = FC.CUInt
 
-  fromCEnumZ = Foo
+  toCEnum = Foo
 
-  toCEnumZ = un_Foo
+  fromCEnum = un_Foo
 
   declaredValues =
     \_ ->

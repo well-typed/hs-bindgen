@@ -88,8 +88,8 @@ deriving stock instance Ord Index
 deriving stock instance Read Index
 instance CEnum Index
     where {type CEnumZ Index = CUInt;
-           fromCEnumZ = Index;
-           toCEnumZ = un_Index;
+           toCEnum = Index;
+           fromCEnum = un_Index;
            declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
                                                           (1, singleton "B"),
                                                           (2, singleton "C")];
@@ -284,8 +284,8 @@ deriving stock instance Ord Signal
 deriving stock instance Read Signal
 instance CEnum Signal
     where {type CEnumZ Signal = CUInt;
-           fromCEnumZ = Signal;
-           toCEnumZ = un_Signal;
+           toCEnum = Signal;
+           fromCEnum = un_Signal;
            declaredValues = \_ -> declaredValuesFromList [(1,
                                                            singleton "Start"),
                                                           (2, singleton "Pause"),
@@ -317,8 +317,8 @@ deriving stock instance Ord HTTP_status
 deriving stock instance Read HTTP_status
 instance CEnum HTTP_status
     where {type CEnumZ HTTP_status = CUInt;
-           fromCEnumZ = HTTP_status;
-           toCEnumZ = un_HTTP_status;
+           toCEnum = HTTP_status;
+           fromCEnum = un_HTTP_status;
            declaredValues = \_ -> declaredValuesFromList [(200,
                                                            singleton "Ok"),
                                                           (301, singleton "Moved"),
@@ -349,8 +349,8 @@ deriving stock instance Ord Result
 deriving stock instance Read Result
 instance CEnum Result
     where {type CEnumZ Result = CInt;
-           fromCEnumZ = Result;
-           toCEnumZ = un_Result;
+           toCEnum = Result;
+           fromCEnum = un_Result;
            declaredValues = \_ -> declaredValuesFromList [(-1,
                                                            singleton "Failed"),
                                                           (0, singleton "Success"),
@@ -382,8 +382,8 @@ deriving stock instance Ord Vote
 deriving stock instance Read Vote
 instance CEnum Vote
     where {type CEnumZ Vote = CSChar;
-           fromCEnumZ = Vote;
-           toCEnumZ = un_Vote;
+           toCEnum = Vote;
+           fromCEnum = un_Vote;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "Infavour"),
                                                           (1, singleton "Against"),
@@ -412,8 +412,8 @@ deriving stock instance Ord CXCursorKind
 deriving stock instance Read CXCursorKind
 instance CEnum CXCursorKind
     where {type CEnumZ CXCursorKind = CUInt;
-           fromCEnumZ = CXCursorKind;
-           toCEnumZ = un_CXCursorKind;
+           toCEnum = CXCursorKind;
+           fromCEnum = un_CXCursorKind;
            declaredValues = \_ -> declaredValuesFromList [(100,
                                                            "CXCursor_FirstExpr" :| ["CXCursor_UnexposedExpr"]),
                                                           (101, singleton "CXCursor_DeclRefExpr"),

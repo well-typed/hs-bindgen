@@ -43,9 +43,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   type CEnumZ EnumA = FC.CUInt
 
-  fromCEnumZ = EnumA
+  toCEnum = EnumA
 
-  toCEnumZ = un_EnumA
+  fromCEnum = un_EnumA
 
   declaredValues =
     \_ ->
@@ -127,9 +127,9 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
   type CEnumZ ExB_fieldB1 = FC.CUInt
 
-  fromCEnumZ = ExB_fieldB1
+  toCEnum = ExB_fieldB1
 
-  toCEnumZ = un_ExB_fieldB1
+  fromCEnum = un_ExB_fieldB1
 
   declaredValues =
     \_ ->
