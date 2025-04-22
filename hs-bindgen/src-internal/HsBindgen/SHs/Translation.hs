@@ -149,7 +149,6 @@ translateType (Hs.HsTypRef r)       = TCon r
 translateType (Hs.HsPtr t)          = TApp (TGlobal Foreign_Ptr) (translateType t)
 translateType (Hs.HsFunPtr t)       = TApp (TGlobal Foreign_FunPtr) (translateType t)
 translateType (Hs.HsConstArray n t) = TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
-translateType (Hs.HsType _)         = TGlobal (PrimType HsPrimVoid)
 translateType (Hs.HsIO t)           = TApp (TGlobal IO_type) (translateType t)
 translateType (Hs.HsFun a b)        = TFun (translateType a) (translateType b)
 translateType (Hs.HsExtBinding i t) = TExt i t

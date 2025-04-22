@@ -50,8 +50,7 @@ data HsPrimType
   deriving stock (Eq, Generic, Show)
 
 data HsType =
-    HsType String
-  | HsPrimType HsPrimType
+    HsPrimType HsPrimType
   | HsTypRef (HsName NsTypeConstr)
   | HsConstArray Natural HsType
   | HsPtr HsType
