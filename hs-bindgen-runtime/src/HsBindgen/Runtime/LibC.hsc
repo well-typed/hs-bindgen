@@ -50,7 +50,7 @@ import Data.Ix (Ix)
 import Data.Word (Word16, Word32)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
-import Foreign.Storable (Storable)
+import Foreign.Storable
 
 import HsBindgen.Runtime.Marshal
 
@@ -238,8 +238,8 @@ data CDivT = CDivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Peekable CDivT where
-  peek ptr = do
+instance ReadRaw CDivT where
+  readRaw ptr = do
     cDivT_quot <- (#peek div_t, quot) ptr
     cDivT_rem  <- (#peek div_t, rem)  ptr
     return CDivT{..}
@@ -254,8 +254,8 @@ data CLdivT = CLdivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Peekable CLdivT where
-  peek ptr = do
+instance ReadRaw CLdivT where
+  readRaw ptr = do
     cLdivT_quot <- (#peek ldiv_t, quot) ptr
     cLdivT_rem  <- (#peek ldiv_t, rem)  ptr
     return CLdivT{..}
@@ -270,8 +270,8 @@ data CLldivT = CLldivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Peekable CLldivT where
-  peek ptr = do
+instance ReadRaw CLldivT where
+  readRaw ptr = do
     cLldivT_quot <- (#peek lldiv_t, quot) ptr
     cLldivT_rem  <- (#peek lldiv_t, rem)  ptr
     return CLldivT{..}
@@ -287,8 +287,8 @@ data CImaxdivT = CImaxdivT {
     }
   deriving (Eq, Ord, Show)
 
-instance Peekable CImaxdivT where
-  peek ptr = do
+instance ReadRaw CImaxdivT where
+  readRaw ptr = do
     cImaxdivT_quot <- (#peek imaxdiv_t, quot) ptr
     cImaxdivT_rem  <- (#peek imaxdiv_t, rem)  ptr
     return CImaxdivT{..}
@@ -343,17 +343,17 @@ newtype CWintT = CWintT C.CUInt
     , Enum
     , Eq
     , FiniteBits
-    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
-    , Peekable
-    , Pokable
     , Read
+    , ReadRaw
     , Real
     , Show
+    , StaticSize
     , Storable
+    , WriteRaw
     )
 
 -- | C @mbstate_t@ type
@@ -372,7 +372,7 @@ data CMbstateT
 -- locale-specific character transformations.  It is available since C95.  It is
 -- defined in the @wctype.h@ header file.
 newtype CWctransT = CWctransT (Ptr C.CInt)
-  deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
+  deriving newtype (Eq, ReadRaw, Show, StaticSize, Storable, WriteRaw)
 
 -- | C @wctype_t@ type
 --
@@ -380,7 +380,7 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
 -- locale-specific character classification categories.  It is available since
 -- C95.  It is defined in the @wctype.h@ and @wchar.h@ header files.
 newtype CWctypeT = CWctypeT C.CULong
-  deriving newtype (Eq, HasStaticSize, Peekable, Pokable, Show, Storable)
+  deriving newtype (Eq, ReadRaw, Show, StaticSize, Storable, WriteRaw)
 
 -- | C @char16_t@ type
 --
@@ -393,17 +393,17 @@ newtype CChar16T = CChar16T Word16
     , Enum
     , Eq
     , FiniteBits
-    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
-    , Peekable
-    , Pokable
     , Read
+    , ReadRaw
     , Real
     , Show
+    , StaticSize
     , Storable
+    , WriteRaw
     )
 
 -- | C @char32_t@ type
@@ -417,17 +417,17 @@ newtype CChar32T = CChar32T Word32
     , Enum
     , Eq
     , FiniteBits
-    , HasStaticSize
     , Integral
     , Ix
     , Num
     , Ord
-    , Peekable
-    , Pokable
     , Read
+    , ReadRaw
     , Real
     , Show
+    , StaticSize
     , Storable
+    , WriteRaw
     )
 
 {-------------------------------------------------------------------------------
@@ -474,12 +474,12 @@ data CTm = CTm {
   deriving (Eq, Show)
   deriving Storable via EquivStorable CTm
 
-instance HasStaticSize CTm where
-  sizeOf    _ = #size      struct tm
-  alignment _ = #alignment struct tm
+instance StaticSize CTm where
+  staticSizeOf    _ = #size      struct tm
+  staticAlignment _ = #alignment struct tm
 
-instance Peekable CTm where
-  peek ptr = do
+instance ReadRaw CTm where
+  readRaw ptr = do
     cTm_sec   <- (#peek struct tm, tm_sec)   ptr
     cTm_min   <- (#peek struct tm, tm_min)   ptr
     cTm_hour  <- (#peek struct tm, tm_hour)  ptr
@@ -491,8 +491,8 @@ instance Peekable CTm where
     cTm_isdst <- (#peek struct tm, tm_isdst) ptr
     return CTm{..}
 
-instance Pokable CTm where
-  poke ptr CTm{..} = do
+instance WriteRaw CTm where
+  writeRaw ptr CTm{..} = do
     (#poke struct tm, tm_sec)   ptr cTm_sec
     (#poke struct tm, tm_min)   ptr cTm_min
     (#poke struct tm, tm_hour)  ptr cTm_hour

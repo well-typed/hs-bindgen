@@ -1,16 +1,16 @@
 module HsBindgen.Runtime.Marshal (
     -- * Type Classes
-    HasStaticSize(..)
-  , Peekable(..)
-  , Pokable(..)
+    StaticSize(..)
+  , ReadRaw(..)
+  , WriteRaw(..)
   , EquivStorable(..)
 
     -- * Utility Functions
-  , peekByteOff
-  , pokeByteOff
-  , peekElemOff
-  , pokeElemOff
-  , maybePeek
+  , readRawByteOff
+  , writeRawByteOff
+  , readRawElemOff
+  , writeRawElemOff
+  , maybeReadRaw
   , with
   , withZero
   , new
@@ -38,50 +38,50 @@ import GHC.ForeignPtr (mallocForeignPtrAlignedBytes)
 -- | Size and alignment for values that have a static size in memory
 --
 -- Types that are instances of 'Storable' can derive this instance.
-class HasStaticSize a where
+class StaticSize a where
 
   -- | Storage requirements (bytes)
-  sizeOf :: Proxy a -> Int
+  staticSizeOf :: Proxy a -> Int
 
-  default sizeOf :: Storable a => Proxy a -> Int
-  sizeOf _proxy = Storable.sizeOf @a undefined
+  default staticSizeOf :: Storable a => Proxy a -> Int
+  staticSizeOf _proxy = Storable.sizeOf @a undefined
 
   -- | Alignment (bytes)
-  alignment :: Proxy a -> Int
+  staticAlignment :: Proxy a -> Int
 
-  default alignment :: Storable a => Proxy a -> Int
-  alignment _proxy = Storable.alignment @a undefined
+  default staticAlignment :: Storable a => Proxy a -> Int
+  staticAlignment _proxy = Storable.alignment @a undefined
 
 -- | Values that can be read from memory
 --
 -- Types that are instances of 'Storable' can derive this instance.
-class Peekable a where
+class ReadRaw a where
 
   -- | Read a value from the given memory location
   --
   -- This function might require a properly aligned address to function
   -- correctly, depending on the architecture.
-  peek :: Ptr a -> IO a
+  readRaw :: Ptr a -> IO a
 
-  default peek :: Storable a => Ptr a -> IO a
-  peek = Storable.peek
+  default readRaw :: Storable a => Ptr a -> IO a
+  readRaw = Storable.peek
 
 -- | Values that can be written to memory
 --
 -- Types that are instances of 'Storable' can derive this instance.
-class Pokable a where
+class WriteRaw a where
 
   -- | Write a value to the given memory location
   --
   -- This function might require a properly aligned address to function
   -- correctly, depending on the architecture.
-  poke :: Ptr a -> a -> IO ()
+  writeRaw :: Ptr a -> a -> IO ()
 
-  default poke :: Storable a => Ptr a -> a -> IO ()
-  poke = Storable.poke
+  default writeRaw :: Storable a => Ptr a -> a -> IO ()
+  writeRaw = Storable.poke
 
--- | Type used to derive a 'Storable' instance when the type has
--- 'HasStaticSize', 'Peekable', and 'Pokable' instances
+-- | Type used to derive a 'Storable' instance when the type has 'StaticSize',
+-- 'ReadRaw', and 'WriteRaw' instances
 --
 -- Use the @DerivingVia@ GHC extension as follows:
 --
@@ -94,15 +94,15 @@ class Pokable a where
 newtype EquivStorable a = EquivStorable a
 
 instance
-     (HasStaticSize a, Peekable a, Pokable a)
+     (ReadRaw a, StaticSize a, WriteRaw a)
   => Storable (EquivStorable a)
   where
-    sizeOf    _ = sizeOf    @a undefined
-    alignment _ = alignment @a undefined
+    sizeOf    _ = staticSizeOf    @a undefined
+    alignment _ = staticAlignment @a undefined
 
-    peek ptr = EquivStorable <$> peek (Ptr.castPtr ptr)
+    peek ptr = EquivStorable <$> readRaw (Ptr.castPtr ptr)
 
-    poke ptr (EquivStorable x) = poke (Ptr.castPtr ptr) x
+    poke ptr (EquivStorable x) = writeRaw (Ptr.castPtr ptr) x
 
 {-------------------------------------------------------------------------------
   Utility Functions
@@ -110,40 +110,40 @@ instance
 
 -- | Read a value from the given memory location, given by a base address and an
 -- offset
-peekByteOff :: Peekable a => Ptr b -> Int -> IO a
-peekByteOff ptr off = peek (ptr `Ptr.plusPtr` off)
+readRawByteOff :: ReadRaw a => Ptr b -> Int -> IO a
+readRawByteOff ptr off = readRaw (ptr `Ptr.plusPtr` off)
 
 -- | Write a value to the given memory location, given by a base address and an
 -- offset
-pokeByteOff :: Pokable a => Ptr b -> Int -> a -> IO ()
-pokeByteOff ptr off = poke (ptr `Ptr.plusPtr` off)
+writeRawByteOff :: WriteRaw a => Ptr b -> Int -> a -> IO ()
+writeRawByteOff ptr off = writeRaw (ptr `Ptr.plusPtr` off)
 
 -- | Read a value from a memory area regarded as an array of values of the same
 -- kind
 --
 -- The first argument specifies the start address of the array.  The second
 -- specifies the (zero-based) index into the array.
-peekElemOff :: forall a. (HasStaticSize a, Peekable a) => Ptr a -> Int -> IO a
-peekElemOff ptr off = peekByteOff ptr $ off * sizeOf @a Proxy
+readRawElemOff :: forall a. (ReadRaw a, StaticSize a) => Ptr a -> Int -> IO a
+readRawElemOff ptr off = readRawByteOff ptr $ off * staticSizeOf @a Proxy
 
 -- | Write a value to a memory area regarded as an array of values of the same
 -- kind
 --
 -- The first argument specifies the start address of the array.  The second
 -- specifies the (zero-based) index into the array.
-pokeElemOff :: forall a.
-     (HasStaticSize a, Pokable a)
+writeRawElemOff :: forall a.
+     (StaticSize a, WriteRaw a)
   => Ptr a
   -> Int
   -> a
   -> IO ()
-pokeElemOff ptr off = pokeByteOff ptr $ off * sizeOf @a Proxy
+writeRawElemOff ptr off = writeRawByteOff ptr $ off * staticSizeOf @a Proxy
 
 -- | Read a value from memory when passed a non-null pointer
-maybePeek :: Peekable a => Ptr a -> IO (Maybe a)
-maybePeek ptr
+maybeReadRaw :: ReadRaw a => Ptr a -> IO (Maybe a)
+maybeReadRaw ptr
     | ptr == Ptr.nullPtr = return Nothing
-    | otherwise          = Just <$> peek ptr
+    | otherwise          = Just <$> readRaw ptr
 
 -- | Allocate local memory, write the specified value, and call a function with
 -- the pointer
@@ -156,17 +156,17 @@ maybePeek ptr
 -- or via an exception.  The passed pointer must therefore /not/ be used after
 -- this.
 with :: forall a b.
-     (HasStaticSize a, Pokable a)
+     (StaticSize a, WriteRaw a)
   => a
   -> (Ptr a -> IO b)
   -> IO b
 with x f = Alloc.allocaBytesAligned size align$ \ptr -> do
-    poke ptr x
+    writeRaw ptr x
     f ptr
   where
     size, align :: Int
-    size  = sizeOf    @a Proxy
-    align = alignment @a Proxy
+    size  = staticSizeOf    @a Proxy
+    align = staticAlignment @a Proxy
 
 -- | Allocate local memory, write the specified value, and call a function with
 -- the pointer
@@ -180,236 +180,237 @@ with x f = Alloc.allocaBytesAligned size align$ \ptr -> do
 -- or via an exception.  The passed pointer must therefore /not/ be used after
 -- this.
 withZero :: forall a b.
-     (HasStaticSize a, Pokable a)
+     (StaticSize a, WriteRaw a)
   => a
   -> (Ptr a -> IO b)
   -> IO b
 withZero x f = Alloc.allocaBytesAligned size align$ \ptr -> do
     Utils.fillBytes ptr 0 size
-    poke ptr x
+    writeRaw ptr x
     f ptr
   where
     size, align :: Int
-    size  = sizeOf    @a Proxy
-    align = alignment @a Proxy
+    size  = staticSizeOf    @a Proxy
+    align = staticAlignment @a Proxy
 
 -- | Allocate memory, write the specified value, and the 'ForeignPtr'
 --
 -- The allocated memory is aligned.
 --
--- Memory that is not written to by 'poke' may contain arbitrary data.
+-- Memory that is not written to by 'writeRaw' may contain arbitrary data.
 new :: forall a.
-     (HasStaticSize a, Pokable a)
+     (StaticSize a, WriteRaw a)
   => a
   -> IO (ForeignPtr a)
 new x = do
     fptr <- mallocForeignPtrAlignedBytes size align
-    withForeignPtr fptr $ \ptr -> poke ptr x
+    withForeignPtr fptr $ \ptr -> writeRaw ptr x
     return fptr
   where
     size, align :: Int
-    size  = sizeOf    @a Proxy
-    align = alignment @a Proxy
+    size  = staticSizeOf    @a Proxy
+    align = staticAlignment @a Proxy
 
 -- | Allocate memory, write the specified value, and the 'ForeignPtr'
 --
 -- The allocated memory is aligned.
 --
 -- The memory is filled with bytes of value zero before the value is written.
--- Memory that is not written to by 'poke' contains zeros, not arbitrary data.
+-- Memory that is not written to by 'writeRaw' contains zeros, not arbitrary
+-- data.
 newZero :: forall a.
-     (HasStaticSize a, Pokable a)
+     (StaticSize a, WriteRaw a)
   => a
   -> IO (ForeignPtr a)
 newZero x = do
     fptr <- mallocForeignPtrAlignedBytes size align
     withForeignPtr fptr $ \ptr -> do
       Utils.fillBytes ptr 0 size
-      poke ptr x
+      writeRaw ptr x
     return fptr
   where
     size, align :: Int
-    size  = sizeOf    @a Proxy
-    align = alignment @a Proxy
+    size  = staticSizeOf    @a Proxy
+    align = staticAlignment @a Proxy
 
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
-instance HasStaticSize C.CChar
-instance Peekable      C.CChar
-instance Pokable       C.CChar
+instance StaticSize C.CChar
+instance ReadRaw    C.CChar
+instance WriteRaw   C.CChar
 
-instance HasStaticSize C.CSChar
-instance Peekable      C.CSChar
-instance Pokable       C.CSChar
+instance StaticSize C.CSChar
+instance ReadRaw    C.CSChar
+instance WriteRaw   C.CSChar
 
-instance HasStaticSize C.CUChar
-instance Peekable      C.CUChar
-instance Pokable       C.CUChar
+instance StaticSize C.CUChar
+instance ReadRaw    C.CUChar
+instance WriteRaw   C.CUChar
 
-instance HasStaticSize C.CShort
-instance Peekable      C.CShort
-instance Pokable       C.CShort
+instance StaticSize C.CShort
+instance ReadRaw    C.CShort
+instance WriteRaw   C.CShort
 
-instance HasStaticSize C.CUShort
-instance Peekable      C.CUShort
-instance Pokable       C.CUShort
+instance StaticSize C.CUShort
+instance ReadRaw    C.CUShort
+instance WriteRaw   C.CUShort
 
-instance HasStaticSize C.CInt
-instance Peekable      C.CInt
-instance Pokable       C.CInt
+instance StaticSize C.CInt
+instance ReadRaw    C.CInt
+instance WriteRaw   C.CInt
 
-instance HasStaticSize C.CUInt
-instance Peekable      C.CUInt
-instance Pokable       C.CUInt
+instance StaticSize C.CUInt
+instance ReadRaw    C.CUInt
+instance WriteRaw   C.CUInt
 
-instance HasStaticSize C.CLong
-instance Peekable      C.CLong
-instance Pokable       C.CLong
+instance StaticSize C.CLong
+instance ReadRaw    C.CLong
+instance WriteRaw   C.CLong
 
-instance HasStaticSize C.CULong
-instance Peekable      C.CULong
-instance Pokable       C.CULong
+instance StaticSize C.CULong
+instance ReadRaw    C.CULong
+instance WriteRaw   C.CULong
 
-instance HasStaticSize C.CPtrdiff
-instance Peekable      C.CPtrdiff
-instance Pokable       C.CPtrdiff
+instance StaticSize C.CPtrdiff
+instance ReadRaw    C.CPtrdiff
+instance WriteRaw   C.CPtrdiff
 
-instance HasStaticSize C.CSize
-instance Peekable      C.CSize
-instance Pokable       C.CSize
+instance StaticSize C.CSize
+instance ReadRaw    C.CSize
+instance WriteRaw   C.CSize
 
-instance HasStaticSize C.CWchar
-instance Peekable      C.CWchar
-instance Pokable       C.CWchar
+instance StaticSize C.CWchar
+instance ReadRaw    C.CWchar
+instance WriteRaw   C.CWchar
 
-instance HasStaticSize C.CSigAtomic
-instance Peekable      C.CSigAtomic
-instance Pokable       C.CSigAtomic
+instance StaticSize C.CSigAtomic
+instance ReadRaw    C.CSigAtomic
+instance WriteRaw   C.CSigAtomic
 
-instance HasStaticSize C.CLLong
-instance Peekable      C.CLLong
-instance Pokable       C.CLLong
+instance StaticSize C.CLLong
+instance ReadRaw    C.CLLong
+instance WriteRaw   C.CLLong
 
-instance HasStaticSize C.CULLong
-instance Peekable      C.CULLong
-instance Pokable       C.CULLong
+instance StaticSize C.CULLong
+instance ReadRaw    C.CULLong
+instance WriteRaw   C.CULLong
 
-instance HasStaticSize C.CBool
-instance Peekable      C.CBool
-instance Pokable       C.CBool
+instance StaticSize C.CBool
+instance ReadRaw    C.CBool
+instance WriteRaw   C.CBool
 
-instance HasStaticSize C.CIntPtr
-instance Peekable      C.CIntPtr
-instance Pokable       C.CIntPtr
+instance StaticSize C.CIntPtr
+instance ReadRaw    C.CIntPtr
+instance WriteRaw   C.CIntPtr
 
-instance HasStaticSize C.CUIntPtr
-instance Peekable      C.CUIntPtr
-instance Pokable       C.CUIntPtr
+instance StaticSize C.CUIntPtr
+instance ReadRaw    C.CUIntPtr
+instance WriteRaw   C.CUIntPtr
 
-instance HasStaticSize C.CIntMax
-instance Peekable      C.CIntMax
-instance Pokable       C.CIntMax
+instance StaticSize C.CIntMax
+instance ReadRaw    C.CIntMax
+instance WriteRaw   C.CIntMax
 
-instance HasStaticSize C.CUIntMax
-instance Peekable      C.CUIntMax
-instance Pokable       C.CUIntMax
+instance StaticSize C.CUIntMax
+instance ReadRaw    C.CUIntMax
+instance WriteRaw   C.CUIntMax
 
-instance HasStaticSize C.CClock
-instance Peekable      C.CClock
-instance Pokable       C.CClock
+instance StaticSize C.CClock
+instance ReadRaw    C.CClock
+instance WriteRaw   C.CClock
 
-instance HasStaticSize C.CTime
-instance Peekable      C.CTime
-instance Pokable       C.CTime
+instance StaticSize C.CTime
+instance ReadRaw    C.CTime
+instance WriteRaw   C.CTime
 
-instance HasStaticSize C.CUSeconds
-instance Peekable      C.CUSeconds
-instance Pokable       C.CUSeconds
+instance StaticSize C.CUSeconds
+instance ReadRaw    C.CUSeconds
+instance WriteRaw   C.CUSeconds
 
-instance HasStaticSize C.CSUSeconds
-instance Peekable      C.CSUSeconds
-instance Pokable       C.CSUSeconds
+instance StaticSize C.CSUSeconds
+instance ReadRaw    C.CSUSeconds
+instance WriteRaw   C.CSUSeconds
 
-instance HasStaticSize C.CFloat
-instance Peekable      C.CFloat
-instance Pokable       C.CFloat
+instance StaticSize C.CFloat
+instance ReadRaw    C.CFloat
+instance WriteRaw   C.CFloat
 
-instance HasStaticSize C.CDouble
-instance Peekable      C.CDouble
-instance Pokable       C.CDouble
+instance StaticSize C.CDouble
+instance ReadRaw    C.CDouble
+instance WriteRaw   C.CDouble
 
-instance HasStaticSize (Ptr a)
-instance Peekable      (Ptr a)
-instance Pokable       (Ptr a)
+instance StaticSize (Ptr a)
+instance ReadRaw    (Ptr a)
+instance WriteRaw   (Ptr a)
 
 -- TODO Foreign.C.ConstPtr from base-4.18.0.0 ?
 
-instance HasStaticSize (FunPtr a)
-instance Peekable      (FunPtr a)
-instance Pokable       (FunPtr a)
+instance StaticSize (FunPtr a)
+instance ReadRaw    (FunPtr a)
+instance WriteRaw   (FunPtr a)
 
-instance HasStaticSize (StablePtr a)
-instance Peekable      (StablePtr a)
-instance Pokable       (StablePtr a)
+instance StaticSize (StablePtr a)
+instance ReadRaw    (StablePtr a)
+instance WriteRaw   (StablePtr a)
 
-instance HasStaticSize Int8
-instance Peekable      Int8
-instance Pokable       Int8
+instance StaticSize Int8
+instance ReadRaw    Int8
+instance WriteRaw   Int8
 
-instance HasStaticSize Int16
-instance Peekable      Int16
-instance Pokable       Int16
+instance StaticSize Int16
+instance ReadRaw    Int16
+instance WriteRaw   Int16
 
-instance HasStaticSize Int32
-instance Peekable      Int32
-instance Pokable       Int32
+instance StaticSize Int32
+instance ReadRaw    Int32
+instance WriteRaw   Int32
 
-instance HasStaticSize Int64
-instance Peekable      Int64
-instance Pokable       Int64
+instance StaticSize Int64
+instance ReadRaw    Int64
+instance WriteRaw   Int64
 
-instance HasStaticSize Word8
-instance Peekable      Word8
-instance Pokable       Word8
+instance StaticSize Word8
+instance ReadRaw    Word8
+instance WriteRaw   Word8
 
-instance HasStaticSize Word16
-instance Peekable      Word16
-instance Pokable       Word16
+instance StaticSize Word16
+instance ReadRaw    Word16
+instance WriteRaw   Word16
 
-instance HasStaticSize Word32
-instance Peekable      Word32
-instance Pokable       Word32
+instance StaticSize Word32
+instance ReadRaw    Word32
+instance WriteRaw   Word32
 
-instance HasStaticSize Word64
-instance Peekable      Word64
-instance Pokable       Word64
+instance StaticSize Word64
+instance ReadRaw    Word64
+instance WriteRaw   Word64
 
-instance HasStaticSize Int
-instance Peekable      Int
-instance Pokable       Int
+instance StaticSize Int
+instance ReadRaw    Int
+instance WriteRaw   Int
 
-instance HasStaticSize Word
-instance Peekable      Word
-instance Pokable       Word
+instance StaticSize Word
+instance ReadRaw    Word
+instance WriteRaw   Word
 
-instance HasStaticSize Float
-instance Peekable      Float
-instance Pokable       Float
+instance StaticSize Float
+instance ReadRaw    Float
+instance WriteRaw   Float
 
-instance HasStaticSize Double
-instance Peekable      Double
-instance Pokable       Double
+instance StaticSize Double
+instance ReadRaw    Double
+instance WriteRaw   Double
 
-instance HasStaticSize Char
-instance Peekable      Char
-instance Pokable       Char
+instance StaticSize Char
+instance ReadRaw    Char
+instance WriteRaw   Char
 
-instance HasStaticSize Bool
-instance Peekable      Bool
-instance Pokable       Bool
+instance StaticSize Bool
+instance ReadRaw    Bool
+instance WriteRaw   Bool
 
-instance HasStaticSize ()
-instance Peekable      ()
-instance Pokable       ()
+instance StaticSize ()
+instance ReadRaw    ()
+instance WriteRaw   ()
