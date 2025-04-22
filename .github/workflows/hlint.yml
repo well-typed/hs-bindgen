@@ -25,5 +25,5 @@ jobs:
     - name: 'Run HLint'
       uses: haskell-actions/hlint-run@v2
       with:
-        path: '[ "hs-bindgen/src/", "hs-bindgen/app/" ]'
+        path: '[ "hs-bindgen/src/", "hs-bindgen/app/", "hs-bindgen/src-internal/"  ]'
         fail-on: suggestion

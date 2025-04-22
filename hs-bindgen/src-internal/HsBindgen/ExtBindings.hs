@@ -512,7 +512,7 @@ encodeYaml = Yaml.Pretty.encodePretty yamlConfig
           "module"     -> 4
           "identifier" -> 5
           -- Unknown
-          _otherwise -> error $ "Unknown key: " ++ show key
+          _otherwise -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions (Internal)

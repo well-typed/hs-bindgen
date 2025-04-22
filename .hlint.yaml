@@ -32,6 +32,8 @@
 - ignore: {name: "Use unwords"} # 2 hints
 - ignore: {name: "Use writeFile"} # 1 hint
 - ignore: {name: "Use ||"} # 1 hint
+- ignore: {name: "Replace case with maybe"}
+- ignore: {name: "Fuse foldr/<$>"}
 
 
 # Specify additional command line arguments
