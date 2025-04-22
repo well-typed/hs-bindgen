@@ -19,6 +19,7 @@ import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
 import Test.HsBindgen.C.Parser qualified
+import Test.Internal.C
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
@@ -105,6 +106,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
 #endif
         , goldenPP name
         , goldenExtBindings name
+        , cCheck packageRoot name
         ]
 
     goldenTreeDiff :: TestName -> TestTree
