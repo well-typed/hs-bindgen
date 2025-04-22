@@ -1,21 +1,17 @@
 types:
 - headers: recursive_struct.h
   cname: linked_list_A_t
-  package: example
   module: Example
   identifier: Linked_list_A_t
 - headers: recursive_struct.h
   cname: linked_list_B_t
-  package: example
   module: Example
   identifier: Linked_list_B_t
 - headers: recursive_struct.h
   cname: struct linked_list_A_s
-  package: example
   module: Example
   identifier: Linked_list_A_s
 - headers: recursive_struct.h
   cname: struct linked_list_B_t
-  package: example
   module: Example
   identifier: Linked_list_B_t

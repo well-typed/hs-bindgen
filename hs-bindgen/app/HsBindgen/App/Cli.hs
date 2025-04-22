@@ -44,7 +44,6 @@ data Mode =
     ModePreprocess {
         preprocessInput           :: CHeaderIncludePath
       , preprocessTranslationOpts :: TranslationOpts
-      , preprocessPackageName     :: Maybe HsPackageName
       , preprocessModuleOpts      :: HsModuleOpts
       , preprocessRenderOpts      :: HsRenderOpts
       , preprocessOutput          :: Maybe FilePath
@@ -102,7 +101,6 @@ parseModePreprocess =
     ModePreprocess
       <$> parseInput
       <*> parseTranslationOpts
-      <*> optional parseHsPackageName
       <*> parseHsModuleOpts
       <*> parseHsRenderOpts
       <*> parseOutput
@@ -130,15 +128,6 @@ parseModeLiterate = do
 
 parseTranslationOpts :: Parser TranslationOpts
 parseTranslationOpts = pure defaultTranslationOpts
-
-parseHsPackageName :: Parser HsPackageName
-parseHsPackageName =
-    HsPackageName
-      <$> strOption (mconcat [
-              help "Package name for generated external bindings"
-            , metavar "NAME"
-            , long "package"
-            ])
 
 parseHsModuleOpts :: Parser HsModuleOpts
 parseHsModuleOpts =

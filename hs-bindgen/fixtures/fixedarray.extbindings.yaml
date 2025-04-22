@@ -1,11 +1,9 @@
 types:
 - headers: fixedarray.h
   cname: struct Example
-  package: example
   module: Example
   identifier: Example
 - headers: fixedarray.h
   cname: triple
-  package: example
   module: Example
   identifier: Triple

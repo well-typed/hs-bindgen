@@ -1,41 +1,33 @@
 types:
 - headers: typedef_vs_macro.h
   cname: M1
-  package: example
   module: Example
   identifier: M1
 - headers: typedef_vs_macro.h
   cname: M2
-  package: example
   module: Example
   identifier: M2
 - headers: typedef_vs_macro.h
   cname: M3
-  package: example
   module: Example
   identifier: M3
 - headers: typedef_vs_macro.h
   cname: T1
-  package: example
   module: Example
   identifier: T1
 - headers: typedef_vs_macro.h
   cname: T2
-  package: example
   module: Example
   identifier: T2
 - headers: typedef_vs_macro.h
   cname: struct ExampleStruct
-  package: example
   module: Example
   identifier: ExampleStruct
 - headers: typedef_vs_macro.h
   cname: struct foo
-  package: example
   module: Example
   identifier: Foo
 - headers: typedef_vs_macro.h
   cname: uint64_t
-  package: example
   module: Example
   identifier: Uint64_t

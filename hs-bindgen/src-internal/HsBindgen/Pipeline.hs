@@ -237,14 +237,13 @@ genBindings' quoteIncPathDirs = genBindings defaultOpts {
 genExtBindings ::
      PPOpts
   -> CHeaderIncludePath
-  -> HsPackageName
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genExtBindings PPOpts{..} headerIncludePath packageName path =
+genExtBindings PPOpts{..} headerIncludePath path =
         either (throwIO . HsBindgenException) return
     <=< writeUnresolvedExtBindings path
-    .   GenExtBindings.genExtBindings headerIncludePath packageName moduleName
+    .   GenExtBindings.genExtBindings headerIncludePath moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)

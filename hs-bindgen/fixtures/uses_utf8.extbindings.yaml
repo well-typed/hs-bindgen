@@ -1,6 +1,5 @@
 types:
 - headers: uses_utf8.h
   cname: enum MyEnum
-  package: example
   module: Example
   identifier: MyEnum

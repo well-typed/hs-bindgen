@@ -1,36 +1,29 @@
 types:
 - headers: bitfields.h
   cname: struct alignA
-  package: example
   module: Example
   identifier: AlignA
 - headers: bitfields.h
   cname: struct alignB
-  package: example
   module: Example
   identifier: AlignB
 - headers: bitfields.h
   cname: struct flags
-  package: example
   module: Example
   identifier: Flags
 - headers: bitfields.h
   cname: struct overflow32
-  package: example
   module: Example
   identifier: Overflow32
 - headers: bitfields.h
   cname: struct overflow32b
-  package: example
   module: Example
   identifier: Overflow32b
 - headers: bitfields.h
   cname: struct overflow32c
-  package: example
   module: Example
   identifier: Overflow32c
 - headers: bitfields.h
   cname: struct overflow64
-  package: example
   module: Example
   identifier: Overflow64

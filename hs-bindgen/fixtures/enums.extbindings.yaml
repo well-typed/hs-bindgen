@@ -1,61 +1,49 @@
 types:
 - headers: enums.h
   cname: enum enumB
-  package: example
   module: Example
   identifier: EnumB
 - headers: enums.h
   cname: enum enumC
-  package: example
   module: Example
   identifier: EnumC
 - headers: enums.h
   cname: enum enumD
-  package: example
   module: Example
   identifier: EnumD
 - headers: enums.h
   cname: enum first
-  package: example
   module: Example
   identifier: First
 - headers: enums.h
   cname: enum nonseq
-  package: example
   module: Example
   identifier: Nonseq
 - headers: enums.h
   cname: enum packad
-  package: example
   module: Example
   identifier: Packad
 - headers: enums.h
   cname: enum same
-  package: example
   module: Example
   identifier: Same
 - headers: enums.h
   cname: enum second
-  package: example
   module: Example
   identifier: Second
 - headers: enums.h
   cname: enumA
-  package: example
   module: Example
   identifier: EnumA
 - headers: enums.h
   cname: enumB
-  package: example
   module: Example
   identifier: EnumB
 - headers: enums.h
   cname: enumC
-  package: example
   module: Example
   identifier: EnumC
 - headers: enums.h
   cname: enumD_t
-  package: example
   module: Example
   identifier: EnumD_t

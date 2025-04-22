@@ -4,6 +4,5 @@ let Mapping
       , headers : List Text
       , identifier : Text
       , module : Text
-      , package : Text
       }
 in  Mapping

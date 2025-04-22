@@ -150,7 +150,6 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
           ExtBindings.genExtBindings
             headerIncludePath
-            (ExtBindings.HsPackageName "example")
             (ExtBindings.HsModuleName "Example")
             decls
 

@@ -1,131 +1,105 @@
 types:
 - headers: manual_examples.h
   cname: DAY
-  package: example
   module: Example
   identifier: DAY
 - headers: manual_examples.h
   cname: MONTH
-  package: example
   module: Example
   identifier: MONTH
 - headers: manual_examples.h
   cname: YEAR
-  package: example
   module: Example
   identifier: YEAR
 - headers: manual_examples.h
   cname: adiós
-  package: example
   module: Example
   identifier: Adio'0301s
 - headers: manual_examples.h
   cname: average
-  package: example
   module: Example
   identifier: Average
 - headers: manual_examples.h
   cname: config
-  package: example
   module: Example
   identifier: Config
 - headers: manual_examples.h
   cname: data
-  package: example
   module: Example
   identifier: Data
 - headers: manual_examples.h
   cname: date
-  package: example
   module: Example
   identifier: Date
 - headers: manual_examples.h
   cname: enum CXCursorKind
-  package: example
   module: Example
   identifier: CXCursorKind
 - headers: manual_examples.h
   cname: enum HTTP_status
-  package: example
   module: Example
   identifier: HTTP_status
 - headers: manual_examples.h
   cname: enum index
-  package: example
   module: Example
   identifier: Index
 - headers: manual_examples.h
   cname: enum result
-  package: example
   module: Example
   identifier: Result
 - headers: manual_examples.h
   cname: enum signal
-  package: example
   module: Example
   identifier: Signal
 - headers: manual_examples.h
   cname: enum vote
-  package: example
   module: Example
   identifier: Vote
 - headers: manual_examples.h
   cname: index
-  package: example
   module: Example
   identifier: Index
 - headers: manual_examples.h
   cname: occupation
-  package: example
   module: Example
   identifier: Occupation
 - headers: manual_examples.h
   cname: struct date
-  package: example
   module: Example
   identifier: Date
 - headers: manual_examples.h
   cname: struct employee
-  package: example
   module: Example
   identifier: Employee
 - headers: manual_examples.h
   cname: struct person
-  package: example
   module: Example
   identifier: Person
 - headers: manual_examples.h
   cname: struct rect
-  package: example
   module: Example
   identifier: Rect
 - headers: manual_examples.h
   cname: struct student
-  package: example
   module: Example
   identifier: Student
 - headers: manual_examples.h
   cname: struct triple
-  package: example
   module: Example
   identifier: Triple
 - headers: manual_examples.h
   cname: sum
-  package: example
   module: Example
   identifier: Sum
 - headers: manual_examples.h
   cname: triple
-  package: example
   module: Example
   identifier: Triple
 - headers: manual_examples.h
   cname: union occupation
-  package: example
   module: Example
   identifier: Occupation
 - headers: manual_examples.h
   cname: 数字
-  package: example
   module: Example
   identifier: C数字
