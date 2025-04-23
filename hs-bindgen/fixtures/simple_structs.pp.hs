@@ -8,7 +8,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
 data S1 = S1
   { s1_a :: FC.CInt
@@ -76,6 +76,10 @@ newtype S2_t = S2_t
   }
 
 deriving newtype instance F.Storable S2_t
+
+deriving stock instance Eq S2_t
+
+deriving stock instance Show S2_t
 
 data S3_t = S3_t
   { s3_t_a :: FC.CChar
@@ -227,6 +231,12 @@ newtype S7a = S7a
 
 deriving newtype instance F.Storable S7a
 
+deriving stock instance Eq S7a
+
+deriving stock instance Ord S7a
+
+deriving stock instance Show S7a
+
 data S7b_Deref = S7b_Deref
   { s7b_Deref_a :: FC.CChar
   , s7b_Deref_b :: FC.CInt
@@ -261,3 +271,9 @@ newtype S7b = S7b
   }
 
 deriving newtype instance F.Storable S7b
+
+deriving stock instance Eq S7b
+
+deriving stock instance Ord S7b
+
+deriving stock instance Show S7b

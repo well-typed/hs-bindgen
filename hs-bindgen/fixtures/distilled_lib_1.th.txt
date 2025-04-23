@@ -171,6 +171,8 @@ deriving stock instance Eq A_typedef_struct
 newtype A_typedef_struct_t
     = A_typedef_struct_t {un_A_typedef_struct_t :: A_typedef_struct}
 deriving newtype instance Storable A_typedef_struct_t
+deriving stock instance Eq A_typedef_struct_t
+deriving stock instance Show A_typedef_struct_t
 a_DEFINE_0 :: CInt
 a_DEFINE_0 = 0 :: CInt
 a_DEFINE_1 :: CUInt
@@ -222,3 +224,6 @@ newtype Callback_t
     = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
                                             Uint32_t -> IO Uint32_t))}
 deriving newtype instance Storable Callback_t
+deriving stock instance Eq Callback_t
+deriving stock instance Ord Callback_t
+deriving stock instance Show Callback_t

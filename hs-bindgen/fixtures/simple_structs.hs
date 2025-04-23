@@ -73,7 +73,7 @@
           structSourceLoc =
           "simple_structs.h:2:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -149,7 +149,7 @@
             structSourceLoc =
             "simple_structs.h:2:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -230,7 +230,7 @@
                     structSourceLoc =
                     "simple_structs.h:2:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -313,7 +313,7 @@
                     structSourceLoc =
                     "simple_structs.h:2:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -428,7 +428,7 @@
           structSourceLoc =
           "simple_structs.h:8:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -528,7 +528,7 @@
             structSourceLoc =
             "simple_structs.h:8:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -633,7 +633,7 @@
                     structSourceLoc =
                     "simple_structs.h:8:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -741,7 +741,7 @@
                     structSourceLoc =
                     "simple_structs.h:8:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -783,10 +783,18 @@
           typedefSourceLoc =
           "simple_structs.h:12:3"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "S2_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S2_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "S2_t"),
   DeclData
     Struct {
@@ -839,7 +847,7 @@
           structSourceLoc =
           "simple_structs.h:15:9"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -892,7 +900,7 @@
             structSourceLoc =
             "simple_structs.h:15:9"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -950,7 +958,7 @@
                     structSourceLoc =
                     "simple_structs.h:15:9"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1008,7 +1016,7 @@
                     structSourceLoc =
                     "simple_structs.h:15:9"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -1124,7 +1132,7 @@
           structSourceLoc =
           "simple_structs.h:19:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1226,7 +1234,7 @@
             structSourceLoc =
             "simple_structs.h:19:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1333,7 +1341,7 @@
                     structSourceLoc =
                     "simple_structs.h:19:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -1443,7 +1451,7 @@
                     structSourceLoc =
                     "simple_structs.h:19:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -1535,7 +1543,7 @@
           structSourceLoc =
           "simple_structs.h:26:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1611,7 +1619,7 @@
             structSourceLoc =
             "simple_structs.h:26:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1692,7 +1700,7 @@
                     structSourceLoc =
                     "simple_structs.h:26:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1775,7 +1783,7 @@
                     structSourceLoc =
                     "simple_structs.h:26:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -1866,7 +1874,7 @@
           structSourceLoc =
           "simple_structs.h:31:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1942,7 +1950,7 @@
             structSourceLoc =
             "simple_structs.h:31:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2023,7 +2031,7 @@
                     structSourceLoc =
                     "simple_structs.h:31:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2106,7 +2114,7 @@
                     structSourceLoc =
                     "simple_structs.h:31:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2199,7 +2207,7 @@
           structSourceLoc =
           "simple_structs.h:34:9"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2277,7 +2285,7 @@
             structSourceLoc =
             "simple_structs.h:34:9"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2360,7 +2368,7 @@
                     structSourceLoc =
                     "simple_structs.h:34:9"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2445,7 +2453,7 @@
                     structSourceLoc =
                     "simple_structs.h:34:9"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2497,10 +2505,22 @@
           typedefSourceLoc =
           "simple_structs.h:34:36"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "S7a"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S7a"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "S7a"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "S7a"),
   DeclData
     Struct {
@@ -2580,7 +2600,7 @@
           structSourceLoc =
           "simple_structs.h:35:9"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2660,7 +2680,7 @@
             structSourceLoc =
             "simple_structs.h:35:9"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2745,7 +2765,7 @@
                     structSourceLoc =
                     "simple_structs.h:35:9"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2832,7 +2852,7 @@
                     structSourceLoc =
                     "simple_structs.h:35:9"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2890,8 +2910,20 @@
           typedefSourceLoc =
           "simple_structs.h:35:38"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "S7b"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S7b"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "S7b"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "S7b")]

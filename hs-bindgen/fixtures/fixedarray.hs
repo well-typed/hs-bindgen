@@ -26,10 +26,22 @@
           typedefSourceLoc =
           "fixedarray.h:1:13"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "Triple"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Triple"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "Triple"),
@@ -119,7 +131,7 @@
           structSourceLoc =
           "fixedarray.h:3:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -207,7 +219,7 @@
             structSourceLoc =
             "fixedarray.h:3:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 48,
         storableAlignment = 4,
@@ -300,7 +312,7 @@
                     structSourceLoc =
                     "fixedarray.h:3:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 12]),
@@ -395,7 +407,7 @@
                     structSourceLoc =
                     "fixedarray.h:3:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

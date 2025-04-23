@@ -94,7 +94,7 @@
           structSourceLoc =
           "manual_examples.h:14:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -191,7 +191,7 @@
             structSourceLoc =
             "manual_examples.h:14:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -293,7 +293,7 @@
                     structSourceLoc =
                     "manual_examples.h:14:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -398,7 +398,7 @@
                     structSourceLoc =
                     "manual_examples.h:14:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -520,7 +520,12 @@
           enumSourceLoc =
           "manual_examples.h:26:14"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -566,7 +571,7 @@
             enumSourceLoc =
             "manual_examples.h:26:14"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -617,7 +622,12 @@
                     enumSourceLoc =
                     "manual_examples.h:26:14"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -668,7 +678,7 @@
                     enumSourceLoc =
                     "manual_examples.h:26:14"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -739,7 +749,7 @@
             enumSourceLoc =
             "manual_examples.h:26:14"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -792,7 +802,7 @@
             enumSourceLoc =
             "manual_examples.h:26:14"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "A")
       (HsName "@NsConstr" "C")),
   DeclInstance
@@ -840,7 +850,12 @@
             enumSourceLoc =
             "manual_examples.h:26:14"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -970,7 +985,20 @@
           typedefSourceLoc =
           "manual_examples.h:38:13"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1047,7 +1075,19 @@
           typedefSourceLoc =
           "manual_examples.h:39:16"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Read,
+          Show,
+          Floating,
+          Fractional,
+          Num,
+          Real,
+          RealFloat,
+          RealFrac,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1351,7 +1391,20 @@
                   AbstractName
                   []})},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1443,7 +1496,20 @@
                   AbstractName
                   []})},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1561,7 +1627,20 @@
                   AbstractName
                   []})},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1710,7 +1789,7 @@
           structSourceLoc =
           "manual_examples.h:57:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1808,7 +1887,7 @@
             structSourceLoc =
             "manual_examples.h:57:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1911,7 +1990,7 @@
                     structSourceLoc =
                     "manual_examples.h:57:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -2017,7 +2096,7 @@
                     structSourceLoc =
                     "manual_examples.h:57:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -2149,7 +2228,7 @@
           structSourceLoc =
           "manual_examples.h:70:10"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2227,7 +2306,7 @@
             structSourceLoc =
             "manual_examples.h:70:10"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -2310,7 +2389,7 @@
                     structSourceLoc =
                     "manual_examples.h:70:10"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -2395,7 +2474,7 @@
                     structSourceLoc =
                     "manual_examples.h:70:10"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2523,7 +2602,7 @@
           structSourceLoc =
           "manual_examples.h:75:10"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2632,7 +2711,7 @@
             structSourceLoc =
             "manual_examples.h:75:10"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 24,
         storableAlignment = 8,
@@ -2746,7 +2825,7 @@
                     structSourceLoc =
                     "manual_examples.h:75:10"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8,
@@ -2863,7 +2942,7 @@
                     structSourceLoc =
                     "manual_examples.h:75:10"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -2926,7 +3005,7 @@
           unionSourceLoc =
           "manual_examples.h:69:15"},
       newtypeInstances = Set.fromList
-        []},
+        [Storable]},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 24 8))
@@ -3107,7 +3186,7 @@
           structSourceLoc =
           "manual_examples.h:89:3"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -3182,7 +3261,7 @@
             structSourceLoc =
             "manual_examples.h:89:3"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -3262,7 +3341,7 @@
                     structSourceLoc =
                     "manual_examples.h:89:3"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -3344,7 +3423,7 @@
                     structSourceLoc =
                     "manual_examples.h:89:3"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -3438,7 +3517,7 @@
           structSourceLoc =
           "manual_examples.h:94:3"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -3513,7 +3592,7 @@
             structSourceLoc =
             "manual_examples.h:94:3"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -3593,7 +3672,7 @@
                     structSourceLoc =
                     "manual_examples.h:94:3"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -3675,7 +3754,7 @@
                     structSourceLoc =
                     "manual_examples.h:94:3"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -3786,7 +3865,7 @@
           structSourceLoc =
           "manual_examples.h:88:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -3878,7 +3957,7 @@
             structSourceLoc =
             "manual_examples.h:88:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -3975,7 +4054,7 @@
                     structSourceLoc =
                     "manual_examples.h:88:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -4074,7 +4153,7 @@
                     structSourceLoc =
                     "manual_examples.h:88:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -4163,7 +4242,7 @@
           structSourceLoc =
           "manual_examples.h:100:9"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -4237,7 +4316,7 @@
             structSourceLoc =
             "manual_examples.h:100:9"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -4316,7 +4395,7 @@
                     structSourceLoc =
                     "manual_examples.h:100:9"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -4397,7 +4476,7 @@
                     structSourceLoc =
                     "manual_examples.h:100:9"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -4449,10 +4528,28 @@
           typedefSourceLoc =
           "manual_examples.h:103:4"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "Config"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Config"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Config"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "Config"),
@@ -4480,7 +4577,20 @@
           typedefSourceLoc =
           "manual_examples.h:109:13"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -4608,7 +4718,20 @@
           typedefSourceLoc =
           "manual_examples.h:111:13"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -4733,7 +4856,20 @@
           typedefSourceLoc =
           "manual_examples.h:113:13"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -4858,7 +4994,12 @@
           enumSourceLoc =
           "manual_examples.h:120:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -4909,7 +5050,7 @@
             enumSourceLoc =
             "manual_examples.h:120:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -4965,7 +5106,12 @@
                     enumSourceLoc =
                     "manual_examples.h:120:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -5021,7 +5167,7 @@
                     enumSourceLoc =
                     "manual_examples.h:120:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -5097,7 +5243,7 @@
             enumSourceLoc =
             "manual_examples.h:120:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -5156,7 +5302,7 @@
             enumSourceLoc =
             "manual_examples.h:120:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Start")
       (HsName "@NsConstr" "Stop")),
   DeclInstance
@@ -5209,7 +5355,12 @@
             enumSourceLoc =
             "manual_examples.h:120:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -5341,7 +5492,12 @@
           enumSourceLoc =
           "manual_examples.h:127:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -5398,7 +5554,7 @@
             enumSourceLoc =
             "manual_examples.h:127:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -5460,7 +5616,12 @@
                     enumSourceLoc =
                     "manual_examples.h:127:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -5522,7 +5683,7 @@
                     enumSourceLoc =
                     "manual_examples.h:127:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -5604,7 +5765,7 @@
             enumSourceLoc =
             "manual_examples.h:127:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -5676,7 +5837,12 @@
             enumSourceLoc =
             "manual_examples.h:127:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -5822,7 +5988,12 @@
           enumSourceLoc =
           "manual_examples.h:135:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -5873,7 +6044,7 @@
             enumSourceLoc =
             "manual_examples.h:135:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -5929,7 +6100,12 @@
                     enumSourceLoc =
                     "manual_examples.h:135:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -5985,7 +6161,7 @@
                     enumSourceLoc =
                     "manual_examples.h:135:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -6061,7 +6237,7 @@
             enumSourceLoc =
             "manual_examples.h:135:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -6121,7 +6297,7 @@
             enumSourceLoc =
             "manual_examples.h:135:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Z")
       (HsName "@NsConstr" "X")),
   DeclInstance
@@ -6174,7 +6350,12 @@
             enumSourceLoc =
             "manual_examples.h:135:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6301,7 +6482,12 @@
           enumSourceLoc =
           "manual_examples.h:142:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -6353,7 +6539,7 @@
             enumSourceLoc =
             "manual_examples.h:142:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -6410,7 +6596,12 @@
                     enumSourceLoc =
                     "manual_examples.h:142:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -6467,7 +6658,7 @@
                     enumSourceLoc =
                     "manual_examples.h:142:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -6544,7 +6735,7 @@
             enumSourceLoc =
             "manual_examples.h:142:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCInt)
       (Map.fromList
         [
@@ -6610,7 +6801,7 @@
             enumSourceLoc =
             "manual_examples.h:142:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Failed")
       (HsName
         "@NsConstr"
@@ -6666,7 +6857,12 @@
             enumSourceLoc =
             "manual_examples.h:142:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6789,7 +6985,12 @@
           enumSourceLoc =
           "manual_examples.h:149:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -6836,7 +7037,7 @@
             enumSourceLoc =
             "manual_examples.h:149:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -6888,7 +7089,12 @@
                     enumSourceLoc =
                     "manual_examples.h:149:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -6940,7 +7146,7 @@
                     enumSourceLoc =
                     "manual_examples.h:149:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -7006,7 +7212,7 @@
             enumSourceLoc =
             "manual_examples.h:149:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
       (Map.fromList
         [
@@ -7064,7 +7270,7 @@
             enumSourceLoc =
             "manual_examples.h:149:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Infavour")
       (HsName "@NsConstr" "Abstain")),
   DeclInstance
@@ -7113,7 +7319,12 @@
             enumSourceLoc =
             "manual_examples.h:149:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7272,7 +7483,12 @@
           enumSourceLoc =
           "manual_examples.h:157:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -7375,7 +7591,7 @@
             enumSourceLoc =
             "manual_examples.h:157:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -7483,7 +7699,12 @@
                     enumSourceLoc =
                     "manual_examples.h:157:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -7591,7 +7812,7 @@
                     enumSourceLoc =
                     "manual_examples.h:157:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -7719,7 +7940,7 @@
             enumSourceLoc =
             "manual_examples.h:157:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -7866,7 +8087,12 @@
             enumSourceLoc =
             "manual_examples.h:157:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName

@@ -65,6 +65,8 @@ deriving stock instance Show Struct3
 deriving stock instance Eq Struct3
 newtype Struct3_t = Struct3_t {un_Struct3_t :: Struct3}
 deriving newtype instance Storable Struct3_t
+deriving stock instance Eq Struct3_t
+deriving stock instance Show Struct3_t
 data Struct4 = Struct4 {struct4_a :: CInt}
 instance Storable Struct4
     where {sizeOf = \_ -> 4 :: Int;

@@ -76,7 +76,7 @@
           structSourceLoc =
           "recursive_struct.h:1:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -155,7 +155,7 @@
             structSourceLoc =
             "recursive_struct.h:1:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -239,7 +239,7 @@
                     structSourceLoc =
                     "recursive_struct.h:1:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -325,7 +325,7 @@
                     structSourceLoc =
                     "recursive_struct.h:1:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -374,10 +374,22 @@
           typedefSourceLoc =
           "recursive_struct.h:4:3"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_A_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_A_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "Linked_list_A_t"),
@@ -459,7 +471,7 @@
           structSourceLoc =
           "recursive_struct.h:9:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -539,7 +551,7 @@
             structSourceLoc =
             "recursive_struct.h:9:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -624,7 +636,7 @@
                     structSourceLoc =
                     "recursive_struct.h:9:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -711,7 +723,7 @@
                     structSourceLoc =
                     "recursive_struct.h:9:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

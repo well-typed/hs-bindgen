@@ -229,6 +229,9 @@ deriving stock instance Show Config_Deref
 deriving stock instance Eq Config_Deref
 newtype Config = Config {un_Config :: (Ptr Config_Deref)}
 deriving newtype instance Storable Config
+deriving stock instance Eq Config
+deriving stock instance Ord Config
+deriving stock instance Show Config
 newtype Adio'0301s = Adio'0301s {un_Adio'0301s :: CInt}
 deriving newtype instance Storable Adio'0301s
 deriving stock instance Eq Adio'0301s

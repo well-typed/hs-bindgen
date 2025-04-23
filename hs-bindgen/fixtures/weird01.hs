@@ -45,7 +45,7 @@
           structSourceLoc =
           "weird01.h:1:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -93,7 +93,7 @@
             structSourceLoc =
             "weird01.h:1:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -146,7 +146,7 @@
                     structSourceLoc =
                     "weird01.h:1:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -199,7 +199,7 @@
                     structSourceLoc =
                     "weird01.h:1:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -261,7 +261,7 @@
           structSourceLoc =
           "weird01.h:3:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -309,7 +309,7 @@
             structSourceLoc =
             "weird01.h:3:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -362,7 +362,7 @@
                     structSourceLoc =
                     "weird01.h:3:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -415,7 +415,7 @@
                     structSourceLoc =
                     "weird01.h:3:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [

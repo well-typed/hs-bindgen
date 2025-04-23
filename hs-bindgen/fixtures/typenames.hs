@@ -38,7 +38,12 @@
           enumSourceLoc =
           "typenames.h:14:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -79,7 +84,7 @@
             enumSourceLoc =
             "typenames.h:14:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -125,7 +130,12 @@
                     enumSourceLoc =
                     "typenames.h:14:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -171,7 +181,7 @@
                     enumSourceLoc =
                     "typenames.h:14:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -231,7 +241,7 @@
             enumSourceLoc =
             "typenames.h:14:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -278,7 +288,7 @@
             enumSourceLoc =
             "typenames.h:14:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FOO1")
       (HsName "@NsConstr" "FOO2")),
   DeclInstance
@@ -321,7 +331,12 @@
             enumSourceLoc =
             "typenames.h:14:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -384,7 +399,19 @@
           typedefSourceLoc =
           "typenames.h:19:16"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Enum,
+          Read,
+          Show,
+          Floating,
+          Fractional,
+          Num,
+          Real,
+          RealFloat,
+          RealFrac,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

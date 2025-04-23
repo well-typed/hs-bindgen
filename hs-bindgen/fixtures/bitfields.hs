@@ -173,7 +173,7 @@
           structSourceLoc =
           "bitfields.h:1:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -349,7 +349,7 @@
             structSourceLoc =
             "bitfields.h:1:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -530,7 +530,7 @@
                     structSourceLoc =
                     "bitfields.h:1:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekBitOffWidth (Idx 0) 8 1,
@@ -717,7 +717,7 @@
                     structSourceLoc =
                     "bitfields.h:1:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 6)
               (Seq
                 [
@@ -849,7 +849,7 @@
           structSourceLoc =
           "bitfields.h:12:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -945,7 +945,7 @@
             structSourceLoc =
             "bitfields.h:12:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1046,7 +1046,7 @@
                     structSourceLoc =
                     "bitfields.h:12:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekBitOffWidth (Idx 0) 0 17,
               PeekBitOffWidth (Idx 0) 32 17,
@@ -1150,7 +1150,7 @@
                     structSourceLoc =
                     "bitfields.h:12:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -1275,7 +1275,7 @@
           structSourceLoc =
           "bitfields.h:18:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1371,7 +1371,7 @@
             structSourceLoc =
             "bitfields.h:18:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 8,
@@ -1472,7 +1472,7 @@
                     structSourceLoc =
                     "bitfields.h:18:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekBitOffWidth (Idx 0) 0 17,
               PeekBitOffWidth (Idx 0) 17 17,
@@ -1576,7 +1576,7 @@
                     structSourceLoc =
                     "bitfields.h:18:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -1701,7 +1701,7 @@
           structSourceLoc =
           "bitfields.h:24:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1797,7 +1797,7 @@
             structSourceLoc =
             "bitfields.h:24:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1898,7 +1898,7 @@
                     structSourceLoc =
                     "bitfields.h:24:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekBitOffWidth (Idx 0) 0 17,
               PeekBitOffWidth (Idx 0) 32 17,
@@ -2002,7 +2002,7 @@
                     structSourceLoc =
                     "bitfields.h:24:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -2103,7 +2103,7 @@
           structSourceLoc =
           "bitfields.h:30:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2175,7 +2175,7 @@
             structSourceLoc =
             "bitfields.h:30:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -2252,7 +2252,7 @@
                     structSourceLoc =
                     "bitfields.h:30:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekBitOffWidth (Idx 0) 0 33,
               PeekBitOffWidth (Idx 0) 64 33]),
@@ -2331,7 +2331,7 @@
                     structSourceLoc =
                     "bitfields.h:30:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2429,7 +2429,7 @@
           structSourceLoc =
           "bitfields.h:36:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2503,7 +2503,7 @@
             structSourceLoc =
             "bitfields.h:36:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -2582,7 +2582,7 @@
                     structSourceLoc =
                     "bitfields.h:36:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekBitOffWidth (Idx 0) 0 1,
               PeekBitOffWidth (Idx 0) 1 10]),
@@ -2663,7 +2663,7 @@
                     structSourceLoc =
                     "bitfields.h:36:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2761,7 +2761,7 @@
           structSourceLoc =
           "bitfields.h:41:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2835,7 +2835,7 @@
             structSourceLoc =
             "bitfields.h:41:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2914,7 +2914,7 @@
                     structSourceLoc =
                     "bitfields.h:41:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekBitOffWidth (Idx 0) 0 7,
               PeekBitOffWidth (Idx 0) 32 31]),
@@ -2995,7 +2995,7 @@
                     structSourceLoc =
                     "bitfields.h:41:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

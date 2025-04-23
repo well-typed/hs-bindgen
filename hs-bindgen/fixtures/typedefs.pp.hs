@@ -48,3 +48,9 @@ newtype Intptr = Intptr
   }
 
 deriving newtype instance F.Storable Intptr
+
+deriving stock instance Eq Intptr
+
+deriving stock instance Ord Intptr
+
+deriving stock instance Show Intptr

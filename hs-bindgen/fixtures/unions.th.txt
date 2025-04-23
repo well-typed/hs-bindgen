@@ -38,8 +38,6 @@ instance Storable Dim
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {Dim dim_tag_3
                                          dim_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dim_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dim_payload_4}}
-deriving stock instance Show Dim
-deriving stock instance Eq Dim
 newtype DimPayloadB = DimPayloadB {un_DimPayloadB :: ByteArray}
 deriving via (SizedByteArray 8 4) instance Storable DimPayloadB
 get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
@@ -58,8 +56,6 @@ instance Storable DimB
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {DimB dimB_tag_3
                                           dimB_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dimB_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dimB_payload_4}}
-deriving stock instance Show DimB
-deriving stock instance Eq DimB
 data AnonA_xy
     = AnonA_xy {anonA_xy_x :: CDouble, anonA_xy_y :: CDouble}
 instance Storable AnonA_xy

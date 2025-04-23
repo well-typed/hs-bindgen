@@ -40,7 +40,12 @@
           enumSourceLoc =
           "uses_utf8.h:4:6"},
       newtypeInstances = Set.fromList
-        []},
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -83,7 +88,7 @@
             enumSourceLoc =
             "uses_utf8.h:4:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -131,7 +136,12 @@
                     enumSourceLoc =
                     "uses_utf8.h:4:6"},
                 structInstances = Set.fromList
-                  []})
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -179,7 +189,7 @@
                     enumSourceLoc =
                     "uses_utf8.h:4:6"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -247,7 +257,7 @@
             enumSourceLoc =
             "uses_utf8.h:4:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -302,7 +312,7 @@
             enumSourceLoc =
             "uses_utf8.h:4:6"},
         structInstances = Set.fromList
-          []}
+          [Eq, Ord, Read, Show, Storable]}
       (HsName
         "@NsConstr"
         "Say\20320\22909")
@@ -351,7 +361,12 @@
             enumSourceLoc =
             "uses_utf8.h:4:6"},
         structInstances = Set.fromList
-          []}),
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName

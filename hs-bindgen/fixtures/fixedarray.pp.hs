@@ -18,6 +18,10 @@ newtype Triple = Triple
 
 deriving newtype instance F.Storable Triple
 
+deriving stock instance Eq Triple
+
+deriving stock instance Show Triple
+
 data Example = Example
   { example_triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   , example_sudoku :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)

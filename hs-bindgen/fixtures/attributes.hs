@@ -101,7 +101,7 @@
           structSourceLoc =
           "attributes.h:8:16"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -205,7 +205,7 @@
             structSourceLoc =
             "attributes.h:8:16"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -314,7 +314,7 @@
                     structSourceLoc =
                     "attributes.h:8:16"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -426,7 +426,7 @@
                     structSourceLoc =
                     "attributes.h:8:16"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 3)
               (Seq
                 [
@@ -475,8 +475,16 @@
           typedefSourceLoc =
           "attributes.h:12:3"},
       newtypeInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "FILE"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "FILE"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "FILE")]

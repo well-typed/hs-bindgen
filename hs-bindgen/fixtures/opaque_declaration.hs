@@ -87,7 +87,7 @@
           structSourceLoc =
           "opaque_declaration.h:4:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -165,7 +165,7 @@
             structSourceLoc =
             "opaque_declaration.h:4:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -248,7 +248,7 @@
                     structSourceLoc =
                     "opaque_declaration.h:4:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -333,7 +333,7 @@
                     structSourceLoc =
                     "opaque_declaration.h:4:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -372,7 +372,7 @@
           structSourceLoc =
           "opaque_declaration.h:9:8"},
       structInstances = Set.fromList
-        []},
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -396,7 +396,7 @@
             structSourceLoc =
             "opaque_declaration.h:9:8"},
         structInstances = Set.fromList
-          []}
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
@@ -425,7 +425,7 @@
                     structSourceLoc =
                     "opaque_declaration.h:9:8"},
                 structInstances = Set.fromList
-                  []})
+                  [Eq, Show, Storable]})
             []),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -454,7 +454,7 @@
                     structSourceLoc =
                     "opaque_declaration.h:9:8"},
                 structInstances = Set.fromList
-                  []}
+                  [Eq, Show, Storable]}
               (Add 0)
               (Seq [])))}),
   DeclNewtypeInstance

@@ -3,7 +3,15 @@ types:
   cname: struct bar
   module: Example
   identifier: Bar
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: weird01.h
   cname: struct foo
   module: Example
   identifier: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
