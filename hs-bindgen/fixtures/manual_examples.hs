@@ -5725,6 +5725,477 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Descending",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Descending",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Descending",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginEnum
+        Enu {
+          enumDeclPath = DeclPathName
+            (CName "descending")
+            DeclPathCtxtTop,
+          enumAliases = [],
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumValues = [
+            EnumValue {
+              valueName = CName "X",
+              valueValue = 100,
+              valueSourceLoc =
+              "manual_examples.h:136:3"},
+            EnumValue {
+              valueName = CName "Y",
+              valueValue = 99,
+              valueSourceLoc =
+              "manual_examples.h:137:3"},
+            EnumValue {
+              valueName = CName "Y_alias",
+              valueValue = 99,
+              valueSourceLoc =
+              "manual_examples.h:138:3"},
+            EnumValue {
+              valueName = CName "Z",
+              valueValue = 98,
+              valueSourceLoc =
+              "manual_examples.h:139:3"}],
+          enumSourceLoc =
+          "manual_examples.h:135:6"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Descending",
+        structConstr = HsName
+          "@NsConstr"
+          "Descending",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Descending",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "descending")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "X",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "Y",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "Y_alias",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName "Z",
+                valueValue = 98,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Descending",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Descending",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Descending",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "descending")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "X",
+                        valueValue = 100,
+                        valueSourceLoc =
+                        "manual_examples.h:136:3"},
+                      EnumValue {
+                        valueName = CName "Y",
+                        valueValue = 99,
+                        valueSourceLoc =
+                        "manual_examples.h:137:3"},
+                      EnumValue {
+                        valueName = CName "Y_alias",
+                        valueValue = 99,
+                        valueSourceLoc =
+                        "manual_examples.h:138:3"},
+                      EnumValue {
+                        valueName = CName "Z",
+                        valueValue = 98,
+                        valueSourceLoc =
+                        "manual_examples.h:139:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:135:6"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Descending",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Descending",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "un_Descending",
+                    fieldType = HsPrimType
+                      HsPrimCUInt,
+                    fieldOrigin = FieldOriginNone}],
+                structOrigin = StructOriginEnum
+                  Enu {
+                    enumDeclPath = DeclPathName
+                      (CName "descending")
+                      DeclPathCtxtTop,
+                    enumAliases = [],
+                    enumType = TypePrim
+                      (PrimIntegral PrimInt Unsigned),
+                    enumSizeof = 4,
+                    enumAlignment = 4,
+                    enumValues = [
+                      EnumValue {
+                        valueName = CName "X",
+                        valueValue = 100,
+                        valueSourceLoc =
+                        "manual_examples.h:136:3"},
+                      EnumValue {
+                        valueName = CName "Y",
+                        valueValue = 99,
+                        valueSourceLoc =
+                        "manual_examples.h:137:3"},
+                      EnumValue {
+                        valueName = CName "Y_alias",
+                        valueValue = 99,
+                        valueSourceLoc =
+                        "manual_examples.h:138:3"},
+                      EnumValue {
+                        valueName = CName "Z",
+                        valueValue = 98,
+                        valueSourceLoc =
+                        "manual_examples.h:139:3"}],
+                    enumSourceLoc =
+                    "manual_examples.h:135:6"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Descending"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Descending"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Descending"),
+  DeclInstance
+    (InstanceCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Descending",
+        structConstr = HsName
+          "@NsConstr"
+          "Descending",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Descending",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "descending")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "X",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "Y",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "Y_alias",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName "Z",
+                valueValue = 98,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}
+      (HsPrimType HsPrimCUInt)
+      (Map.fromList
+        [
+          _×_ 98 (NE.fromList ["Z"]),
+          _×_
+            99
+            (NE.fromList ["Y", "Y_alias"]),
+          _×_ 100 (NE.fromList ["X"])])
+      True),
+  DeclInstance
+    (InstanceSequentialCEnum
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Descending",
+        structConstr = HsName
+          "@NsConstr"
+          "Descending",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Descending",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "descending")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "X",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "Y",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "Y_alias",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName "Z",
+                valueValue = 98,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}
+      (HsName "@NsConstr" "Z")
+      (HsName "@NsConstr" "X")),
+  DeclInstance
+    (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Descending",
+        structConstr = HsName
+          "@NsConstr"
+          "Descending",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Descending",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "descending")
+              DeclPathCtxtTop,
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "X",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "Y",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "Y_alias",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName "Z",
+                valueValue = 98,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"}}),
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "X",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Descending",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Descending",
+      patSynValue = 100,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "X",
+          valueValue = 100,
+          valueSourceLoc =
+          "manual_examples.h:136:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Y",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Descending",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Descending",
+      patSynValue = 99,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "Y",
+          valueValue = 99,
+          valueSourceLoc =
+          "manual_examples.h:137:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Y_alias",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Descending",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Descending",
+      patSynValue = 99,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "Y_alias",
+          valueValue = 99,
+          valueSourceLoc =
+          "manual_examples.h:138:3"}},
+  DeclPatSyn
+    PatSyn {
+      patSynName = HsName
+        "@NsConstr"
+        "Z",
+      patSynType = HsName
+        "@NsTypeConstr"
+        "Descending",
+      patSynConstr = HsName
+        "@NsConstr"
+        "Descending",
+      patSynValue = 98,
+      patSynOrigin =
+      PatSynOriginEnumValue
+        EnumValue {
+          valueName = CName "Z",
+          valueValue = 98,
+          valueSourceLoc =
+          "manual_examples.h:139:3"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Result",
       newtypeConstr = HsName
         "@NsConstr"
@@ -5752,25 +6223,25 @@
               valueName = CName "failed",
               valueValue = `-1`,
               valueSourceLoc =
-              "manual_examples.h:136:3"},
+              "manual_examples.h:143:3"},
             EnumValue {
               valueName = CName "success",
               valueValue = 0,
               valueSourceLoc =
-              "manual_examples.h:137:3"},
+              "manual_examples.h:144:3"},
             EnumValue {
               valueName = CName "postponed",
               valueValue = 1,
               valueSourceLoc =
-              "manual_examples.h:138:3"},
+              "manual_examples.h:145:3"},
             EnumValue {
               valueName = CName
                 "already_done",
               valueValue = 2,
               valueSourceLoc =
-              "manual_examples.h:139:3"}],
+              "manual_examples.h:146:3"}],
           enumSourceLoc =
-          "manual_examples.h:135:6"}},
+          "manual_examples.h:142:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -5803,25 +6274,25 @@
                 valueName = CName "failed",
                 valueValue = `-1`,
                 valueSourceLoc =
-                "manual_examples.h:136:3"},
+                "manual_examples.h:143:3"},
               EnumValue {
                 valueName = CName "success",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:137:3"},
+                "manual_examples.h:144:3"},
               EnumValue {
                 valueName = CName "postponed",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:138:3"},
+                "manual_examples.h:145:3"},
               EnumValue {
                 valueName = CName
                   "already_done",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:139:3"}],
+                "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"}}
+            "manual_examples.h:142:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -5859,25 +6330,25 @@
                         valueName = CName "failed",
                         valueValue = `-1`,
                         valueSourceLoc =
-                        "manual_examples.h:136:3"},
+                        "manual_examples.h:143:3"},
                       EnumValue {
                         valueName = CName "success",
                         valueValue = 0,
                         valueSourceLoc =
-                        "manual_examples.h:137:3"},
+                        "manual_examples.h:144:3"},
                       EnumValue {
                         valueName = CName "postponed",
                         valueValue = 1,
                         valueSourceLoc =
-                        "manual_examples.h:138:3"},
+                        "manual_examples.h:145:3"},
                       EnumValue {
                         valueName = CName
                           "already_done",
                         valueValue = 2,
                         valueSourceLoc =
-                        "manual_examples.h:139:3"}],
+                        "manual_examples.h:146:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:135:6"}})
+                    "manual_examples.h:142:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -5915,25 +6386,25 @@
                         valueName = CName "failed",
                         valueValue = `-1`,
                         valueSourceLoc =
-                        "manual_examples.h:136:3"},
+                        "manual_examples.h:143:3"},
                       EnumValue {
                         valueName = CName "success",
                         valueValue = 0,
                         valueSourceLoc =
-                        "manual_examples.h:137:3"},
+                        "manual_examples.h:144:3"},
                       EnumValue {
                         valueName = CName "postponed",
                         valueValue = 1,
                         valueSourceLoc =
-                        "manual_examples.h:138:3"},
+                        "manual_examples.h:145:3"},
                       EnumValue {
                         valueName = CName
                           "already_done",
                         valueValue = 2,
                         valueSourceLoc =
-                        "manual_examples.h:139:3"}],
+                        "manual_examples.h:146:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:135:6"}}
+                    "manual_examples.h:142:6"}}
               (Add 1)
               (Seq
                 [
@@ -5991,25 +6462,25 @@
                 valueName = CName "failed",
                 valueValue = `-1`,
                 valueSourceLoc =
-                "manual_examples.h:136:3"},
+                "manual_examples.h:143:3"},
               EnumValue {
                 valueName = CName "success",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:137:3"},
+                "manual_examples.h:144:3"},
               EnumValue {
                 valueName = CName "postponed",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:138:3"},
+                "manual_examples.h:145:3"},
               EnumValue {
                 valueName = CName
                   "already_done",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:139:3"}],
+                "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"}}
+            "manual_examples.h:142:6"}}
       (HsPrimType HsPrimCInt)
       (Map.fromList
         [
@@ -6056,25 +6527,25 @@
                 valueName = CName "failed",
                 valueValue = `-1`,
                 valueSourceLoc =
-                "manual_examples.h:136:3"},
+                "manual_examples.h:143:3"},
               EnumValue {
                 valueName = CName "success",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:137:3"},
+                "manual_examples.h:144:3"},
               EnumValue {
                 valueName = CName "postponed",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:138:3"},
+                "manual_examples.h:145:3"},
               EnumValue {
                 valueName = CName
                   "already_done",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:139:3"}],
+                "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"}}
+            "manual_examples.h:142:6"}}
       (HsName "@NsConstr" "Failed")
       (HsName
         "@NsConstr"
@@ -6111,25 +6582,25 @@
                 valueName = CName "failed",
                 valueValue = `-1`,
                 valueSourceLoc =
-                "manual_examples.h:136:3"},
+                "manual_examples.h:143:3"},
               EnumValue {
                 valueName = CName "success",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:137:3"},
+                "manual_examples.h:144:3"},
               EnumValue {
                 valueName = CName "postponed",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:138:3"},
+                "manual_examples.h:145:3"},
               EnumValue {
                 valueName = CName
                   "already_done",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:139:3"}],
+                "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"}}),
+            "manual_examples.h:142:6"}}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6148,7 +6619,7 @@
           valueName = CName "failed",
           valueValue = `-1`,
           valueSourceLoc =
-          "manual_examples.h:136:3"}},
+          "manual_examples.h:143:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6167,7 +6638,7 @@
           valueName = CName "success",
           valueValue = 0,
           valueSourceLoc =
-          "manual_examples.h:137:3"}},
+          "manual_examples.h:144:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6186,7 +6657,7 @@
           valueName = CName "postponed",
           valueValue = 1,
           valueSourceLoc =
-          "manual_examples.h:138:3"}},
+          "manual_examples.h:145:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6206,7 +6677,7 @@
             "already_done",
           valueValue = 2,
           valueSourceLoc =
-          "manual_examples.h:139:3"}},
+          "manual_examples.h:146:3"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -6239,19 +6710,19 @@
               valueName = CName "infavour",
               valueValue = 0,
               valueSourceLoc =
-              "manual_examples.h:143:3"},
+              "manual_examples.h:150:3"},
             EnumValue {
               valueName = CName "against",
               valueValue = 1,
               valueSourceLoc =
-              "manual_examples.h:144:3"},
+              "manual_examples.h:151:3"},
             EnumValue {
               valueName = CName "abstain",
               valueValue = 2,
               valueSourceLoc =
-              "manual_examples.h:145:3"}],
+              "manual_examples.h:152:3"}],
           enumSourceLoc =
-          "manual_examples.h:142:6"}},
+          "manual_examples.h:149:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -6285,19 +6756,19 @@
                 valueName = CName "infavour",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:143:3"},
+                "manual_examples.h:150:3"},
               EnumValue {
                 valueName = CName "against",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:144:3"},
+                "manual_examples.h:151:3"},
               EnumValue {
                 valueName = CName "abstain",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:145:3"}],
+                "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"}}
+            "manual_examples.h:149:6"}}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -6336,19 +6807,19 @@
                         valueName = CName "infavour",
                         valueValue = 0,
                         valueSourceLoc =
-                        "manual_examples.h:143:3"},
+                        "manual_examples.h:150:3"},
                       EnumValue {
                         valueName = CName "against",
                         valueValue = 1,
                         valueSourceLoc =
-                        "manual_examples.h:144:3"},
+                        "manual_examples.h:151:3"},
                       EnumValue {
                         valueName = CName "abstain",
                         valueValue = 2,
                         valueSourceLoc =
-                        "manual_examples.h:145:3"}],
+                        "manual_examples.h:152:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:142:6"}})
+                    "manual_examples.h:149:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -6387,19 +6858,19 @@
                         valueName = CName "infavour",
                         valueValue = 0,
                         valueSourceLoc =
-                        "manual_examples.h:143:3"},
+                        "manual_examples.h:150:3"},
                       EnumValue {
                         valueName = CName "against",
                         valueValue = 1,
                         valueSourceLoc =
-                        "manual_examples.h:144:3"},
+                        "manual_examples.h:151:3"},
                       EnumValue {
                         valueName = CName "abstain",
                         valueValue = 2,
                         valueSourceLoc =
-                        "manual_examples.h:145:3"}],
+                        "manual_examples.h:152:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:142:6"}}
+                    "manual_examples.h:149:6"}}
               (Add 1)
               (Seq
                 [
@@ -6452,19 +6923,19 @@
                 valueName = CName "infavour",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:143:3"},
+                "manual_examples.h:150:3"},
               EnumValue {
                 valueName = CName "against",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:144:3"},
+                "manual_examples.h:151:3"},
               EnumValue {
                 valueName = CName "abstain",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:145:3"}],
+                "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"}}
+            "manual_examples.h:149:6"}}
       (HsPrimType HsPrimCSChar)
       (Map.fromList
         [
@@ -6509,19 +6980,19 @@
                 valueName = CName "infavour",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:143:3"},
+                "manual_examples.h:150:3"},
               EnumValue {
                 valueName = CName "against",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:144:3"},
+                "manual_examples.h:151:3"},
               EnumValue {
                 valueName = CName "abstain",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:145:3"}],
+                "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"}}
+            "manual_examples.h:149:6"}}
       (HsName "@NsConstr" "Infavour")
       (HsName "@NsConstr" "Abstain")),
   DeclInstance
@@ -6557,19 +7028,19 @@
                 valueName = CName "infavour",
                 valueValue = 0,
                 valueSourceLoc =
-                "manual_examples.h:143:3"},
+                "manual_examples.h:150:3"},
               EnumValue {
                 valueName = CName "against",
                 valueValue = 1,
                 valueSourceLoc =
-                "manual_examples.h:144:3"},
+                "manual_examples.h:151:3"},
               EnumValue {
                 valueName = CName "abstain",
                 valueValue = 2,
                 valueSourceLoc =
-                "manual_examples.h:145:3"}],
+                "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"}}),
+            "manual_examples.h:149:6"}}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6588,7 +7059,7 @@
           valueName = CName "infavour",
           valueValue = 0,
           valueSourceLoc =
-          "manual_examples.h:143:3"}},
+          "manual_examples.h:150:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6607,7 +7078,7 @@
           valueName = CName "against",
           valueValue = 1,
           valueSourceLoc =
-          "manual_examples.h:144:3"}},
+          "manual_examples.h:151:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -6626,7 +7097,7 @@
           valueName = CName "abstain",
           valueValue = 2,
           valueSourceLoc =
-          "manual_examples.h:145:3"}},
+          "manual_examples.h:152:3"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -6659,87 +7130,75 @@
                 "CXCursor_FirstExpr",
               valueValue = 100,
               valueSourceLoc =
-              "manual_examples.h:151:3"},
+              "manual_examples.h:158:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_UnexposedExpr",
               valueValue = 100,
               valueSourceLoc =
-              "manual_examples.h:152:3"},
+              "manual_examples.h:159:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_DeclRefExpr",
               valueValue = 101,
               valueSourceLoc =
-              "manual_examples.h:153:3"},
+              "manual_examples.h:160:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_MemberRefExpr",
               valueValue = 102,
               valueSourceLoc =
-              "manual_examples.h:154:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_CallExpr",
-              valueValue = 103,
-              valueSourceLoc =
-              "manual_examples.h:155:3"},
+              "manual_examples.h:161:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_PackIndexingExpr",
               valueValue = 156,
               valueSourceLoc =
-              "manual_examples.h:157:3"},
+              "manual_examples.h:163:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_LastExpr",
               valueValue = 156,
               valueSourceLoc =
-              "manual_examples.h:158:3"},
+              "manual_examples.h:164:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_FirstStmt",
               valueValue = 200,
               valueSourceLoc =
-              "manual_examples.h:160:3"},
+              "manual_examples.h:166:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_UnexposedStmt",
               valueValue = 200,
               valueSourceLoc =
-              "manual_examples.h:161:3"},
+              "manual_examples.h:167:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_LabelStmt",
               valueValue = 201,
               valueSourceLoc =
-              "manual_examples.h:162:3"},
+              "manual_examples.h:168:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_CompoundStmt",
               valueValue = 202,
               valueSourceLoc =
-              "manual_examples.h:163:3"},
-            EnumValue {
-              valueName = CName
-                "CXCursor_CaseStmt",
-              valueValue = 203,
-              valueSourceLoc =
-              "manual_examples.h:164:3"},
+              "manual_examples.h:169:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_OpenACCUpdateConstruct",
               valueValue = 331,
               valueSourceLoc =
-              "manual_examples.h:166:3"},
+              "manual_examples.h:171:3"},
             EnumValue {
               valueName = CName
                 "CXCursor_LastStmt",
               valueValue = 331,
               valueSourceLoc =
-              "manual_examples.h:167:3"}],
+              "manual_examples.h:172:3"}],
           enumSourceLoc =
-          "manual_examples.h:150:6"}},
+          "manual_examples.h:157:6"}},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -6773,87 +7232,75 @@
                   "CXCursor_FirstExpr",
                 valueValue = 100,
                 valueSourceLoc =
-                "manual_examples.h:151:3"},
+                "manual_examples.h:158:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_UnexposedExpr",
                 valueValue = 100,
                 valueSourceLoc =
-                "manual_examples.h:152:3"},
+                "manual_examples.h:159:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_DeclRefExpr",
                 valueValue = 101,
                 valueSourceLoc =
-                "manual_examples.h:153:3"},
+                "manual_examples.h:160:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_MemberRefExpr",
                 valueValue = 102,
                 valueSourceLoc =
-                "manual_examples.h:154:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CallExpr",
-                valueValue = 103,
-                valueSourceLoc =
-                "manual_examples.h:155:3"},
+                "manual_examples.h:161:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_PackIndexingExpr",
                 valueValue = 156,
                 valueSourceLoc =
-                "manual_examples.h:157:3"},
+                "manual_examples.h:163:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LastExpr",
                 valueValue = 156,
                 valueSourceLoc =
-                "manual_examples.h:158:3"},
+                "manual_examples.h:164:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_FirstStmt",
                 valueValue = 200,
                 valueSourceLoc =
-                "manual_examples.h:160:3"},
+                "manual_examples.h:166:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_UnexposedStmt",
                 valueValue = 200,
                 valueSourceLoc =
-                "manual_examples.h:161:3"},
+                "manual_examples.h:167:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LabelStmt",
                 valueValue = 201,
                 valueSourceLoc =
-                "manual_examples.h:162:3"},
+                "manual_examples.h:168:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_CompoundStmt",
                 valueValue = 202,
                 valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CaseStmt",
-                valueValue = 203,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
+                "manual_examples.h:169:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_OpenACCUpdateConstruct",
                 valueValue = 331,
                 valueSourceLoc =
-                "manual_examples.h:166:3"},
+                "manual_examples.h:171:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LastStmt",
                 valueValue = 331,
                 valueSourceLoc =
-                "manual_examples.h:167:3"}],
+                "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:150:6"}}
+            "manual_examples.h:157:6"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -6892,87 +7339,75 @@
                           "CXCursor_FirstExpr",
                         valueValue = 100,
                         valueSourceLoc =
-                        "manual_examples.h:151:3"},
+                        "manual_examples.h:158:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_UnexposedExpr",
                         valueValue = 100,
                         valueSourceLoc =
-                        "manual_examples.h:152:3"},
+                        "manual_examples.h:159:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_DeclRefExpr",
                         valueValue = 101,
                         valueSourceLoc =
-                        "manual_examples.h:153:3"},
+                        "manual_examples.h:160:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_MemberRefExpr",
                         valueValue = 102,
                         valueSourceLoc =
-                        "manual_examples.h:154:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_CallExpr",
-                        valueValue = 103,
-                        valueSourceLoc =
-                        "manual_examples.h:155:3"},
+                        "manual_examples.h:161:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_PackIndexingExpr",
                         valueValue = 156,
                         valueSourceLoc =
-                        "manual_examples.h:157:3"},
+                        "manual_examples.h:163:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_LastExpr",
                         valueValue = 156,
                         valueSourceLoc =
-                        "manual_examples.h:158:3"},
+                        "manual_examples.h:164:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_FirstStmt",
                         valueValue = 200,
                         valueSourceLoc =
-                        "manual_examples.h:160:3"},
+                        "manual_examples.h:166:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_UnexposedStmt",
                         valueValue = 200,
                         valueSourceLoc =
-                        "manual_examples.h:161:3"},
+                        "manual_examples.h:167:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_LabelStmt",
                         valueValue = 201,
                         valueSourceLoc =
-                        "manual_examples.h:162:3"},
+                        "manual_examples.h:168:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_CompoundStmt",
                         valueValue = 202,
                         valueSourceLoc =
-                        "manual_examples.h:163:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_CaseStmt",
-                        valueValue = 203,
-                        valueSourceLoc =
-                        "manual_examples.h:164:3"},
+                        "manual_examples.h:169:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_OpenACCUpdateConstruct",
                         valueValue = 331,
                         valueSourceLoc =
-                        "manual_examples.h:166:3"},
+                        "manual_examples.h:171:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_LastStmt",
                         valueValue = 331,
                         valueSourceLoc =
-                        "manual_examples.h:167:3"}],
+                        "manual_examples.h:172:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:150:6"}})
+                    "manual_examples.h:157:6"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -7011,87 +7446,75 @@
                           "CXCursor_FirstExpr",
                         valueValue = 100,
                         valueSourceLoc =
-                        "manual_examples.h:151:3"},
+                        "manual_examples.h:158:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_UnexposedExpr",
                         valueValue = 100,
                         valueSourceLoc =
-                        "manual_examples.h:152:3"},
+                        "manual_examples.h:159:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_DeclRefExpr",
                         valueValue = 101,
                         valueSourceLoc =
-                        "manual_examples.h:153:3"},
+                        "manual_examples.h:160:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_MemberRefExpr",
                         valueValue = 102,
                         valueSourceLoc =
-                        "manual_examples.h:154:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_CallExpr",
-                        valueValue = 103,
-                        valueSourceLoc =
-                        "manual_examples.h:155:3"},
+                        "manual_examples.h:161:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_PackIndexingExpr",
                         valueValue = 156,
                         valueSourceLoc =
-                        "manual_examples.h:157:3"},
+                        "manual_examples.h:163:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_LastExpr",
                         valueValue = 156,
                         valueSourceLoc =
-                        "manual_examples.h:158:3"},
+                        "manual_examples.h:164:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_FirstStmt",
                         valueValue = 200,
                         valueSourceLoc =
-                        "manual_examples.h:160:3"},
+                        "manual_examples.h:166:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_UnexposedStmt",
                         valueValue = 200,
                         valueSourceLoc =
-                        "manual_examples.h:161:3"},
+                        "manual_examples.h:167:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_LabelStmt",
                         valueValue = 201,
                         valueSourceLoc =
-                        "manual_examples.h:162:3"},
+                        "manual_examples.h:168:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_CompoundStmt",
                         valueValue = 202,
                         valueSourceLoc =
-                        "manual_examples.h:163:3"},
-                      EnumValue {
-                        valueName = CName
-                          "CXCursor_CaseStmt",
-                        valueValue = 203,
-                        valueSourceLoc =
-                        "manual_examples.h:164:3"},
+                        "manual_examples.h:169:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_OpenACCUpdateConstruct",
                         valueValue = 331,
                         valueSourceLoc =
-                        "manual_examples.h:166:3"},
+                        "manual_examples.h:171:3"},
                       EnumValue {
                         valueName = CName
                           "CXCursor_LastStmt",
                         valueValue = 331,
                         valueSourceLoc =
-                        "manual_examples.h:167:3"}],
+                        "manual_examples.h:172:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:150:6"}}
+                    "manual_examples.h:157:6"}}
               (Add 1)
               (Seq
                 [
@@ -7150,87 +7573,75 @@
                   "CXCursor_FirstExpr",
                 valueValue = 100,
                 valueSourceLoc =
-                "manual_examples.h:151:3"},
+                "manual_examples.h:158:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_UnexposedExpr",
                 valueValue = 100,
                 valueSourceLoc =
-                "manual_examples.h:152:3"},
+                "manual_examples.h:159:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_DeclRefExpr",
                 valueValue = 101,
                 valueSourceLoc =
-                "manual_examples.h:153:3"},
+                "manual_examples.h:160:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_MemberRefExpr",
                 valueValue = 102,
                 valueSourceLoc =
-                "manual_examples.h:154:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CallExpr",
-                valueValue = 103,
-                valueSourceLoc =
-                "manual_examples.h:155:3"},
+                "manual_examples.h:161:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_PackIndexingExpr",
                 valueValue = 156,
                 valueSourceLoc =
-                "manual_examples.h:157:3"},
+                "manual_examples.h:163:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LastExpr",
                 valueValue = 156,
                 valueSourceLoc =
-                "manual_examples.h:158:3"},
+                "manual_examples.h:164:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_FirstStmt",
                 valueValue = 200,
                 valueSourceLoc =
-                "manual_examples.h:160:3"},
+                "manual_examples.h:166:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_UnexposedStmt",
                 valueValue = 200,
                 valueSourceLoc =
-                "manual_examples.h:161:3"},
+                "manual_examples.h:167:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LabelStmt",
                 valueValue = 201,
                 valueSourceLoc =
-                "manual_examples.h:162:3"},
+                "manual_examples.h:168:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_CompoundStmt",
                 valueValue = 202,
                 valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CaseStmt",
-                valueValue = 203,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
+                "manual_examples.h:169:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_OpenACCUpdateConstruct",
                 valueValue = 331,
                 valueSourceLoc =
-                "manual_examples.h:166:3"},
+                "manual_examples.h:171:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LastStmt",
                 valueValue = 331,
                 valueSourceLoc =
-                "manual_examples.h:167:3"}],
+                "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:150:6"}}
+            "manual_examples.h:157:6"}}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -7248,10 +7659,6 @@
             102
             (NE.fromList
               ["CXCursor_MemberRefExpr"]),
-          _×_
-            103
-            (NE.fromList
-              ["CXCursor_CallExpr"]),
           _×_
             156
             (NE.fromList
@@ -7272,10 +7679,6 @@
             202
             (NE.fromList
               ["CXCursor_CompoundStmt"]),
-          _×_
-            203
-            (NE.fromList
-              ["CXCursor_CaseStmt"]),
           _×_
             331
             (NE.fromList
@@ -7316,87 +7719,75 @@
                   "CXCursor_FirstExpr",
                 valueValue = 100,
                 valueSourceLoc =
-                "manual_examples.h:151:3"},
+                "manual_examples.h:158:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_UnexposedExpr",
                 valueValue = 100,
                 valueSourceLoc =
-                "manual_examples.h:152:3"},
+                "manual_examples.h:159:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_DeclRefExpr",
                 valueValue = 101,
                 valueSourceLoc =
-                "manual_examples.h:153:3"},
+                "manual_examples.h:160:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_MemberRefExpr",
                 valueValue = 102,
                 valueSourceLoc =
-                "manual_examples.h:154:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CallExpr",
-                valueValue = 103,
-                valueSourceLoc =
-                "manual_examples.h:155:3"},
+                "manual_examples.h:161:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_PackIndexingExpr",
                 valueValue = 156,
                 valueSourceLoc =
-                "manual_examples.h:157:3"},
+                "manual_examples.h:163:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LastExpr",
                 valueValue = 156,
                 valueSourceLoc =
-                "manual_examples.h:158:3"},
+                "manual_examples.h:164:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_FirstStmt",
                 valueValue = 200,
                 valueSourceLoc =
-                "manual_examples.h:160:3"},
+                "manual_examples.h:166:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_UnexposedStmt",
                 valueValue = 200,
                 valueSourceLoc =
-                "manual_examples.h:161:3"},
+                "manual_examples.h:167:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LabelStmt",
                 valueValue = 201,
                 valueSourceLoc =
-                "manual_examples.h:162:3"},
+                "manual_examples.h:168:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_CompoundStmt",
                 valueValue = 202,
                 valueSourceLoc =
-                "manual_examples.h:163:3"},
-              EnumValue {
-                valueName = CName
-                  "CXCursor_CaseStmt",
-                valueValue = 203,
-                valueSourceLoc =
-                "manual_examples.h:164:3"},
+                "manual_examples.h:169:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_OpenACCUpdateConstruct",
                 valueValue = 331,
                 valueSourceLoc =
-                "manual_examples.h:166:3"},
+                "manual_examples.h:171:3"},
               EnumValue {
                 valueName = CName
                   "CXCursor_LastStmt",
                 valueValue = 331,
                 valueSourceLoc =
-                "manual_examples.h:167:3"}],
+                "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:150:6"}}),
+            "manual_examples.h:157:6"}}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7416,7 +7807,7 @@
             "CXCursor_FirstExpr",
           valueValue = 100,
           valueSourceLoc =
-          "manual_examples.h:151:3"}},
+          "manual_examples.h:158:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7436,7 +7827,7 @@
             "CXCursor_UnexposedExpr",
           valueValue = 100,
           valueSourceLoc =
-          "manual_examples.h:152:3"}},
+          "manual_examples.h:159:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7456,7 +7847,7 @@
             "CXCursor_DeclRefExpr",
           valueValue = 101,
           valueSourceLoc =
-          "manual_examples.h:153:3"}},
+          "manual_examples.h:160:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7476,27 +7867,7 @@
             "CXCursor_MemberRefExpr",
           valueValue = 102,
           valueSourceLoc =
-          "manual_examples.h:154:3"}},
-  DeclPatSyn
-    PatSyn {
-      patSynName = HsName
-        "@NsConstr"
-        "CXCursor_CallExpr",
-      patSynType = HsName
-        "@NsTypeConstr"
-        "CXCursorKind",
-      patSynConstr = HsName
-        "@NsConstr"
-        "CXCursorKind",
-      patSynValue = 103,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_CallExpr",
-          valueValue = 103,
-          valueSourceLoc =
-          "manual_examples.h:155:3"}},
+          "manual_examples.h:161:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7516,7 +7887,7 @@
             "CXCursor_PackIndexingExpr",
           valueValue = 156,
           valueSourceLoc =
-          "manual_examples.h:157:3"}},
+          "manual_examples.h:163:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7536,7 +7907,7 @@
             "CXCursor_LastExpr",
           valueValue = 156,
           valueSourceLoc =
-          "manual_examples.h:158:3"}},
+          "manual_examples.h:164:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7556,7 +7927,7 @@
             "CXCursor_FirstStmt",
           valueValue = 200,
           valueSourceLoc =
-          "manual_examples.h:160:3"}},
+          "manual_examples.h:166:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7576,7 +7947,7 @@
             "CXCursor_UnexposedStmt",
           valueValue = 200,
           valueSourceLoc =
-          "manual_examples.h:161:3"}},
+          "manual_examples.h:167:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7596,7 +7967,7 @@
             "CXCursor_LabelStmt",
           valueValue = 201,
           valueSourceLoc =
-          "manual_examples.h:162:3"}},
+          "manual_examples.h:168:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7616,27 +7987,7 @@
             "CXCursor_CompoundStmt",
           valueValue = 202,
           valueSourceLoc =
-          "manual_examples.h:163:3"}},
-  DeclPatSyn
-    PatSyn {
-      patSynName = HsName
-        "@NsConstr"
-        "CXCursor_CaseStmt",
-      patSynType = HsName
-        "@NsTypeConstr"
-        "CXCursorKind",
-      patSynConstr = HsName
-        "@NsConstr"
-        "CXCursorKind",
-      patSynValue = 203,
-      patSynOrigin =
-      PatSynOriginEnumValue
-        EnumValue {
-          valueName = CName
-            "CXCursor_CaseStmt",
-          valueValue = 203,
-          valueSourceLoc =
-          "manual_examples.h:164:3"}},
+          "manual_examples.h:169:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7656,7 +8007,7 @@
             "CXCursor_OpenACCUpdateConstruct",
           valueValue = 331,
           valueSourceLoc =
-          "manual_examples.h:166:3"}},
+          "manual_examples.h:171:3"}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -7676,4 +8027,4 @@
             "CXCursor_LastStmt",
           valueValue = 331,
           valueSourceLoc =
-          "manual_examples.h:167:3"}}]
+          "manual_examples.h:172:3"}}]

@@ -40,6 +40,10 @@ types:
   module: Example
   identifier: HTTP_status
 - headers: manual_examples.h
+  cname: enum descending
+  module: Example
+  identifier: Descending
+- headers: manual_examples.h
   cname: enum index
   module: Example
   identifier: Index

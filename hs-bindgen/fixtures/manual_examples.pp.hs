@@ -759,6 +759,76 @@ pattern Unauthorized = HTTP_status 401
 pattern Not_found :: HTTP_status
 pattern Not_found = HTTP_status 404
 
+newtype Descending = Descending
+  { un_Descending :: FC.CUInt
+  }
+
+instance F.Storable Descending where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Descending
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Descending un_Descending2 -> F.pokeByteOff ptr0 (0 :: Int) un_Descending2
+
+deriving stock instance Eq Descending
+
+deriving stock instance Ord Descending
+
+deriving stock instance Read Descending
+
+instance HsBindgen.Runtime.CEnum.CEnum Descending where
+
+  type CEnumZ Descending = FC.CUInt
+
+  toCEnum = Descending
+
+  fromCEnum = un_Descending
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (98, Data.List.NonEmpty.singleton "Z")
+                                                     , (99, ("Y" Data.List.NonEmpty.:| ["Y_alias"]))
+                                                     , (100, Data.List.NonEmpty.singleton "X")
+                                                     ]
+
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Descending"
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Descending where
+
+  minDeclaredValue = Z
+
+  maxDeclaredValue = X
+
+instance Show Descending where
+
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+pattern X :: Descending
+pattern X = Descending 100
+
+pattern Y :: Descending
+pattern Y = Descending 99
+
+pattern Y_alias :: Descending
+pattern Y_alias = Descending 99
+
+pattern Z :: Descending
+pattern Z = Descending 98
+
 newtype Result = Result
   { un_Result :: FC.CInt
   }
@@ -937,12 +1007,10 @@ instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
       HsBindgen.Runtime.CEnum.declaredValuesFromList [ (100, ("CXCursor_FirstExpr" Data.List.NonEmpty.:| ["CXCursor_UnexposedExpr"]))
                                                      , (101, Data.List.NonEmpty.singleton "CXCursor_DeclRefExpr")
                                                      , (102, Data.List.NonEmpty.singleton "CXCursor_MemberRefExpr")
-                                                     , (103, Data.List.NonEmpty.singleton "CXCursor_CallExpr")
                                                      , (156, ("CXCursor_PackIndexingExpr" Data.List.NonEmpty.:| ["CXCursor_LastExpr"]))
                                                      , (200, ("CXCursor_FirstStmt" Data.List.NonEmpty.:| ["CXCursor_UnexposedStmt"]))
                                                      , (201, Data.List.NonEmpty.singleton "CXCursor_LabelStmt")
                                                      , (202, Data.List.NonEmpty.singleton "CXCursor_CompoundStmt")
-                                                     , (203, Data.List.NonEmpty.singleton "CXCursor_CaseStmt")
                                                      , (331, ("CXCursor_OpenACCUpdateConstruct" Data.List.NonEmpty.:| ["CXCursor_LastStmt"]))
                                                      ]
 
@@ -964,9 +1032,6 @@ pattern CXCursor_DeclRefExpr = CXCursorKind 101
 pattern CXCursor_MemberRefExpr :: CXCursorKind
 pattern CXCursor_MemberRefExpr = CXCursorKind 102
 
-pattern CXCursor_CallExpr :: CXCursorKind
-pattern CXCursor_CallExpr = CXCursorKind 103
-
 pattern CXCursor_PackIndexingExpr :: CXCursorKind
 pattern CXCursor_PackIndexingExpr = CXCursorKind 156
 
@@ -984,9 +1049,6 @@ pattern CXCursor_LabelStmt = CXCursorKind 201
 
 pattern CXCursor_CompoundStmt :: CXCursorKind
 pattern CXCursor_CompoundStmt = CXCursorKind 202
-
-pattern CXCursor_CaseStmt :: CXCursorKind
-pattern CXCursor_CaseStmt = CXCursorKind 203
 
 pattern CXCursor_OpenACCUpdateConstruct :: CXCursorKind
 pattern CXCursor_OpenACCUpdateConstruct = CXCursorKind 331

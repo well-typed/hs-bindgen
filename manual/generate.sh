@@ -19,7 +19,6 @@ cabal run hs-bindgen-cli -- \
     -I c \
     -o hs/hs-vector/generated/Vector.hs \
     --gen-external-bindings external/vector.yaml \
-    --package hs-vector \
     --module Vector
 
 cabal run hs-bindgen-cli -- \
@@ -46,7 +45,6 @@ cabal run hs-bindgen-cli -- \
     -i game_internal.h \
     -I c \
     -o hs/hs-game/generated/Game/State.hs \
-    --package hs-game \
     --module Game.State
 
 cabal run hs-bindgen-cli -- \

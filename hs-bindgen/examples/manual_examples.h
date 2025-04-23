@@ -132,6 +132,13 @@ enum HTTP_status {
   not_found    = 404
 };
 
+enum descending {
+  X       = 100,
+  Y       = 99,
+  Y_alias = 99,
+  Z       = 98,
+};
+
 enum result {
   failed       = -1,
   success      = 0,
@@ -152,7 +159,6 @@ enum CXCursorKind {
   CXCursor_UnexposedExpr    = 100,
   CXCursor_DeclRefExpr      = 101,
   CXCursor_MemberRefExpr    = 102,
-  CXCursor_CallExpr         = 103,
   // .. many expressions omitted ..
   CXCursor_PackIndexingExpr = 156,
   CXCursor_LastExpr = CXCursor_PackIndexingExpr,
@@ -161,7 +167,6 @@ enum CXCursorKind {
   CXCursor_UnexposedStmt          = 200,
   CXCursor_LabelStmt              = 201,
   CXCursor_CompoundStmt           = 202,
-  CXCursor_CaseStmt               = 203,
   // .. many statements omitted ..
   CXCursor_OpenACCUpdateConstruct = 331,
   CXCursor_LastStmt = CXCursor_OpenACCUpdateConstruct,

@@ -12,6 +12,10 @@ common lang
   build-depends:    base >= 4.16 && < 5
   ghc-options:      -Wall
 
+  default-extensions:
+      DerivingVia
+      LambdaCase
+
 executable run-manual
   import:          lang
   main-is:         RunManual.hs
