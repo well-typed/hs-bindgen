@@ -11,7 +11,7 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
-import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 newtype First = First
   { un_First :: FC.CUInt
@@ -52,6 +52,8 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FIRST1"), (1, Data.List.NonEmpty.singleton "FIRST2")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "First"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -64,7 +66,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
 
 instance Show First where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "First"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
@@ -114,6 +116,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
                                                      , (1, Data.List.NonEmpty.singleton "SECOND_C")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Second"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -126,7 +130,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
 
 instance Show Second where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Second"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
@@ -176,6 +180,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(1, ("SAME_A" Data.List.NonEmpty.:| ["SAME_B"]))]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Same"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -188,7 +194,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
 
 instance Show Same where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Same"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
@@ -238,9 +244,11 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
                                                      , (404, Data.List.NonEmpty.singleton "NONSEQ_C")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Nonseq"
+
 instance Show Nonseq where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Nonseq"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern NONSEQ_A :: Nonseq
 pattern NONSEQ_A = Nonseq 200
@@ -293,6 +301,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
                                                      , (2, Data.List.NonEmpty.singleton "PACKED_C")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Packad"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -305,7 +315,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
 
 instance Show Packad where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Packad"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
@@ -355,6 +365,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "A_FOO"), (1, Data.List.NonEmpty.singleton "A_BAR")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumA"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -367,7 +379,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
 instance Show EnumA where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "EnumA"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
@@ -414,6 +426,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "B_FOO"), (1, Data.List.NonEmpty.singleton "B_BAR")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumB"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -426,7 +440,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
 
 instance Show EnumB where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "EnumB"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
@@ -473,6 +487,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "C_FOO"), (1, Data.List.NonEmpty.singleton "C_BAR")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumC"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -485,7 +501,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
 
 instance Show EnumC where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "EnumC"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
@@ -532,6 +548,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "D_FOO"), (1, Data.List.NonEmpty.singleton "D_BAR")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumD"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -544,7 +562,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
 
 instance Show EnumD where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "EnumD"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0

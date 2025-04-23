@@ -49,9 +49,8 @@ newtype NoValue = NoValue {
 instance CEnum NoValue where
   type CEnumZ NoValue = FC.CUInt
 
-  toCEnum          = NoValue
-  fromCEnum        = un_NoValue
   declaredValues _ = CEnum.declaredValuesFromList []
+  showsUndeclared  = CEnum.showsWrappedUndeclared "NoValue"
 
 deriving via AsCEnum NoValue instance Bounded NoValue
 
@@ -61,7 +60,7 @@ testNoValue :: TestTree
 testNoValue = testGroup "NoValue" [
       testCase "isDeclared" $ False @=? CEnum.isDeclared v1
     , testCase "mkDeclared" $ Nothing @=? CEnum.mkDeclared @NoValue 1
-    , testCase "showCEnum" $ "NoValue 1" @=? CEnum.showCEnum "NoValue" v1
+    , testCase "showCEnum" $ "NoValue 1" @=? CEnum.showCEnum v1
     , testCase "getNames" $ [] @=? CEnum.getNames v1
     , testGroup "Bounded" [
           testCase "minBound" $ CEnumEmpty @=?! minBound @NoValue
@@ -106,9 +105,8 @@ newtype GenSingleValue = GenSingleValue {
 instance CEnum GenSingleValue where
   type CEnumZ GenSingleValue = FC.CUInt
 
-  toCEnum          = GenSingleValue
-  fromCEnum        = un_GenSingleValue
   declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
+  showsUndeclared  = CEnum.showsWrappedUndeclared "GenSingleValue"
 
 deriving via AsCEnum GenSingleValue instance Bounded GenSingleValue
 
@@ -125,9 +123,9 @@ testGenSingleValue = testGroup "GenSingleValue" [
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @GenSingleValue 2
         ]
     , testGroup "showCEnum" [
-          testCase "declared" $ "OK" @=? CEnum.showCEnum "GenSingleValue" v1
+          testCase "declared" $ "OK" @=? CEnum.showCEnum v1
         , testCase "!declared" $
-            "GenSingleValue 2" @=? CEnum.showCEnum "GenSingleValue" v2
+            "GenSingleValue 2" @=? CEnum.showCEnum v2
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["OK", "SUCCESS"] @=? CEnum.getNames v1
@@ -202,8 +200,6 @@ newtype GenPosValue = GenPosValue {
 instance CEnum GenPosValue where
   type CEnumZ GenPosValue = FC.CUInt
 
-  toCEnum          = GenPosValue
-  fromCEnum        = un_GenPosValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (100, NonEmpty.singleton "CONTINUE")
     , (101, NonEmpty.singleton "SWITCHING_PROTOCOLS")
@@ -216,6 +212,7 @@ instance CEnum GenPosValue where
     , (403, NonEmpty.singleton "FORBIDDEN")
     , (404, NonEmpty.singleton "NOT_FOUND")
     ]
+  showsUndeclared = CEnum.showsWrappedUndeclared "GenPosValue"
 
 deriving via AsCEnum GenPosValue instance Bounded GenPosValue
 
@@ -232,9 +229,9 @@ testGenPosValue = testGroup "GenPosValue" [
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @GenPosValue 300
         ]
     , testGroup "showCEnum" [
-          testCase "declared" $ "OK" @=? CEnum.showCEnum "GenPosValue" v200
+          testCase "declared" $ "OK" @=? CEnum.showCEnum v200
         , testCase "!declared" $
-            "GenPosValue 300" @=? CEnum.showCEnum "GenPosValue" v300
+            "GenPosValue 300" @=? CEnum.showCEnum v300
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["OK"] @=? CEnum.getNames v200
@@ -351,8 +348,6 @@ newtype GenNegValue = GenNegValue {
 instance CEnum GenNegValue where
   type CEnumZ GenNegValue = FC.CInt
 
-  toCEnum          = GenNegValue
-  fromCEnum        = un_GenNegValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (-201, NonEmpty.singleton "REALLY_TERRIBLE")
     , (-200, NonEmpty.singleton "TERRIBLE")
@@ -364,6 +359,7 @@ instance CEnum GenNegValue where
     , (200,  NonEmpty.singleton "GREAT")
     , (201,  NonEmpty.singleton "REALLY_GREAT")
     ]
+  showsUndeclared = CEnum.showsWrappedUndeclared "GenNegValue"
 
 deriving via AsCEnum GenNegValue instance Bounded GenNegValue
 
@@ -380,9 +376,9 @@ testGenNegValue = testGroup "GenNegValue" [
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @GenNegValue 300
         ]
     , testGroup "showCEnum" [
-          testCase "declared" $ "NEUTRAL" @=? CEnum.showCEnum "GenNegValue" z
+          testCase "declared" $ "NEUTRAL" @=? CEnum.showCEnum z
         , testCase "!declared" $
-            "GenNegValue -202" @=? CEnum.showCEnum "GenNegValue" n202
+            "GenNegValue (-202)" @=? CEnum.showCEnum n202
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["NEUTRAL", "UNREMARKABLE"] @=? CEnum.getNames z
@@ -500,9 +496,8 @@ newtype SeqSingleValue = SeqSingleValue {
 instance CEnum SeqSingleValue where
   type CEnumZ SeqSingleValue = FC.CUInt
 
-  toCEnum          = SeqSingleValue
-  fromCEnum        = un_SeqSingleValue
   declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
+  showsUndeclared  = CEnum.showsWrappedUndeclared "SeqSingleValue"
 
 instance SequentialCEnum SeqSingleValue where
   minDeclaredValue = SeqSingleValue 1
@@ -523,9 +518,9 @@ testSeqSingleValue = testGroup "SeqSingleValue" [
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @SeqSingleValue 2
         ]
     , testGroup "showCEnum" [
-          testCase "declared" $ "OK" @=? CEnum.showCEnum "SeqSingleValue" v1
+          testCase "declared" $ "OK" @=? CEnum.showCEnum v1
         , testCase "!declared" $
-            "SeqSingleValue 2" @=? CEnum.showCEnum "SeqSingleValue" v2
+            "SeqSingleValue 2" @=? CEnum.showCEnum v2
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["OK", "SUCCESS"] @=? CEnum.getNames v1
@@ -600,8 +595,6 @@ newtype SeqPosValue = SeqPosValue {
 instance CEnum SeqPosValue where
   type CEnumZ SeqPosValue = FC.CUInt
 
-  toCEnum          = SeqPosValue
-  fromCEnum        = un_SeqPosValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (1,  "A" :| ["ALPHA"])
     , (2,  "B" :| ["BETA"])
@@ -614,6 +607,7 @@ instance CEnum SeqPosValue where
     , (9,  NonEmpty.singleton "I")
     , (10, NonEmpty.singleton "J")
     ]
+  showsUndeclared = CEnum.showsWrappedUndeclared "SeqPosValue"
 
 instance SequentialCEnum SeqPosValue where
   minDeclaredValue = SeqPosValue 1
@@ -638,9 +632,9 @@ testSeqPosValue = testGroup "SeqPosValue" [
         , testCase "high" $ Nothing @=? CEnum.mkDeclared @SeqPosValue 11
         ]
     , testGroup "showCEnum" [
-          testCase "declared" $ "A" @=? CEnum.showCEnum "SeqPosValue" v1
+          testCase "declared" $ "A" @=? CEnum.showCEnum v1
         , testCase "!declared" $
-            "SeqPosValue 0" @=? CEnum.showCEnum "SeqPosValue" v0
+            "SeqPosValue 0" @=? CEnum.showCEnum v0
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["A", "ALPHA"] @=? CEnum.getNames v1
@@ -744,8 +738,6 @@ newtype SeqNegValue = SeqNegValue {
 instance CEnum SeqNegValue where
   type CEnumZ SeqNegValue = FC.CInt
 
-  toCEnum          = SeqNegValue
-  fromCEnum        = un_SeqNegValue
   declaredValues _ = CEnum.declaredValuesFromList [
       (-5, NonEmpty.singleton "GARBAGE")
     , (-4, NonEmpty.singleton "TERRIBLE")
@@ -759,6 +751,7 @@ instance CEnum SeqNegValue where
     , (4,  NonEmpty.singleton "GREAT")
     , (5,  NonEmpty.singleton "SPECTACULAR")
     ]
+  showsUndeclared = CEnum.showsWrappedUndeclared "SeqNegValue"
 
 instance SequentialCEnum SeqNegValue where
   minDeclaredValue = SeqNegValue (-5)
@@ -783,9 +776,9 @@ testSeqNegValue = testGroup "SeqNegValue" [
         , testCase "high" $ Nothing @=? CEnum.mkDeclared @SeqNegValue 6
         ]
     , testGroup "showCEnum" [
-          testCase "declared" $ "NEUTRAL" @=? CEnum.showCEnum "SeqNegValue" z
+          testCase "declared" $ "NEUTRAL" @=? CEnum.showCEnum z
         , testCase "!declared" $
-            "SeqNegValue -6" @=? CEnum.showCEnum "SeqNegValue" n6
+            "SeqNegValue (-6)" @=? CEnum.showCEnum n6
         ]
     , testGroup "getNames" [
           testCase "declared" $

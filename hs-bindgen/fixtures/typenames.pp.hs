@@ -11,7 +11,7 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
-import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
+import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
@@ -52,6 +52,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FOO1"), (1, Data.List.NonEmpty.singleton "FOO2")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Foo"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -64,7 +66,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
 
 instance Show Foo where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Foo"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0

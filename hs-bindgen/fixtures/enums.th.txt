@@ -16,12 +16,13 @@ instance CEnum First
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "FIRST1"),
                                                           (1, singleton "FIRST2")];
+           showsUndeclared = showsWrappedUndeclared "First";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum First
     where {minDeclaredValue = FIRST1; maxDeclaredValue = FIRST2}
 instance Show First
-    where {show = showCEnum "First"}
+    where {showsPrec = showsCEnum}
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
 pattern FIRST2 :: First
@@ -44,12 +45,13 @@ instance CEnum Second
                                                            singleton "SECOND_A"),
                                                           (0, singleton "SECOND_B"),
                                                           (1, singleton "SECOND_C")];
+           showsUndeclared = showsWrappedUndeclared "Second";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Second
     where {minDeclaredValue = SECOND_A; maxDeclaredValue = SECOND_C}
 instance Show Second
-    where {show = showCEnum "Second"}
+    where {showsPrec = showsCEnum}
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
 pattern SECOND_B :: Second
@@ -72,12 +74,13 @@ instance CEnum Same
            fromCEnum = un_Same;
            declaredValues = \_ -> declaredValuesFromList [(1,
                                                            "SAME_A" :| ["SAME_B"])];
+           showsUndeclared = showsWrappedUndeclared "Same";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Same
     where {minDeclaredValue = SAME_A; maxDeclaredValue = SAME_A}
 instance Show Same
-    where {show = showCEnum "Same"}
+    where {showsPrec = showsCEnum}
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
 pattern SAME_B :: Same
@@ -99,9 +102,10 @@ instance CEnum Nonseq
            declaredValues = \_ -> declaredValuesFromList [(200,
                                                            singleton "NONSEQ_A"),
                                                           (301, singleton "NONSEQ_B"),
-                                                          (404, singleton "NONSEQ_C")]}
+                                                          (404, singleton "NONSEQ_C")];
+           showsUndeclared = showsWrappedUndeclared "Nonseq"}
 instance Show Nonseq
-    where {show = showCEnum "Nonseq"}
+    where {showsPrec = showsCEnum}
 pattern NONSEQ_A :: Nonseq
 pattern NONSEQ_A = Nonseq 200
 pattern NONSEQ_B :: Nonseq
@@ -126,12 +130,13 @@ instance CEnum Packad
                                                            singleton "PACKED_A"),
                                                           (1, singleton "PACKED_B"),
                                                           (2, singleton "PACKED_C")];
+           showsUndeclared = showsWrappedUndeclared "Packad";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Packad
     where {minDeclaredValue = PACKED_A; maxDeclaredValue = PACKED_C}
 instance Show Packad
-    where {show = showCEnum "Packad"}
+    where {showsPrec = showsCEnum}
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
 pattern PACKED_B :: Packad
@@ -155,12 +160,13 @@ instance CEnum EnumA
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "A_FOO"),
                                                           (1, singleton "A_BAR")];
+           showsUndeclared = showsWrappedUndeclared "EnumA";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumA
     where {minDeclaredValue = A_FOO; maxDeclaredValue = A_BAR}
 instance Show EnumA
-    where {show = showCEnum "EnumA"}
+    where {showsPrec = showsCEnum}
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
@@ -182,12 +188,13 @@ instance CEnum EnumB
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "B_FOO"),
                                                           (1, singleton "B_BAR")];
+           showsUndeclared = showsWrappedUndeclared "EnumB";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumB
     where {minDeclaredValue = B_FOO; maxDeclaredValue = B_BAR}
 instance Show EnumB
-    where {show = showCEnum "EnumB"}
+    where {showsPrec = showsCEnum}
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
@@ -209,12 +216,13 @@ instance CEnum EnumC
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "C_FOO"),
                                                           (1, singleton "C_BAR")];
+           showsUndeclared = showsWrappedUndeclared "EnumC";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumC
     where {minDeclaredValue = C_FOO; maxDeclaredValue = C_BAR}
 instance Show EnumC
-    where {show = showCEnum "EnumC"}
+    where {showsPrec = showsCEnum}
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
@@ -236,12 +244,13 @@ instance CEnum EnumD
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "D_FOO"),
                                                           (1, singleton "D_BAR")];
+           showsUndeclared = showsWrappedUndeclared "EnumD";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumD
     where {minDeclaredValue = D_FOO; maxDeclaredValue = D_BAR}
 instance Show EnumD
-    where {show = showCEnum "EnumD"}
+    where {showsPrec = showsCEnum}
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0
 pattern D_BAR :: EnumD

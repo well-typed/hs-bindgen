@@ -93,12 +93,13 @@ instance CEnum Index
            declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
                                                           (1, singleton "B"),
                                                           (2, singleton "C")];
+           showsUndeclared = showsWrappedUndeclared "Index";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Index
     where {minDeclaredValue = A; maxDeclaredValue = C}
 instance Show Index
-    where {show = showCEnum "Index"}
+    where {showsPrec = showsCEnum}
 pattern A :: Index
 pattern A = Index 0
 pattern B :: Index
@@ -291,12 +292,13 @@ instance CEnum Signal
                                                           (2, singleton "Pause"),
                                                           (3, singleton "Resume"),
                                                           (4, singleton "Stop")];
+           showsUndeclared = showsWrappedUndeclared "Signal";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Signal
     where {minDeclaredValue = Start; maxDeclaredValue = Stop}
 instance Show Signal
-    where {show = showCEnum "Signal"}
+    where {showsPrec = showsCEnum}
 pattern Start :: Signal
 pattern Start = Signal 1
 pattern Pause :: Signal
@@ -324,9 +326,10 @@ instance CEnum HTTP_status
                                                           (301, singleton "Moved"),
                                                           (400, singleton "Bad_request"),
                                                           (401, singleton "Unauthorized"),
-                                                          (404, singleton "Not_found")]}
+                                                          (404, singleton "Not_found")];
+           showsUndeclared = showsWrappedUndeclared "HTTP_status"}
 instance Show HTTP_status
-    where {show = showCEnum "HTTP_status"}
+    where {showsPrec = showsCEnum}
 pattern Ok :: HTTP_status
 pattern Ok = HTTP_status 200
 pattern Moved :: HTTP_status
@@ -356,12 +359,13 @@ instance CEnum Result
                                                           (0, singleton "Success"),
                                                           (1, singleton "Postponed"),
                                                           (2, singleton "Already_done")];
+           showsUndeclared = showsWrappedUndeclared "Result";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Result
     where {minDeclaredValue = Failed; maxDeclaredValue = Already_done}
 instance Show Result
-    where {show = showCEnum "Result"}
+    where {showsPrec = showsCEnum}
 pattern Failed :: Result
 pattern Failed = Result (-1)
 pattern Success :: Result
@@ -388,12 +392,13 @@ instance CEnum Vote
                                                            singleton "Infavour"),
                                                           (1, singleton "Against"),
                                                           (2, singleton "Abstain")];
+           showsUndeclared = showsWrappedUndeclared "Vote";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Vote
     where {minDeclaredValue = Infavour; maxDeclaredValue = Abstain}
 instance Show Vote
-    where {show = showCEnum "Vote"}
+    where {showsPrec = showsCEnum}
 pattern Infavour :: Vote
 pattern Infavour = Vote 0
 pattern Against :: Vote
@@ -427,9 +432,10 @@ instance CEnum CXCursorKind
                                                           (202, singleton "CXCursor_CompoundStmt"),
                                                           (203, singleton "CXCursor_CaseStmt"),
                                                           (331,
-                                                           "CXCursor_OpenACCUpdateConstruct" :| ["CXCursor_LastStmt"])]}
+                                                           "CXCursor_OpenACCUpdateConstruct" :| ["CXCursor_LastStmt"])];
+           showsUndeclared = showsWrappedUndeclared "CXCursorKind"}
 instance Show CXCursorKind
-    where {show = showCEnum "CXCursorKind"}
+    where {showsPrec = showsCEnum}
 pattern CXCursor_FirstExpr :: CXCursorKind
 pattern CXCursor_FirstExpr = CXCursorKind 100
 pattern CXCursor_UnexposedExpr :: CXCursorKind

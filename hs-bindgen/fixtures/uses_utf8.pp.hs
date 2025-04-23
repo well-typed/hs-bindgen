@@ -10,7 +10,7 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
-import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, show)
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
@@ -51,6 +51,8 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "Say\20320\22909"), (1, Data.List.NonEmpty.singleton "Say\25308\25308")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "MyEnum"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -63,7 +65,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
 
 instance Show MyEnum where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "MyEnum"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0

@@ -50,12 +50,13 @@ instance CEnum Another_typedef_enum_e
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "FOO"),
                                                           (1, singleton "BAR")];
+           showsUndeclared = showsWrappedUndeclared "Another_typedef_enum_e";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Another_typedef_enum_e
     where {minDeclaredValue = FOO; maxDeclaredValue = BAR}
 instance Show Another_typedef_enum_e
-    where {show = showCEnum "Another_typedef_enum_e"}
+    where {showsPrec = showsCEnum}
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
@@ -186,13 +187,14 @@ instance CEnum A_typedef_enum_e
                                                           (1, singleton "ENUM_CASE_1"),
                                                           (2, singleton "ENUM_CASE_2"),
                                                           (3, singleton "ENUM_CASE_3")];
+           showsUndeclared = showsWrappedUndeclared "A_typedef_enum_e";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum A_typedef_enum_e
     where {minDeclaredValue = ENUM_CASE_0;
            maxDeclaredValue = ENUM_CASE_3}
 instance Show A_typedef_enum_e
-    where {show = showCEnum "A_typedef_enum_e"}
+    where {showsPrec = showsCEnum}
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0
 pattern ENUM_CASE_1 :: A_typedef_enum_e

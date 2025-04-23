@@ -16,12 +16,13 @@ instance CEnum EnumA
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "VALA_1"),
                                                           (1, singleton "VALA_2")];
+           showsUndeclared = showsWrappedUndeclared "EnumA";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumA
     where {minDeclaredValue = VALA_1; maxDeclaredValue = VALA_2}
 instance Show EnumA
-    where {show = showCEnum "EnumA"}
+    where {showsPrec = showsCEnum}
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
 pattern VALA_2 :: EnumA
@@ -52,12 +53,13 @@ instance CEnum ExB_fieldB1
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "VALB_1"),
                                                           (1, singleton "VALB_2")];
+           showsUndeclared = showsWrappedUndeclared "ExB_fieldB1";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum ExB_fieldB1
     where {minDeclaredValue = VALB_1; maxDeclaredValue = VALB_2}
 instance Show ExB_fieldB1
-    where {show = showCEnum "ExB_fieldB1"}
+    where {showsPrec = showsCEnum}
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0
 pattern VALB_2 :: ExB_fieldB1
