@@ -96,7 +96,7 @@ mkGlobal = \case
       RealFloat_class  -> ''RealFloat
       RealFrac_class   -> ''RealFrac
       Show_class       -> ''Show
-      Show_show        -> 'show
+      Show_showsPrec   -> 'showsPrec
 
       NomEq_class -> ''(~)
 
@@ -163,13 +163,15 @@ mkGlobal = \case
       CEnum_toCEnum -> 'HsBindgen.Runtime.CEnum.toCEnum
       CEnum_fromCEnum -> 'HsBindgen.Runtime.CEnum.fromCEnum
       CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
+      CEnum_showsUndeclared -> 'HsBindgen.Runtime.CEnum.showsUndeclared
       CEnum_isDeclared -> 'HsBindgen.Runtime.CEnum.isDeclared
       CEnum_mkDeclared -> 'HsBindgen.Runtime.CEnum.mkDeclared
       SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
       SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
       SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
       CEnum_declaredValuesFromList -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-      CEnum_showCEnum -> 'HsBindgen.Runtime.CEnum.showCEnum
+      CEnum_showsCEnum -> 'HsBindgen.Runtime.CEnum.showsCEnum
+      CEnum_showsWrappedUndeclared -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
       CEnum_seqIsDeclared -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
       CEnum_seqMkDeclared -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
       AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
@@ -267,7 +269,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     RealFloat_class  -> panicPure "class in expression"
     RealFrac_class   -> panicPure "class in expression"
     Show_class       -> panicPure "class in expression"
-    Show_show        -> TH.varE name
+    Show_showsPrec   -> TH.varE name
 
     NomEq_class -> panicPure "class in expression"
 
@@ -335,13 +337,15 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CEnum_toCEnum                    -> TH.varE name
     CEnum_fromCEnum                  -> TH.varE name
     CEnum_declaredValues             -> TH.varE name
+    CEnum_showsUndeclared            -> TH.varE name
     CEnum_isDeclared                 -> TH.varE name
     CEnum_mkDeclared                 -> TH.varE name
     SequentialCEnum_class            -> panicPure "class in expression"
     SequentialCEnum_minDeclaredValue -> TH.varE name
     SequentialCEnum_maxDeclaredValue -> TH.varE name
     CEnum_declaredValuesFromList     -> TH.varE name
-    CEnum_showCEnum                  -> TH.varE name
+    CEnum_showsCEnum                 -> TH.varE name
+    CEnum_showsWrappedUndeclared     -> TH.varE name
     CEnum_seqIsDeclared              -> TH.varE name
     CEnum_seqMkDeclared              -> TH.varE name
     AsCEnum_type                     -> panicPure "type in expression"

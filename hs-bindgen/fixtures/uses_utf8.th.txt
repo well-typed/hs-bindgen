@@ -16,12 +16,13 @@ instance CEnum MyEnum
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "Say\20320\22909"),
                                                           (1, singleton "Say\25308\25308")];
+           showsUndeclared = showsWrappedUndeclared "MyEnum";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum MyEnum
     where {minDeclaredValue = Say你好; maxDeclaredValue = Say拜拜}
 instance Show MyEnum
-    where {show = showCEnum "MyEnum"}
+    where {showsPrec = showsCEnum}
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0
 pattern Say拜拜 :: MyEnum

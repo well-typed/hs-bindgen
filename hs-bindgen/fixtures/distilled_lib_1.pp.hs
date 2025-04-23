@@ -19,7 +19,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, show)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 a :: FC.CInt
 a = (5 :: FC.CInt)
@@ -113,6 +113,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "FOO"), (1, Data.List.NonEmpty.singleton "BAR")]
 
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Another_typedef_enum_e"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -125,7 +128,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
 
 instance Show Another_typedef_enum_e where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Another_typedef_enum_e"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
@@ -400,6 +403,9 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
                                                      , (3, Data.List.NonEmpty.singleton "ENUM_CASE_3")
                                                      ]
 
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "A_typedef_enum_e"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -412,7 +418,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
 
 instance Show A_typedef_enum_e where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "A_typedef_enum_e"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0

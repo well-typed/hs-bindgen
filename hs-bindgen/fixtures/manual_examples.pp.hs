@@ -25,7 +25,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, show)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 
 fIELD_OFFSET :: FC.CInt
 fIELD_OFFSET = (4 :: FC.CInt)
@@ -215,6 +215,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
     \_ ->
       HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "A"), (1, Data.List.NonEmpty.singleton "B"), (2, Data.List.NonEmpty.singleton "C")]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Index"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -227,7 +229,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
 
 instance Show Index where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Index"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern A :: Index
 pattern A = Index 0
@@ -664,6 +666,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Signal where
                                                      , (4, Data.List.NonEmpty.singleton "Stop")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Signal"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -676,7 +680,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Signal where
 
 instance Show Signal where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Signal"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern Start :: Signal
 pattern Start = Signal 1
@@ -734,9 +738,11 @@ instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
                                                      , (404, Data.List.NonEmpty.singleton "Not_found")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "HTTP_status"
+
 instance Show HTTP_status where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "HTTP_status"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern Ok :: HTTP_status
 pattern Ok = HTTP_status 200
@@ -796,6 +802,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Result where
                                                      , (2, Data.List.NonEmpty.singleton "Already_done")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Result"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -808,7 +816,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Result where
 
 instance Show Result where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Result"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern Failed :: Result
 pattern Failed = Result (-1)
@@ -864,6 +872,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Vote where
                                                      , (2, Data.List.NonEmpty.singleton "Abstain")
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Vote"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -876,7 +886,7 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Vote where
 
 instance Show Vote where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "Vote"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern Infavour :: Vote
 pattern Infavour = Vote 0
@@ -936,9 +946,11 @@ instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
                                                      , (331, ("CXCursor_OpenACCUpdateConstruct" Data.List.NonEmpty.:| ["CXCursor_LastStmt"]))
                                                      ]
 
+  showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "CXCursorKind"
+
 instance Show CXCursorKind where
 
-  show = HsBindgen.Runtime.CEnum.showCEnum "CXCursorKind"
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
 pattern CXCursor_FirstExpr :: CXCursorKind
 pattern CXCursor_FirstExpr = CXCursorKind 100

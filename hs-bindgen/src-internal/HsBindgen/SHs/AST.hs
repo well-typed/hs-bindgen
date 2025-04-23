@@ -80,7 +80,7 @@ data Global =
   | RealFloat_class
   | RealFrac_class
   | Show_class
-  | Show_show
+  | Show_showsPrec
 
     -- | Primitive (unboxed) type equality
   | NomEq_class
@@ -149,13 +149,15 @@ data Global =
   | CEnum_toCEnum
   | CEnum_fromCEnum
   | CEnum_declaredValues
+  | CEnum_showsUndeclared
   | CEnum_isDeclared
   | CEnum_mkDeclared
   | SequentialCEnum_class
   | SequentialCEnum_minDeclaredValue
   | SequentialCEnum_maxDeclaredValue
   | CEnum_declaredValuesFromList
-  | CEnum_showCEnum
+  | CEnum_showsCEnum
+  | CEnum_showsWrappedUndeclared
   | CEnum_seqIsDeclared
   | CEnum_seqMkDeclared
   | AsCEnum_type

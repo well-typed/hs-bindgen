@@ -409,11 +409,15 @@ translateCEnumInstance struct fTyp vMap isSequential = Instance {
           (CEnum_toCEnum, ECon (Hs.structConstr struct))
         , (CEnum_fromCEnum, EFree fname)
         , (CEnum_declaredValues, EUnusedLam declaredValuesE)
+        , (CEnum_showsUndeclared, EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
         ] ++ seqDecs
     }
   where
     tcon :: ClosedType
     tcon = TCon $ Hs.structName struct
+
+    dconStrE :: SExpr ctx
+    dconStrE = EString . T.unpack $ getHsName (Hs.structConstr struct)
 
     fname :: HsName NsVar
     fname = Hs.fieldName $
@@ -468,15 +472,12 @@ translateCEnumInstanceShow struct = Instance {
     , instanceArgs  = [tcon]
     , instanceTypes = []
     , instanceDecs  = [
-          (Show_show, EApp (EGlobal CEnum_showCEnum) dconStrE)
+          (Show_showsPrec, EGlobal CEnum_showsCEnum)
         ]
     }
   where
     tcon :: ClosedType
     tcon = TCon $ Hs.structName struct
-
-    dconStrE :: SExpr ctx
-    dconStrE = EString . T.unpack $ getHsName (Hs.structConstr struct)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: derived functionality

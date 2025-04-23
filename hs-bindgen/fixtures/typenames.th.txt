@@ -16,12 +16,13 @@ instance CEnum Foo
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "FOO1"),
                                                           (1, singleton "FOO2")];
+           showsUndeclared = showsWrappedUndeclared "Foo";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Foo
     where {minDeclaredValue = FOO1; maxDeclaredValue = FOO2}
 instance Show Foo
-    where {show = showCEnum "Foo"}
+    where {showsPrec = showsCEnum}
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo

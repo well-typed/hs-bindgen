@@ -225,7 +225,7 @@ resolveGlobal = \case
     RealFloat_class  -> importU ''RealFloat
     RealFrac_class   -> importU ''RealFrac
     Show_class       -> importU ''Show
-    Show_show        -> importU 'show
+    Show_showsPrec   -> importU 'showsPrec
 
     -- We now import ~ from Prelude;
     -- but it's not always there; it's also not in Data.Type.Equality
@@ -300,13 +300,15 @@ resolveGlobal = \case
     CEnum_toCEnum -> importQ 'HsBindgen.Runtime.CEnum.toCEnum
     CEnum_fromCEnum -> importQ 'HsBindgen.Runtime.CEnum.fromCEnum
     CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
+    CEnum_showsUndeclared ->  importQ 'HsBindgen.Runtime.CEnum.showsUndeclared
     CEnum_isDeclared -> importQ 'HsBindgen.Runtime.CEnum.isDeclared
     CEnum_mkDeclared -> importQ 'HsBindgen.Runtime.CEnum.mkDeclared
     SequentialCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
     SequentialCEnum_minDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.minDeclaredValue
     SequentialCEnum_maxDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.maxDeclaredValue
     CEnum_declaredValuesFromList -> importQ 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-    CEnum_showCEnum -> importQ 'HsBindgen.Runtime.CEnum.showCEnum
+    CEnum_showsCEnum -> importQ 'HsBindgen.Runtime.CEnum.showsCEnum
+    CEnum_showsWrappedUndeclared -> importQ 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
     CEnum_seqIsDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
     CEnum_seqMkDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared
     AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum
