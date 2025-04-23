@@ -63,7 +63,7 @@ import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Tc.Macro qualified as C
+import HsBindgen.C.Tc.Macro qualified as Macro
 
 import HsBindgen.Imports
 import HsBindgen.NameHint
@@ -290,7 +290,7 @@ instance Eq (PredType ctx) where
   _ == _ = False
 
 data ATyCon where
-  ATyCon :: C.TyCon args C.Ty -> ATyCon
+  ATyCon :: Macro.TyCon args Macro.Ty -> ATyCon
 instance Show ATyCon where
   show ( ATyCon tc ) = show tc
 instance Eq ATyCon where
@@ -298,13 +298,13 @@ instance Eq ATyCon where
     isJust $ equals2 tc1 tc2
 
 data AClass where
-  AClass :: C.TyCon args C.Ct -> AClass
+  AClass :: Macro.TyCon args Macro.Ct -> AClass
 instance Show AClass where
   show ( AClass tc ) = show tc
 instance Eq AClass where
-  AClass ( C.GenerativeTyCon ( C.ClassTyCon cls1 ) )
+  AClass ( Macro.GenerativeTyCon ( Macro.ClassTyCon cls1 ) )
     ==
-    AClass ( C.GenerativeTyCon ( C.ClassTyCon cls2 ) ) =
+    AClass ( Macro.GenerativeTyCon ( Macro.ClassTyCon cls2 ) ) =
       isJust $ equals1 cls1 cls2
 
 -- | RHS of a variable or function declaration.

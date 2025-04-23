@@ -93,8 +93,7 @@ import Data.Text qualified as Text
 import Data.Vec.Lazy qualified as Vec
 
 -- c-expr
-import C.Type qualified as C.Type
-import C.Type qualified as C
+import C.Type qualified
 import C.Operators qualified as C.Op
 
 -- hs-bindgen
@@ -306,7 +305,7 @@ data DataTyCon nbArgs where
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
   -- | Family of nullary type constructors for arguments to 'FloatLikeTyCon'.
-  PrimFloatInfoTyCon :: !C.FloatingType -> DataTyCon Z
+  PrimFloatInfoTyCon :: !C.Type.FloatingType -> DataTyCon Z
 
   -- | Type constructor for the type of a 'PrimType' value.
   PrimTyTyCon    :: DataTyCon Z
@@ -314,7 +313,7 @@ data DataTyCon nbArgs where
   EmptyTyCon     :: DataTyCon Z
 
 data IntegralType
-  = CIntegralType !C.IntegralType
+  = CIntegralType !C.Type.IntegralType
   | HsIntType
   deriving stock ( Eq, Ord, Show, Generic )
 
@@ -1200,23 +1199,23 @@ inferTerm = \case
 
 -- TODO: these functions would go away if we change the type we store
 -- in the v'MFloat'/v'MInt' constructors to re-use the @c-expr@ library.
-fromPrimIntTy :: ( PrimIntType, PrimSign ) -> C.IntegralType
-fromPrimIntTy ( i, s ) = C.IntLike $
+fromPrimIntTy :: ( PrimIntType, PrimSign ) -> C.Type.IntegralType
+fromPrimIntTy ( i, s ) = C.Type.IntLike $
   case i of
-    PrimShort    -> C.Short    s'
-    PrimInt      -> C.Int      s'
-    PrimLong     -> C.Long     s'
-    PrimLongLong -> C.LongLong s'
+    PrimShort    -> C.Type.Short    s'
+    PrimInt      -> C.Type.Int      s'
+    PrimLong     -> C.Type.Long     s'
+    PrimLongLong -> C.Type.LongLong s'
   where
     s' = fromMacroSign s
 fromMacroSign :: PrimSign -> C.Type.Sign
 fromMacroSign = \case
   Signed   -> C.Type.Signed
   Unsigned -> C.Type.Unsigned
-fromPrimFloatTy :: PrimFloatType -> C.FloatingType
+fromPrimFloatTy :: PrimFloatType -> C.Type.FloatingType
 fromPrimFloatTy = \case
-  PrimFloat      -> C.FloatType
-  PrimDouble     -> C.DoubleType
+  PrimFloat      -> C.Type.FloatType
+  PrimDouble     -> C.Type.DoubleType
   PrimLongDouble -> throwPure_TODO 349 "tcMacro: long double not supported"
 
 inferApp :: FunName -> [ MExpr ] -> TcGenM ( Type Ty )
@@ -1357,7 +1356,7 @@ pattern Shift a b = Class ShiftTyCon ( a ::: b ::: VNil )
 
 pattern PrimIntInfoTy :: IntegralType -> Type Ty
 pattern PrimIntInfoTy inty = Data (PrimIntInfoTyCon inty) VNil
-pattern PrimFloatInfoTy :: C.FloatingType -> Type Ty
+pattern PrimFloatInfoTy :: C.Type.FloatingType -> Type Ty
 pattern PrimFloatInfoTy floaty = Data (PrimFloatInfoTyCon floaty) VNil
 pattern IntLike :: Type Ty -> Type Ty
 pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
@@ -1398,11 +1397,11 @@ pattern ShiftRes a = FamApp ShiftResTyCon ( a ::: VNil )
 
 -- Convenient synonyms
 pattern IntTy :: Type Ty
-pattern IntTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.IntLike ( C.Int C.Signed ) ) ) )
+pattern IntTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.Type.IntLike ( C.Type.Int C.Type.Signed ) ) ) )
 pattern HsIntTy :: Type Ty
 pattern HsIntTy = IntLike ( PrimIntInfoTy ( HsIntType ) )
 pattern CharTy :: Type Ty
-pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.CharLike C.Char ) ) )
+pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.Type.CharLike C.Type.Char ) ) )
 
 pattern CharLitTy :: Type Ty
 pattern CharLitTy = Data CharLitTyCon VNil
@@ -1586,8 +1585,8 @@ classInstancesWithDefaults cls =
       ShiftTyCon      -> [ii2] -- TODO: default two arguments separately
   where
 
-    primIntTy    = PrimIntInfoTy $ CIntegralType $ C.IntLike $ C.Int C.Signed
-    primDoubleTy = PrimFloatInfoTy C.DoubleType
+    primIntTy    = PrimIntInfoTy $ CIntegralType $ C.Type.IntLike $ C.Type.Int C.Type.Signed
+    primDoubleTy = PrimFloatInfoTy C.Type.DoubleType
 
     dfltToInt, dfltToDouble :: DefaultingProposal ( S Z )
     dfltToInt    ( a ::: VNil ) = NE.singleton ( a, primIntTy    )

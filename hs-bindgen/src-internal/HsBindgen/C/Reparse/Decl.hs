@@ -58,7 +58,7 @@ import HsBindgen.C.AST.Macro
 import HsBindgen.C.Reparse.Macro
   ( mExpr )
 
-import HsBindgen.C.Tc.Macro qualified as TcMacro
+import HsBindgen.C.Tc.Macro qualified as Macro
 
 import Clang.LowLevel.Core
   ( CXTokenKind(..) )
@@ -67,7 +67,7 @@ import HsBindgen.Errors
 --------------------------------------------------------------------------------
 
 -- | Field declaration (in a struct)
-reparseFieldDecl :: TcMacro.TypeEnv -> Reparse (Type, CName)
+reparseFieldDecl :: Macro.TypeEnv -> Reparse (Type, CName)
 reparseFieldDecl macroTys = do
   ( specs, Declarator ptrs decl ) <- reparseDeclaration @Concrete macroTys
   _mbBitSize <- optionMaybe $
@@ -80,7 +80,7 @@ reparseFieldDecl macroTys = do
       return ( mkPtr ptrs baseTy, nm )
 
 -- | Function declaration.
-reparseFunDecl :: TcMacro.TypeEnv -> Reparse (([Type],Type), CName)
+reparseFunDecl :: Macro.TypeEnv -> Reparse (([Type],Type), CName)
 reparseFunDecl macroTys = do
   ( specs, Declarator ptrs decl ) <- reparseDeclaration @Concrete macroTys
   eof
@@ -297,7 +297,7 @@ literalSizeMaybe ( SizeExpression sz ) =
 reparseDeclaration
   :: forall abs
   .  KnownDeclaratorType abs
-  => TcMacro.TypeEnv
+  => Macro.TypeEnv
   -> Reparse ([DeclarationSpecifier], Declarator abs)
 reparseDeclaration macroTys =
   manyTillLookahead
@@ -443,7 +443,7 @@ parameterTypes ps =
                     Nothing -> Left i
                     Just ty -> Right $ mkPtr ptrs ty
 
-reparseDeclarator :: forall abs. KnownDeclaratorType abs => TcMacro.TypeEnv -> Reparse (Declarator abs)
+reparseDeclarator :: forall abs. KnownDeclaratorType abs => Macro.TypeEnv -> Reparse (Declarator abs)
 reparseDeclarator macroTys = do
   ptr <- many reparsePointer
   case knownDeclarator @abs of
@@ -476,7 +476,7 @@ reparsePointer = do
 
 reparseDirectDeclarator
   :: forall abs. KnownDeclaratorType abs
-  => TcMacro.TypeEnv -> Reparse ( DirectDeclarator abs )
+  => Macro.TypeEnv -> Reparse ( DirectDeclarator abs )
 reparseDirectDeclarator macroTys = do
   decl <-
     choice $
@@ -488,7 +488,7 @@ reparseDirectDeclarator macroTys = do
 
 withArrayOrFunctionSuffixes
   :: forall abs. KnownDeclaratorType abs
-  => TcMacro.TypeEnv -> DirectDeclarator abs -> Reparse ( DirectDeclarator abs )
+  => Macro.TypeEnv -> DirectDeclarator abs -> Reparse ( DirectDeclarator abs )
 withArrayOrFunctionSuffixes macroTys decl =
   choice
     [ do { newDecl <- reparseArrayDeclarator @abs macroTys decl
@@ -508,7 +508,7 @@ reparseIdentifier = do
   <?> "identifier"
 
 reparseArrayDeclarator
-  :: TcMacro.TypeEnv
+  :: Macro.TypeEnv
   -> DirectDeclarator abs
   -> Reparse ( ArrayDeclarator abs )
 reparseArrayDeclarator macroTys decl = do
@@ -539,7 +539,7 @@ reparseArrayDeclarator macroTys decl = do
   <?> "array declarator"
 
 reparseFunctionDeclarator
-  :: TcMacro.TypeEnv
+  :: Macro.TypeEnv
   -> DirectDeclarator abs
   -> Reparse ( FunctionDeclarator abs )
 reparseFunctionDeclarator macroTys decl = do
@@ -556,7 +556,7 @@ reparseFunctionDeclarator macroTys decl = do
       }
   <?> "function declarator"
 
-reparseParameterList :: TcMacro.TypeEnv -> Reparse ( [ Parameter ], Bool )
+reparseParameterList :: Macro.TypeEnv -> Reparse ( [ Parameter ], Bool )
 reparseParameterList macroTys =
   choice
     [ do { punctuation "..."; return ( [], True ) } <?> "varargs"
@@ -569,7 +569,7 @@ reparseParameterList macroTys =
     , return ( [], False )
     ]
 
-reparseParameter :: TcMacro.TypeEnv -> Reparse Parameter
+reparseParameter :: Macro.TypeEnv -> Reparse Parameter
 reparseParameter macroTys = do
   attrs <- many reparseAttributeSpecifier
   declSpecs <- many1 $ reparseDeclarationSpecifier macroTys
@@ -577,7 +577,7 @@ reparseParameter macroTys = do
   return $ Parameter attrs declSpecs decl
   <?> "function parameter"
 
-reparseParameterDeclarator :: TcMacro.TypeEnv -> Reparse ParameterDeclarator
+reparseParameterDeclarator :: Macro.TypeEnv -> Reparse ParameterDeclarator
 reparseParameterDeclarator macroTys =
   choice
     [ ParameterDeclarator <$> reparseDeclarator @Concrete macroTys
@@ -628,7 +628,7 @@ reparseParenBalancedToken = do
   punctuation closer
   return $ BalancedToken inner
 
-reparseDeclarationSpecifier :: TcMacro.TypeEnv -> Reparse DeclarationSpecifier
+reparseDeclarationSpecifier :: Macro.TypeEnv -> Reparse DeclarationSpecifier
 reparseDeclarationSpecifier macroTys = do
   choice
     [ DeclStorageSpecifier       <$> reparseStorageClassSpecifier
@@ -636,7 +636,7 @@ reparseDeclarationSpecifier macroTys = do
     , DeclFunctionSpecifier      <$> reparseFunctionSpecifier
     ]
 
-reparseAlignmentSpecifier :: TcMacro.TypeEnv -> Reparse AlignmentSpecifier
+reparseAlignmentSpecifier :: Macro.TypeEnv -> Reparse AlignmentSpecifier
 reparseAlignmentSpecifier macroTys = do
   void $ keyword "alignas"
   parens $
@@ -646,7 +646,7 @@ reparseAlignmentSpecifier macroTys = do
       ]
   <?> "alignment"
 
-reparseTypeName :: TcMacro.TypeEnv -> Reparse TypeName
+reparseTypeName :: Macro.TypeEnv -> Reparse TypeName
 reparseTypeName macroTys = do
   tySpecs <- many $ reparseTypeSpecifier macroTys
   attrs <- many reparseAttributeSpecifier
@@ -654,7 +654,7 @@ reparseTypeName macroTys = do
   return $
     TypeName tySpecs attrs mbDecl
 
-reparseTypeQualifierSpecifier :: TcMacro.TypeEnv -> Reparse TypeQualifierSpecifier
+reparseTypeQualifierSpecifier :: Macro.TypeEnv -> Reparse TypeQualifierSpecifier
 reparseTypeQualifierSpecifier macroTys = choice
   [ TQS_TypeQualifier <$> reparseTypeQualifier
   , TQS_TypeSpecifier <$> reparseTypeSpecifier macroTys
@@ -670,20 +670,20 @@ reparseTypeQualifier = choice
   ]
   <?> "type qualifier"
 
-reparseTypeSpecifier :: TcMacro.TypeEnv -> Reparse TypeSpecifier
+reparseTypeSpecifier :: Macro.TypeEnv -> Reparse TypeSpecifier
 reparseTypeSpecifier macroTypeEnv =
   choice
   [ TypeSpecifier <$> reparsePrimType
   , try $
     do { nm <- reparseName
-       ; if Set.member nm (TcMacro.typeEnvTypedefs macroTypeEnv) then
+       ; if Set.member nm (Macro.typeEnvTypedefs macroTypeEnv) then
            return $ TypeDefTypeSpecifier nm
          else
-           case Map.lookup nm (TcMacro.typeEnvMacros   macroTypeEnv) of
+           case Map.lookup nm (Macro.typeEnvMacros   macroTypeEnv) of
              Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
              Just ty
-                | TcMacro.Quant bf <- ty
-                , TcMacro.isPrimTy bf
+                | Macro.Quant bf <- ty
+                , Macro.isPrimTy bf
                 -> return $ TypeDefTypeSpecifier nm
                 | otherwise
                 -> unexpected $ "macro name does not refer to a type: " ++ show nm
