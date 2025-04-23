@@ -1,11 +1,9 @@
 types:
 - headers: typedefs.h
   cname: intptr
-  package: example
   module: Example
   identifier: Intptr
 - headers: typedefs.h
   cname: myint
-  package: example
   module: Example
   identifier: Myint

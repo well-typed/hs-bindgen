@@ -15,7 +15,6 @@ let mkM =
         , headers = map Text Text systemHeader headers
         , identifier
         , module
-        , package = "base"
         }
 
 let intTypesH = [ "inttypes.h", "stdint.h" ]

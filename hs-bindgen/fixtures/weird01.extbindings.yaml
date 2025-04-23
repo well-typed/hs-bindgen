@@ -1,11 +1,9 @@
 types:
 - headers: weird01.h
   cname: struct bar
-  package: example
   module: Example
   identifier: Bar
 - headers: weird01.h
   cname: struct foo
-  package: example
   module: Example
   identifier: Foo

@@ -1,26 +1,21 @@
 types:
 - headers: nested_types.h
   cname: struct bar
-  package: example
   module: Example
   identifier: Bar
 - headers: nested_types.h
   cname: struct ex3
-  package: example
   module: Example
   identifier: Ex3
 - headers: nested_types.h
   cname: struct ex4_even
-  package: example
   module: Example
   identifier: Ex4_even
 - headers: nested_types.h
   cname: struct ex4_odd
-  package: example
   module: Example
   identifier: Ex4_odd
 - headers: nested_types.h
   cname: struct foo
-  package: example
   module: Example
   identifier: Foo

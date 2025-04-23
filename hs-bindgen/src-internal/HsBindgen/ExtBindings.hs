@@ -1,7 +1,6 @@
 module HsBindgen.ExtBindings (
     -- * Types
-    HsPackageName(..)
-  , HsModuleName(..)
+    HsModuleName(..)
   , HsIdentifier(..)
   , ExtIdentifier(..)
   , UnresolvedExtBindings(..)
@@ -64,14 +63,6 @@ import HsBindgen.Resolve
   Types
 -------------------------------------------------------------------------------}
 
--- | Haskell package name
---
--- Example: @hs-bindgen-runtime@
-newtype HsPackageName = HsPackageName { getHsPackageName :: Text }
-  deriving stock (Generic)
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
@@ -93,8 +84,7 @@ newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
-      extIdentifierPackage    :: HsPackageName
-    , extIdentifierModule     :: HsModuleName
+      extIdentifierModule     :: HsModuleName
     , extIdentifierIdentifier :: HsIdentifier
     }
   deriving stock (Eq, Generic, Ord, Show)
@@ -449,7 +439,6 @@ data Mapping = Mapping {
     , mappingHeaders    :: [CHeaderIncludePath]
     , mappingIdentifier :: HsIdentifier
     , mappingModule     :: HsModuleName
-    , mappingPackage    :: HsPackageName
     }
   deriving (Generic, Show)
 
@@ -459,13 +448,11 @@ instance Aeson.FromJSON Mapping where
       mappingHeaders    <- obj .: "headers" >>= listFromJSON
       mappingIdentifier <- obj .: "identifier"
       mappingModule     <- obj .: "module"
-      mappingPackage    <- obj .: "package"
       return Mapping {
           mappingCName
         , mappingHeaders
         , mappingIdentifier
         , mappingModule
-        , mappingPackage
         }
 
 instance Aeson.ToJSON Mapping where
@@ -474,7 +461,6 @@ instance Aeson.ToJSON Mapping where
       , "headers"    .= listToJSON mappingHeaders
       , "identifier" .= mappingIdentifier
       , "module"     .= mappingModule
-      , "package"    .= mappingPackage
       ]
     where
       Mapping {
@@ -482,7 +468,6 @@ instance Aeson.ToJSON Mapping where
         , mappingHeaders
         , mappingIdentifier
         , mappingModule
-        , mappingPackage
         } = mapping
 
 {-------------------------------------------------------------------------------
@@ -508,9 +493,8 @@ encodeYaml = Yaml.Pretty.encodePretty yamlConfig
           -- Mapping
           "headers"    -> 1
           "cname"      -> 2
-          "package"    -> 3
-          "module"     -> 4
-          "identifier" -> 5
+          "module"     -> 3
+          "identifier" -> 4
           -- Unknown
           _otherwise -> panicPure $ "Unknown key: " ++ show key
 
@@ -555,8 +539,7 @@ fromConfigFile path ConfigFile{..} = do
          )
     mkMapInsert Mapping{..} (dupMap, accMap) =
       let extIdentifier = ExtIdentifier {
-              extIdentifierPackage    = mappingPackage
-            , extIdentifierModule     = mappingModule
+              extIdentifierModule     = mappingModule
             , extIdentifierIdentifier = mappingIdentifier
             }
           newV = [(Set.fromList mappingHeaders, extIdentifier)]
@@ -588,7 +571,6 @@ toConfigFile UnresolvedExtBindings{..} = ConfigFile{..}
           , mappingHeaders    = Set.toAscList headerSet
           , mappingIdentifier = extIdentifierIdentifier
           , mappingModule     = extIdentifierModule
-          , mappingPackage    = extIdentifierPackage
           }
       | (cname, rs) <- Map.toAscList unresolvedExtBindingsTypes
       , (headerSet, ExtIdentifier{..}) <- rs

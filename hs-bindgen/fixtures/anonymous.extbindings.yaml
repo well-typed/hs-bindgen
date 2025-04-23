@@ -1,16 +1,13 @@
 types:
 - headers: anonymous.h
   cname: struct S1
-  package: example
   module: Example
   identifier: S1
 - headers: anonymous.h
   cname: struct S2
-  package: example
   module: Example
   identifier: S2
 - headers: anonymous.h
   cname: struct S3
-  package: example
   module: Example
   identifier: S3

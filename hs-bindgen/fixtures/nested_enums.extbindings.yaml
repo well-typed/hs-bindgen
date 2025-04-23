@@ -1,16 +1,13 @@
 types:
 - headers: nested_enums.h
   cname: enum enumA
-  package: example
   module: Example
   identifier: EnumA
 - headers: nested_enums.h
   cname: struct exA
-  package: example
   module: Example
   identifier: ExA
 - headers: nested_enums.h
   cname: struct exB
-  package: example
   module: Example
   identifier: ExB

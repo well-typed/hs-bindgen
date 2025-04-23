@@ -1,11 +1,9 @@
 types:
 - headers: typenames.h
   cname: enum foo
-  package: example
   module: Example
   identifier: Foo
 - headers: typenames.h
   cname: foo
-  package: example
   module: Example
   identifier: Foo

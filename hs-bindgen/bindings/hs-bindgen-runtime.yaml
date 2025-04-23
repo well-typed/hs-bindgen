@@ -5,79 +5,66 @@ types:
       - system:fenv.h
     identifier: CFenvT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: fexcept_t
     headers:
       - system:fenv.h
     identifier: CFexceptT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: div_t
     headers:
       - system:stdlib.h
     identifier: CDivT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: ldiv_t
     headers:
       - system:stdlib.h
     identifier: CLdivT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: lldiv_t
     headers:
       - system:stdlib.h
     identifier: CLldivT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: imaxdiv_t
     headers:
       - system:inttypes.h
     identifier: CImaxdivT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: wint_t
     headers:
       - system:wchar.h
       - system:wctype.h
     identifier: CWintT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: mbstate_t
     headers:
       - system:uchar.h
       - system:wchar.h
     identifier: CMbstateT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: wctrans_t
     headers:
       - system:wctype.h
     identifier: CWctransT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: wctype_t
     headers:
       - system:wchar.h
       - system:wctype.h
     identifier: CWctypeT
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: char16_t
     headers:
       - system:uchar.h
     identifier: CChar16T
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: char32_t
     headers:
       - system:uchar.h
     identifier: CChar32T
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime
   - cname: struct tm
     headers:
       - system:time.h
     identifier: CTm
     module: HsBindgen.Runtime.LibC
-    package: hs-bindgen-runtime

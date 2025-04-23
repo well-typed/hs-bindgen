@@ -6,196 +6,168 @@ types:
       - system:stdint.h
     identifier: Int8
     module: Data.Int
-    package: base
   - cname: int16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int16
     module: Data.Int
-    package: base
   - cname: int32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int32
     module: Data.Int
-    package: base
   - cname: int64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int64
     module: Data.Int
-    package: base
   - cname: uint8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word8
     module: Data.Word
-    package: base
   - cname: uint16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word16
     module: Data.Word
-    package: base
   - cname: uint32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word32
     module: Data.Word
-    package: base
   - cname: uint64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word64
     module: Data.Word
-    package: base
   - cname: int_least8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int8
     module: Data.Int
-    package: base
   - cname: int_least16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int16
     module: Data.Int
-    package: base
   - cname: int_least32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int32
     module: Data.Int
-    package: base
   - cname: int_least64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int64
     module: Data.Int
-    package: base
   - cname: uint_least8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word8
     module: Data.Word
-    package: base
   - cname: uint_least16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word16
     module: Data.Word
-    package: base
   - cname: uint_least32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word32
     module: Data.Word
-    package: base
   - cname: uint_least64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word64
     module: Data.Word
-    package: base
   - cname: int_fast8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int8
     module: Data.Int
-    package: base
   - cname: int_fast16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int16
     module: Data.Int
-    package: base
   - cname: int_fast32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int32
     module: Data.Int
-    package: base
   - cname: int_fast64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int64
     module: Data.Int
-    package: base
   - cname: uint_fast8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word8
     module: Data.Word
-    package: base
   - cname: uint_fast16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word16
     module: Data.Word
-    package: base
   - cname: uint_fast32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word32
     module: Data.Word
-    package: base
   - cname: uint_fast64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word64
     module: Data.Word
-    package: base
   - cname: intmax_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CIntMax
     module: Foreign.C.Types
-    package: base
   - cname: uintmax_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CUIntMax
     module: Foreign.C.Types
-    package: base
   - cname: intptr_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CIntPtr
     module: Foreign.C.Types
-    package: base
   - cname: uintptr_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CUIntPtr
     module: Foreign.C.Types
-    package: base
   - cname: size_t
     headers:
       - system:signal.h
@@ -208,19 +180,16 @@ types:
       - system:wchar.h
     identifier: CSize
     module: Foreign.C.Types
-    package: base
   - cname: ptrdiff_t
     headers:
       - system:stddef.h
     identifier: CPtrdiff
     module: Foreign.C.Types
-    package: base
   - cname: jmp_buf
     headers:
       - system:setjmp.h
     identifier: CJmpBuf
     module: Foreign.C.Types
-    package: base
   - cname: wchar_t
     headers:
       - system:inttypes.h
@@ -229,37 +198,31 @@ types:
       - system:wchar.h
     identifier: CWchar
     module: Foreign.C.Types
-    package: base
   - cname: time_t
     headers:
       - system:signal.h
       - system:time.h
     identifier: CTime
     module: Foreign.C.Types
-    package: base
   - cname: clock_t
     headers:
       - system:signal.h
       - system:time.h
     identifier: CClock
     module: Foreign.C.Types
-    package: base
   - cname: FILE
     headers:
       - system:stdio.h
       - system:wchar.h
     identifier: CFile
     module: Foreign.C.Types
-    package: base
   - cname: fpos_t
     headers:
       - system:stdio.h
     identifier: CFpos
     module: Foreign.C.Types
-    package: base
   - cname: sig_atomic_t
     headers:
       - system:signal.h
     identifier: CSigAtomic
     module: Foreign.C.Types
-    package: base

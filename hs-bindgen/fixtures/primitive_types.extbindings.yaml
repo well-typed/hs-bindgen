@@ -1,6 +1,5 @@
 types:
 - headers: primitive_types.h
   cname: struct primitive
-  package: example
   module: Example
   identifier: Primitive

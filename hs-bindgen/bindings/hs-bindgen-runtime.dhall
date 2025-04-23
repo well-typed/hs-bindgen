@@ -14,7 +14,6 @@ let mkM =
         , headers = map Text Text systemHeader headers
         , identifier
         , module = "HsBindgen.Runtime.LibC"
-        , package = "hs-bindgen-runtime"
         }
 
 let types

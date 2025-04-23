@@ -1,26 +1,21 @@
 types:
 - headers: opaque_declaration.h
   cname: enum quu
-  package: example
   module: Example
   identifier: Quu
 - headers: opaque_declaration.h
   cname: struct bar
-  package: example
   module: Example
   identifier: Bar
 - headers: opaque_declaration.h
   cname: struct baz
-  package: example
   module: Example
   identifier: Baz
 - headers: opaque_declaration.h
   cname: struct foo
-  package: example
   module: Example
   identifier: Foo
 - headers: opaque_declaration.h
   cname: struct opaque_union
-  package: example
   module: Example
   identifier: Opaque_union

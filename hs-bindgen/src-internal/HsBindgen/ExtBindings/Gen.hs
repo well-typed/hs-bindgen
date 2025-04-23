@@ -22,11 +22,10 @@ import HsBindgen.Imports
 
 genExtBindings ::
      CHeaderIncludePath
-  -> HsPackageName
   -> HsModuleName
   -> [Hs.Decl]
   -> UnresolvedExtBindings
-genExtBindings headerIncludePath extIdentifierPackage extIdentifierModule =
+genExtBindings headerIncludePath extIdentifierModule =
     foldr aux emptyUnresolvedExtBindings
   where
     aux :: Hs.Decl -> UnresolvedExtBindings -> UnresolvedExtBindings
