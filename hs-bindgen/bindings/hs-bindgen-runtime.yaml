@@ -14,27 +14,64 @@ types:
     headers:
       - system:stdlib.h
     identifier: CDivT
+    instances:
+      - Eq
+      - Ord
+      - ReadRaw
+      - Show
     module: HsBindgen.Runtime.LibC
   - cname: ldiv_t
     headers:
       - system:stdlib.h
     identifier: CLdivT
+    instances:
+      - Eq
+      - Ord
+      - ReadRaw
+      - Show
     module: HsBindgen.Runtime.LibC
   - cname: lldiv_t
     headers:
       - system:stdlib.h
     identifier: CLldivT
+    instances:
+      - Eq
+      - Ord
+      - ReadRaw
+      - Show
     module: HsBindgen.Runtime.LibC
   - cname: imaxdiv_t
     headers:
       - system:inttypes.h
     identifier: CImaxdivT
+    instances:
+      - Eq
+      - Ord
+      - ReadRaw
+      - Show
     module: HsBindgen.Runtime.LibC
   - cname: wint_t
     headers:
       - system:wchar.h
       - system:wctype.h
     identifier: CWintT
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: HsBindgen.Runtime.LibC
   - cname: mbstate_t
     headers:
@@ -46,25 +83,80 @@ types:
     headers:
       - system:wctype.h
     identifier: CWctransT
+    instances:
+      - Eq
+      - ReadRaw
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: HsBindgen.Runtime.LibC
   - cname: wctype_t
     headers:
       - system:wchar.h
       - system:wctype.h
     identifier: CWctypeT
+    instances:
+      - Eq
+      - ReadRaw
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: HsBindgen.Runtime.LibC
   - cname: char16_t
     headers:
       - system:uchar.h
     identifier: CChar16T
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: HsBindgen.Runtime.LibC
   - cname: char32_t
     headers:
       - system:uchar.h
     identifier: CChar32T
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: HsBindgen.Runtime.LibC
   - cname: struct tm
     headers:
       - system:time.h
     identifier: CTm
+    instances:
+      - Eq
+      - ReadRaw
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: HsBindgen.Runtime.LibC

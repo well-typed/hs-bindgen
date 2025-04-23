@@ -66,6 +66,9 @@ genExtBindings headerIncludePath extIdentifierModule =
         unresolvedExtBindingsTypes = Map.empty
       }
 
+    extIdentifierInstances :: Set HsTypeClass
+    extIdentifierInstances = Set.empty -- TODO
+
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}

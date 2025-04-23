@@ -38,6 +38,7 @@ import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 
@@ -189,6 +190,9 @@ resolveGlobal = \case
     Applicative_seq      -> importU '(<*>)
     Monad_return         -> importU 'return
     Monad_seq            -> importU '(>>)
+    StaticSize_class     -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
+    ReadRaw_class        -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
+    WriteRaw_class       -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
     Storable_class       -> importQ ''Foreign.Storable
     Storable_sizeOf      -> importQ 'Foreign.sizeOf
     Storable_alignment   -> importQ 'Foreign.alignment

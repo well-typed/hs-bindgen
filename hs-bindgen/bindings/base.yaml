@@ -5,168 +5,644 @@ types:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int8
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int16
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int32
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int64
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: uint8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word8
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word16
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word32
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word64
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: int_least8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int8
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int_least16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int16
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int_least32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int32
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int_least64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int64
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: uint_least8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word8
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint_least16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word16
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint_least32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word32
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint_least64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word64
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: int_fast8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int8
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int_fast16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int16
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int_fast32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int32
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: int_fast64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Int64
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Int
   - cname: uint_fast8_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word8
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint_fast16_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word16
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint_fast32_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word32
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: uint_fast64_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: Word64
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Data.Word
   - cname: intmax_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CIntMax
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: uintmax_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CUIntMax
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: intptr_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CIntPtr
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: uintptr_t
     headers:
       - system:inttypes.h
       - system:stdint.h
     identifier: CUIntPtr
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: size_t
     headers:
@@ -179,11 +655,45 @@ types:
       - system:uchar.h
       - system:wchar.h
     identifier: CSize
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: ptrdiff_t
     headers:
       - system:stddef.h
     identifier: CPtrdiff
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: jmp_buf
     headers:
@@ -197,18 +707,59 @@ types:
       - system:stdlib.h
       - system:wchar.h
     identifier: CWchar
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: time_t
     headers:
       - system:signal.h
       - system:time.h
     identifier: CTime
+    instances:
+      - Enum
+      - Eq
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: clock_t
     headers:
       - system:signal.h
       - system:time.h
     identifier: CClock
+    instances:
+      - Enum
+      - Eq
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types
   - cname: FILE
     headers:
@@ -225,4 +776,21 @@ types:
     headers:
       - system:signal.h
     identifier: CSigAtomic
+    instances:
+      - Bits
+      - Bounded
+      - Enum
+      - Eq
+      - FiniteBits
+      - Integral
+      - Ix
+      - Num
+      - Ord
+      - Read
+      - ReadRaw
+      - Real
+      - Show
+      - StaticSize
+      - Storable
+      - WriteRaw
     module: Foreign.C.Types

@@ -34,6 +34,7 @@ import Clang.Paths
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
+import HsBindgen.ExtBindings (HsTypeClass)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -51,10 +52,10 @@ import DeBruijn
 
 data TranslationOpts = TranslationOpts {
       -- | Default set of classes to derive for structs
-      translationDeriveStruct :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+      translationDeriveStruct :: [(Hs.Strategy Hs.HsType, HsTypeClass)]
 
       -- | Default set of classes to derive for enums
-    , translationDeriveEnum :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+    , translationDeriveEnum :: [(Hs.Strategy Hs.HsType, HsTypeClass)]
 
       -- | Default set of classes to derive for typedefs around primitive types
       --
@@ -67,7 +68,7 @@ data TranslationOpts = TranslationOpts {
       -- (primitive) type will simply not be generated, so it's okay for this
       -- to contain classes such as 'Num' which are only supported by /some/
       -- primitive types.
-    , translationDeriveTypedefPrim :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+    , translationDeriveTypedefPrim :: [(Hs.Strategy Hs.HsType, HsTypeClass)]
     }
   deriving stock (Show)
 
@@ -383,7 +384,7 @@ typedefDecs opts nm d = concat [
       }
     newtypeOrigin = Hs.NewtypeOriginTypedef d
 
-primTypeInstances :: C.PrimType -> [Hs.TypeClass]
+primTypeInstances :: C.PrimType -> [HsTypeClass]
 primTypeInstances (C.PrimFloating _) = [
       Hs.Enum
     , Hs.Floating
