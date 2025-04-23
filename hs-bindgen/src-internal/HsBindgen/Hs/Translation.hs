@@ -20,6 +20,7 @@ module HsBindgen.Hs.Translation (
   , floatingType
   ) where
 
+import Control.Monad.State qualified as State
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Type.Nat (SNatI, induction)
@@ -115,12 +116,16 @@ generateDeclarations ::
   -> C.Header
   -> [Hs.Decl]
 generateDeclarations opts _mu nm (C.Header decs) =
-    concatMap (generateDecs opts (Map.union typedefs pseudoTypedefs) nm) decs
+    flip State.evalState Map.empty $
+      concat <$> mapM (generateDecs opts nm typedefs) decs
   where
+    typedefs :: Map C.CName C.Type
+    typedefs = Map.union actualTypedefs pseudoTypedefs
+
     -- typedef lookup table
     -- shallow: only one layer of typedefs is stripped.
-    typedefs :: Map C.CName C.Type
-    typedefs = Map.fromList
+    actualTypedefs :: Map C.CName C.Type
+    actualTypedefs = Map.fromList
         [ (n, t)
         | C.DeclTypedef (C.Typedef { typedefName = n, typedefType = t }) <- decs
         ]
@@ -143,19 +148,31 @@ generateDeclarations opts _mu nm (C.Header decs) =
         ]
 
 {-------------------------------------------------------------------------------
+  Instance Map
+-------------------------------------------------------------------------------}
+
+type InstanceMap = Map (HsName NsTypeConstr) (Set HsTypeClass)
+
+{-------------------------------------------------------------------------------
   Declarations
 ------------------------------------------------------------------------------}
 
-generateDecs :: TranslationOpts -> Map C.CName C.Type -> NameMangler -> C.Decl -> [Hs.Decl]
-generateDecs opts typedefs nm = \case
-  C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
-  C.DeclUnion union    -> unionDecs opts nm union
-  C.DeclOpaqueStruct o -> opaqueStructDecs opts nm o
-  C.DeclEnum e         -> enumDecs opts nm e
-  C.DeclOpaqueEnum o   -> opaqueEnumDecs opts nm o -- TODO?
-  C.DeclTypedef d      -> typedefDecs opts nm d
-  C.DeclMacro m        -> macroDecs opts nm m
-  C.DeclFunction f     -> functionDecs opts typedefs nm f
+generateDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> Map C.CName C.Type
+  -> C.Decl
+  -> m [Hs.Decl]
+generateDecs opts nm typedefs = \case
+    C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
+    C.DeclUnion union    -> unionDecs opts nm union
+    C.DeclOpaqueStruct o -> opaqueStructDecs opts nm o
+    C.DeclEnum e         -> enumDecs opts nm e
+    C.DeclOpaqueEnum o   -> opaqueEnumDecs opts nm o -- TODO?
+    C.DeclTypedef d      -> typedefDecs opts nm d
+    C.DeclMacro m        -> macroDecs opts nm m
+    C.DeclFunction f     -> functionDecs opts nm typedefs f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -168,12 +185,14 @@ reifyStructFields ::
 reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
-structDecs :: forall n.
-     SNatI n
+structDecs :: forall n m.
+     (SNatI n, State.MonadState InstanceMap m)
   => TranslationOpts
   -> NameMangler
-  -> C.Struct -> Vec n C.StructField -> [Hs.Decl]
-structDecs opts nm struct fields = concat
+  -> C.Struct
+  -> Vec n C.StructField
+  -> m [Hs.Decl]
+structDecs opts nm struct fields = return $ concat
     [ [ Hs.DeclData hs ]
     , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable]
     , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
@@ -227,19 +246,25 @@ structDecs opts nm struct fields = concat
 -------------------------------------------------------------------------------}
 
 opaqueStructDecs ::
-     TranslationOpts
+     State.MonadState InstanceMap m
+  => TranslationOpts
   -> NameMangler
   -> C.OpaqueStruct
-  -> [Hs.Decl]
-opaqueStructDecs _opts nm o =
+  -> m [Hs.Decl]
+opaqueStructDecs _opts nm o = return $
     [ Hs.DeclEmpty Hs.EmptyData {
           emptyDataName   = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueStructTag o)
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
         }
     ]
 
-opaqueEnumDecs :: TranslationOpts -> NameMangler -> C.OpaqueEnum -> [Hs.Decl]
-opaqueEnumDecs _opts nm o =
+opaqueEnumDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.OpaqueEnum
+  -> m [Hs.Decl]
+opaqueEnumDecs _opts nm o = return $
     [ Hs.DeclEmpty Hs.EmptyData {
           emptyDataName   = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueEnumTag o)
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
@@ -250,8 +275,13 @@ opaqueEnumDecs _opts nm o =
   Unions
 -------------------------------------------------------------------------------}
 
-unionDecs :: TranslationOpts -> NameMangler -> C.Union -> [Hs.Decl]
-unionDecs _opts nm union =
+unionDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.Union
+  -> m [Hs.Decl]
+unionDecs _opts nm union = return $
     [ Hs.DeclNewtype Hs.Newtype {..}
     , Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
     ] ++ concat
@@ -278,8 +308,13 @@ unionDecs _opts nm union =
   Enum
 -------------------------------------------------------------------------------}
 
-enumDecs :: TranslationOpts -> NameMangler -> C.Enu -> [Hs.Decl]
-enumDecs opts nm e = concat [
+enumDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.Enu
+  -> m [Hs.Decl]
+enumDecs opts nm e = return $ concat [
       [ Hs.DeclNewtype Hs.Newtype{..} ]
     , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable ]
     , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
@@ -363,8 +398,13 @@ enumDecs opts nm e = concat [
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs :: TranslationOpts -> NameMangler -> C.Typedef -> [Hs.Decl]
-typedefDecs opts nm d = concat [
+typedefDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.Typedef
+  -> m [Hs.Decl]
+typedefDecs opts nm d = return $ concat [
       [ Hs.DeclNewtype Hs.Newtype{..} ]
     , [ Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName ]
     , [ Hs.DeclDeriveInstance strat clss newtypeName
@@ -419,18 +459,23 @@ primTypeInstances _otherwise = [
   Macros
 -------------------------------------------------------------------------------}
 
-macroDecs :: TranslationOpts -> NameMangler -> C.MacroDecl -> [Hs.Decl]
+macroDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.MacroDecl
+  -> m [Hs.Decl]
 macroDecs opts nm C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | Macro.Quant bf <- ty
     , Macro.isPrimTy bf
-    = macroDecsTypedef opts nm m
+    = return $ macroDecsTypedef opts nm m
 
     | otherwise
-    = macroVarDecs nm m ty
+    = return $ macroVarDecs nm m ty
     where
 
-macroDecs _ _ C.MacroReparseError {} = []
-macroDecs _ _ C.MacroTcError {}      = []
+macroDecs _ _ C.MacroReparseError {} = return []
+macroDecs _ _ C.MacroTcError {}      = return []
 
 macroDecsTypedef :: TranslationOpts -> NameMangler -> C.Macro -> [Hs.Decl]
 macroDecsTypedef opts nm m =
@@ -558,15 +603,16 @@ floatingType = \case
 -------------------------------------------------------------------------------}
 
 functionDecs ::
-     TranslationOpts
-  -> Map C.CName C.Type -- ^ typedefs
+     State.MonadState InstanceMap m
+  => TranslationOpts
   -> NameMangler
+  -> Map C.CName C.Type -- ^ typedefs
   -> C.Function
-  -> [Hs.Decl]
-functionDecs _opts typedefs nm f
+  -> m [Hs.Decl]
+functionDecs _opts nm typedefs f
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
-  | otherwise =
+  | otherwise = return $
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
