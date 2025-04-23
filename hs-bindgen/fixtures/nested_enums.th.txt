@@ -11,8 +11,8 @@ deriving stock instance Ord EnumA
 deriving stock instance Read EnumA
 instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
-           fromCEnumZ = EnumA;
-           toCEnumZ = un_EnumA;
+           toCEnum = EnumA;
+           fromCEnum = un_EnumA;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "VALA_1"),
                                                           (1, singleton "VALA_2")];
@@ -47,8 +47,8 @@ deriving stock instance Ord ExB_fieldB1
 deriving stock instance Read ExB_fieldB1
 instance CEnum ExB_fieldB1
     where {type CEnumZ ExB_fieldB1 = CUInt;
-           fromCEnumZ = ExB_fieldB1;
-           toCEnumZ = un_ExB_fieldB1;
+           toCEnum = ExB_fieldB1;
+           fromCEnum = un_ExB_fieldB1;
            declaredValues = \_ -> declaredValuesFromList [(0,
                                                            singleton "VALB_1"),
                                                           (1, singleton "VALB_2")];

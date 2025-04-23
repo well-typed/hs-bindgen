@@ -146,8 +146,8 @@ data Global =
 
   | CEnum_class
   | CEnumZ_tycon
-  | CEnum_fromCEnumZ
-  | CEnum_toCEnumZ
+  | CEnum_toCEnum
+  | CEnum_fromCEnum
   | CEnum_declaredValues
   | CEnum_isDeclared
   | CEnum_mkDeclared

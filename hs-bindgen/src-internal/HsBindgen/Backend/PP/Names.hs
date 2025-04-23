@@ -297,8 +297,8 @@ resolveGlobal = \case
 
     CEnum_class -> importQ ''HsBindgen.Runtime.CEnum.CEnum
     CEnumZ_tycon -> importQ ''HsBindgen.Runtime.CEnum.CEnumZ
-    CEnum_fromCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.fromCEnumZ
-    CEnum_toCEnumZ -> importQ 'HsBindgen.Runtime.CEnum.toCEnumZ
+    CEnum_toCEnum -> importQ 'HsBindgen.Runtime.CEnum.toCEnum
+    CEnum_fromCEnum -> importQ 'HsBindgen.Runtime.CEnum.fromCEnum
     CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
     CEnum_isDeclared -> importQ 'HsBindgen.Runtime.CEnum.isDeclared
     CEnum_mkDeclared -> importQ 'HsBindgen.Runtime.CEnum.mkDeclared

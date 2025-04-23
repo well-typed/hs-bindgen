@@ -160,8 +160,8 @@ mkGlobal = \case
 
       CEnum_class -> ''HsBindgen.Runtime.CEnum.CEnum
       CEnumZ_tycon -> ''HsBindgen.Runtime.CEnum.CEnumZ
-      CEnum_fromCEnumZ -> 'HsBindgen.Runtime.CEnum.fromCEnumZ
-      CEnum_toCEnumZ -> 'HsBindgen.Runtime.CEnum.toCEnumZ
+      CEnum_toCEnum -> 'HsBindgen.Runtime.CEnum.toCEnum
+      CEnum_fromCEnum -> 'HsBindgen.Runtime.CEnum.fromCEnum
       CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
       CEnum_isDeclared -> 'HsBindgen.Runtime.CEnum.isDeclared
       CEnum_mkDeclared -> 'HsBindgen.Runtime.CEnum.mkDeclared
@@ -332,8 +332,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     CEnum_class                      -> panicPure "class in expression"
     CEnumZ_tycon                     -> TH.conE name
-    CEnum_fromCEnumZ                 -> TH.varE name
-    CEnum_toCEnumZ                   -> TH.varE name
+    CEnum_toCEnum                    -> TH.varE name
+    CEnum_fromCEnum                  -> TH.varE name
     CEnum_declaredValues             -> TH.varE name
     CEnum_isDeclared                 -> TH.varE name
     CEnum_mkDeclared                 -> TH.varE name

@@ -407,8 +407,8 @@ translateCEnumInstance struct fTyp vMap isSequential = Instance {
     , instanceArgs  = [tcon]
     , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
     , instanceDecs  = [
-          (CEnum_fromCEnumZ, ECon (Hs.structConstr struct))
-        , (CEnum_toCEnumZ, EFree fname)
+          (CEnum_toCEnum, ECon (Hs.structConstr struct))
+        , (CEnum_fromCEnum, EFree fname)
         , (CEnum_declaredValues, EUnusedLam declaredValuesE)
         ] ++ seqDecs
     }

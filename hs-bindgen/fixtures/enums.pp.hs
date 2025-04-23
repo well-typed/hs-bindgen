@@ -44,9 +44,9 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
   type CEnumZ First = FC.CUInt
 
-  fromCEnumZ = First
+  toCEnum = First
 
-  toCEnumZ = un_First
+  fromCEnum = un_First
 
   declaredValues =
     \_ ->
@@ -103,9 +103,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   type CEnumZ Second = FC.CInt
 
-  fromCEnumZ = Second
+  toCEnum = Second
 
-  toCEnumZ = un_Second
+  fromCEnum = un_Second
 
   declaredValues =
     \_ ->
@@ -168,9 +168,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   type CEnumZ Same = FC.CUInt
 
-  fromCEnumZ = Same
+  toCEnum = Same
 
-  toCEnumZ = un_Same
+  fromCEnum = un_Same
 
   declaredValues =
     \_ ->
@@ -227,9 +227,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   type CEnumZ Nonseq = FC.CUInt
 
-  fromCEnumZ = Nonseq
+  toCEnum = Nonseq
 
-  toCEnumZ = un_Nonseq
+  fromCEnum = un_Nonseq
 
   declaredValues =
     \_ ->
@@ -282,9 +282,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
   type CEnumZ Packad = FC.CSChar
 
-  fromCEnumZ = Packad
+  toCEnum = Packad
 
-  toCEnumZ = un_Packad
+  fromCEnum = un_Packad
 
   declaredValues =
     \_ ->
@@ -347,9 +347,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   type CEnumZ EnumA = FC.CUInt
 
-  fromCEnumZ = EnumA
+  toCEnum = EnumA
 
-  toCEnumZ = un_EnumA
+  fromCEnum = un_EnumA
 
   declaredValues =
     \_ ->
@@ -406,9 +406,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   type CEnumZ EnumB = FC.CUInt
 
-  fromCEnumZ = EnumB
+  toCEnum = EnumB
 
-  toCEnumZ = un_EnumB
+  fromCEnum = un_EnumB
 
   declaredValues =
     \_ ->
@@ -465,9 +465,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   type CEnumZ EnumC = FC.CUInt
 
-  fromCEnumZ = EnumC
+  toCEnum = EnumC
 
-  toCEnumZ = un_EnumC
+  fromCEnum = un_EnumC
 
   declaredValues =
     \_ ->
@@ -524,9 +524,9 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
   type CEnumZ EnumD = FC.CUInt
 
-  fromCEnumZ = EnumD
+  toCEnum = EnumD
 
-  toCEnumZ = un_EnumD
+  fromCEnum = un_EnumD
 
   declaredValues =
     \_ ->

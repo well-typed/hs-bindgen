@@ -208,9 +208,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
 
   type CEnumZ Index = FC.CUInt
 
-  fromCEnumZ = Index
+  toCEnum = Index
 
-  toCEnumZ = un_Index
+  fromCEnum = un_Index
 
   declaredValues =
     \_ ->
@@ -661,9 +661,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Signal where
 
   type CEnumZ Signal = FC.CUInt
 
-  fromCEnumZ = Signal
+  toCEnum = Signal
 
-  toCEnumZ = un_Signal
+  fromCEnum = un_Signal
 
   declaredValues =
     \_ ->
@@ -731,9 +731,9 @@ instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
 
   type CEnumZ HTTP_status = FC.CUInt
 
-  fromCEnumZ = HTTP_status
+  toCEnum = HTTP_status
 
-  toCEnumZ = un_HTTP_status
+  fromCEnum = un_HTTP_status
 
   declaredValues =
     \_ ->
@@ -796,9 +796,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Result where
 
   type CEnumZ Result = FC.CInt
 
-  fromCEnumZ = Result
+  toCEnum = Result
 
-  toCEnumZ = un_Result
+  fromCEnum = un_Result
 
   declaredValues =
     \_ ->
@@ -866,9 +866,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Vote where
 
   type CEnumZ Vote = FC.CSChar
 
-  fromCEnumZ = Vote
+  toCEnum = Vote
 
-  toCEnumZ = un_Vote
+  fromCEnum = un_Vote
 
   declaredValues =
     \_ ->
@@ -932,9 +932,9 @@ instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
 
   type CEnumZ CXCursorKind = FC.CUInt
 
-  fromCEnumZ = CXCursorKind
+  toCEnum = CXCursorKind
 
-  toCEnumZ = un_CXCursorKind
+  fromCEnum = un_CXCursorKind
 
   declaredValues =
     \_ ->

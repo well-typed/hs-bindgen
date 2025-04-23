@@ -105,9 +105,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
   type CEnumZ Another_typedef_enum_e = FC.CUInt
 
-  fromCEnumZ = Another_typedef_enum_e
+  toCEnum = Another_typedef_enum_e
 
-  toCEnumZ = un_Another_typedef_enum_e
+  fromCEnum = un_Another_typedef_enum_e
 
   declaredValues =
     \_ ->
@@ -388,9 +388,9 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
   type CEnumZ A_typedef_enum_e = FC.CSChar
 
-  fromCEnumZ = A_typedef_enum_e
+  toCEnum = A_typedef_enum_e
 
-  toCEnumZ = un_A_typedef_enum_e
+  fromCEnum = un_A_typedef_enum_e
 
   declaredValues =
     \_ ->
