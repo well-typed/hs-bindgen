@@ -43,7 +43,9 @@
               "weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "weird01.h:1:8"}},
+          "weird01.h:1:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -89,7 +91,9 @@
                 "weird01.h:2:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "weird01.h:1:8"}}
+            "weird01.h:1:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -140,7 +144,9 @@
                         "weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:1:8"}})
+                    "weird01.h:1:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -191,7 +197,9 @@
                         "weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:1:8"}}
+                    "weird01.h:1:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -251,7 +259,9 @@
               "weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "weird01.h:3:16"}},
+          "weird01.h:3:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -297,7 +307,9 @@
                 "weird01.h:4:21"}],
             structFlam = Nothing,
             structSourceLoc =
-            "weird01.h:3:16"}}
+            "weird01.h:3:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -348,7 +360,9 @@
                         "weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:3:16"}})
+                    "weird01.h:3:16"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -399,7 +413,9 @@
                         "weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:3:16"}}
+                    "weird01.h:3:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [

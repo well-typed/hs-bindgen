@@ -50,8 +50,9 @@
                   (PrimSignImplicit
                     (Just Signed))),
               fieldSourceLoc = "flam.h:4:10"},
-          structSourceLoc =
-          "flam.h:2:8"}},
+          structSourceLoc = "flam.h:2:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -104,7 +105,9 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:4:10"},
-            structSourceLoc = "flam.h:2:8"}}
+            structSourceLoc = "flam.h:2:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -162,8 +165,9 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:4:10"},
-                    structSourceLoc =
-                    "flam.h:2:8"}})
+                    structSourceLoc = "flam.h:2:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -221,7 +225,9 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:4:10"},
-                    structSourceLoc = "flam.h:2:8"}}
+                    structSourceLoc = "flam.h:2:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -293,7 +299,9 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:4:10"},
-            structSourceLoc = "flam.h:2:8"}}
+            structSourceLoc = "flam.h:2:8"},
+        structInstances = Set.fromList
+          []}
       (HsPrimType HsPrimCChar)
       4),
   DeclData
@@ -349,8 +357,9 @@
                     (CName "bar")
                     DeclPathCtxtTop)),
               fieldSourceLoc = "flam.h:13:4"},
-          structSourceLoc =
-          "flam.h:8:8"}},
+          structSourceLoc = "flam.h:8:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -405,7 +414,9 @@
                       (CName "bar")
                       DeclPathCtxtTop)),
                 fieldSourceLoc = "flam.h:13:4"},
-            structSourceLoc = "flam.h:8:8"}}
+            structSourceLoc = "flam.h:8:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -465,8 +476,9 @@
                               (CName "bar")
                               DeclPathCtxtTop)),
                         fieldSourceLoc = "flam.h:13:4"},
-                    structSourceLoc =
-                    "flam.h:8:8"}})
+                    structSourceLoc = "flam.h:8:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -526,7 +538,9 @@
                               (CName "bar")
                               DeclPathCtxtTop)),
                         fieldSourceLoc = "flam.h:13:4"},
-                    structSourceLoc = "flam.h:8:8"}}
+                    structSourceLoc = "flam.h:8:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -596,7 +610,9 @@
                       (CName "bar")
                       DeclPathCtxtTop)),
                 fieldSourceLoc = "flam.h:13:4"},
-            structSourceLoc = "flam.h:8:8"}}
+            structSourceLoc = "flam.h:8:8"},
+        structInstances = Set.fromList
+          []}
       (HsTypRef
         (HsName
           "@NsTypeConstr"
@@ -672,7 +688,9 @@
               "flam.h:12:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "flam.h:10:2"}},
+          "flam.h:10:2"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -744,7 +762,9 @@
                 "flam.h:12:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "flam.h:10:2"}}
+            "flam.h:10:2"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -821,7 +841,9 @@
                         "flam.h:12:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "flam.h:10:2"}})
+                    "flam.h:10:2"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -900,7 +922,9 @@
                         "flam.h:12:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "flam.h:10:2"}}
+                    "flam.h:10:2"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1001,7 +1025,9 @@
                     (Just Signed))),
               fieldSourceLoc = "flam.h:20:7"},
           structSourceLoc =
-          "flam.h:17:8"}},
+          "flam.h:17:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1083,7 +1109,9 @@
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:20:7"},
             structSourceLoc =
-            "flam.h:17:8"}}
+            "flam.h:17:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1170,7 +1198,9 @@
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:20:7"},
                     structSourceLoc =
-                    "flam.h:17:8"}})
+                    "flam.h:17:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1259,7 +1289,9 @@
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:20:7"},
                     structSourceLoc =
-                    "flam.h:17:8"}}
+                    "flam.h:17:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1357,6 +1389,8 @@
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:20:7"},
             structSourceLoc =
-            "flam.h:17:8"}}
+            "flam.h:17:8"},
+        structInstances = Set.fromList
+          []}
       (HsPrimType HsPrimCChar)
       9)]

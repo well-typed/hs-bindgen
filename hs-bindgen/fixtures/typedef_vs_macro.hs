@@ -21,7 +21,9 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "typedef_vs_macro.h:1:13"}},
+          "typedef_vs_macro.h:1:13"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -98,7 +100,9 @@
               (PrimSignImplicit
                 (Just Signed))),
           typedefSourceLoc =
-          "typedef_vs_macro.h:2:14"}},
+          "typedef_vs_macro.h:2:14"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -188,7 +192,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -279,7 +285,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -385,7 +393,9 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 3}))),
-                    arrayAttributes = []}})}},
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -428,7 +438,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -549,7 +561,9 @@
               "typedef_vs_macro.h:13:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:9:8"}},
+          "typedef_vs_macro.h:9:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -667,7 +681,9 @@
                 "typedef_vs_macro.h:13:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "typedef_vs_macro.h:9:8"}}
+            "typedef_vs_macro.h:9:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -790,7 +806,9 @@
                         "typedef_vs_macro.h:13:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:9:8"}})
+                    "typedef_vs_macro.h:9:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -917,7 +935,9 @@
                         "typedef_vs_macro.h:13:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:9:8"}}
+                    "typedef_vs_macro.h:9:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 4)
               (Seq
                 [
@@ -977,7 +997,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1105,7 +1127,9 @@
               "typedef_vs_macro.h:19:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:18:8"}},
+          "typedef_vs_macro.h:18:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1156,7 +1180,9 @@
                 "typedef_vs_macro.h:19:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "typedef_vs_macro.h:18:8"}}
+            "typedef_vs_macro.h:18:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 8,
@@ -1212,7 +1238,9 @@
                         "typedef_vs_macro.h:19:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:18:8"}})
+                    "typedef_vs_macro.h:18:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1268,7 +1296,9 @@
                         "typedef_vs_macro.h:19:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:18:8"}}
+                    "typedef_vs_macro.h:18:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [

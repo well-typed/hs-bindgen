@@ -37,7 +37,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -84,7 +86,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -144,7 +148,9 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 2}))),
-                    arrayAttributes = []}})}},
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -204,7 +210,9 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 3}))),
-                    arrayAttributes = []}})}},
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -297,7 +305,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -371,7 +381,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -471,7 +483,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -551,7 +565,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -709,7 +725,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -824,7 +842,9 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 2}))),
-                    arrayAttributes = []}})}},
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -866,7 +886,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -937,7 +959,9 @@
           typedefType = TypeTypedef
             (CName "MTy"),
           typedefSourceLoc =
-          "macro_types.h:34:13"}},
+          "macro_types.h:34:13"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -980,7 +1004,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1097,7 +1123,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1128,7 +1156,9 @@
           typedefType = TypeTypedef
             (CName "BOOLEAN_T"),
           typedefSourceLoc =
-          "macro_types.h:38:19"}},
+          "macro_types.h:38:19"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

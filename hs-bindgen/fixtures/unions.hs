@@ -67,7 +67,9 @@
               "unions.h:3:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:1:8"}},
+          "unions.h:1:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -137,7 +139,9 @@
                 "unions.h:3:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:1:8"}}
+            "unions.h:1:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -212,7 +216,9 @@
                         "unions.h:3:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:1:8"}})
+                    "unions.h:1:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -289,7 +295,9 @@
                         "unions.h:3:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:1:8"}}
+                    "unions.h:1:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -398,7 +406,9 @@
               "unions.h:9:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:6:8"}},
+          "unions.h:6:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -492,7 +502,9 @@
                 "unions.h:9:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:6:8"}}
+            "unions.h:6:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -591,7 +603,9 @@
                         "unions.h:9:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:6:8"}})
+                    "unions.h:6:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -693,7 +707,9 @@
                         "unions.h:9:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:6:8"}}
+                    "unions.h:6:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 3)
               (Seq
                 [
@@ -747,7 +763,9 @@
               ufieldSourceLoc =
               "unions.h:14:17"}],
           unionSourceLoc =
-          "unions.h:12:7"}},
+          "unions.h:12:7"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 8 4))
@@ -863,7 +881,9 @@
               "unions.h:19:22"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:17:8"}},
+          "unions.h:17:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -937,7 +957,9 @@
                 "unions.h:19:22"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:17:8"}}
+            "unions.h:17:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1016,7 +1038,9 @@
                         "unions.h:19:22"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:17:8"}})
+                    "unions.h:17:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1097,7 +1121,9 @@
                         "unions.h:19:22"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:17:8"}}
+                    "unions.h:17:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1151,7 +1177,9 @@
               ufieldSourceLoc =
               "unions.h:25:17"}],
           unionSourceLoc =
-          "unions.h:23:15"}},
+          "unions.h:23:15"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 8 4))
@@ -1267,7 +1295,9 @@
               "unions.h:30:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:28:8"}},
+          "unions.h:28:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1341,7 +1371,9 @@
                 "unions.h:30:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:28:8"}}
+            "unions.h:28:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1420,7 +1452,9 @@
                         "unions.h:30:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:28:8"}})
+                    "unions.h:28:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1501,7 +1535,9 @@
                         "unions.h:30:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:28:8"}}
+                    "unions.h:28:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1589,7 +1625,9 @@
               "unions.h:35:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:35:5"}},
+          "unions.h:35:5"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1662,7 +1700,9 @@
                 "unions.h:35:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:35:5"}}
+            "unions.h:35:5"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1740,7 +1780,9 @@
                         "unions.h:35:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:35:5"}})
+                    "unions.h:35:5"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1820,7 +1862,9 @@
                         "unions.h:35:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:35:5"}}
+                    "unions.h:35:5"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1912,7 +1956,9 @@
               "unions.h:36:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:36:5"}},
+          "unions.h:36:5"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1985,7 +2031,9 @@
                 "unions.h:36:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:36:5"}}
+            "unions.h:36:5"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -2063,7 +2111,9 @@
                         "unions.h:36:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:36:5"}})
+                    "unions.h:36:5"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -2143,7 +2193,9 @@
                         "unions.h:36:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:36:5"}}
+                    "unions.h:36:5"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -2208,7 +2260,9 @@
               ufieldSourceLoc =
               "unions.h:36:36"}],
           unionSourceLoc =
-          "unions.h:34:7"}},
+          "unions.h:34:7"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 16 8))

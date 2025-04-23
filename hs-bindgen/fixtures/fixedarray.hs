@@ -24,7 +24,9 @@
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "fixedarray.h:1:13"}},
+          "fixedarray.h:1:13"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -115,7 +117,9 @@
               "fixedarray.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "fixedarray.h:3:8"}},
+          "fixedarray.h:3:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -201,7 +205,9 @@
                 "fixedarray.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "fixedarray.h:3:8"}}
+            "fixedarray.h:3:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 48,
         storableAlignment = 4,
@@ -292,7 +298,9 @@
                         "fixedarray.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedarray.h:3:8"}})
+                    "fixedarray.h:3:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 12]),
@@ -385,7 +393,9 @@
                         "fixedarray.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedarray.h:3:8"}}
+                    "fixedarray.h:3:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [

@@ -41,21 +41,18 @@ genExtBindings headerIncludePath extIdentifierModule =
       Hs.DeclUnionGetter{}    -> id
       Hs.DeclUnionSetter{}    -> id
 
-    insertTypes ::
-         [(CNameSpelling, HsIdentifier)]
-      -> UnresolvedExtBindings
-      -> UnresolvedExtBindings
-    insertTypes cnids UnresolvedExtBindings{..} =
+    insertTypes :: [EB] -> UnresolvedExtBindings -> UnresolvedExtBindings
+    insertTypes ebs UnresolvedExtBindings{..} =
       UnresolvedExtBindings {
           unresolvedExtBindingsTypes =
-            foldr insertType unresolvedExtBindingsTypes cnids
+            foldr insertType unresolvedExtBindingsTypes ebs
         }
 
     insertType ::
-         (CNameSpelling, HsIdentifier)
+         EB
       -> Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
       -> Map CNameSpelling [(Set CHeaderIncludePath, ExtIdentifier)]
-    insertType (cname, extIdentifierIdentifier) =
+    insertType (EB extIdentifierIdentifier extIdentifierInstances cname) =
       Map.insert cname [(headerSet, ExtIdentifier{..})]
 
     headerSet :: Set CHeaderIncludePath
@@ -66,15 +63,14 @@ genExtBindings headerIncludePath extIdentifierModule =
         unresolvedExtBindingsTypes = Map.empty
       }
 
-    extIdentifierInstances :: Set HsTypeClass
-    extIdentifierInstances = Set.empty -- TODO
-
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-getStructExtBindings :: Hs.Struct n -> [(CNameSpelling, HsIdentifier)]
-getStructExtBindings hsStruct = fmap (, hsId) . catMaybes $
+data EB = EB HsIdentifier (Set HsTypeClass) CNameSpelling
+
+getStructExtBindings :: Hs.Struct n -> [EB]
+getStructExtBindings hsStruct = fmap (EB hsId insts) . catMaybes $
     case Hs.structOrigin hsStruct of
       Hs.StructOriginStruct C.Struct{..} ->
         getCNS "struct " structDeclPath : map (Just . getCNS_alias) structAliases
@@ -84,8 +80,11 @@ getStructExtBindings hsStruct = fmap (, hsId) . catMaybes $
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.structName hsStruct)
 
-getEmptyDataExtBindings :: Hs.EmptyData -> [(CNameSpelling, HsIdentifier)]
-getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
+    insts :: Set HsTypeClass
+    insts = Hs.structInstances hsStruct
+
+getEmptyDataExtBindings :: Hs.EmptyData -> [EB]
+getEmptyDataExtBindings edata = fmap (EB hsId insts) . catMaybes $
     case Hs.emptyDataOrigin edata of
       Hs.EmptyDataOriginOpaqueStruct C.OpaqueStruct{..} ->
         Just (CNameSpelling ("struct " <> getCName opaqueStructTag))
@@ -97,8 +96,11 @@ getEmptyDataExtBindings edata = fmap (, hsId) . catMaybes $
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.emptyDataName edata)
 
-getNewtypeExtBindings :: Hs.Newtype -> [(CNameSpelling, HsIdentifier)]
-getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
+    insts :: Set HsTypeClass
+    insts = Set.empty
+
+getNewtypeExtBindings :: Hs.Newtype -> [EB]
+getNewtypeExtBindings hsNewtype = fmap (EB hsId insts) . catMaybes $
     case Hs.newtypeOrigin hsNewtype of
       Hs.NewtypeOriginEnum C.Enu{..} ->
         getCNS "enum " enumDeclPath : map (Just . getCNS_alias) enumAliases
@@ -111,6 +113,9 @@ getNewtypeExtBindings hsNewtype = fmap (, hsId) . catMaybes $
   where
     hsId :: HsIdentifier
     hsId = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
+
+    insts :: Set HsTypeClass
+    insts = Hs.newtypeInstances hsNewtype
 
 getCNS :: Text -> C.DeclPath -> Maybe CNameSpelling
 getCNS prefix (C.DeclPathName cname) =

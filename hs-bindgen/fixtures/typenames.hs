@@ -36,7 +36,9 @@
               valueSourceLoc =
               "typenames.h:16:2"}],
           enumSourceLoc =
-          "typenames.h:14:6"}},
+          "typenames.h:14:6"},
+      newtypeInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -75,7 +77,9 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"}}
+            "typenames.h:14:6"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -119,7 +123,9 @@
                         valueSourceLoc =
                         "typenames.h:16:2"}],
                     enumSourceLoc =
-                    "typenames.h:14:6"}})
+                    "typenames.h:14:6"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -163,7 +169,9 @@
                         valueSourceLoc =
                         "typenames.h:16:2"}],
                     enumSourceLoc =
-                    "typenames.h:14:6"}}
+                    "typenames.h:14:6"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -221,7 +229,9 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"}}
+            "typenames.h:14:6"},
+        structInstances = Set.fromList
+          []}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -266,7 +276,9 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"}}
+            "typenames.h:14:6"},
+        structInstances = Set.fromList
+          []}
       (HsName "@NsConstr" "FOO1")
       (HsName "@NsConstr" "FOO2")),
   DeclInstance
@@ -307,7 +319,9 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"}}),
+            "typenames.h:14:6"},
+        structInstances = Set.fromList
+          []}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -368,7 +382,9 @@
           typedefType = TypePrim
             (PrimFloating PrimDouble),
           typedefSourceLoc =
-          "typenames.h:19:16"}},
+          "typenames.h:19:16"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

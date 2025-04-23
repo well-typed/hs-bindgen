@@ -74,7 +74,9 @@
               "recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "recursive_struct.h:1:16"}},
+          "recursive_struct.h:1:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -151,7 +153,9 @@
                 "recursive_struct.h:3:27"}],
             structFlam = Nothing,
             structSourceLoc =
-            "recursive_struct.h:1:16"}}
+            "recursive_struct.h:1:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -233,7 +237,9 @@
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:1:16"}})
+                    "recursive_struct.h:1:16"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -317,7 +323,9 @@
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:1:16"}}
+                    "recursive_struct.h:1:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -364,7 +372,9 @@
             (DeclPathName
               (CName "linked_list_A_s")),
           typedefSourceLoc =
-          "recursive_struct.h:4:3"}},
+          "recursive_struct.h:4:3"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -447,7 +457,9 @@
               "recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "recursive_struct.h:9:8"}},
+          "recursive_struct.h:9:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -525,7 +537,9 @@
                 "recursive_struct.h:11:20"}],
             structFlam = Nothing,
             structSourceLoc =
-            "recursive_struct.h:9:8"}}
+            "recursive_struct.h:9:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -608,7 +622,9 @@
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:9:8"}})
+                    "recursive_struct.h:9:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -693,7 +709,9 @@
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:9:8"}}
+                    "recursive_struct.h:9:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [

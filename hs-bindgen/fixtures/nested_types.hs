@@ -71,7 +71,9 @@
               "nested_types.h:3:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:1:8"}},
+          "nested_types.h:1:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -145,7 +147,9 @@
                 "nested_types.h:3:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:1:8"}}
+            "nested_types.h:1:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -224,7 +228,9 @@
                         "nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:1:8"}})
+                    "nested_types.h:1:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -305,7 +311,9 @@
                         "nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:1:8"}}
+                    "nested_types.h:1:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -390,7 +398,9 @@
               "nested_types.h:8:16"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:6:8"}},
+          "nested_types.h:6:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -460,7 +470,9 @@
                 "nested_types.h:8:16"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:6:8"}}
+            "nested_types.h:6:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 4,
@@ -535,7 +547,9 @@
                         "nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:6:8"}})
+                    "nested_types.h:6:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -612,7 +626,9 @@
                         "nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:6:8"}}
+                    "nested_types.h:6:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -673,7 +689,9 @@
               "nested_types.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:11:8"}},
+          "nested_types.h:11:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -719,7 +737,9 @@
                 "nested_types.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:11:8"}}
+            "nested_types.h:11:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -770,7 +790,9 @@
                         "nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:11:8"}})
+                    "nested_types.h:11:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 8]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -821,7 +843,9 @@
                         "nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:11:8"}}
+                    "nested_types.h:11:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -912,7 +936,9 @@
               "nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:22:8"}},
+          "nested_types.h:22:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -989,7 +1015,9 @@
                 "nested_types.h:27:8"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:22:8"}}
+            "nested_types.h:22:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1071,7 +1099,9 @@
                         "nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:22:8"}})
+                    "nested_types.h:22:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1155,7 +1185,9 @@
                         "nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:22:8"}}
+                    "nested_types.h:22:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1251,7 +1283,9 @@
               "nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:24:12"}},
+          "nested_types.h:24:12"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1328,7 +1362,9 @@
                 "nested_types.h:26:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:24:12"}}
+            "nested_types.h:24:12"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1410,7 +1446,9 @@
                         "nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:24:12"}})
+                    "nested_types.h:24:12"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1494,7 +1532,9 @@
                         "nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:24:12"}}
+                    "nested_types.h:24:12"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [

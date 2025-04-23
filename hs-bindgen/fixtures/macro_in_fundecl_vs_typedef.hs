@@ -37,7 +37,9 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -114,7 +116,9 @@
               (PrimSignImplicit
                 (Just Signed))),
           typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:5:14"}},
+          "macro_in_fundecl_vs_typedef.h:5:14"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -371,7 +375,9 @@
               "macro_in_fundecl_vs_typedef.h:18:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:18:16"}},
+          "macro_in_fundecl_vs_typedef.h:18:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -417,7 +423,9 @@
                 "macro_in_fundecl_vs_typedef.h:18:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:18:16"}}
+            "macro_in_fundecl_vs_typedef.h:18:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -468,7 +476,9 @@
                         "macro_in_fundecl_vs_typedef.h:18:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:16"}})
+                    "macro_in_fundecl_vs_typedef.h:18:16"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -519,7 +529,9 @@
                         "macro_in_fundecl_vs_typedef.h:18:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:16"}}
+                    "macro_in_fundecl_vs_typedef.h:18:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -584,7 +596,9 @@
               "macro_in_fundecl_vs_typedef.h:19:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:19:9"}},
+          "macro_in_fundecl_vs_typedef.h:19:9"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -631,7 +645,9 @@
                 "macro_in_fundecl_vs_typedef.h:19:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:19:9"}}
+            "macro_in_fundecl_vs_typedef.h:19:9"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -683,7 +699,9 @@
                         "macro_in_fundecl_vs_typedef.h:19:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:9"}})
+                    "macro_in_fundecl_vs_typedef.h:19:9"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -735,7 +753,9 @@
                         "macro_in_fundecl_vs_typedef.h:19:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:9"}}
+                    "macro_in_fundecl_vs_typedef.h:19:9"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -799,7 +819,9 @@
               "macro_in_fundecl_vs_typedef.h:20:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:20:16"}},
+          "macro_in_fundecl_vs_typedef.h:20:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -845,7 +867,9 @@
                 "macro_in_fundecl_vs_typedef.h:20:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:20:16"}}
+            "macro_in_fundecl_vs_typedef.h:20:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -896,7 +920,9 @@
                         "macro_in_fundecl_vs_typedef.h:20:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:16"}})
+                    "macro_in_fundecl_vs_typedef.h:20:16"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -947,7 +973,9 @@
                         "macro_in_fundecl_vs_typedef.h:20:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:16"}}
+                    "macro_in_fundecl_vs_typedef.h:20:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -992,7 +1020,9 @@
             (DeclPathName
               (CName "struct3")),
           typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:20:35"}},
+          "macro_in_fundecl_vs_typedef.h:20:35"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1044,7 +1074,9 @@
               "macro_in_fundecl_vs_typedef.h:21:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:21:16"}},
+          "macro_in_fundecl_vs_typedef.h:21:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1091,7 +1123,9 @@
                 "macro_in_fundecl_vs_typedef.h:21:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:21:16"}}
+            "macro_in_fundecl_vs_typedef.h:21:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1143,7 +1177,9 @@
                         "macro_in_fundecl_vs_typedef.h:21:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:16"}})
+                    "macro_in_fundecl_vs_typedef.h:21:16"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1195,7 +1231,9 @@
                         "macro_in_fundecl_vs_typedef.h:21:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:16"}}
+                    "macro_in_fundecl_vs_typedef.h:21:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [

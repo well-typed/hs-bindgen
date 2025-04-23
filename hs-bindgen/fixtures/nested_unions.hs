@@ -37,7 +37,9 @@
               ufieldSourceLoc =
               "nested_unions.h:4:22"}],
           unionSourceLoc =
-          "nested_unions.h:2:15"}},
+          "nested_unions.h:2:15"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 4 4))
@@ -123,7 +125,9 @@
               "nested_unions.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_unions.h:1:8"}},
+          "nested_unions.h:1:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -171,7 +175,9 @@
                 "nested_unions.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_unions.h:1:8"}}
+            "nested_unions.h:1:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -224,7 +230,9 @@
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:1:8"}})
+                    "nested_unions.h:1:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -277,7 +285,9 @@
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:1:8"}}
+                    "nested_unions.h:1:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -334,7 +344,9 @@
               ufieldSourceLoc =
               "nested_unions.h:11:22"}],
           unionSourceLoc =
-          "nested_unions.h:9:9"}},
+          "nested_unions.h:9:9"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 4 4))
@@ -428,7 +440,9 @@
               "nested_unions.h:12:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_unions.h:8:8"}},
+          "nested_unions.h:8:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -484,7 +498,9 @@
                 "nested_unions.h:12:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_unions.h:8:8"}}
+            "nested_unions.h:8:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -545,7 +561,9 @@
                         "nested_unions.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:8:8"}})
+                    "nested_unions.h:8:8"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -606,7 +624,9 @@
                         "nested_unions.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:8:8"}}
+                    "nested_unions.h:8:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [

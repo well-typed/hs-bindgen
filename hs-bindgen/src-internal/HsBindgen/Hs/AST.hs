@@ -93,10 +93,11 @@ data FieldOrigin =
   deriving stock (Generic, Show)
 
 data Struct (n :: Nat) = Struct {
-      structName   :: HsName NsTypeConstr
-    , structConstr :: HsName NsConstr
-    , structFields :: Vec n Field
-    , structOrigin :: StructOrigin
+      structName      :: HsName NsTypeConstr
+    , structConstr    :: HsName NsConstr
+    , structFields    :: Vec n Field
+    , structOrigin    :: StructOrigin
+    , structInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
 
@@ -117,10 +118,11 @@ data EmptyDataOrigin =
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
-      newtypeName   :: HsName NsTypeConstr
-    , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: Field
-    , newtypeOrigin :: NewtypeOrigin
+      newtypeName      :: HsName NsTypeConstr
+    , newtypeConstr    :: HsName NsConstr
+    , newtypeField     :: Field
+    , newtypeOrigin    :: NewtypeOrigin
+    , newtypeInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
 

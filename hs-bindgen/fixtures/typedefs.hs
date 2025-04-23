@@ -21,7 +21,9 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "typedefs.h:1:13"}},
+          "typedefs.h:1:13"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -123,7 +125,9 @@
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "typedefs.h:2:15"}},
+          "typedefs.h:2:15"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

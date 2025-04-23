@@ -71,7 +71,9 @@
               "simple_structs.h:4:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:2:8"}},
+          "simple_structs.h:2:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -145,7 +147,9 @@
                 "simple_structs.h:4:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:2:8"}}
+            "simple_structs.h:2:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -224,7 +228,9 @@
                         "simple_structs.h:4:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:2:8"}})
+                    "simple_structs.h:2:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -305,7 +311,9 @@
                         "simple_structs.h:4:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:2:8"}}
+                    "simple_structs.h:2:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -418,7 +426,9 @@
               "simple_structs.h:11:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:8:16"}},
+          "simple_structs.h:8:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -516,7 +526,9 @@
                 "simple_structs.h:11:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:8:16"}}
+            "simple_structs.h:8:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -619,7 +631,9 @@
                         "simple_structs.h:11:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:8:16"}})
+                    "simple_structs.h:8:16"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -725,7 +739,9 @@
                         "simple_structs.h:11:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:8:16"}}
+                    "simple_structs.h:8:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 3)
               (Seq
                 [
@@ -765,7 +781,9 @@
           typedefType = TypeStruct
             (DeclPathName (CName "S2")),
           typedefSourceLoc =
-          "simple_structs.h:12:3"}},
+          "simple_structs.h:12:3"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -819,7 +837,9 @@
               "simple_structs.h:16:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:15:9"}},
+          "simple_structs.h:15:9"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -870,7 +890,9 @@
                 "simple_structs.h:16:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:15:9"}}
+            "simple_structs.h:15:9"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -926,7 +948,9 @@
                         "simple_structs.h:16:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:15:9"}})
+                    "simple_structs.h:15:9"},
+                structInstances = Set.fromList
+                  []})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -982,7 +1006,9 @@
                         "simple_structs.h:16:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:15:9"}}
+                    "simple_structs.h:15:9"},
+                structInstances = Set.fromList
+                  []}
               (Add 1)
               (Seq
                 [
@@ -1096,7 +1122,9 @@
               "simple_structs.h:22:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:19:8"}},
+          "simple_structs.h:19:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1196,7 +1224,9 @@
                 "simple_structs.h:22:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:19:8"}}
+            "simple_structs.h:19:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1301,7 +1331,9 @@
                         "simple_structs.h:22:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:19:8"}})
+                    "simple_structs.h:19:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4,
@@ -1409,7 +1441,9 @@
                         "simple_structs.h:22:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:19:8"}}
+                    "simple_structs.h:19:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 3)
               (Seq
                 [
@@ -1499,7 +1533,9 @@
               "simple_structs.h:28:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:26:16"}},
+          "simple_structs.h:26:16"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1573,7 +1609,9 @@
                 "simple_structs.h:28:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:26:16"}}
+            "simple_structs.h:26:16"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1652,7 +1690,9 @@
                         "simple_structs.h:28:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:26:16"}})
+                    "simple_structs.h:26:16"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1733,7 +1773,9 @@
                         "simple_structs.h:28:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:26:16"}}
+                    "simple_structs.h:26:16"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -1822,7 +1864,9 @@
               "simple_structs.h:31:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:31:8"}},
+          "simple_structs.h:31:8"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1896,7 +1940,9 @@
                 "simple_structs.h:31:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:31:8"}}
+            "simple_structs.h:31:8"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1975,7 +2021,9 @@
                         "simple_structs.h:31:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:31:8"}})
+                    "simple_structs.h:31:8"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2056,7 +2104,9 @@
                         "simple_structs.h:31:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:31:8"}}
+                    "simple_structs.h:31:8"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -2147,7 +2197,9 @@
               "simple_structs.h:34:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:34:9"}},
+          "simple_structs.h:34:9"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2223,7 +2275,9 @@
                 "simple_structs.h:34:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:34:9"}}
+            "simple_structs.h:34:9"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2304,7 +2358,9 @@
                         "simple_structs.h:34:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:34:9"}})
+                    "simple_structs.h:34:9"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2387,7 +2443,9 @@
                         "simple_structs.h:34:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:34:9"}}
+                    "simple_structs.h:34:9"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -2437,7 +2495,9 @@
                   (DeclPathCtxtTypedef
                     (CName "S7a"))))),
           typedefSourceLoc =
-          "simple_structs.h:34:36"}},
+          "simple_structs.h:34:36"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -2518,7 +2578,9 @@
               "simple_structs.h:35:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:35:9"}},
+          "simple_structs.h:35:9"},
+      structInstances = Set.fromList
+        []},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2596,7 +2658,9 @@
                 "simple_structs.h:35:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:35:9"}}
+            "simple_structs.h:35:9"},
+        structInstances = Set.fromList
+          []}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2679,7 +2743,9 @@
                         "simple_structs.h:35:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:35:9"}})
+                    "simple_structs.h:35:9"},
+                structInstances = Set.fromList
+                  []})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2764,7 +2830,9 @@
                         "simple_structs.h:35:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:35:9"}}
+                    "simple_structs.h:35:9"},
+                structInstances = Set.fromList
+                  []}
               (Add 2)
               (Seq
                 [
@@ -2820,7 +2888,9 @@
                           (DeclPathCtxtTypedef
                             (CName "S7b"))))))))),
           typedefSourceLoc =
-          "simple_structs.h:35:38"}},
+          "simple_structs.h:35:38"},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

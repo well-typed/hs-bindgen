@@ -25,6 +25,7 @@ import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList(..))
@@ -211,6 +212,7 @@ structDecs opts nm struct fields = return $ concat
             , fieldOrigin = Hs.FieldOriginStructField f
             }
           structOrigin = Hs.StructOriginStruct struct
+          structInstances = Set.empty
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -300,6 +302,7 @@ unionDecs _opts nm union = return $
       , fieldOrigin = Hs.FieldOriginNone
       }
     newtypeOrigin = Hs.NewtypeOriginUnion union
+    newtypeInstances = Set.empty
 
     sba :: Hs.HsType
     sba = HsSizedByteArray (fromIntegral (C.unionSizeof union)) (fromIntegral (C.unionAlignment union))
@@ -333,6 +336,7 @@ enumDecs opts nm e = return $ concat [
       , fieldOrigin = Hs.FieldOriginNone
       }
     newtypeOrigin = Hs.NewtypeOriginEnum e
+    newtypeInstances = Set.empty
 
     hs :: Hs.Struct (S Z)
     hs =
@@ -340,6 +344,7 @@ enumDecs opts nm e = return $ concat [
           structConstr = newtypeConstr
           structFields = Vec.singleton newtypeField
           structOrigin = Hs.StructOriginEnum e
+          structInstances = Set.empty
       in  Hs.Struct{..}
 
     storable :: Hs.StorableInstance
@@ -423,6 +428,7 @@ typedefDecs opts nm d = return $ concat [
       , fieldOrigin = Hs.FieldOriginNone
       }
     newtypeOrigin = Hs.NewtypeOriginTypedef d
+    newtypeInstances = Set.empty
 
 primTypeInstances :: C.PrimType -> [HsTypeClass]
 primTypeInstances (C.PrimFloating _) = [
@@ -500,6 +506,7 @@ macroDecsTypedef opts nm m =
     newtypeName   = mangle nm $ NameTycon (C.DeclPathName cName)
     newtypeConstr = mangle nm $ NameDatacon (C.DeclPathName cName)
     newtypeOrigin = Hs.NewtypeOriginMacro m
+    newtypeInstances = Set.empty
 
     mkField :: C.Type -> Hs.Field
     mkField ty = Hs.Field {
