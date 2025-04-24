@@ -14,6 +14,7 @@ module HsBindgen.C.Reparse.Infra (
     -- * Punctuation
   , punctuation
   , parens
+  , braces
   , comma
     -- * Parse tokens
   , TokenParser
@@ -143,6 +144,9 @@ punctuation = exact CXToken_Punctuation
 parens :: Reparse a -> Reparse a
 parens p = punctuation "(" *> p <* punctuation ")"
 
+braces :: Reparse a -> Reparse a
+braces p = punctuation "{" *> p <* punctuation "}"
+
 comma :: Reparse ()
 comma = punctuation ","
 
@@ -162,34 +166,36 @@ parseTokenOfKind kind p = tokenOfKind kind $ \str -> fmap (str,) $
 -------------------------------------------------------------------------------}
 
 -- | Any sequence of tokens, as long as the brackets inside are matched
-anythingMatchingBrackets :: Reparse [Token TokenSpelling]
-anythingMatchingBrackets =
+anythingMatchingBrackets :: [(Text, Text)] -> Reparse [Token TokenSpelling]
+anythingMatchingBrackets brackets =
     concat <$> Parsec.many go
   where
     go :: Reparse [Token TokenSpelling]
     go = Parsec.choice [
-          do open   <- token isOpenParens
+          do (open, closer) <- token isOpener
              inside <- concat <$> Parsec.many go
-             close  <- token isCloseParens
+             close  <- token $ isCloser closer
              return $ [open] ++ inside ++ [close]
         , (:[]) <$> token nonParens
         ]
 
-    isOpenParens :: Token TokenSpelling -> Maybe (Token TokenSpelling)
-    isOpenParens t = do
+    isOpener :: Token TokenSpelling -> Maybe (Token TokenSpelling, Text)
+    isOpener t = do
         guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Punctuation
-        guard $ getTokenSpelling (tokenSpelling t) == "("
-        return t
+        closer <- lookup (getTokenSpelling (tokenSpelling t)) brackets
+        return (t, closer)
 
-    isCloseParens :: Token TokenSpelling -> Maybe (Token TokenSpelling)
-    isCloseParens t = do
+    isCloser :: Text -> Token TokenSpelling -> Maybe (Token TokenSpelling)
+    isCloser closer t = do
         guard $ fromSimpleEnum (tokenKind t) == Right CXToken_Punctuation
-        guard $ getTokenSpelling (tokenSpelling t) == ")"
+        guard $ getTokenSpelling (tokenSpelling t) == closer
         return t
 
     nonParens :: Token TokenSpelling -> Maybe (Token TokenSpelling)
-    nonParens t =
-        case (isOpenParens t, isCloseParens t) of
-          (Nothing, Nothing) -> Just t
-          _otherwise         -> Nothing
+    nonParens t
+      | fromSimpleEnum (tokenKind t) == Right CXToken_Punctuation
+      , getTokenSpelling (tokenSpelling t) `elem` (map fst brackets ++ map snd brackets)
+      = Nothing
+      | otherwise
+      = Just t
 

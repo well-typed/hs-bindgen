@@ -29,6 +29,12 @@ primTypeKeyword = choice [
     -- TODO: check that "#define bool" is actually defined to _Bool
     -- it would be better to not special-case this
     , keyword "bool", identifier "bool" -- newer LLVM treat "bool" as keyword, older as identifier
+
+    -- The following are unsupported
+    , keyword "_Complex"
+    , keyword "_Decimal32"
+    , keyword "_Decimal64"
+    , keyword "_Decimal128"
     ]
 
 reparsePrimType :: Reparse Type

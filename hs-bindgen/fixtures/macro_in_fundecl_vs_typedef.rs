@@ -67,3 +67,12 @@ extern "C" {
 extern "C" {
     pub fn struct_typedef3(s: *mut struct4, x: ::std::os::raw::c_char);
 }
+extern "C" {
+    pub fn struct_name1(s: *mut struct1, x: ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn struct_name2(s: *mut struct3, x: ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn struct_name3(s: *mut struct4, x: ::std::os::raw::c_char);
+}

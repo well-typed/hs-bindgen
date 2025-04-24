@@ -57,6 +57,12 @@ foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_
 
 foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
 
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
+
 newtype TC = TC
   { un_TC :: FC.CChar
   }
