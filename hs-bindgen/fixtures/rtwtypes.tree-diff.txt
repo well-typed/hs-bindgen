@@ -1,0 +1,45 @@
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "rtwtypes.h:3:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "UINT8_T",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimChar
+                  (PrimSignExplicit Unsigned))))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "rtwtypes.h:3:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "rtwtypes.h:5:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "BOOLEAN_T",
+          macroArgs = [],
+          macroBody = MTerm
+            (MVar (CName "UINT8_T") [])},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "rtwtypes.h:5:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "boolean_T",
+        typedefType = TypePrim
+          (PrimChar
+            (PrimSignExplicit Unsigned)),
+        typedefSourceLoc =
+        "rtwtypes.h:7:19"}]

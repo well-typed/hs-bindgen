@@ -1,0 +1,29 @@
+-- addDependentFile examples/rtwtypes.h
+newtype UINT8_T = UINT8_T {un_UINT8_T :: CSChar}
+deriving newtype instance Storable UINT8_T
+deriving stock instance Eq UINT8_T
+deriving stock instance Ord UINT8_T
+deriving stock instance Read UINT8_T
+deriving stock instance Show UINT8_T
+deriving newtype instance Enum UINT8_T
+deriving newtype instance Ix UINT8_T
+deriving newtype instance Bounded UINT8_T
+deriving newtype instance Bits UINT8_T
+deriving newtype instance FiniteBits UINT8_T
+deriving newtype instance Integral UINT8_T
+deriving newtype instance Num UINT8_T
+deriving newtype instance Real UINT8_T
+newtype Boolean_T = Boolean_T {un_Boolean_T :: CSChar}
+deriving newtype instance Storable Boolean_T
+deriving stock instance Eq Boolean_T
+deriving stock instance Ord Boolean_T
+deriving stock instance Read Boolean_T
+deriving stock instance Show Boolean_T
+deriving newtype instance Enum Boolean_T
+deriving newtype instance Ix Boolean_T
+deriving newtype instance Bounded Boolean_T
+deriving newtype instance Bits Boolean_T
+deriving newtype instance FiniteBits Boolean_T
+deriving newtype instance Integral Boolean_T
+deriving newtype instance Num Boolean_T
+deriving newtype instance Real Boolean_T

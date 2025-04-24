@@ -1,0 +1,9 @@
+types:
+- headers: rtwtypes.h
+  cname: UINT8_T
+  module: Example
+  identifier: UINT8_T
+- headers: rtwtypes.h
+  cname: boolean_T
+  module: Example
+  identifier: Boolean_T
