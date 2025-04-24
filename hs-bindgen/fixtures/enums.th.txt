@@ -112,7 +112,7 @@ pattern NONSEQ_B :: Nonseq
 pattern NONSEQ_B = Nonseq 301
 pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
-newtype Packad = Packad {un_Packad :: CSChar}
+newtype Packad = Packad {un_Packad :: CUChar}
 instance Storable Packad
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -123,7 +123,7 @@ deriving stock instance Eq Packad
 deriving stock instance Ord Packad
 deriving stock instance Read Packad
 instance CEnum Packad
-    where {type CEnumZ Packad = CSChar;
+    where {type CEnumZ Packad = CUChar;
            toCEnum = Packad;
            fromCEnum = un_Packad;
            declaredValues = \_ -> declaredValuesFromList [(0,

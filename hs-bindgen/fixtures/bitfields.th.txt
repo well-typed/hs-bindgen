@@ -72,7 +72,7 @@ instance Storable Overflow64
                                                 overflow64_y_4 -> pokeBitOffWidth ptr_1 (0 :: Int) (33 :: Int) overflow64_x_3 >> pokeBitOffWidth ptr_1 (64 :: Int) (33 :: Int) overflow64_y_4}}
 deriving stock instance Show Overflow64
 deriving stock instance Eq Overflow64
-data AlignA = AlignA {alignA_x :: CSChar, alignA_y :: CInt}
+data AlignA = AlignA {alignA_x :: CUChar, alignA_y :: CInt}
 instance Storable AlignA
     where {sizeOf = \_ -> 4 :: Int;
            alignment = \_ -> 4 :: Int;
@@ -82,7 +82,7 @@ instance Storable AlignA
                                             alignA_y_4 -> pokeBitOffWidth ptr_1 (0 :: Int) (1 :: Int) alignA_x_3 >> pokeBitOffWidth ptr_1 (1 :: Int) (10 :: Int) alignA_y_4}}
 deriving stock instance Show AlignA
 deriving stock instance Eq AlignA
-data AlignB = AlignB {alignB_x :: CSChar, alignB_y :: CInt}
+data AlignB = AlignB {alignB_x :: CUChar, alignB_y :: CInt}
 instance Storable AlignB
     where {sizeOf = \_ -> 8 :: Int;
            alignment = \_ -> 4 :: Int;

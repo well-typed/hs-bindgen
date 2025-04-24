@@ -2351,7 +2351,7 @@
             "@NsVar"
             "alignA_x",
           fieldType = HsPrimType
-            HsPrimCSChar,
+            HsPrimCUChar,
           fieldOrigin =
           FieldOriginStructField
             StructField {
@@ -2424,7 +2424,7 @@
               "@NsVar"
               "alignA_x",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin =
             FieldOriginStructField
               StructField {
@@ -2502,7 +2502,7 @@
                       "@NsVar"
                       "alignA_x",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
@@ -2582,7 +2582,7 @@
                       "@NsVar"
                       "alignA_x",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
@@ -2679,7 +2679,7 @@
             "@NsVar"
             "alignB_x",
           fieldType = HsPrimType
-            HsPrimCSChar,
+            HsPrimCUChar,
           fieldOrigin =
           FieldOriginStructField
             StructField {
@@ -2752,7 +2752,7 @@
               "@NsVar"
               "alignB_x",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin =
             FieldOriginStructField
               StructField {
@@ -2830,7 +2830,7 @@
                       "@NsVar"
                       "alignB_x",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
@@ -2910,7 +2910,7 @@
                       "@NsVar"
                       "alignB_x",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {

@@ -2,7 +2,7 @@
 data Primitive
     = Primitive {primitive_c :: CChar,
                  primitive_sc :: CSChar,
-                 primitive_uc :: CSChar,
+                 primitive_uc :: CUChar,
                  primitive_s :: CShort,
                  primitive_si :: CShort,
                  primitive_ss :: CShort,

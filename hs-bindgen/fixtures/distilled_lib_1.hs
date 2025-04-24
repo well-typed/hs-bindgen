@@ -1164,7 +1164,7 @@
           "@NsVar"
           "un_Uint8_t",
         fieldType = HsPrimType
-          HsPrimCSChar,
+          HsPrimCUChar,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
       NewtypeOriginTypedef
@@ -2993,7 +2993,7 @@
           "@NsVar"
           "un_A_typedef_enum_e",
         fieldType = HsPrimType
-          HsPrimCSChar,
+          HsPrimCUChar,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
       NewtypeOriginEnum
@@ -3045,7 +3045,7 @@
               "@NsVar"
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
@@ -3101,7 +3101,7 @@
                       "@NsVar"
                       "un_A_typedef_enum_e",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
@@ -3157,7 +3157,7 @@
                       "@NsVar"
                       "un_A_typedef_enum_e",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
@@ -3233,7 +3233,7 @@
               "@NsVar"
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
@@ -3269,7 +3269,7 @@
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
             "distilled_lib_1.h:60:9"}}
-      (HsPrimType HsPrimCSChar)
+      (HsPrimType HsPrimCUChar)
       (Map.fromList
         [
           _×_
@@ -3300,7 +3300,7 @@
               "@NsVar"
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
@@ -3357,7 +3357,7 @@
               "@NsVar"
               "un_A_typedef_enum_e",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {

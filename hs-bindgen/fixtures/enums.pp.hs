@@ -260,7 +260,7 @@ pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
 
 newtype Packad = Packad
-  { un_Packad :: FC.CSChar
+  { un_Packad :: FC.CUChar
   }
 
 instance F.Storable Packad where
@@ -288,7 +288,7 @@ deriving stock instance Read Packad
 
 instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
-  type CEnumZ Packad = FC.CSChar
+  type CEnumZ Packad = FC.CUChar
 
   toCEnum = Packad
 
