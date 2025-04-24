@@ -1,0 +1,4 @@
+TemplateHaskell
+StandaloneDeriving
+DerivingStrategies
+GeneralizedNewtypeDeriving

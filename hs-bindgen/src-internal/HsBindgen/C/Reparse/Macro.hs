@@ -7,19 +7,16 @@ import Data.Type.Nat
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
-import Data.Text qualified as Text
 
-import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import HsBindgen.Imports
 import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
-import HsBindgen.C.AST.Type
-import HsBindgen.C.Reparse.Common
+import HsBindgen.C.Reparse.Common ( reparseName, reparseLocName )
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Literal
-import HsBindgen.C.Reparse.Type
+import {-# SOURCE #-} HsBindgen.C.Reparse.Decl ( reparseTypeName, reparseAttributeSpecifier )
+import HsBindgen.C.Tc.Macro qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -34,22 +31,29 @@ import HsBindgen.C.Reparse.Type
     <https://en.cppreference.com/w/c/language/operator_precedence>
 -------------------------------------------------------------------------------}
 
-reparseMacro :: Reparse Macro
-reparseMacro = do
+reparseMacro :: Macro.TypeEnv -> Reparse Macro
+reparseMacro macroTys = do
     (macroLoc, macroName) <- reparseLocName
-    macro <-
+    (args, res) <-
       choice [
           -- When we see an opening bracket it might be the start of an argument
           -- list, or it might be the start of the body, wrapped in parentheses.
-          try $ functionLike macroLoc macroName
-        , objectLike macroLoc macroName
+          try $ functionLike
+        , objectLike
         ]
     eof
-    return macro
+    return $ Macro macroLoc macroName args res
   where
-    functionLike, objectLike :: MultiLoc -> CName -> Reparse Macro
-    functionLike loc name = Macro loc name <$> formalArgs <*> mExprTuple
-    objectLike   loc name = Macro loc name [] <$> mExprTuple
+    body :: Reparse MacroBody
+    body =
+      choice [ TypeMacro <$> try (reparseTypeName macroTys)
+             , ExpressionMacro <$> mExprTuple
+             , AttributeMacro <$> many1 reparseAttributeSpecifier
+             , return EmptyMacro
+             ]
+    functionLike, objectLike :: Reparse ([CName], MacroBody)
+    functionLike = (,) <$> formalArgs <*> body
+    objectLike   = ([], ) <$> body
 
 formalArgs :: Reparse [CName]
 formalArgs = parens $ formalArg `sepBy` comma
@@ -72,9 +76,6 @@ mTerm =
       , MChar        <$> literalChar
       , MString      <$> literalString
       , MVar         <$> var <*> option [] actualArgs
-      , MType        <$> reparsePrimTypeWithArrs
-      , MAttr        <$> reparseAttribute
-                     <*> ( choice [ Just <$> mTerm, Nothing <$ eof ] )
       , MStringize   <$  punctuation "#" <*> var
       ]
 
@@ -140,7 +141,7 @@ actualArgs = parens $ mExpr `sepBy` comma
 -------------------------------------------------------------------------------}
 
 mExprTuple :: Reparse MExpr
-mExprTuple = try tuple <|> mExpr <|> ( MEmpty <$ eof )
+mExprTuple = try tuple <|> mExpr
   where
     tuple = do
       openParen <- optionMaybe $ punctuation "("
@@ -224,42 +225,3 @@ sepBy2 p sep = do
   x2 <- p
   xs <- many $ sep >> p
   return (x1, x2, xs)
-
-{-------------------------------------------------------------------------------
-  Array types
--------------------------------------------------------------------------------}
-
--- | Like 'reparsePrimType', but including array syntax.
-reparsePrimTypeWithArrs :: Reparse Type
--- TODO: duplication with HsBindgen.C.Reparse.Decl.withArrayOrFunctionSuffixes
-reparsePrimTypeWithArrs = do
-  baseTy <- reparsePrimType
-  arrSizes <- many $ punctuation "[" *> reparseArraySize <* punctuation "]"
-  let
-    mkArrs :: [Maybe Natural] -> Type -> Type
-    mkArrs [] ty = ty
-    mkArrs (mbSz:szs) ty =
-      mkArrs szs $
-        case mbSz of
-          Just s  -> TypeConstArray s ty
-          Nothing -> TypeIncompleteArray ty
-  return $ mkArrs arrSizes baseTy
-
-reparseArraySize :: Reparse (Maybe Natural)
-reparseArraySize =
-  -- TODO: many other things can appear in array sizes,
-  -- such as the 'static' keyword.
-  --
-  -- Moreover, the size can be an arbitrary integer constant expression,
-  -- not necessarily a simple literal. We don't handle that for now.
-  --
-  -- See HsBindgen.C.Reparse.Decl.withArrayOrFunctionSuffixes.
-  choice
-    [ do { (txt, (i, _ty)) <- parseTokenOfKind CXToken_Literal reparseLiteralInteger
-         ; if i < 0
-           then unexpected $ "negative array size: " <> Text.unpack txt
-           else return $ Just $ fromIntegral i }
-    , Nothing <$ punctuation "*"
-    -- TODO: handle empty size declaration?
-    ]
-  <?> "array size"

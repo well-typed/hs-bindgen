@@ -140,6 +140,12 @@ newtype M3 = M3
 
 deriving newtype instance F.Storable M3
 
+newtype M4 = M4
+  { un_M4 :: F.Ptr FC.CInt
+  }
+
+deriving newtype instance F.Storable M4
+
 data ExampleStruct = ExampleStruct
   { exampleStruct_t1 :: T1
   , exampleStruct_t2 :: T2

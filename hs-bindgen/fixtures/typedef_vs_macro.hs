@@ -177,12 +177,18 @@
             multiLocFile = Nothing},
           macroName = CName "M1",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -261,11 +267,19 @@
             multiLocFile = Nothing},
           macroName = CName "M2",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing))))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -345,18 +359,80 @@
             multiLocFile = Nothing},
           macroName = CName "M3",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypeConstArray
-                3
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed))))}},
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                ArrayDirectDeclarator
+                  ArrayDeclarator {
+                    arrayDirectDeclarator =
+                    IdentifierDeclarator
+                      AbstractName
+                      [],
+                    arrayStatic = False,
+                    arrayTypeQualifiers = [],
+                    arraySize = ArraySize
+                      (SizeExpression
+                        (MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "3",
+                              integerLiteralType = Just
+                                (_×_ PrimInt Signed),
+                              integerLiteralValue = 3}))),
+                    arrayAttributes = []}})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
     (HsName "@NsTypeConstr" "M3"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "M4",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "M4",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_M4",
+        fieldType = HsPtr
+          (HsPrimType HsPrimCInt),
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "typedef_vs_macro.h:7:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "M4",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "M4"),
   DeclData
     Struct {
       structName = HsName
@@ -890,12 +966,18 @@
             multiLocFile = Nothing},
           macroName = CName "uint64_t",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

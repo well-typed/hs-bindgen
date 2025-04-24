@@ -11,7 +11,7 @@ Header
             multiLocFile = Nothing},
           macroName = CName "USES_UTF8_H",
           macroArgs = [],
-          macroBody = MEmpty},
+          macroBody = EmptyMacro},
         macroDeclMacroTy = "Empty",
         macroDeclSourceLoc =
         "uses_utf8.h:2:9"},

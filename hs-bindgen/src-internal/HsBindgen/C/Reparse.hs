@@ -12,6 +12,7 @@ module HsBindgen.C.Reparse (
     -- * Specific parsers
   , reparseFieldDecl
   , reparseFunDecl
+  , reparseTypedef
   , reparseMacro
   ) where
 

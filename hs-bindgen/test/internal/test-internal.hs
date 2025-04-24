@@ -56,6 +56,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         , golden "macro_functions"
         , golden "macro_in_fundecl"
         , golden "macro_in_fundecl_vs_typedef"
+        , golden "macro_types"
         , golden "uses_utf8"
         , golden "typedef_vs_macro"
         , golden "headers"

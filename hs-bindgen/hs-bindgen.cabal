@@ -88,6 +88,7 @@ library internal
       HsBindgen.C.Reparse.Macro
       HsBindgen.C.Reparse.Type
       HsBindgen.C.Tc.Macro
+      HsBindgen.C.Tc.Macro.Type
       HsBindgen.Debug
       HsBindgen.Eff
       HsBindgen.Errors

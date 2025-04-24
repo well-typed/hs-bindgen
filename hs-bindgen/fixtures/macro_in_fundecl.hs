@@ -25,12 +25,18 @@
             multiLocFile = Nothing},
           macroName = CName "I",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -109,11 +115,19 @@
             multiLocFile = Nothing},
           macroName = CName "C",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing))))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -192,10 +206,18 @@
             multiLocFile = Nothing},
           macroName = CName "F",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimFloating PrimFloat)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimFloating PrimFloat)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -270,12 +292,18 @@
             multiLocFile = Nothing},
           macroName = CName "L",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimLong
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimLong Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -354,12 +382,20 @@
             multiLocFile = Nothing},
           macroName = CName "S",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimShort
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral
+                    PrimShort
+                    Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

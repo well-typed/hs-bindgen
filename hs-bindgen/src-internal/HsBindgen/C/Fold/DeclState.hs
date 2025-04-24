@@ -211,6 +211,12 @@ typeDeclTypedef (TypeDecl _typ decl) =
           ]
         , structAliases
         ]
+      DeclEnum Enu{enumDeclPath, enumAliases} -> concat [
+          [ typedef
+          | DeclPathAnon (DeclPathCtxtTypedef typedef) <- [enumDeclPath]
+          ]
+        , enumAliases
+        ]
       _otherwise
         -> []
 typeDeclTypedef TypeDeclProcessing{} =

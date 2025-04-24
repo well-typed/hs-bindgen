@@ -41,7 +41,6 @@ instance ToExpr CInt where
 instance ToExpr Paths.CHeaderIncludePath where
   toExpr = toExpr . Paths.getCHeaderIncludePath
 
-instance ToExpr C.Attribute
 instance ToExpr C.CName
 instance ToExpr C.Decl
 instance ToExpr C.DeclPath
@@ -123,12 +122,21 @@ instance ToExpr ExtIdentifier
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err
 
+instance ToExpr C.MacroBody where
+  toExpr = \case
+    C.EmptyMacro ->
+      Expr.App "EmptyMacro" []
+    C.AttributeMacro attrs ->
+      Expr.App "AttributeMacro" [toExpr attrs]
+    C.ExpressionMacro expr ->
+      Expr.App "ExpressionMacro" [toExpr expr]
+    C.TypeMacro ty ->
+      Expr.App "TypeMacro" [toExpr ty]
+
 instance ToExpr C.MExpr where
   toExpr = \case
     C.MTerm tm ->
       Expr.App "MTerm" [toExpr tm]
-    C.MEmpty ->
-      Expr.App "MEmpty" []
     C.MApp fun args ->
       Expr.App "MApp" [toExpr fun, toExpr (toList args)]
 
@@ -312,6 +320,42 @@ instance ToExpr Hs.ATyCon where
 instance ToExpr Hs.AClass where
   toExpr (Hs.AClass tc) =
     Expr.App "AClass" [toExpr tc]
+
+
+{-------------------------------------------------------------------------------
+  Declarations/declarators
+-------------------------------------------------------------------------------}
+
+instance ToExpr C.TypeName
+instance ToExpr C.TypeSpecifierQualifier
+instance ToExpr C.TypeSpecifier
+instance ToExpr C.TypeQualifier
+instance ToExpr C.AlignmentSpecifier
+instance ToExpr C.SizeExpression
+instance ToExpr C.StructOrUnionSpecifier
+instance ToExpr C.StructOrUnion
+instance ToExpr C.EnumSpecifier
+instance ToExpr C.AttributeSpecifier
+instance ToExpr C.Attribute
+instance ToExpr C.AttributeToken
+instance ToExpr C.BalancedToken
+instance ToExpr C.DeclarationSpecifier
+instance ToExpr C.StorageClassSpecifier
+instance ToExpr C.FunctionSpecifier
+instance ToExpr (C.Declarator C.Abstract)
+instance ToExpr (C.DirectDeclarator C.Abstract)
+instance ToExpr (C.ArrayDeclarator C.Abstract)
+instance ToExpr (C.FunctionDeclarator C.Abstract)
+instance ToExpr (C.Declarator C.Concrete)
+instance ToExpr (C.DirectDeclarator C.Concrete)
+instance ToExpr (C.ArrayDeclarator C.Concrete)
+instance ToExpr (C.FunctionDeclarator C.Concrete)
+instance ToExpr C.Pointers
+instance ToExpr (C.DeclName C.Abstract)
+instance ToExpr (C.DeclName C.Concrete)
+instance ToExpr C.ArraySize
+instance ToExpr C.Parameter
+instance ToExpr C.ParameterDeclarator
 
 {-------------------------------------------------------------------------------
   hs-bindgen-runtime

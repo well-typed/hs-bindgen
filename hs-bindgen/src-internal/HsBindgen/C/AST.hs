@@ -14,6 +14,8 @@ module HsBindgen.C.AST (
   , CName(..)
     -- * Types
   , Type(..)
+  , TypeName(..)
+  , typeNameType
     -- ** Primitive types
   , PrimType(..)
   , PrimIntType(..)
@@ -35,9 +37,33 @@ module HsBindgen.C.AST (
   , Typedef(..)
     -- ** Functions
   , Function(..)
+    -- * Declarations
+  , DeclaratorType(..)
+  , Declarator(..), DirectDeclarator(..)
+  , DeclName(..)
+  , DeclarationSpecifier(..)
+  , ArrayDeclarator(..), FunctionDeclarator(..)
+  , ArraySize(..)
+  , Pointers(..)
+  , TypeSpecifier(..)
+  , TypeQualifier(..)
+  , TypeSpecifierQualifier(..)
+  , AttributeSpecifier(..)
+  , Attribute(..)
+  , AttributeToken(..)
+  , BalancedToken(..)
+  , AlignmentSpecifier(..)
+  , StorageClassSpecifier(..)
+  , FunctionSpecifier(..)
+  , StructOrUnionSpecifier(..), StructOrUnion(..)
+  , EnumSpecifier(..)
+  , SizeExpression(..)
+  , Parameter(..)
+  , ParameterDeclarator(..)
     -- * Macros
   , Macro(..)
   , MacroDecl(..)
+  , MacroBody(..)
     -- ** Expressions
   , MExpr(..)
   , MFun(..)
@@ -47,8 +73,6 @@ module HsBindgen.C.AST (
   , CharLiteral(..)
   , StringLiteral(..)
   , fromBytes
-    -- ** Attributes
-  , Attribute(..)
     -- ** Classification
   , isIncludeGuard
     -- ** Unrecognized
@@ -77,10 +101,12 @@ import HsBindgen.C.AST.Literal
 import HsBindgen.C.AST.Macro
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
+import HsBindgen.C.Reparse.Decl
 import HsBindgen.C.Reparse.Infra (ReparseError(..))
 import HsBindgen.C.Tc.Macro
   ( TcMacroError(..), pprTcMacroError )
 import HsBindgen.C.Tc.Macro qualified as Macro
+
 
 {-------------------------------------------------------------------------------
   Top-level

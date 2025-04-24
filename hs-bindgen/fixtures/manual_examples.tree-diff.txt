@@ -156,13 +156,14 @@ Header
           macroName = CName
             "FIELD_OFFSET",
           macroArgs = [],
-          macroBody = MTerm
-            (MInt
-              IntegerLiteral {
-                integerLiteralText = "4",
-                integerLiteralType = Just
-                  (_×_ PrimInt Signed),
-                integerLiteralValue = 4})},
+          macroBody = ExpressionMacro
+            (MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "4",
+                  integerLiteralType = Just
+                    (_×_ PrimInt Signed),
+                  integerLiteralValue = 4}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
         macroDeclSourceLoc =
@@ -178,15 +179,16 @@ Header
             multiLocFile = Nothing},
           macroName = CName "EPSILON",
           macroArgs = [],
-          macroBody = MTerm
-            (MFloat
-              FloatingLiteral {
-                floatingLiteralText = "0.1",
-                floatingLiteralType = Just
-                  PrimDouble,
-                floatingLiteralFloatValue = 0.1,
-                floatingLiteralDoubleValue =
-                0.1})},
+          macroBody = ExpressionMacro
+            (MTerm
+              (MFloat
+                FloatingLiteral {
+                  floatingLiteralText = "0.1",
+                  floatingLiteralType = Just
+                    PrimDouble,
+                  floatingLiteralFloatValue = 0.1,
+                  floatingLiteralDoubleValue =
+                  0.1}))},
         macroDeclMacroTy =
         "FloatLike DoubleType",
         macroDeclSourceLoc =
@@ -203,17 +205,18 @@ Header
           macroName = CName
             "PTR_TO_FIELD",
           macroArgs = [CName "ptr"],
-          macroBody = MApp
-            MAdd
-            [
-              MTerm (MVar (CName "ptr") []),
-              MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "4",
-                    integerLiteralType = Just
-                      (_×_ PrimInt Signed),
-                    integerLiteralValue = 4})]},
+          macroBody = ExpressionMacro
+            (MApp
+              MAdd
+              [
+                MTerm (MVar (CName "ptr") []),
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "4",
+                      integerLiteralType = Just
+                        (_×_ PrimInt Signed),
+                      integerLiteralValue = 4})])},
         macroDeclMacroTy =
         "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))",
         macroDeclSourceLoc =
@@ -229,12 +232,18 @@ Header
             multiLocFile = Nothing},
           macroName = CName "YEAR",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "manual_examples.h:53:9"},
@@ -249,12 +258,18 @@ Header
             multiLocFile = Nothing},
           macroName = CName "MONTH",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "manual_examples.h:54:9"},
@@ -269,12 +284,18 @@ Header
             multiLocFile = Nothing},
           macroName = CName "DAY",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "manual_examples.h:55:9"},

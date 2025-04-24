@@ -1312,12 +1312,18 @@
             multiLocFile = Nothing},
           macroName = CName "YEAR",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1396,12 +1402,18 @@
             multiLocFile = Nothing},
           macroName = CName "MONTH",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1506,12 +1518,18 @@
             multiLocFile = Nothing},
           macroName = CName "DAY",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

@@ -603,8 +603,17 @@
             multiLocFile = Nothing},
           macroName = CName "BOOL",
           macroArgs = [],
-          macroBody = MTerm
-            (MType (TypePrim PrimBool))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim PrimBool))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

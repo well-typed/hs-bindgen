@@ -130,17 +130,41 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
         decl <- liftIO (clang_getTypeDeclaration ty)
         sloc <- liftIO $
             HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
+        extent   <- liftIO $ HighLevel.clang_getCursorExtent decl
+        hasMacro <- gets $ containsMacroExpansion extent
 
         mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
         case mExtId of
             Just extId -> addAlias ty $ TypeExtBinding extId ctype
             Nothing -> do
                 tag <- CName <$> liftIO (clang_getCursorSpelling decl)
+                mbTy <- if not hasMacro
+                        then return Nothing
+                        else do
+                          tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+                          macroTyEnv <- macroTypeEnv <$> get
+                          case reparseWith (reparseTypedef macroTyEnv) tokens of
+                            Left err -> do
+                              -- TODO: improve mechanism for reporting warnings
+                              liftIO $ putStrLn $ unlines
+                                [ "\nWarning: failed to re-parse typedef containing macro expansion."
+                                , "Proceeding with macros expanded."
+                                , ""
+                                , "Parse error:"
+                                , prettyLogMsg err
+                                , ""
+                                ]
+                              return Nothing
+                            Right ty1 ->
+                              return $ Just ty1
                 ty' <- liftIO $ getElaborated =<< clang_getTypedefDeclUnderlyingType decl
-                use <- processTypeDeclRec (DeclPathCtxtTypedef tag) extBindings unit Nothing ty'
+                use <- case mbTy of
+                         Just ty1 -> return ty1
+                         Nothing  ->
+                           processTypeDeclRec (DeclPathCtxtTypedef tag) extBindings unit Nothing ty'
 
                 -- we could check whether typedef has a transparent tag,
-                -- like in case of `typedef struct foo { ..} foo;`
+                -- like in case of `typedef struct foo {..} foo;`
                 -- but we don't use that for anything.
                 --
                 -- transparent <- liftIO (clang_Type_isTransparentTagTypedef ty)

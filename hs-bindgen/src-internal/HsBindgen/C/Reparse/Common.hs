@@ -2,14 +2,18 @@
 module HsBindgen.C.Reparse.Common (
     reparseName
   , reparseLocName
-  , reparseAttribute
+  , manyTillLookahead
+  , getRemaining
   ) where
 
 import Text.Parsec hiding (token)
+import Data.Text qualified as Text
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
-import HsBindgen.C.AST
+import Clang.HighLevel.Types
+
+import HsBindgen.C.AST.Name ( CName(CName) )
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.Imports
 
@@ -32,20 +36,29 @@ reparseLocName = token $ \t -> do
       )
 
 {-------------------------------------------------------------------------------
-  Attributes
-
-  We don't really parse attributes, but just skip over them.
+  Utils
 -------------------------------------------------------------------------------}
 
--- | Parse attribute
---
--- > __attribute__ (( .. ))
-reparseAttribute :: Reparse Attribute
-reparseAttribute = fmap Attribute $ do
-    exact CXToken_Keyword "__attribute__"
-    doubleOpenParens *> anythingMatchingBrackets [("(",")")] <* doubleCloseParens
+-- | Like 'Parsec.manyTill', but works when the two parsers overlap.
+manyTillLookahead
+  :: (Stream s m t, Show t)
+  => ParsecT s u m a
+  -> ParsecT s u m e
+  -> ParsecT s u m ([a], e)
+manyTillLookahead p end = go
   where
-    doubleOpenParens, doubleCloseParens :: Reparse ()
-    doubleOpenParens  = (punctuation "(" >> punctuation "(") <?> "(("
-    doubleCloseParens = (punctuation ")" >> punctuation ")") <?> "))"
+    go = choice
+      [ try $
+        do { e <- end
+           ; eof <|> notFollowedBy (void p <|> void end)
+           ; return ([], e)
+           }
+      , do { a <- p; (as, e) <- go ; return (a:as, e)}
+      ]
 
+-- | Debug utility function: get the remaining input stream.
+getRemaining :: Reparse String
+getRemaining = do
+  remaining <- getInput
+  return $ Text.unpack $ Text.concat $
+    map (getTokenSpelling . tokenSpelling) remaining
