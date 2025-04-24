@@ -11,7 +11,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 data Primitive = Primitive
   { primitive_c :: FC.CChar
   , primitive_sc :: FC.CSChar
-  , primitive_uc :: FC.CSChar
+  , primitive_uc :: FC.CUChar
   , primitive_s :: FC.CShort
   , primitive_si :: FC.CShort
   , primitive_ss :: FC.CShort

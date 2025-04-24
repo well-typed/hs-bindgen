@@ -176,7 +176,7 @@ deriving stock instance Show Overflow64
 deriving stock instance Eq Overflow64
 
 data AlignA = AlignA
-  { alignA_x :: FC.CSChar
+  { alignA_x :: FC.CUChar
   , alignA_y :: FC.CInt
   }
 
@@ -205,7 +205,7 @@ deriving stock instance Show AlignA
 deriving stock instance Eq AlignA
 
 data AlignB = AlignB
-  { alignB_x :: FC.CSChar
+  { alignB_x :: FC.CUChar
   , alignB_y :: FC.CInt
   }
 

@@ -89,7 +89,7 @@ deriving newtype instance FiniteBits Var_t
 deriving newtype instance Integral Var_t
 deriving newtype instance Num Var_t
 deriving newtype instance Real Var_t
-newtype Uint8_t = Uint8_t {un_Uint8_t :: CSChar}
+newtype Uint8_t = Uint8_t {un_Uint8_t :: CUChar}
 deriving newtype instance Storable Uint8_t
 deriving stock instance Eq Uint8_t
 deriving stock instance Ord Uint8_t
@@ -168,7 +168,7 @@ newtype A_typedef_struct_t
     = A_typedef_struct_t {un_A_typedef_struct_t :: A_typedef_struct}
 deriving newtype instance Storable A_typedef_struct_t
 newtype A_typedef_enum_e
-    = A_typedef_enum_e {un_A_typedef_enum_e :: CSChar}
+    = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
 instance Storable A_typedef_enum_e
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -179,7 +179,7 @@ deriving stock instance Eq A_typedef_enum_e
 deriving stock instance Ord A_typedef_enum_e
 deriving stock instance Read A_typedef_enum_e
 instance CEnum A_typedef_enum_e
-    where {type CEnumZ A_typedef_enum_e = CSChar;
+    where {type CEnumZ A_typedef_enum_e = CUChar;
            toCEnum = A_typedef_enum_e;
            fromCEnum = un_A_typedef_enum_e;
            declaredValues = \_ -> declaredValuesFromList [(0,

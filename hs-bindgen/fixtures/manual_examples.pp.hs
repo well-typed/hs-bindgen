@@ -901,7 +901,7 @@ pattern Already_done :: Result
 pattern Already_done = Result 2
 
 newtype Vote = Vote
-  { un_Vote :: FC.CSChar
+  { un_Vote :: FC.CUChar
   }
 
 instance F.Storable Vote where
@@ -929,7 +929,7 @@ deriving stock instance Read Vote
 
 instance HsBindgen.Runtime.CEnum.CEnum Vote where
 
-  type CEnumZ Vote = FC.CSChar
+  type CEnumZ Vote = FC.CUChar
 
   toCEnum = Vote
 

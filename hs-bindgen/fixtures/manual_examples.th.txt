@@ -406,7 +406,7 @@ pattern Postponed :: Result
 pattern Postponed = Result 1
 pattern Already_done :: Result
 pattern Already_done = Result 2
-newtype Vote = Vote {un_Vote :: CSChar}
+newtype Vote = Vote {un_Vote :: CUChar}
 instance Storable Vote
     where {sizeOf = \_ -> 1 :: Int;
            alignment = \_ -> 1 :: Int;
@@ -417,7 +417,7 @@ deriving stock instance Eq Vote
 deriving stock instance Ord Vote
 deriving stock instance Read Vote
 instance CEnum Vote
-    where {type CEnumZ Vote = CSChar;
+    where {type CEnumZ Vote = CUChar;
            toCEnum = Vote;
            fromCEnum = un_Vote;
            declaredValues = \_ -> declaredValuesFromList [(0,

@@ -504,7 +504,7 @@ typ' ctx nm = go ctx
         case sign of
           C.PrimSignImplicit _          -> HsPrimCChar
           C.PrimSignExplicit C.Signed   -> HsPrimCSChar
-          C.PrimSignExplicit C.Unsigned -> HsPrimCSChar
+          C.PrimSignExplicit C.Unsigned -> HsPrimCUChar
 
     goVoid :: TypeContext -> HsPrimType
     goVoid CFunRes = HsPrimUnit

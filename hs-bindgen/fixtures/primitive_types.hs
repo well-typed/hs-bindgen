@@ -48,7 +48,7 @@
             "@NsVar"
             "primitive_uc",
           fieldType = HsPrimType
-            HsPrimCSChar,
+            HsPrimCUChar,
           fieldOrigin =
           FieldOriginStructField
             StructField {
@@ -791,7 +791,7 @@
               "@NsVar"
               "primitive_uc",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin =
             FieldOriginStructField
               StructField {
@@ -1539,7 +1539,7 @@
                       "@NsVar"
                       "primitive_uc",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
@@ -2315,7 +2315,7 @@
                       "@NsVar"
                       "primitive_uc",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {

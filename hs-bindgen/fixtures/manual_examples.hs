@@ -6691,7 +6691,7 @@
           "@NsVar"
           "un_Vote",
         fieldType = HsPrimType
-          HsPrimCSChar,
+          HsPrimCUChar,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
       NewtypeOriginEnum
@@ -6738,7 +6738,7 @@
               "@NsVar"
               "un_Vote",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
@@ -6789,7 +6789,7 @@
                       "@NsVar"
                       "un_Vote",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
@@ -6840,7 +6840,7 @@
                       "@NsVar"
                       "un_Vote",
                     fieldType = HsPrimType
-                      HsPrimCSChar,
+                      HsPrimCUChar,
                     fieldOrigin = FieldOriginNone}],
                 structOrigin = StructOriginEnum
                   Enu {
@@ -6905,7 +6905,7 @@
               "@NsVar"
               "un_Vote",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
@@ -6936,7 +6936,7 @@
                 "manual_examples.h:152:3"}],
             enumSourceLoc =
             "manual_examples.h:149:6"}}
-      (HsPrimType HsPrimCSChar)
+      (HsPrimType HsPrimCUChar)
       (Map.fromList
         [
           _×_
@@ -6962,7 +6962,7 @@
               "@NsVar"
               "un_Vote",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {
@@ -7010,7 +7010,7 @@
               "@NsVar"
               "un_Vote",
             fieldType = HsPrimType
-              HsPrimCSChar,
+              HsPrimCUChar,
             fieldOrigin = FieldOriginNone}],
         structOrigin = StructOriginEnum
           Enu {

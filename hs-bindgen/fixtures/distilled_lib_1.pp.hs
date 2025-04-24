@@ -197,7 +197,7 @@ deriving newtype instance Num Var_t
 deriving newtype instance Real Var_t
 
 newtype Uint8_t = Uint8_t
-  { un_Uint8_t :: FC.CSChar
+  { un_Uint8_t :: FC.CUChar
   }
 
 deriving newtype instance F.Storable Uint8_t
@@ -360,7 +360,7 @@ newtype A_typedef_struct_t = A_typedef_struct_t
 deriving newtype instance F.Storable A_typedef_struct_t
 
 newtype A_typedef_enum_e = A_typedef_enum_e
-  { un_A_typedef_enum_e :: FC.CSChar
+  { un_A_typedef_enum_e :: FC.CUChar
   }
 
 instance F.Storable A_typedef_enum_e where
@@ -389,7 +389,7 @@ deriving stock instance Read A_typedef_enum_e
 
 instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
-  type CEnumZ A_typedef_enum_e = FC.CSChar
+  type CEnumZ A_typedef_enum_e = FC.CUChar
 
   toCEnum = A_typedef_enum_e
 
