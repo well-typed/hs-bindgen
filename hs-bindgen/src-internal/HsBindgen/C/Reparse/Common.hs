@@ -43,7 +43,7 @@ reparseLocName = token $ \t -> do
 reparseAttribute :: Reparse Attribute
 reparseAttribute = fmap Attribute $ do
     exact CXToken_Keyword "__attribute__"
-    doubleOpenParens *> anythingMatchingBrackets <* doubleCloseParens
+    doubleOpenParens *> anythingMatchingBrackets [("(",")")] <* doubleCloseParens
   where
     doubleOpenParens, doubleCloseParens :: Reparse ()
     doubleOpenParens  = (punctuation "(" >> punctuation "(") <?> "(("

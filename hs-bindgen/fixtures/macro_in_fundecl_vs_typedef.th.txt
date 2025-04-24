@@ -30,6 +30,12 @@ foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_
 foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: Ptr Struct4 ->
                                                                                             MC ->
                                                                                             IO Unit
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name1" struct_name1 :: Ptr Struct1 ->
+                                                                                      MC -> IO Unit
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name2" struct_name2 :: Ptr Struct3 ->
+                                                                                      MC -> IO Unit
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name3" struct_name3 :: Ptr Struct4 ->
+                                                                                      MC -> IO Unit
 newtype TC = TC {un_TC :: CChar}
 deriving newtype instance Storable TC
 deriving stock instance Eq TC

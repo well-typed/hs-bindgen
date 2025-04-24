@@ -39,6 +39,8 @@ import Text.Parsec
 -- text
 import Data.Text
   ( Text )
+import Data.Text qualified as Text
+  ( unpack )
 
 -- hs-bindgen
 import HsBindgen.C.AST
@@ -59,10 +61,10 @@ import HsBindgen.C.Reparse.Macro
   ( mExpr )
 
 import HsBindgen.C.Tc.Macro qualified as Macro
-
+import HsBindgen.Errors
+import HsBindgen.Imports (fromMaybe)
 import Clang.LowLevel.Core
   ( CXTokenKind(..) )
-import HsBindgen.Errors
 
 --------------------------------------------------------------------------------
 
@@ -145,7 +147,7 @@ deriving stock instance ( forall a. Show a => Show ( f a ) ) => Show ( Pointers 
 -- | A @C@ direct declarator.
 type DirectDeclarator :: DeclaratorType -> Hs.Type
 data DirectDeclarator abs where
-  IdentifierDeclarator :: Identifier -> DirectDeclarator Concrete
+  IdentifierDeclarator :: CName -> [ AttributeSpecifier ] -> DirectDeclarator Concrete
   ParenDeclarator :: Declarator abs -> DirectDeclarator abs
   ArrayDirectDeclarator :: ArrayDeclarator abs -> DirectDeclarator abs
   FunctionDirectDeclarator :: FunctionDeclarator abs -> DirectDeclarator abs
@@ -158,7 +160,7 @@ data ArrayDeclarator abs
   = ArrayDeclarator
     { arrayDirectDeclarator :: DirectDeclarator abs
     , arrayStatic           :: Bool
-    , arrayTypeQualifiers   :: [TypeQualifierSpecifier]
+    , arrayTypeQualifiers   :: [TypeSpecifierQualifier]
     , arraySize             :: ArraySize
     , arrayAttributes       :: [AttributeSpecifier]
     }
@@ -187,7 +189,7 @@ data FunctionDeclarator abs
 data Parameter =
   Parameter
     { parameterAttributes     :: [AttributeSpecifier]
-    , parameterDeclSpecifiers :: [DeclarationSpecifier]
+    , parameterDeclSpecifiers :: (NE.NonEmpty (DeclarationSpecifier, [AttributeSpecifier]))
     , parameterDeclarator     :: ParameterDeclarator
     }
   deriving stock ( Eq, Show )
@@ -210,8 +212,8 @@ data Attribute
   }
   deriving stock ( Eq, Show )
 data AttributeToken
-  = StandardAttribute Identifier
-  | AttributePrefixedToken Identifier Identifier
+  = StandardAttribute CName
+  | AttributePrefixedToken CName CName
   deriving stock ( Eq, Show )
 data BalancedToken
   = BalancedTokenNormal Text
@@ -222,7 +224,7 @@ data TypeName
   deriving stock ( Eq, Show )
 data DeclarationSpecifier
   = DeclStorageSpecifier        StorageClassSpecifier
-  | DeclTypeQualifierSpecifier  TypeQualifierSpecifier
+  | DeclTypeSpecifierQualifier  TypeSpecifierQualifier
   | DeclFunctionSpecifier       FunctionSpecifier
   deriving stock ( Eq, Show )
 data TypeQualifier
@@ -234,15 +236,33 @@ data TypeQualifier
 data TypeSpecifier
   = TypeSpecifier Type
   | TypeDefTypeSpecifier CName
+  | StructOrUnionTypeSpecifier StructOrUnionSpecifier
+  | EnumTypeSpecifier EnumSpecifier
   deriving stock ( Eq, Show )
+
+data StructOrUnionSpecifier
+  = StructOrUnionSpecifier
+    { structOrUnion :: StructOrUnion
+    , structOrUnionAttributeSpecifiers :: [AttributeSpecifier]
+    , structOrUnionIdentifier :: CName
+    }
+  deriving stock ( Eq, Show )
+data EnumSpecifier
+  = EnumSpecifier
+    { enumSpecifierIdentifier :: CName
+    , enumAttributeSpecifiers :: [AttributeSpecifier]
+    , enumSpecifierQualifiers :: [(TypeSpecifierQualifier, [AttributeSpecifier])]
+    }
+  deriving stock ( Eq, Show )
+
 data AlignmentSpecifier
   = AlignAsTypeName TypeName
   | AlignAsConstExpr SizeExpression
   deriving stock ( Eq, Show )
-data TypeQualifierSpecifier
-  = TQS_TypeQualifier TypeQualifier
-  | TQS_TypeSpecifier TypeSpecifier
-  | TQS_AlignmentSpecifier AlignmentSpecifier
+data TypeSpecifierQualifier
+  = TSQ_TypeQualifier TypeQualifier
+  | TSQ_TypeSpecifier TypeSpecifier
+  | TSQ_AlignmentSpecifier AlignmentSpecifier
   deriving stock ( Eq, Show )
 data StorageClassSpecifier
   = SC_auto
@@ -355,20 +375,30 @@ declarationSpecifiersType specs =
     isTy = \case
       DeclFunctionSpecifier {} -> Nothing
       DeclStorageSpecifier  {} -> Nothing
-      DeclTypeQualifierSpecifier  tq ->
-        case tq of
-          TQS_TypeQualifier {} -> Nothing
-          TQS_AlignmentSpecifier {} -> Nothing
-          TQS_TypeSpecifier ts ->
+      DeclTypeSpecifierQualifier  tsq ->
+        case tsq of
+          TSQ_TypeQualifier {} -> Nothing
+          TSQ_AlignmentSpecifier {} -> Nothing
+          TSQ_TypeSpecifier ts ->
             case ts of
               TypeSpecifier ty -> Just ty
               TypeDefTypeSpecifier nm -> Just $ TypeTypedef nm
+              StructOrUnionTypeSpecifier
+                StructOrUnionSpecifier
+                  { structOrUnion = su, structOrUnionIdentifier = i }
+                 -> Just $
+                      case su of
+                        IsStruct -> TypeStruct $ DeclPathName i DeclPathCtxtTop
+                        IsUnion  -> TypeUnion  $ DeclPathName i DeclPathCtxtTop
+              EnumTypeSpecifier
+                EnumSpecifier { enumSpecifierIdentifier = i } ->
+                  Just $ TypeEnum $ DeclPathName i DeclPathCtxtTop
 
 declaratorTypeAndName
   :: Type -> DirectDeclarator abs
   -> Either String ( Type, If ( abs == Concrete ) CName () )
 declaratorTypeAndName ty = \case
-  IdentifierDeclarator (Identifier nm _) ->
+  IdentifierDeclarator nm _attrs ->
     Right (ty, nm)
   ParenDeclarator d ->
     case d of
@@ -419,27 +449,28 @@ parameterTypes ps =
     -- TODO: this would deserve some more thorough testing, as I'm not
     -- entirely confident with everything here.
     aux i ( Parameter { parameterDeclSpecifiers = specs, parameterDeclarator = pDecl }) =
+      let declSpecs = fmap fst $ NE.toList specs in
       case pDecl of
         ParameterDeclarator ( Declarator ptrs d ) ->
-          case declaratorType specs d of
+          case declaratorType declSpecs d of
             Left {} -> Left i
             Right ( ty, _ ) ->
               Right $ mkPtr ptrs ty
         ParameterAbstractDeclarator mbAbs ->
           case mbAbs of
             Nothing ->
-              case declarationSpecifiersType specs of
+              case declarationSpecifiersType declSpecs of
                 Nothing -> Left i
                 Just ty -> Right ty
             Just decl ->
               case decl of
                 Declarator ptrs d ->
-                  case declaratorType specs d of
+                  case declaratorType declSpecs d of
                     Left {} -> Left i
                     Right ( ty, _ ) ->
                       Right $ mkPtr ptrs ty
                 PointerAbstractDeclarator ptrs ->
-                  case declarationSpecifiersType specs of
+                  case declarationSpecifiersType declSpecs of
                     Nothing -> Left i
                     Just ty -> Right $ mkPtr ptrs ty
 
@@ -482,7 +513,7 @@ reparseDirectDeclarator macroTys = do
     choice $
       ( ParenDeclarator <$> parens ( reparseDeclarator @abs macroTys ) )
       : case knownDeclarator @abs of
-          SConcrete -> [ IdentifierDeclarator <$> reparseIdentifier ]
+          SConcrete -> [ IdentifierDeclarator <$> reparseIdentifier <*> many reparseAttributeSpecifier ]
           SAbstract -> []
   withArrayOrFunctionSuffixes macroTys decl
 
@@ -500,12 +531,10 @@ withArrayOrFunctionSuffixes macroTys decl =
     , return decl
     ]
 
-reparseIdentifier :: Reparse Identifier
-reparseIdentifier = do
-  i <- tokenOfKind CXToken_Identifier (Just . CName)
-  attrs <- many reparseAttributeSpecifier
-  return $ Identifier i attrs
-  <?> "identifier"
+reparseIdentifier :: Reparse CName
+reparseIdentifier =
+  tokenOfKind CXToken_Identifier (Just . CName)
+    <?> "identifier"
 
 reparseArrayDeclarator
   :: Macro.TypeEnv
@@ -572,10 +601,20 @@ reparseParameterList macroTys =
 reparseParameter :: Macro.TypeEnv -> Reparse Parameter
 reparseParameter macroTys = do
   attrs <- many reparseAttributeSpecifier
-  declSpecs <- many1 $ reparseDeclarationSpecifier macroTys
+  declSpecs <- reparseDeclarationSpecifiers macroTys
   decl <- reparseParameterDeclarator macroTys
   return $ Parameter attrs declSpecs decl
   <?> "function parameter"
+
+reparseDeclarationSpecifiers :: Macro.TypeEnv -> Reparse (NE.NonEmpty (DeclarationSpecifier, [AttributeSpecifier]))
+reparseDeclarationSpecifiers macroTys =
+  toNE <$> (many1 $ do
+    spec <- reparseDeclarationSpecifier macroTys
+    attrs <- many reparseAttributeSpecifier
+    return (spec, attrs))
+  where
+    toNE [] = panicPure "many1: empty list"
+    toNE (a:as) = a NE.:| as
 
 reparseParameterDeclarator :: Macro.TypeEnv -> Reparse ParameterDeclarator
 reparseParameterDeclarator macroTys =
@@ -632,7 +671,7 @@ reparseDeclarationSpecifier :: Macro.TypeEnv -> Reparse DeclarationSpecifier
 reparseDeclarationSpecifier macroTys = do
   choice
     [ DeclStorageSpecifier       <$> reparseStorageClassSpecifier
-    , DeclTypeQualifierSpecifier <$> reparseTypeQualifierSpecifier macroTys
+    , DeclTypeSpecifierQualifier <$> reparseTypeQualifierSpecifier macroTys
     , DeclFunctionSpecifier      <$> reparseFunctionSpecifier
     ]
 
@@ -649,16 +688,16 @@ reparseAlignmentSpecifier macroTys = do
 reparseTypeName :: Macro.TypeEnv -> Reparse TypeName
 reparseTypeName macroTys = do
   tySpecs <- many $ reparseTypeSpecifier macroTys
-  attrs <- many reparseAttributeSpecifier
-  mbDecl <- optionMaybe $ reparseDeclarator @Abstract macroTys
+  attrs   <- many reparseAttributeSpecifier
+  mbDecl  <- optionMaybe $ reparseDeclarator @Abstract macroTys
   return $
     TypeName tySpecs attrs mbDecl
 
-reparseTypeQualifierSpecifier :: Macro.TypeEnv -> Reparse TypeQualifierSpecifier
+reparseTypeQualifierSpecifier :: Macro.TypeEnv -> Reparse TypeSpecifierQualifier
 reparseTypeQualifierSpecifier macroTys = choice
-  [ TQS_TypeQualifier <$> reparseTypeQualifier
-  , TQS_TypeSpecifier <$> reparseTypeSpecifier macroTys
-  , TQS_AlignmentSpecifier <$> reparseAlignmentSpecifier macroTys
+  [ TSQ_TypeQualifier <$> reparseTypeQualifier
+  , TSQ_TypeSpecifier <$> reparseTypeSpecifier macroTys
+  , TSQ_AlignmentSpecifier <$> reparseAlignmentSpecifier macroTys
   ]
 
 reparseTypeQualifier :: Reparse TypeQualifier
@@ -670,10 +709,22 @@ reparseTypeQualifier = choice
   ]
   <?> "type qualifier"
 
+-- | See the C23 specification, 6.7.3.1 @type-specifier@.
 reparseTypeSpecifier :: Macro.TypeEnv -> Reparse TypeSpecifier
 reparseTypeSpecifier macroTypeEnv =
   choice
+  -- Primitive type (such as void, int, float)
   [ TypeSpecifier <$> reparsePrimType
+  -- struct-or-union-specifier
+  , StructOrUnionTypeSpecifier <$> reparseStructOrUnionSpecifier
+  -- enum-specifier
+  , EnumTypeSpecifier <$> reparseEnumSpecifier macroTypeEnv
+  -- _BitInt, atomic-type-specifier and typeof-specifier (unsupported for now)
+  , do { kw <- try $ choice [ keyword "_BitInt", keyword "_Atomic", keyword "typeof", keyword "typeof_unqual" ]
+       ; _ <- parens $ anythingMatchingBrackets [("(", ")")]
+       ; unexpected $ "unsupported '" ++ Text.unpack kw ++ "' type specifier"
+       }
+  -- typedef-name
   , try $
     do { nm <- reparseName
        ; if Set.member nm (Macro.typeEnvTypedefs macroTypeEnv) then
@@ -688,7 +739,60 @@ reparseTypeSpecifier macroTypeEnv =
                 | otherwise
                 -> unexpected $ "macro name does not refer to a type: " ++ show nm
        }
+
   ] <?> "type"
+
+data StructOrUnion
+  = IsStruct | IsUnion
+  deriving stock ( Eq, Show )
+
+reparseStructOrUnion :: Reparse StructOrUnion
+reparseStructOrUnion = choice [ keyword "struct" $> IsStruct, keyword "union" $> IsUnion ]
+
+reparseStructOrUnionSpecifier :: Reparse StructOrUnionSpecifier
+reparseStructOrUnionSpecifier = do
+  structOrUnion <- reparseStructOrUnion
+  let what = case structOrUnion of { IsStruct -> "struct"; IsUnion -> "union" }
+  attrs <- many reparseAttributeSpecifier
+  mbIdent <- optionMaybe reparseIdentifier
+  mbMembers <- optionMaybe $ braces $ anythingMatchingBrackets [("{", "}")]
+  case (mbIdent, mbMembers) of
+    (Just i, Nothing) ->
+      return $
+        StructOrUnionSpecifier
+          { structOrUnion
+          , structOrUnionAttributeSpecifiers = attrs
+          , structOrUnionIdentifier = i }
+    (_, Just {}) ->
+      unexpected $ "unsupported member declaration list in " ++ what ++ "specifier"
+    (Nothing, Nothing) ->
+      unexpected $ "invalid " ++ what ++ "specifier: missing identifier or member declaration list"
+
+reparseEnumSpecifier :: Macro.TypeEnv -> Reparse EnumSpecifier
+reparseEnumSpecifier macroTys = do
+  _ <- keyword "enum"
+  attrs <- many reparseAttributeSpecifier
+  mbIdent <- optionMaybe reparseIdentifier
+  enumTypeSpecifiers <- optionMaybe $
+    do { void $ punctuation ":"
+       ; many1 $
+           (,) <$> reparseTypeQualifierSpecifier macroTys
+               <*> many reparseAttributeSpecifier
+       }
+  mbEnumerators <- optionMaybe $ braces $ anythingMatchingBrackets [("{", "}")]
+  case (mbIdent, mbEnumerators) of
+    (Just i, Nothing) ->
+      return $
+        EnumSpecifier
+          { enumSpecifierIdentifier = i
+          , enumAttributeSpecifiers = attrs
+          , enumSpecifierQualifiers = fromMaybe [] enumTypeSpecifiers
+          }
+    (_, Just {}) ->
+      unexpected "unsupported enumerator list in enum specifier"
+    (Nothing, Nothing) ->
+      unexpected "invalid enum specifier: missing identifier or enumerator list"
+  <?> "enum"
 
 reparseStorageClassSpecifier :: Reparse StorageClassSpecifier
 reparseStorageClassSpecifier =

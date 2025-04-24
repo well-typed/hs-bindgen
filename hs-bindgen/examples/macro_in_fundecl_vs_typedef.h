@@ -24,8 +24,6 @@ void struct_typedef1(struct2   *s, MC x);
 void struct_typedef2(struct3_t *s, MC x);
 void struct_typedef3(struct4   *s, MC x);
 
-// TODO https://github.com/well-typed/hs-bindgen/issues/549
-// Reparser does not understand `struct <name>` syntax yet.
-// void struct_name1(struct struct1 *s, MC x);
-// void struct_name2(struct struct3 *s, MC x);
-// void struct_name3(struct struct4 *s, MC x);
+void struct_name1(struct struct1 *s, MC x);
+void struct_name2(struct struct3 *s, MC x);
+void struct_name3(struct struct4 *s, MC x);
