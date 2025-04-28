@@ -69,6 +69,9 @@ instance TH.Quote Qu where
         return $ TH.Name (TH.OccName n) (TH.NameU u)
 
 instance Guasi Qu where
+    -- we don't use unique string to have stable test results
+    getModuleUnique = return "test_internal"
+
     addDependentFile fp = Qu $ do
         (depfiles, u) <- get
         put $! (depfiles ++ [fp], u)
