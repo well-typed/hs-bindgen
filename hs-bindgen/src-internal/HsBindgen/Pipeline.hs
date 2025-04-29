@@ -130,7 +130,7 @@ genHsDecls Opts{..} = Hs.generateDeclarations optsTranslation optsNameMangler
 
 -- | Generate @SHs@ declarations
 genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
-genSHsDecls = concatMap SHs.translateDecl
+genSHsDecls = SHs.translateDecls
 
 -- | Generate a preprocessor 'Backend.PP.HsModule'
 genModule :: PPOpts -> [SHs.SDecl] -> Backend.PP.HsModule

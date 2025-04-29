@@ -1,4 +1,5 @@
 -- addDependentFile examples/adios.h
+-- #include "adios.h"
 foreign import capi safe "adios.h \978" cϒ :: IO Unit
 foreign import capi safe "adios.h \25308\25308" 拜拜 :: IO Unit
 foreign import capi safe "adios.h Say\25308\25308" say拜拜 :: IO Unit

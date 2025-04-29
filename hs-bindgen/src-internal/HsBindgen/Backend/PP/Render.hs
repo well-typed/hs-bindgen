@@ -166,6 +166,10 @@ instance Pretty SDecl where
       , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
       ]
 
+    DCSource src ->
+        -- TODO: for now put source in comments
+        vcat $ map fromString $ map ("-- " ++) $ lines src
+
 strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"

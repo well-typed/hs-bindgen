@@ -1,4 +1,5 @@
 -- addDependentFile examples/simple_func.h
+-- #include "simple_func.h"
 foreign import capi safe "simple_func.h erf" erf :: CDouble ->
                                                     IO CDouble
 foreign import capi safe "simple_func.h bad_fma" bad_fma :: CDouble ->

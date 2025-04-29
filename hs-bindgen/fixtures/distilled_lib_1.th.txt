@@ -3,6 +3,7 @@
 -- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile musl-include/x86_64/stdint.h
+-- #include "distilled_lib_1.h"
 a :: CInt
 a = 5 :: CInt
 b :: CInt

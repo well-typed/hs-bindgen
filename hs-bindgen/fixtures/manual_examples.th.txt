@@ -1,4 +1,5 @@
 -- addDependentFile examples/manual_examples.h
+-- #include "manual_examples.h"
 fIELD_OFFSET :: CInt
 fIELD_OFFSET = 4 :: CInt
 ePSILON :: CDouble

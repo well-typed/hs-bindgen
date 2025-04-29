@@ -1,3 +1,4 @@
+TemplateHaskell
 TypeFamilies
 StandaloneDeriving
 DerivingStrategies

@@ -1,4 +1,5 @@
 -- addDependentFile examples/macro_in_fundecl_vs_typedef.h
+-- #include "macro_in_fundecl_vs_typedef.h"
 newtype MC = MC {un_MC :: CChar}
 deriving newtype instance Storable MC
 deriving stock instance Eq MC

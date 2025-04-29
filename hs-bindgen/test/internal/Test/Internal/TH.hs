@@ -45,12 +45,13 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
         mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
         mangleName n = n
 
-    let (depfiles, thdecs) = runQu decls
+    let (depfiles, csources, thdecs) = runQu decls
     return $ unlines $
         -- here we might have headers outside of our package,
         -- but in our test setup that SHOULD cause an error, as we use bundled stdlib,
         -- And we will cause those on CI, which runs tests on different systems
         [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
+        [ "-- " ++ l | src <- csources, l <- lines src ] ++
         [ show $ TH.ppr d | d <- unqualNames thdecs ]
 
 convertWindows :: FilePath -> FilePath
@@ -59,13 +60,13 @@ convertWindows = map f where
   f c    = c
 
 -- | Deterministic monad with TH.Quote instance
-newtype Qu a = Qu (State ([FilePath], Integer) a)
+newtype Qu a = Qu (State ([FilePath], Integer, [String]) a)
   deriving newtype (Functor, Applicative, Monad)
 
 instance TH.Quote Qu where
     newName n = Qu $ do
-        (depfiles, u) <- get
-        put $! (depfiles, u + 1)
+        (depfiles, u, csources) <- get
+        put $! (depfiles, u + 1, csources)
         return $ TH.Name (TH.OccName n) (TH.NameU u)
 
 instance Guasi Qu where
@@ -73,8 +74,12 @@ instance Guasi Qu where
     getModuleUnique = return "test_internal"
 
     addDependentFile fp = Qu $ do
-        (depfiles, u) <- get
-        put $! (depfiles ++ [fp], u)
+        (depfiles, u, csources) <- get
+        put $! (depfiles ++ [fp], u, csources)
+
+    addCSource src = Qu $ do
+        (depfiles, u, csources) <- get
+        put $! (depfiles, u, csources ++ [src])
 
     -- Note: we could mock these better, if we want to test error reporting
     -- Currently (2025-04-15) we only report missing extensions,
@@ -82,6 +87,6 @@ instance Guasi Qu where
     extsEnabled = return []
     reportError _ = return ()
 
-runQu :: Qu a -> ([FilePath], a)
-runQu (Qu m) = case runState m ([], 0) of
-    (x, (exts, _)) -> (exts, x)
+runQu :: Qu a -> ([FilePath], [String], a)
+runQu (Qu m) = case runState m ([], 0, []) of
+    (x, (depfiles, _, csources)) -> (depfiles, csources, x)

@@ -39,6 +39,8 @@ requiredExtensions = \case
         Set.singleton TH.CApiFFI
     DPatternSynonym{} ->
         Set.singleton TH.PatternSynonyms
+    DCSource{} ->
+        Set.singleton TH.TemplateHaskell
 
 recordExtensions :: Record -> Set TH.Extension
 recordExtensions r = foldMap fieldExtensions (dataFields r)

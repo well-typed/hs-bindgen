@@ -229,6 +229,7 @@ data SDecl =
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
   | DComment String
+  | DCSource String
   deriving stock (Show)
 
 type ClosedType = SType EmptyCtx
