@@ -183,7 +183,10 @@ vsep = \case
     ds -> CtxDoc $ \ctx -> foldl1 aux $ map (runCtxDoc ctx) ds
   where
     aux :: PP.Doc -> PP.Doc -> PP.Doc
-    aux dL dR = dL PP.$+$ "" PP.$+$ dR
+    aux dL dR
+        | PP.isEmpty dL = dR
+        | PP.isEmpty dR = dL
+        | otherwise     = dL PP.$+$ "" PP.$+$ dR
 
 -- | Horizontally /or/ vertically join documents, depending on if there is
 -- room on the line
