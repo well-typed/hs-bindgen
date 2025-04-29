@@ -19,6 +19,7 @@ module HsBindgen.Lib (
   , genTests
 
     -- * Options
+  , ModuleUnique(..)
   , Pipeline.Opts(..)
   , Pipeline.defaultOpts
 
@@ -81,6 +82,7 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Util.Tracer qualified as Tracer
+import HsBindgen.ModuleUnique
 
 {-------------------------------------------------------------------------------
   Parsing and translating
@@ -94,8 +96,8 @@ newtype HsDecls = WrapHsDecls {
       unwrapHsDecls :: [Hs.Decl]
     }
 
-translateCHeader :: Pipeline.Opts -> Paths.CHeaderIncludePath -> IO HsDecls
-translateCHeader opts = fmap WrapHsDecls . Pipeline.translateCHeader opts
+translateCHeader :: ModuleUnique -> Pipeline.Opts -> Paths.CHeaderIncludePath -> IO HsDecls
+translateCHeader mu opts = fmap WrapHsDecls . Pipeline.translateCHeader mu opts
 
 {-------------------------------------------------------------------------------
   Preprocessor

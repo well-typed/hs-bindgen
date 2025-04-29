@@ -120,6 +120,7 @@ library internal
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer
+      HsBindgen.ModuleUnique
       Text.SimplePrettyPrint
   other-modules:
       -- Re-exported through HsBindgen.C.AST

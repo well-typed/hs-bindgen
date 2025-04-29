@@ -40,6 +40,7 @@ import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
 import HsBindgen.NameHint
+import HsBindgen.ModuleUnique
 
 import DeBruijn
   (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx)
@@ -108,10 +109,11 @@ defaultTranslationOpts = TranslationOpts {
 -- filepath argument https://github.com/well-typed/hs-bindgen/issues/333
 generateDeclarations ::
      TranslationOpts
+  -> ModuleUnique
   -> NameMangler
   -> C.Header
   -> [Hs.Decl]
-generateDeclarations opts nm (C.Header decs) =
+generateDeclarations opts _mu nm (C.Header decs) =
     concatMap (generateDecs opts (Map.union typedefs pseudoTypedefs) nm) decs
   where
     -- typedef lookup table

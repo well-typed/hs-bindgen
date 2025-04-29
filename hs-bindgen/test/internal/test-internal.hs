@@ -119,14 +119,14 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
       let target = "fixtures" </> (name ++ ".hs")
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "hs" target $ \report ->
-        Pipeline.translateCHeader (mkOpts report) headerIncludePath
+        Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
 
     goldenExtensions :: TestName -> TestTree
     goldenExtensions name = do
       let target = "fixtures" </> (name ++ ".exts.txt")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "exts" target $ \report -> do
-        decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
+        decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
         return $ unlines $ map show $ List.sort $ toList $
               Pipeline.genExtensions
             $ Pipeline.genSHsDecls decls
@@ -136,7 +136,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
       let target = "fixtures" </> (name ++ ".pp.hs")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "pp" target $ \report -> do
-        decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
+        decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
 
         -- TODO: PP.render should add trailing '\n' itself.
         return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
@@ -146,7 +146,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
       let target = "fixtures" </> (name ++ ".extbindings.yaml")
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ "extbindings" target $ \report -> do
-        decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
+        decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
         return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
           ExtBindings.genExtBindings
             headerIncludePath
@@ -182,7 +182,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
           headerIncludePath = mkHeaderIncludePath name
       goldenVsStringDiff_ name target $ \report -> do
         result <- try $ do
-          decls <- Pipeline.translateCHeader (mkOpts report) headerIncludePath
+          decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
 
           -- TODO: PP.render should add trailing '\n' itself.
           evaluate $ force $ Pipeline.preprocessPure ppOpts decls ++ "\n"
