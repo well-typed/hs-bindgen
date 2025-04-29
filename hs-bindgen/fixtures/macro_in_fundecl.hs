@@ -424,6 +424,14 @@
           (HsPrimType HsPrimCChar)
           (HsIO
             (HsPrimType HsPrimCChar))),
+      foreignImportCRes = TypePrim
+        (PrimChar
+          (PrimSignImplicit Nothing)),
+      foreignImportCArgs = [
+        TypeTypedef (CName "F"),
+        TypePrim
+          (PrimChar
+            (PrimSignImplicit Nothing))],
       foreignImportOrigName = "quux",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -460,6 +468,13 @@
                 (HsName
                   "@NsTypeConstr"
                   "C"))))),
+      foreignImportCRes = TypePointer
+        (TypeTypedef (CName "C")),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimFloating PrimFloat),
+        TypePointer
+          (TypeTypedef (CName "C"))],
       foreignImportOrigName = "wam",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -493,6 +508,23 @@
           (HsIO
             (HsPtr
               (HsPrimType HsPrimCChar)))),
+      foreignImportCRes = TypePointer
+        (TypePrim
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed)))),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimFloating PrimFloat),
+        TypePointer
+          (TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))],
       foreignImportOrigName = "foo1",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -537,6 +569,21 @@
           (HsIO
             (HsPtr
               (HsPrimType HsPrimCChar)))),
+      foreignImportCRes = TypePointer
+        (TypePrim
+          (PrimChar
+            (PrimSignImplicit Nothing))),
+      foreignImportCArgs = [
+        TypeTypedef (CName "F"),
+        TypePointer
+          (TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))],
       foreignImportOrigName = "foo2",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -581,6 +628,20 @@
                 (HsName
                   "@NsTypeConstr"
                   "C"))))),
+      foreignImportCRes = TypePointer
+        (TypeTypedef (CName "C")),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimFloating PrimFloat),
+        TypePointer
+          (TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))],
       foreignImportOrigName = "foo3",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -619,6 +680,16 @@
               (HsPrimType HsPrimCShort)
               (HsIO
                 (HsPrimType HsPrimCInt))))),
+      foreignImportCRes = TypePointer
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimShort Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimLong Signed)],
       foreignImportOrigName = "bar1",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -654,6 +725,15 @@
               (HsPrimType HsPrimCShort)
               (HsIO
                 (HsPrimType HsPrimCInt))))),
+      foreignImportCRes = TypePointer
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimShort Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportCArgs = [
+        TypeTypedef (CName "L")],
       foreignImportOrigName = "bar2",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -688,6 +768,14 @@
                 (HsName "@NsTypeConstr" "S"))
               (HsIO
                 (HsPrimType HsPrimCInt))))),
+      foreignImportCRes = TypePointer
+        (TypeFun
+          [TypeTypedef (CName "S")]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimLong Signed)],
       foreignImportOrigName = "bar3",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -723,6 +811,15 @@
                   (HsName
                     "@NsTypeConstr"
                     "I")))))),
+      foreignImportCRes = TypePointer
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimShort Signed)]
+          (TypeTypedef (CName "I"))),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimLong Signed)],
       foreignImportOrigName = "bar4",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -757,6 +854,18 @@
               (HsConstArray
                 3
                 (HsPrimType HsPrimCInt))))),
+      foreignImportCRes = TypePointer
+        (TypeConstArray
+          2
+          (TypeConstArray
+            3
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimInt Signed)],
       foreignImportOrigName = "baz1",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -795,6 +904,17 @@
               (HsConstArray
                 3
                 (HsPrimType HsPrimCInt))))),
+      foreignImportCRes = TypePointer
+        (TypeConstArray
+          2
+          (TypeConstArray
+            3
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      foreignImportCArgs = [
+        TypeTypedef (CName "I")],
       foreignImportOrigName = "baz2",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -834,6 +954,15 @@
                   (HsName
                     "@NsTypeConstr"
                     "I")))))),
+      foreignImportCRes = TypePointer
+        (TypeConstArray
+          2
+          (TypeConstArray
+            3
+            (TypeTypedef (CName "I")))),
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimInt Signed)],
       foreignImportOrigName = "baz3",
       foreignImportHeader =
       "macro_in_fundecl.h",
@@ -862,6 +991,9 @@
       foreignImportType = HsIO
         (HsTypRef
           (HsName "@NsTypeConstr" "I")),
+      foreignImportCRes = TypeTypedef
+        (CName "I"),
+      foreignImportCArgs = [],
       foreignImportOrigName =
       "no_args_no_void",
       foreignImportHeader =

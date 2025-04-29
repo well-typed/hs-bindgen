@@ -228,6 +228,7 @@ data SDecl =
   | DDerivingInstance (Hs.Strategy ClosedType) ClosedType
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
+  | DComment String
   deriving stock (Show)
 
 type ClosedType = SType EmptyCtx

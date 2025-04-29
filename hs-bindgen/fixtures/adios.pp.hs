@@ -13,9 +13,15 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
+-- void ϒ (void)
+
 foreign import capi safe "adios.h ϒ" cϒ :: IO ()
 
+-- void 拜拜 (void)
+
 foreign import capi safe "adios.h 拜拜" 拜拜 :: IO ()
+
+-- void Say拜拜 (void)
 
 foreign import capi safe "adios.h Say拜拜" say拜拜 :: IO ()
 

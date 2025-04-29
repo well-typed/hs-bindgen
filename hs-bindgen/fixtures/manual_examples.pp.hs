@@ -126,21 +126,39 @@ deriving newtype instance Num DAY
 
 deriving newtype instance Real DAY
 
+-- void mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4)
+
 foreign import capi safe "manual_examples.h mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
+
+-- signed int index_triple (struct triple *arg1, enum index arg2)
 
 foreign import capi safe "manual_examples.h index_triple" index_triple :: (F.Ptr Triple) -> Index -> IO FC.CInt
 
+-- sum sum_triple (struct triple *arg1)
+
 foreign import capi safe "manual_examples.h sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
+
+-- average average_triple (struct triple *arg1)
 
 foreign import capi safe "manual_examples.h average_triple" average_triple :: (F.Ptr Triple) -> IO Average
 
+-- YEAR getYear (date *arg1)
+
 foreign import capi safe "manual_examples.h getYear" getYear :: (F.Ptr Date) -> IO YEAR
+
+-- void print_occupation (signed int arg1, union occupation *arg2)
 
 foreign import capi safe "manual_examples.h print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
 
+-- void 拜拜 (void)
+
 foreign import capi safe "manual_examples.h 拜拜" 拜拜 :: IO ()
 
+-- void ϒ (void)
+
 foreign import capi safe "manual_examples.h ϒ" cϒ :: IO ()
+
+-- void import (void)
 
 foreign import capi safe "manual_examples.h import" import' :: IO ()
 

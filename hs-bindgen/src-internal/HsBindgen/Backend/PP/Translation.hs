@@ -136,6 +136,7 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
+    DComment {} -> mempty
     DVar _name mbTy e ->
       maybe mempty resolveTypeImports mbTy <> resolveExprImports e
     DInst Instance{..} -> mconcat $

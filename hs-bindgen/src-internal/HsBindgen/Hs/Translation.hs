@@ -555,6 +555,8 @@ functionDecs _opts typedefs nm f
     [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
+        , foreignImportCRes       = C.functionRes f
+        , foreignImportCArgs      = C.functionArgs f
         , foreignImportOrigName   = C.getCName $ C.functionName f
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f

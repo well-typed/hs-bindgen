@@ -9,6 +9,14 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "Bar")))
         (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "bar")
+              (DeclPathCtxtPtr
+                DeclPathCtxtTop)))],
       foreignImportOrigName = "func",
       foreignImportHeader =
       "weird01.h",

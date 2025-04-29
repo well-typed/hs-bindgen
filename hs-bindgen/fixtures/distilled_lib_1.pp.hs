@@ -42,6 +42,8 @@ a_DEFINE_2 = (2 :: FC.CInt)
 tWO_ARGS :: ((,) FC.CInt) FC.CInt
 tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 
+-- int32_t some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[])
+
 foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 
 data Another_typedef_struct_t = Another_typedef_struct_t

@@ -103,6 +103,7 @@ instance Pretty ImportListItem where
 
 instance Pretty SDecl where
   pretty = \case
+    DComment s -> "--" <+> string s
     DVar name mbTy expr ->
       fsep
         [ pretty name <+> string "::" <+> pretty ty
