@@ -1,4 +1,6 @@
 -- addDependentFile examples/forward_declaration.h
+newtype S1_t = S1_t {un_S1_t :: S1}
+deriving newtype instance Storable S1_t
 data S1 = S1 {s1_a :: CInt}
 instance Storable S1
     where {sizeOf = \_ -> 4 :: Int;
@@ -8,8 +10,6 @@ instance Storable S1
                                     {S1 s1_a_3 -> pokeByteOff ptr_1 (0 :: Int) s1_a_3}}
 deriving stock instance Show S1
 deriving stock instance Eq S1
-newtype S1_t = S1_t {un_S1_t :: S1}
-deriving newtype instance Storable S1_t
 data S2 = S2 {s2_a :: CInt}
 instance Storable S2
     where {sizeOf = \_ -> 4 :: Int;

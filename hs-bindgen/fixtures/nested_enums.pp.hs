@@ -13,6 +13,31 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
+data ExA = ExA
+  { exA_fieldA1 :: EnumA
+  }
+
+instance F.Storable ExA where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure ExA
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          ExA exA_fieldA12 -> F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
+
+deriving stock instance Show ExA
+
+deriving stock instance Eq ExA
+
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
@@ -74,11 +99,11 @@ pattern VALA_1 = EnumA 0
 pattern VALA_2 :: EnumA
 pattern VALA_2 = EnumA 1
 
-data ExA = ExA
-  { exA_fieldA1 :: EnumA
+data ExB = ExB
+  { exB_fieldB1 :: ExB_fieldB1
   }
 
-instance F.Storable ExA where
+instance F.Storable ExB where
 
   sizeOf = \_ -> (4 :: Int)
 
@@ -86,18 +111,18 @@ instance F.Storable ExA where
 
   peek =
     \ptr0 ->
-          pure ExA
+          pure ExB
       <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          ExA exA_fieldA12 -> F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
+          ExB exB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
 
-deriving stock instance Show ExA
+deriving stock instance Show ExB
 
-deriving stock instance Eq ExA
+deriving stock instance Eq ExB
 
 newtype ExB_fieldB1 = ExB_fieldB1
   { un_ExB_fieldB1 :: FC.CUInt
@@ -159,28 +184,3 @@ pattern VALB_1 = ExB_fieldB1 0
 
 pattern VALB_2 :: ExB_fieldB1
 pattern VALB_2 = ExB_fieldB1 1
-
-data ExB = ExB
-  { exB_fieldB1 :: ExB_fieldB1
-  }
-
-instance F.Storable ExB where
-
-  sizeOf = \_ -> (4 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure ExB
-      <*> F.peekByteOff ptr0 (0 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          ExB exB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
-
-deriving stock instance Show ExB
-
-deriving stock instance Eq ExB

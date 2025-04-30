@@ -24,30 +24,125 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 -- #include "distilled_lib_1.h"
 
-a :: FC.CInt
-a = (5 :: FC.CInt)
+newtype Int32_t = Int32_t
+  { un_Int32_t :: FC.CInt
+  }
 
-b :: FC.CInt
-b = (3 :: FC.CInt)
+deriving newtype instance F.Storable Int32_t
 
-sOME_DEFINED_CONSTANT :: FC.CInt
-sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
+deriving stock instance Eq Int32_t
 
-a_DEFINE_0 :: FC.CInt
-a_DEFINE_0 = (0 :: FC.CInt)
+deriving stock instance Ord Int32_t
 
-a_DEFINE_1 :: FC.CUInt
-a_DEFINE_1 = (20560 :: FC.CUInt)
+deriving stock instance Read Int32_t
 
-a_DEFINE_2 :: FC.CInt
-a_DEFINE_2 = (2 :: FC.CInt)
+deriving stock instance Show Int32_t
 
-tWO_ARGS :: ((,) FC.CInt) FC.CInt
-tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
+deriving newtype instance Enum Int32_t
 
--- int32_t some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[])
+deriving newtype instance Ix.Ix Int32_t
 
-foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
+deriving newtype instance Bounded Int32_t
+
+deriving newtype instance Bits.Bits Int32_t
+
+deriving newtype instance FiniteBits Int32_t
+
+deriving newtype instance Integral Int32_t
+
+deriving newtype instance Num Int32_t
+
+deriving newtype instance Real Int32_t
+
+newtype Uint8_t = Uint8_t
+  { un_Uint8_t :: FC.CUChar
+  }
+
+deriving newtype instance F.Storable Uint8_t
+
+deriving stock instance Eq Uint8_t
+
+deriving stock instance Ord Uint8_t
+
+deriving stock instance Read Uint8_t
+
+deriving stock instance Show Uint8_t
+
+deriving newtype instance Enum Uint8_t
+
+deriving newtype instance Ix.Ix Uint8_t
+
+deriving newtype instance Bounded Uint8_t
+
+deriving newtype instance Bits.Bits Uint8_t
+
+deriving newtype instance FiniteBits Uint8_t
+
+deriving newtype instance Integral Uint8_t
+
+deriving newtype instance Num Uint8_t
+
+deriving newtype instance Real Uint8_t
+
+newtype Uint16_t = Uint16_t
+  { un_Uint16_t :: FC.CUShort
+  }
+
+deriving newtype instance F.Storable Uint16_t
+
+deriving stock instance Eq Uint16_t
+
+deriving stock instance Ord Uint16_t
+
+deriving stock instance Read Uint16_t
+
+deriving stock instance Show Uint16_t
+
+deriving newtype instance Enum Uint16_t
+
+deriving newtype instance Ix.Ix Uint16_t
+
+deriving newtype instance Bounded Uint16_t
+
+deriving newtype instance Bits.Bits Uint16_t
+
+deriving newtype instance FiniteBits Uint16_t
+
+deriving newtype instance Integral Uint16_t
+
+deriving newtype instance Num Uint16_t
+
+deriving newtype instance Real Uint16_t
+
+newtype Uint32_t = Uint32_t
+  { un_Uint32_t :: FC.CUInt
+  }
+
+deriving newtype instance F.Storable Uint32_t
+
+deriving stock instance Eq Uint32_t
+
+deriving stock instance Ord Uint32_t
+
+deriving stock instance Read Uint32_t
+
+deriving stock instance Show Uint32_t
+
+deriving newtype instance Enum Uint32_t
+
+deriving newtype instance Ix.Ix Uint32_t
+
+deriving newtype instance Bounded Uint32_t
+
+deriving newtype instance Bits.Bits Uint32_t
+
+deriving newtype instance FiniteBits Uint32_t
+
+deriving newtype instance Integral Uint32_t
+
+deriving newtype instance Num Uint32_t
+
+deriving newtype instance Real Uint32_t
 
 data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt
@@ -141,6 +236,15 @@ pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
 pattern BAR = Another_typedef_enum_e 1
 
+a :: FC.CInt
+a = (5 :: FC.CInt)
+
+b :: FC.CInt
+b = (3 :: FC.CInt)
+
+sOME_DEFINED_CONSTANT :: FC.CInt
+sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
+
 newtype A_type_t = A_type_t
   { un_A_type_t :: FC.CInt
   }
@@ -200,96 +304,6 @@ deriving newtype instance Integral Var_t
 deriving newtype instance Num Var_t
 
 deriving newtype instance Real Var_t
-
-newtype Uint8_t = Uint8_t
-  { un_Uint8_t :: FC.CUChar
-  }
-
-deriving newtype instance F.Storable Uint8_t
-
-deriving stock instance Eq Uint8_t
-
-deriving stock instance Ord Uint8_t
-
-deriving stock instance Read Uint8_t
-
-deriving stock instance Show Uint8_t
-
-deriving newtype instance Enum Uint8_t
-
-deriving newtype instance Ix.Ix Uint8_t
-
-deriving newtype instance Bounded Uint8_t
-
-deriving newtype instance Bits.Bits Uint8_t
-
-deriving newtype instance FiniteBits Uint8_t
-
-deriving newtype instance Integral Uint8_t
-
-deriving newtype instance Num Uint8_t
-
-deriving newtype instance Real Uint8_t
-
-newtype Uint16_t = Uint16_t
-  { un_Uint16_t :: FC.CUShort
-  }
-
-deriving newtype instance F.Storable Uint16_t
-
-deriving stock instance Eq Uint16_t
-
-deriving stock instance Ord Uint16_t
-
-deriving stock instance Read Uint16_t
-
-deriving stock instance Show Uint16_t
-
-deriving newtype instance Enum Uint16_t
-
-deriving newtype instance Ix.Ix Uint16_t
-
-deriving newtype instance Bounded Uint16_t
-
-deriving newtype instance Bits.Bits Uint16_t
-
-deriving newtype instance FiniteBits Uint16_t
-
-deriving newtype instance Integral Uint16_t
-
-deriving newtype instance Num Uint16_t
-
-deriving newtype instance Real Uint16_t
-
-newtype Uint32_t = Uint32_t
-  { un_Uint32_t :: FC.CUInt
-  }
-
-deriving newtype instance F.Storable Uint32_t
-
-deriving stock instance Eq Uint32_t
-
-deriving stock instance Ord Uint32_t
-
-deriving stock instance Read Uint32_t
-
-deriving stock instance Show Uint32_t
-
-deriving newtype instance Enum Uint32_t
-
-deriving newtype instance Ix.Ix Uint32_t
-
-deriving newtype instance Bounded Uint32_t
-
-deriving newtype instance Bits.Bits Uint32_t
-
-deriving newtype instance FiniteBits Uint32_t
-
-deriving newtype instance Integral Uint32_t
-
-deriving newtype instance Num Uint32_t
-
-deriving newtype instance Real Uint32_t
 
 data A_typedef_struct = A_typedef_struct
   { a_typedef_struct_field_0 :: FC.CBool
@@ -364,6 +378,18 @@ newtype A_typedef_struct_t = A_typedef_struct_t
 
 deriving newtype instance F.Storable A_typedef_struct_t
 
+a_DEFINE_0 :: FC.CInt
+a_DEFINE_0 = (0 :: FC.CInt)
+
+a_DEFINE_1 :: FC.CUInt
+a_DEFINE_1 = (20560 :: FC.CUInt)
+
+a_DEFINE_2 :: FC.CInt
+a_DEFINE_2 = (2 :: FC.CInt)
+
+tWO_ARGS :: ((,) FC.CInt) FC.CInt
+tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
+
 newtype A_typedef_enum_e = A_typedef_enum_e
   { un_A_typedef_enum_e :: FC.CUChar
   }
@@ -437,35 +463,9 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
-newtype Int32_t = Int32_t
-  { un_Int32_t :: FC.CInt
-  }
+-- int32_t some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[])
 
-deriving newtype instance F.Storable Int32_t
-
-deriving stock instance Eq Int32_t
-
-deriving stock instance Ord Int32_t
-
-deriving stock instance Read Int32_t
-
-deriving stock instance Show Int32_t
-
-deriving newtype instance Enum Int32_t
-
-deriving newtype instance Ix.Ix Int32_t
-
-deriving newtype instance Bounded Int32_t
-
-deriving newtype instance Bits.Bits Int32_t
-
-deriving newtype instance FiniteBits Int32_t
-
-deriving newtype instance Integral Int32_t
-
-deriving newtype instance Num Int32_t
-
-deriving newtype instance Real Int32_t
+foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 
 newtype Callback_t = Callback_t
   { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> Uint32_t -> IO Uint32_t)

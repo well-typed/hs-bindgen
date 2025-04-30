@@ -82,6 +82,83 @@
     DeriveNewtype
     Real
     (HsName "@NsTypeConstr" "MC"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "TC",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "TC",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_TC",
+        fieldType = HsPrimType
+          HsPrimCChar,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "TC",
+          typedefType = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))),
+          typedefSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:5:14"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "TC"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "TC"),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -242,325 +319,6 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:11:5"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "struct_typedef1",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct2")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef (CName "struct2")),
-        TypeTypedef (CName "MC")],
-      foreignImportOrigName =
-      "struct_typedef1",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "struct_typedef1",
-          functionArgs = [
-            TypePointer
-              (TypeTypedef (CName "struct2")),
-            TypeTypedef (CName "MC")],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:23:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "struct_typedef2",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct3_t")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef
-            (CName "struct3_t")),
-        TypeTypedef (CName "MC")],
-      foreignImportOrigName =
-      "struct_typedef2",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "struct_typedef2",
-          functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (CName "struct3_t")),
-            TypeTypedef (CName "MC")],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:24:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "struct_typedef3",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct4")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef (CName "struct4")),
-        TypeTypedef (CName "MC")],
-      foreignImportOrigName =
-      "struct_typedef3",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "struct_typedef3",
-          functionArgs = [
-            TypePointer
-              (TypeTypedef (CName "struct4")),
-            TypeTypedef (CName "MC")],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:25:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "struct_name1",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct1")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "struct1"))),
-        TypeTypedef (CName "MC")],
-      foreignImportOrigName =
-      "struct_name1",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "struct_name1",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "struct1"))),
-            TypeTypedef (CName "MC")],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:27:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "struct_name2",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct3")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "struct3"))),
-        TypeTypedef (CName "MC")],
-      foreignImportOrigName =
-      "struct_name2",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "struct_name2",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "struct3"))),
-            TypeTypedef (CName "MC")],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:28:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "struct_name3",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct4")))
-        (HsFun
-          (HsTypRef
-            (HsName "@NsTypeConstr" "MC"))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "struct4"))),
-        TypeTypedef (CName "MC")],
-      foreignImportOrigName =
-      "struct_name3",
-      foreignImportHeader =
-      "macro_in_fundecl_vs_typedef.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "struct_name3",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "struct4"))),
-            TypeTypedef (CName "MC")],
-          functionRes = TypeVoid,
-          functionHeader =
-          "macro_in_fundecl_vs_typedef.h",
-          functionSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:29:6"}},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "TC",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "TC",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_TC",
-        fieldType = HsPrimType
-          HsPrimCChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "TC",
-          typedefType = TypePrim
-            (PrimChar
-              (PrimSignImplicit
-                (Just Signed))),
-          typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:5:14"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "TC"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "TC"),
   DeclData
     Struct {
       structName = HsName
@@ -1448,4 +1206,246 @@
     Eq
     (HsName
       "@NsTypeConstr"
-      "Struct4")]
+      "Struct4"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_typedef1",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct2")))
+        (HsFun
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeTypedef (CName "struct2")),
+        TypeTypedef (CName "MC")],
+      foreignImportOrigName =
+      "struct_typedef1",
+      foreignImportHeader =
+      "macro_in_fundecl_vs_typedef.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "struct_typedef1",
+          functionArgs = [
+            TypePointer
+              (TypeTypedef (CName "struct2")),
+            TypeTypedef (CName "MC")],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h",
+          functionSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:23:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_typedef2",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct3_t")))
+        (HsFun
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeTypedef
+            (CName "struct3_t")),
+        TypeTypedef (CName "MC")],
+      foreignImportOrigName =
+      "struct_typedef2",
+      foreignImportHeader =
+      "macro_in_fundecl_vs_typedef.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "struct_typedef2",
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (CName "struct3_t")),
+            TypeTypedef (CName "MC")],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h",
+          functionSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:24:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_typedef3",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct4")))
+        (HsFun
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeTypedef (CName "struct4")),
+        TypeTypedef (CName "MC")],
+      foreignImportOrigName =
+      "struct_typedef3",
+      foreignImportHeader =
+      "macro_in_fundecl_vs_typedef.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "struct_typedef3",
+          functionArgs = [
+            TypePointer
+              (TypeTypedef (CName "struct4")),
+            TypeTypedef (CName "MC")],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h",
+          functionSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:25:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_name1",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct1")))
+        (HsFun
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "struct1"))),
+        TypeTypedef (CName "MC")],
+      foreignImportOrigName =
+      "struct_name1",
+      foreignImportHeader =
+      "macro_in_fundecl_vs_typedef.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "struct_name1",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "struct1"))),
+            TypeTypedef (CName "MC")],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h",
+          functionSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:27:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_name2",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct3")))
+        (HsFun
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "struct3"))),
+        TypeTypedef (CName "MC")],
+      foreignImportOrigName =
+      "struct_name2",
+      foreignImportHeader =
+      "macro_in_fundecl_vs_typedef.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "struct_name2",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "struct3"))),
+            TypeTypedef (CName "MC")],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h",
+          functionSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:28:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_name3",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Struct4")))
+        (HsFun
+          (HsTypRef
+            (HsName "@NsTypeConstr" "MC"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "struct4"))),
+        TypeTypedef (CName "MC")],
+      foreignImportOrigName =
+      "struct_name3",
+      foreignImportHeader =
+      "macro_in_fundecl_vs_typedef.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "struct_name3",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "struct4"))),
+            TypeTypedef (CName "MC")],
+          functionRes = TypeVoid,
+          functionHeader =
+          "macro_in_fundecl_vs_typedef.h",
+          functionSourceLoc =
+          "macro_in_fundecl_vs_typedef.h:29:6"}}]

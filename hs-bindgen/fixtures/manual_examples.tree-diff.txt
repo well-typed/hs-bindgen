@@ -1,5 +1,149 @@
 Header
   [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "triple"),
+        structAliases = [
+          CName "triple"],
+        structSizeof = 12,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "a",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "manual_examples.h:15:9"},
+          StructField {
+            fieldName = CName "b",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "manual_examples.h:16:9"},
+          StructField {
+            fieldName = CName "c",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "manual_examples.h:17:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "manual_examples.h:14:16"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "mk_triple",
+        functionArgs = [
+          TypePrim
+            (PrimIntegral PrimInt Signed),
+          TypePrim
+            (PrimIntegral PrimInt Signed),
+          TypePrim
+            (PrimIntegral PrimInt Signed),
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "triple")))],
+        functionRes = TypeVoid,
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:20:6"},
+    DeclEnum
+      Enu {
+        enumDeclPath = DeclPathName
+          (CName "index"),
+        enumAliases = [CName "index"],
+        enumType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        enumSizeof = 4,
+        enumAlignment = 4,
+        enumValues = [
+          EnumValue {
+            valueName = CName "A",
+            valueValue = 0,
+            valueSourceLoc =
+            "manual_examples.h:27:5"},
+          EnumValue {
+            valueName = CName "B",
+            valueValue = 1,
+            valueSourceLoc =
+            "manual_examples.h:28:5"},
+          EnumValue {
+            valueName = CName "C",
+            valueValue = 2,
+            valueSourceLoc =
+            "manual_examples.h:29:5"}],
+        enumSourceLoc =
+        "manual_examples.h:26:14"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "index_triple",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "triple"))),
+          TypeEnum
+            (DeclPathName (CName "index"))],
+        functionRes = TypePrim
+          (PrimIntegral PrimInt Signed),
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:32:5"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "sum",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "manual_examples.h:38:13"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "average",
+        typedefType = TypePrim
+          (PrimFloating PrimDouble),
+        typedefSourceLoc =
+        "manual_examples.h:39:16"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "sum_triple",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "triple")))],
+        functionRes = TypeTypedef
+          (CName "sum"),
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:41:5"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "average_triple",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "triple")))],
+        functionRes = TypeTypedef
+          (CName "average"),
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:42:9"},
     DeclMacro
       MacroDecl {
         macroDeclMacro = Macro {
@@ -134,206 +278,6 @@ Header
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "manual_examples.h:55:9"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "mk_triple",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimInt Signed),
-          TypePrim
-            (PrimIntegral PrimInt Signed),
-          TypePrim
-            (PrimIntegral PrimInt Signed),
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple")))],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:20:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "index_triple",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple"))),
-          TypeEnum
-            (DeclPathName (CName "index"))],
-        functionRes = TypePrim
-          (PrimIntegral PrimInt Signed),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:32:5"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "sum_triple",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple")))],
-        functionRes = TypeTypedef
-          (CName "sum"),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:41:5"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "average_triple",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "triple")))],
-        functionRes = TypeTypedef
-          (CName "average"),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:42:9"},
-    DeclFunction
-      Function {
-        functionName = CName "getYear",
-        functionArgs = [
-          TypePointer
-            (TypeTypedef (CName "date"))],
-        functionRes = TypeTypedef
-          (CName "YEAR"),
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:63:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "print_occupation",
-        functionArgs = [
-          TypePrim
-            (PrimIntegral PrimInt Signed),
-          TypePointer
-            (TypeUnion
-              (DeclPathName
-                (CName "occupation")))],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:82:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "\25308\25308",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:110:6"},
-    DeclFunction
-      Function {
-        functionName = CName "\978",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:112:6"},
-    DeclFunction
-      Function {
-        functionName = CName "import",
-        functionArgs = [],
-        functionRes = TypeVoid,
-        functionHeader =
-        "manual_examples.h",
-        functionSourceLoc =
-        "manual_examples.h:114:6"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "triple"),
-        structAliases = [
-          CName "triple"],
-        structSizeof = 12,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "a",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:15:9"},
-          StructField {
-            fieldName = CName "b",
-            fieldOffset = 32,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:16:9"},
-          StructField {
-            fieldName = CName "c",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimIntegral PrimInt Signed),
-            fieldSourceLoc =
-            "manual_examples.h:17:9"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:14:16"},
-    DeclEnum
-      Enu {
-        enumDeclPath = DeclPathName
-          (CName "index"),
-        enumAliases = [CName "index"],
-        enumType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        enumSizeof = 4,
-        enumAlignment = 4,
-        enumValues = [
-          EnumValue {
-            valueName = CName "A",
-            valueValue = 0,
-            valueSourceLoc =
-            "manual_examples.h:27:5"},
-          EnumValue {
-            valueName = CName "B",
-            valueValue = 1,
-            valueSourceLoc =
-            "manual_examples.h:28:5"},
-          EnumValue {
-            valueName = CName "C",
-            valueValue = 2,
-            valueSourceLoc =
-            "manual_examples.h:29:5"}],
-        enumSourceLoc =
-        "manual_examples.h:26:14"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "sum",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "manual_examples.h:38:13"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "average",
-        typedefType = TypePrim
-          (PrimFloating PrimDouble),
-        typedefSourceLoc =
-        "manual_examples.h:39:16"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -369,6 +313,43 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "manual_examples.h:57:16"},
+    DeclFunction
+      Function {
+        functionName = CName "getYear",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef (CName "date"))],
+        functionRes = TypeTypedef
+          (CName "YEAR"),
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:63:6"},
+    DeclUnion
+      Union {
+        unionDeclPath = DeclPathName
+          (CName "occupation"),
+        unionAliases = [
+          CName "occupation"],
+        unionSizeof = 24,
+        unionAlignment = 8,
+        unionFields = [
+          UnionField {
+            ufieldName = CName "student",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "student")),
+            ufieldSourceLoc =
+            "manual_examples.h:73:5"},
+          UnionField {
+            ufieldName = CName "employee",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "employee")),
+            ufieldSourceLoc =
+            "manual_examples.h:79:5"}],
+        unionSourceLoc =
+        "manual_examples.h:69:15"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -399,13 +380,6 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "manual_examples.h:70:10"},
-    DeclOpaqueStruct
-      OpaqueStruct {
-        opaqueStructTag = CName
-          "person",
-        opaqueStructAliases = [],
-        opaqueStructSourceLoc =
-        "manual_examples.h:77:12"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -446,31 +420,64 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "manual_examples.h:75:10"},
-    DeclUnion
-      Union {
-        unionDeclPath = DeclPathName
-          (CName "occupation"),
-        unionAliases = [
-          CName "occupation"],
-        unionSizeof = 24,
-        unionAlignment = 8,
-        unionFields = [
-          UnionField {
-            ufieldName = CName "student",
-            ufieldType = TypeStruct
+    DeclOpaqueStruct
+      OpaqueStruct {
+        opaqueStructTag = CName
+          "person",
+        opaqueStructAliases = [],
+        opaqueStructSourceLoc =
+        "manual_examples.h:77:12"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "print_occupation",
+        functionArgs = [
+          TypePrim
+            (PrimIntegral PrimInt Signed),
+          TypePointer
+            (TypeUnion
               (DeclPathName
-                (CName "student")),
-            ufieldSourceLoc =
-            "manual_examples.h:73:5"},
-          UnionField {
-            ufieldName = CName "employee",
-            ufieldType = TypeStruct
-              (DeclPathName
-                (CName "employee")),
-            ufieldSourceLoc =
-            "manual_examples.h:79:5"}],
-        unionSourceLoc =
-        "manual_examples.h:69:15"},
+                (CName "occupation")))],
+        functionRes = TypeVoid,
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:82:6"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "rect"),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "lower_left",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "rect"))
+                  (CName "lower_left")
+                  DeclPathCtxtTop)),
+            fieldSourceLoc =
+            "manual_examples.h:92:5"},
+          StructField {
+            fieldName = CName "upper_right",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "rect"))
+                  (CName "upper_right")
+                  DeclPathCtxtTop)),
+            fieldSourceLoc =
+            "manual_examples.h:97:5"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "manual_examples.h:88:8"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -533,41 +540,6 @@ Header
         "manual_examples.h:94:3"},
     DeclStruct
       Struct {
-        structDeclPath = DeclPathName
-          (CName "rect"),
-        structAliases = [],
-        structSizeof = 16,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "lower_left",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "rect"))
-                  (CName "lower_left")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "manual_examples.h:92:5"},
-          StructField {
-            fieldName = CName "upper_right",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "rect"))
-                  (CName "upper_right")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "manual_examples.h:97:5"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:88:8"},
-    DeclStruct
-      Struct {
         structDeclPath = DeclPathAnon
           (DeclPathCtxtPtr
             (DeclPathCtxtTypedef
@@ -613,6 +585,16 @@ Header
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
         "manual_examples.h:109:13"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "\25308\25308",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:110:6"},
     DeclTypedef
       Typedef {
         typedefName = CName
@@ -621,6 +603,15 @@ Header
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
         "manual_examples.h:111:13"},
+    DeclFunction
+      Function {
+        functionName = CName "\978",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:112:6"},
     DeclTypedef
       Typedef {
         typedefName = CName "data",
@@ -628,6 +619,15 @@ Header
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
         "manual_examples.h:113:13"},
+    DeclFunction
+      Function {
+        functionName = CName "import",
+        functionArgs = [],
+        functionRes = TypeVoid,
+        functionHeader =
+        "manual_examples.h",
+        functionSourceLoc =
+        "manual_examples.h:114:6"},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName

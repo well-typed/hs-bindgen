@@ -105,8 +105,15 @@ data Decl =
   deriving stock (Show, Eq, Generic)
 
 data MacroDecl
-  = MacroReparseError ReparseError
-  | MacroTcError { macroTcErrorMacro :: Macro, macroTcError :: Macro.TcMacroError }
+  = MacroReparseError {
+        macroReparseError          :: ReparseError
+      , macroReparseErrorSourceLoc :: SingleLoc
+      }
+  | MacroTcError {
+        macroTcErrorMacro     :: Macro
+      , macroTcError          :: Macro.TcMacroError
+      , macroTcErrorSourceLoc :: SingleLoc
+      }
   | MacroDecl {
         macroDeclMacro     :: Macro
       , macroDeclMacroTy   :: Macro.Quant ( Macro.Type Macro.Ty )

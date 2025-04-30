@@ -10,6 +10,12 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), Eq, Int, Show, pure)
 
+newtype S1_t = S1_t
+  { un_S1_t :: S1
+  }
+
+deriving newtype instance F.Storable S1_t
+
 data S1 = S1
   { s1_a :: FC.CInt
   }
@@ -34,12 +40,6 @@ instance F.Storable S1 where
 deriving stock instance Show S1
 
 deriving stock instance Eq S1
-
-newtype S1_t = S1_t
-  { un_S1_t :: S1
-  }
-
-deriving newtype instance F.Storable S1_t
 
 data S2 = S2
   { s2_a :: FC.CInt

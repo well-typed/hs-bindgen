@@ -1,7 +1,5 @@
 -- addDependentFile examples/weird01.h
 -- #include "weird01.h"
-foreign import capi safe "weird01.h func" func :: Ptr Bar ->
-                                                  IO Unit
 data Foo = Foo {foo_z :: CInt}
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;
@@ -20,3 +18,5 @@ instance Storable Bar
                                     {Bar bar_x_3 -> pokeByteOff ptr_1 (0 :: Int) bar_x_3}}
 deriving stock instance Show Bar
 deriving stock instance Eq Bar
+foreign import capi safe "weird01.h func" func :: Ptr Bar ->
+                                                  IO Unit

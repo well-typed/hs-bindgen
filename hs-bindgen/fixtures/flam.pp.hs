@@ -40,35 +40,6 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar P
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
-data Foo_bar = Foo_bar
-  { foo_bar_x :: FC.CInt
-  , foo_bar_y :: FC.CInt
-  }
-
-instance F.Storable Foo_bar where
-
-  sizeOf = \_ -> (8 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Foo_bar
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Foo_bar foo_bar_x2 foo_bar_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) foo_bar_x2
-            >> F.pokeByteOff ptr0 (4 :: Int) foo_bar_y3
-
-deriving stock instance Show Foo_bar
-
-deriving stock instance Eq Foo_bar
-
 data Foo = Foo
   { foo_len :: FC.CInt
   }
@@ -97,6 +68,35 @@ deriving stock instance Eq Foo
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
+
+data Foo_bar = Foo_bar
+  { foo_bar_x :: FC.CInt
+  , foo_bar_y :: FC.CInt
+  }
+
+instance F.Storable Foo_bar where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Foo_bar
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Foo_bar foo_bar_x2 foo_bar_y3 ->
+               F.pokeByteOff ptr0 (0 :: Int) foo_bar_x2
+            >> F.pokeByteOff ptr0 (4 :: Int) foo_bar_y3
+
+deriving stock instance Show Foo_bar
+
+deriving stock instance Eq Foo_bar
 
 data Diff = Diff
   { diff_first :: FC.CLong

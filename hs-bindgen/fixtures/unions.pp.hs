@@ -169,6 +169,24 @@ deriving stock instance Show DimB
 
 deriving stock instance Eq DimB
 
+newtype AnonA = AnonA
+  { un_AnonA :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA
+
+get_anonA_xy :: AnonA -> AnonA_xy
+get_anonA_xy = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_anonA_xy :: AnonA_xy -> AnonA
+set_anonA_xy = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+get_anonA_polar :: AnonA -> AnonA_polar
+get_anonA_polar = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_anonA_polar :: AnonA_polar -> AnonA
+set_anonA_polar = HsBindgen.Runtime.ByteArray.setUnionPayload
+
 data AnonA_xy = AnonA_xy
   { anonA_xy_x :: FC.CDouble
   , anonA_xy_y :: FC.CDouble
@@ -226,21 +244,3 @@ instance F.Storable AnonA_polar where
 deriving stock instance Show AnonA_polar
 
 deriving stock instance Eq AnonA_polar
-
-newtype AnonA = AnonA
-  { un_AnonA :: Data.Array.Byte.ByteArray
-  }
-
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA
-
-get_anonA_xy :: AnonA -> AnonA_xy
-get_anonA_xy = HsBindgen.Runtime.ByteArray.getUnionPayload
-
-set_anonA_xy :: AnonA_xy -> AnonA
-set_anonA_xy = HsBindgen.Runtime.ByteArray.setUnionPayload
-
-get_anonA_polar :: AnonA -> AnonA_polar
-get_anonA_polar = HsBindgen.Runtime.ByteArray.getUnionPayload
-
-set_anonA_polar :: AnonA_polar -> AnonA
-set_anonA_polar = HsBindgen.Runtime.ByteArray.setUnionPayload

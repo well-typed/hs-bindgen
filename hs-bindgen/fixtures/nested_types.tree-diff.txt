@@ -78,35 +78,6 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "ex4_even"),
-        structAliases = [],
-        structSizeof = 16,
-        structAlignment = 8,
-        structFields = [
-          StructField {
-            fieldName = CName "value",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypePrim
-              (PrimFloating PrimDouble),
-            fieldSourceLoc =
-            "nested_types.h:25:16"},
-          StructField {
-            fieldName = CName "next",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "ex4_odd"))),
-            fieldSourceLoc =
-            "nested_types.h:26:25"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "nested_types.h:24:12"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
           (CName "ex4_odd"),
         structAliases = [],
         structSizeof = 16,
@@ -132,4 +103,33 @@ Header
             "nested_types.h:27:8"}],
         structFlam = Nothing,
         structSourceLoc =
-        "nested_types.h:22:8"}]
+        "nested_types.h:22:8"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "ex4_even"),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "value",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "nested_types.h:25:16"},
+          StructField {
+            fieldName = CName "next",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "ex4_odd"))),
+            fieldSourceLoc =
+            "nested_types.h:26:25"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "nested_types.h:24:12"}]

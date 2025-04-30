@@ -2,6 +2,13 @@ Header
   [
     DeclTypedef
       Typedef {
+        typedefName = CName "uint32_t",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Unsigned),
+        typedefSourceLoc =
+        "alltypes.h:131:25"},
+    DeclTypedef
+      Typedef {
         typedefName = CName "uint64_t",
         typedefType = TypePrim
           (PrimIntegral
@@ -9,13 +16,6 @@ Header
             Unsigned),
         typedefSourceLoc =
         "alltypes.h:136:25"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "uint32_t",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Unsigned),
-        typedefSourceLoc =
-        "alltypes.h:131:25"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName

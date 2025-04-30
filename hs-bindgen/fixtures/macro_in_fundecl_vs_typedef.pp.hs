@@ -46,46 +46,6 @@ deriving newtype instance Num MC
 
 deriving newtype instance Real MC
 
--- char quux1 (MC arg1, TC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux1" quux1 :: MC -> TC -> IO FC.CChar
-
--- TC quux2 (MC arg1, char arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux2" quux2 :: MC -> FC.CChar -> IO TC
-
--- MC *wam1 (float arg1, TC *arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
-
--- TC *wam2 (float arg1, MC *arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
-
--- void struct_typedef1 (struct2 *arg1, MC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
-
--- void struct_typedef2 (struct3_t *arg1, MC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
-
--- void struct_typedef3 (struct4 *arg1, MC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
-
--- void struct_name1 (struct struct1 *arg1, MC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
-
--- void struct_name2 (struct struct3 *arg1, MC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
-
--- void struct_name3 (struct struct4 *arg1, MC arg2)
-
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
-
 newtype TC = TC
   { un_TC :: FC.CChar
   }
@@ -115,6 +75,22 @@ deriving newtype instance Integral TC
 deriving newtype instance Num TC
 
 deriving newtype instance Real TC
+
+-- char quux1 (MC arg1, TC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h quux1" quux1 :: MC -> TC -> IO FC.CChar
+
+-- TC quux2 (MC arg1, char arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h quux2" quux2 :: MC -> FC.CChar -> IO TC
+
+-- MC *wam1 (float arg1, TC *arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
+
+-- TC *wam2 (float arg1, MC *arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
 
 data Struct1 = Struct1
   { struct1_a :: FC.CInt
@@ -221,3 +197,27 @@ instance F.Storable Struct4 where
 deriving stock instance Show Struct4
 
 deriving stock instance Eq Struct4
+
+-- void struct_typedef1 (struct2 *arg1, MC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
+
+-- void struct_typedef2 (struct3_t *arg1, MC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
+
+-- void struct_typedef3 (struct4 *arg1, MC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
+
+-- void struct_name1 (struct struct1 *arg1, MC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+
+-- void struct_name2 (struct struct3 *arg1, MC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+
+-- void struct_name3 (struct struct4 *arg1, MC arg2)
+
+foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()

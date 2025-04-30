@@ -14,6 +14,7 @@ module HsBindgen.C.Parser (
 import Control.Exception
 import Data.List qualified as List
 import Data.List.Compat ((!?))
+import Data.Map.Strict qualified as Map
 import Data.Maybe qualified as Maybe
 import Data.Text qualified as Text
 
@@ -98,8 +99,8 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
                         toList (C.typeDeclarations finalDeclState)
                     ]
                   depPaths = List.delete C.rootHeaderName $
-                    DynGraph.vertices $ C.cIncludePathGraph finalDeclState
-              return (depPaths, C.Header (decls ++ decls'))
+                    DynGraph.topSort $ C.cIncludePathGraph finalDeclState
+              return (depPaths, C.Header (sortDecls depPaths (decls ++ decls')))
   where
     hFilePath :: FilePath
     hFilePath = getSourcePath C.rootHeaderName
@@ -159,3 +160,39 @@ getTargetTriple args =
 
     opts :: BitfieldEnum CXTranslationUnit_Flags
     opts = bitfieldEnum []
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+-- | Sort declarations by source location
+--
+-- 1. Source path, in specified order
+-- 2. Line number
+-- 3. Column number
+sortDecls :: [SourcePath] -> [C.Decl] -> [C.Decl]
+sortDecls sourcePaths = List.sortOn (aux . getSingleLoc)
+  where
+    getSingleLoc :: C.Decl -> SingleLoc
+    getSingleLoc = \case
+      C.DeclStruct s       -> C.structSourceLoc s
+      C.DeclOpaqueStruct o -> C.opaqueStructSourceLoc o
+      C.DeclUnion u        -> C.unionSourceLoc u
+      C.DeclTypedef t      -> C.typedefSourceLoc t
+      C.DeclEnum e         -> C.enumSourceLoc e
+      C.DeclOpaqueEnum o   -> C.opaqueEnumSourceLoc o
+      C.DeclMacro m        -> case m of
+        C.MacroReparseError{} -> C.macroReparseErrorSourceLoc m
+        C.MacroTcError{}      -> C.macroTcErrorSourceLoc m
+        C.MacroDecl{}         -> C.macroDeclSourceLoc m
+      C.DeclFunction f     -> C.functionSourceLoc f
+
+    aux :: SingleLoc -> (Int, Int, Int)
+    aux sloc =
+        ( Map.findWithDefault maxBound (singleLocPath sloc) sourceMap
+        , singleLocLine sloc
+        , singleLocColumn sloc
+        )
+
+    sourceMap :: Map SourcePath Int
+    sourceMap = Map.fromList $ zip sourcePaths [0..]

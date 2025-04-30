@@ -1,5 +1,83 @@
 -- addDependentFile examples/manual_examples.h
 -- #include "manual_examples.h"
+data Triple
+    = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
+instance Storable Triple
+    where {sizeOf = \_ -> 12 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> ((pure Triple <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Triple triple_a_3
+                                            triple_b_4
+                                            triple_c_5 -> pokeByteOff ptr_1 (0 :: Int) triple_a_3 >> (pokeByteOff ptr_1 (4 :: Int) triple_b_4 >> pokeByteOff ptr_1 (8 :: Int) triple_c_5)}}
+deriving stock instance Show Triple
+deriving stock instance Eq Triple
+foreign import capi safe "manual_examples.h mk_triple" mk_triple :: CInt ->
+                                                                    CInt ->
+                                                                    CInt -> Ptr Triple -> IO Unit
+newtype Index = Index {un_Index :: CUInt}
+instance Storable Index
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Index <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Index un_Index_3 -> pokeByteOff ptr_1 (0 :: Int) un_Index_3}}
+deriving stock instance Eq Index
+deriving stock instance Ord Index
+deriving stock instance Read Index
+instance CEnum Index
+    where {type CEnumZ Index = CUInt;
+           toCEnum = Index;
+           fromCEnum = un_Index;
+           declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
+                                                          (1, singleton "B"),
+                                                          (2, singleton "C")];
+           showsUndeclared = showsWrappedUndeclared "Index";
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
+instance SequentialCEnum Index
+    where {minDeclaredValue = A; maxDeclaredValue = C}
+instance Show Index
+    where {showsPrec = showsCEnum}
+pattern A :: Index
+pattern A = Index 0
+pattern B :: Index
+pattern B = Index 1
+pattern C :: Index
+pattern C = Index 2
+foreign import capi safe "manual_examples.h index_triple" index_triple :: Ptr Triple ->
+                                                                          Index -> IO CInt
+newtype Sum = Sum {un_Sum :: CInt}
+deriving newtype instance Storable Sum
+deriving stock instance Eq Sum
+deriving stock instance Ord Sum
+deriving stock instance Read Sum
+deriving stock instance Show Sum
+deriving newtype instance Enum Sum
+deriving newtype instance Ix Sum
+deriving newtype instance Bounded Sum
+deriving newtype instance Bits Sum
+deriving newtype instance FiniteBits Sum
+deriving newtype instance Integral Sum
+deriving newtype instance Num Sum
+deriving newtype instance Real Sum
+newtype Average = Average {un_Average :: CDouble}
+deriving newtype instance Storable Average
+deriving stock instance Eq Average
+deriving stock instance Ord Average
+deriving stock instance Read Average
+deriving stock instance Show Average
+deriving newtype instance Enum Average
+deriving newtype instance Floating Average
+deriving newtype instance Fractional Average
+deriving newtype instance Num Average
+deriving newtype instance Real Average
+deriving newtype instance RealFloat Average
+deriving newtype instance RealFrac Average
+foreign import capi safe "manual_examples.h sum_triple" sum_triple :: Ptr Triple ->
+                                                                      IO Sum
+foreign import capi safe "manual_examples.h average_triple" average_triple :: Ptr Triple ->
+                                                                              IO Average
 fIELD_OFFSET :: CInt
 fIELD_OFFSET = 4 :: CInt
 ePSILON :: CDouble
@@ -48,92 +126,6 @@ deriving newtype instance FiniteBits DAY
 deriving newtype instance Integral DAY
 deriving newtype instance Num DAY
 deriving newtype instance Real DAY
-foreign import capi safe "manual_examples.h mk_triple" mk_triple :: CInt ->
-                                                                    CInt ->
-                                                                    CInt -> Ptr Triple -> IO Unit
-foreign import capi safe "manual_examples.h index_triple" index_triple :: Ptr Triple ->
-                                                                          Index -> IO CInt
-foreign import capi safe "manual_examples.h sum_triple" sum_triple :: Ptr Triple ->
-                                                                      IO Sum
-foreign import capi safe "manual_examples.h average_triple" average_triple :: Ptr Triple ->
-                                                                              IO Average
-foreign import capi safe "manual_examples.h getYear" getYear :: Ptr Date ->
-                                                                IO YEAR
-foreign import capi safe "manual_examples.h print_occupation" print_occupation :: CInt ->
-                                                                                  Ptr Occupation ->
-                                                                                  IO Unit
-foreign import capi safe "manual_examples.h \25308\25308" 拜拜 :: IO Unit
-foreign import capi safe "manual_examples.h \978" cϒ :: IO Unit
-foreign import capi safe "manual_examples.h import" import' :: IO Unit
-data Triple
-    = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
-instance Storable Triple
-    where {sizeOf = \_ -> 12 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> ((pure Triple <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Triple triple_a_3
-                                            triple_b_4
-                                            triple_c_5 -> pokeByteOff ptr_1 (0 :: Int) triple_a_3 >> (pokeByteOff ptr_1 (4 :: Int) triple_b_4 >> pokeByteOff ptr_1 (8 :: Int) triple_c_5)}}
-deriving stock instance Show Triple
-deriving stock instance Eq Triple
-newtype Index = Index {un_Index :: CUInt}
-instance Storable Index
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Index <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Index un_Index_3 -> pokeByteOff ptr_1 (0 :: Int) un_Index_3}}
-deriving stock instance Eq Index
-deriving stock instance Ord Index
-deriving stock instance Read Index
-instance CEnum Index
-    where {type CEnumZ Index = CUInt;
-           toCEnum = Index;
-           fromCEnum = un_Index;
-           declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
-                                                          (1, singleton "B"),
-                                                          (2, singleton "C")];
-           showsUndeclared = showsWrappedUndeclared "Index";
-           isDeclared = seqIsDeclared;
-           mkDeclared = seqMkDeclared}
-instance SequentialCEnum Index
-    where {minDeclaredValue = A; maxDeclaredValue = C}
-instance Show Index
-    where {showsPrec = showsCEnum}
-pattern A :: Index
-pattern A = Index 0
-pattern B :: Index
-pattern B = Index 1
-pattern C :: Index
-pattern C = Index 2
-newtype Sum = Sum {un_Sum :: CInt}
-deriving newtype instance Storable Sum
-deriving stock instance Eq Sum
-deriving stock instance Ord Sum
-deriving stock instance Read Sum
-deriving stock instance Show Sum
-deriving newtype instance Enum Sum
-deriving newtype instance Ix Sum
-deriving newtype instance Bounded Sum
-deriving newtype instance Bits Sum
-deriving newtype instance FiniteBits Sum
-deriving newtype instance Integral Sum
-deriving newtype instance Num Sum
-deriving newtype instance Real Sum
-newtype Average = Average {un_Average :: CDouble}
-deriving newtype instance Storable Average
-deriving stock instance Eq Average
-deriving stock instance Ord Average
-deriving stock instance Read Average
-deriving stock instance Show Average
-deriving newtype instance Enum Average
-deriving newtype instance Floating Average
-deriving newtype instance Fractional Average
-deriving newtype instance Num Average
-deriving newtype instance Real Average
-deriving newtype instance RealFloat Average
-deriving newtype instance RealFrac Average
 data Date
     = Date {date_year :: YEAR, date_month :: MONTH, date_day :: DAY}
 instance Storable Date
@@ -146,6 +138,18 @@ instance Storable Date
                                           date_day_5 -> pokeByteOff ptr_1 (0 :: Int) date_year_3 >> (pokeByteOff ptr_1 (4 :: Int) date_month_4 >> pokeByteOff ptr_1 (8 :: Int) date_day_5)}}
 deriving stock instance Show Date
 deriving stock instance Eq Date
+foreign import capi safe "manual_examples.h getYear" getYear :: Ptr Date ->
+                                                                IO YEAR
+newtype Occupation = Occupation {un_Occupation :: ByteArray}
+deriving via (SizedByteArray 24 8) instance Storable Occupation
+get_occupation_student :: Occupation -> Student
+get_occupation_student = getUnionPayload
+set_occupation_student :: Student -> Occupation
+set_occupation_student = setUnionPayload
+get_occupation_employee :: Occupation -> Employee
+get_occupation_employee = getUnionPayload
+set_occupation_employee :: Employee -> Occupation
+set_occupation_employee = setUnionPayload
 data Student
     = Student {student_university :: (Ptr CChar), student_year :: CInt}
 instance Storable Student
@@ -157,7 +161,6 @@ instance Storable Student
                                              student_year_4 -> pokeByteOff ptr_1 (0 :: Int) student_university_3 >> pokeByteOff ptr_1 (8 :: Int) student_year_4}}
 deriving stock instance Show Student
 deriving stock instance Eq Student
-data Person
 data Employee
     = Employee {employee_company :: (Ptr CChar),
                 employee_supervisor :: (Ptr Person),
@@ -172,16 +175,22 @@ instance Storable Employee
                                               employee_salary_5 -> pokeByteOff ptr_1 (0 :: Int) employee_company_3 >> (pokeByteOff ptr_1 (8 :: Int) employee_supervisor_4 >> pokeByteOff ptr_1 (16 :: Int) employee_salary_5)}}
 deriving stock instance Show Employee
 deriving stock instance Eq Employee
-newtype Occupation = Occupation {un_Occupation :: ByteArray}
-deriving via (SizedByteArray 24 8) instance Storable Occupation
-get_occupation_student :: Occupation -> Student
-get_occupation_student = getUnionPayload
-set_occupation_student :: Student -> Occupation
-set_occupation_student = setUnionPayload
-get_occupation_employee :: Occupation -> Employee
-get_occupation_employee = getUnionPayload
-set_occupation_employee :: Employee -> Occupation
-set_occupation_employee = setUnionPayload
+data Person
+foreign import capi safe "manual_examples.h print_occupation" print_occupation :: CInt ->
+                                                                                  Ptr Occupation ->
+                                                                                  IO Unit
+data Rect
+    = Rect {rect_lower_left :: Rect_lower_left,
+            rect_upper_right :: Rect_upper_right}
+instance Storable Rect
+    where {sizeOf = \_ -> 16 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Rect <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Rect rect_lower_left_3
+                                          rect_upper_right_4 -> pokeByteOff ptr_1 (0 :: Int) rect_lower_left_3 >> pokeByteOff ptr_1 (8 :: Int) rect_upper_right_4}}
+deriving stock instance Show Rect
+deriving stock instance Eq Rect
 data Rect_lower_left
     = Rect_lower_left {rect_lower_left_x :: CInt,
                        rect_lower_left_y :: CInt}
@@ -206,18 +215,6 @@ instance Storable Rect_upper_right
                                                       rect_upper_right_y_4 -> pokeByteOff ptr_1 (0 :: Int) rect_upper_right_x_3 >> pokeByteOff ptr_1 (4 :: Int) rect_upper_right_y_4}}
 deriving stock instance Show Rect_upper_right
 deriving stock instance Eq Rect_upper_right
-data Rect
-    = Rect {rect_lower_left :: Rect_lower_left,
-            rect_upper_right :: Rect_upper_right}
-instance Storable Rect
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Rect <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Rect rect_lower_left_3
-                                          rect_upper_right_4 -> pokeByteOff ptr_1 (0 :: Int) rect_lower_left_3 >> pokeByteOff ptr_1 (8 :: Int) rect_upper_right_4}}
-deriving stock instance Show Rect
-deriving stock instance Eq Rect
 data Config_Deref
     = Config_Deref {config_Deref_width :: CInt,
                     config_Deref_height :: CInt}
@@ -246,6 +243,7 @@ deriving newtype instance FiniteBits Adio'0301s
 deriving newtype instance Integral Adio'0301s
 deriving newtype instance Num Adio'0301s
 deriving newtype instance Real Adio'0301s
+foreign import capi safe "manual_examples.h \25308\25308" 拜拜 :: IO Unit
 newtype C数字 = C数字 {un_C数字 :: CInt}
 deriving newtype instance Storable C数字
 deriving stock instance Eq C数字
@@ -260,6 +258,7 @@ deriving newtype instance FiniteBits C数字
 deriving newtype instance Integral C数字
 deriving newtype instance Num C数字
 deriving newtype instance Real C数字
+foreign import capi safe "manual_examples.h \978" cϒ :: IO Unit
 newtype Data = Data {un_Data :: CInt}
 deriving newtype instance Storable Data
 deriving stock instance Eq Data
@@ -274,6 +273,7 @@ deriving newtype instance FiniteBits Data
 deriving newtype instance Integral Data
 deriving newtype instance Num Data
 deriving newtype instance Real Data
+foreign import capi safe "manual_examples.h import" import' :: IO Unit
 newtype Signal = Signal {un_Signal :: CUInt}
 instance Storable Signal
     where {sizeOf = \_ -> 4 :: Int;

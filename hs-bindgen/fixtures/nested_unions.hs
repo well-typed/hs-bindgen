@@ -1,82 +1,4 @@
 [
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "UnionA",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "UnionA",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_UnionA",
-        fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "unionA"),
-          unionAliases = [],
-          unionSizeof = 4,
-          unionAlignment = 4,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "a",
-              ufieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              ufieldSourceLoc =
-              "nested_unions.h:3:21"},
-            UnionField {
-              ufieldName = CName "b",
-              ufieldType = TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))),
-              ufieldSourceLoc =
-              "nested_unions.h:4:22"}],
-          unionSourceLoc =
-          "nested_unions.h:2:15"}},
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSizedByteArray 4 4))
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "UnionA"),
-  DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "UnionA")
-    (HsPrimType HsPrimCInt)
-    (HsName
-      "@NsVar"
-      "get_unionA_a"),
-  DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "UnionA")
-    (HsPrimType HsPrimCInt)
-    (HsName
-      "@NsVar"
-      "set_unionA_a"),
-  DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "UnionA")
-    (HsPrimType HsPrimCChar)
-    (HsName
-      "@NsVar"
-      "get_unionA_b"),
-  DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "UnionA")
-    (HsPrimType HsPrimCChar)
-    (HsName
-      "@NsVar"
-      "set_unionA_b"),
   DeclData
     Struct {
       structName = HsName
@@ -297,24 +219,21 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
-        "ExB_fieldB1",
+        "UnionA",
       newtypeConstr = HsName
         "@NsConstr"
-        "ExB_fieldB1",
+        "UnionA",
       newtypeField = Field {
         fieldName = HsName
           "@NsVar"
-          "un_ExB_fieldB1",
+          "un_UnionA",
         fieldType = HsByteArray,
         fieldOrigin = FieldOriginNone},
       newtypeOrigin =
       NewtypeOriginUnion
         Union {
-          unionDeclPath = DeclPathAnon
-            (DeclPathCtxtField
-              (Just (CName "exB"))
-              (CName "fieldB1")
-              DeclPathCtxtTop),
+          unionDeclPath = DeclPathName
+            (CName "unionA"),
           unionAliases = [],
           unionSizeof = 4,
           unionAlignment = 4,
@@ -324,7 +243,7 @@
               ufieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               ufieldSourceLoc =
-              "nested_unions.h:10:21"},
+              "nested_unions.h:3:21"},
             UnionField {
               ufieldName = CName "b",
               ufieldType = TypePrim
@@ -332,48 +251,48 @@
                   (PrimSignImplicit
                     (Just Signed))),
               ufieldSourceLoc =
-              "nested_unions.h:11:22"}],
+              "nested_unions.h:4:22"}],
           unionSourceLoc =
-          "nested_unions.h:9:9"}},
+          "nested_unions.h:2:15"}},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 4 4))
     Storable
     (HsName
       "@NsTypeConstr"
-      "ExB_fieldB1"),
+      "UnionA"),
   DeclUnionGetter
     (HsName
       "@NsTypeConstr"
-      "ExB_fieldB1")
+      "UnionA")
     (HsPrimType HsPrimCInt)
     (HsName
       "@NsVar"
-      "get_exB_fieldB1_a"),
+      "get_unionA_a"),
   DeclUnionSetter
     (HsName
       "@NsTypeConstr"
-      "ExB_fieldB1")
+      "UnionA")
     (HsPrimType HsPrimCInt)
     (HsName
       "@NsVar"
-      "set_exB_fieldB1_a"),
+      "set_unionA_a"),
   DeclUnionGetter
     (HsName
       "@NsTypeConstr"
-      "ExB_fieldB1")
+      "UnionA")
     (HsPrimType HsPrimCChar)
     (HsName
       "@NsVar"
-      "get_exB_fieldB1_b"),
+      "get_unionA_b"),
   DeclUnionSetter
     (HsName
       "@NsTypeConstr"
-      "ExB_fieldB1")
+      "UnionA")
     (HsPrimType HsPrimCChar)
     (HsName
       "@NsVar"
-      "set_exB_fieldB1_b"),
+      "set_unionA_b"),
   DeclData
     Struct {
       structName = HsName
@@ -621,4 +540,85 @@
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "ExB")]
+    (HsName "@NsTypeConstr" "ExB"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "ExB_fieldB1",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "ExB_fieldB1",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_ExB_fieldB1",
+        fieldType = HsByteArray,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginUnion
+        Union {
+          unionDeclPath = DeclPathAnon
+            (DeclPathCtxtField
+              (Just (CName "exB"))
+              (CName "fieldB1")
+              DeclPathCtxtTop),
+          unionAliases = [],
+          unionSizeof = 4,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              ufieldName = CName "a",
+              ufieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              ufieldSourceLoc =
+              "nested_unions.h:10:21"},
+            UnionField {
+              ufieldName = CName "b",
+              ufieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              ufieldSourceLoc =
+              "nested_unions.h:11:22"}],
+          unionSourceLoc =
+          "nested_unions.h:9:9"}},
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsSizedByteArray 4 4))
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "ExB_fieldB1"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "ExB_fieldB1")
+    (HsPrimType HsPrimCInt)
+    (HsName
+      "@NsVar"
+      "get_exB_fieldB1_a"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "ExB_fieldB1")
+    (HsPrimType HsPrimCInt)
+    (HsName
+      "@NsVar"
+      "set_exB_fieldB1_a"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "ExB_fieldB1")
+    (HsPrimType HsPrimCChar)
+    (HsName
+      "@NsVar"
+      "get_exB_fieldB1_b"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "ExB_fieldB1")
+    (HsPrimType HsPrimCChar)
+    (HsName
+      "@NsVar"
+      "set_exB_fieldB1_b")]

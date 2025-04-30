@@ -1,5 +1,21 @@
 Header
   [
+    DeclTypedef
+      Typedef {
+        typedefName = CName "T1",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "typedef_vs_macro.h:1:13"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "T2",
+        typedefType = TypePrim
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed))),
+        typedefSourceLoc =
+        "typedef_vs_macro.h:2:14"},
     DeclMacro
       MacroDecl {
         macroDeclMacro = Macro {
@@ -62,7 +78,8 @@ Header
         macroDeclSourceLoc =
         "typedef_vs_macro.h:6:9"},
     DeclMacro
-      (MacroReparseError
+      MacroReparseError {
+        macroReparseError =
         ReparseError {
           reparseError = concat
             [
@@ -126,43 +143,9 @@ Header
                   multiLocSpelling = Nothing,
                   multiLocFile = Nothing}},
               tokenCursorKind = SimpleEnum
-                501}]}),
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "typedef_vs_macro.h:16:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "uint64_t",
-          macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "typedef_vs_macro.h:16:9"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "T1",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "typedef_vs_macro.h:1:13"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "T2",
-        typedefType = TypePrim
-          (PrimChar
-            (PrimSignImplicit
-              (Just Signed))),
-        typedefSourceLoc =
-        "typedef_vs_macro.h:2:14"},
+                501}]},
+        macroReparseErrorSourceLoc =
+        "typedef_vs_macro.h:7:9"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -206,6 +189,26 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "typedef_vs_macro.h:9:8"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "typedef_vs_macro.h:16:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "uint64_t",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "typedef_vs_macro.h:16:9"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName

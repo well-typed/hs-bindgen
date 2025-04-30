@@ -19,6 +19,15 @@ Header
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "macro_in_fundecl_vs_typedef.h:4:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "TC",
+        typedefType = TypePrim
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed))),
+        typedefSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:5:14"},
     DeclFunction
       Function {
         functionName = CName "quux1",
@@ -74,100 +83,6 @@ Header
         "macro_in_fundecl_vs_typedef.h",
         functionSourceLoc =
         "macro_in_fundecl_vs_typedef.h:11:5"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_typedef1",
-        functionArgs = [
-          TypePointer
-            (TypeTypedef (CName "struct2")),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:23:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_typedef2",
-        functionArgs = [
-          TypePointer
-            (TypeTypedef
-              (CName "struct3_t")),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:24:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_typedef3",
-        functionArgs = [
-          TypePointer
-            (TypeTypedef (CName "struct4")),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:25:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_name1",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "struct1"))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:27:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_name2",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "struct3"))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:28:6"},
-    DeclFunction
-      Function {
-        functionName = CName
-          "struct_name3",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName
-                (CName "struct4"))),
-          TypeTypedef (CName "MC")],
-        functionRes = TypeVoid,
-        functionHeader =
-        "macro_in_fundecl_vs_typedef.h",
-        functionSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:29:6"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "TC",
-        typedefType = TypePrim
-          (PrimChar
-            (PrimSignImplicit
-              (Just Signed))),
-        typedefSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:5:14"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -253,4 +168,89 @@ Header
             "macro_in_fundecl_vs_typedef.h:21:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:21:16"}]
+        "macro_in_fundecl_vs_typedef.h:21:16"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_typedef1",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef (CName "struct2")),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:23:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_typedef2",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef
+              (CName "struct3_t")),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:24:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_typedef3",
+        functionArgs = [
+          TypePointer
+            (TypeTypedef (CName "struct4")),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:25:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_name1",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "struct1"))),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:27:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_name2",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "struct3"))),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:28:6"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "struct_name3",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName
+                (CName "struct4"))),
+          TypeTypedef (CName "MC")],
+        functionRes = TypeVoid,
+        functionHeader =
+        "macro_in_fundecl_vs_typedef.h",
+        functionSourceLoc =
+        "macro_in_fundecl_vs_typedef.h:29:6"}]

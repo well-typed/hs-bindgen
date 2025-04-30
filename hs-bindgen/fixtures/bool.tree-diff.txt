@@ -1,21 +1,5 @@
 Header
   [
-    DeclMacro
-      MacroDecl {
-        macroDeclMacro = Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "bool.h:13:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "BOOL",
-          macroArgs = [],
-          macroBody = MTerm
-            (MType (TypePrim PrimBool))},
-        macroDeclMacroTy = "PrimTy",
-        macroDeclSourceLoc =
-        "bool.h:13:9"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -62,6 +46,22 @@ Header
             "bool.h:10:10"}],
         structFlam = Nothing,
         structSourceLoc = "bool.h:8:8"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "bool.h:13:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "BOOL",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType (TypePrim PrimBool))},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "bool.h:13:9"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName

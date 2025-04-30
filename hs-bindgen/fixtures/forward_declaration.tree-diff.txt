@@ -1,5 +1,12 @@
 Header
   [
+    DeclTypedef
+      Typedef {
+        typedefName = CName "S1_t",
+        typedefType = TypeStruct
+          (DeclPathName (CName "S1")),
+        typedefSourceLoc =
+        "forward_declaration.h:1:19"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -19,13 +26,6 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "forward_declaration.h:3:8"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "S1_t",
-        typedefType = TypeStruct
-          (DeclPathName (CName "S1")),
-        typedefSourceLoc =
-        "forward_declaration.h:1:19"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName

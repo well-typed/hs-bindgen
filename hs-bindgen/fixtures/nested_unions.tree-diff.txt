@@ -1,5 +1,24 @@
 Header
   [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "exA"),
+        structAliases = [],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "fieldA1",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeUnion
+              (DeclPathName (CName "unionA")),
+            fieldSourceLoc =
+            "nested_unions.h:5:11"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "nested_unions.h:1:8"},
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
@@ -27,22 +46,26 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "exA"),
+          (CName "exB"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,
         structFields = [
           StructField {
-            fieldName = CName "fieldA1",
+            fieldName = CName "fieldB1",
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypeUnion
-              (DeclPathName (CName "unionA")),
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "exB"))
+                  (CName "fieldB1")
+                  DeclPathCtxtTop)),
             fieldSourceLoc =
-            "nested_unions.h:5:11"}],
+            "nested_unions.h:12:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "nested_unions.h:1:8"},
+        "nested_unions.h:8:8"},
     DeclUnion
       Union {
         unionDeclPath = DeclPathAnon
@@ -69,27 +92,4 @@ Header
             ufieldSourceLoc =
             "nested_unions.h:11:22"}],
         unionSourceLoc =
-        "nested_unions.h:9:9"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "exB"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "fieldB1",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeUnion
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "exB"))
-                  (CName "fieldB1")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "nested_unions.h:12:11"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "nested_unions.h:8:8"}]
+        "nested_unions.h:9:9"}]

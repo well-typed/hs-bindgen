@@ -1,262 +1,411 @@
 [
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "a",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        5
-        HsPrimCInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "b",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        3
-        HsPrimCInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "sOME_DEFINED_CONSTANT",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        4
-        HsPrimCInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "a_DEFINE_0",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        0
-        HsPrimCInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "a_DEFINE_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        20560
-        HsPrimCUInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "a_DEFINE_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        2
-        HsPrimCInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "tWO_ARGS",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []]]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MTuple)
-        [
-          VarDeclIntegral
-            13398
-            HsPrimCInt,
-          VarDeclIntegral
-            30874
-            HsPrimCInt]},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "some_fun",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "A_type_t")))
-        (HsFun
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Uint32_t"))
-          (HsFun
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Uint8_t")))
-            (HsIO
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Int32_t"))))),
-      foreignImportCRes = TypeTypedef
-        (CName "int32_t"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef
-            (CName "a_type_t")),
-        TypeTypedef (CName "uint32_t"),
-        TypeIncompleteArray
-          (TypeTypedef
-            (CName "uint8_t"))],
-      foreignImportOrigName =
-      "some_fun",
-      foreignImportHeader =
-      "distilled_lib_1.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName "some_fun",
-          functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (CName "a_type_t")),
-            TypeTypedef (CName "uint32_t"),
-            TypeIncompleteArray
-              (TypeTypedef
-                (CName "uint8_t"))],
-          functionRes = TypeTypedef
-            (CName "int32_t"),
-          functionHeader =
-          "distilled_lib_1.h",
-          functionSourceLoc =
-          "distilled_lib_1.h:71:9"}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Int32_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Int32_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Int32_t",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "int32_t",
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed),
+          typedefSourceLoc =
+          "alltypes.h:106:25"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Int32_t"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Uint8_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Uint8_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Uint8_t",
+        fieldType = HsPrimType
+          HsPrimCUChar,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "uint8_t",
+          typedefType = TypePrim
+            (PrimChar
+              (PrimSignExplicit Unsigned)),
+          typedefSourceLoc =
+          "alltypes.h:121:25"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Uint8_t"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Uint16_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Uint16_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Uint16_t",
+        fieldType = HsPrimType
+          HsPrimCUShort,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "uint16_t",
+          typedefType = TypePrim
+            (PrimIntegral
+              PrimShort
+              Unsigned),
+          typedefSourceLoc =
+          "alltypes.h:126:25"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Uint16_t"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Uint32_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Uint32_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Uint32_t",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "uint32_t",
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          typedefSourceLoc =
+          "alltypes.h:131:25"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
   DeclData
     Struct {
       structName = HsName
@@ -959,6 +1108,81 @@
           valueValue = 1,
           valueSourceLoc =
           "distilled_lib_1.h:9:21"}},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "a",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        5
+        HsPrimCInt},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "b",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        3
+        HsPrimCInt},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "sOME_DEFINED_CONSTANT",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        4
+        HsPrimCInt},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1161,312 +1385,6 @@
     (HsName
       "@NsTypeConstr"
       "Var_t"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Uint8_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Uint8_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Uint8_t",
-        fieldType = HsPrimType
-          HsPrimCUChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint8_t",
-          typedefType = TypePrim
-            (PrimChar
-              (PrimSignExplicit Unsigned)),
-          typedefSourceLoc =
-          "alltypes.h:121:25"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Uint8_t"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Uint16_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Uint16_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Uint16_t",
-        fieldType = HsPrimType
-          HsPrimCUShort,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint16_t",
-          typedefType = TypePrim
-            (PrimIntegral
-              PrimShort
-              Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:126:25"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Uint16_t"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Uint32_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Uint32_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Uint32_t",
-        fieldType = HsPrimType
-          HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:131:25"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
   DeclData
     Struct {
       structName = HsName
@@ -2985,6 +2903,130 @@
     (HsName
       "@NsTypeConstr"
       "A_typedef_struct_t"),
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "a_DEFINE_0",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        0
+        HsPrimCInt},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "a_DEFINE_1",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Unsigned)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        20560
+        HsPrimCUInt},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "a_DEFINE_2",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        2
+        HsPrimCInt},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "tWO_ARGS",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon (TupleTyCon 2))))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon IntLikeTyCon)))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon
+                          (IntLikeTyCon
+                            (CIntegralType
+                              (IntLike (Int Signed)))))))
+                    []],
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon IntLikeTyCon)))
+                [
+                  TyConAppTy
+                    (ATyCon
+                      (GenerativeTyCon
+                        (DataTyCon
+                          (IntLikeTyCon
+                            (CIntegralType
+                              (IntLike (Int Signed)))))))
+                    []]]}},
+      varDeclBody = VarDeclApp
+        (InfixAppHead MTuple)
+        [
+          VarDeclIntegral
+            13398
+            HsPrimCInt,
+          VarDeclIntegral
+            30874
+            HsPrimCInt]},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -3474,107 +3516,65 @@
           valueValue = 3,
           valueSourceLoc =
           "distilled_lib_1.h:65:3"}},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Int32_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Int32_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Int32_t",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "int32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "alltypes.h:106:25"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Int32_t"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "some_fun",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "A_type_t")))
+        (HsFun
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Uint32_t"))
+          (HsFun
+            (HsPtr
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Uint8_t")))
+            (HsIO
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Int32_t"))))),
+      foreignImportCRes = TypeTypedef
+        (CName "int32_t"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeTypedef
+            (CName "a_type_t")),
+        TypeTypedef (CName "uint32_t"),
+        TypeIncompleteArray
+          (TypeTypedef
+            (CName "uint8_t"))],
+      foreignImportOrigName =
+      "some_fun",
+      foreignImportHeader =
+      "distilled_lib_1.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "some_fun",
+          functionArgs = [
+            TypePointer
+              (TypeTypedef
+                (CName "a_type_t")),
+            TypeTypedef (CName "uint32_t"),
+            TypeIncompleteArray
+              (TypeTypedef
+                (CName "uint8_t"))],
+          functionRes = TypeTypedef
+            (CName "int32_t"),
+          functionHeader =
+          "distilled_lib_1.h",
+          functionSourceLoc =
+          "distilled_lib_1.h:71:9"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName

@@ -1,5 +1,24 @@
 Header
   [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "exA"),
+        structAliases = [],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "fieldA1",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeEnum
+              (DeclPathName (CName "enumA")),
+            fieldSourceLoc =
+            "nested_enums.h:5:11"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "nested_enums.h:1:8"},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -25,22 +44,26 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "exA"),
+          (CName "exB"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,
         structFields = [
           StructField {
-            fieldName = CName "fieldA1",
+            fieldName = CName "fieldB1",
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypeEnum
-              (DeclPathName (CName "enumA")),
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "exB"))
+                  (CName "fieldB1")
+                  DeclPathCtxtTop)),
             fieldSourceLoc =
-            "nested_enums.h:5:11"}],
+            "nested_enums.h:12:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "nested_enums.h:1:8"},
+        "nested_enums.h:8:8"},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathAnon
@@ -65,27 +88,4 @@ Header
             valueSourceLoc =
             "nested_enums.h:11:17"}],
         enumSourceLoc =
-        "nested_enums.h:9:9"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "exB"),
-        structAliases = [],
-        structSizeof = 4,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "fieldB1",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeEnum
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "exB"))
-                  (CName "fieldB1")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "nested_enums.h:12:11"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "nested_enums.h:8:8"}]
+        "nested_enums.h:9:9"}]

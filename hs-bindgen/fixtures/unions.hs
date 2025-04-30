@@ -1518,6 +1518,94 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "DimB"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "AnonA",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "AnonA",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_AnonA",
+        fieldType = HsByteArray,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginUnion
+        Union {
+          unionDeclPath = DeclPathName
+            (CName "AnonA"),
+          unionAliases = [],
+          unionSizeof = 16,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              ufieldName = CName "xy",
+              ufieldType = TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "AnonA"))
+                    (CName "xy")
+                    DeclPathCtxtTop)),
+              ufieldSourceLoc =
+              "unions.h:35:36"},
+            UnionField {
+              ufieldName = CName "polar",
+              ufieldType = TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "AnonA"))
+                    (CName "polar")
+                    DeclPathCtxtTop)),
+              ufieldSourceLoc =
+              "unions.h:36:36"}],
+          unionSourceLoc =
+          "unions.h:34:7"}},
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsSizedByteArray 16 8))
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "AnonA"),
+  DeclUnionGetter
+    (HsName "@NsTypeConstr" "AnonA")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "AnonA_xy"))
+    (HsName
+      "@NsVar"
+      "get_anonA_xy"),
+  DeclUnionSetter
+    (HsName "@NsTypeConstr" "AnonA")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "AnonA_xy"))
+    (HsName
+      "@NsVar"
+      "set_anonA_xy"),
+  DeclUnionGetter
+    (HsName "@NsTypeConstr" "AnonA")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "AnonA_polar"))
+    (HsName
+      "@NsVar"
+      "get_anonA_polar"),
+  DeclUnionSetter
+    (HsName "@NsTypeConstr" "AnonA")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "AnonA_polar"))
+    (HsName
+      "@NsVar"
+      "set_anonA_polar"),
   DeclData
     Struct {
       structName = HsName
@@ -2163,92 +2251,4 @@
     Eq
     (HsName
       "@NsTypeConstr"
-      "AnonA_polar"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "AnonA",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "AnonA",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_AnonA",
-        fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "AnonA"),
-          unionAliases = [],
-          unionSizeof = 16,
-          unionAlignment = 8,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "xy",
-              ufieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "AnonA"))
-                    (CName "xy")
-                    DeclPathCtxtTop)),
-              ufieldSourceLoc =
-              "unions.h:35:36"},
-            UnionField {
-              ufieldName = CName "polar",
-              ufieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "AnonA"))
-                    (CName "polar")
-                    DeclPathCtxtTop)),
-              ufieldSourceLoc =
-              "unions.h:36:36"}],
-          unionSourceLoc =
-          "unions.h:34:7"}},
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSizedByteArray 16 8))
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "AnonA"),
-  DeclUnionGetter
-    (HsName "@NsTypeConstr" "AnonA")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "AnonA_xy"))
-    (HsName
-      "@NsVar"
-      "get_anonA_xy"),
-  DeclUnionSetter
-    (HsName "@NsTypeConstr" "AnonA")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "AnonA_xy"))
-    (HsName
-      "@NsVar"
-      "set_anonA_xy"),
-  DeclUnionGetter
-    (HsName "@NsTypeConstr" "AnonA")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "AnonA_polar"))
-    (HsName
-      "@NsVar"
-      "get_anonA_polar"),
-  DeclUnionSetter
-    (HsName "@NsTypeConstr" "AnonA")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "AnonA_polar"))
-    (HsName
-      "@NsVar"
-      "set_anonA_polar")]
+      "AnonA_polar")]
