@@ -97,7 +97,7 @@ data MultiLoc = MultiLoc {
       -- If the location refers into a macro instantiation, this corresponds to
       -- the /original/ location of the spelling in the source file.
       --
-      -- /WARNING/: This field is only populated correctly from @llvm >= 191.0@;
+      -- /WARNING/: This field is only populated correctly from @llvm >= 19.1.0@;
       -- prior to that this is equal to 'multiLocFile'.
       -- See <https://github.com/llvm/llvm-project/pull/72400>.
       --

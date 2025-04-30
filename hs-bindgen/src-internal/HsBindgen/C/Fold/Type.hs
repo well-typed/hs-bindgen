@@ -341,9 +341,8 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
         return (TypeIncompleteArray e')
 
     _ -> do
-      name <- CName <$> liftIO (clang_getTypeSpelling ty)
-      liftIO $ print name
-      unrecognizedType ty
+      mLoc <- liftIO $ traverse HighLevel.clang_getCursorLocation declCursor
+      unrecognizedType ty (multiLocExpansion <$> mLoc)
 
   where
     processFun :: Eff (State DeclState) Type

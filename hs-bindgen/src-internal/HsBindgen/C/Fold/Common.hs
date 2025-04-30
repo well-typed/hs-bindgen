@@ -98,8 +98,10 @@ data UnrecognizedCursor = UnrecognizedCursor {
   deriving Exception via CollectedBacktrace UnrecognizedCursor
 
 data UnrecognizedType = UnrecognizedType {
-      unrecognizedTypeKind  :: SimpleEnum CXTypeKind
-    , unrecognizedTypeTrace :: Backtrace
+      unrecognizedTypeKind     :: SimpleEnum CXTypeKind
+    , unrecognizedTypeSpelling :: Text
+    , unrecognizedTypeLocation :: Maybe SingleLoc
+    , unrecognizedTypeTrace    :: Backtrace
     }
   deriving stock (Show)
   deriving Exception via CollectedBacktrace UnrecognizedType
@@ -118,12 +120,17 @@ unrecognizedCursor cursor = liftIO $ do
       , unrecognizedCursorTrace
       }
 
-unrecognizedType :: (MonadIO m, HasCallStack) => CXType -> m a
-unrecognizedType typ = liftIO $ do
+unrecognizedType ::
+     (MonadIO m, HasCallStack)
+  => CXType -> Maybe SingleLoc -> m a
+unrecognizedType typ unrecognizedTypeLocation = liftIO $ do
     let unrecognizedTypeKind = cxtKind typ
-    unrecognizedTypeTrace <- collectBacktrace
+    unrecognizedTypeTrace    <- collectBacktrace
+    unrecognizedTypeSpelling <- clang_getTypeSpelling typ
     throwIO UnrecognizedType{
         unrecognizedTypeKind
+      , unrecognizedTypeSpelling
+      , unrecognizedTypeLocation
       , unrecognizedTypeTrace
       }
 
