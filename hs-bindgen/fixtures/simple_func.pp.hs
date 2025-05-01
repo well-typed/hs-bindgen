@@ -1,10 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Example where
 
 import qualified Foreign.C as FC
 import Prelude (IO)
+
+-- #include "simple_func.h"
 
 -- double erf (double arg1)
 

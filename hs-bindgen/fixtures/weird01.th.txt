@@ -1,4 +1,5 @@
 -- addDependentFile examples/weird01.h
+-- #include "weird01.h"
 foreign import capi safe "weird01.h func" func :: Ptr Bar ->
                                                   IO Unit
 data Foo = Foo {foo_z :: CInt}

@@ -1,3 +1,4 @@
 CApiFFI
+TemplateHaskell
 StandaloneDeriving
 DerivingStrategies

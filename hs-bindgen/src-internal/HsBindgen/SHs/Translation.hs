@@ -1,6 +1,6 @@
 -- | Simplified HS translation (from high level HS)
 module HsBindgen.SHs.Translation (
-    translateDecl,
+    translateDecls,
 ) where
 
 -- previously Backend.Common.Translation
@@ -27,10 +27,25 @@ import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size(UnsafeSize))
 import Data.Type.Nat qualified as Fin
 import Data.Proxy (Proxy(..))
+import Witherable (ordNub)
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
+
+translateDecls :: [Hs.Decl] -> [SDecl]
+translateDecls decls =
+    DCSource (csources decls) :
+    concatMap translateDecl decls
+
+-- 20250429 this function will change,
+-- but for now we find the includes to test addCSource functionality
+csources :: [Hs.Decl] -> String
+csources decls = unlines $ ordNub
+    [ "#include \"" ++ header ++ "\""
+    | Hs.DeclForeignImport i <- decls
+    , let header = Hs.foreignImportHeader i
+    ]
 
 translateDecl :: Hs.Decl -> [SDecl]
 translateDecl (Hs.DeclData d) = singleton $ translateDeclData d

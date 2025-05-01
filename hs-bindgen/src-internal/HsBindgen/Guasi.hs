@@ -17,7 +17,7 @@ class TH.Quote g => Guasi g where
     addDependentFile :: FilePath -> g ()
     extsEnabled :: g [TH.Extension]
     reportError :: String -> g ()
-    -- TODO: addForeignSource :: TH.ForeignSourceLang -> String -> q ()
+    addCSource :: String -> g ()
 
 -- |
 --
@@ -34,6 +34,8 @@ instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
     extsEnabled = TH.extsEnabled
     reportError = TH.reportError
+
+    addCSource = TH.addForeignSource TH.LangC
 
 mapHead :: (a -> a) -> [a] -> [a]
 mapHead _ []     = []

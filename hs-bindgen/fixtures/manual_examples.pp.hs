@@ -9,6 +9,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module Example where
@@ -26,6 +27,8 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
+
+-- #include "manual_examples.h"
 
 fIELD_OFFSET :: FC.CInt
 fIELD_OFFSET = (4 :: FC.CInt)

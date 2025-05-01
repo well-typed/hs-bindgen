@@ -3,6 +3,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Example where
 
@@ -12,6 +13,8 @@ import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
+
+-- #include "macro_in_fundecl_vs_typedef.h"
 
 newtype MC = MC
   { un_MC :: FC.CChar

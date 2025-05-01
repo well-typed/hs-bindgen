@@ -44,6 +44,7 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.SHs.AST
+import HsBindgen.Guasi
 
 import DeBruijn
 import GHC.Exts (Int(..), sizeofByteArray#)
@@ -450,7 +451,7 @@ mkType env = \case
 mkPrimType :: Quote q => HsPrimType -> q TH.Type
 mkPrimType = TH.conT . mkGlobalP
 
-mkDecl :: forall q. Quote q => SDecl -> q [TH.Dec]
+mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
       DComment {} -> return []
       DVar x Nothing   f -> singleton <$> simpleDecl (hsNameToTH x) f
@@ -510,6 +511,10 @@ mkDecl = \case
             TH.implBidir
             (mkPat (patSynRHS ps))
           ]
+
+      DCSource src -> do
+          addCSource src
+          return []
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []

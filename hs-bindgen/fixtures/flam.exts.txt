@@ -1,3 +1,4 @@
+TemplateHaskell
 StandaloneDeriving
 DerivingStrategies
 MultiParamTypeClasses

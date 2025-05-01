@@ -2,12 +2,15 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
+
+-- #include "weird01.h"
 
 -- void func (struct bar *arg1)
 

@@ -152,6 +152,8 @@ resolveDeclImports = \case
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
         resolvePatExprImports patSynRHS
+    DCSource {} ->
+        mempty -- TODO: we'll need TH imports
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc

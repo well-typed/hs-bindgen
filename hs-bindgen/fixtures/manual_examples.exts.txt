@@ -1,4 +1,5 @@
 CApiFFI
+TemplateHaskell
 TypeFamilies
 DataKinds
 StandaloneDeriving
