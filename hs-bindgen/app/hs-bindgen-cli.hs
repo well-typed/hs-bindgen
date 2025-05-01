@@ -43,7 +43,12 @@ execMode Cli{..} tracer = \case
               ppOptsModule = preprocessModuleOpts
             , ppOptsRender = preprocessRenderOpts
             }
-      decls <- translateCHeader opts preprocessInput
+      -- to avoid potential issues it would be great to include unitid in module unique
+      -- but AFAIK there is no way to get one for preprocessor
+      -- https://github.com/well-typed/hs-bindgen/issues/502
+      let mu :: ModuleUnique
+          mu = ModuleUnique $ hsModuleOptsName $ preprocessModuleOpts
+      decls <- translateCHeader mu opts preprocessInput
       preprocessIO ppOpts preprocessOutput decls
       case preprocessGenExtBindings of
         Nothing   -> return ()
@@ -59,7 +64,7 @@ execMode Cli{..} tracer = \case
             , ppOptsRender = genTestsRenderOpts
             }
       genTests ppOpts genTestsInput genTestsOutput
-        =<< translateCHeader opts genTestsInput
+        =<< translateCHeader "TODO" opts genTestsInput
 
     ModeLiterate input output -> execLiterate input output tracer
   where

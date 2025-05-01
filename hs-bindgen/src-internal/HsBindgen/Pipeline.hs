@@ -62,6 +62,7 @@ import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
 import HsBindgen.Util.Tracer
 import HsBindgen.Guasi
+import HsBindgen.ModuleUnique
 
 {-------------------------------------------------------------------------------
   Options
@@ -125,8 +126,8 @@ parseCHeader Opts{..} headerIncludePath =
       [headerIncludePath]
 
 -- | Generate @Hs@ declarations
-genHsDecls :: Opts -> C.Header -> [Hs.Decl]
-genHsDecls Opts{..} = Hs.generateDeclarations optsTranslation optsNameMangler
+genHsDecls :: ModuleUnique -> Opts -> C.Header -> [Hs.Decl]
+genHsDecls mu Opts{..} = Hs.generateDeclarations optsTranslation mu optsNameMangler
 
 -- | Generate @SHs@ declarations
 genSHsDecls :: [Hs.Decl] -> [SHs.SDecl]
@@ -157,10 +158,10 @@ genExtensions = foldMap requiredExtensions
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header and generate @Hs@ declarations
-translateCHeader :: Opts -> CHeaderIncludePath -> IO [Hs.Decl]
-translateCHeader opts headerIncludePath = do
+translateCHeader :: ModuleUnique -> Opts -> CHeaderIncludePath -> IO [Hs.Decl]
+translateCHeader mu opts headerIncludePath = do
     (_depPaths, header) <- parseCHeader opts headerIncludePath
-    return $ genHsDecls opts header
+    return $ genHsDecls mu opts header
 
 -- | Generate bindings for the given C header
 preprocessPure :: PPOpts -> [Hs.Decl] -> String
@@ -200,7 +201,8 @@ genBindingsFromCHeader opts depPaths cheader = do
     -- record dependencies, including transitively included headers
     mapM_ (addDependentFile . getSourcePath) depPaths
 
-    let sdecls = genSHsDecls $ genHsDecls opts cheader
+    mu <- getModuleUnique
+    let sdecls = genSHsDecls $ genHsDecls mu opts cheader
 
     -- extensions checks.
     -- Potential TODO: we could also check which enabled extension may interfere with the generated code. (e.g. Strict/Data)

@@ -71,7 +71,7 @@ instance TH.Quote Qu where
 
 instance Guasi Qu where
     -- we don't use unique string to have stable test results
-    getModuleUnique = return "test_internal"
+    getModuleUnique = return $ ModuleUnique "test_internal"
 
     addDependentFile fp = Qu $ do
         (depfiles, u, csources) <- get
