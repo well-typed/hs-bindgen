@@ -292,7 +292,7 @@ data StructField = StructField {
 --
 -- > struct foo;
 data OpaqueStruct = OpaqueStruct {
-      opaqueStructTag       :: CName
+      opaqueStructDeclPath  :: DeclPath
     , opaqueStructAliases   :: [CName]
     , opaqueStructSourceLoc :: SingleLoc
     }
@@ -349,7 +349,7 @@ data EnumValue = EnumValue {
 --
 -- > enum foo;
 data OpaqueEnum = OpaqueEnum {
-      opaqueEnumTag       :: CName
+      opaqueEnumDeclPath  :: DeclPath
     , opaqueEnumAliases   :: [CName]
     , opaqueEnumSourceLoc :: SingleLoc
     }

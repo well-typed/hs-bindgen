@@ -2515,8 +2515,17 @@
       emptyDataOrigin =
       EmptyDataOriginOpaqueStruct
         OpaqueStruct {
-          opaqueStructTag = CName
-            "person",
+          opaqueStructDeclPath =
+          DeclPathName
+            (CName "person")
+            (DeclPathCtxtPtr
+              (DeclPathCtxtField
+                (Just (CName "employee"))
+                (CName "supervisor")
+                (DeclPathCtxtField
+                  (Just (CName "occupation"))
+                  (CName "employee")
+                  DeclPathCtxtTop))),
           opaqueStructAliases = [],
           opaqueStructSourceLoc =
           "manual_examples.h:77:12"}},

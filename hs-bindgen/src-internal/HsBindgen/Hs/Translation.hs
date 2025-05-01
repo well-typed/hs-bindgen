@@ -226,7 +226,7 @@ opaqueStructDecs ::
   -> [Hs.Decl]
 opaqueStructDecs _opts nm o =
     [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangle nm $ NameTycon $ C.topLevel (C.opaqueStructTag o)
+          emptyDataName   = mangle nm $ NameTycon $ C.opaqueStructDeclPath o
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
         }
     ]
@@ -234,7 +234,7 @@ opaqueStructDecs _opts nm o =
 opaqueEnumDecs :: TranslationOpts -> NameMangler -> C.OpaqueEnum -> [Hs.Decl]
 opaqueEnumDecs _opts nm o =
     [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangle nm $ NameTycon $ C.topLevel (C.opaqueEnumTag o)
+          emptyDataName   = mangle nm $ NameTycon $ C.opaqueEnumDeclPath o
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
         }
     ]

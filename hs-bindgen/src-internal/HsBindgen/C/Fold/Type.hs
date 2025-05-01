@@ -198,9 +198,9 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     case flavour of
                       TypeDeclExternal extId ->
                         addAlias ty $ TypeExtBinding extId ctype
-                      TypeDeclOpaque name -> do
+                      TypeDeclOpaque _name -> do
                         addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                            opaqueStructTag       = name
+                            opaqueStructDeclPath  = declPath
                           , opaqueStructAliases   = []
                           , opaqueStructSourceLoc = sloc
                           }
@@ -235,10 +235,10 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     case flavour of
                       TypeDeclExternal _extId ->
                         panicIO "external bindings for unions not implemented #537"
-                      TypeDeclOpaque name ->
+                      TypeDeclOpaque _name ->
                         -- opaque struct and opaque union look the same.
                         addDecl ty $ DeclOpaqueStruct OpaqueStruct {
-                              opaqueStructTag       = name
+                              opaqueStructDeclPath  = declPath
                             , opaqueStructAliases   = []
                             , opaqueStructSourceLoc = sloc
                             }
@@ -281,9 +281,9 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     case flavour of
                       TypeDeclExternal extId ->
                         addAlias ty $ TypeExtBinding extId ctype
-                      TypeDeclOpaque name ->
+                      TypeDeclOpaque _name ->
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
-                            opaqueEnumTag       = name
+                            opaqueEnumDeclPath  = declPath
                           , opaqueEnumAliases   = []
                           , opaqueEnumSourceLoc = sloc
                           }
