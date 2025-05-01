@@ -183,8 +183,8 @@ where
 showsCEnum :: forall a. CEnum a => Int -> a -> ShowS
 ```
 
-makes use names of the names in `declaredValues` whenever possible. This is a
-law-abiding `Show` instance (that is, this generates valid Haskell) due to the
+makes use of the names in `declaredValues` whenever possible. This is a
+law-abiding `Show` instance in that it generates valid Haskell, due to the
 patterns we generate for enums. For example, suppose we do
 
 ```haskell
@@ -206,7 +206,7 @@ results in
 The value of `HTTP_status 0` here comes from the `Bounded` instance inherited
 from the underlying `CUInt` (due to the `newtype` deriving clause). Since it has
 no pattern associated with it, `showsCEnum` falls back on `showsUndeclared`,
-which by default (`showsWrappedUndeclared`) uses the newtype contructor name
+which by default (`showsWrappedUndeclared`) uses the newtype constructor name
 `HTTP_status` instead.
 
 ### Overrides
