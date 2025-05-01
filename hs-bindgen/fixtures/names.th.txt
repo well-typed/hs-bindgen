@@ -1,0 +1,27 @@
+-- addDependentFile examples/names.h
+-- #include "names.h"
+foreign import capi safe "names.h by" by' :: IO Unit
+foreign import capi safe "names.h forall" forall' :: IO Unit
+foreign import capi safe "names.h mdo" mdo' :: IO Unit
+foreign import capi safe "names.h pattern" pattern' :: IO Unit
+foreign import capi safe "names.h proc" proc' :: IO Unit
+foreign import capi safe "names.h rec" rec' :: IO Unit
+foreign import capi safe "names.h using" using' :: IO Unit
+foreign import capi safe "names.h anyclass" anyclass :: IO Unit
+foreign import capi safe "names.h capi" capi :: IO Unit
+foreign import capi safe "names.h cases" cases :: IO Unit
+foreign import capi safe "names.h ccall" ccall :: IO Unit
+foreign import capi safe "names.h dynamic" dynamic :: IO Unit
+foreign import capi safe "names.h export" export :: IO Unit
+foreign import capi safe "names.h family" family :: IO Unit
+foreign import capi safe "names.h group" group :: IO Unit
+foreign import capi safe "names.h interruptible" interruptible :: IO Unit
+foreign import capi safe "names.h javascript" javascript :: IO Unit
+foreign import capi safe "names.h label" label :: IO Unit
+foreign import capi safe "names.h prim" prim :: IO Unit
+foreign import capi safe "names.h role" role :: IO Unit
+foreign import capi safe "names.h safe" safe :: IO Unit
+foreign import capi safe "names.h stdcall" stdcall :: IO Unit
+foreign import capi safe "names.h stock" stock :: IO Unit
+foreign import capi safe "names.h unsafe" unsafe :: IO Unit
+foreign import capi safe "names.h via" via :: IO Unit

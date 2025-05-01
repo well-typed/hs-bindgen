@@ -5,6 +5,7 @@ module HsBindgen.Hs.NameMangler.DSL.ReservedNames (
   , reservedTypeNames
   , haskellKeywords
   , ghcExtensionKeywords
+  , ghcNonReservedKeywords
   , hsBindgenReservedTypeNames
   , hsBindgenReservedVarNames
   , sanityReservedTypeNames
@@ -90,33 +91,45 @@ haskellKeywords =
 -- * [Arrow notation](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L964-966)
 -- * [cases](https://gitlab.haskell.org/ghc/ghc/-/blob/7d42b2df006c50aecfeea6f6a53b9b198f5764bf/compiler/GHC/Parser/Lexer.x#L871)
 -- * [role](https://gitlab.haskell.org/ghc/ghc/-/issues/18941)
+--
+-- Some keywords are context specific and are valid Haskell identifiers netvertheless.
+-- We list them but have commented out.
 ghcExtensionKeywords :: [Text]
-ghcExtensionKeywords =
-    [ "anyclass"
-    , "by"
+ghcExtensionKeywords = [
+      "by"
+    , "forall"
+    , "mdo"
+    , "pattern"
+    , "proc"
+    , "rec"
+    , "static"
+    , "using"
+    ]
+
+-- | Keywords that /can/ be used as identifiers
+--
+-- By default the name mangler leaves these alone, because their usage is in
+-- principle unproblematic. However, you may wish to add these to the list of
+-- reserved names to avoid confusion.
+ghcNonReservedKeywords :: [Text]
+ghcNonReservedKeywords = [
+      "anyclass"
     , "capi"
     , "cases"
     , "ccall"
     , "dynamic"
     , "export"
     , "family"
-    , "forall"
     , "group"
     , "interruptible"
     , "javascript"
     , "label"
-    , "mdo"
-    , "pattern"
     , "prim"
-    , "proc"
-    , "rec"
     , "role"
     , "safe"
-    , "static"
     , "stdcall"
     , "stock"
     , "unsafe"
-    , "using"
     , "via"
     ]
 
