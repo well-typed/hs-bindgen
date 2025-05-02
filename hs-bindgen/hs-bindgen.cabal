@@ -48,6 +48,7 @@ common lang
       DerivingStrategies
       DerivingVia
       DisambiguateRecordFields
+      FunctionalDependencies
       LambdaCase
       MultiWayIf
       OverloadedStrings
@@ -68,19 +69,36 @@ library internal
 
   exposed-modules:
       Data.DynGraph
+      Data.DynGraph.Labelled
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.PP.Names
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
       HsBindgen.C.AST
-      HsBindgen.C.Fold
-      HsBindgen.C.Fold.Common
-      HsBindgen.C.Fold.Decl
-      HsBindgen.C.Fold.DeclState
-      HsBindgen.C.Fold.Type
+      HsBindgen.C.FoldOld
+      HsBindgen.C.FoldOld.Common
+      HsBindgen.C.FoldOld.Decl
+      HsBindgen.C.FoldOld.DeclState
+      HsBindgen.C.FoldOld.Type
       HsBindgen.C.Parser
       HsBindgen.C.Predicate
+      HsBindgen.C.Raw
+      HsBindgen.C.Raw.AST
+      HsBindgen.C.Raw.Graph.Includes
+      HsBindgen.C.Raw.Graph.UseDef
+      HsBindgen.C.Raw.Graph.DefUse
+      HsBindgen.C.Raw.Pass
+      HsBindgen.C.Raw.Pass.Parse
+      HsBindgen.C.Raw.Pass.Parse.Decl
+      HsBindgen.C.Raw.Pass.Parse.IsPass
+      HsBindgen.C.Raw.Pass.Parse.Monad
+      HsBindgen.C.Raw.Pass.Parse.Type
+      HsBindgen.C.Raw.Pass.RenameAnon
+      HsBindgen.C.Raw.Pass.RenameAnon.IsPass
+      HsBindgen.C.Raw.Pass.RenameAnon.ProduceCName
+      HsBindgen.C.Raw.RootHeader
+      HsBindgen.C.Raw.Util
       HsBindgen.C.Reparse
       HsBindgen.C.Reparse.Common
       HsBindgen.C.Reparse.Decl
@@ -161,8 +179,8 @@ library internal
     , text               >= 1.2       && < 2.2
     , unliftio-core      ^>=0.2.1.0
     , vec                >= 0.5       && < 0.6
-    , yaml               >= 0.11.11.1 && < 0.12
     , witherable         ^>=0.5
+    , yaml               >= 0.11.11.1 && < 0.12
 
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2

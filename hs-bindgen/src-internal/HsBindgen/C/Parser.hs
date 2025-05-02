@@ -28,12 +28,12 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Data.DynGraph qualified as DynGraph
 import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST qualified as C
-import HsBindgen.C.Fold qualified as C
-import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.C.Raw (getRawAST)
+import HsBindgen.C.Raw.RootHeader qualified as RootHeader
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
@@ -74,7 +74,7 @@ instance Exception ParseCHeadersException where
 
 parseCHeaders ::
      Tracer IO Diagnostic  -- ^ Tracer for warnings
-  -> Tracer IO C.Skipped
+  -> Tracer IO a -- C.Skipped
   -> ClangArgs
   -> Predicate
   -> ExtBindings
@@ -83,7 +83,7 @@ parseCHeaders ::
 parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
-        HighLevel.withTranslationUnit2 index C.rootHeaderName args [file] opts $
+        HighLevel.withTranslationUnit2 index RootHeader.name args [file] opts $
           \case
             Left err -> throwIO $ ParseCHeadersUnknownError err
             Right unit -> do
@@ -94,6 +94,13 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
               -- We should print warnings only optionally.
               forM_ warnings $ traceWith diagTracer Warning
               rootCursor <- clang_getTranslationUnitCursor unit
+
+              (rawAST, includeGraph) <- getRawAST rootCursor
+              print (rawAST, includeGraph)
+
+              error "UHOH"
+
+{-
               (decls, finalDeclState) <-
                 C.runFoldState C.initDeclState $
                   HighLevel.clang_visitChildren rootCursor $
@@ -103,15 +110,16 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
                     | C.TypeDecl _ d <-
                         toList (C.typeDeclarations finalDeclState)
                     ]
-                  depPaths = List.delete C.rootHeaderName $
+                  depPaths = List.delete C.RootHeader.name $
                     DynGraph.topSort (C.cIncludePathGraph finalDeclState)
               return (depPaths, C.Header (sortDecls depPaths (decls ++ decls')))
+-}
   where
     hFilePath :: FilePath
-    hFilePath = getSourcePath C.rootHeaderName
+    hFilePath = getSourcePath RootHeader.name
 
     hContent :: String
-    hContent = C.rootHeaderContent headerIncludePaths
+    hContent = RootHeader.content headerIncludePaths
 
     opts :: BitfieldEnum CXTranslationUnit_Flags
     opts = bitfieldEnum [
@@ -130,7 +138,7 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
     getInputFileNotFoundError :: Diagnostic -> Maybe ParseCHeadersException
     getInputFileNotFoundError Diagnostic{..} = do
       let sloc = multiLocExpansion diagnosticLocation
-      guard $ singleLocPath sloc == C.rootHeaderName
+      guard $ singleLocPath sloc == RootHeader.name
       guard $ " file not found" `Text.isSuffixOf` diagnosticSpelling
       headerIncludePath <- headerIncludePaths !? (singleLocLine sloc - 1)
       return $ ParseCHeadersInputFileNotFound headerIncludePath
@@ -329,3 +337,4 @@ mergeBy f = aux
     aux xs@(x:xs') ys@(y:ys')
       | f x y /= GT = x : aux xs' ys
       | otherwise   = y : aux xs  ys'
+

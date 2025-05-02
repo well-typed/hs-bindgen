@@ -3,7 +3,7 @@
 -- TODO: We should make the distinction between (C) type declarations and type
 -- uses clear at the (Haskell) type level. Once we do, we should cull the
 -- export list of this module.
-module HsBindgen.C.Fold.Type (
+module HsBindgen.C.FoldOld.Type (
     processTypeDecl,
 ) where
 
@@ -20,8 +20,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Data.DynGraph qualified as DynGraph
-import HsBindgen.C.Fold.Common
-import HsBindgen.C.Fold.DeclState
+import HsBindgen.C.FoldOld.Common
+import HsBindgen.C.FoldOld.DeclState
 import HsBindgen.C.Reparse
 import HsBindgen.Eff
 import HsBindgen.Errors
