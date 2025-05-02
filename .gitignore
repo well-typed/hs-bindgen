@@ -1,7 +1,11 @@
+/.dir-locals.el
+/.direnv/
+
 .envrc
+.vscode/
+cabal.project.local
 dist-newstyle/
 unversioned
-cabal.project.local
-.vscode/
+
 *.dll
 *.log

@@ -38,6 +38,10 @@ import System.Exit (ExitCode (..))
 
 import Test.Internal.Misc
 
+-- | The golden tests are tied to a specific version of @rust-bindgen@.
+rustBindgenVersion :: String
+rustBindgenVersion = "0.70.1"
+
 withRustBindgen :: (IO FilePath -> TestTree) -> TestTree
 withRustBindgen k = withResource getRustBindgen cleanupRustBindgen (k . fmap snd) -- TODO: unlink
 
@@ -65,7 +69,9 @@ getRustBindgen' = do
 
     callProcessCwd tmpDir' "curl"
         [ "-sLf", "-o", tmpDir' </> "bindgen.tar.xz"
-        , "https://github.com/rust-lang/rust-bindgen/releases/download/v0.70.1/bindgen-cli-x86_64-unknown-linux-gnu.tar.xz"
+        , "https://github.com/rust-lang/rust-bindgen/releases/download/v"
+          <> rustBindgenVersion
+          <> "/bindgen-cli-x86_64-unknown-linux-gnu.tar.xz"
         ]
 
     callProcessCwd tmpDir' "tar"
