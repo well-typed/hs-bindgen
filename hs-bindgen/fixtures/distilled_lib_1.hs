@@ -1706,8 +1706,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "a_typedef_struct")
-            DeclPathCtxtTop,
+            (CName "a_typedef_struct"),
           structAliases = [],
           structSizeof = 140,
           structAlignment = 1,
@@ -2066,8 +2065,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "a_typedef_struct")
-              DeclPathCtxtTop,
+              (CName "a_typedef_struct"),
             structAliases = [],
             structSizeof = 140,
             structAlignment = 1,
@@ -2431,8 +2429,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "a_typedef_struct")
-                      DeclPathCtxtTop,
+                      (CName "a_typedef_struct"),
                     structAliases = [],
                     structSizeof = 140,
                     structAlignment = 1,
@@ -2807,8 +2804,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "a_typedef_struct")
-                      DeclPathCtxtTop,
+                      (CName "a_typedef_struct"),
                     structAliases = [],
                     structSizeof = 140,
                     structAlignment = 1,
@@ -2980,8 +2976,7 @@
             "a_typedef_struct_t",
           typedefType = TypeStruct
             (DeclPathName
-              (CName "a_typedef_struct")
-              DeclPathCtxtTop),
+              (CName "a_typedef_struct")),
           typedefSourceLoc =
           "distilled_lib_1.h:47:3"}},
   DeclNewtypeInstance

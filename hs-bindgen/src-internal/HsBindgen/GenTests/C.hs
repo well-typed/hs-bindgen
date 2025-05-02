@@ -107,7 +107,7 @@ getStructCTypeSpelling = \case
             Just $ T.unpack (C.getCName typedefName)
           _otherwise ->
             Nothing
-      C.DeclPathName cName _ctxt ->
+      C.DeclPathName cName ->
           Just $ "struct " ++ T.unpack (C.getCName cName)
     Hs.StructOriginEnum{} -> Nothing
 

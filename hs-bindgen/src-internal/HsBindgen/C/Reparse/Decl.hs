@@ -388,11 +388,11 @@ declarationSpecifiersType specs =
                   { structOrUnion = su, structOrUnionIdentifier = i }
                  -> Just $
                       case su of
-                        IsStruct -> TypeStruct $ DeclPathName i DeclPathCtxtTop
-                        IsUnion  -> TypeUnion  $ DeclPathName i DeclPathCtxtTop
+                        IsStruct -> TypeStruct $ DeclPathName i
+                        IsUnion  -> TypeUnion  $ DeclPathName i
               EnumTypeSpecifier
                 EnumSpecifier { enumSpecifierIdentifier = i } ->
-                  Just $ TypeEnum $ DeclPathName i DeclPathCtxtTop
+                  Just $ TypeEnum $ DeclPathName i
 
 declaratorTypeAndName
   :: Type -> DirectDeclarator abs

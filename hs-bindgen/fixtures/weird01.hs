@@ -13,10 +13,7 @@
       foreignImportCArgs = [
         TypePointer
           (TypeStruct
-            (DeclPathName
-              (CName "bar")
-              (DeclPathCtxtPtr
-                DeclPathCtxtTop)))],
+            (DeclPathName (CName "bar")))],
       foreignImportOrigName = "func",
       foreignImportHeader =
       "weird01.h",
@@ -27,10 +24,7 @@
           functionArgs = [
             TypePointer
               (TypeStruct
-                (DeclPathName
-                  (CName "bar")
-                  (DeclPathCtxtPtr
-                    DeclPathCtxtTop)))],
+                (DeclPathName (CName "bar")))],
           functionRes = TypeVoid,
           functionHeader = "weird01.h",
           functionSourceLoc =
@@ -64,8 +58,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "foo")
-            DeclPathCtxtTop,
+            (CName "foo"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -111,8 +104,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "foo")
-              DeclPathCtxtTop,
+              (CName "foo"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -163,8 +155,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop,
+                      (CName "foo"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -215,8 +206,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop,
+                      (CName "foo"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -276,9 +266,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "bar")
-            (DeclPathCtxtPtr
-              DeclPathCtxtTop),
+            (CName "bar"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -324,9 +312,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "bar")
-              (DeclPathCtxtPtr
-                DeclPathCtxtTop),
+              (CName "bar"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -377,9 +363,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "bar")
-                      (DeclPathCtxtPtr
-                        DeclPathCtxtTop),
+                      (CName "bar"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -430,9 +414,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "bar")
-                      (DeclPathCtxtPtr
-                        DeclPathCtxtTop),
+                      (CName "bar"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,

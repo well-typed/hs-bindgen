@@ -18,11 +18,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "enumA")
-            (DeclPathCtxtField
-              (Just (CName "exA"))
-              (CName "fieldA1")
-              DeclPathCtxtTop),
+            (CName "enumA"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -61,11 +57,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "enumA")
-              (DeclPathCtxtField
-                (Just (CName "exA"))
-                (CName "fieldA1")
-                DeclPathCtxtTop),
+              (CName "enumA"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -109,11 +101,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "enumA")
-                      (DeclPathCtxtField
-                        (Just (CName "exA"))
-                        (CName "fieldA1")
-                        DeclPathCtxtTop),
+                      (CName "enumA"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -157,11 +145,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "enumA")
-                      (DeclPathCtxtField
-                        (Just (CName "exA"))
-                        (CName "fieldA1")
-                        DeclPathCtxtTop),
+                      (CName "enumA"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -225,11 +209,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "enumA")
-              (DeclPathCtxtField
-                (Just (CName "exA"))
-                (CName "fieldA1")
-                DeclPathCtxtTop),
+              (CName "enumA"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -274,11 +254,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "enumA")
-              (DeclPathCtxtField
-                (Just (CName "exA"))
-                (CName "fieldA1")
-                DeclPathCtxtTop),
+              (CName "enumA"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -319,11 +295,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "enumA")
-              (DeclPathCtxtField
-                (Just (CName "exA"))
-                (CName "fieldA1")
-                DeclPathCtxtTop),
+              (CName "enumA"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -404,20 +376,14 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeEnum
-                (DeclPathName
-                  (CName "enumA")
-                  (DeclPathCtxtField
-                    (Just (CName "exA"))
-                    (CName "fieldA1")
-                    DeclPathCtxtTop)),
+                (DeclPathName (CName "enumA")),
               fieldSourceLoc =
               "nested_enums.h:5:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "exA")
-            DeclPathCtxtTop,
+            (CName "exA"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -427,12 +393,7 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeEnum
-                (DeclPathName
-                  (CName "enumA")
-                  (DeclPathCtxtField
-                    (Just (CName "exA"))
-                    (CName "fieldA1")
-                    DeclPathCtxtTop)),
+                (DeclPathName (CName "enumA")),
               fieldSourceLoc =
               "nested_enums.h:5:11"}],
           structFlam = Nothing,
@@ -463,20 +424,14 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeEnum
-                  (DeclPathName
-                    (CName "enumA")
-                    (DeclPathCtxtField
-                      (Just (CName "exA"))
-                      (CName "fieldA1")
-                      DeclPathCtxtTop)),
+                  (DeclPathName (CName "enumA")),
                 fieldSourceLoc =
                 "nested_enums.h:5:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "exA")
-              DeclPathCtxtTop,
+              (CName "exA"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -486,12 +441,7 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeEnum
-                  (DeclPathName
-                    (CName "enumA")
-                    (DeclPathCtxtField
-                      (Just (CName "exA"))
-                      (CName "fieldA1")
-                      DeclPathCtxtTop)),
+                  (DeclPathName (CName "enumA")),
                 fieldSourceLoc =
                 "nested_enums.h:5:11"}],
             structFlam = Nothing,
@@ -527,20 +477,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathName
-                            (CName "enumA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
                         "nested_enums.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exA")
-                      DeclPathCtxtTop,
+                      (CName "exA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -550,12 +494,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathName
-                            (CName "enumA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
                         "nested_enums.h:5:11"}],
                     structFlam = Nothing,
@@ -591,20 +530,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathName
-                            (CName "enumA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
                         "nested_enums.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exA")
-                      DeclPathCtxtTop,
+                      (CName "exA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -614,12 +547,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathName
-                            (CName "enumA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
                         "nested_enums.h:5:11"}],
                     structFlam = Nothing,
@@ -1049,8 +977,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "exB")
-            DeclPathCtxtTop,
+            (CName "exB"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -1106,8 +1033,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "exB")
-              DeclPathCtxtTop,
+              (CName "exB"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -1168,8 +1094,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exB")
-                      DeclPathCtxtTop,
+                      (CName "exB"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -1230,8 +1155,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exB")
-                      DeclPathCtxtTop,
+                      (CName "exB"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,

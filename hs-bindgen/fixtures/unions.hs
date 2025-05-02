@@ -44,8 +44,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "Dim2")
-            DeclPathCtxtTop,
+            (CName "Dim2"),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
@@ -115,8 +114,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "Dim2")
-              DeclPathCtxtTop,
+              (CName "Dim2"),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
@@ -191,8 +189,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "Dim2")
-                      DeclPathCtxtTop,
+                      (CName "Dim2"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -269,8 +266,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "Dim2")
-                      DeclPathCtxtTop,
+                      (CName "Dim2"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -371,8 +367,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "Dim3")
-            DeclPathCtxtTop,
+            (CName "Dim3"),
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -466,8 +461,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "Dim3")
-              DeclPathCtxtTop,
+              (CName "Dim3"),
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -566,8 +560,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "Dim3")
-                      DeclPathCtxtTop,
+                      (CName "Dim3"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -669,8 +662,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "Dim3")
-                      DeclPathCtxtTop,
+                      (CName "Dim3"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -737,8 +729,7 @@
       NewtypeOriginUnion
         Union {
           unionDeclPath = DeclPathName
-            (CName "DimPayload")
-            DeclPathCtxtTop,
+            (CName "DimPayload"),
           unionAliases = [],
           unionSizeof = 8,
           unionAlignment = 4,
@@ -746,17 +737,13 @@
             UnionField {
               ufieldName = CName "dim2",
               ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "Dim2")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "Dim2")),
               ufieldSourceLoc =
               "unions.h:13:17"},
             UnionField {
               ufieldName = CName "dim3",
               ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "Dim2")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "Dim2")),
               ufieldSourceLoc =
               "unions.h:14:17"}],
           unionSourceLoc =
@@ -845,16 +832,14 @@
               fieldWidth = Nothing,
               fieldType = TypeUnion
                 (DeclPathName
-                  (CName "DimPayload")
-                  DeclPathCtxtTop),
+                  (CName "DimPayload")),
               fieldSourceLoc =
               "unions.h:19:22"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "Dim")
-            DeclPathCtxtTop,
+            (CName "Dim"),
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -873,8 +858,7 @@
               fieldWidth = Nothing,
               fieldType = TypeUnion
                 (DeclPathName
-                  (CName "DimPayload")
-                  DeclPathCtxtTop),
+                  (CName "DimPayload")),
               fieldSourceLoc =
               "unions.h:19:22"}],
           structFlam = Nothing,
@@ -922,16 +906,14 @@
                 fieldWidth = Nothing,
                 fieldType = TypeUnion
                   (DeclPathName
-                    (CName "DimPayload")
-                    DeclPathCtxtTop),
+                    (CName "DimPayload")),
                 fieldSourceLoc =
                 "unions.h:19:22"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "Dim")
-              DeclPathCtxtTop,
+              (CName "Dim"),
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -950,8 +932,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypeUnion
                   (DeclPathName
-                    (CName "DimPayload")
-                    DeclPathCtxtTop),
+                    (CName "DimPayload")),
                 fieldSourceLoc =
                 "unions.h:19:22"}],
             structFlam = Nothing,
@@ -1004,16 +985,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayload")
-                            DeclPathCtxtTop),
+                            (CName "DimPayload")),
                         fieldSourceLoc =
                         "unions.h:19:22"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "Dim")
-                      DeclPathCtxtTop,
+                      (CName "Dim"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1032,8 +1011,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayload")
-                            DeclPathCtxtTop),
+                            (CName "DimPayload")),
                         fieldSourceLoc =
                         "unions.h:19:22"}],
                     structFlam = Nothing,
@@ -1088,16 +1066,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayload")
-                            DeclPathCtxtTop),
+                            (CName "DimPayload")),
                         fieldSourceLoc =
                         "unions.h:19:22"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "Dim")
-                      DeclPathCtxtTop,
+                      (CName "Dim"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1116,8 +1092,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayload")
-                            DeclPathCtxtTop),
+                            (CName "DimPayload")),
                         fieldSourceLoc =
                         "unions.h:19:22"}],
                     structFlam = Nothing,
@@ -1157,8 +1132,7 @@
       NewtypeOriginUnion
         Union {
           unionDeclPath = DeclPathName
-            (CName "DimPayloadB")
-            DeclPathCtxtTop,
+            (CName "DimPayloadB"),
           unionAliases = [
             CName "DimPayloadB"],
           unionSizeof = 8,
@@ -1167,17 +1141,13 @@
             UnionField {
               ufieldName = CName "dim2",
               ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "Dim2")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "Dim2")),
               ufieldSourceLoc =
               "unions.h:24:17"},
             UnionField {
               ufieldName = CName "dim3",
               ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "Dim2")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "Dim2")),
               ufieldSourceLoc =
               "unions.h:25:17"}],
           unionSourceLoc =
@@ -1266,16 +1236,14 @@
               fieldWidth = Nothing,
               fieldType = TypeUnion
                 (DeclPathName
-                  (CName "DimPayloadB")
-                  DeclPathCtxtTop),
+                  (CName "DimPayloadB")),
               fieldSourceLoc =
               "unions.h:30:17"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "DimB")
-            DeclPathCtxtTop,
+            (CName "DimB"),
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -1294,8 +1262,7 @@
               fieldWidth = Nothing,
               fieldType = TypeUnion
                 (DeclPathName
-                  (CName "DimPayloadB")
-                  DeclPathCtxtTop),
+                  (CName "DimPayloadB")),
               fieldSourceLoc =
               "unions.h:30:17"}],
           structFlam = Nothing,
@@ -1343,16 +1310,14 @@
                 fieldWidth = Nothing,
                 fieldType = TypeUnion
                   (DeclPathName
-                    (CName "DimPayloadB")
-                    DeclPathCtxtTop),
+                    (CName "DimPayloadB")),
                 fieldSourceLoc =
                 "unions.h:30:17"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "DimB")
-              DeclPathCtxtTop,
+              (CName "DimB"),
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -1371,8 +1336,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypeUnion
                   (DeclPathName
-                    (CName "DimPayloadB")
-                    DeclPathCtxtTop),
+                    (CName "DimPayloadB")),
                 fieldSourceLoc =
                 "unions.h:30:17"}],
             structFlam = Nothing,
@@ -1425,16 +1389,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayloadB")
-                            DeclPathCtxtTop),
+                            (CName "DimPayloadB")),
                         fieldSourceLoc =
                         "unions.h:30:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "DimB")
-                      DeclPathCtxtTop,
+                      (CName "DimB"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1453,8 +1415,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayloadB")
-                            DeclPathCtxtTop),
+                            (CName "DimPayloadB")),
                         fieldSourceLoc =
                         "unions.h:30:17"}],
                     structFlam = Nothing,
@@ -1509,16 +1470,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayloadB")
-                            DeclPathCtxtTop),
+                            (CName "DimPayloadB")),
                         fieldSourceLoc =
                         "unions.h:30:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "DimB")
-                      DeclPathCtxtTop,
+                      (CName "DimB"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1537,8 +1496,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
                           (DeclPathName
-                            (CName "DimPayloadB")
-                            DeclPathCtxtTop),
+                            (CName "DimPayloadB")),
                         fieldSourceLoc =
                         "unions.h:30:17"}],
                     structFlam = Nothing,
@@ -2224,8 +2182,7 @@
       NewtypeOriginUnion
         Union {
           unionDeclPath = DeclPathName
-            (CName "AnonA")
-            DeclPathCtxtTop,
+            (CName "AnonA"),
           unionAliases = [],
           unionSizeof = 16,
           unionAlignment = 8,

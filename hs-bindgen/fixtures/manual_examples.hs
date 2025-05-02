@@ -413,8 +413,7 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "triple")
-              DeclPathCtxtTop))],
+              (CName "triple")))],
       foreignImportOrigName =
       "mk_triple",
       foreignImportHeader =
@@ -434,8 +433,7 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "triple")
-                  DeclPathCtxtTop))],
+                  (CName "triple")))],
           functionRes = TypeVoid,
           functionHeader =
           "manual_examples.h",
@@ -464,12 +462,9 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "triple")
-              DeclPathCtxtTop)),
+              (CName "triple"))),
         TypeEnum
-          (DeclPathName
-            (CName "index")
-            DeclPathCtxtTop)],
+          (DeclPathName (CName "index"))],
       foreignImportOrigName =
       "index_triple",
       foreignImportHeader =
@@ -483,12 +478,9 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "triple")
-                  DeclPathCtxtTop)),
+                  (CName "triple"))),
             TypeEnum
-              (DeclPathName
-                (CName "index")
-                DeclPathCtxtTop)],
+              (DeclPathName (CName "index"))],
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed),
           functionHeader =
@@ -517,8 +509,7 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "triple")
-              DeclPathCtxtTop))],
+              (CName "triple")))],
       foreignImportOrigName =
       "sum_triple",
       foreignImportHeader =
@@ -532,8 +523,7 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "triple")
-                  DeclPathCtxtTop))],
+                  (CName "triple")))],
           functionRes = TypeTypedef
             (CName "sum"),
           functionHeader =
@@ -562,8 +552,7 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "triple")
-              DeclPathCtxtTop))],
+              (CName "triple")))],
       foreignImportOrigName =
       "average_triple",
       foreignImportHeader =
@@ -577,8 +566,7 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "triple")
-                  DeclPathCtxtTop))],
+                  (CName "triple")))],
           functionRes = TypeTypedef
             (CName "average"),
           functionHeader =
@@ -644,8 +632,7 @@
         TypePointer
           (TypeUnion
             (DeclPathName
-              (CName "occupation")
-              DeclPathCtxtTop))],
+              (CName "occupation")))],
       foreignImportOrigName =
       "print_occupation",
       foreignImportHeader =
@@ -661,8 +648,7 @@
             TypePointer
               (TypeUnion
                 (DeclPathName
-                  (CName "occupation")
-                  DeclPathCtxtTop))],
+                  (CName "occupation")))],
           functionRes = TypeVoid,
           functionHeader =
           "manual_examples.h",
@@ -798,8 +784,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "triple")
-            DeclPathCtxtTop,
+            (CName "triple"),
           structAliases = [
             CName "triple"],
           structSizeof = 12,
@@ -894,8 +879,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "triple")
-              DeclPathCtxtTop,
+              (CName "triple"),
             structAliases = [
               CName "triple"],
             structSizeof = 12,
@@ -995,8 +979,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "triple")
-                      DeclPathCtxtTop,
+                      (CName "triple"),
                     structAliases = [
                       CName "triple"],
                     structSizeof = 12,
@@ -1099,8 +1082,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "triple")
-                      DeclPathCtxtTop,
+                      (CName "triple"),
                     structAliases = [
                       CName "triple"],
                     structSizeof = 12,
@@ -1173,8 +1155,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "index")
-            DeclPathCtxtTop,
+            (CName "index"),
           enumAliases = [CName "index"],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -1218,8 +1199,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "index")
-              DeclPathCtxtTop,
+              (CName "index"),
             enumAliases = [CName "index"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -1268,8 +1248,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "index")
-                      DeclPathCtxtTop,
+                      (CName "index"),
                     enumAliases = [CName "index"],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -1318,8 +1297,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "index")
-                      DeclPathCtxtTop,
+                      (CName "index"),
                     enumAliases = [CName "index"],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -1388,8 +1366,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "index")
-              DeclPathCtxtTop,
+              (CName "index"),
             enumAliases = [CName "index"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -1440,8 +1417,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "index")
-              DeclPathCtxtTop,
+              (CName "index"),
             enumAliases = [CName "index"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -1487,8 +1463,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "index")
-              DeclPathCtxtTop,
+              (CName "index"),
             enumAliases = [CName "index"],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -1802,8 +1777,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "date")
-            DeclPathCtxtTop,
+            (CName "date"),
           structAliases = [CName "date"],
           structSizeof = 12,
           structAlignment = 4,
@@ -1899,8 +1873,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "date")
-              DeclPathCtxtTop,
+              (CName "date"),
             structAliases = [CName "date"],
             structSizeof = 12,
             structAlignment = 4,
@@ -2001,8 +1974,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "date")
-                      DeclPathCtxtTop,
+                      (CName "date"),
                     structAliases = [CName "date"],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -2106,8 +2078,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "date")
-                      DeclPathCtxtTop,
+                      (CName "date"),
                     structAliases = [CName "date"],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -2204,11 +2175,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "student")
-            (DeclPathCtxtField
-              (Just (CName "occupation"))
-              (CName "student")
-              DeclPathCtxtTop),
+            (CName "student"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -2284,11 +2251,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "student")
-              (DeclPathCtxtField
-                (Just (CName "occupation"))
-                (CName "student")
-                DeclPathCtxtTop),
+              (CName "student"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -2369,11 +2332,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "student")
-                      (DeclPathCtxtField
-                        (Just (CName "occupation"))
-                        (CName "student")
-                        DeclPathCtxtTop),
+                      (CName "student"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -2456,11 +2415,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "student")
-                      (DeclPathCtxtField
-                        (Just (CName "occupation"))
-                        (CName "student")
-                        DeclPathCtxtTop),
+                      (CName "student"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -2566,15 +2521,7 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathName
-                    (CName "person")
-                    (DeclPathCtxtPtr
-                      (DeclPathCtxtField
-                        (Just (CName "employee"))
-                        (CName "supervisor")
-                        (DeclPathCtxtField
-                          (Just (CName "occupation"))
-                          (CName "employee")
-                          DeclPathCtxtTop))))),
+                    (CName "person"))),
               fieldSourceLoc =
               "manual_examples.h:77:20"}},
         Field {
@@ -2597,11 +2544,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "employee")
-            (DeclPathCtxtField
-              (Just (CName "occupation"))
-              (CName "employee")
-              DeclPathCtxtTop),
+            (CName "employee"),
           structAliases = [],
           structSizeof = 24,
           structAlignment = 8,
@@ -2624,15 +2567,7 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathName
-                    (CName "person")
-                    (DeclPathCtxtPtr
-                      (DeclPathCtxtField
-                        (Just (CName "employee"))
-                        (CName "supervisor")
-                        (DeclPathCtxtField
-                          (Just (CName "occupation"))
-                          (CName "employee")
-                          DeclPathCtxtTop))))),
+                    (CName "person"))),
               fieldSourceLoc =
               "manual_examples.h:77:20"},
             StructField {
@@ -2693,15 +2628,7 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathName
-                      (CName "person")
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtField
-                          (Just (CName "employee"))
-                          (CName "supervisor")
-                          (DeclPathCtxtField
-                            (Just (CName "occupation"))
-                            (CName "employee")
-                            DeclPathCtxtTop))))),
+                      (CName "person"))),
                 fieldSourceLoc =
                 "manual_examples.h:77:20"}},
           Field {
@@ -2724,11 +2651,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "employee")
-              (DeclPathCtxtField
-                (Just (CName "occupation"))
-                (CName "employee")
-                DeclPathCtxtTop),
+              (CName "employee"),
             structAliases = [],
             structSizeof = 24,
             structAlignment = 8,
@@ -2751,15 +2674,7 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathName
-                      (CName "person")
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtField
-                          (Just (CName "employee"))
-                          (CName "supervisor")
-                          (DeclPathCtxtField
-                            (Just (CName "occupation"))
-                            (CName "employee")
-                            DeclPathCtxtTop))))),
+                      (CName "person"))),
                 fieldSourceLoc =
                 "manual_examples.h:77:20"},
               StructField {
@@ -2825,15 +2740,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "person")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "employee"))
-                                  (CName "supervisor")
-                                  (DeclPathCtxtField
-                                    (Just (CName "occupation"))
-                                    (CName "employee")
-                                    DeclPathCtxtTop))))),
+                              (CName "person"))),
                         fieldSourceLoc =
                         "manual_examples.h:77:20"}},
                   Field {
@@ -2856,11 +2763,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "employee")
-                      (DeclPathCtxtField
-                        (Just (CName "occupation"))
-                        (CName "employee")
-                        DeclPathCtxtTop),
+                      (CName "employee"),
                     structAliases = [],
                     structSizeof = 24,
                     structAlignment = 8,
@@ -2883,15 +2786,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "person")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "employee"))
-                                  (CName "supervisor")
-                                  (DeclPathCtxtField
-                                    (Just (CName "occupation"))
-                                    (CName "employee")
-                                    DeclPathCtxtTop))))),
+                              (CName "person"))),
                         fieldSourceLoc =
                         "manual_examples.h:77:20"},
                       StructField {
@@ -2960,15 +2855,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "person")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "employee"))
-                                  (CName "supervisor")
-                                  (DeclPathCtxtField
-                                    (Just (CName "occupation"))
-                                    (CName "employee")
-                                    DeclPathCtxtTop))))),
+                              (CName "person"))),
                         fieldSourceLoc =
                         "manual_examples.h:77:20"}},
                   Field {
@@ -2991,11 +2878,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "employee")
-                      (DeclPathCtxtField
-                        (Just (CName "occupation"))
-                        (CName "employee")
-                        DeclPathCtxtTop),
+                      (CName "employee"),
                     structAliases = [],
                     structSizeof = 24,
                     structAlignment = 8,
@@ -3018,15 +2901,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "person")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "employee"))
-                                  (CName "supervisor")
-                                  (DeclPathCtxtField
-                                    (Just (CName "occupation"))
-                                    (CName "employee")
-                                    DeclPathCtxtTop))))),
+                              (CName "person"))),
                         fieldSourceLoc =
                         "manual_examples.h:77:20"},
                       StructField {
@@ -3079,8 +2954,7 @@
       NewtypeOriginUnion
         Union {
           unionDeclPath = DeclPathName
-            (CName "occupation")
-            DeclPathCtxtTop,
+            (CName "occupation"),
           unionAliases = [
             CName "occupation"],
           unionSizeof = 24,
@@ -3090,22 +2964,14 @@
               ufieldName = CName "student",
               ufieldType = TypeStruct
                 (DeclPathName
-                  (CName "student")
-                  (DeclPathCtxtField
-                    (Just (CName "occupation"))
-                    (CName "student")
-                    DeclPathCtxtTop)),
+                  (CName "student")),
               ufieldSourceLoc =
               "manual_examples.h:73:5"},
             UnionField {
               ufieldName = CName "employee",
               ufieldType = TypeStruct
                 (DeclPathName
-                  (CName "employee")
-                  (DeclPathCtxtField
-                    (Just (CName "occupation"))
-                    (CName "employee")
-                    DeclPathCtxtTop)),
+                  (CName "employee")),
               ufieldSourceLoc =
               "manual_examples.h:79:5"}],
           unionSourceLoc =
@@ -3864,8 +3730,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "rect")
-            DeclPathCtxtTop,
+            (CName "rect"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 4,
@@ -3955,8 +3820,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "rect")
-              DeclPathCtxtTop,
+              (CName "rect"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 4,
@@ -4051,8 +3915,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "rect")
-                      DeclPathCtxtTop,
+                      (CName "rect"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 4,
@@ -4149,8 +4012,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "rect")
-                      DeclPathCtxtTop,
+                      (CName "rect"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 4,
@@ -4850,8 +4712,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "signal")
-            DeclPathCtxtTop,
+            (CName "signal"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -4900,8 +4761,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "signal")
-              DeclPathCtxtTop,
+              (CName "signal"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -4955,8 +4815,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "signal")
-                      DeclPathCtxtTop,
+                      (CName "signal"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -5010,8 +4869,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "signal")
-                      DeclPathCtxtTop,
+                      (CName "signal"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -5085,8 +4943,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "signal")
-              DeclPathCtxtTop,
+              (CName "signal"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5143,8 +5000,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "signal")
-              DeclPathCtxtTop,
+              (CName "signal"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5195,8 +5051,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "signal")
-              DeclPathCtxtTop,
+              (CName "signal"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5320,8 +5175,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "HTTP_status")
-            DeclPathCtxtTop,
+            (CName "HTTP_status"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -5376,8 +5230,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "HTTP_status")
-              DeclPathCtxtTop,
+              (CName "HTTP_status"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5437,8 +5290,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "HTTP_status")
-                      DeclPathCtxtTop,
+                      (CName "HTTP_status"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -5498,8 +5350,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "HTTP_status")
-                      DeclPathCtxtTop,
+                      (CName "HTTP_status"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -5579,8 +5430,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "HTTP_status")
-              DeclPathCtxtTop,
+              (CName "HTTP_status"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5650,8 +5500,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "HTTP_status")
-              DeclPathCtxtTop,
+              (CName "HTTP_status"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5801,8 +5650,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "descending")
-            DeclPathCtxtTop,
+            (CName "descending"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -5851,8 +5699,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "descending")
-              DeclPathCtxtTop,
+              (CName "descending"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -5906,8 +5753,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "descending")
-                      DeclPathCtxtTop,
+                      (CName "descending"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -5961,8 +5807,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "descending")
-                      DeclPathCtxtTop,
+                      (CName "descending"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -6036,8 +5881,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "descending")
-              DeclPathCtxtTop,
+              (CName "descending"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -6095,8 +5939,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "descending")
-              DeclPathCtxtTop,
+              (CName "descending"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -6147,8 +5990,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "descending")
-              DeclPathCtxtTop,
+              (CName "descending"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -6272,8 +6114,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "result")
-            DeclPathCtxtTop,
+            (CName "result"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Signed),
@@ -6323,8 +6164,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "result")
-              DeclPathCtxtTop,
+              (CName "result"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Signed),
@@ -6379,8 +6219,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "result")
-                      DeclPathCtxtTop,
+                      (CName "result"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Signed),
@@ -6435,8 +6274,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "result")
-                      DeclPathCtxtTop,
+                      (CName "result"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Signed),
@@ -6511,8 +6349,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "result")
-              DeclPathCtxtTop,
+              (CName "result"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Signed),
@@ -6576,8 +6413,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "result")
-              DeclPathCtxtTop,
+              (CName "result"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Signed),
@@ -6631,8 +6467,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "result")
-              DeclPathCtxtTop,
+              (CName "result"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Signed),
@@ -6758,8 +6593,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "vote")
-            DeclPathCtxtTop,
+            (CName "vote"),
           enumAliases = [],
           enumType = TypePrim
             (PrimChar
@@ -6804,8 +6638,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "vote")
-              DeclPathCtxtTop,
+              (CName "vote"),
             enumAliases = [],
             enumType = TypePrim
               (PrimChar
@@ -6855,8 +6688,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "vote")
-                      DeclPathCtxtTop,
+                      (CName "vote"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimChar
@@ -6906,8 +6738,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "vote")
-                      DeclPathCtxtTop,
+                      (CName "vote"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimChar
@@ -6971,8 +6802,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "vote")
-              DeclPathCtxtTop,
+              (CName "vote"),
             enumAliases = [],
             enumType = TypePrim
               (PrimChar
@@ -7028,8 +6858,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "vote")
-              DeclPathCtxtTop,
+              (CName "vote"),
             enumAliases = [],
             enumType = TypePrim
               (PrimChar
@@ -7076,8 +6905,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "vote")
-              DeclPathCtxtTop,
+              (CName "vote"),
             enumAliases = [],
             enumType = TypePrim
               (PrimChar
@@ -7178,8 +7006,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "CXCursorKind")
-            DeclPathCtxtTop,
+            (CName "CXCursorKind"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -7280,8 +7107,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "CXCursorKind")
-              DeclPathCtxtTop,
+              (CName "CXCursorKind"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -7387,8 +7213,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "CXCursorKind")
-                      DeclPathCtxtTop,
+                      (CName "CXCursorKind"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -7494,8 +7319,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "CXCursorKind")
-                      DeclPathCtxtTop,
+                      (CName "CXCursorKind"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -7621,8 +7445,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "CXCursorKind")
-              DeclPathCtxtTop,
+              (CName "CXCursorKind"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -7767,8 +7590,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "CXCursorKind")
-              DeclPathCtxtTop,
+              (CName "CXCursorKind"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),

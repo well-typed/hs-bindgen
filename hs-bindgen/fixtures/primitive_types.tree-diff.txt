@@ -3,8 +3,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "primitive")
-          DeclPathCtxtTop,
+          (CName "primitive"),
         structAliases = [],
         structSizeof = 152,
         structAlignment = 8,

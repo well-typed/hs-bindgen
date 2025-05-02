@@ -18,8 +18,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "first")
-          DeclPathCtxtTop,
+          (CName "first"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -39,8 +38,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "second")
-          DeclPathCtxtTop,
+          (CName "second"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Signed),
@@ -66,8 +64,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "same")
-          DeclPathCtxtTop,
+          (CName "same"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -88,8 +85,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "nonseq")
-          DeclPathCtxtTop,
+          (CName "nonseq"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -115,8 +111,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "packad")
-          DeclPathCtxtTop,
+          (CName "packad"),
         enumAliases = [],
         enumType = TypePrim
           (PrimChar
@@ -165,8 +160,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "enumB")
-          DeclPathCtxtTop,
+          (CName "enumB"),
         enumAliases = [CName "enumB"],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -188,8 +182,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "enumC")
-          DeclPathCtxtTop,
+          (CName "enumC"),
         enumAliases = [CName "enumC"],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -210,8 +203,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "enumD")
-          DeclPathCtxtTop,
+          (CName "enumD"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -233,8 +225,6 @@ Header
       Typedef {
         typedefName = CName "enumD_t",
         typedefType = TypeEnum
-          (DeclPathName
-            (CName "enumD")
-            DeclPathCtxtTop),
+          (DeclPathName (CName "enumD")),
         typedefSourceLoc =
         "enums.h:38:20"}]

@@ -3,11 +3,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "enumA")
-          (DeclPathCtxtField
-            (Just (CName "exA"))
-            (CName "fieldA1")
-            DeclPathCtxtTop),
+          (CName "enumA"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -29,8 +25,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "exA")
-          DeclPathCtxtTop,
+          (CName "exA"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,
@@ -40,12 +35,7 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypeEnum
-              (DeclPathName
-                (CName "enumA")
-                (DeclPathCtxtField
-                  (Just (CName "exA"))
-                  (CName "fieldA1")
-                  DeclPathCtxtTop)),
+              (DeclPathName (CName "enumA")),
             fieldSourceLoc =
             "nested_enums.h:5:11"}],
         structFlam = Nothing,
@@ -79,8 +69,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "exB")
-          DeclPathCtxtTop,
+          (CName "exB"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,

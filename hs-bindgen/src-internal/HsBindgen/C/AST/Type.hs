@@ -27,7 +27,6 @@ module HsBindgen.C.AST.Type (
     -- * DeclPath
   , DeclPath(..)
   , DeclPathCtxt(..)
-  , topLevel
   , declPathName
   ) where
 
@@ -100,8 +99,8 @@ showsType x (TypeExtBinding _ t)    = showsType x t
 -- | by "construction" function arguments (where showsType is used), cannot be anonymous, so DeclPathAnon is shown as <anon>.
 -- FWIW, that's similar to how libclang show types referencing anonymous structs.
 showDeclPath :: DeclPath -> ShowS
-showDeclPath (DeclPathName n _) = showString (T.unpack (getCName n))
-showDeclPath (DeclPathAnon _)   = showString "<anon>"
+showDeclPath (DeclPathName n) = showString (T.unpack (getCName n))
+showDeclPath (DeclPathAnon _) = showString "<anon>"
 
 showsFunctionType
   :: ShowS   -- ^ function name
@@ -377,7 +376,7 @@ data Typedef = Typedef {
 -- generation.
 data DeclPath =
     -- | Named type
-    DeclPathName CName DeclPathCtxt
+    DeclPathName CName
 
     -- | Anonymous type
     --
@@ -430,10 +429,7 @@ data DeclPathCtxt =
   | DeclPathCtxtField (Maybe CName) CName DeclPathCtxt
   deriving stock (Eq, Ord, Generic, Show)
 
-topLevel :: CName -> DeclPath
-topLevel cname = DeclPathName cname DeclPathCtxtTop
-
 -- | Name of the declared type, or 'Nothing' if anonymous
 declPathName :: DeclPath -> Maybe CName
-declPathName (DeclPathName name _ctxt) = Just name
+declPathName (DeclPathName name)  = Just name
 declPathName (DeclPathAnon _ctxt) = Nothing

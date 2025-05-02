@@ -46,8 +46,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "foo")
-            DeclPathCtxtTop,
+            (CName "foo"),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
@@ -121,8 +120,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "foo")
-              DeclPathCtxtTop,
+              (CName "foo"),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
@@ -201,8 +199,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop,
+                      (CName "foo"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -283,8 +280,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop,
+                      (CName "foo"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -348,9 +344,7 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathName
-                  (CName "foo")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "foo")),
               fieldSourceLoc =
               "nested_types.h:7:16"}},
         Field {
@@ -366,17 +360,14 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathName
-                  (CName "foo")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "foo")),
               fieldSourceLoc =
               "nested_types.h:8:16"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "bar")
-            DeclPathCtxtTop,
+            (CName "bar"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 4,
@@ -386,9 +377,7 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathName
-                  (CName "foo")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "foo")),
               fieldSourceLoc =
               "nested_types.h:7:16"},
             StructField {
@@ -396,9 +385,7 @@
               fieldOffset = 64,
               fieldWidth = Nothing,
               fieldType = TypeStruct
-                (DeclPathName
-                  (CName "foo")
-                  DeclPathCtxtTop),
+                (DeclPathName (CName "foo")),
               fieldSourceLoc =
               "nested_types.h:8:16"}],
           structFlam = Nothing,
@@ -427,9 +414,7 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathName
-                    (CName "foo")
-                    DeclPathCtxtTop),
+                  (DeclPathName (CName "foo")),
                 fieldSourceLoc =
                 "nested_types.h:7:16"}},
           Field {
@@ -445,17 +430,14 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathName
-                    (CName "foo")
-                    DeclPathCtxtTop),
+                  (DeclPathName (CName "foo")),
                 fieldSourceLoc =
                 "nested_types.h:8:16"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "bar")
-              DeclPathCtxtTop,
+              (CName "bar"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 4,
@@ -465,9 +447,7 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathName
-                    (CName "foo")
-                    DeclPathCtxtTop),
+                  (DeclPathName (CName "foo")),
                 fieldSourceLoc =
                 "nested_types.h:7:16"},
               StructField {
@@ -475,9 +455,7 @@
                 fieldOffset = 64,
                 fieldWidth = Nothing,
                 fieldType = TypeStruct
-                  (DeclPathName
-                    (CName "foo")
-                    DeclPathCtxtTop),
+                  (DeclPathName (CName "foo")),
                 fieldSourceLoc =
                 "nested_types.h:8:16"}],
             structFlam = Nothing,
@@ -511,9 +489,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:7:16"}},
                   Field {
@@ -529,17 +505,14 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:8:16"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "bar")
-                      DeclPathCtxtTop,
+                      (CName "bar"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 4,
@@ -549,9 +522,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:7:16"},
                       StructField {
@@ -559,9 +530,7 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:8:16"}],
                     structFlam = Nothing,
@@ -597,9 +566,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:7:16"}},
                   Field {
@@ -615,17 +582,14 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:8:16"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "bar")
-                      DeclPathCtxtTop,
+                      (CName "bar"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 4,
@@ -635,9 +599,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:7:16"},
                       StructField {
@@ -645,9 +607,7 @@
                         fieldOffset = 64,
                         fieldWidth = Nothing,
                         fieldType = TypeStruct
-                          (DeclPathName
-                            (CName "foo")
-                            DeclPathCtxtTop),
+                          (DeclPathName (CName "foo")),
                         fieldSourceLoc =
                         "nested_types.h:8:16"}],
                     structFlam = Nothing,
@@ -698,8 +658,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "ex3")
-            DeclPathCtxtTop,
+            (CName "ex3"),
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -745,8 +704,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "ex3")
-              DeclPathCtxtTop,
+              (CName "ex3"),
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -797,8 +755,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "ex3")
-                      DeclPathCtxtTop,
+                      (CName "ex3"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -849,8 +806,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "ex3")
-                      DeclPathCtxtTop,
+                      (CName "ex3"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -924,20 +880,14 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathName
-                    (CName "ex4_odd")
-                    DeclPathCtxtTop)),
+                    (CName "ex4_odd"))),
               fieldSourceLoc =
               "nested_types.h:26:25"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "ex4_even")
-            (DeclPathCtxtPtr
-              (DeclPathCtxtField
-                (Just (CName "ex4_odd"))
-                (CName "next")
-                DeclPathCtxtTop)),
+            (CName "ex4_even"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -957,8 +907,7 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathName
-                    (CName "ex4_odd")
-                    DeclPathCtxtTop)),
+                    (CName "ex4_odd"))),
               fieldSourceLoc =
               "nested_types.h:26:25"}],
           structFlam = Nothing,
@@ -1008,20 +957,14 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathName
-                      (CName "ex4_odd")
-                      DeclPathCtxtTop)),
+                      (CName "ex4_odd"))),
                 fieldSourceLoc =
                 "nested_types.h:26:25"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "ex4_even")
-              (DeclPathCtxtPtr
-                (DeclPathCtxtField
-                  (Just (CName "ex4_odd"))
-                  (CName "next")
-                  DeclPathCtxtTop)),
+              (CName "ex4_even"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -1041,8 +984,7 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathName
-                      (CName "ex4_odd")
-                      DeclPathCtxtTop)),
+                      (CName "ex4_odd"))),
                 fieldSourceLoc =
                 "nested_types.h:26:25"}],
             structFlam = Nothing,
@@ -1097,20 +1039,14 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_odd")
-                              DeclPathCtxtTop)),
+                              (CName "ex4_odd"))),
                         fieldSourceLoc =
                         "nested_types.h:26:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "ex4_even")
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtField
-                          (Just (CName "ex4_odd"))
-                          (CName "next")
-                          DeclPathCtxtTop)),
+                      (CName "ex4_even"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -1130,8 +1066,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_odd")
-                              DeclPathCtxtTop)),
+                              (CName "ex4_odd"))),
                         fieldSourceLoc =
                         "nested_types.h:26:25"}],
                     structFlam = Nothing,
@@ -1188,20 +1123,14 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_odd")
-                              DeclPathCtxtTop)),
+                              (CName "ex4_odd"))),
                         fieldSourceLoc =
                         "nested_types.h:26:25"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "ex4_even")
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtField
-                          (Just (CName "ex4_odd"))
-                          (CName "next")
-                          DeclPathCtxtTop)),
+                      (CName "ex4_even"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -1221,8 +1150,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_odd")
-                              DeclPathCtxtTop)),
+                              (CName "ex4_odd"))),
                         fieldSourceLoc =
                         "nested_types.h:26:25"}],
                     structFlam = Nothing,
@@ -1291,20 +1219,14 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathName
-                    (CName "ex4_even")
-                    (DeclPathCtxtPtr
-                      (DeclPathCtxtField
-                        (Just (CName "ex4_odd"))
-                        (CName "next")
-                        DeclPathCtxtTop)))),
+                    (CName "ex4_even"))),
               fieldSourceLoc =
               "nested_types.h:27:8"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "ex4_odd")
-            DeclPathCtxtTop,
+            (CName "ex4_odd"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -1324,12 +1246,7 @@
               fieldType = TypePointer
                 (TypeStruct
                   (DeclPathName
-                    (CName "ex4_even")
-                    (DeclPathCtxtPtr
-                      (DeclPathCtxtField
-                        (Just (CName "ex4_odd"))
-                        (CName "next")
-                        DeclPathCtxtTop)))),
+                    (CName "ex4_even"))),
               fieldSourceLoc =
               "nested_types.h:27:8"}],
           structFlam = Nothing,
@@ -1379,20 +1296,14 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathName
-                      (CName "ex4_even")
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtField
-                          (Just (CName "ex4_odd"))
-                          (CName "next")
-                          DeclPathCtxtTop)))),
+                      (CName "ex4_even"))),
                 fieldSourceLoc =
                 "nested_types.h:27:8"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "ex4_odd")
-              DeclPathCtxtTop,
+              (CName "ex4_odd"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -1412,12 +1323,7 @@
                 fieldType = TypePointer
                   (TypeStruct
                     (DeclPathName
-                      (CName "ex4_even")
-                      (DeclPathCtxtPtr
-                        (DeclPathCtxtField
-                          (Just (CName "ex4_odd"))
-                          (CName "next")
-                          DeclPathCtxtTop)))),
+                      (CName "ex4_even"))),
                 fieldSourceLoc =
                 "nested_types.h:27:8"}],
             structFlam = Nothing,
@@ -1472,20 +1378,14 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_even")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "ex4_odd"))
-                                  (CName "next")
-                                  DeclPathCtxtTop)))),
+                              (CName "ex4_even"))),
                         fieldSourceLoc =
                         "nested_types.h:27:8"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "ex4_odd")
-                      DeclPathCtxtTop,
+                      (CName "ex4_odd"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -1505,12 +1405,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_even")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "ex4_odd"))
-                                  (CName "next")
-                                  DeclPathCtxtTop)))),
+                              (CName "ex4_even"))),
                         fieldSourceLoc =
                         "nested_types.h:27:8"}],
                     structFlam = Nothing,
@@ -1567,20 +1462,14 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_even")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "ex4_odd"))
-                                  (CName "next")
-                                  DeclPathCtxtTop)))),
+                              (CName "ex4_even"))),
                         fieldSourceLoc =
                         "nested_types.h:27:8"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "ex4_odd")
-                      DeclPathCtxtTop,
+                      (CName "ex4_odd"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -1600,12 +1489,7 @@
                         fieldType = TypePointer
                           (TypeStruct
                             (DeclPathName
-                              (CName "ex4_even")
-                              (DeclPathCtxtPtr
-                                (DeclPathCtxtField
-                                  (Just (CName "ex4_odd"))
-                                  (CName "next")
-                                  DeclPathCtxtTop)))),
+                              (CName "ex4_even"))),
                         fieldSourceLoc =
                         "nested_types.h:27:8"}],
                     structFlam = Nothing,

@@ -226,7 +226,7 @@ opaqueStructDecs ::
   -> [Hs.Decl]
 opaqueStructDecs _opts nm o =
     [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangle nm $ NameTycon $ C.topLevel (C.opaqueStructTag o)
+          emptyDataName   = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueStructTag o)
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
         }
     ]
@@ -234,7 +234,7 @@ opaqueStructDecs _opts nm o =
 opaqueEnumDecs :: TranslationOpts -> NameMangler -> C.OpaqueEnum -> [Hs.Decl]
 opaqueEnumDecs _opts nm o =
     [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangle nm $ NameTycon $ C.topLevel (C.opaqueEnumTag o)
+          emptyDataName   = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueEnumTag o)
         , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
         }
     ]
@@ -319,7 +319,7 @@ enumDecs opts nm e = concat [
     valueDecls :: [Hs.Decl]
     valueDecls =
         [ Hs.DeclPatSyn Hs.PatSyn
-          { patSynName   = mangle nm $ NameDatacon (C.topLevel valueName)
+          { patSynName   = mangle nm $ NameDatacon (C.DeclPathName valueName)
           , patSynType   = newtypeName
           , patSynConstr = newtypeConstr
           , patSynValue  = valueValue
@@ -368,10 +368,10 @@ typedefDecs opts nm d = concat [
     ]
   where
     cName         = C.typedefName d
-    newtypeName   = mangle nm $ NameTycon (C.topLevel cName)
-    newtypeConstr = mangle nm $ NameDatacon (C.topLevel cName)
+    newtypeName   = mangle nm $ NameTycon (C.DeclPathName cName)
+    newtypeConstr = mangle nm $ NameDatacon (C.DeclPathName cName)
     newtypeField  = Hs.Field {
-        fieldName   = mangle nm $ NameDecon (C.topLevel cName)
+        fieldName   = mangle nm $ NameDecon (C.DeclPathName cName)
       , fieldType   = typ nm (C.typedefType d)
       , fieldOrigin = Hs.FieldOriginNone
       }
@@ -443,13 +443,13 @@ macroDecsTypedef opts nm m =
         []
   where
     cName         = C.macroName m
-    newtypeName   = mangle nm $ NameTycon (C.topLevel cName)
-    newtypeConstr = mangle nm $ NameDatacon (C.topLevel cName)
+    newtypeName   = mangle nm $ NameTycon (C.DeclPathName cName)
+    newtypeConstr = mangle nm $ NameDatacon (C.DeclPathName cName)
     newtypeOrigin = Hs.NewtypeOriginMacro m
 
     mkField :: C.Type -> Hs.Field
     mkField ty = Hs.Field {
-          fieldName   = mangle nm $ NameDecon (C.topLevel cName)
+          fieldName   = mangle nm $ NameDecon (C.DeclPathName cName)
         , fieldType   = typ nm ty
         , fieldOrigin = Hs.FieldOriginNone
         }
@@ -473,7 +473,7 @@ typ' ctx nm = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
     go _ (C.TypeTypedef c) =
-        Hs.HsTypRef (mangle nm $ NameTycon (C.topLevel c)) -- wrong
+        Hs.HsTypRef (mangle nm $ NameTycon (C.DeclPathName c)) -- wrong
     go _ (C.TypeStruct declPath) =
         Hs.HsTypRef (mangle nm $ NameTycon declPath)
     go _ (C.TypeUnion declPath) =

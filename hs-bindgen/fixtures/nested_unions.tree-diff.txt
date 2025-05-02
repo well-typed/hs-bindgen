@@ -3,11 +3,7 @@ Header
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
-          (CName "unionA")
-          (DeclPathCtxtField
-            (Just (CName "exA"))
-            (CName "fieldA1")
-            DeclPathCtxtTop),
+          (CName "unionA"),
         unionAliases = [],
         unionSizeof = 4,
         unionAlignment = 4,
@@ -31,8 +27,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "exA")
-          DeclPathCtxtTop,
+          (CName "exA"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,
@@ -42,12 +37,7 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypeUnion
-              (DeclPathName
-                (CName "unionA")
-                (DeclPathCtxtField
-                  (Just (CName "exA"))
-                  (CName "fieldA1")
-                  DeclPathCtxtTop)),
+              (DeclPathName (CName "unionA")),
             fieldSourceLoc =
             "nested_unions.h:5:11"}],
         structFlam = Nothing,
@@ -83,8 +73,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "exB")
-          DeclPathCtxtTop,
+          (CName "exB"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,

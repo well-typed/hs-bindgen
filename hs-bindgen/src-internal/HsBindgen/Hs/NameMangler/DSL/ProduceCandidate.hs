@@ -124,8 +124,8 @@ fromCName prod = processCName prod . getCName
 
 fromDeclPath :: ProduceCandidate -> DeclPath -> Text
 fromDeclPath prod = \case
-    DeclPathAnon ctxt    -> concatParts prod $ aux ctxt
-    DeclPathName n _ctxt -> fromCName prod n
+    DeclPathName n    -> fromCName prod n
+    DeclPathAnon ctxt -> concatParts prod $ aux ctxt
   where
     aux :: DeclPathCtxt -> [Text]
     aux DeclPathCtxtTop =

@@ -148,8 +148,7 @@ Header
           TypePointer
             (TypeStruct
               (DeclPathName
-                (CName "triple")
-                DeclPathCtxtTop))],
+                (CName "triple")))],
         functionRes = TypeVoid,
         functionHeader =
         "manual_examples.h",
@@ -163,12 +162,9 @@ Header
           TypePointer
             (TypeStruct
               (DeclPathName
-                (CName "triple")
-                DeclPathCtxtTop)),
+                (CName "triple"))),
           TypeEnum
-            (DeclPathName
-              (CName "index")
-              DeclPathCtxtTop)],
+            (DeclPathName (CName "index"))],
         functionRes = TypePrim
           (PrimIntegral PrimInt Signed),
         functionHeader =
@@ -183,8 +179,7 @@ Header
           TypePointer
             (TypeStruct
               (DeclPathName
-                (CName "triple")
-                DeclPathCtxtTop))],
+                (CName "triple")))],
         functionRes = TypeTypedef
           (CName "sum"),
         functionHeader =
@@ -199,8 +194,7 @@ Header
           TypePointer
             (TypeStruct
               (DeclPathName
-                (CName "triple")
-                DeclPathCtxtTop))],
+                (CName "triple")))],
         functionRes = TypeTypedef
           (CName "average"),
         functionHeader =
@@ -229,8 +223,7 @@ Header
           TypePointer
             (TypeUnion
               (DeclPathName
-                (CName "occupation")
-                DeclPathCtxtTop))],
+                (CName "occupation")))],
         functionRes = TypeVoid,
         functionHeader =
         "manual_examples.h",
@@ -267,8 +260,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "triple")
-          DeclPathCtxtTop,
+          (CName "triple"),
         structAliases = [
           CName "triple"],
         structSizeof = 12,
@@ -304,8 +296,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "index")
-          DeclPathCtxtTop,
+          (CName "index"),
         enumAliases = [CName "index"],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -346,8 +337,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "date")
-          DeclPathCtxtTop,
+          (CName "date"),
         structAliases = [CName "date"],
         structSizeof = 12,
         structAlignment = 4,
@@ -382,11 +372,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "student")
-          (DeclPathCtxtField
-            (Just (CName "occupation"))
-            (CName "student")
-            DeclPathCtxtTop),
+          (CName "student"),
         structAliases = [],
         structSizeof = 16,
         structAlignment = 8,
@@ -423,11 +409,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "employee")
-          (DeclPathCtxtField
-            (Just (CName "occupation"))
-            (CName "employee")
-            DeclPathCtxtTop),
+          (CName "employee"),
         structAliases = [],
         structSizeof = 24,
         structAlignment = 8,
@@ -450,15 +432,7 @@ Header
             fieldType = TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "person")
-                  (DeclPathCtxtPtr
-                    (DeclPathCtxtField
-                      (Just (CName "employee"))
-                      (CName "supervisor")
-                      (DeclPathCtxtField
-                        (Just (CName "occupation"))
-                        (CName "employee")
-                        DeclPathCtxtTop))))),
+                  (CName "person"))),
             fieldSourceLoc =
             "manual_examples.h:77:20"},
           StructField {
@@ -475,8 +449,7 @@ Header
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
-          (CName "occupation")
-          DeclPathCtxtTop,
+          (CName "occupation"),
         unionAliases = [
           CName "occupation"],
         unionSizeof = 24,
@@ -486,22 +459,14 @@ Header
             ufieldName = CName "student",
             ufieldType = TypeStruct
               (DeclPathName
-                (CName "student")
-                (DeclPathCtxtField
-                  (Just (CName "occupation"))
-                  (CName "student")
-                  DeclPathCtxtTop)),
+                (CName "student")),
             ufieldSourceLoc =
             "manual_examples.h:73:5"},
           UnionField {
             ufieldName = CName "employee",
             ufieldType = TypeStruct
               (DeclPathName
-                (CName "employee")
-                (DeclPathCtxtField
-                  (Just (CName "occupation"))
-                  (CName "employee")
-                  DeclPathCtxtTop)),
+                (CName "employee")),
             ufieldSourceLoc =
             "manual_examples.h:79:5"}],
         unionSourceLoc =
@@ -569,8 +534,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "rect")
-          DeclPathCtxtTop,
+          (CName "rect"),
         structAliases = [],
         structSizeof = 16,
         structAlignment = 4,
@@ -667,8 +631,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "signal")
-          DeclPathCtxtTop,
+          (CName "signal"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -700,8 +663,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "HTTP_status")
-          DeclPathCtxtTop,
+          (CName "HTTP_status"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -739,8 +701,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "descending")
-          DeclPathCtxtTop,
+          (CName "descending"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
@@ -772,8 +733,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "result")
-          DeclPathCtxtTop,
+          (CName "result"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Signed),
@@ -806,8 +766,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "vote")
-          DeclPathCtxtTop,
+          (CName "vote"),
         enumAliases = [],
         enumType = TypePrim
           (PrimChar
@@ -835,8 +794,7 @@ Header
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
-          (CName "CXCursorKind")
-          DeclPathCtxtTop,
+          (CName "CXCursorKind"),
         enumAliases = [],
         enumType = TypePrim
           (PrimIntegral PrimInt Unsigned),
