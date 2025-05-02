@@ -4,12 +4,11 @@
 module HsBindgen.C.AST.Macro (
     -- * Definition
     Macro(..)
+  , MacroBody(..)
     -- ** Expressions
   , MExpr(..)
   , MFun(..)
   , MTerm(..)
-    -- ** Attributes
-  , Attribute(..)
     -- * Classification
   , isIncludeGuard
   ) where
@@ -29,9 +28,11 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Literal
-import HsBindgen.C.AST.Type
 import HsBindgen.Util.TestEquality
   ( equals1 )
+
+import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
+import Data.Type.Nat qualified as Nat
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -41,7 +42,7 @@ data Macro = Macro {
       macroLoc  :: MultiLoc
     , macroName :: CName
     , macroArgs :: [CName]
-    , macroBody :: MExpr
+    , macroBody :: MacroBody
     }
   deriving stock (Show, Eq, Generic)
 
@@ -50,10 +51,69 @@ data Macro = Macro {
 -------------------------------------------------------------------------------}
 
 -- | Body of a function-like macro
-data MExpr =
-    MTerm MTerm
-  | -- | Empty
-    MEmpty
+data MacroBody
+  -- | Empty macro body
+  = EmptyMacro
+  -- | A term-level (expression) macro
+  --
+  -- NB: this may be an integer expression, which
+  -- we can use at the type level as well (e.g. in the size of an array)
+  | ExpressionMacro MExpr
+  -- | A macro that defines a type.
+  --
+  -- See Note [Macros defining types]
+  | TypeMacro TypeName
+  -- | A macro that defines attributes
+  | AttributeMacro [AttributeSpecifier]
+  deriving stock ( Eq, Show )
+
+{- Note [Macros defining types]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We want to support macros that define types (see e.g. #401), such as:
+
+  #define Ty1 int
+  #define Ty2 int*
+  #define Ty3 int[8]
+
+But... what precisely **are** 'int', 'int*' and 'int[8]'? According to the C23
+specification, these are "type names", which consist of:
+
+  1. a type specifier (here 'int' in all three cases)
+  2. some attributes (none in these examples)
+  3. an abstract declarator
+
+These can appear in several places in the C grammar, such as:
+
+  - in casts, e.g. (ty)(expr)
+  - as the argument to sizeof, e.g. sizeof(ty)
+
+We thus reparse these three examples as "type names", which has a low
+implementation cost as we already have a (re)parser for such things for the
+purpose of reparsing function parameters and struct field declarations.
+
+As a consequence, we also reparse the following:
+
+  #define Ty4 int(float)     // a function that takes a float and returns an int
+  #define Ty5 int (*)(float) // a function pointer to a function taking a float and returning an int
+
+One downside is that we can't straightforwardly re-use these type names in
+other places, such as in function parameter types:
+
+  void foo(int x1, int* x2, int x3[8], int (*x5)(float))
+
+Function parameters are non-abstract declarators, and for more complicated
+types the declarator name appears "in the middle" of the type, e.g.
+
+  int x3[8]         // 'x3' appears in the middle of 'int[8]'
+  int (*x5)(float)  // 'x5' appears in the middle of 'int (*)(float)'
+
+For the time being, we accept macros defining such type names.
+-}
+
+-- | Macro expression
+data MExpr
+  -- | A term that is not a function application.
+  = MTerm MTerm
   -- | Exactly saturated non-nullary function application.
   | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
 deriving stock instance Show MExpr
@@ -115,6 +175,9 @@ data MFun arity where
   -- | Tuples
   MTuple      :: SNatI n => MFun ( S ( S n ) )
 
+  -- NB: make sure to update 'instance GEq MFun'
+  -- when adding a new constructor.
+
 deriving stock instance Show ( MFun arity )
 deriving stock instance Eq   ( MFun arity )
 
@@ -141,6 +204,9 @@ instance GEq MFun where
   geq MBitwiseOr  MBitwiseOr  = Just Refl
   geq MLogicalAnd MLogicalAnd = Just Refl
   geq MLogicalOr  MLogicalOr  = Just Refl
+  geq (MTuple @i) (MTuple @j)
+    | Just Refl <- Nat.eqNat @i @j
+    = Just Refl
   geq _           _           = Nothing
 
 data MTerm =
@@ -162,12 +228,6 @@ data MTerm =
     -- This might be a macro argument, or another marco.
   | MVar CName [MExpr]
 
-    -- | Type declaration
-  | MType Type
-
-    -- | Attribute
-  | MAttr Attribute (Maybe MTerm)
-
     -- | Stringizing
     --
     -- See
@@ -186,19 +246,6 @@ data MTerm =
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
-  Attributes
--------------------------------------------------------------------------------}
-
--- | Attribute
---
--- See Section 5.25, "Attribute syntax" of the gcc manual.
--- <https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Attribute-Syntax.html#Attribute-Syntax>.
---
--- For now we make no attempt to parse what's actually inside the attribute.
-data Attribute = Attribute [Token TokenSpelling]
-  deriving stock (Show, Eq, Generic)
-
-{-------------------------------------------------------------------------------
   Classification
 -------------------------------------------------------------------------------}
 
@@ -208,9 +255,10 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
         macroName `elem` includeGuards
       , null macroArgs
       , case macroBody of
-          MEmpty
+          EmptyMacro
             -> True
-          MTerm ( MInt IntegerLiteral { integerLiteralValue = 1 } )
+          ExpressionMacro
+            (MTerm (MInt IntegerLiteral { integerLiteralValue = 1 }))
             -> True
           _otherwise
             -> False

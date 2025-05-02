@@ -7,7 +7,7 @@ import Data.Text qualified as Text
 import Text.Parsec
 
 import HsBindgen.Imports
-import HsBindgen.C.AST
+import HsBindgen.C.AST.Type
 import HsBindgen.C.Reparse.Infra
 
 {-------------------------------------------------------------------------------

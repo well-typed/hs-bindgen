@@ -173,6 +173,9 @@ data PrimType =
     -- | @ptrdiff_t@
   | PrimPtrDiff
 
+    -- | @size_t@
+  | PrimSize
+
     -- | A floating-point type, such as @float@ or @long double@.
   | PrimFloating PrimFloatType
 
@@ -242,6 +245,7 @@ showsPrimType (PrimChar (PrimSignExplicit s)) = showsPrimSign s . showString " c
 showsPrimType (PrimIntegral i s) = showsPrimSign s . showChar ' ' . showsPrimIntType i
 showsPrimType (PrimFloating f) = showsPrimFloatType f
 showsPrimType PrimPtrDiff = showString "ptrdiff_t"
+showsPrimType PrimSize = showString "size_t"
 showsPrimType PrimBool = showString "_Bool"
 
 showsPrimIntType :: PrimIntType -> ShowS

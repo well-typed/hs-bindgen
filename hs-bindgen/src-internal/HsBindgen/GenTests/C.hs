@@ -137,6 +137,7 @@ getFieldP Hs.Field{..} = (cName, hsTypeName)
         HsT.HsPrimCFloat   -> "CFloat"
         HsT.HsPrimCDouble  -> "CDouble"
         HsT.HsPrimCPtrDiff -> "CPtrdiff"
+        HsT.HsPrimCSize    -> "CSize"
         x -> throwPure_TODO 447 $ "not supported: " ++ show (typeOf x)
       x -> throwPure_TODO 447 $ "not supported: " ++ show (typeOf x)
 

@@ -444,11 +444,12 @@ integralArithmeticConversion_differentSigns plat s@( t_s, rk_s ) u@( t_u, rk_u )
       Int      {} -> Int      Unsigned
       Long     {} -> Long     Unsigned
       LongLong {} -> LongLong Unsigned
-      PtrDiff ->
+      _ ->
         -- Should never happen, because any unsigned type of rank strictly
         -- less than that of ptrdiff_t fits into ptrdiff_t.
         error $ unlines
-          [ "integralArithmeticConversion_differentSigns: ptrdiff_t"
+          [ "integralArithmeticConversion_differentSigns: extended type"
+          , "ty: " ++ show t_s
           , "s: " ++ show s
           , "u: " ++ show u
           ]

@@ -27,12 +27,18 @@ Header
             multiLocFile = Nothing},
           macroName = CName "M1",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "typedef_vs_macro.h:4:9"},
@@ -47,11 +53,19 @@ Header
             multiLocFile = Nothing},
           macroName = CName "M2",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing))))},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "typedef_vs_macro.h:5:9"},
@@ -66,85 +80,62 @@ Header
             multiLocFile = Nothing},
           macroName = CName "M3",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypeConstArray
-                3
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
                 (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed))))},
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                ArrayDirectDeclarator
+                  ArrayDeclarator {
+                    arrayDirectDeclarator =
+                    IdentifierDeclarator
+                      AbstractName
+                      [],
+                    arrayStatic = False,
+                    arrayTypeQualifiers = [],
+                    arraySize = ArraySize
+                      (SizeExpression
+                        (MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "3",
+                              integerLiteralType = Just
+                                (_×_ PrimInt Signed),
+                              integerLiteralValue = 3}))),
+                    arrayAttributes = []}})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "typedef_vs_macro.h:6:9"},
     DeclMacro
-      MacroReparseError {
-        macroReparseError =
-        ReparseError {
-          reparseError = concat
-            [
-              "\"typedef_vs_macro.h\" (line 7, column 15):\n",
-              "unexpected end of input\n",
-              "expecting simple expression"],
-          reparseErrorTokens = [
-            Token {
-              tokenKind = SimpleEnum 2,
-              tokenSpelling = TokenSpelling
-                "M4",
-              tokenExtent = Range {
-                rangeStart = MultiLoc {
-                  multiLocExpansion =
-                  "typedef_vs_macro.h:7:9",
-                  multiLocPresumed = Nothing,
-                  multiLocSpelling = Nothing,
-                  multiLocFile = Nothing},
-                rangeEnd = MultiLoc {
-                  multiLocExpansion =
-                  "typedef_vs_macro.h:7:11",
-                  multiLocPresumed = Nothing,
-                  multiLocSpelling = Nothing,
-                  multiLocFile = Nothing}},
-              tokenCursorKind = SimpleEnum
-                501},
-            Token {
-              tokenKind = SimpleEnum 1,
-              tokenSpelling = TokenSpelling
-                "int",
-              tokenExtent = Range {
-                rangeStart = MultiLoc {
-                  multiLocExpansion =
-                  "typedef_vs_macro.h:7:12",
-                  multiLocPresumed = Nothing,
-                  multiLocSpelling = Nothing,
-                  multiLocFile = Nothing},
-                rangeEnd = MultiLoc {
-                  multiLocExpansion =
-                  "typedef_vs_macro.h:7:15",
-                  multiLocPresumed = Nothing,
-                  multiLocSpelling = Nothing,
-                  multiLocFile = Nothing}},
-              tokenCursorKind = SimpleEnum
-                501},
-            Token {
-              tokenKind = SimpleEnum 0,
-              tokenSpelling = TokenSpelling
-                "*",
-              tokenExtent = Range {
-                rangeStart = MultiLoc {
-                  multiLocExpansion =
-                  "typedef_vs_macro.h:7:15",
-                  multiLocPresumed = Nothing,
-                  multiLocSpelling = Nothing,
-                  multiLocFile = Nothing},
-                rangeEnd = MultiLoc {
-                  multiLocExpansion =
-                  "typedef_vs_macro.h:7:16",
-                  multiLocPresumed = Nothing,
-                  multiLocSpelling = Nothing,
-                  multiLocFile = Nothing}},
-              tokenCursorKind = SimpleEnum
-                501}]},
-        macroReparseErrorSourceLoc =
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "typedef_vs_macro.h:7:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "M4",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
         "typedef_vs_macro.h:7:9"},
     DeclStruct
       Struct {
@@ -200,12 +191,18 @@ Header
             multiLocFile = Nothing},
           macroName = CName "uint64_t",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
         macroDeclMacroTy = "PrimTy",
         macroDeclSourceLoc =
         "typedef_vs_macro.h:16:9"},

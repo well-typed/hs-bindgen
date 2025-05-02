@@ -332,6 +332,7 @@ hsPrimIntTy = \case
           C.Type.Signed   -> HsPrimCLLong
           C.Type.Unsigned -> HsPrimCULLong
       C.Type.PtrDiff    -> HsPrimCPtrDiff
+      C.Type.Size       -> HsPrimCSize
 
 hsPrimFloatTy :: C.Type.FloatingType -> HsPrimType
 hsPrimFloatTy = \case

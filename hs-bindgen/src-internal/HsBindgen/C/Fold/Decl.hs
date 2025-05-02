@@ -26,6 +26,7 @@ import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+import HsBindgen.C.Tc.Macro qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -72,14 +73,15 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
           if isBuiltinMacro sloc
             then return $ Continue Nothing
             else do
-              mbMExpr <- mkMacro unit current
+              macroTyEnv <- macroTypeEnv <$> get
+              mbMExpr <- mkMacro unit current macroTyEnv
               macro <- case mbMExpr of
                 Left err -> return MacroReparseError {
                     macroReparseError          = err
                   , macroReparseErrorSourceLoc = sloc
                   }
                 Right macro@( Macro _ mVar mArgs mExpr ) -> do
-                  macroTyEnv <- macroTypeEnv <$> get
+
                   let tcRes = tcMacro hostPlatform macroTyEnv mVar mArgs mExpr
                   case tcRes of
                     Left err ->
@@ -154,8 +156,9 @@ mkMacro ::
   => MonadIO m
   => CXTranslationUnit
   -> CXCursor
+  -> Macro.TypeEnv
   -> m (Either ReparseError Macro)
-mkMacro unit current = liftIO $ do
+mkMacro unit current macroTys = liftIO $ do
     range  <- HighLevel.clang_getCursorExtent current
     tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
-    return $ reparseWith reparseMacro tokens
+    return $ reparseWith (reparseMacro macroTys) tokens

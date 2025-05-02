@@ -11,7 +11,7 @@ Header
             multiLocFile = Nothing},
           macroName = CName "ENUMS_H",
           macroArgs = [],
-          macroBody = MEmpty},
+          macroBody = EmptyMacro},
         macroDeclMacroTy = "Empty",
         macroDeclSourceLoc =
         "enums.h:2:9"},

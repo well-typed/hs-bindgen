@@ -12,6 +12,10 @@ types:
   module: Example
   identifier: M3
 - headers: typedef_vs_macro.h
+  cname: M4
+  module: Example
+  identifier: M4
+- headers: typedef_vs_macro.h
   cname: T1
   module: Example
   identifier: T1

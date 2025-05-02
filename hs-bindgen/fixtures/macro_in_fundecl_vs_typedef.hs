@@ -25,11 +25,19 @@
             multiLocFile = Nothing},
           macroName = CName "MC",
           macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing))))}},
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})}},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

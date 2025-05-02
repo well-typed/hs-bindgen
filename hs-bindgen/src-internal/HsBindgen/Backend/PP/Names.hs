@@ -338,6 +338,7 @@ resolveGlobal = \case
       HsPrimCFloat     -> importQ ''Foreign.C.CFloat
       HsPrimCDouble    -> importQ ''Foreign.C.CDouble
       HsPrimCPtrDiff   -> importQ ''Foreign.C.CPtrdiff
+      HsPrimCSize      -> importQ ''Foreign.C.CSize
       HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
       HsPrimInt        -> importU ''Int
 

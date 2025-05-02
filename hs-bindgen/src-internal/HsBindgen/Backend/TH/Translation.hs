@@ -219,6 +219,7 @@ mkGlobalP HsPrimCFloat     = ''Foreign.C.Types.CFloat
 mkGlobalP HsPrimCDouble    = ''Foreign.C.Types.CDouble
 mkGlobalP HsPrimCBool      = ''Foreign.C.Types.CBool
 mkGlobalP HsPrimCPtrDiff   = ''Foreign.C.Types.CPtrdiff
+mkGlobalP HsPrimCSize      = ''Foreign.C.Types.CSize
 mkGlobalP HsPrimCStringLen = ''Foreign.C.String.CStringLen
 mkGlobalP HsPrimInt        = ''Int
 

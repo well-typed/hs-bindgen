@@ -129,10 +129,16 @@ generateDeclarations opts _mu nm (C.Header decs) =
     pseudoTypedefs = Map.fromList
         [ (n, ty)
         | C.DeclMacro (C.MacroDecl
-          { macroDeclMacro = C.Macro { C.macroName = n, C.macroBody = C.MTerm (C.MType ty)}
-          , macroDeclMacroTy = Macro.Quant bf
+          { macroDeclMacro =
+              C.Macro
+                { C.macroName = n
+                , C.macroBody = C.TypeMacro tyNm
+                }
+          , macroDeclMacroTy =
+              Macro.Quant bf
           }) <- decs
         , Macro.isPrimTy bf
+        , Right ty <- [C.typeNameType tyNm]
         ]
 
 {-------------------------------------------------------------------------------
@@ -428,7 +434,9 @@ macroDecs _ _ C.MacroTcError {}      = []
 macroDecsTypedef :: TranslationOpts -> NameMangler -> C.Macro -> [Hs.Decl]
 macroDecsTypedef opts nm m =
     case C.macroBody m of
-      C.MTerm (C.MType ty) ->
+      C.TypeMacro tyNm
+        | Right ty <- C.typeNameType tyNm
+        ->
         let newtypeField = mkField ty in
         concat [
             [ Hs.DeclNewtype Hs.Newtype{..} ]
@@ -502,6 +510,7 @@ typ' ctx nm = go ctx
     goPrim (C.PrimIntegral i s) = integralType i s
     goPrim (C.PrimFloating f)   = floatingType f
     goPrim C.PrimPtrDiff        = HsPrimCPtrDiff
+    goPrim C.PrimSize           = HsPrimCSize
     goPrim (C.PrimChar sign)    =
         case sign of
           C.PrimSignImplicit _          -> HsPrimCChar
@@ -512,6 +521,9 @@ typ' ctx nm = go ctx
     goVoid CFunRes = HsPrimUnit
     goVoid CPtrArg = HsPrimVoid
     goVoid c       = panicPure $ "unexpected type void in context " ++ show c
+      -- TODO: we can run into this with macros, e.g.
+      --
+      --   #define MyVoid void
 
     goArrayUnknownSize :: TypeContext -> C.Type -> HsType
     goArrayUnknownSize CFunArg t =
@@ -645,14 +657,19 @@ macroLamHsExpr ::
      NameMangler
   -> C.CName
   -> [C.CName]
-  -> C.MExpr
+  -> C.MacroBody
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
-macroLamHsExpr nm _macroName macroArgs expr =
-    makeNames macroArgs Map.empty
-  where
-    makeNames :: [C.CName] -> Map C.CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
-    makeNames []     env = macroExprHsExpr nm env expr
-    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
+macroLamHsExpr nm _macroName macroArgs body =
+  case body of
+    C.EmptyMacro -> Nothing
+    C.AttributeMacro {} -> Nothing
+    C.TypeMacro {} -> Nothing
+    C.ExpressionMacro expr ->
+      makeNames macroArgs Map.empty
+      where
+        makeNames :: [C.CName] -> Map C.CName (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+        makeNames []     env = macroExprHsExpr nm env expr
+        makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
 
 cnameToHint :: C.CName -> NameHint
 cnameToHint (C.CName t) = fromString (T.unpack t)
@@ -666,7 +683,6 @@ macroExprHsExpr nm = goExpr where
     goExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
-      C.MEmpty -> Nothing
       C.MApp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
@@ -683,9 +699,6 @@ macroExprHsExpr nm = goExpr where
           Nothing ->
             let hsVar = mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
-
-      C.MType {} -> Nothing
-      C.MAttr _attr tm' -> goTerm env =<< tm'
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 

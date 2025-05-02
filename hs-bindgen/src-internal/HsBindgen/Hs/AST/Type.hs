@@ -25,7 +25,7 @@ data HsPrimType
     | HsPrimCLong
     | HsPrimCULong
     | HsPrimCPtrDiff
-    -- CSize
+    | HsPrimCSize
     -- CWchar
     -- CSigAtomic
     | HsPrimCLLong

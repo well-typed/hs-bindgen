@@ -1,0 +1,64 @@
+-- addDependentFile examples/macro_types.h
+newtype PtrInt = PtrInt {un_PtrInt :: (Ptr CInt)}
+deriving newtype instance Storable PtrInt
+newtype PtrPtrChar
+    = PtrPtrChar {un_PtrPtrChar :: (Ptr (Ptr CChar))}
+deriving newtype instance Storable PtrPtrChar
+newtype Arr1 = Arr1 {un_Arr1 :: (ConstantArray 2 CInt)}
+deriving newtype instance Storable Arr1
+newtype Arr2 = Arr2 {un_Arr2 :: (ConstantArray 3 (Ptr CFloat))}
+deriving newtype instance Storable Arr2
+newtype Arr3
+    = Arr3 {un_Arr3 :: (ConstantArray 4
+                                      (FunPtr (CDouble -> IO CFloat)))}
+deriving newtype instance Storable Arr3
+newtype Fun1 = Fun1 {un_Fun1 :: (CInt -> IO (Ptr CFloat))}
+deriving newtype instance Storable Fun1
+newtype Fun2
+    = Fun2 {un_Fun2 :: (FunPtr (CFloat -> Ptr CDouble -> IO CInt))}
+deriving newtype instance Storable Fun2
+newtype Fun3
+    = Fun3 {un_Fun3 :: (FunPtr (Ptr CFloat -> IO (Ptr CInt)))}
+deriving newtype instance Storable Fun3
+newtype Fun4
+    = Fun4 {un_Fun4 :: (CInt ->
+                        Ptr CLong ->
+                        IO (FunPtr (CFloat -> Ptr CDouble -> IO (Ptr CLong))))}
+deriving newtype instance Storable Fun4
+newtype Fun5
+    = Fun5 {un_Fun5 :: (ConstantArray 8 CChar ->
+                        IO (Ptr (ConstantArray 2 (Ptr CShort))))}
+deriving newtype instance Storable Fun5
+newtype MTy = MTy {un_MTy :: CFloat}
+deriving newtype instance Storable MTy
+deriving stock instance Eq MTy
+deriving stock instance Ord MTy
+deriving stock instance Read MTy
+deriving stock instance Show MTy
+deriving newtype instance Enum MTy
+deriving newtype instance Floating MTy
+deriving newtype instance Fractional MTy
+deriving newtype instance Num MTy
+deriving newtype instance Real MTy
+deriving newtype instance RealFloat MTy
+deriving newtype instance RealFrac MTy
+newtype Tty = Tty {un_Tty :: MTy}
+deriving newtype instance Storable Tty
+newtype UINT8_T = UINT8_T {un_UINT8_T :: CUChar}
+deriving newtype instance Storable UINT8_T
+deriving stock instance Eq UINT8_T
+deriving stock instance Ord UINT8_T
+deriving stock instance Read UINT8_T
+deriving stock instance Show UINT8_T
+deriving newtype instance Enum UINT8_T
+deriving newtype instance Ix UINT8_T
+deriving newtype instance Bounded UINT8_T
+deriving newtype instance Bits UINT8_T
+deriving newtype instance FiniteBits UINT8_T
+deriving newtype instance Integral UINT8_T
+deriving newtype instance Num UINT8_T
+deriving newtype instance Real UINT8_T
+newtype BOOLEAN_T = BOOLEAN_T {un_BOOLEAN_T :: UINT8_T}
+deriving newtype instance Storable BOOLEAN_T
+newtype Boolean_T = Boolean_T {un_Boolean_T :: BOOLEAN_T}
+deriving newtype instance Storable Boolean_T

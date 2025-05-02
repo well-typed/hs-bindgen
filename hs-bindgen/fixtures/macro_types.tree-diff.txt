@@ -1,0 +1,717 @@
+Header
+  [
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:2:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "PtrInt",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:2:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:5:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "PtrPtrChar",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] [], _×_ [] []],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:5:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:8:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Arr1",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                ArrayDirectDeclarator
+                  ArrayDeclarator {
+                    arrayDirectDeclarator =
+                    IdentifierDeclarator
+                      AbstractName
+                      [],
+                    arrayStatic = False,
+                    arrayTypeQualifiers = [],
+                    arraySize = ArraySize
+                      (SizeExpression
+                        (MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "2",
+                              integerLiteralType = Just
+                                (_×_ PrimInt Signed),
+                              integerLiteralValue = 2}))),
+                    arrayAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:8:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:11:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Arr2",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimFloating PrimFloat)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                ArrayDirectDeclarator
+                  ArrayDeclarator {
+                    arrayDirectDeclarator =
+                    IdentifierDeclarator
+                      AbstractName
+                      [],
+                    arrayStatic = False,
+                    arrayTypeQualifiers = [],
+                    arraySize = ArraySize
+                      (SizeExpression
+                        (MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "3",
+                              integerLiteralType = Just
+                                (_×_ PrimInt Signed),
+                              integerLiteralValue = 3}))),
+                    arrayAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:11:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:14:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Arr3",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimFloating PrimFloat)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                FunctionDirectDeclarator
+                  FunctionDeclarator {
+                    functionDirectDeclarator =
+                    ParenDeclarator
+                      Declarator {
+                        declaratorPointer = Pointers
+                          [_×_ [] []],
+                        directDeclarator =
+                        ArrayDirectDeclarator
+                          ArrayDeclarator {
+                            arrayDirectDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              [],
+                            arrayStatic = False,
+                            arrayTypeQualifiers = [],
+                            arraySize = ArraySize
+                              (SizeExpression
+                                (MTerm
+                                  (MInt
+                                    IntegerLiteral {
+                                      integerLiteralText = "4",
+                                      integerLiteralType = Just
+                                        (_×_ PrimInt Signed),
+                                      integerLiteralValue = 4}))),
+                            arrayAttributes = []}},
+                    functionParameters = [
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimFloating PrimDouble)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers [],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}}],
+                    functionVariadic = False,
+                    functionAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:14:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:17:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Fun1",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimFloating PrimFloat)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                FunctionDirectDeclarator
+                  FunctionDeclarator {
+                    functionDirectDeclarator =
+                    IdentifierDeclarator
+                      AbstractName
+                      [],
+                    functionParameters = [
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimIntegral
+                                        PrimInt
+                                        Signed)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers [],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}}],
+                    functionVariadic = False,
+                    functionAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:17:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:20:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Fun2",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                FunctionDirectDeclarator
+                  FunctionDeclarator {
+                    functionDirectDeclarator =
+                    ParenDeclarator
+                      Declarator {
+                        declaratorPointer = Pointers
+                          [_×_ [] []],
+                        directDeclarator =
+                        IdentifierDeclarator
+                          AbstractName
+                          []},
+                    functionParameters = [
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimFloating PrimFloat)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers [],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}},
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimFloating PrimDouble)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers
+                              [_×_ [] []],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}}],
+                    functionVariadic = False,
+                    functionAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:20:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:23:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Fun3",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                FunctionDirectDeclarator
+                  FunctionDeclarator {
+                    functionDirectDeclarator =
+                    ParenDeclarator
+                      Declarator {
+                        declaratorPointer = Pointers
+                          [_×_ [] []],
+                        directDeclarator =
+                        IdentifierDeclarator
+                          AbstractName
+                          []},
+                    functionParameters = [
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimFloating PrimFloat)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers
+                              [_×_ [] []],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}}],
+                    functionVariadic = False,
+                    functionAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:23:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:26:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Fun4",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral PrimLong Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                FunctionDirectDeclarator
+                  FunctionDeclarator {
+                    functionDirectDeclarator =
+                    ParenDeclarator
+                      Declarator {
+                        declaratorPointer = Pointers
+                          [_×_ [] []],
+                        directDeclarator =
+                        FunctionDirectDeclarator
+                          FunctionDeclarator {
+                            functionDirectDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              [],
+                            functionParameters = [
+                              Parameter {
+                                parameterAttributes = [],
+                                parameterDeclSpecifiers =
+                                NE.fromList
+                                  [
+                                    _×_
+                                      (DeclTypeSpecifierQualifier
+                                        (TSQ_TypeSpecifier
+                                          (TypeSpecifier
+                                            (TypePrim
+                                              (PrimIntegral
+                                                PrimInt
+                                                Signed)))))
+                                      []],
+                                parameterDeclarator =
+                                ParameterAbstractDeclarator
+                                  Declarator {
+                                    declaratorPointer = Pointers [],
+                                    directDeclarator =
+                                    IdentifierDeclarator
+                                      AbstractName
+                                      []}},
+                              Parameter {
+                                parameterAttributes = [],
+                                parameterDeclSpecifiers =
+                                NE.fromList
+                                  [
+                                    _×_
+                                      (DeclTypeSpecifierQualifier
+                                        (TSQ_TypeSpecifier
+                                          (TypeSpecifier
+                                            (TypePrim
+                                              (PrimIntegral
+                                                PrimLong
+                                                Signed)))))
+                                      []],
+                                parameterDeclarator =
+                                ParameterAbstractDeclarator
+                                  Declarator {
+                                    declaratorPointer = Pointers
+                                      [_×_ [] []],
+                                    directDeclarator =
+                                    IdentifierDeclarator
+                                      AbstractName
+                                      []}}],
+                            functionVariadic = False,
+                            functionAttributes = []}},
+                    functionParameters = [
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimFloating PrimFloat)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers [],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}},
+                      Parameter {
+                        parameterAttributes = [],
+                        parameterDeclSpecifiers =
+                        NE.fromList
+                          [
+                            _×_
+                              (DeclTypeSpecifierQualifier
+                                (TSQ_TypeSpecifier
+                                  (TypeSpecifier
+                                    (TypePrim
+                                      (PrimFloating PrimDouble)))))
+                              []],
+                        parameterDeclarator =
+                        ParameterAbstractDeclarator
+                          Declarator {
+                            declaratorPointer = Pointers
+                              [_×_ [] []],
+                            directDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              []}}],
+                    functionVariadic = False,
+                    functionAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:26:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:29:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "Fun5",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimIntegral
+                    PrimShort
+                    Signed)))
+              []
+              Declarator {
+                declaratorPointer = Pointers
+                  [_×_ [] []],
+                directDeclarator =
+                ArrayDirectDeclarator
+                  ArrayDeclarator {
+                    arrayDirectDeclarator =
+                    ParenDeclarator
+                      Declarator {
+                        declaratorPointer = Pointers
+                          [_×_ [] []],
+                        directDeclarator =
+                        FunctionDirectDeclarator
+                          FunctionDeclarator {
+                            functionDirectDeclarator =
+                            IdentifierDeclarator
+                              AbstractName
+                              [],
+                            functionParameters = [
+                              Parameter {
+                                parameterAttributes = [],
+                                parameterDeclSpecifiers =
+                                NE.fromList
+                                  [
+                                    _×_
+                                      (DeclTypeSpecifierQualifier
+                                        (TSQ_TypeSpecifier
+                                          (TypeSpecifier
+                                            (TypePrim
+                                              (PrimChar
+                                                (PrimSignImplicit Nothing))))))
+                                      []],
+                                parameterDeclarator =
+                                ParameterAbstractDeclarator
+                                  Declarator {
+                                    declaratorPointer = Pointers [],
+                                    directDeclarator =
+                                    ArrayDirectDeclarator
+                                      ArrayDeclarator {
+                                        arrayDirectDeclarator =
+                                        IdentifierDeclarator
+                                          AbstractName
+                                          [],
+                                        arrayStatic = False,
+                                        arrayTypeQualifiers = [],
+                                        arraySize = ArraySize
+                                          (SizeExpression
+                                            (MTerm
+                                              (MInt
+                                                IntegerLiteral {
+                                                  integerLiteralText = "8",
+                                                  integerLiteralType = Just
+                                                    (_×_ PrimInt Signed),
+                                                  integerLiteralValue = 8}))),
+                                        arrayAttributes = []}}}],
+                            functionVariadic = False,
+                            functionAttributes = []}},
+                    arrayStatic = False,
+                    arrayTypeQualifiers = [],
+                    arraySize = ArraySize
+                      (SizeExpression
+                        (MTerm
+                          (MInt
+                            IntegerLiteral {
+                              integerLiteralText = "2",
+                              integerLiteralType = Just
+                                (_×_ PrimInt Signed),
+                              integerLiteralValue = 2}))),
+                    arrayAttributes = []}})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:29:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:33:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "MTy",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimFloating PrimFloat)))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:33:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "tty",
+        typedefType = TypeTypedef
+          (CName "MTy"),
+        typedefSourceLoc =
+        "macro_types.h:34:13"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:36:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "UINT8_T",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeSpecifier
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Unsigned))))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:36:9"},
+    DeclMacro
+      MacroDecl {
+        macroDeclMacro = Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "macro_types.h:37:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "BOOLEAN_T",
+          macroArgs = [],
+          macroBody = TypeMacro
+            (TypeName
+              (TypeDefTypeSpecifier
+                (CName "UINT8_T"))
+              []
+              Declarator {
+                declaratorPointer = Pointers [],
+                directDeclarator =
+                IdentifierDeclarator
+                  AbstractName
+                  []})},
+        macroDeclMacroTy = "PrimTy",
+        macroDeclSourceLoc =
+        "macro_types.h:37:9"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "boolean_T",
+        typedefType = TypeTypedef
+          (CName "BOOLEAN_T"),
+        typedefSourceLoc =
+        "macro_types.h:38:19"}]

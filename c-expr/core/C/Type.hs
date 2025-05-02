@@ -1,4 +1,7 @@
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE QuantifiedConstraints #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module C.Type
   ( -- * C types
@@ -21,11 +24,39 @@ module C.Type
   , Platform(..), WordWidth(..), OS(..)
   , hostPlatform
 
+  -- * Singletons for C types
+  , SType(..)
+  , SArithmeticType(..)
+  , SIntegralType(..)
+  , SCharLikeType(..)
+  , SIntLikeType(..)
+  , SFloatingType(..)
+
+  -- ** Promotion
+  , promoteType
+  , promoteArithmeticType
+  , promoteIntegralType
+  , promoteCharLikeType
+  , promoteIntLikeType
+  , promoteFloatingType
+
+  -- ** Demotion
+  , demoteType
+  , demoteArithmeticType
+  , demoteIntegralType
+  , demoteCharLikeType
+  , demoteIntLikeType
+  , demoteFloatingType
+
   ) where
 
 -- base
+import Data.Kind qualified as Hs
 import Data.Semigroup
   ( Arg(..) )
+import Data.GADT.Compare
+import Data.Type.Equality
+import Foreign.C.Types
 import Foreign.Ptr qualified as Foreign
   ( Ptr )
 import Foreign.Storable
@@ -69,6 +100,7 @@ data IntLikeType
   | Long     !Sign
   | LongLong !Sign
   | PtrDiff
+  | Size
   deriving stock ( Eq, Ord, Show, Generic )
 
 --------------------------------------------------------------------------------
@@ -112,6 +144,7 @@ intLikeTypeSign = \case
   Long      s -> s
   LongLong  s -> s
   PtrDiff     -> Signed
+  Size        -> Unsigned
 
 charLikeTypeSizeInBits :: Platform -> CharLikeType -> Word
 charLikeTypeSizeInBits _ = \case
@@ -131,6 +164,7 @@ intLikeTypeSizeInBits plat i =
         Long     {} -> 32
         LongLong {} -> 64
         PtrDiff     -> 32
+        Size        -> 32
     WordWidth64 ->
       case i of
         Short    {} -> 16
@@ -141,6 +175,7 @@ intLikeTypeSizeInBits plat i =
             Posix   -> 64
         LongLong {} -> 64
         PtrDiff     -> 64
+        Size        -> 64
 
 intLikeTypeConversionRank :: Platform -> IntLikeType -> IntegerConversionRank
 intLikeTypeConversionRank plat = IntegerConversionRank . \case
@@ -167,9 +202,9 @@ intLikeTypeConversionRank plat = IntegerConversionRank . \case
   LongLong  {} -> 6
 
   -- Extended types.
-  PtrDiff ->
+  _extended_ty ->
     -- The following logic comes from (1) and (5), which dictate that the
-    -- integer conversion rank of ptrdiff_t must be:
+    -- integer conversion rank of ptrdiff_t and size_t must be:
     --
     --  (a) strictly greater than the integer conversion rank of any
     --      standard integer type whose size is less than the word width,
@@ -182,8 +217,8 @@ intLikeTypeConversionRank plat = IntegerConversionRank . \case
                  , sz >= wordWidthInBits ( platformWordWidth plat )
                  ] of
       Arg ( IntegerConversionRank rk ) _ ->
-        rk - 0.1
-          -- 0.1 is an arbitrary value in the open interval ]0,1[
+        rk - 0.5
+          -- 0.5 is an arbitrary value in the open interval ]0,1[
           --
           -- This assumes that the standard integer types are given
           -- integral integer conversion ranks.
@@ -250,7 +285,186 @@ showIntLikeTypeAsCType = \case
   Long     s -> withSign s "long"
   LongLong s -> withSign s "long long"
   PtrDiff -> "ptrdiff_t"
+  Size    -> "size_t"
   where
     withSign s = case s of
       Signed   -> id
       Unsigned -> ( "unsigned " ++ )
+
+--------------------------------------------------------------------------------
+-- Singletons
+
+type SType :: ( Hs.Type -> Hs.Type ) -> Hs.Type -> Hs.Type
+data SType rec a where
+  SVoid :: SType rec ()
+  SArithmetic :: !( SArithmeticType ty ) -> SType rec ty
+  SPtr :: rec ty -> SType rec ( Foreign.Ptr ty )
+deriving stock instance ( forall x. Show ( rec x ) ) => Show ( SType rec a )
+
+data SArithmeticType ty where
+  SIntegral  :: !( SIntegralType ty ) -> SArithmeticType ty
+  SFloatLike :: !( SFloatingType ty ) -> SArithmeticType ty
+deriving stock instance Show ( SArithmeticType ty )
+
+data SFloatingType ty where
+  SFloatType  :: SFloatingType CFloat
+  SDoubleType :: SFloatingType CDouble
+deriving stock instance Show ( SFloatingType ty )
+
+data SIntegralType ty where
+  SBool :: SIntegralType CBool
+  SCharLike :: !( SCharLikeType ty ) -> SIntegralType ty
+  SIntLike :: !( SIntLikeType ty ) -> SIntegralType ty
+deriving stock instance Show ( SIntegralType ty )
+
+data SCharLikeType ty where
+  S_Char  :: SCharLikeType CChar
+  S_SChar :: SCharLikeType CSChar
+  S_UChar :: SCharLikeType CUChar
+deriving stock instance Show ( SCharLikeType ty )
+
+data SIntLikeType ty where
+  SShort     :: SIntLikeType CShort
+  SUShort    :: SIntLikeType CUShort
+  SInt       :: SIntLikeType CInt
+  SUInt      :: SIntLikeType CUInt
+  SLong      :: SIntLikeType CLong
+  SULong     :: SIntLikeType CULong
+  SLongLong  :: SIntLikeType CLLong
+  SULongLong :: SIntLikeType CULLong
+  SPtrDiff   :: SIntLikeType CPtrdiff
+  SSize      :: SIntLikeType CSize
+  -- NB: make sure to update 'GEq SIntLikeType' when updating this datatype
+deriving stock instance Show ( SIntLikeType ty )
+
+instance GEq rec => GEq ( SType rec ) where
+  geq SVoid SVoid = Just Refl
+  geq (SArithmetic a) (SArithmetic b) = geq a b
+  geq (SPtr a) (SPtr b) =
+    case geq a b of
+      Just Refl -> Just Refl
+      Nothing   -> Nothing
+  geq _ _ = Nothing
+instance GEq SArithmeticType where
+  geq (SIntegral a) (SIntegral b) = geq a b
+  geq (SFloatLike a) (SFloatLike b) = geq a b
+  geq _ _ = Nothing
+
+instance GEq SFloatingType where
+  geq SFloatType  SFloatType  = Just Refl
+  geq SDoubleType SDoubleType = Just Refl
+  geq _ _ = Nothing
+instance GEq SCharLikeType where
+  geq S_Char  S_Char  = Just Refl
+  geq S_SChar S_SChar = Just Refl
+  geq S_UChar S_UChar = Just Refl
+  geq _       _       = Nothing
+
+instance GEq SIntegralType where
+  geq SBool          SBool        = Just Refl
+  geq (SCharLike a) (SCharLike b) = geq a b
+  geq (SIntLike  a) (SIntLike  b) = geq a b
+  geq _ _ = Nothing
+
+instance GEq SIntLikeType where
+  geq SShort     SShort     = Just Refl
+  geq SUShort    SUShort    = Just Refl
+  geq SInt       SInt       = Just Refl
+  geq SUInt      SUInt      = Just Refl
+  geq SLong      SLong      = Just Refl
+  geq SULong     SULong     = Just Refl
+  geq SLongLong  SLongLong  = Just Refl
+  geq SULongLong SULongLong = Just Refl
+  geq SPtrDiff   SPtrDiff   = Just Refl
+  geq SSize      SSize      = Just Refl
+  geq _ _ = Nothing
+
+promoteType :: ( a -> ( forall ty. rec ty -> r ) -> r ) -> Type a -> ( forall ty. SType rec ty -> r ) -> r
+promoteType recur ty f = case ty of
+  Void -> f SVoid
+  Arithmetic i -> promoteArithmeticType i ( f . SArithmetic )
+  Ptr p -> recur p ( f . SPtr )
+
+promoteArithmeticType :: ArithmeticType -> ( forall ty. SArithmeticType ty -> r ) -> r
+promoteArithmeticType ty f = case ty of
+  Integral  t -> promoteIntegralType t ( f . SIntegral )
+  FloatLike t -> promoteFloatingType t ( f . SFloatLike )
+
+promoteIntegralType :: IntegralType -> ( forall ty. SIntegralType ty -> r ) -> r
+promoteIntegralType ty f = case ty of
+  Bool -> f SBool
+  CharLike c -> promoteCharLikeType c ( f . SCharLike )
+  IntLike i  -> promoteIntLikeType  i ( f . SIntLike )
+
+promoteFloatingType :: FloatingType -> ( forall ty. SFloatingType ty -> r ) -> r
+promoteFloatingType ty f = case ty of
+  FloatType  -> f SFloatType
+  DoubleType -> f SDoubleType
+
+promoteCharLikeType :: CharLikeType -> ( forall ty. SCharLikeType ty -> r ) -> r
+promoteCharLikeType ty f = case ty of
+  Char  -> f S_Char
+  UChar -> f S_UChar
+  SChar -> f S_SChar
+
+promoteIntLikeType :: IntLikeType -> ( forall ty. SIntLikeType ty -> r ) -> r
+promoteIntLikeType ty f = case ty of
+  Short s ->
+    case s of
+      Signed   -> f SShort
+      Unsigned -> f SUShort
+  Int s ->
+    case s of
+      Signed   -> f SInt
+      Unsigned -> f SUInt
+  Long s ->
+    case s of
+      Signed   -> f SLong
+      Unsigned -> f SULong
+  LongLong s ->
+    case s of
+      Signed   -> f SLongLong
+      Unsigned -> f SULongLong
+  PtrDiff -> f SPtrDiff
+  Size    -> f SSize
+
+demoteType :: ( forall ty'. rec ty' -> a ) -> SType rec ty -> Type a
+demoteType recur = \case
+  SVoid -> Void
+  SArithmetic a -> Arithmetic $ demoteArithmeticType a
+  SPtr a -> Ptr $ recur a
+
+demoteArithmeticType :: SArithmeticType ty -> ArithmeticType
+demoteArithmeticType = \case
+  SIntegral  i -> Integral  $ demoteIntegralType i
+  SFloatLike f -> FloatLike $ demoteFloatingType f
+
+demoteIntegralType :: SIntegralType ty -> IntegralType
+demoteIntegralType = \case
+  SBool -> Bool
+  SCharLike c -> CharLike $ demoteCharLikeType c
+  SIntLike i  -> IntLike  $ demoteIntLikeType  i
+
+demoteFloatingType :: SFloatingType ty -> FloatingType
+demoteFloatingType = \case
+  SFloatType  -> FloatType
+  SDoubleType -> DoubleType
+
+demoteCharLikeType :: SCharLikeType ty -> CharLikeType
+demoteCharLikeType = \case
+  S_Char  -> Char
+  S_UChar -> UChar
+  S_SChar -> SChar
+
+demoteIntLikeType :: SIntLikeType ty -> IntLikeType
+demoteIntLikeType = \case
+  SShort     -> Short Signed
+  SUShort    -> Short Unsigned
+  SInt       -> Int Signed
+  SUInt      -> Int Unsigned
+  SLong      -> Long Signed
+  SULong     -> Long Unsigned
+  SLongLong  -> LongLong Signed
+  SULongLong -> LongLong Unsigned
+  SPtrDiff   -> PtrDiff
+  SSize      -> Size

@@ -2,7 +2,34 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module HsBindgen.C.Reparse.Decl
-  ( reparseFieldDecl, reparseFunDecl
+  ( -- * Reparsing API
+    reparseFieldDecl, reparseFunDecl, reparseTypedef
+
+    -- * Types
+  , TypeName(..)
+  , reparseTypeName
+  , typeNameType
+  , TypeSpecifier(..)
+  , TypeSpecifierQualifier(..)
+  , AlignmentSpecifier(..)
+  , StorageClassSpecifier(..)
+  , FunctionSpecifier(..)
+  , TypeQualifier(..)
+  , AttributeSpecifier(..)
+  , reparseAttributeSpecifier
+  , Attribute(..), AttributeToken(..), BalancedToken(..)
+  , DeclName(..)
+  , DeclaratorType(..)
+  , Declarator(..), DirectDeclarator(..)
+  , DeclarationSpecifier(..)
+  , ArrayDeclarator(..), FunctionDeclarator(..)
+  , Pointers(..)
+  , StructOrUnionSpecifier(..), StructOrUnion(..)
+  , EnumSpecifier(..)
+  , SizeExpression(..)
+  , ArraySize(..)
+  , Parameter(..)
+  , ParameterDeclarator(..)
   )
   where
 
@@ -11,8 +38,6 @@ import Control.Monad
   ( void )
 import Data.Either
   ( partitionEithers )
-import Data.Foldable
-  ( toList )
 import Data.Functor
   ( ($>) )
 import Data.Kind qualified as Hs
@@ -22,12 +47,10 @@ import Data.List
 import Data.List.NonEmpty qualified as NE
 import Data.Maybe
   ( isJust, mapMaybe )
-import Data.Type.Bool
-  ( If )
-import Data.Type.Equality
-  ( type (==) )
 import Numeric.Natural
   ( Natural )
+import GHC.Generics
+  ( Generic )
 
 -- containers
 import Data.Map.Strict qualified as Map
@@ -43,13 +66,11 @@ import Data.Text qualified as Text
   ( unpack )
 
 -- hs-bindgen
-import HsBindgen.C.AST
-  ( TokenSpelling(..), tokenSpelling )
 import HsBindgen.C.AST.Literal
   ( IntegerLiteral(..) )
 import HsBindgen.C.AST.Name
 import HsBindgen.C.AST.Type
-import HsBindgen.C.Reparse.Common (reparseName)
+import HsBindgen.C.Reparse.Common (reparseName, manyTillLookahead)
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Reparse.Type
 
@@ -65,35 +86,45 @@ import HsBindgen.Errors
 import HsBindgen.Imports (fromMaybe)
 import Clang.LowLevel.Core
   ( CXTokenKind(..) )
+import Clang.HighLevel.Types
 
 --------------------------------------------------------------------------------
 
--- | Field declaration (in a struct)
+-- | Reparse a C field declaration (in a struct)
 reparseFieldDecl :: Macro.TypeEnv -> Reparse (Type, CName)
 reparseFieldDecl macroTys = do
-  ( specs, Declarator ptrs decl ) <- reparseDeclaration @Concrete macroTys
+  ( specs, decl ) <- reparseDeclaration @Concrete macroTys
   _mbBitSize <- optionMaybe $
     ( do { punctuation ":" ; reparseSizeExpression } <?> "bit size" )
   -- TODO: discarding bit size
   eof
-  case declaratorType specs decl of
-    Left err -> unexpected err
-    Right ( baseTy, nm ) ->
-      return ( mkPtr ptrs baseTy, nm )
+  case declarationTypeAndName specs decl of
+    Left err  -> unexpected err
+    Right ( ty, DeclName nm ) -> return ( ty, nm )
 
--- | Function declaration.
+-- | Reparse a C function declaration.
 reparseFunDecl :: Macro.TypeEnv -> Reparse (([Type],Type), CName)
 reparseFunDecl macroTys = do
-  ( specs, Declarator ptrs decl ) <- reparseDeclaration @Concrete macroTys
+  ( specs, decl ) <- reparseDeclaration @Concrete macroTys
   eof
-  case declaratorType specs decl of
+  case declarationTypeAndName specs decl of
     Left err -> unexpected err
-    Right ( ty, nm ) ->
-      case ty of
-        TypeFun args res ->
-          return ((args, mkPtr ptrs res), nm)
-        _ ->
-          unexpected $ "expected a function type, but got: " ++ show ty
+    Right ( ty, DeclName nm )
+      | TypeFun args res <- ty
+      -> return ( (args, res), nm )
+      | otherwise
+      -> unexpected $ "expected a function type, but got: " ++ show ty
+
+-- | Reparse a C @typedef@ declaration.
+reparseTypedef :: Macro.TypeEnv -> Reparse Type
+reparseTypedef macroTys = do
+  ( specs, decl ) <- reparseDeclaration @Concrete macroTys
+  -- We expect a 'typedef' storage class specifier to be provided,
+  -- but I don't see any point in enforcing that.
+  eof
+  case declarationTypeAndName specs decl of
+    Left err  -> unexpected err
+    Right ( ty, _) -> return ty
 
 --------------------------------------------------------------------------------
 
@@ -109,8 +140,23 @@ data SDeclaratorType abs where
   SAbstract :: SDeclaratorType Abstract
 deriving stock instance Eq   ( SDeclaratorType abs )
 deriving stock instance Show ( SDeclaratorType abs )
+
+type DeclName :: DeclaratorType -> Hs.Type
+data family DeclName abs
+data    instance DeclName Abstract = AbstractName
+  deriving stock ( Eq, Show, Generic )
+newtype instance DeclName Concrete = DeclName CName
+  deriving newtype ( Eq, Show, Generic )
+
 -- | Singleton instances for 'DeclaratorType'.
-class KnownDeclaratorType abs where
+class ( Show ( Declarator abs )        , Eq ( Declarator abs )
+      , Show ( DirectDeclarator abs )  , Eq ( DirectDeclarator abs )
+      , Show ( FunctionDeclarator abs ), Eq ( FunctionDeclarator abs )
+      , Show ( ArrayDeclarator abs )   , Eq ( ArrayDeclarator abs )
+      , Show ( SDeclaratorType abs )   , Eq ( SDeclaratorType abs )
+      , Show ( DeclName abs )          , Eq ( DeclName abs )
+      )
+    => KnownDeclaratorType abs where
   knownDeclarator :: SDeclaratorType abs
 instance KnownDeclaratorType Concrete where
   knownDeclarator = SConcrete
@@ -120,39 +166,33 @@ instance KnownDeclaratorType Abstract where
 --------------------------------------------------------------------------------
 -- Declarations and declarators
 
--- | A @C@ identifier, with optional attributes.
-data Identifier = Identifier CName [AttributeSpecifier]
-  deriving stock ( Eq, Show )
-
 -- | A @C@ declarator (concrete or abstract).
 type Declarator :: DeclaratorType -> Hs.Type
-data Declarator abs where
-  Declarator
-    :: { declaratorPointer :: Pointers []
-       , directDeclarator :: DirectDeclarator abs
-       }
-    -> Declarator abs
-  PointerAbstractDeclarator
-    :: { abstractPointerDeclaratorPointer :: Pointers NE.NonEmpty }
-    -> Declarator Abstract
-deriving stock instance Eq   ( Declarator abs )
-deriving stock instance Show ( Declarator abs )
+data Declarator abs
+  = Declarator
+      { declaratorPointer :: Pointers
+      , directDeclarator  :: DirectDeclarator abs
+      }
+  deriving stock Generic
+deriving stock instance KnownDeclaratorType abs => Eq   ( Declarator abs )
+deriving stock instance KnownDeclaratorType abs => Show ( Declarator abs )
+
 
 -- | Pointer annotations: a sequence of @*@, with each @*@ having its own
 -- attributes and type qualifiers.
-newtype Pointers f = Pointers ( f ( [ AttributeSpecifier ], [ TypeQualifier ] ) )
-deriving stock instance ( forall a. Eq   a => Eq   ( f a ) ) => Eq ( Pointers f )
-deriving stock instance ( forall a. Show a => Show ( f a ) ) => Show ( Pointers f )
+newtype Pointers = Pointers [ ( [ AttributeSpecifier ], [ TypeQualifier ] ) ]
+  deriving stock ( Eq, Show, Generic )
 
 -- | A @C@ direct declarator.
 type DirectDeclarator :: DeclaratorType -> Hs.Type
-data DirectDeclarator abs where
-  IdentifierDeclarator :: CName -> [ AttributeSpecifier ] -> DirectDeclarator Concrete
-  ParenDeclarator :: Declarator abs -> DirectDeclarator abs
-  ArrayDirectDeclarator :: ArrayDeclarator abs -> DirectDeclarator abs
-  FunctionDirectDeclarator :: FunctionDeclarator abs -> DirectDeclarator abs
-deriving stock instance Eq   ( DirectDeclarator abs )
-deriving stock instance Show ( DirectDeclarator abs )
+data DirectDeclarator abs
+  = IdentifierDeclarator ( DeclName abs ) [ AttributeSpecifier ]
+  | ParenDeclarator ( Declarator abs )
+  | ArrayDirectDeclarator ( ArrayDeclarator abs )
+  | FunctionDirectDeclarator ( FunctionDeclarator abs )
+  deriving stock Generic
+deriving stock instance KnownDeclaratorType abs => Eq   ( DirectDeclarator abs )
+deriving stock instance KnownDeclaratorType abs => Show ( DirectDeclarator abs )
 
 -- | A @C@ array direct declarator.
 type ArrayDeclarator :: DeclaratorType -> Hs.Type
@@ -164,14 +204,15 @@ data ArrayDeclarator abs
     , arraySize             :: ArraySize
     , arrayAttributes       :: [AttributeSpecifier]
     }
-deriving stock instance Eq   ( ArrayDeclarator abs )
-deriving stock instance Show ( ArrayDeclarator abs )
+  deriving stock Generic
+deriving stock instance KnownDeclaratorType abs => Eq   ( ArrayDeclarator abs )
+deriving stock instance KnownDeclaratorType abs => Show ( ArrayDeclarator abs )
 
 data ArraySize
   = ArraySize SizeExpression
   | ArrayNoSize
   | VLA
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 
 -- | A @C@ function direct declarator.
 type FunctionDeclarator :: DeclaratorType -> Hs.Type
@@ -183,7 +224,9 @@ data FunctionDeclarator abs
       -- ^ whether there is a final @...@
   , functionAttributes       :: [AttributeSpecifier]
   }
-  deriving stock ( Eq, Show )
+  deriving stock Generic
+deriving stock instance KnownDeclaratorType abs => Eq   ( FunctionDeclarator abs )
+deriving stock instance KnownDeclaratorType abs => Show ( FunctionDeclarator abs )
 
 -- | A @C@ function parameter
 data Parameter =
@@ -192,78 +235,91 @@ data Parameter =
     , parameterDeclSpecifiers :: (NE.NonEmpty (DeclarationSpecifier, [AttributeSpecifier]))
     , parameterDeclarator     :: ParameterDeclarator
     }
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 
 -- | A @C@ function parameter declarator.
 data ParameterDeclarator
-  = ParameterDeclarator ( Declarator Concrete )
-  | ParameterAbstractDeclarator ( Maybe ( Declarator Abstract ) )
-  deriving stock ( Eq, Show )
+  = ParameterDeclarator         ( Declarator Concrete )
+  | ParameterAbstractDeclarator ( Declarator Abstract )
+  deriving stock ( Eq, Show, Generic )
 
 --------------------------------------------------------------------------------
 -- Specifiers, qualifiers, attributes...
 
 newtype AttributeSpecifier = AttributeSpecifier [ Attribute ]
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data Attribute
   = Attribute
   { attributeToken :: AttributeToken
   , attributeArgumentClause :: Maybe [BalancedToken]
   }
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data AttributeToken
   = StandardAttribute CName
   | AttributePrefixedToken CName CName
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data BalancedToken
   = BalancedTokenNormal Text
   | BalancedToken [BalancedToken]
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
+
+-- | A type specified as a C abstract declarator.
+-- What the C23 standard calls @type-name@.
+--
+-- Examples:
+--
+--  - primitive types, e.g. @int@,
+--  - pointers, e.g. @char *@,
+--  - arrays, e.g. @int[5]@,
+--  - functions, e.g. @float *(int)@,
+--  - function pointers, e.g. @int (*)(double)@.
 data TypeName
-  = TypeName [TypeSpecifier] [AttributeSpecifier] (Maybe (Declarator Abstract))
-  deriving stock ( Eq, Show )
+  = TypeName TypeSpecifier [AttributeSpecifier] (Declarator Abstract)
+  deriving stock ( Eq, Show, Generic )
 data DeclarationSpecifier
   = DeclStorageSpecifier        StorageClassSpecifier
   | DeclTypeSpecifierQualifier  TypeSpecifierQualifier
   | DeclFunctionSpecifier       FunctionSpecifier
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data TypeQualifier
   = TQ_const
   | TQ_restrict
   | TQ_volatile
   | TQ__Atomic
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data TypeSpecifier
   = TypeSpecifier Type
   | TypeDefTypeSpecifier CName
   | StructOrUnionTypeSpecifier StructOrUnionSpecifier
   | EnumTypeSpecifier EnumSpecifier
-  deriving stock ( Eq, Show )
-
+  deriving stock ( Eq, Show, Generic )
 data StructOrUnionSpecifier
   = StructOrUnionSpecifier
     { structOrUnion :: StructOrUnion
     , structOrUnionAttributeSpecifiers :: [AttributeSpecifier]
     , structOrUnionIdentifier :: CName
     }
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
+data StructOrUnion
+  = IsStruct | IsUnion
+  deriving stock ( Eq, Show, Generic )
 data EnumSpecifier
   = EnumSpecifier
     { enumSpecifierIdentifier :: CName
     , enumAttributeSpecifiers :: [AttributeSpecifier]
     , enumSpecifierQualifiers :: [(TypeSpecifierQualifier, [AttributeSpecifier])]
     }
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 
 data AlignmentSpecifier
   = AlignAsTypeName TypeName
   | AlignAsConstExpr SizeExpression
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data TypeSpecifierQualifier
   = TSQ_TypeQualifier TypeQualifier
   | TSQ_TypeSpecifier TypeSpecifier
   | TSQ_AlignmentSpecifier AlignmentSpecifier
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data StorageClassSpecifier
   = SC_auto
   | SC_constexpr
@@ -272,11 +328,11 @@ data StorageClassSpecifier
   | SC_static
   | SC_thread_local
   | SC_typedef
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 data FunctionSpecifier
   = FS_inline
   | FS__Noreturn
-  deriving stock ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 
 --------------------------------------------------------------------------------
 -- Sizes
@@ -284,7 +340,7 @@ data FunctionSpecifier
 -- | A size expression, e.g. a @C@ integer constant expression for a type-level
 -- size (e.g. a size of an array).
 newtype SizeExpression = SizeExpression MExpr
-  deriving newtype ( Eq, Show )
+  deriving stock ( Eq, Show, Generic )
 
 -- TODO: we currently re-use the macro parser for expressions.
 --
@@ -307,7 +363,6 @@ literalSizeMaybe ( SizeExpression sz ) =
           -- macro-defined constants, e.g.:
           --
           --   int arr[SOME_CONSTANT];
-    MEmpty -> Nothing
     MApp {} -> Nothing
 
 --------------------------------------------------------------------------------
@@ -324,43 +379,32 @@ reparseDeclaration macroTys =
     ( reparseDeclarationSpecifier macroTys )
     ( reparseDeclarator @abs macroTys )
 
--- | Like 'Parsec.manyTill', but works when the two parsers overlap.
-manyTillLookahead
-  :: (Stream s m t, Show t)
-  => ParsecT s u m a
-  -> ParsecT s u m e
-  -> ParsecT s u m ([a], e)
-manyTillLookahead p end = go
-  where
-    go = choice
-      [ try $
-        do { e <- end
-           ; eof <|> notFollowedBy (void p <|> void end)
-           ; return ([], e)
-           }
-      , do { a <- p; (as, e) <- go ; return (a:as, e)}
-      ]
+declaratorType :: Type -> Declarator abs -> Either String ( Type, DeclName abs )
+declaratorType baseTy (Declarator ptrs decl) =
+  directDeclaratorTypeAndName (mkPtr ptrs baseTy) decl
 
-declaratorType :: [ DeclarationSpecifier ]
-               -> DirectDeclarator abs
-               -> Either String ( Type, If (abs == Concrete) CName () )
-declaratorType specs decl =
+declarationTypeAndName
+  :: [ DeclarationSpecifier ]
+  -> Declarator abs
+  -> Either String ( Type, DeclName abs )
+declarationTypeAndName specs decl =
   case declarationSpecifiersType specs of
     Nothing -> Left "declarator missing a type"
-    Just baseTy ->
-      case declaratorTypeAndName baseTy decl of
-        Left err -> Left err
-        Right tyAndNm ->
-          return tyAndNm
+    Just baseTy -> declaratorType baseTy decl
 
-mkPtr :: Foldable f => Pointers f -> Type -> Type
-mkPtr (Pointers l) = go ( toList l )
+mkPtr :: Pointers -> Type -> Type
+mkPtr (Pointers l) = go l
   where
     go [] a = a
     go (_:r) a = go r (TypePointer a)
 
 declarationSpecifiersType :: [DeclarationSpecifier] -> Maybe Type
 declarationSpecifiersType specs =
+  -- TODO: we are discarding
+  --  - function specifiers (inline/noreturn)
+  --  - storage specifiers (constexpr/static/...)
+  --  - type qualifiers (const/volatile/atomic/...)
+  --  - alignment specifiers
   case mapMaybe isTy specs of
     [ ty ] -> Just ty
     [] -> Nothing
@@ -380,32 +424,38 @@ declarationSpecifiersType specs =
           TSQ_TypeQualifier {} -> Nothing
           TSQ_AlignmentSpecifier {} -> Nothing
           TSQ_TypeSpecifier ts ->
-            case ts of
-              TypeSpecifier ty -> Just ty
-              TypeDefTypeSpecifier nm -> Just $ TypeTypedef nm
-              StructOrUnionTypeSpecifier
-                StructOrUnionSpecifier
-                  { structOrUnion = su, structOrUnionIdentifier = i }
-                 -> Just $
-                      case su of
-                        IsStruct -> TypeStruct $ DeclPathName i
-                        IsUnion  -> TypeUnion  $ DeclPathName i
-              EnumTypeSpecifier
-                EnumSpecifier { enumSpecifierIdentifier = i } ->
-                  Just $ TypeEnum $ DeclPathName i
+            Just $ typeSpecifierType ts
 
-declaratorTypeAndName
+typeNameType :: TypeName -> Either String Type
+typeNameType (TypeName tySpec _attrs decl) =
+  -- TODO: discarding attributes
+    fst <$> declaratorType ty decl
+  where
+    ty = typeSpecifierType tySpec
+
+typeSpecifierType :: TypeSpecifier -> Type
+typeSpecifierType = \case
+  TypeSpecifier ty -> ty
+  TypeDefTypeSpecifier nm -> TypeTypedef nm
+  StructOrUnionTypeSpecifier
+    StructOrUnionSpecifier
+      { structOrUnion = su, structOrUnionIdentifier = i }
+     -> case su of
+          IsStruct -> TypeStruct $ DeclPathName i
+          IsUnion  -> TypeUnion  $ DeclPathName i
+  EnumTypeSpecifier
+    EnumSpecifier { enumSpecifierIdentifier = i } ->
+      TypeEnum $ DeclPathName i
+
+directDeclaratorTypeAndName
   :: Type -> DirectDeclarator abs
-  -> Either String ( Type, If ( abs == Concrete ) CName () )
-declaratorTypeAndName ty = \case
+  -> Either String ( Type, DeclName abs )
+directDeclaratorTypeAndName ty = \case
   IdentifierDeclarator nm _attrs ->
+    -- TODO: discarding attributes
     Right (ty, nm)
   ParenDeclarator d ->
-    case d of
-      Declarator ptrs dd ->
-        declaratorTypeAndName (mkPtr ptrs ty) dd
-      PointerAbstractDeclarator ptrs ->
-        return ( mkPtr ptrs ty, () )
+    declaratorType ty d
   ArrayDirectDeclarator (ArrayDeclarator { arrayDirectDeclarator = d, arraySize = sz }) -> do
     arrTy <-
       case sz of
@@ -417,7 +467,7 @@ declaratorTypeAndName ty = \case
           case literalSizeMaybe sizeExpr of
             Just n -> Right $ TypeConstArray n ty
             Nothing -> Left $ "cannot evaluate array size: " ++ show sizeExpr
-    declaratorTypeAndName arrTy d
+    directDeclaratorTypeAndName arrTy d
   FunctionDirectDeclarator
     (FunctionDeclarator
       { functionDirectDeclarator = d
@@ -439,71 +489,38 @@ declaratorTypeAndName ty = \case
           Left $
             "missing type specifier" ++ s ++ " in function parameter" ++ s
               ++ " " ++ intercalate ", " ( map show ms )
-    declaratorTypeAndName funTy d
+    directDeclaratorTypeAndName funTy d
 
 parameterTypes :: [Parameter] -> ([Int], [Type])
 parameterTypes ps =
   partitionEithers $
     zipWith aux [1..] ps
   where
-    -- TODO: this would deserve some more thorough testing, as I'm not
-    -- entirely confident with everything here.
-    aux i ( Parameter { parameterDeclSpecifiers = specs, parameterDeclarator = pDecl }) =
-      let declSpecs = fmap fst $ NE.toList specs in
-      case pDecl of
-        ParameterDeclarator ( Declarator ptrs d ) ->
-          case declaratorType declSpecs d of
+    aux i ( Parameter { parameterDeclSpecifiers = specs, parameterDeclarator = decl }) =
+      -- TODO: dropping attributes
+      let declSpecs = fmap fst $ NE.toList specs
+      in
+        case parameterDeclaratorType declSpecs decl of
             Left {} -> Left i
-            Right ( ty, _ ) ->
-              Right $ mkPtr ptrs ty
-        ParameterAbstractDeclarator mbAbs ->
-          case mbAbs of
-            Nothing ->
-              case declarationSpecifiersType declSpecs of
-                Nothing -> Left i
-                Just ty -> Right ty
-            Just decl ->
-              case decl of
-                Declarator ptrs d ->
-                  case declaratorType declSpecs d of
-                    Left {} -> Left i
-                    Right ( ty, _ ) ->
-                      Right $ mkPtr ptrs ty
-                PointerAbstractDeclarator ptrs ->
-                  case declarationSpecifiersType declSpecs of
-                    Nothing -> Left i
-                    Just ty -> Right $ mkPtr ptrs ty
+            Right ty -> Right ty
+
+parameterDeclaratorType :: [DeclarationSpecifier] -> ParameterDeclarator -> Either String Type
+parameterDeclaratorType specs = \case
+  ParameterDeclarator decl         -> fmap fst $ declarationTypeAndName specs decl
+  ParameterAbstractDeclarator decl -> fmap fst $ declarationTypeAndName specs decl
 
 reparseDeclarator :: forall abs. KnownDeclaratorType abs => Macro.TypeEnv -> Reparse (Declarator abs)
-reparseDeclarator macroTys = do
-  ptr <- many reparsePointer
-  case knownDeclarator @abs of
-    SConcrete -> do
-      decl <- reparseDirectDeclarator @abs macroTys
-      return $
-        Declarator ( Pointers ptr ) decl
-    SAbstract ->
-      case ptr of
-        p:ps -> do
-          mbDecl <- optionMaybe $ reparseDirectDeclarator @abs macroTys
-          return $
-            case mbDecl of
-              Nothing ->
-                PointerAbstractDeclarator ( Pointers ( p NE.:| ps ) )
-              Just decl ->
-                Declarator ( Pointers ptr ) decl
-        [] -> do
-          decl <- reparseDirectDeclarator @abs macroTys
-          return $
-            Declarator ( Pointers ptr ) decl
+reparseDeclarator macroTys =
+  Declarator <$> reparsePointers <*> reparseDirectDeclarator @abs macroTys
 
-reparsePointer :: Reparse ( [ AttributeSpecifier ], [ TypeQualifier ] )
-reparsePointer = do
-  punctuation "*"
-  attrs <- many reparseAttributeSpecifier
-  tqs   <- many reparseTypeQualifier
-  return ( attrs, tqs )
-  <?> "pointer"
+reparsePointers :: Reparse Pointers
+reparsePointers = Pointers <$> many pointer <?> "pointer"
+  where
+    pointer = do
+      punctuation "*"
+      attrs <- many reparseAttributeSpecifier
+      tqs   <- many reparseTypeQualifier
+      return ( attrs, tqs )
 
 reparseDirectDeclarator
   :: forall abs. KnownDeclaratorType abs
@@ -511,10 +528,12 @@ reparseDirectDeclarator
 reparseDirectDeclarator macroTys = do
   decl <-
     choice $
-      ( ParenDeclarator <$> parens ( reparseDeclarator @abs macroTys ) )
+      ( ParenDeclarator <$> try ( parens ( reparseDeclarator @abs macroTys ) ) )
+          -- try: because parentheses could be a parenthesised declarator
+          -- or it could be a function declarator
       : case knownDeclarator @abs of
-          SConcrete -> [ IdentifierDeclarator <$> reparseIdentifier <*> many reparseAttributeSpecifier ]
-          SAbstract -> []
+          SConcrete -> [ IdentifierDeclarator <$> fmap DeclName reparseIdentifier <*> many reparseAttributeSpecifier ]
+          SAbstract -> [ IdentifierDeclarator AbstractName <$> many reparseAttributeSpecifier ]
   withArrayOrFunctionSuffixes macroTys decl
 
 withArrayOrFunctionSuffixes
@@ -606,7 +625,17 @@ reparseParameter macroTys = do
   return $ Parameter attrs declSpecs decl
   <?> "function parameter"
 
-reparseDeclarationSpecifiers :: Macro.TypeEnv -> Reparse (NE.NonEmpty (DeclarationSpecifier, [AttributeSpecifier]))
+reparseParameterDeclarator :: Macro.TypeEnv -> Reparse ParameterDeclarator
+reparseParameterDeclarator macroTys =
+  choice
+    [ ParameterDeclarator         <$> try (reparseDeclarator @Concrete macroTys)
+    , ParameterAbstractDeclarator <$> reparseDeclarator @Abstract macroTys
+    ]
+  <?> "function parameter declarator"
+
+reparseDeclarationSpecifiers
+  :: Macro.TypeEnv
+  -> Reparse (NE.NonEmpty (DeclarationSpecifier, [AttributeSpecifier]))
 reparseDeclarationSpecifiers macroTys =
   toNE <$> (many1 $ do
     spec <- reparseDeclarationSpecifier macroTys
@@ -616,19 +645,21 @@ reparseDeclarationSpecifiers macroTys =
     toNE [] = panicPure "many1: empty list"
     toNE (a:as) = a NE.:| as
 
-reparseParameterDeclarator :: Macro.TypeEnv -> Reparse ParameterDeclarator
-reparseParameterDeclarator macroTys =
-  choice
-    [ ParameterDeclarator <$> reparseDeclarator @Concrete macroTys
-    , ParameterAbstractDeclarator <$> optionMaybe ( reparseDeclarator @Abstract macroTys )
-    ]
-  <?> "function parameter declarator"
-
 reparseAttributeSpecifier :: Reparse AttributeSpecifier
 reparseAttributeSpecifier = do
-  try $ do { punctuation "[" ; punctuation "[" }
-  attrs <- many reparseAttribute
-  do { punctuation "]" ; punctuation "]" }
+  -- Allow both [[attr]] and __attribute((attr)) (GNU extension)
+  gnuStyle <-
+    choice
+      [ False <$ try ( punctuation "[" >> punctuation "[" ) <?> "[["
+      , do { exact CXToken_Keyword "__attribute__" <?> "__attribute__"
+           ; ( punctuation "(" >> punctuation "(" ) <?> "(("
+           ; return True
+           }
+      ]
+  attrs <- reparseAttribute `sepBy` punctuation ","
+  if gnuStyle
+  then ( punctuation ")" >> punctuation ")" ) <?> "))"
+  else ( punctuation "]" >> punctuation "]" ) <?> "]]"
   return $ AttributeSpecifier attrs
   <?> "attribute"
 
@@ -687,11 +718,11 @@ reparseAlignmentSpecifier macroTys = do
 
 reparseTypeName :: Macro.TypeEnv -> Reparse TypeName
 reparseTypeName macroTys = do
-  tySpecs <- many $ reparseTypeSpecifier macroTys
+  ty      <- reparseTypeSpecifier macroTys
   attrs   <- many reparseAttributeSpecifier
-  mbDecl  <- optionMaybe $ reparseDeclarator @Abstract macroTys
+  mbDecl  <- reparseDeclarator @Abstract macroTys
   return $
-    TypeName tySpecs attrs mbDecl
+    TypeName ty attrs mbDecl
 
 reparseTypeQualifierSpecifier :: Macro.TypeEnv -> Reparse TypeSpecifierQualifier
 reparseTypeQualifierSpecifier macroTys = choice
@@ -741,10 +772,6 @@ reparseTypeSpecifier macroTypeEnv =
        }
 
   ] <?> "type"
-
-data StructOrUnion
-  = IsStruct | IsUnion
-  deriving stock ( Eq, Show )
 
 reparseStructOrUnion :: Reparse StructOrUnion
 reparseStructOrUnion = choice [ keyword "struct" $> IsStruct, keyword "union" $> IsUnion ]

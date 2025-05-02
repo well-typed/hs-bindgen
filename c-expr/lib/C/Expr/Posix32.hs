@@ -2,10 +2,11 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-{-# OPTIONS_GHC -Wno-orphans #-}
+{-# OPTIONS_GHC -Wno-orphans -Wno-unused-matches #-}
 
 module C.Expr.Posix32
   ( module C.Operator.Classes
+  , module C.Expr.Posix32
   ) where
 
 -- c-expr

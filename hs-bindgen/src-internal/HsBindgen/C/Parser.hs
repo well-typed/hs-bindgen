@@ -298,9 +298,10 @@ getDeps = fmap (fmap aux) . \case
       C.MacroTcError{} -> Nothing
       C.MacroDecl{macroDeclMacro = macro, macroDeclMacroTy = macroTy} ->
         case (macroTy, C.macroBody macro) of
-          (Macro.Quant bf, C.MTerm (C.MType ty))
-            | Macro.isPrimTy bf ->
-                Just (C.TypeTypedef (C.macroName macro), [ty])
+          (Macro.Quant bf, C.TypeMacro tyNm)
+            | Macro.isPrimTy bf
+            , Right ty <- C.typeNameType tyNm
+            -> Just (C.TypeTypedef (C.macroName macro), [ty])
             | otherwise -> Nothing
           _otherwise -> Nothing
     C.DeclFunction{} -> Nothing
