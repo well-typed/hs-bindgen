@@ -14,6 +14,7 @@ tested-with:      , GHC==9.2.8
                   , GHC==9.6.6
                   , GHC==9.8.2
                   , GHC==9.10.1
+                  , GHC==9.12.2
 extra-source-files: clib/*.h
                     clib/*.c
 
@@ -26,7 +27,7 @@ common lang
       -Wunused-packages
       -Wno-unticked-promoted-constructors
   build-depends:
-      base >= 4.16 && < 4.21
+      base >= 4.16 && < 4.22
   default-language:
       GHC2021
   default-extensions:
