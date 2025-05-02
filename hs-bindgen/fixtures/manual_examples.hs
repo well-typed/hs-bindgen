@@ -1,728 +1,4 @@
 [
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "fIELD_OFFSET",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        4
-        HsPrimCInt},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "ePSILON",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        0.1},
-  DeclVar
-    VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "pTR_TO_FIELD",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon AddTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (TyConAppTy
-              (ATyCon
-                (FamilyTyCon AddResTyCon))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]])}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "ptr")
-          (VarDeclApp
-            (InfixAppHead MAdd)
-            [
-              VarDeclVar (Idx 0),
-              VarDeclIntegral
-                4
-                HsPrimCInt]))},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "YEAR",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "YEAR",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_YEAR",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:53:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "YEAR",
-          macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "YEAR"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "MONTH",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "MONTH",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_MONTH",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:54:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "MONTH",
-          macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "MONTH"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "DAY",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "DAY",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_DAY",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "manual_examples.h:55:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "DAY",
-          macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "DAY"),
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "mk_triple",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
-        (HsFun
-          (HsPrimType HsPrimCInt)
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Triple")))
-              (HsIO
-                (HsPrimType HsPrimUnit))))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple")))],
-      foreignImportOrigName =
-      "mk_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "mk_triple",
-          functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple")))],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:20:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "index_triple",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Triple")))
-        (HsFun
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Index"))
-          (HsIO (HsPrimType HsPrimCInt))),
-      foreignImportCRes = TypePrim
-        (PrimIntegral PrimInt Signed),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple"))),
-        TypeEnum
-          (DeclPathName (CName "index"))],
-      foreignImportOrigName =
-      "index_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "index_triple",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple"))),
-            TypeEnum
-              (DeclPathName (CName "index"))],
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed),
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:32:5"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "sum_triple",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Triple")))
-        (HsIO
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Sum"))),
-      foreignImportCRes = TypeTypedef
-        (CName "sum"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple")))],
-      foreignImportOrigName =
-      "sum_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "sum_triple",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple")))],
-          functionRes = TypeTypedef
-            (CName "sum"),
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:41:5"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "average_triple",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Triple")))
-        (HsIO
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Average"))),
-      foreignImportCRes = TypeTypedef
-        (CName "average"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple")))],
-      foreignImportOrigName =
-      "average_triple",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "average_triple",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName
-                  (CName "triple")))],
-          functionRes = TypeTypedef
-            (CName "average"),
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:42:9"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "getYear",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Date")))
-        (HsIO
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "YEAR"))),
-      foreignImportCRes = TypeTypedef
-        (CName "YEAR"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef (CName "date"))],
-      foreignImportOrigName =
-      "getYear",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName "getYear",
-          functionArgs = [
-            TypePointer
-              (TypeTypedef (CName "date"))],
-          functionRes = TypeTypedef
-            (CName "YEAR"),
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:63:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "print_occupation",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
-        (HsFun
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Occupation")))
-          (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePointer
-          (TypeUnion
-            (DeclPathName
-              (CName "occupation")))],
-      foreignImportOrigName =
-      "print_occupation",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "print_occupation",
-          functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePointer
-              (TypeUnion
-                (DeclPathName
-                  (CName "occupation")))],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:82:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "\25308\25308",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
-      foreignImportOrigName =
-      "\25308\25308",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "\25308\25308",
-          functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:110:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "c\978",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
-      foreignImportOrigName = "\978",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName "\978",
-          functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:112:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "import'",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
-      foreignImportOrigName =
-      "import",
-      foreignImportHeader =
-      "manual_examples.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName "import",
-          functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader =
-          "manual_examples.h",
-          functionSourceLoc =
-          "manual_examples.h:114:6"}},
   DeclData
     Struct {
       structName = HsName
@@ -1136,6 +412,62 @@
     (HsName
       "@NsTypeConstr"
       "Triple"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mk_triple",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Triple")))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")))],
+      foreignImportOrigName =
+      "mk_triple",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "mk_triple",
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "triple")))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:20:6"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1544,6 +876,54 @@
           valueValue = 2,
           valueSourceLoc =
           "manual_examples.h:29:5"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "index_triple",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Triple")))
+        (HsFun
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Index"))
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportCRes = TypePrim
+        (PrimIntegral PrimInt Signed),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple"))),
+        TypeEnum
+          (DeclPathName (CName "index"))],
+      foreignImportOrigName =
+      "index_triple",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "index_triple",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "triple"))),
+            TypeEnum
+              (DeclPathName (CName "index"))],
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed),
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:32:5"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1714,6 +1094,476 @@
     (HsName
       "@NsTypeConstr"
       "Average"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "sum_triple",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Triple")))
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Sum"))),
+      foreignImportCRes = TypeTypedef
+        (CName "sum"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")))],
+      foreignImportOrigName =
+      "sum_triple",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "sum_triple",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "triple")))],
+          functionRes = TypeTypedef
+            (CName "sum"),
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:41:5"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "average_triple",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Triple")))
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Average"))),
+      foreignImportCRes = TypeTypedef
+        (CName "average"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName
+              (CName "triple")))],
+      foreignImportOrigName =
+      "average_triple",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "average_triple",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName
+                  (CName "triple")))],
+          functionRes = TypeTypedef
+            (CName "average"),
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:42:9"}},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "fIELD_OFFSET",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon IntLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (IntLikeTyCon
+                        (CIntegralType
+                          (IntLike (Int Signed)))))))
+                []]}},
+      varDeclBody = VarDeclIntegral
+        4
+        HsPrimCInt},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "ePSILON",
+      varDeclType = ForallTy {
+        forallTyBinders = [],
+        forallTy = QuantTy {
+          quantTyCts = [],
+          quantTyBody = TyConAppTy
+            (ATyCon
+              (GenerativeTyCon
+                (DataTyCon FloatLikeTyCon)))
+            [
+              TyConAppTy
+                (ATyCon
+                  (GenerativeTyCon
+                    (DataTyCon
+                      (FloatLikeTyCon DoubleType))))
+                []]}},
+      varDeclBody = VarDeclDouble
+        0.1},
+  DeclVar
+    VarDecl {
+      varDeclName = HsName
+        "@NsVar"
+        "pTR_TO_FIELD",
+      varDeclType = ForallTy {
+        forallTyBinders = [
+          NameHint "a"],
+        forallTy = QuantTy {
+          quantTyCts = [
+            ClassTy
+              (AClass
+                (GenerativeTyCon
+                  (ClassTyCon AddTyCon)))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
+                      []]]],
+          quantTyBody = FunTy
+            (TyVarTy (Idx 0))
+            (TyConAppTy
+              (ATyCon
+                (FamilyTyCon AddResTyCon))
+              [
+                TyVarTy (Idx 0),
+                TyConAppTy
+                  (ATyCon
+                    (GenerativeTyCon
+                      (DataTyCon IntLikeTyCon)))
+                  [
+                    TyConAppTy
+                      (ATyCon
+                        (GenerativeTyCon
+                          (DataTyCon
+                            (IntLikeTyCon
+                              (CIntegralType
+                                (IntLike (Int Signed)))))))
+                      []]])}},
+      varDeclBody = VarDeclLambda
+        (Lambda
+          (NameHint "ptr")
+          (VarDeclApp
+            (InfixAppHead MAdd)
+            [
+              VarDeclVar (Idx 0),
+              VarDeclIntegral
+                4
+                HsPrimCInt]))},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "YEAR",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "YEAR",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_YEAR",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "manual_examples.h:53:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "YEAR",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "YEAR"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "MONTH",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "MONTH",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_MONTH",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "manual_examples.h:54:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "MONTH",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "MONTH"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "DAY",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "DAY",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_DAY",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "manual_examples.h:55:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "DAY",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "DAY"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "DAY"),
   DeclData
     Struct {
       structName = HsName
@@ -2127,6 +1977,44 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "Date"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "getYear",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Date")))
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "YEAR"))),
+      foreignImportCRes = TypeTypedef
+        (CName "YEAR"),
+      foreignImportCArgs = [
+        TypePointer
+          (TypeTypedef (CName "date"))],
+      foreignImportOrigName =
+      "getYear",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "getYear",
+          functionArgs = [
+            TypePointer
+              (TypeTypedef (CName "date"))],
+          functionRes = TypeTypedef
+            (CName "YEAR"),
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:63:6"}},
   DeclData
     Struct {
       structName = HsName
@@ -2462,19 +2350,6 @@
     (HsName
       "@NsTypeConstr"
       "Student"),
-  DeclEmpty
-    EmptyData {
-      emptyDataName = HsName
-        "@NsTypeConstr"
-        "Person",
-      emptyDataOrigin =
-      EmptyDataOriginOpaqueStruct
-        OpaqueStruct {
-          opaqueStructTag = CName
-            "person",
-          opaqueStructAliases = [],
-          opaqueStructSourceLoc =
-          "manual_examples.h:77:12"}},
   DeclData
     Struct {
       structName = HsName
@@ -3027,6 +2902,62 @@
     (HsName
       "@NsVar"
       "set_occupation_employee"),
+  DeclEmpty
+    EmptyData {
+      emptyDataName = HsName
+        "@NsTypeConstr"
+        "Person",
+      emptyDataOrigin =
+      EmptyDataOriginOpaqueStruct
+        OpaqueStruct {
+          opaqueStructTag = CName
+            "person",
+          opaqueStructAliases = [],
+          opaqueStructSourceLoc =
+          "manual_examples.h:77:12"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "print_occupation",
+      foreignImportType = HsFun
+        (HsPrimType HsPrimCInt)
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Occupation")))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePrim
+          (PrimIntegral PrimInt Signed),
+        TypePointer
+          (TypeUnion
+            (DeclPathName
+              (CName "occupation")))],
+      foreignImportOrigName =
+      "print_occupation",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "print_occupation",
+          functionArgs = [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer
+              (TypeUnion
+                (DeclPathName
+                  (CName "occupation")))],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:82:6"}},
   DeclData
     Struct {
       structName = HsName
@@ -4516,6 +4447,30 @@
     (HsName
       "@NsTypeConstr"
       "Adio'0301s"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "\25308\25308",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
+      foreignImportOrigName =
+      "\25308\25308",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "\25308\25308",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:110:6"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -4618,6 +4573,28 @@
     (HsName
       "@NsTypeConstr"
       "C\25968\23383"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "c\978",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
+      foreignImportOrigName = "\978",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "\978",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:112:6"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -4693,6 +4670,29 @@
     DeriveNewtype
     Real
     (HsName "@NsTypeConstr" "Data"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "import'",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
+      foreignImportOrigName =
+      "import",
+      foreignImportHeader =
+      "manual_examples.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "import",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader =
+          "manual_examples.h",
+          functionSourceLoc =
+          "manual_examples.h:114:6"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName

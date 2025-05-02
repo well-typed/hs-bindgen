@@ -1,68 +1,4 @@
 [
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "c\978",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
-      foreignImportOrigName = "\978",
-      foreignImportHeader = "adios.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName "\978",
-          functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h",
-          functionSourceLoc =
-          "adios.h:18:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "\25308\25308",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
-      foreignImportOrigName =
-      "\25308\25308",
-      foreignImportHeader = "adios.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "\25308\25308",
-          functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h",
-          functionSourceLoc =
-          "adios.h:21:6"}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "say\25308\25308",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
-      foreignImportOrigName =
-      "Say\25308\25308",
-      foreignImportHeader = "adios.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName
-            "Say\25308\25308",
-          functionArgs = [],
-          functionRes = TypeVoid,
-          functionHeader = "adios.h",
-          functionSourceLoc =
-          "adios.h:25:6"}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -265,4 +201,68 @@
     Real
     (HsName
       "@NsTypeConstr"
-      "C\25968\23383")]
+      "C\25968\23383"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "c\978",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
+      foreignImportOrigName = "\978",
+      foreignImportHeader = "adios.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "\978",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "adios.h",
+          functionSourceLoc =
+          "adios.h:18:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "\25308\25308",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
+      foreignImportOrigName =
+      "\25308\25308",
+      foreignImportHeader = "adios.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "\25308\25308",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "adios.h",
+          functionSourceLoc =
+          "adios.h:21:6"}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "say\25308\25308",
+      foreignImportType = HsIO
+        (HsPrimType HsPrimUnit),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [],
+      foreignImportOrigName =
+      "Say\25308\25308",
+      foreignImportHeader = "adios.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName
+            "Say\25308\25308",
+          functionArgs = [],
+          functionRes = TypeVoid,
+          functionHeader = "adios.h",
+          functionSourceLoc =
+          "adios.h:25:6"}}]

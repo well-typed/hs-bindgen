@@ -49,6 +49,16 @@ instance Storable S2
                                         s2_d_4 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_3 >> pokeByteOff ptr_1 (8 :: Int) s2_d_4}}
 deriving stock instance Show S2
 deriving stock instance Eq S2
+data S3 = S3 {s3_c :: (Ptr (Ptr S3_c_Deref)), s3_d :: CInt}
+instance Storable S3
+    where {sizeOf = \_ -> 16 :: Int;
+           alignment = \_ -> 8 :: Int;
+           peek = \ptr_0 -> (pure S3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {S3 s3_c_3
+                                        s3_d_4 -> pokeByteOff ptr_1 (0 :: Int) s3_c_3 >> pokeByteOff ptr_1 (8 :: Int) s3_d_4}}
+deriving stock instance Show S3
+deriving stock instance Eq S3
 data S3_c_Deref
     = S3_c_Deref {s3_c_Deref_a :: CInt, s3_c_Deref_b :: CInt}
 instance Storable S3_c_Deref
@@ -60,13 +70,3 @@ instance Storable S3_c_Deref
                                                 s3_c_Deref_b_4 -> pokeByteOff ptr_1 (0 :: Int) s3_c_Deref_a_3 >> pokeByteOff ptr_1 (4 :: Int) s3_c_Deref_b_4}}
 deriving stock instance Show S3_c_Deref
 deriving stock instance Eq S3_c_Deref
-data S3 = S3 {s3_c :: (Ptr (Ptr S3_c_Deref)), s3_d :: CInt}
-instance Storable S3
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 8 :: Int;
-           peek = \ptr_0 -> (pure S3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {S3 s3_c_3
-                                        s3_d_4 -> pokeByteOff ptr_1 (0 :: Int) s3_c_3 >> pokeByteOff ptr_1 (8 :: Int) s3_d_4}}
-deriving stock instance Show S3
-deriving stock instance Eq S3

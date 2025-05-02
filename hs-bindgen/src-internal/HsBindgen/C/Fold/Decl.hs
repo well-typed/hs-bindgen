@@ -74,13 +74,20 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
             else do
               mbMExpr <- mkMacro unit current
               macro <- case mbMExpr of
-                Left err -> return $ MacroReparseError err
+                Left err -> return MacroReparseError {
+                    macroReparseError          = err
+                  , macroReparseErrorSourceLoc = sloc
+                  }
                 Right macro@( Macro _ mVar mArgs mExpr ) -> do
                   macroTyEnv <- macroTypeEnv <$> get
                   let tcRes = tcMacro hostPlatform macroTyEnv mVar mArgs mExpr
                   case tcRes of
                     Left err ->
-                      return $ MacroTcError macro err
+                      return MacroTcError {
+                          macroTcErrorMacro     = macro
+                        , macroTcError          = err
+                        , macroTcErrorSourceLoc = sloc
+                        }
                     Right ty -> do
                       modify $ registerMacroType mVar ty
                       return MacroDecl {

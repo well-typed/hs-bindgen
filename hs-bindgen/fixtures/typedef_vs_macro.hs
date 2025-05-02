@@ -3,6 +3,158 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "T1",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "T1",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_T1",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "T1",
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed),
+          typedefSourceLoc =
+          "typedef_vs_macro.h:1:13"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "T1"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "T2",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "T2",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_T2",
+        fieldType = HsPrimType
+          HsPrimCChar,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "T2",
+          typedefType = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))),
+          typedefSourceLoc =
+          "typedef_vs_macro.h:2:14"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "T2"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "M1",
       newtypeConstr = HsName
         "@NsConstr"
@@ -205,268 +357,6 @@
     DeriveNewtype
     Storable
     (HsName "@NsTypeConstr" "M3"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Uint64_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Uint64_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Uint64_t",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginMacro
-        Macro {
-          macroLoc = MultiLoc {
-            multiLocExpansion =
-            "typedef_vs_macro.h:16:9",
-            multiLocPresumed = Nothing,
-            multiLocSpelling = Nothing,
-            multiLocFile = Nothing},
-          macroName = CName "uint64_t",
-          macroArgs = [],
-          macroBody = MTerm
-            (MType
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Uint64_t"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "T1",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "T1",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_T1",
-        fieldType = HsPrimType
-          HsPrimCInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "T1",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed),
-          typedefSourceLoc =
-          "typedef_vs_macro.h:1:13"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "T1"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "T2",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "T2",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_T2",
-        fieldType = HsPrimType
-          HsPrimCChar,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "T2",
-          typedefType = TypePrim
-            (PrimChar
-              (PrimSignImplicit
-                (Just Signed))),
-          typedefSourceLoc =
-          "typedef_vs_macro.h:2:14"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName "@NsTypeConstr" "T2"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName "@NsTypeConstr" "T2"),
   DeclData
     Struct {
       structName = HsName
@@ -974,6 +864,116 @@
     (HsName
       "@NsTypeConstr"
       "ExampleStruct"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Uint64_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Uint64_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Uint64_t",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginMacro
+        Macro {
+          macroLoc = MultiLoc {
+            multiLocExpansion =
+            "typedef_vs_macro.h:16:9",
+            multiLocPresumed = Nothing,
+            multiLocSpelling = Nothing,
+            multiLocFile = Nothing},
+          macroName = CName "uint64_t",
+          macroArgs = [],
+          macroBody = MTerm
+            (MType
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Uint64_t"),
   DeclData
     Struct {
       structName = HsName

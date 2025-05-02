@@ -1,16 +1,5 @@
 Header
   [
-    DeclFunction
-      Function {
-        functionName = CName "func",
-        functionArgs = [
-          TypePointer
-            (TypeStruct
-              (DeclPathName (CName "bar")))],
-        functionRes = TypeVoid,
-        functionHeader = "weird01.h",
-        functionSourceLoc =
-        "weird01.h:8:6"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -48,4 +37,15 @@ Header
             "weird01.h:4:21"}],
         structFlam = Nothing,
         structSourceLoc =
-        "weird01.h:3:16"}]
+        "weird01.h:3:16"},
+    DeclFunction
+      Function {
+        functionName = CName "func",
+        functionArgs = [
+          TypePointer
+            (TypeStruct
+              (DeclPathName (CName "bar")))],
+        functionRes = TypeVoid,
+        functionHeader = "weird01.h",
+        functionSourceLoc =
+        "weird01.h:8:6"}]

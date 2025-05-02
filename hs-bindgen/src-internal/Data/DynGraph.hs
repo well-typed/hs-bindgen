@@ -9,10 +9,15 @@ module Data.DynGraph (
     -- * Query
   , vertices
   , reaches
+  , topSort
+  , dff
     -- * Debugging
   , dumpMermaid
   ) where
 
+import Control.Monad.ST (ST)
+import Control.Monad.ST qualified as ST
+import Data.Array.ST.Safe qualified as Array
 import Data.IntMap.Strict (IntMap)
 import Data.IntMap.Strict qualified as IntMap
 import Data.IntSet (IntSet)
@@ -21,12 +26,14 @@ import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
+import Data.Tree (Tree)
+import Data.Tree qualified as Tree
 
 {-------------------------------------------------------------------------------
   Type
 -------------------------------------------------------------------------------}
 
--- | Directed graph that supports dynamic insertion and a 'reaches' query
+-- | Directed graph that supports dynamic insertion
 --
 -- Type variable @a@ represents the type of a vertex in the graph.  Internally,
 -- each value is mapped to an 'Int' index that is used in the representation of
@@ -92,6 +99,15 @@ reaches :: Ord a => DynGraph a -> a -> Set a
 reaches DynGraph{..} v = case Map.lookup v vtxMap of
     Just idx -> Set.fromList $ (idxMap Map.!) <$> reaches' edges idx
     Nothing  -> mempty
+
+-- | Gets a topological sort of the graph
+topSort :: DynGraph a -> [a]
+topSort dynGraph@DynGraph{..} = (idxMap Map.!) <$> topSort' dynGraph
+
+-- | Gets the spanning forest of the graph obtained from a depth-first search of
+-- the graph starting from each vertex in insertion order
+dff :: DynGraph a -> [Tree a]
+dff dynGraph@DynGraph{..} = fmap (idxMap Map.!) <$> dff' dynGraph
 
 {-------------------------------------------------------------------------------
   Debugging
@@ -163,3 +179,46 @@ reaches' edgeMap = aux Map.empty . pure
         (Just (), _)    -> aux acc xs
         (Nothing, acc') -> aux acc' $
           IntSet.toList (IntMap.findWithDefault mempty x edgeMap) ++ xs
+
+-- | Gets a topological sort of the graph
+topSort' :: DynGraph a -> [Int]
+topSort' dynGraph = reverse $ postorderF (dff' dynGraph) []
+  where
+    postorderF :: [Tree a] -> [a] -> [a]
+    postorderF = foldr ((.) . postorder) id
+
+    postorder :: Tree a -> [a] -> [a]
+    postorder (Tree.Node idx children) = postorderF children . (idx :)
+
+-- | Gets the spanning forest of the graph obtained from a depth-first search of
+-- the graph starting from each vertex index in insertion order
+dff' :: DynGraph a -> [Tree Int]
+dff' dynGraph@DynGraph{..} = dfs' dynGraph (Map.keys idxMap)
+
+-- | Gets a spanning forest of the part of the graph reachable from the listed
+-- vertext indexes, obtained from a depth-first search of the graph starting at
+-- each of the listed vertex indexes in order
+dfs' :: DynGraph a -> [Int] -> [Tree Int]
+dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
+    0 -> []
+    n -> run (0, n - 1) $ \contains include ->
+      let aux [] = pure []
+          aux (idx:idxs) = do
+            visited <- contains idx
+            if visited
+              then aux idxs
+              else do
+                include idx
+                children <-
+                  aux $ maybe [] IntSet.toList (IntMap.lookup idx edges)
+                trees <- aux idxs
+                return $ Tree.Node idx children : trees
+      in  aux idxs0
+  where
+    run ::
+         (Int, Int)
+      -> (forall s. (Int -> ST s Bool) -> (Int -> ST s ()) -> ST s a)
+      -> a
+    run bnds f = ST.runST $ do
+      m <- Array.newArray bnds False :: ST s (Array.STUArray s Int Bool)
+      f (Array.readArray m) (\idx -> Array.writeArray m idx True)

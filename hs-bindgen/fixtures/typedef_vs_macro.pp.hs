@@ -14,6 +14,66 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
+newtype T1 = T1
+  { un_T1 :: FC.CInt
+  }
+
+deriving newtype instance F.Storable T1
+
+deriving stock instance Eq T1
+
+deriving stock instance Ord T1
+
+deriving stock instance Read T1
+
+deriving stock instance Show T1
+
+deriving newtype instance Enum T1
+
+deriving newtype instance Ix.Ix T1
+
+deriving newtype instance Bounded T1
+
+deriving newtype instance Bits.Bits T1
+
+deriving newtype instance FiniteBits T1
+
+deriving newtype instance Integral T1
+
+deriving newtype instance Num T1
+
+deriving newtype instance Real T1
+
+newtype T2 = T2
+  { un_T2 :: FC.CChar
+  }
+
+deriving newtype instance F.Storable T2
+
+deriving stock instance Eq T2
+
+deriving stock instance Ord T2
+
+deriving stock instance Read T2
+
+deriving stock instance Show T2
+
+deriving newtype instance Enum T2
+
+deriving newtype instance Ix.Ix T2
+
+deriving newtype instance Bounded T2
+
+deriving newtype instance Bits.Bits T2
+
+deriving newtype instance FiniteBits T2
+
+deriving newtype instance Integral T2
+
+deriving newtype instance Num T2
+
+deriving newtype instance Real T2
+
 newtype M1 = M1
   { un_M1 :: FC.CInt
   }
@@ -80,96 +140,6 @@ newtype M3 = M3
 
 deriving newtype instance F.Storable M3
 
-newtype Uint64_t = Uint64_t
-  { un_Uint64_t :: FC.CInt
-  }
-
-deriving newtype instance F.Storable Uint64_t
-
-deriving stock instance Eq Uint64_t
-
-deriving stock instance Ord Uint64_t
-
-deriving stock instance Read Uint64_t
-
-deriving stock instance Show Uint64_t
-
-deriving newtype instance Enum Uint64_t
-
-deriving newtype instance Ix.Ix Uint64_t
-
-deriving newtype instance Bounded Uint64_t
-
-deriving newtype instance Bits.Bits Uint64_t
-
-deriving newtype instance FiniteBits Uint64_t
-
-deriving newtype instance Integral Uint64_t
-
-deriving newtype instance Num Uint64_t
-
-deriving newtype instance Real Uint64_t
-
-newtype T1 = T1
-  { un_T1 :: FC.CInt
-  }
-
-deriving newtype instance F.Storable T1
-
-deriving stock instance Eq T1
-
-deriving stock instance Ord T1
-
-deriving stock instance Read T1
-
-deriving stock instance Show T1
-
-deriving newtype instance Enum T1
-
-deriving newtype instance Ix.Ix T1
-
-deriving newtype instance Bounded T1
-
-deriving newtype instance Bits.Bits T1
-
-deriving newtype instance FiniteBits T1
-
-deriving newtype instance Integral T1
-
-deriving newtype instance Num T1
-
-deriving newtype instance Real T1
-
-newtype T2 = T2
-  { un_T2 :: FC.CChar
-  }
-
-deriving newtype instance F.Storable T2
-
-deriving stock instance Eq T2
-
-deriving stock instance Ord T2
-
-deriving stock instance Read T2
-
-deriving stock instance Show T2
-
-deriving newtype instance Enum T2
-
-deriving newtype instance Ix.Ix T2
-
-deriving newtype instance Bounded T2
-
-deriving newtype instance Bits.Bits T2
-
-deriving newtype instance FiniteBits T2
-
-deriving newtype instance Integral T2
-
-deriving newtype instance Num T2
-
-deriving newtype instance Real T2
-
 data ExampleStruct = ExampleStruct
   { exampleStruct_t1 :: T1
   , exampleStruct_t2 :: T2
@@ -204,6 +174,36 @@ instance F.Storable ExampleStruct where
 deriving stock instance Show ExampleStruct
 
 deriving stock instance Eq ExampleStruct
+
+newtype Uint64_t = Uint64_t
+  { un_Uint64_t :: FC.CInt
+  }
+
+deriving newtype instance F.Storable Uint64_t
+
+deriving stock instance Eq Uint64_t
+
+deriving stock instance Ord Uint64_t
+
+deriving stock instance Read Uint64_t
+
+deriving stock instance Show Uint64_t
+
+deriving newtype instance Enum Uint64_t
+
+deriving newtype instance Ix.Ix Uint64_t
+
+deriving newtype instance Bounded Uint64_t
+
+deriving newtype instance Bits.Bits Uint64_t
+
+deriving newtype instance FiniteBits Uint64_t
+
+deriving newtype instance Integral Uint64_t
+
+deriving newtype instance Num Uint64_t
+
+deriving newtype instance Real Uint64_t
 
 data Foo = Foo
   { foo_a :: F.Ptr Uint64_t

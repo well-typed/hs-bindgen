@@ -3,6 +3,107 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Uint32_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Uint32_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Uint32_t",
+        fieldType = HsPrimType
+          HsPrimCUInt,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "uint32_t",
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          typedefSourceLoc =
+          "alltypes.h:131:25"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName
+      "@NsTypeConstr"
+      "Uint32_t"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Uint64_t",
       newtypeConstr = HsName
         "@NsConstr"
@@ -102,107 +203,6 @@
     (HsName
       "@NsTypeConstr"
       "Uint64_t"),
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Uint32_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Uint32_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Uint32_t",
-        fieldType = HsPrimType
-          HsPrimCUInt,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "uint32_t",
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Unsigned),
-          typedefSourceLoc =
-          "alltypes.h:131:25"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Ord
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Enum
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Ix
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bounded
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Bits
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    FiniteBits
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Integral
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Num
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
-  DeclNewtypeInstance
-    DeriveNewtype
-    Real
-    (HsName
-      "@NsTypeConstr"
-      "Uint32_t"),
   DeclData
     Struct {
       structName = HsName

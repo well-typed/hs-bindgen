@@ -16,18 +16,6 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 -- #include "adios.h"
 
--- void ϒ (void)
-
-foreign import capi safe "adios.h ϒ" cϒ :: IO ()
-
--- void 拜拜 (void)
-
-foreign import capi safe "adios.h 拜拜" 拜拜 :: IO ()
-
--- void Say拜拜 (void)
-
-foreign import capi safe "adios.h Say拜拜" say拜拜 :: IO ()
-
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
   }
@@ -87,3 +75,15 @@ deriving newtype instance Integral C数字
 deriving newtype instance Num C数字
 
 deriving newtype instance Real C数字
+
+-- void ϒ (void)
+
+foreign import capi safe "adios.h ϒ" cϒ :: IO ()
+
+-- void 拜拜 (void)
+
+foreign import capi safe "adios.h 拜拜" 拜拜 :: IO ()
+
+-- void Say拜拜 (void)
+
+foreign import capi safe "adios.h Say拜拜" say拜拜 :: IO ()

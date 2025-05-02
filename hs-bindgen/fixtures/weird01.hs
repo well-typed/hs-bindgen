@@ -1,34 +1,4 @@
 [
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "func",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsTypRef
-            (HsName "@NsTypeConstr" "Bar")))
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName (CName "bar")))],
-      foreignImportOrigName = "func",
-      foreignImportHeader =
-      "weird01.h",
-      foreignImportDeclOrigin =
-      ForeignImportDeclOriginFunction
-        Function {
-          functionName = CName "func",
-          functionArgs = [
-            TypePointer
-              (TypeStruct
-                (DeclPathName (CName "bar")))],
-          functionRes = TypeVoid,
-          functionHeader = "weird01.h",
-          functionSourceLoc =
-          "weird01.h:8:6"}},
   DeclData
     Struct {
       structName = HsName
@@ -444,4 +414,34 @@
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "Bar")]
+    (HsName "@NsTypeConstr" "Bar"),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "func",
+      foreignImportType = HsFun
+        (HsPtr
+          (HsTypRef
+            (HsName "@NsTypeConstr" "Bar")))
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportCRes = TypeVoid,
+      foreignImportCArgs = [
+        TypePointer
+          (TypeStruct
+            (DeclPathName (CName "bar")))],
+      foreignImportOrigName = "func",
+      foreignImportHeader =
+      "weird01.h",
+      foreignImportDeclOrigin =
+      ForeignImportDeclOriginFunction
+        Function {
+          functionName = CName "func",
+          functionArgs = [
+            TypePointer
+              (TypeStruct
+                (DeclPathName (CName "bar")))],
+          functionRes = TypeVoid,
+          functionHeader = "weird01.h",
+          functionSourceLoc =
+          "weird01.h:8:6"}}]

@@ -1,5 +1,20 @@
 Header
   [
+    DeclTypedef
+      Typedef {
+        typedefName = CName "adio\769s",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "adios.h:7:13"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName
+          "\25968\23383",
+        typedefType = TypePrim
+          (PrimIntegral PrimInt Signed),
+        typedefSourceLoc =
+        "adios.h:12:13"},
     DeclFunction
       Function {
         functionName = CName "\978",
@@ -25,19 +40,4 @@ Header
         functionRes = TypeVoid,
         functionHeader = "adios.h",
         functionSourceLoc =
-        "adios.h:25:6"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName "adio\769s",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "adios.h:7:13"},
-    DeclTypedef
-      Typedef {
-        typedefName = CName
-          "\25968\23383",
-        typedefType = TypePrim
-          (PrimIntegral PrimInt Signed),
-        typedefSourceLoc =
-        "adios.h:12:13"}]
+        "adios.h:25:6"}]

@@ -1,95 +1,23 @@
--- addDependentFile examples/distilled_lib_1.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile examples/distilled_lib_1.h
 -- #include "distilled_lib_1.h"
-a :: CInt
-a = 5 :: CInt
-b :: CInt
-b = 3 :: CInt
-sOME_DEFINED_CONSTANT :: CInt
-sOME_DEFINED_CONSTANT = 4 :: CInt
-a_DEFINE_0 :: CInt
-a_DEFINE_0 = 0 :: CInt
-a_DEFINE_1 :: CUInt
-a_DEFINE_1 = 20560 :: CUInt
-a_DEFINE_2 :: CInt
-a_DEFINE_2 = 2 :: CInt
-tWO_ARGS :: (,) CInt CInt
-tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
-foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr A_type_t ->
-                                                                  Uint32_t ->
-                                                                  Ptr Uint8_t -> IO Int32_t
-data Another_typedef_struct_t
-    = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
-                                another_typedef_struct_t_bar :: CChar}
-instance Storable Another_typedef_struct_t
-    where {sizeOf = \_ -> 8 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Another_typedef_struct_t another_typedef_struct_t_foo_3
-                                                              another_typedef_struct_t_bar_4 -> pokeByteOff ptr_1 (0 :: Int) another_typedef_struct_t_foo_3 >> pokeByteOff ptr_1 (4 :: Int) another_typedef_struct_t_bar_4}}
-deriving stock instance Show Another_typedef_struct_t
-deriving stock instance Eq Another_typedef_struct_t
-newtype Another_typedef_enum_e
-    = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
-instance Storable Another_typedef_enum_e
-    where {sizeOf = \_ -> 4 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3}}
-deriving stock instance Eq Another_typedef_enum_e
-deriving stock instance Ord Another_typedef_enum_e
-deriving stock instance Read Another_typedef_enum_e
-instance CEnum Another_typedef_enum_e
-    where {type CEnumZ Another_typedef_enum_e = CUInt;
-           toCEnum = Another_typedef_enum_e;
-           fromCEnum = un_Another_typedef_enum_e;
-           declaredValues = \_ -> declaredValuesFromList [(0,
-                                                           singleton "FOO"),
-                                                          (1, singleton "BAR")];
-           showsUndeclared = showsWrappedUndeclared "Another_typedef_enum_e";
-           isDeclared = seqIsDeclared;
-           mkDeclared = seqMkDeclared}
-instance SequentialCEnum Another_typedef_enum_e
-    where {minDeclaredValue = FOO; maxDeclaredValue = BAR}
-instance Show Another_typedef_enum_e
-    where {showsPrec = showsCEnum}
-pattern FOO :: Another_typedef_enum_e
-pattern FOO = Another_typedef_enum_e 0
-pattern BAR :: Another_typedef_enum_e
-pattern BAR = Another_typedef_enum_e 1
-newtype A_type_t = A_type_t {un_A_type_t :: CInt}
-deriving newtype instance Storable A_type_t
-deriving stock instance Eq A_type_t
-deriving stock instance Ord A_type_t
-deriving stock instance Read A_type_t
-deriving stock instance Show A_type_t
-deriving newtype instance Enum A_type_t
-deriving newtype instance Ix A_type_t
-deriving newtype instance Bounded A_type_t
-deriving newtype instance Bits A_type_t
-deriving newtype instance FiniteBits A_type_t
-deriving newtype instance Integral A_type_t
-deriving newtype instance Num A_type_t
-deriving newtype instance Real A_type_t
-newtype Var_t = Var_t {un_Var_t :: CInt}
-deriving newtype instance Storable Var_t
-deriving stock instance Eq Var_t
-deriving stock instance Ord Var_t
-deriving stock instance Read Var_t
-deriving stock instance Show Var_t
-deriving newtype instance Enum Var_t
-deriving newtype instance Ix Var_t
-deriving newtype instance Bounded Var_t
-deriving newtype instance Bits Var_t
-deriving newtype instance FiniteBits Var_t
-deriving newtype instance Integral Var_t
-deriving newtype instance Num Var_t
-deriving newtype instance Real Var_t
+newtype Int32_t = Int32_t {un_Int32_t :: CInt}
+deriving newtype instance Storable Int32_t
+deriving stock instance Eq Int32_t
+deriving stock instance Ord Int32_t
+deriving stock instance Read Int32_t
+deriving stock instance Show Int32_t
+deriving newtype instance Enum Int32_t
+deriving newtype instance Ix Int32_t
+deriving newtype instance Bounded Int32_t
+deriving newtype instance Bits Int32_t
+deriving newtype instance FiniteBits Int32_t
+deriving newtype instance Integral Int32_t
+deriving newtype instance Num Int32_t
+deriving newtype instance Real Int32_t
 newtype Uint8_t = Uint8_t {un_Uint8_t :: CUChar}
 deriving newtype instance Storable Uint8_t
 deriving stock instance Eq Uint8_t
@@ -132,6 +60,81 @@ deriving newtype instance FiniteBits Uint32_t
 deriving newtype instance Integral Uint32_t
 deriving newtype instance Num Uint32_t
 deriving newtype instance Real Uint32_t
+data Another_typedef_struct_t
+    = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
+                                another_typedef_struct_t_bar :: CChar}
+instance Storable Another_typedef_struct_t
+    where {sizeOf = \_ -> 8 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Another_typedef_struct_t another_typedef_struct_t_foo_3
+                                                              another_typedef_struct_t_bar_4 -> pokeByteOff ptr_1 (0 :: Int) another_typedef_struct_t_foo_3 >> pokeByteOff ptr_1 (4 :: Int) another_typedef_struct_t_bar_4}}
+deriving stock instance Show Another_typedef_struct_t
+deriving stock instance Eq Another_typedef_struct_t
+newtype Another_typedef_enum_e
+    = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
+instance Storable Another_typedef_enum_e
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3}}
+deriving stock instance Eq Another_typedef_enum_e
+deriving stock instance Ord Another_typedef_enum_e
+deriving stock instance Read Another_typedef_enum_e
+instance CEnum Another_typedef_enum_e
+    where {type CEnumZ Another_typedef_enum_e = CUInt;
+           toCEnum = Another_typedef_enum_e;
+           fromCEnum = un_Another_typedef_enum_e;
+           declaredValues = \_ -> declaredValuesFromList [(0,
+                                                           singleton "FOO"),
+                                                          (1, singleton "BAR")];
+           showsUndeclared = showsWrappedUndeclared "Another_typedef_enum_e";
+           isDeclared = seqIsDeclared;
+           mkDeclared = seqMkDeclared}
+instance SequentialCEnum Another_typedef_enum_e
+    where {minDeclaredValue = FOO; maxDeclaredValue = BAR}
+instance Show Another_typedef_enum_e
+    where {showsPrec = showsCEnum}
+pattern FOO :: Another_typedef_enum_e
+pattern FOO = Another_typedef_enum_e 0
+pattern BAR :: Another_typedef_enum_e
+pattern BAR = Another_typedef_enum_e 1
+a :: CInt
+a = 5 :: CInt
+b :: CInt
+b = 3 :: CInt
+sOME_DEFINED_CONSTANT :: CInt
+sOME_DEFINED_CONSTANT = 4 :: CInt
+newtype A_type_t = A_type_t {un_A_type_t :: CInt}
+deriving newtype instance Storable A_type_t
+deriving stock instance Eq A_type_t
+deriving stock instance Ord A_type_t
+deriving stock instance Read A_type_t
+deriving stock instance Show A_type_t
+deriving newtype instance Enum A_type_t
+deriving newtype instance Ix A_type_t
+deriving newtype instance Bounded A_type_t
+deriving newtype instance Bits A_type_t
+deriving newtype instance FiniteBits A_type_t
+deriving newtype instance Integral A_type_t
+deriving newtype instance Num A_type_t
+deriving newtype instance Real A_type_t
+newtype Var_t = Var_t {un_Var_t :: CInt}
+deriving newtype instance Storable Var_t
+deriving stock instance Eq Var_t
+deriving stock instance Ord Var_t
+deriving stock instance Read Var_t
+deriving stock instance Show Var_t
+deriving newtype instance Enum Var_t
+deriving newtype instance Ix Var_t
+deriving newtype instance Bounded Var_t
+deriving newtype instance Bits Var_t
+deriving newtype instance FiniteBits Var_t
+deriving newtype instance Integral Var_t
+deriving newtype instance Num Var_t
+deriving newtype instance Real Var_t
 data A_typedef_struct
     = A_typedef_struct {a_typedef_struct_field_0 :: CBool,
                         a_typedef_struct_field_1 :: Uint8_t,
@@ -168,6 +171,14 @@ deriving stock instance Eq A_typedef_struct
 newtype A_typedef_struct_t
     = A_typedef_struct_t {un_A_typedef_struct_t :: A_typedef_struct}
 deriving newtype instance Storable A_typedef_struct_t
+a_DEFINE_0 :: CInt
+a_DEFINE_0 = 0 :: CInt
+a_DEFINE_1 :: CUInt
+a_DEFINE_1 = 20560 :: CUInt
+a_DEFINE_2 :: CInt
+a_DEFINE_2 = 2 :: CInt
+tWO_ARGS :: (,) CInt CInt
+tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
 newtype A_typedef_enum_e
     = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
 instance Storable A_typedef_enum_e
@@ -204,20 +215,9 @@ pattern ENUM_CASE_2 :: A_typedef_enum_e
 pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
-newtype Int32_t = Int32_t {un_Int32_t :: CInt}
-deriving newtype instance Storable Int32_t
-deriving stock instance Eq Int32_t
-deriving stock instance Ord Int32_t
-deriving stock instance Read Int32_t
-deriving stock instance Show Int32_t
-deriving newtype instance Enum Int32_t
-deriving newtype instance Ix Int32_t
-deriving newtype instance Bounded Int32_t
-deriving newtype instance Bits Int32_t
-deriving newtype instance FiniteBits Int32_t
-deriving newtype instance Integral Int32_t
-deriving newtype instance Num Int32_t
-deriving newtype instance Real Int32_t
+foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr A_type_t ->
+                                                                  Uint32_t ->
+                                                                  Ptr Uint8_t -> IO Int32_t
 newtype Callback_t
     = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
                                             Uint32_t -> IO Uint32_t))}
