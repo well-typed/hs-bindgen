@@ -149,19 +149,19 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                     -- If names match, skip.
                     -- Note: this is not the same as clang_Type_isTransparentTagTypedef,
                     -- in typedef struct { ... } foo; the typedef does not have transparent tag.
-                    TypeStruct (DeclPathName declName _ctxt) | declName == tag -> do
+                    TypeStruct (DeclPathName declName) | declName == tag -> do
                             updateDeclAddAlias ty' tag
                             addAlias ty use
                     TypeStruct (DeclPathAnon (DeclPathCtxtTypedef typedefName)) | typedefName == tag ->
                             addAlias ty use
 
-                    TypeEnum (DeclPathName declName _ctxt) | declName == tag -> do
+                    TypeEnum (DeclPathName declName) | declName == tag -> do
                             updateDeclAddAlias ty' tag
                             addAlias ty use
                     TypeEnum (DeclPathAnon (DeclPathCtxtTypedef typedefName)) | typedefName == tag ->
                             addAlias ty use
 
-                    TypeUnion (DeclPathName declName _ctxt) | declName == tag -> do
+                    TypeUnion (DeclPathName declName) | declName == tag -> do
                             updateDeclAddAlias ty' tag
                             addAlias ty use
                     TypeUnion (DeclPathAnon (DeclPathCtxtTypedef typedefName)) | typedefName == tag ->
@@ -580,7 +580,7 @@ classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
     mkDeclPath :: Text -> Maybe CName -> DeclPath
     mkDeclPath spelling mTag =
         case mTag of
-          Just tag -> DeclPathName tag ctxt
+          Just tag -> DeclPathName tag
           Nothing  -> DeclPathAnon (DeclPathCtxtTypedef (CName spelling))
 
 {-------------------------------------------------------------------------------

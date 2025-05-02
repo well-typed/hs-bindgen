@@ -378,8 +378,7 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "struct1")
-              DeclPathCtxtTop)),
+              (CName "struct1"))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "struct_name1",
@@ -394,8 +393,7 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "struct1")
-                  DeclPathCtxtTop)),
+                  (CName "struct1"))),
             TypeTypedef (CName "MC")],
           functionRes = TypeVoid,
           functionHeader =
@@ -422,8 +420,7 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "struct3")
-              DeclPathCtxtTop)),
+              (CName "struct3"))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "struct_name2",
@@ -438,8 +435,7 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "struct3")
-                  DeclPathCtxtTop)),
+                  (CName "struct3"))),
             TypeTypedef (CName "MC")],
           functionRes = TypeVoid,
           functionHeader =
@@ -466,8 +462,7 @@
         TypePointer
           (TypeStruct
             (DeclPathName
-              (CName "struct4")
-              DeclPathCtxtTop)),
+              (CName "struct4"))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "struct_name3",
@@ -482,8 +477,7 @@
             TypePointer
               (TypeStruct
                 (DeclPathName
-                  (CName "struct4")
-                  DeclPathCtxtTop)),
+                  (CName "struct4"))),
             TypeTypedef (CName "MC")],
           functionRes = TypeVoid,
           functionHeader =
@@ -596,8 +590,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "struct1")
-            DeclPathCtxtTop,
+            (CName "struct1"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -643,8 +636,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "struct1")
-              DeclPathCtxtTop,
+              (CName "struct1"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -695,8 +687,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "struct1")
-                      DeclPathCtxtTop,
+                      (CName "struct1"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -747,8 +738,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "struct1")
-                      DeclPathCtxtTop,
+                      (CName "struct1"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -1028,8 +1018,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "struct3")
-            DeclPathCtxtTop,
+            (CName "struct3"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -1075,8 +1064,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "struct3")
-              DeclPathCtxtTop,
+              (CName "struct3"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -1127,8 +1115,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "struct3")
-                      DeclPathCtxtTop,
+                      (CName "struct3"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -1179,8 +1166,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "struct3")
-                      DeclPathCtxtTop,
+                      (CName "struct3"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -1238,8 +1224,7 @@
           typedefName = CName "struct3_t",
           typedefType = TypeStruct
             (DeclPathName
-              (CName "struct3")
-              DeclPathCtxtTop),
+              (CName "struct3")),
           typedefSourceLoc =
           "macro_in_fundecl_vs_typedef.h:20:35"}},
   DeclNewtypeInstance
@@ -1277,8 +1262,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "struct4")
-            DeclPathCtxtTop,
+            (CName "struct4"),
           structAliases = [
             CName "struct4"],
           structSizeof = 4,
@@ -1325,8 +1309,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "struct4")
-              DeclPathCtxtTop,
+              (CName "struct4"),
             structAliases = [
               CName "struct4"],
             structSizeof = 4,
@@ -1378,8 +1361,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "struct4")
-                      DeclPathCtxtTop,
+                      (CName "struct4"),
                     structAliases = [
                       CName "struct4"],
                     structSizeof = 4,
@@ -1431,8 +1413,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "struct4")
-                      DeclPathCtxtTop,
+                      (CName "struct4"),
                     structAliases = [
                       CName "struct4"],
                     structSizeof = 4,

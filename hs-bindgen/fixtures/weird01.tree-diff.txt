@@ -6,10 +6,7 @@ Header
         functionArgs = [
           TypePointer
             (TypeStruct
-              (DeclPathName
-                (CName "bar")
-                (DeclPathCtxtPtr
-                  DeclPathCtxtTop)))],
+              (DeclPathName (CName "bar")))],
         functionRes = TypeVoid,
         functionHeader = "weird01.h",
         functionSourceLoc =
@@ -17,8 +14,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "foo")
-          DeclPathCtxtTop,
+          (CName "foo"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,
@@ -37,9 +33,7 @@ Header
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
-          (CName "bar")
-          (DeclPathCtxtPtr
-            DeclPathCtxtTop),
+          (CName "bar"),
         structAliases = [],
         structSizeof = 4,
         structAlignment = 4,

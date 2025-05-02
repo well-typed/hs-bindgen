@@ -18,8 +18,7 @@
       NewtypeOriginEnum
         Enu {
           enumDeclPath = DeclPathName
-            (CName "foo")
-            DeclPathCtxtTop,
+            (CName "foo"),
           enumAliases = [],
           enumType = TypePrim
             (PrimIntegral PrimInt Unsigned),
@@ -58,8 +57,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "foo")
-              DeclPathCtxtTop,
+              (CName "foo"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -103,8 +101,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop,
+                      (CName "foo"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -148,8 +145,7 @@
                 structOrigin = StructOriginEnum
                   Enu {
                     enumDeclPath = DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop,
+                      (CName "foo"),
                     enumAliases = [],
                     enumType = TypePrim
                       (PrimIntegral PrimInt Unsigned),
@@ -207,8 +203,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "foo")
-              DeclPathCtxtTop,
+              (CName "foo"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -253,8 +248,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "foo")
-              DeclPathCtxtTop,
+              (CName "foo"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),
@@ -295,8 +289,7 @@
         structOrigin = StructOriginEnum
           Enu {
             enumDeclPath = DeclPathName
-              (CName "foo")
-              DeclPathCtxtTop,
+              (CName "foo"),
             enumAliases = [],
             enumType = TypePrim
               (PrimIntegral PrimInt Unsigned),

@@ -112,8 +112,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "flags")
-            DeclPathCtxtTop,
+            (CName "flags"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -287,8 +286,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "flags")
-              DeclPathCtxtTop,
+              (CName "flags"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -467,8 +465,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "flags")
-                      DeclPathCtxtTop,
+                      (CName "flags"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -653,8 +650,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "flags")
-                      DeclPathCtxtTop,
+                      (CName "flags"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -812,8 +808,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "overflow32")
-            DeclPathCtxtTop,
+            (CName "overflow32"),
           structAliases = [],
           structSizeof = 12,
           structAlignment = 4,
@@ -907,8 +902,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "overflow32")
-              DeclPathCtxtTop,
+              (CName "overflow32"),
             structAliases = [],
             structSizeof = 12,
             structAlignment = 4,
@@ -1007,8 +1001,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow32")
-                      DeclPathCtxtTop,
+                      (CName "overflow32"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1110,8 +1103,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow32")
-                      DeclPathCtxtTop,
+                      (CName "overflow32"),
                     structAliases = [],
                     structSizeof = 12,
                     structAlignment = 4,
@@ -1234,8 +1226,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "overflow32b")
-            DeclPathCtxtTop,
+            (CName "overflow32b"),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 8,
@@ -1329,8 +1320,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "overflow32b")
-              DeclPathCtxtTop,
+              (CName "overflow32b"),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 8,
@@ -1429,8 +1419,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow32b")
-                      DeclPathCtxtTop,
+                      (CName "overflow32b"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 8,
@@ -1532,8 +1521,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow32b")
-                      DeclPathCtxtTop,
+                      (CName "overflow32b"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 8,
@@ -1656,8 +1644,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "overflow32c")
-            DeclPathCtxtTop,
+            (CName "overflow32c"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -1751,8 +1738,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "overflow32c")
-              DeclPathCtxtTop,
+              (CName "overflow32c"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -1851,8 +1837,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow32c")
-                      DeclPathCtxtTop,
+                      (CName "overflow32c"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -1954,8 +1939,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow32c")
-                      DeclPathCtxtTop,
+                      (CName "overflow32c"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -2062,8 +2046,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "overflow64")
-            DeclPathCtxtTop,
+            (CName "overflow64"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -2133,8 +2116,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "overflow64")
-              DeclPathCtxtTop,
+              (CName "overflow64"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -2209,8 +2191,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow64")
-                      DeclPathCtxtTop,
+                      (CName "overflow64"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -2287,8 +2268,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "overflow64")
-                      DeclPathCtxtTop,
+                      (CName "overflow64"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -2383,8 +2363,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "alignA")
-            DeclPathCtxtTop,
+            (CName "alignA"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -2456,8 +2435,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "alignA")
-              DeclPathCtxtTop,
+              (CName "alignA"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -2534,8 +2512,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "alignA")
-                      DeclPathCtxtTop,
+                      (CName "alignA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -2614,8 +2591,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "alignA")
-                      DeclPathCtxtTop,
+                      (CName "alignA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -2711,8 +2687,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "alignB")
-            DeclPathCtxtTop,
+            (CName "alignB"),
           structAliases = [],
           structSizeof = 8,
           structAlignment = 4,
@@ -2784,8 +2759,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "alignB")
-              DeclPathCtxtTop,
+              (CName "alignB"),
             structAliases = [],
             structSizeof = 8,
             structAlignment = 4,
@@ -2862,8 +2836,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "alignB")
-                      DeclPathCtxtTop,
+                      (CName "alignB"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,
@@ -2942,8 +2915,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "alignB")
-                      DeclPathCtxtTop,
+                      (CName "alignB"),
                     structAliases = [],
                     structSizeof = 8,
                     structAlignment = 4,

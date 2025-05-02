@@ -28,8 +28,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "S1")
-            DeclPathCtxtTop,
+            (CName "S1"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -75,8 +74,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "S1")
-              DeclPathCtxtTop,
+              (CName "S1"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -127,8 +125,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "S1")
-                      DeclPathCtxtTop,
+                      (CName "S1"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -179,8 +176,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "S1")
-                      DeclPathCtxtTop,
+                      (CName "S1"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -231,9 +227,7 @@
         Typedef {
           typedefName = CName "S1_t",
           typedefType = TypeStruct
-            (DeclPathName
-              (CName "S1")
-              DeclPathCtxtTop),
+            (DeclPathName (CName "S1")),
           typedefSourceLoc =
           "forward_declaration.h:1:19"}},
   DeclNewtypeInstance
@@ -269,8 +263,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "S2")
-            DeclPathCtxtTop,
+            (CName "S2"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -316,8 +309,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "S2")
-              DeclPathCtxtTop,
+              (CName "S2"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -368,8 +360,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "S2")
-                      DeclPathCtxtTop,
+                      (CName "S2"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -420,8 +411,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "S2")
-                      DeclPathCtxtTop,
+                      (CName "S2"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,

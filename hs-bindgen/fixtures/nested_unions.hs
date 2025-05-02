@@ -17,11 +17,7 @@
       NewtypeOriginUnion
         Union {
           unionDeclPath = DeclPathName
-            (CName "unionA")
-            (DeclPathCtxtField
-              (Just (CName "exA"))
-              (CName "fieldA1")
-              DeclPathCtxtTop),
+            (CName "unionA"),
           unionAliases = [],
           unionSizeof = 4,
           unionAlignment = 4,
@@ -105,20 +101,14 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeUnion
-                (DeclPathName
-                  (CName "unionA")
-                  (DeclPathCtxtField
-                    (Just (CName "exA"))
-                    (CName "fieldA1")
-                    DeclPathCtxtTop)),
+                (DeclPathName (CName "unionA")),
               fieldSourceLoc =
               "nested_unions.h:5:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "exA")
-            DeclPathCtxtTop,
+            (CName "exA"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -128,12 +118,7 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeUnion
-                (DeclPathName
-                  (CName "unionA")
-                  (DeclPathCtxtField
-                    (Just (CName "exA"))
-                    (CName "fieldA1")
-                    DeclPathCtxtTop)),
+                (DeclPathName (CName "unionA")),
               fieldSourceLoc =
               "nested_unions.h:5:11"}],
           structFlam = Nothing,
@@ -164,20 +149,14 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeUnion
-                  (DeclPathName
-                    (CName "unionA")
-                    (DeclPathCtxtField
-                      (Just (CName "exA"))
-                      (CName "fieldA1")
-                      DeclPathCtxtTop)),
+                  (DeclPathName (CName "unionA")),
                 fieldSourceLoc =
                 "nested_unions.h:5:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "exA")
-              DeclPathCtxtTop,
+              (CName "exA"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -187,12 +166,7 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeUnion
-                  (DeclPathName
-                    (CName "unionA")
-                    (DeclPathCtxtField
-                      (Just (CName "exA"))
-                      (CName "fieldA1")
-                      DeclPathCtxtTop)),
+                  (DeclPathName (CName "unionA")),
                 fieldSourceLoc =
                 "nested_unions.h:5:11"}],
             structFlam = Nothing,
@@ -228,20 +202,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "unionA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "unionA")),
                         fieldSourceLoc =
                         "nested_unions.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exA")
-                      DeclPathCtxtTop,
+                      (CName "exA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -251,12 +219,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "unionA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "unionA")),
                         fieldSourceLoc =
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
@@ -292,20 +255,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "unionA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "unionA")),
                         fieldSourceLoc =
                         "nested_unions.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exA")
-                      DeclPathCtxtTop,
+                      (CName "exA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -315,12 +272,7 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeUnion
-                          (DeclPathName
-                            (CName "unionA")
-                            (DeclPathCtxtField
-                              (Just (CName "exA"))
-                              (CName "fieldA1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "unionA")),
                         fieldSourceLoc =
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
@@ -457,8 +409,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "exB")
-            DeclPathCtxtTop,
+            (CName "exB"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
@@ -514,8 +465,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "exB")
-              DeclPathCtxtTop,
+              (CName "exB"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
@@ -576,8 +526,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exB")
-                      DeclPathCtxtTop,
+                      (CName "exB"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
@@ -638,8 +587,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exB")
-                      DeclPathCtxtTop,
+                      (CName "exB"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,

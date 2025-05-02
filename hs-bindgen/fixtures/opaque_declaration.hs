@@ -35,9 +35,7 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName
-                    (CName "foo")
-                    DeclPathCtxtTop)),
+                  (DeclPathName (CName "foo"))),
               fieldSourceLoc =
               "opaque_declaration.h:5:17"}},
         Field {
@@ -55,17 +53,14 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName
-                    (CName "bar")
-                    DeclPathCtxtTop)),
+                  (DeclPathName (CName "bar"))),
               fieldSourceLoc =
               "opaque_declaration.h:6:17"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "bar")
-            DeclPathCtxtTop,
+            (CName "bar"),
           structAliases = [],
           structSizeof = 16,
           structAlignment = 8,
@@ -76,9 +71,7 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName
-                    (CName "foo")
-                    DeclPathCtxtTop)),
+                  (DeclPathName (CName "foo"))),
               fieldSourceLoc =
               "opaque_declaration.h:5:17"},
             StructField {
@@ -87,9 +80,7 @@
               fieldWidth = Nothing,
               fieldType = TypePointer
                 (TypeStruct
-                  (DeclPathName
-                    (CName "bar")
-                    DeclPathCtxtTop)),
+                  (DeclPathName (CName "bar"))),
               fieldSourceLoc =
               "opaque_declaration.h:6:17"}],
           structFlam = Nothing,
@@ -120,9 +111,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop)),
+                    (DeclPathName (CName "foo"))),
                 fieldSourceLoc =
                 "opaque_declaration.h:5:17"}},
           Field {
@@ -140,17 +129,14 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName
-                      (CName "bar")
-                      DeclPathCtxtTop)),
+                    (DeclPathName (CName "bar"))),
                 fieldSourceLoc =
                 "opaque_declaration.h:6:17"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "bar")
-              DeclPathCtxtTop,
+              (CName "bar"),
             structAliases = [],
             structSizeof = 16,
             structAlignment = 8,
@@ -161,9 +147,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName
-                      (CName "foo")
-                      DeclPathCtxtTop)),
+                    (DeclPathName (CName "foo"))),
                 fieldSourceLoc =
                 "opaque_declaration.h:5:17"},
               StructField {
@@ -172,9 +156,7 @@
                 fieldWidth = Nothing,
                 fieldType = TypePointer
                   (TypeStruct
-                    (DeclPathName
-                      (CName "bar")
-                      DeclPathCtxtTop)),
+                    (DeclPathName (CName "bar"))),
                 fieldSourceLoc =
                 "opaque_declaration.h:6:17"}],
             structFlam = Nothing,
@@ -210,9 +192,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "foo")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "foo"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:5:17"}},
                   Field {
@@ -230,17 +210,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "bar")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "bar"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:6:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "bar")
-                      DeclPathCtxtTop,
+                      (CName "bar"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -251,9 +228,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "foo")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "foo"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:5:17"},
                       StructField {
@@ -262,9 +237,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "bar")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "bar"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
@@ -302,9 +275,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "foo")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "foo"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:5:17"}},
                   Field {
@@ -322,17 +293,14 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "bar")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "bar"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:6:17"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "bar")
-                      DeclPathCtxtTop,
+                      (CName "bar"),
                     structAliases = [],
                     structSizeof = 16,
                     structAlignment = 8,
@@ -343,9 +311,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "foo")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "foo"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:5:17"},
                       StructField {
@@ -354,9 +320,7 @@
                         fieldWidth = Nothing,
                         fieldType = TypePointer
                           (TypeStruct
-                            (DeclPathName
-                              (CName "bar")
-                              DeclPathCtxtTop)),
+                            (DeclPathName (CName "bar"))),
                         fieldSourceLoc =
                         "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
@@ -391,8 +355,7 @@
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "baz")
-            DeclPathCtxtTop,
+            (CName "baz"),
           structAliases = [],
           structSizeof = 0,
           structAlignment = 1,
@@ -414,8 +377,7 @@
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "baz")
-              DeclPathCtxtTop,
+              (CName "baz"),
             structAliases = [],
             structSizeof = 0,
             structAlignment = 1,
@@ -442,8 +404,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "baz")
-                      DeclPathCtxtTop,
+                      (CName "baz"),
                     structAliases = [],
                     structSizeof = 0,
                     structAlignment = 1,
@@ -470,8 +431,7 @@
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "baz")
-                      DeclPathCtxtTop,
+                      (CName "baz"),
                     structAliases = [],
                     structSizeof = 0,
                     structAlignment = 1,
