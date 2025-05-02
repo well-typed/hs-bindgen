@@ -37,14 +37,15 @@ import HsBindgen.Util.Tracer (prettyLogMsg)
 processTypeDecl ::
      ExtBindings
   -> CXTranslationUnit
+  -> DeclLoc
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl extBindings unit declCursor ty = do
+processTypeDecl extBindings unit declLoc declCursor ty = do
     -- dtraceIO "processTypeDecl" ty
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                        -> processTypeDecl' DeclPathCtxtTop extBindings unit declCursor ty
+        Nothing                        -> processTypeDecl' DeclPathCtxtTop extBindings unit declLoc declCursor ty
         Just (TypeDecl t _)            -> return t
         Just (TypeDeclAlias t)         -> return t
         Just (TypeDeclProcessing t' _) -> panicIO $ "Incomplete type declaration: " ++ show t'
@@ -53,13 +54,14 @@ processTypeDeclRec ::
      DeclPathCtxt
   -> ExtBindings
   -> CXTranslationUnit
+  -> DeclLoc
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDeclRec ctxt extBindings unit curr ty = do
+processTypeDeclRec ctxt extBindings unit declLoc declCursor ty = do
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                       -> processTypeDecl' ctxt extBindings unit curr ty
+        Nothing                       -> processTypeDecl' ctxt extBindings unit declLoc declCursor ty
         Just (TypeDecl t _)           -> return t
         Just (TypeDeclAlias t)        -> return t
         Just (TypeDeclProcessing t _) -> return t
@@ -106,19 +108,21 @@ processTypeDecl' ::
      DeclPathCtxt
   -> ExtBindings
   -> CXTranslationUnit
+  -> DeclLoc
+     -- ^ Location (for error messages)
   -> Maybe CXCursor
       -- ^ cursor of the type declaration; only used for reparsing
       -- function declarations containing macros
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- clang_Type_getNamedType ty
-        processTypeDeclRec ctxt extBindings unit Nothing ty'
+        processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Named) Nothing ty'
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -136,6 +140,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
         case mExtId of
             Just extId -> addAlias ty $ TypeExtBinding extId ctype
             Nothing -> do
+
                 tag <- CName <$> clang_getCursorSpelling decl
                 mbTy <- if not hasMacro
                         then return Nothing
@@ -160,7 +165,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                 use <- case mbTy of
                          Just ty1 -> return ty1
                          Nothing  ->
-                           processTypeDeclRec (DeclPathCtxtTypedef tag) extBindings unit Nothing ty'
+                           processTypeDeclRec (DeclPathCtxtTypedef tag) extBindings unit (RelatedTo declLoc TypedefUnderlying) Nothing ty'
 
                 -- we could check whether typedef has a transparent tag,
                 -- like in case of `typedef struct foo {..} foo;`
@@ -312,7 +317,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                         sizeof    <- clang_Type_getSizeOf  ty
                         alignment <- clang_Type_getAlignOf ty
                         ety       <- clang_getEnumDeclIntegerType decl
-                          >>= processTypeDeclRec DeclPathCtxtTop extBindings unit Nothing
+                          >>= processTypeDeclRec DeclPathCtxtTop extBindings unit (RelatedTo declLoc EnumInteger) Nothing
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -332,14 +337,14 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     Right CXType_Pointer -> do
         pointee <- clang_getPointeeType ty
-        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) extBindings unit Nothing pointee
+        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) extBindings unit (RelatedTo declLoc Pointee) Nothing pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- clang_getArraySize ty
         e <- clang_getArrayElementType ty
         -- TODO: This context should use 'DeclPathCtxtConstArray'
-        e' <- processTypeDeclRec ctxt extBindings unit Nothing e
+        e' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeConstArray (fromIntegral n) e')
 
     Right CXType_Void -> do
@@ -358,12 +363,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
     Right CXType_IncompleteArray -> do
         e <- clang_getArrayElementType ty
         -- TODO: Should this also use 'DeclPathCtxtConstArray'?
-        e' <- processTypeDeclRec ctxt extBindings unit Nothing e
+        e' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeIncompleteArray e')
 
-    _ -> do
-      mLoc <- traverse HighLevel.clang_getCursorLocation declCursor
-      unrecognizedType ty (multiLocExpansion <$> mLoc)
+    _otherwise ->
+      unrecognizedType ty declLoc
 
   where
     processFun :: Eff (State DeclState) Type
@@ -418,11 +422,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             -- but for CApiFFI it's irrelevant as it creates C wrappers with known convention
 
             res <- clang_getResultType ty
-            res' <- processTypeDeclRec ctxt extBindings unit Nothing res
+            res' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Result) Nothing res
             nargs <- clang_getNumArgTypes ty
             args' <- forM [0 .. nargs - 1] $ \i -> do
               arg <- clang_getArgType ty (fromIntegral i)
-              processTypeDeclRec ctxt extBindings unit Nothing arg
+              processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Arg) Nothing arg
 
             -- There are no macros in the function, hence no macros in the
             -- function argument or return types either. This is why it's OK
@@ -671,10 +675,10 @@ mkStructField extBindings unit mkCtxt current = do
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
                   e <- clang_getArrayElementType ty
-                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing e
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit (RelatedTo (Precise fieldSourceLoc) ArrayElement) Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
-                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing ty
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit (Precise fieldSourceLoc) Nothing ty
                   return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
@@ -760,7 +764,7 @@ mkUnionField extBindings unit mkCtxt current = do
             Nothing -> do
               fieldName <- CName <$> clang_getCursorDisplayName current
               ty        <- clang_getCursorType current
-              fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing ty
+              fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit (Precise ufieldSourceLoc) Nothing ty
               return (fieldName, fieldType)
 
         return $ Just $ UnionField{ufieldName, ufieldType, ufieldSourceLoc}

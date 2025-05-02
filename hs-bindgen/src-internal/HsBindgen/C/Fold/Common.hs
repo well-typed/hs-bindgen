@@ -5,6 +5,9 @@ module HsBindgen.C.Fold.Common (
     -- * Predicates
   , Skipped(..)
   , whenPredicateMatches
+    -- * Location
+  , DeclLoc(..)
+  , Relationship(..)
     -- * Errors
   , UnrecognizedCursor(..)
   , UnrecognizedType(..)
@@ -86,6 +89,32 @@ whenPredicateMatches tracer p mMainHeader current sloc k =
       Nothing -> return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
+  Location
+-------------------------------------------------------------------------------}
+
+data DeclLoc =
+    -- | We have a precise location
+    Precise SingleLoc
+
+    -- | We can only refer to the location of a related declaration
+    --
+    -- Sometimes we don't get a precise location, but instead can only refer to
+    -- the location of another declaration, and provide a hint about the
+    -- relationship between the two declarations.
+  | RelatedTo DeclLoc Relationship
+  deriving stock (Show)
+
+data Relationship =
+    Arg               -- ^ clang_getArgType
+  | ArrayElement      -- ^ clang_getArrayElementType
+  | Named             -- ^ clang_Type_getNamedType
+  | Pointee           -- ^ clang_getPointeeType
+  | Result            -- ^ clang_getResultType
+  | TypedefUnderlying -- ^ clang_getTypedefDeclUnderlyingType
+  | EnumInteger       -- ^ clang_getEnumDeclIntegerType
+  deriving stock (Show)
+
+{-------------------------------------------------------------------------------
   Errors
 -------------------------------------------------------------------------------}
 
@@ -100,7 +129,7 @@ data UnrecognizedCursor = UnrecognizedCursor {
 data UnrecognizedType = UnrecognizedType {
       unrecognizedTypeKind     :: SimpleEnum CXTypeKind
     , unrecognizedTypeSpelling :: Text
-    , unrecognizedTypeLocation :: Maybe SingleLoc
+    , unrecognizedTypeLocation :: DeclLoc
     , unrecognizedTypeTrace    :: Backtrace
     }
   deriving stock (Show)
@@ -120,19 +149,27 @@ unrecognizedCursor cursor = do
       , unrecognizedCursorTrace
       }
 
-unrecognizedType ::
-     (MonadIO m, HasCallStack)
-  => CXType -> Maybe SingleLoc -> m a
-unrecognizedType typ unrecognizedTypeLocation = do
+unrecognizedType :: (MonadIO m, HasCallStack) => CXType -> DeclLoc -> m a
+unrecognizedType typ declLoc = do
+    mTyLoc <- tryGetTypeLoc typ
     let unrecognizedTypeKind = cxtKind typ
     unrecognizedTypeTrace    <- collectBacktrace
     unrecognizedTypeSpelling <- clang_getTypeSpelling typ
     liftIO $ throwIO UnrecognizedType{
         unrecognizedTypeKind
       , unrecognizedTypeSpelling
-      , unrecognizedTypeLocation
+      , unrecognizedTypeLocation = maybe declLoc Precise mTyLoc
       , unrecognizedTypeTrace
       }
+
+-- | Get location of a 'CXType', if available
+tryGetTypeLoc :: MonadIO m => CXType -> m (Maybe SingleLoc)
+tryGetTypeLoc typ = do
+    cursor   <- clang_getTypeDeclaration typ
+    location <- multiLocExpansion <$> HighLevel.clang_getCursorLocation cursor
+    return $ if singleLocLine location /= 0
+               then Just location
+               else Nothing
 
 {-------------------------------------------------------------------------------
   Simple folds

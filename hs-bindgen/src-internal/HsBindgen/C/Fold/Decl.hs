@@ -43,6 +43,14 @@ foldDecls ::
 foldDecls tracer p extBindings headerIncludePaths unit current = do
     loc <- clang_getCursorLocation current
     sloc <- HighLevel.clang_getExpansionLocation loc
+
+    let typeDecl :: Eff (State DeclState) (Next m a)
+        typeDecl = do
+          ty <- clang_getCursorType current
+          -- TODO: add assert at ty is not invalid type.
+          void $ processTypeDecl extBindings unit (Precise sloc) (Just current) ty
+          return $ Continue Nothing
+
     eCursorKind <- fromSimpleEnum <$> clang_getCursorKind current
 
     -- process include directives even when predicate does not match
@@ -109,8 +117,8 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
 
         Right CXCursor_FunctionDecl -> do
           spelling <- clang_getCursorSpelling current
-          ty <- clang_getCursorType current
-          ty' <- processTypeDecl extBindings unit (Just current) ty
+          ty  <- clang_getCursorType current
+          ty' <- processTypeDecl extBindings unit (Precise sloc) (Just current) ty
 
           (args, res) <- case ty' of
             TypeFun args res -> return (args, res)
@@ -130,13 +138,6 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
 
         _otherwise -> do
           unrecognizedCursor current
-  where
-    typeDecl :: Eff (State DeclState) (Next m a)
-    typeDecl = do
-      ty <- clang_getCursorType current
-      -- TODO: add assert at ty is not invalid type.
-      void $ processTypeDecl extBindings unit ( Just current ) ty
-      return $ Continue Nothing
 
 {-------------------------------------------------------------------------------
   Macros
