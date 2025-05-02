@@ -1,220 +1,4 @@
 [
-  DeclData
-    Struct {
-      structName = HsName
-        "@NsTypeConstr"
-        "ExA",
-      structConstr = HsName
-        "@NsConstr"
-        "ExA",
-      structFields = [
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "exA_fieldA1",
-          fieldType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "EnumA"),
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "fieldA1",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeEnum
-                (DeclPathName (CName "enumA")),
-              fieldSourceLoc =
-              "nested_enums.h:5:11"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "exA"),
-          structAliases = [],
-          structSizeof = 4,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "fieldA1",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeEnum
-                (DeclPathName (CName "enumA")),
-              fieldSourceLoc =
-              "nested_enums.h:5:11"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "nested_enums.h:1:8"}},
-  DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "ExA",
-        structConstr = HsName
-          "@NsConstr"
-          "ExA",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "exA_fieldA1",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "EnumA"),
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "fieldA1",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeEnum
-                  (DeclPathName (CName "enumA")),
-                fieldSourceLoc =
-                "nested_enums.h:5:11"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "exA"),
-            structAliases = [],
-            structSizeof = 4,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "fieldA1",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeEnum
-                  (DeclPathName (CName "enumA")),
-                fieldSourceLoc =
-                "nested_enums.h:5:11"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "nested_enums.h:1:8"}}
-      StorableInstance {
-        storableSizeOf = 4,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExA",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExA",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "exA_fieldA1",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "EnumA"),
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "fieldA1",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathName (CName "enumA")),
-                        fieldSourceLoc =
-                        "nested_enums.h:5:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "exA"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "fieldA1",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathName (CName "enumA")),
-                        fieldSourceLoc =
-                        "nested_enums.h:5:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "nested_enums.h:1:8"}})
-            [PeekByteOff (Idx 0) 0]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "ExA",
-                structConstr = HsName
-                  "@NsConstr"
-                  "ExA",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "exA_fieldA1",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "EnumA"),
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "fieldA1",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathName (CName "enumA")),
-                        fieldSourceLoc =
-                        "nested_enums.h:5:11"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "exA"),
-                    structAliases = [],
-                    structSizeof = 4,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "fieldA1",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeEnum
-                          (DeclPathName (CName "enumA")),
-                        fieldSourceLoc =
-                        "nested_enums.h:5:11"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "nested_enums.h:1:8"}}
-              (Add 1)
-              (Seq
-                [
-                  PokeByteOff
-                    (Idx 2)
-                    0
-                    (Idx 0)])))}),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "ExA"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "ExA"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -572,113 +356,97 @@
     Struct {
       structName = HsName
         "@NsTypeConstr"
-        "ExB",
+        "ExA",
       structConstr = HsName
         "@NsConstr"
-        "ExB",
+        "ExA",
       structFields = [
         Field {
           fieldName = HsName
             "@NsVar"
-            "exB_fieldB1",
+            "exA_fieldA1",
           fieldType = HsTypRef
             (HsName
               "@NsTypeConstr"
-              "ExB_fieldB1"),
+              "EnumA"),
           fieldOrigin =
           FieldOriginStructField
             StructField {
-              fieldName = CName "fieldB1",
+              fieldName = CName "fieldA1",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeEnum
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "exB"))
-                    (CName "fieldB1")
-                    DeclPathCtxtTop)),
+                (DeclPathName (CName "enumA")),
               fieldSourceLoc =
-              "nested_enums.h:12:11"}}],
+              "nested_enums.h:5:11"}}],
       structOrigin =
       StructOriginStruct
         Struct {
           structDeclPath = DeclPathName
-            (CName "exB"),
+            (CName "exA"),
           structAliases = [],
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
             StructField {
-              fieldName = CName "fieldB1",
+              fieldName = CName "fieldA1",
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeEnum
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "exB"))
-                    (CName "fieldB1")
-                    DeclPathCtxtTop)),
+                (DeclPathName (CName "enumA")),
               fieldSourceLoc =
-              "nested_enums.h:12:11"}],
+              "nested_enums.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_enums.h:8:8"}},
+          "nested_enums.h:1:8"}},
   DeclInstance
     (InstanceStorable
       Struct {
         structName = HsName
           "@NsTypeConstr"
-          "ExB",
+          "ExA",
         structConstr = HsName
           "@NsConstr"
-          "ExB",
+          "ExA",
         structFields = [
           Field {
             fieldName = HsName
               "@NsVar"
-              "exB_fieldB1",
+              "exA_fieldA1",
             fieldType = HsTypRef
               (HsName
                 "@NsTypeConstr"
-                "ExB_fieldB1"),
+                "EnumA"),
             fieldOrigin =
             FieldOriginStructField
               StructField {
-                fieldName = CName "fieldB1",
+                fieldName = CName "fieldA1",
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeEnum
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "exB"))
-                      (CName "fieldB1")
-                      DeclPathCtxtTop)),
+                  (DeclPathName (CName "enumA")),
                 fieldSourceLoc =
-                "nested_enums.h:12:11"}}],
+                "nested_enums.h:5:11"}}],
         structOrigin =
         StructOriginStruct
           Struct {
             structDeclPath = DeclPathName
-              (CName "exB"),
+              (CName "exA"),
             structAliases = [],
             structSizeof = 4,
             structAlignment = 4,
             structFields = [
               StructField {
-                fieldName = CName "fieldB1",
+                fieldName = CName "fieldA1",
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeEnum
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "exB"))
-                      (CName "fieldB1")
-                      DeclPathCtxtTop)),
+                  (DeclPathName (CName "enumA")),
                 fieldSourceLoc =
-                "nested_enums.h:12:11"}],
+                "nested_enums.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_enums.h:8:8"}}
+            "nested_enums.h:1:8"}}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -689,57 +457,49 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "ExB",
+                  "ExA",
                 structConstr = HsName
                   "@NsConstr"
-                  "ExB",
+                  "ExA",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "exB_fieldB1",
+                      "exA_fieldA1",
                     fieldType = HsTypRef
                       (HsName
                         "@NsTypeConstr"
-                        "ExB_fieldB1"),
+                        "EnumA"),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "fieldB1",
+                        fieldName = CName "fieldA1",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "exB"))
-                              (CName "fieldB1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
-                        "nested_enums.h:12:11"}}],
+                        "nested_enums.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exB"),
+                      (CName "exA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
                       StructField {
-                        fieldName = CName "fieldB1",
+                        fieldName = CName "fieldA1",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "exB"))
-                              (CName "fieldB1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
-                        "nested_enums.h:12:11"}],
+                        "nested_enums.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:8:8"}})
+                    "nested_enums.h:1:8"}})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -750,57 +510,49 @@
               Struct {
                 structName = HsName
                   "@NsTypeConstr"
-                  "ExB",
+                  "ExA",
                 structConstr = HsName
                   "@NsConstr"
-                  "ExB",
+                  "ExA",
                 structFields = [
                   Field {
                     fieldName = HsName
                       "@NsVar"
-                      "exB_fieldB1",
+                      "exA_fieldA1",
                     fieldType = HsTypRef
                       (HsName
                         "@NsTypeConstr"
-                        "ExB_fieldB1"),
+                        "EnumA"),
                     fieldOrigin =
                     FieldOriginStructField
                       StructField {
-                        fieldName = CName "fieldB1",
+                        fieldName = CName "fieldA1",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "exB"))
-                              (CName "fieldB1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
-                        "nested_enums.h:12:11"}}],
+                        "nested_enums.h:5:11"}}],
                 structOrigin =
                 StructOriginStruct
                   Struct {
                     structDeclPath = DeclPathName
-                      (CName "exB"),
+                      (CName "exA"),
                     structAliases = [],
                     structSizeof = 4,
                     structAlignment = 4,
                     structFields = [
                       StructField {
-                        fieldName = CName "fieldB1",
+                        fieldName = CName "fieldA1",
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeEnum
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "exB"))
-                              (CName "fieldB1")
-                              DeclPathCtxtTop)),
+                          (DeclPathName (CName "enumA")),
                         fieldSourceLoc =
-                        "nested_enums.h:12:11"}],
+                        "nested_enums.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:8:8"}}
+                    "nested_enums.h:1:8"}}
               (Add 1)
               (Seq
                 [
@@ -811,11 +563,11 @@
   DeclNewtypeInstance
     DeriveStock
     Show
-    (HsName "@NsTypeConstr" "ExB"),
+    (HsName "@NsTypeConstr" "ExA"),
   DeclNewtypeInstance
     DeriveStock
     Eq
-    (HsName "@NsTypeConstr" "ExB"),
+    (HsName "@NsTypeConstr" "ExA"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1189,4 +941,252 @@
           valueName = CName "VALB_2",
           valueValue = 1,
           valueSourceLoc =
-          "nested_enums.h:11:17"}}]
+          "nested_enums.h:11:17"}},
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "ExB",
+      structConstr = HsName
+        "@NsConstr"
+        "ExB",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "exB_fieldB1",
+          fieldType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "ExB_fieldB1"),
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "fieldB1",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypeEnum
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "exB"))
+                    (CName "fieldB1")
+                    DeclPathCtxtTop)),
+              fieldSourceLoc =
+              "nested_enums.h:12:11"}}],
+      structOrigin =
+      StructOriginStruct
+        Struct {
+          structDeclPath = DeclPathName
+            (CName "exB"),
+          structAliases = [],
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "fieldB1",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypeEnum
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "exB"))
+                    (CName "fieldB1")
+                    DeclPathCtxtTop)),
+              fieldSourceLoc =
+              "nested_enums.h:12:11"}],
+          structFlam = Nothing,
+          structSourceLoc =
+          "nested_enums.h:8:8"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "ExB",
+        structConstr = HsName
+          "@NsConstr"
+          "ExB",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "exB_fieldB1",
+            fieldType = HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "ExB_fieldB1"),
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "fieldB1",
+                fieldOffset = 0,
+                fieldWidth = Nothing,
+                fieldType = TypeEnum
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "exB"))
+                      (CName "fieldB1")
+                      DeclPathCtxtTop)),
+                fieldSourceLoc =
+                "nested_enums.h:12:11"}}],
+        structOrigin =
+        StructOriginStruct
+          Struct {
+            structDeclPath = DeclPathName
+              (CName "exB"),
+            structAliases = [],
+            structSizeof = 4,
+            structAlignment = 4,
+            structFields = [
+              StructField {
+                fieldName = CName "fieldB1",
+                fieldOffset = 0,
+                fieldWidth = Nothing,
+                fieldType = TypeEnum
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "exB"))
+                      (CName "fieldB1")
+                      DeclPathCtxtTop)),
+                fieldSourceLoc =
+                "nested_enums.h:12:11"}],
+            structFlam = Nothing,
+            structSourceLoc =
+            "nested_enums.h:8:8"}}
+      StorableInstance {
+        storableSizeOf = 4,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "ExB",
+                structConstr = HsName
+                  "@NsConstr"
+                  "ExB",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "exB_fieldB1",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "ExB_fieldB1"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "fieldB1",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeEnum
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "exB"))
+                              (CName "fieldB1")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "nested_enums.h:12:11"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathName
+                      (CName "exB"),
+                    structAliases = [],
+                    structSizeof = 4,
+                    structAlignment = 4,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "fieldB1",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeEnum
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "exB"))
+                              (CName "fieldB1")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "nested_enums.h:12:11"}],
+                    structFlam = Nothing,
+                    structSourceLoc =
+                    "nested_enums.h:8:8"}})
+            [PeekByteOff (Idx 0) 0]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "ExB",
+                structConstr = HsName
+                  "@NsConstr"
+                  "ExB",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "exB_fieldB1",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "ExB_fieldB1"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "fieldB1",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeEnum
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "exB"))
+                              (CName "fieldB1")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "nested_enums.h:12:11"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathName
+                      (CName "exB"),
+                    structAliases = [],
+                    structSizeof = 4,
+                    structAlignment = 4,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "fieldB1",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeEnum
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "exB"))
+                              (CName "fieldB1")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "nested_enums.h:12:11"}],
+                    structFlam = Nothing,
+                    structSourceLoc =
+                    "nested_enums.h:8:8"}}
+              (Add 1)
+              (Seq
+                [
+                  PokeByteOff
+                    (Idx 2)
+                    0
+                    (Idx 0)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "ExB"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "ExB")]

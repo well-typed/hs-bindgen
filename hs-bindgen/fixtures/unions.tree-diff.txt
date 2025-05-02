@@ -163,36 +163,6 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "unions.h:28:8"},
-    DeclUnion
-      Union {
-        unionDeclPath = DeclPathName
-          (CName "AnonA"),
-        unionAliases = [],
-        unionSizeof = 16,
-        unionAlignment = 8,
-        unionFields = [
-          UnionField {
-            ufieldName = CName "xy",
-            ufieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "AnonA"))
-                  (CName "xy")
-                  DeclPathCtxtTop)),
-            ufieldSourceLoc =
-            "unions.h:35:36"},
-          UnionField {
-            ufieldName = CName "polar",
-            ufieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "AnonA"))
-                  (CName "polar")
-                  DeclPathCtxtTop)),
-            ufieldSourceLoc =
-            "unions.h:36:36"}],
-        unionSourceLoc =
-        "unions.h:34:7"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -252,4 +222,34 @@ Header
             "unions.h:36:31"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:36:5"}]
+        "unions.h:36:5"},
+    DeclUnion
+      Union {
+        unionDeclPath = DeclPathName
+          (CName "AnonA"),
+        unionAliases = [],
+        unionSizeof = 16,
+        unionAlignment = 8,
+        unionFields = [
+          UnionField {
+            ufieldName = CName "xy",
+            ufieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "AnonA"))
+                  (CName "xy")
+                  DeclPathCtxtTop)),
+            ufieldSourceLoc =
+            "unions.h:35:36"},
+          UnionField {
+            ufieldName = CName "polar",
+            ufieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "AnonA"))
+                  (CName "polar")
+                  DeclPathCtxtTop)),
+            ufieldSourceLoc =
+            "unions.h:36:36"}],
+        unionSourceLoc =
+        "unions.h:34:7"}]

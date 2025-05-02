@@ -140,16 +140,6 @@ deriving stock instance Show Date
 deriving stock instance Eq Date
 foreign import capi safe "manual_examples.h getYear" getYear :: Ptr Date ->
                                                                 IO YEAR
-newtype Occupation = Occupation {un_Occupation :: ByteArray}
-deriving via (SizedByteArray 24 8) instance Storable Occupation
-get_occupation_student :: Occupation -> Student
-get_occupation_student = getUnionPayload
-set_occupation_student :: Student -> Occupation
-set_occupation_student = setUnionPayload
-get_occupation_employee :: Occupation -> Employee
-get_occupation_employee = getUnionPayload
-set_occupation_employee :: Employee -> Occupation
-set_occupation_employee = setUnionPayload
 data Student
     = Student {student_university :: (Ptr CChar), student_year :: CInt}
 instance Storable Student
@@ -175,22 +165,20 @@ instance Storable Employee
                                               employee_salary_5 -> pokeByteOff ptr_1 (0 :: Int) employee_company_3 >> (pokeByteOff ptr_1 (8 :: Int) employee_supervisor_4 >> pokeByteOff ptr_1 (16 :: Int) employee_salary_5)}}
 deriving stock instance Show Employee
 deriving stock instance Eq Employee
+newtype Occupation = Occupation {un_Occupation :: ByteArray}
+deriving via (SizedByteArray 24 8) instance Storable Occupation
+get_occupation_student :: Occupation -> Student
+get_occupation_student = getUnionPayload
+set_occupation_student :: Student -> Occupation
+set_occupation_student = setUnionPayload
+get_occupation_employee :: Occupation -> Employee
+get_occupation_employee = getUnionPayload
+set_occupation_employee :: Employee -> Occupation
+set_occupation_employee = setUnionPayload
 data Person
 foreign import capi safe "manual_examples.h print_occupation" print_occupation :: CInt ->
                                                                                   Ptr Occupation ->
                                                                                   IO Unit
-data Rect
-    = Rect {rect_lower_left :: Rect_lower_left,
-            rect_upper_right :: Rect_upper_right}
-instance Storable Rect
-    where {sizeOf = \_ -> 16 :: Int;
-           alignment = \_ -> 4 :: Int;
-           peek = \ptr_0 -> (pure Rect <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
-           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                    {Rect rect_lower_left_3
-                                          rect_upper_right_4 -> pokeByteOff ptr_1 (0 :: Int) rect_lower_left_3 >> pokeByteOff ptr_1 (8 :: Int) rect_upper_right_4}}
-deriving stock instance Show Rect
-deriving stock instance Eq Rect
 data Rect_lower_left
     = Rect_lower_left {rect_lower_left_x :: CInt,
                        rect_lower_left_y :: CInt}
@@ -215,6 +203,18 @@ instance Storable Rect_upper_right
                                                       rect_upper_right_y_4 -> pokeByteOff ptr_1 (0 :: Int) rect_upper_right_x_3 >> pokeByteOff ptr_1 (4 :: Int) rect_upper_right_y_4}}
 deriving stock instance Show Rect_upper_right
 deriving stock instance Eq Rect_upper_right
+data Rect
+    = Rect {rect_lower_left :: Rect_lower_left,
+            rect_upper_right :: Rect_upper_right}
+instance Storable Rect
+    where {sizeOf = \_ -> 16 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> (pure Rect <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Rect rect_lower_left_3
+                                          rect_upper_right_4 -> pokeByteOff ptr_1 (0 :: Int) rect_lower_left_3 >> pokeByteOff ptr_1 (8 :: Int) rect_upper_right_4}}
+deriving stock instance Show Rect
+deriving stock instance Eq Rect
 data Config_Deref
     = Config_Deref {config_Deref_width :: CInt,
                     config_Deref_height :: CInt}

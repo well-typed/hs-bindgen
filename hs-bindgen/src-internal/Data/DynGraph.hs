@@ -10,6 +10,7 @@ module Data.DynGraph (
   , vertices
   , reaches
   , topSort
+  , dff
     -- * Debugging
   , dumpMermaid
   ) where
@@ -32,7 +33,7 @@ import Data.Tree qualified as Tree
   Type
 -------------------------------------------------------------------------------}
 
--- | Directed graph that supports dynamic insertion and a 'reaches' query
+-- | Directed graph that supports dynamic insertion
 --
 -- Type variable @a@ represents the type of a vertex in the graph.  Internally,
 -- each value is mapped to an 'Int' index that is used in the representation of
@@ -102,6 +103,11 @@ reaches DynGraph{..} v = case Map.lookup v vtxMap of
 -- | Gets a topological sort of the graph
 topSort :: DynGraph a -> [a]
 topSort dynGraph@DynGraph{..} = (idxMap Map.!) <$> topSort' dynGraph
+
+-- | Gets the spanning forest of the graph obtained from a depth-first search of
+-- the graph starting from each vertex in insertion order
+dff :: DynGraph a -> [Tree a]
+dff dynGraph@DynGraph{..} = fmap (idxMap Map.!) <$> dff' dynGraph
 
 {-------------------------------------------------------------------------------
   Debugging
@@ -178,20 +184,20 @@ reaches' edgeMap = aux Map.empty . pure
 topSort' :: DynGraph a -> [Int]
 topSort' dynGraph = reverse $ postorderF (dff' dynGraph) []
   where
-    postorderF :: [Tree Int] -> [Int] -> [Int]
+    postorderF :: [Tree a] -> [a] -> [a]
     postorderF = foldr ((.) . postorder) id
 
-    postorder :: Tree Int -> [Int] -> [Int]
+    postorder :: Tree a -> [a] -> [a]
     postorder (Tree.Node idx children) = postorderF children . (idx :)
 
--- | Gets a spanning forest of the graph, obtained from a depth-first search of
--- the graph starting from each index in an unspecified order
+-- | Gets the spanning forest of the graph obtained from a depth-first search of
+-- the graph starting from each vertex index in insertion order
 dff' :: DynGraph a -> [Tree Int]
 dff' dynGraph@DynGraph{..} = dfs' dynGraph (Map.keys idxMap)
 
 -- | Gets a spanning forest of the part of the graph reachable from the listed
--- indexes, obtained from a depth-first search of the graph starting at each of
--- the listed indexes in order
+-- vertext indexes, obtained from a depth-first search of the graph starting at
+-- each of the listed vertex indexes in order
 dfs' :: DynGraph a -> [Int] -> [Tree Int]
 dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
     0 -> []

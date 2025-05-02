@@ -335,24 +335,6 @@ deriving stock instance Eq Date
 
 foreign import capi safe "manual_examples.h getYear" getYear :: (F.Ptr Date) -> IO YEAR
 
-newtype Occupation = Occupation
-  { un_Occupation :: Data.Array.Byte.ByteArray
-  }
-
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 24) 8 instance F.Storable Occupation
-
-get_occupation_student :: Occupation -> Student
-get_occupation_student = HsBindgen.Runtime.ByteArray.getUnionPayload
-
-set_occupation_student :: Student -> Occupation
-set_occupation_student = HsBindgen.Runtime.ByteArray.setUnionPayload
-
-get_occupation_employee :: Occupation -> Employee
-get_occupation_employee = HsBindgen.Runtime.ByteArray.getUnionPayload
-
-set_occupation_employee :: Employee -> Occupation
-set_occupation_employee = HsBindgen.Runtime.ByteArray.setUnionPayload
-
 data Student = Student
   { student_university :: F.Ptr FC.CChar
   , student_year :: FC.CInt
@@ -414,40 +396,29 @@ deriving stock instance Show Employee
 
 deriving stock instance Eq Employee
 
+newtype Occupation = Occupation
+  { un_Occupation :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 24) 8 instance F.Storable Occupation
+
+get_occupation_student :: Occupation -> Student
+get_occupation_student = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_occupation_student :: Student -> Occupation
+set_occupation_student = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+get_occupation_employee :: Occupation -> Employee
+get_occupation_employee = HsBindgen.Runtime.ByteArray.getUnionPayload
+
+set_occupation_employee :: Employee -> Occupation
+set_occupation_employee = HsBindgen.Runtime.ByteArray.setUnionPayload
+
 data Person
 
 -- void print_occupation (signed int arg1, union occupation *arg2)
 
 foreign import capi safe "manual_examples.h print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
-
-data Rect = Rect
-  { rect_lower_left :: Rect_lower_left
-  , rect_upper_right :: Rect_upper_right
-  }
-
-instance F.Storable Rect where
-
-  sizeOf = \_ -> (16 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Rect
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Rect rect_lower_left2 rect_upper_right3 ->
-               F.pokeByteOff ptr0 (0 :: Int) rect_lower_left2
-            >> F.pokeByteOff ptr0 (8 :: Int) rect_upper_right3
-
-deriving stock instance Show Rect
-
-deriving stock instance Eq Rect
 
 data Rect_lower_left = Rect_lower_left
   { rect_lower_left_x :: FC.CInt
@@ -506,6 +477,35 @@ instance F.Storable Rect_upper_right where
 deriving stock instance Show Rect_upper_right
 
 deriving stock instance Eq Rect_upper_right
+
+data Rect = Rect
+  { rect_lower_left :: Rect_lower_left
+  , rect_upper_right :: Rect_upper_right
+  }
+
+instance F.Storable Rect where
+
+  sizeOf = \_ -> (16 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Rect
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Rect rect_lower_left2 rect_upper_right3 ->
+               F.pokeByteOff ptr0 (0 :: Int) rect_lower_left2
+            >> F.pokeByteOff ptr0 (8 :: Int) rect_upper_right3
+
+deriving stock instance Show Rect
+
+deriving stock instance Eq Rect
 
 data Config_Deref = Config_Deref
   { config_Deref_width :: FC.CInt

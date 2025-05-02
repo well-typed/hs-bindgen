@@ -325,31 +325,6 @@ Header
         "manual_examples.h",
         functionSourceLoc =
         "manual_examples.h:63:6"},
-    DeclUnion
-      Union {
-        unionDeclPath = DeclPathName
-          (CName "occupation"),
-        unionAliases = [
-          CName "occupation"],
-        unionSizeof = 24,
-        unionAlignment = 8,
-        unionFields = [
-          UnionField {
-            ufieldName = CName "student",
-            ufieldType = TypeStruct
-              (DeclPathName
-                (CName "student")),
-            ufieldSourceLoc =
-            "manual_examples.h:73:5"},
-          UnionField {
-            ufieldName = CName "employee",
-            ufieldType = TypeStruct
-              (DeclPathName
-                (CName "employee")),
-            ufieldSourceLoc =
-            "manual_examples.h:79:5"}],
-        unionSourceLoc =
-        "manual_examples.h:69:15"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -420,6 +395,31 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "manual_examples.h:75:10"},
+    DeclUnion
+      Union {
+        unionDeclPath = DeclPathName
+          (CName "occupation"),
+        unionAliases = [
+          CName "occupation"],
+        unionSizeof = 24,
+        unionAlignment = 8,
+        unionFields = [
+          UnionField {
+            ufieldName = CName "student",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "student")),
+            ufieldSourceLoc =
+            "manual_examples.h:73:5"},
+          UnionField {
+            ufieldName = CName "employee",
+            ufieldType = TypeStruct
+              (DeclPathName
+                (CName "employee")),
+            ufieldSourceLoc =
+            "manual_examples.h:79:5"}],
+        unionSourceLoc =
+        "manual_examples.h:69:15"},
     DeclOpaqueStruct
       OpaqueStruct {
         opaqueStructTag = CName
@@ -443,41 +443,6 @@ Header
         "manual_examples.h",
         functionSourceLoc =
         "manual_examples.h:82:6"},
-    DeclStruct
-      Struct {
-        structDeclPath = DeclPathName
-          (CName "rect"),
-        structAliases = [],
-        structSizeof = 16,
-        structAlignment = 4,
-        structFields = [
-          StructField {
-            fieldName = CName "lower_left",
-            fieldOffset = 0,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "rect"))
-                  (CName "lower_left")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "manual_examples.h:92:5"},
-          StructField {
-            fieldName = CName "upper_right",
-            fieldOffset = 64,
-            fieldWidth = Nothing,
-            fieldType = TypeStruct
-              (DeclPathAnon
-                (DeclPathCtxtField
-                  (Just (CName "rect"))
-                  (CName "upper_right")
-                  DeclPathCtxtTop)),
-            fieldSourceLoc =
-            "manual_examples.h:97:5"}],
-        structFlam = Nothing,
-        structSourceLoc =
-        "manual_examples.h:88:8"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -538,6 +503,41 @@ Header
         structFlam = Nothing,
         structSourceLoc =
         "manual_examples.h:94:3"},
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "rect"),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "lower_left",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "rect"))
+                  (CName "lower_left")
+                  DeclPathCtxtTop)),
+            fieldSourceLoc =
+            "manual_examples.h:92:5"},
+          StructField {
+            fieldName = CName "upper_right",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypeStruct
+              (DeclPathAnon
+                (DeclPathCtxtField
+                  (Just (CName "rect"))
+                  (CName "upper_right")
+                  DeclPathCtxtTop)),
+            fieldSourceLoc =
+            "manual_examples.h:97:5"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "manual_examples.h:88:8"},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon

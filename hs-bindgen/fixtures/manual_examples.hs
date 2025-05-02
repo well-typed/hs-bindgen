@@ -2015,97 +2015,6 @@
           "manual_examples.h",
           functionSourceLoc =
           "manual_examples.h:63:6"}},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "Occupation",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "Occupation",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_Occupation",
-        fieldType = HsByteArray,
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginUnion
-        Union {
-          unionDeclPath = DeclPathName
-            (CName "occupation"),
-          unionAliases = [
-            CName "occupation"],
-          unionSizeof = 24,
-          unionAlignment = 8,
-          unionFields = [
-            UnionField {
-              ufieldName = CName "student",
-              ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "student")),
-              ufieldSourceLoc =
-              "manual_examples.h:73:5"},
-            UnionField {
-              ufieldName = CName "employee",
-              ufieldType = TypeStruct
-                (DeclPathName
-                  (CName "employee")),
-              ufieldSourceLoc =
-              "manual_examples.h:79:5"}],
-          unionSourceLoc =
-          "manual_examples.h:69:15"}},
-  DeclNewtypeInstance
-    (DeriveVia
-      (HsSizedByteArray 24 8))
-    Storable
-    (HsName
-      "@NsTypeConstr"
-      "Occupation"),
-  DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "Occupation")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "Student"))
-    (HsName
-      "@NsVar"
-      "get_occupation_student"),
-  DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "Occupation")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "Student"))
-    (HsName
-      "@NsVar"
-      "set_occupation_student"),
-  DeclUnionGetter
-    (HsName
-      "@NsTypeConstr"
-      "Occupation")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "Employee"))
-    (HsName
-      "@NsVar"
-      "get_occupation_employee"),
-  DeclUnionSetter
-    (HsName
-      "@NsTypeConstr"
-      "Occupation")
-    (HsTypRef
-      (HsName
-        "@NsTypeConstr"
-        "Employee"))
-    (HsName
-      "@NsVar"
-      "set_occupation_employee"),
   DeclData
     Struct {
       structName = HsName
@@ -2902,6 +2811,97 @@
     (HsName
       "@NsTypeConstr"
       "Employee"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Occupation",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Occupation",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Occupation",
+        fieldType = HsByteArray,
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginUnion
+        Union {
+          unionDeclPath = DeclPathName
+            (CName "occupation"),
+          unionAliases = [
+            CName "occupation"],
+          unionSizeof = 24,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              ufieldName = CName "student",
+              ufieldType = TypeStruct
+                (DeclPathName
+                  (CName "student")),
+              ufieldSourceLoc =
+              "manual_examples.h:73:5"},
+            UnionField {
+              ufieldName = CName "employee",
+              ufieldType = TypeStruct
+                (DeclPathName
+                  (CName "employee")),
+              ufieldSourceLoc =
+              "manual_examples.h:79:5"}],
+          unionSourceLoc =
+          "manual_examples.h:69:15"}},
+  DeclNewtypeInstance
+    (DeriveVia
+      (HsSizedByteArray 24 8))
+    Storable
+    (HsName
+      "@NsTypeConstr"
+      "Occupation"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "Occupation")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "Student"))
+    (HsName
+      "@NsVar"
+      "get_occupation_student"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "Occupation")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "Student"))
+    (HsName
+      "@NsVar"
+      "set_occupation_student"),
+  DeclUnionGetter
+    (HsName
+      "@NsTypeConstr"
+      "Occupation")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "Employee"))
+    (HsName
+      "@NsVar"
+      "get_occupation_employee"),
+  DeclUnionSetter
+    (HsName
+      "@NsTypeConstr"
+      "Occupation")
+    (HsTypRef
+      (HsName
+        "@NsTypeConstr"
+        "Employee"))
+    (HsName
+      "@NsVar"
+      "set_occupation_employee"),
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -2958,393 +2958,6 @@
           "manual_examples.h",
           functionSourceLoc =
           "manual_examples.h:82:6"}},
-  DeclData
-    Struct {
-      structName = HsName
-        "@NsTypeConstr"
-        "Rect",
-      structConstr = HsName
-        "@NsConstr"
-        "Rect",
-      structFields = [
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "rect_lower_left",
-          fieldType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Rect_lower_left"),
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "lower_left",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "lower_left")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:92:5"}},
-        Field {
-          fieldName = HsName
-            "@NsVar"
-            "rect_upper_right",
-          fieldType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Rect_upper_right"),
-          fieldOrigin =
-          FieldOriginStructField
-            StructField {
-              fieldName = CName "upper_right",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "upper_right")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:97:5"}}],
-      structOrigin =
-      StructOriginStruct
-        Struct {
-          structDeclPath = DeclPathName
-            (CName "rect"),
-          structAliases = [],
-          structSizeof = 16,
-          structAlignment = 4,
-          structFields = [
-            StructField {
-              fieldName = CName "lower_left",
-              fieldOffset = 0,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "lower_left")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:92:5"},
-            StructField {
-              fieldName = CName "upper_right",
-              fieldOffset = 64,
-              fieldWidth = Nothing,
-              fieldType = TypeStruct
-                (DeclPathAnon
-                  (DeclPathCtxtField
-                    (Just (CName "rect"))
-                    (CName "upper_right")
-                    DeclPathCtxtTop)),
-              fieldSourceLoc =
-              "manual_examples.h:97:5"}],
-          structFlam = Nothing,
-          structSourceLoc =
-          "manual_examples.h:88:8"}},
-  DeclInstance
-    (InstanceStorable
-      Struct {
-        structName = HsName
-          "@NsTypeConstr"
-          "Rect",
-        structConstr = HsName
-          "@NsConstr"
-          "Rect",
-        structFields = [
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "rect_lower_left",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Rect_lower_left"),
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "lower_left",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "lower_left")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:92:5"}},
-          Field {
-            fieldName = HsName
-              "@NsVar"
-              "rect_upper_right",
-            fieldType = HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Rect_upper_right"),
-            fieldOrigin =
-            FieldOriginStructField
-              StructField {
-                fieldName = CName "upper_right",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "upper_right")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:97:5"}}],
-        structOrigin =
-        StructOriginStruct
-          Struct {
-            structDeclPath = DeclPathName
-              (CName "rect"),
-            structAliases = [],
-            structSizeof = 16,
-            structAlignment = 4,
-            structFields = [
-              StructField {
-                fieldName = CName "lower_left",
-                fieldOffset = 0,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "lower_left")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:92:5"},
-              StructField {
-                fieldName = CName "upper_right",
-                fieldOffset = 64,
-                fieldWidth = Nothing,
-                fieldType = TypeStruct
-                  (DeclPathAnon
-                    (DeclPathCtxtField
-                      (Just (CName "rect"))
-                      (CName "upper_right")
-                      DeclPathCtxtTop)),
-                fieldSourceLoc =
-                "manual_examples.h:97:5"}],
-            structFlam = Nothing,
-            structSourceLoc =
-            "manual_examples.h:88:8"}}
-      StorableInstance {
-        storableSizeOf = 16,
-        storableAlignment = 4,
-        storablePeek = Lambda
-          (NameHint "ptr")
-          (Ap
-            (StructCon
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Rect",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Rect",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "rect_lower_left",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Rect_lower_left"),
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "rect_upper_right",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Rect_upper_right"),
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "rect"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"},
-                      StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:88:8"}})
-            [
-              PeekByteOff (Idx 0) 0,
-              PeekByteOff (Idx 0) 8]),
-        storablePoke = Lambda
-          (NameHint "ptr")
-          (Lambda
-            (NameHint "s")
-            (ElimStruct
-              (Idx 0)
-              Struct {
-                structName = HsName
-                  "@NsTypeConstr"
-                  "Rect",
-                structConstr = HsName
-                  "@NsConstr"
-                  "Rect",
-                structFields = [
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "rect_lower_left",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Rect_lower_left"),
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"}},
-                  Field {
-                    fieldName = HsName
-                      "@NsVar"
-                      "rect_upper_right",
-                    fieldType = HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "Rect_upper_right"),
-                    fieldOrigin =
-                    FieldOriginStructField
-                      StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}}],
-                structOrigin =
-                StructOriginStruct
-                  Struct {
-                    structDeclPath = DeclPathName
-                      (CName "rect"),
-                    structAliases = [],
-                    structSizeof = 16,
-                    structAlignment = 4,
-                    structFields = [
-                      StructField {
-                        fieldName = CName "lower_left",
-                        fieldOffset = 0,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "lower_left")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:92:5"},
-                      StructField {
-                        fieldName = CName "upper_right",
-                        fieldOffset = 64,
-                        fieldWidth = Nothing,
-                        fieldType = TypeStruct
-                          (DeclPathAnon
-                            (DeclPathCtxtField
-                              (Just (CName "rect"))
-                              (CName "upper_right")
-                              DeclPathCtxtTop)),
-                        fieldSourceLoc =
-                        "manual_examples.h:97:5"}],
-                    structFlam = Nothing,
-                    structSourceLoc =
-                    "manual_examples.h:88:8"}}
-              (Add 2)
-              (Seq
-                [
-                  PokeByteOff (Idx 3) 0 (Idx 0),
-                  PokeByteOff
-                    (Idx 3)
-                    8
-                    (Idx 1)])))}),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "Rect"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "Rect"),
   DeclData
     Struct {
       structName = HsName
@@ -3991,6 +3604,393 @@
     (HsName
       "@NsTypeConstr"
       "Rect_upper_right"),
+  DeclData
+    Struct {
+      structName = HsName
+        "@NsTypeConstr"
+        "Rect",
+      structConstr = HsName
+        "@NsConstr"
+        "Rect",
+      structFields = [
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "rect_lower_left",
+          fieldType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Rect_lower_left"),
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "lower_left",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "rect"))
+                    (CName "lower_left")
+                    DeclPathCtxtTop)),
+              fieldSourceLoc =
+              "manual_examples.h:92:5"}},
+        Field {
+          fieldName = HsName
+            "@NsVar"
+            "rect_upper_right",
+          fieldType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Rect_upper_right"),
+          fieldOrigin =
+          FieldOriginStructField
+            StructField {
+              fieldName = CName "upper_right",
+              fieldOffset = 64,
+              fieldWidth = Nothing,
+              fieldType = TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "rect"))
+                    (CName "upper_right")
+                    DeclPathCtxtTop)),
+              fieldSourceLoc =
+              "manual_examples.h:97:5"}}],
+      structOrigin =
+      StructOriginStruct
+        Struct {
+          structDeclPath = DeclPathName
+            (CName "rect"),
+          structAliases = [],
+          structSizeof = 16,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              fieldName = CName "lower_left",
+              fieldOffset = 0,
+              fieldWidth = Nothing,
+              fieldType = TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "rect"))
+                    (CName "lower_left")
+                    DeclPathCtxtTop)),
+              fieldSourceLoc =
+              "manual_examples.h:92:5"},
+            StructField {
+              fieldName = CName "upper_right",
+              fieldOffset = 64,
+              fieldWidth = Nothing,
+              fieldType = TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtField
+                    (Just (CName "rect"))
+                    (CName "upper_right")
+                    DeclPathCtxtTop)),
+              fieldSourceLoc =
+              "manual_examples.h:97:5"}],
+          structFlam = Nothing,
+          structSourceLoc =
+          "manual_examples.h:88:8"}},
+  DeclInstance
+    (InstanceStorable
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Rect",
+        structConstr = HsName
+          "@NsConstr"
+          "Rect",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "rect_lower_left",
+            fieldType = HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Rect_lower_left"),
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "lower_left",
+                fieldOffset = 0,
+                fieldWidth = Nothing,
+                fieldType = TypeStruct
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "rect"))
+                      (CName "lower_left")
+                      DeclPathCtxtTop)),
+                fieldSourceLoc =
+                "manual_examples.h:92:5"}},
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "rect_upper_right",
+            fieldType = HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Rect_upper_right"),
+            fieldOrigin =
+            FieldOriginStructField
+              StructField {
+                fieldName = CName "upper_right",
+                fieldOffset = 64,
+                fieldWidth = Nothing,
+                fieldType = TypeStruct
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "rect"))
+                      (CName "upper_right")
+                      DeclPathCtxtTop)),
+                fieldSourceLoc =
+                "manual_examples.h:97:5"}}],
+        structOrigin =
+        StructOriginStruct
+          Struct {
+            structDeclPath = DeclPathName
+              (CName "rect"),
+            structAliases = [],
+            structSizeof = 16,
+            structAlignment = 4,
+            structFields = [
+              StructField {
+                fieldName = CName "lower_left",
+                fieldOffset = 0,
+                fieldWidth = Nothing,
+                fieldType = TypeStruct
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "rect"))
+                      (CName "lower_left")
+                      DeclPathCtxtTop)),
+                fieldSourceLoc =
+                "manual_examples.h:92:5"},
+              StructField {
+                fieldName = CName "upper_right",
+                fieldOffset = 64,
+                fieldWidth = Nothing,
+                fieldType = TypeStruct
+                  (DeclPathAnon
+                    (DeclPathCtxtField
+                      (Just (CName "rect"))
+                      (CName "upper_right")
+                      DeclPathCtxtTop)),
+                fieldSourceLoc =
+                "manual_examples.h:97:5"}],
+            structFlam = Nothing,
+            structSourceLoc =
+            "manual_examples.h:88:8"}}
+      StorableInstance {
+        storableSizeOf = 16,
+        storableAlignment = 4,
+        storablePeek = Lambda
+          (NameHint "ptr")
+          (Ap
+            (StructCon
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Rect",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Rect",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "rect_lower_left",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Rect_lower_left"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "lower_left",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "lower_left")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:92:5"}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "rect_upper_right",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Rect_upper_right"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "upper_right",
+                        fieldOffset = 64,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "upper_right")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:97:5"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathName
+                      (CName "rect"),
+                    structAliases = [],
+                    structSizeof = 16,
+                    structAlignment = 4,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "lower_left",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "lower_left")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:92:5"},
+                      StructField {
+                        fieldName = CName "upper_right",
+                        fieldOffset = 64,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "upper_right")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:97:5"}],
+                    structFlam = Nothing,
+                    structSourceLoc =
+                    "manual_examples.h:88:8"}})
+            [
+              PeekByteOff (Idx 0) 0,
+              PeekByteOff (Idx 0) 8]),
+        storablePoke = Lambda
+          (NameHint "ptr")
+          (Lambda
+            (NameHint "s")
+            (ElimStruct
+              (Idx 0)
+              Struct {
+                structName = HsName
+                  "@NsTypeConstr"
+                  "Rect",
+                structConstr = HsName
+                  "@NsConstr"
+                  "Rect",
+                structFields = [
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "rect_lower_left",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Rect_lower_left"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "lower_left",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "lower_left")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:92:5"}},
+                  Field {
+                    fieldName = HsName
+                      "@NsVar"
+                      "rect_upper_right",
+                    fieldType = HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Rect_upper_right"),
+                    fieldOrigin =
+                    FieldOriginStructField
+                      StructField {
+                        fieldName = CName "upper_right",
+                        fieldOffset = 64,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "upper_right")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:97:5"}}],
+                structOrigin =
+                StructOriginStruct
+                  Struct {
+                    structDeclPath = DeclPathName
+                      (CName "rect"),
+                    structAliases = [],
+                    structSizeof = 16,
+                    structAlignment = 4,
+                    structFields = [
+                      StructField {
+                        fieldName = CName "lower_left",
+                        fieldOffset = 0,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "lower_left")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:92:5"},
+                      StructField {
+                        fieldName = CName "upper_right",
+                        fieldOffset = 64,
+                        fieldWidth = Nothing,
+                        fieldType = TypeStruct
+                          (DeclPathAnon
+                            (DeclPathCtxtField
+                              (Just (CName "rect"))
+                              (CName "upper_right")
+                              DeclPathCtxtTop)),
+                        fieldSourceLoc =
+                        "manual_examples.h:97:5"}],
+                    structFlam = Nothing,
+                    structSourceLoc =
+                    "manual_examples.h:88:8"}}
+              (Add 2)
+              (Seq
+                [
+                  PokeByteOff (Idx 3) 0 (Idx 0),
+                  PokeByteOff
+                    (Idx 3)
+                    8
+                    (Idx 1)])))}),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Rect"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Rect"),
   DeclData
     Struct {
       structName = HsName

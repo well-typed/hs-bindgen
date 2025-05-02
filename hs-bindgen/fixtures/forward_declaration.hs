@@ -1,31 +1,4 @@
 [
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "S1_t",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "S1_t",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_S1_t",
-        fieldType = HsTypRef
-          (HsName "@NsTypeConstr" "S1"),
-        fieldOrigin = FieldOriginNone},
-      newtypeOrigin =
-      NewtypeOriginTypedef
-        Typedef {
-          typedefName = CName "S1_t",
-          typedefType = TypeStruct
-            (DeclPathName (CName "S1")),
-          typedefSourceLoc =
-          "forward_declaration.h:1:19"}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "S1_t"),
   DeclData
     Struct {
       structName = HsName
@@ -234,6 +207,33 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "S1"),
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "S1_t",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "S1_t",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_S1_t",
+        fieldType = HsTypRef
+          (HsName "@NsTypeConstr" "S1"),
+        fieldOrigin = FieldOriginNone},
+      newtypeOrigin =
+      NewtypeOriginTypedef
+        Typedef {
+          typedefName = CName "S1_t",
+          typedefType = TypeStruct
+            (DeclPathName (CName "S1")),
+          typedefSourceLoc =
+          "forward_declaration.h:1:19"}},
+  DeclNewtypeInstance
+    DeriveNewtype
+    Storable
+    (HsName "@NsTypeConstr" "S1_t"),
   DeclData
     Struct {
       structName = HsName

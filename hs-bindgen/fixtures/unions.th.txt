@@ -60,16 +60,6 @@ instance Storable DimB
                                           dimB_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dimB_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dimB_payload_4}}
 deriving stock instance Show DimB
 deriving stock instance Eq DimB
-newtype AnonA = AnonA {un_AnonA :: ByteArray}
-deriving via (SizedByteArray 16 8) instance Storable AnonA
-get_anonA_xy :: AnonA -> AnonA_xy
-get_anonA_xy = getUnionPayload
-set_anonA_xy :: AnonA_xy -> AnonA
-set_anonA_xy = setUnionPayload
-get_anonA_polar :: AnonA -> AnonA_polar
-get_anonA_polar = getUnionPayload
-set_anonA_polar :: AnonA_polar -> AnonA
-set_anonA_polar = setUnionPayload
 data AnonA_xy
     = AnonA_xy {anonA_xy_x :: CDouble, anonA_xy_y :: CDouble}
 instance Storable AnonA_xy
@@ -92,3 +82,13 @@ instance Storable AnonA_polar
                                                  anonA_polar_p_4 -> pokeByteOff ptr_1 (0 :: Int) anonA_polar_r_3 >> pokeByteOff ptr_1 (8 :: Int) anonA_polar_p_4}}
 deriving stock instance Show AnonA_polar
 deriving stock instance Eq AnonA_polar
+newtype AnonA = AnonA {un_AnonA :: ByteArray}
+deriving via (SizedByteArray 16 8) instance Storable AnonA
+get_anonA_xy :: AnonA -> AnonA_xy
+get_anonA_xy = getUnionPayload
+set_anonA_xy :: AnonA_xy -> AnonA
+set_anonA_xy = setUnionPayload
+get_anonA_polar :: AnonA -> AnonA_polar
+get_anonA_polar = getUnionPayload
+set_anonA_polar :: AnonA_polar -> AnonA
+set_anonA_polar = setUnionPayload
