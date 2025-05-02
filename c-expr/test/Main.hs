@@ -129,10 +129,13 @@ main = do
                   | hsBindgenDir <- maybeToList mbHsBindgenDir
                   ]
               }
-  --buildTargetTriple <- queryClangBuildTargetTriple
 
-
-  canonTys <- getExpansionTypeMapping clangArgs [ CType $ Arithmetic $ Integral $ IntLike PtrDiff ]
+  let extendedInts = [ PtrDiff, Size ]
+  canonTys <-
+    getExpansionTypeMapping clangArgs
+      [ CType $ Arithmetic $ Integral $ IntLike extInt
+      | extInt <- extendedInts
+      ]
 
 {-
   -- Quick debugging

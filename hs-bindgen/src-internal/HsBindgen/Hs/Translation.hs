@@ -510,6 +510,7 @@ typ' ctx nm = go ctx
     goPrim (C.PrimIntegral i s) = integralType i s
     goPrim (C.PrimFloating f)   = floatingType f
     goPrim C.PrimPtrDiff        = HsPrimCPtrDiff
+    goPrim C.PrimSize           = HsPrimCSize
     goPrim (C.PrimChar sign)    =
         case sign of
           C.PrimSignImplicit _          -> HsPrimCChar

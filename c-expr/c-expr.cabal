@@ -83,7 +83,9 @@ library c-expr-core
 
   build-depends:
       -- External dependencies
-      fin              >= 0.3.2 && < 0.4
+      containers       >= 0.5   && < 0.9
+    , fin              >= 0.3.2 && < 0.4
+    , some
     , template-haskell >= 2.18  && < 2.23
     , vec              >= 0.5   && < 0.6
   if impl(ghc < 9.4)
