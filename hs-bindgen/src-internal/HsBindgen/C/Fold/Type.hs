@@ -47,7 +47,7 @@ processTypeDecl extBindings unit declCursor ty = do
         Nothing                        -> processTypeDecl' DeclPathCtxtTop extBindings unit declCursor ty
         Just (TypeDecl t _)            -> return t
         Just (TypeDeclAlias t)         -> return t
-        Just (TypeDeclProcessing t' _) -> liftIO $ panicIO $ "Incomplete type declaration: " ++ show t'
+        Just (TypeDeclProcessing t' _) -> panicIO $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
      DeclPathCtxt
@@ -117,31 +117,30 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
-        ty' <- liftIO $ clang_Type_getNamedType ty
+        ty' <- clang_Type_getNamedType ty
         processTypeDeclRec ctxt extBindings unit Nothing ty'
 
     -- typedefs
     Right CXType_Typedef -> do
         -- getTypedefName returns the same string as clang_getTypeSpelling
-        name <- liftIO (clang_getTypedefName ty)
+        name <- clang_getTypedefName ty
         let ctype = TypeTypedef $ CName name
         addTypeDeclProcessing ty ctype
 
-        decl <- liftIO (clang_getTypeDeclaration ty)
-        sloc <- liftIO $
-            HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
-        extent   <- liftIO $ HighLevel.clang_getCursorExtent decl
+        decl <- clang_getTypeDeclaration ty
+        sloc <- HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
+        extent   <- HighLevel.clang_getCursorExtent decl
         hasMacro <- gets $ containsMacroExpansion extent
 
         mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
         case mExtId of
             Just extId -> addAlias ty $ TypeExtBinding extId ctype
             Nothing -> do
-                tag <- CName <$> liftIO (clang_getCursorSpelling decl)
+                tag <- CName <$> clang_getCursorSpelling decl
                 mbTy <- if not hasMacro
                         then return Nothing
                         else do
-                          tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+                          tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
                           macroTyEnv <- macroTypeEnv <$> get
                           case reparseWith (reparseTypedef macroTyEnv) tokens of
                             Left err -> do
@@ -157,7 +156,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                               return Nothing
                             Right ty1 ->
                               return $ Just ty1
-                ty' <- liftIO $ getElaborated =<< clang_getTypedefDeclUnderlyingType decl
+                ty' <- getElaborated =<< clang_getTypedefDeclUnderlyingType decl
                 use <- case mbTy of
                          Just ty1 -> return ty1
                          Nothing  ->
@@ -205,10 +204,9 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     -- structs and unions
     Right CXType_Record -> do
-        decl <- liftIO $ clang_getTypeDeclaration ty
-        ki   <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
-        sloc <- liftIO $ HighLevel.clang_getExpansionLocation
-                     =<< clang_getCursorLocation decl
+        decl <- clang_getTypeDeclaration ty
+        ki   <- fromSimpleEnum <$> clang_getCursorKind decl
+        sloc <- HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
 
         case ki of
             Right CXCursor_StructDecl -> do
@@ -229,8 +227,8 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           , opaqueStructSourceLoc = sloc
                           }
                       TypeDeclRegular -> do
-                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                        alignment <- liftIO (clang_Type_getAlignOf ty)
+                        sizeof    <- clang_Type_getSizeOf  ty
+                        alignment <- clang_Type_getAlignOf ty
                         fields'   <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
                             mfield <- mkStructField extBindings unit mkCtxt cursor
@@ -268,8 +266,8 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                             }
                       TypeDeclRegular -> do
                         -- the below is TODO:
-                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                        alignment <- liftIO (clang_Type_getAlignOf ty)
+                        sizeof    <- clang_Type_getSizeOf  ty
+                        alignment <- clang_Type_getAlignOf ty
                         fields    <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
                             mfield <- mkUnionField extBindings unit mkCtxt cursor
@@ -288,10 +286,9 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
     -- enum
     Right CXType_Enum -> do
-        decl <- liftIO (clang_getTypeDeclaration ty)
-        ki   <- liftIO $ fromSimpleEnum <$> clang_getCursorKind decl
-        sloc <- liftIO $ HighLevel.clang_getExpansionLocation
-                     =<< clang_getCursorLocation decl
+        decl <- clang_getTypeDeclaration ty
+        ki   <- fromSimpleEnum <$> clang_getCursorKind decl
+        sloc <- HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation decl
 
         case ki of
             Right CXCursor_EnumDecl -> do
@@ -312,9 +309,9 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
                           , opaqueEnumSourceLoc = sloc
                           }
                       TypeDeclRegular -> do
-                        sizeof    <- liftIO (clang_Type_getSizeOf  ty)
-                        alignment <- liftIO (clang_Type_getAlignOf ty)
-                        ety       <- liftIO (clang_getEnumDeclIntegerType decl)
+                        sizeof    <- clang_Type_getSizeOf  ty
+                        alignment <- clang_Type_getAlignOf ty
+                        ety       <- clang_getEnumDeclIntegerType decl
                           >>= processTypeDeclRec DeclPathCtxtTop extBindings unit Nothing
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
@@ -334,13 +331,13 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             _ -> panicIO $ show ki
 
     Right CXType_Pointer -> do
-        pointee <- liftIO $ clang_getPointeeType ty
+        pointee <- clang_getPointeeType ty
         pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) extBindings unit Nothing pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
-        n <- liftIO $ clang_getArraySize ty
-        e <- liftIO $ clang_getArrayElementType ty
+        n <- clang_getArraySize ty
+        e <- clang_getArrayElementType ty
         -- TODO: This context should use 'DeclPathCtxtConstArray'
         e' <- processTypeDeclRec ctxt extBindings unit Nothing e
         return (TypeConstArray (fromIntegral n) e')
@@ -359,13 +356,13 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
     Right CXType_FunctionNoProto -> processFun
 
     Right CXType_IncompleteArray -> do
-        e <- liftIO $ clang_getArrayElementType ty
+        e <- clang_getArrayElementType ty
         -- TODO: Should this also use 'DeclPathCtxtConstArray'?
         e' <- processTypeDeclRec ctxt extBindings unit Nothing e
         return (TypeIncompleteArray e')
 
     _ -> do
-      mLoc <- liftIO $ traverse HighLevel.clang_getCursorLocation declCursor
+      mLoc <- traverse HighLevel.clang_getCursorLocation declCursor
       unrecognizedType ty (multiLocExpansion <$> mLoc)
 
   where
@@ -381,7 +378,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
               -- have macros, so we are OK to report no macros here.
               return Nothing
             Just cx -> do
-              protoExtent <- liftIO $ HighLevel.clang_getCursorExtent cx
+              protoExtent <- HighLevel.clang_getCursorExtent cx
               hasMacro <- gets $ containsMacroExpansion protoExtent
               return $
                 if hasMacro
@@ -394,7 +391,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             Just protoExtent -> do
               -- TODO: if macro expansion is confined to the function parameters,
               -- we don't need to reparse the whole function as we do here.
-              tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> protoExtent)
+              tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> protoExtent)
               macroTyEnv <- macroTypeEnv <$> get
               case reparseWith (reparseFunDecl macroTyEnv) tokens of
                   Left err -> do
@@ -420,11 +417,11 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
             -- TODO: we could record calling convention (clang_getFunctionTypeCallingConv),
             -- but for CApiFFI it's irrelevant as it creates C wrappers with known convention
 
-            res <- liftIO $ clang_getResultType ty
+            res <- clang_getResultType ty
             res' <- processTypeDeclRec ctxt extBindings unit Nothing res
-            nargs <- liftIO $ clang_getNumArgTypes ty
+            nargs <- clang_getNumArgTypes ty
             args' <- forM [0 .. nargs - 1] $ \i -> do
-              arg <- liftIO $ clang_getArgType ty (fromIntegral i)
+              arg <- clang_getArgType ty (fromIntegral i)
               processTypeDeclRec ctxt extBindings unit Nothing arg
 
             -- There are no macros in the function, hence no macros in the
@@ -433,7 +430,7 @@ processTypeDecl' ctxt extBindings unit declCursor ty = case fromSimpleEnum $ cxt
 
             return $ TypeFun args' res'
 
-getElaborated :: CXType -> IO CXType
+getElaborated :: MonadIO m => CXType -> m CXType
 getElaborated ty = case fromSimpleEnum (cxtKind ty) of
     Right CXType_Elaborated -> getElaborated =<< clang_Type_getNamedType ty
     _otherwise              -> return ty
@@ -456,12 +453,12 @@ addAlias ty t = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
-        Nothing -> liftIO $ panicIO "type not being processed"
+        Nothing -> panicIO "type not being processed"
         Just (TypeDeclProcessing _t _as) -> do
             put s { typeDeclarations = omapInsertBack ty (TypeDeclAlias t) ds }
             return t
-        Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
-        Just (TypeDecl _ _) -> liftIO $ panicIO "type already processed"
+        Just (TypeDeclAlias _) -> panicIO "type already processed"
+        Just (TypeDecl _ _) -> panicIO "type already processed"
 
 addTypeDeclProcessing :: CXType -> Type -> Eff (State DeclState) ()
 addTypeDeclProcessing ty t = do
@@ -469,42 +466,42 @@ addTypeDeclProcessing ty t = do
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
         Nothing -> put s { typeDeclarations = omapInsertBack ty (TypeDeclProcessing t []) ds }
-        Just (TypeDeclProcessing t' _as) -> liftIO $ panicIO $ "type already processed (1)" ++ show (t, t')
-        Just (TypeDecl t' _) -> liftIO $ panicIO $ "type already processed (2)" ++ show (t, t')
-        Just (TypeDeclAlias t') -> liftIO $ panicIO $ "type already processed (3)" ++ show (t, t')
+        Just (TypeDeclProcessing t' _as) -> panicIO $ "type already processed (1)" ++ show (t, t')
+        Just (TypeDecl t' _) -> panicIO $ "type already processed (2)" ++ show (t, t')
+        Just (TypeDeclAlias t') -> panicIO $ "type already processed (3)" ++ show (t, t')
 
 addDecl :: CXType -> Decl -> Eff (State DeclState) Type
 addDecl ty d = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
-        Nothing -> liftIO $ panicIO "type not being processed"
+        Nothing -> panicIO "type not being processed"
         Just (TypeDeclProcessing t aliases) -> do
             let err = "updateDeclAddAliases not implemented for type: " ++ show t
-            d' <- maybe (liftIO (panicIO err)) return $
+            d' <- maybe (panicIO err) return $
                     if null aliases
                         then Just d
                         else updateDeclAddAliases aliases d
             put s { typeDeclarations = omapInsertBack ty (TypeDecl t d') ds }
             return t
-        Just (TypeDecl _ _)    -> liftIO $ panicIO "type already processed"
-        Just (TypeDeclAlias _) -> liftIO $ panicIO "type already processed"
+        Just (TypeDecl _ _)    -> panicIO "type already processed"
+        Just (TypeDeclAlias _) -> panicIO "type already processed"
 
 updateDeclAddAlias :: CXType -> CName -> Eff (State DeclState) ()
 updateDeclAddAlias ty alias = do
     s <- get
     let ds = typeDeclarations s
     case OMap.lookup ty ds of
-        Nothing -> liftIO $ panicIO "type not found"
+        Nothing -> panicIO "type not found"
         Just (TypeDeclProcessing typ aliases) ->
             let d = TypeDeclProcessing typ (alias : aliases)
             in  put s { typeDeclarations = (ty, d) OMap.<| ds }
         Just (TypeDecl typ decl) -> case updateDeclAddAliases [alias] decl of
             Just decl' ->
                 put s { typeDeclarations = (ty, TypeDecl typ decl') OMap.<| ds }
-            Nothing -> liftIO $ panicIO $
+            Nothing -> panicIO $
               "updateDeclAddAliases not implemented for type: " ++ show typ
-        Just (TypeDeclAlias typ) -> liftIO $ panicIO $
+        Just (TypeDeclAlias typ) -> panicIO $
           "cannot add alias to an alias: " ++ show typ
 
 updateDeclAddAliases :: [CName] -> Decl -> Maybe Decl
@@ -558,7 +555,7 @@ classifyTypeDecl ::
   -> (CXType, CXCursor, Either CInt CXCursorKind, SingleLoc)
   -> Eff (State DeclState) (Either AnonTopLevel (DeclPath, TypeDeclFlavour))
 classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
-    anon <- liftIO $ clang_Cursor_isAnonymous decl
+    anon <- clang_Cursor_isAnonymous decl
 
     if anon then
       case ctxt of
@@ -572,7 +569,7 @@ classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
           -- We might want to support external bindings for anonymous types.
           return $ Right (DeclPathAnon ctxt, TypeDeclRegular)
     else do
-      spelling <- liftIO $ clang_getTypeSpelling ty
+      spelling <- clang_getTypeSpelling ty
       mExtId   <- lookupExtBinding (CNameSpelling spelling) sloc extBindings
 
       let mTag     = CName <$> T.stripPrefix expectedPrefix spelling
@@ -582,7 +579,7 @@ classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
         case mExtId of
           Just extId -> return $ TypeDeclExternal extId
           Nothing    -> do
-            classified <- liftIO $ HighLevel.classifyDeclaration decl
+            classified <- HighLevel.classifyDeclaration decl
             case classified of
               DeclarationOpaque ->
                 case mTag of
@@ -633,21 +630,21 @@ mkStructField ::
   -> CXCursor
   -> Eff (State DeclState) (Maybe Field) -- ^ Left values are flexible array members.
 mkStructField extBindings unit mkCtxt current = do
-    fieldSourceLoc <- liftIO $
+    fieldSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
-    cursorKind <- liftIO $ clang_getCursorKind current
+    cursorKind <- clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_UnexposedAttr ->
         return Nothing
 
       Right CXCursor_FieldDecl -> do
-        extent   <- liftIO $ HighLevel.clang_getCursorExtent current
+        extent   <- HighLevel.clang_getCursorExtent current
         hasMacro <- gets $ containsMacroExpansion extent
 
         mbNameTypeWithMacros <-
           if hasMacro
           then do
-            tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+            tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
             macroTyEnv <- macroTypeEnv <$> get
             case reparseWith (reparseFieldDecl macroTyEnv) tokens of
               Left err -> do
@@ -669,28 +666,28 @@ mkStructField extBindings unit mkCtxt current = do
           case mbNameTypeWithMacros of
             Just declNameAndTy -> return declNameAndTy
             Nothing -> do
-              fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
-              ty          <- liftIO (clang_getCursorType current)
+              fieldName <- CName <$> clang_getCursorDisplayName current
+              ty        <- clang_getCursorType current
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
-                  e <- liftIO $ clang_getArrayElementType ty
+                  e <- clang_getArrayElementType ty
                   fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
                   fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing ty
                   return (fieldName, fieldType, False)
 
-        fieldOffset <- fromIntegral <$> liftIO (clang_Cursor_getOffsetOfField current)
+        fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
 
         if isIncompleteArray
         then do
           assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
           return $ Just $ IncompleteArray StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc, fieldWidth = Nothing}
         else do
-          isBitField <- liftIO $ clang_Cursor_isBitField current
+          isBitField <- clang_Cursor_isBitField current
           if isBitField
           then do
-            width <- liftIO $ clang_getFieldDeclBitWidth current
+            width <- clang_getFieldDeclBitWidth current
             return $ Just $ Normal StructField{fieldName, fieldOffset, fieldType, fieldSourceLoc, fieldWidth = Just (fromIntegral width)}
           else do
             assertEff (fieldOffset `mod` 8 == 0) "offset should be divisible by 8"
@@ -723,22 +720,22 @@ mkUnionField
     -> CXCursor
     -> Eff (State DeclState) (Maybe UnionField)
 mkUnionField extBindings unit mkCtxt current = do
-    ufieldSourceLoc <- liftIO $
+    ufieldSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
-    cursorKind <- liftIO $ clang_getCursorKind current
+    cursorKind <- clang_getCursorKind current
     case fromSimpleEnum cursorKind of
       Right CXCursor_UnexposedAttr ->
         return Nothing
 
       Right CXCursor_FieldDecl -> do
-        extent   <- liftIO $ HighLevel.clang_getCursorExtent current
+        extent   <- HighLevel.clang_getCursorExtent current
         hasMacro <- gets $ containsMacroExpansion extent
 
         -- TODO: the macro code is untested.
         mbNameTypeWithMacros <-
           if hasMacro
           then do
-            tokens <- liftIO $ HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
+            tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> extent)
             macroTyEnv <- macroTypeEnv <$> get
             case reparseWith (reparseFieldDecl macroTyEnv) tokens of
               Left err -> do
@@ -761,8 +758,8 @@ mkUnionField extBindings unit mkCtxt current = do
           case mbNameTypeWithMacros of
             Just declNameAndTy -> return declNameAndTy
             Nothing -> do
-              fieldName   <- CName <$> liftIO (clang_getCursorDisplayName current)
-              ty          <- liftIO (clang_getCursorType current)
+              fieldName <- CName <$> clang_getCursorDisplayName current
+              ty        <- clang_getCursorType current
               fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit Nothing ty
               return (fieldName, fieldType)
 
@@ -782,10 +779,10 @@ mkEnumValue ::
      MonadIO m
   => CXCursor
   -> m (Maybe EnumValue)
-mkEnumValue current = liftIO $ do
-    valueSourceLoc <- liftIO $
+mkEnumValue current = do
+    valueSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
-    cursorKind <- liftIO $ clang_getCursorKind current
+    cursorKind <- clang_getCursorKind current
 
     case fromSimpleEnum cursorKind of
       Right CXCursor_EnumConstantDecl -> do

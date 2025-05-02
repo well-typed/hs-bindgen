@@ -9,6 +9,7 @@ module Clang.Version (
   ) where
 
 import Control.Monad (unless)
+import Control.Monad.IO.Class
 import Foreign.C
 import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
@@ -139,5 +140,5 @@ newtype Requires a = Requires a
 -- @'Clang.Internal.Results.CallFailed' ('Requires' 'ClangVersion')@ exception
 -- if the current Clang version is not greater than or equal to the specified
 -- Clang version
-requireClangVersion :: HasCallStack => ClangVersion -> IO ()
+requireClangVersion :: (MonadIO m, HasCallStack) => ClangVersion -> m ()
 requireClangVersion v = unless (clangVersion >= v) $ callFailed (Requires v)

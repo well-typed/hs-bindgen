@@ -75,13 +75,13 @@ whenPredicateMatches ::
 whenPredicateMatches tracer p mMainHeader current sloc k =
     case mMainHeader of
       Just (mainHeaderIncludePath, mainSourcePath) -> do
-        isMatch <- liftIO $ Predicate.match mainSourcePath current sloc p
+        isMatch <- Predicate.match mainSourcePath current sloc p
         case isMatch of
           Right ()     -> k mainHeaderIncludePath
-          Left  reason -> liftIO $ do
+          Left  reason -> do
             name <- clang_getCursorSpelling current
             loc  <- HighLevel.clang_getCursorLocation current
-            traceWith tracer Info $ Skipped name loc reason
+            liftIO $ traceWith tracer Info $ Skipped name loc reason
             return $ Continue Nothing
       Nothing -> return $ Continue Nothing
 
@@ -110,11 +110,11 @@ unrecognizedCursor ::
      (MonadIO m, HasCallStack)
   => CXCursor
   -> m a
-unrecognizedCursor cursor = liftIO $ do
+unrecognizedCursor cursor = do
     unrecognizedCursorKind  <- clang_getCursorKind cursor
     unrecognizedCursorLoc   <- HighLevel.clang_getCursorLocation cursor
     unrecognizedCursorTrace <- collectBacktrace
-    throwIO UnrecognizedCursor{
+    liftIO $ throwIO UnrecognizedCursor{
         unrecognizedCursorKind
       , unrecognizedCursorLoc
       , unrecognizedCursorTrace
@@ -123,11 +123,11 @@ unrecognizedCursor cursor = liftIO $ do
 unrecognizedType ::
      (MonadIO m, HasCallStack)
   => CXType -> Maybe SingleLoc -> m a
-unrecognizedType typ unrecognizedTypeLocation = liftIO $ do
+unrecognizedType typ unrecognizedTypeLocation = do
     let unrecognizedTypeKind = cxtKind typ
     unrecognizedTypeTrace    <- collectBacktrace
     unrecognizedTypeSpelling <- clang_getTypeSpelling typ
-    throwIO UnrecognizedType{
+    liftIO $ throwIO UnrecognizedType{
         unrecognizedTypeKind
       , unrecognizedTypeSpelling
       , unrecognizedTypeLocation

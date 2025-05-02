@@ -6,6 +6,7 @@ module Clang.HighLevel.Diagnostics (
   ) where
 
 import Control.Exception
+import Control.Monad.IO.Class
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign.C
@@ -97,12 +98,13 @@ diagnosticIsError diag =
 -------------------------------------------------------------------------------}
 
 clang_getDiagnostics ::
-     CXTranslationUnit
+     MonadIO m
+  => CXTranslationUnit
   -> Maybe (BitfieldEnum CXDiagnosticDisplayOptions)
      -- ^ Display options for constructing 'diagnosticFormatted'
      --
      -- If 'Nothing', uses 'clang_defaultDiagnosticDisplayOptions'.
-  -> IO [Diagnostic]
+  -> m [Diagnostic]
 clang_getDiagnostics unit mDisplayOptions = do
     displayOptions <- case mDisplayOptions of
                         Just displayOptions -> return displayOptions
@@ -114,23 +116,30 @@ clang_getDiagnostics unit mDisplayOptions = do
 -------------------------------------------------------------------------------}
 
 getDiagnostic ::
-     BitfieldEnum CXDiagnosticDisplayOptions
+     MonadIO m
+  => BitfieldEnum CXDiagnosticDisplayOptions
   -> CXTranslationUnit
-  -> CUInt -> IO Diagnostic
-getDiagnostic displayOptions unit i =
+  -> CUInt
+  -> m Diagnostic
+getDiagnostic displayOptions unit i = liftIO $
     bracket (clang_getDiagnostic unit i) clang_disposeDiagnostic $
       reify displayOptions
 
 getDiagnosticInSet ::
-     BitfieldEnum CXDiagnosticDisplayOptions
-  -> CXDiagnosticSet -> CUInt -> IO Diagnostic
-getDiagnosticInSet displayOptions set i =
+     MonadIO m
+  => BitfieldEnum CXDiagnosticDisplayOptions
+  -> CXDiagnosticSet
+  -> CUInt
+  -> m Diagnostic
+getDiagnosticInSet displayOptions set i = liftIO $
     bracket (clang_getDiagnosticInSet set i) clang_disposeDiagnostic $
       reify displayOptions
 
 reify ::
-     BitfieldEnum CXDiagnosticDisplayOptions
-  -> CXDiagnostic -> IO Diagnostic
+     MonadIO m
+  => BitfieldEnum CXDiagnosticDisplayOptions
+  -> CXDiagnostic
+  -> m Diagnostic
 reify displayOptions diag = do
     diagnosticFormatted    <- clang_formatDiagnostic diag displayOptions
     diagnosticSeverity     <- clang_getDiagnosticSeverity diag
@@ -164,17 +173,20 @@ reify displayOptions diag = do
       | otherwise    = Just bs
 
 getChildDiagnostics ::
-     BitfieldEnum CXDiagnosticDisplayOptions
-  -> CXDiagnostic -> IO [Diagnostic]
+     MonadIO m
+  => BitfieldEnum CXDiagnosticDisplayOptions
+  -> CXDiagnostic
+  -> m [Diagnostic]
 getChildDiagnostics displayOptions diag = do
     set <- clang_getChildDiagnostics diag
     getAll set clang_getNumDiagnosticsInSet $
       getDiagnosticInSet displayOptions
 
 getDiagnosticFixIt ::
-     CXDiagnostic
+     MonadIO m
+  => CXDiagnostic
   -> CUInt
-  -> IO FixIt
+  -> m FixIt
 getDiagnosticFixIt diag i =
     uncurry FixIt <$> SourceLoc.clang_getDiagnosticFixIt diag i
 
@@ -182,7 +194,7 @@ getDiagnosticFixIt diag i =
   Auxiliary
 -------------------------------------------------------------------------------}
 
-getAll :: a -> (a -> IO CUInt) -> (a -> CUInt -> IO b) -> IO [b]
+getAll :: Monad m => a -> (a -> m CUInt) -> (a -> CUInt -> m b) -> m [b]
 getAll x getCount getElem = do
     count <- getCount x
     if count == 0

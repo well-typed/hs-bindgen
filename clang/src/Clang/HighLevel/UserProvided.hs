@@ -5,6 +5,7 @@ module Clang.HighLevel.UserProvided (
   , clang_getCursorSpelling
   ) where
 
+import Control.Monad.IO.Class
 import Data.Text (Text)
 
 import Clang.LowLevel.Core hiding (clang_getCursorSpelling)
@@ -32,7 +33,7 @@ getUserProvided (LibclangProvided _) = Nothing
 -- @libclang@ fills in a name (\"spelling\") for the struct tag, even though the
 -- user did not provide one; recent versions of @llvm@ fill in @S3_t@ (@""@ in
 -- older versions).
-clang_getCursorSpelling :: CXCursor -> IO (UserProvided Text)
+clang_getCursorSpelling :: MonadIO m => CXCursor -> m (UserProvided Text)
 clang_getCursorSpelling cursor = do
     nameSpelling <- Core.clang_getCursorSpelling cursor
 

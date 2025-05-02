@@ -145,7 +145,9 @@ popUntil someStack newParent = do
 --
 -- * visitors can return results
 -- * we can specify different visitors at different levels of the AST
-clang_visitChildren :: forall m a. MonadUnliftIO m => CXCursor -> Fold m a -> m [a]
+clang_visitChildren :: forall m a.
+     MonadUnliftIO m
+  => CXCursor -> Fold m a -> m [a]
 clang_visitChildren root topLevelFold = withRunInIO $ \support -> do
     stack     <- initStack root topLevelFold
     someStack <- newIORef $ SomeStack stack
