@@ -13,6 +13,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
+import qualified Text.Read
 
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
@@ -39,8 +40,6 @@ deriving stock instance Eq Foo
 
 deriving stock instance Ord Foo
 
-deriving stock instance Read Foo
-
 instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
   type CEnumZ Foo = FC.CUInt
@@ -55,6 +54,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Foo"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Foo"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -68,6 +69,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo where
 instance Show Foo where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Foo where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0

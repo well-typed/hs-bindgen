@@ -119,7 +119,7 @@ renderCHeaderIncludePath = \case
 -- | C include path directory
 --
 -- A C include path is an ordered list of directories that is used to resolve a
--- 'CHeaderIncludePath'.  The name cames from environment variables
+-- 'CHeaderIncludePath'.  The name comes from environment variables
 -- @C_INCLUDE_PATH@ and @CPATH@.  It is unforuntaly confusing terminology that a
 -- /search/ path is a list of /filesystem/ paths.
 --

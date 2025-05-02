@@ -209,6 +209,7 @@ data InstanceDecl where
       -> HsName NsConstr
       -> InstanceDecl
     InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
+    InstanceCEnumRead :: Struct (S Z) -> InstanceDecl
 
 deriving instance Show InstanceDecl
 

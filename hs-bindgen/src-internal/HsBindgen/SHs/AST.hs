@@ -79,6 +79,9 @@ data Global =
   | Num_class
   | Ord_class
   | Read_class
+  | Read_readPrec
+  | Read_readList
+  | Read_readListPrec
   | Real_class
   | RealFloat_class
   | RealFrac_class
@@ -146,6 +149,8 @@ data Global =
   | NonEmpty_constructor
   | NonEmpty_singleton
   | Map_fromList
+  | Read_readListDefault
+  | Read_readListPrecDefault
 
   | CEnum_class
   | CEnumZ_tycon
@@ -153,6 +158,7 @@ data Global =
   | CEnum_fromCEnum
   | CEnum_declaredValues
   | CEnum_showsUndeclared
+  | CEnum_readPrecUndeclared
   | CEnum_isDeclared
   | CEnum_mkDeclared
   | SequentialCEnum_class
@@ -161,6 +167,8 @@ data Global =
   | CEnum_declaredValuesFromList
   | CEnum_showsCEnum
   | CEnum_showsWrappedUndeclared
+  | CEnum_readPrecCEnum
+  | CEnum_readPrecWrappedUndeclared
   | CEnum_seqIsDeclared
   | CEnum_seqMkDeclared
   | AsCEnum_type

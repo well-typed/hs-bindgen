@@ -282,6 +282,8 @@ instance ToExpr Hs.InstanceDecl where
       Expr.App "InstanceSequentialCEnum" [toExpr struct, toExpr minV, toExpr maxV]
     Hs.InstanceCEnumShow struct ->
       Expr.App "InstanceCEnumShow" [toExpr struct]
+    Hs.InstanceCEnumRead struct ->
+      Expr.App "InstanceCEnumRead" [toExpr struct]
 
 instance ToExpr (t (S ctx)) => ToExpr (Hs.Lambda t ctx) where
   toExpr (Hs.Lambda name body) = Expr.App "Lambda" [toExpr name, toExpr body]

@@ -193,12 +193,6 @@
     (HsName
       "@NsTypeConstr"
       "First"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "First"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -287,6 +281,50 @@
       (HsName "@NsConstr" "FIRST2")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "First",
+        structConstr = HsName
+          "@NsConstr"
+          "First",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_First",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "first"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "FIRST1",
+                valueValue = 0,
+                valueSourceLoc = "enums.h:5:5"},
+              EnumValue {
+                valueName = CName "FIRST2",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:6:5"}],
+            enumSourceLoc = "enums.h:4:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -585,12 +623,6 @@
     (HsName
       "@NsTypeConstr"
       "Second"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Second"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -700,6 +732,56 @@
         "SECOND_C")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Second",
+        structConstr = HsName
+          "@NsConstr"
+          "Second",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Second",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "second"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "SECOND_A",
+                valueValue = `-1`,
+                valueSourceLoc =
+                "enums.h:10:5"},
+              EnumValue {
+                valueName = CName "SECOND_B",
+                valueValue = 0,
+                valueSourceLoc =
+                "enums.h:11:5"},
+              EnumValue {
+                valueName = CName "SECOND_C",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:12:5"}],
+            enumSourceLoc = "enums.h:9:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -999,10 +1081,6 @@
     DeriveStock
     Ord
     (HsName "@NsTypeConstr" "Same"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "Same"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -1095,6 +1173,51 @@
       (HsName "@NsConstr" "SAME_A")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Same",
+        structConstr = HsName
+          "@NsConstr"
+          "Same",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Same",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "same"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "SAME_A",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:16:5"},
+              EnumValue {
+                valueName = CName "SAME_B",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:17:5"}],
+            enumSourceLoc = "enums.h:15:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -1394,12 +1517,6 @@
     (HsName
       "@NsTypeConstr"
       "Nonseq"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Nonseq"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -1460,6 +1577,56 @@
       False),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Nonseq",
+        structConstr = HsName
+          "@NsConstr"
+          "Nonseq",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Nonseq",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "nonseq"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "NONSEQ_A",
+                valueValue = 200,
+                valueSourceLoc =
+                "enums.h:21:5"},
+              EnumValue {
+                valueName = CName "NONSEQ_B",
+                valueValue = 301,
+                valueSourceLoc =
+                "enums.h:22:5"},
+              EnumValue {
+                valueName = CName "NONSEQ_C",
+                valueValue = 404,
+                valueSourceLoc =
+                "enums.h:23:5"}],
+            enumSourceLoc = "enums.h:20:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -1787,12 +1954,6 @@
     (HsName
       "@NsTypeConstr"
       "Packad"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Packad"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -1904,6 +2065,57 @@
         "PACKED_C")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Packad",
+        structConstr = HsName
+          "@NsConstr"
+          "Packad",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Packad",
+            fieldType = HsPrimType
+              HsPrimCUChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "packad"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "PACKED_A",
+                valueValue = 0,
+                valueSourceLoc =
+                "enums.h:27:5"},
+              EnumValue {
+                valueName = CName "PACKED_B",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:27:15"},
+              EnumValue {
+                valueName = CName "PACKED_C",
+                valueValue = 2,
+                valueSourceLoc =
+                "enums.h:27:25"}],
+            enumSourceLoc = "enums.h:26:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -2212,12 +2424,6 @@
     (HsName
       "@NsTypeConstr"
       "EnumA"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "EnumA"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -2310,6 +2516,52 @@
       (HsName "@NsConstr" "A_BAR")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "EnumA",
+        structConstr = HsName
+          "@NsConstr"
+          "EnumA",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_EnumA",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName "enumA")),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "A_FOO",
+                valueValue = 0,
+                valueSourceLoc =
+                "enums.h:30:16"},
+              EnumValue {
+                valueName = CName "A_BAR",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:30:23"}],
+            enumSourceLoc = "enums.h:30:9"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -2594,12 +2846,6 @@
     (HsName
       "@NsTypeConstr"
       "EnumB"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "EnumB"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -2692,6 +2938,52 @@
       (HsName "@NsConstr" "B_BAR")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "EnumB",
+        structConstr = HsName
+          "@NsConstr"
+          "EnumB",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_EnumB",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "enumB"),
+            enumAliases = [CName "enumB"],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "B_FOO",
+                valueValue = 0,
+                valueSourceLoc =
+                "enums.h:32:22"},
+              EnumValue {
+                valueName = CName "B_BAR",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:32:29"}],
+            enumSourceLoc =
+            "enums.h:32:14"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -2972,12 +3264,6 @@
     (HsName
       "@NsTypeConstr"
       "EnumC"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "EnumC"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -3068,6 +3354,51 @@
       (HsName "@NsConstr" "C_BAR")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "EnumC",
+        structConstr = HsName
+          "@NsConstr"
+          "EnumC",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_EnumC",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "enumC"),
+            enumAliases = [CName "enumC"],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "C_FOO",
+                valueValue = 0,
+                valueSourceLoc =
+                "enums.h:34:14"},
+              EnumValue {
+                valueName = CName "C_BAR",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:34:21"}],
+            enumSourceLoc = "enums.h:34:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -3347,12 +3678,6 @@
     (HsName
       "@NsTypeConstr"
       "EnumD"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "EnumD"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -3443,6 +3768,51 @@
       (HsName "@NsConstr" "D_BAR")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "EnumD",
+        structConstr = HsName
+          "@NsConstr"
+          "EnumD",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_EnumD",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "enumD"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "D_FOO",
+                valueValue = 0,
+                valueSourceLoc =
+                "enums.h:37:14"},
+              EnumValue {
+                valueName = CName "D_BAR",
+                valueValue = 1,
+                valueSourceLoc =
+                "enums.h:37:21"}],
+            enumSourceLoc = "enums.h:37:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"

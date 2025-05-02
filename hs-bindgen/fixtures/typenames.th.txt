@@ -8,7 +8,6 @@ instance Storable Foo
                                     {Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3}}
 deriving stock instance Eq Foo
 deriving stock instance Ord Foo
-deriving stock instance Read Foo
 instance CEnum Foo
     where {type CEnumZ Foo = CUInt;
            toCEnum = Foo;
@@ -17,12 +16,17 @@ instance CEnum Foo
                                                            singleton "FOO1"),
                                                           (1, singleton "FOO2")];
            showsUndeclared = showsWrappedUndeclared "Foo";
+           readPrecUndeclared = readPrecWrappedUndeclared "Foo";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Foo
     where {minDeclaredValue = FOO1; maxDeclaredValue = FOO2}
 instance Show Foo
     where {showsPrec = showsCEnum}
+instance Read Foo
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 pattern FOO2 :: Foo

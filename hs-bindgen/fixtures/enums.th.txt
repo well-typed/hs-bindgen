@@ -8,7 +8,6 @@ instance Storable First
                                     {First un_First_3 -> pokeByteOff ptr_1 (0 :: Int) un_First_3}}
 deriving stock instance Eq First
 deriving stock instance Ord First
-deriving stock instance Read First
 instance CEnum First
     where {type CEnumZ First = CUInt;
            toCEnum = First;
@@ -17,12 +16,17 @@ instance CEnum First
                                                            singleton "FIRST1"),
                                                           (1, singleton "FIRST2")];
            showsUndeclared = showsWrappedUndeclared "First";
+           readPrecUndeclared = readPrecWrappedUndeclared "First";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum First
     where {minDeclaredValue = FIRST1; maxDeclaredValue = FIRST2}
 instance Show First
     where {showsPrec = showsCEnum}
+instance Read First
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
 pattern FIRST2 :: First
@@ -36,7 +40,6 @@ instance Storable Second
                                     {Second un_Second_3 -> pokeByteOff ptr_1 (0 :: Int) un_Second_3}}
 deriving stock instance Eq Second
 deriving stock instance Ord Second
-deriving stock instance Read Second
 instance CEnum Second
     where {type CEnumZ Second = CInt;
            toCEnum = Second;
@@ -46,12 +49,17 @@ instance CEnum Second
                                                           (0, singleton "SECOND_B"),
                                                           (1, singleton "SECOND_C")];
            showsUndeclared = showsWrappedUndeclared "Second";
+           readPrecUndeclared = readPrecWrappedUndeclared "Second";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Second
     where {minDeclaredValue = SECOND_A; maxDeclaredValue = SECOND_C}
 instance Show Second
     where {showsPrec = showsCEnum}
+instance Read Second
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
 pattern SECOND_B :: Second
@@ -67,7 +75,6 @@ instance Storable Same
                                     {Same un_Same_3 -> pokeByteOff ptr_1 (0 :: Int) un_Same_3}}
 deriving stock instance Eq Same
 deriving stock instance Ord Same
-deriving stock instance Read Same
 instance CEnum Same
     where {type CEnumZ Same = CUInt;
            toCEnum = Same;
@@ -75,12 +82,17 @@ instance CEnum Same
            declaredValues = \_ -> declaredValuesFromList [(1,
                                                            "SAME_A" :| ["SAME_B"])];
            showsUndeclared = showsWrappedUndeclared "Same";
+           readPrecUndeclared = readPrecWrappedUndeclared "Same";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Same
     where {minDeclaredValue = SAME_A; maxDeclaredValue = SAME_A}
 instance Show Same
     where {showsPrec = showsCEnum}
+instance Read Same
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
 pattern SAME_B :: Same
@@ -94,7 +106,6 @@ instance Storable Nonseq
                                     {Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3}}
 deriving stock instance Eq Nonseq
 deriving stock instance Ord Nonseq
-deriving stock instance Read Nonseq
 instance CEnum Nonseq
     where {type CEnumZ Nonseq = CUInt;
            toCEnum = Nonseq;
@@ -103,9 +114,14 @@ instance CEnum Nonseq
                                                            singleton "NONSEQ_A"),
                                                           (301, singleton "NONSEQ_B"),
                                                           (404, singleton "NONSEQ_C")];
-           showsUndeclared = showsWrappedUndeclared "Nonseq"}
+           showsUndeclared = showsWrappedUndeclared "Nonseq";
+           readPrecUndeclared = readPrecWrappedUndeclared "Nonseq"}
 instance Show Nonseq
     where {showsPrec = showsCEnum}
+instance Read Nonseq
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern NONSEQ_A :: Nonseq
 pattern NONSEQ_A = Nonseq 200
 pattern NONSEQ_B :: Nonseq
@@ -121,7 +137,6 @@ instance Storable Packad
                                     {Packad un_Packad_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packad_3}}
 deriving stock instance Eq Packad
 deriving stock instance Ord Packad
-deriving stock instance Read Packad
 instance CEnum Packad
     where {type CEnumZ Packad = CUChar;
            toCEnum = Packad;
@@ -131,12 +146,17 @@ instance CEnum Packad
                                                           (1, singleton "PACKED_B"),
                                                           (2, singleton "PACKED_C")];
            showsUndeclared = showsWrappedUndeclared "Packad";
+           readPrecUndeclared = readPrecWrappedUndeclared "Packad";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Packad
     where {minDeclaredValue = PACKED_A; maxDeclaredValue = PACKED_C}
 instance Show Packad
     where {showsPrec = showsCEnum}
+instance Read Packad
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
 pattern PACKED_B :: Packad
@@ -152,7 +172,6 @@ instance Storable EnumA
                                     {EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3}}
 deriving stock instance Eq EnumA
 deriving stock instance Ord EnumA
-deriving stock instance Read EnumA
 instance CEnum EnumA
     where {type CEnumZ EnumA = CUInt;
            toCEnum = EnumA;
@@ -161,12 +180,17 @@ instance CEnum EnumA
                                                            singleton "A_FOO"),
                                                           (1, singleton "A_BAR")];
            showsUndeclared = showsWrappedUndeclared "EnumA";
+           readPrecUndeclared = readPrecWrappedUndeclared "EnumA";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumA
     where {minDeclaredValue = A_FOO; maxDeclaredValue = A_BAR}
 instance Show EnumA
     where {showsPrec = showsCEnum}
+instance Read EnumA
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
@@ -180,7 +204,6 @@ instance Storable EnumB
                                     {EnumB un_EnumB_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumB_3}}
 deriving stock instance Eq EnumB
 deriving stock instance Ord EnumB
-deriving stock instance Read EnumB
 instance CEnum EnumB
     where {type CEnumZ EnumB = CUInt;
            toCEnum = EnumB;
@@ -189,12 +212,17 @@ instance CEnum EnumB
                                                            singleton "B_FOO"),
                                                           (1, singleton "B_BAR")];
            showsUndeclared = showsWrappedUndeclared "EnumB";
+           readPrecUndeclared = readPrecWrappedUndeclared "EnumB";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumB
     where {minDeclaredValue = B_FOO; maxDeclaredValue = B_BAR}
 instance Show EnumB
     where {showsPrec = showsCEnum}
+instance Read EnumB
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
@@ -208,7 +236,6 @@ instance Storable EnumC
                                     {EnumC un_EnumC_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumC_3}}
 deriving stock instance Eq EnumC
 deriving stock instance Ord EnumC
-deriving stock instance Read EnumC
 instance CEnum EnumC
     where {type CEnumZ EnumC = CUInt;
            toCEnum = EnumC;
@@ -217,12 +244,17 @@ instance CEnum EnumC
                                                            singleton "C_FOO"),
                                                           (1, singleton "C_BAR")];
            showsUndeclared = showsWrappedUndeclared "EnumC";
+           readPrecUndeclared = readPrecWrappedUndeclared "EnumC";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumC
     where {minDeclaredValue = C_FOO; maxDeclaredValue = C_BAR}
 instance Show EnumC
     where {showsPrec = showsCEnum}
+instance Read EnumC
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
@@ -236,7 +268,6 @@ instance Storable EnumD
                                     {EnumD un_EnumD_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_3}}
 deriving stock instance Eq EnumD
 deriving stock instance Ord EnumD
-deriving stock instance Read EnumD
 instance CEnum EnumD
     where {type CEnumZ EnumD = CUInt;
            toCEnum = EnumD;
@@ -245,12 +276,17 @@ instance CEnum EnumD
                                                            singleton "D_FOO"),
                                                           (1, singleton "D_BAR")];
            showsUndeclared = showsWrappedUndeclared "EnumD";
+           readPrecUndeclared = readPrecWrappedUndeclared "EnumD";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum EnumD
     where {minDeclaredValue = D_FOO; maxDeclaredValue = D_BAR}
 instance Show EnumD
     where {showsPrec = showsCEnum}
+instance Read EnumD
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0
 pattern D_BAR :: EnumD

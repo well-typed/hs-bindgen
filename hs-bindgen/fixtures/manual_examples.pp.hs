@@ -27,6 +27,7 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
+import qualified Text.Read
 
 -- #include "manual_examples.h"
 
@@ -91,8 +92,6 @@ deriving stock instance Eq Index
 
 deriving stock instance Ord Index
 
-deriving stock instance Read Index
-
 instance HsBindgen.Runtime.CEnum.CEnum Index where
 
   type CEnumZ Index = FC.CUInt
@@ -107,6 +106,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Index where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Index"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Index"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -120,6 +121,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
 instance Show Index where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Index where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern A :: Index
 pattern A = Index 0
@@ -675,8 +684,6 @@ deriving stock instance Eq Signal
 
 deriving stock instance Ord Signal
 
-deriving stock instance Read Signal
-
 instance HsBindgen.Runtime.CEnum.CEnum Signal where
 
   type CEnumZ Signal = FC.CUInt
@@ -695,6 +702,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Signal where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Signal"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Signal"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -708,6 +717,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Signal where
 instance Show Signal where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Signal where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Start :: Signal
 pattern Start = Signal 1
@@ -746,8 +763,6 @@ deriving stock instance Eq HTTP_status
 
 deriving stock instance Ord HTTP_status
 
-deriving stock instance Read HTTP_status
-
 instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
 
   type CEnumZ HTTP_status = FC.CUInt
@@ -767,9 +782,20 @@ instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "HTTP_status"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "HTTP_status"
+
 instance Show HTTP_status where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read HTTP_status where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Ok :: HTTP_status
 pattern Ok = HTTP_status 200
@@ -811,8 +837,6 @@ deriving stock instance Eq Descending
 
 deriving stock instance Ord Descending
 
-deriving stock instance Read Descending
-
 instance HsBindgen.Runtime.CEnum.CEnum Descending where
 
   type CEnumZ Descending = FC.CUInt
@@ -830,6 +854,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Descending where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Descending"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Descending"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -843,6 +870,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Descending where
 instance Show Descending where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Descending where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern X :: Descending
 pattern X = Descending 100
@@ -881,8 +916,6 @@ deriving stock instance Eq Result
 
 deriving stock instance Ord Result
 
-deriving stock instance Read Result
-
 instance HsBindgen.Runtime.CEnum.CEnum Result where
 
   type CEnumZ Result = FC.CInt
@@ -901,6 +934,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Result where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Result"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Result"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -914,6 +949,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Result where
 instance Show Result where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Result where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Failed :: Result
 pattern Failed = Result (-1)
@@ -952,8 +995,6 @@ deriving stock instance Eq Vote
 
 deriving stock instance Ord Vote
 
-deriving stock instance Read Vote
-
 instance HsBindgen.Runtime.CEnum.CEnum Vote where
 
   type CEnumZ Vote = FC.CUChar
@@ -971,6 +1012,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Vote where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Vote"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Vote"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -984,6 +1027,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Vote where
 instance Show Vote where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Vote where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Infavour :: Vote
 pattern Infavour = Vote 0
@@ -1019,8 +1070,6 @@ deriving stock instance Eq CXCursorKind
 
 deriving stock instance Ord CXCursorKind
 
-deriving stock instance Read CXCursorKind
-
 instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
 
   type CEnumZ CXCursorKind = FC.CUInt
@@ -1043,9 +1092,20 @@ instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "CXCursorKind"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "CXCursorKind"
+
 instance Show CXCursorKind where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read CXCursorKind where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern CXCursor_FirstExpr :: CXCursorKind
 pattern CXCursor_FirstExpr = CXCursorKind 100

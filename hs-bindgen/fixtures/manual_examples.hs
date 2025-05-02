@@ -698,12 +698,6 @@
     (HsName
       "@NsTypeConstr"
       "Index"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Index"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -807,6 +801,57 @@
       (HsName "@NsConstr" "C")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Index",
+        structConstr = HsName
+          "@NsConstr"
+          "Index",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Index",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "index"),
+            enumAliases = [CName "index"],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "A",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:27:5"},
+              EnumValue {
+                valueName = CName "B",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:28:5"},
+              EnumValue {
+                valueName = CName "C",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:29:5"}],
+            enumSourceLoc =
+            "manual_examples.h:26:14"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -5187,12 +5232,6 @@
     (HsName
       "@NsTypeConstr"
       "Signal"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Signal"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -5307,6 +5346,62 @@
       (HsName "@NsConstr" "Stop")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Signal",
+        structConstr = HsName
+          "@NsConstr"
+          "Signal",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Signal",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "signal"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "start",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:121:3"},
+              EnumValue {
+                valueName = CName "pause",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:122:3"},
+              EnumValue {
+                valueName = CName "resume",
+                valueValue = 3,
+                valueSourceLoc =
+                "manual_examples.h:123:3"},
+              EnumValue {
+                valueName = CName "stop",
+                valueValue = 4,
+                valueSourceLoc =
+                "manual_examples.h:124:3"}],
+            enumSourceLoc =
+            "manual_examples.h:120:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -5703,12 +5798,6 @@
     (HsName
       "@NsTypeConstr"
       "HTTP_status"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "HTTP_status"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -5783,6 +5872,68 @@
       False),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "HTTP_status",
+        structConstr = HsName
+          "@NsConstr"
+          "HTTP_status",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_HTTP_status",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "HTTP_status"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "ok",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:128:3"},
+              EnumValue {
+                valueName = CName "moved",
+                valueValue = 301,
+                valueSourceLoc =
+                "manual_examples.h:129:3"},
+              EnumValue {
+                valueName = CName "bad_request",
+                valueValue = 400,
+                valueSourceLoc =
+                "manual_examples.h:130:3"},
+              EnumValue {
+                valueName = CName
+                  "unauthorized",
+                valueValue = 401,
+                valueSourceLoc =
+                "manual_examples.h:131:3"},
+              EnumValue {
+                valueName = CName "not_found",
+                valueValue = 404,
+                valueSourceLoc =
+                "manual_examples.h:132:3"}],
+            enumSourceLoc =
+            "manual_examples.h:127:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -6181,12 +6332,6 @@
     (HsName
       "@NsTypeConstr"
       "Descending"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Descending"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -6302,6 +6447,62 @@
       (HsName "@NsConstr" "X")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Descending",
+        structConstr = HsName
+          "@NsConstr"
+          "Descending",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Descending",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "descending"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "X",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:136:3"},
+              EnumValue {
+                valueName = CName "Y",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:137:3"},
+              EnumValue {
+                valueName = CName "Y_alias",
+                valueValue = 99,
+                valueSourceLoc =
+                "manual_examples.h:138:3"},
+              EnumValue {
+                valueName = CName "Z",
+                valueValue = 98,
+                valueSourceLoc =
+                "manual_examples.h:139:3"}],
+            enumSourceLoc =
+            "manual_examples.h:135:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -6678,12 +6879,6 @@
     (HsName
       "@NsTypeConstr"
       "Result"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "Result"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -6808,6 +7003,63 @@
         "Already_done")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Result",
+        structConstr = HsName
+          "@NsConstr"
+          "Result",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Result",
+            fieldType = HsPrimType
+              HsPrimCInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "result"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName "failed",
+                valueValue = `-1`,
+                valueSourceLoc =
+                "manual_examples.h:143:3"},
+              EnumValue {
+                valueName = CName "success",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:144:3"},
+              EnumValue {
+                valueName = CName "postponed",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:145:3"},
+              EnumValue {
+                valueName = CName
+                  "already_done",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:146:3"}],
+            enumSourceLoc =
+            "manual_examples.h:142:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -7162,10 +7414,6 @@
     DeriveStock
     Ord
     (HsName "@NsTypeConstr" "Vote"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName "@NsTypeConstr" "Vote"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -7275,6 +7523,58 @@
       (HsName "@NsConstr" "Abstain")),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "Vote",
+        structConstr = HsName
+          "@NsConstr"
+          "Vote",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_Vote",
+            fieldType = HsPrimType
+              HsPrimCUChar,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "vote"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimChar
+                (PrimSignExplicit Unsigned)),
+            enumSizeof = 1,
+            enumAlignment = 1,
+            enumValues = [
+              EnumValue {
+                valueName = CName "infavour",
+                valueValue = 0,
+                valueSourceLoc =
+                "manual_examples.h:150:3"},
+              EnumValue {
+                valueName = CName "against",
+                valueValue = 1,
+                valueSourceLoc =
+                "manual_examples.h:151:3"},
+              EnumValue {
+                valueName = CName "abstain",
+                valueValue = 2,
+                valueSourceLoc =
+                "manual_examples.h:152:3"}],
+            enumSourceLoc =
+            "manual_examples.h:149:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
@@ -7832,12 +8132,6 @@
     (HsName
       "@NsTypeConstr"
       "CXCursorKind"),
-  DeclNewtypeInstance
-    DeriveStock
-    Read
-    (HsName
-      "@NsTypeConstr"
-      "CXCursorKind"),
   DeclInstance
     (InstanceCEnum
       Struct {
@@ -7987,6 +8281,114 @@
       False),
   DeclInstance
     (InstanceCEnumShow
+      Struct {
+        structName = HsName
+          "@NsTypeConstr"
+          "CXCursorKind",
+        structConstr = HsName
+          "@NsConstr"
+          "CXCursorKind",
+        structFields = [
+          Field {
+            fieldName = HsName
+              "@NsVar"
+              "un_CXCursorKind",
+            fieldType = HsPrimType
+              HsPrimCUInt,
+            fieldOrigin = FieldOriginNone}],
+        structOrigin = StructOriginEnum
+          Enu {
+            enumDeclPath = DeclPathName
+              (CName "CXCursorKind"),
+            enumAliases = [],
+            enumType = TypePrim
+              (PrimIntegral PrimInt Unsigned),
+            enumSizeof = 4,
+            enumAlignment = 4,
+            enumValues = [
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:158:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedExpr",
+                valueValue = 100,
+                valueSourceLoc =
+                "manual_examples.h:159:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_DeclRefExpr",
+                valueValue = 101,
+                valueSourceLoc =
+                "manual_examples.h:160:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_MemberRefExpr",
+                valueValue = 102,
+                valueSourceLoc =
+                "manual_examples.h:161:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_PackIndexingExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:163:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastExpr",
+                valueValue = 156,
+                valueSourceLoc =
+                "manual_examples.h:164:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_FirstStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:166:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_UnexposedStmt",
+                valueValue = 200,
+                valueSourceLoc =
+                "manual_examples.h:167:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LabelStmt",
+                valueValue = 201,
+                valueSourceLoc =
+                "manual_examples.h:168:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_CompoundStmt",
+                valueValue = 202,
+                valueSourceLoc =
+                "manual_examples.h:169:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_OpenACCUpdateConstruct",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:171:3"},
+              EnumValue {
+                valueName = CName
+                  "CXCursor_LastStmt",
+                valueValue = 331,
+                valueSourceLoc =
+                "manual_examples.h:172:3"}],
+            enumSourceLoc =
+            "manual_examples.h:157:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
+  DeclInstance
+    (InstanceCEnumRead
       Struct {
         structName = HsName
           "@NsTypeConstr"
