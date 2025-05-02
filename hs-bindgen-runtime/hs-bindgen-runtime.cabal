@@ -67,6 +67,7 @@ test-suite test-runtime
   other-modules:
       Test.HsBindgen.Runtime.Bitfield
       Test.HsBindgen.Runtime.CEnum
+      Test.HsBindgen.Runtime.CEnumArbitrary
       Test.Internal.Tasty
   build-depends:
       -- Internal dependencies
@@ -75,5 +76,6 @@ test-suite test-runtime
       -- External dependencies
     , QuickCheck        ^>=2.15.0.1
     , tasty             ^>=1.5
+    , tasty-expected-failure ^>= 0.12.3
     , tasty-hunit       ^>=0.10.2
     , tasty-quickcheck  ^>=0.11.1

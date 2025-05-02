@@ -6,16 +6,41 @@ import Control.Monad (forM_)
 import Data.List.NonEmpty (NonEmpty((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
 import Foreign.C qualified as FC
+import GHC.Show (appPrec1)
 import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.ExpectedFailure (expectFail)
 import Test.Tasty.HUnit ((@=?), testCase)
+import Test.Tasty.QuickCheck (testProperty, Property, (===), Arbitrary (arbitrary),
+                              counterexample, chooseInt)
+import Text.Read (Read(readPrec), readMaybe)
 
 import HsBindgen.Runtime.CEnum
-  ( AsCEnum(..), AsSequentialCEnum(..), CEnum, CEnumException(..)
+  ( AsCEnum(..), AsSequentialCEnum(..), CEnum (CEnumZ), CEnumException(..)
   , SequentialCEnum
   )
 import HsBindgen.Runtime.CEnum qualified as CEnum
 
 import Test.Internal.Tasty
+import Test.HsBindgen.Runtime.CEnumArbitrary ()
+
+read_show_prop :: forall a. (CEnum a, Show a, Read a, Eq a) => a -> Property
+read_show_prop x = read (CEnum.showCEnum x) === x
+
+newtype Precedence = MkPrecedence Int
+  deriving Show
+
+instance Arbitrary Precedence where
+  arbitrary = MkPrecedence <$> chooseInt (0, appPrec1)
+
+readsPrec_showsPrec_prop
+  :: forall a. (CEnum a, Show a, Read a, Eq a)
+  => a -> Precedence -> Property
+readsPrec_showsPrec_prop x (MkPrecedence d) = counterexample errMsg isElem
+  where
+    parsedValues = readsPrec d (showsPrec d x "")
+    isElem = (x,"") `elem` parsedValues
+    errMsg = "expected element " <> show x
+             <> " not found in possible parsed values " <> show parsedValues
 
 {-------------------------------------------------------------------------------
   Tests
@@ -33,6 +58,7 @@ tests = testGroup "HsBindgen.Runtime.CEnum" [
         testSeqSingleValue
       , testSeqPosValue
       , testSeqNegValue
+      , testNastyValue
       ]
     ]
 
@@ -41,9 +67,8 @@ tests = testGroup "HsBindgen.Runtime.CEnum" [
 -------------------------------------------------------------------------------}
 
 newtype NoValue = NoValue {
-      un_NoValue :: FC.CUInt
+      _un_NoValue :: FC.CUInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum NoValue where
@@ -51,16 +76,40 @@ instance CEnum NoValue where
 
   declaredValues _ = CEnum.declaredValuesFromList []
   showsUndeclared  = CEnum.showsWrappedUndeclared "NoValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "NoValue"
+
+instance Show NoValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read NoValue where
+  readPrec = CEnum.readPrecCEnum
 
 deriving via AsCEnum NoValue instance Bounded NoValue
 
 deriving via AsCEnum NoValue instance Enum NoValue
 
+deriving via AsCEnum NoValue instance Arbitrary NoValue
+
 testNoValue :: TestTree
 testNoValue = testGroup "NoValue" [
       testCase "isDeclared" $ False @=? CEnum.isDeclared v1
     , testCase "mkDeclared" $ Nothing @=? CEnum.mkDeclared @NoValue 1
-    , testCase "showCEnum" $ "NoValue 1" @=? CEnum.showCEnum v1
+    , testCase "Show" $ "NoValue 1" @=? show v1
+    , testGroup "Read" [
+          testCase "!declared/pos" $ (Just v1) @=? readMaybe "NoValue 1"
+          -- We inherit the behavior of downstream Read instances. For example,
+          -- we parse negative values even for unsigned types such as
+          -- 'FC.CUInt'.
+        , expectFail
+          $ testCase "!declared/neg" $ Nothing @=? readMaybe @NoValue "NoValue (-1)"
+        , testCase "noparse" $ Nothing @=? readMaybe @NoValue "noparse"
+          -- Similarly, we parse invalid Haskell; the same is true for derived
+          -- instances,
+        , expectFail
+          $ testCase "noparse/neg" $ Nothing @=? readMaybe @NoValue "NoValue -1"
+        , testProperty "read . show" (read_show_prop @NoValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @NoValue)
+        ]
     , testCase "getNames" $ [] @=? CEnum.getNames v1
     , testGroup "Bounded" [
           testCase "minBound" $ CEnumEmpty @=?! minBound @NoValue
@@ -97,9 +146,8 @@ testNoValue = testGroup "NoValue" [
 -------------------------------------------------------------------------------}
 
 newtype GenSingleValue = GenSingleValue {
-      un_GenSingleValue :: FC.CUInt
+      _un_GenSingleValue :: FC.CUInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum GenSingleValue where
@@ -107,10 +155,19 @@ instance CEnum GenSingleValue where
 
   declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
   showsUndeclared  = CEnum.showsWrappedUndeclared "GenSingleValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "GenSingleValue"
+
+instance Show GenSingleValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read GenSingleValue where
+  readPrec = CEnum.readPrecCEnum
 
 deriving via AsCEnum GenSingleValue instance Bounded GenSingleValue
 
 deriving via AsCEnum GenSingleValue instance Enum GenSingleValue
+
+deriving via AsCEnum GenSingleValue instance Arbitrary GenSingleValue
 
 testGenSingleValue :: TestTree
 testGenSingleValue = testGroup "GenSingleValue" [
@@ -122,10 +179,20 @@ testGenSingleValue = testGroup "GenSingleValue" [
           testCase "declared" $ Just v1 @=? CEnum.mkDeclared 1
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @GenSingleValue 2
         ]
-    , testGroup "showCEnum" [
-          testCase "declared" $ "OK" @=? CEnum.showCEnum v1
-        , testCase "!declared" $
-            "GenSingleValue 2" @=? CEnum.showCEnum v2
+    , testGroup "Show" [
+          testCase "declared" $ "OK" @=? show v1
+        , testCase "!declared" $ "GenSingleValue 2" @=? show v2
+        ]
+    , testGroup "Read" [
+          testCase "declared/ok" $ (Just v1) @=? readMaybe "OK"
+        , testCase "declared/sc" $ (Just v1) @=? readMaybe "SUCCESS"
+        , testCase "declared/parentheses" $ (Just v1) @=? readMaybe "(OK)"
+        , testCase "declared/parentheses/spaces" $ (Just v1) @=? readMaybe "( OK )"
+        , testCase "declared/spaces" $ (Just v1) @=? readMaybe " OK "
+        , testCase "!declared" $ (Just v2) @=? readMaybe "GenSingleValue 2"
+        , testCase "noParse" $ Nothing @=? readMaybe @GenSingleValue "noParse"
+        , testProperty "read . show" (read_show_prop @GenSingleValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @GenSingleValue)
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["OK", "SUCCESS"] @=? CEnum.getNames v1
@@ -192,9 +259,8 @@ testGenSingleValue = testGroup "GenSingleValue" [
 -------------------------------------------------------------------------------}
 
 newtype GenPosValue = GenPosValue {
-      un_GenPosValue :: FC.CUInt
+      _un_GenPosValue :: FC.CUInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum GenPosValue where
@@ -213,10 +279,19 @@ instance CEnum GenPosValue where
     , (404, NonEmpty.singleton "NOT_FOUND")
     ]
   showsUndeclared = CEnum.showsWrappedUndeclared "GenPosValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "GenPosValue"
+
+instance Show GenPosValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read GenPosValue where
+  readPrec = CEnum.readPrecCEnum
 
 deriving via AsCEnum GenPosValue instance Bounded GenPosValue
 
 deriving via AsCEnum GenPosValue instance Enum GenPosValue
+
+deriving via AsCEnum GenPosValue instance Arbitrary GenPosValue
 
 testGenPosValue :: TestTree
 testGenPosValue = testGroup "GenPosValue" [
@@ -228,10 +303,19 @@ testGenPosValue = testGroup "GenPosValue" [
           testCase "declared" $ Just v301 @=? CEnum.mkDeclared 301
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @GenPosValue 300
         ]
-    , testGroup "showCEnum" [
-          testCase "declared" $ "OK" @=? CEnum.showCEnum v200
-        , testCase "!declared" $
-            "GenPosValue 300" @=? CEnum.showCEnum v300
+    , testGroup "Show" [
+          testCase "declared" $ "OK" @=? show v200
+        , testCase "!declared" $ "GenPosValue 300" @=? show v300
+        ]
+    , testGroup "Read" [
+          testCase "declared" $ (Just v200) @=? readMaybe "OK"
+        , testCase "declared/parentheses" $ (Just v200) @=? readMaybe "(OK)"
+        , testCase "declared/parentheses/spaces" $ (Just v200) @=? readMaybe "( OK )"
+        , testCase "declared/spaces" $ (Just $ v200) @=? readMaybe " OK "
+        , testCase "!declared" $ (Just v300) @=? readMaybe "GenPosValue 300"
+        , testCase "noparse" $ Nothing @=? readMaybe @GenPosValue "noparse"
+        , testProperty "read . show" (read_show_prop @GenPosValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @GenPosValue)
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["OK"] @=? CEnum.getNames v200
@@ -340,9 +424,8 @@ testGenPosValue = testGroup "GenPosValue" [
 -------------------------------------------------------------------------------}
 
 newtype GenNegValue = GenNegValue {
-      un_GenNegValue :: FC.CInt
+      _un_GenNegValue :: FC.CInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum GenNegValue where
@@ -360,10 +443,19 @@ instance CEnum GenNegValue where
     , (201,  NonEmpty.singleton "REALLY_GREAT")
     ]
   showsUndeclared = CEnum.showsWrappedUndeclared "GenNegValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "GenNegValue"
+
+instance Show GenNegValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read GenNegValue where
+  readPrec = CEnum.readPrecCEnum
 
 deriving via AsCEnum GenNegValue instance Bounded GenNegValue
 
 deriving via AsCEnum GenNegValue instance Enum GenNegValue
+
+deriving via AsCEnum GenNegValue instance Arbitrary GenNegValue
 
 testGenNegValue :: TestTree
 testGenNegValue = testGroup "GenNegValue" [
@@ -375,10 +467,19 @@ testGenNegValue = testGroup "GenNegValue" [
           testCase "declared" $ Just n100 @=? CEnum.mkDeclared (-100)
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @GenNegValue 300
         ]
-    , testGroup "showCEnum" [
-          testCase "declared" $ "NEUTRAL" @=? CEnum.showCEnum z
-        , testCase "!declared" $
-            "GenNegValue (-202)" @=? CEnum.showCEnum n202
+    , testGroup "Show" [
+          testCase "declared" $ "NEUTRAL" @=? show z
+        , testCase "!declared" $ "GenNegValue (-202)" @=? show n202
+        ]
+    , testGroup "Read" [
+          testCase "declared" $ (Just $ GenNegValue 0) @=? readMaybe "NEUTRAL"
+        , testCase "declared/parentheses" $ (Just p200) @=? readMaybe "(GREAT)"
+        , testCase "declared/parentheses/spaces" $ (Just p200) @=? readMaybe "( GREAT )"
+        , testCase "declared/spaces" $ (Just n100) @=? readMaybe " BAD "
+        , testCase "!declared" $ (Just n100) @=? readMaybe "GenNegValue (-100)"
+        , testCase "noparse" $ Nothing @=? readMaybe @GenNegValue "noparse"
+        , testProperty "read . show" (read_show_prop @GenNegValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @GenNegValue)
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["NEUTRAL", "UNREMARKABLE"] @=? CEnum.getNames z
@@ -488,9 +589,8 @@ testGenNegValue = testGroup "GenNegValue" [
 -------------------------------------------------------------------------------}
 
 newtype SeqSingleValue = SeqSingleValue {
-      un_SeqSingleValue :: FC.CUInt
+      _un_SeqSingleValue :: FC.CUInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum SeqSingleValue where
@@ -498,6 +598,13 @@ instance CEnum SeqSingleValue where
 
   declaredValues _ = CEnum.declaredValuesFromList [(1, "OK" :| ["SUCCESS"])]
   showsUndeclared  = CEnum.showsWrappedUndeclared "SeqSingleValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "SeqSingleValue"
+
+instance Show SeqSingleValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read SeqSingleValue where
+  readPrec = CEnum.readPrecCEnum
 
 instance SequentialCEnum SeqSingleValue where
   minDeclaredValue = SeqSingleValue 1
@@ -506,6 +613,8 @@ instance SequentialCEnum SeqSingleValue where
 deriving via AsCEnum SeqSingleValue instance Bounded SeqSingleValue
 
 deriving via AsCEnum SeqSingleValue instance Enum SeqSingleValue
+
+deriving via AsCEnum SeqSingleValue instance Arbitrary SeqSingleValue
 
 testSeqSingleValue :: TestTree
 testSeqSingleValue = testGroup "SeqSingleValue" [
@@ -517,10 +626,16 @@ testSeqSingleValue = testGroup "SeqSingleValue" [
           testCase "declared" $ Just v1 @=? CEnum.mkDeclared 1
         , testCase "!declared" $ Nothing @=? CEnum.mkDeclared @SeqSingleValue 2
         ]
-    , testGroup "showCEnum" [
-          testCase "declared" $ "OK" @=? CEnum.showCEnum v1
-        , testCase "!declared" $
-            "SeqSingleValue 2" @=? CEnum.showCEnum v2
+    , testGroup "Show" [
+          testCase "declared" $ "OK" @=? show v1
+        , testCase "!declared" $ "SeqSingleValue 2" @=? show v2
+        ]
+    , testGroup "Read" [
+          testCase "declared" $ (Just v1) @=? readMaybe "OK"
+        , testCase "!declared" $ (Just v2) @=? readMaybe "SeqSingleValue 2"
+        , testCase "noparse" $ Nothing @=? readMaybe @SeqSingleValue "noparse"
+        , testProperty "read . show" (read_show_prop @SeqSingleValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @GenSingleValue)
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["OK", "SUCCESS"] @=? CEnum.getNames v1
@@ -587,9 +702,8 @@ testSeqSingleValue = testGroup "SeqSingleValue" [
 -------------------------------------------------------------------------------}
 
 newtype SeqPosValue = SeqPosValue {
-      un_SeqPosValue :: FC.CUInt
+      _un_SeqPosValue :: FC.CUInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum SeqPosValue where
@@ -608,6 +722,13 @@ instance CEnum SeqPosValue where
     , (10, NonEmpty.singleton "J")
     ]
   showsUndeclared = CEnum.showsWrappedUndeclared "SeqPosValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "SeqPosValue"
+
+instance Show SeqPosValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read SeqPosValue where
+  readPrec = CEnum.readPrecCEnum
 
 instance SequentialCEnum SeqPosValue where
   minDeclaredValue = SeqPosValue 1
@@ -616,6 +737,8 @@ instance SequentialCEnum SeqPosValue where
 deriving via AsSequentialCEnum SeqPosValue instance Bounded SeqPosValue
 
 deriving via AsSequentialCEnum SeqPosValue instance Enum SeqPosValue
+
+deriving via AsSequentialCEnum SeqPosValue instance Arbitrary SeqPosValue
 
 testSeqPosValue :: TestTree
 testSeqPosValue = testGroup "SeqPosValue" [
@@ -631,10 +754,16 @@ testSeqPosValue = testGroup "SeqPosValue" [
         , testCase "low" $ Nothing @=? CEnum.mkDeclared @SeqPosValue 0
         , testCase "high" $ Nothing @=? CEnum.mkDeclared @SeqPosValue 11
         ]
-    , testGroup "showCEnum" [
-          testCase "declared" $ "A" @=? CEnum.showCEnum v1
-        , testCase "!declared" $
-            "SeqPosValue 0" @=? CEnum.showCEnum v0
+    , testGroup "Show" [
+          testCase "declared" $ "A" @=? show v1
+        , testCase "!declared" $ "SeqPosValue 0" @=? show v0
+        ]
+    , testGroup "Read" [
+          testCase "declared" $ (Just v3) @=? readMaybe "C"
+        , testCase "!declared" $ (Just v11) @=? readMaybe "SeqPosValue 11"
+        , testCase "noparse" $ Nothing @=? readMaybe @SeqPosValue "noparse"
+        , testProperty "read . show" (read_show_prop @SeqPosValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @SeqPosValue)
         ]
     , testGroup "getNames" [
           testCase "declared" $ ["A", "ALPHA"] @=? CEnum.getNames v1
@@ -717,6 +846,7 @@ testSeqPosValue = testGroup "SeqPosValue" [
     v0  = SeqPosValue 0
     v1  = SeqPosValue 1
     v2  = SeqPosValue 2
+    v3  = SeqPosValue 3
     v4  = SeqPosValue 4
     v5  = SeqPosValue 5
     v6  = SeqPosValue 6
@@ -730,9 +860,8 @@ testSeqPosValue = testGroup "SeqPosValue" [
 -------------------------------------------------------------------------------}
 
 newtype SeqNegValue = SeqNegValue {
-      un_SeqNegValue :: FC.CInt
+      _un_SeqNegValue :: FC.CInt
     }
-  deriving stock Show
   deriving newtype Eq
 
 instance CEnum SeqNegValue where
@@ -752,6 +881,13 @@ instance CEnum SeqNegValue where
     , (5,  NonEmpty.singleton "SPECTACULAR")
     ]
   showsUndeclared = CEnum.showsWrappedUndeclared "SeqNegValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "SeqNegValue"
+
+instance Show SeqNegValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read SeqNegValue where
+  readPrec = CEnum.readPrecCEnum
 
 instance SequentialCEnum SeqNegValue where
   minDeclaredValue = SeqNegValue (-5)
@@ -760,6 +896,8 @@ instance SequentialCEnum SeqNegValue where
 deriving via AsSequentialCEnum SeqNegValue instance Bounded SeqNegValue
 
 deriving via AsSequentialCEnum SeqNegValue instance Enum SeqNegValue
+
+deriving via AsSequentialCEnum SeqNegValue instance Arbitrary SeqNegValue
 
 testSeqNegValue :: TestTree
 testSeqNegValue = testGroup "SeqNegValue" [
@@ -775,10 +913,16 @@ testSeqNegValue = testGroup "SeqNegValue" [
         , testCase "low" $ Nothing @=? CEnum.mkDeclared @SeqNegValue (-6)
         , testCase "high" $ Nothing @=? CEnum.mkDeclared @SeqNegValue 6
         ]
-    , testGroup "showCEnum" [
-          testCase "declared" $ "NEUTRAL" @=? CEnum.showCEnum z
-        , testCase "!declared" $
-            "SeqNegValue (-6)" @=? CEnum.showCEnum n6
+    , testGroup "Show" [
+          testCase "declared" $ "NEUTRAL" @=? show z
+        , testCase "!declared" $ "SeqNegValue (-6)" @=? show n6
+        ]
+    , testGroup "Read" [
+          testCase "declared" $ (Just n3) @=? readMaybe "BAD"
+        , testCase "!declared" $ (Just $ SeqNegValue (-100)) @=? readMaybe "SeqNegValue (-100)"
+        , testCase "noparse" $ Nothing @=? readMaybe @SeqNegValue "noparse"
+        , testProperty "read . show" (read_show_prop @SeqNegValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @SeqNegValue)
         ]
     , testGroup "getNames" [
           testCase "declared" $
@@ -871,3 +1015,70 @@ testSeqNegValue = testGroup "SeqNegValue" [
     p4 = SeqNegValue 4
     p5 = SeqNegValue 5
     p6 = SeqNegValue 6
+
+{-------------------------------------------------------------------------------
+  NastiEnum
+-------------------------------------------------------------------------------}
+
+newtype NastyValue = NastyValue {
+      _un_NastyValue :: FC.CInt
+    }
+  deriving newtype Eq
+
+instance CEnum NastyValue where
+  type CEnumZ NastyValue = FC.CInt
+
+  declaredValues _ = CEnum.declaredValuesFromList [
+      (-2, NonEmpty.singleton "Nas")
+    , (-1,  NonEmpty.singleton "NastyValueNeg")
+    , (0,  "Nasty" :| ["NastyValue"])
+    , (1,  NonEmpty.singleton "NastyVal")
+    , (2,  NonEmpty.singleton "NastyValuePos")
+    ]
+  showsUndeclared = CEnum.showsWrappedUndeclared "NastyValue"
+  readPrecUndeclared = CEnum.readPrecWrappedUndeclared "NastyValue"
+
+instance Show NastyValue where
+  showsPrec = CEnum.showsCEnum
+
+instance Read NastyValue where
+  readPrec = CEnum.readPrecCEnum
+
+instance SequentialCEnum NastyValue where
+  minDeclaredValue = NastyValue (-2)
+  maxDeclaredValue = NastyValue 2
+
+deriving via AsSequentialCEnum NastyValue instance Bounded NastyValue
+
+deriving via AsSequentialCEnum NastyValue instance Enum NastyValue
+
+deriving via AsSequentialCEnum NastyValue instance Arbitrary NastyValue
+
+testNastyValue :: TestTree
+testNastyValue = testGroup "NastyValue" [
+      testGroup "Show" [
+          testCase "declared" $ "Nasty" @=? show z
+        , testCase "!declared" $ "NastyValue (-6)" @=? show n6
+        ]
+    , testGroup "Read" [
+          testCase "declared" $ (Just n2) @=? readMaybe "Nas"
+        , testCase "declared" $ (Just n1) @=? readMaybe "NastyValueNeg"
+        , testCase "declared" $ (Just z) @=? readMaybe "Nasty"
+        , testCase "declared" $ (Just z) @=? readMaybe "NastyValue"
+        , testCase "declared" $ (Just p1) @=? readMaybe "NastyVal"
+        , testCase "declared" $ (Just p2) @=? readMaybe "NastyValuePos"
+        , testCase "!declared" $ (Just $ NastyValue (-100)) @=? readMaybe "NastyValue (-100)"
+        , testCase "!declared" $ (Just $ NastyValue (100)) @=? readMaybe "NastyValue (100)"
+        , testCase "noparse" $ Nothing @=? readMaybe @NastyValue "noparse"
+        , testProperty "read . show" (read_show_prop @NastyValue)
+        , testProperty "readsPrec . showsPrec" (readsPrec_showsPrec_prop @NastyValue)
+        ]
+    ]
+  where
+    n6, n1, z, p1, p2 :: NastyValue
+    n6 = NastyValue (-6)
+    n2 = NastyValue (-2)
+    n1 = NastyValue (-1)
+    z  = NastyValue 0
+    p1 = NastyValue 1
+    p2 = NastyValue 2

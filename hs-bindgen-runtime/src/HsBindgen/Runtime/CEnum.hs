@@ -16,6 +16,8 @@ module HsBindgen.Runtime.CEnum (
   , showCEnum
   , showsCEnum
   , showsWrappedUndeclared
+  , readPrecCEnum
+  , readPrecWrappedUndeclared
   , seqIsDeclared
   , seqMkDeclared
     -- * Deriving via support
@@ -34,7 +36,12 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Proxy (Proxy(Proxy))
-import GHC.Show (appPrec1, showSpace)
+import GHC.Show (appPrec1, showSpace, appPrec)
+import Text.Read (ReadPrec, (+++))
+import Text.Read.Lex (Lexeme (..), expect)
+import Text.Read qualified as Read
+import Text.ParserCombinators.ReadP qualified as ReadP
+import Text.ParserCombinators.ReadPrec qualified as ReadPrec
 
 {-------------------------------------------------------------------------------
   Type classes
@@ -94,7 +101,7 @@ class Integral (CEnumZ a) => CEnum a where
   -- valid if the Haskell wrapper has a 'Num' instance. If the Haskell type is
   -- simply a newtype wrapper around the underlying C type, you can use
   -- 'showsWrappedUndeclared'. Finally, if the Haskell type /cannot/ represent
-  -- undeclared values, this can be defined using @error@
+  -- undeclared values, this can be defined using @error@.
   --
   -- > showsUndeclared _ = \_ x ->
   -- >   error $ "Unexpected value " ++ show x ++ " for type Foo"
@@ -104,20 +111,26 @@ class Integral (CEnumZ a) => CEnum a where
             => proxy a -> Int -> CEnumZ a -> ShowS
   showsUndeclared _ = showsPrec
 
+  -- | Read undeclared value
+  --
+  -- See 'showsUndeclared', 'showsWrappedUndeclared', and
+  -- 'readPrecWrappedUndeclared'.
+  readPrecUndeclared :: ReadPrec a
+
   -- | Determine if the specified value is declared
   --
   -- This has a default definition in terms of 'getDeclaredValues', but you may
   -- wish to override this with a more efficient implementation (in particular,
   -- see 'seqIsDeclared').
   isDeclared :: a -> Bool
-  isDeclared x = (fromCEnum x) `Map.member` getDeclaredValues (Proxy :: Proxy a)
+  isDeclared x = (fromCEnum x) `Map.member` getIntegralToDeclaredValues (Proxy :: Proxy a)
 
   -- | Construct a value only if it is declared
   --
   -- See also 'seqMkDeclared'.
   mkDeclared :: CEnumZ a -> Maybe a
   mkDeclared i
-    | i `Map.member` getDeclaredValues (Proxy :: Proxy a) = Just (toCEnum i)
+    | i `Map.member` getIntegralToDeclaredValues (Proxy :: Proxy a) = Just (toCEnum i)
     | otherwise = Nothing
 
 -- | C enumeration with sequential values
@@ -151,15 +164,17 @@ class CEnum a => SequentialCEnum a where
 -- An empty list is returned when the specified value is not declared.
 getNames :: forall a. CEnum a => a -> [String]
 getNames x = maybe [] NonEmpty.toList $
-    Map.lookup (fromCEnum x) (getDeclaredValues (Proxy :: Proxy a))
+    Map.lookup (fromCEnum x) (getIntegralToDeclaredValues (Proxy :: Proxy a))
 
 {-------------------------------------------------------------------------------
   Instance support
 -------------------------------------------------------------------------------}
 
--- | Declared values and associated names (opaque)
-newtype DeclaredValues a = DeclaredValues
-    { unDeclaredValues :: Map (CEnumZ a) (NonEmpty String)
+-- | Declared values (opaque)
+data DeclaredValues a = DeclaredValues
+    { declaredValuesList :: ![String]
+    , integralToDeclaredValues :: !(Map (CEnumZ a) (NonEmpty String))
+    , declaredValueToIntegral :: !(Map String (CEnumZ a))
     }
 
 -- | Construct 'DeclaredValues' from a list of values and associated names
@@ -167,7 +182,12 @@ declaredValuesFromList ::
      Ord (CEnumZ a)
   => [(CEnumZ a, NonEmpty String)]
   -> DeclaredValues a
-declaredValuesFromList = DeclaredValues . Map.fromList
+declaredValuesFromList xs =
+  DeclaredValues
+    { declaredValuesList = concatMap (NonEmpty.toList .  snd) xs
+    , integralToDeclaredValues = Map.fromList xs
+    , declaredValueToIntegral =
+        Map.fromList [ (n, i) | (i, ns) <-  xs , n <- NonEmpty.toList ns ] }
 
 -- | Show the specified value
 --
@@ -175,20 +195,20 @@ declaredValuesFromList = DeclaredValues . Map.fromList
 -- @newtype@ representation of a C enumeration.
 --
 -- When the value is declared, a corresponding name is returned.  Otherwise,
--- 'showUndeclared' is called.
+-- 'showsUndeclared' is called.
 --
 -- Examples for a hypothetical enumeration type, using generated defaults:
 --
--- > showName "StatusCode" StatusOK == "StatusOK"
+-- > showCEnum StatusOK == "StatusOK"
 --
--- > showName "StatusCode" (StatusCode 418) == "StatusCode 418"
+-- > showCEnum (StatusCode 418) == "StatusCode 418"
 showCEnum :: forall a. CEnum a => a -> String
 showCEnum x = showsCEnum 0 x ""
 
 -- | Generalization of 'showsCEnum' (akin to 'showsPrec').
 showsCEnum :: forall a. CEnum a => Int -> a -> ShowS
 showsCEnum prec x =
-    case Map.lookup i (getDeclaredValues (Proxy :: Proxy a)) of
+    case Map.lookup i (getIntegralToDeclaredValues (Proxy :: Proxy a)) of
       Just (name :| _names) -> showString name
       Nothing -> showsUndeclared (Proxy :: Proxy a) prec i
   where
@@ -206,6 +226,41 @@ showsWrappedUndeclared constructorName _ p x = showParen (p >= appPrec1) $
      showString constructorName
    . showSpace
    . showsPrec appPrec1 x
+
+-- | Read a declared 'CEnum' value
+readPrecDeclaredValue :: forall proxy a. CEnum a => proxy a -> ReadPrec a
+readPrecDeclaredValue proxy = do
+  declaredValue <- ReadPrec.lift $ ReadP.choice $
+                     map ReadP.string $ declaredValuesList $ declaredValues proxy
+  pure $ toCEnum $ (declaredValueToIntegral $ declaredValues proxy) Map.! declaredValue
+
+-- | Helper function for defining 'readPrecUndeclared'
+--
+-- This helper can be used in the case where @a@ is a newtype wrapper around
+-- the underlying @CEnumZ a@.
+readPrecWrappedUndeclared
+  :: forall a. (CEnum a, Read (CEnumZ a)) => String -> ReadPrec a
+readPrecWrappedUndeclared constructorName = do
+  ReadPrec.lift $ expect $ Ident constructorName
+  n <- Read.step (Read.readPrec :: ReadPrec (CEnumZ a))
+  pure $ toCEnum n
+
+-- | Read a 'CEnum' from string
+--
+-- This function may be used in the definition of a 'Read' instance for a
+-- @newtype@ representation of a C enumeration.
+--
+-- Examples for a hypothetical enumeration type, using generated defaults:
+--
+-- > (read "StatusCode 200" :: StatusCode) == StatusOK
+--
+-- > (read "StatusOK" :: StatusCode) == StatusOK
+--
+-- > (read "StatusCode 123" :: StatusCode) == StatusCode 123
+readPrecCEnum :: forall a. (CEnum a, Read (CEnumZ a)) => ReadPrec a
+readPrecCEnum =
+  Read.parens (ReadPrec.prec appPrec1 $ readPrecDeclaredValue (Proxy :: Proxy a))
+  +++ Read.parens ((ReadPrec.prec appPrec) $ readPrecUndeclared)
 
 -- | Determine if the specified value is declared
 --
@@ -341,7 +396,7 @@ instance Exception CEnumException where
 -------------------------------------------------------------------------------}
 
 minBoundGen :: forall a. CEnum a => a
-minBoundGen = case Map.lookupMin (getDeclaredValues (Proxy :: Proxy a)) of
+minBoundGen = case Map.lookupMin (getIntegralToDeclaredValues (Proxy :: Proxy a)) of
     Just (i, _names) -> toCEnum i
     Nothing -> throw CEnumEmpty
 
@@ -349,7 +404,7 @@ minBoundSeq :: SequentialCEnum a => a
 minBoundSeq = minDeclaredValue
 
 maxBoundGen :: forall a. CEnum a => a
-maxBoundGen = case Map.lookupMax (getDeclaredValues (Proxy :: Proxy a)) of
+maxBoundGen = case Map.lookupMax (getIntegralToDeclaredValues (Proxy :: Proxy a)) of
     Just (k, _names) -> toCEnum k
     Nothing -> throw CEnumEmpty
 
@@ -362,7 +417,7 @@ maxBoundSeq = maxDeclaredValue
 
 succGen :: forall a. CEnum a => a -> a
 succGen x = either (throw . CEnumNotDeclared) id $ do
-    (_ltMap, gtMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+    (_ltMap, gtMap) <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
     case Map.lookupMin gtMap of
       Just (j, _names) -> return $ toCEnum j
       Nothing -> throw $ CEnumNoSuccessor (toInteger i)
@@ -383,7 +438,7 @@ succSeq x
 
 predGen :: forall a. CEnum a => a -> a
 predGen y = either (throw . CEnumNotDeclared) id $ do
-    (ltMap, _gtMap) <- splitMap j (getDeclaredValues (Proxy :: Proxy a))
+    (ltMap, _gtMap) <- splitMap j (getIntegralToDeclaredValues (Proxy :: Proxy a))
     case Map.lookupMax ltMap of
       Just (i, _names) -> return $ toCEnum i
       Nothing -> throw $ CEnumNoPredecessor (toInteger j)
@@ -419,7 +474,7 @@ toEnumSeq n
 
 fromEnumGen :: forall a. CEnum a => a -> Int
 fromEnumGen x
-    | i `Map.member` getDeclaredValues (Proxy :: Proxy a) = fromIntegral i
+    | i `Map.member` getIntegralToDeclaredValues (Proxy :: Proxy a) = fromIntegral i
     | otherwise = throw $ CEnumNotDeclared (toInteger i)
   where
     i :: CEnumZ a
@@ -437,7 +492,7 @@ fromEnumSeq x
 
 enumFromGen :: forall a. CEnum a => a -> [a]
 enumFromGen x = either (throw . CEnumNotDeclared) id $ do
-    (_ltMap, gtMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+    (_ltMap, gtMap) <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
     return $ x : map toCEnum (Map.keys gtMap)
   where
     i :: CEnumZ a
@@ -456,13 +511,13 @@ enumFromSeq x
 enumFromThenGen :: forall a. CEnum a => a -> a -> [a]
 enumFromThenGen x y = case compare i j of
     LT -> either (throw . CEnumNotDeclared) id $ do
-      (_ltIMap, gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+      (_ltIMap, gtIMap) <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap) <- splitMap j gtIMap
       let w  = Map.size ltJMap + 1
           js = j : Map.keys gtJMap
       return $ x : map (toCEnum . NonEmpty.head) (nonEmptyChunksOf w js)
     GT -> either (throw . CEnumNotDeclared) id $ do
-      (ltIMap, _gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+      (ltIMap, _gtIMap) <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
       (ltJMap, gtJMap)  <- splitMap j ltIMap
       let w  = Map.size gtJMap + 1
           js = j : reverse (Map.keys ltJMap)
@@ -489,7 +544,7 @@ enumFromThenSeq x y
 
 enumFromToGen :: forall a. CEnum a => a -> a -> [a]
 enumFromToGen x z = either (throw . CEnumNotDeclared) id $ do
-    (_ltIMap, gtIMap)  <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+    (_ltIMap, gtIMap)  <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
     if i == k
       then return [x]
       else do
@@ -515,14 +570,14 @@ enumFromToSeq x z
 enumFromThenToGen :: forall a. CEnum a => a -> a -> a -> [a]
 enumFromThenToGen x y z = case compare i j of
     LT -> either (throw . CEnumNotDeclared) id $ do
-      (_ltIMap, gtIMap)  <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+      (_ltIMap, gtIMap)  <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap)  <- splitMap j gtIMap
       (ltKMap,  _gtKMap) <- splitMap k gtJMap
       let w  = Map.size ltJMap + 1
           js = j : Map.keys ltKMap ++ [k]
       return $ x : map (toCEnum . NonEmpty.head) (nonEmptyChunksOf w js)
     GT -> either (throw . CEnumNotDeclared) id $ do
-      (ltIMap,  _gtIMap) <- splitMap i (getDeclaredValues (Proxy :: Proxy a))
+      (ltIMap,  _gtIMap) <- splitMap i (getIntegralToDeclaredValues (Proxy :: Proxy a))
       (ltJMap,  gtJMap)  <- splitMap j ltIMap
       (_ltKMap, gtKMap)  <- splitMap k ltJMap
       let w  = Map.size gtJMap + 1
@@ -554,8 +609,8 @@ enumFromThenToSeq x y z
   Auxiliary Functions
 -------------------------------------------------------------------------------}
 
-getDeclaredValues :: CEnum a => proxy a -> Map (CEnumZ a) (NonEmpty String)
-getDeclaredValues = unDeclaredValues . declaredValues
+getIntegralToDeclaredValues :: CEnum a => proxy a -> Map (CEnumZ a) (NonEmpty String)
+getIntegralToDeclaredValues = integralToDeclaredValues . declaredValues
 
 nonEmptyChunksOf :: Int -> [a] -> [NonEmpty a]
 nonEmptyChunksOf n xs
