@@ -144,6 +144,11 @@ instance IsSimpleEnum CXTypeKind where
   simpleToC CXType_MemberPointer       = #const CXType_MemberPointer
   simpleToC CXType_Auto                = #const CXType_Auto
   simpleToC CXType_Elaborated          = #const CXType_Elaborated
+  simpleToC CXType_ObjCObject          = #const CXType_ObjCObject
+  simpleToC CXType_ObjCTypeParam       = #const CXType_ObjCTypeParam
+  simpleToC CXType_Attributed          = #const CXType_Attributed
+  simpleToC CXType_ExtVector           = #const CXType_ExtVector
+  simpleToC CXType_Atomic              = #const CXType_Atomic
 
   simpleFromC (#const CXType_Invalid)             = Just CXType_Invalid
   simpleFromC (#const CXType_Unexposed)           = Just CXType_Unexposed
@@ -206,6 +211,11 @@ instance IsSimpleEnum CXTypeKind where
   simpleFromC (#const CXType_MemberPointer)       = Just CXType_MemberPointer
   simpleFromC (#const CXType_Auto)                = Just CXType_Auto
   simpleFromC (#const CXType_Elaborated)          = Just CXType_Elaborated
+  simpleFromC (#const CXType_ObjCObject)          = Just CXType_ObjCObject
+  simpleFromC (#const CXType_ObjCTypeParam)       = Just CXType_ObjCTypeParam
+  simpleFromC (#const CXType_Attributed)          = Just CXType_Attributed
+  simpleFromC (#const CXType_ExtVector)           = Just CXType_ExtVector
+  simpleFromC (#const CXType_Atomic)              = Just CXType_Atomic
 
   simpleFromC _otherwise = Nothing
 

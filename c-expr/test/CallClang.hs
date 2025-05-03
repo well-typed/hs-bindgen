@@ -149,6 +149,11 @@ parseClangType cxTy = do
                                                ; parseClangType canTy }
         Clang.CXType_Elaborated          -> do { namedTy <- Clang.clang_Type_getNamedType cxTy
                                                ; parseClangType namedTy }
+        Clang.CXType_ObjCObject          -> return Nothing
+        Clang.CXType_ObjCTypeParam       -> return Nothing
+        Clang.CXType_Attributed          -> return Nothing
+        Clang.CXType_ExtVector           -> return Nothing
+        Clang.CXType_Atomic              -> return Nothing
 
 -- | Query @clang@ for canonical names for types.
 getExpansionTypeMapping :: Clang.ClangArgs -> [ CType ] -> IO ( Map CType CType )

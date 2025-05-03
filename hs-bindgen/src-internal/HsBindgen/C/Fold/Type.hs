@@ -366,6 +366,10 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
         e' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeIncompleteArray e')
 
+    Right CXType_Attributed -> do
+        ty' <- clang_Type_getModifiedType ty
+        processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Modified) Nothing ty'
+
     _otherwise ->
       unrecognizedType ty declLoc
 

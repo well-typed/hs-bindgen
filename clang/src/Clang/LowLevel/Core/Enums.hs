@@ -167,7 +167,12 @@ data CXTranslationUnit_Flags =
 
 -- | Describes the kind of type
 --
--- NOTE: This definition is not complete; we omit all OpenCL related kinds.
+-- NOTE: This definition is not complete; we omit kinds for
+--
+-- * OpenCL
+-- * HLSL
+-- * BPF/BTF
+--
 -- We don't need them, and by omitting them we are compatible with a larger
 -- range of @libclang@ versions.
 --
@@ -180,7 +185,7 @@ data CXTypeKind =
     -- | Represents an invalid type (e.g., where no type is available).
     CXType_Invalid
 
-    -- | A type whose specific kind is not exposed via this
+    -- | A type whose specific kind is not exposed via this interface.
   | CXType_Unexposed
 
     --
@@ -248,9 +253,15 @@ data CXTypeKind =
   | CXType_Auto
 
     -- | Represents a type that was referred to using an elaborated type keyword.
-    --
-    -- E.g., struct S, or via a qualified name, e.g., N::M::type, or both.
+    -- E.g., @struct S@, or via a qualified name, e.g., @N::M::type@, or both.
   | CXType_Elaborated
+
+  | CXType_ObjCObject
+  | CXType_ObjCTypeParam
+  | CXType_Attributed
+
+  | CXType_ExtVector
+  | CXType_Atomic
   deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
 
 {-------------------------------------------------------------------------------
