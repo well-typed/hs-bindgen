@@ -4,6 +4,8 @@ module Clang.HighLevel.Declaration (
   , classifyDeclaration
   ) where
 
+import Control.Monad.IO.Class
+
 import Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
@@ -23,8 +25,9 @@ data Declaration =
 
 -- | Classify a declaration
 classifyDeclaration ::
-     CXCursor  -- ^ Declaration
-  -> IO Declaration
+     MonadIO m
+  => CXCursor  -- ^ Declaration
+  -> m Declaration
 classifyDeclaration cursor = do
     defnCursor <- clang_getCursorDefinition cursor
     isDefnNull <- clang_equalCursors defnCursor nullCursor

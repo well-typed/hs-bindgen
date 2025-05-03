@@ -6,6 +6,7 @@ module Clang.HighLevel.Tokens (
 
 import Control.Exception
 import Control.Monad
+import Control.Monad.IO.Class
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import GHC.Stack
@@ -39,15 +40,15 @@ newtype TokenSpelling = TokenSpelling {
 
 -- | Get all tokens in the specified range
 clang_tokenize ::
-     HasCallStack
+     (MonadIO m, HasCallStack)
   => CXTranslationUnit
   -> Range SingleLoc
      -- ^ Range
      --
      -- We use 'Range' 'SingleLoc' here instead of 'CXSourceRange' in order to
      -- avoid ambiguity; see 'Clang.HighLevel.SourceLoc.Multi' for discussion.
-  -> IO [Token TokenSpelling]
-clang_tokenize unit range = do
+  -> m [Token TokenSpelling]
+clang_tokenize unit range = liftIO $ do
     range' <- SourceLoc.fromRange unit range
     bracket
         (Core.clang_tokenize unit range')
@@ -57,7 +58,9 @@ clang_tokenize unit range = do
         cursor <- index_CXCursorArray cursors i
         toToken unit (index_CXTokenArray tokens i) cursor
 
-toToken :: CXTranslationUnit -> CXToken -> CXCursor -> IO (Token TokenSpelling)
+toToken ::
+     MonadIO m
+  => CXTranslationUnit -> CXToken -> CXCursor -> m (Token TokenSpelling)
 toToken unit token cursor = do
     tokenKind       <- clang_getTokenKind token
     tokenSpelling   <- TokenSpelling <$> clang_getTokenSpelling unit token

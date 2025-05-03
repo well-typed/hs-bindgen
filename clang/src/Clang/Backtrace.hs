@@ -9,6 +9,7 @@ module Clang.Backtrace (
   ) where
 
 import Control.Exception
+import Control.Monad.IO.Class
 import Data.Typeable
 import GHC.Stack
 
@@ -34,8 +35,8 @@ instance Show Backtrace where
 prettyBacktrace :: Backtrace -> String
 prettyBacktrace = displayBacktraces . unwrapStack
 
-collectBacktrace :: HasCallStack => IO Backtrace
-collectBacktrace = WrapStack <$> collectBacktraces
+collectBacktrace :: (MonadIO m, HasCallStack) => m Backtrace
+collectBacktrace = liftIO $ WrapStack <$> collectBacktraces
 
 #else
 
@@ -51,7 +52,7 @@ instance Show Backtrace where
 prettyBacktrace :: Backtrace -> String
 prettyBacktrace = prettyCallStack . unwrapStack
 
-collectBacktrace :: HasCallStack => IO Backtrace
+collectBacktrace :: (MonadIO m, HasCallStack) => m Backtrace
 collectBacktrace = return $ WrapStack callStack
 
 #endif

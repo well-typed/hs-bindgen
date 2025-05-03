@@ -12,7 +12,6 @@ module HsBindgen.C.Predicate (
   ) where
 
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
-import Control.Monad.IO.Class
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text () -- instances only
 
@@ -65,15 +64,16 @@ instance Monoid Predicate where
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
-match ::
-     SourcePath -- ^ Path of current main header file
+match :: forall m.
+     MonadIO m
+  => SourcePath -- ^ Path of current main header file
   -> CXCursor
   -> SingleLoc
   -> Predicate
-  -> IO (Either String ())
+  -> m (Either String ())
 match mainSourcePath current sloc = runExceptT . go
   where
-    go :: Predicate -> ExceptT String IO ()
+    go :: Predicate -> ExceptT String m ()
     go SelectAll      = return ()
     go (SelectIfBoth p q) = go p >> go q
 
@@ -93,7 +93,7 @@ match mainSourcePath current sloc = runExceptT . go
             ]
 
     go (SelectByElementName re) = do
-        elementName <- liftIO $ clang_getCursorSpelling current
+        elementName <- clang_getCursorSpelling current
         unless (matchTest re elementName) $ do
           throwError $ mconcat [
               "Element name "

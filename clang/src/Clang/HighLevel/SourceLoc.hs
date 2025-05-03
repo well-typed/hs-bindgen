@@ -31,6 +31,7 @@ module Clang.HighLevel.SourceLoc (
   ) where
 
 import Control.Monad
+import Control.Monad.IO.Class
 import Data.List (intercalate)
 import Data.Text (Text)
 import Foreign.C
@@ -237,7 +238,7 @@ prettySourceRangeWith path pretty Range{rangeStart, rangeEnd} = concat [
   Conversion
 -------------------------------------------------------------------------------}
 
-toMulti :: Core.CXSourceLocation -> IO MultiLoc
+toMulti :: MonadIO m => Core.CXSourceLocation -> m MultiLoc
 toMulti location = do
     expansion <- clang_getExpansionLocation location
 
@@ -251,10 +252,12 @@ toMulti location = do
       <*> (unlessIsExpanion <$> clang_getSpellingLocation location)
       <*> (unlessIsExpanion <$> clang_getFileLocation     location)
 
-toRange :: Core.CXSourceRange -> IO (Range MultiLoc)
+toRange :: MonadIO m => Core.CXSourceRange -> m (Range MultiLoc)
 toRange = toRangeWith toMulti
 
-fromSingle :: HasCallStack => Core.CXTranslationUnit -> SingleLoc -> IO Core.CXSourceLocation
+fromSingle ::
+     (MonadIO m, HasCallStack)
+  => Core.CXTranslationUnit -> SingleLoc -> m Core.CXSourceLocation
 fromSingle unit SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
      let SourcePath path = singleLocPath
      file <- Core.clang_getFile unit path
@@ -264,7 +267,9 @@ fromSingle unit SingleLoc{singleLocPath, singleLocLine, singleLocColumn} = do
        (fromIntegral singleLocLine)
        (fromIntegral singleLocColumn)
 
-fromRange :: HasCallStack => Core.CXTranslationUnit -> Range SingleLoc -> IO Core.CXSourceRange
+fromRange ::
+     (MonadIO m, HasCallStack)
+  => Core.CXTranslationUnit -> Range SingleLoc -> m Core.CXSourceRange
 fromRange unit Range{rangeStart, rangeEnd} = do
     rangeStart' <- fromSingle unit rangeStart
     rangeEnd'   <- fromSingle unit rangeEnd
@@ -274,19 +279,19 @@ fromRange unit Range{rangeStart, rangeEnd} = do
   Get single location
 -------------------------------------------------------------------------------}
 
-clang_getExpansionLocation :: Core.CXSourceLocation -> IO SingleLoc
+clang_getExpansionLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getExpansionLocation location =
     toSingle' =<< Core.clang_getExpansionLocation location
 
-clang_getPresumedLocation :: Core.CXSourceLocation -> IO SingleLoc
+clang_getPresumedLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getPresumedLocation location =
     toSingle <$> Core.clang_getPresumedLocation location
 
-clang_getSpellingLocation :: Core.CXSourceLocation -> IO SingleLoc
+clang_getSpellingLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getSpellingLocation location =
     toSingle' =<< Core.clang_getSpellingLocation location
 
-clang_getFileLocation :: Core.CXSourceLocation -> IO SingleLoc
+clang_getFileLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getFileLocation location =
     toSingle' =<< Core.clang_getFileLocation location
 
@@ -295,18 +300,20 @@ clang_getFileLocation location =
 -------------------------------------------------------------------------------}
 
 -- | Retrieve the source location of the given diagnostic.
-clang_getDiagnosticLocation :: Core.CXDiagnostic -> IO MultiLoc
+clang_getDiagnosticLocation :: MonadIO m => Core.CXDiagnostic -> m MultiLoc
 clang_getDiagnosticLocation diagnostic =
     toMulti =<< Core.clang_getDiagnosticLocation diagnostic
 
 -- | Retrieve the physical location of the source constructor referenced by the
 -- given cursor.
-clang_getCursorLocation :: Core.CXCursor -> IO MultiLoc
+clang_getCursorLocation :: MonadIO m => Core.CXCursor -> m MultiLoc
 clang_getCursorLocation cursor =
     toMulti =<< Core.clang_getCursorLocation cursor
 
 -- | Retrieve the source location of the given token.
-clang_getTokenLocation :: Core.CXTranslationUnit -> Core.CXToken -> IO MultiLoc
+clang_getTokenLocation ::
+     MonadIO m
+  => Core.CXTranslationUnit -> Core.CXToken -> m MultiLoc
 clang_getTokenLocation unit token =
     toMulti =<< Core.clang_getTokenLocation unit token
 
@@ -315,15 +322,18 @@ clang_getTokenLocation unit token =
 -------------------------------------------------------------------------------}
 
 -- | Retrieve a source range associated with the diagnostic.
-clang_getDiagnosticRange :: Core.CXDiagnostic -> CUInt -> IO (Range MultiLoc)
+clang_getDiagnosticRange ::
+     MonadIO m
+  => Core.CXDiagnostic -> CUInt -> m (Range MultiLoc)
 clang_getDiagnosticRange diagnostic range =
     toRange =<< Core.clang_getDiagnosticRange diagnostic range
 
 -- | Retrieve the replacement information for a given fix-it.
 clang_getDiagnosticFixIt ::
-     Core.CXDiagnostic
+     MonadIO m
+  => Core.CXDiagnostic
   -> CUInt
-  -> IO (Range MultiLoc, Text)
+  -> m (Range MultiLoc, Text)
 clang_getDiagnosticFixIt diagnostic fixit = do
     (range, replacement) <- Core.clang_getDiagnosticFixIt diagnostic fixit
     (, replacement) <$> toRange range
@@ -334,25 +344,27 @@ clang_getDiagnosticFixIt diagnostic fixit = do
 -- relevant part of the returned range is the /spelling/ location. That
 -- assumption may be false.
 clang_Cursor_getSpellingNameRange ::
-     Core.CXCursor
+     MonadIO m
+  => Core.CXCursor
   -> CUInt
   -> CUInt
-  -> IO (Range SingleLoc)
+  -> m (Range SingleLoc)
 clang_Cursor_getSpellingNameRange cursor pieceIndex options = do
     range <- Core.clang_Cursor_getSpellingNameRange cursor pieceIndex options
     toRangeWith clang_getSpellingLocation range
 
 -- | Retrieve the physical extent of the source construct referenced by the
 -- given cursor.
-clang_getCursorExtent :: Core.CXCursor -> IO (Range MultiLoc)
+clang_getCursorExtent :: MonadIO m => Core.CXCursor -> m (Range MultiLoc)
 clang_getCursorExtent cursor =
     toRange =<< Core.clang_getCursorExtent cursor
 
 -- | Retrieve a source range that covers the given token.
 clang_getTokenExtent ::
-     Core.CXTranslationUnit
+     MonadIO m
+  => Core.CXTranslationUnit
   -> Core.CXToken
-  -> IO (Range MultiLoc)
+  -> m (Range MultiLoc)
 clang_getTokenExtent unit token =
     toRange =<< Core.clang_getTokenExtent unit token
 
@@ -367,14 +379,15 @@ toSingle (singleLocPath, singleLocLine, singleLocColumn) = SingleLoc{
     , singleLocColumn = fromIntegral singleLocColumn
     }
 
-toSingle' :: (Core.CXFile, CUInt, CUInt, CUInt) -> IO SingleLoc
+toSingle' :: MonadIO m => (Core.CXFile, CUInt, CUInt, CUInt) -> m SingleLoc
 toSingle' (file, singleLocLine, singleLocColumn, _offset) = do
     singleLocPath <- Core.clang_getFileName file
     return $ toSingle (singleLocPath, singleLocLine, singleLocColumn)
 
 toRangeWith ::
-    (Core.CXSourceLocation -> IO a)
-  -> Core.CXSourceRange -> IO (Range a)
+     MonadIO m
+  => (Core.CXSourceLocation -> m a)
+  -> Core.CXSourceRange -> m (Range a)
 toRangeWith f range =
     Range
       <$> (f =<< Core.clang_getRangeStart range)

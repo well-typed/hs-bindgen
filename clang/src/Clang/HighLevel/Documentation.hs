@@ -13,6 +13,7 @@ module Clang.HighLevel.Documentation (
   ) where
 
 import Control.Monad
+import Control.Monad.IO.Class
 import Data.Either
 import Data.Text (Text)
 
@@ -101,7 +102,7 @@ data CommentInlineContent =
 --
 -- An error is thrown when an unexpected comment kind is encountered, such as
 -- block content within inline content.
-clang_getComment :: CXCursor -> IO (Maybe Comment)
+clang_getComment :: MonadIO m => CXCursor -> m (Maybe Comment)
 clang_getComment cursor = do
     comment <- clang_Cursor_getParsedComment cursor
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
@@ -120,9 +121,10 @@ clang_getComment cursor = do
 --
 -- An error is thrown when an unexpected comment kind is encountered.
 getBlockContent ::
-     CXCursor -- ^ cursor to provide context in error messages
+     MonadIO m
+  => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> IO CommentBlockContent
+  -> m CommentBlockContent
 getBlockContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
@@ -189,9 +191,10 @@ getBlockContent cursor comment = do
 --
 -- An error is thrown when an unexpected comment kind is encountered.
 getInlineContent ::
-     CXCursor -- ^ cursor to provide context in error messages
+     MonadIO m
+  => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> IO CommentInlineContent
+  -> m CommentInlineContent
 getInlineContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
@@ -234,9 +237,10 @@ getInlineContent cursor comment = do
 --
 -- An error is thrown when an unexpected comment kind is encountered.
 getVerbatimBlockLine ::
-     CXCursor -- ^ cursor to provide context in error messages
+     MonadIO m
+  => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> IO Text
+  -> m Text
 getVerbatimBlockLine cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
@@ -250,7 +254,7 @@ getVerbatimBlockLine cursor comment = do
         errorWithContext cursor $ "child comment with invalid kind " ++ show n
 
 -- | Reify children
-getChildren :: (CXComment -> IO a) -> CXComment -> IO [a]
+getChildren :: MonadIO m => (CXComment -> m a) -> CXComment -> m [a]
 getChildren f comment = do
     idxs <- getIdxs <$> clang_Comment_getNumChildren comment
     mapM (f <=< clang_Comment_getChild comment) idxs
@@ -276,11 +280,12 @@ getIdxs n = [0 .. n - 1]
 -------------------------------------------------------------------------------}
 
 -- | Throw an error with context information
-errorWithContext
-  :: CXCursor -- ^ cursor to provide context in error messages
+errorWithContext ::
+     MonadIO m
+  => CXCursor -- ^ cursor to provide context in error messages
   -> String   -- ^ error message
-  -> IO a
-errorWithContext cursor msg = do
+  -> m a
+errorWithContext cursor msg = liftIO $ do
     displayName <- clang_getCursorDisplayName cursor
     extent <- clang_getCursorExtent cursor
     (file, startLine, startCol) <-

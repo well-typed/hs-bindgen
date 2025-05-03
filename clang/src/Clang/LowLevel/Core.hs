@@ -42,9 +42,6 @@
 -- 2. For functions for which we don't need a C wrapper, we import the
 --    @libclang@ function as @nowrapper_foo@.
 --
--- 3. In the rare case that we can export the C function directly, we import it
---    simply as @clang_foo@.
---
 -- /Note on pointers/: in the public API, all @libclang@ types are opaque.
 -- Internally, they are all newtypes around either 'Ptr' or 'OnHaskellHeap',
 -- depending on whether or not we own the value.
@@ -146,11 +143,9 @@ module Clang.LowLevel.Core (
   , clang_getTypedefName
   , clang_getUnqualifiedType
   , clang_getTypeDeclaration
-  -- , clang_getFunctionTypeCallingConv
   , clang_getResultType
   , clang_getNumArgTypes
   , clang_getArgType
-  -- , clang_isFunctionTypeVariadic
   , clang_Type_getNamedType
   , clang_Type_getModifiedType
   , clang_Type_getValueType
@@ -196,6 +191,7 @@ module Clang.LowLevel.Core (
 
 import Control.Exception
 import Control.Monad
+import Control.Monad.IO.Class
 import Data.IORef
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -242,33 +238,16 @@ foreign import capi unsafe "clang-c/Index.h clang_createIndex"
     -> CInt -- ^ @displayDiagnostics@
     -> IO CXIndex
 
--- | Destroy the given index.
---
--- The index must not be destroyed until all of the translation units created
--- within that index have been destroyed.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga166ab73b14be73cbdcae14d62dbab22a>
 foreign import capi unsafe "clang-c/Index.h clang_disposeIndex"
-  clang_disposeIndex :: CXIndex -> IO ()
+  nowrapper_disposeIndex :: CXIndex -> IO ()
 
--- | Determine the number of diagnostics produced for the given translation unit.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX.html#gae9f047b4bbbbb01161478d549b7aab25>
 foreign import capi unsafe "clang-c/Index.h clang_getNumDiagnostics"
-  clang_getNumDiagnostics :: CXTranslationUnit -> IO CUInt
+  nowrapper_getNumDiagnostics :: CXTranslationUnit -> IO CUInt
 
--- | Retrieve a diagnostic associated with the given translation unit.
---
--- Returns the requested diagnostic. This diagnostic must be freed via a call to
--- 'clang_disposeDiagnostic'.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga3f54a79e820c2ac9388611e98029afe5>
 foreign import capi unsafe "clang-c/Index.h clang_getDiagnostic"
-  clang_getDiagnostic ::
-       CXTranslationUnit
-       -- ^ the translation unit to query.
-    -> CUInt
-       -- ^ the zero-based diagnostic number to retrieve.
+  nowrapper_getDiagnostic ::
+       CXTranslationUnit -- ^ the translation unit to query.
+    -> CUInt             -- ^ the zero-based diagnostic number to retrieve.
     -> IO CXDiagnostic
 
 -- | Provides a shared context for creating translation units.
@@ -278,9 +257,10 @@ foreign import capi unsafe "clang-c/Index.h clang_getDiagnostic"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga51eb9b38c18743bf2d824c6230e61f93>
 clang_createIndex ::
-     DisplayDiagnostics
-  -> IO CXIndex
-clang_createIndex diagnostics =
+     MonadIO m
+  => DisplayDiagnostics
+  -> m CXIndex
+clang_createIndex diagnostics = liftIO $
     nowrapper_clang_createIndex 0 diagnostics'
   where
     diagnostics' :: CInt
@@ -288,6 +268,36 @@ clang_createIndex diagnostics =
         case diagnostics of
           DisplayDiagnostics     -> 1
           DontDisplayDiagnostics -> 0
+
+-- | Destroy the given index.
+--
+-- The index must not be destroyed until all of the translation units created
+-- within that index have been destroyed.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga166ab73b14be73cbdcae14d62dbab22a>
+clang_disposeIndex :: MonadIO m => CXIndex -> m ()
+clang_disposeIndex cIdx = liftIO $ nowrapper_disposeIndex cIdx
+
+-- | Determine the number of diagnostics produced for the given translation unit.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#gae9f047b4bbbbb01161478d549b7aab25>
+clang_getNumDiagnostics :: MonadIO m => CXTranslationUnit -> m CUInt
+clang_getNumDiagnostics unit = liftIO $ nowrapper_getNumDiagnostics unit
+
+-- | Retrieve a diagnostic associated with the given translation unit.
+--
+-- Returns the requested diagnostic. This diagnostic must be freed via a call to
+-- 'clang_disposeDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga3f54a79e820c2ac9388611e98029afe5>
+clang_getDiagnostic ::
+     MonadIO m
+  => CXTranslationUnit
+     -- ^ the translation unit to query.
+  -> CUInt
+     -- ^ the zero-based diagnostic number to retrieve.
+  -> m CXDiagnostic
+clang_getDiagnostic unit ix = liftIO $ nowrapper_getDiagnostic unit ix
 
 {-------------------------------------------------------------------------------
   Diagnostic reporting
@@ -306,44 +316,23 @@ newtype CXDiagnostic = CXDiagnostic (Ptr ())
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga38dfc0ae45b55bf7fd577eed9148e244>
 newtype CXDiagnosticSet = CXDiagnosticSet (Ptr ())
 
--- | Determine the number of diagnostics in a 'CXDiagnosticSet'.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga44e87e54125e501de0d3bd29161fe26b>
 foreign import capi unsafe "clang-c/Index.h clang_getNumDiagnosticsInSet"
-  clang_getNumDiagnosticsInSet :: CXDiagnosticSet -> IO CUInt
+  nowrapper_getNumDiagnosticsInSet :: CXDiagnosticSet -> IO CUInt
 
--- | Retrieve a diagnostic associated with the given 'CXDiagnosticSet'.
---
--- Returns the requested diagnostic. This diagnostic must be freed via a call to
--- 'clang_disposeDiagnostic'.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga997e07d587e02eea7d29874c33c94249>
 foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticInSet"
-  clang_getDiagnosticInSet ::
+  nowrapper_getDiagnosticInSet ::
        CXDiagnosticSet  -- ^ the CXDiagnosticSet to query.
     -> CUInt            -- ^ the zero-based diagnostic number to retrieve.
     -> IO CXDiagnostic
 
--- | Release a CXDiagnosticSet and all of its contained diagnostics.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga1a1126b07e4dc0b45b0617f3cc848d57>
 foreign import capi unsafe "clang-c/Index.h clang_disposeDiagnosticSet"
-  clang_disposeDiagnosticSet :: CXDiagnosticSet -> IO ()
+  nowrapper_disposeDiagnosticSet :: CXDiagnosticSet -> IO ()
 
--- | Retrieve the child diagnostics of a CXDiagnostic.
---
--- This 'CXDiagnosticSet' does not need to be released by
--- 'clang_disposeDiagnosticSet'.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga1aa24f925b34bb988dc3ea06ec27dcda>
 foreign import capi unsafe "clang-c/Index.h clang_getChildDiagnostics"
-  clang_getChildDiagnostics :: CXDiagnostic -> IO CXDiagnosticSet
+  nowrapper_getChildDiagnostics :: CXDiagnostic -> IO CXDiagnosticSet
 
--- | Destroy a diagnostic.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga07061e0ad7665b7c5ee7253cd1bf4a5c>
 foreign import capi unsafe "clang-c/Index.h clang_disposeDiagnostic"
-  clang_disposeDiagnostic :: CXDiagnostic -> IO ()
+  nowrapper_disposeDiagnostic :: CXDiagnostic -> IO ()
 
 foreign import capi unsafe "clang_wrappers.h wrap_formatDiagnostic"
   wrap_formatDiagnostic ::
@@ -352,22 +341,12 @@ foreign import capi unsafe "clang_wrappers.h wrap_formatDiagnostic"
     -> W CXString_
     -> IO ()
 
--- | Retrieve the set of display options most similar to the default behavior of
--- the clang compiler.
---
--- Returns a set of display options suitable for use with
--- 'clang_formatDiagnostic'.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga5fcf910792541399efd63c62042ce353>
 foreign import capi unsafe "clang-c/Index.h clang_defaultDiagnosticDisplayOptions"
-  clang_defaultDiagnosticDisplayOptions ::
+  nowrapper_defaultDiagnosticDisplayOptions ::
        IO (BitfieldEnum CXDiagnosticDisplayOptions)
 
--- | Determine the severity of the given diagnostic.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gaff14261578eb9a2b02084f0cc6b95f9a>
 foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticSeverity"
-  clang_getDiagnosticSeverity ::
+  nowrapper_getDiagnosticSeverity ::
        CXDiagnostic
     -> IO (SimpleEnum CXDiagnosticSeverity)
 
@@ -384,33 +363,20 @@ foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticOption"
      -> W CXString_
      -> IO ()
 
--- | Retrieve the category number for this diagnostic.
---
--- Diagnostics can be categorized into groups along with other, related
--- diagnostics (e.g., diagnostics under the same warning flag). This routine
--- retrieves the category number for the given diagnostic.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga0ec085bd59b8b6c935eab0e53a1f348f>
 foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticCategory"
-  clang_getDiagnosticCategory :: CXDiagnostic -> IO CUInt
+  nowrapper_getDiagnosticCategory :: CXDiagnostic -> IO CUInt
 
 foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticCategoryText"
   wrap_getDiagnosticCategoryText :: CXDiagnostic -> W CXString_ -> IO ()
 
--- | Determine the number of source ranges associated with the given diagnostic.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga7acbd761f1113ea657022e5708694924>
 foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticNumRanges"
-  clang_getDiagnosticNumRanges :: CXDiagnostic -> IO CUInt
+  nowrapper_getDiagnosticNumRanges :: CXDiagnostic -> IO CUInt
 
 foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticRange"
   wrap_getDiagnosticRange :: CXDiagnostic -> CUInt -> W CXSourceRange_ -> IO ()
 
--- | Determine the number of fix-it hints associated with the given diagnostic.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gafe38dfd661f6ba59df956dfeabece2a2>
 foreign import capi unsafe "clang-c/Index.h clang_getDiagnosticNumFixIts"
-  clang_getDiagnosticNumFixIts :: CXDiagnostic -> IO CUInt
+  nowrapper_getDiagnosticNumFixIts :: CXDiagnostic -> IO CUInt
 
 foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticFixIt"
   wrap_getDiagnosticFixIt ::
@@ -419,6 +385,51 @@ foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticFixIt"
     -> W CXSourceRange_
     -> W CXString_
     -> IO ()
+
+-- | Determine the number of diagnostics in a 'CXDiagnosticSet'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga44e87e54125e501de0d3bd29161fe26b>
+clang_getNumDiagnosticsInSet :: MonadIO m => CXDiagnosticSet -> m CUInt
+clang_getNumDiagnosticsInSet set = liftIO $
+    nowrapper_getNumDiagnosticsInSet set
+
+-- | Retrieve a diagnostic associated with the given 'CXDiagnosticSet'.
+--
+-- Returns the requested diagnostic. This diagnostic must be freed via a call to
+-- 'clang_disposeDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga997e07d587e02eea7d29874c33c94249>
+clang_getDiagnosticInSet ::
+     MonadIO m
+  => CXDiagnosticSet  -- ^ the CXDiagnosticSet to query.
+  -> CUInt            -- ^ the zero-based diagnostic number to retrieve.
+  -> m CXDiagnostic
+clang_getDiagnosticInSet set ix = liftIO $
+    nowrapper_getDiagnosticInSet set ix
+
+-- | Release a CXDiagnosticSet and all of its contained diagnostics.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga1a1126b07e4dc0b45b0617f3cc848d57>
+clang_disposeDiagnosticSet :: MonadIO m => CXDiagnosticSet -> m ()
+clang_disposeDiagnosticSet set = liftIO $
+    nowrapper_disposeDiagnosticSet set
+
+-- | Retrieve the child diagnostics of a CXDiagnostic.
+--
+-- This 'CXDiagnosticSet' does not need to be released by
+-- 'clang_disposeDiagnosticSet'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga1aa24f925b34bb988dc3ea06ec27dcda>
+clang_getChildDiagnostics :: MonadIO m => CXDiagnostic -> m CXDiagnosticSet
+clang_getChildDiagnostics diagnostic = liftIO $
+    nowrapper_getChildDiagnostics diagnostic
+
+-- | Destroy a diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga07061e0ad7665b7c5ee7253cd1bf4a5c>
+clang_disposeDiagnostic :: MonadIO m => CXDiagnostic -> m ()
+clang_disposeDiagnostic diagnostic = liftIO $
+    nowrapper_disposeDiagnostic diagnostic
 
 -- | Format the given diagnostic in a manner that is suitable for display.
 --
@@ -429,11 +440,35 @@ foreign import capi unsafe "clang_wrappers.h wrap_getDiagnosticFixIt"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga455234ab6de0ca12c9ea36f8874060e8>
 clang_formatDiagnostic ::
-     CXDiagnostic
+     MonadIO m
+  => CXDiagnostic
   -> BitfieldEnum CXDiagnosticDisplayOptions
-  -> IO Text
-clang_formatDiagnostic diagnostic options =
+  -> m Text
+clang_formatDiagnostic diagnostic options = liftIO $
     preallocate_ $ wrap_formatDiagnostic diagnostic options
+
+-- | Retrieve the set of display options most similar to the default behavior of
+-- the clang compiler.
+--
+-- Returns a set of display options suitable for use with
+-- 'clang_formatDiagnostic'.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga5fcf910792541399efd63c62042ce353>
+clang_defaultDiagnosticDisplayOptions ::
+     MonadIO m
+  => m (BitfieldEnum CXDiagnosticDisplayOptions)
+clang_defaultDiagnosticDisplayOptions = liftIO $
+    nowrapper_defaultDiagnosticDisplayOptions
+
+-- | Determine the severity of the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gaff14261578eb9a2b02084f0cc6b95f9a>
+clang_getDiagnosticSeverity ::
+     MonadIO m
+  => CXDiagnostic
+  -> m (SimpleEnum CXDiagnosticSeverity)
+clang_getDiagnosticSeverity diagnostic = liftIO $
+    nowrapper_getDiagnosticSeverity diagnostic
 
 -- | Retrieve the source location of the given diagnostic.
 --
@@ -441,15 +476,15 @@ clang_formatDiagnostic diagnostic options =
 -- diagnostic on the command line.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gabfcf70ac15bb3e5ae39ef2c5e07c7428>
-clang_getDiagnosticLocation :: CXDiagnostic -> IO CXSourceLocation
-clang_getDiagnosticLocation diagnostic =
+clang_getDiagnosticLocation :: MonadIO m => CXDiagnostic -> m CXSourceLocation
+clang_getDiagnosticLocation diagnostic = liftIO $
     preallocate_ $ wrap_getDiagnosticLocation diagnostic
 
 -- | Retrieve the text of the given diagnostic.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga34a875e6d06ed4f8d2fc032f850ebbe1>
-clang_getDiagnosticSpelling :: CXDiagnostic -> IO Text
-clang_getDiagnosticSpelling diagnostic =
+clang_getDiagnosticSpelling :: MonadIO m => CXDiagnostic -> m Text
+clang_getDiagnosticSpelling diagnostic = liftIO $
     preallocate_ $ wrap_getDiagnosticSpelling diagnostic
 
 -- | Retrieve the name of the command-line option that enabled this diagnostic.
@@ -459,16 +494,34 @@ clang_getDiagnosticSpelling diagnostic =
 -- that disables this diagnostic (if any).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga69b094e2cca1cd6f452327dc9204a168>
-clang_getDiagnosticOption :: CXDiagnostic -> IO (Text, Text)
-clang_getDiagnosticOption diagnostic =
+clang_getDiagnosticOption :: MonadIO m => CXDiagnostic -> m (Text, Text)
+clang_getDiagnosticOption diagnostic = liftIO $
     preallocatePair_ $ wrap_getDiagnosticOption diagnostic
+
+-- | Retrieve the category number for this diagnostic.
+--
+-- Diagnostics can be categorized into groups along with other, related
+-- diagnostics (e.g., diagnostics under the same warning flag). This routine
+-- retrieves the category number for the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga0ec085bd59b8b6c935eab0e53a1f348f>
+clang_getDiagnosticCategory :: MonadIO m => CXDiagnostic -> m CUInt
+clang_getDiagnosticCategory diagnostic = liftIO $
+    nowrapper_getDiagnosticCategory diagnostic
 
 -- | Retrieve the diagnostic category text for a given diagnostic.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga6950702b6122f1cd74e1a369605a9f54>>
-clang_getDiagnosticCategoryText :: CXDiagnostic -> IO Text
-clang_getDiagnosticCategoryText diagnostic =
+clang_getDiagnosticCategoryText :: MonadIO m => CXDiagnostic -> m Text
+clang_getDiagnosticCategoryText diagnostic = liftIO $
     preallocate_ $ wrap_getDiagnosticCategoryText diagnostic
+
+-- | Determine the number of source ranges associated with the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#ga7acbd761f1113ea657022e5708694924>
+clang_getDiagnosticNumRanges :: MonadIO m => CXDiagnostic -> m CUInt
+clang_getDiagnosticNumRanges diagnostic = liftIO $
+    nowrapper_getDiagnosticNumRanges diagnostic
 
 -- | Retrieve a source range associated with the diagnostic.
 --
@@ -478,11 +531,19 @@ clang_getDiagnosticCategoryText diagnostic =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gabd440f1577374289ffebe73d9f65b294>
 clang_getDiagnosticRange ::
-     CXDiagnostic  -- ^ the diagnostic whose range is being extracted.
+     MonadIO m
+  => CXDiagnostic  -- ^ the diagnostic whose range is being extracted.
   -> CUInt         -- ^ the zero-based index specifying which range to extract
-  -> IO CXSourceRange
-clang_getDiagnosticRange diagnostic range =
+  -> m CXSourceRange
+clang_getDiagnosticRange diagnostic range = liftIO $
     preallocate_ $ wrap_getDiagnosticRange diagnostic range
+
+-- | Determine the number of fix-it hints associated with the given diagnostic.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gafe38dfd661f6ba59df956dfeabece2a2>
+clang_getDiagnosticNumFixIts :: MonadIO m => CXDiagnostic -> m CUInt
+clang_getDiagnosticNumFixIts diagnostic = liftIO $
+    nowrapper_getDiagnosticNumFixIts diagnostic
 
 -- | Retrieve the replacement information for a given fix-it.
 --
@@ -502,10 +563,11 @@ clang_getDiagnosticRange diagnostic range =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DIAG.html#gadf990bd68112475c5c07b19c1fe3938a>
 clang_getDiagnosticFixIt ::
-     CXDiagnostic  -- ^ The diagnostic whose fix-its are being queried.
+     MonadIO m
+  => CXDiagnostic  -- ^ The diagnostic whose fix-its are being queried.
   -> CUInt         -- ^ The zero-based index of the fix-it.
-  -> IO (CXSourceRange, Text)
-clang_getDiagnosticFixIt diagnostic fixit =
+  -> m (CXSourceRange, Text)
+clang_getDiagnosticFixIt diagnostic fixit = liftIO $
     preallocatePair_ $ wrap_getDiagnosticFixIt diagnostic fixit
 
 {-------------------------------------------------------------------------------
@@ -554,25 +616,14 @@ foreign import ccall unsafe "clang-c/Index.h clang_parseTranslationUnit2"
     -> Ptr CXTranslationUnit
     -> IO (SimpleEnum (Maybe CXErrorCode))
 
--- | Destroy the specified CXTranslationUnit object.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gaee753cb0036ca4ab59e48e3dff5f530a>
 foreign import capi "clang-c/Index.h clang_disposeTranslationUnit"
-  clang_disposeTranslationUnit :: CXTranslationUnit -> IO ()
+  nowrapper_disposeTranslationUnit :: CXTranslationUnit -> IO ()
 
--- | Get target information for this translation unit.
---
--- The 'CXTargetInfo' object cannot outlive the 'CXTranslationUnit' object.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga1813b53c06775c354f4797a5ec051948>
 foreign import capi "clang_wrappers.h clang_getTranslationUnitTargetInfo"
-  clang_getTranslationUnitTargetInfo :: CXTranslationUnit -> IO CXTargetInfo
+  nowrapper_getTranslationUnitTargetInfo :: CXTranslationUnit -> IO CXTargetInfo
 
--- | Destroy the 'CXTargetInfo' object.
---
--- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gafb00d82420b0101c185b88338567ffd9>
 foreign import capi "clang_wrappers.h clang_TargetInfo_dispose"
-  clang_TargetInfo_dispose :: CXTargetInfo -> IO ()
+  nowrapper_TargetInfo_dispose :: CXTargetInfo -> IO ()
 
 foreign import capi "clang_wrappers.h wrap_TargetInfo_getTriple"
   wrap_TargetInfo_getTriple :: CXTargetInfo -> W CXString_ -> IO ()
@@ -588,14 +639,14 @@ foreign import capi "clang_wrappers.h wrap_TargetInfo_getTriple"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga2baf83f8c3299788234c8bce55e4472e>
 clang_parseTranslationUnit ::
-     HasCallStack
+     (MonadIO m, HasCallStack)
   => CXIndex                               -- ^ @CIdx@
   -> SourcePath                            -- ^ @source_filename@
   -> ClangArgs                             -- ^ @command_line_args@
   -> [CXUnsavedFile]
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
-  -> IO CXTranslationUnit
-clang_parseTranslationUnit cIdx src args unsavedFiles options = do
+  -> m CXTranslationUnit
+clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $ do
     args' <- either callFailed return $ fromClangArgs args
     withCString (getSourcePath src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
@@ -621,14 +672,14 @@ clang_parseTranslationUnit cIdx src args unsavedFiles options = do
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga494de0e725c5ae40cbdea5fa6081027d>
 clang_parseTranslationUnit2 ::
-     HasCallStack
+     (MonadIO m, HasCallStack)
   => CXIndex                               -- ^ @CIdx@
   -> SourcePath                            -- ^ @source_filename@
   -> ClangArgs                             -- ^ @command_line_args@
   -> [CXUnsavedFile]
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
-  -> IO (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
-clang_parseTranslationUnit2 cIdx src args unsavedFiles options = do
+  -> m (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
+clang_parseTranslationUnit2 cIdx src args unsavedFiles options = liftIO $ do
     args' <- either callFailed return $ fromClangArgs args
     withCString (getSourcePath src) $ \src' ->
       withCStrings args' $ \args'' numArgs ->
@@ -650,14 +701,40 @@ clang_parseTranslationUnit2 cIdx src args unsavedFiles options = do
                 return $ Left (simpleEnum knownError)
               Left unknownError ->
                 return $ Left (coerceSimpleEnum unknownError)
+
+-- | Destroy the specified CXTranslationUnit object.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gaee753cb0036ca4ab59e48e3dff5f530a>
+clang_disposeTranslationUnit :: MonadIO m => CXTranslationUnit -> m ()
+clang_disposeTranslationUnit unit = liftIO $
+    nowrapper_disposeTranslationUnit unit
+
+-- | Get target information for this translation unit.
+--
+-- The 'CXTargetInfo' object cannot outlive the 'CXTranslationUnit' object.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga1813b53c06775c354f4797a5ec051948>
+clang_getTranslationUnitTargetInfo :: MonadIO m
+   => CXTranslationUnit -> m CXTargetInfo
+clang_getTranslationUnitTargetInfo unit = liftIO $
+    nowrapper_getTranslationUnitTargetInfo unit
+
+-- | Destroy the 'CXTargetInfo' object.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#gafb00d82420b0101c185b88338567ffd9>
+clang_TargetInfo_dispose :: MonadIO m => CXTargetInfo -> m ()
+clang_TargetInfo_dispose info = liftIO $ nowrapper_TargetInfo_dispose info
+
 --
 -- | Get the normalized target triple as a string.
 --
 -- Throws 'CallFailed' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html#ga7ae67e3c8baf6a9852900f6529dce2d0>
-clang_TargetInfo_getTriple :: HasCallStack => CXTargetInfo -> IO Text
-clang_TargetInfo_getTriple info = ensure (not . Text.null) $
+clang_TargetInfo_getTriple ::
+     (MonadIO m, HasCallStack)
+  => CXTargetInfo -> m Text
+clang_TargetInfo_getTriple info = liftIO $ ensure (not . Text.null) $
     preallocate_ $ wrap_TargetInfo_getTriple info
 
 {-------------------------------------------------------------------------------
@@ -708,15 +785,15 @@ foreign import capi unsafe "wrap_Cursor_getTranslationUnit"
 -- declarations within the given translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaec6e69127920785e74e4a517423f4391>
-clang_getTranslationUnitCursor :: CXTranslationUnit -> IO CXCursor
-clang_getTranslationUnitCursor unit =
+clang_getTranslationUnitCursor :: MonadIO m => CXTranslationUnit -> m CXCursor
+clang_getTranslationUnitCursor unit = liftIO $
     preallocate_ $ wrap_getTranslationUnitCursor unit
 
 -- | Determine whether two cursors are equivalent.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga98df58f09878710b983b6f3f60f0cba3>
-clang_equalCursors :: CXCursor -> CXCursor -> IO Bool
-clang_equalCursors a b =
+clang_equalCursors :: MonadIO m => CXCursor -> CXCursor -> m Bool
+clang_equalCursors a b = liftIO $
     onHaskellHeap a $ \a' ->
     onHaskellHeap b $ \b' ->
       cToBool <$> wrap_equalCursors a' b'
@@ -752,8 +829,8 @@ clang_equalCursors a b =
 -- For global declarations, the semantic parent is the translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gabc327b200d46781cf30cb84d4af3c877>
-clang_getCursorSemanticParent :: CXCursor -> IO CXCursor
-clang_getCursorSemanticParent cursor =
+clang_getCursorSemanticParent :: MonadIO m => CXCursor -> m CXCursor
+clang_getCursorSemanticParent cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorSemanticParent cursor'
 
@@ -790,25 +867,25 @@ clang_getCursorSemanticParent cursor =
 -- translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gace7a423874d72b3fdc71d6b0f31830dd>
-clang_getCursorLexicalParent :: CXCursor -> IO CXCursor
-clang_getCursorLexicalParent cursor =
+clang_getCursorLexicalParent :: MonadIO m => CXCursor -> m CXCursor
+clang_getCursorLexicalParent cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLexicalParent cursor'
 
-clang_Cursor_getArgument :: CXCursor -> Int -> IO CXCursor
-clang_Cursor_getArgument cursor i =
+clang_Cursor_getArgument :: MonadIO m => CXCursor -> Int -> m CXCursor
+clang_Cursor_getArgument cursor i = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_Cursor_getArgument cursor' (fromIntegral i)
 
 -- | Retrieve the NULL cursor, which represents no entity.
-clang_getNullCursor :: IO CXCursor
-clang_getNullCursor = preallocate_ wrap_getNullCursor
+clang_getNullCursor :: MonadIO m => m CXCursor
+clang_getNullCursor = liftIO $ preallocate_ wrap_getNullCursor
 
 -- | Retrieve the kind of the given cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga018aaf60362cb751e517d9f8620d490c>
-clang_getCursorKind :: CXCursor -> IO (SimpleEnum CXCursorKind)
-clang_getCursorKind cursor =
+clang_getCursorKind :: MonadIO m => CXCursor -> m (SimpleEnum CXCursorKind)
+clang_getCursorKind cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_getCursorKind cursor'
 
@@ -819,29 +896,31 @@ clang_getCursorKind cursor =
 -- used only for testing and debugging, and should not be relied upon.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__DEBUG.html#ga7a4eecfc1b343568cb9ea447cbde08a8
-clang_getCursorKindSpelling :: SimpleEnum CXCursorKind -> IO Text
-clang_getCursorKindSpelling kind =
+clang_getCursorKindSpelling :: MonadIO m => SimpleEnum CXCursorKind -> m Text
+clang_getCursorKindSpelling kind = liftIO $
     preallocate_ $ wrap_getCursorKindSpelling kind
 
 -- | Returns the translation unit that a cursor originated from.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga529f1504710a41ce358d4e8c3161848d>
-clang_Cursor_getTranslationUnit :: CXCursor -> IO (Maybe CXTranslationUnit)
-clang_Cursor_getTranslationUnit cursor = checkNotNull $
+clang_Cursor_getTranslationUnit ::
+     MonadIO m
+  => CXCursor -> m (Maybe CXTranslationUnit)
+clang_Cursor_getTranslationUnit cursor = liftIO $ checkNotNull $
     onHaskellHeap cursor $ \cursor' ->
       wrap_Cursor_getTranslationUnit cursor'
 
 -- | Determine whether the given cursor kind represents a declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#ga660aa4846fce0a54e20073ab6a5465a0>
-clang_isDeclaration :: SimpleEnum CXCursorKind -> IO Bool
-clang_isDeclaration kind = cToBool <$> nowrapper_isDeclaration kind
+clang_isDeclaration :: MonadIO m => SimpleEnum CXCursorKind -> m Bool
+clang_isDeclaration kind = liftIO $ cToBool <$> nowrapper_isDeclaration kind
 
 -- | Retrieve the file that is included by the given inclusion directive cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf61979977343e39f21d6ea0b22167514>
-clang_getIncludedFile :: CXCursor -> IO CXFile
-clang_getIncludedFile cursor =
+clang_getIncludedFile :: MonadIO m => CXCursor -> m CXFile
+clang_getIncludedFile cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_getIncludedFile cursor'
 
@@ -883,7 +962,8 @@ foreign import capi safe "clang_wrappers.h wrap_visitChildren"
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__TRAVERSAL.html#ga5d0a813d937e1a7dcc35f206ad1f7a91>
 clang_visitChildren ::
-     CXCursor
+     MonadIO m
+  => CXCursor
      -- ^ @parent@
      --
      -- The cursor whose child may be visited. All kinds of cursors can be
@@ -901,10 +981,10 @@ clang_visitChildren ::
      -- /NOTE/: We omit the @client_data@ argument from @libclang@, as it is
      -- not needed in Haskell (the IO action can have arbitrary data in its
      -- closure).
-  -> IO Bool
+  -> m Bool
      -- ^ 'True' if the traversal was terminated prematurely by the visitor
      -- returning 'CXChildVisit_Break'.
-clang_visitChildren root visitor = do
+clang_visitChildren root visitor = liftIO $ do
     -- reference cell for a possible exception thrown by 'visitor'.
     eRef <- newIORef Nothing
 
@@ -969,16 +1049,16 @@ foreign import capi unsafe "clang_wrappers.h wrap_isCursorDefinition"
 -- template specialization.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac3eba3224d109a956f9ef96fd4fe5c83>
-clang_getCursorDisplayName :: CXCursor -> IO Text
-clang_getCursorDisplayName cursor =
+clang_getCursorDisplayName :: MonadIO m => CXCursor -> m Text
+clang_getCursorDisplayName cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_getCursorDisplayName cursor'
 
 -- | Retrieve a name for the entity referenced by this cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gaad1c9b2a1c5ef96cebdbc62f1671c763>
-clang_getCursorSpelling :: CXCursor -> IO Text
-clang_getCursorSpelling cursor =
+clang_getCursorSpelling :: MonadIO m => CXCursor -> m Text
+clang_getCursorSpelling cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_getCursorSpelling cursor'
 
@@ -986,8 +1066,8 @@ clang_getCursorSpelling cursor =
 -- that it references.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gabf059155921552e19fc2abed5b4ff73a>
-clang_getCursorReferenced :: CXCursor -> IO CXCursor
-clang_getCursorReferenced cursor =
+clang_getCursorReferenced :: MonadIO m => CXCursor -> m CXCursor
+clang_getCursorReferenced cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorReferenced cursor'
 
@@ -995,16 +1075,16 @@ clang_getCursorReferenced cursor =
 -- retrieve a cursor that describes the definition of that entity.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gafcfbec461e561bf13f1e8540bbbd655b>
-clang_getCursorDefinition :: CXCursor -> IO CXCursor
-clang_getCursorDefinition cursor =
+clang_getCursorDefinition :: MonadIO m => CXCursor -> m CXCursor
+clang_getCursorDefinition cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorDefinition cursor'
 
 -- |  Retrieve the canonical cursor corresponding to the given cursor.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#gac802826668be9fd40a017523cc7d24fe>
-clang_getCanonicalCursor :: CXCursor -> IO CXCursor
-clang_getCanonicalCursor cursor =
+clang_getCanonicalCursor :: MonadIO m => CXCursor -> m CXCursor
+clang_getCanonicalCursor cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCanonicalCursor cursor'
 
@@ -1012,8 +1092,8 @@ clang_getCanonicalCursor cursor =
 -- text, including comment markers.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga32905a8b1858e67cf5d28b7ad7150779>
-clang_Cursor_getRawCommentText :: CXCursor -> IO Text
-clang_Cursor_getRawCommentText cursor =
+clang_Cursor_getRawCommentText :: MonadIO m => CXCursor -> m Text
+clang_Cursor_getRawCommentText cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_Cursor_getRawCommentText cursor'
 
@@ -1021,8 +1101,8 @@ clang_Cursor_getRawCommentText cursor =
 -- return the associated brief comment.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6b5282b915d457d728434c0651ea0b8b>
-clang_Cursor_getBriefCommentText :: CXCursor -> IO Text
-clang_Cursor_getBriefCommentText cursor =
+clang_Cursor_getBriefCommentText :: MonadIO m => CXCursor -> m Text
+clang_Cursor_getBriefCommentText cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_$ wrap_Cursor_getBriefCommentText cursor'
 
@@ -1034,7 +1114,8 @@ clang_Cursor_getBriefCommentText cursor =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga251b31de80fd14681edf46f43b0bd03b>
 clang_Cursor_getSpellingNameRange ::
-     CXCursor
+     MonadIO m
+  => CXCursor
   -> CUInt
   -- ^ @pieceIndex@
   --
@@ -1044,8 +1125,8 @@ clang_Cursor_getSpellingNameRange ::
   -- ^ @options@
   --
   -- Reserved.
-  -> IO CXSourceRange
-clang_Cursor_getSpellingNameRange cursor pieceIndex options =
+  -> m CXSourceRange
+clang_Cursor_getSpellingNameRange cursor pieceIndex options = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_Cursor_getSpellingNameRange cursor' pieceIndex options
 
@@ -1053,8 +1134,8 @@ clang_Cursor_getSpellingNameRange cursor pieceIndex options =
 -- definition of that entity.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__XREF.html#ga6ad05634a73e693217088eaa693f0010>
-clang_isCursorDefinition :: CXCursor -> IO Bool
-clang_isCursorDefinition cursor =
+clang_isCursorDefinition :: MonadIO m => CXCursor -> m Bool
+clang_isCursorDefinition cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_isCursorDefinition cursor'
 
@@ -1096,16 +1177,16 @@ cxtKind typ = unsafePerformIO $
 -- | Retrieve the type of a CXCursor (if any).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaae5702661bb1f2f93038051737de20f4>
-clang_getCursorType :: CXCursor -> IO CXType
-clang_getCursorType cursor =
+clang_getCursorType :: MonadIO m => CXCursor -> m CXType
+clang_getCursorType cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorType cursor'
 
 -- | Retrieve the spelling of a given CXTypeKind.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6bd7b366d998fc67f4178236398d0666>
-clang_getTypeKindSpelling :: SimpleEnum CXTypeKind -> IO Text
-clang_getTypeKindSpelling kind =
+clang_getTypeKindSpelling :: MonadIO m => SimpleEnum CXTypeKind -> m Text
+clang_getTypeKindSpelling kind = liftIO $
     preallocate_$ wrap_getTypeKindSpelling kind
 
 -- | Pretty-print the underlying type using the rules of the language of the
@@ -1114,8 +1195,8 @@ clang_getTypeKindSpelling kind =
 -- Throws 'CallFailed' if the type is invalid.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac9d37f61bede521d4f42a6553bcbc09f>
-clang_getTypeSpelling :: HasCallStack => CXType -> IO Text
-clang_getTypeSpelling typ = ensure (not . Text.null) $
+clang_getTypeSpelling :: (MonadIO m, HasCallStack) => CXType -> m Text
+clang_getTypeSpelling typ = liftIO $ ensure (not . Text.null) $
      onHaskellHeap typ $ \typ' ->
        preallocate_$ wrap_getTypeSpelling typ'
 
@@ -1124,24 +1205,28 @@ clang_getTypeSpelling typ = ensure (not . Text.null) $
 -- Throws 'CallFailed' if the cursor does not reference a typedef declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8de899fc18dc859b6fe3b97309f4fd52>
-clang_getTypedefDeclUnderlyingType :: HasCallStack => CXCursor -> IO CXType
-clang_getTypedefDeclUnderlyingType cursor = ensureValidType $
+clang_getTypedefDeclUnderlyingType ::
+     (MonadIO m, HasCallStack)
+  => CXCursor -> m CXType
+clang_getTypedefDeclUnderlyingType cursor = liftIO $ ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getTypedefDeclUnderlyingType cursor'
 
 -- | Retrieve the integer type of an enum declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0f5f950bee4e1828b51a41f0eaa951c4>
-clang_getEnumDeclIntegerType :: HasCallStack => CXCursor -> IO CXType
-clang_getEnumDeclIntegerType cursor = ensureValidType $
+clang_getEnumDeclIntegerType ::
+     (MonadIO m, HasCallStack)
+  => CXCursor -> m CXType
+clang_getEnumDeclIntegerType cursor = liftIO $ ensureValidType $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getEnumDeclIntegerType cursor'
 
 -- | Determine if the cursor specifies a record member that is a bit-field.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga750705f6b418b25ca00495b7392c740d>
-clang_Cursor_isBitField :: CXCursor -> IO Bool
-clang_Cursor_isBitField cursor =
+clang_Cursor_isBitField :: MonadIO m => CXCursor -> m Bool
+clang_Cursor_isBitField cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isBitField cursor'
 
@@ -1151,32 +1236,32 @@ clang_Cursor_isBitField cursor =
 -- expression cannot be evaluated, -1 is returned.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga80bbb872dde5b2f26964081338108f91>
-clang_getFieldDeclBitWidth :: CXCursor -> IO CInt
-clang_getFieldDeclBitWidth cursor =
+clang_getFieldDeclBitWidth :: MonadIO m => CXCursor -> m CInt
+clang_getFieldDeclBitWidth cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_getFieldDeclBitWidth cursor'
 
 -- | For pointer types, returns the type of the pointee.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaafa3eb34932d8da1358d50ed949ff3ee>
-clang_getPointeeType :: CXType -> IO CXType
-clang_getPointeeType typ =
+clang_getPointeeType :: MonadIO m => CXType -> m CXType
+clang_getPointeeType typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getPointeeType typ'
 
 -- | Return the element type of an array type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga718591f4b07d9d4861557a3ed8b29713>
-clang_getArrayElementType :: CXType -> IO CXType
-clang_getArrayElementType typ =
+clang_getArrayElementType :: MonadIO m => CXType -> m CXType
+clang_getArrayElementType typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getArrayElementType typ'
 
 -- | Return the array size of a constant array.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga91521260817054f153b5f1295056192d>
-clang_getArraySize :: HasCallStack => CXType -> IO CLLong
-clang_getArraySize typ =
+clang_getArraySize :: (MonadIO m, HasCallStack) => CXType -> m CLLong
+clang_getArraySize typ = liftIO $
     onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_getArraySize typ'
 
@@ -1185,8 +1270,8 @@ clang_getArraySize typ =
 -- Throws 'CallFailed' with 'CXTypeLayoutError' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga027abe334546e80931905f31399d0a8b>
-clang_Type_getSizeOf :: HasCallStack => CXType -> IO CLLong
-clang_Type_getSizeOf typ =
+clang_Type_getSizeOf :: (MonadIO m, HasCallStack) => CXType -> m CLLong
+clang_Type_getSizeOf typ = liftIO $
     onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_Type_getSizeOf typ'
 
@@ -1195,8 +1280,8 @@ clang_Type_getSizeOf typ =
 -- Throws 'CallFailed' with 'CXTypeLayoutError' on error.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaee56de66c69ab5605fe47e7c52497e31>
-clang_Type_getAlignOf :: HasCallStack => CXType -> IO CLLong
-clang_Type_getAlignOf typ =
+clang_Type_getAlignOf :: (MonadIO m, HasCallStack) => CXType -> m CLLong
+clang_Type_getAlignOf typ = liftIO $
     onHaskellHeap typ $ \typ' -> ensureNotInRange @CXTypeLayoutError $
       wrap_Type_getAlignOf typ'
 
@@ -1207,8 +1292,8 @@ clang_Type_getAlignOf typ =
 -- macro.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga9ac4ecb0e84f25b9f05d54c67353eba0>
-clang_Type_isTransparentTagTypedef :: CXType -> IO Bool
-clang_Type_isTransparentTagTypedef typ =
+clang_Type_isTransparentTagTypedef :: MonadIO m => CXType -> m Bool
+clang_Type_isTransparentTagTypedef typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       cToBool <$> wrap_Type_isTransparentTagTypedef typ'
 
@@ -1217,8 +1302,8 @@ clang_Type_isTransparentTagTypedef typ =
 -- Unit: bits
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaa7e0f0ec320c645e971168ac39aa0cab>
-clang_Cursor_getOffsetOfField :: CXCursor -> IO CLLong
-clang_Cursor_getOffsetOfField cursor =
+clang_Cursor_getOffsetOfField :: MonadIO m => CXCursor -> m CLLong
+clang_Cursor_getOffsetOfField cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       wrap_Cursor_getOffsetOfField cursor'
 
@@ -1226,16 +1311,16 @@ clang_Cursor_getOffsetOfField cursor =
 -- namespace.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6e0d2674d126fd43816ce3a80b592373>
-clang_Cursor_isAnonymous :: CXCursor -> IO Bool
-clang_Cursor_isAnonymous cursor =
+clang_Cursor_isAnonymous :: MonadIO m => CXCursor -> m Bool
+clang_Cursor_isAnonymous cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isAnonymous cursor'
 
 -- | Determine whether the given cursor represents an anonymous record declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga59aaf3b8329a35e400ee3735229a8cb6>
-clang_Cursor_isAnonymousRecordDecl :: CXCursor -> IO Bool
-clang_Cursor_isAnonymousRecordDecl cursor =
+clang_Cursor_isAnonymousRecordDecl :: MonadIO m => CXCursor -> m Bool
+clang_Cursor_isAnonymousRecordDecl cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       cToBool <$> wrap_Cursor_isAnonymousRecordDecl cursor'
 
@@ -1246,8 +1331,10 @@ clang_Cursor_isAnonymousRecordDecl cursor =
 -- declaration.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6b8585818420e7512feb4c9d209b4f4d>
-clang_getEnumConstantDeclValue :: HasCallStack => CXCursor -> IO CLLong
-clang_getEnumConstantDeclValue cursor = do
+clang_getEnumConstantDeclValue ::
+     (MonadIO m, HasCallStack)
+  => CXCursor -> m CLLong
+clang_getEnumConstantDeclValue cursor = liftIO $ do
     -- The @libclang@ docs state:
     --
     -- > If the cursor does not reference an enum constant declaration,
@@ -1262,14 +1349,14 @@ clang_getEnumConstantDeclValue cursor = do
       wrap_getEnumConstantDeclValue cursor'
 
 -- | Determine whether two CXTypes represent the same type.
-clang_equalTypes :: CXType -> CXType -> IO Bool
-clang_equalTypes a b =
+clang_equalTypes :: MonadIO m => CXType -> CXType -> m Bool
+clang_equalTypes a b = liftIO $
     onHaskellHeap a $ \a' ->
     onHaskellHeap b $ \b' ->
       cToBool <$> wrap_equalTypes a' b'
 
-clang_compareTypes :: CXType -> CXType -> IO CInt
-clang_compareTypes a b =
+clang_compareTypes :: MonadIO m => CXType -> CXType -> m CInt
+clang_compareTypes a b = liftIO $
     onHaskellHeap a $ \a' ->
     onHaskellHeap b $ \b' ->
       wrap_compareTypes a' b'
@@ -1282,16 +1369,16 @@ clang_compareTypes a b =
 -- canonical type for 'T' would be 'int'.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gaa9815d77adc6823c58be0a0e32010f8c>
-clang_getCanonicalType :: CXType -> IO CXType
-clang_getCanonicalType typ =
+clang_getCanonicalType :: MonadIO m => CXType -> m CXType
+clang_getCanonicalType typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getCanonicalType typ'
 
 -- | Returns the typedef name of the given type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga7b8e66707c7f27550acfc2daeec527ed>
-clang_getTypedefName :: CXType -> IO Text
-clang_getTypedefName arg =
+clang_getTypedefName :: MonadIO m => CXType -> m Text
+clang_getTypedefName arg = liftIO $
     onHaskellHeap arg $ \arg' ->
       preallocate_ $ wrap_getTypedefName arg'
 
@@ -1327,8 +1414,8 @@ clang_getTypedefName arg =
 -- /NOTE/: Requires @llvm-16@ or higher; throws 'ClangVersionError' otherwise.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga8adac28955bf2f3a5ab1fd316a498334>
-clang_getUnqualifiedType :: CXType -> IO CXType
-clang_getUnqualifiedType typ = do
+clang_getUnqualifiedType :: MonadIO m => CXType -> m CXType
+clang_getUnqualifiedType typ = liftIO $ do
     -- clang_getUnqualifiedType was added in Clang 16
     requireClangVersion Clang16
     -- clang_getUnqualifiedType segfaults when CT is invalid
@@ -1342,32 +1429,32 @@ clang_getUnqualifiedType typ = do
 -- | Return the cursor for the declaration of the given type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga0aad74ea93a2f5dea58fd6fc0db8aad4>
-clang_getTypeDeclaration :: CXType -> IO CXCursor
-clang_getTypeDeclaration typ =
+clang_getTypeDeclaration :: MonadIO m => CXType -> m CXCursor
+clang_getTypeDeclaration typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getTypeDeclaration typ'
 
 -- | Retrieve the return type associated with a function type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga39b4850746f39e17c6b8b4eef3154d85>
-clang_getResultType :: CXType -> IO CXType
-clang_getResultType typ =
+clang_getResultType :: MonadIO m => CXType -> m CXType
+clang_getResultType typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getResultType typ'
 
 -- | Retrieve the number of non-variadic parameters associated with a function type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga705e1a4ed7c7595606fc30ed5d2a6b5a>
-clang_getNumArgTypes :: CXType -> IO CInt
-clang_getNumArgTypes typ =
+clang_getNumArgTypes :: MonadIO m => CXType -> m CInt
+clang_getNumArgTypes typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       wrap_getNumArgTypes typ'
 
 -- | Retrieve the type of a parameter of a function type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga67f60ba4831b1bfd90ab0c1c12adab27>
-clang_getArgType :: CXType -> CUInt -> IO CXType
-clang_getArgType typ n =
+clang_getArgType :: MonadIO m => CXType -> CUInt -> m CXType
+clang_getArgType typ n = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getArgType typ' n
 
@@ -1376,8 +1463,8 @@ clang_getArgType typ n =
 -- Throws 'CallFailed' if a non-elaborated type is passed in.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gac6d90c2acdae77f75d8e8288658da463>
-clang_Type_getNamedType :: HasCallStack => CXType -> IO CXType
-clang_Type_getNamedType typ = ensureValidType $
+clang_Type_getNamedType :: (MonadIO m, HasCallStack) => CXType -> m CXType
+clang_Type_getNamedType typ = liftIO $ ensureValidType $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_Type_getNamedType typ'
 
@@ -1386,8 +1473,8 @@ clang_Type_getNamedType typ = ensureValidType $
 -- Throws 'CallFailed' if the type is not an attributed type.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#ga6fc6ec9bfd9baada2d3fd6022d774675>
-clang_Type_getModifiedType :: HasCallStack => CXType -> IO CXType
-clang_Type_getModifiedType typ = ensureValidType $
+clang_Type_getModifiedType :: (MonadIO m, HasCallStack) => CXType -> m CXType
+clang_Type_getModifiedType typ = liftIO $ ensureValidType $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_Type_getModifiedType typ'
 
@@ -1396,8 +1483,8 @@ clang_Type_getModifiedType typ = ensureValidType $
 -- Throws 'CallFailed' if a non-atomic type is passed in.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gae42d9886e0e221df03c4a518d9afb622>
-clang_Type_getValueType :: HasCallStack => CXType -> IO CXType
-clang_Type_getValueType typ = ensureValidType $
+clang_Type_getValueType :: (MonadIO m, HasCallStack) => CXType -> m CXType
+clang_Type_getValueType typ = liftIO $ ensureValidType $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_Type_getValueType typ'
 
@@ -1431,8 +1518,8 @@ foreign import capi unsafe "clang_wrappers.h wrap_getCursorExtent"
 -- a reference is where that reference occurs within the source code.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#gada3d3cbd3a3e83ff64f992617318dfb1>
-clang_getCursorLocation :: CXCursor -> IO CXSourceLocation
-clang_getCursorLocation cursor =
+clang_getCursorLocation :: MonadIO m => CXCursor -> m CXSourceLocation
+clang_getCursorLocation cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorLocation cursor'
 
@@ -1447,8 +1534,8 @@ clang_getCursorLocation cursor =
 -- used).
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__SOURCE.html#ga79f6544534ab73c78a8494c4c0bc2840>
-clang_getCursorExtent :: CXCursor -> IO CXSourceRange
-clang_getCursorExtent cursor =
+clang_getCursorExtent :: MonadIO m => CXCursor -> m CXSourceRange
+clang_getCursorExtent cursor = liftIO $
     onHaskellHeap cursor $ \cursor' ->
       preallocate_ $ wrap_getCursorExtent cursor'
 
@@ -1465,7 +1552,7 @@ foreign import capi unsafe "clang_wrappers.h wrap_getToken"
   wrap_getToken :: CXTranslationUnit -> R CXSourceLocation_ -> IO CXToken
 
 foreign import capi unsafe "clang_wrappers.h wrap_getTokenKind"
-  clang_getTokenKind :: CXToken -> IO (SimpleEnum CXTokenKind)
+  nowrapper_getTokenKind :: CXToken -> IO (SimpleEnum CXTokenKind)
 
 foreign import capi unsafe "clang_wrappers.h wrap_getTokenSpelling"
   wrap_getTokenSpelling :: CXTranslationUnit -> CXToken -> W CXString_ -> IO ()
@@ -1487,30 +1574,42 @@ foreign import capi unsafe "clang_wrappers.h wrap_getTokenExtent"
 -- | Get the raw lexical token starting with the given location.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga3b41b2c8a34e605a14608927ae544c03>
-clang_getToken :: CXTranslationUnit -> CXSourceLocation -> IO (Maybe CXToken)
-clang_getToken unit loc = checkNotNull $
+clang_getToken ::
+     MonadIO m
+  => CXTranslationUnit -> CXSourceLocation -> m (Maybe CXToken)
+clang_getToken unit loc = liftIO $ checkNotNull $
     onHaskellHeap loc $ \loc' ->
       wrap_getToken unit loc'
+
+-- | Determine the kind of the given token.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga83f692a67fe4dbeea779f37c0a3b7f20>
+clang_getTokenKind :: MonadIO m => CXToken -> m (SimpleEnum CXTokenKind)
+clang_getTokenKind token = liftIO $ nowrapper_getTokenKind token
 
 -- | Determine the spelling of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga1033a25c9d2c59bcbdb23020de0bba2c>
-clang_getTokenSpelling :: CXTranslationUnit -> CXToken -> IO Text
-clang_getTokenSpelling unit token =
+clang_getTokenSpelling :: MonadIO m => CXTranslationUnit -> CXToken -> m Text
+clang_getTokenSpelling unit token = liftIO $
     preallocate_ $ wrap_getTokenSpelling unit token
 
 -- | Retrieve the source location of the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga76a721514acb4cc523e10a6913d88021>
-clang_getTokenLocation :: CXTranslationUnit -> CXToken -> IO CXSourceLocation
-clang_getTokenLocation unit token =
+clang_getTokenLocation ::
+     MonadIO m
+  => CXTranslationUnit -> CXToken -> m CXSourceLocation
+clang_getTokenLocation unit token = liftIO $
     preallocate_ $ wrap_getTokenLocation unit token
 
 -- | Retrieve a source range that covers the given token.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#ga5acbc0a2a3c01aa44e1c5c5ccc4e328b>
-clang_getTokenExtent :: CXTranslationUnit -> CXToken -> IO CXSourceRange
-clang_getTokenExtent unit token =
+clang_getTokenExtent ::
+     MonadIO m
+  => CXTranslationUnit -> CXToken -> m CXSourceRange
+clang_getTokenExtent unit token = liftIO $
     preallocate_ $ wrap_getTokenExtent unit token
 
 newtype CXTokenArray = CXTokenArray (Ptr ())
@@ -1531,9 +1630,8 @@ foreign import capi unsafe "clang_wrappers.h wrap_tokenize"
        -- ^ will be set to the number of tokens in the *Tokens array.
     -> IO ()
 
--- | Free the given set of tokens.
 foreign import capi unsafe "clang-c/Index.h clang_disposeTokens"
-  clang_disposeTokens :: CXTranslationUnit -> CXTokenArray -> CUInt -> IO ()
+  nowrapper_disposeTokens :: CXTranslationUnit -> CXTokenArray -> CUInt -> IO ()
 
 -- | Tokenize the source code described by the given range into raw lexical
 -- tokens.
@@ -1542,15 +1640,25 @@ foreign import capi unsafe "clang-c/Index.h clang_disposeTokens"
 -- must be disposed using 'clang_disponseTokens' before the translation unit is
 -- destroyed.
 clang_tokenize ::
-     CXTranslationUnit
+     MonadIO m
+  => CXTranslationUnit
   -> CXSourceRange
-  -> IO (CXTokenArray, CUInt)
-clang_tokenize unit range =
+  -> m (CXTokenArray, CUInt)
+clang_tokenize unit range = liftIO $
     onHaskellHeap range $ \range' ->
       alloca $ \array ->
       alloca $ \numTokens -> do
         wrap_tokenize unit range' array numTokens
         (,) <$> peek array <*> peek numTokens
+
+-- | Free the given set of tokens.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__LEX.html#gac5266f6b5fee87c433b696437cab0d13>
+clang_disposeTokens ::
+     MonadIO m
+  => CXTranslationUnit -> CXTokenArray -> CUInt -> m ()
+clang_disposeTokens unit tokens numTokens = liftIO $
+    nowrapper_disposeTokens unit tokens numTokens
 
 -- | Index token array
 --
@@ -1575,16 +1683,17 @@ foreign import capi unsafe "clang-c/Index.h clang_annotateTokens"
     -> IO ()
 
 clang_annotateTokens ::
-     CXTranslationUnit
+     MonadIO m
+  => CXTranslationUnit
   -> CXTokenArray  -- ^ Tokens to annotate
   -> CUInt         -- ^ Number of tokens in the array
-  -> IO CXCursorArray
-clang_annotateTokens unit tokens numTokens = fmap CXCursorArray $
+  -> m CXCursorArray
+clang_annotateTokens unit tokens numTokens = liftIO $ fmap CXCursorArray $
     preallocateArray (fromIntegral numTokens) $ \arr ->
       nowrapper_annotateTokens unit tokens numTokens arr
 
-index_CXCursorArray :: CXCursorArray -> CUInt -> IO CXCursor
-index_CXCursorArray (CXCursorArray arr) i =
+index_CXCursorArray :: MonadIO m => CXCursorArray -> CUInt -> m CXCursor
+index_CXCursorArray (CXCursorArray arr) i = liftIO $
     CXCursor <$> indexArrOnHaskellHeap arr (fromIntegral i)
 
 {-------------------------------------------------------------------------------
@@ -1714,8 +1823,8 @@ foreign import capi "clang_wrappers.h wrap_Location_isFromMainFile"
 -- range.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gac2cc034e3965739c41662f6ada7ff248>
-clang_getRangeStart :: CXSourceRange -> IO CXSourceLocation
-clang_getRangeStart range =
+clang_getRangeStart :: MonadIO m => CXSourceRange -> m CXSourceLocation
+clang_getRangeStart range = liftIO $
     onHaskellHeap range $ \range' ->
       preallocate_ $ wrap_getRangeStart range'
 
@@ -1723,8 +1832,8 @@ clang_getRangeStart range =
 -- range.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacdb7d3c2b77a06bcc2e83bde3e14c3c0>
-clang_getRangeEnd :: CXSourceRange -> IO CXSourceLocation
-clang_getRangeEnd range =
+clang_getRangeEnd :: MonadIO m => CXSourceRange -> m CXSourceLocation
+clang_getRangeEnd range = liftIO $
     onHaskellHeap range $ \range' ->
       preallocate_ $ wrap_getRangeEnd range'
 
@@ -1738,9 +1847,10 @@ clang_getRangeEnd range =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gadee4bea0fa34550663e869f48550eb1f>
 clang_getExpansionLocation ::
-     CXSourceLocation
-  -> IO (CXFile, CUInt, CUInt, CUInt)
-clang_getExpansionLocation location =
+     MonadIO m
+  => CXSourceLocation
+  -> m (CXFile, CUInt, CUInt, CUInt)
+clang_getExpansionLocation location = liftIO $
     onHaskellHeap location $ \location' ->
       alloca $ \file ->
       alloca $ \line ->
@@ -1774,8 +1884,10 @@ clang_getExpansionLocation location =
 -- > File: somefile.c Line: 3 Column: 12
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga03508d9c944feeb3877515a1b08d36f9>
-clang_getPresumedLocation :: CXSourceLocation -> IO (Text, CUInt, CUInt)
-clang_getPresumedLocation location =
+clang_getPresumedLocation ::
+     MonadIO m
+  => CXSourceLocation -> m (Text, CUInt, CUInt)
+clang_getPresumedLocation location = liftIO $
     onHaskellHeap location $ \location' ->
       alloca $ \line ->
       alloca $ \column -> do
@@ -1791,9 +1903,10 @@ clang_getPresumedLocation location =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga01f1a342f7807ea742aedd2c61c46fa0>
 clang_getSpellingLocation ::
-     CXSourceLocation
-  -> IO (CXFile, CUInt, CUInt, CUInt)
-clang_getSpellingLocation location =
+     MonadIO m
+  => CXSourceLocation
+  -> m (CXFile, CUInt, CUInt, CUInt)
+clang_getSpellingLocation location = liftIO $
     onHaskellHeap location $ \location' ->
       alloca $ \file ->
       alloca $ \line ->
@@ -1811,9 +1924,10 @@ clang_getSpellingLocation location =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gae0ee9ff0ea04f2446832fc12a7fd2ac8>
 clang_getFileLocation ::
-     CXSourceLocation
-  -> IO (CXFile, CUInt, CUInt, CUInt)
-clang_getFileLocation location =
+     MonadIO m
+  => CXSourceLocation
+  -> m (CXFile, CUInt, CUInt, CUInt)
+clang_getFileLocation location = liftIO $
     onHaskellHeap location $ \location' ->
       alloca $ \file ->
       alloca $ \line ->
@@ -1827,19 +1941,22 @@ clang_getFileLocation location =
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#ga86d822034407d60d9e1f36e07cbc0f67>
 clang_getLocation ::
-     CXTranslationUnit
+     MonadIO m
+  => CXTranslationUnit
   -> CXFile
   -> CUInt   -- ^ Line
   -> CUInt   -- ^ Column
-  -> IO CXSourceLocation
-clang_getLocation unit file line col =
+  -> m CXSourceLocation
+clang_getLocation unit file line col = liftIO $
     preallocate_ $ wrap_getLocation unit file line col
 
 -- | Retrieve a source range given the beginning and ending source locations.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga4e2b6d439f72fdee12c2e4dcf4ff1e2f>
-clang_getRange :: CXSourceLocation -> CXSourceLocation -> IO CXSourceRange
-clang_getRange begin end =
+clang_getRange ::
+     MonadIO m
+  => CXSourceLocation -> CXSourceLocation -> m CXSourceRange
+clang_getRange begin end = liftIO $
     onHaskellHeap begin $ \begin' ->
     onHaskellHeap end   $ \end' ->
       preallocate_ $ wrap_getRange begin' end'
@@ -1850,8 +1967,10 @@ clang_getRange begin end =
 -- Throws 'CallFailed' if the file was not a part of this translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaa0554e2ea48ecd217a29314d3cbd2085>
-clang_getFile :: HasCallStack => CXTranslationUnit -> Text -> IO CXFile
-clang_getFile unit file = ensureNotNull $
+clang_getFile ::
+     (MonadIO m, HasCallStack)
+  => CXTranslationUnit -> Text -> m CXFile
+clang_getFile unit file = liftIO $ ensureNotNull $
     withCString (Text.unpack file) $ \file' ->
       nowrapper_getFile unit file'
 
@@ -1859,8 +1978,8 @@ clang_getFile unit file = ensureNotNull $
 -- translation unit.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacb4ca7b858d66f0205797ae84cc4e8f2>
-clang_Location_isFromMainFile :: CXSourceLocation -> IO Bool
-clang_Location_isFromMainFile location =
+clang_Location_isFromMainFile :: MonadIO m => CXSourceLocation -> m Bool
+clang_Location_isFromMainFile location = liftIO $
     onHaskellHeap location $ \location' ->
       cToBool <$> wrap_Location_isFromMainFile location'
 
@@ -1873,12 +1992,15 @@ clang_Location_isFromMainFile location =
 -- | Retrieve the complete file and path name of the given file.
 --
 -- <https://clang.llvm.org/doxygen/group__CINDEX__FILES.html#ga626ff6335ab1e0a2b8c8823301225690>
-clang_getFileName :: CXFile -> IO Text
-clang_getFileName file = preallocate_$ wrap_getFileName file
+clang_getFileName :: MonadIO m => CXFile -> m Text
+clang_getFileName file = liftIO $ preallocate_$ wrap_getFileName file
 
 {-------------------------------------------------------------------------------
   Debugging
 -------------------------------------------------------------------------------}
+
+foreign import capi "clang_wrappers.h clang_breakpoint"
+  nowrapper_breakpoint :: IO ()
 
 -- | Debugging breakpoint hook
 --
@@ -1891,8 +2013,8 @@ clang_getFileName file = preallocate_$ wrap_getFileName file
 --
 -- > break clang_breakpoint
 -- > ignore 1 12
-foreign import capi "clang_wrappers.h clang_breakpoint"
-  clang_breakpoint :: IO ()
+clang_breakpoint :: MonadIO m => m ()
+clang_breakpoint = liftIO $ nowrapper_breakpoint
 
 {-------------------------------------------------------------------------------
   Auxiliary

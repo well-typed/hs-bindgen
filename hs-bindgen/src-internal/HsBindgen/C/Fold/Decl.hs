@@ -41,20 +41,20 @@ foldDecls ::
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
 foldDecls tracer p extBindings headerIncludePaths unit current = do
-    loc <- liftIO $ clang_getCursorLocation current
-    sloc <- liftIO $ HighLevel.clang_getExpansionLocation loc
-    eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind current
+    loc <- clang_getCursorLocation current
+    sloc <- HighLevel.clang_getExpansionLocation loc
+    eCursorKind <- fromSimpleEnum <$> clang_getCursorKind current
 
     -- process include directives even when predicate does not match
     when (eCursorKind == Right CXCursor_InclusionDirective) $ do
       -- update the include graph
-      incHeader <- liftIO $
+      incHeader <-
             fmap SourcePath . clang_getFileName
         =<< clang_getIncludedFile current
       modify $ registerInclude (singleLocPath sloc) incHeader
 
       -- update the current main header
-      isFromMainFile <- liftIO $ clang_Location_isFromMainFile loc
+      isFromMainFile <- clang_Location_isFromMainFile loc
       when isFromMainFile $
         case headerIncludePaths !? (singleLocLine sloc - 1) of
           Just headerIncludePath ->
@@ -99,7 +99,7 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
                         }
               return $ Continue $ Just $ DeclMacro macro
         Right CXCursor_MacroExpansion -> do
-          mloc <- liftIO $ HighLevel.clang_getCursorLocation current
+          mloc <- HighLevel.clang_getCursorLocation current
           modify $ registerMacroExpansion mloc
           return $ Continue Nothing
 
@@ -108,8 +108,8 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
           return $ Continue Nothing
 
         Right CXCursor_FunctionDecl -> do
-          spelling <- liftIO $ clang_getCursorSpelling current
-          ty <- liftIO $ clang_getCursorType current
+          spelling <- clang_getCursorSpelling current
+          ty <- clang_getCursorType current
           ty' <- processTypeDecl extBindings unit (Just current) ty
 
           (args, res) <- case ty' of
@@ -133,7 +133,7 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
   where
     typeDecl :: Eff (State DeclState) (Next m a)
     typeDecl = do
-      ty <- liftIO $ clang_getCursorType current
+      ty <- clang_getCursorType current
       -- TODO: add assert at ty is not invalid type.
       void $ processTypeDecl extBindings unit ( Just current ) ty
       return $ Continue Nothing
@@ -158,7 +158,7 @@ mkMacro ::
   -> CXCursor
   -> Macro.TypeEnv
   -> m (Either ReparseError Macro)
-mkMacro unit current macroTys = liftIO $ do
+mkMacro unit current macroTys = do
     range  <- HighLevel.clang_getCursorExtent current
     tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
     return $ reparseWith (reparseMacro macroTys) tokens

@@ -61,7 +61,7 @@ resolveHeader' args headerIncludePath =
   where
     visit :: CXCursor -> IO (Next IO SourcePath)
     visit cursor = either return return <=< runExceptT $ do
-      srcPath <- liftIO $
+      srcPath <-
             fmap singleLocPath . HighLevel.clang_getExpansionLocation
         =<< clang_getCursorLocation cursor
       -- skip builtin macros
@@ -70,13 +70,13 @@ resolveHeader' args headerIncludePath =
       unless (srcPath == headerSourcePath) $
         throwError (Break Nothing)
       -- only parse the inclusion directive
-      eCursorKind <- liftIO $ fromSimpleEnum <$> clang_getCursorKind cursor
+      eCursorKind <- fromSimpleEnum <$> clang_getCursorKind cursor
       unless (eCursorKind == Right CXCursor_InclusionDirective) $
         throwError (Break Nothing)
       -- check that the inclusion directive is for the specified header
-      displayName <- liftIO $ clang_getCursorDisplayName cursor
+      displayName <- clang_getCursorDisplayName cursor
       unless (displayName == headerIncludePath') $ throwError (Break Nothing)
-      path <- liftIO $ clang_getFileName =<< clang_getIncludedFile cursor
+      path <- clang_getFileName =<< clang_getIncludedFile cursor
       -- check that the included header was found
       when (Text.null path) $ throwError (Break Nothing)
       return $ Break (Just (SourcePath path))

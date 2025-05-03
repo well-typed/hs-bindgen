@@ -15,6 +15,7 @@ module Clang.Internal.Results (
   ) where
 
 import Control.Exception
+import Control.Monad.IO.Class
 import Data.Coerce
 import Foreign
 import GHC.Stack
@@ -36,10 +37,10 @@ data CallFailed = CallFailed String Backtrace
   deriving stock (Show)
   deriving Exception via CollectedBacktrace CallFailed
 
-callFailed :: (Show hint, HasCallStack) => hint -> IO a
+callFailed :: (MonadIO m, Show hint, HasCallStack) => hint -> m a
 callFailed hint = do
     stack <- collectBacktrace
-    throwIO $ CallFailed (show hint) stack
+    liftIO $ throwIO $ CallFailed (show hint) stack
 
 {-------------------------------------------------------------------------------
   Specific conditions
