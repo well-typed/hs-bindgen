@@ -107,11 +107,12 @@ data DeclLoc =
 data Relationship =
     Arg               -- ^ clang_getArgType
   | ArrayElement      -- ^ clang_getArrayElementType
+  | EnumInteger       -- ^ clang_getEnumDeclIntegerType
+  | Modified          -- ^ clang_Type_getModifiedType
   | Named             -- ^ clang_Type_getNamedType
   | Pointee           -- ^ clang_getPointeeType
   | Result            -- ^ clang_getResultType
   | TypedefUnderlying -- ^ clang_getTypedefDeclUnderlyingType
-  | EnumInteger       -- ^ clang_getEnumDeclIntegerType
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------

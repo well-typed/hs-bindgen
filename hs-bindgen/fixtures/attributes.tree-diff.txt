@@ -1,0 +1,48 @@
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "__sFILE"),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "_r",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "attributes.h:9:9"},
+          StructField {
+            fieldName = CName "_w",
+            fieldOffset = 32,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "attributes.h:10:9"},
+          StructField {
+            fieldName = CName "_close",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePointer
+              (TypeFun
+                [TypePointer TypeVoid]
+                (TypePrim
+                  (PrimIntegral PrimInt Signed))),
+            fieldSourceLoc =
+            "attributes.h:11:19"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "attributes.h:8:16"},
+    DeclTypedef
+      Typedef {
+        typedefName = CName "FILE",
+        typedefType = TypeStruct
+          (DeclPathName
+            (CName "__sFILE")),
+        typedefSourceLoc =
+        "attributes.h:12:3"}]
