@@ -10,7 +10,7 @@ build-type:         Simple
 synopsis:           Pretty ANSI-colourful diffs
 extra-doc-files:    CHANGELOG.md
 tested-with:
-  GHC ==9.2.8 || ==9.4.8 || ==9.6.6 || ==9.8.2 || ==9.10.1 || ==9.12.2
+  GHC ==9.2.8 || ==9.4.8 || ==9.6.6 || ==9.8.2 || ==9.10.2 || ==9.12.2
 
 extra-source-files: fixtures/*.txt
 
