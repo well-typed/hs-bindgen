@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -e
+
+usage() {
+    echo "Usage: $(basename "$0") [FILE]"
+    echo
+    echo "If no FILE is provided, compile '*.pp.hs' files."
+    echo "Skip expected failures."
+
+}
+
+failures=(
+    # GCC compilation errors (error happens when parsing inlined C source).
+    "bool_c23.pp.hs"           # Unknown type error.
+    "decls_in_signature.pp.hs" # Invalid use of undefined type.
+    "fun_attributes.pp.hs"     # Aliased to undefined symbol error.
+    "globals.pp.hs"            # Missing `const` error.
+    "iterator.pp.hs"           # Expected declaration specifiers or ‘...’ before ‘^’ token.
+
+    # GHC compilation errors.
+    "enum_cpp_syntax.pp.hs"        # Parse error.
+    "macro_strings.pp.hs"          # "A section must be enclosed in parentheses".
+    "macro_types.pp.hs"            # Illegal type.
+    "program_slicing_simple.pp.hs" # Module graph contains a cycle.
+    "redeclaration.pp.hs"          # Multiple declarations.
+    "typedef_vs_macro.pp.hs"       # Illegal type.
+    "typenames.pp.hs"              # Multiple declarations.
+    "type_naturals.pp.hs"          # Illegal type.
+
+    # Notes.
+    #
+    # - "vector.pp.hs": Seems to be fixed, but may still be broken
+    #     "unknown type name ‘import’"
+    #     (wrong import from 'vector-algorithms/vector.h')?
+)
+
+compile_one() {
+    file="$1"
+    echo "Compiling $file"
+    cabal exec -- \
+        ghc -fforce-recomp -optc \
+        -I"../examples" \
+        -I"../examples/failing" \
+        -I"../examples/golden" \
+        -I"../examples/golden-norust" \
+        "$file"
+}
+
+compile_all() {
+    for f in *.pp.hs; do
+        echo
+        if [[ " ${failures[*]} " =~ [[:space:]]${f}[[:space:]] ]]; then
+            echo "Skipping test $f; expected failure"
+        else
+            compile_one "$f"
+        fi
+    done
+}
+
+# Ensure the build is up-to-date.
+cabal build all
+
+if [ $# -lt 1 ]; then
+    compile_all
+elif [ $# -eq 1 ]; then
+    compile_one "$1"
+else
+    usage
+fi
