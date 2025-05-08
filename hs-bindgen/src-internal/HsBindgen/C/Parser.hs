@@ -37,10 +37,12 @@ import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack)
+import HsBindgen.Util.Trace (Trace (TraceDiagnostic, TraceExtraClangArgs, TraceSkipped))
+import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack, useTrace)
 
 {-------------------------------------------------------------------------------
   Parsing
@@ -76,29 +78,31 @@ instance Exception ParseCHeadersException where
 
 parseCHeaders ::
      HasCallStack =>
-     Tracer IO (TraceWithCallStack Diagnostic)  -- ^ Tracer for warnings
-  -> Tracer IO (TraceWithCallStack C.Skipped)
+     Tracer IO (TraceWithCallStack Trace)
   -> ClangArgs
   -> Predicate
   -> ExtBindings
   -> [CHeaderIncludePath]
   -> IO ([SourcePath], C.Header) -- ^ List of included headers and parsed header
-parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
+parseCHeaders tracer args p extBindings headerIncludePaths =
+  withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
-        HighLevel.withTranslationUnit2 index C.rootHeaderName args [file] opts $
+        HighLevel.withTranslationUnit2 index C.rootHeaderName args' [file] opts $
           \case
             Left err -> throwIO $ ParseCHeadersUnknownError err
             Right unit -> do
               (errors, warnings) <- List.partition diagnosticIsError
                 <$> HighLevel.clang_getDiagnostics unit Nothing
               unless (null errors) $ throwIO (getError errors)
-              forM_ warnings $ traceWithCallStack diagTracer callStack
+              forM_ warnings $ traceWithCallStack
+                                 (useTrace TraceDiagnostic tracer)
+                                 callStack
               rootCursor <- clang_getTranslationUnitCursor unit
               (decls, finalDeclState) <-
                 C.runFoldState C.initDeclState $
                   HighLevel.clang_visitChildren rootCursor $
-                    C.foldDecls skipTracer p extBindings headerIncludePaths unit
+                    C.foldDecls (useTrace TraceSkipped tracer) p extBindings headerIncludePaths unit
               let decls' =
                     [ d
                     | C.TypeDecl _ d <-
@@ -140,11 +144,13 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
   Debugging/development
 -------------------------------------------------------------------------------}
 
-getTargetTriple :: ClangArgs -> IO Text
-getTargetTriple args =
+getTargetTriple ::
+  Tracer IO (TraceWithCallStack ExtraClangArgsLog) -> ClangArgs -> IO Text
+getTargetTriple tracer args =
+  withExtraClangArgs tracer args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hName hContent $ \file ->
-        HighLevel.withTranslationUnit2 index hPath args [file] opts $
+        HighLevel.withTranslationUnit2 index hPath args' [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error while getting target triple: "

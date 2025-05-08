@@ -3,6 +3,7 @@ module Main (main) where
 
 import Control.DeepSeq (force)
 import Control.Exception (displayException, evaluate, try)
+import Control.Tracer (Tracer)
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
@@ -19,6 +20,7 @@ import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
 import Test.HsBindgen.C.Parser qualified
+import Test.HsBindgen.Clang.Args qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
@@ -35,15 +37,17 @@ import Test.Internal.TH
 main :: IO ()
 main = do
     packageRoot <- findPackageDirectory "hs-bindgen"
-    defaultMain . withRustBindgen $ tests packageRoot
+    withTracerStdOut defaultTracerConf $ \tracer ->
+      defaultMain . withRustBindgen $ tests tracer packageRoot
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
-tests :: FilePath -> IO FilePath -> TestTree
-tests packageRoot rustBindgen = testGroup "test-internal" [
-      Test.HsBindgen.C.Parser.tests args
+tests :: Tracer IO (TraceWithCallStack Trace) -> FilePath -> IO FilePath -> TestTree
+tests tracer packageRoot rustBindgen = testGroup "test-internal" [
+      Test.HsBindgen.C.Parser.tests tracer args
+    , Test.HsBindgen.Clang.Args.tests tracer
     , testGroup "examples" [
           golden "simple_structs"
         , golden "recursive_struct"
@@ -170,9 +174,9 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
     mkOpts :: (String -> IO ()) -> Pipeline.Opts
     mkOpts report =
       let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-          tracer = mkTracer EnableAnsiColor tracerConf report
+          tracerGolden     = mkTracer EnableAnsiColor tracerConf report
       in  opts {
-              Pipeline.optsTracer = tracer
+              Pipeline.optsTracer = tracerGolden
             }
 
     ppOpts :: Pipeline.PPOpts

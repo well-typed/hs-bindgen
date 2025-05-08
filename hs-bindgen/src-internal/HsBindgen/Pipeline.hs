@@ -63,8 +63,8 @@ import HsBindgen.Imports
 import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Util.Trace (Trace (TraceDiagnostic, TraceSkipped))
-import HsBindgen.Util.Tracer (TraceWithCallStack, useTrace)
+import HsBindgen.Util.Trace (Trace)
+import HsBindgen.Util.Tracer (TraceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Options
@@ -118,8 +118,7 @@ defaultPPOpts = PPOpts {
 parseCHeader :: HasCallStack => Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
 parseCHeader Opts{..} headerIncludePath =
     C.parseCHeaders
-      (useTrace TraceDiagnostic optsTracer)
-      (useTrace TraceSkipped optsTracer)
+      optsTracer
       optsClangArgs
       optsPredicate
       optsExtBindings

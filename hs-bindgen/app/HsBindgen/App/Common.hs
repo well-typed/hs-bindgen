@@ -7,6 +7,7 @@ module HsBindgen.App.Common (
   , parseInput
     -- * Auxiliary hs-bindgen functions
   , loadExtBindings'
+  , environmentVariablesFooter
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
@@ -14,12 +15,17 @@ module HsBindgen.App.Common (
 
 import Control.Exception (Exception (displayException))
 import Control.Tracer (Tracer)
-import Data.Bifunctor (first)
+import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
 import Data.List qualified as List
-import GHC.Stack (callStack)
+import Data.Text (Text)
+import Data.Text qualified as Text
+import GHC.Stack (HasCallStack, callStack)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
+import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
+                                 vcat)
+import Prettyprinter.Util (reflow)
 
 import HsBindgen.Lib
 
@@ -65,7 +71,7 @@ parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
       short 't'
     , long "show-time"
-    , help "Show time stamp in traces"
+    , help "Show time stamps in traces"
     ]
 
 parseShowCallStack :: Parser ShowCallStack
@@ -316,15 +322,44 @@ parseInput =
 -------------------------------------------------------------------------------}
 
 -- | Load exernal bindings, tracing any errors
-loadExtBindings' ::
-     Tracer IO (TraceWithCallStack ResolveHeaderException)
+loadExtBindings' :: HasCallStack =>
+     Tracer IO (TraceWithCallStack Trace)
   -> GlobalOpts
   -> IO ExtBindings
 loadExtBindings' tracer GlobalOpts{..} = do
     (resolveErrs, extBindings) <-
-      loadExtBindings globalOptsClangArgs globalOptsExtBindings
-    mapM_ (traceWithCallStack tracer callStack) resolveErrs
+      loadExtBindings (useTrace TraceExtraClangArgs tracer) globalOptsClangArgs globalOptsExtBindings
+    mapM_ submitTrace resolveErrs
     return extBindings
+  where submitTrace = traceWithCallStack (useTrace TraceResolveHeader tracer) callStack
+
+environmentVariablesFooter :: ParserPrefs -> Doc
+environmentVariablesFooter p =
+  vcat [ pretty ("Environment variables:" :: String)
+       , prettyEnvVars
+       ]
+  where
+    prettyEnvVars :: Doc
+    prettyEnvVars = extractChunk $ tabulate (prefTabulateFill p) envVarsDocs
+
+    targets :: [Target]
+    targets = [ minBound .. maxBound ]
+
+    triples :: [String]
+    triples = map (`targetTriple` TargetEnvDefault) targets
+
+    envVarsDocs :: [(Doc, Doc)]
+    envVarsDocs = map (bimap pretty  (align . reflow)) envVars
+
+    envVars :: [(Text, Text)]
+    envVars = [ ("BINDGEN_EXTRA_CLANG_ARGS",
+                 "Extra command line arguments passed to `libclang`")
+              , ("BINDGEN_EXTRA_CLANG_ARGS_<TARGET>",
+                 "Per-target arguments passed to `libclang`"
+                 <> ", precedes BINDGEN_EXTRA_CLANG_ARGS if using a specific target"
+                 <> "; possible targets: "
+                 <> Text.intercalate ", " (map Text.pack triples) )
+              ]
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

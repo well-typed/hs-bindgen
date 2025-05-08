@@ -34,7 +34,7 @@ instance Exception LiterateFileException where
 execMode :: HasCallStack => Cli -> Tracer IO (TraceWithCallStack Trace) -> Mode -> IO ()
 execMode Cli{..} tracer = \case
     ModePreprocess{..} -> do
-      extBindings <- loadExtBindings' resolveHeaderTracer cliGlobalOpts
+      extBindings <- loadExtBindings' tracer cliGlobalOpts
       let opts = cmdOpts {
               optsExtBindings = extBindings
             , optsTranslation = preprocessTranslationOpts
@@ -55,7 +55,7 @@ execMode Cli{..} tracer = \case
         Just path -> genExtBindings ppOpts preprocessInput path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings' resolveHeaderTracer cliGlobalOpts
+      extBindings <- loadExtBindings' tracer cliGlobalOpts
       let opts = defaultOpts {
               optsExtBindings = extBindings
             }
@@ -68,9 +68,6 @@ execMode Cli{..} tracer = \case
 
     ModeLiterate input output -> execLiterate input output tracer
   where
-    resolveHeaderTracer :: Tracer IO (TraceWithCallStack ResolveHeaderException)
-    resolveHeaderTracer = useTrace TraceResolveHeader tracer
-
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
         optsClangArgs  = globalOptsClangArgs cliGlobalOpts

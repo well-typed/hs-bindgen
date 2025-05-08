@@ -19,11 +19,14 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+import Control.Tracer (Tracer)
+import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
                               HasSource (getSource), Level (..),
-                              PrettyTrace (prettyTrace), Source (HsBindgen))
+                              PrettyTrace (prettyTrace), Source (HsBindgen),
+                              TraceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Error type
@@ -54,13 +57,15 @@ instance HasSource ResolveHeaderException where
 
 -- | Resolve a header
 resolveHeader' ::
-     ClangArgs
+     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> ClangArgs
   -> CHeaderIncludePath
   -> IO (Either ResolveHeaderException SourcePath)
-resolveHeader' args headerIncludePath =
+resolveHeader' tracer args headerIncludePath =
+  withExtraClangArgs tracer args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile headerName headerContent $ \file ->
-        HighLevel.withTranslationUnit2 index headerSourcePath args [file] opts $
+        HighLevel.withTranslationUnit2 index headerSourcePath args' [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error during header resolution: "
@@ -111,6 +116,9 @@ resolveHeader' args headerIncludePath =
     opts = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
 
 -- | Resolve a header, throwing an 'HsBindgenException' on error
-resolveHeader :: ClangArgs -> CHeaderIncludePath -> IO SourcePath
-resolveHeader args =
-    either (throwIO . HsBindgenException) return <=< resolveHeader' args
+resolveHeader :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+              -> ClangArgs
+              -> CHeaderIncludePath
+              -> IO SourcePath
+resolveHeader tracer args =
+    either (throwIO . HsBindgenException) return <=< resolveHeader' tracer args

@@ -35,7 +35,8 @@ module HsBindgen.ExtBindings (
 import Control.Applicative
 import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
-import Data.Aeson ((.=), (.:), (.:?), (.!=))
+import Control.Tracer (Tracer)
+import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
 import Data.ByteString (ByteString)
@@ -56,10 +57,12 @@ import Text.Read (readMaybe)
 import Clang.Args
 import Clang.CNameSpelling
 import Clang.Paths
+import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
+import HsBindgen.Util.Tracer (TraceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Types
@@ -261,14 +264,15 @@ emptyExtBindings = ExtBindings Map.empty
 
 -- | Resolve external bindings header paths
 resolveExtBindings ::
-     ClangArgs
+     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> ClangArgs
   -> UnresolvedExtBindings
   -> IO (Set ResolveHeaderException, ExtBindings)
-resolveExtBindings args UnresolvedExtBindings{..} = do
+resolveExtBindings tracer args UnresolvedExtBindings{..} = do
     let cPaths = Set.toAscList . mconcat $
           fst <$> mconcat (Map.elems unresolvedExtBindingsTypes)
     (errs, headerMap) <- bimap Set.fromList Map.fromList . partitionEithers
-      <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' args cPath) cPaths
+      <$> mapM (\cPath -> fmap (cPath,) <$> resolveHeader' tracer args cPath) cPaths
     let resolveSet :: Set CHeaderIncludePath -> Set SourcePath
         resolveSet =
             Set.fromList
@@ -428,15 +432,16 @@ writeUnresolvedExtBindingsYaml path =
 --
 -- The format is determined by filename extension.
 loadExtBindings' ::
-     ClangArgs
+     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> ClangArgs
   -> [FilePath]
   -> IO (Either ExtBindingsExceptions (Set ResolveHeaderException, ExtBindings))
-loadExtBindings' args paths = do
+loadExtBindings' tracer args paths = do
     (errs, uebs) <-
       first (map LoadUnresolvedExtBindingsException) . partitionEithers
         <$> mapM loadUnresolvedExtBindings paths
     (resolveErrs, ebs) <-
-      first Set.unions . unzip <$> mapM (resolveExtBindings args) uebs
+      first Set.unions . unzip <$> mapM (resolveExtBindings tracer args) uebs
     return $ case first MergeExtBindingsException (mergeExtBindings ebs) of
       Right extBindings
         | null errs -> Right (resolveErrs, extBindings)
@@ -448,11 +453,12 @@ loadExtBindings' args paths = do
 --
 -- The format is determined by filename extension.
 loadExtBindings ::
-     ClangArgs
+     Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+  -> ClangArgs
   -> [FilePath]
   -> IO (Set ResolveHeaderException, ExtBindings)
-loadExtBindings args =
-    either (throwIO . HsBindgenException) return <=< loadExtBindings' args
+loadExtBindings tracer args =
+    either (throwIO . HsBindgenException) return <=< loadExtBindings' tracer args
 
 {-------------------------------------------------------------------------------
   Configuration File Representation (Internal)
