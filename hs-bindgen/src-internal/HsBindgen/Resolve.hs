@@ -6,7 +6,7 @@ module HsBindgen.Resolve (
   , resolveHeader
   ) where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
 import Control.Monad ((<=<))
 import Control.Monad.Except (runExceptT, throwError)
 import Data.Maybe (listToMaybe)
@@ -19,6 +19,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+import HsBindgen.C.Wrapper (withTranslationUnit2)
 import HsBindgen.Errors
 import HsBindgen.Imports
 
@@ -48,7 +49,7 @@ resolveHeader' ::
 resolveHeader' args headerIncludePath =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile headerName headerContent $ \file ->
-        HighLevel.withTranslationUnit2 index headerSourcePath args [file] opts $
+        withTranslationUnit2 index headerSourcePath args [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error during header resolution: "

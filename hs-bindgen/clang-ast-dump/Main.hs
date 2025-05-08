@@ -1,4 +1,4 @@
-{-# LANGUAGE ApplicativeDo #-}
+{-# LANGUAGE ApplicativeDo   #-}
 {-# LANGUAGE RecordWildCards #-}
 
 module Main (main) where
@@ -21,6 +21,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
+import HsBindgen.C.Wrapper (withTranslationUnit)
 import HsBindgen.Resolve (resolveHeader)
 
 {-------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ clangAstDump opts@Options{..} = do
 
     src <- resolveHeader cArgs optFile
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withTranslationUnit index src cArgs [] cOpts $ \unit -> do
+      withTranslationUnit index src cArgs [] cOpts $ \unit -> do
         rootCursor <- clang_getTranslationUnitCursor unit
         void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
           loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor

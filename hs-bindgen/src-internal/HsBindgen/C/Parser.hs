@@ -28,13 +28,14 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Data.DynGraph qualified as DynGraph
 import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.C.Wrapper (withTranslationUnit2)
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
@@ -83,7 +84,7 @@ parseCHeaders ::
 parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
-        HighLevel.withTranslationUnit2 index C.rootHeaderName args [file] opts $
+        withTranslationUnit2 index C.rootHeaderName args [file] opts $
           \case
             Left err -> throwIO $ ParseCHeadersUnknownError err
             Right unit -> do
@@ -143,7 +144,7 @@ getTargetTriple :: ClangArgs -> IO Text
 getTargetTriple args =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hName hContent $ \file ->
-        HighLevel.withTranslationUnit2 index hPath args [file] opts $
+        withTranslationUnit2 index hPath args [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error while getting target triple: "

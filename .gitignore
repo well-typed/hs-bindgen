@@ -1,5 +1,6 @@
 /.dir-locals.el
 /.direnv/
+/.stylish-haskell.yaml
 
 .envrc
 .vscode/
