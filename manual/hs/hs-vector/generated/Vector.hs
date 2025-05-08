@@ -2,6 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Vector where
 
@@ -9,7 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-foreign import capi safe "vector.h new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)
+-- #include "vector.h"
 
 data Vector = Vector
   { vector_x :: FC.CDouble
@@ -39,3 +40,7 @@ instance F.Storable Vector where
 deriving stock instance Show Vector
 
 deriving stock instance Eq Vector
+
+-- struct <anon> *new_vector (double arg1, double arg2)
+
+foreign import capi safe "vector.h new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)
