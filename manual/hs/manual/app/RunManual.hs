@@ -5,6 +5,7 @@ module RunManual (main) where
 import Foreign
 import Foreign.C
 import System.IO.Unsafe
+import Text.Read (readEither)
 
 import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..), showCEnum)
 
@@ -64,6 +65,11 @@ showCursorKind = \case
     CXCursor_UnexposedExpr -> "CXCursor_UnexposedExpr"
     CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
     kind -> showCEnum kind
+
+readEitherIndexWith :: CUInt -> String -> Either String Index
+readEitherIndexWith upperBound x = case readEither x of
+  Right (Index v) | v > upperBound -> Left $ "index out of bounds: " <> show v
+  other                            -> other
 
 {-------------------------------------------------------------------------------
   Main
@@ -156,7 +162,15 @@ main = do
     print CXCursor_UnexposedExpr
     putStrLn $ showCursorKind CXCursor_UnexposedExpr
     print (succ Y, pred Y)
+
+    -- Read instance (Index).
     print $ "Read declared (A ~ Index 0): " <> show (read "A" :: Index)
     print $ "Read declared but using undeclared string (Index 0): "
       <> show (read "Index 0" :: Index)
     print $ "Read undeclared (Index 10): " <> show (read "Index 10" :: Index)
+    -- Read instance (HTTP_status).
+    print $ (read "HTTP_status 200" :: HTTP_status)
+    print $ (read "Ok" :: HTTP_status)
+    print $ (read "HTTP_status 200" :: HTTP_status) == (read "Ok" :: HTTP_status)
+    -- Read instance (overriding).
+    print $ (readEitherIndexWith 100 "Index (-1)")

@@ -126,6 +126,7 @@ class Integral (CEnumZ a) => CEnum a where
 
   declaredValues  :: proxy a -> DeclaredValues a
   showsUndeclared :: proxy a -> Int -> CEnumZ a -> ShowS
+  readPrecUndeclared :: ReadPrec a
 ```
 
 The generated instance for `Index` is given by
@@ -143,13 +144,14 @@ instance CEnum Index where
     , (2, NonEmpty.singleton "C")
     ]
   showsUndeclared = showsWrappedUndeclared "Index"
+  readPrecundeclared = readPrecWrappedUndeclared "Index"
 ```
 
 Functions `toCEnum` and `fromCEnum` correspond directly to `toEnum` and
 `fromEnum`, but unlike `Enum` this makes no assumptions about successors or
 predecessors. Instead we only declare a set of known values, and the names
-assigned to those values. We will come back to `showsUndeclared` when we
-discuss `Show`, below.
+assigned to those values. We will come back to `showsUndeclared` and
+`readPrecUndeclared` when we discuss `Show` and `Read` instances, below.
 
 In addition, `hs-bindgen-runtime` defines a class `SequentialCEnum`, which
 corresponds to `Bounded`:
@@ -183,9 +185,10 @@ where
 showsCEnum :: forall a. CEnum a => Int -> a -> ShowS
 ```
 
-makes use of the names in `declaredValues` whenever possible. This is a
-law-abiding `Show` instance in that it generates valid Haskell, due to the
-patterns we generate for enums. For example, suppose we do
+makes use of the names in `declaredValues` whenever possible, and also uses the
+class method `showsUndeclared` to show undeclared values. This is a law-abiding
+`Show` instance in that it generates valid Haskell, due to the patterns we
+generate for enums. For example, suppose we do
 
 ```haskell
 deriving newtype instance Bounded HTTP_status
@@ -253,6 +256,55 @@ showCursorKind = \case
 > [!NOTE]
 > It is not yet possible to prevent `hs-bindgen` from generating instances.
 > https://github.com/well-typed/hs-bindgen/issues/307
+
+## Read instance
+
+Similar to the `Show` instance, we define the `Read` instance as
+
+```haskell
+instance Read HTTP_status where
+  readPrec = readPrecCEnum
+```
+
+where
+
+```haskell
+readPrecCEnum :: forall a. (CEnum a, Read (CEnumZ a)) => ReadPrec a
+```
+
+`readPrecCEnum` uses the class method `readPrecUndeclared` to read undeclared
+values. We also define default implementations for `readList`, and
+`readListPrec` as detailed in
+[Text.Read](https://hackage.haskell.org/package/base/docs/Text-Read.html#t:Read).
+
+The function `readPrecCEnum` parses declared and undeclared values. For example,
+
+```haskell
+read "Ok" :: HTTP_status == read "HTTP_status 200" :: HTTP_status
+```
+
+evaluates to `True`.
+
+### Overrides
+
+Also the `Read`-related functions can be overridden. For example, the derived
+`Read` instances inherit the `Read`-related properties of the underlying
+integral type. In particular, we parse negative integers, even when the integral
+type is unsigned:
+
+```haskell
+read "Index (-1)" :: Index -- Evaluates to 'Index 4294967295'
+```
+
+We can ensure the value is within a given bound by providing a
+`readEitherIndexWith` function like so:
+
+```haskell
+readEitherIndexWith :: CUInt -> String -> Either String Index
+readEitherIndexWith upperBound x = case readEither x of
+  Right (Index v) | v > upperBound -> Left $ "index out of bounds: " <> show v
+  other                            -> other
+```
 
 ## Deriving-via support
 
