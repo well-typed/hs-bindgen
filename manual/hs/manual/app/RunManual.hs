@@ -7,7 +7,7 @@ import Foreign.C
 import System.IO.Unsafe
 import Text.Read (readEither)
 
-import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..), showCEnum)
+import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..))
 
 import Example
 
@@ -64,7 +64,7 @@ showCursorKind :: CXCursorKind -> String
 showCursorKind = \case
     CXCursor_UnexposedExpr -> "CXCursor_UnexposedExpr"
     CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
-    kind -> showCEnum kind
+    kind -> show kind
 
 readEitherIndexWith :: CUInt -> String -> Either String Index
 readEitherIndexWith upperBound x = case readEither x of

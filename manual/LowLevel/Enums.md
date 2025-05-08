@@ -250,7 +250,14 @@ showCursorKind :: CXCursorKind -> String
 showCursorKind = \case
     CXCursor_UnexposedExpr -> "CXCursor_UnexposedExpr"
     CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
-    kind -> showCEnum kind
+    kind -> show kind
+```
+
+We also provide a helper function `showCEnum` for C enums without a specialized
+`Show` instance:
+
+```haskell
+showCEnum :: forall a. CEnum a => a -> String
 ```
 
 > [!NOTE]
@@ -305,6 +312,17 @@ readEitherIndexWith upperBound x = case readEither x of
   Right (Index v) | v > upperBound -> Left $ "index out of bounds: " <> show v
   other                            -> other
 ```
+
+We also provide a helper function for C enums without a specialized `Read`
+instance:
+
+```haskell
+readEitherCEnum :: forall a. CEnum a => String -> a
+```
+
+> [!NOTE]
+> It is not yet possible to prevent `hs-bindgen` from generating instances.
+> https://github.com/well-typed/hs-bindgen/issues/307
 
 ## Deriving-via support
 
