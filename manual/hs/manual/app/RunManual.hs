@@ -156,3 +156,7 @@ main = do
     print CXCursor_UnexposedExpr
     putStrLn $ showCursorKind CXCursor_UnexposedExpr
     print (succ Y, pred Y)
+    print $ "Read declared (A ~ Index 0): " <> show (read "A" :: Index)
+    print $ "Read declared but using undeclared string (Index 0): "
+      <> show (read "Index 0" :: Index)
+    print $ "Read undeclared (Index 10): " <> show (read "Index 10" :: Index)
