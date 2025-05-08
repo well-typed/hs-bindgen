@@ -43,7 +43,9 @@
               "forward_declaration.h:4:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "forward_declaration.h:3:8"}},
+          "forward_declaration.h:3:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -89,7 +91,9 @@
                 "forward_declaration.h:4:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "forward_declaration.h:3:8"}}
+            "forward_declaration.h:3:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -140,7 +144,9 @@
                         "forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:3:8"}})
+                    "forward_declaration.h:3:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -191,7 +197,9 @@
                         "forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:3:8"}}
+                    "forward_declaration.h:3:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -229,10 +237,20 @@
           typedefType = TypeStruct
             (DeclPathName (CName "S1")),
           typedefSourceLoc =
-          "forward_declaration.h:1:19"}},
+          "forward_declaration.h:1:19"},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "S1_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "S1_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "S1_t"),
   DeclData
     Struct {
@@ -278,7 +296,9 @@
               "forward_declaration.h:10:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "forward_declaration.h:9:8"}},
+          "forward_declaration.h:9:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -324,7 +344,9 @@
                 "forward_declaration.h:10:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "forward_declaration.h:9:8"}}
+            "forward_declaration.h:9:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -375,7 +397,9 @@
                         "forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:9:8"}})
+                    "forward_declaration.h:9:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -426,7 +450,9 @@
                         "forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:9:8"}}
+                    "forward_declaration.h:9:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [

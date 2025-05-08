@@ -378,6 +378,10 @@ newtype A_typedef_struct_t = A_typedef_struct_t
 
 deriving newtype instance F.Storable A_typedef_struct_t
 
+deriving stock instance Eq A_typedef_struct_t
+
+deriving stock instance Show A_typedef_struct_t
+
 a_DEFINE_0 :: FC.CInt
 a_DEFINE_0 = (0 :: FC.CInt)
 
@@ -472,3 +476,9 @@ newtype Callback_t = Callback_t
   }
 
 deriving newtype instance F.Storable Callback_t
+
+deriving stock instance Eq Callback_t
+
+deriving stock instance Ord Callback_t
+
+deriving stock instance Show Callback_t

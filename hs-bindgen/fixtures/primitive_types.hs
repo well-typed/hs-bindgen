@@ -739,7 +739,9 @@
               "primitive_types.h:38:12"}],
           structFlam = Nothing,
           structSourceLoc =
-          "primitive_types.h:1:8"}},
+          "primitive_types.h:1:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1481,7 +1483,9 @@
                 "primitive_types.h:38:12"}],
             structFlam = Nothing,
             structSourceLoc =
-            "primitive_types.h:1:8"}}
+            "primitive_types.h:1:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 152,
         storableAlignment = 8,
@@ -2228,7 +2232,9 @@
                         "primitive_types.h:38:12"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "primitive_types.h:1:8"}})
+                    "primitive_types.h:1:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -3003,7 +3009,9 @@
                         "primitive_types.h:38:12"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "primitive_types.h:1:8"}}
+                    "primitive_types.h:1:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 28)
               (Seq
                 [

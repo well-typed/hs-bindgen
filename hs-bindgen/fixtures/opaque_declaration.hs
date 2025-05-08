@@ -85,7 +85,9 @@
               "opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "opaque_declaration.h:4:8"}},
+          "opaque_declaration.h:4:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -161,7 +163,9 @@
                 "opaque_declaration.h:6:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "opaque_declaration.h:4:8"}}
+            "opaque_declaration.h:4:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -242,7 +246,9 @@
                         "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:4:8"}})
+                    "opaque_declaration.h:4:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -325,7 +331,9 @@
                         "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:4:8"}}
+                    "opaque_declaration.h:4:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -362,7 +370,9 @@
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "opaque_declaration.h:9:8"}},
+          "opaque_declaration.h:9:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -384,7 +394,9 @@
             structFields = [],
             structFlam = Nothing,
             structSourceLoc =
-            "opaque_declaration.h:9:8"}}
+            "opaque_declaration.h:9:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 0,
         storableAlignment = 1,
@@ -411,7 +423,9 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:9:8"}})
+                    "opaque_declaration.h:9:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             []),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -438,7 +452,9 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:9:8"}}
+                    "opaque_declaration.h:9:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 0)
               (Seq [])))}),
   DeclNewtypeInstance

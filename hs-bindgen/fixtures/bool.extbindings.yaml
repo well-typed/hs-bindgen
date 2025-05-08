@@ -3,15 +3,41 @@ types:
   cname: BOOL
   module: Example
   identifier: BOOL
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
 - headers: bool.h
   cname: struct bools1
   module: Example
   identifier: Bools1
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: bool.h
   cname: struct bools2
   module: Example
   identifier: Bools2
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: bool.h
   cname: struct bools3
   module: Example
   identifier: Bools3
+  instances:
+  - Eq
+  - Show
+  - Storable

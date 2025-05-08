@@ -39,7 +39,7 @@ module HsBindgen.Hs.AST (
   , VarDeclRHSAppHead(..)
     -- ** Deriving instances
   , Strategy(..)
-  , TypeClass(..)
+  , HsTypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , ForeignImportDeclOrigin(..)
@@ -64,6 +64,7 @@ import Data.Type.Nat qualified as Nat
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 
+import HsBindgen.ExtBindings (HsTypeClass(..))
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Hs.AST.Name
@@ -92,10 +93,11 @@ data FieldOrigin =
   deriving stock (Generic, Show)
 
 data Struct (n :: Nat) = Struct {
-      structName   :: HsName NsTypeConstr
-    , structConstr :: HsName NsConstr
-    , structFields :: Vec n Field
-    , structOrigin :: StructOrigin
+      structName      :: HsName NsTypeConstr
+    , structConstr    :: HsName NsConstr
+    , structFields    :: Vec n Field
+    , structOrigin    :: StructOrigin
+    , structInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
 
@@ -116,10 +118,11 @@ data EmptyDataOrigin =
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
-      newtypeName   :: HsName NsTypeConstr
-    , newtypeConstr :: HsName NsConstr
-    , newtypeField  :: Field
-    , newtypeOrigin :: NewtypeOrigin
+      newtypeName      :: HsName NsTypeConstr
+    , newtypeConstr    :: HsName NsConstr
+    , newtypeField     :: Field
+    , newtypeOrigin    :: NewtypeOrigin
+    , newtypeInstances :: Set HsTypeClass
     }
   deriving stock (Generic, Show)
 
@@ -174,7 +177,7 @@ data Decl where
     DeclNewtype         :: Newtype -> Decl
     DeclPatSyn          :: PatSyn -> Decl
     DeclDefineInstance  :: InstanceDecl -> Decl
-    DeclDeriveInstance  :: Strategy HsType -> TypeClass -> HsName NsTypeConstr -> Decl
+    DeclDeriveInstance  :: Strategy HsType -> HsTypeClass -> HsName NsTypeConstr -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
     DeclUnionGetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
@@ -188,32 +191,6 @@ data Strategy ty =
   | DeriveStock
   | DeriveVia ty
   deriving stock (Generic, Show, Functor, Foldable, Traversable)
-
--- | Class instance names (for instances that /ghc/ generates)
-data TypeClass =
-    Storable
-
-    -- Haskell98 derivable classes
-    -- <https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/deriving.html>
-  | Eq
-  | Ord
-  | Enum
-  | Ix
-  | Bounded
-  | Read
-  | Show
-
-    -- Classes we can only derive through newtype deriving
-  | Bits
-  | FiniteBits
-  | Floating
-  | Fractional
-  | Integral
-  | Num
-  | Real
-  | RealFloat
-  | RealFrac
-  deriving stock (Generic, Show, Eq, Ord)
 
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star

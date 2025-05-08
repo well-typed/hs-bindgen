@@ -257,3 +257,7 @@ pattern D_BAR :: EnumD
 pattern D_BAR = EnumD 1
 newtype EnumD_t = EnumD_t {un_EnumD_t :: EnumD}
 deriving newtype instance Storable EnumD_t
+deriving stock instance Eq EnumD_t
+deriving stock instance Ord EnumD_t
+deriving stock instance Read EnumD_t
+deriving stock instance Show EnumD_t

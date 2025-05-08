@@ -12,7 +12,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude ((<*>), Eq, Int, Show, pure)
+import Prelude ((<*>), Int, pure)
 
 newtype UnionA = UnionA
   { un_UnionA :: Data.Array.Byte.ByteArray
@@ -53,10 +53,6 @@ instance F.Storable ExA where
         case s1 of
           ExA exA_fieldA12 -> F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
 
-deriving stock instance Show ExA
-
-deriving stock instance Eq ExA
-
 newtype ExB_fieldB1 = ExB_fieldB1
   { un_ExB_fieldB1 :: Data.Array.Byte.ByteArray
   }
@@ -95,7 +91,3 @@ instance F.Storable ExB where
       \s1 ->
         case s1 of
           ExB exB_fieldB12 -> F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
-
-deriving stock instance Show ExB
-
-deriving stock instance Eq ExB

@@ -45,6 +45,10 @@ newtype Linked_list_A_t = Linked_list_A_t
 
 deriving newtype instance F.Storable Linked_list_A_t
 
+deriving stock instance Eq Linked_list_A_t
+
+deriving stock instance Show Linked_list_A_t
+
 data Linked_list_B_t = Linked_list_B_t
   { linked_list_B_t_x :: FC.CInt
   , linked_list_B_t_next :: F.Ptr Linked_list_B_t

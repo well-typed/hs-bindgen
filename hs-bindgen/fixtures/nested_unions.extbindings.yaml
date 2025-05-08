@@ -3,11 +3,17 @@ types:
   cname: struct exA
   module: Example
   identifier: ExA
+  instances:
+  - Storable
 - headers: nested_unions.h
   cname: struct exB
   module: Example
   identifier: ExB
+  instances:
+  - Storable
 - headers: nested_unions.h
   cname: union unionA
   module: Example
   identifier: UnionA
+  instances:
+  - Storable

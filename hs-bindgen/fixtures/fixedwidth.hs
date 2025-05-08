@@ -21,7 +21,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
-          "alltypes.h:131:25"}},
+          "alltypes.h:131:25"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -124,7 +139,22 @@
               PrimLong
               Unsigned),
           typedefSourceLoc =
-          "alltypes.h:136:25"}},
+          "alltypes.h:136:25"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -275,7 +305,9 @@
               "fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "fixedwidth.h:3:8"}},
+          "fixedwidth.h:3:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -349,7 +381,9 @@
                 "fixedwidth.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "fixedwidth.h:3:8"}}
+            "fixedwidth.h:3:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -428,7 +462,9 @@
                         "fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedwidth.h:3:8"}})
+                    "fixedwidth.h:3:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -509,7 +545,9 @@
                         "fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedwidth.h:3:8"}}
+                    "fixedwidth.h:3:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

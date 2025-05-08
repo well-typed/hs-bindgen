@@ -34,7 +34,14 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:6:5"}],
-          enumSourceLoc = "enums.h:4:6"}},
+          enumSourceLoc = "enums.h:4:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -71,7 +78,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"}}
+            enumSourceLoc = "enums.h:4:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -113,7 +122,14 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:6:5"}],
-                    enumSourceLoc = "enums.h:4:6"}})
+                    enumSourceLoc = "enums.h:4:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -155,7 +171,9 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:6:5"}],
-                    enumSourceLoc = "enums.h:4:6"}}
+                    enumSourceLoc = "enums.h:4:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -217,7 +235,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"}}
+            enumSourceLoc = "enums.h:4:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -260,7 +280,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"}}
+            enumSourceLoc = "enums.h:4:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FIRST1")
       (HsName "@NsConstr" "FIRST2")),
   DeclInstance
@@ -299,8 +321,14 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc =
-            "enums.h:4:6"}}),
+            enumSourceLoc = "enums.h:4:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -380,7 +408,14 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:12:5"}],
-          enumSourceLoc = "enums.h:9:6"}},
+          enumSourceLoc = "enums.h:9:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -423,7 +458,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"}}
+            enumSourceLoc = "enums.h:9:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -471,7 +508,14 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:12:5"}],
-                    enumSourceLoc = "enums.h:9:6"}})
+                    enumSourceLoc = "enums.h:9:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -519,7 +563,9 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:12:5"}],
-                    enumSourceLoc = "enums.h:9:6"}}
+                    enumSourceLoc = "enums.h:9:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -587,7 +633,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"}}
+            enumSourceLoc = "enums.h:9:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCInt)
       (Map.fromList
         [
@@ -643,7 +691,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"}}
+            enumSourceLoc = "enums.h:9:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "SECOND_A")
       (HsName
         "@NsConstr"
@@ -690,8 +740,14 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc =
-            "enums.h:9:6"}}),
+            enumSourceLoc = "enums.h:9:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -785,8 +841,14 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:17:5"}],
-          enumSourceLoc =
-          "enums.h:15:6"}},
+          enumSourceLoc = "enums.h:15:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -824,7 +886,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"}}
+            enumSourceLoc = "enums.h:15:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -867,8 +931,14 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:17:5"}],
-                    enumSourceLoc =
-                    "enums.h:15:6"}})
+                    enumSourceLoc = "enums.h:15:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -911,7 +981,9 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:17:5"}],
-                    enumSourceLoc = "enums.h:15:6"}}
+                    enumSourceLoc = "enums.h:15:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -968,7 +1040,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"}}
+            enumSourceLoc = "enums.h:15:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -1014,7 +1088,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"}}
+            enumSourceLoc = "enums.h:15:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "SAME_A")
       (HsName "@NsConstr" "SAME_A")),
   DeclInstance
@@ -1054,8 +1130,14 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc =
-            "enums.h:15:6"}}),
+            enumSourceLoc = "enums.h:15:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1135,8 +1217,14 @@
               valueValue = 404,
               valueSourceLoc =
               "enums.h:23:5"}],
-          enumSourceLoc =
-          "enums.h:20:6"}},
+          enumSourceLoc = "enums.h:20:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1179,7 +1267,9 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc = "enums.h:20:6"}}
+            enumSourceLoc = "enums.h:20:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1227,8 +1317,14 @@
                         valueValue = 404,
                         valueSourceLoc =
                         "enums.h:23:5"}],
-                    enumSourceLoc =
-                    "enums.h:20:6"}})
+                    enumSourceLoc = "enums.h:20:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1276,7 +1372,9 @@
                         valueValue = 404,
                         valueSourceLoc =
                         "enums.h:23:5"}],
-                    enumSourceLoc = "enums.h:20:6"}}
+                    enumSourceLoc = "enums.h:20:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -1344,7 +1442,9 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc = "enums.h:20:6"}}
+            enumSourceLoc = "enums.h:20:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -1400,8 +1500,14 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc =
-            "enums.h:20:6"}}),
+            enumSourceLoc = "enums.h:20:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1501,8 +1607,14 @@
               valueValue = 2,
               valueSourceLoc =
               "enums.h:27:25"}],
-          enumSourceLoc =
-          "enums.h:26:6"}},
+          enumSourceLoc = "enums.h:26:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1546,7 +1658,9 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"}}
+            enumSourceLoc = "enums.h:26:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -1595,8 +1709,14 @@
                         valueValue = 2,
                         valueSourceLoc =
                         "enums.h:27:25"}],
-                    enumSourceLoc =
-                    "enums.h:26:6"}})
+                    enumSourceLoc = "enums.h:26:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1645,7 +1765,9 @@
                         valueValue = 2,
                         valueSourceLoc =
                         "enums.h:27:25"}],
-                    enumSourceLoc = "enums.h:26:6"}}
+                    enumSourceLoc = "enums.h:26:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -1714,7 +1836,9 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"}}
+            enumSourceLoc = "enums.h:26:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
       (Map.fromList
         [
@@ -1771,7 +1895,9 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"}}
+            enumSourceLoc = "enums.h:26:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "PACKED_A")
       (HsName
         "@NsConstr"
@@ -1819,8 +1945,14 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc =
-            "enums.h:26:6"}}),
+            enumSourceLoc = "enums.h:26:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1915,8 +2047,14 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:30:23"}],
-          enumSourceLoc =
-          "enums.h:30:9"}},
+          enumSourceLoc = "enums.h:30:9"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1955,7 +2093,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"}}
+            enumSourceLoc = "enums.h:30:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1999,8 +2139,14 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:30:23"}],
-                    enumSourceLoc =
-                    "enums.h:30:9"}})
+                    enumSourceLoc = "enums.h:30:9"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2044,7 +2190,9 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:30:23"}],
-                    enumSourceLoc = "enums.h:30:9"}}
+                    enumSourceLoc = "enums.h:30:9"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -2108,7 +2256,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"}}
+            enumSourceLoc = "enums.h:30:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -2153,7 +2303,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"}}
+            enumSourceLoc = "enums.h:30:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "A_FOO")
       (HsName "@NsConstr" "A_BAR")),
   DeclInstance
@@ -2194,8 +2346,14 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc =
-            "enums.h:30:9"}}),
+            enumSourceLoc = "enums.h:30:9"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2271,7 +2429,14 @@
               valueSourceLoc =
               "enums.h:32:29"}],
           enumSourceLoc =
-          "enums.h:32:14"}},
+          "enums.h:32:14"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2310,7 +2475,9 @@
                 valueSourceLoc =
                 "enums.h:32:29"}],
             enumSourceLoc =
-            "enums.h:32:14"}}
+            "enums.h:32:14"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -2354,7 +2521,14 @@
                         valueSourceLoc =
                         "enums.h:32:29"}],
                     enumSourceLoc =
-                    "enums.h:32:14"}})
+                    "enums.h:32:14"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2398,7 +2572,9 @@
                         valueSourceLoc =
                         "enums.h:32:29"}],
                     enumSourceLoc =
-                    "enums.h:32:14"}}
+                    "enums.h:32:14"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -2462,7 +2638,9 @@
                 valueSourceLoc =
                 "enums.h:32:29"}],
             enumSourceLoc =
-            "enums.h:32:14"}}
+            "enums.h:32:14"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -2507,7 +2685,9 @@
                 valueSourceLoc =
                 "enums.h:32:29"}],
             enumSourceLoc =
-            "enums.h:32:14"}}
+            "enums.h:32:14"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "B_FOO")
       (HsName "@NsConstr" "B_BAR")),
   DeclInstance
@@ -2548,7 +2728,14 @@
                 valueSourceLoc =
                 "enums.h:32:29"}],
             enumSourceLoc =
-            "enums.h:32:14"}}),
+            "enums.h:32:14"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2623,8 +2810,14 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:34:21"}],
-          enumSourceLoc =
-          "enums.h:34:6"}},
+          enumSourceLoc = "enums.h:34:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2662,7 +2855,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"}}
+            enumSourceLoc = "enums.h:34:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -2705,8 +2900,14 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:34:21"}],
-                    enumSourceLoc =
-                    "enums.h:34:6"}})
+                    enumSourceLoc = "enums.h:34:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -2749,7 +2950,9 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:34:21"}],
-                    enumSourceLoc = "enums.h:34:6"}}
+                    enumSourceLoc = "enums.h:34:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -2812,7 +3015,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"}}
+            enumSourceLoc = "enums.h:34:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -2856,7 +3061,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"}}
+            enumSourceLoc = "enums.h:34:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "C_FOO")
       (HsName "@NsConstr" "C_BAR")),
   DeclInstance
@@ -2896,8 +3103,14 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc =
-            "enums.h:34:6"}}),
+            enumSourceLoc = "enums.h:34:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2972,8 +3185,14 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:37:21"}],
-          enumSourceLoc =
-          "enums.h:37:6"}},
+          enumSourceLoc = "enums.h:37:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -3011,7 +3230,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"}}
+            enumSourceLoc = "enums.h:37:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -3054,8 +3275,14 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:37:21"}],
-                    enumSourceLoc =
-                    "enums.h:37:6"}})
+                    enumSourceLoc = "enums.h:37:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -3098,7 +3325,9 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:37:21"}],
-                    enumSourceLoc = "enums.h:37:6"}}
+                    enumSourceLoc = "enums.h:37:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -3161,7 +3390,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"}}
+            enumSourceLoc = "enums.h:37:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -3205,7 +3436,9 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"}}
+            enumSourceLoc = "enums.h:37:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "D_FOO")
       (HsName "@NsConstr" "D_BAR")),
   DeclInstance
@@ -3245,8 +3478,14 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc =
-            "enums.h:37:6"}}),
+            enumSourceLoc = "enums.h:37:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3309,10 +3548,41 @@
           typedefType = TypeEnum
             (DeclPathName (CName "enumD")),
           typedefSourceLoc =
-          "enums.h:38:20"}},
+          "enums.h:38:20"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "EnumD_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "EnumD_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "EnumD_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "EnumD_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "EnumD_t")]

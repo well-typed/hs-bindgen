@@ -117,6 +117,7 @@ instance ToExpr C.ReparseError where
 
 instance ToExpr HsModuleName
 instance ToExpr HsIdentifier
+instance ToExpr HsTypeClass
 instance ToExpr ExtIdentifier
 
 instance ToExpr C.TcMacroError where
@@ -222,7 +223,6 @@ instance ToExpr Hs.PatSynOrigin
 instance ToExpr Hs.StorableInstance
 instance ToExpr t => ToExpr (Hs.Strategy t)
 instance ToExpr Hs.StructOrigin
-instance ToExpr Hs.TypeClass
 instance ToExpr Hs.VarDecl
 
 instance ToExpr (Hs.PeekByteOff ctx)

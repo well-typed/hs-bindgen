@@ -36,7 +36,14 @@
               valueSourceLoc =
               "nested_enums.h:4:17"}],
           enumSourceLoc =
-          "nested_enums.h:2:14"}},
+          "nested_enums.h:2:14"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -75,7 +82,9 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"}}
+            "nested_enums.h:2:14"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -119,7 +128,14 @@
                         valueSourceLoc =
                         "nested_enums.h:4:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:2:14"}})
+                    "nested_enums.h:2:14"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -163,7 +179,9 @@
                         valueSourceLoc =
                         "nested_enums.h:4:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:2:14"}}
+                    "nested_enums.h:2:14"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -227,7 +245,9 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"}}
+            "nested_enums.h:2:14"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -272,7 +292,9 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"}}
+            "nested_enums.h:2:14"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "VALA_1")
       (HsName "@NsConstr" "VALA_2")),
   DeclInstance
@@ -313,7 +335,14 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"}}),
+            "nested_enums.h:2:14"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -398,7 +427,9 @@
               "nested_enums.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_enums.h:1:8"}},
+          "nested_enums.h:1:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -446,7 +477,9 @@
                 "nested_enums.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_enums.h:1:8"}}
+            "nested_enums.h:1:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -499,7 +532,9 @@
                         "nested_enums.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:1:8"}})
+                    "nested_enums.h:1:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -552,7 +587,9 @@
                         "nested_enums.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:1:8"}}
+                    "nested_enums.h:1:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -608,7 +645,14 @@
               valueSourceLoc =
               "nested_enums.h:11:17"}],
           enumSourceLoc =
-          "nested_enums.h:9:9"}},
+          "nested_enums.h:9:9"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -650,7 +694,9 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"}}
+            "nested_enums.h:9:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -697,7 +743,14 @@
                         valueSourceLoc =
                         "nested_enums.h:11:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:9:9"}})
+                    "nested_enums.h:9:9"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -744,7 +797,9 @@
                         valueSourceLoc =
                         "nested_enums.h:11:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:9:9"}}
+                    "nested_enums.h:9:9"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -811,7 +866,9 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"}}
+            "nested_enums.h:9:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -859,7 +916,9 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"}}
+            "nested_enums.h:9:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "VALB_1")
       (HsName "@NsConstr" "VALB_2")),
   DeclInstance
@@ -903,7 +962,14 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"}}),
+            "nested_enums.h:9:9"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -996,7 +1062,9 @@
               "nested_enums.h:12:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_enums.h:8:8"}},
+          "nested_enums.h:8:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1052,7 +1120,9 @@
                 "nested_enums.h:12:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_enums.h:8:8"}}
+            "nested_enums.h:8:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -1113,7 +1183,9 @@
                         "nested_enums.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:8:8"}})
+                    "nested_enums.h:8:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -1174,7 +1246,9 @@
                         "nested_enums.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:8:8"}}
+                    "nested_enums.h:8:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [

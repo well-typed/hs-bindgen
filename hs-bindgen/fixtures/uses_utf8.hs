@@ -38,7 +38,14 @@
               valueSourceLoc =
               "uses_utf8.h:6:9"}],
           enumSourceLoc =
-          "uses_utf8.h:4:6"}},
+          "uses_utf8.h:4:6"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -79,7 +86,9 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"}}
+            "uses_utf8.h:4:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -125,7 +134,14 @@
                         valueSourceLoc =
                         "uses_utf8.h:6:9"}],
                     enumSourceLoc =
-                    "uses_utf8.h:4:6"}})
+                    "uses_utf8.h:4:6"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -171,7 +187,9 @@
                         valueSourceLoc =
                         "uses_utf8.h:6:9"}],
                     enumSourceLoc =
-                    "uses_utf8.h:4:6"}}
+                    "uses_utf8.h:4:6"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -237,7 +255,9 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"}}
+            "uses_utf8.h:4:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -290,7 +310,9 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"}}
+            "uses_utf8.h:4:6"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName
         "@NsConstr"
         "Say\20320\22909")
@@ -337,7 +359,14 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"}}),
+            "uses_utf8.h:4:6"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName

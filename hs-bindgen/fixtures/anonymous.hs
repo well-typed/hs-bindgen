@@ -70,7 +70,9 @@
               "anonymous.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:3:3"}},
+          "anonymous.h:3:3"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -143,7 +145,9 @@
                 "anonymous.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:3:3"}}
+            "anonymous.h:3:3"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -221,7 +225,9 @@
                         "anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:3:3"}})
+                    "anonymous.h:3:3"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -301,7 +307,9 @@
                         "anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:3:3"}}
+                    "anonymous.h:3:3"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -394,7 +402,9 @@
               "anonymous.h:8:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:2:8"}},
+          "anonymous.h:2:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -472,7 +482,9 @@
                 "anonymous.h:8:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:2:8"}}
+            "anonymous.h:2:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -555,7 +567,9 @@
                         "anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:2:8"}})
+                    "anonymous.h:2:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -640,7 +654,9 @@
                         "anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:2:8"}}
+                    "anonymous.h:2:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -707,7 +723,9 @@
               "anonymous.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:15:5"}},
+          "anonymous.h:15:5"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -759,7 +777,9 @@
                 "anonymous.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:15:5"}}
+            "anonymous.h:15:5"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -816,7 +836,9 @@
                         "anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:15:5"}})
+                    "anonymous.h:15:5"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -873,7 +895,9 @@
                         "anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:15:5"}}
+                    "anonymous.h:15:5"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -980,7 +1004,9 @@
               "anonymous.h:17:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:13:3"}},
+          "anonymous.h:13:3"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1069,7 +1095,9 @@
                 "anonymous.h:17:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:13:3"}}
+            "anonymous.h:13:3"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -1163,7 +1191,9 @@
                         "anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:13:3"}})
+                    "anonymous.h:13:3"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -1259,7 +1289,9 @@
                         "anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:13:3"}}
+                    "anonymous.h:13:3"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -1358,7 +1390,9 @@
               "anonymous.h:20:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:12:8"}},
+          "anonymous.h:12:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1438,7 +1472,9 @@
                 "anonymous.h:20:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:12:8"}}
+            "anonymous.h:12:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 12,
         storableAlignment = 4,
@@ -1523,7 +1559,9 @@
                         "anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:12:8"}})
+                    "anonymous.h:12:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1610,7 +1648,9 @@
                         "anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:12:8"}}
+                    "anonymous.h:12:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -1715,7 +1755,9 @@
               "anonymous.h:30:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:24:8"}},
+          "anonymous.h:24:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -1805,7 +1847,9 @@
                 "anonymous.h:30:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:24:8"}}
+            "anonymous.h:24:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -1900,7 +1944,9 @@
                         "anonymous.h:30:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:24:8"}})
+                    "anonymous.h:24:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -1997,7 +2043,9 @@
                         "anonymous.h:30:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:24:8"}}
+                    "anonymous.h:24:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -2087,7 +2135,9 @@
               "anonymous.h:27:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:25:3"}},
+          "anonymous.h:25:3"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2162,7 +2212,9 @@
                 "anonymous.h:27:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:25:3"}}
+            "anonymous.h:25:3"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -2242,7 +2294,9 @@
                         "anonymous.h:27:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:25:3"}})
+                    "anonymous.h:25:3"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -2324,7 +2378,9 @@
                         "anonymous.h:27:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:25:3"}}
+                    "anonymous.h:25:3"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

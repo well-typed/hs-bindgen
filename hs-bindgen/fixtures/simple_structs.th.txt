@@ -22,6 +22,8 @@ deriving stock instance Show S2
 deriving stock instance Eq S2
 newtype S2_t = S2_t {un_S2_t :: S2}
 deriving newtype instance Storable S2_t
+deriving stock instance Eq S2_t
+deriving stock instance Show S2_t
 data S3_t = S3_t {s3_t_a :: CChar}
 instance Storable S3_t
     where {sizeOf = \_ -> 1 :: Int;
@@ -75,6 +77,9 @@ deriving stock instance Show S7a_Deref
 deriving stock instance Eq S7a_Deref
 newtype S7a = S7a {un_S7a :: (Ptr S7a_Deref)}
 deriving newtype instance Storable S7a
+deriving stock instance Eq S7a
+deriving stock instance Ord S7a
+deriving stock instance Show S7a
 data S7b_Deref
     = S7b_Deref {s7b_Deref_a :: CChar, s7b_Deref_b :: CInt}
 instance Storable S7b_Deref
@@ -88,3 +93,6 @@ deriving stock instance Show S7b_Deref
 deriving stock instance Eq S7b_Deref
 newtype S7b = S7b {un_S7b :: (Ptr (Ptr (Ptr S7b_Deref)))}
 deriving newtype instance Storable S7b
+deriving stock instance Eq S7b
+deriving stock instance Ord S7b
+deriving stock instance Show S7b

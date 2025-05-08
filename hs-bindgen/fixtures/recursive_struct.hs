@@ -74,7 +74,9 @@
               "recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "recursive_struct.h:1:16"}},
+          "recursive_struct.h:1:16"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -151,7 +153,9 @@
                 "recursive_struct.h:3:27"}],
             structFlam = Nothing,
             structSourceLoc =
-            "recursive_struct.h:1:16"}}
+            "recursive_struct.h:1:16"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -233,7 +237,9 @@
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:1:16"}})
+                    "recursive_struct.h:1:16"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -317,7 +323,9 @@
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:1:16"}}
+                    "recursive_struct.h:1:16"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -364,10 +372,24 @@
             (DeclPathName
               (CName "linked_list_A_s")),
           typedefSourceLoc =
-          "recursive_struct.h:4:3"}},
+          "recursive_struct.h:4:3"},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_A_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Linked_list_A_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "Linked_list_A_t"),
@@ -447,7 +469,9 @@
               "recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "recursive_struct.h:9:8"}},
+          "recursive_struct.h:9:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -525,7 +549,9 @@
                 "recursive_struct.h:11:20"}],
             structFlam = Nothing,
             structSourceLoc =
-            "recursive_struct.h:9:8"}}
+            "recursive_struct.h:9:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 16,
         storableAlignment = 8,
@@ -608,7 +634,9 @@
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:9:8"}})
+                    "recursive_struct.h:9:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 8]),
@@ -693,7 +721,9 @@
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:9:8"}}
+                    "recursive_struct.h:9:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

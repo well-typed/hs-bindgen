@@ -3,11 +3,43 @@ types:
   cname: struct foo
   module: Example
   identifier: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: fixedwidth.h
   cname: uint32_t
   module: Example
   identifier: Uint32_t
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
 - headers: fixedwidth.h
   cname: uint64_t
   module: Example
   identifier: Uint64_t
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable

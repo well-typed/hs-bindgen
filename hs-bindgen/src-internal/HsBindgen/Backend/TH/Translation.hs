@@ -41,6 +41,7 @@ import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.Syntax qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.SHs.AST
@@ -61,6 +62,9 @@ mkGlobal = \case
       Applicative_seq      -> '(<*>)
       Monad_return         -> 'return
       Monad_seq            -> '(>>)
+      StaticSize_class     -> ''HsBindgen.Runtime.Marshal.StaticSize
+      ReadRaw_class        -> ''HsBindgen.Runtime.Marshal.ReadRaw
+      WriteRaw_class       -> ''HsBindgen.Runtime.Marshal.WriteRaw
       Storable_class       -> ''Foreign.Storable.Storable
       Storable_sizeOf      -> 'Foreign.Storable.sizeOf
       Storable_alignment   -> 'Foreign.Storable.alignment
@@ -232,6 +236,9 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Applicative_seq      -> TH.varE name
     Monad_return         -> TH.varE name
     Monad_seq            -> TH.varE name
+    StaticSize_class     -> panicPure "class in expression"
+    ReadRaw_class        -> panicPure "class in expression"
+    WriteRaw_class       -> panicPure "class in expression"
     Storable_class       -> panicPure "class in expression"
     Storable_sizeOf      -> TH.varE name
     Storable_alignment   -> TH.varE name

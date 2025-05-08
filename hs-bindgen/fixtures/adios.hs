@@ -21,7 +21,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "adios.h:7:13"}},
+          "adios.h:7:13"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -123,7 +138,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "adios.h:12:13"}},
+          "adios.h:12:13"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable

@@ -13,6 +13,7 @@ import Data.Vec.Lazy qualified as Vec
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
+import HsBindgen.ExtBindings (HsTypeClass)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -109,10 +110,10 @@ translateNewtype n = DNewtype $ Newtype
     , newtypeOrigin = Hs.newtypeOrigin n
     }
 
-translateDeriveInstance :: Hs.Strategy Hs.HsType -> Hs.TypeClass -> HsName NsTypeConstr -> SDecl
+translateDeriveInstance :: Hs.Strategy Hs.HsType -> HsTypeClass -> HsName NsTypeConstr -> SDecl
 translateDeriveInstance s tc n = DDerivingInstance (fmap translateType s) $ TApp (translateTypeClass tc) (TCon n)
 
-translateTypeClass :: Hs.TypeClass -> ClosedType
+translateTypeClass :: HsTypeClass -> ClosedType
 translateTypeClass Hs.Bits       = TGlobal Bits_class
 translateTypeClass Hs.Bounded    = TGlobal Bounded_class
 translateTypeClass Hs.Enum       = TGlobal Enum_class
@@ -125,11 +126,14 @@ translateTypeClass Hs.Ix         = TGlobal Ix_class
 translateTypeClass Hs.Num        = TGlobal Num_class
 translateTypeClass Hs.Ord        = TGlobal Ord_class
 translateTypeClass Hs.Read       = TGlobal Read_class
+translateTypeClass Hs.ReadRaw    = TGlobal ReadRaw_class
 translateTypeClass Hs.Real       = TGlobal Real_class
 translateTypeClass Hs.RealFloat  = TGlobal RealFloat_class
 translateTypeClass Hs.RealFrac   = TGlobal RealFrac_class
 translateTypeClass Hs.Show       = TGlobal Show_class
+translateTypeClass Hs.StaticSize = TGlobal StaticSize_class
 translateTypeClass Hs.Storable   = TGlobal Storable_class
+translateTypeClass Hs.WriteRaw   = TGlobal WriteRaw_class
 
 translateVarDecl :: Hs.VarDecl -> SDecl
 translateVarDecl Hs.VarDecl {..} = DVar

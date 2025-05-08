@@ -576,3 +576,11 @@ newtype EnumD_t = EnumD_t
   }
 
 deriving newtype instance F.Storable EnumD_t
+
+deriving stock instance Eq EnumD_t
+
+deriving stock instance Ord EnumD_t
+
+deriving stock instance Read EnumD_t
+
+deriving stock instance Show EnumD_t

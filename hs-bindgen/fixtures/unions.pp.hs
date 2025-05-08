@@ -118,10 +118,6 @@ instance F.Storable Dim where
                F.pokeByteOff ptr0 (0 :: Int) dim_tag2
             >> F.pokeByteOff ptr0 (4 :: Int) dim_payload3
 
-deriving stock instance Show Dim
-
-deriving stock instance Eq Dim
-
 newtype DimPayloadB = DimPayloadB
   { un_DimPayloadB :: Data.Array.Byte.ByteArray
   }
@@ -164,10 +160,6 @@ instance F.Storable DimB where
           DimB dimB_tag2 dimB_payload3 ->
                F.pokeByteOff ptr0 (0 :: Int) dimB_tag2
             >> F.pokeByteOff ptr0 (4 :: Int) dimB_payload3
-
-deriving stock instance Show DimB
-
-deriving stock instance Eq DimB
 
 data AnonA_xy = AnonA_xy
   { anonA_xy_x :: FC.CDouble

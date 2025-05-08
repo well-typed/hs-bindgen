@@ -37,10 +37,30 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "PtrInt"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "PtrInt"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "PtrInt"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "PtrInt"),
@@ -84,10 +104,30 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "PtrPtrChar"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "PtrPtrChar"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "PtrPtrChar"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "PtrPtrChar"),
@@ -144,10 +184,20 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 2}))),
-                    arrayAttributes = []}})}},
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Arr1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Arr1"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "Arr1"),
   DeclNewtype
     Newtype {
@@ -204,10 +254,20 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 3}))),
-                    arrayAttributes = []}})}},
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Arr2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Arr2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "Arr2"),
   DeclNewtype
     Newtype {
@@ -297,10 +357,20 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Arr3"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Arr3"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "Arr3"),
   DeclNewtype
     Newtype {
@@ -371,11 +441,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Fun1"),
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -471,10 +539,24 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Fun2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Fun2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "Fun2"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "Fun2"),
   DeclNewtype
     Newtype {
@@ -551,10 +633,24 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Fun3"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Fun3"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "Fun3"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName "@NsTypeConstr" "Fun3"),
   DeclNewtype
     Newtype {
@@ -709,11 +805,9 @@
                               AbstractName
                               []}}],
                     functionVariadic = False,
-                    functionAttributes = []}})}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Fun4"),
+                    functionAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -824,11 +918,9 @@
                               integerLiteralType = Just
                                 (_×_ PrimInt Signed),
                               integerLiteralValue = 2}))),
-                    arrayAttributes = []}})}},
-  DeclNewtypeInstance
-    DeriveNewtype
-    Storable
-    (HsName "@NsTypeConstr" "Fun5"),
+                    arrayAttributes = []}})},
+      newtypeInstances = Set.fromList
+        []},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -866,7 +958,21 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Read,
+          Show,
+          Floating,
+          Fractional,
+          Num,
+          Real,
+          RealFloat,
+          RealFrac,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -937,10 +1043,68 @@
           typedefType = TypeTypedef
             (CName "MTy"),
           typedefSourceLoc =
-          "macro_types.h:34:13"}},
+          "macro_types.h:34:13"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Read,
+          Show,
+          Floating,
+          Fractional,
+          Num,
+          Real,
+          RealFloat,
+          RealFrac,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Floating
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Fractional
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    RealFloat
+    (HsName "@NsTypeConstr" "Tty"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    RealFrac
     (HsName "@NsTypeConstr" "Tty"),
   DeclNewtype
     Newtype {
@@ -980,7 +1144,22 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1097,10 +1276,97 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "BOOLEAN_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
     (HsName
       "@NsTypeConstr"
       "BOOLEAN_T"),
@@ -1128,10 +1394,97 @@
           typedefType = TypeTypedef
             (CName "BOOLEAN_T"),
           typedefSourceLoc =
-          "macro_types.h:38:19"}},
+          "macro_types.h:38:19"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Read
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Enum
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Ix
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bounded
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Bits
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    FiniteBits
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Integral
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Num
+    (HsName
+      "@NsTypeConstr"
+      "Boolean_T"),
+  DeclNewtypeInstance
+    DeriveNewtype
+    Real
     (HsName
       "@NsTypeConstr"
       "Boolean_T")]

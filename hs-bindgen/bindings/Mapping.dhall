@@ -3,6 +3,7 @@ let Mapping
     = { cname : Text
       , headers : List Text
       , identifier : Text
+      , instances : List Text
       , module : Text
       }
 in  Mapping

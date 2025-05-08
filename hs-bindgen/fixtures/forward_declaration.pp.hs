@@ -41,6 +41,10 @@ newtype S1_t = S1_t
 
 deriving newtype instance F.Storable S1_t
 
+deriving stock instance Eq S1_t
+
+deriving stock instance Show S1_t
+
 data S2 = S2
   { s2_a :: FC.CInt
   }

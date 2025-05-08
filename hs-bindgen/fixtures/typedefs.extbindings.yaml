@@ -3,7 +3,26 @@ types:
   cname: intptr
   module: Example
   identifier: Intptr
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
 - headers: typedefs.h
   cname: myint
   module: Example
   identifier: Myint
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable

@@ -2,6 +2,7 @@ module HsBindgen.ExtBindings (
     -- * Types
     HsModuleName(..)
   , HsIdentifier(..)
+  , HsTypeClass(..)
   , ExtIdentifier(..)
   , UnresolvedExtBindings(..)
   , ExtBindings(..)
@@ -34,7 +35,7 @@ module HsBindgen.ExtBindings (
 import Control.Applicative
 import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
-import Data.Aeson ((.=), (.:))
+import Data.Aeson ((.=), (.:), (.:?), (.!=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
 import Data.ByteString (ByteString)
@@ -50,6 +51,7 @@ import Data.Typeable
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
 import Data.Yaml.Pretty qualified as Yaml.Pretty
+import Text.Read (readMaybe)
 
 import Clang.Args
 import Clang.CNameSpelling
@@ -82,10 +84,51 @@ newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
+-- | Haskell type class
+data HsTypeClass =
+    -- Haskell98 derivable classes
+    -- <https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/deriving.html>
+    Eq
+  | Ord
+  | Enum
+  | Ix
+  | Bounded
+  | Read
+  | Show
+
+    -- Classes we can only derive through newtype deriving
+  | Bits
+  | FiniteBits
+  | Floating
+  | Fractional
+  | Integral
+  | Num
+  | Real
+  | RealFloat
+  | RealFrac
+
+    -- Classes we can only generate when all components have instances
+  | StaticSize
+  | ReadRaw
+  | WriteRaw
+  | Storable
+  deriving stock (Eq, Generic, Ord, Read, Show)
+
+instance Aeson.FromJSON HsTypeClass where
+  parseJSON = Aeson.withText "HsTypeClass" $ \t ->
+    let s = Text.unpack t
+    in  case readMaybe s of
+          Just htc -> return htc
+          Nothing  -> Aeson.parseFail $ "unknown type class: " ++ s
+
+instance Aeson.ToJSON HsTypeClass where
+  toJSON = Aeson.String . Text.pack . show
+
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {
       extIdentifierModule     :: HsModuleName
     , extIdentifierIdentifier :: HsIdentifier
+    , extIdentifierInstances  :: Set HsTypeClass
     }
   deriving stock (Eq, Generic, Ord, Show)
 
@@ -439,28 +482,34 @@ data Mapping = Mapping {
     , mappingHeaders    :: [CHeaderIncludePath]
     , mappingIdentifier :: HsIdentifier
     , mappingModule     :: HsModuleName
+    , mappingInstances  :: Set HsTypeClass
     }
   deriving (Generic, Show)
 
 instance Aeson.FromJSON Mapping where
   parseJSON = Aeson.withObject "Mapping" $ \obj -> do
-      mappingCName      <- obj .: "cname"
-      mappingHeaders    <- obj .: "headers" >>= listFromJSON
-      mappingIdentifier <- obj .: "identifier"
-      mappingModule     <- obj .: "module"
+      mappingCName      <- obj .:  "cname"
+      mappingHeaders    <- obj .:  "headers" >>= listFromJSON
+      mappingIdentifier <- obj .:  "identifier"
+      mappingModule     <- obj .:  "module"
+      mappingInstances  <- obj .:? "instances" .!= Set.empty
       return Mapping {
           mappingCName
         , mappingHeaders
         , mappingIdentifier
         , mappingModule
+        , mappingInstances
         }
 
 instance Aeson.ToJSON Mapping where
-  toJSON mapping = Aeson.object [
-        "cname"      .= mappingCName
-      , "headers"    .= listToJSON mappingHeaders
-      , "identifier" .= mappingIdentifier
-      , "module"     .= mappingModule
+  toJSON mapping = Aeson.object $ catMaybes [
+        Just ("cname"      .= mappingCName)
+      , Just ("headers"    .= listToJSON mappingHeaders)
+      , Just ("identifier" .= mappingIdentifier)
+      , Just ("module"     .= mappingModule)
+      , if Set.null mappingInstances
+          then Nothing
+          else Just ("instances" .= mappingInstances)
       ]
     where
       Mapping {
@@ -468,6 +517,7 @@ instance Aeson.ToJSON Mapping where
         , mappingHeaders
         , mappingIdentifier
         , mappingModule
+        , mappingInstances
         } = mapping
 
 {-------------------------------------------------------------------------------
@@ -495,6 +545,7 @@ encodeYaml = Yaml.Pretty.encodePretty yamlConfig
           "cname"      -> 2
           "module"     -> 3
           "identifier" -> 4
+          "instances"  -> 5
           -- Unknown
           _otherwise -> panicPure $ "Unknown key: " ++ show key
 
@@ -541,6 +592,7 @@ fromConfigFile path ConfigFile{..} = do
       let extIdentifier = ExtIdentifier {
               extIdentifierModule     = mappingModule
             , extIdentifierIdentifier = mappingIdentifier
+            , extIdentifierInstances  = mappingInstances
             }
           newV = [(Set.fromList mappingHeaders, extIdentifier)]
       in  case Map.insertLookupWithKey (const (++)) mappingCName newV accMap of
@@ -571,6 +623,7 @@ toConfigFile UnresolvedExtBindings{..} = ConfigFile{..}
           , mappingHeaders    = Set.toAscList headerSet
           , mappingIdentifier = extIdentifierIdentifier
           , mappingModule     = extIdentifierModule
+          , mappingInstances  = extIdentifierInstances
           }
       | (cname, rs) <- Map.toAscList unresolvedExtBindingsTypes
       , (headerSet, ExtIdentifier{..}) <- rs

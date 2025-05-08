@@ -48,3 +48,7 @@ newtype FILE = FILE
   }
 
 deriving newtype instance F.Storable FILE
+
+deriving stock instance Eq FILE
+
+deriving stock instance Show FILE

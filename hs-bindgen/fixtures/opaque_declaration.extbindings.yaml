@@ -7,10 +7,18 @@ types:
   cname: struct bar
   module: Example
   identifier: Bar
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: opaque_declaration.h
   cname: struct baz
   module: Example
   identifier: Baz
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: opaque_declaration.h
   cname: struct foo
   module: Example

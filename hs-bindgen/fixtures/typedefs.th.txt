@@ -15,3 +15,6 @@ deriving newtype instance Num Myint
 deriving newtype instance Real Myint
 newtype Intptr = Intptr {un_Intptr :: (Ptr CInt)}
 deriving newtype instance Storable Intptr
+deriving stock instance Eq Intptr
+deriving stock instance Ord Intptr
+deriving stock instance Show Intptr
