@@ -18,6 +18,7 @@ import HsBindgen.Imports
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
+import Test.HsBindgen.C.Environment qualified
 import Test.HsBindgen.C.Parser qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
@@ -44,6 +45,7 @@ main = do
 tests :: FilePath -> IO FilePath -> TestTree
 tests packageRoot rustBindgen = testGroup "test-internal" [
       Test.HsBindgen.C.Parser.tests args
+    , Test.HsBindgen.C.Environment.tests
     , testGroup "examples" [
           golden "simple_structs"
         , golden "recursive_struct"

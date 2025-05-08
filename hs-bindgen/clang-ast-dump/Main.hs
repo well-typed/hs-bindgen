@@ -21,6 +21,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
+import HsBindgen.Clang.Args (withExtraClangArgs)
 import HsBindgen.Resolve (resolveHeader)
 
 {-------------------------------------------------------------------------------
@@ -48,17 +49,18 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    src <- resolveHeader cArgs optFile
-    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withTranslationUnit index src cArgs [] cOpts $ \unit -> do
-        rootCursor <- clang_getTranslationUnitCursor unit
-        void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
-          loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
-          case loc of
-            (file, _, _)
-              | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
-              | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
-              | otherwise                             -> foldDecls opts cursor
+    withExtraClangArgs cArgs $ \cArgs' -> do
+      src <- resolveHeader cArgs' optFile
+      HighLevel.withIndex DontDisplayDiagnostics $ \index ->
+        HighLevel.withTranslationUnit index src cArgs' [] cOpts $ \unit -> do
+          rootCursor <- clang_getTranslationUnitCursor unit
+          void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
+            loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
+            case loc of
+              (file, _, _)
+                | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
+                | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
+                | otherwise                             -> foldDecls opts cursor
   where
     cArgs :: ClangArgs
     cArgs = defaultClangArgs {

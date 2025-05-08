@@ -7,6 +7,7 @@ module HsBindgen.App.Common (
   , parseInput
     -- * Auxiliary hs-bindgen functions
   , loadExtBindings'
+  , environmentVariablesFooter
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
@@ -14,11 +15,16 @@ module HsBindgen.App.Common (
 
 import Control.Exception (Exception (displayException))
 import Control.Tracer (Tracer, traceWith)
-import Data.Bifunctor (first)
+import Data.Bifunctor (Bifunctor (bimap), first)
 import Data.Char qualified as Char
 import Data.List qualified as List
+import Data.Text (Text)
+import Data.Text qualified as Text
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
+import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
+                                 vcat)
+import Prettyprinter.Util (reflow)
 
 import HsBindgen.Lib
 
@@ -303,6 +309,34 @@ loadExtBindings' tracer GlobalOpts{..} = do
       loadExtBindings globalOptsClangArgs globalOptsExtBindings
     mapM_ (traceWith tracer) resolveErrs
     return extBindings
+
+environmentVariablesFooter :: ParserPrefs -> Doc
+environmentVariablesFooter p =
+  vcat [ pretty ("Environment variables:" :: String)
+       , prettyEnvVars
+       ]
+  where
+    prettyEnvVars :: Doc
+    prettyEnvVars = extractChunk $ tabulate (prefTabulateFill p) envVarsDocs
+
+    targets :: [Target]
+    targets = [ minBound .. maxBound ]
+
+    triples :: [String]
+    triples = map (`targetTriple` TargetEnvDefault) targets
+
+    envVarsDocs :: [(Doc, Doc)]
+    envVarsDocs = map (bimap pretty  (align . reflow)) envVars
+
+    envVars :: [(Text, Text)]
+    envVars = [ ("BINDGEN_EXTRA_CLANG_ARGS",
+                 "Extra command line arguments passed to `libclang`")
+              , ("BINDGEN_EXTRA_CLANG_ARGS_<TARGET>",
+                 "Per-target arguments passed to `libclang`"
+                 <> ", precedes BINDGEN_EXTRA_CLANG_ARGS if using a specific target"
+                 <> "; possible targets: "
+                 <> Text.intercalate ", " (map Text.pack triples) )
+              ]
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

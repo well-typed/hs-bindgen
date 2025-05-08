@@ -93,6 +93,7 @@ newtype HsDecls = WrapHsDecls {
       unwrapHsDecls :: [Hs.Decl]
     }
 
+-- | Translate C header to Haskell declarations
 translateCHeader :: ModuleUnique -> Pipeline.Opts -> Paths.CHeaderIncludePath -> IO HsDecls
 translateCHeader mu opts = fmap WrapHsDecls . Pipeline.translateCHeader mu opts
 
