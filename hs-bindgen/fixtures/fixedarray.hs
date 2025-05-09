@@ -20,7 +20,14 @@
         Typedef {
           typedefName = CName "triple",
           typedefType = TypeConstArray
-            3
+            Size {
+              size = 3,
+              sizeExpression = MTerm
+                (MInt
+                  IntegerLiteral {
+                    integerLiteralText = "3",
+                    integerLiteralType = Size,
+                    integerLiteralValue = 3})}
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
@@ -68,7 +75,14 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 3})}
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               fieldSourceLoc =
@@ -89,9 +103,23 @@
               fieldOffset = 96,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 3})}
                 (TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "3",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 3})}
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               fieldSourceLoc =
@@ -110,7 +138,14 @@
               fieldOffset = 0,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 3})}
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               fieldSourceLoc =
@@ -120,9 +155,23 @@
               fieldOffset = 96,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 3})}
                 (TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "3",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 3})}
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               fieldSourceLoc =
@@ -156,7 +205,14 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "3",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 3})}
                   (TypePrim
                     (PrimIntegral PrimInt Signed)),
                 fieldSourceLoc =
@@ -177,9 +233,23 @@
                 fieldOffset = 96,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "3",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 3})}
                   (TypeConstArray
-                    3
+                    Size {
+                      size = 3,
+                      sizeExpression = MTerm
+                        (MInt
+                          IntegerLiteral {
+                            integerLiteralText = "3",
+                            integerLiteralType = Size,
+                            integerLiteralValue = 3})}
                     (TypePrim
                       (PrimIntegral PrimInt Signed))),
                 fieldSourceLoc =
@@ -198,7 +268,14 @@
                 fieldOffset = 0,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "3",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 3})}
                   (TypePrim
                     (PrimIntegral PrimInt Signed)),
                 fieldSourceLoc =
@@ -208,9 +285,23 @@
                 fieldOffset = 96,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "3",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 3})}
                   (TypeConstArray
-                    3
+                    Size {
+                      size = 3,
+                      sizeExpression = MTerm
+                        (MInt
+                          IntegerLiteral {
+                            integerLiteralText = "3",
+                            integerLiteralType = Size,
+                            integerLiteralValue = 3})}
                     (TypePrim
                       (PrimIntegral PrimInt Signed))),
                 fieldSourceLoc =
@@ -249,7 +340,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
@@ -270,9 +368,23 @@
                         fieldOffset = 96,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MInt
+                                  IntegerLiteral {
+                                    integerLiteralText = "3",
+                                    integerLiteralType = Size,
+                                    integerLiteralValue = 3})}
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
@@ -291,7 +403,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
@@ -301,9 +420,23 @@
                         fieldOffset = 96,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MInt
+                                  IntegerLiteral {
+                                    integerLiteralText = "3",
+                                    integerLiteralType = Size,
+                                    integerLiteralValue = 3})}
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
@@ -344,7 +477,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
@@ -365,9 +505,23 @@
                         fieldOffset = 96,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MInt
+                                  IntegerLiteral {
+                                    integerLiteralText = "3",
+                                    integerLiteralType = Size,
+                                    integerLiteralValue = 3})}
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =
@@ -386,7 +540,14 @@
                         fieldOffset = 0,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypePrim
                             (PrimIntegral PrimInt Signed)),
                         fieldSourceLoc =
@@ -396,9 +557,23 @@
                         fieldOffset = 96,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          3
+                          Size {
+                            size = 3,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "3",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 3})}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MInt
+                                  IntegerLiteral {
+                                    integerLiteralText = "3",
+                                    integerLiteralType = Size,
+                                    integerLiteralValue = 3})}
                             (TypePrim
                               (PrimIntegral PrimInt Signed))),
                         fieldSourceLoc =

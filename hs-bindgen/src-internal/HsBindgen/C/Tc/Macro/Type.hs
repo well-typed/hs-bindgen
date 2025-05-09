@@ -12,12 +12,18 @@ import Data.Proxy
   ( Proxy(..) )
 import Data.Type.Equality
   ( type (:~:)(..) )
+import Foreign.C.Types
+import Foreign.Ptr qualified as Foreign
 import GHC.Show
   ( showSpace )
 
 -- fin
 import Data.Type.Nat qualified as Nat
   ( SNat(..), SNatI, snat, eqNat, reflectToNum )
+
+-- some
+import Data.GADT.Compare
+  ( GEq (..), defaultEq )
 
 -- text
 import Data.Text qualified as Text
@@ -64,6 +70,11 @@ data Type ki where
   -- | Nominal equality.
   NomEqPred :: !( Type Ty ) -> !( Type Ty ) -> Type Ct
 
+mkFunTy :: Foldable f => f ( Type Ty ) -> Type Ty -> Type Ty
+mkFunTy args = case toList args of
+  [] -> id
+  ( a : as ) -> \ res -> FunTy ( a NE.:| as ) res
+
 -- | A qualified quantified type @forall tys. cts => args -> res@.
 type Quant :: Hs.Type -> Hs.Type
 data Quant res where
@@ -72,6 +83,7 @@ data Quant res where
     .  ( Nat.SNatI nbBinders )
     => { quantTyBodyFn :: !( Vec nbBinders ( Type Ty ) -> QuantTyBody res ) }
     -> Quant res
+deriving stock instance Functor Quant
 
 instance Eq ( Quant ( Type ki ) ) where
   qty1@( Quant @n1 _ ) == qty2@( Quant @n2 _ ) =
@@ -228,6 +240,7 @@ data DataTyCon nbArgs where
 
   -- | Tuple type constructors
   TupleTyCon     :: !Word -> DataTyCon ( S ( S n ) )
+    -- Invariant: the stored 'Word' matches the arity of the tuple
 
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
@@ -373,20 +386,91 @@ isPrimTy' _                       = False
   Type environment
 -------------------------------------------------------------------------------}
 
+-- | Workaround datatype to deal with how we represent typedefs around
+-- anonymous structs & enums.
+--
+-- This should be removed in a future refactoring.
+data TypedefUnderlyingType
+  = NormalTypedef
+  | AnonStructTypedef
+  | AnonEnumTypedef
+  deriving stock ( Eq, Ord, Show, Generic )
+
 data TypeEnv =
    TypeEnv
      { typeEnvMacros   :: MacroTypes
-     , typeEnvTypedefs :: Set CName
+     , typeEnvTypedefs :: Map CName TypedefUnderlyingType
      }
   deriving stock Show
 
-type MacroTypes = Map CName ( Quant ( Type Ty ) )
+type MacroTypes = Map CName ( Quant ( FunValue, Type Ty ) )
 type VarEnv     = Map CName ( Type Ty )
+
+data Pass = Ps | Tc
+
+type XApp :: Pass -> Hs.Type
+data family XApp p
+data instance XApp Ps = NoXApp
+  deriving stock ( Eq, Ord, Show, Generic )
+newtype instance XApp Tc = XAppTc FunValue
+  deriving stock ( Eq, Show, Generic )
+
+type XVar :: Pass -> Hs.Type
+data family XVar p
+data instance XVar Ps = NoXVar
+  deriving stock ( Eq, Ord, Show, Generic )
+data instance XVar Tc = XVarTc FunValue
+  deriving stock ( Eq, Show, Generic )
+
+-- | A singleton for the type of a value, for use in evaluation of macros.
+newtype ValSType ty = ValSType ( C.Type.SType ValSType ty )
+  -- NB: this type ties the recursive knot of the open C.Type.SType type.
+  --
+  -- This type is defined here because it is tied to macro evaluation.
+  -- In particular, if we decide to add support for evaluation macro tuples,
+  -- we would need to add a constructor here to account for that.
+ deriving newtype GEq
+deriving stock instance Show ( ValSType ty )
+instance Eq ( ValSType ty ) where
+  ValSType ty1 == ValSType ty2 = defaultEq ty1 ty2
+data Value where
+  NoValue :: Value
+  Value :: ValSType ty -> ty -> Value
+instance Eq Value where
+  NoValue == NoValue = True
+  NoValue == Value {} = False
+  Value {} == NoValue = False
+  Value ty1 v1 == Value ty2 v2 =
+    case geq ty1 ty2 of
+      Nothing -> False
+      Just Refl ->
+        witnessValSType @Eq ty1 (v1 == v2)
+
+-- | Produce class dictionaries for a class by matching on the singleton
+-- for the type.
+witnessValSType
+  :: forall c ty r
+  . ( forall x. c ( Foreign.Ptr x )
+    , c CChar, c CSChar, c CUChar, c CShort, c CUShort, c CInt
+    , c CUInt, c CLong, c CULong, c CLLong, c CULLong, c CPtrdiff
+    , c CSize, c CBool, c CFloat, c CDouble, c () )
+  => ValSType ty -> ( c ty => r ) -> r
+witnessValSType ( ValSType ty ) f =
+  C.Type.witnessType @c ( witnessValSType @c ) ty f
+
+-- | A Haskell function that evaluates a macro function.
+data FunValue where
+  FunValue :: Nat.SNatI n => FunName -> ( Vec n Value -> Value ) -> FunValue
+instance Eq FunValue where
+  FunValue f1 _ == FunValue f2 _ = f1 == f2
+instance Show FunValue where
+  show ( FunValue nm _ ) = Text.unpack nm
 
 {-------------------------------------------------------------------------------
   Constraints & errors
 -------------------------------------------------------------------------------}
 
+-- | The textual name of a macro function.
 type FunName = Text
 
 -- | Why did we emit a constraint?

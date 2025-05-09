@@ -33,15 +33,19 @@ cExprInstances platform = do
     -- Not, Logical
 
     do impl <- [| \ i -> if C.notNull i then 0 else 1 |]
-       genUnaryInstances ''C.Not ( Left $ TH.ConT ''CInt ) ( C.unaryLogicalType platform )
-         [ ClassMethod 'C.not "singNot" 1 impl ]
+       withInstanceProofs
+         [ genUnaryInstances ''C.Not ( Left $ TH.ConT ''CInt ) ( C.unaryLogicalType platform )
+           [ ClassMethod 'C.not "singNot" 1 impl ]
+         ]
     ,
 
     do impl1 <- [| \ i j -> if C.notNull i Prelude.&& C.notNull j then 1 else 0 |]
        impl2 <- [| \ i j -> if C.notNull i Prelude.|| C.notNull j then 1 else 0 |]
-       genBinaryInstances ''C.Logical ( Left $ TH.ConT ''CInt ) ( C.binaryLogicalType platform )
-         [ ClassMethod '(C.&&) "singAnd" 2 impl1
-         , ClassMethod '(C.||) "singOr"  2 impl2
+       withInstanceProofs
+         [ genBinaryInstances ''C.Logical ( Left $ TH.ConT ''CInt ) ( C.binaryLogicalType platform )
+           [ ClassMethod '(C.&&) "singAnd" 2 impl1
+           , ClassMethod '(C.||) "singOr"  2 impl2
+           ]
          ]
     ,
 
@@ -50,9 +54,11 @@ cExprInstances platform = do
 
     do impl1 <- [| \ a b -> if a Prelude.== b then 1 else 0 |]
        impl2 <- [| \ a b -> if a Prelude./= b then 1 else 0 |]
-       genBinaryInstances ''C.RelEq ( Left $ TH.ConT ''CInt ) ( C.binaryEqType platform )
-         [ ClassMethod '(C.==) "singEq"  2 impl1
-         , ClassMethod '(C.!=) "singNEq" 2 impl2
+       withInstanceProofs
+         [ genBinaryInstances ''C.RelEq ( Left $ TH.ConT ''CInt ) ( C.binaryEqType platform )
+           [ ClassMethod '(C.==) "singEq"  2 impl1
+           , ClassMethod '(C.!=) "singNEq" 2 impl2
+           ]
          ]
     ,
 
@@ -60,28 +66,34 @@ cExprInstances platform = do
        impl2 <- [| \ a b -> if a Prelude.>= b then 1 else 0 |]
        impl3 <- [| \ a b -> if a Prelude.<  b then 1 else 0 |]
        impl4 <- [| \ a b -> if a Prelude.<= b then 1 else 0 |]
-       genBinaryInstances ''C.RelOrd ( Left $ TH.ConT ''CInt ) ( C.binaryRelType platform )
-         [ ClassMethod '(C.>)  "singGT" 2 impl1
-         , ClassMethod '(C.>=) "singGTE" 2 impl2
-         , ClassMethod '(C.<)  "singLT" 2 impl3
-         , ClassMethod '(C.<=) "singLTE" 2 impl4
+       withInstanceProofs
+         [ genBinaryInstances ''C.RelOrd ( Left $ TH.ConT ''CInt ) ( C.binaryRelType platform )
+           [ ClassMethod '(C.>)  "singGT" 2 impl1
+           , ClassMethod '(C.>=) "singGTE" 2 impl2
+           , ClassMethod '(C.<)  "singLT" 2 impl3
+           , ClassMethod '(C.<=) "singLTE" 2 impl4
+           ]
          ]
     ,
 
     ----------------------------------------------------------------------------
     -- Plus, Minus
 
-    genUnaryInstances ''C.Plus ( withAssoc "PlusRes" "PlusResImpl" SameArgs )
-      ( C.unaryPlusType platform )
-      [ ClassMethod 'C.plus "singPlus" 1 ( TH.VarE 'Prelude.id ) ]
+    withInstanceProofs
+      [ genUnaryInstances ''C.Plus ( withAssoc "PlusRes" "PlusResImpl" SameArgs )
+        ( C.unaryPlusType platform )
+        [ ClassMethod 'C.plus "singPlus" 1 ( TH.VarE 'Prelude.id ) ]
+      ]
     ,
 
     genUnaryTyFam platform ( TH.mkName "PlusResImpl" ) C.unaryPlusType
     ,
 
-    genUnaryInstances ''C.Minus ( withAssoc "MinusRes" "MinusResImpl" SameArgs )
-      ( C.unaryMinusType platform )
-      [ ClassMethod 'C.negate "singNegate" 1 ( TH.VarE 'Prelude.negate ) ]
+    withInstanceProofs
+      [ genUnaryInstances ''C.Minus ( withAssoc "MinusRes" "MinusResImpl" SameArgs )
+        ( C.unaryMinusType platform )
+        [ ClassMethod 'C.negate "singNegate" 1 ( TH.VarE 'Prelude.negate ) ]
+      ]
     ,
 
     genUnaryTyFam platform ( TH.mkName "MinusResImpl" ) C.unaryMinusType
@@ -90,53 +102,62 @@ cExprInstances platform = do
     ----------------------------------------------------------------------------
     -- Add, Sub, Mult, Div, Rem
 
-    genBinaryInstances ''C.Add ( withAssoc "AddRes" "AddResImpl" SameArgs )
-      ( C.binaryAddType platform )
-      [ ClassMethod '(C.+) "singAdd" 2 ( TH.VarE '(Prelude.+) ) ]
+    withInstanceProofs
+      [ genBinaryInstances ''C.Add ( withAssoc "AddRes" "AddResImpl" SameArgs )
+        ( C.binaryAddType platform )
+        [ ClassMethod '(C.+) "singAdd" 2 ( TH.VarE '(Prelude.+) ) ]
+      ]
     ,
 
     genBinaryTyFam platform ( TH.mkName "AddResImpl" ) C.binaryAddType
     ,
 
-    genBinaryInstances ''C.Sub ( withAssoc "SubRes" "SubResImpl" SameArgs )
-      ( C.binarySubType platform )
-      [ ClassMethod '(C.-) "singSub" 2 ( TH.VarE '(Prelude.-) ) ]
+    withInstanceProofs
+      [ genBinaryInstances ''C.Sub ( withAssoc "SubRes" "SubResImpl" SameArgs )
+        ( C.binarySubType platform )
+        [ ClassMethod '(C.-) "singSub" 2 ( TH.VarE '(Prelude.-) ) ]
+      ]
     ,
 
     genBinaryTyFam platform ( TH.mkName "SubResImpl" ) C.binarySubType
     ,
 
-    genBinaryInstances ''C.Mult ( withAssoc "MultRes" "MultResImpl" SameArgs )
-      ( C.binaryMultiplicativeType platform )
-      [ ClassMethod '(C.*) "singMult" 2 ( TH.VarE '(Prelude.*) ) ]
+    withInstanceProofs
+      [ genBinaryInstances ''C.Mult ( withAssoc "MultRes" "MultResImpl" SameArgs )
+        ( C.binaryMultiplicativeType platform )
+        [ ClassMethod '(C.*) "singMult" 2 ( TH.VarE '(Prelude.*) ) ]
+      ]
     ,
 
     genBinaryTyFam platform ( TH.mkName "MultResImpl" ) C.binaryMultiplicativeType
     ,
 
-    -- division for integral types
-    genBinaryInstances ''C.Div ( withAssoc "DivRes" "MultResImpl" SameArgs ) -- NB: re-use 'MultResImpl'
-      ( \ a b ->
-        do op@( resTy, _ ) <- C.integralBinaryType platform a b
-           guard ( case resTy of C.Arithmetic ( C.FloatLike {} ) -> False; _ -> True )
-           return op
-      )
-      [ ClassMethod '(C./) "singDiv" 2 ( TH.VarE 'Prelude.div ) ]
+    -- NB: this is the key usage of 'withInstanceProofs' with a non-singleton list
+    withInstanceProofs
+        -- division for integral types
+      [ genBinaryInstances ''C.Div ( withAssoc "DivRes" "MultResImpl" SameArgs ) -- NB: re-use 'MultResImpl'
+          ( \ a b ->
+            do op@( resTy, _ ) <- C.integralBinaryType platform a b
+               guard ( case resTy of C.Arithmetic ( C.FloatLike {} ) -> False; _ -> True )
+               return op
+          )
+          [ ClassMethod '(C./) "singDiv" 2 ( TH.VarE 'Prelude.div ) ]
+        -- division for floating-point types
+      , genBinaryInstances ''C.Div ( withAssoc "DivRes" "MultResImpl" SameArgs ) -- NB: re-use 'MultResImpl'
+          ( \ a b ->
+            do op@( resTy, _ ) <- C.binaryMultiplicativeType platform a b
+               guard ( case resTy of C.Arithmetic ( C.FloatLike {} ) -> True; _ -> False )
+               return op
+          )
+          [ ClassMethod '(C./) "singDiv" 2 ( TH.VarE '(Prelude./) ) ]
+      ]
     ,
 
-    -- division for floating-point types
-    genBinaryInstances ''C.Div ( withAssoc "DivRes" "MultResImpl" SameArgs ) -- NB: re-use 'MultResImpl'
-      ( \ a b ->
-        do op@( resTy, _ ) <- C.binaryMultiplicativeType platform a b
-           guard ( case resTy of C.Arithmetic ( C.FloatLike {} ) -> True; _ -> False )
-           return op
-      )
-      [ ClassMethod '(C./) "singDiv" 2 ( TH.VarE '(Prelude./) ) ]
-    ,
-
-    genBinaryInstances ''C.Rem ( withAssoc "RemRes" "BinResImpl" SameArgs ) -- NB: use 'BinResImpl'
-      ( C.integralBinaryType platform )
-      [ ClassMethod '(C.%) "singRem" 2 ( TH.VarE 'Prelude.rem ) ]
+    withInstanceProofs
+      [ genBinaryInstances ''C.Rem ( withAssoc "RemRes" "BinResImpl" SameArgs ) -- NB: use 'BinResImpl'
+        ( C.integralBinaryType platform )
+        [ ClassMethod '(C.%) "singRem" 2 ( TH.VarE 'Prelude.rem ) ]
+      ]
     ,
 
     genBinaryTyFam platform ( TH.mkName "BinResImpl" ) C.integralBinaryType
@@ -145,30 +166,36 @@ cExprInstances platform = do
     ----------------------------------------------------------------------------
     -- Complement, Bitwise, Shift
 
-    genUnaryInstances ''C.Complement ( withAssoc "ComplementRes" "ComplementResImpl" SameArgs )
-      ( C.integralUnaryType platform )
-      [ ClassMethod '(C..~) "singComplement" 1 ( TH.VarE 'Bits.complement ) ]
+    withInstanceProofs
+      [ genUnaryInstances ''C.Complement ( withAssoc "ComplementRes" "ComplementResImpl" SameArgs )
+        ( C.integralUnaryType platform )
+        [ ClassMethod '(C..~) "singComplement" 1 ( TH.VarE 'Bits.complement ) ]
+      ]
     ,
 
     genUnaryTyFam platform ( TH.mkName "ComplementResImpl" ) C.integralUnaryType
     ,
 
-    genBinaryInstances ''C.Bitwise ( withAssoc "BitsRes" "BinResImpl" SameArgs ) -- NB: use 'BinResImpl'
-      ( C.integralBinaryType platform )
-      [ ClassMethod '(C..&.) "singBitAnd" 2 ( TH.VarE '(Bits..&.) )
-      , ClassMethod '(C..|.) "singBitOr" 2 ( TH.VarE '(Bits..|.) )
-      , ClassMethod '(C..^.) "singBitXor" 2 ( TH.VarE 'Bits.xor )
+    withInstanceProofs
+      [ genBinaryInstances ''C.Bitwise ( withAssoc "BitsRes" "BinResImpl" SameArgs ) -- NB: use 'BinResImpl'
+        ( C.integralBinaryType platform )
+          [ ClassMethod '(C..&.) "singBitAnd" 2 ( TH.VarE '(Bits..&.) )
+          , ClassMethod '(C..|.) "singBitOr" 2 ( TH.VarE '(Bits..|.) )
+          , ClassMethod '(C..^.) "singBitXor" 2 ( TH.VarE 'Bits.xor )
+          ]
       ]
     ,
 
     do impl1 <- [| \ a i -> Bits.shiftL a ( Prelude.fromIntegral i ) |]
        impl2 <- [| \ a i -> Bits.shiftR a ( Prelude.fromIntegral i ) |]
-       genBinaryInstances ''C.Shift ( withAssoc "ShiftRes" "ShiftResImpl" FirstArgOnly )
-          -- NB: use 'FirstArgOnly', because the result type only depends on the
-          -- first argument.
-         ( C.shiftType platform )
-         [ ClassMethod '(C.<<) "singShiftL" 2 impl1
-         , ClassMethod '(C.>>) "singShiftR" 2 impl2
+       withInstanceProofs
+         [ genBinaryInstances ''C.Shift ( withAssoc "ShiftRes" "ShiftResImpl" FirstArgOnly )
+              -- NB: use 'FirstArgOnly', because the result type only depends on the
+              -- first argument.
+             ( C.shiftType platform )
+             [ ClassMethod '(C.<<) "singShiftL" 2 impl1
+             , ClassMethod '(C.>>) "singShiftR" 2 impl2
+             ]
          ]
     ,
 
@@ -178,12 +205,8 @@ cExprInstances platform = do
       -- which undergoes an independent arithmetic promotion.
       \ plat ty -> C.shiftType plat ty ( C.Arithmetic $ C.Integral $ C.IntLike $ C.Int C.Signed )
 
-    ,
-
-    genInstanceProofs
 
     ]
-
 
 --------------------------------------------------------------------------------
 

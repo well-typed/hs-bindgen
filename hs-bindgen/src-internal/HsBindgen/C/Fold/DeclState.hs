@@ -22,7 +22,9 @@ import Clang.Paths
 import Data.DynGraph (DynGraph)
 import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST
+import HsBindgen.C.AST.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -91,7 +93,7 @@ registerMacroExpansion loc st = st{
       macroExpansions = Set.insert (multiLocExpansion loc) (macroExpansions st)
     }
 
-registerMacroType :: CName -> Macro.Quant ( Macro.Type Macro.Ty ) -> DeclState -> DeclState
+registerMacroType :: CName -> Macro.Quant ( Macro.FunValue, Macro.Type Macro.Ty ) -> DeclState -> DeclState
 registerMacroType nm ty st = st{
       macroTypes = Map.insert nm ty (macroTypes st)
     }
@@ -133,7 +135,7 @@ containsMacroExpansion range DeclState{macroExpansions} = or [
 macroTypeEnv :: DeclState -> Macro.TypeEnv
 macroTypeEnv st = Macro.TypeEnv{
       typeEnvMacros   = macroTypes st
-    , typeEnvTypedefs = Set.fromList $ knownTypedefs st
+    , typeEnvTypedefs = knownTypedefs st
     }
 
 {-------------------------------------------------------------------------------
@@ -193,33 +195,38 @@ macroTypeEnv st = Macro.TypeEnv{
   >   ...
 -------------------------------------------------------------------------------}
 
-knownTypedefs :: DeclState -> [CName]
+knownTypedefs :: DeclState -> Map CName Macro.TypedefUnderlyingType
 knownTypedefs =
-      concatMap (typeDeclTypedef . snd)
+      mconcat
+    . map (typeDeclTypedef . snd)
     . OMap.assocs
     . typeDeclarations
   where
 
-typeDeclTypedef :: TypeDecl -> [CName]
+typeDeclTypedef :: TypeDecl -> Map CName Macro.TypedefUnderlyingType
 typeDeclTypedef (TypeDecl _typ decl) =
     case decl of
       DeclTypedef Typedef{typedefName} ->
-        [typedefName]
-      DeclStruct Struct{structDeclPath, structAliases} -> concat [
-          [ typedef
-          | DeclPathAnon (DeclPathCtxtTypedef typedef) <- [structDeclPath]
-          ]
-        , structAliases
-        ]
-      DeclEnum Enu{enumDeclPath, enumAliases} -> concat [
-          [ typedef
-          | DeclPathAnon (DeclPathCtxtTypedef typedef) <- [enumDeclPath]
-          ]
-        , enumAliases
-        ]
+        Map.singleton typedefName Macro.NormalTypedef
+      DeclStruct Struct{structDeclPath, structAliases} ->
+        Map.fromList $
+          concat [
+            [ (typedef, Macro.AnonStructTypedef)
+            | DeclPathAnon (DeclPathCtxtTypedef typedef) <- [structDeclPath]
+            ]
+            , map (, Macro.NormalTypedef) structAliases
+            ]
+      DeclEnum Enu{enumDeclPath, enumAliases} ->
+        Map.fromList $
+          concat [
+            [ (typedef, Macro.AnonEnumTypedef)
+            | DeclPathAnon (DeclPathCtxtTypedef typedef) <- [enumDeclPath]
+            ]
+            , map (, Macro.NormalTypedef) enumAliases
+            ]
       _otherwise
-        -> []
+        -> Map.empty
 typeDeclTypedef TypeDeclProcessing{} =
-    []
+    Map.empty
 typeDeclTypedef TypeDeclAlias{} =
-    []
+    Map.empty

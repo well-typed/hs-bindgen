@@ -32,7 +32,7 @@ fUN1 = \x0 -> \y1 -> (+) x0 ((*) (12 :: FC.CULLong) y1)
 fUN2 :: forall a0 b1. (C.Mult FC.CULLong) b1 => ((~) (HsBindgen.IntLike b1)) ((C.MultRes FC.CULLong) b1) => (HsBindgen.IntLike a0) -> b1 -> C.ShiftRes (HsBindgen.IntLike a0)
 fUN2 = \x0 -> \y1 -> (<<) x0 ((*) (3 :: FC.CULLong) y1)
 
-g :: forall a0 b1. (C.Add b1) FC.CInt => a0 -> b1 -> (C.AddRes b1) FC.CInt
+g :: forall a0 b1. (C.Add a0) FC.CInt => b1 -> a0 -> (C.AddRes a0) FC.CInt
 g = \x0 -> \y1 -> cONST (iNCR y1) (iD x0)
 
 dIV1 :: forall a0 b1. (C.Add b1) FC.CUInt => (C.Div a0) ((C.AddRes b1) FC.CUInt) => a0 -> b1 -> (C.DivRes a0) ((C.AddRes b1) FC.CUInt)

@@ -27,6 +27,10 @@ module HsBindgen.C.Tc.Macro
   , TcError(..), CtOrigin(..), MetaOrigin(..), CouldNotUnifyReason(..)
   , pprTcError, pprCtOrigin, pprMetaOrigin, pprCouldNotUnifyReason
 
+    -- * Evaluating macros
+  , evaluateMExpr
+  , naturalMaybe
+
   )
   where
 
@@ -45,14 +49,16 @@ import Data.Functor
   ( (<&>) )
 import Data.Monoid
   ( Endo(..) )
+import Data.Proxy (Proxy(..))
 import Data.STRef
-  ( STRef, newSTRef, readSTRef )
+  ( newSTRef, readSTRef )
 import Data.Traversable
   ( for )
 import Data.Typeable
   ( Typeable, eqT )
 import Data.Type.Equality
   ( type (:~:)(..) )
+import Foreign.C.Types
 import GHC.Exts
   ( Int(I#), dataToTag# )
 
@@ -62,10 +68,12 @@ import Data.IntSet qualified as IntSet
 import Data.Map.Strict qualified as Map
 
 -- fin
+import Data.Fin
+  ( Fin )
 import Data.Fin qualified as Fin
   ( toNatural )
 import Data.Type.Nat qualified as Nat
-  ( SNatI, eqNat )
+  ( SNatI, eqNat, reflectToNum )
 
 -- mtl
 import Control.Monad.Except
@@ -89,6 +97,7 @@ import Data.Vec.Lazy qualified as Vec
 -- c-expr
 import C.Type qualified
 import C.Operators qualified as C.Op
+import C.Expr.HostPlatform qualified as C.Expr
 
 -- hs-bindgen
 import HsBindgen.Imports
@@ -96,11 +105,9 @@ import HsBindgen.Errors
 import HsBindgen.C.AST.Literal
   ( IntegerLiteral(..), FloatingLiteral(..) )
 import HsBindgen.C.AST.Macro
-  ( MExpr(..), MFun(..), MTerm(..), MacroBody (..) )
+  ( MExpr(..), MFun(..), MTerm(..), MacroBody(..) )
 import HsBindgen.C.AST.Name
   ( CName(..) )
-import HsBindgen.C.AST.Type
-  ( PrimIntType(..), PrimSign(..), PrimFloatType(..) )
 import HsBindgen.C.Tc.Macro.Type
 import HsBindgen.Util.TestEquality
   ( equals2 )
@@ -225,10 +232,14 @@ applySubst subst = goTy
 -------------------------------------------------------------------------------}
 
 data Fun = forall arity. Fun ( Either CName ( MFun arity ) )
+funName :: Fun -> FunName
+funName ( Fun f ) =
+  case f of
+    Left n -> getCName n
+    Right mf -> Text.pack ( show mf )
 
 data TcError
   = UnificationError !UnificationError
-  | UnexpectedMTerm  !MTerm
   | UnboundVariable  !CName
   deriving stock Show
 
@@ -240,8 +251,6 @@ pprTcError :: TcError -> Text
 pprTcError = \case
   UnificationError err ->
     pprUnificationError err
-  UnexpectedMTerm tm ->
-    "Unexpected MTerm: " <> Text.pack ( show tm )
   UnboundVariable ( CName nm ) ->
     "Unbound variable: '" <> nm <> "'"
 
@@ -285,11 +294,6 @@ pprCouldNotUnifyReason = \case
   Typechecking macros: typechecker environment
 -------------------------------------------------------------------------------}
 
-data SrcSpan = SrcSpan
-  deriving stock ( Eq, Ord, Generic )
-instance Show SrcSpan where
-  show _ = "<<noSrcSpan>>"
-
 data TcEnv s =
   TcEnv
     { tcGblEnv :: !( TcGblEnv s )
@@ -298,9 +302,16 @@ data TcEnv s =
 
 data TcGblEnv s
   = TcGblEnv
-      { tcTypeEnv  :: !( STRef s TypeEnv )
+      { tcTypeEnv  :: !TypeEnv
       , tcPlatform :: !C.Type.Platform
       }
+
+-- TODO: implement source span to improve error reporting
+-- of macro typechecker errors.
+data SrcSpan = SrcSpan
+  deriving stock ( Eq, Ord, Generic )
+instance Show SrcSpan where
+  show _ = "<<noSrcSpan>>"
 
 data TcLclEnv
   = TcLclEnv
@@ -323,9 +334,8 @@ instance Monad TcPureM where
 runTcM :: C.Type.Platform -> TypeEnv -> TcPureM a -> ( a, [ ( TcError, SrcSpan ) ] )
 runTcM plat initTyEnv ( TcPureM f ) = runST do
   tcErrs    <- newSTRef []
-  tcTypeEnv <- newSTRef initTyEnv
   let
-    tcGblEnv = TcGblEnv { tcTypeEnv, tcPlatform = plat }
+    tcGblEnv = TcGblEnv { tcTypeEnv = initTyEnv, tcPlatform = plat }
     tcLclEnv = TcLclEnv { tcSrcSpan = SrcSpan, tcVarEnv = Map.empty }
   res <- f ( TcEnv { tcGblEnv, tcLclEnv } )
   errs <- readSTRef tcErrs
@@ -341,13 +351,12 @@ getPlatform =
   TcPureM \ ( TcEnv ( TcGblEnv { tcPlatform = plat } ) _ ) ->
     pure plat
 
-lookupTyEnv :: CName -> TcPureM ( Maybe ( Quant ( Type Ty ) ) )
-lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) -> do
-  tyEnv <- readSTRef tcTypeEnv
-  return $ Map.lookup varNm (typeEnvMacros tyEnv)
+lookupTyEnv :: CName -> TcPureM ( Maybe ( Quant ( FunValue, Type Ty ) ) )
+lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) ->
+  return $ Map.lookup varNm $ typeEnvMacros tcTypeEnv
 
-lookupVarType :: CName -> TcPureM ( Maybe ( Type Ty ) )
-lookupVarType varNm = TcPureM \ ( TcEnv _ lcl ) ->
+lookupVar :: CName -> TcPureM ( Maybe ( Type Ty ) )
+lookupVar varNm = TcPureM \ ( TcEnv _ lcl ) ->
   return $ Map.lookup varNm ( tcVarEnv lcl )
 
 declareLocalVars :: Map CName ( Type Ty ) -> TcPureM a -> TcPureM a
@@ -686,6 +695,9 @@ fromMacroType = \case
           PrimTyTyCon -> panicPure "fromMacroType: 'PrimTyTyCon'"
           EmptyTyCon  -> panicPure "fromMacroType: 'EmptyTyCon'"
 
+applySubstNormalise :: C.Type.Platform -> Subst tv -> Type ki -> Type ki
+applySubstNormalise plat subst = normaliseType plat . applySubst subst
+
 {-------------------------------------------------------------------------------
   Typechecking macros: instantiation
 -------------------------------------------------------------------------------}
@@ -708,117 +720,99 @@ instantiate ctOrig instOrig body = do
   Typechecking macros: type inference
 -------------------------------------------------------------------------------}
 
-applySubstNormalise :: C.Type.Platform -> Subst tv -> Type ki -> Type ki
-applySubstNormalise plat subst = normaliseType plat . applySubst subst
-
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: CName -> [ CName ] -> MacroBody -> TcUniqueM ( ( Type Ty, Cts ), [ ( TcError, SrcSpan ) ] )
-inferTop funNm argsList body =
-  Vec.reifyList argsList \ args -> do
-    plat <- lift getPlatform
-    ( ( ( argTys, bodyTy ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
-    let macroTy =
-          case NE.nonEmpty $ toList argTys of
-            Nothing -> bodyTy
-            Just argTysNE -> FunTy argTysNE bodyTy
-        macroTy' = applySubstNormalise plat subst macroTy
-        cts' = map ( first ( applySubstNormalise plat subst ) ) cts
-    debugTraceM $ unlines
-      [ "inferTop " ++ show funNm
-      , "ty: " ++ show macroTy'
-      , "cts: " ++ show cts'
-      , "final subst: " ++ show subst
-      ]
-    return ( ( macroTy', cts' ), mbErrs )
+inferTop :: CName -> Vec nbArgs CName -> MacroBody Ps
+         -> TcUniqueM ( ( ( MacroBody Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
+inferTop funNm args body = do
+  plat <- lift getPlatform
+  ( ( ( tcBody, ( argTys, bodyTy ) ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
+  let argTys' = fmap ( applySubstNormalise plat subst ) argTys
+      bodyTy' = applySubstNormalise plat subst bodyTy
+      cts' = map ( first ( applySubstNormalise plat subst ) ) cts
+  debugTraceM $ unlines
+    [ "inferTop " ++ show funNm
+    , "argTys: " ++ show argTys'
+    , "bodyTy: " ++ show bodyTy'
+    , "cts: " ++ show cts'
+    , "final subst: " ++ show subst
+    ]
+  return ( ( ( tcBody, ( argTys', bodyTy' ) ), cts' ), mbErrs )
 
-inferBody :: MacroBody -> TcGenM ( Type Ty )
+inferBody :: MacroBody Ps -> TcGenM ( Type Ty, MacroBody Tc )
 inferBody = \case
-  EmptyMacro -> return Empty
-  AttributeMacro {} -> return Empty
-  ExpressionMacro expr -> inferExpr expr
-  TypeMacro {} -> return PrimTy
+  EmptyMacro -> return ( Empty, EmptyMacro )
+  AttributeMacro attrs -> return ( Empty, AttributeMacro attrs )
+  ExpressionMacro expr -> second ExpressionMacro <$> inferExpr expr
+  TypeMacro ty -> return ( PrimTy, TypeMacro ty )
 
-inferExpr :: MExpr -> TcGenM ( Type Ty )
+inferExpr :: MExpr Ps -> TcGenM ( Type Ty, MExpr Tc )
 inferExpr = \case
-  MTerm tm -> inferTerm tm
-  MApp fun args -> inferApp ( Fun $ Right fun ) ( Vec.toList args )
+  MTerm tm -> second MTerm <$> inferTerm tm
+  MApp NoXApp fun args ->
+    do ( funVal, ( args', resTy ) ) <- inferApp ( Fun $ Right fun ) args
+       return ( resTy, MApp ( XAppTc funVal ) fun args' )
 
-inferTerm :: MTerm -> TcGenM ( Type Ty )
+inferTerm :: MTerm Ps -> TcGenM ( Type Ty, MTerm Tc )
 inferTerm = \case
-  MInt i@( IntegerLiteral { integerLiteralType = mbIntyTy } ) ->
-    IntLike <$>
-      case mbIntyTy of
-        Just intyTy ->
-          return $ PrimIntInfoTy $ CIntegralType $ fromPrimIntTy intyTy
-        Nothing ->
-          newMetaTyVarTy (IntLitMeta i) "i"
-  MFloat f@( FloatingLiteral { floatingLiteralType = mbFloatyTy }) ->
-    FloatLike <$>
-      case mbFloatyTy of
-        Just floatyTy ->
-          return $ PrimFloatInfoTy $ fromPrimFloatTy floatyTy
-        Nothing ->
-          newMetaTyVarTy (FloatLitMeta f) "f"
-  MChar {} ->
-    return CharLitTy
-  MString {} ->
-    return String
-  MVar fun args -> inferApp ( Fun $ Left fun ) args
-  MStringize {} -> return String
+  MInt lit@( IntegerLiteral { integerLiteralType = intyTy } ) ->
+    return $
+      ( IntLike $ PrimIntInfoTy $ CIntegralType $ C.Type.IntLike intyTy
+      , MInt lit
+      )
+  MFloat lit@( FloatingLiteral { floatingLiteralType = floatyTy }) ->
+    return
+      ( FloatLike $ PrimFloatInfoTy floatyTy
+      , MFloat lit
+      )
+  MChar lit ->
+    return ( CharLitTy, MChar lit )
+  MString lit ->
+    return ( String, MString lit )
+  MVar NoXVar fun argsList -> Vec.reifyList argsList $ \ args ->
+    do ( funVal, ( args', resTy ) ) <- inferApp ( Fun $ Left fun ) args
+       return ( resTy, MVar ( XVarTc funVal ) fun ( Vec.toList args' ) )
+  MStringize nm -> return ( String, MStringize nm )
   MConcat a1 a2 -> do
-    ty1 <- inferTerm a1
-    ty2 <- inferTerm a2
+    ( ty1, b1 ) <- inferTerm a1
+    ( ty2, b2 ) <- inferTerm a2
     let orig = AppOrigin "##"
     liftUnifyM $ unifyType orig NotSwapped ty1 String
     liftUnifyM $ unifyType orig NotSwapped ty2 String
-    return String
+    return ( String, MConcat b1 b2 )
 
--- TODO: these functions would go away if we change the type we store
--- in the v'MFloat'/v'MInt' constructors to re-use the @c-expr@ library.
-fromPrimIntTy :: ( PrimIntType, PrimSign ) -> C.Type.IntegralType
-fromPrimIntTy ( i, s ) = C.Type.IntLike $
-  case i of
-    PrimShort    -> C.Type.Short    s'
-    PrimInt      -> C.Type.Int      s'
-    PrimLong     -> C.Type.Long     s'
-    PrimLongLong -> C.Type.LongLong s'
-  where
-    s' = fromMacroSign s
-fromMacroSign :: PrimSign -> C.Type.Sign
-fromMacroSign = \case
-  Signed   -> C.Type.Signed
-  Unsigned -> C.Type.Unsigned
-fromPrimFloatTy :: PrimFloatType -> C.Type.FloatingType
-fromPrimFloatTy = \case
-  PrimFloat      -> C.Type.FloatType
-  PrimDouble     -> C.Type.DoubleType
-  PrimLongDouble -> throwPure_TODO 349 "tcMacro: long double not supported"
-
-funName :: Fun -> Text
-funName ( Fun f ) = case f of
-  Left nm -> getCName nm
-  Right fn -> Text.pack $ show fn
-
-inferApp :: Fun -> [ MExpr ] -> TcGenM ( Type Ty )
-inferApp fun mbArgs = do
-  funTy <- inferFun fun
-  case NE.nonEmpty mbArgs of
-    Nothing ->
-      return funTy
-    Just args -> do
-      argTys <- traverse inferExpr args
+-- | Infer the type of an application of a function to arguments.
+--
+-- Also returns a 'FunValue', which allows evaluating the instantiated function.
+inferApp :: Fun
+         -> Vec nbArgs ( MExpr Ps )
+         -> TcGenM ( FunValue, ( Vec nbArgs ( MExpr Tc ), Type Ty ) )
+inferApp fun args = do
+  ( funVal, funTy ) <- inferFun fun
+  ( funVal , ) <$> case args of
+    VNil ->
+      return ( VNil, funTy )
+    _ ::: _ -> do
+      args' <- traverse inferExpr args
+      let ( argTys', argExprs ) = ( Vec.toNonEmpty $ fmap fst args', fmap snd args' )
       resTy <- newMetaTyVarTy ( ExpectedFunTyResTy $ funName fun ) "r"
-      let actualTy = FunTy argTys resTy
+      let actualTy = FunTy argTys' resTy
       liftUnifyM $ unifyType ( AppOrigin $ funName fun ) NotSwapped actualTy funTy
-      return resTy
+      return ( argExprs, resTy )
 
-inferFun :: Fun -> TcGenM ( Type Ty )
+-- | Infer the type of an occurrence of a variable or function,
+-- instantiating if necessary.
+inferFun :: Fun -> TcGenM ( FunValue, Type Ty )
 inferFun f@( Fun fun ) =
   case fun of
     Left varNm@( CName varStr ) -> do
-      mbTy <- liftTcPureM $ lookupVarType varNm
+      -- Variable: should either be a local variable (a macro argument)
+      -- or a top-level macro (calling another macro).
+      mbTy <- liftTcPureM $ lookupVar varNm
       case mbTy of
-        Just varTy -> return varTy
+        Just varTy ->
+          return
+            ( FunValue @Z varStr $ const NoValue -- this is not consulted, see 'evaluateTerm'
+            , varTy )
         Nothing -> do
           mbQTy <- liftTcPureM $ lookupTyEnv varNm
           case mbQTy of
@@ -827,76 +821,158 @@ inferFun f@( Fun fun ) =
                 instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
             Nothing -> do
               addErrTcGenM $ UnboundVariable varNm
-              newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
+              alpha <- newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
+              return ( FunValue @Z varStr $ const NoValue, alpha )
     Right mFun  ->
       case inferMFun mFun of
-        Quant funQTy ->
+        Quant funQTy -> do
           snd <$>
             instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
   where
     funNm = funName f
 
-inferLam :: forall n. CName -> Vec n CName -> MacroBody -> TcGenM ( Vec n ( Type Ty ), Type Ty )
-inferLam _ VNil body = ( VNil, ) <$> inferBody body
+-- | Infer the type of a lambda expression.
+inferLam :: forall nbArgs
+         .  CName            -- ^ name of the function (for error messages)
+         -> Vec nbArgs CName -- ^ argument names
+         -> MacroBody Ps     -- ^ function body
+         -> TcGenM ( MacroBody Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
+inferLam _ VNil body = do
+  ( bodyTy, body' ) <- inferBody body
+  return ( body', ( VNil, bodyTy) )
 inferLam funNm argNms@( _ ::: _ ) body = do
   let is = Vec.imap ( \ i _ -> fromIntegral ( Fin.toNatural i ) + 1 ) argNms
   argTys <-
     for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( CName argStr ) ) ->
       newMetaTyVarTy ( FunArg funNm ( argNm, i ) ) ( "ty_" <> argStr )
-  liftBaseTcM ( declareLocalVars ( Map.fromList $ toList $ Vec.zipWith (,) argNms argTys ) ) $
-    ( argTys, ) <$> inferBody body
+  liftBaseTcM ( declareLocalVars ( Map.fromList $ toList $ Vec.zipWith (,) argNms argTys ) ) $ do
+    ( bodyTy, body' ) <- inferBody body
+    return ( body', ( argTys, bodyTy ) )
 
-inferMFun :: MFun arity -> Quant ( Type Ty )
-inferMFun = \case
+-- | Infer the type of an 'MFun', together with a 'FunValue' used to
+-- evaluate this function.
+inferMFun :: MFun arity -> Quant ( FunValue, Type Ty )
+inferMFun fun = case fun of
 
   -- Tuple
-  MTuple @n -> Quant @(S (S n)) \ as ->
-    QuantTyBody [] $ funTy (Vec.toList as) (Tuple (fromIntegral $ length as ) as)
+  MTuple @n -> Quant @( S ( S n ) ) \ as ->
+    QuantTyBody []
+      ( let arity :: Int
+            arity = 2 + Nat.reflectToNum @n Proxy
+            tupNm = "Tuple" <> Text.pack ( show arity )
+        in
+          -- NB: we don't support evaluation of tuples currently, because:
+          --
+          --  1. C has no notion of tuples, and emulating tuples using structs
+          --     passed by value brings in a lot of complexity (e.g. alignment
+          --     considerations).
+          --  2. We would need to add tuples to the value type system ('ValType').
+          FunValue @( S ( S n ) ) tupNm $ const NoValue
+      , mkFunTy as $ Tuple ( fromIntegral $ length as ) as
+      )  where
+
 
   -- Logical operators
-  MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      $ funTy [a]   IntTy
-  MLogicalAnd -> q2 \ a b -> QuantTyBody [Logical a b] $ funTy [a,b] IntTy
-  MLogicalOr  -> q2 \ a b -> QuantTyBody [Logical a b] $ funTy [a,b] IntTy
+  MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      ( unaryFun  $ \ ty      f -> f (C.Expr.singNot ty)     , mkFunTy [a]   IntTy )
+  MLogicalAnd -> q2 \ a b -> QuantTyBody [Logical a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singAnd ty1 ty2), mkFunTy [a,b] IntTy )
+  MLogicalOr  -> q2 \ a b -> QuantTyBody [Logical a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singOr  ty1 ty2), mkFunTy [a,b] IntTy )
 
   -- Comparison operators
-  MRelEQ      -> q2 \ a b -> QuantTyBody [RelEq a b]    $ funTy [a,b] IntTy
-  MRelNE      -> q2 \ a b -> QuantTyBody [RelEq a b]    $ funTy [a,b] IntTy
-  MRelLT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
-  MRelLE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
-  MRelGT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
-  MRelGE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   $ funTy [a,b] IntTy
+  MRelEQ      -> q2 \ a b -> QuantTyBody [RelEq a b]    ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singEq  ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelNE      -> q2 \ a b -> QuantTyBody [RelEq a b]    ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singNEq ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelLT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singLT  ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelLE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singLTE ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelGT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singGT  ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelGE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singGTE ty1 ty2), mkFunTy [a,b] IntTy )
 
   -- Arithmetic operators
 
     -- Unary
-  MUnaryPlus  -> q1 \ a   -> QuantTyBody [Plus  a] $ funTy [a] ( PlusRes  a )
-  MUnaryMinus -> q1 \ a   -> QuantTyBody [Minus a] $ funTy [a] ( MinusRes a )
+  MUnaryPlus  -> q1 \ a   -> QuantTyBody [Plus  a] ( unaryFun  $ \ ty      f -> f (C.Expr.singPlus   ty), mkFunTy [a] ( PlusRes a ) )
+  MUnaryMinus -> q1 \ a   -> QuantTyBody [Minus a] ( unaryFun  $ \ ty      f -> f (C.Expr.singNegate ty), mkFunTy [a] ( MinusRes a ) )
 
     -- Additive
-  MAdd        -> q2 \ a b -> QuantTyBody [Add a b] $ funTy [a,b] ( AddRes a b )
-  MSub        -> q2 \ a b -> QuantTyBody [Sub a b] $ funTy [a,b] ( SubRes a b )
+  MAdd        -> q2 \ a b -> QuantTyBody [Add a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singAdd ty1 ty2), mkFunTy [a,b] ( AddRes a b ) )
+  MSub        -> q2 \ a b -> QuantTyBody [Sub a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singSub ty1 ty2), mkFunTy [a,b] ( SubRes a b ) )
 
     -- Multiplicative
-  MMult       -> q2 \ a b -> QuantTyBody [Mult a b] $ funTy [a,b] ( MultRes a b )
-  MDiv        -> q2 \ a b -> QuantTyBody [Div  a b] $ funTy [a,b] ( DivRes  a b )
-  MRem        -> q2 \ a b -> QuantTyBody [Rem  a b] $ funTy [a,b] ( RemRes  a b )
+  MMult       -> q2 \ a b -> QuantTyBody [Mult a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singMult ty1 ty2), mkFunTy [a,b] ( MultRes a b ) )
+  MDiv        -> q2 \ a b -> QuantTyBody [Div  a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singDiv  ty1 ty2), mkFunTy [a,b] ( DivRes  a b ) )
+  MRem        -> q2 \ a b -> QuantTyBody [Rem  a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singRem  ty1 ty2),  mkFunTy [a,b] ( RemRes  a b ) )
 
-    -- Bit
-  MBitwiseNot -> q1 \ a   -> QuantTyBody [Complement a] $ funTy [a]   ( ComplementRes a )
-  MBitwiseAnd -> q2 \ a b -> QuantTyBody [Bitwise a b]  $ funTy [a,b] ( BitsRes a b )
-  MBitwiseXor -> q2 \ a b -> QuantTyBody [Bitwise a b]  $ funTy [a,b] ( BitsRes a b )
-  MBitwiseOr  -> q2 \ a b -> QuantTyBody [Bitwise a b]  $ funTy [a,b] ( BitsRes a b )
+    -- Bitwise logical operators
+  MBitwiseNot -> q1 \ a   -> QuantTyBody [Complement a] ( unaryFun  $ \ ty      f -> f (C.Expr.singComplement ty) , mkFunTy [a]   ( ComplementRes a ) )
+  MBitwiseAnd -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singBitAnd ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
+  MBitwiseXor -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singBitXor ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
+  MBitwiseOr  -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singBitOr  ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
 
     -- Bit shift
-  MShiftLeft  -> q2 \ a i -> QuantTyBody [Shift a i] $ funTy [a,i] ( ShiftRes a )
-  MShiftRight -> q2 \ a i -> QuantTyBody [Shift a i] $ funTy [a,i] ( ShiftRes a )
+  MShiftLeft  -> q2 \ a i -> QuantTyBody [Shift a i] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singShiftL ty1 ty2), mkFunTy [a,i] ( ShiftRes a ) )
+  MShiftRight -> q2 \ a i -> QuantTyBody [Shift a i] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singShiftR ty1 ty2), mkFunTy [a,i] ( ShiftRes a ) )
   where
     q1 body = Quant @( S Z )       \ (a ::: VNil) -> body a
     q2 body = Quant @( S ( S Z ) ) \ (a ::: i ::: VNil) -> body a i
-    funTy mbArgs res =
-      case NE.nonEmpty mbArgs of
-        Just args -> FunTy args res
-        Nothing   -> res
+
+    -- For explanation of this type signature see Note [Abstracting over instance lookup functions].
+    unaryFun :: ( forall ty r. C.Type.SType ValSType ty
+                  -> ( forall res. ( C.Type.SType ValSType res, ty -> res ) -> r ) -> r )
+             -> FunValue
+    unaryFun proveFn =
+      FunValue @( S Z ) ( Text.pack ( show fun ) ) $ \ ( a ::: VNil ) ->
+        if | Value ( ValSType ty ) x <- a
+           -> proveFn ty $ \ ( resTy, fn ) ->
+                Value ( ValSType resTy ) ( fn x )
+           | otherwise
+           -> NoValue
+
+    -- For explanation of this type signature see Note [Abstracting over instance lookup functions].
+    binaryFun :: ( forall ty1 ty2 r. C.Type.SType ValSType ty1 -> C.Type.SType ValSType ty2
+                   -> ( forall res. ( C.Type.SType ValSType res, ty1 -> ty2 -> res ) -> r ) -> r )
+               -> FunValue
+    binaryFun proveFn =
+      FunValue @( S ( S Z ) ) ( Text.pack ( show fun ) ) $ \ ( a ::: b ::: VNil ) ->
+        if | Value ( ValSType ty1 ) x <- a
+           , Value ( ValSType ty2 ) y <- b
+           -> proveFn ty1 ty2 $ \ ( resTy, fn ) ->
+                Value ( ValSType resTy ) ( fn x y )
+           | otherwise
+           -> NoValue
+
+{- Note [Abstracting over instance lookup functions]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We are trying to quantify over the different singleton types such as:
+
+ singAdd   :: SType ty1 -> SType ty2 -> (SType ( AddRes ty1 ty2), ty1 -> ty2 ->  AddRes ty1 ty2)
+ singMult  :: SType ty1 -> SType ty2 -> (SType (MultRes ty1 ty2), ty1 -> ty2 -> MultRes ty1 ty2)
+ ...
+
+We could try:
+
+   binaryFun :: forall res. (forall ty1 ty2. SType ty1 -> SType ty2 -> (SType res, ty1 -> ty2 -> res)) -> FunValue
+
+but this doesn't work because we would need to instantiate res to a type that
+mentions the inner type variables ty1, ty2.
+
+We also can't do:
+
+ binaryFun :: (forall ty1 ty2 res. SType ty1 -> SType ty2 -> (SType res, ty1 -> ty2 -> res)) -> FunValue
+
+because then the type of 'singAdd'/'singMult' would be insufficiently polymorphic.
+
+Neither can we do:
+
+ binaryFun :: (forall ty1 ty2 tf. SType ty1 -> SType ty2 -> (SType (tf ty1 ty2), ty1 -> ty2 -> tf ty1 ty2)) -> FunValue
+
+because GHC interprets `tf` in such a position to be a matchable type constructor
+(such as Maybe). We would not be able to instantiate it to e.g. 'AddRes', because
+'AddRes' is not valid partially applied (we would need e.g. -XUnsaturatedTypeFamilies).
+
+What we really want is an existential type:
+
+ binaryFun :: (forall ty1 ty2. SType ty1 -> SType ty2 -> exists res. (SType res, ty1 -> ty2 -> res) -> FunValue
+
+which we encode using continuation-passing style in 'unaryFun'/'binaryFun'.
+-}
 
 {-------------------------------------------------------------------------------
   Typechecking macros: classes
@@ -1572,23 +1648,224 @@ simplifyAndDefault quantTvs cts =
     solveOne = solveCt Defer ( DefaultTyVarsExcept quantTvs ) classInstancesWithDefaults
 
 {-------------------------------------------------------------------------------
+  Evaluation
+--------------------------------------------------------------------------------
+
+We sometimes need to be able to evaluate macros, in particular when a macro
+appears as the size of an array:
+
+  #define N 16
+  #define M(X) 2 * X
+  void foo(int arr[M(N) + N]);
+
+To evaluate macros, we use the 'Value' existential data type
+
+  data Value = forall ty. Value { valueType :: SType ty, value :: ty }
+
+That is, a value is a dependent pair, consisting of a (singleton for a) type
+and a value of that type.
+
+Evaluation proceeds as follows:
+
+  (1) Constants.
+
+    The constant 16 in the definition of N is really
+
+      IntegerLiteral
+        { integerLiteralText = "16"
+        , integerLiteralType = Int Signed
+        , integerLiteralValue = 16 :: Integer
+        }
+
+    We turn this into a value by using 'promoteIntLikeType' from c-expr.
+    This gives us a type singleton with a witness that the type satisfies
+    the 'Integral' typeclass. So we can thus construct the value:
+
+      Value
+        { valueType = ( ... :: SType CInt )
+        , value     = fromInteger 16 :: CInt
+        }
+
+    See e.g. the MInt case of 'evaluateTerm'.
+
+  (2) MFun: built-in functions.
+
+    Recall that we desugar built-in functions to custom typeclasses.
+    For example, (+) corresponds to:
+
+      class Add a b where
+        type AddRes a b
+        (+) :: a -> b -> AddRes a b
+
+    This means that, to evaluate any particular instantiation of (+), we
+    need to know the types we are instantiating (+) at . Once we have these, we
+    can use the following function provided by the c-expr library
+
+      singAdd :: SType a -> SType b -> ( SType ( AddRes a b ), a -> b -> AddRes a b )
+
+    whose implementation looks like a giant case match:
+
+      singAdd SInt   SInt    = ( SInt   , (+) :: CInt -> CInt -> CInt )
+      singAdd SFloat SDouble = ( SDouble, (+) :: CFloat -> CDouble -> CDouble )
+      ...
+
+    This function behaves like a lookup function which, given a pair of types,
+    returns the 'Add' instance at that type.
+
+    The function 'inferMFun' thus does two things:
+
+      1. As its name indicates, it infers the instantiated type of a function.
+      2. It also returns the appropriate lookup function, such as 'singAdd' for
+         (+), and stores it in the typechecked macro AST. Once we are done
+         with typechecking, we will have elaborated all the types and will thus
+         be able to pass specific argument types to this lookup function in
+         order to evaluate the 'MFun'.
+
+  (3) Macro functions: evaluating macro arguments, and calling other macros.
+
+    After typechecking each macro, we also compute a function which allows
+    evaluating this macro; see the call to 'evaluateMacroBody' in 'tcMacro'.
+    This is a function that takes a vector of argument values, and returns the
+    result of evaluating the macro on these arguments (see 'FunValue').
+
+    To do this, we create a new value environment (using 'Map CName Value'),
+    and then call 'evaluateMacroBody'.
+    When we get to a macro argument (in the 'MVar' case of 'evaluateTerm'),
+    we simply look up in the map to obtain the value.
+
+    In this way, after typechecking each macro, we can produce a function of
+    type 'Vec n Value -> Value' which takes a collection of argument values,
+    with their types, and evaluates the macro.
+
+    This "macro evaluation function" is then stored in the macro environment,
+    so that if we come across a macro function application we can evaluate it,
+    in the same way as the 'MFun' case in (2).
+
+One final observation. Suppose we see the expression "x + y". During typechecking,
+the approach outlined above stores the 'singAdd' function in the AST, of type:
+
+  SType a -> SType b -> (SType (AddRes a b), a -> b -> AddRes a b)
+
+You might wonder: if we know the types of the arguments, we should be able to
+pass them at that point. However:
+
+  - we haven't yet done constraint solving (which happens at the end), so
+    the types might be metavariables,
+  - we might have polymorphic types, such as "#define Add(x,y) x + y".
+
+So the simplest thing to do to implement the evaluator is to:
+
+  - store the types alongside the values,
+  - use the types to look up the relevant instance for evaluation.
+
+This is easier than erasing the types and dealing with typeclass specialisation,
+which is what GHC does.
+-}
+
+evaluateMacroBody :: Map CName Value -> TypeEnv -> MacroBody Tc -> Value
+evaluateMacroBody argVals tyEnv = \case
+  EmptyMacro -> NoValue
+  TypeMacro {} -> NoValue
+  AttributeMacro {} -> NoValue
+  ExpressionMacro e -> evaluateExpr argVals tyEnv e
+
+evaluateExpr :: Map CName Value -> TypeEnv -> MExpr Tc -> Value
+evaluateExpr argVals tyEnv = \case
+  MTerm tm -> evaluateTerm argVals tyEnv tm
+  MApp @_ @m ( XAppTc ( FunValue @n _ fn ) ) _funName args ->
+    -- We have stored the function that performs evaluation in the XAppTc
+    -- field of the AST. For example, for addition, we have wrapped
+    --
+    --   singAdd :: SType ty1 -> SType ty2 -> ( SType (AddRes ty1 ty2), ty1 -> ty2 -> AddRes ty1 ty2 )
+    --
+    -- to obtain the function ( fn :: Vec 2 Value -> Value ).
+    Vec.withDict args $
+      case Nat.eqNat @( S m ) @n of
+        Just Refl ->
+          fn $ fmap ( evaluateExpr argVals tyEnv ) args
+        Nothing ->
+          NoValue
+
+evaluateTerm :: Map CName Value -> TypeEnv -> MTerm Tc -> Value
+evaluateTerm argVals tyEnv = \case
+  MInt lit ->
+    let i = integerLiteralValue lit
+        ty = integerLiteralType lit
+    in
+      C.Type.promoteIntLikeType ty $ \ sTy ->
+        Value
+          ( ValSType $ C.Type.SArithmetic $ C.Type.SIntegral $ C.Type.SIntLike sTy )
+          ( fromInteger i )
+  MFloat lit ->
+    let ty = floatingLiteralType lit
+    in
+      C.Type.promoteFloatingType ty $ \ case
+        sTy@C.Type.SFloatType ->
+          Value
+            ( ValSType $ C.Type.SArithmetic $ C.Type.SFloatLike sTy )
+            ( CFloat  $ floatingLiteralFloatValue  lit )
+        sTy@C.Type.SDoubleType ->
+          Value
+            ( ValSType $ C.Type.SArithmetic $ C.Type.SFloatLike sTy )
+            ( CDouble $ floatingLiteralDoubleValue lit )
+  MVar ( XVarTc ( FunValue @n _ fn ) ) nm args
+    -- Is this an argument to the macro, e.g. @X@ in @#define AddOne(X) X+1@?
+    | [] <- args
+    , Just mbVal <- Map.lookup nm argVals
+    -> mbVal
+    | otherwise
+    -> Vec.reifyList args $ \ ( argsVec :: Vec m ( MExpr Tc ) ) ->
+        case Nat.eqNat @n @m of
+          Nothing ->
+            panicPure $ unlines
+              [ "Mismatched arity in evaluation of macro function call"
+              , "function: " ++ show nm
+              , "expected number of arguments: " ++ show ( Nat.reflectToNum @n Proxy :: Int )
+              , "arguments: " ++ show args
+              ]
+          Just Refl ->
+            -- This is a macro call; evaluate the arguments and apply the
+            -- evaluator function. See also the 'MApp' case in 'evaluateExpr'.
+            fn $ fmap ( evaluateExpr argVals tyEnv ) argsVec
+
+  -- TODO: not dealing with these for now
+  MChar   {} -> NoValue
+  MString {} -> NoValue
+  MStringize {} -> NoValue
+  MConcat {} -> NoValue
+
+naturalMaybe :: ValSType ty -> ty -> Maybe Natural
+naturalMaybe ( ValSType ty ) i =
+  case ty of
+    C.Type.SArithmetic ( C.Type.SIntegral iTy ) ->
+      C.Type.witnessIntegralType @Integral iTy $
+        let j = toInteger i
+        in if j < 0
+           then Nothing
+           else Just $ fromInteger j
+    _ -> Nothing
+
+{-------------------------------------------------------------------------------
   Typechecking macros: generalisation
 -------------------------------------------------------------------------------}
 
-tcMacro :: C.Type.Platform -> TypeEnv
-        -> CName -> [ CName ]
-        -> MacroBody
-        -> Either TcMacroError ( Quant ( Type Ty ) )
-tcMacro plat tyEnv macroNm args body =
+-- | Typecheck a macro.
+tcMacro :: TypeEnv
+        -> CName            -- ^ name of the macro
+        -> Vec nbArgs CName -- ^ macro arguments
+        -> MacroBody Ps     -- ^ macro body
+        -> Either TcMacroError ( Quant ( FunValue, Type Ty ) )
+tcMacro tyEnv macroNm args body =
+  let plat = C.Type.hostPlatform in
   throwErrors $ runTcM plat tyEnv $ ( `State.evalStateT` Unique 0 ) $ Except.runExceptT do
 
     -- Step 1: infer the type.
-    ( ( ty, ctsOrigs ), mbErrs ) <- lift $ inferTop macroNm args body
+    ( ( ( body', ( argTys, bodyTy ) ), ctsOrigs ), mbErrs ) <- lift $ inferTop macroNm args body
     traverse_ ( Except.throwError . TcErrors ) ( NE.nonEmpty mbErrs )
 
     -- Step 2: compute the set of metavariables that are candidates for quantification.
     let
-      freeTvs = seenTvs $ getFVs noBoundVars $ freeTyVarsOfType ty
+      freeTvs = seenTvs $ getFVs noBoundVars $ freeTyVarsOfTypes ( bodyTy : Vec.toList argTys )
 
     -- Step 3: simplify and default constraints.
     ( ctSubst, simpleCts ) <- simplifyAndDefault freeTvs ctsOrigs
@@ -1596,12 +1873,13 @@ tcMacro plat tyEnv macroNm args body =
     -- Step 4: generalise.
     let
       qtvsList = reverse $ seenTvsRevList $ getFVs noBoundVars $
-                   freeTyVarsOfType ( applySubstNormalise plat ctSubst ty )
+                   freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
 
     debugTraceM $
       unlines
         [ "tcMacro"
-        , "ty: " ++ show ty
+        , "argTys: " ++ show argTys
+        , "bodyTy: " ++ show bodyTy
         , "freeTvs: " ++ show freeTvs
         , "ctSubst: " ++ show ctSubst
         , "simpleCts: " ++ show simpleCts
@@ -1612,9 +1890,18 @@ tcMacro plat tyEnv macroNm args body =
         Quant \ tys ->
           let quantSubst = mkSubst $ toList $ Vec.zipWith (,) qtvs tys
               finalSubst = quantSubst <> ctSubst
+              norm :: Type ki -> Type ki
+              norm = applySubstNormalise plat finalSubst
+              evalFun =
+                Vec.withDict args $
+                  FunValue ( getCName macroNm )$ \ argVals ->
+                  evaluateMacroBody
+                    ( Map.fromList $ Vec.toList $ Vec.zipWith (,) args argVals )
+                    tyEnv
+                    body'
           in QuantTyBody
-              { quantTyQuant = map ( applySubstNormalise plat finalSubst ) ( fmap fst simpleCts )
-              , quantTyBody  =       applySubstNormalise plat finalSubst   ty
+              { quantTyQuant = map norm ( fmap fst simpleCts )
+              , quantTyBody  = ( evalFun, mkFunTy ( fmap norm argTys ) ( norm bodyTy ) )
               }
   where
     throwErrors ( _, ( err : errs ) ) = Left $ TcErrors ( err NE.:| errs )
@@ -1656,6 +1943,40 @@ guarded cond m = do
   return m
 
 {-------------------------------------------------------------------------------
+  Public evaluation function
+-------------------------------------------------------------------------------}
+
+evaluateMExpr :: TypeEnv -> MExpr Ps -> Value
+evaluateMExpr tyEnv e =
+  case tcMacro tyEnv ( CName nm ) VNil ( ExpressionMacro e ) of
+    Left {} -> NoValue
+    Right ( Quant @nbBinders body ) ->
+      let
+        tvs = fmap mkTv ( Vec.universe @nbBinders )
+        QuantTyBody _cts ( funValue, _bodyTy ) = body tvs
+      in
+        case funValue of
+          FunValue @n _ f
+            | Just Refl <- Nat.eqNat @n @Z
+            -> f VNil
+          _ -> NoValue
+  where
+    nm = "<<array size expression>>"
+    mkTv :: Nat.SNatI n => Fin n -> Type Ty
+    mkTv f =
+      let
+        i :: Int
+        i = fromIntegral f
+      in
+        TyVarTy $
+          MetaTv $
+            MetaTyVar
+              { metaTyVarUnique = Unique $ ( -1 - i )
+              , metaTyVarName   = "_alpha_" <> Text.pack (show i)
+              , metaOrigin      = Inst ( FunInstMetaOrigin nm ) i
+              }
+
+{-------------------------------------------------------------------------------
   Quick & dirty testing framework
 -------------------------------------------------------------------------------}
 
@@ -1671,28 +1992,29 @@ debug :: Bool
 debug = False
 
 {-
-var :: CName -> MExpr
-var v = MTerm ( MVar v [] )
+var :: CName -> MExpr Ps
+var v = MTerm ( MVar NoXVar v [] )
 
-instance Num MExpr where
-  fromInteger i = MTerm $ MInt $ IntegerLiteral (Text.pack $ show i) Nothing i
-  negate a = MApp MUnaryMinus ( a ::: VNil )
-  a + b = MApp MAdd ( a ::: b ::: VNil )
-  a * b = MApp MMult ( a ::: b ::: VNil )
+instance Num (MExpr Ps) where
+  fromInteger i = MTerm $ MInt $ IntegerLiteral (Text.pack $ show i) (C.Type.Int C.Type.Signed) i
+  negate a = MApp NoXApp MUnaryMinus ( a ::: VNil )
+  a + b = MApp NoXApp MAdd ( a ::: b ::: VNil )
+  a * b = MApp NoXApp MMult ( a ::: b ::: VNil )
   abs = panicPure "no"
   signum = panicPure "no"
 
-testMacro :: forall n. Nat.SNatI n => ( Vec n MExpr -> MExpr ) -> Either TcMacroError ( Quant ( Type Ty ) )
-testMacro f = tcMacro Map.empty "TEST" ( toList vars ) ( f $ fmap var vars )
+testMacro :: forall n. Nat.SNatI n => ( Vec n ( MExpr Ps ) -> MExpr Ps ) -> Either TcMacroError ( Quant ( Type Ty ) )
+testMacro f = fmap snd <$> tcMacro C.Type.hostPlatform ( TypeEnv mempty mempty ) "TEST" vars ( ExpressionMacro $ f $ fmap var vars )
   where
     vars :: Vec n CName
     vars = fromJust $ Vec.fromList @n [ fromString ("x" ++ show i) | i <- [1..n] ]
     n :: Int
     n = Nat.reflectToNum @n Proxy
 
-test1, test2, test3, test4 :: Either TcMacroError ( Quant ( Type Ty ) )
+test1, test2, test3, test4, test5 :: Either TcMacroError ( Quant ( Type Ty ) )
 test1 = testMacro @(S (S Z)) \ ( a ::: b ::: VNil ) -> a + b
 test2 = testMacro @(S Z) \ ( a ::: VNil ) -> a + 1
 test3 = testMacro @Z \ VNil -> 1
 test4 = testMacro @(S (S Z)) \ ( x ::: y ::: VNil ) -> x + ( 12 * y )
+test5 = testMacro @(S (S Z)) \ ( x ::: y ::: VNil ) -> MApp NoXApp MShiftLeft ( x ::: y ::: VNil )
 -}

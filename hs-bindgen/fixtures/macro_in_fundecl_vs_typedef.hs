@@ -1309,7 +1309,10 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [
         TypePointer
-          (TypeTypedef (CName "struct2")),
+          (TypeStruct
+            (DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName "struct2")))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "struct_typedef1",
@@ -1322,7 +1325,10 @@
             "struct_typedef1",
           functionArgs = [
             TypePointer
-              (TypeTypedef (CName "struct2")),
+              (TypeStruct
+                (DeclPathAnon
+                  (DeclPathCtxtTypedef
+                    (CName "struct2")))),
             TypeTypedef (CName "MC")],
           functionRes = TypeVoid,
           functionHeader =

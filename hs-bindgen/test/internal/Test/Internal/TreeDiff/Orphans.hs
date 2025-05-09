@@ -16,6 +16,7 @@ import Clang.Enum.Simple
 import Clang.Paths qualified as Paths
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
+import HsBindgen.C.Tc.Macro.Type qualified as CMacro
 import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name qualified as HsName
@@ -49,9 +50,11 @@ instance ToExpr C.Enu
 instance ToExpr C.EnumValue
 instance ToExpr C.Function
 instance ToExpr C.Header
-instance ToExpr C.Macro
+instance ToExpr (C.Macro C.Ps)
 instance ToExpr C.MacroDecl
-instance ToExpr C.MTerm
+instance ToExpr (C.MTerm C.Ps)
+instance ToExpr (C.XApp C.Ps)
+instance ToExpr (C.XVar C.Ps)
 instance ToExpr C.MultiLoc
 instance ToExpr C.OpaqueEnum
 instance ToExpr C.OpaqueStruct
@@ -64,6 +67,8 @@ instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TokenSpelling
 instance ToExpr C.Type
+instance ToExpr CMacro.TypedefUnderlyingType
+instance ToExpr C.Size
 instance ToExpr C.Typedef
 instance ToExpr C.Union
 instance ToExpr C.UnionField
@@ -123,7 +128,7 @@ instance ToExpr ExtIdentifier
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err
 
-instance ToExpr C.MacroBody where
+instance ToExpr (C.MacroBody C.Ps) where
   toExpr = \case
     C.EmptyMacro ->
       Expr.App "EmptyMacro" []
@@ -134,11 +139,11 @@ instance ToExpr C.MacroBody where
     C.TypeMacro ty ->
       Expr.App "TypeMacro" [toExpr ty]
 
-instance ToExpr C.MExpr where
+instance ToExpr (C.MExpr C.Ps) where
   toExpr = \case
     C.MTerm tm ->
       Expr.App "MTerm" [toExpr tm]
-    C.MApp fun args ->
+    C.MApp _xapp fun args ->
       Expr.App "MApp" [toExpr fun, toExpr (toList args)]
 
 instance ToExpr ( C.MFun arity ) where
@@ -331,7 +336,6 @@ instance ToExpr C.TypeSpecifierQualifier
 instance ToExpr C.TypeSpecifier
 instance ToExpr C.TypeQualifier
 instance ToExpr C.AlignmentSpecifier
-instance ToExpr C.SizeExpression
 instance ToExpr C.StructOrUnionSpecifier
 instance ToExpr C.StructOrUnion
 instance ToExpr C.EnumSpecifier
@@ -356,6 +360,9 @@ instance ToExpr (C.DeclName C.Concrete)
 instance ToExpr C.ArraySize
 instance ToExpr C.Parameter
 instance ToExpr C.ParameterDeclarator
+
+instance ToExpr C.SizeExpression where
+  toExpr (C.SizeExpression e _env) = toExpr e
 
 {-------------------------------------------------------------------------------
   hs-bindgen-runtime

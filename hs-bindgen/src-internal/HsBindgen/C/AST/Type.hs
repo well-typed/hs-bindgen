@@ -24,6 +24,8 @@ module HsBindgen.C.AST.Type (
   , OpaqueEnum(..)
     -- * Typedefs
   , Typedef(..)
+    -- * Arrays
+  , Size(..)
     -- * DeclPath
   , DeclPath(..)
   , DeclPathCtxt(..)
@@ -36,6 +38,7 @@ import Clang.HighLevel.Types (SingleLoc)
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
+import {-# SOURCE #-} HsBindgen.C.Reparse.Decl (SizeExpression)
 
 
 {-------------------------------------------------------------------------------
@@ -50,7 +53,7 @@ data Type =
   | TypeEnum DeclPath
   | TypeTypedef CName
   | TypePointer Type
-  | TypeConstArray Natural Type
+  | TypeConstArray Size Type
   | TypeFun [Type] Type
   | TypeVoid
 
@@ -73,6 +76,18 @@ data Type =
   deriving stock (Show, Eq, Ord, Generic)
   deriving Repr via ReprShow Type
 
+-- | A natural number known at compile time.
+--
+-- Can be an integer literal such as @256@, or it could be an expression such
+-- as @2 * N + 1@ in which @N@ is itself known at compile time
+-- (e.g. we have e.g. @#define N 10@).
+data Size
+  = Size { size :: Natural
+         , sizeExpression :: SizeExpression
+         }
+  deriving stock (Show, Eq, Ord, Generic)
+  deriving Repr via ReprShow Size
+
 -- | Show type in C syntax.
 -- Used to generate userland-capi C-code.
 --
@@ -90,7 +105,7 @@ showsType x (TypeUnion dp)          = showString "union " . showDeclPath dp . sh
 showsType x (TypeEnum dp)           = showString "enum " . showDeclPath dp . showChar ' ' . x
 showsType x (TypeTypedef n)         = showString (cnameToString n) . showChar ' ' . x
 showsType x (TypePointer t)         = showsType (showString "*" . x) t
-showsType x (TypeConstArray n t)    = showsType (x . showChar '[' . shows n . showChar ']') t
+showsType x (TypeConstArray n t)    = showsType (x . showChar '[' . shows (size n) . showChar ']') t
 showsType x (TypeFun args res)      = showsFunctionType (showParen True x) args res
 showsType x TypeVoid                = showString "void " . x
 showsType x (TypeIncompleteArray t) = showsType (x . showString "[]") t

@@ -1,4 +1,6 @@
+{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PartialTypeSignatures #-}
 {-# LANGUAGE QuantifiedConstraints #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -47,6 +49,14 @@ module C.Type
   , demoteCharLikeType
   , demoteIntLikeType
   , demoteFloatingType
+
+  -- ** Utilities
+  , witnessType
+  , witnessArithmeticType
+  , witnessFloatingType
+  , witnessIntegralType
+  , witnessCharLike
+  , witnessIntLike
 
   ) where
 
@@ -379,35 +389,35 @@ instance GEq SIntLikeType where
   geq SSize      SSize      = Just Refl
   geq _ _ = Nothing
 
-promoteType :: ( a -> ( forall ty. rec ty -> r ) -> r ) -> Type a -> ( forall ty. SType rec ty -> r ) -> r
+promoteType :: ( a -> ( forall ty. rec ty -> r ) -> r ) -> Type a -> ( forall ty. ( Ord ty, Show ty ) => SType rec ty -> r ) -> r
 promoteType recur ty f = case ty of
   Void -> f SVoid
   Arithmetic i -> promoteArithmeticType i ( f . SArithmetic )
   Ptr p -> recur p ( f . SPtr )
 
-promoteArithmeticType :: ArithmeticType -> ( forall ty. SArithmeticType ty -> r ) -> r
+promoteArithmeticType :: ArithmeticType -> ( forall ty. ( Ord ty, Show ty ) => SArithmeticType ty -> r ) -> r
 promoteArithmeticType ty f = case ty of
   Integral  t -> promoteIntegralType t ( f . SIntegral )
   FloatLike t -> promoteFloatingType t ( f . SFloatLike )
 
-promoteIntegralType :: IntegralType -> ( forall ty. SIntegralType ty -> r ) -> r
+promoteFloatingType :: FloatingType -> ( forall ty. ( Ord ty, Show ty ) => SFloatingType ty -> r ) -> r
+promoteFloatingType ty f = case ty of
+  FloatType  -> f SFloatType
+  DoubleType -> f SDoubleType
+
+promoteIntegralType :: IntegralType -> ( forall ty. ( Show ty, Integral ty ) => SIntegralType ty -> r ) -> r
 promoteIntegralType ty f = case ty of
   Bool -> f SBool
   CharLike c -> promoteCharLikeType c ( f . SCharLike )
   IntLike i  -> promoteIntLikeType  i ( f . SIntLike )
 
-promoteFloatingType :: FloatingType -> ( forall ty. SFloatingType ty -> r ) -> r
-promoteFloatingType ty f = case ty of
-  FloatType  -> f SFloatType
-  DoubleType -> f SDoubleType
-
-promoteCharLikeType :: CharLikeType -> ( forall ty. SCharLikeType ty -> r ) -> r
+promoteCharLikeType :: CharLikeType -> ( forall ty. ( Show ty, Integral ty ) => SCharLikeType ty -> r ) -> r
 promoteCharLikeType ty f = case ty of
   Char  -> f S_Char
   UChar -> f S_UChar
   SChar -> f S_SChar
 
-promoteIntLikeType :: IntLikeType -> ( forall ty. SIntLikeType ty -> r ) -> r
+promoteIntLikeType :: IntLikeType -> ( forall ty. ( Show ty, Integral ty ) => SIntLikeType ty -> r ) -> r
 promoteIntLikeType ty f = case ty of
   Short s ->
     case s of
@@ -468,3 +478,77 @@ demoteIntLikeType = \case
   SULongLong -> LongLong Unsigned
   SPtrDiff   -> PtrDiff
   SSize      -> Size
+
+witnessType
+  :: forall c ty rec r
+  . ( forall x. c ( Foreign.Ptr x )
+    , c CChar, c CSChar, c CUChar, c CShort, c CUShort, c CInt
+    , c CUInt, c CLong, c CULong, c CLLong, c CULLong, c CPtrdiff
+    , c CSize, c CBool, c CFloat, c CDouble, c () )
+  => ( forall ty'. rec ty' -> ( c ty' => r ) -> r )
+  -> SType rec ty -> ( c ty => r ) -> r
+witnessType recur ty f =
+  case ty of
+    SVoid  -> f
+    SArithmetic i -> witnessArithmeticType @c i f
+    SPtr p -> recur p f
+
+witnessArithmeticType
+  :: forall c ty r
+  . ( c CChar, c CSChar, c CUChar, c CShort, c CUShort, c CInt
+    , c CUInt, c CLong, c CULong, c CLLong, c CULLong, c CPtrdiff
+    , c CSize, c CBool, c CFloat, c CDouble )
+  => SArithmeticType ty -> ( c ty => r ) -> r
+witnessArithmeticType ty f =
+  case ty of
+    SIntegral i -> witnessIntegralType @c i f
+    SFloatLike k -> witnessFloatingType @c k f
+
+witnessFloatingType
+  :: forall c ty r
+  . ( c CFloat, c CDouble )
+  => SFloatingType ty -> ( c ty => r ) -> r
+witnessFloatingType ty f =
+  case ty of
+    SFloatType -> f
+    SDoubleType -> f
+
+witnessIntegralType
+  :: forall c ty r
+  . ( c CChar, c CSChar, c CUChar, c CShort, c CUShort, c CInt
+    , c CUInt, c CLong, c CULong, c CLLong, c CULLong, c CPtrdiff
+    , c CSize, c CBool )
+  => SIntegralType ty -> ( c ty => r ) -> r
+witnessIntegralType ty f =
+  case ty of
+    SBool       -> f
+    SCharLike c -> witnessCharLike @c c f
+    SIntLike  i -> witnessIntLike @c i f
+
+witnessCharLike
+  :: forall c ty r
+  .  ( c CChar, c CSChar, c CUChar )
+  => SCharLikeType ty -> ( c ty => r ) -> r
+witnessCharLike ty f =
+  case ty of
+    S_Char -> f
+    S_SChar -> f
+    S_UChar -> f
+
+witnessIntLike
+  :: forall c ty r
+  . ( c CShort, c CUShort, c CInt, c CUInt, c CLong, c CULong
+    , c CLLong, c CULLong, c CPtrdiff, c CSize )
+  => SIntLikeType ty -> ( c ty => r ) -> r
+witnessIntLike ty f =
+  case ty of
+    SShort     -> f
+    SUShort    -> f
+    SInt       -> f
+    SUInt      -> f
+    SLong      -> f
+    SULong     -> f
+    SLongLong  -> f
+    SULongLong -> f
+    SPtrDiff   -> f
+    SSize      -> f

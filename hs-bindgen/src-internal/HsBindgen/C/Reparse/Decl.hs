@@ -26,7 +26,7 @@ module HsBindgen.C.Reparse.Decl
   , Pointers(..)
   , StructOrUnionSpecifier(..), StructOrUnion(..)
   , EnumSpecifier(..)
-  , SizeExpression(..)
+  , SizeExpression(..), litSizeExpression
   , ArraySize(..)
   , Parameter(..)
   , ParameterDeclarator(..)
@@ -52,9 +52,11 @@ import Numeric.Natural
 import GHC.Generics
   ( Generic )
 
+-- c-expr
+import C.Type qualified
+
 -- containers
 import Data.Map.Strict qualified as Map
-import Data.Set qualified as Set
 
 -- parsec
 import Text.Parsec
@@ -63,7 +65,7 @@ import Text.Parsec
 import Data.Text
   ( Text )
 import Data.Text qualified as Text
-  ( unpack )
+  ( pack, unpack )
 
 -- hs-bindgen
 import HsBindgen.C.AST.Literal
@@ -77,7 +79,7 @@ import HsBindgen.C.Reparse.Type
 -- TODO: re-using the macro expression parser for simplicity
 import HsBindgen.C.AST.Macro
 
-  ( MExpr (..), MTerm (..) )
+  ( MExpr (..), MTerm (..), Pass(..) )
 import HsBindgen.C.Reparse.Macro
   ( mExpr )
 
@@ -87,15 +89,16 @@ import HsBindgen.Imports (fromMaybe)
 import Clang.LowLevel.Core
   ( CXTokenKind(..) )
 import Clang.HighLevel.Types
+import HsBindgen.C.Tc.Macro.Type qualified as Macro
 
 --------------------------------------------------------------------------------
 
 -- | Reparse a C field declaration (in a struct)
 reparseFieldDecl :: Macro.TypeEnv -> Reparse (Type, CName)
-reparseFieldDecl macroTys = do
-  ( specs, decl ) <- reparseDeclaration @Concrete macroTys
+reparseFieldDecl tyEnv = do
+  ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   _mbBitSize <- optionMaybe $
-    ( do { punctuation ":" ; reparseSizeExpression } <?> "bit size" )
+    ( do { punctuation ":" ; reparseSizeExpression tyEnv } <?> "bit size" )
   -- TODO: discarding bit size
   eof
   case declarationTypeAndName specs decl of
@@ -104,8 +107,8 @@ reparseFieldDecl macroTys = do
 
 -- | Reparse a C function declaration.
 reparseFunDecl :: Macro.TypeEnv -> Reparse (([Type],Type), CName)
-reparseFunDecl macroTys = do
-  ( specs, decl ) <- reparseDeclaration @Concrete macroTys
+reparseFunDecl tyEnv = do
+  ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   eof
   case declarationTypeAndName specs decl of
     Left err -> unexpected err
@@ -289,7 +292,7 @@ data TypeQualifier
   deriving stock ( Eq, Show, Generic )
 data TypeSpecifier
   = TypeSpecifier Type
-  | TypeDefTypeSpecifier CName
+  | TypeDefTypeSpecifier CName Macro.TypedefUnderlyingType
   | StructOrUnionTypeSpecifier StructOrUnionSpecifier
   | EnumTypeSpecifier EnumSpecifier
   deriving stock ( Eq, Show, Generic )
@@ -339,8 +342,19 @@ data FunctionSpecifier
 
 -- | A size expression, e.g. a @C@ integer constant expression for a type-level
 -- size (e.g. a size of an array).
-newtype SizeExpression = SizeExpression MExpr
-  deriving stock ( Eq, Show, Generic )
+data SizeExpression = SizeExpression
+  { sizeExpressionMExpr :: MExpr Ps
+  , sizeExpressionValue :: Maybe Natural
+  } deriving stock ( Eq, Ord, Show, Generic )
+
+litSizeExpression :: Natural -> SizeExpression
+litSizeExpression n
+  = SizeExpression
+    { sizeExpressionMExpr =
+        MTerm $ MInt $
+          IntegerLiteral ( Text.pack $ show n ) C.Type.Size ( fromIntegral n )
+    , sizeExpressionValue = Just n
+    }
 
 -- TODO: we currently re-use the macro parser for expressions.
 --
@@ -349,21 +363,15 @@ newtype SizeExpression = SizeExpression MExpr
 --  - sizes of arrays,
 --  - bitfield sizes,
 --  - alignment specifiers.
-reparseSizeExpression :: Reparse SizeExpression
-reparseSizeExpression = SizeExpression <$> mExpr
-
-literalSizeMaybe :: SizeExpression -> Maybe Natural
-literalSizeMaybe ( SizeExpression sz ) =
-  case sz of
-    MTerm tm ->
-      case tm of
-        MInt ( IntegerLiteral { integerLiteralValue = i }) -> Just $ fromIntegral i
-        _ -> Nothing
-          -- TODO: this would need to be changed in order to support simple
-          -- macro-defined constants, e.g.:
-          --
-          --   int arr[SOME_CONSTANT];
-    MApp {} -> Nothing
+reparseSizeExpression :: Macro.TypeEnv -> Reparse SizeExpression
+reparseSizeExpression tyEnv = do
+  e <- mExpr tyEnv
+  let val = Macro.evaluateMExpr tyEnv e
+  case val of
+    Macro.NoValue ->
+      unexpected "non-constant size expression"
+    Macro.Value ty v ->
+      return $ SizeExpression e ( Macro.naturalMaybe ty v )
 
 --------------------------------------------------------------------------------
 
@@ -436,7 +444,11 @@ typeNameType (TypeName tySpec _attrs decl) =
 typeSpecifierType :: TypeSpecifier -> Type
 typeSpecifierType = \case
   TypeSpecifier ty -> ty
-  TypeDefTypeSpecifier nm -> TypeTypedef nm
+  TypeDefTypeSpecifier nm tydef ->
+    case tydef of
+      Macro.NormalTypedef     -> TypeTypedef nm
+      Macro.AnonStructTypedef -> TypeStruct $ DeclPathAnon $ DeclPathCtxtTypedef nm
+      Macro.AnonEnumTypedef   -> TypeEnum $ DeclPathAnon $ DeclPathCtxtTypedef nm
   StructOrUnionTypeSpecifier
     StructOrUnionSpecifier
       { structOrUnion = su, structOrUnionIdentifier = i }
@@ -457,16 +469,18 @@ directDeclaratorTypeAndName ty = \case
   ParenDeclarator d ->
     declaratorType ty d
   ArrayDirectDeclarator (ArrayDeclarator { arrayDirectDeclarator = d, arraySize = sz }) -> do
-    arrTy <-
-      case sz of
-        ArrayNoSize ->
-          Right $ TypeIncompleteArray ty
-        VLA ->
-          Right $ TypeIncompleteArray ty
-        ArraySize sizeExpr ->
-          case literalSizeMaybe sizeExpr of
-            Just n -> Right $ TypeConstArray n ty
-            Nothing -> Left $ "cannot evaluate array size: " ++ show sizeExpr
+    let
+      arrTy =
+        case sz of
+          ArrayNoSize ->
+            TypeIncompleteArray ty
+          VLA ->
+             TypeIncompleteArray ty
+          ArraySize sizeExpr@( SizeExpression _ mbKnownSize )
+            | Just n <- mbKnownSize
+            -> TypeConstArray ( Size n sizeExpr ) ty
+            | otherwise
+            -> TypeIncompleteArray ty -- TODO: this discards information
     directDeclaratorTypeAndName arrTy d
   FunctionDirectDeclarator
     (FunctionDeclarator
@@ -566,7 +580,7 @@ reparseArrayDeclarator macroTys decl = do
       [ do { s1 <- isJust <$> optionMaybe (keyword "static")
            ; tq <- many $ reparseTypeQualifierSpecifier macroTys
            ; s2 <- isJust <$> optionMaybe (keyword "static")
-           ; size <- optionMaybe reparseSizeExpression
+           ; size <- optionMaybe $ reparseSizeExpression macroTys
            ; return ( s1 || s2, tq, case size of { Nothing -> ArrayNoSize; Just s -> ArraySize s } )
            }
       , do { tq <- many $ reparseTypeQualifierSpecifier macroTys
@@ -711,8 +725,8 @@ reparseAlignmentSpecifier macroTys = do
   void $ keyword "alignas"
   parens $
     choice
-      [ AlignAsTypeName <$> reparseTypeName macroTys
-      , AlignAsConstExpr <$> reparseSizeExpression
+      [ AlignAsTypeName  <$> reparseTypeName macroTys
+      , AlignAsConstExpr <$> reparseSizeExpression macroTys
       ]
   <?> "alignment"
 
@@ -758,19 +772,18 @@ reparseTypeSpecifier macroTypeEnv =
   -- typedef-name
   , try $
     do { nm <- reparseName
-       ; if Set.member nm (Macro.typeEnvTypedefs macroTypeEnv) then
-           return $ TypeDefTypeSpecifier nm
-         else
-           case Map.lookup nm (Macro.typeEnvMacros   macroTypeEnv) of
-             Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
-             Just ty
-                | Macro.Quant bf <- ty
-                , Macro.isPrimTy bf
-                -> return $ TypeDefTypeSpecifier nm
-                | otherwise
-                -> unexpected $ "macro name does not refer to a type: " ++ show nm
+       ; case Map.lookup nm (Macro.typeEnvTypedefs macroTypeEnv) of
+           Just tyDef -> return $ TypeDefTypeSpecifier nm tyDef
+           Nothing ->
+            case Map.lookup nm (Macro.typeEnvMacros macroTypeEnv) of
+              Nothing -> unexpected $ "out of scope type specifier macro name " ++ show nm
+              Just valAndTy
+                 | Macro.Quant bf <- fmap snd valAndTy
+                 , Macro.isPrimTy bf
+                 -> return $ TypeDefTypeSpecifier nm Macro.NormalTypedef
+                 | otherwise
+                 -> unexpected $ "macro name does not refer to a type: " ++ show nm
        }
-
   ] <?> "type"
 
 reparseStructOrUnion :: Reparse StructOrUnion
@@ -791,9 +804,9 @@ reparseStructOrUnionSpecifier = do
           , structOrUnionAttributeSpecifiers = attrs
           , structOrUnionIdentifier = i }
     (_, Just {}) ->
-      unexpected $ "unsupported member declaration list in " ++ what ++ "specifier"
+      unexpected $ "unsupported member declaration list in " ++ what ++ " specifier"
     (Nothing, Nothing) ->
-      unexpected $ "invalid " ++ what ++ "specifier: missing identifier or member declaration list"
+      unexpected $ "invalid " ++ what ++ " specifier: missing identifier or member declaration list"
 
 reparseEnumSpecifier :: Macro.TypeEnv -> Reparse EnumSpecifier
 reparseEnumSpecifier macroTys = do

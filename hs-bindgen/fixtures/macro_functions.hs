@@ -388,7 +388,7 @@
                 (GenerativeTyCon
                   (ClassTyCon AddTyCon)))
               [
-                TyVarTy (Idx 1),
+                TyVarTy (Idx 0),
                 TyConAppTy
                   (ATyCon
                     (GenerativeTyCon
@@ -403,14 +403,14 @@
                                 (IntLike (Int Signed)))))))
                       []]]],
           quantTyBody = FunTy
-            (TyVarTy (Idx 0))
+            (TyVarTy (Idx 1))
             (FunTy
-              (TyVarTy (Idx 1))
+              (TyVarTy (Idx 0))
               (TyConAppTy
                 (ATyCon
                   (FamilyTyCon AddResTyCon))
                 [
-                  TyVarTy (Idx 1),
+                  TyVarTy (Idx 0),
                   TyConAppTy
                     (ATyCon
                       (GenerativeTyCon

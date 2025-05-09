@@ -130,7 +130,7 @@ data NewtypeOrigin =
       NewtypeOriginEnum C.Enu
     | NewtypeOriginTypedef C.Typedef
     | NewtypeOriginUnion C.Union
-    | NewtypeOriginMacro C.Macro
+    | NewtypeOriginMacro ( C.Macro C.Ps )
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl

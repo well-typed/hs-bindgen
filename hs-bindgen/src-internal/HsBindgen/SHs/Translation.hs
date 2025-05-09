@@ -22,7 +22,6 @@ import HsBindgen.NameHint
 import HsBindgen.SHs.AST
 import HsBindgen.Errors
 
-import C.Type qualified
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size(UnsafeSize))
@@ -308,40 +307,6 @@ mfunGlobal = \case
   C.MLogicalAnd -> Logical_and
   C.MLogicalOr  -> Logical_or
   C.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
-
-hsPrimIntTy :: C.Type.IntegralType -> HsPrimType
-hsPrimIntTy = \case
-  C.Type.Bool -> HsPrimCBool
-  C.Type.CharLike c ->
-    case c of
-      C.Type.Char  -> HsPrimCChar
-      C.Type.SChar -> HsPrimCSChar
-      C.Type.UChar -> HsPrimCUChar
-  C.Type.IntLike i ->
-    case i of
-      C.Type.Short    s ->
-        case s of
-          C.Type.Signed   -> HsPrimCShort
-          C.Type.Unsigned -> HsPrimCUShort
-      C.Type.Int      s ->
-        case s of
-          C.Type.Signed   -> HsPrimCInt
-          C.Type.Unsigned -> HsPrimCUInt
-      C.Type.Long     s ->
-        case s of
-          C.Type.Signed   -> HsPrimCLong
-          C.Type.Unsigned -> HsPrimCULong
-      C.Type.LongLong s ->
-        case s of
-          C.Type.Signed   -> HsPrimCLLong
-          C.Type.Unsigned -> HsPrimCULLong
-      C.Type.PtrDiff    -> HsPrimCPtrDiff
-      C.Type.Size       -> HsPrimCSize
-
-hsPrimFloatTy :: C.Type.FloatingType -> HsPrimType
-hsPrimFloatTy = \case
-  C.Type.FloatType  -> HsPrimCFloat
-  C.Type.DoubleType -> HsPrimCDouble
 
 {-------------------------------------------------------------------------------
  VarDeclRHS

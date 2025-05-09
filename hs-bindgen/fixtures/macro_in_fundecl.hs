@@ -966,9 +966,23 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportCRes = TypePointer
         (TypeConstArray
-          2
+          Size {
+            size = 2,
+            sizeExpression = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2",
+                  integerLiteralType = Size,
+                  integerLiteralValue = 2})}
           (TypeConstArray
-            3
+            Size {
+              size = 3,
+              sizeExpression = MTerm
+                (MInt
+                  IntegerLiteral {
+                    integerLiteralText = "3",
+                    integerLiteralType = Size,
+                    integerLiteralValue = 3})}
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -988,9 +1002,23 @@
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePointer
             (TypeConstArray
-              2
+              Size {
+                size = 2,
+                sizeExpression = MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "2",
+                      integerLiteralType = Size,
+                      integerLiteralValue = 2})}
               (TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 3})}
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -1016,9 +1044,23 @@
                 (HsPrimType HsPrimCInt))))),
       foreignImportCRes = TypePointer
         (TypeConstArray
-          2
+          Size {
+            size = 2,
+            sizeExpression = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 2})}
           (TypeConstArray
-            3
+            Size {
+              size = 3,
+              sizeExpression = MTerm
+                (MInt
+                  IntegerLiteral {
+                    integerLiteralText = "3",
+                    integerLiteralType = Int Signed,
+                    integerLiteralValue = 3})}
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -1036,9 +1078,23 @@
             TypeTypedef (CName "I")],
           functionRes = TypePointer
             (TypeConstArray
-              2
+              Size {
+                size = 2,
+                sizeExpression = MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "2",
+                      integerLiteralType = Int Signed,
+                      integerLiteralValue = 2})}
               (TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Int Signed,
+                        integerLiteralValue = 3})}
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -1066,9 +1122,23 @@
                     "I")))))),
       foreignImportCRes = TypePointer
         (TypeConstArray
-          2
+          Size {
+            size = 2,
+            sizeExpression = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 2})}
           (TypeConstArray
-            3
+            Size {
+              size = 3,
+              sizeExpression = MTerm
+                (MInt
+                  IntegerLiteral {
+                    integerLiteralText = "3",
+                    integerLiteralType = Int Signed,
+                    integerLiteralValue = 3})}
             (TypeTypedef (CName "I")))),
       foreignImportCArgs = [
         TypePrim
@@ -1085,9 +1155,23 @@
               (PrimIntegral PrimInt Signed)],
           functionRes = TypePointer
             (TypeConstArray
-              2
+              Size {
+                size = 2,
+                sizeExpression = MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "2",
+                      integerLiteralType = Int Signed,
+                      integerLiteralValue = 2})}
               (TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Int Signed,
+                        integerLiteralValue = 3})}
                 (TypeTypedef (CName "I")))),
           functionHeader =
           "macro_in_fundecl.h",

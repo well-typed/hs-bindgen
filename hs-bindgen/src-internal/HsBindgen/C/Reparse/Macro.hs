@@ -31,7 +31,7 @@ import HsBindgen.C.Tc.Macro qualified as Macro
     <https://en.cppreference.com/w/c/language/operator_precedence>
 -------------------------------------------------------------------------------}
 
-reparseMacro :: Macro.TypeEnv -> Reparse Macro
+reparseMacro :: Macro.TypeEnv -> Reparse (Macro Ps)
 reparseMacro macroTys = do
     (macroLoc, macroName) <- reparseLocName
     (args, res) <-
@@ -44,14 +44,14 @@ reparseMacro macroTys = do
     eof
     return $ Macro macroLoc macroName args res
   where
-    body :: Reparse MacroBody
+    body :: Reparse (MacroBody Ps)
     body =
       choice [ TypeMacro <$> try (reparseTypeName macroTys)
-             , ExpressionMacro <$> mExprTuple
+             , ExpressionMacro <$> mExprTuple macroTys
              , AttributeMacro <$> many1 reparseAttributeSpecifier
              , return EmptyMacro
              ]
-    functionLike, objectLike :: Reparse ([CName], MacroBody)
+    functionLike, objectLike :: Reparse ([CName], MacroBody Ps)
     functionLike = (,) <$> formalArgs <*> body
     objectLike   = ([], ) <$> body
 
@@ -65,18 +65,18 @@ formalArg = reparseName
   Simple expressions
 -------------------------------------------------------------------------------}
 
-mTerm :: Reparse MTerm
-mTerm =
+mTerm :: Macro.TypeEnv -> Reparse (MTerm Ps)
+mTerm macroTys =
     buildExpressionParser ops term <?> "simple expression"
   where
-    term :: Reparse MTerm
+    term :: Reparse (MTerm Ps)
     term = choice [
-        MInt         <$> literalInteger
-      , MFloat       <$> literalFloat
-      , MChar        <$> literalChar
-      , MString      <$> literalString
-      , MVar         <$> var <*> option [] actualArgs
-      , MStringize   <$  punctuation "#" <*> var
+        MInt        <$> literalInteger
+      , MFloat      <$> literalFloat
+      , MChar       <$> literalChar
+      , MString     <$> literalString
+      , MVar NoXVar <$> var <*> option [] (actualArgs macroTys)
+      , MStringize  <$  punctuation "#" <*> var
       ]
 
     ops = [[Infix (MConcat <$ punctuation "##") AssocLeft]]
@@ -92,7 +92,7 @@ literalInteger = do
   return $
     IntegerLiteral
       { integerLiteralText  = txt
-      , integerLiteralType  = Just ty
+      , integerLiteralType  = ty
       , integerLiteralValue = val }
 
 -- | Parse floating point literal
@@ -103,7 +103,7 @@ literalFloat = do
   return $
     FloatingLiteral
       { floatingLiteralText = txt
-      , floatingLiteralType = Just ty
+      , floatingLiteralType = ty
       , floatingLiteralFloatValue = fltVal
       , floatingLiteralDoubleValue = dblVal }
 
@@ -129,8 +129,8 @@ literalString = do
       , stringLiteralValue = val
       }
 
-actualArgs :: Reparse [MExpr]
-actualArgs = parens $ mExpr `sepBy` comma
+actualArgs :: Macro.TypeEnv -> Reparse [MExpr Ps]
+actualArgs macroTys = parens $ mExpr macroTys `sepBy` comma
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -140,27 +140,27 @@ actualArgs = parens $ mExpr `sepBy` comma
   follow the same structure.
 -------------------------------------------------------------------------------}
 
-mExprTuple :: Reparse MExpr
-mExprTuple = try tuple <|> mExpr
+mExprTuple :: Macro.TypeEnv -> Reparse (MExpr Ps)
+mExprTuple macroTys = try tuple <|> mExpr macroTys
   where
     tuple = do
       openParen <- optionMaybe $ punctuation "("
-      (e1, e2, es) <- mExpr `sepBy2` comma
+      (e1, e2, es) <- mExpr macroTys `sepBy2` comma
       case openParen of
         Nothing -> return ()
         Just {} -> punctuation ")"
       return $
         reifyList es $ \es' ->
-           MApp MTuple ( e1 ::: e2 ::: es' )
+           MApp NoXApp MTuple ( e1 ::: e2 ::: es' )
 
-mExpr :: Reparse MExpr
-mExpr = buildExpressionParser ops term <?> "expression"
+mExpr :: Macro.TypeEnv -> Reparse (MExpr Ps)
+mExpr macroTys = buildExpressionParser ops term <?> "expression"
   where
 
-    term :: Reparse MExpr
+    term :: Reparse (MExpr Ps)
     term = choice [
-          parens mExpr
-        , MTerm <$> mTerm
+          parens ( mExpr macroTys )
+        , MTerm <$> mTerm macroTys
         ]
 
     -- 'OperatorTable' expects the list in descending precedence
@@ -211,11 +211,11 @@ mExpr = buildExpressionParser ops term <?> "expression"
       , [ Infix (ap2 MLogicalOr  <$ punctuation "||") AssocLeft ]
       ]
 
-    ap1 :: MFun (S Z) -> MExpr -> MExpr
-    ap1 op arg = MApp op ( arg ::: VNil )
+    ap1 :: MFun (S Z) -> MExpr Ps -> MExpr Ps
+    ap1 op arg = MApp NoXApp op ( arg ::: VNil )
 
-    ap2 :: MFun (S (S Z)) -> MExpr -> MExpr -> MExpr
-    ap2 op arg1 arg2 = MApp op ( arg1 ::: arg2 ::: VNil )
+    ap2 :: MFun (S (S Z)) -> MExpr Ps -> MExpr Ps -> MExpr Ps
+    ap2 op arg1 arg2 = MApp NoXApp op ( arg1 ::: arg2 ::: VNil )
 
 sepBy2 :: ParsecT s u m a -> ParsecT s u m sep -> ParsecT s u m (a, a, [a])
 {-# INLINEABLE sepBy2 #-}

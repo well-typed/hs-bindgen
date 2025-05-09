@@ -4,7 +4,14 @@ Header
       Typedef {
         typedefName = CName "triple",
         typedefType = TypeConstArray
-          3
+          Size {
+            size = 3,
+            sizeExpression = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "3",
+                  integerLiteralType = Size,
+                  integerLiteralValue = 3})}
           (TypePrim
             (PrimIntegral PrimInt Signed)),
         typedefSourceLoc =
@@ -22,7 +29,14 @@ Header
             fieldOffset = 0,
             fieldWidth = Nothing,
             fieldType = TypeConstArray
-              3
+              Size {
+                size = 3,
+                sizeExpression = MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "3",
+                      integerLiteralType = Size,
+                      integerLiteralValue = 3})}
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             fieldSourceLoc =
@@ -32,9 +46,23 @@ Header
             fieldOffset = 96,
             fieldWidth = Nothing,
             fieldType = TypeConstArray
-              3
+              Size {
+                size = 3,
+                sizeExpression = MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "3",
+                      integerLiteralType = Size,
+                      integerLiteralValue = 3})}
               (TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "3",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 3})}
                 (TypePrim
                   (PrimIntegral PrimInt Signed))),
             fieldSourceLoc =
