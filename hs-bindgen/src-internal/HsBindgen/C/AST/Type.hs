@@ -33,7 +33,7 @@ module HsBindgen.C.AST.Type (
 import Data.Text qualified as T
 
 import Clang.HighLevel.Types (SingleLoc)
-import HsBindgen.ExtBindings
+import HsBindgen.BindingSpecs (ExtType)
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 
@@ -69,7 +69,7 @@ data Type =
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray Type
-  | TypeExtBinding ExtIdentifier Type
+  | TypeExtBinding ExtType Type
   deriving stock (Show, Eq, Ord, Generic)
   deriving Repr via ReprShow Type
 

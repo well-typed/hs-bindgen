@@ -1,0 +1,47 @@
+types:
+- headers: bool.h
+  cname: BOOL
+  haskell:
+    module: Example
+    identifier: BOOL
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: bool.h
+  cname: struct bools1
+  haskell:
+    module: Example
+    identifier: Bools1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: bool.h
+  cname: struct bools2
+  haskell:
+    module: Example
+    identifier: Bools2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: bool.h
+  cname: struct bools3
+  haskell:
+    module: Example
+    identifier: Bools3
+  instances:
+  - Eq
+  - Show
+  - Storable

@@ -17,13 +17,13 @@ $(do
     let args = defaultClangArgs {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-    extBindings <- snd <$> loadExtBindings args [
+    extBindingSpecs <- snd <$> loadBindingSpecs args [
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
       ]
     let opts = defaultOpts {
-            optsClangArgs   = args
-          , optsExtBindings = extBindings
+            optsClangArgs       = args
+          , optsExtBindingSpecs = extBindingSpecs
           }
     genBindings opts "test_02.h"
  )

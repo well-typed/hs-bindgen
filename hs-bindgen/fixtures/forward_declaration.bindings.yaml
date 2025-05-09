@@ -1,0 +1,28 @@
+types:
+- headers: forward_declaration.h
+  cname: S1_t
+  haskell:
+    module: Example
+    identifier: S1_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: forward_declaration.h
+  cname: struct S1
+  haskell:
+    module: Example
+    identifier: S1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: forward_declaration.h
+  cname: struct S2
+  haskell:
+    module: Example
+    identifier: S2
+  instances:
+  - Eq
+  - Show
+  - Storable

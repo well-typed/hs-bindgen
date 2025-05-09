@@ -21,9 +21,9 @@ main = do
 execMode :: Dev -> Tracer IO String -> Mode -> IO ()
 execMode Dev{..} tracer = \case
     ModeParse{..} -> do
-      extBindings <- loadExtBindings' tracer devGlobalOpts
+      extBindingSpecs <- loadExtBindingSpecs' tracer devGlobalOpts
       let opts = cmdOpts {
-              optsExtBindings = extBindings
+              optsExtBindingSpecs = extBindingSpecs
             }
       print . snd =<< Pipeline.parseCHeader opts parseInputPath
   where

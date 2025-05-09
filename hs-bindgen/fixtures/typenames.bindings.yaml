@@ -1,0 +1,30 @@
+types:
+- headers: typenames.h
+  cname: enum foo
+  haskell:
+    module: Example
+    identifier: Foo
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: typenames.h
+  cname: foo
+  haskell:
+    module: Example
+    identifier: Foo
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Read
+  - Show
+  - Floating
+  - Fractional
+  - Num
+  - Real
+  - RealFloat
+  - RealFrac
+  - Storable

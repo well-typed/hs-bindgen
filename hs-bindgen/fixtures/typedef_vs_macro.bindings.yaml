@@ -1,0 +1,133 @@
+types:
+- headers: typedef_vs_macro.h
+  cname: M1
+  haskell:
+    module: Example
+    identifier: M1
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: M2
+  haskell:
+    module: Example
+    identifier: M2
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: M3
+  haskell:
+    module: Example
+    identifier: M3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: M4
+  haskell:
+    module: Example
+    identifier: M4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: T1
+  haskell:
+    module: Example
+    identifier: T1
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: T2
+  haskell:
+    module: Example
+    identifier: T2
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: struct ExampleStruct
+  haskell:
+    module: Example
+    identifier: ExampleStruct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: struct foo
+  haskell:
+    module: Example
+    identifier: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: typedef_vs_macro.h
+  cname: uint64_t
+  haskell:
+    module: Example
+    identifier: Uint64_t
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable

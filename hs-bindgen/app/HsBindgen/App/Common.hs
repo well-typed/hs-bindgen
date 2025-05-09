@@ -6,7 +6,7 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInput
     -- * Auxiliary hs-bindgen functions
-  , loadExtBindings'
+  , loadExtBindingSpecs'
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
@@ -201,7 +201,7 @@ parseExtBindings :: Parser [FilePath]
 parseExtBindings = many . strOption $ mconcat [
       long "external-bindings"
     , metavar "FILE"
-    , help "External bindings configuration (YAML file)"
+    , help "External bindings specification (YAML file)"
     ]
 
 {-------------------------------------------------------------------------------
@@ -291,16 +291,16 @@ parseInput =
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
 
--- | Load exernal bindings, tracing any errors
-loadExtBindings' ::
+-- | Load exernal binding specifications, tracing any errors
+loadExtBindingSpecs' ::
      Tracer IO String
   -> GlobalOpts
-  -> IO ExtBindings
-loadExtBindings' tracer GlobalOpts{..} = do
-    (resolveErrs, extBindings) <-
-      loadExtBindings globalOptsClangArgs globalOptsExtBindings
+  -> IO BindingSpecs
+loadExtBindingSpecs' tracer GlobalOpts{..} = do
+    (resolveErrs, extBindingSpecs) <-
+      loadBindingSpecs globalOptsClangArgs globalOptsExtBindings
     mapM_ (traceWith tracer Warning . displayException) resolveErrs
-    return extBindings
+    return extBindingSpecs
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

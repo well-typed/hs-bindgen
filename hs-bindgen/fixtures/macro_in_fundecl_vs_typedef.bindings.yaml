@@ -1,0 +1,93 @@
+types:
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: MC
+  haskell:
+    module: Example
+    identifier: MC
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: TC
+  haskell:
+    module: Example
+    identifier: TC
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct1
+  haskell:
+    module: Example
+    identifier: Struct1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct3
+  haskell:
+    module: Example
+    identifier: Struct3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct struct4
+  haskell:
+    module: Example
+    identifier: Struct4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct2
+  haskell:
+    module: Example
+    identifier: Struct2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct3_t
+  haskell:
+    module: Example
+    identifier: Struct3_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: macro_in_fundecl_vs_typedef.h
+  cname: struct4
+  haskell:
+    module: Example
+    identifier: Struct4
+  instances:
+  - Eq
+  - Show
+  - Storable

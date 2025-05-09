@@ -64,7 +64,7 @@ import Data.Type.Nat qualified as Nat
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 
-import HsBindgen.ExtBindings (HsTypeClass(..))
+import HsBindgen.BindingSpecs (HsTypeClass(..))
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Hs.AST.Name

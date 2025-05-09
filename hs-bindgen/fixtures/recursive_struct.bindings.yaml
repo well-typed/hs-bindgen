@@ -1,0 +1,37 @@
+types:
+- headers: recursive_struct.h
+  cname: linked_list_A_t
+  haskell:
+    module: Example
+    identifier: Linked_list_A_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: recursive_struct.h
+  cname: linked_list_B_t
+  haskell:
+    module: Example
+    identifier: Linked_list_B_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: recursive_struct.h
+  cname: struct linked_list_A_s
+  haskell:
+    module: Example
+    identifier: Linked_list_A_s
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: recursive_struct.h
+  cname: struct linked_list_B_t
+  haskell:
+    module: Example
+    identifier: Linked_list_B_t
+  instances:
+  - Eq
+  - Show
+  - Storable
