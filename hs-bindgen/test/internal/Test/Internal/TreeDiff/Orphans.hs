@@ -14,10 +14,10 @@ import System.FilePath qualified as FilePath
 
 import Clang.Enum.Simple
 import Clang.Paths qualified as Paths
+import HsBindgen.BindingSpecs
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as CMacro
 import HsBindgen.C.Tc.Macro.Type qualified as CMacro
-import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name qualified as HsName
 import HsBindgen.Hs.AST.Type qualified as HsType
@@ -120,10 +120,11 @@ instance ToExpr C.ReparseError where
             ++ '>' : '"' : normalizePaths sR
         _otherwise -> '"' : '<' : s -- unexpected
 
+instance ToExpr ExtType
+instance ToExpr HsRef
 instance ToExpr HsModuleName
 instance ToExpr HsIdentifier
 instance ToExpr HsTypeClass
-instance ToExpr ExtIdentifier
 
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err

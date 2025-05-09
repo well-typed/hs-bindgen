@@ -12,8 +12,8 @@ module HsBindgen.Lib (
   , preprocessPure
   , preprocessIO
 
-    -- * External bindings generation
-  , genExtBindings
+    -- * Binding specifications generation
+  , genBindingSpecs
 
     -- * Test generation
   , genTests
@@ -31,10 +31,10 @@ module HsBindgen.Lib (
   , Args.targetTriple
   , Args.CStandard(..)
 
-    -- ** External bindings
-  , ExtBindings.ExtBindings
-  , ExtBindings.emptyExtBindings
-  , ExtBindings.loadExtBindings
+    -- ** Binding Specifications
+  , BindingSpecs.BindingSpecs -- opaque
+  , BindingSpecs.emptyBindingSpecs
+  , BindingSpecs.loadBindingSpecs
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -76,8 +76,8 @@ import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
@@ -116,17 +116,17 @@ preprocessIO ::
 preprocessIO ppOpts fp = Pipeline.preprocessIO ppOpts fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
-  External bindings generation
+  Binding specifications generation
 -------------------------------------------------------------------------------}
 
-genExtBindings ::
+genBindingSpecs ::
      Pipeline.PPOpts
   -> Paths.CHeaderIncludePath
   -> FilePath
   -> HsDecls
   -> IO ()
-genExtBindings ppOpts headerIncludePath fp =
-    Pipeline.genExtBindings ppOpts headerIncludePath fp . unwrapHsDecls
+genBindingSpecs ppOpts headerIncludePath fp =
+    Pipeline.genBindingSpecs ppOpts headerIncludePath fp . unwrapHsDecls
 
 {-------------------------------------------------------------------------------
   Test generation

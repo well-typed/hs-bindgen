@@ -11,10 +11,10 @@ import Text.Regex.Applicative qualified as R
 import Text.Regex.Applicative.Common qualified as R
 
 import Clang.Paths
+import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.BindingSpecs.Gen qualified as BindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Errors
-import HsBindgen.ExtBindings qualified as ExtBindings
-import HsBindgen.ExtBindings.Gen qualified as ExtBindings
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
@@ -108,7 +108,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         , goldenTh packageRoot name
 #endif
         , goldenPP name
-        , goldenExtBindings name
+        , goldenBindingSpecs name
         ]
 
     goldenTreeDiff :: TestName -> TestTree
@@ -145,16 +145,16 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         -- TODO: PP.render should add trailing '\n' itself.
         return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
 
-    goldenExtBindings :: TestName -> TestTree
-    goldenExtBindings name = do
-      let target = "fixtures" </> (name ++ ".extbindings.yaml")
+    goldenBindingSpecs :: TestName -> TestTree
+    goldenBindingSpecs name = do
+      let target = "fixtures" </> (name ++ ".bindings.yaml")
           headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ "extbindings" target $ \report -> do
+      goldenVsStringDiff_ "bindings" target $ \report -> do
         decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
-        return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
-          ExtBindings.genExtBindings
+        return . UTF8.toString . BindingSpecs.encodeBindingSpecsYaml $
+          BindingSpecs.genBindingSpecs
             headerIncludePath
-            (ExtBindings.HsModuleName "Example")
+            (BindingSpecs.HsModuleName "Example")
             decls
 
     -- -<.> does weird stuff for filenames with multiple dots;

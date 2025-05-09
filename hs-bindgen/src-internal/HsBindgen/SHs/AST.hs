@@ -19,8 +19,8 @@ module HsBindgen.SHs.AST (
     PatternSynonym (..),
 ) where
 
+import HsBindgen.BindingSpecs (ExtType)
 import HsBindgen.C.AST qualified as C
-import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Hs.AST qualified as Hs
@@ -252,7 +252,7 @@ data SType ctx =
   | TCon (HsName NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
-  | TExt ExtIdentifier C.Type
+  | TExt ExtType C.Type
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')

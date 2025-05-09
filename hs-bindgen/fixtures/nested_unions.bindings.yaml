@@ -1,0 +1,22 @@
+types:
+- headers: nested_unions.h
+  cname: struct exA
+  haskell:
+    module: Example
+    identifier: ExA
+  instances:
+  - Storable
+- headers: nested_unions.h
+  cname: struct exB
+  haskell:
+    module: Example
+    identifier: ExB
+  instances:
+  - Storable
+- headers: nested_unions.h
+  cname: union unionA
+  haskell:
+    module: Example
+    identifier: UnionA
+  instances:
+  - Storable

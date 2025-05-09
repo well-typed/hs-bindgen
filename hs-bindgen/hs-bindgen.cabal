@@ -73,6 +73,8 @@ library internal
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
+      HsBindgen.BindingSpecs
+      HsBindgen.BindingSpecs.Gen
       HsBindgen.C.AST
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
@@ -93,8 +95,6 @@ library internal
       HsBindgen.Debug
       HsBindgen.Eff
       HsBindgen.Errors
-      HsBindgen.ExtBindings
-      HsBindgen.ExtBindings.Gen
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs

@@ -19,13 +19,14 @@ import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths
 import Data.DynGraph qualified as DynGraph
+import HsBindgen.BindingSpecs
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
 import HsBindgen.C.Reparse
 import HsBindgen.Eff
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (prettyLogMsg)
 
@@ -35,33 +36,33 @@ import HsBindgen.Util.Tracer (prettyLogMsg)
 
 -- | Process top-level (type) declration
 processTypeDecl ::
-     ExtBindings
+     IBindingSpecs SourcePath
   -> CXTranslationUnit
   -> DeclLoc
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl extBindings unit declLoc declCursor ty = do
+processTypeDecl specs unit declLoc declCursor ty = do
     -- dtraceIO "processTypeDecl" ty
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                        -> processTypeDecl' DeclPathCtxtTop extBindings unit declLoc declCursor ty
+        Nothing                        -> processTypeDecl' DeclPathCtxtTop specs unit declLoc declCursor ty
         Just (TypeDecl t _)            -> return t
         Just (TypeDeclAlias t)         -> return t
         Just (TypeDeclProcessing t' _) -> panicIO $ "Incomplete type declaration: " ++ show t'
 
 processTypeDeclRec ::
      DeclPathCtxt
-  -> ExtBindings
+  -> IBindingSpecs SourcePath
   -> CXTranslationUnit
   -> DeclLoc
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDeclRec ctxt extBindings unit declLoc declCursor ty = do
+processTypeDeclRec ctxt specs unit declLoc declCursor ty = do
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                       -> processTypeDecl' ctxt extBindings unit declLoc declCursor ty
+        Nothing                       -> processTypeDecl' ctxt specs unit declLoc declCursor ty
         Just (TypeDecl t _)           -> return t
         Just (TypeDeclAlias t)        -> return t
         Just (TypeDeclProcessing t _) -> return t
@@ -106,7 +107,7 @@ processTypeDeclRec ctxt extBindings unit declLoc declCursor ty = do
 --
 processTypeDecl' ::
      DeclPathCtxt
-  -> ExtBindings
+  -> IBindingSpecs SourcePath
   -> CXTranslationUnit
   -> DeclLoc
      -- ^ Location (for error messages)
@@ -115,14 +116,14 @@ processTypeDecl' ::
       -- function declarations containing macros
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- clang_Type_getNamedType ty
-        processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Named) Nothing ty'
+        processTypeDeclRec ctxt specs unit (RelatedTo declLoc Named) Nothing ty'
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -136,9 +137,9 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
         extent   <- HighLevel.clang_getCursorExtent decl
         hasMacro <- gets $ containsMacroExpansion extent
 
-        mExtId <- lookupExtBinding (CNameSpelling name) sloc extBindings
-        case mExtId of
-            Just extId -> addAlias ty $ TypeExtBinding extId ctype
+        mExtType <- lookupExtBinding (CNameSpelling name) sloc specs
+        case mExtType of
+            Just extType -> addAlias ty $ TypeExtBinding extType ctype
             Nothing -> do
 
                 tag <- CName <$> clang_getCursorSpelling decl
@@ -168,7 +169,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                     Nothing  ->
                       processTypeDeclRec
                         (DeclPathCtxtTypedef tag)
-                        extBindings
+                        specs
                         unit
                         (RelatedTo declLoc TypedefUnderlying)
                         Nothing
@@ -222,7 +223,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
 
         case ki of
             Right CXCursor_StructDecl -> do
-                mFlavour <- classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc)
+                mFlavour <- classifyTypeDecl ctxt specs (ty, decl, ki, sloc)
                 case mFlavour of
                   Left (AnonTopLevel replacement) ->
                     return replacement
@@ -230,8 +231,8 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                     let ctype = TypeStruct declPath
                     addTypeDeclProcessing ty ctype
                     case flavour of
-                      TypeDeclExternal extId ->
-                        addAlias ty $ TypeExtBinding extId ctype
+                      TypeDeclExternal extType ->
+                        addAlias ty $ TypeExtBinding extType ctype
                       TypeDeclOpaque name -> do
                         addDecl ty $ DeclOpaqueStruct OpaqueStruct {
                             opaqueStructTag       = name
@@ -243,7 +244,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                         alignment <- clang_Type_getAlignOf ty
                         fields'   <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
-                            mfield <- mkStructField extBindings unit mkCtxt cursor
+                            mfield <- mkStructField specs unit mkCtxt cursor
                             return $ Continue mfield
 
                         (fields, flam) <- partitionFields fields'
@@ -259,7 +260,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                             }
 
             Right CXCursor_UnionDecl -> do
-                mFlavour <- classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc)
+                mFlavour <- classifyTypeDecl ctxt specs (ty, decl, ki, sloc)
 
                 case mFlavour of
                   Left (AnonTopLevel replacement) ->
@@ -267,7 +268,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                   Right (declPath, flavour) -> do
                     addTypeDeclProcessing ty $ TypeUnion declPath
                     case flavour of
-                      TypeDeclExternal _extId ->
+                      TypeDeclExternal _extType ->
                         panicIO "external bindings for unions not implemented #537"
                       TypeDeclOpaque name ->
                         -- opaque struct and opaque union look the same.
@@ -282,7 +283,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                         alignment <- clang_Type_getAlignOf ty
                         fields    <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
-                            mfield <- mkUnionField extBindings unit mkCtxt cursor
+                            mfield <- mkUnionField specs unit mkCtxt cursor
                             return $ Continue mfield
 
                         addDecl ty $ DeclUnion Union
@@ -304,7 +305,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
 
         case ki of
             Right CXCursor_EnumDecl -> do
-                mFlavour <- classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc)
+                mFlavour <- classifyTypeDecl ctxt specs (ty, decl, ki, sloc)
                 case mFlavour of
                   Left (AnonTopLevel replacement) ->
                     return replacement
@@ -312,8 +313,8 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                     let ctype = TypeEnum declPath
                     addTypeDeclProcessing ty ctype
                     case flavour of
-                      TypeDeclExternal extId ->
-                        addAlias ty $ TypeExtBinding extId ctype
+                      TypeDeclExternal extType ->
+                        addAlias ty $ TypeExtBinding extType ctype
                       TypeDeclOpaque name ->
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
                             opaqueEnumTag       = name
@@ -324,7 +325,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                         sizeof    <- clang_Type_getSizeOf  ty
                         alignment <- clang_Type_getAlignOf ty
                         ety       <- clang_getEnumDeclIntegerType decl
-                          >>= processTypeDeclRec DeclPathCtxtTop extBindings unit (RelatedTo declLoc EnumInteger) Nothing
+                          >>= processTypeDeclRec DeclPathCtxtTop specs unit (RelatedTo declLoc EnumInteger) Nothing
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -344,14 +345,14 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
 
     Right CXType_Pointer -> do
         pointee <- clang_getPointeeType ty
-        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) extBindings unit (RelatedTo declLoc Pointee) Nothing pointee
+        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) specs unit (RelatedTo declLoc Pointee) Nothing pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- fromIntegral <$> clang_getArraySize ty
         e <- clang_getArrayElementType ty
         -- TODO: This context should use 'DeclPathCtxtConstArray'
-        e' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc ArrayElement) Nothing e
+        e' <- processTypeDeclRec ctxt specs unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeConstArray (Size n $ litSizeExpression n) e')
 
     Right CXType_Void -> do
@@ -370,12 +371,12 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
     Right CXType_IncompleteArray -> do
         e <- clang_getArrayElementType ty
         -- TODO: Should this also use 'DeclPathCtxtConstArray'?
-        e' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc ArrayElement) Nothing e
+        e' <- processTypeDeclRec ctxt specs unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeIncompleteArray e')
 
     Right CXType_Attributed -> do
         ty' <- clang_Type_getModifiedType ty
-        processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Modified) Nothing ty'
+        processTypeDeclRec ctxt specs unit (RelatedTo declLoc Modified) Nothing ty'
 
     _otherwise ->
       unrecognizedType ty declLoc
@@ -433,11 +434,11 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
             -- but for CApiFFI it's irrelevant as it creates C wrappers with known convention
 
             res <- clang_getResultType ty
-            res' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Result) Nothing res
+            res' <- processTypeDeclRec ctxt specs unit (RelatedTo declLoc Result) Nothing res
             nargs <- clang_getNumArgTypes ty
             args' <- forM [0 .. nargs - 1] $ \i -> do
               arg <- clang_getArgType ty (fromIntegral i)
-              processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc Arg) Nothing arg
+              processTypeDeclRec ctxt specs unit (RelatedTo declLoc Arg) Nothing arg
 
             -- There are no macros in the function, hence no macros in the
             -- function argument or return types either. This is why it's OK
@@ -453,15 +454,19 @@ getElaborated ty = case fromSimpleEnum (cxtKind ty) of
 lookupExtBinding ::
      CNameSpelling
   -> SingleLoc
-  -> ExtBindings
-  -> Eff (State DeclState) (Maybe ExtIdentifier)
-lookupExtBinding cname sloc extBindings =
-    case lookupExtBindingsType cname extBindings of
+  -> IBindingSpecs SourcePath
+  -> Eff (State DeclState) (Maybe ExtType)
+lookupExtBinding cname sloc specs =
+    case lookupBindingSpecsType cname specs of
       Nothing -> return Nothing
       Just ps -> do
         graph <- gets cIncludePathGraph
         let path = singleLocPath sloc
-        return $ lookupExtIdentifier (graph `DynGraph.reaches` path) ps
+        case lookupTypeSpec (graph `DynGraph.reaches` path) ps of
+          Nothing -> return Nothing
+          Just typeSpec ->
+            either (liftIO . throwIO . HsBindgenException) (return . Just) $
+              getExtType cname typeSpec
 
 addAlias :: CXType -> Type -> Eff (State DeclState) Type
 addAlias ty t = do
@@ -547,7 +552,7 @@ omapInsertBack k v m = m OMap.>| (k, v)
 
 data TypeDeclFlavour =
     -- | Type declaration for which we have external bindings
-    TypeDeclExternal ExtIdentifier
+    TypeDeclExternal ExtType
 
     -- | Opaque type declaration
   | TypeDeclOpaque CName
@@ -566,10 +571,10 @@ data AnonTopLevel = AnonTopLevel Type
 -- | Classify type declaration
 classifyTypeDecl ::
      DeclPathCtxt
-  -> ExtBindings
+  -> IBindingSpecs SourcePath
   -> (CXType, CXCursor, Either CInt CXCursorKind, SingleLoc)
   -> Eff (State DeclState) (Either AnonTopLevel (DeclPath, TypeDeclFlavour))
-classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
+classifyTypeDecl ctxt specs (ty, decl, ki, sloc) = do
     anon <- clang_Cursor_isAnonymous decl
 
     if anon then
@@ -585,15 +590,15 @@ classifyTypeDecl ctxt extBindings (ty, decl, ki, sloc) = do
           return $ Right (DeclPathAnon ctxt, TypeDeclRegular)
     else do
       spelling <- clang_getTypeSpelling ty
-      mExtId   <- lookupExtBinding (CNameSpelling spelling) sloc extBindings
+      mExtType <- lookupExtBinding (CNameSpelling spelling) sloc specs
 
       let mTag     = CName <$> T.stripPrefix expectedPrefix spelling
           declPath = mkDeclPath spelling mTag
 
       fmap (Right . (declPath,)) $ do
-        case mExtId of
-          Just extId -> return $ TypeDeclExternal extId
-          Nothing    -> do
+        case mExtType of
+          Just extType -> return $ TypeDeclExternal extType
+          Nothing -> do
             classified <- HighLevel.classifyDeclaration decl
             case classified of
               DeclarationOpaque ->
@@ -639,12 +644,12 @@ partitionFields = go id where
     go !fs (Normal f : xs)          = go (fs . (f :)) xs
 
 mkStructField ::
-     ExtBindings
+     IBindingSpecs SourcePath
   -> CXTranslationUnit
   -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
   -> CXCursor
   -> Eff (State DeclState) (Maybe Field) -- ^ Left values are flexible array members.
-mkStructField extBindings unit mkCtxt current = do
+mkStructField specs unit mkCtxt current = do
     fieldSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- clang_getCursorKind current
@@ -686,10 +691,10 @@ mkStructField extBindings unit mkCtxt current = do
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
                   e <- clang_getArrayElementType ty
-                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit (RelatedTo (Precise fieldSourceLoc) ArrayElement) Nothing e
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) specs unit (RelatedTo (Precise fieldSourceLoc) ArrayElement) Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
-                  fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit (Precise fieldSourceLoc) Nothing ty
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) specs unit (Precise fieldSourceLoc) Nothing ty
                   return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
@@ -729,12 +734,12 @@ isIncompleteArrayType _ = False
 -------------------------------------------------------------------------------}
 
 mkUnionField
-    :: ExtBindings
+    :: IBindingSpecs SourcePath
     -> CXTranslationUnit
     -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
     -> CXCursor
     -> Eff (State DeclState) (Maybe UnionField)
-mkUnionField extBindings unit mkCtxt current = do
+mkUnionField specs unit mkCtxt current = do
     ufieldSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- clang_getCursorKind current
@@ -775,7 +780,7 @@ mkUnionField extBindings unit mkCtxt current = do
             Nothing -> do
               fieldName <- CName <$> clang_getCursorDisplayName current
               ty        <- clang_getCursorType current
-              fieldType <- processTypeDeclRec (mkCtxt fieldName) extBindings unit (Precise ufieldSourceLoc) Nothing ty
+              fieldType <- processTypeDeclRec (mkCtxt fieldName) specs unit (Precise ufieldSourceLoc) Nothing ty
               return (fieldName, fieldType)
 
         return $ Just $ UnionField{ufieldName, ufieldType, ufieldSourceLoc}

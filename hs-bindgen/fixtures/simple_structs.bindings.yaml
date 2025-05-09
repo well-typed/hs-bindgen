@@ -1,0 +1,102 @@
+types:
+- headers: simple_structs.h
+  cname: S2_t
+  haskell:
+    module: Example
+    identifier: S2_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: S3_t
+  haskell:
+    module: Example
+    identifier: S3_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: S5
+  haskell:
+    module: Example
+    identifier: S5
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: S6
+  haskell:
+    module: Example
+    identifier: S6
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: S7a
+  haskell:
+    module: Example
+    identifier: S7a
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: S7b
+  haskell:
+    module: Example
+    identifier: S7b
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S1
+  haskell:
+    module: Example
+    identifier: S1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S2
+  haskell:
+    module: Example
+    identifier: S2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S4
+  haskell:
+    module: Example
+    identifier: S4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S5
+  haskell:
+    module: Example
+    identifier: S5
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: simple_structs.h
+  cname: struct S6
+  haskell:
+    module: Example
+    identifier: S6
+  instances:
+  - Eq
+  - Show
+  - Storable

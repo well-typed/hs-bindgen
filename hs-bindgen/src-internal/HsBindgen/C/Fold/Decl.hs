@@ -14,6 +14,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+import HsBindgen.BindingSpecs
 import HsBindgen.C.AST
 import HsBindgen.C.Fold.Common
 import HsBindgen.C.Fold.DeclState
@@ -23,7 +24,6 @@ import HsBindgen.C.Reparse
 import HsBindgen.C.Tc.Macro (tcMacro)
 import HsBindgen.Eff
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import HsBindgen.C.Tc.Macro qualified as Macro
@@ -36,11 +36,11 @@ foldDecls ::
      HasCallStack
   => Tracer IO Skipped
   -> Predicate
-  -> ExtBindings
+  -> IBindingSpecs SourcePath
   -> [CHeaderIncludePath]
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p extBindings headerIncludePaths unit current = do
+foldDecls tracer p specs headerIncludePaths unit current = do
     loc <- clang_getCursorLocation current
     sloc <- HighLevel.clang_getExpansionLocation loc
 
@@ -48,7 +48,7 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
         typeDecl = do
           ty <- clang_getCursorType current
           -- TODO: add assert at ty is not invalid type.
-          void $ processTypeDecl extBindings unit (Precise sloc) (Just current) ty
+          void $ processTypeDecl specs unit (Precise sloc) (Just current) ty
           return $ Continue Nothing
 
     eCursorKind <- fromSimpleEnum <$> clang_getCursorKind current
@@ -117,7 +117,7 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
         Right CXCursor_FunctionDecl -> do
           spelling <- clang_getCursorSpelling current
           ty  <- clang_getCursorType current
-          ty' <- processTypeDecl extBindings unit (Precise sloc) (Just current) ty
+          ty' <- processTypeDecl specs unit (Precise sloc) (Just current) ty
 
           (args, res) <- case ty' of
             TypeFun args res -> return (args, res)

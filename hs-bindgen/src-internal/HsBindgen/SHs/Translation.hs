@@ -10,9 +10,9 @@ import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
+import HsBindgen.BindingSpecs (HsTypeClass)
 import HsBindgen.C.AST qualified as C (MFun(..))
 import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
-import HsBindgen.ExtBindings (HsTypeClass)
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type

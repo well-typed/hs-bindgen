@@ -29,9 +29,9 @@ import GHC.Float
 
 import C.Char (CharValue(..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
+import HsBindgen.BindingSpecs
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -467,11 +467,11 @@ mkType env = \case
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
-    TExt ExtIdentifier{..} _ctype ->
+    TExt ExtType{..} _ctype ->
         TH.conT . TH.mkName $ concat [
-              Text.unpack (getHsModuleName extIdentifierModule)
+              Text.unpack $ getHsModuleName (hsRefModule extTypeHaskell)
             , "."
-            , Text.unpack (getHsIdentifier extIdentifierIdentifier)
+            , Text.unpack $ getHsIdentifier (hsRefIdentifier extTypeHaskell)
             ]
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type

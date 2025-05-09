@@ -1,0 +1,19 @@
+types:
+- headers: fixedarray.h
+  cname: struct Example
+  haskell:
+    module: Example
+    identifier: Example
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: fixedarray.h
+  cname: triple
+  haskell:
+    module: Example
+    identifier: Triple
+  instances:
+  - Eq
+  - Show
+  - Storable

@@ -1,0 +1,39 @@
+types:
+- headers: adios.h
+  cname: adiós
+  haskell:
+    module: Example
+    identifier: Adio'0301s
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: adios.h
+  cname: 数字
+  haskell:
+    module: Example
+    identifier: C数字
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable

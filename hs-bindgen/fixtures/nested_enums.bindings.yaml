@@ -1,0 +1,30 @@
+types:
+- headers: nested_enums.h
+  cname: enum enumA
+  haskell:
+    module: Example
+    identifier: EnumA
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: nested_enums.h
+  cname: struct exA
+  haskell:
+    module: Example
+    identifier: ExA
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: nested_enums.h
+  cname: struct exB
+  haskell:
+    module: Example
+    identifier: ExB
+  instances:
+  - Eq
+  - Show
+  - Storable
