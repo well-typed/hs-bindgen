@@ -15,3 +15,5 @@ deriving stock instance Show C__SFILE
 deriving stock instance Eq C__SFILE
 newtype FILE = FILE {un_FILE :: C__SFILE}
 deriving newtype instance Storable FILE
+deriving stock instance Eq FILE
+deriving stock instance Show FILE

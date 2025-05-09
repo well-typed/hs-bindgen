@@ -12,8 +12,11 @@ import Foreign.Storable (Storable (..))
 import Foreign.Marshal.Utils (copyBytes)
 import Data.Vector.Storable qualified as VS
 
+import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
+
 newtype ConstantArray (n :: Nat) a = CA (VS.Vector a)
   deriving (Eq, Show)
+  deriving anyclass (ReadRaw, StaticSize, WriteRaw)
 
 type role ConstantArray nominal nominal
 

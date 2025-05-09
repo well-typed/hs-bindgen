@@ -16,8 +16,6 @@ instance Storable ExA
            peek = \ptr_0 -> pure ExA <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {ExA exA_fieldA1_3 -> pokeByteOff ptr_1 (0 :: Int) exA_fieldA1_3}}
-deriving stock instance Show ExA
-deriving stock instance Eq ExA
 newtype ExB_fieldB1 = ExB_fieldB1 {un_ExB_fieldB1 :: ByteArray}
 deriving via (SizedByteArray 4 4) instance Storable ExB_fieldB1
 get_exB_fieldB1_a :: ExB_fieldB1 -> CInt
@@ -35,5 +33,3 @@ instance Storable ExB
            peek = \ptr_0 -> pure ExB <*> peekByteOff ptr_0 (0 :: Int);
            poke = \ptr_1 -> \s_2 -> case s_2 of
                                     {ExB exB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) exB_fieldB1_3}}
-deriving stock instance Show ExB
-deriving stock instance Eq ExB

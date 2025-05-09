@@ -61,8 +61,9 @@
               fieldSourceLoc =
               "bool.h:3:11"}],
           structFlam = Nothing,
-          structSourceLoc =
-          "bool.h:1:8"}},
+          structSourceLoc = "bool.h:1:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -126,7 +127,9 @@
                 fieldSourceLoc =
                 "bool.h:3:11"}],
             structFlam = Nothing,
-            structSourceLoc = "bool.h:1:8"}}
+            structSourceLoc = "bool.h:1:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -195,8 +198,9 @@
                         fieldSourceLoc =
                         "bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "bool.h:1:8"}})
+                    structSourceLoc = "bool.h:1:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -267,7 +271,9 @@
                         fieldSourceLoc =
                         "bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = "bool.h:1:8"}}
+                    structSourceLoc = "bool.h:1:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -350,8 +356,9 @@
               fieldSourceLoc =
               "bool.h:10:10"}],
           structFlam = Nothing,
-          structSourceLoc =
-          "bool.h:8:8"}},
+          structSourceLoc = "bool.h:8:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -415,7 +422,9 @@
                 fieldSourceLoc =
                 "bool.h:10:10"}],
             structFlam = Nothing,
-            structSourceLoc = "bool.h:8:8"}}
+            structSourceLoc = "bool.h:8:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -484,8 +493,9 @@
                         fieldSourceLoc =
                         "bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "bool.h:8:8"}})
+                    structSourceLoc = "bool.h:8:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -556,7 +566,9 @@
                         fieldSourceLoc =
                         "bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = "bool.h:8:8"}}
+                    structSourceLoc = "bool.h:8:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -613,7 +625,22 @@
                 directDeclarator =
                 IdentifierDeclarator
                   AbstractName
-                  []})}},
+                  []})},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -734,7 +761,9 @@
               "bool.h:17:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bool.h:15:8"}},
+          "bool.h:15:8"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -804,7 +833,9 @@
                 "bool.h:17:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bool.h:15:8"}}
+            "bool.h:15:8"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 2,
         storableAlignment = 1,
@@ -879,7 +910,9 @@
                         "bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bool.h:15:8"}})
+                    "bool.h:15:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1]),
@@ -956,7 +989,9 @@
                         "bool.h:17:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bool.h:15:8"}}
+                    "bool.h:15:8"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [

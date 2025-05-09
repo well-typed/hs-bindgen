@@ -542,6 +542,12 @@ newtype Config = Config
 
 deriving newtype instance F.Storable Config
 
+deriving stock instance Eq Config
+
+deriving stock instance Ord Config
+
+deriving stock instance Show Config
+
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
   }

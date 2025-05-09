@@ -28,7 +28,7 @@ module HsBindgen.TH (
   , Hs.TranslationOpts(..)
   , Hs.defaultTranslationOpts
   , Hs.Strategy(..)
-  , Hs.TypeClass(..)
+  , Hs.HsTypeClass(..)
 
     -- ** Predicates
   , Predicate.Predicate(..)

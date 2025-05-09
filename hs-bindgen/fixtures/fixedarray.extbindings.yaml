@@ -3,7 +3,15 @@ types:
   cname: struct Example
   module: Example
   identifier: Example
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: fixedarray.h
   cname: triple
   module: Example
   identifier: Triple
+  instances:
+  - Eq
+  - Show
+  - Storable

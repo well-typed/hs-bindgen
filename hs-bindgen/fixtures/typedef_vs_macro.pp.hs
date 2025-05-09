@@ -140,11 +140,21 @@ newtype M3 = M3
 
 deriving newtype instance F.Storable M3
 
+deriving stock instance Eq M3
+
+deriving stock instance Show M3
+
 newtype M4 = M4
   { un_M4 :: F.Ptr FC.CInt
   }
 
 deriving newtype instance F.Storable M4
+
+deriving stock instance Eq M4
+
+deriving stock instance Ord M4
+
+deriving stock instance Show M4
 
 data ExampleStruct = ExampleStruct
   { exampleStruct_t1 :: T1

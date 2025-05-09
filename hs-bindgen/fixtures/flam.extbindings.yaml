@@ -3,11 +3,23 @@ types:
   cname: struct diff
   module: Example
   identifier: Diff
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: flam.h
   cname: struct foo
   module: Example
   identifier: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
 - headers: flam.h
   cname: struct pascal
   module: Example
   identifier: Pascal
+  instances:
+  - Eq
+  - Show
+  - Storable

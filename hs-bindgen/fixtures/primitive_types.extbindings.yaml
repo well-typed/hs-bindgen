@@ -3,3 +3,7 @@ types:
   cname: struct primitive
   module: Example
   identifier: Primitive
+  instances:
+  - Eq
+  - Show
+  - Storable

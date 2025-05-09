@@ -20,10 +20,12 @@ module HsBindgen.Hs.Translation (
   , floatingType
   ) where
 
+import Control.Monad.State qualified as State
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList(..))
@@ -34,6 +36,8 @@ import Clang.Paths
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
+import HsBindgen.ExtBindings (HsTypeClass)
+import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
@@ -49,25 +53,23 @@ import DeBruijn
   Configuration
 -------------------------------------------------------------------------------}
 
+-- | Translation options
+--
+-- These options allow users to specify instances that /may/ be derived for all
+-- structs, enums, and typedefs, along with the strategy to use.  Instances are
+-- only derived when possible, however.  For example, an @Eq@ instance may only
+-- be derived if all fields have @Eq@ instances.  Note that type classes that
+-- @hs-bindgen@ generates instances for must not be included in this
+-- configuration.
 data TranslationOpts = TranslationOpts {
       -- | Default set of classes to derive for structs
-      translationDeriveStruct :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+      translationDeriveStruct :: [(Hs.Strategy Hs.HsType, HsTypeClass)]
 
       -- | Default set of classes to derive for enums
-    , translationDeriveEnum :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+    , translationDeriveEnum :: [(Hs.Strategy Hs.HsType, HsTypeClass)]
 
-      -- | Default set of classes to derive for typedefs around primitive types
-      --
-      -- The situation for typedefs is more intricate, because the instances we
-      -- can generate depend on the instances available for the type we're
-      -- defining a newtype for. However, for typedefs of /primitive/ types
-      -- this is easier, as we do know which instances are available for those.
-      --
-      -- Any classes in this list that are /not/ supported by the underlying
-      -- (primitive) type will simply not be generated, so it's okay for this
-      -- to contain classes such as 'Num' which are only supported by /some/
-      -- primitive types.
-    , translationDeriveTypedefPrim :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+      -- | Default set of classes to derive for typedefs
+    , translationDeriveTypedef :: [(Hs.Strategy Hs.HsType, HsTypeClass)]
     }
   deriving stock (Show)
 
@@ -82,7 +84,7 @@ defaultTranslationOpts = TranslationOpts {
         , (Hs.DeriveStock, Hs.Ord)
         , (Hs.DeriveStock, Hs.Read)
         ]
-    , translationDeriveTypedefPrim = [
+    , translationDeriveTypedef = [
           (Hs.DeriveStock, Hs.Eq)
         , (Hs.DeriveStock, Hs.Ord)
         , (Hs.DeriveStock, Hs.Read)
@@ -114,12 +116,16 @@ generateDeclarations ::
   -> C.Header
   -> [Hs.Decl]
 generateDeclarations opts _mu nm (C.Header decs) =
-    concatMap (generateDecs opts (Map.union typedefs pseudoTypedefs) nm) decs
+    flip State.evalState Map.empty $
+      concat <$> mapM (generateDecs opts nm typedefs) decs
   where
+    typedefs :: Map C.CName C.Type
+    typedefs = Map.union actualTypedefs pseudoTypedefs
+
     -- typedef lookup table
     -- shallow: only one layer of typedefs is stripped.
-    typedefs :: Map C.CName C.Type
-    typedefs = Map.fromList
+    actualTypedefs :: Map C.CName C.Type
+    actualTypedefs = Map.fromList
         [ (n, t)
         | C.DeclTypedef (C.Typedef { typedefName = n, typedefType = t }) <- decs
         ]
@@ -142,19 +148,165 @@ generateDeclarations opts _mu nm (C.Header decs) =
         ]
 
 {-------------------------------------------------------------------------------
+  Instance Map
+-------------------------------------------------------------------------------}
+
+type InstanceMap = Map (HsName NsTypeConstr) (Set HsTypeClass)
+
+getInstances ::
+     InstanceMap         -- ^ Current state
+  -> HsName NsTypeConstr -- ^ Name of current type
+  -> Set HsTypeClass     -- ^ Candidate instances
+  -> [HsType]            -- ^ Dependencies
+  -> Set HsTypeClass
+getInstances instanceMap name = aux
+  where
+    aux :: Set HsTypeClass -> [HsType] -> Set HsTypeClass
+    aux acc [] = acc
+    aux acc (hsType:hsTypes)
+      | Set.null acc = acc
+      | otherwise = case hsType of
+          HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
+          HsTypRef name'
+            | name' == name -> aux acc hsTypes
+            | otherwise -> case Map.lookup name' instanceMap of
+                Just instances -> aux (acc /\ instances) hsTypes
+                Nothing -> panicPure $ "type not found: " ++ show name'
+          HsConstArray _n hsType' ->
+            -- constrain by ConstantArray item type in next step
+            aux (acc /\ cArrayInsts) $ hsType' : hsTypes
+          HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
+          HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
+          HsIO{} -> Set.empty
+          HsFun{} -> Set.empty
+          HsExtBinding extId _cType ->
+            let acc' = acc /\ ExtBindings.extIdentifierInstances extId
+            in  aux acc' hsTypes
+          HsByteArray{} ->
+            let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
+            in  aux acc' hsTypes
+          HsSizedByteArray{} ->
+            let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Show]
+            in  aux acc' hsTypes
+
+    (/\) :: Ord a => Set a -> Set a -> Set a
+    (/\) = Set.intersection
+
+    hsPrimTypeInsts :: HsPrimType -> Set HsTypeClass
+    hsPrimTypeInsts = \case
+      HsPrimVoid       -> Set.fromList [Hs.Eq, Hs.Ix, Hs.Ord, Hs.Read, Hs.Show]
+      HsPrimUnit       -> unitInsts
+      HsPrimCChar      -> integralInsts
+      HsPrimCSChar     -> integralInsts
+      HsPrimCUChar     -> integralInsts
+      HsPrimCInt       -> integralInsts
+      HsPrimCUInt      -> integralInsts
+      HsPrimCShort     -> integralInsts
+      HsPrimCUShort    -> integralInsts
+      HsPrimCLong      -> integralInsts
+      HsPrimCULong     -> integralInsts
+      HsPrimCPtrDiff   -> integralInsts
+      HsPrimCSize      -> integralInsts
+      HsPrimCLLong     -> integralInsts
+      HsPrimCULLong    -> integralInsts
+      HsPrimCBool      -> integralInsts
+      HsPrimCFloat     -> floatingInsts
+      HsPrimCDouble    -> floatingInsts
+      HsPrimCStringLen -> Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
+      HsPrimInt        -> integralInsts
+
+    unitInsts :: Set HsTypeClass
+    unitInsts = Set.fromList [
+        Hs.Eq
+      , Hs.Ord
+      , Hs.Read
+      , Hs.ReadRaw
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
+      ]
+
+    integralInsts :: Set HsTypeClass
+    integralInsts = Set.fromList [
+        Hs.Bits
+      , Hs.Bounded
+      , Hs.Enum
+      , Hs.Eq
+      , Hs.FiniteBits
+      , Hs.Integral
+      , Hs.Ix
+      , Hs.Num
+      , Hs.Ord
+      , Hs.Read
+      , Hs.ReadRaw
+      , Hs.Real
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
+      ]
+
+    floatingInsts :: Set HsTypeClass
+    floatingInsts = Set.fromList [
+        Hs.Enum
+      , Hs.Eq
+      , Hs.Floating
+      , Hs.Fractional
+      , Hs.Num
+      , Hs.Ord
+      , Hs.Read
+      , Hs.ReadRaw
+      , Hs.Real
+      , Hs.RealFloat
+      , Hs.RealFrac
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
+      ]
+
+    ptrInsts :: Set HsTypeClass
+    ptrInsts = Set.fromList [
+        Hs.Eq
+      , Hs.Ord
+      , Hs.ReadRaw
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
+      ]
+
+    cArrayInsts :: Set HsTypeClass
+    cArrayInsts = Set.fromList [
+        Hs.Eq
+      , Hs.ReadRaw
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
+      ]
+
+{-------------------------------------------------------------------------------
   Declarations
 ------------------------------------------------------------------------------}
 
-generateDecs :: TranslationOpts -> Map C.CName C.Type -> NameMangler -> C.Decl -> [Hs.Decl]
-generateDecs opts typedefs nm = \case
-  C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
-  C.DeclUnion union    -> unionDecs opts nm union
-  C.DeclOpaqueStruct o -> opaqueStructDecs opts nm o
-  C.DeclEnum e         -> enumDecs opts nm e
-  C.DeclOpaqueEnum o   -> opaqueEnumDecs opts nm o -- TODO?
-  C.DeclTypedef d      -> typedefDecs opts nm d
-  C.DeclMacro m        -> macroDecs opts nm m
-  C.DeclFunction f     -> functionDecs opts typedefs nm f
+generateDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> Map C.CName C.Type
+  -> C.Decl
+  -> m [Hs.Decl]
+generateDecs opts nm typedefs = \case
+    C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
+    C.DeclUnion union    -> unionDecs nm union
+    C.DeclOpaqueStruct o -> opaqueStructDecs nm o
+    C.DeclEnum e         -> enumDecs opts nm e
+    C.DeclOpaqueEnum o   -> opaqueEnumDecs nm o -- TODO?
+    C.DeclTypedef d      -> typedefDecs opts nm d
+    C.DeclMacro m        -> macroDecs opts nm m
+    C.DeclFunction f     -> return $ functionDecs nm typedefs f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -167,160 +319,278 @@ reifyStructFields ::
 reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
-structDecs :: forall n.
-     SNatI n
+structDecs :: forall n m.
+     (SNatI n, State.MonadState InstanceMap m)
   => TranslationOpts
   -> NameMangler
-  -> C.Struct -> Vec n C.StructField -> [Hs.Decl]
-structDecs opts nm struct fields = concat
-    [ [ Hs.DeclData hs ]
-    , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable]
-    , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
-      | (strat, clss) <- translationDeriveStruct opts
-      ]
-    , flamInstance
-    ]
+  -> C.Struct
+  -> Vec n C.StructField
+  -> m [Hs.Decl]
+structDecs opts nm struct fields = do
+    (insts, decls) <- aux <$> State.get
+    State.modify' $ Map.insert structName insts
+    return decls
   where
-    hs :: Hs.Struct n
-    hs =
-      let structName = mangle nm $ NameTycon $ C.structDeclPath struct
-          structConstr = mangle nm $ NameDatacon $ C.structDeclPath struct
-          structFields = flip Vec.map fields $ \f -> Hs.Field {
-              fieldName   = mangle nm $ NameField (C.structDeclPath struct) (C.fieldName f)
-            , fieldType   = typ nm (C.fieldType f)
-            , fieldOrigin = Hs.FieldOriginStructField f
-            }
-          structOrigin = Hs.StructOriginStruct struct
-      in  Hs.Struct{..}
+    declPath :: C.DeclPath
+    declPath = C.structDeclPath struct
 
-    storable :: Hs.StorableInstance
-    storable = Hs.StorableInstance {
-          Hs.storableSizeOf    = C.structSizeof struct
-        , Hs.storableAlignment = C.structAlignment struct
-        , Hs.storablePeek      = Hs.Lambda "ptr" $
-            Hs.Ap (Hs.StructCon hs) $ map (peek IZ) (C.structFields struct)
-        , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-            Hs.makeElimStruct IZ hs $ \wk xs -> Hs.Seq $ toList $ Vec.zipWith (poke (weaken wk I1)) fields xs
-        }
+    structName :: HsName NsTypeConstr
+    structName = mangle nm $ NameTycon declPath
 
-    peek :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
-    peek ptr f = case C.fieldWidth f of
-      Nothing -> Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
-      Just w  -> Hs.PeekBitOffWidth ptr (C.fieldOffset f) w
+    structFields :: Vec n Hs.Field
+    structFields = flip Vec.map fields $ \f -> Hs.Field {
+        fieldName   = mangle nm $ NameField declPath (C.fieldName f)
+      , fieldType   = typ nm (C.fieldType f)
+      , fieldOrigin = Hs.FieldOriginStructField f
+      }
 
-    poke :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
-    poke ptr f i = case C.fieldWidth f of
-      Nothing -> Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
-      Just w  -> Hs.PokeBitOffWidth ptr (C.fieldOffset f) w i
+    candidateInsts :: Set HsTypeClass
+    candidateInsts = Set.union (Set.singleton Hs.Storable) $
+      Set.fromList (snd <$> translationDeriveStruct opts)
 
-    flamInstance :: [Hs.Decl]
-    flamInstance = case C.structFlam struct of
-      Nothing  -> []
-      Just flam -> singleton $ Hs.DeclDefineInstance $ Hs.InstanceHasFLAM
-        hs
-        (typ nm (C.fieldType flam))
-        (C.fieldOffset flam `div` 8)
+    -- everything in aux is state-dependent
+    aux :: InstanceMap -> (Set HsTypeClass, [Hs.Decl])
+    aux instanceMap = (insts,) $
+        structDecl : storableDecl ++ optDecls ++ hasFlamDecl
+      where
+        insts :: Set HsTypeClass
+        insts = getInstances instanceMap structName candidateInsts $
+          Hs.fieldType <$> Vec.toList structFields
+
+        hsStruct :: Hs.Struct n
+        hsStruct = Hs.Struct {
+            structName      = structName
+          , structConstr    = mangle nm $ NameDatacon declPath
+          , structFields    = structFields
+          , structOrigin    = Hs.StructOriginStruct struct
+          , structInstances = insts
+          }
+
+        structDecl :: Hs.Decl
+        structDecl = Hs.DeclData hsStruct
+
+        storableDecl :: [Hs.Decl]
+        storableDecl
+          | Hs.Storable `Set.notMember` insts = []
+          | otherwise = singleton $ Hs.DeclDefineInstance $
+              Hs.InstanceStorable hsStruct Hs.StorableInstance {
+                  Hs.storableSizeOf    = C.structSizeof struct
+                , Hs.storableAlignment = C.structAlignment struct
+                , Hs.storablePeek      = Hs.Lambda "ptr" $
+                    Hs.Ap (Hs.StructCon hsStruct) $
+                      map (peekStructField IZ) (C.structFields struct)
+                , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                    Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ toList $
+                      Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
+                }
+
+        optDecls :: [Hs.Decl]
+        optDecls = [
+            Hs.DeclDeriveInstance strat clss structName
+          | (strat, clss) <- translationDeriveStruct opts
+          , clss `Set.member` insts
+          ]
+
+        hasFlamDecl :: [Hs.Decl]
+        hasFlamDecl = case C.structFlam struct of
+          Nothing   -> []
+          Just flam -> singleton $ Hs.DeclDefineInstance $ Hs.InstanceHasFLAM
+            hsStruct
+            (typ nm (C.fieldType flam))
+            (C.fieldOffset flam `div` 8)
+
+peekStructField :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
+peekStructField ptr f = case C.fieldWidth f of
+    Nothing -> Hs.PeekByteOff ptr (C.fieldOffset f `div` 8)
+    Just w  -> Hs.PeekBitOffWidth ptr (C.fieldOffset f) w
+
+pokeStructField :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
+pokeStructField ptr f i = case C.fieldWidth f of
+    Nothing -> Hs.PokeByteOff ptr (C.fieldOffset f `div` 8) i
+    Just w  -> Hs.PokeBitOffWidth ptr (C.fieldOffset f) w i
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
 -------------------------------------------------------------------------------}
 
 opaqueStructDecs ::
-     TranslationOpts
-  -> NameMangler
+     State.MonadState InstanceMap m
+  => NameMangler
   -> C.OpaqueStruct
-  -> [Hs.Decl]
-opaqueStructDecs _opts nm o =
-    [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueStructTag o)
-        , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
-        }
-    ]
+  -> m [Hs.Decl]
+opaqueStructDecs nm o = do
+    State.modify' $ Map.insert name Set.empty
+    return [decl]
+  where
+    name :: HsName NsTypeConstr
+    name = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueStructTag o)
 
-opaqueEnumDecs :: TranslationOpts -> NameMangler -> C.OpaqueEnum -> [Hs.Decl]
-opaqueEnumDecs _opts nm o =
-    [ Hs.DeclEmpty Hs.EmptyData {
-          emptyDataName   = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueEnumTag o)
-        , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
-        }
-    ]
+    decl :: Hs.Decl
+    decl = Hs.DeclEmpty Hs.EmptyData {
+        emptyDataName   = name
+      , emptyDataOrigin = Hs.EmptyDataOriginOpaqueStruct o
+      }
+
+opaqueEnumDecs ::
+     State.MonadState InstanceMap m
+  => NameMangler
+  -> C.OpaqueEnum
+  -> m [Hs.Decl]
+opaqueEnumDecs nm o = do
+    State.modify' $ Map.insert name Set.empty
+    return [decl]
+  where
+    name :: HsName NsTypeConstr
+    name = mangle nm $ NameTycon $ C.DeclPathName (C.opaqueEnumTag o)
+
+    decl :: Hs.Decl
+    decl = Hs.DeclEmpty Hs.EmptyData {
+        emptyDataName   = name
+      , emptyDataOrigin = Hs.EmptyDataOriginOpaqueEnum o
+      }
 
 {-------------------------------------------------------------------------------
   Unions
 -------------------------------------------------------------------------------}
 
-unionDecs :: TranslationOpts -> NameMangler -> C.Union -> [Hs.Decl]
-unionDecs _opts nm union =
-    [ Hs.DeclNewtype Hs.Newtype {..}
-    , Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
-    ] ++ concat
-    [ [ Hs.DeclUnionGetter newtypeName (typ nm ufieldType) (mangle nm $ NameGetter declPath ufieldName)
-      , Hs.DeclUnionSetter newtypeName (typ nm ufieldType) (mangle nm $ NameBuilder declPath ufieldName)
-      ]
-    | C.UnionField {..} <- C.unionFields union
-    ]
+unionDecs ::
+     State.MonadState InstanceMap m
+  => NameMangler
+  -> C.Union
+  -> m [Hs.Decl]
+unionDecs nm union = do
+    decls <- aux <$> State.get
+    State.modify' $ Map.insert newtypeName insts
+    return decls
   where
-    declPath      = C.unionDeclPath union
-    newtypeName   = mangle nm $ NameTycon declPath
-    newtypeConstr = mangle nm $ NameDatacon declPath
-    newtypeField  = Hs.Field {
-        fieldName   = mangle nm $ NameDecon declPath
-      , fieldType   = Hs.HsByteArray
-      , fieldOrigin = Hs.FieldOriginNone
+    declPath :: C.DeclPath
+    declPath = C.unionDeclPath union
+
+    newtypeName :: HsName NsTypeConstr
+    newtypeName = mangle nm $ NameTycon declPath
+
+    insts :: Set HsTypeClass
+    insts = Set.singleton Hs.Storable
+
+    hsNewtype :: Hs.Newtype
+    hsNewtype = Hs.Newtype {
+        newtypeName      = newtypeName
+      , newtypeConstr    = mangle nm $ NameDatacon declPath
+      , newtypeField     = Hs.Field {
+            fieldName   = mangle nm $ NameDecon declPath
+          , fieldType   = Hs.HsByteArray
+          , fieldOrigin = Hs.FieldOriginNone
+          }
+      , newtypeOrigin    = Hs.NewtypeOriginUnion union
+      , newtypeInstances = insts
       }
-    newtypeOrigin = Hs.NewtypeOriginUnion union
+
+    newtypeDecl :: Hs.Decl
+    newtypeDecl = Hs.DeclNewtype hsNewtype
+
+    storableDecl :: Hs.Decl
+    storableDecl =
+      Hs.DeclDeriveInstance (Hs.DeriveVia sba) Hs.Storable newtypeName
 
     sba :: Hs.HsType
-    sba = HsSizedByteArray (fromIntegral (C.unionSizeof union)) (fromIntegral (C.unionAlignment union))
+    sba =
+      HsSizedByteArray
+        (fromIntegral (C.unionSizeof union))
+        (fromIntegral (C.unionAlignment union))
+
+    -- everything in aux is state-dependent
+    aux :: InstanceMap -> [Hs.Decl]
+    aux instanceMap = newtypeDecl : storableDecl : accessorDecls
+      where
+        accessorDecls :: [Hs.Decl]
+        accessorDecls = concatMap getAccessorDecls (C.unionFields union)
+
+        getAccessorDecls :: C.UnionField -> [Hs.Decl]
+        getAccessorDecls C.UnionField{..} =
+          let hsType = typ nm ufieldType
+              fInsts = getInstances instanceMap newtypeName insts [hsType]
+          in  if Hs.Storable `Set.notMember` fInsts
+                then []
+                else
+                  [ Hs.DeclUnionGetter newtypeName hsType $
+                      mangle nm (NameGetter declPath ufieldName)
+                  , Hs.DeclUnionSetter newtypeName hsType $
+                      mangle nm (NameBuilder declPath ufieldName)
+                  ]
 
 {-------------------------------------------------------------------------------
   Enum
 -------------------------------------------------------------------------------}
 
-enumDecs :: TranslationOpts -> NameMangler -> C.Enu -> [Hs.Decl]
-enumDecs opts nm e = concat [
-      [ Hs.DeclNewtype Hs.Newtype{..} ]
-    , [ Hs.DeclDefineInstance $ Hs.InstanceStorable hs storable ]
-    , [ Hs.DeclDeriveInstance strat clss (Hs.structName hs)
-      | (strat, clss) <- translationDeriveEnum opts
-      ]
-    , cEnumInstanceDecls
-    , valueDecls
-    ]
+enumDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.Enu
+  -> m [Hs.Decl]
+enumDecs opts nm e = do
+    State.modify' $ Map.insert newtypeName insts
+    return $
+      newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
-    declPath      = C.enumDeclPath e
-    newtypeName   = mangle nm $ NameTycon declPath
+    declPath :: C.DeclPath
+    declPath = C.enumDeclPath e
+
+    newtypeName :: HsName NsTypeConstr
+    newtypeName = mangle nm $ NameTycon declPath
+
+    newtypeConstr :: HsName NsConstr
     newtypeConstr = mangle nm $ NameDatacon declPath
-    newtypeField  = Hs.Field {
+
+    newtypeField :: Hs.Field
+    newtypeField = Hs.Field {
         fieldName   = mangle nm $ NameDecon declPath
       , fieldType   = typ nm (C.enumType e)
       , fieldOrigin = Hs.FieldOriginNone
       }
-    newtypeOrigin = Hs.NewtypeOriginEnum e
 
-    hs :: Hs.Struct (S Z)
-    hs =
-      let structName = newtypeName
-          structConstr = newtypeConstr
-          structFields = Vec.singleton newtypeField
-          structOrigin = Hs.StructOriginEnum e
-      in  Hs.Struct{..}
+    insts :: Set HsTypeClass
+    insts = Set.union (Set.fromList [Hs.Show, Hs.Storable]) $
+      Set.fromList (snd <$> translationDeriveEnum opts)
 
-    storable :: Hs.StorableInstance
-    storable = Hs.StorableInstance {
+    hsNewtype :: Hs.Newtype
+    hsNewtype = Hs.Newtype {
+        newtypeName      = newtypeName
+      , newtypeConstr    = newtypeConstr
+      , newtypeField     = newtypeField
+      , newtypeOrigin    = Hs.NewtypeOriginEnum e
+      , newtypeInstances = insts
+      }
+
+    newtypeDecl :: Hs.Decl
+    newtypeDecl = Hs.DeclNewtype hsNewtype
+
+    hsStruct :: Hs.Struct (S Z)
+    hsStruct = Hs.Struct {
+        structName      = newtypeName
+      , structConstr    = newtypeConstr
+      , structFields    = Vec.singleton newtypeField
+      , structOrigin    = Hs.StructOriginEnum e
+      , structInstances = insts
+      }
+
+    storableDecl :: Hs.Decl
+    storableDecl = Hs.DeclDefineInstance $
+      Hs.InstanceStorable hsStruct Hs.StorableInstance {
           Hs.storableSizeOf    = C.enumSizeof e
         , Hs.storableAlignment = C.enumAlignment e
         , Hs.storablePeek      = Hs.Lambda "ptr" $
-            Hs.Ap (Hs.StructCon hs) [ peek IZ 0 ]
+            Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
         , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-            Hs.ElimStruct IZ hs (AS AZ) $ Hs.Seq [ poke I2 0 IZ ]
+            Hs.ElimStruct IZ hsStruct (AS AZ) $
+              Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
         }
 
-    peek :: Idx ctx -> Int -> Hs.PeekByteOff ctx
-    peek = Hs.PeekByteOff
-
-    poke :: Idx ctx -> Int -> Idx ctx -> Hs.PokeByteOff ctx
-    poke = Hs.PokeByteOff
+    optDecls :: [Hs.Decl]
+    optDecls = [
+        Hs.DeclDeriveInstance strat clss newtypeName
+      | (strat, clss) <- translationDeriveEnum opts
+      ]
 
     valueDecls :: [Hs.Decl]
     valueDecls =
@@ -350,117 +620,170 @@ enumDecs opts nm e = concat [
           fTyp = Hs.fieldType newtypeField
           vStrs = fmap (T.unpack . getHsName) <$> vNames
           cEnumDecl = Hs.DeclDefineInstance $
-            Hs.InstanceCEnum hs fTyp vStrs (isJust mSeqBounds)
-          cEnumShowDecl = [Hs.DeclDefineInstance (Hs.InstanceCEnumShow hs)]
+            Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
+          cEnumShowDecl = Hs.DeclDefineInstance (Hs.InstanceCEnumShow hsStruct)
           sequentialCEnumDecl = case mSeqBounds of
             Just (nameMin, nameMax) -> List.singleton . Hs.DeclDefineInstance $
-              Hs.InstanceSequentialCEnum hs nameMin nameMax
+              Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
             Nothing -> []
-      in  cEnumDecl : sequentialCEnumDecl ++ cEnumShowDecl
+      in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl]
 
 {-------------------------------------------------------------------------------
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs :: TranslationOpts -> NameMangler -> C.Typedef -> [Hs.Decl]
-typedefDecs opts nm d = concat [
-      [ Hs.DeclNewtype Hs.Newtype{..} ]
-    , [ Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName ]
-    , [ Hs.DeclDeriveInstance strat clss newtypeName
-      | C.TypePrim pt <- [C.typedefType d]
-      , (strat, clss) <- translationDeriveTypedefPrim opts
-      , clss `elem` primTypeInstances pt
-      ]
-    ]
+typedefDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.Typedef
+  -> m [Hs.Decl]
+typedefDecs opts nm typedef = do
+    (insts, decls) <- aux <$> State.get
+    State.modify' $ Map.insert newtypeName insts
+    return decls
   where
-    cName         = C.typedefName d
-    newtypeName   = mangle nm $ NameTycon (C.DeclPathName cName)
-    newtypeConstr = mangle nm $ NameDatacon (C.DeclPathName cName)
-    newtypeField  = Hs.Field {
-        fieldName   = mangle nm $ NameDecon (C.DeclPathName cName)
-      , fieldType   = typ nm (C.typedefType d)
+    declPath :: C.DeclPath
+    declPath = C.DeclPathName $ C.typedefName typedef
+
+    newtypeName :: HsName NsTypeConstr
+    newtypeName = mangle nm $ NameTycon declPath
+
+    newtypeField :: Hs.Field
+    newtypeField = Hs.Field {
+        fieldName   = mangle nm $ NameDecon declPath
+      , fieldType   = typ nm (C.typedefType typedef)
       , fieldOrigin = Hs.FieldOriginNone
       }
-    newtypeOrigin = Hs.NewtypeOriginTypedef d
 
-primTypeInstances :: C.PrimType -> [Hs.TypeClass]
-primTypeInstances (C.PrimFloating _) = [
-      Hs.Enum
-    , Hs.Floating
-    , Hs.RealFloat
-    , Hs.Storable
-    , Hs.Num
-    , Hs.Read
-    , Hs.Fractional
-    , Hs.Real
-    , Hs.RealFrac
-    , Hs.Show
-    , Hs.Eq
-    , Hs.Ord
-    ]
-primTypeInstances _otherwise = [
-      Hs.Bits
-    , Hs.FiniteBits
-    , Hs.Bounded
-    , Hs.Enum
-    , Hs.Storable
-    , Hs.Ix
-    , Hs.Num
-    , Hs.Read
-    , Hs.Integral
-    , Hs.Real
-    , Hs.Show
-    , Hs.Eq
-    , Hs.Ord
-    ]
+    candidateInsts :: Set HsTypeClass
+    candidateInsts = Set.union (Set.singleton Hs.Storable) $
+      Set.fromList (snd <$> translationDeriveTypedef opts)
+
+    -- everything in aux is state-dependent
+    aux :: InstanceMap -> (Set HsTypeClass, [Hs.Decl])
+    aux instanceMap = (insts,) $
+        newtypeDecl : storableDecl ++ optDecls
+      where
+        insts :: Set HsTypeClass
+        insts =
+          getInstances
+            instanceMap
+            newtypeName
+            candidateInsts
+            [Hs.fieldType newtypeField]
+
+        hsNewtype :: Hs.Newtype
+        hsNewtype = Hs.Newtype {
+            newtypeName      = newtypeName
+          , newtypeConstr    = mangle nm $ NameDatacon declPath
+          , newtypeField     = newtypeField
+          , newtypeOrigin    = Hs.NewtypeOriginTypedef typedef
+          , newtypeInstances = insts
+          }
+
+        newtypeDecl :: Hs.Decl
+        newtypeDecl = Hs.DeclNewtype hsNewtype
+
+        storableDecl :: [Hs.Decl]
+        storableDecl
+          | Hs.Storable `Set.notMember` insts = []
+          | otherwise = singleton $
+              Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
+
+        optDecls :: [Hs.Decl]
+        optDecls = [
+            Hs.DeclDeriveInstance strat clss newtypeName
+          | (strat, clss) <- translationDeriveTypedef opts
+          , clss `Set.member` insts
+          ]
 
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
 
-macroDecs :: TranslationOpts -> NameMangler -> C.MacroDecl -> [Hs.Decl]
+macroDecs ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.MacroDecl
+  -> m [Hs.Decl]
 macroDecs opts nm C.MacroDecl { macroDeclMacro = m, macroDeclMacroTy = ty }
     | Macro.Quant bf <- ty
     , Macro.isPrimTy bf
     = macroDecsTypedef opts nm m
 
     | otherwise
-    = macroVarDecs nm m ty
+    = return $ macroVarDecs nm m ty
     where
 
-macroDecs _ _ C.MacroReparseError {} = []
-macroDecs _ _ C.MacroTcError {}      = []
+macroDecs _ _ C.MacroReparseError {} = return []
+macroDecs _ _ C.MacroTcError {}      = return []
 
-macroDecsTypedef :: TranslationOpts -> NameMangler -> C.Macro -> [Hs.Decl]
-macroDecsTypedef opts nm m =
-    case C.macroBody m of
-      C.TypeMacro tyNm
-        | Right ty <- C.typeNameType tyNm
-        ->
-        let newtypeField = mkField ty in
-        concat [
-            [ Hs.DeclNewtype Hs.Newtype{..} ]
-          , [ Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName ]
-          , [ Hs.DeclDeriveInstance strat clss newtypeName
-            | C.TypePrim pt <- [ty]
-            , (strat, clss) <- translationDeriveTypedefPrim opts
-            , clss `elem` primTypeInstances pt
-            ]
-          ]
-      _otherwise ->
-        []
+macroDecsTypedef ::
+     State.MonadState InstanceMap m
+  => TranslationOpts
+  -> NameMangler
+  -> C.Macro
+  -> m [Hs.Decl]
+macroDecsTypedef opts nm macro = case C.macroBody macro of
+    C.TypeMacro tyNm
+      | Right ty <- C.typeNameType tyNm
+      -> do
+        (insts, decls) <- aux ty <$> State.get
+        State.modify' $ Map.insert newtypeName insts
+        return decls
+    _otherwise -> return []
   where
-    cName         = C.macroName m
-    newtypeName   = mangle nm $ NameTycon (C.DeclPathName cName)
-    newtypeConstr = mangle nm $ NameDatacon (C.DeclPathName cName)
-    newtypeOrigin = Hs.NewtypeOriginMacro m
+    declPath :: C.DeclPath
+    declPath = C.DeclPathName $ C.macroName macro
 
-    mkField :: C.Type -> Hs.Field
-    mkField ty = Hs.Field {
-          fieldName   = mangle nm $ NameDecon (C.DeclPathName cName)
-        , fieldType   = typ nm ty
-        , fieldOrigin = Hs.FieldOriginNone
-        }
+    newtypeName :: HsName NsTypeConstr
+    newtypeName = mangle nm $ NameTycon declPath
+
+    candidateInsts :: Set HsTypeClass
+    candidateInsts = Set.union (Set.singleton Hs.Storable) $
+      Set.fromList (snd <$> translationDeriveTypedef opts)
+
+    -- everything in aux is state-dependent
+    aux :: C.Type -> InstanceMap -> (Set HsTypeClass, [Hs.Decl])
+    aux ty instanceMap = (insts,) $
+        newtypeDecl : storableDecl ++ optDecls
+      where
+        fieldType :: HsType
+        fieldType = typ nm ty
+
+        insts :: Set HsTypeClass
+        insts = getInstances instanceMap newtypeName candidateInsts [fieldType]
+
+        hsNewtype :: Hs.Newtype
+        hsNewtype = Hs.Newtype {
+            newtypeName      = newtypeName
+          , newtypeConstr    = mangle nm $ NameDatacon declPath
+          , newtypeField     = Hs.Field {
+                fieldName   = mangle nm $ NameDecon declPath
+              , fieldType   = fieldType
+              , fieldOrigin = Hs.FieldOriginNone
+              }
+          , newtypeOrigin    = Hs.NewtypeOriginMacro macro
+          , newtypeInstances = insts
+          }
+
+        newtypeDecl :: Hs.Decl
+        newtypeDecl = Hs.DeclNewtype hsNewtype
+
+        storableDecl :: [Hs.Decl]
+        storableDecl
+          | Hs.Storable `Set.notMember` insts = []
+          | otherwise = singleton $
+              Hs.DeclDeriveInstance Hs.DeriveNewtype Hs.Storable newtypeName
+
+        optDecls :: [Hs.Decl]
+        optDecls = [
+            Hs.DeclDeriveInstance strat clss newtypeName
+          | (strat, clss) <- translationDeriveTypedef opts
+          , clss `Set.member` insts
+          ]
 
 {-------------------------------------------------------------------------------
   Types
@@ -557,12 +880,11 @@ floatingType = \case
 -------------------------------------------------------------------------------}
 
 functionDecs ::
-     TranslationOpts
+     NameMangler
   -> Map C.CName C.Type -- ^ typedefs
-  -> NameMangler
   -> C.Function
   -> [Hs.Decl]
-functionDecs _opts typedefs nm f
+functionDecs nm typedefs f
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =

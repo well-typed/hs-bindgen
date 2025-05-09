@@ -37,7 +37,9 @@
               ufieldSourceLoc =
               "nested_unions.h:4:22"}],
           unionSourceLoc =
-          "nested_unions.h:2:15"}},
+          "nested_unions.h:2:15"},
+      newtypeInstances = Set.fromList
+        [Storable]},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 4 4))
@@ -123,7 +125,9 @@
               "nested_unions.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_unions.h:1:8"}},
+          "nested_unions.h:1:8"},
+      structInstances = Set.fromList
+        [Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -171,7 +175,9 @@
                 "nested_unions.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_unions.h:1:8"}}
+            "nested_unions.h:1:8"},
+        structInstances = Set.fromList
+          [Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -224,7 +230,9 @@
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:1:8"}})
+                    "nested_unions.h:1:8"},
+                structInstances = Set.fromList
+                  [Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -277,7 +285,9 @@
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:1:8"}}
+                    "nested_unions.h:1:8"},
+                structInstances = Set.fromList
+                  [Storable]}
               (Add 1)
               (Seq
                 [
@@ -285,14 +295,6 @@
                     (Idx 2)
                     0
                     (Idx 0)])))}),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "ExA"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "ExA"),
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -334,7 +336,9 @@
               ufieldSourceLoc =
               "nested_unions.h:11:22"}],
           unionSourceLoc =
-          "nested_unions.h:9:9"}},
+          "nested_unions.h:9:9"},
+      newtypeInstances = Set.fromList
+        [Storable]},
   DeclNewtypeInstance
     (DeriveVia
       (HsSizedByteArray 4 4))
@@ -428,7 +432,9 @@
               "nested_unions.h:12:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_unions.h:8:8"}},
+          "nested_unions.h:8:8"},
+      structInstances = Set.fromList
+        [Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -484,7 +490,9 @@
                 "nested_unions.h:12:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_unions.h:8:8"}}
+            "nested_unions.h:8:8"},
+        structInstances = Set.fromList
+          [Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -545,7 +553,9 @@
                         "nested_unions.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:8:8"}})
+                    "nested_unions.h:8:8"},
+                structInstances = Set.fromList
+                  [Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -606,19 +616,13 @@
                         "nested_unions.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:8:8"}}
+                    "nested_unions.h:8:8"},
+                structInstances = Set.fromList
+                  [Storable]}
               (Add 1)
               (Seq
                 [
                   PokeByteOff
                     (Idx 2)
                     0
-                    (Idx 0)])))}),
-  DeclNewtypeInstance
-    DeriveStock
-    Show
-    (HsName "@NsTypeConstr" "ExB"),
-  DeclNewtypeInstance
-    DeriveStock
-    Eq
-    (HsName "@NsTypeConstr" "ExB")]
+                    (Idx 0)])))})]

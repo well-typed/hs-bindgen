@@ -173,6 +173,10 @@ newtype Struct3_t = Struct3_t
 
 deriving newtype instance F.Storable Struct3_t
 
+deriving stock instance Eq Struct3_t
+
+deriving stock instance Show Struct3_t
+
 data Struct4 = Struct4
   { struct4_a :: FC.CInt
   }

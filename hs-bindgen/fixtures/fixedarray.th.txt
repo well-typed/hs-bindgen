@@ -1,6 +1,8 @@
 -- addDependentFile examples/fixedarray.h
 newtype Triple = Triple {un_Triple :: (ConstantArray 3 CInt)}
 deriving newtype instance Storable Triple
+deriving stock instance Eq Triple
+deriving stock instance Show Triple
 data Example
     = Example {example_triple :: (ConstantArray 3 CInt),
                example_sudoku :: (ConstantArray 3 (ConstantArray 3 CInt))}

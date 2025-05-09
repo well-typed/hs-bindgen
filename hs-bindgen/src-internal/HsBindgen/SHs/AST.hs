@@ -41,6 +41,9 @@ data Global =
   | Applicative_seq
   | Monad_return
   | Monad_seq
+  | StaticSize_class
+  | ReadRaw_class
+  | WriteRaw_class
   | Storable_class
   | Storable_sizeOf
   | Storable_alignment

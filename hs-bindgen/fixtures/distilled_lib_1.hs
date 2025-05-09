@@ -21,7 +21,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "alltypes.h:106:25"}},
+          "alltypes.h:106:25"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -123,7 +138,22 @@
             (PrimChar
               (PrimSignExplicit Unsigned)),
           typedefSourceLoc =
-          "alltypes.h:121:25"}},
+          "alltypes.h:121:25"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -226,7 +256,22 @@
               PrimShort
               Unsigned),
           typedefSourceLoc =
-          "alltypes.h:126:25"}},
+          "alltypes.h:126:25"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -327,7 +372,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
-          "alltypes.h:131:25"}},
+          "alltypes.h:131:25"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -480,7 +540,9 @@
               "distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
           structSourceLoc =
-          "distilled_lib_1.h:8:9"}},
+          "distilled_lib_1.h:8:9"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -556,7 +618,9 @@
                 "distilled_lib_1.h:8:32"}],
             structFlam = Nothing,
             structSourceLoc =
-            "distilled_lib_1.h:8:9"}}
+            "distilled_lib_1.h:8:9"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 8,
         storableAlignment = 4,
@@ -637,7 +701,9 @@
                         "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:8:9"}})
+                    "distilled_lib_1.h:8:9"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 4]),
@@ -720,7 +786,9 @@
                         "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:8:9"}}
+                    "distilled_lib_1.h:8:9"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 2)
               (Seq
                 [
@@ -780,7 +848,14 @@
               valueSourceLoc =
               "distilled_lib_1.h:9:21"}],
           enumSourceLoc =
-          "distilled_lib_1.h:9:9"}},
+          "distilled_lib_1.h:9:9"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -821,7 +896,9 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"}}
+            "distilled_lib_1.h:9:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 4,
         storableAlignment = 4,
@@ -867,7 +944,14 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:9:21"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:9:9"}})
+                    "distilled_lib_1.h:9:9"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -913,7 +997,9 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:9:21"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:9:9"}}
+                    "distilled_lib_1.h:9:9"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -979,7 +1065,9 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"}}
+            "distilled_lib_1.h:9:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
       (Map.fromList
         [
@@ -1026,7 +1114,9 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"}}
+            "distilled_lib_1.h:9:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FOO")
       (HsName "@NsConstr" "BAR")),
   DeclInstance
@@ -1069,7 +1159,14 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"}}),
+            "distilled_lib_1.h:9:9"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1205,7 +1302,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "distilled_lib_1.h:13:13"}},
+          "distilled_lib_1.h:13:13"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1306,7 +1418,22 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "distilled_lib_1.h:14:13"}},
+          "distilled_lib_1.h:14:13"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
@@ -1742,7 +1869,9 @@
               "distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "distilled_lib_1.h:34:16"}},
+          "distilled_lib_1.h:34:16"},
+      structInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -2101,7 +2230,9 @@
                 "distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "distilled_lib_1.h:34:16"}}
+            "distilled_lib_1.h:34:16"},
+        structInstances = Set.fromList
+          [Eq, Show, Storable]}
       StorableInstance {
         storableSizeOf = 140,
         storableAlignment = 1,
@@ -2465,7 +2596,9 @@
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:34:16"}})
+                    "distilled_lib_1.h:34:16"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]})
             [
               PeekByteOff (Idx 0) 0,
               PeekByteOff (Idx 0) 1,
@@ -2840,7 +2973,9 @@
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:34:16"}}
+                    "distilled_lib_1.h:34:16"},
+                structInstances = Set.fromList
+                  [Eq, Show, Storable]}
               (Add 11)
               (Seq
                 [
@@ -2896,10 +3031,24 @@
             (DeclPathName
               (CName "a_typedef_struct")),
           typedefSourceLoc =
-          "distilled_lib_1.h:47:3"}},
+          "distilled_lib_1.h:47:3"},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_struct_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "A_typedef_struct_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "A_typedef_struct_t"),
@@ -3076,7 +3225,14 @@
               valueSourceLoc =
               "distilled_lib_1.h:65:3"}],
           enumSourceLoc =
-          "distilled_lib_1.h:60:9"}},
+          "distilled_lib_1.h:60:9"},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Read,
+          Show,
+          Storable]},
   DeclInstance
     (InstanceStorable
       Struct {
@@ -3127,7 +3283,9 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"}}
+            "distilled_lib_1.h:60:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
         storableSizeOf = 1,
         storableAlignment = 1,
@@ -3183,7 +3341,14 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:65:3"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:60:9"}})
+                    "distilled_lib_1.h:60:9"},
+                structInstances = Set.fromList
+                  [
+                    Eq,
+                    Ord,
+                    Read,
+                    Show,
+                    Storable]})
             [PeekByteOff (Idx 0) 0]),
         storablePoke = Lambda
           (NameHint "ptr")
@@ -3239,7 +3404,9 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:65:3"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:60:9"}}
+                    "distilled_lib_1.h:60:9"},
+                structInstances = Set.fromList
+                  [Eq, Ord, Read, Show, Storable]}
               (Add 1)
               (Seq
                 [
@@ -3315,7 +3482,9 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"}}
+            "distilled_lib_1.h:60:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
       (Map.fromList
         [
@@ -3382,7 +3551,9 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"}}
+            "distilled_lib_1.h:60:9"},
+        structInstances = Set.fromList
+          [Eq, Ord, Read, Show, Storable]}
       (HsName
         "@NsConstr"
         "ENUM_CASE_0")
@@ -3439,7 +3610,14 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"}}),
+            "distilled_lib_1.h:60:9"},
+        structInstances = Set.fromList
+          [
+            Eq,
+            Ord,
+            Read,
+            Show,
+            Storable]}),
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3614,10 +3792,30 @@
               (TypeTypedef
                 (CName "uint32_t"))),
           typedefSourceLoc =
-          "distilled_lib_1.h:76:19"}},
+          "distilled_lib_1.h:76:19"},
+      newtypeInstances = Set.fromList
+        [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
     DeriveNewtype
     Storable
+    (HsName
+      "@NsTypeConstr"
+      "Callback_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Eq
+    (HsName
+      "@NsTypeConstr"
+      "Callback_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Ord
+    (HsName
+      "@NsTypeConstr"
+      "Callback_t"),
+  DeclNewtypeInstance
+    DeriveStock
+    Show
     (HsName
       "@NsTypeConstr"
       "Callback_t")]
