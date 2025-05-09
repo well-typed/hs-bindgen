@@ -6,13 +6,18 @@ module HsBindgen.Util.Parsec (
     -- * General purpose
   , Consumer(..)
   , foldTokens
+    -- * Arguments
+  , arguments
   ) where
 
-import Control.Monad
-import Data.Char (toLower)
-import Text.Parsec.Error
-import Text.Parsec.Pos
-import Text.Parsec.Prim
+import Control.Monad (guard)
+import Data.Char (isSpace, toLower)
+import Text.Parsec (Consumed (..), ParseError, ParsecT, Reply (..), SourcePos,
+                    State (..), Stream (..), anyChar, between, char, eof, many,
+                    many1, mkPT, satisfy, spaces, tokenPrim, try, unknownError,
+                    (<?>), (<|>))
+import Text.Parsec.Error (Message (..), newErrorMessage)
+import Text.Parsec.Pos (updatePosChar, updatePosString)
 
 {-------------------------------------------------------------------------------
   Character streams
@@ -131,3 +136,34 @@ _tokens' showTokens updatePos expected =
     go (t:ts) = Look { onEof   = Nothing
                      , onToken = \t' -> guard (t == t') >> return (go ts)
                      }
+
+{-------------------------------------------------------------------------------
+  Command line arguments
+-------------------------------------------------------------------------------}
+
+-- | Parse list of command line arguments honoring shell escapes.
+--
+-- Examples
+--
+-- > parse arguments "" "a b" == Right ["a", "b"]
+--
+-- > parse arguments "" "a\ b" == Right ["a b"]
+--
+-- > parse arguments "" "\"a b\"" == Right ["a b"]
+arguments :: Stream s m Char => ParsecT s u m [String]
+arguments =  many (try (spaces *> argument)) <* spaces <* eof
+
+argument, argumentPiece, insideQuotes, outsideQuotes :: Stream s m Char => ParsecT s u m String
+argument = concat <$> many1 argumentPiece
+argumentPiece = quoted insideQuotes <|> outsideQuotes
+insideQuotes = many $ satisfy (/= '\"')
+outsideQuotes = many1 (escaped anyChar <|> satisfy (not . spaceOrQuote))
+
+quoted :: Stream s m Char => ParsecT s u m String -> ParsecT s u m String
+quoted = between (char '\"') (char '\"')
+
+escaped :: Stream s m Char => ParsecT s u m Char -> ParsecT s u m Char
+escaped p = char '\\' *> p
+
+spaceOrQuote :: Char -> Bool
+spaceOrQuote c = isSpace c || c == '\"'
