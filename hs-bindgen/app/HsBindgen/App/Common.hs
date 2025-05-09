@@ -15,12 +15,10 @@ module HsBindgen.App.Common (
 import Control.Exception (Exception(displayException))
 import Data.Bifunctor (first)
 import Data.Char qualified as Char
---import Data.Default
 import Data.List qualified as List
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
---import Clang.Paths
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
@@ -217,75 +215,6 @@ parseInput =
         , long "input"
         , short 'i'
         ]
-
---{-------------------------------------------------------------------------------
---  Translation
----------------------------------------------------------------------------------}
-
---parseTranslationOpts :: Parser TranslationOpts
---parseTranslationOpts = pure defaultTranslationOpts
-
---parseHsPackageName :: Parser HsPackageName
---parseHsPackageName =
---    HsPackageName
---      <$> strOption (mconcat [
---              help "Package name for generated external bindings"
---            , metavar "NAME"
---            , long "package"
---            ])
-
---parseHsModuleOpts :: Parser HsModuleOpts
---parseHsModuleOpts =
---    HsModuleOpts
---      <$> strOption (mconcat [
---              help "Name of the generated Haskell module"
---            , metavar "NAME"
---            , long "module"
---            , showDefault
---            , value "Generated"
---            ])
-
---{-------------------------------------------------------------------------------
---  Process output
----------------------------------------------------------------------------------}
-
---parseHsRenderOpts :: Parser HsRenderOpts
---parseHsRenderOpts =
---    HsRenderOpts
---      <$> option auto (mconcat [
---              help "Maximum length line"
---            , long "render-line-length"
---            , showDefault
---            , value $ hsLineLength def
---            ])
-
---parseOutput :: Parser (Maybe FilePath)
---parseOutput =
---    optional $ strOption $ mconcat [
---        help "Output path for the Haskell module"
---      , metavar "PATH"
---      , long "output"
---      , short 'o'
---      ]
-
---parseGenTestsOutput :: Parser FilePath
---parseGenTestsOutput =
---    strOption $ mconcat [
---        help "Output directory for the test suite"
---      , metavar "PATH"
---      , long "output"
---      , short 'o'
---      , showDefault
---      , value "test-hs-bindgen"
---      ]
-
---parseGenExtBindings :: Parser FilePath
---parseGenExtBindings =
---    strOption $ mconcat [
---        help "External bindings configuration to generate"
---      , metavar "PATH"
---      , long "gen-external-bindings"
---      ]
 
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
