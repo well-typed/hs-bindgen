@@ -18,10 +18,10 @@ module HsBindgen.TH (
   , Args.targetTriple
   , Args.CStandard(..)
 
-    -- ** External bindings
-  , ExtBindings.ExtBindings -- opaque
-  , ExtBindings.emptyExtBindings
-  , loadExtBindings
+    -- ** Binding specifications
+  , BindingSpecs.BindingSpecs -- opaque
+  , BindingSpecs.emptyBindingSpecs
+  , loadBindingSpecs
   , Resolve.ResolveHeaderException(..)
 
     -- ** Translation options
@@ -55,8 +55,8 @@ import System.FilePath qualified as FilePath
 
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.C.Predicate qualified as Predicate
-import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
@@ -70,18 +70,18 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 #endif
 
 {-------------------------------------------------------------------------------
-  External bindings
+  Binding specifications
 -------------------------------------------------------------------------------}
 
--- | Load external bindings from configuration files
+-- | Load binding specifications
 --
 -- The format is determined by filename extension.  The following formats are
 -- supported:
 --
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
-loadExtBindings ::
+loadBindingSpecs ::
      Args.ClangArgs
   -> [FilePath]
-  -> TH.Q (Set Resolve.ResolveHeaderException, ExtBindings.ExtBindings)
-loadExtBindings args = TH.runIO . ExtBindings.loadExtBindings args
+  -> TH.Q (Set Resolve.ResolveHeaderException, BindingSpecs.BindingSpecs)
+loadBindingSpecs args = TH.runIO . BindingSpecs.loadBindingSpecs args

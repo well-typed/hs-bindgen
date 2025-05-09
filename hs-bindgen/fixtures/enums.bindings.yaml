@@ -1,0 +1,133 @@
+types:
+- headers: enums.h
+  cname: enum enumB
+  haskell:
+    module: Example
+    identifier: EnumB
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum enumC
+  haskell:
+    module: Example
+    identifier: EnumC
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum enumD
+  haskell:
+    module: Example
+    identifier: EnumD
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum first
+  haskell:
+    module: Example
+    identifier: First
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum nonseq
+  haskell:
+    module: Example
+    identifier: Nonseq
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum packad
+  haskell:
+    module: Example
+    identifier: Packad
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum same
+  haskell:
+    module: Example
+    identifier: Same
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enum second
+  haskell:
+    module: Example
+    identifier: Second
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enumA
+  haskell:
+    module: Example
+    identifier: EnumA
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enumB
+  haskell:
+    module: Example
+    identifier: EnumB
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enumC
+  haskell:
+    module: Example
+    identifier: EnumC
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: enums.h
+  cname: enumD_t
+  haskell:
+    module: Example
+    identifier: EnumD_t
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable

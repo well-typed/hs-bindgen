@@ -1,0 +1,95 @@
+types:
+- headers: macro_in_fundecl.h
+  cname: C
+  haskell:
+    module: Example
+    identifier: C
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: macro_in_fundecl.h
+  cname: F
+  haskell:
+    module: Example
+    identifier: F
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Read
+  - Show
+  - Floating
+  - Fractional
+  - Num
+  - Real
+  - RealFloat
+  - RealFrac
+  - Storable
+- headers: macro_in_fundecl.h
+  cname: I
+  haskell:
+    module: Example
+    identifier: I
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: macro_in_fundecl.h
+  cname: L
+  haskell:
+    module: Example
+    identifier: L
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: macro_in_fundecl.h
+  cname: S
+  haskell:
+    module: Example
+    identifier: S
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable

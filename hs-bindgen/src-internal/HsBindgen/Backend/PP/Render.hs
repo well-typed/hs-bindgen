@@ -22,8 +22,8 @@ import Numeric (showHex)
 
 import HsBindgen.Backend.PP.Names
 import HsBindgen.Backend.PP.Translation
+import HsBindgen.BindingSpecs
 import HsBindgen.C.AST.Literal (canBeRepresentedAsRational)
-import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type (HsPrimType(..))
@@ -187,7 +187,7 @@ prettyType env prec = \case
     TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
     TLit n -> showToCtxDoc n
-    TExt i _ctype -> pretty i
+    TExt ExtType{..} _ctype -> pretty extTypeHaskell
     TApp c x -> parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
     TFun a b -> parensWhen (prec > 0) $
@@ -490,18 +490,18 @@ ppInfixBackendName = \case
     bticksWhen True  d = hcat [char '`', d, char '`']
 
 {-------------------------------------------------------------------------------
-  ExtIdentifier pretty-printing
+  External binding pretty-printing
 -------------------------------------------------------------------------------}
+
+instance Pretty HsRef where
+  pretty HsRef{..} =
+    hcat [pretty hsRefModule, char '.', pretty hsRefIdentifier]
 
 instance Pretty HsModuleName where
   pretty = string . Text.unpack . getHsModuleName
 
 instance Pretty HsIdentifier where
   pretty = string . Text.unpack . getHsIdentifier
-
-instance Pretty ExtIdentifier where
-  pretty ExtIdentifier{..} =
-    hcat [pretty extIdentifierModule, char '.', pretty extIdentifierIdentifier]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

@@ -1,0 +1,12 @@
+types:
+- headers: uses_utf8.h
+  cname: enum MyEnum
+  haskell:
+    module: Example
+    identifier: MyEnum
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable

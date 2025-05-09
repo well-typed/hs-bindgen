@@ -25,8 +25,8 @@ module HsBindgen.Pipeline (
   , genBindingsFromCHeader
   , genBindings'
 
-    -- * External bindings generation
-  , genExtBindings
+    -- * Binding specifications generation
+  , genBindingSpecs
 
     -- * Test generation
   , genTests
@@ -45,12 +45,12 @@ import HsBindgen.Backend.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
+import HsBindgen.BindingSpecs
+import HsBindgen.BindingSpecs.Gen qualified as GenBindingSpecs
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Parser qualified as C
 import HsBindgen.C.Predicate (Predicate(..))
 import HsBindgen.Errors
-import HsBindgen.ExtBindings
-import HsBindgen.ExtBindings.Gen qualified as GenExtBindings
 import HsBindgen.GenTests qualified as GenTests
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.NameMangler (NameMangler)
@@ -70,25 +70,25 @@ import HsBindgen.ModuleUnique
 
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
-      optsClangArgs   :: ClangArgs
-    , optsExtBindings :: ExtBindings
-    , optsTranslation :: Hs.TranslationOpts
-    , optsNameMangler :: NameMangler
-    , optsPredicate   :: Predicate
-    , optsDiagTracer  :: Tracer IO String
-    , optsSkipTracer  :: Tracer IO String
+      optsClangArgs       :: ClangArgs
+    , optsExtBindingSpecs :: BindingSpecs
+    , optsTranslation     :: Hs.TranslationOpts
+    , optsNameMangler     :: NameMangler
+    , optsPredicate       :: Predicate
+    , optsDiagTracer      :: Tracer IO String
+    , optsSkipTracer      :: Tracer IO String
     }
 
 -- | Default 'Opts'
 defaultOpts :: Opts
 defaultOpts = Opts {
-      optsClangArgs   = defaultClangArgs
-    , optsExtBindings = emptyExtBindings
-    , optsTranslation = Hs.defaultTranslationOpts
-    , optsNameMangler = nameMangler
-    , optsPredicate   = SelectFromMainFile
-    , optsDiagTracer  = nullTracer
-    , optsSkipTracer  = nullTracer
+      optsClangArgs       = defaultClangArgs
+    , optsExtBindingSpecs = emptyBindingSpecs
+    , optsTranslation     = Hs.defaultTranslationOpts
+    , optsNameMangler     = nameMangler
+    , optsPredicate       = SelectFromMainFile
+    , optsDiagTracer      = nullTracer
+    , optsSkipTracer      = nullTracer
     }
   where
     -- TODO: Make it possible to specify overrides through the CLI
@@ -122,8 +122,11 @@ parseCHeader Opts{..} headerIncludePath =
       (contramap prettyLogMsg optsSkipTracer)
       optsClangArgs
       optsPredicate
-      optsExtBindings
+      extBindingSpecs
       [headerIncludePath]
+  where
+    extBindingSpecs :: IBindingSpecs SourcePath
+    BindingSpecs extBindingSpecs = optsExtBindingSpecs
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> C.Header -> [Hs.Decl]
@@ -232,20 +235,20 @@ genBindings' quoteIncPathDirs = genBindings defaultOpts {
     }
 
 {-------------------------------------------------------------------------------
-  External bindings generation
+  Binding specifications generation
 -------------------------------------------------------------------------------}
 
--- | Generate external bindings configuration
-genExtBindings ::
+-- | Generate binding specifications
+genBindingSpecs ::
      PPOpts
   -> CHeaderIncludePath
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genExtBindings PPOpts{..} headerIncludePath path =
+genBindingSpecs PPOpts{..} headerIncludePath path =
         either (throwIO . HsBindgenException) return
-    <=< writeUnresolvedExtBindings path
-    .   GenExtBindings.genExtBindings headerIncludePath moduleName
+    <=< writeBindingSpecsFile path
+    .   GenBindingSpecs.genBindingSpecs headerIncludePath moduleName
   where
     moduleName :: HsModuleName
     moduleName = HsModuleName $ Text.pack (hsModuleOptsName ppOptsModule)

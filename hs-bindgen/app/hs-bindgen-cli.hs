@@ -34,10 +34,10 @@ instance Exception LiterateFileException where
 execMode :: Cli -> Tracer IO String -> Mode -> IO ()
 execMode Cli{..} tracer = \case
     ModePreprocess{..} -> do
-      extBindings <- loadExtBindings' tracer cliGlobalOpts
+      extBindingSpecs <- loadExtBindingSpecs' tracer cliGlobalOpts
       let opts = cmdOpts {
-              optsExtBindings = extBindings
-            , optsTranslation = preprocessTranslationOpts
+              optsExtBindingSpecs = extBindingSpecs
+            , optsTranslation     = preprocessTranslationOpts
             }
           ppOpts = defaultPPOpts {
               ppOptsModule = preprocessModuleOpts
@@ -50,14 +50,14 @@ execMode Cli{..} tracer = \case
           mu = ModuleUnique $ hsModuleOptsName $ preprocessModuleOpts
       decls <- translateCHeader mu opts preprocessInput
       preprocessIO ppOpts preprocessOutput decls
-      case preprocessGenExtBindings of
+      case preprocessGenBindingSpecs of
         Nothing   -> return ()
-        Just path -> genExtBindings ppOpts preprocessInput path decls
+        Just path -> genBindingSpecs ppOpts preprocessInput path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings' tracer cliGlobalOpts
+      extBindingSpecs <- loadExtBindingSpecs' tracer cliGlobalOpts
       let opts = defaultOpts {
-              optsExtBindings = extBindings
+              optsExtBindingSpecs = extBindingSpecs
             }
           ppOpts = defaultPPOpts {
               ppOptsModule = genTestsModuleOpts

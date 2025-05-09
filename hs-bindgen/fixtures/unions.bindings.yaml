@@ -1,0 +1,61 @@
+types:
+- headers: unions.h
+  cname: DimPayloadB
+  haskell:
+    module: Example
+    identifier: DimPayloadB
+  instances:
+  - Storable
+- headers: unions.h
+  cname: struct Dim
+  haskell:
+    module: Example
+    identifier: Dim
+  instances:
+  - Storable
+- headers: unions.h
+  cname: struct Dim2
+  haskell:
+    module: Example
+    identifier: Dim2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: unions.h
+  cname: struct Dim3
+  haskell:
+    module: Example
+    identifier: Dim3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: unions.h
+  cname: struct DimB
+  haskell:
+    module: Example
+    identifier: DimB
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union AnonA
+  haskell:
+    module: Example
+    identifier: AnonA
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union DimPayload
+  haskell:
+    module: Example
+    identifier: DimPayload
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union DimPayloadB
+  haskell:
+    module: Example
+    identifier: DimPayloadB
+  instances:
+  - Storable
