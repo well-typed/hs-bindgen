@@ -176,14 +176,12 @@
                     arrayStatic = False,
                     arrayTypeQualifiers = [],
                     arraySize = ArraySize
-                      (SizeExpression
-                        (MTerm
-                          (MInt
-                            IntegerLiteral {
-                              integerLiteralText = "2",
-                              integerLiteralType = Just
-                                (_×_ PrimInt Signed),
-                              integerLiteralValue = 2}))),
+                      (MTerm
+                        (MInt
+                          IntegerLiteral {
+                            integerLiteralText = "2",
+                            integerLiteralType = Int Signed,
+                            integerLiteralValue = 2})),
                     arrayAttributes = []}})},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
@@ -246,14 +244,12 @@
                     arrayStatic = False,
                     arrayTypeQualifiers = [],
                     arraySize = ArraySize
-                      (SizeExpression
-                        (MTerm
-                          (MInt
-                            IntegerLiteral {
-                              integerLiteralText = "3",
-                              integerLiteralType = Just
-                                (_×_ PrimInt Signed),
-                              integerLiteralValue = 3}))),
+                      (MTerm
+                        (MInt
+                          IntegerLiteral {
+                            integerLiteralText = "3",
+                            integerLiteralType = Int Signed,
+                            integerLiteralValue = 3})),
                     arrayAttributes = []}})},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
@@ -326,14 +322,12 @@
                             arrayStatic = False,
                             arrayTypeQualifiers = [],
                             arraySize = ArraySize
-                              (SizeExpression
-                                (MTerm
-                                  (MInt
-                                    IntegerLiteral {
-                                      integerLiteralText = "4",
-                                      integerLiteralType = Just
-                                        (_×_ PrimInt Signed),
-                                      integerLiteralValue = 4}))),
+                              (MTerm
+                                (MInt
+                                  IntegerLiteral {
+                                    integerLiteralText = "4",
+                                    integerLiteralType = Int Signed,
+                                    integerLiteralValue = 4})),
                             arrayAttributes = []}},
                     functionParameters = [
                       Parameter {
@@ -896,28 +890,24 @@
                                         arrayStatic = False,
                                         arrayTypeQualifiers = [],
                                         arraySize = ArraySize
-                                          (SizeExpression
-                                            (MTerm
-                                              (MInt
-                                                IntegerLiteral {
-                                                  integerLiteralText = "8",
-                                                  integerLiteralType = Just
-                                                    (_×_ PrimInt Signed),
-                                                  integerLiteralValue = 8}))),
+                                          (MTerm
+                                            (MInt
+                                              IntegerLiteral {
+                                                integerLiteralText = "8",
+                                                integerLiteralType = Int Signed,
+                                                integerLiteralValue = 8})),
                                         arrayAttributes = []}}}],
                             functionVariadic = False,
                             functionAttributes = []}},
                     arrayStatic = False,
                     arrayTypeQualifiers = [],
                     arraySize = ArraySize
-                      (SizeExpression
-                        (MTerm
-                          (MInt
-                            IntegerLiteral {
-                              integerLiteralText = "2",
-                              integerLiteralType = Just
-                                (_×_ PrimInt Signed),
-                              integerLiteralValue = 2}))),
+                      (MTerm
+                        (MInt
+                          IntegerLiteral {
+                            integerLiteralText = "2",
+                            integerLiteralType = Int Signed,
+                            integerLiteralValue = 2})),
                     arrayAttributes = []}})},
       newtypeInstances = Set.fromList
         []},
@@ -1269,7 +1259,8 @@
           macroBody = TypeMacro
             (TypeName
               (TypeDefTypeSpecifier
-                (CName "UINT8_T"))
+                (CName "UINT8_T")
+                NormalTypedef)
               []
               Declarator {
                 declaratorPointer = Pointers [],

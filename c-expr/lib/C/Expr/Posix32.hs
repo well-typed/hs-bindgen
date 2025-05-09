@@ -4,6 +4,9 @@
 
 {-# OPTIONS_GHC -Wno-orphans -Wno-unused-matches #-}
 
+-- Some options to make this module faster to compile
+{-# OPTIONS_GHC -O0 -fmax-pmcheck-models=1 #-}
+
 module C.Expr.Posix32
   ( module C.Operator.Classes
   , module C.Expr.Posix32

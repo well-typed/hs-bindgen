@@ -202,7 +202,7 @@ deriving stock instance Show Struct4
 
 deriving stock instance Eq Struct4
 
--- void struct_typedef1 (struct2 *arg1, MC arg2)
+-- void struct_typedef1 (struct <anon> *arg1, MC arg2)
 
 foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
 

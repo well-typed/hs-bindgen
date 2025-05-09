@@ -68,6 +68,7 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
         , golden "distilled_lib_1"
         , golden "flam"
         , golden "typenames"
+        , golden "type_naturals"
         , golden "bool"
         , golden "anonymous"
         , golden "simple_func"

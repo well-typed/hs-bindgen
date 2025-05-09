@@ -5,16 +5,20 @@ module HsBindgen.C.AST.Macro (
     -- * Definition
     Macro(..)
   , MacroBody(..)
+  , Pass(..)
     -- ** Expressions
   , MExpr(..)
   , MFun(..)
   , MTerm(..)
+  , ValSType(..), Value(..), FunValue(..)
+  , XApp(..), XVar(..)
     -- * Classification
   , isIncludeGuard
   ) where
 
 import Data.Char (toUpper)
 import Data.GADT.Compare (GEq(geq))
+import Data.Kind qualified as Hs
 import Data.Nat (Nat(..))
 import Data.Vec.Lazy (Vec(..))
 import Data.String
@@ -32,40 +36,46 @@ import HsBindgen.Util.TestEquality
   ( equals1 )
 
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl
+import HsBindgen.C.Tc.Macro.Type
 import Data.Type.Nat qualified as Nat
+import Data.Proxy
+import Data.Vec.Lazy qualified as Vec
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-data Macro = Macro {
+type Macro :: Pass -> Hs.Type
+data Macro p = Macro {
       macroLoc  :: MultiLoc
     , macroName :: CName
     , macroArgs :: [CName]
-    , macroBody :: MacroBody
+    , macroBody :: MacroBody p
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock Generic
+deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Macro p )
+deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Macro p )
 
 {-------------------------------------------------------------------------------
   Expressions
 -------------------------------------------------------------------------------}
 
--- | Body of a function-like macro
-data MacroBody
+-- | Body of a C macro
+type MacroBody :: Pass -> Hs.Type
+data MacroBody p
   -- | Empty macro body
   = EmptyMacro
   -- | A term-level (expression) macro
   --
   -- NB: this may be an integer expression, which
   -- we can use at the type level as well (e.g. in the size of an array)
-  | ExpressionMacro MExpr
-  -- | A macro that defines a type.
-  --
-  -- See Note [Macros defining types]
+  | ExpressionMacro ( MExpr p )
+  -- | A macro that defines a type
   | TypeMacro TypeName
   -- | A macro that defines attributes
   | AttributeMacro [AttributeSpecifier]
-  deriving stock ( Eq, Show )
+deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MacroBody p )
+deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( MacroBody p )
 
 {- Note [Macros defining types]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,21 +121,32 @@ For the time being, we accept macros defining such type names.
 -}
 
 -- | Macro expression
-data MExpr
+type MExpr :: Pass -> Hs.Type
+data MExpr p
   -- | A term that is not a function application.
-  = MTerm MTerm
+  = MTerm ( MTerm p )
   -- | Exactly saturated non-nullary function application.
-  | forall n. MApp ( MFun ( S n ) ) ( Vec ( S n ) MExpr )
-deriving stock instance Show MExpr
+  | forall n. MApp !( XApp p ) ( MFun ( S n ) ) ( Vec ( S n ) ( MExpr p ) )
+deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( MExpr p )
 
-instance Eq MExpr where
+instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MExpr p ) where
   MTerm m1 == MTerm m2 = m1 == m2
-  MApp f1 args1 == MApp f2 args2
+  MApp x1 f1 args1 == MApp x2 f2 args2
     | Just Refl <- f1 `equals1` f2
-    = args1 == args2
+    = x1 == x2 && args1 == args2
     | otherwise
     = False
   _ == _ = False
+instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MExpr p ) where
+  compare ( MTerm m1 ) ( MTerm m2 ) = compare m1 m2
+  compare ( MApp @_ @n1 x1 f1 args1 ) ( MApp @_ @n2 x2 f2 args2 ) =
+    Vec.withDict args1 $ Vec.withDict args2 $
+    case Nat.eqNat @( S n1 ) @( S n2 ) of
+      Just Refl -> compare f1 f2 <> compare x1 x2 <> compare args1 args2
+      Nothing ->
+        compare ( Nat.reflect @( S n1 ) Proxy ) ( Nat.reflect @( S n2 ) Proxy )
+  compare (MTerm {}) (MApp {}) = LT
+  compare (MApp {}) (MTerm {}) = GT
 
 data MFun arity where
   -- | @+@
@@ -180,6 +201,7 @@ data MFun arity where
 
 deriving stock instance Show ( MFun arity )
 deriving stock instance Eq   ( MFun arity )
+deriving stock instance Ord  ( MFun arity )
 
 instance GEq MFun where
   geq MUnaryPlus  MUnaryPlus  = Just Refl
@@ -209,7 +231,8 @@ instance GEq MFun where
     = Just Refl
   geq _           _           = Nothing
 
-data MTerm =
+type MTerm :: Pass -> Hs.Type
+data MTerm p =
 
     -- | Integer literal
     MInt IntegerLiteral
@@ -225,8 +248,8 @@ data MTerm =
 
     -- | Variable or function/macro call
     --
-    -- This might be a macro argument, or another marco.
-  | MVar CName [MExpr]
+    -- This might be a macro argument, or another macro.
+  | MVar ( XVar p ) CName [MExpr p]
 
     -- | Stringizing
     --
@@ -242,14 +265,17 @@ data MTerm =
     --
     -- * Section 6.10.3.3, "The ## operator" of the spec
     -- * <https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html>
-  | MConcat MTerm MTerm
-  deriving stock (Show, Eq, Generic)
+  | MConcat ( MTerm p ) ( MTerm p )
+  deriving stock Generic
+deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MTerm p )
+deriving stock instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MTerm p )
+deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( MTerm p )
 
 {-------------------------------------------------------------------------------
   Classification
 -------------------------------------------------------------------------------}
 
-isIncludeGuard :: Macro -> Bool
+isIncludeGuard :: Macro p -> Bool
 isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
     and [
         macroName `elem` includeGuards

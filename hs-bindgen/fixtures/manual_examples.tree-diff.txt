@@ -161,8 +161,7 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "4",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
+                  integerLiteralType = Int Signed,
                   integerLiteralValue = 4}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
@@ -184,8 +183,8 @@ Header
               (MFloat
                 FloatingLiteral {
                   floatingLiteralText = "0.1",
-                  floatingLiteralType = Just
-                    PrimDouble,
+                  floatingLiteralType =
+                  DoubleType,
                   floatingLiteralFloatValue = 0.1,
                   floatingLiteralDoubleValue =
                   0.1}))},
@@ -209,13 +208,13 @@ Header
             (MApp
               MAdd
               [
-                MTerm (MVar (CName "ptr") []),
+                MTerm
+                  (MVar NoXVar (CName "ptr") []),
                 MTerm
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "4",
-                      integerLiteralType = Just
-                        (_×_ PrimInt Signed),
+                      integerLiteralType = Int Signed,
                       integerLiteralValue = 4})])},
         macroDeclMacroTy =
         "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))",

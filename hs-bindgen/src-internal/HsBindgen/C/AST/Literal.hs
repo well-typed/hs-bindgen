@@ -12,9 +12,9 @@ module HsBindgen.C.AST.Literal (
 import Data.Bits
 
 import C.Char qualified as C
+import C.Type qualified
 
 import HsBindgen.Imports
-import HsBindgen.C.AST.Type
 
 {-------------------------------------------------------------------------------
   Integer literals
@@ -31,13 +31,12 @@ data IntegerLiteral =
       integerLiteralText  :: Text
 
       -- | The type of the integer literal, as determined from suffixes.
-    , integerLiteralType  :: Maybe (PrimIntType, PrimSign)
-        -- TODO: re-use 'IntegralType' from @c-expr@ library.
+    , integerLiteralType  :: C.Type.IntLikeType
 
       -- | The (parsed) value of the literal
     , integerLiteralValue :: Integer
     }
-  deriving stock ( Eq, Show, Generic )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 {-------------------------------------------------------------------------------
   Floating-point literals
@@ -52,7 +51,7 @@ data FloatingLiteral =
       floatingLiteralText  :: Text
 
       -- | The type of the floating-point literal, as determined from suffixes.
-    , floatingLiteralType  :: Maybe PrimFloatType
+    , floatingLiteralType  :: C.Type.FloatingType
 
       -- | The (parsed) value of the literal, when parsed as a single precision
       -- floating-point value.
@@ -62,7 +61,7 @@ data FloatingLiteral =
       -- floating-point value.
     , floatingLiteralDoubleValue :: Double
     }
-  deriving stock ( Eq, Show, Generic )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 {-# SPECIALISE canBeRepresentedAsRational :: Float -> Bool #-}
 {-# SPECIALISE canBeRepresentedAsRational :: Double -> Bool #-}
@@ -87,14 +86,14 @@ data CharLiteral =
     { charLiteralText :: Text
     , charLiteralValue :: C.CharValue
     }
-  deriving stock ( Eq, Show, Generic )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 data StringLiteral =
   StringLiteral
     { stringLiteralText :: Text
     , stringLiteralValue :: [ C.CharValue ]
     }
-  deriving stock ( Eq, Show, Generic )
+  deriving stock ( Eq, Ord, Show, Generic )
 
 fromBytes :: Bits i => [i] -> i
 fromBytes = foldl' (\ acc b -> ( acc `shiftL` 8 ) .|. b) zeroBits

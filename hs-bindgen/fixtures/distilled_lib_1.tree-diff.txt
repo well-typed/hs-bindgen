@@ -102,8 +102,7 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "5",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
+                  integerLiteralType = Int Signed,
                   integerLiteralValue = 5}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
@@ -125,8 +124,7 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "3",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
+                  integerLiteralType = Int Signed,
                   integerLiteralValue = 3}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
@@ -149,8 +147,7 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "4",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
+                  integerLiteralType = Int Signed,
                   integerLiteralValue = 4}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
@@ -184,6 +181,7 @@ Header
           macroBody = ExpressionMacro
             (MTerm
               (MVar
+                NoXVar
                 (CName "_Pragma")
                 [
                   MTerm
@@ -241,6 +239,7 @@ Header
           macroBody = ExpressionMacro
             (MTerm
               (MVar
+                NoXVar
                 (CName "_Pragma")
                 [
                   MTerm
@@ -379,7 +378,14 @@ Header
             fieldOffset = 256,
             fieldWidth = Nothing,
             fieldType = TypeConstArray
-              7
+              Size {
+                size = 7,
+                sizeExpression = MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "7",
+                      integerLiteralType = Size,
+                      integerLiteralValue = 7})}
               (TypeTypedef
                 (CName "uint32_t")),
             fieldSourceLoc =
@@ -400,7 +406,13 @@ Header
             fieldOffset = 512,
             fieldWidth = Nothing,
             fieldType = TypeConstArray
-              4
+              Size {
+                size = 4,
+                sizeExpression = MTerm
+                  (MVar
+                    NoXVar
+                    (CName "SOME_DEFINED_CONSTANT")
+                    [])}
               (TypeEnum
                 (DeclPathAnon
                   (DeclPathCtxtTypedef
@@ -413,9 +425,15 @@ Header
             fieldOffset = 640,
             fieldWidth = Nothing,
             fieldType = TypeConstArray
-              5
+              Size {
+                size = 5,
+                sizeExpression = MTerm
+                  (MVar NoXVar (CName "A") [])}
               (TypeConstArray
-                3
+                Size {
+                  size = 3,
+                  sizeExpression = MTerm
+                    (MVar NoXVar (CName "B") [])}
                 (TypeEnum
                   (DeclPathAnon
                     (DeclPathCtxtTypedef
@@ -451,8 +469,7 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0x00",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
+                  integerLiteralType = Int Signed,
                   integerLiteralValue = 0}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
@@ -474,8 +491,8 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "0x5050U",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Unsigned),
+                  integerLiteralType = Int
+                    Unsigned,
                   integerLiteralValue = 20560}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Unsigned)))",
@@ -497,8 +514,7 @@ Header
               (MInt
                 IntegerLiteral {
                   integerLiteralText = "2",
-                  integerLiteralType = Just
-                    (_×_ PrimInt Signed),
+                  integerLiteralType = Int Signed,
                   integerLiteralValue = 2}))},
         macroDeclMacroTy =
         "IntLike (CIntegralType (IntLike (Int Signed)))",
@@ -523,15 +539,13 @@ Header
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "0x3456",
-                      integerLiteralType = Just
-                        (_×_ PrimInt Signed),
+                      integerLiteralType = Int Signed,
                       integerLiteralValue = 13398}),
                 MTerm
                   (MInt
                     IntegerLiteral {
                       integerLiteralText = "0x789A",
-                      integerLiteralType = Just
-                        (_×_ PrimInt Signed),
+                      integerLiteralType = Int Signed,
                       integerLiteralValue =
                       30874})])},
         macroDeclMacroTy =

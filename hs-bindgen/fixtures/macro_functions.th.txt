@@ -17,7 +17,7 @@ fUN2 :: forall a_0 b_1 . (Mult CULLong b_1,
                           (~) (IntLike b_1) (MultRes CULLong b_1)) =>
         IntLike a_0 -> b_1 -> ShiftRes (IntLike a_0)
 fUN2 = \x_0 -> \y_1 -> (<<) x_0 ((*) (3 :: CULLong) y_1)
-g :: forall a_0 b_1 . Add b_1 CInt => a_0 -> b_1 -> AddRes b_1 CInt
+g :: forall a_0 b_1 . Add a_0 CInt => b_1 -> a_0 -> AddRes a_0 CInt
 g = \x_0 -> \y_1 -> cONST (iNCR y_1) (iD x_0)
 dIV1 :: forall a_0 b_1 . (Add b_1 CUInt,
                           Div a_0 (AddRes b_1 CUInt)) =>

@@ -4,6 +4,8 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
 {-# LANGUAGE ViewPatterns #-}
 
+{-# LANGUAGE BangPatterns #-}
+
 module C.Operator.TH
   (
 
@@ -17,7 +19,7 @@ module C.Operator.TH
   , AssocTyFam(..), AssocTyFamArgs(..)
 
   -- * Generating proofs
-  , genInstanceProofs
+  , withInstanceProofs
 
   ) where
 
@@ -38,7 +40,7 @@ import Data.List.NonEmpty
 
 import qualified Data.List.NonEmpty as NE
 import Data.Maybe
-  ( fromJust, maybeToList, catMaybes, mapMaybe )
+  ( fromJust, maybeToList, mapMaybe )
 import Data.Proxy
   ( Proxy(..) )
 import Data.Type.Equality
@@ -78,9 +80,6 @@ import C.Type
 import C.Type.Internal.Universe
 import C.Operator.Internal
   ( OpImpl(..), Conversion(..) )
-import Data.IORef
-import System.IO.Unsafe (unsafePerformIO)
-import Control.Monad.IO.Class
 
 --------------------------------------------------------------------------------
 -- Type families
@@ -220,15 +219,6 @@ data AssocTyFamArgs
   | FirstArgOnly
 
 
--- | 'IORef' to accumulate instance proofs (see 'genInstanceProofs ')
---
--- This is an 'IORef' in order to support accumulating all the clauses of a
--- function declaration for all the instances we define in a module, and
--- emitting a single function declaration with all those clauses at the end.
-instanceProofEqnsRef :: IORef [ ( TH.Name, ( TH.Type, TH.Clause ) ) ]
-instanceProofEqnsRef = unsafePerformIO $ newIORef []
-{-# NOINLINE instanceProofEqnsRef #-}
-
 -- | Generate TH declarations for a collection of instances of a unary class,
 -- where the argument ranges over all supported types.
 genUnaryInstances
@@ -240,7 +230,7 @@ genUnaryInstances
      -- ^ function computing the result type and implementation strategy
   -> [ ClassMethod ]
      -- ^ class methods
-  -> TH.Q [ TH.Dec ]
+  -> TH.Q ( [ TH.Dec ], [ ( TH.Name, ( TH.Type, TH.Clause ) ) ] )
 genUnaryInstances cls fam f = genClassInstances @( S Z ) cls fam ( \ ( a ::: VNil ) -> f a )
 
 -- | Generate TH declarations for a collection of instances of a binary class,
@@ -254,7 +244,7 @@ genBinaryInstances
      -- ^ function computing the result type and implementation strategy
   -> [ ClassMethod ]
      -- ^ class methods
-  -> TH.Q [ TH.Dec ]
+  -> TH.Q ( [ TH.Dec ], [ ( TH.Name, ( TH.Type, TH.Clause ) ) ] )
 genBinaryInstances cls fam f =
   genClassInstances @( S ( S Z ) ) cls fam ( \ ( a ::: b ::: VNil ) -> f a b )
 
@@ -271,29 +261,27 @@ genClassInstances
      -- ^ function computing the result type and implementation strategy
   -> [ ClassMethod ]
      -- ^ class methods
-  -> TH.Q [ TH.Dec ]
+  -> TH.Q ( [ TH.Dec ], [ ( TH.Name, ( TH.Type, TH.Clause ) ) ] )
 genClassInstances cls fam resTyFn meths = do
   instDecs0 <-
     sequence
-      [ ( argTys , ) <$> genInstance cls ( case fam of { Left {} -> Nothing; Right tf -> Just tf } ) argTys opImpl meths
+      [ ( argTys , ) <$> genInstance cls ( case fam of { Left {} -> Nothing; Right tf -> Just tf } ) argTys resTy opImpl meths
       | argTys <- map mkNames $ enumerateTypeTuples @n
-      , ( _resTy, opImpl ) <- maybeToList $ resTyFn argTys
+      , ( resTy, opImpl ) <- maybeToList $ resTyFn argTys
       ]
   let instDecs = discardSubsumed instDecs0
       ( insts, singFuns ) = unzip instDecs
-  liftIO $ atomicModifyIORef' instanceProofEqnsRef $ \ old ->
-    ( old ++ map ( \ ( nm, c ) -> ( nm, ( proveType ( Fin.reflectToNum @n Proxy ) fam, c ) ) ) ( concat singFuns )
-    , () )
-  return insts
+  return
+    ( insts, map ( \ ( nm, c ) -> ( nm, ( proveType ( Fin.reflectToNum @n Proxy ) fam, c ) ) ) ( concat singFuns ) )
 
 -- | Generate singletons that prove the availability of instances.
 --
--- Example: @singAdd :: SType ty1 -> SType ty2 -> (ty1 -> ty2 -> AddRes ty1 ty2)@.
-genInstanceProofs :: TH.Q [ TH.Dec ]
-genInstanceProofs = do
-  singFuns <- liftIO $ readIORef instanceProofEqnsRef
+-- Example: @singAdd :: SType ty1 -> SType ty2 -> (SType (AddRes ty1 ty2), ty1 -> ty2 -> AddRes ty1 ty2)@.
+withInstanceProofs :: [ TH.Q ( [ TH.Dec ], [ ( TH.Name, ( TH.Type, TH.Clause ) ) ] ) ] -> TH.Q [ TH.Dec ]
+withInstanceProofs inner = do
+  ( decs, singFuns ) <- unzip <$> sequence inner
   return $
-    concatMap funDecl ( groupBy ( (==) `on` fst ) $ sortOn fst singFuns )
+    concat decs ++ concatMap funDecl ( groupBy ( (==) `on` fst ) $ sortOn fst $ concat singFuns )
   where
     funDecl :: NE.NonEmpty ( TH.Name, ( TH.Type, TH.Clause ) ) -> [ TH.Dec ]
     funDecl ( ( nm, ( ty, c ) ) NE.:| cs ) =
@@ -322,6 +310,11 @@ discardSubsumed insts = Map.elems $ Map.filterWithKey keepInst allInsts
       | otherwise
       = True
 
+-- | The type of one of the "prove" functions.
+--
+-- Example:
+--
+-- @singAdd :: SType rec ty1 -> SType rec ty2 -> ( SType rec ( AddRes ty1 ty2 ), ty1 -> ty2 -> AddRes ty1 ty2 )@
 proveType :: Int -> Either TH.Type AssocTyFam -> TH.Type
 proveType nbArgs resFam =
   TH.ForallT
@@ -334,17 +327,19 @@ proveType nbArgs resFam =
     mkFunTy [] res = res
     mkFunTy (a:as) res = TH.ArrowT `TH.AppT` a `TH.AppT` (mkFunTy as res)
 
+    resTy =
+      case resFam of
+        Left ty -> ty
+        Right AssocTyFam
+          { assocTyFamName = famNm
+          , assocTyFamArgs = famArgs
+          } -> case famArgs of
+            SameArgs     -> foldl' TH.AppT ( TH.ConT famNm ) ( map TH.VarT tvs )
+            FirstArgOnly -> ( TH.ConT famNm ) `TH.AppT` ( TH.VarT $ TH.mkName "ty_1" )
+
     go i
       | i > nbArgs
-      = mkFunTy ( map TH.VarT tvs ) $
-          case resFam of
-            Left resTy -> resTy
-            Right AssocTyFam
-              { assocTyFamName = famNm
-              , assocTyFamArgs = famArgs
-              } -> case famArgs of
-                SameArgs     -> foldl' TH.AppT ( TH.ConT famNm ) ( map TH.VarT tvs )
-                FirstArgOnly -> ( TH.ConT famNm ) `TH.AppT` ( TH.VarT $ TH.mkName "ty_1" )
+      = TH.TupleT 2 `TH.AppT` mkSingTy resTy `TH.AppT` ( mkFunTy ( map TH.VarT tvs ) resTy )
       | otherwise
       = TH.ArrowT `TH.AppT` ( mkSingTy $ TH.VarT ( TH.mkName $ "ty_" ++ show i ) ) `TH.AppT` go ( i + 1 )
 
@@ -357,12 +352,14 @@ genInstance
      -- ^ optional associated type family definition
   -> Vec n ( Type TH.Name )
      -- ^ class instance argument types
+  -> Type TH.Name
+     -- ^ result type
   -> OpImpl n
      -- ^ class instance implementation strategy
   -> [ ClassMethod ]
      -- ^ class methods
   -> TH.Q ( TH.Dec, [ ( TH.Name, TH.Clause ) ] )
-genInstance cls fam argTys methImpl meths = do
+genInstance cls fam argTys resTy methImpl meths = do
   let clsTy :: TH.Type
       clsTy = mkTcApp cls argTys
       famDecs :: [ TH.Dec ]
@@ -400,7 +397,7 @@ genInstance cls fam argTys methImpl meths = do
         --
         -- instance Sub (Ptr ty1) (Ptr ty2) where
         --   (-) (x :: Ptr ty1) (y :: Ptr ty2) = ... @(SubRes (Ptr ty1) (Ptr ty2))
-        [ ( TH.FunD meth  [ TH.Clause ( map ( \ ( arg, ty ) -> TH.SigP ( TH.VarP arg ) ( mkType ty ) ) args ) ( TH.NormalB body ) [ ] ]
+        [ ( TH.FunD meth [ TH.Clause ( map ( \ ( arg, ty ) -> TH.SigP ( TH.VarP arg ) ( mkType ty ) ) args ) ( TH.NormalB body ) [ ] ]
           , ( proveNm,
                 TH.Clause provePats
                   ( case mbProveGuard of
@@ -423,7 +420,7 @@ genInstance cls fam argTys methImpl meths = do
 
               proveNm = TH.mkName proveStr
               ( provePats, mbProveGuard ) = mkSingPats ( toList argTys )
-              proveRes = TH.VarE meth
+              proveRes = TH.TupE [ Just ( mkSingExp resTy ), Just $ TH.VarE meth ]
 
               mkConversions :: [ Conversion ] -> TH.Exp -> TH.Exp
               mkConversions [] e = e
@@ -508,11 +505,16 @@ mkSingTy :: TH.Type -> TH.Type
 mkSingTy ty = ( TH.ConT ''SType ) `TH.AppT` TH.VarT ( TH.mkName "rec" ) `TH.AppT` ty
 
 mkSingPats :: [ Type TH.Name ] -> ( [ TH.Pat ], Maybe TH.Guard )
-mkSingPats tys = ( zipWith mkOne [0..] tys, if null guards then Nothing else Just $ TH.PatG guards )
+mkSingPats tys = ( map ( mkSingPat . mkOne ) tickedTys, if null guards then Nothing else Just $ TH.PatG guards )
   where
-    mkOne i ( Ptr nm ) = mkSingPat $ Ptr $ mkTickedName nm i
-    mkOne _ ty = mkSingPat ty
-    guards = concat $ mapMaybe mkGroup $ groupBy ( (==) `on` fst ) $ catMaybes $ zipWith oneGuard [(0 :: Int)..1] tys
+    tickedTys = mkTicked 0 tys
+    mkTicked :: Int -> [ Type TH.Name ] -> [ Either ( TH.Name, Int ) ( Type TH.Name ) ]
+    mkTicked _ [] = []
+    mkTicked i ( Ptr nm : rest ) = Left ( nm, i ) : mkTicked ( i + 1 )rest
+    mkTicked i ( ty : rest ) = Right ty : mkTicked i rest
+    mkOne ( Left ( nm, i ) ) = Ptr $ mkTickedName nm i
+    mkOne ( Right ty ) = ty
+    guards = concat $ mapMaybe mkGroup $ groupBy ( (==) `on` fst ) $ mapMaybe oneGuard tickedTys
     mkGroup :: NE.NonEmpty ( TH.Name, Int ) -> Maybe [ TH.Stmt ]
     mkGroup ( _ NE.:| [] ) = Nothing
     mkGroup ( ( nm, i ) NE.:| ( fmap snd -> js ) ) =
@@ -522,12 +524,12 @@ mkSingPats tys = ( zipWith mkOne [0..] tys, if null guards then Nothing else Jus
            ( TH.VarE 'geq `TH.AppE` TH.VarE ( mkTickedName nm i ) `TH.AppE` TH.VarE ( mkTickedName nm j ) )
         | j <- js ]
     mkTickedName nm i = TH.mkName $ show nm ++ replicate i '\''
-    oneGuard i ( Ptr nm ) = Just ( nm, i )
-    oneGuard _ _          = Nothing
+    oneGuard ( Left ( nm, i ) ) = Just ( nm, i )
+    oneGuard _                  = Nothing
 
 mkSingPat :: Type TH.Name -> TH.Pat
---mkSingExp :: Type TH.Name -> TH.Exp
-( mkSingPat, _ ) =
+mkSingExp :: Type TH.Name -> TH.Exp
+( mkSingPat, mkSingExp ) =
   ( go_type TH.VarP ( \ c -> TH.ConP c [] [] ) ( \ c a -> TH.ConP c [] [a] )
   , go_type TH.VarE TH.ConE ( \ c e -> TH.AppE ( TH.ConE c ) e )
   )

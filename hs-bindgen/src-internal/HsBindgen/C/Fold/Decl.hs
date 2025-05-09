@@ -7,8 +7,8 @@ module HsBindgen.C.Fold.Decl (
 
 import Control.Monad.State
 import Data.List.Compat ((!?))
+import Data.Vec.Lazy qualified as Vec
 
-import C.Type (hostPlatform)
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
@@ -88,9 +88,8 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
                     macroReparseError          = err
                   , macroReparseErrorSourceLoc = sloc
                   }
-                Right macro@( Macro _ mVar mArgs mExpr ) -> do
-
-                  let tcRes = tcMacro hostPlatform macroTyEnv mVar mArgs mExpr
+                Right macro@( Macro _ mVar mArgsList mBody ) -> Vec.reifyList mArgsList $ \ mArgs -> do
+                  let tcRes = tcMacro macroTyEnv mVar mArgs mBody
                   case tcRes of
                     Left err ->
                       return MacroTcError {
@@ -102,7 +101,7 @@ foldDecls tracer p extBindings headerIncludePaths unit current = do
                       modify $ registerMacroType mVar ty
                       return MacroDecl {
                           macroDeclMacro     = macro
-                        , macroDeclMacroTy   = ty
+                        , macroDeclMacroTy   = fmap snd ty
                         , macroDeclSourceLoc = sloc
                         }
               return $ Continue $ Just $ DeclMacro macro
@@ -158,7 +157,7 @@ mkMacro ::
   => CXTranslationUnit
   -> CXCursor
   -> Macro.TypeEnv
-  -> m (Either ReparseError Macro)
+  -> m (Either ReparseError (Macro Ps))
 mkMacro unit current macroTys = do
     range  <- HighLevel.clang_getCursorExtent current
     tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)

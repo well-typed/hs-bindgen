@@ -16,6 +16,7 @@ module HsBindgen.C.AST (
   , Type(..)
   , TypeName(..)
   , typeNameType
+  , Size(..)
     -- ** Primitive types
   , PrimType(..)
   , PrimIntType(..)
@@ -57,13 +58,15 @@ module HsBindgen.C.AST (
   , FunctionSpecifier(..)
   , StructOrUnionSpecifier(..), StructOrUnion(..)
   , EnumSpecifier(..)
-  , SizeExpression(..)
+  , SizeExpression(..), litSizeExpression
   , Parameter(..)
   , ParameterDeclarator(..)
     -- * Macros
   , Macro(..)
   , MacroDecl(..)
   , MacroBody(..)
+  , Pass(..)
+  , XVar(..), XApp(..)
     -- ** Expressions
   , MExpr(..)
   , MFun(..)
@@ -136,12 +139,12 @@ data MacroDecl
       , macroReparseErrorSourceLoc :: SingleLoc
       }
   | MacroTcError {
-        macroTcErrorMacro     :: Macro
+        macroTcErrorMacro     :: Macro Ps
       , macroTcError          :: Macro.TcMacroError
       , macroTcErrorSourceLoc :: SingleLoc
       }
   | MacroDecl {
-        macroDeclMacro     :: Macro
+        macroDeclMacro     :: Macro Ps
       , macroDeclMacroTy   :: Macro.Quant ( Macro.Type Macro.Ty )
       , macroDeclSourceLoc :: SingleLoc
       }

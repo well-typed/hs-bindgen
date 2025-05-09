@@ -14,11 +14,12 @@ import Text.Parsec.Pos (updatePosChar)
 import GHC.Exts qualified as IsList (IsList(..))
 
 import C.Char qualified as C
+import C.Type qualified
 
 import HsBindgen.Imports
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.Util.Parsec
-import HsBindgen.C.AST.Type
+
 
 {-------------------------------------------------------------------------------
   Parser for integer literals
@@ -41,27 +42,27 @@ intSuffix = choice [
     , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
-reparseLiteralInteger :: TokenParser (Integer, (PrimIntType, PrimSign))
+reparseLiteralInteger :: TokenParser (Integer, C.Type.IntLikeType)
 reparseLiteralInteger = do
     (b, ds, suffixes) <- aux
 
     let val = readInBase b ds
 
         ty = case suffixes of
-          [] -> ( PrimInt, Signed )
+          [] -> C.Type.Int C.Type.Signed
           _  ->
             let sign = if any ( == IntSuffixUnsigned ) suffixes
-                       then Unsigned
-                       else Signed
+                       then C.Type.Unsigned
+                       else C.Type.Signed
                 long     = any ( == IntSuffixLong ) suffixes
                 longlong = any ( == IntSuffixLongLong ) suffixes
              in
                 if | longlong
-                   -> ( PrimLongLong, sign )
+                   -> C.Type.LongLong sign
                    | long
-                   -> ( PrimLong, sign )
+                   -> C.Type.Long sign
                    | otherwise
-                   -> ( PrimInt, sign )
+                   -> C.Type.Int sign
 
     return (fromIntegral val, ty)
   where
@@ -85,7 +86,7 @@ readInBase b ds =
   Reference: <https://en.cppreference.com/w/cpp/language/floating_literal>
 -------------------------------------------------------------------------------}
 
-reparseLiteralFloating :: TokenParser (Float, Double, PrimFloatType)
+reparseLiteralFloating :: TokenParser (Float, Double, C.Type.FloatingType)
 reparseLiteralFloating = do
 
   b     <- option BaseDec (BaseHex <$ caseInsensitive' "0x")
@@ -106,9 +107,11 @@ reparseLiteralFloating = do
     -> unexpected $ "cannot parse floating-point value without any digits"
     | otherwise
     -> do ty <- choice
-            [ PrimFloat      <$ caseInsensitive' "f"
-            , PrimLongDouble <$ caseInsensitive' "l"
-            , pure PrimDouble
+            [ C.Type.FloatType <$ caseInsensitive' "f"
+            , do { void $ caseInsensitive' "l"
+                 ; unexpected "no support for long double literals"
+                 }
+            , pure C.Type.DoubleType
             ]
           let m :: Natural
               m = readInBase b (as ++ fromMaybe [] mbXs)

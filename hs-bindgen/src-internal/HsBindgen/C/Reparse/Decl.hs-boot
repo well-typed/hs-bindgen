@@ -4,17 +4,17 @@
 module HsBindgen.C.Reparse.Decl
   ( TypeName
   , reparseTypeName
-  , typeNameType
 
   , AttributeSpecifier
   , reparseAttributeSpecifier
+
+  , SizeExpression
   )
   where
 
 -- hs-bindgen
 import HsBindgen.C.Reparse.Infra
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
-import HsBindgen.C.AST.Type qualified as C (Type)
 
 --------------------------------------------------------------------------------
 
@@ -26,7 +26,11 @@ data AttributeSpecifier
 instance Eq AttributeSpecifier
 instance Show AttributeSpecifier
 
+data SizeExpression
+instance Eq SizeExpression
+instance Ord SizeExpression
+instance Show SizeExpression
+
 reparseTypeName :: Macro.TypeEnv -> Reparse TypeName
-typeNameType :: TypeName -> Either String C.Type
 
 reparseAttributeSpecifier :: Reparse AttributeSpecifier

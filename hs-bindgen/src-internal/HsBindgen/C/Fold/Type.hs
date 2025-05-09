@@ -162,10 +162,17 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                             Right ty1 ->
                               return $ Just ty1
                 ty' <- getElaborated =<< clang_getTypedefDeclUnderlyingType decl
-                use <- case mbTy of
-                         Just ty1 -> return ty1
-                         Nothing  ->
-                           processTypeDeclRec (DeclPathCtxtTypedef tag) extBindings unit (RelatedTo declLoc TypedefUnderlying) Nothing ty'
+                use <-
+                  case mbTy of
+                    Just ty1 -> return ty1
+                    Nothing  ->
+                      processTypeDeclRec
+                        (DeclPathCtxtTypedef tag)
+                        extBindings
+                        unit
+                        (RelatedTo declLoc TypedefUnderlying)
+                        Nothing
+                        ty'
 
                 -- we could check whether typedef has a transparent tag,
                 -- like in case of `typedef struct foo {..} foo;`
@@ -341,11 +348,11 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
-        n <- clang_getArraySize ty
+        n <- fromIntegral <$> clang_getArraySize ty
         e <- clang_getArrayElementType ty
         -- TODO: This context should use 'DeclPathCtxtConstArray'
         e' <- processTypeDeclRec ctxt extBindings unit (RelatedTo declLoc ArrayElement) Nothing e
-        return (TypeConstArray (fromIntegral n) e')
+        return (TypeConstArray (Size n $ litSizeExpression n) e')
 
     Right CXType_Void -> do
         return TypeVoid

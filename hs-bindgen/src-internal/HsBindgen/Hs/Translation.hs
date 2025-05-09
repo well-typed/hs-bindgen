@@ -31,7 +31,7 @@ import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList(..))
 
 import C.Char qualified as C
-
+import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
@@ -724,7 +724,7 @@ macroDecsTypedef ::
      State.MonadState InstanceMap m
   => TranslationOpts
   -> NameMangler
-  -> C.Macro
+  -> C.Macro C.Ps
   -> m [Hs.Decl]
 macroDecsTypedef opts nm macro = case C.macroBody macro of
     C.TypeMacro tyNm
@@ -819,7 +819,8 @@ typ' ctx nm = go ctx
     go _ (C.TypePointer t) = case t of
         C.TypeFun {} -> Hs.HsFunPtr (go CPtrArg t)
         _            -> Hs.HsPtr (go CPtrArg t)
-    go _ (C.TypeConstArray n ty) =
+    go _ (C.TypeConstArray (C.Size n _) ty) =
+        -- TODO(#460): we are dropping the size expression, only using its value.
         Hs.HsConstArray n (go CTop ty)
     go c (C.TypeIncompleteArray ty) =
         goArrayUnknownSize c ty
@@ -918,7 +919,7 @@ functionDecs nm typedefs f
 
 macroVarDecs ::
      NameMangler
-  -> C.Macro
+  -> C.Macro p
   -> Macro.Quant ( Macro.Type Macro.Ty )
   -> [Hs.Decl]
 macroVarDecs nm (C.Macro { macroName = cVarNm, macroArgs = args, macroBody = body } ) qty =
@@ -979,7 +980,7 @@ macroLamHsExpr ::
      NameMangler
   -> C.CName
   -> [C.CName]
-  -> C.MacroBody
+  -> C.MacroBody p
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
 macroLamHsExpr nm _macroName macroArgs body =
   case body of
@@ -999,22 +1000,22 @@ cnameToHint (C.CName t) = fromString (T.unpack t)
 macroExprHsExpr ::
      NameMangler
   -> Map C.CName (Idx ctx)
-  -> C.MExpr
+  -> C.MExpr p
   -> Maybe (Hs.VarDeclRHS ctx)
 macroExprHsExpr nm = goExpr where
-    goExpr :: Map C.CName (Idx ctx) -> C.MExpr -> Maybe (Hs.VarDeclRHS ctx)
+    goExpr :: Map C.CName (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
       C.MTerm tm -> goTerm env tm
-      C.MApp fun args ->
+      C.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map C.CName (Idx ctx) -> C.MTerm -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map C.CName (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
       C.MInt i -> goInt i
       C.MFloat f -> goFloat f
       C.MChar c -> goChar c
       C.MString s -> goString s
-      C.MVar cname args ->
+      C.MVar _xvar cname args ->
         --  TODO: removed the macro argument used as a function check.
         case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
@@ -1024,14 +1025,15 @@ macroExprHsExpr nm = goExpr where
       C.MStringize {} -> Nothing
       C.MConcat {} -> Nothing
 
-    goApp :: Map C.CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp :: Map C.CName (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
     goApp env appHead args = do
       args' <- traverse (goExpr env) args
       return $ Hs.VarDeclApp appHead args'
 
     goInt :: C.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goInt (C.IntegerLiteral { integerLiteralType = mbIntTy, integerLiteralValue = i }) =
-      Just $ Hs.VarDeclIntegral i (maybe HsPrimCInt (uncurry integralType) mbIntTy)
+    goInt (C.IntegerLiteral { integerLiteralType = intyTy, integerLiteralValue = i }) =
+      Just $ Hs.VarDeclIntegral i $
+        hsPrimIntTy $ C.Type.IntLike intyTy
 
     goChar :: C.CharLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goChar (C.CharLiteral { charLiteralValue = c }) =
@@ -1044,11 +1046,7 @@ macroExprHsExpr nm = goExpr where
         Hs.VarDeclString (IsList.fromList bytes)
 
     goFloat :: C.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goFloat flt@(C.FloatingLiteral { floatingLiteralType = mbFty }) =
-      case mbFty of
-        Nothing -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)
-        Just fty ->
-          case fty of
-            C.PrimFloat  -> Just $ Hs.VarDeclFloat (C.floatingLiteralFloatValue flt)
-            C.PrimDouble -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)
-            C.PrimLongDouble -> Nothing
+    goFloat flt@(C.FloatingLiteral { floatingLiteralType = fty }) =
+      case fty of
+        C.Type.FloatType  -> Just $ Hs.VarDeclFloat (C.floatingLiteralFloatValue flt)
+        C.Type.DoubleType -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)

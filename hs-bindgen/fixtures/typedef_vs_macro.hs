@@ -437,14 +437,12 @@
                     arrayStatic = False,
                     arrayTypeQualifiers = [],
                     arraySize = ArraySize
-                      (SizeExpression
-                        (MTerm
-                          (MInt
-                            IntegerLiteral {
-                              integerLiteralText = "3",
-                              integerLiteralType = Just
-                                (_×_ PrimInt Signed),
-                              integerLiteralValue = 3}))),
+                      (MTerm
+                        (MInt
+                          IntegerLiteral {
+                            integerLiteralText = "3",
+                            integerLiteralType = Int Signed,
+                            integerLiteralValue = 3})),
                     arrayAttributes = []}})},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},

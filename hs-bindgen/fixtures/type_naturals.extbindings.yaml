@@ -1,0 +1,33 @@
+types:
+- headers: type_naturals.h
+  cname: Arr1
+  module: Example
+  identifier: Arr1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_naturals.h
+  cname: Arr2
+  module: Example
+  identifier: Arr2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_naturals.h
+  cname: Arr3
+  module: Example
+  identifier: Arr3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: type_naturals.h
+  cname: Arr4
+  module: Example
+  identifier: Arr4
+  instances:
+  - Eq
+  - Show
+  - Storable

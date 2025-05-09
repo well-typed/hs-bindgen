@@ -1667,7 +1667,14 @@
               fieldOffset = 256,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                7
+                Size {
+                  size = 7,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "7",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 7})}
                 (TypeTypedef
                   (CName "uint32_t")),
               fieldSourceLoc =
@@ -1710,7 +1717,13 @@
               fieldOffset = 512,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                4
+                Size {
+                  size = 4,
+                  sizeExpression = MTerm
+                    (MVar
+                      NoXVar
+                      (CName "SOME_DEFINED_CONSTANT")
+                      [])}
                 (TypeEnum
                   (DeclPathAnon
                     (DeclPathCtxtTypedef
@@ -1737,9 +1750,15 @@
               fieldOffset = 640,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                5
+                Size {
+                  size = 5,
+                  sizeExpression = MTerm
+                    (MVar NoXVar (CName "A") [])}
                 (TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MVar NoXVar (CName "B") [])}
                   (TypeEnum
                     (DeclPathAnon
                       (DeclPathCtxtTypedef
@@ -1823,7 +1842,14 @@
               fieldOffset = 256,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                7
+                Size {
+                  size = 7,
+                  sizeExpression = MTerm
+                    (MInt
+                      IntegerLiteral {
+                        integerLiteralText = "7",
+                        integerLiteralType = Size,
+                        integerLiteralValue = 7})}
                 (TypeTypedef
                   (CName "uint32_t")),
               fieldSourceLoc =
@@ -1844,7 +1870,13 @@
               fieldOffset = 512,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                4
+                Size {
+                  size = 4,
+                  sizeExpression = MTerm
+                    (MVar
+                      NoXVar
+                      (CName "SOME_DEFINED_CONSTANT")
+                      [])}
                 (TypeEnum
                   (DeclPathAnon
                     (DeclPathCtxtTypedef
@@ -1857,9 +1889,15 @@
               fieldOffset = 640,
               fieldWidth = Nothing,
               fieldType = TypeConstArray
-                5
+                Size {
+                  size = 5,
+                  sizeExpression = MTerm
+                    (MVar NoXVar (CName "A") [])}
                 (TypeConstArray
-                  3
+                  Size {
+                    size = 3,
+                    sizeExpression = MTerm
+                      (MVar NoXVar (CName "B") [])}
                   (TypeEnum
                     (DeclPathAnon
                       (DeclPathCtxtTypedef
@@ -2028,7 +2066,14 @@
                 fieldOffset = 256,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  7
+                  Size {
+                    size = 7,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "7",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 7})}
                   (TypeTypedef
                     (CName "uint32_t")),
                 fieldSourceLoc =
@@ -2071,7 +2116,13 @@
                 fieldOffset = 512,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  4
+                  Size {
+                    size = 4,
+                    sizeExpression = MTerm
+                      (MVar
+                        NoXVar
+                        (CName "SOME_DEFINED_CONSTANT")
+                        [])}
                   (TypeEnum
                     (DeclPathAnon
                       (DeclPathCtxtTypedef
@@ -2098,9 +2149,15 @@
                 fieldOffset = 640,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  5
+                  Size {
+                    size = 5,
+                    sizeExpression = MTerm
+                      (MVar NoXVar (CName "A") [])}
                   (TypeConstArray
-                    3
+                    Size {
+                      size = 3,
+                      sizeExpression = MTerm
+                        (MVar NoXVar (CName "B") [])}
                     (TypeEnum
                       (DeclPathAnon
                         (DeclPathCtxtTypedef
@@ -2184,7 +2241,14 @@
                 fieldOffset = 256,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  7
+                  Size {
+                    size = 7,
+                    sizeExpression = MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "7",
+                          integerLiteralType = Size,
+                          integerLiteralValue = 7})}
                   (TypeTypedef
                     (CName "uint32_t")),
                 fieldSourceLoc =
@@ -2205,7 +2269,13 @@
                 fieldOffset = 512,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  4
+                  Size {
+                    size = 4,
+                    sizeExpression = MTerm
+                      (MVar
+                        NoXVar
+                        (CName "SOME_DEFINED_CONSTANT")
+                        [])}
                   (TypeEnum
                     (DeclPathAnon
                       (DeclPathCtxtTypedef
@@ -2218,9 +2288,15 @@
                 fieldOffset = 640,
                 fieldWidth = Nothing,
                 fieldType = TypeConstArray
-                  5
+                  Size {
+                    size = 5,
+                    sizeExpression = MTerm
+                      (MVar NoXVar (CName "A") [])}
                   (TypeConstArray
-                    3
+                    Size {
+                      size = 3,
+                      sizeExpression = MTerm
+                        (MVar NoXVar (CName "B") [])}
                     (TypeEnum
                       (DeclPathAnon
                         (DeclPathCtxtTypedef
@@ -2394,7 +2470,14 @@
                         fieldOffset = 256,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          7
+                          Size {
+                            size = 7,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "7",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 7})}
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
@@ -2437,7 +2520,13 @@
                         fieldOffset = 512,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          4
+                          Size {
+                            size = 4,
+                            sizeExpression = MTerm
+                              (MVar
+                                NoXVar
+                                (CName "SOME_DEFINED_CONSTANT")
+                                [])}
                           (TypeEnum
                             (DeclPathAnon
                               (DeclPathCtxtTypedef
@@ -2464,9 +2553,15 @@
                         fieldOffset = 640,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          5
+                          Size {
+                            size = 5,
+                            sizeExpression = MTerm
+                              (MVar NoXVar (CName "A") [])}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MVar NoXVar (CName "B") [])}
                             (TypeEnum
                               (DeclPathAnon
                                 (DeclPathCtxtTypedef
@@ -2550,7 +2645,14 @@
                         fieldOffset = 256,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          7
+                          Size {
+                            size = 7,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "7",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 7})}
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
@@ -2571,7 +2673,13 @@
                         fieldOffset = 512,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          4
+                          Size {
+                            size = 4,
+                            sizeExpression = MTerm
+                              (MVar
+                                NoXVar
+                                (CName "SOME_DEFINED_CONSTANT")
+                                [])}
                           (TypeEnum
                             (DeclPathAnon
                               (DeclPathCtxtTypedef
@@ -2584,9 +2692,15 @@
                         fieldOffset = 640,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          5
+                          Size {
+                            size = 5,
+                            sizeExpression = MTerm
+                              (MVar NoXVar (CName "A") [])}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MVar NoXVar (CName "B") [])}
                             (TypeEnum
                               (DeclPathAnon
                                 (DeclPathCtxtTypedef
@@ -2771,7 +2885,14 @@
                         fieldOffset = 256,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          7
+                          Size {
+                            size = 7,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "7",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 7})}
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
@@ -2814,7 +2935,13 @@
                         fieldOffset = 512,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          4
+                          Size {
+                            size = 4,
+                            sizeExpression = MTerm
+                              (MVar
+                                NoXVar
+                                (CName "SOME_DEFINED_CONSTANT")
+                                [])}
                           (TypeEnum
                             (DeclPathAnon
                               (DeclPathCtxtTypedef
@@ -2841,9 +2968,15 @@
                         fieldOffset = 640,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          5
+                          Size {
+                            size = 5,
+                            sizeExpression = MTerm
+                              (MVar NoXVar (CName "A") [])}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MVar NoXVar (CName "B") [])}
                             (TypeEnum
                               (DeclPathAnon
                                 (DeclPathCtxtTypedef
@@ -2927,7 +3060,14 @@
                         fieldOffset = 256,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          7
+                          Size {
+                            size = 7,
+                            sizeExpression = MTerm
+                              (MInt
+                                IntegerLiteral {
+                                  integerLiteralText = "7",
+                                  integerLiteralType = Size,
+                                  integerLiteralValue = 7})}
                           (TypeTypedef
                             (CName "uint32_t")),
                         fieldSourceLoc =
@@ -2948,7 +3088,13 @@
                         fieldOffset = 512,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          4
+                          Size {
+                            size = 4,
+                            sizeExpression = MTerm
+                              (MVar
+                                NoXVar
+                                (CName "SOME_DEFINED_CONSTANT")
+                                [])}
                           (TypeEnum
                             (DeclPathAnon
                               (DeclPathCtxtTypedef
@@ -2961,9 +3107,15 @@
                         fieldOffset = 640,
                         fieldWidth = Nothing,
                         fieldType = TypeConstArray
-                          5
+                          Size {
+                            size = 5,
+                            sizeExpression = MTerm
+                              (MVar NoXVar (CName "A") [])}
                           (TypeConstArray
-                            3
+                            Size {
+                              size = 3,
+                              sizeExpression = MTerm
+                                (MVar NoXVar (CName "B") [])}
                             (TypeEnum
                               (DeclPathAnon
                                 (DeclPathCtxtTypedef

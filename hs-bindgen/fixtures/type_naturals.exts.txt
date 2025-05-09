@@ -1,0 +1,6 @@
+TemplateHaskell
+StandaloneDeriving
+DerivingStrategies
+FlexibleContexts
+GeneralizedNewtypeDeriving
+ExplicitForAll
