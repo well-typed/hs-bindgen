@@ -9,6 +9,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module Example where
@@ -26,6 +27,193 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
+import qualified Text.Read
+
+-- #include "manual_examples.h"
+
+data Triple = Triple
+  { triple_a :: FC.CInt
+  , triple_b :: FC.CInt
+  , triple_c :: FC.CInt
+  }
+
+instance F.Storable Triple where
+
+  sizeOf = \_ -> (12 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Triple
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Triple triple_a2 triple_b3 triple_c4 ->
+               F.pokeByteOff ptr0 (0 :: Int) triple_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) triple_b3
+            >> F.pokeByteOff ptr0 (8 :: Int) triple_c4
+
+deriving stock instance Show Triple
+
+deriving stock instance Eq Triple
+
+-- void mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4)
+
+foreign import capi safe "manual_examples.h mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
+
+newtype Index = Index
+  { un_Index :: FC.CUInt
+  }
+
+instance F.Storable Index where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Index
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Index un_Index2 ->
+            F.pokeByteOff ptr0 (0 :: Int) un_Index2
+
+deriving stock instance Eq Index
+
+deriving stock instance Ord Index
+
+instance HsBindgen.Runtime.CEnum.CEnum Index where
+
+  type CEnumZ Index = FC.CUInt
+
+  toCEnum = Index
+
+  fromCEnum = un_Index
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "A")
+                                                     , (1, Data.List.NonEmpty.singleton "B")
+                                                     , (2, Data.List.NonEmpty.singleton "C")
+                                                     ]
+
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Index"
+
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Index"
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
+
+  minDeclaredValue = A
+
+  maxDeclaredValue = C
+
+instance Show Index where
+
+  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Index where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
+pattern A :: Index
+pattern A = Index 0
+
+pattern B :: Index
+pattern B = Index 1
+
+pattern C :: Index
+pattern C = Index 2
+
+-- signed int index_triple (struct triple *arg1, enum index arg2)
+
+foreign import capi safe "manual_examples.h index_triple" index_triple :: (F.Ptr Triple) -> Index -> IO FC.CInt
+
+newtype Sum = Sum
+  { un_Sum :: FC.CInt
+  }
+
+deriving newtype instance F.Storable Sum
+
+deriving stock instance Eq Sum
+
+deriving stock instance Ord Sum
+
+deriving stock instance Read Sum
+
+deriving stock instance Show Sum
+
+deriving newtype instance Enum Sum
+
+deriving newtype instance Ix.Ix Sum
+
+deriving newtype instance Bounded Sum
+
+deriving newtype instance Bits.Bits Sum
+
+deriving newtype instance FiniteBits Sum
+
+deriving newtype instance Integral Sum
+
+deriving newtype instance Num Sum
+
+deriving newtype instance Real Sum
+
+newtype Average = Average
+  { un_Average :: FC.CDouble
+  }
+
+deriving newtype instance F.Storable Average
+
+deriving stock instance Eq Average
+
+deriving stock instance Ord Average
+
+deriving stock instance Read Average
+
+deriving stock instance Show Average
+
+deriving newtype instance Enum Average
+
+deriving newtype instance Floating Average
+
+deriving newtype instance Fractional Average
+
+deriving newtype instance Num Average
+
+deriving newtype instance Real Average
+
+deriving newtype instance RealFloat Average
+
+deriving newtype instance RealFrac Average
+
+-- sum sum_triple (struct triple *arg1)
+
+foreign import capi safe "manual_examples.h sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
+
+-- average average_triple (struct triple *arg1)
+
+foreign import capi safe "manual_examples.h average_triple" average_triple :: (F.Ptr Triple) -> IO Average
 
 fIELD_OFFSET :: FC.CInt
 fIELD_OFFSET = (4 :: FC.CInt)
@@ -126,183 +314,6 @@ deriving newtype instance Num DAY
 
 deriving newtype instance Real DAY
 
-foreign import capi safe "manual_examples.h mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
-
-foreign import capi safe "manual_examples.h index_triple" index_triple :: (F.Ptr Triple) -> Index -> IO FC.CInt
-
-foreign import capi safe "manual_examples.h sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
-
-foreign import capi safe "manual_examples.h average_triple" average_triple :: (F.Ptr Triple) -> IO Average
-
-foreign import capi safe "manual_examples.h getYear" getYear :: (F.Ptr Date) -> IO YEAR
-
-foreign import capi safe "manual_examples.h print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
-
-foreign import capi safe "manual_examples.h 拜拜" 拜拜 :: IO ()
-
-foreign import capi safe "manual_examples.h ϒ" cϒ :: IO ()
-
-foreign import capi safe "manual_examples.h import" import' :: IO ()
-
-data Triple = Triple
-  { triple_a :: FC.CInt
-  , triple_b :: FC.CInt
-  , triple_c :: FC.CInt
-  }
-
-instance F.Storable Triple where
-
-  sizeOf = \_ -> (12 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Triple
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Triple triple_a2 triple_b3 triple_c4 ->
-               F.pokeByteOff ptr0 (0 :: Int) triple_a2
-            >> F.pokeByteOff ptr0 (4 :: Int) triple_b3
-            >> F.pokeByteOff ptr0 (8 :: Int) triple_c4
-
-deriving stock instance Show Triple
-
-deriving stock instance Eq Triple
-
-newtype Index = Index
-  { un_Index :: FC.CUInt
-  }
-
-instance F.Storable Index where
-
-  sizeOf = \_ -> (4 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Index
-      <*> F.peekByteOff ptr0 (0 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Index un_Index2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Index2
-
-deriving stock instance Eq Index
-
-deriving stock instance Ord Index
-
-deriving stock instance Read Index
-
-instance HsBindgen.Runtime.CEnum.CEnum Index where
-
-  type CEnumZ Index = FC.CUInt
-
-  toCEnum = Index
-
-  fromCEnum = un_Index
-
-  declaredValues =
-    \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "A")
-                                                     , (1, Data.List.NonEmpty.singleton "B")
-                                                     , (2, Data.List.NonEmpty.singleton "C")
-                                                     ]
-
-  showsUndeclared =
-    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Index"
-
-  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
-
-  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
-
-instance HsBindgen.Runtime.CEnum.SequentialCEnum Index where
-
-  minDeclaredValue = A
-
-  maxDeclaredValue = C
-
-instance Show Index where
-
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
-
-pattern A :: Index
-pattern A = Index 0
-
-pattern B :: Index
-pattern B = Index 1
-
-pattern C :: Index
-pattern C = Index 2
-
-newtype Sum = Sum
-  { un_Sum :: FC.CInt
-  }
-
-deriving newtype instance F.Storable Sum
-
-deriving stock instance Eq Sum
-
-deriving stock instance Ord Sum
-
-deriving stock instance Read Sum
-
-deriving stock instance Show Sum
-
-deriving newtype instance Enum Sum
-
-deriving newtype instance Ix.Ix Sum
-
-deriving newtype instance Bounded Sum
-
-deriving newtype instance Bits.Bits Sum
-
-deriving newtype instance FiniteBits Sum
-
-deriving newtype instance Integral Sum
-
-deriving newtype instance Num Sum
-
-deriving newtype instance Real Sum
-
-newtype Average = Average
-  { un_Average :: FC.CDouble
-  }
-
-deriving newtype instance F.Storable Average
-
-deriving stock instance Eq Average
-
-deriving stock instance Ord Average
-
-deriving stock instance Read Average
-
-deriving stock instance Show Average
-
-deriving newtype instance Enum Average
-
-deriving newtype instance Floating Average
-
-deriving newtype instance Fractional Average
-
-deriving newtype instance Num Average
-
-deriving newtype instance Real Average
-
-deriving newtype instance RealFloat Average
-
-deriving newtype instance RealFrac Average
-
 data Date = Date
   { date_year :: YEAR
   , date_month :: MONTH
@@ -335,6 +346,10 @@ deriving stock instance Show Date
 
 deriving stock instance Eq Date
 
+-- YEAR getYear (date *arg1)
+
+foreign import capi safe "manual_examples.h getYear" getYear :: (F.Ptr Date) -> IO YEAR
+
 data Student = Student
   { student_university :: F.Ptr FC.CChar
   , student_year :: FC.CInt
@@ -363,8 +378,6 @@ instance F.Storable Student where
 deriving stock instance Show Student
 
 deriving stock instance Eq Student
-
-data Person
 
 data Employee = Employee
   { employee_company :: F.Ptr FC.CChar
@@ -419,6 +432,12 @@ get_occupation_employee =
 set_occupation_employee :: Employee -> Occupation
 set_occupation_employee =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+data Person
+
+-- void print_occupation (signed int arg1, union occupation *arg2)
+
+foreign import capi safe "manual_examples.h print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
 
 data Rect_lower_left = Rect_lower_left
   { rect_lower_left_x :: FC.CInt
@@ -572,6 +591,10 @@ deriving newtype instance Num Adio'0301s
 
 deriving newtype instance Real Adio'0301s
 
+-- void 拜拜 (void)
+
+foreign import capi safe "manual_examples.h 拜拜" 拜拜 :: IO ()
+
 newtype C数字 = C数字
   { un_C数字 :: FC.CInt
   }
@@ -601,6 +624,10 @@ deriving newtype instance Integral C数字
 deriving newtype instance Num C数字
 
 deriving newtype instance Real C数字
+
+-- void ϒ (void)
+
+foreign import capi safe "manual_examples.h ϒ" cϒ :: IO ()
 
 newtype Data = Data
   { un_Data :: FC.CInt
@@ -632,6 +659,10 @@ deriving newtype instance Num Data
 
 deriving newtype instance Real Data
 
+-- void import (void)
+
+foreign import capi safe "manual_examples.h import" import' :: IO ()
+
 newtype Signal = Signal
   { un_Signal :: FC.CUInt
   }
@@ -658,8 +689,6 @@ deriving stock instance Eq Signal
 
 deriving stock instance Ord Signal
 
-deriving stock instance Read Signal
-
 instance HsBindgen.Runtime.CEnum.CEnum Signal where
 
   type CEnumZ Signal = FC.CUInt
@@ -679,6 +708,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Signal where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Signal"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Signal"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -692,6 +724,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Signal where
 instance Show Signal where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Signal where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Start :: Signal
 pattern Start = Signal 1
@@ -731,8 +771,6 @@ deriving stock instance Eq HTTP_status
 
 deriving stock instance Ord HTTP_status
 
-deriving stock instance Read HTTP_status
-
 instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
 
   type CEnumZ HTTP_status = FC.CUInt
@@ -753,9 +791,20 @@ instance HsBindgen.Runtime.CEnum.CEnum HTTP_status where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "HTTP_status"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "HTTP_status"
+
 instance Show HTTP_status where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read HTTP_status where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Ok :: HTTP_status
 pattern Ok = HTTP_status 200
@@ -798,8 +847,6 @@ deriving stock instance Eq Descending
 
 deriving stock instance Ord Descending
 
-deriving stock instance Read Descending
-
 instance HsBindgen.Runtime.CEnum.CEnum Descending where
 
   type CEnumZ Descending = FC.CUInt
@@ -818,6 +865,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Descending where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Descending"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Descending"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -831,6 +881,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Descending where
 instance Show Descending where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Descending where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern X :: Descending
 pattern X = Descending 100
@@ -870,8 +928,6 @@ deriving stock instance Eq Result
 
 deriving stock instance Ord Result
 
-deriving stock instance Read Result
-
 instance HsBindgen.Runtime.CEnum.CEnum Result where
 
   type CEnumZ Result = FC.CInt
@@ -891,6 +947,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Result where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Result"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Result"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -905,6 +964,14 @@ instance Show Result where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
 
+instance Read Result where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
 pattern Failed :: Result
 pattern Failed = Result (-1)
 
@@ -918,7 +985,7 @@ pattern Already_done :: Result
 pattern Already_done = Result 2
 
 newtype Vote = Vote
-  { un_Vote :: FC.CSChar
+  { un_Vote :: FC.CUChar
   }
 
 instance F.Storable Vote where
@@ -943,11 +1010,9 @@ deriving stock instance Eq Vote
 
 deriving stock instance Ord Vote
 
-deriving stock instance Read Vote
-
 instance HsBindgen.Runtime.CEnum.CEnum Vote where
 
-  type CEnumZ Vote = FC.CSChar
+  type CEnumZ Vote = FC.CUChar
 
   toCEnum = Vote
 
@@ -963,6 +1028,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Vote where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Vote"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Vote"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -976,6 +1044,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Vote where
 instance Show Vote where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Vote where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Infavour :: Vote
 pattern Infavour = Vote 0
@@ -1012,8 +1088,6 @@ deriving stock instance Eq CXCursorKind
 
 deriving stock instance Ord CXCursorKind
 
-deriving stock instance Read CXCursorKind
-
 instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
 
   type CEnumZ CXCursorKind = FC.CUInt
@@ -1039,9 +1113,20 @@ instance HsBindgen.Runtime.CEnum.CEnum CXCursorKind where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "CXCursorKind"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "CXCursorKind"
+
 instance Show CXCursorKind where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read CXCursorKind where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern CXCursor_FirstExpr :: CXCursorKind
 pattern CXCursor_FirstExpr = CXCursorKind 100

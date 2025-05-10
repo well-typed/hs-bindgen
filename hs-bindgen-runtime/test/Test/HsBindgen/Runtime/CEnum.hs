@@ -12,7 +12,7 @@ import Test.Tasty.ExpectedFailure (expectFail)
 import Test.Tasty.HUnit ((@=?), testCase)
 import Test.Tasty.QuickCheck (testProperty, Property, (===), Arbitrary (arbitrary),
                               counterexample, chooseInt)
-import Text.Read (Read(readPrec), readMaybe)
+import Text.Read (Read(readPrec), readMaybe, minPrec)
 
 import HsBindgen.Runtime.CEnum
   ( AsCEnum(..), AsSequentialCEnum(..), CEnum (CEnumZ), CEnumException(..)
@@ -24,13 +24,13 @@ import Test.Internal.Tasty
 import Test.HsBindgen.Runtime.CEnumArbitrary ()
 
 read_show_prop :: forall a. (CEnum a, Show a, Read a, Eq a) => a -> Property
-read_show_prop x = read (CEnum.showCEnum x) === x
+read_show_prop x = read (show x) === x
 
 newtype Precedence = MkPrecedence Int
   deriving Show
 
 instance Arbitrary Precedence where
-  arbitrary = MkPrecedence <$> chooseInt (0, appPrec1)
+  arbitrary = MkPrecedence <$> chooseInt (minPrec, appPrec1)
 
 readsPrec_showsPrec_prop
   :: forall a. (CEnum a, Show a, Read a, Eq a)
