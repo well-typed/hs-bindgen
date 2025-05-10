@@ -25,6 +25,7 @@ module Clang.HighLevel.Types (
     -- * Folds
   , Fold
   , Next(..)
+  , recursePure
     -- * User-provided names
   , UserProvided
   , getUserProvided

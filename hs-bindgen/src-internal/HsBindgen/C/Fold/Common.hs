@@ -180,7 +180,7 @@ recurse :: forall m a. Monad m => (CXCursor -> m a) -> Fold m (Tree a)
 recurse f = go
   where
     go :: Fold m (Tree a)
-    go current = f current >>= \x -> return (Recurse go $ Just . Node x)
+    go current = f current >>= \x -> return (recursePure go $ Just . Node x)
 
 continue :: Monad m => (CXCursor -> m a) -> Fold m a
 continue f current = f current >>= \x -> return (Continue $ Just x)
