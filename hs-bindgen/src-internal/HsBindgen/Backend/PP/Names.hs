@@ -16,6 +16,7 @@ import Data.Char qualified as Char
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import HsBindgen.Imports
 import HsBindgen.SHs.AST
@@ -33,6 +34,7 @@ import Foreign.C qualified
 import Foreign.C.String qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
+import Text.Read qualified
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.ConstantArray qualified
@@ -134,7 +136,7 @@ moduleOf "CStringLen" _ =
   HsImportModule "Foreign.C.String" (Just "FC")
 moduleOf "NonEmpty" _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ":|"       _ = HsImportModule "Data.List.NonEmpty" Nothing
-moduleOf _ident m0 = case parts of
+moduleOf ident m0 = case parts of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
     ["HsBindgen","Runtime","Syntax"] -> HsImportModule "HsBindgen.Runtime.Syntax" (Just "HsBindgen")
     ["GHC", "Bits"]                  -> HsImportModule "Data.Bits" (Just "Bits")
@@ -142,7 +144,11 @@ moduleOf _ident m0 = case parts of
     ["GHC", "Classes"]               -> iPrelude
     ["GHC", "Show"]                  -> iPrelude
     ["GHC", "Types"]                 -> iPrelude
-    ["GHC", "Read"]                  -> iPrelude
+    -- - TH maps the module 'Text.Read' to 'GHC.Read'.
+    -- - Not all functions of 'GHC.Read' are in Prelude.
+    ["GHC", "Read"]                  -> if ident `Set.member` ghcReadInPrelude
+                                        then iPrelude
+                                        else HsImportModule "Text.Read" Nothing
     ["GHC", "Real"]                  -> iPrelude
     ["GHC", "Enum"]                  -> iPrelude
     ["GHC", "Float"]                 -> iPrelude
@@ -160,6 +166,8 @@ moduleOf _ident m0 = case parts of
   where
     -- we drop "Internal" (to reduce ghc-internal migration noise)
     parts = filter ("Internal" /=) (split '.' m0)
+    ghcReadInPrelude :: Set String
+    ghcReadInPrelude = Set.fromList ["Read"]
 
 split :: Eq a => a -> [a] -> [[a]]
 split _ []      = []
@@ -213,23 +221,26 @@ resolveGlobal = \case
     CharValue_constructor -> importQ 'C.Char.CharValue
     CharValue_fromAddr    -> importQ 'C.Char.charValueFromAddr
 
-    Bits_class       -> importQ ''Data.Bits.Bits
-    Bounded_class    -> importU ''Bounded
-    Enum_class       -> importU ''Enum
-    Eq_class         -> importU ''Eq
-    FiniteBits_class -> importU ''Data.Bits.FiniteBits
-    Floating_class   -> importU ''Floating
-    Fractional_class -> importU ''Fractional
-    Integral_class   -> importU ''Integral
-    Ix_class         -> importQ ''Data.Ix.Ix
-    Num_class        -> importU ''Num
-    Ord_class        -> importU ''Ord
-    Read_class       -> importU ''Read
-    Real_class       -> importU ''Real
-    RealFloat_class  -> importU ''RealFloat
-    RealFrac_class   -> importU ''RealFrac
-    Show_class       -> importU ''Show
-    Show_showsPrec   -> importU 'showsPrec
+    Bits_class        -> importQ ''Data.Bits.Bits
+    Bounded_class     -> importU ''Bounded
+    Enum_class        -> importU ''Enum
+    Eq_class          -> importU ''Eq
+    FiniteBits_class  -> importU ''Data.Bits.FiniteBits
+    Floating_class    -> importU ''Floating
+    Fractional_class  -> importU ''Fractional
+    Integral_class    -> importU ''Integral
+    Ix_class          -> importQ ''Data.Ix.Ix
+    Num_class         -> importU ''Num
+    Ord_class         -> importU ''Ord
+    Read_class        -> importU ''Read
+    Read_readPrec     -> importQ 'Text.Read.readPrec
+    Read_readList     -> importQ 'Text.Read.readList
+    Read_readListPrec -> importQ 'Text.Read.readListPrec
+    Real_class        -> importU ''Real
+    RealFloat_class   -> importU ''RealFloat
+    RealFrac_class    -> importU ''RealFrac
+    Show_class        -> importU ''Show
+    Show_showsPrec    -> importU 'showsPrec
 
     -- We now import ~ from Prelude;
     -- but it's not always there; it's also not in Data.Type.Equality
@@ -295,9 +306,11 @@ resolveGlobal = \case
     CFloat_constructor -> importQ ''Foreign.C.CFloat
     CDouble_constructor -> importQ ''Foreign.C.CDouble
 
-    NonEmpty_constructor -> importQ '(NonEmpty.:|)
-    NonEmpty_singleton   -> importQ 'NonEmpty.singleton
-    Map_fromList         -> importQ 'Map.fromList
+    NonEmpty_constructor     -> importQ '(NonEmpty.:|)
+    NonEmpty_singleton       -> importQ 'NonEmpty.singleton
+    Map_fromList             -> importQ 'Map.fromList
+    Read_readListDefault     -> importQ 'Text.Read.readListDefault
+    Read_readListPrecDefault -> importQ 'Text.Read.readListPrecDefault
 
     CEnum_class -> importQ ''HsBindgen.Runtime.CEnum.CEnum
     CEnumZ_tycon -> importQ ''HsBindgen.Runtime.CEnum.CEnumZ
@@ -305,6 +318,7 @@ resolveGlobal = \case
     CEnum_fromCEnum -> importQ 'HsBindgen.Runtime.CEnum.fromCEnum
     CEnum_declaredValues -> importQ 'HsBindgen.Runtime.CEnum.declaredValues
     CEnum_showsUndeclared ->  importQ 'HsBindgen.Runtime.CEnum.showsUndeclared
+    CEnum_readPrecUndeclared ->  importQ 'HsBindgen.Runtime.CEnum.readPrecUndeclared
     CEnum_isDeclared -> importQ 'HsBindgen.Runtime.CEnum.isDeclared
     CEnum_mkDeclared -> importQ 'HsBindgen.Runtime.CEnum.mkDeclared
     SequentialCEnum_class -> importQ ''HsBindgen.Runtime.CEnum.SequentialCEnum
@@ -313,6 +327,8 @@ resolveGlobal = \case
     CEnum_declaredValuesFromList -> importQ 'HsBindgen.Runtime.CEnum.declaredValuesFromList
     CEnum_showsCEnum -> importQ 'HsBindgen.Runtime.CEnum.showsCEnum
     CEnum_showsWrappedUndeclared -> importQ 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
+    CEnum_readPrecCEnum -> importQ 'HsBindgen.Runtime.CEnum.readPrecCEnum
+    CEnum_readPrecWrappedUndeclared -> importQ 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
     CEnum_seqIsDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
     CEnum_seqMkDeclared -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared
     AsCEnum_type -> importQ ''HsBindgen.Runtime.CEnum.AsCEnum

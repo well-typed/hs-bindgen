@@ -13,6 +13,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
+import qualified Text.Read
 
 newtype First = First
   { un_First :: FC.CUInt
@@ -39,8 +40,6 @@ deriving stock instance Eq First
 
 deriving stock instance Ord First
 
-deriving stock instance Read First
-
 instance HsBindgen.Runtime.CEnum.CEnum First where
 
   type CEnumZ First = FC.CUInt
@@ -55,6 +54,8 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "First"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "First"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -68,6 +69,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum First where
 instance Show First where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read First where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
@@ -100,8 +109,6 @@ deriving stock instance Eq Second
 
 deriving stock instance Ord Second
 
-deriving stock instance Read Second
-
 instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   type CEnumZ Second = FC.CInt
@@ -119,6 +126,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Second"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Second"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -132,6 +141,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Second where
 instance Show Second where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Second where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
@@ -167,8 +184,6 @@ deriving stock instance Eq Same
 
 deriving stock instance Ord Same
 
-deriving stock instance Read Same
-
 instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   type CEnumZ Same = FC.CUInt
@@ -183,6 +198,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Same"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Same"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -196,6 +213,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Same where
 instance Show Same where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Same where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
@@ -228,8 +253,6 @@ deriving stock instance Eq Nonseq
 
 deriving stock instance Ord Nonseq
 
-deriving stock instance Read Nonseq
-
 instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   type CEnumZ Nonseq = FC.CUInt
@@ -247,9 +270,19 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Nonseq"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Nonseq"
+
 instance Show Nonseq where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Nonseq where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern NONSEQ_A :: Nonseq
 pattern NONSEQ_A = Nonseq 200
@@ -285,8 +318,6 @@ deriving stock instance Eq Packad
 
 deriving stock instance Ord Packad
 
-deriving stock instance Read Packad
-
 instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
   type CEnumZ Packad = FC.CUChar
@@ -304,6 +335,8 @@ instance HsBindgen.Runtime.CEnum.CEnum Packad where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Packad"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Packad"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -317,6 +350,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Packad where
 instance Show Packad where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Packad where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern PACKED_A :: Packad
 pattern PACKED_A = Packad 0
@@ -352,8 +393,6 @@ deriving stock instance Eq EnumA
 
 deriving stock instance Ord EnumA
 
-deriving stock instance Read EnumA
-
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   type CEnumZ EnumA = FC.CUInt
@@ -368,6 +407,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumA"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumA"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -381,6 +422,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 instance Show EnumA where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read EnumA where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
@@ -413,8 +462,6 @@ deriving stock instance Eq EnumB
 
 deriving stock instance Ord EnumB
 
-deriving stock instance Read EnumB
-
 instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   type CEnumZ EnumB = FC.CUInt
@@ -429,6 +476,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumB"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumB"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -442,6 +491,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumB where
 instance Show EnumB where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read EnumB where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
@@ -474,8 +531,6 @@ deriving stock instance Eq EnumC
 
 deriving stock instance Ord EnumC
 
-deriving stock instance Read EnumC
-
 instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   type CEnumZ EnumC = FC.CUInt
@@ -490,6 +545,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumC"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumC"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -503,6 +560,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumC where
 instance Show EnumC where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read EnumC where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
@@ -535,8 +600,6 @@ deriving stock instance Eq EnumD
 
 deriving stock instance Ord EnumD
 
-deriving stock instance Read EnumD
-
 instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
   type CEnumZ EnumD = FC.CUInt
@@ -551,6 +614,8 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "EnumD"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "EnumD"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -564,6 +629,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumD where
 instance Show EnumD where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read EnumD where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern D_FOO :: EnumD
 pattern D_FOO = EnumD 0

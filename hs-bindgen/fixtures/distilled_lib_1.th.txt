@@ -82,7 +82,6 @@ instance Storable Another_typedef_enum_e
                                     {Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3}}
 deriving stock instance Eq Another_typedef_enum_e
 deriving stock instance Ord Another_typedef_enum_e
-deriving stock instance Read Another_typedef_enum_e
 instance CEnum Another_typedef_enum_e
     where {type CEnumZ Another_typedef_enum_e = CUInt;
            toCEnum = Another_typedef_enum_e;
@@ -91,12 +90,17 @@ instance CEnum Another_typedef_enum_e
                                                            singleton "FOO"),
                                                           (1, singleton "BAR")];
            showsUndeclared = showsWrappedUndeclared "Another_typedef_enum_e";
+           readPrecUndeclared = readPrecWrappedUndeclared "Another_typedef_enum_e";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum Another_typedef_enum_e
     where {minDeclaredValue = FOO; maxDeclaredValue = BAR}
 instance Show Another_typedef_enum_e
     where {showsPrec = showsCEnum}
+instance Read Another_typedef_enum_e
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
@@ -191,7 +195,6 @@ instance Storable A_typedef_enum_e
                                     {A_typedef_enum_e un_A_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_A_typedef_enum_e_3}}
 deriving stock instance Eq A_typedef_enum_e
 deriving stock instance Ord A_typedef_enum_e
-deriving stock instance Read A_typedef_enum_e
 instance CEnum A_typedef_enum_e
     where {type CEnumZ A_typedef_enum_e = CUChar;
            toCEnum = A_typedef_enum_e;
@@ -202,6 +205,7 @@ instance CEnum A_typedef_enum_e
                                                           (2, singleton "ENUM_CASE_2"),
                                                           (3, singleton "ENUM_CASE_3")];
            showsUndeclared = showsWrappedUndeclared "A_typedef_enum_e";
+           readPrecUndeclared = readPrecWrappedUndeclared "A_typedef_enum_e";
            isDeclared = seqIsDeclared;
            mkDeclared = seqMkDeclared}
 instance SequentialCEnum A_typedef_enum_e
@@ -209,6 +213,10 @@ instance SequentialCEnum A_typedef_enum_e
            maxDeclaredValue = ENUM_CASE_3}
 instance Show A_typedef_enum_e
     where {showsPrec = showsCEnum}
+instance Read A_typedef_enum_e
+    where {readPrec = readPrecCEnum;
+           readList = readListDefault;
+           readListPrec = readListPrecDefault}
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0
 pattern ENUM_CASE_1 :: A_typedef_enum_e

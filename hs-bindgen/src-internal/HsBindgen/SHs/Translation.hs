@@ -75,6 +75,8 @@ translateDefineInstanceDecl (Hs.InstanceSequentialCEnum struct nameMin nameMax) 
     DInst $ translateSequentialCEnum struct nameMin nameMax
 translateDefineInstanceDecl (Hs.InstanceCEnumShow struct) =
     DInst $ translateCEnumInstanceShow struct
+translateDefineInstanceDecl (Hs.InstanceCEnumRead struct) =
+    DInst $ translateCEnumInstanceRead struct
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord $ Record
@@ -404,6 +406,7 @@ translateCEnumInstance struct fTyp vMap isSequential = Instance {
         , (CEnum_fromCEnum, EFree fname)
         , (CEnum_declaredValues, EUnusedLam declaredValuesE)
         , (CEnum_showsUndeclared, EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
+        , (CEnum_readPrecUndeclared, EApp (EGlobal CEnum_readPrecWrappedUndeclared) dconStrE)
         ] ++ seqDecs
     }
   where
@@ -467,6 +470,23 @@ translateCEnumInstanceShow struct = Instance {
     , instanceTypes = []
     , instanceDecs  = [
           (Show_showsPrec, EGlobal CEnum_showsCEnum)
+        ]
+    }
+  where
+    tcon :: ClosedType
+    tcon = TCon $ Hs.structName struct
+
+translateCEnumInstanceRead ::
+     Hs.Struct (S Z)
+  -> Instance
+translateCEnumInstanceRead struct = Instance {
+      instanceClass = Read_class
+    , instanceArgs  = [tcon]
+    , instanceTypes = []
+    , instanceDecs  = [
+          (Read_readPrec, EGlobal CEnum_readPrecCEnum)
+        , (Read_readList, EGlobal Read_readListDefault)
+        , (Read_readListPrec, EGlobal Read_readListPrecDefault)
         ]
     }
   where

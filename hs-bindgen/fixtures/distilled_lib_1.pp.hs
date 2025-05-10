@@ -21,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
+import qualified Text.Read
 
 -- #include "distilled_lib_1.h"
 
@@ -199,8 +200,6 @@ deriving stock instance Eq Another_typedef_enum_e
 
 deriving stock instance Ord Another_typedef_enum_e
 
-deriving stock instance Read Another_typedef_enum_e
-
 instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
   type CEnumZ Another_typedef_enum_e = FC.CUInt
@@ -216,6 +215,9 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Another_typedef_enum_e"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Another_typedef_enum_e"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -229,6 +231,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
 instance Show Another_typedef_enum_e where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read Another_typedef_enum_e where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern FOO :: Another_typedef_enum_e
 pattern FOO = Another_typedef_enum_e 0
@@ -420,8 +430,6 @@ deriving stock instance Eq A_typedef_enum_e
 
 deriving stock instance Ord A_typedef_enum_e
 
-deriving stock instance Read A_typedef_enum_e
-
 instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
   type CEnumZ A_typedef_enum_e = FC.CUChar
@@ -441,6 +449,9 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
   showsUndeclared =
     HsBindgen.Runtime.CEnum.showsWrappedUndeclared "A_typedef_enum_e"
 
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "A_typedef_enum_e"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -454,6 +465,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
 instance Show A_typedef_enum_e where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read A_typedef_enum_e where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern ENUM_CASE_0 :: A_typedef_enum_e
 pattern ENUM_CASE_0 = A_typedef_enum_e 0

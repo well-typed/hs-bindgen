@@ -23,12 +23,12 @@ module HsBindgen.Hs.Translation (
 import Control.Monad.State qualified as State
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
-import Data.Type.Nat (SNatI, induction)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as T
+import Data.Type.Nat (SNatI, induction)
 import Data.Vec.Lazy qualified as Vec
-import GHC.Exts qualified as IsList (IsList(..))
+import GHC.Exts qualified as IsList (IsList (..))
 
 import C.Char qualified as C
 import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
@@ -43,11 +43,10 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
-import HsBindgen.NameHint
 import HsBindgen.ModuleUnique
+import HsBindgen.NameHint
 
-import DeBruijn
-  (Idx (..), pattern I1, weaken, Add (..), pattern I2, EmptyCtx)
+import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -82,7 +81,6 @@ defaultTranslationOpts = TranslationOpts {
     , translationDeriveEnum = [
           (Hs.DeriveStock, Hs.Eq)
         , (Hs.DeriveStock, Hs.Ord)
-        , (Hs.DeriveStock, Hs.Read)
         ]
     , translationDeriveTypedef = [
           (Hs.DeriveStock, Hs.Eq)
@@ -550,7 +548,7 @@ enumDecs opts nm e = do
       }
 
     insts :: Set HsTypeClass
-    insts = Set.union (Set.fromList [Hs.Show, Hs.Storable]) $
+    insts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable]) $
       Set.fromList (snd <$> translationDeriveEnum opts)
 
     hsNewtype :: Hs.Newtype
@@ -622,11 +620,12 @@ enumDecs opts nm e = do
           cEnumDecl = Hs.DeclDefineInstance $
             Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
           cEnumShowDecl = Hs.DeclDefineInstance (Hs.InstanceCEnumShow hsStruct)
+          cEnumReadDecl = Hs.DeclDefineInstance (Hs.InstanceCEnumRead hsStruct)
           sequentialCEnumDecl = case mSeqBounds of
             Just (nameMin, nameMax) -> List.singleton . Hs.DeclDefineInstance $
               Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
             Nothing -> []
-      in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl]
+      in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl, cEnumReadDecl]
 
 {-------------------------------------------------------------------------------
   Typedef

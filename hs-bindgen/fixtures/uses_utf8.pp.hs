@@ -12,6 +12,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
+import qualified Text.Read
 
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
@@ -38,8 +39,6 @@ deriving stock instance Eq MyEnum
 
 deriving stock instance Ord MyEnum
 
-deriving stock instance Read MyEnum
-
 instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   type CEnumZ MyEnum = FC.CUInt
@@ -54,6 +53,8 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   showsUndeclared = HsBindgen.Runtime.CEnum.showsWrappedUndeclared "MyEnum"
 
+  readPrecUndeclared = HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "MyEnum"
+
   isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
 
   mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -67,6 +68,14 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
 instance Show MyEnum where
 
   showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+
+instance Read MyEnum where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
 
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0

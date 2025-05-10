@@ -19,8 +19,9 @@ import Foreign.Storable qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import GHC.Ptr ( Ptr(Ptr) )
 import GHC.Exts qualified as IsList(IsList(..))
+import GHC.Ptr ( Ptr(Ptr) )
+import Text.Read qualified
 
 import GHC.Float
   ( castWord64ToDouble, castDoubleToWord64
@@ -85,18 +86,22 @@ mkGlobal = \case
       CharValue_constructor  -> 'C.Char.CharValue
       CharValue_fromAddr    -> 'C.Char.charValueFromAddr
 
-      Bits_class       -> ''Data.Bits.Bits
-      Bounded_class    -> ''Bounded
-      Enum_class       -> ''Enum
-      Eq_class         -> ''Eq
-      FiniteBits_class -> ''Data.Bits.FiniteBits
-      Floating_class   -> ''Floating
-      Fractional_class -> ''Fractional
-      Integral_class   -> ''Integral
-      Ix_class         -> ''Data.Ix.Ix
-      Num_class        -> ''Num
-      Ord_class        -> ''Ord
-      Read_class       -> ''Read
+      Bits_class        -> ''Data.Bits.Bits
+      Bounded_class     -> ''Bounded
+      Enum_class        -> ''Enum
+      Eq_class          -> ''Eq
+      FiniteBits_class  -> ''Data.Bits.FiniteBits
+      Floating_class    -> ''Floating
+      Fractional_class  -> ''Fractional
+      Integral_class    -> ''Integral
+      Ix_class          -> ''Data.Ix.Ix
+      Num_class         -> ''Num
+      Ord_class         -> ''Ord
+      Read_class        -> ''Read
+      Read_readPrec     -> 'Text.Read.readPrec
+      Read_readList     -> 'Text.Read.readList
+      Read_readListPrec -> 'Text.Read.readListPrec
+
       Real_class       -> ''Real
       RealFloat_class  -> ''RealFloat
       RealFrac_class   -> ''RealFrac
@@ -159,9 +164,11 @@ mkGlobal = \case
       CFloat_constructor  -> 'Foreign.C.Types.CFloat
       CDouble_constructor -> 'Foreign.C.Types.CDouble
 
-      NonEmpty_constructor -> '(NonEmpty.:|)
-      NonEmpty_singleton   -> 'NonEmpty.singleton
-      Map_fromList         -> 'Map.fromList
+      NonEmpty_constructor     -> '(NonEmpty.:|)
+      NonEmpty_singleton       -> 'NonEmpty.singleton
+      Map_fromList             -> 'Map.fromList
+      Read_readListDefault     -> 'Text.Read.readListDefault
+      Read_readListPrecDefault -> 'Text.Read.readListPrecDefault
 
       CEnum_class -> ''HsBindgen.Runtime.CEnum.CEnum
       CEnumZ_tycon -> ''HsBindgen.Runtime.CEnum.CEnumZ
@@ -169,6 +176,7 @@ mkGlobal = \case
       CEnum_fromCEnum -> 'HsBindgen.Runtime.CEnum.fromCEnum
       CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
       CEnum_showsUndeclared -> 'HsBindgen.Runtime.CEnum.showsUndeclared
+      CEnum_readPrecUndeclared -> 'HsBindgen.Runtime.CEnum.readPrecUndeclared
       CEnum_isDeclared -> 'HsBindgen.Runtime.CEnum.isDeclared
       CEnum_mkDeclared -> 'HsBindgen.Runtime.CEnum.mkDeclared
       SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
@@ -177,6 +185,8 @@ mkGlobal = \case
       CEnum_declaredValuesFromList -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
       CEnum_showsCEnum -> 'HsBindgen.Runtime.CEnum.showsCEnum
       CEnum_showsWrappedUndeclared -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
+      CEnum_readPrecCEnum -> 'HsBindgen.Runtime.CEnum.readPrecCEnum
+      CEnum_readPrecWrappedUndeclared -> 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
       CEnum_seqIsDeclared -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
       CEnum_seqMkDeclared -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
       AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
@@ -262,23 +272,26 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_getUnionPayload -> TH.varE name
 
     -- Other type classes
-    Bits_class       -> panicPure "class in expression"
-    Bounded_class    -> panicPure "class in expression"
-    Enum_class       -> panicPure "class in expression"
-    Eq_class         -> panicPure "class in expression"
-    FiniteBits_class -> panicPure "class in expression"
-    Floating_class   -> panicPure "class in expression"
-    Fractional_class -> panicPure "class in expression"
-    Integral_class   -> panicPure "class in expression"
-    Ix_class         -> panicPure "class in expression"
-    Num_class        -> panicPure "class in expression"
-    Ord_class        -> panicPure "class in expression"
-    Read_class       -> panicPure "class in expression"
-    Real_class       -> panicPure "class in expression"
-    RealFloat_class  -> panicPure "class in expression"
-    RealFrac_class   -> panicPure "class in expression"
-    Show_class       -> panicPure "class in expression"
-    Show_showsPrec   -> TH.varE name
+    Bits_class        -> panicPure "class in expression"
+    Bounded_class     -> panicPure "class in expression"
+    Enum_class        -> panicPure "class in expression"
+    Eq_class          -> panicPure "class in expression"
+    FiniteBits_class  -> panicPure "class in expression"
+    Floating_class    -> panicPure "class in expression"
+    Fractional_class  -> panicPure "class in expression"
+    Integral_class    -> panicPure "class in expression"
+    Ix_class          -> panicPure "class in expression"
+    Num_class         -> panicPure "class in expression"
+    Ord_class         -> panicPure "class in expression"
+    Read_class        -> panicPure "class in expression"
+    Read_readPrec     -> TH.varE name
+    Read_readList     -> TH.varE name
+    Read_readListPrec -> TH.varE name
+    Real_class        -> panicPure "class in expression"
+    RealFloat_class   -> panicPure "class in expression"
+    RealFrac_class    -> panicPure "class in expression"
+    Show_class        -> panicPure "class in expression"
+    Show_showsPrec    -> TH.varE name
 
     NomEq_class -> panicPure "class in expression"
 
@@ -337,9 +350,11 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     GHC_Float_castWord32ToFloat  -> TH.varE name
     GHC_Float_castWord64ToDouble -> TH.varE name
 
-    NonEmpty_constructor -> TH.conE name
-    NonEmpty_singleton   -> TH.varE name
-    Map_fromList         -> TH.varE name
+    NonEmpty_constructor     -> TH.conE name
+    NonEmpty_singleton       -> TH.varE name
+    Map_fromList             -> TH.varE name
+    Read_readListDefault     -> TH.varE name
+    Read_readListPrecDefault -> TH.varE name
 
     CEnum_class                      -> panicPure "class in expression"
     CEnumZ_tycon                     -> TH.conE name
@@ -347,6 +362,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CEnum_fromCEnum                  -> TH.varE name
     CEnum_declaredValues             -> TH.varE name
     CEnum_showsUndeclared            -> TH.varE name
+    CEnum_readPrecUndeclared         -> TH.varE name
     CEnum_isDeclared                 -> TH.varE name
     CEnum_mkDeclared                 -> TH.varE name
     SequentialCEnum_class            -> panicPure "class in expression"
@@ -355,6 +371,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CEnum_declaredValuesFromList     -> TH.varE name
     CEnum_showsCEnum                 -> TH.varE name
     CEnum_showsWrappedUndeclared     -> TH.varE name
+    CEnum_readPrecCEnum              -> TH.varE name
+    CEnum_readPrecWrappedUndeclared  -> TH.varE name
     CEnum_seqIsDeclared              -> TH.varE name
     CEnum_seqMkDeclared              -> TH.varE name
     AsCEnum_type                     -> panicPure "type in expression"
