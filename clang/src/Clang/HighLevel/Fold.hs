@@ -5,6 +5,7 @@ module Clang.HighLevel.Fold (
     -- * Folds
     Fold
   , Next(..)
+  , recursePure
   , clang_visitChildren
   ) where
 
@@ -53,7 +54,15 @@ data Next m a where
   -- processing the children into a result for the parent.
   --
   -- This is the equivalent of 'CXChildVisit_Recurse'.
-  Recurse :: Fold m b -> ([b] -> Maybe a) -> Next m a
+  Recurse :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
+
+instance Functor m => Functor (Next m) where
+  fmap f (Break x)     = Break (fmap f x)
+  fmap f (Continue x)  = Continue (fmap f x)
+  fmap f (Recurse r g) = Recurse r (fmap (fmap f) . g)
+
+recursePure :: Applicative m => Fold m b -> ([b] -> Maybe a) -> Next m a
+recursePure r f = Recurse r (pure . f)
 
 {-------------------------------------------------------------------------------
   Internal: stack
@@ -72,7 +81,7 @@ data Processing m a = Processing {
 
 data Stack m a where
   Bottom :: Processing m a -> Stack m a
-  Push   :: Processing m a -> ([a] -> Maybe b) -> Stack m b -> Stack m a
+  Push   :: Processing m a -> ([a] -> m (Maybe b)) -> Stack m b -> Stack m a
 
 topProcessing :: Stack m a -> Processing m a
 topProcessing (Bottom p)     = p
@@ -103,7 +112,7 @@ initStack root topLevelFold = do
 push ::
      CXCursor
   -> Fold m b
-  -> ([b] -> Maybe a)
+  -> ([b] -> m (Maybe a))
   -> Stack m a -> IO (Stack m b)
 push newParent fold collect stack = do
     partialResults <- newIORef []
@@ -114,8 +123,11 @@ push newParent fold collect stack = do
           }
     return $ Push p collect stack
 
-popUntil :: forall m. IORef (SomeStack m) -> CXCursor -> IO ()
-popUntil someStack newParent = do
+popUntil :: forall m.
+     (forall b. m b -> IO b)
+  -> IORef (SomeStack m)
+  -> CXCursor -> IO ()
+popUntil runInIO someStack newParent = do
     SomeStack stack <- liftIO $ readIORef someStack
     stack' <- loop stack
     liftIO $ writeIORef someStack stack'
@@ -131,8 +143,8 @@ popUntil someStack newParent = do
               error "popUntil: something has gone horribly wrong"
             Push p collect stack' -> do
               as <- readIORef (partialResults p)
-              forM_ (collect (reverse as)) $ \b ->
-                modifyIORef (topResults stack') (b:)
+              mb <- runInIO $ collect (reverse as)
+              forM_ mb $ \b -> modifyIORef (topResults stack') (b:)
               loop stack'
 
 {-------------------------------------------------------------------------------
@@ -148,11 +160,11 @@ popUntil someStack newParent = do
 clang_visitChildren :: forall m a.
      MonadUnliftIO m
   => CXCursor -> Fold m a -> m [a]
-clang_visitChildren root topLevelFold = withRunInIO $ \support -> do
+clang_visitChildren root topLevelFold = withRunInIO $ \runInIO -> do
     stack     <- initStack root topLevelFold
     someStack <- newIORef $ SomeStack stack
-    _terminatedEarly <- Core.clang_visitChildren root $ visitor support someStack
-    popUntil someStack root
+    _terminatedEarly <- Core.clang_visitChildren root $ visitor runInIO someStack
+    popUntil runInIO someStack root
     reverse <$> readIORef (topResults stack)
   where
     visitor ::
@@ -162,7 +174,7 @@ clang_visitChildren root topLevelFold = withRunInIO $ \support -> do
       -> CXCursor
       -> IO (SimpleEnum CXChildVisitResult)
     visitor runInIO someStack current parent = do
-        popUntil someStack parent
+        popUntil runInIO someStack parent
         SomeStack stack <- readIORef someStack
         let p = topProcessing stack
         next <- runInIO $ currentFold p current

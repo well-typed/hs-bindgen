@@ -144,7 +144,7 @@ foldDecls opts@Options{..} cursor = do
         dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
 
     pure $ if isRecurse
-      then Recurse (foldDecls opts) (const Nothing)
+      then recursePure (foldDecls opts) (const Nothing)
       else Continue Nothing
   where
     dumpParents :: IO ()

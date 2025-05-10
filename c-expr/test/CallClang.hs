@@ -183,7 +183,7 @@ getExpansionTypeMapping clangArgs tys =
                     | let ( nm, nb ) = Text.splitAt 6 funNm
                     , nm == "testFn"
                     , Just i <- readMaybe ( Text.unpack nb )
-                    -> Clang.Recurse ( getCanonicalType ( Just i ) ) listToMaybe
+                    -> Clang.recursePure ( getCanonicalType ( Just i ) ) listToMaybe
                   _ ->
                     Clang.Continue Nothing
             | Just nb <- inTestFunDecl
@@ -200,7 +200,7 @@ getExpansionTypeMapping clangArgs tys =
                     | otherwise
                     = Nothing
               return $ Clang.Continue res
-          _ -> return $ Clang.Recurse ( getCanonicalType inTestFunDecl ) listToMaybe
+          _ -> return $ Clang.recursePure ( getCanonicalType inTestFunDecl ) listToMaybe
 
     tyPairs :: IntMap CType
     tyPairs = IntMap.fromList [ (i, ty) | i <- [ (1 :: Int) .. ] | ty <- tys ]
@@ -271,14 +271,14 @@ queryClangForResultType clangArgs tys op =
         case cursorKind of
           Right kind
             | Clang.CXCursor_CStyleCastExpr <- kind
-            -> return $ Clang.Recurse ( extractType ( inTestFunDecl, True ) ) listToMaybe
+            -> return $ Clang.recursePure ( extractType ( inTestFunDecl, True ) ) listToMaybe
             | Clang.CXCursor_FunctionDecl <- kind
             -> do
               funNm <- Clang.getUserProvided <$> Clang.clang_getCursorSpelling cursor
               return $
                 if funNm == Just "testFunction"
                 then
-                  Clang.Recurse ( extractType ( True, False ) ) listToMaybe
+                  Clang.recursePure ( extractType ( True, False ) ) listToMaybe
                 else
                   Clang.Continue Nothing
             | inTestFunDecl
@@ -288,7 +288,7 @@ queryClangForResultType clangArgs tys op =
               cxTy <- Clang.clang_getCursorType cursor
               mbTy <- parseClangType cxTy
               return $ Clang.Break mbTy
-          _ -> return $ Clang.Recurse ( extractType ( inTestFunDecl, inCast ) ) listToMaybe
+          _ -> return $ Clang.recursePure ( extractType ( inTestFunDecl, inCast ) ) listToMaybe
 
 clangWithTranslationUnit ::
      Clang.ClangArgs
