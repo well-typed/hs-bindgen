@@ -27,4 +27,3 @@ library
 
   extra-libraries:
       vector
-      m
