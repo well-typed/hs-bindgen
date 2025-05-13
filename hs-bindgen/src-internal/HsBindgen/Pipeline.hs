@@ -71,6 +71,7 @@ import HsBindgen.ModuleUnique
 -- | Options for both the preprocessor and TH APIs
 data Opts = Opts {
       optsClangArgs       :: ClangArgs
+    , optsBindingSpecs    :: BindingSpecs
     , optsExtBindingSpecs :: BindingSpecs
     , optsTranslation     :: Hs.TranslationOpts
     , optsNameMangler     :: NameMangler
@@ -83,6 +84,7 @@ data Opts = Opts {
 defaultOpts :: Opts
 defaultOpts = Opts {
       optsClangArgs       = defaultClangArgs
+    , optsBindingSpecs    = emptyBindingSpecs
     , optsExtBindingSpecs = emptyBindingSpecs
     , optsTranslation     = Hs.defaultTranslationOpts
     , optsNameMangler     = nameMangler
@@ -122,11 +124,9 @@ parseCHeader Opts{..} headerIncludePath =
       (contramap prettyLogMsg optsSkipTracer)
       optsClangArgs
       optsPredicate
-      extBindingSpecs
+      (unBindingSpecs optsBindingSpecs)
+      (unBindingSpecs optsExtBindingSpecs)
       [headerIncludePath]
-  where
-    extBindingSpecs :: IBindingSpecs SourcePath
-    BindingSpecs extBindingSpecs = optsExtBindingSpecs
 
 -- | Generate @Hs@ declarations
 genHsDecls :: ModuleUnique -> Opts -> C.Header -> [Hs.Decl]

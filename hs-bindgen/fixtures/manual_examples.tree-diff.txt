@@ -35,7 +35,8 @@ Header
             "manual_examples.h:17:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:14:16"},
+        "manual_examples.h:14:16",
+        structTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName
@@ -82,7 +83,8 @@ Header
             valueSourceLoc =
             "manual_examples.h:29:5"}],
         enumSourceLoc =
-        "manual_examples.h:26:14"},
+        "manual_examples.h:26:14",
+        enumTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName
@@ -106,14 +108,16 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "manual_examples.h:38:13"},
+        "manual_examples.h:38:13",
+        typedefTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "average",
         typedefType = TypePrim
           (PrimFloating PrimDouble),
         typedefSourceLoc =
-        "manual_examples.h:39:16"},
+        "manual_examples.h:39:16",
+        typedefTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName
@@ -332,7 +336,8 @@ Header
             "manual_examples.h:60:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:57:16"},
+        "manual_examples.h:57:16",
+        structTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName "getYear",
@@ -374,7 +379,8 @@ Header
             "manual_examples.h:72:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:70:10"},
+        "manual_examples.h:70:10",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -414,7 +420,8 @@ Header
             "manual_examples.h:78:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:75:10"},
+        "manual_examples.h:75:10",
+        structTypeSpec = Nothing},
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
@@ -439,14 +446,16 @@ Header
             ufieldSourceLoc =
             "manual_examples.h:79:5"}],
         unionSourceLoc =
-        "manual_examples.h:69:15"},
+        "manual_examples.h:69:15",
+        unionTypeSpec = Nothing},
     DeclOpaqueStruct
       OpaqueStruct {
         opaqueStructTag = CName
           "person",
         opaqueStructAliases = [],
         opaqueStructSourceLoc =
-        "manual_examples.h:77:12"},
+        "manual_examples.h:77:12",
+        opaqueStructTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName
@@ -492,7 +501,8 @@ Header
             "manual_examples.h:91:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:89:3"},
+        "manual_examples.h:89:3",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -522,7 +532,8 @@ Header
             "manual_examples.h:96:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:94:3"},
+        "manual_examples.h:94:3",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -557,7 +568,8 @@ Header
             "manual_examples.h:97:5"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:88:8"},
+        "manual_examples.h:88:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -586,7 +598,8 @@ Header
             "manual_examples.h:102:7"}],
         structFlam = Nothing,
         structSourceLoc =
-        "manual_examples.h:100:9"},
+        "manual_examples.h:100:9",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "config",
@@ -597,14 +610,16 @@ Header
                 (DeclPathCtxtTypedef
                   (CName "config"))))),
         typedefSourceLoc =
-        "manual_examples.h:103:4"},
+        "manual_examples.h:103:4",
+        typedefTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "adio\769s",
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "manual_examples.h:109:13"},
+        "manual_examples.h:109:13",
+        typedefTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName
@@ -622,7 +637,8 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "manual_examples.h:111:13"},
+        "manual_examples.h:111:13",
+        typedefTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName "\978",
@@ -638,7 +654,8 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "manual_examples.h:113:13"},
+        "manual_examples.h:113:13",
+        typedefTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName "import",
@@ -679,7 +696,8 @@ Header
             valueSourceLoc =
             "manual_examples.h:124:3"}],
         enumSourceLoc =
-        "manual_examples.h:120:6"},
+        "manual_examples.h:120:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -717,7 +735,8 @@ Header
             valueSourceLoc =
             "manual_examples.h:132:3"}],
         enumSourceLoc =
-        "manual_examples.h:127:6"},
+        "manual_examples.h:127:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -749,7 +768,8 @@ Header
             valueSourceLoc =
             "manual_examples.h:139:3"}],
         enumSourceLoc =
-        "manual_examples.h:135:6"},
+        "manual_examples.h:135:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -782,7 +802,8 @@ Header
             valueSourceLoc =
             "manual_examples.h:146:3"}],
         enumSourceLoc =
-        "manual_examples.h:142:6"},
+        "manual_examples.h:142:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -810,7 +831,8 @@ Header
             valueSourceLoc =
             "manual_examples.h:152:3"}],
         enumSourceLoc =
-        "manual_examples.h:149:6"},
+        "manual_examples.h:149:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -894,4 +916,5 @@ Header
             valueSourceLoc =
             "manual_examples.h:172:3"}],
         enumSourceLoc =
-        "manual_examples.h:157:6"}]
+        "manual_examples.h:157:6",
+        enumTypeSpec = Nothing}]

@@ -62,7 +62,8 @@ Header
             "bitfields.h:7:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:1:8"},
+        "bitfields.h:1:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -97,7 +98,8 @@ Header
             "bitfields.h:15:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:12:8"},
+        "bitfields.h:12:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -132,7 +134,8 @@ Header
             "bitfields.h:21:10"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:18:8"},
+        "bitfields.h:18:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -167,7 +170,8 @@ Header
             "bitfields.h:27:10"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:24:8"},
+        "bitfields.h:24:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -194,7 +198,8 @@ Header
             "bitfields.h:32:10"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:30:8"},
+        "bitfields.h:30:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -222,7 +227,8 @@ Header
             "bitfields.h:38:6"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:36:8"},
+        "bitfields.h:36:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -250,4 +256,5 @@ Header
             "bitfields.h:43:6"}],
         structFlam = Nothing,
         structSourceLoc =
-        "bitfields.h:41:8"}]
+        "bitfields.h:41:8",
+        structTypeSpec = Nothing}]

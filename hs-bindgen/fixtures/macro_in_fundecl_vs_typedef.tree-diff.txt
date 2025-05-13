@@ -35,7 +35,8 @@ Header
             (PrimSignImplicit
               (Just Signed))),
         typedefSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:5:14"},
+        "macro_in_fundecl_vs_typedef.h:5:14",
+        typedefTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName "quux1",
@@ -109,7 +110,8 @@ Header
             "macro_in_fundecl_vs_typedef.h:18:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:18:16"},
+        "macro_in_fundecl_vs_typedef.h:18:16",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -129,7 +131,8 @@ Header
             "macro_in_fundecl_vs_typedef.h:19:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:19:9"},
+        "macro_in_fundecl_vs_typedef.h:19:9",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -148,7 +151,8 @@ Header
             "macro_in_fundecl_vs_typedef.h:20:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:20:16"},
+        "macro_in_fundecl_vs_typedef.h:20:16",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "struct3_t",
@@ -156,7 +160,8 @@ Header
           (DeclPathName
             (CName "struct3")),
         typedefSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:20:35"},
+        "macro_in_fundecl_vs_typedef.h:20:35",
+        typedefTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -176,7 +181,8 @@ Header
             "macro_in_fundecl_vs_typedef.h:21:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "macro_in_fundecl_vs_typedef.h:21:16"},
+        "macro_in_fundecl_vs_typedef.h:21:16",
+        structTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName

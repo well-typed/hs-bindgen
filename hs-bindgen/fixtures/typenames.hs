@@ -36,7 +36,8 @@
               valueSourceLoc =
               "typenames.h:16:2"}],
           enumSourceLoc =
-          "typenames.h:14:6"},
+          "typenames.h:14:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -82,7 +83,8 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"},
+            "typenames.h:14:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -128,7 +130,8 @@
                         valueSourceLoc =
                         "typenames.h:16:2"}],
                     enumSourceLoc =
-                    "typenames.h:14:6"},
+                    "typenames.h:14:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -179,7 +182,8 @@
                         valueSourceLoc =
                         "typenames.h:16:2"}],
                     enumSourceLoc =
-                    "typenames.h:14:6"},
+                    "typenames.h:14:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -235,7 +239,8 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"},
+            "typenames.h:14:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -282,7 +287,8 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"},
+            "typenames.h:14:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FOO1")
@@ -325,7 +331,8 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"},
+            "typenames.h:14:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -371,7 +378,8 @@
                 valueSourceLoc =
                 "typenames.h:16:2"}],
             enumSourceLoc =
-            "typenames.h:14:6"},
+            "typenames.h:14:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -439,7 +447,8 @@
           typedefType = TypePrim
             (PrimFloating PrimDouble),
           typedefSourceLoc =
-          "typenames.h:19:16"},
+          "typenames.h:19:16",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,

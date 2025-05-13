@@ -21,7 +21,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
-          "alltypes.h:131:25"},
+          "alltypes.h:131:25",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -139,7 +140,8 @@
               PrimLong
               Unsigned),
           typedefSourceLoc =
-          "alltypes.h:136:25"},
+          "alltypes.h:136:25",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -305,7 +307,8 @@
               "fixedwidth.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "fixedwidth.h:3:8"},
+          "fixedwidth.h:3:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -381,7 +384,8 @@
                 "fixedwidth.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "fixedwidth.h:3:8"},
+            "fixedwidth.h:3:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -462,7 +466,8 @@
                         "fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedwidth.h:3:8"},
+                    "fixedwidth.h:3:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -545,7 +550,8 @@
                         "fixedwidth.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedwidth.h:3:8"},
+                    "fixedwidth.h:3:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

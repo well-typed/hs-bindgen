@@ -6,7 +6,8 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "typedef_vs_macro.h:1:13"},
+        "typedef_vs_macro.h:1:13",
+        typedefTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "T2",
@@ -15,7 +16,8 @@ Header
             (PrimSignImplicit
               (Just Signed))),
         typedefSourceLoc =
-        "typedef_vs_macro.h:2:14"},
+        "typedef_vs_macro.h:2:14",
+        typedefTypeSpec = Nothing},
     DeclMacro
       MacroDecl {
         macroDeclMacro = Macro {
@@ -177,7 +179,8 @@ Header
             "typedef_vs_macro.h:13:6"}],
         structFlam = Nothing,
         structSourceLoc =
-        "typedef_vs_macro.h:9:8"},
+        "typedef_vs_macro.h:9:8",
+        structTypeSpec = Nothing},
     DeclMacro
       MacroDecl {
         macroDeclMacro = Macro {
@@ -223,4 +226,5 @@ Header
             "typedef_vs_macro.h:19:13"}],
         structFlam = Nothing,
         structSourceLoc =
-        "typedef_vs_macro.h:18:8"}]
+        "typedef_vs_macro.h:18:8",
+        structTypeSpec = Nothing}]

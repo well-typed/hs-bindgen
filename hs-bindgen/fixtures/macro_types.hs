@@ -1033,7 +1033,8 @@
           typedefType = TypeTypedef
             (CName "MTy"),
           typedefSourceLoc =
-          "macro_types.h:34:13"},
+          "macro_types.h:34:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1385,7 +1386,8 @@
           typedefType = TypeTypedef
             (CName "BOOLEAN_T"),
           typedefSourceLoc =
-          "macro_types.h:38:19"},
+          "macro_types.h:38:19",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,

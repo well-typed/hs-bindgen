@@ -18,14 +18,16 @@ Header
             "forward_declaration.h:4:7"}],
         structFlam = Nothing,
         structSourceLoc =
-        "forward_declaration.h:3:8"},
+        "forward_declaration.h:3:8",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "S1_t",
         typedefType = TypeStruct
           (DeclPathName (CName "S1")),
         typedefSourceLoc =
-        "forward_declaration.h:1:19"},
+        "forward_declaration.h:1:19",
+        typedefTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -44,4 +46,5 @@ Header
             "forward_declaration.h:10:7"}],
         structFlam = Nothing,
         structSourceLoc =
-        "forward_declaration.h:9:8"}]
+        "forward_declaration.h:9:8",
+        structTypeSpec = Nothing}]

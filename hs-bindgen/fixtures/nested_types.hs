@@ -71,7 +71,8 @@
               "nested_types.h:3:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:1:8"},
+          "nested_types.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -147,7 +148,8 @@
                 "nested_types.h:3:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:1:8"},
+            "nested_types.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -228,7 +230,8 @@
                         "nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:1:8"},
+                    "nested_types.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -311,7 +314,8 @@
                         "nested_types.h:3:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:1:8"},
+                    "nested_types.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -398,7 +402,8 @@
               "nested_types.h:8:16"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:6:8"},
+          "nested_types.h:6:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -470,7 +475,8 @@
                 "nested_types.h:8:16"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:6:8"},
+            "nested_types.h:6:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -547,7 +553,8 @@
                         "nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:6:8"},
+                    "nested_types.h:6:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -626,7 +633,8 @@
                         "nested_types.h:8:16"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:6:8"},
+                    "nested_types.h:6:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -689,7 +697,8 @@
               "nested_types.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:11:8"},
+          "nested_types.h:11:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -737,7 +746,8 @@
                 "nested_types.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:11:8"},
+            "nested_types.h:11:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -790,7 +800,8 @@
                         "nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:11:8"},
+                    "nested_types.h:11:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 8]),
@@ -843,7 +854,8 @@
                         "nested_types.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:11:8"},
+                    "nested_types.h:11:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -936,7 +948,8 @@
               "nested_types.h:27:8"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:22:8"},
+          "nested_types.h:22:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1015,7 +1028,8 @@
                 "nested_types.h:27:8"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:22:8"},
+            "nested_types.h:22:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1099,7 +1113,8 @@
                         "nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:22:8"},
+                    "nested_types.h:22:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1185,7 +1200,8 @@
                         "nested_types.h:27:8"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:22:8"},
+                    "nested_types.h:22:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1283,7 +1299,8 @@
               "nested_types.h:26:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_types.h:24:12"},
+          "nested_types.h:24:12",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1362,7 +1379,8 @@
                 "nested_types.h:26:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_types.h:24:12"},
+            "nested_types.h:24:12",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1446,7 +1464,8 @@
                         "nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:24:12"},
+                    "nested_types.h:24:12",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1532,7 +1551,8 @@
                         "nested_types.h:26:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_types.h:24:12"},
+                    "nested_types.h:24:12",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

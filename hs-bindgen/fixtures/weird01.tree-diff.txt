@@ -18,7 +18,8 @@ Header
             "weird01.h:2:13"}],
         structFlam = Nothing,
         structSourceLoc =
-        "weird01.h:1:8"},
+        "weird01.h:1:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -37,7 +38,8 @@ Header
             "weird01.h:4:21"}],
         structFlam = Nothing,
         structSourceLoc =
-        "weird01.h:3:16"},
+        "weird01.h:3:16",
+        structTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName "func",

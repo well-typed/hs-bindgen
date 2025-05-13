@@ -21,7 +21,8 @@ Header
             valueSourceLoc =
             "nested_enums.h:4:17"}],
         enumSourceLoc =
-        "nested_enums.h:2:14"},
+        "nested_enums.h:2:14",
+        enumTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -40,7 +41,8 @@ Header
             "nested_enums.h:5:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "nested_enums.h:1:8"},
+        "nested_enums.h:1:8",
+        structTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathAnon
@@ -65,7 +67,8 @@ Header
             valueSourceLoc =
             "nested_enums.h:11:17"}],
         enumSourceLoc =
-        "nested_enums.h:9:9"},
+        "nested_enums.h:9:9",
+        enumTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -88,4 +91,5 @@ Header
             "nested_enums.h:12:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "nested_enums.h:8:8"}]
+        "nested_enums.h:8:8",
+        structTypeSpec = Nothing}]

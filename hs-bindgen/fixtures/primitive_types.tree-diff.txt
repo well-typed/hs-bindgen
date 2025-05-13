@@ -258,4 +258,5 @@ Header
             "primitive_types.h:38:12"}],
         structFlam = Nothing,
         structSourceLoc =
-        "primitive_types.h:1:8"}]
+        "primitive_types.h:1:8",
+        structTypeSpec = Nothing}]

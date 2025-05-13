@@ -38,4 +38,5 @@ Header
             valueSourceLoc =
             "uses_utf8.h:6:9"}],
         enumSourceLoc =
-        "uses_utf8.h:4:6"}]
+        "uses_utf8.h:4:6",
+        enumTypeSpec = Nothing}]

@@ -34,7 +34,8 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:6:5"}],
-        enumSourceLoc = "enums.h:4:6"},
+        enumSourceLoc = "enums.h:4:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -60,7 +61,8 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:12:5"}],
-        enumSourceLoc = "enums.h:9:6"},
+        enumSourceLoc = "enums.h:9:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -81,7 +83,8 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:17:5"}],
-        enumSourceLoc = "enums.h:15:6"},
+        enumSourceLoc = "enums.h:15:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -107,7 +110,8 @@ Header
             valueValue = 404,
             valueSourceLoc =
             "enums.h:23:5"}],
-        enumSourceLoc = "enums.h:20:6"},
+        enumSourceLoc = "enums.h:20:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -134,7 +138,8 @@ Header
             valueValue = 2,
             valueSourceLoc =
             "enums.h:27:25"}],
-        enumSourceLoc = "enums.h:26:6"},
+        enumSourceLoc = "enums.h:26:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathAnon
@@ -156,7 +161,8 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:30:23"}],
-        enumSourceLoc = "enums.h:30:9"},
+        enumSourceLoc = "enums.h:30:9",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -177,8 +183,8 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:32:29"}],
-        enumSourceLoc =
-        "enums.h:32:14"},
+        enumSourceLoc = "enums.h:32:14",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -199,7 +205,8 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:34:21"}],
-        enumSourceLoc = "enums.h:34:6"},
+        enumSourceLoc = "enums.h:34:6",
+        enumTypeSpec = Nothing},
     DeclEnum
       Enu {
         enumDeclPath = DeclPathName
@@ -220,11 +227,13 @@ Header
             valueValue = 1,
             valueSourceLoc =
             "enums.h:37:21"}],
-        enumSourceLoc = "enums.h:37:6"},
+        enumSourceLoc = "enums.h:37:6",
+        enumTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "enumD_t",
         typedefType = TypeEnum
           (DeclPathName (CName "enumD")),
         typedefSourceLoc =
-        "enums.h:38:20"}]
+        "enums.h:38:20",
+        typedefTypeSpec = Nothing}]

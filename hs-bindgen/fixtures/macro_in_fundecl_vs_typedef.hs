@@ -129,7 +129,8 @@
               (PrimSignImplicit
                 (Just Signed))),
           typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:5:14"},
+          "macro_in_fundecl_vs_typedef.h:5:14",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -417,7 +418,8 @@
               "macro_in_fundecl_vs_typedef.h:18:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:18:16"},
+          "macro_in_fundecl_vs_typedef.h:18:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -465,7 +467,8 @@
                 "macro_in_fundecl_vs_typedef.h:18:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:18:16"},
+            "macro_in_fundecl_vs_typedef.h:18:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -518,7 +521,8 @@
                         "macro_in_fundecl_vs_typedef.h:18:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:16"},
+                    "macro_in_fundecl_vs_typedef.h:18:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -571,7 +575,8 @@
                         "macro_in_fundecl_vs_typedef.h:18:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:18:16"},
+                    "macro_in_fundecl_vs_typedef.h:18:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -638,7 +643,8 @@
               "macro_in_fundecl_vs_typedef.h:19:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:19:9"},
+          "macro_in_fundecl_vs_typedef.h:19:9",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -687,7 +693,8 @@
                 "macro_in_fundecl_vs_typedef.h:19:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:19:9"},
+            "macro_in_fundecl_vs_typedef.h:19:9",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -741,7 +748,8 @@
                         "macro_in_fundecl_vs_typedef.h:19:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:9"},
+                    "macro_in_fundecl_vs_typedef.h:19:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -795,7 +803,8 @@
                         "macro_in_fundecl_vs_typedef.h:19:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:19:9"},
+                    "macro_in_fundecl_vs_typedef.h:19:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -861,7 +870,8 @@
               "macro_in_fundecl_vs_typedef.h:20:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:20:16"},
+          "macro_in_fundecl_vs_typedef.h:20:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -909,7 +919,8 @@
                 "macro_in_fundecl_vs_typedef.h:20:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:20:16"},
+            "macro_in_fundecl_vs_typedef.h:20:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -962,7 +973,8 @@
                         "macro_in_fundecl_vs_typedef.h:20:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:16"},
+                    "macro_in_fundecl_vs_typedef.h:20:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -1015,7 +1027,8 @@
                         "macro_in_fundecl_vs_typedef.h:20:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:20:16"},
+                    "macro_in_fundecl_vs_typedef.h:20:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -1062,7 +1075,8 @@
             (DeclPathName
               (CName "struct3")),
           typedefSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:20:35"},
+          "macro_in_fundecl_vs_typedef.h:20:35",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -1128,7 +1142,8 @@
               "macro_in_fundecl_vs_typedef.h:21:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "macro_in_fundecl_vs_typedef.h:21:16"},
+          "macro_in_fundecl_vs_typedef.h:21:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1177,7 +1192,8 @@
                 "macro_in_fundecl_vs_typedef.h:21:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "macro_in_fundecl_vs_typedef.h:21:16"},
+            "macro_in_fundecl_vs_typedef.h:21:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1231,7 +1247,8 @@
                         "macro_in_fundecl_vs_typedef.h:21:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:16"},
+                    "macro_in_fundecl_vs_typedef.h:21:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -1285,7 +1302,8 @@
                         "macro_in_fundecl_vs_typedef.h:21:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "macro_in_fundecl_vs_typedef.h:21:16"},
+                    "macro_in_fundecl_vs_typedef.h:21:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)

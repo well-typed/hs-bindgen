@@ -37,7 +37,8 @@ Header
             "attributes.h:11:19"}],
         structFlam = Nothing,
         structSourceLoc =
-        "attributes.h:8:16"},
+        "attributes.h:8:16",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "FILE",
@@ -45,4 +46,5 @@ Header
           (DeclPathName
             (CName "__sFILE")),
         typedefSourceLoc =
-        "attributes.h:12:3"}]
+        "attributes.h:12:3",
+        typedefTypeSpec = Nothing}]

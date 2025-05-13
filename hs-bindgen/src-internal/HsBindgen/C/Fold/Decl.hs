@@ -36,11 +36,12 @@ foldDecls ::
      HasCallStack
   => Tracer IO Skipped
   -> Predicate
-  -> IBindingSpecs SourcePath
+  -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> [CHeaderIncludePath]
   -> CXTranslationUnit
   -> Fold (Eff (State DeclState)) Decl
-foldDecls tracer p specs headerIncludePaths unit current = do
+foldDecls tracer p specs extSpecs headerIncludePaths unit current = do
     loc <- clang_getCursorLocation current
     sloc <- HighLevel.clang_getExpansionLocation loc
 
@@ -48,7 +49,8 @@ foldDecls tracer p specs headerIncludePaths unit current = do
         typeDecl = do
           ty <- clang_getCursorType current
           -- TODO: add assert at ty is not invalid type.
-          void $ processTypeDecl specs unit (Precise sloc) (Just current) ty
+          void $
+            processTypeDecl specs extSpecs unit (Precise sloc) (Just current) ty
           return $ Continue Nothing
 
     eCursorKind <- fromSimpleEnum <$> clang_getCursorKind current
@@ -117,7 +119,7 @@ foldDecls tracer p specs headerIncludePaths unit current = do
         Right CXCursor_FunctionDecl -> do
           spelling <- clang_getCursorSpelling current
           ty  <- clang_getCursorType current
-          ty' <- processTypeDecl specs unit (Precise sloc) (Just current) ty
+          ty' <- processTypeDecl specs extSpecs unit (Precise sloc) (Just current) ty
 
           (args, res) <- case ty' of
             TypeFun args res -> return (args, res)

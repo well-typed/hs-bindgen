@@ -35,7 +35,7 @@ module HsBindgen.C.AST.Type (
 import Data.Text qualified as T
 
 import Clang.HighLevel.Types (SingleLoc)
-import HsBindgen.BindingSpecs (ExtType)
+import HsBindgen.BindingSpecs (ExtType, TypeSpec)
 import HsBindgen.Imports
 import HsBindgen.C.AST.Name
 import {-# SOURCE #-} HsBindgen.C.Reparse.Decl (SizeExpression)
@@ -291,6 +291,7 @@ data Struct = Struct {
     , structFields    :: [StructField]
     , structFlam      :: Maybe StructField -- ^ Note: type is the type of elements of flexible array.
     , structSourceLoc :: SingleLoc
+    , structTypeSpec  :: Maybe TypeSpec
   }
   deriving stock (Show, Eq, Generic)
 
@@ -313,6 +314,7 @@ data OpaqueStruct = OpaqueStruct {
       opaqueStructTag       :: CName
     , opaqueStructAliases   :: [CName]
     , opaqueStructSourceLoc :: SingleLoc
+    , opaqueStructTypeSpec  :: Maybe TypeSpec
     }
   deriving stock (Show, Eq, Generic)
 
@@ -328,6 +330,7 @@ data Union = Union {
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
     , unionSourceLoc :: SingleLoc
+    , unionTypeSpec  :: Maybe TypeSpec
     }
   deriving stock (Show, Eq, Generic)
 
@@ -350,6 +353,7 @@ data Enu = Enu {
     , enumAlignment :: Int
     , enumValues    :: [EnumValue]
     , enumSourceLoc :: SingleLoc
+    , enumTypeSpec  :: Maybe TypeSpec
     }
   deriving stock (Show, Eq, Generic)
 
@@ -370,6 +374,7 @@ data OpaqueEnum = OpaqueEnum {
       opaqueEnumTag       :: CName
     , opaqueEnumAliases   :: [CName]
     , opaqueEnumSourceLoc :: SingleLoc
+    , opaqueEnumTypeSpec  :: Maybe TypeSpec
     }
   deriving stock (Show, Eq, Generic)
 
@@ -381,6 +386,7 @@ data Typedef = Typedef {
       typedefName      :: CName
     , typedefType      :: Type
     , typedefSourceLoc :: SingleLoc
+    , typedefTypeSpec  :: Maybe TypeSpec
     }
   deriving stock (Show, Eq, Generic)
 

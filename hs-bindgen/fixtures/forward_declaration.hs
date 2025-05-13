@@ -43,7 +43,8 @@
               "forward_declaration.h:4:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "forward_declaration.h:3:8"},
+          "forward_declaration.h:3:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -91,7 +92,8 @@
                 "forward_declaration.h:4:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "forward_declaration.h:3:8"},
+            "forward_declaration.h:3:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -144,7 +146,8 @@
                         "forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:3:8"},
+                    "forward_declaration.h:3:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -197,7 +200,8 @@
                         "forward_declaration.h:4:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:3:8"},
+                    "forward_declaration.h:3:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -237,7 +241,8 @@
           typedefType = TypeStruct
             (DeclPathName (CName "S1")),
           typedefSourceLoc =
-          "forward_declaration.h:1:19"},
+          "forward_declaration.h:1:19",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -296,7 +301,8 @@
               "forward_declaration.h:10:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "forward_declaration.h:9:8"},
+          "forward_declaration.h:9:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -344,7 +350,8 @@
                 "forward_declaration.h:10:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "forward_declaration.h:9:8"},
+            "forward_declaration.h:9:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -397,7 +404,8 @@
                         "forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:9:8"},
+                    "forward_declaration.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -450,7 +458,8 @@
                         "forward_declaration.h:10:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "forward_declaration.h:9:8"},
+                    "forward_declaration.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)

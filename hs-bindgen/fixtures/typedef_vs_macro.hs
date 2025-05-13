@@ -21,7 +21,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "typedef_vs_macro.h:1:13"},
+          "typedef_vs_macro.h:1:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -113,7 +114,8 @@
               (PrimSignImplicit
                 (Just Signed))),
           typedefSourceLoc =
-          "typedef_vs_macro.h:2:14"},
+          "typedef_vs_macro.h:2:14",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -631,7 +633,8 @@
               "typedef_vs_macro.h:13:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:9:8"},
+          "typedef_vs_macro.h:9:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -751,7 +754,8 @@
                 "typedef_vs_macro.h:13:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "typedef_vs_macro.h:9:8"},
+            "typedef_vs_macro.h:9:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -876,7 +880,8 @@
                         "typedef_vs_macro.h:13:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:9:8"},
+                    "typedef_vs_macro.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1005,7 +1010,8 @@
                         "typedef_vs_macro.h:13:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:9:8"},
+                    "typedef_vs_macro.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 4)
@@ -1210,7 +1216,8 @@
               "typedef_vs_macro.h:19:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "typedef_vs_macro.h:18:8"},
+          "typedef_vs_macro.h:18:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1263,7 +1270,8 @@
                 "typedef_vs_macro.h:19:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "typedef_vs_macro.h:18:8"},
+            "typedef_vs_macro.h:18:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1321,7 +1329,8 @@
                         "typedef_vs_macro.h:19:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:18:8"},
+                    "typedef_vs_macro.h:18:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -1379,7 +1388,8 @@
                         "typedef_vs_macro.h:19:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "typedef_vs_macro.h:18:8"},
+                    "typedef_vs_macro.h:18:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)

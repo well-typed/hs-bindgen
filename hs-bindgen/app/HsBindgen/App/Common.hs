@@ -6,7 +6,7 @@ module HsBindgen.App.Common (
     -- * Input option
   , parseInput
     -- * Auxiliary hs-bindgen functions
-  , loadExtBindingSpecs'
+  , loadBindingSpecs'
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
@@ -26,10 +26,11 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsVerbosity   :: Bool
-    , globalOptsPredicate   :: Predicate
-    , globalOptsClangArgs   :: ClangArgs
-    , globalOptsExtBindings :: [FilePath]
+      globalOptsVerbosity       :: Bool
+    , globalOptsPredicate       :: Predicate
+    , globalOptsClangArgs       :: ClangArgs
+    , globalOptsBindingSpecs    :: Maybe FilePath
+    , globalOptsExtBindingSpecs :: [FilePath]
     }
   deriving (Show)
 
@@ -39,7 +40,8 @@ parseGlobalOpts =
       <$> parseVerbosity
       <*> parsePredicate
       <*> parseClangArgs
-      <*> parseExtBindings
+      <*> optional parseBindingSpecs
+      <*> parseExtBindingSpecs
 
 parseVerbosity :: Parser Bool
 parseVerbosity =
@@ -195,8 +197,16 @@ parseOtherArgs = many . option (eitherReader readOtherArg) $ mconcat [
           Left "Target must be set using hs-bindgen --target option"
       | otherwise = Right s
 
-parseExtBindings :: Parser [FilePath]
-parseExtBindings = many . strOption $ mconcat [
+parseBindingSpecs :: Parser FilePath
+parseBindingSpecs =
+    strOption $ mconcat [
+        help "Binding specifications to configure generation"
+      , metavar "PATH"
+      , long "binding-specs"
+      ]
+
+parseExtBindingSpecs :: Parser [FilePath]
+parseExtBindingSpecs = many . strOption $ mconcat [
       long "external-bindings"
     , metavar "FILE"
     , help "External bindings specification (YAML file)"
@@ -220,16 +230,16 @@ parseInput =
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
 
--- | Load exernal binding specifications, tracing any errors
-loadExtBindingSpecs' ::
+-- | Load binding specifications, tracing any errors
+loadBindingSpecs' ::
      Tracer IO String
   -> GlobalOpts
+  -> [FilePath]
   -> IO BindingSpecs
-loadExtBindingSpecs' tracer GlobalOpts{..} = do
-    (resolveErrs, extBindingSpecs) <-
-      loadBindingSpecs globalOptsClangArgs globalOptsExtBindings
+loadBindingSpecs' tracer GlobalOpts{..} paths = do
+    (resolveErrs, specs) <- loadBindingSpecs globalOptsClangArgs paths
     mapM_ (traceWith tracer Warning . displayException) resolveErrs
-    return extBindingSpecs
+    return specs
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

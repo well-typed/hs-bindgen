@@ -6,7 +6,8 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Unsigned),
         typedefSourceLoc =
-        "alltypes.h:131:25"},
+        "alltypes.h:131:25",
+        typedefTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "uint64_t",
@@ -15,7 +16,8 @@ Header
             PrimLong
             Unsigned),
         typedefSourceLoc =
-        "alltypes.h:136:25"},
+        "alltypes.h:136:25",
+        typedefTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -42,4 +44,5 @@ Header
             "fixedwidth.h:5:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "fixedwidth.h:3:8"}]
+        "fixedwidth.h:3:8",
+        structTypeSpec = Nothing}]

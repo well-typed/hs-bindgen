@@ -74,7 +74,8 @@
               "recursive_struct.h:3:27"}],
           structFlam = Nothing,
           structSourceLoc =
-          "recursive_struct.h:1:16"},
+          "recursive_struct.h:1:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -153,7 +154,8 @@
                 "recursive_struct.h:3:27"}],
             structFlam = Nothing,
             structSourceLoc =
-            "recursive_struct.h:1:16"},
+            "recursive_struct.h:1:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -237,7 +239,8 @@
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:1:16"},
+                    "recursive_struct.h:1:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -323,7 +326,8 @@
                         "recursive_struct.h:3:27"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:1:16"},
+                    "recursive_struct.h:1:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -372,7 +376,8 @@
             (DeclPathName
               (CName "linked_list_A_s")),
           typedefSourceLoc =
-          "recursive_struct.h:4:3"},
+          "recursive_struct.h:4:3",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -469,7 +474,8 @@
               "recursive_struct.h:11:20"}],
           structFlam = Nothing,
           structSourceLoc =
-          "recursive_struct.h:9:8"},
+          "recursive_struct.h:9:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -549,7 +555,8 @@
                 "recursive_struct.h:11:20"}],
             structFlam = Nothing,
             structSourceLoc =
-            "recursive_struct.h:9:8"},
+            "recursive_struct.h:9:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -634,7 +641,8 @@
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:9:8"},
+                    "recursive_struct.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -721,7 +729,8 @@
                         "recursive_struct.h:11:20"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "recursive_struct.h:9:8"},
+                    "recursive_struct.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

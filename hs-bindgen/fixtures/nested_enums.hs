@@ -36,7 +36,8 @@
               valueSourceLoc =
               "nested_enums.h:4:17"}],
           enumSourceLoc =
-          "nested_enums.h:2:14"},
+          "nested_enums.h:2:14",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -82,7 +83,8 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"},
+            "nested_enums.h:2:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -128,7 +130,8 @@
                         valueSourceLoc =
                         "nested_enums.h:4:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:2:14"},
+                    "nested_enums.h:2:14",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -179,7 +182,8 @@
                         valueSourceLoc =
                         "nested_enums.h:4:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:2:14"},
+                    "nested_enums.h:2:14",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -239,7 +243,8 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"},
+            "nested_enums.h:2:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -286,7 +291,8 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"},
+            "nested_enums.h:2:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "VALA_1")
@@ -329,7 +335,8 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"},
+            "nested_enums.h:2:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -375,7 +382,8 @@
                 valueSourceLoc =
                 "nested_enums.h:4:17"}],
             enumSourceLoc =
-            "nested_enums.h:2:14"},
+            "nested_enums.h:2:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -467,7 +475,8 @@
               "nested_enums.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_enums.h:1:8"},
+          "nested_enums.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -517,7 +526,8 @@
                 "nested_enums.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_enums.h:1:8"},
+            "nested_enums.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -572,7 +582,8 @@
                         "nested_enums.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:1:8"},
+                    "nested_enums.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -627,7 +638,8 @@
                         "nested_enums.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:1:8"},
+                    "nested_enums.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -685,7 +697,8 @@
               valueSourceLoc =
               "nested_enums.h:11:17"}],
           enumSourceLoc =
-          "nested_enums.h:9:9"},
+          "nested_enums.h:9:9",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -734,7 +747,8 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"},
+            "nested_enums.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -783,7 +797,8 @@
                         valueSourceLoc =
                         "nested_enums.h:11:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:9:9"},
+                    "nested_enums.h:9:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -837,7 +852,8 @@
                         valueSourceLoc =
                         "nested_enums.h:11:17"}],
                     enumSourceLoc =
-                    "nested_enums.h:9:9"},
+                    "nested_enums.h:9:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -900,7 +916,8 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"},
+            "nested_enums.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -950,7 +967,8 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"},
+            "nested_enums.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "VALB_1")
@@ -996,7 +1014,8 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"},
+            "nested_enums.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1045,7 +1064,8 @@
                 valueSourceLoc =
                 "nested_enums.h:11:17"}],
             enumSourceLoc =
-            "nested_enums.h:9:9"},
+            "nested_enums.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1145,7 +1165,8 @@
               "nested_enums.h:12:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_enums.h:8:8"},
+          "nested_enums.h:8:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1203,7 +1224,8 @@
                 "nested_enums.h:12:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_enums.h:8:8"},
+            "nested_enums.h:8:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1266,7 +1288,8 @@
                         "nested_enums.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:8:8"},
+                    "nested_enums.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -1329,7 +1352,8 @@
                         "nested_enums.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_enums.h:8:8"},
+                    "nested_enums.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)

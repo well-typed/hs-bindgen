@@ -21,7 +21,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "alltypes.h:106:25"},
+          "alltypes.h:106:25",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -138,7 +139,8 @@
             (PrimChar
               (PrimSignExplicit Unsigned)),
           typedefSourceLoc =
-          "alltypes.h:121:25"},
+          "alltypes.h:121:25",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -256,7 +258,8 @@
               PrimShort
               Unsigned),
           typedefSourceLoc =
-          "alltypes.h:126:25"},
+          "alltypes.h:126:25",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -372,7 +375,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Unsigned),
           typedefSourceLoc =
-          "alltypes.h:131:25"},
+          "alltypes.h:131:25",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -540,7 +544,8 @@
               "distilled_lib_1.h:8:32"}],
           structFlam = Nothing,
           structSourceLoc =
-          "distilled_lib_1.h:8:9"},
+          "distilled_lib_1.h:8:9",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -618,7 +623,8 @@
                 "distilled_lib_1.h:8:32"}],
             structFlam = Nothing,
             structSourceLoc =
-            "distilled_lib_1.h:8:9"},
+            "distilled_lib_1.h:8:9",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -701,7 +707,8 @@
                         "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:8:9"},
+                    "distilled_lib_1.h:8:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -786,7 +793,8 @@
                         "distilled_lib_1.h:8:32"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:8:9"},
+                    "distilled_lib_1.h:8:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -848,7 +856,8 @@
               valueSourceLoc =
               "distilled_lib_1.h:9:21"}],
           enumSourceLoc =
-          "distilled_lib_1.h:9:9"},
+          "distilled_lib_1.h:9:9",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -896,7 +905,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            "distilled_lib_1.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -944,7 +954,8 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:9:21"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:9:9"},
+                    "distilled_lib_1.h:9:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -997,7 +1008,8 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:9:21"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:9:9"},
+                    "distilled_lib_1.h:9:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -1059,7 +1071,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            "distilled_lib_1.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -1108,7 +1121,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            "distilled_lib_1.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FOO")
@@ -1153,7 +1167,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            "distilled_lib_1.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1201,7 +1216,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:9:21"}],
             enumSourceLoc =
-            "distilled_lib_1.h:9:9"},
+            "distilled_lib_1.h:9:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1344,7 +1360,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "distilled_lib_1.h:13:13"},
+          "distilled_lib_1.h:13:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1460,7 +1477,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "distilled_lib_1.h:14:13"},
+          "distilled_lib_1.h:14:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1949,7 +1967,8 @@
               "distilled_lib_1.h:46:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "distilled_lib_1.h:34:16"},
+          "distilled_lib_1.h:34:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2348,7 +2367,8 @@
                 "distilled_lib_1.h:46:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "distilled_lib_1.h:34:16"},
+            "distilled_lib_1.h:34:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2752,7 +2772,8 @@
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:34:16"},
+                    "distilled_lib_1.h:34:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -3167,7 +3188,8 @@
                         "distilled_lib_1.h:46:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "distilled_lib_1.h:34:16"},
+                    "distilled_lib_1.h:34:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 11)
@@ -3225,7 +3247,8 @@
             (DeclPathName
               (CName "a_typedef_struct")),
           typedefSourceLoc =
-          "distilled_lib_1.h:47:3"},
+          "distilled_lib_1.h:47:3",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -3419,7 +3442,8 @@
               valueSourceLoc =
               "distilled_lib_1.h:65:3"}],
           enumSourceLoc =
-          "distilled_lib_1.h:60:9"},
+          "distilled_lib_1.h:60:9",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -3477,7 +3501,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            "distilled_lib_1.h:60:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -3535,7 +3560,8 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:65:3"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:60:9"},
+                    "distilled_lib_1.h:60:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -3598,7 +3624,8 @@
                         valueSourceLoc =
                         "distilled_lib_1.h:65:3"}],
                     enumSourceLoc =
-                    "distilled_lib_1.h:60:9"},
+                    "distilled_lib_1.h:60:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -3670,7 +3697,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            "distilled_lib_1.h:60:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
@@ -3739,7 +3767,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            "distilled_lib_1.h:60:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName
@@ -3798,7 +3827,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            "distilled_lib_1.h:60:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3856,7 +3886,8 @@
                 valueSourceLoc =
                 "distilled_lib_1.h:65:3"}],
             enumSourceLoc =
-            "distilled_lib_1.h:60:9"},
+            "distilled_lib_1.h:60:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -4042,7 +4073,8 @@
               (TypeTypedef
                 (CName "uint32_t"))),
           typedefSourceLoc =
-          "distilled_lib_1.h:76:19"},
+          "distilled_lib_1.h:76:19",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
