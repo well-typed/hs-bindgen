@@ -21,11 +21,13 @@ Header
             valueSourceLoc =
             "typenames.h:16:2"}],
         enumSourceLoc =
-        "typenames.h:14:6"},
+        "typenames.h:14:6",
+        enumTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "foo",
         typedefType = TypePrim
           (PrimFloating PrimDouble),
         typedefSourceLoc =
-        "typenames.h:19:16"}]
+        "typenames.h:19:16",
+        typedefTypeSpec = Nothing}]

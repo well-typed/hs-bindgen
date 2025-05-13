@@ -71,7 +71,8 @@
               "simple_structs.h:4:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:2:8"},
+          "simple_structs.h:2:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -147,7 +148,8 @@
                 "simple_structs.h:4:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:2:8"},
+            "simple_structs.h:2:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -228,7 +230,8 @@
                         "simple_structs.h:4:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:2:8"},
+                    "simple_structs.h:2:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -311,7 +314,8 @@
                         "simple_structs.h:4:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:2:8"},
+                    "simple_structs.h:2:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -426,7 +430,8 @@
               "simple_structs.h:11:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:8:16"},
+          "simple_structs.h:8:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -526,7 +531,8 @@
                 "simple_structs.h:11:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:8:16"},
+            "simple_structs.h:8:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -631,7 +637,8 @@
                         "simple_structs.h:11:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:8:16"},
+                    "simple_structs.h:8:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -739,7 +746,8 @@
                         "simple_structs.h:11:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:8:16"},
+                    "simple_structs.h:8:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -781,7 +789,8 @@
           typedefType = TypeStruct
             (DeclPathName (CName "S2")),
           typedefSourceLoc =
-          "simple_structs.h:12:3"},
+          "simple_structs.h:12:3",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -845,7 +854,8 @@
               "simple_structs.h:16:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:15:9"},
+          "simple_structs.h:15:9",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -898,7 +908,8 @@
                 "simple_structs.h:16:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:15:9"},
+            "simple_structs.h:15:9",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -956,7 +967,8 @@
                         "simple_structs.h:16:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:15:9"},
+                    "simple_structs.h:15:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -1014,7 +1026,8 @@
                         "simple_structs.h:16:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:15:9"},
+                    "simple_structs.h:15:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -1130,7 +1143,8 @@
               "simple_structs.h:22:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:19:8"},
+          "simple_structs.h:19:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1232,7 +1246,8 @@
                 "simple_structs.h:22:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:19:8"},
+            "simple_structs.h:19:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1339,7 +1354,8 @@
                         "simple_structs.h:22:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:19:8"},
+                    "simple_structs.h:19:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1449,7 +1465,8 @@
                         "simple_structs.h:22:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:19:8"},
+                    "simple_structs.h:19:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -1541,7 +1558,8 @@
               "simple_structs.h:28:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:26:16"},
+          "simple_structs.h:26:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1617,7 +1635,8 @@
                 "simple_structs.h:28:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:26:16"},
+            "simple_structs.h:26:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1698,7 +1717,8 @@
                         "simple_structs.h:28:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:26:16"},
+                    "simple_structs.h:26:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1781,7 +1801,8 @@
                         "simple_structs.h:28:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:26:16"},
+                    "simple_structs.h:26:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1872,7 +1893,8 @@
               "simple_structs.h:31:25"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:31:8"},
+          "simple_structs.h:31:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1948,7 +1970,8 @@
                 "simple_structs.h:31:25"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:31:8"},
+            "simple_structs.h:31:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2029,7 +2052,8 @@
                         "simple_structs.h:31:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:31:8"},
+                    "simple_structs.h:31:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2112,7 +2136,8 @@
                         "simple_structs.h:31:25"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:31:8"},
+                    "simple_structs.h:31:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2205,7 +2230,8 @@
               "simple_structs.h:34:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:34:9"},
+          "simple_structs.h:34:9",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2283,7 +2309,8 @@
                 "simple_structs.h:34:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:34:9"},
+            "simple_structs.h:34:9",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2366,7 +2393,8 @@
                         "simple_structs.h:34:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:34:9"},
+                    "simple_structs.h:34:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2451,7 +2479,8 @@
                         "simple_structs.h:34:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:34:9"},
+                    "simple_structs.h:34:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2503,7 +2532,8 @@
                   (DeclPathCtxtTypedef
                     (CName "S7a"))))),
           typedefSourceLoc =
-          "simple_structs.h:34:36"},
+          "simple_structs.h:34:36",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -2598,7 +2628,8 @@
               "simple_structs.h:35:30"}],
           structFlam = Nothing,
           structSourceLoc =
-          "simple_structs.h:35:9"},
+          "simple_structs.h:35:9",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2678,7 +2709,8 @@
                 "simple_structs.h:35:30"}],
             structFlam = Nothing,
             structSourceLoc =
-            "simple_structs.h:35:9"},
+            "simple_structs.h:35:9",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2763,7 +2795,8 @@
                         "simple_structs.h:35:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:35:9"},
+                    "simple_structs.h:35:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2850,7 +2883,8 @@
                         "simple_structs.h:35:30"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "simple_structs.h:35:9"},
+                    "simple_structs.h:35:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2908,7 +2942,8 @@
                           (DeclPathCtxtTypedef
                             (CName "S7b"))))))))),
           typedefSourceLoc =
-          "simple_structs.h:35:38"},
+          "simple_structs.h:35:38",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance

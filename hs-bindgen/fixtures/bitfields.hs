@@ -171,7 +171,8 @@
               "bitfields.h:7:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:1:8"},
+          "bitfields.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -347,7 +348,8 @@
                 "bitfields.h:7:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:1:8"},
+            "bitfields.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -528,7 +530,8 @@
                         "bitfields.h:7:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:1:8"},
+                    "bitfields.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -715,7 +718,8 @@
                         "bitfields.h:7:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:1:8"},
+                    "bitfields.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 6)
@@ -847,7 +851,8 @@
               "bitfields.h:15:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:12:8"},
+          "bitfields.h:12:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -943,7 +948,8 @@
                 "bitfields.h:15:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:12:8"},
+            "bitfields.h:12:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1044,7 +1050,8 @@
                         "bitfields.h:15:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:12:8"},
+                    "bitfields.h:12:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1148,7 +1155,8 @@
                         "bitfields.h:15:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:12:8"},
+                    "bitfields.h:12:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -1273,7 +1281,8 @@
               "bitfields.h:21:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:18:8"},
+          "bitfields.h:18:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1369,7 +1378,8 @@
                 "bitfields.h:21:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:18:8"},
+            "bitfields.h:18:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1470,7 +1480,8 @@
                         "bitfields.h:21:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:18:8"},
+                    "bitfields.h:18:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1574,7 +1585,8 @@
                         "bitfields.h:21:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:18:8"},
+                    "bitfields.h:18:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -1699,7 +1711,8 @@
               "bitfields.h:27:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:24:8"},
+          "bitfields.h:24:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1795,7 +1808,8 @@
                 "bitfields.h:27:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:24:8"},
+            "bitfields.h:24:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1896,7 +1910,8 @@
                         "bitfields.h:27:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:24:8"},
+                    "bitfields.h:24:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2000,7 +2015,8 @@
                         "bitfields.h:27:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:24:8"},
+                    "bitfields.h:24:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -2101,7 +2117,8 @@
               "bitfields.h:32:10"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:30:8"},
+          "bitfields.h:30:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2173,7 +2190,8 @@
                 "bitfields.h:32:10"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:30:8"},
+            "bitfields.h:30:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2250,7 +2268,8 @@
                         "bitfields.h:32:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:30:8"},
+                    "bitfields.h:30:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2329,7 +2348,8 @@
                         "bitfields.h:32:10"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:30:8"},
+                    "bitfields.h:30:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2427,7 +2447,8 @@
               "bitfields.h:38:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:36:8"},
+          "bitfields.h:36:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2501,7 +2522,8 @@
                 "bitfields.h:38:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:36:8"},
+            "bitfields.h:36:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2580,7 +2602,8 @@
                         "bitfields.h:38:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:36:8"},
+                    "bitfields.h:36:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2661,7 +2684,8 @@
                         "bitfields.h:38:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:36:8"},
+                    "bitfields.h:36:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2759,7 +2783,8 @@
               "bitfields.h:43:6"}],
           structFlam = Nothing,
           structSourceLoc =
-          "bitfields.h:41:8"},
+          "bitfields.h:41:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2833,7 +2858,8 @@
                 "bitfields.h:43:6"}],
             structFlam = Nothing,
             structSourceLoc =
-            "bitfields.h:41:8"},
+            "bitfields.h:41:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2912,7 +2938,8 @@
                         "bitfields.h:43:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:41:8"},
+                    "bitfields.h:41:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2993,7 +3020,8 @@
                         "bitfields.h:43:6"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "bitfields.h:41:8"},
+                    "bitfields.h:41:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

@@ -739,7 +739,8 @@
               "primitive_types.h:38:12"}],
           structFlam = Nothing,
           structSourceLoc =
-          "primitive_types.h:1:8"},
+          "primitive_types.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1483,7 +1484,8 @@
                 "primitive_types.h:38:12"}],
             structFlam = Nothing,
             structSourceLoc =
-            "primitive_types.h:1:8"},
+            "primitive_types.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2232,7 +2234,8 @@
                         "primitive_types.h:38:12"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "primitive_types.h:1:8"},
+                    "primitive_types.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -3009,7 +3012,8 @@
                         "primitive_types.h:38:12"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "primitive_types.h:1:8"},
+                    "primitive_types.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 28)

@@ -22,6 +22,7 @@ module HsBindgen.BindingSpecs (
   , BindingSpecsExceptions(..)
   , GetExtTypeException(..)
   , WriteBindingSpecsException(..)
+  , OmittedTypeUseException(..)
     -- * API
   , emptyIBindingSpecs
   , loadBindingSpecs'
@@ -44,7 +45,7 @@ module HsBindgen.BindingSpecs (
   ) where
 
 import Control.Applicative (asum)
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception(..))
 import Control.Monad ((<=<))
 import Data.Aeson ((.=), (.:), (.:?), (.!=))
 import Data.Aeson qualified as Aeson
@@ -84,7 +85,9 @@ import HsBindgen.Resolve
 -- * They can be used to configure how to generate bindings.
 -- * They can specify existing (\"external\") bindings to use when generating
 --   bindings.
-newtype BindingSpecs = BindingSpecs (IBindingSpecs SourcePath)
+newtype BindingSpecs = BindingSpecs {
+      unBindingSpecs :: IBindingSpecs SourcePath
+    }
   deriving (Eq, Show)
 
 -- | Empty binding specifications
@@ -167,7 +170,7 @@ data TypeSpec = TypeSpec {
       -- customization.
       typeSpecInstances :: Map HsTypeClass (Maybe (Omittable DeriveStrategy))
     }
-  deriving (Eq, Ord, Show)
+  deriving (Eq, Generic, Ord, Show)
 
 --------------------------------------------------------------------------------
 
@@ -185,7 +188,7 @@ data TypeSpec = TypeSpec {
 data Omittable a =
     Require a
   | Omit
-  deriving stock (Eq, Ord, Show)
+  deriving stock (Eq, Generic, Ord, Show)
 
 instance Aeson.FromJSON a => Aeson.FromJSON (Omittable a) where
   parseJSON = \case
@@ -309,7 +312,7 @@ data DeriveStrategy =
 
   | -- | Derive using the @via AsSequentialCEnum@ strategy
     DeriveViaAsSequentialCEnum
-  deriving (Bounded, Enum, Eq, Ord, Show)
+  deriving (Bounded, Enum, Eq, Generic, Ord, Show)
 
 instance Aeson.FromJSON DeriveStrategy where
   parseJSON = Aeson.withText "DeriveStrategy" $ \t ->
@@ -437,6 +440,16 @@ newtype WriteBindingSpecsException =
 instance Exception WriteBindingSpecsException where
   displayException = \case
     WriteBindingSpecsUnknownExtension path -> "unknown extension: " ++ path
+
+-- | Omitted type is used
+newtype OmittedTypeUseException = OmittedTypeUse CNameSpelling
+  deriving stock (Show)
+
+instance Exception OmittedTypeUseException where
+  toException = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+  displayException (OmittedTypeUse cname) =
+    "omitted type use: " ++ Text.unpack (getCNameSpelling cname)
 
 {-------------------------------------------------------------------------------
   API

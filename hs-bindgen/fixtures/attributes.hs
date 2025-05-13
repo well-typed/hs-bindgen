@@ -99,7 +99,8 @@
               "attributes.h:11:19"}],
           structFlam = Nothing,
           structSourceLoc =
-          "attributes.h:8:16"},
+          "attributes.h:8:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -203,7 +204,8 @@
                 "attributes.h:11:19"}],
             structFlam = Nothing,
             structSourceLoc =
-            "attributes.h:8:16"},
+            "attributes.h:8:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -312,7 +314,8 @@
                         "attributes.h:11:19"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "attributes.h:8:16"},
+                    "attributes.h:8:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -424,7 +427,8 @@
                         "attributes.h:11:19"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "attributes.h:8:16"},
+                    "attributes.h:8:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -473,7 +477,8 @@
             (DeclPathName
               (CName "__sFILE")),
           typedefSourceLoc =
-          "attributes.h:12:3"},
+          "attributes.h:12:3",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance

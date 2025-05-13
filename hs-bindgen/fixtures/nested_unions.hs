@@ -37,7 +37,8 @@
               ufieldSourceLoc =
               "nested_unions.h:4:22"}],
           unionSourceLoc =
-          "nested_unions.h:2:15"},
+          "nested_unions.h:2:15",
+          unionTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -125,7 +126,8 @@
               "nested_unions.h:5:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_unions.h:1:8"},
+          "nested_unions.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Storable]},
   DeclInstance
@@ -175,7 +177,8 @@
                 "nested_unions.h:5:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_unions.h:1:8"},
+            "nested_unions.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Storable]}
       StorableInstance {
@@ -230,7 +233,8 @@
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:1:8"},
+                    "nested_unions.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -285,7 +289,8 @@
                         "nested_unions.h:5:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:1:8"},
+                    "nested_unions.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]}
               (Add 1)
@@ -336,7 +341,8 @@
               ufieldSourceLoc =
               "nested_unions.h:11:22"}],
           unionSourceLoc =
-          "nested_unions.h:9:9"},
+          "nested_unions.h:9:9",
+          unionTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -432,7 +438,8 @@
               "nested_unions.h:12:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "nested_unions.h:8:8"},
+          "nested_unions.h:8:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Storable]},
   DeclInstance
@@ -490,7 +497,8 @@
                 "nested_unions.h:12:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "nested_unions.h:8:8"},
+            "nested_unions.h:8:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Storable]}
       StorableInstance {
@@ -553,7 +561,8 @@
                         "nested_unions.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:8:8"},
+                    "nested_unions.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -616,7 +625,8 @@
                         "nested_unions.h:12:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "nested_unions.h:8:8"},
+                    "nested_unions.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]}
               (Add 1)

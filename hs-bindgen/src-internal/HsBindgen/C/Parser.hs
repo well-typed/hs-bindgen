@@ -73,14 +73,15 @@ instance Exception ParseCHeadersException where
       "unknown error parsing C headers: " ++ show errCode
 
 parseCHeaders ::
-     Tracer IO Diagnostic  -- ^ Tracer for warnings
+     Tracer IO Diagnostic     -- ^ Tracer for warnings
   -> Tracer IO C.Skipped
   -> ClangArgs
   -> Predicate
-  -> IBindingSpecs SourcePath
+  -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> [CHeaderIncludePath]
   -> IO ([SourcePath], C.Header) -- ^ List of included headers and parsed header
-parseCHeaders diagTracer skipTracer args p specs headerIncludePaths =
+parseCHeaders diagTracer skipTracer args p specs extSpecs headerIncludePaths =
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
         HighLevel.withTranslationUnit2 index C.rootHeaderName args [file] opts $
@@ -97,7 +98,13 @@ parseCHeaders diagTracer skipTracer args p specs headerIncludePaths =
               (decls, finalDeclState) <-
                 C.runFoldState C.initDeclState $
                   HighLevel.clang_visitChildren rootCursor $
-                    C.foldDecls skipTracer p specs headerIncludePaths unit
+                    C.foldDecls
+                      skipTracer
+                      p
+                      specs
+                      extSpecs
+                      headerIncludePaths
+                      unit
               let decls' =
                     [ d
                     | C.TypeDecl _ d <-

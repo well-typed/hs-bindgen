@@ -21,7 +21,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "typedefs.h:1:13"},
+          "typedefs.h:1:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -138,7 +139,8 @@
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "typedefs.h:2:15"},
+          "typedefs.h:2:15",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance

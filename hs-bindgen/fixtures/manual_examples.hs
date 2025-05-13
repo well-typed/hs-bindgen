@@ -92,7 +92,8 @@
               "manual_examples.h:17:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:14:16"},
+          "manual_examples.h:14:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -189,7 +190,8 @@
                 "manual_examples.h:17:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:14:16"},
+            "manual_examples.h:14:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -291,7 +293,8 @@
                         "manual_examples.h:17:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:14:16"},
+                    "manual_examples.h:14:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -396,7 +399,8 @@
                         "manual_examples.h:17:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:14:16"},
+                    "manual_examples.h:14:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -518,7 +522,8 @@
               valueSourceLoc =
               "manual_examples.h:29:5"}],
           enumSourceLoc =
-          "manual_examples.h:26:14"},
+          "manual_examples.h:26:14",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -569,7 +574,8 @@
                 valueSourceLoc =
                 "manual_examples.h:29:5"}],
             enumSourceLoc =
-            "manual_examples.h:26:14"},
+            "manual_examples.h:26:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -620,7 +626,8 @@
                         valueSourceLoc =
                         "manual_examples.h:29:5"}],
                     enumSourceLoc =
-                    "manual_examples.h:26:14"},
+                    "manual_examples.h:26:14",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -676,7 +683,8 @@
                         valueSourceLoc =
                         "manual_examples.h:29:5"}],
                     enumSourceLoc =
-                    "manual_examples.h:26:14"},
+                    "manual_examples.h:26:14",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -741,7 +749,8 @@
                 valueSourceLoc =
                 "manual_examples.h:29:5"}],
             enumSourceLoc =
-            "manual_examples.h:26:14"},
+            "manual_examples.h:26:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -794,7 +803,8 @@
                 valueSourceLoc =
                 "manual_examples.h:29:5"}],
             enumSourceLoc =
-            "manual_examples.h:26:14"},
+            "manual_examples.h:26:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "A")
@@ -842,7 +852,8 @@
                 valueSourceLoc =
                 "manual_examples.h:29:5"}],
             enumSourceLoc =
-            "manual_examples.h:26:14"},
+            "manual_examples.h:26:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -893,7 +904,8 @@
                 valueSourceLoc =
                 "manual_examples.h:29:5"}],
             enumSourceLoc =
-            "manual_examples.h:26:14"},
+            "manual_examples.h:26:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1028,7 +1040,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "manual_examples.h:38:13"},
+          "manual_examples.h:38:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1118,7 +1131,8 @@
           typedefType = TypePrim
             (PrimFloating PrimDouble),
           typedefSourceLoc =
-          "manual_examples.h:39:16"},
+          "manual_examples.h:39:16",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1832,7 +1846,8 @@
               "manual_examples.h:60:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:57:16"},
+          "manual_examples.h:57:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1930,7 +1945,8 @@
                 "manual_examples.h:60:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:57:16"},
+            "manual_examples.h:57:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2033,7 +2049,8 @@
                         "manual_examples.h:60:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:57:16"},
+                    "manual_examples.h:57:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2139,7 +2156,8 @@
                         "manual_examples.h:60:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:57:16"},
+                    "manual_examples.h:57:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -2271,7 +2289,8 @@
               "manual_examples.h:72:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:70:10"},
+          "manual_examples.h:70:10",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2349,7 +2368,8 @@
                 "manual_examples.h:72:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:70:10"},
+            "manual_examples.h:70:10",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2432,7 +2452,8 @@
                         "manual_examples.h:72:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:70:10"},
+                    "manual_examples.h:70:10",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2517,7 +2538,8 @@
                         "manual_examples.h:72:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:70:10"},
+                    "manual_examples.h:70:10",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2645,7 +2667,8 @@
               "manual_examples.h:78:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:75:10"},
+          "manual_examples.h:75:10",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2754,7 +2777,8 @@
                 "manual_examples.h:78:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:75:10"},
+            "manual_examples.h:75:10",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2868,7 +2892,8 @@
                         "manual_examples.h:78:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:75:10"},
+                    "manual_examples.h:75:10",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2985,7 +3010,8 @@
                         "manual_examples.h:78:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:75:10"},
+                    "manual_examples.h:75:10",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -3048,7 +3074,8 @@
               ufieldSourceLoc =
               "manual_examples.h:79:5"}],
           unionSourceLoc =
-          "manual_examples.h:69:15"},
+          "manual_examples.h:69:15",
+          unionTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -3114,7 +3141,9 @@
             "person",
           opaqueStructAliases = [],
           opaqueStructSourceLoc =
-          "manual_examples.h:77:12"}},
+          "manual_examples.h:77:12",
+          opaqueStructTypeSpec =
+          Nothing}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3229,7 +3258,8 @@
               "manual_examples.h:91:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:89:3"},
+          "manual_examples.h:89:3",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -3304,7 +3334,8 @@
                 "manual_examples.h:91:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:89:3"},
+            "manual_examples.h:89:3",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -3384,7 +3415,8 @@
                         "manual_examples.h:91:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:89:3"},
+                    "manual_examples.h:89:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -3466,7 +3498,8 @@
                         "manual_examples.h:91:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:89:3"},
+                    "manual_examples.h:89:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -3560,7 +3593,8 @@
               "manual_examples.h:96:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:94:3"},
+          "manual_examples.h:94:3",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -3635,7 +3669,8 @@
                 "manual_examples.h:96:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:94:3"},
+            "manual_examples.h:94:3",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -3715,7 +3750,8 @@
                         "manual_examples.h:96:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:94:3"},
+                    "manual_examples.h:94:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -3797,7 +3833,8 @@
                         "manual_examples.h:96:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:94:3"},
+                    "manual_examples.h:94:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -3908,7 +3945,8 @@
               "manual_examples.h:97:5"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:88:8"},
+          "manual_examples.h:88:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -4000,7 +4038,8 @@
                 "manual_examples.h:97:5"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:88:8"},
+            "manual_examples.h:88:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -4097,7 +4136,8 @@
                         "manual_examples.h:97:5"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:88:8"},
+                    "manual_examples.h:88:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -4196,7 +4236,8 @@
                         "manual_examples.h:97:5"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:88:8"},
+                    "manual_examples.h:88:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -4285,7 +4326,8 @@
               "manual_examples.h:102:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "manual_examples.h:100:9"},
+          "manual_examples.h:100:9",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -4359,7 +4401,8 @@
                 "manual_examples.h:102:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "manual_examples.h:100:9"},
+            "manual_examples.h:100:9",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -4438,7 +4481,8 @@
                         "manual_examples.h:102:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:100:9"},
+                    "manual_examples.h:100:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -4519,7 +4563,8 @@
                         "manual_examples.h:102:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "manual_examples.h:100:9"},
+                    "manual_examples.h:100:9",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -4571,7 +4616,8 @@
                   (DeclPathCtxtTypedef
                     (CName "config"))))),
           typedefSourceLoc =
-          "manual_examples.h:103:4"},
+          "manual_examples.h:103:4",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable]},
   DeclNewtypeInstance
@@ -4620,7 +4666,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "manual_examples.h:109:13"},
+          "manual_examples.h:109:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -4761,7 +4808,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "manual_examples.h:111:13"},
+          "manual_examples.h:111:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -4899,7 +4947,8 @@
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed),
           typedefSourceLoc =
-          "manual_examples.h:113:13"},
+          "manual_examples.h:113:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -5037,7 +5086,8 @@
               valueSourceLoc =
               "manual_examples.h:124:3"}],
           enumSourceLoc =
-          "manual_examples.h:120:6"},
+          "manual_examples.h:120:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -5093,7 +5143,8 @@
                 valueSourceLoc =
                 "manual_examples.h:124:3"}],
             enumSourceLoc =
-            "manual_examples.h:120:6"},
+            "manual_examples.h:120:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -5149,7 +5200,8 @@
                         valueSourceLoc =
                         "manual_examples.h:124:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:120:6"},
+                    "manual_examples.h:120:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -5210,7 +5262,8 @@
                         valueSourceLoc =
                         "manual_examples.h:124:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:120:6"},
+                    "manual_examples.h:120:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -5280,7 +5333,8 @@
                 valueSourceLoc =
                 "manual_examples.h:124:3"}],
             enumSourceLoc =
-            "manual_examples.h:120:6"},
+            "manual_examples.h:120:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -5339,7 +5393,8 @@
                 valueSourceLoc =
                 "manual_examples.h:124:3"}],
             enumSourceLoc =
-            "manual_examples.h:120:6"},
+            "manual_examples.h:120:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Start")
@@ -5392,7 +5447,8 @@
                 valueSourceLoc =
                 "manual_examples.h:124:3"}],
             enumSourceLoc =
-            "manual_examples.h:120:6"},
+            "manual_examples.h:120:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -5448,7 +5504,8 @@
                 valueSourceLoc =
                 "manual_examples.h:124:3"}],
             enumSourceLoc =
-            "manual_examples.h:120:6"},
+            "manual_examples.h:120:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -5585,7 +5642,8 @@
               valueSourceLoc =
               "manual_examples.h:132:3"}],
           enumSourceLoc =
-          "manual_examples.h:127:6"},
+          "manual_examples.h:127:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -5647,7 +5705,8 @@
                 valueSourceLoc =
                 "manual_examples.h:132:3"}],
             enumSourceLoc =
-            "manual_examples.h:127:6"},
+            "manual_examples.h:127:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -5709,7 +5768,8 @@
                         valueSourceLoc =
                         "manual_examples.h:132:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:127:6"},
+                    "manual_examples.h:127:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -5776,7 +5836,8 @@
                         valueSourceLoc =
                         "manual_examples.h:132:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:127:6"},
+                    "manual_examples.h:127:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -5852,7 +5913,8 @@
                 valueSourceLoc =
                 "manual_examples.h:132:3"}],
             enumSourceLoc =
-            "manual_examples.h:127:6"},
+            "manual_examples.h:127:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -5924,7 +5986,8 @@
                 valueSourceLoc =
                 "manual_examples.h:132:3"}],
             enumSourceLoc =
-            "manual_examples.h:127:6"},
+            "manual_examples.h:127:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -5986,7 +6049,8 @@
                 valueSourceLoc =
                 "manual_examples.h:132:3"}],
             enumSourceLoc =
-            "manual_examples.h:127:6"},
+            "manual_examples.h:127:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -6137,7 +6201,8 @@
               valueSourceLoc =
               "manual_examples.h:139:3"}],
           enumSourceLoc =
-          "manual_examples.h:135:6"},
+          "manual_examples.h:135:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -6193,7 +6258,8 @@
                 valueSourceLoc =
                 "manual_examples.h:139:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"},
+            "manual_examples.h:135:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -6249,7 +6315,8 @@
                         valueSourceLoc =
                         "manual_examples.h:139:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:135:6"},
+                    "manual_examples.h:135:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -6310,7 +6377,8 @@
                         valueSourceLoc =
                         "manual_examples.h:139:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:135:6"},
+                    "manual_examples.h:135:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -6380,7 +6448,8 @@
                 valueSourceLoc =
                 "manual_examples.h:139:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"},
+            "manual_examples.h:135:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -6440,7 +6509,8 @@
                 valueSourceLoc =
                 "manual_examples.h:139:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"},
+            "manual_examples.h:135:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Z")
@@ -6493,7 +6563,8 @@
                 valueSourceLoc =
                 "manual_examples.h:139:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"},
+            "manual_examples.h:135:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -6549,7 +6620,8 @@
                 valueSourceLoc =
                 "manual_examples.h:139:3"}],
             enumSourceLoc =
-            "manual_examples.h:135:6"},
+            "manual_examples.h:135:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -6681,7 +6753,8 @@
               valueSourceLoc =
               "manual_examples.h:146:3"}],
           enumSourceLoc =
-          "manual_examples.h:142:6"},
+          "manual_examples.h:142:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -6738,7 +6811,8 @@
                 valueSourceLoc =
                 "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"},
+            "manual_examples.h:142:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -6795,7 +6869,8 @@
                         valueSourceLoc =
                         "manual_examples.h:146:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:142:6"},
+                    "manual_examples.h:142:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -6857,7 +6932,8 @@
                         valueSourceLoc =
                         "manual_examples.h:146:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:142:6"},
+                    "manual_examples.h:142:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -6928,7 +7004,8 @@
                 valueSourceLoc =
                 "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"},
+            "manual_examples.h:142:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCInt)
@@ -6994,7 +7071,8 @@
                 valueSourceLoc =
                 "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"},
+            "manual_examples.h:142:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Failed")
@@ -7050,7 +7128,8 @@
                 valueSourceLoc =
                 "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"},
+            "manual_examples.h:142:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -7107,7 +7186,8 @@
                 valueSourceLoc =
                 "manual_examples.h:146:3"}],
             enumSourceLoc =
-            "manual_examples.h:142:6"},
+            "manual_examples.h:142:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -7235,7 +7315,8 @@
               valueSourceLoc =
               "manual_examples.h:152:3"}],
           enumSourceLoc =
-          "manual_examples.h:149:6"},
+          "manual_examples.h:149:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -7287,7 +7368,8 @@
                 valueSourceLoc =
                 "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:149:6"},
+            "manual_examples.h:149:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -7339,7 +7421,8 @@
                         valueSourceLoc =
                         "manual_examples.h:152:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:149:6"},
+                    "manual_examples.h:149:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -7396,7 +7479,8 @@
                         valueSourceLoc =
                         "manual_examples.h:152:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:149:6"},
+                    "manual_examples.h:149:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -7458,7 +7542,8 @@
                 valueSourceLoc =
                 "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:149:6"},
+            "manual_examples.h:149:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
@@ -7516,7 +7601,8 @@
                 valueSourceLoc =
                 "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:149:6"},
+            "manual_examples.h:149:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "Infavour")
@@ -7565,7 +7651,8 @@
                 valueSourceLoc =
                 "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:149:6"},
+            "manual_examples.h:149:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -7617,7 +7704,8 @@
                 valueSourceLoc =
                 "manual_examples.h:152:3"}],
             enumSourceLoc =
-            "manual_examples.h:149:6"},
+            "manual_examples.h:149:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -7781,7 +7869,8 @@
               valueSourceLoc =
               "manual_examples.h:172:3"}],
           enumSourceLoc =
-          "manual_examples.h:157:6"},
+          "manual_examples.h:157:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -7889,7 +7978,8 @@
                 valueSourceLoc =
                 "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:157:6"},
+            "manual_examples.h:157:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -7997,7 +8087,8 @@
                         valueSourceLoc =
                         "manual_examples.h:172:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:157:6"},
+                    "manual_examples.h:157:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -8110,7 +8201,8 @@
                         valueSourceLoc =
                         "manual_examples.h:172:3"}],
                     enumSourceLoc =
-                    "manual_examples.h:157:6"},
+                    "manual_examples.h:157:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -8232,7 +8324,8 @@
                 valueSourceLoc =
                 "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:157:6"},
+            "manual_examples.h:157:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -8379,7 +8472,8 @@
                 valueSourceLoc =
                 "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:157:6"},
+            "manual_examples.h:157:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -8487,7 +8581,8 @@
                 valueSourceLoc =
                 "manual_examples.h:172:3"}],
             enumSourceLoc =
-            "manual_examples.h:157:6"},
+            "manual_examples.h:157:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,

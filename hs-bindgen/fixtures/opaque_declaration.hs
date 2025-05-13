@@ -10,7 +10,9 @@
           opaqueStructTag = CName "foo",
           opaqueStructAliases = [],
           opaqueStructSourceLoc =
-          "opaque_declaration.h:1:8"}},
+          "opaque_declaration.h:1:8",
+          opaqueStructTypeSpec =
+          Nothing}},
   DeclData
     Struct {
       structName = HsName
@@ -85,7 +87,8 @@
               "opaque_declaration.h:6:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "opaque_declaration.h:4:8"},
+          "opaque_declaration.h:4:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -163,7 +166,8 @@
                 "opaque_declaration.h:6:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "opaque_declaration.h:4:8"},
+            "opaque_declaration.h:4:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -246,7 +250,8 @@
                         "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:4:8"},
+                    "opaque_declaration.h:4:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -331,7 +336,8 @@
                         "opaque_declaration.h:6:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:4:8"},
+                    "opaque_declaration.h:4:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -370,7 +376,8 @@
           structFields = [],
           structFlam = Nothing,
           structSourceLoc =
-          "opaque_declaration.h:9:8"},
+          "opaque_declaration.h:9:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -394,7 +401,8 @@
             structFields = [],
             structFlam = Nothing,
             structSourceLoc =
-            "opaque_declaration.h:9:8"},
+            "opaque_declaration.h:9:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -423,7 +431,8 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:9:8"},
+                    "opaque_declaration.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             []),
@@ -452,7 +461,8 @@
                     structFields = [],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "opaque_declaration.h:9:8"},
+                    "opaque_declaration.h:9:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 0)
@@ -476,7 +486,8 @@
           opaqueEnumTag = CName "quu",
           opaqueEnumAliases = [],
           opaqueEnumSourceLoc =
-          "opaque_declaration.h:11:6"}},
+          "opaque_declaration.h:11:6",
+          opaqueEnumTypeSpec = Nothing}},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -489,4 +500,6 @@
             "opaque_union",
           opaqueStructAliases = [],
           opaqueStructSourceLoc =
-          "opaque_declaration.h:13:7"}}]
+          "opaque_declaration.h:13:7",
+          opaqueStructTypeSpec =
+          Nothing}}]

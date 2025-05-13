@@ -120,11 +120,14 @@ instance ToExpr C.ReparseError where
             ++ '>' : '"' : normalizePaths sR
         _otherwise -> '"' : '<' : s -- unexpected
 
+instance ToExpr TypeSpec
+instance ToExpr a => ToExpr (Omittable a)
 instance ToExpr ExtType
 instance ToExpr HsRef
 instance ToExpr HsModuleName
 instance ToExpr HsIdentifier
 instance ToExpr HsTypeClass
+instance ToExpr DeriveStrategy
 
 instance ToExpr C.TcMacroError where
   toExpr err = toExpr $ C.pprTcMacroError err

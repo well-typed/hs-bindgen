@@ -31,7 +31,8 @@
             (TypePrim
               (PrimIntegral PrimInt Signed)),
           typedefSourceLoc =
-          "fixedarray.h:1:13"},
+          "fixedarray.h:1:13",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclNewtypeInstance
@@ -178,7 +179,8 @@
               "fixedarray.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "fixedarray.h:3:8"},
+          "fixedarray.h:3:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -308,7 +310,8 @@
                 "fixedarray.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "fixedarray.h:3:8"},
+            "fixedarray.h:3:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -443,7 +446,8 @@
                         "fixedarray.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedarray.h:3:8"},
+                    "fixedarray.h:3:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -580,7 +584,8 @@
                         "fixedarray.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "fixedarray.h:3:8"},
+                    "fixedarray.h:3:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

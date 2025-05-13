@@ -36,36 +36,40 @@ import HsBindgen.Util.Tracer (prettyLogMsg)
 
 -- | Process top-level (type) declration
 processTypeDecl ::
-     IBindingSpecs SourcePath
+     IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> CXTranslationUnit
   -> DeclLoc
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl specs unit declLoc declCursor ty = do
+processTypeDecl specs extSpecs unit declLoc declCursor ty = do
     -- dtraceIO "processTypeDecl" ty
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                        -> processTypeDecl' DeclPathCtxtTop specs unit declLoc declCursor ty
+        Nothing                        -> processTypeDecl' DeclPathCtxtTop specs extSpecs unit declLoc declCursor ty
         Just (TypeDecl t _)            -> return t
         Just (TypeDeclAlias t)         -> return t
         Just (TypeDeclProcessing t' _) -> panicIO $ "Incomplete type declaration: " ++ show t'
+        Just (TypeDeclOmitted cname)   -> liftIO $ throwIO (OmittedTypeUse cname)
 
 processTypeDeclRec ::
      DeclPathCtxt
-  -> IBindingSpecs SourcePath
+  -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> CXTranslationUnit
   -> DeclLoc
   -> Maybe CXCursor
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDeclRec ctxt specs unit declLoc declCursor ty = do
+processTypeDeclRec ctxt specs extSpecs unit declLoc declCursor ty = do
     s <- get
     case OMap.lookup ty (typeDeclarations s) of
-        Nothing                       -> processTypeDecl' ctxt specs unit declLoc declCursor ty
+        Nothing                       -> processTypeDecl' ctxt specs extSpecs unit declLoc declCursor ty
         Just (TypeDecl t _)           -> return t
         Just (TypeDeclAlias t)        -> return t
         Just (TypeDeclProcessing t _) -> return t
+        Just (TypeDeclOmitted cname)  -> liftIO $ throwIO (OmittedTypeUse cname)
 
 -- Process types.
 --
@@ -107,7 +111,8 @@ processTypeDeclRec ctxt specs unit declLoc declCursor ty = do
 --
 processTypeDecl' ::
      DeclPathCtxt
-  -> IBindingSpecs SourcePath
+  -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> CXTranslationUnit
   -> DeclLoc
      -- ^ Location (for error messages)
@@ -116,14 +121,14 @@ processTypeDecl' ::
       -- function declarations containing macros
   -> CXType
   -> Eff (State DeclState) Type
-processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ cxtKind ty of
+processTypeDecl' ctxt specs extSpecs unit declLoc declCursor ty = case fromSimpleEnum $ cxtKind ty of
     kind | Just prim <- primType kind -> do
         return $ TypePrim prim
 
     -- elaborated types, we follow the definition.
     Right CXType_Elaborated -> do
         ty' <- clang_Type_getNamedType ty
-        processTypeDeclRec ctxt specs unit (RelatedTo declLoc Named) Nothing ty'
+        processTypeDeclRec ctxt specs extSpecs unit (RelatedTo declLoc Named) Nothing ty'
 
     -- typedefs
     Right CXType_Typedef -> do
@@ -137,11 +142,15 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
         extent   <- HighLevel.clang_getCursorExtent decl
         hasMacro <- gets $ containsMacroExpansion extent
 
-        mExtType <- lookupExtBinding (CNameSpelling name) sloc specs
+        let cnameSpelling = CNameSpelling name
+        (mExtType, mTypeSpec) <-
+          lookupExtTypeAndTypeSpec cnameSpelling sloc specs extSpecs
+
         case mExtType of
             Just extType -> addAlias ty $ TypeExtBinding extType ctype
-            Nothing -> do
-
+            Nothing -> case fmap typeSpecHaskell mTypeSpec of
+              Just (Just Omit) -> addOmitted ty cnameSpelling
+              _otherwise -> do
                 tag <- CName <$> clang_getCursorSpelling decl
                 mbTy <- if not hasMacro
                         then return Nothing
@@ -170,6 +179,7 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                       processTypeDeclRec
                         (DeclPathCtxtTypedef tag)
                         specs
+                        extSpecs
                         unit
                         (RelatedTo declLoc TypedefUnderlying)
                         Nothing
@@ -213,6 +223,7 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                               typedefName      = tag
                             , typedefType      = use
                             , typedefSourceLoc = sloc
+                            , typedefTypeSpec  = mTypeSpec
                             }
 
     -- structs and unions
@@ -223,7 +234,7 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
 
         case ki of
             Right CXCursor_StructDecl -> do
-                mFlavour <- classifyTypeDecl ctxt specs (ty, decl, ki, sloc)
+                mFlavour <- classifyTypeDecl ctxt specs extSpecs (ty, decl, ki, sloc)
                 case mFlavour of
                   Left (AnonTopLevel replacement) ->
                     return replacement
@@ -231,20 +242,23 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                     let ctype = TypeStruct declPath
                     addTypeDeclProcessing ty ctype
                     case flavour of
+                      TypeDeclOmitted' cname ->
+                        addOmitted ty cname
                       TypeDeclExternal extType ->
                         addAlias ty $ TypeExtBinding extType ctype
-                      TypeDeclOpaque name -> do
+                      TypeDeclOpaque name mTypeSpec -> do
                         addDecl ty $ DeclOpaqueStruct OpaqueStruct {
                             opaqueStructTag       = name
                           , opaqueStructAliases   = []
                           , opaqueStructSourceLoc = sloc
+                          , opaqueStructTypeSpec  = mTypeSpec
                           }
-                      TypeDeclRegular -> do
+                      TypeDeclRegular mTypeSpec -> do
                         sizeof    <- clang_Type_getSizeOf  ty
                         alignment <- clang_Type_getAlignOf ty
                         fields'   <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
-                            mfield <- mkStructField specs unit mkCtxt cursor
+                            mfield <- mkStructField specs extSpecs unit mkCtxt cursor
                             return $ Continue mfield
 
                         (fields, flam) <- partitionFields fields'
@@ -257,10 +271,11 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                             , structFields    = fields
                             , structFlam      = flam
                             , structSourceLoc = sloc
+                            , structTypeSpec  = mTypeSpec
                             }
 
             Right CXCursor_UnionDecl -> do
-                mFlavour <- classifyTypeDecl ctxt specs (ty, decl, ki, sloc)
+                mFlavour <- classifyTypeDecl ctxt specs extSpecs (ty, decl, ki, sloc)
 
                 case mFlavour of
                   Left (AnonTopLevel replacement) ->
@@ -268,22 +283,25 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                   Right (declPath, flavour) -> do
                     addTypeDeclProcessing ty $ TypeUnion declPath
                     case flavour of
+                      TypeDeclOmitted' cname ->
+                        addOmitted ty cname
                       TypeDeclExternal _extType ->
                         panicIO "external bindings for unions not implemented #537"
-                      TypeDeclOpaque name ->
+                      TypeDeclOpaque name mTypeSpec ->
                         -- opaque struct and opaque union look the same.
                         addDecl ty $ DeclOpaqueStruct OpaqueStruct {
                               opaqueStructTag       = name
                             , opaqueStructAliases   = []
                             , opaqueStructSourceLoc = sloc
+                            , opaqueStructTypeSpec  = mTypeSpec
                             }
-                      TypeDeclRegular -> do
+                      TypeDeclRegular mTypeSpec -> do
                         -- the below is TODO:
                         sizeof    <- clang_Type_getSizeOf  ty
                         alignment <- clang_Type_getAlignOf ty
                         fields    <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             let mkCtxt fieldName = DeclPathCtxtField (declPathName declPath) fieldName ctxt
-                            mfield <- mkUnionField specs unit mkCtxt cursor
+                            mfield <- mkUnionField specs extSpecs unit mkCtxt cursor
                             return $ Continue mfield
 
                         addDecl ty $ DeclUnion Union
@@ -293,6 +311,7 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                             , unionAlignment = fromIntegral alignment
                             , unionFields    = fields
                             , unionSourceLoc = sloc
+                            , unionTypeSpec  = mTypeSpec
                             }
 
             _ -> panicIO $ show ki
@@ -305,7 +324,7 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
 
         case ki of
             Right CXCursor_EnumDecl -> do
-                mFlavour <- classifyTypeDecl ctxt specs (ty, decl, ki, sloc)
+                mFlavour <- classifyTypeDecl ctxt specs extSpecs (ty, decl, ki, sloc)
                 case mFlavour of
                   Left (AnonTopLevel replacement) ->
                     return replacement
@@ -313,19 +332,22 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                     let ctype = TypeEnum declPath
                     addTypeDeclProcessing ty ctype
                     case flavour of
+                      TypeDeclOmitted' cname ->
+                        addOmitted ty cname
                       TypeDeclExternal extType ->
                         addAlias ty $ TypeExtBinding extType ctype
-                      TypeDeclOpaque name ->
+                      TypeDeclOpaque name mTypeSpec ->
                         addDecl ty $ DeclOpaqueEnum OpaqueEnum {
                             opaqueEnumTag       = name
                           , opaqueEnumAliases   = []
                           , opaqueEnumSourceLoc = sloc
+                          , opaqueEnumTypeSpec  = mTypeSpec
                           }
-                      TypeDeclRegular -> do
+                      TypeDeclRegular mTypeSpec -> do
                         sizeof    <- clang_Type_getSizeOf  ty
                         alignment <- clang_Type_getAlignOf ty
                         ety       <- clang_getEnumDeclIntegerType decl
-                          >>= processTypeDeclRec DeclPathCtxtTop specs unit (RelatedTo declLoc EnumInteger) Nothing
+                          >>= processTypeDeclRec DeclPathCtxtTop specs extSpecs unit (RelatedTo declLoc EnumInteger) Nothing
 
                         values <- HighLevel.clang_visitChildren decl $ \cursor -> do
                             mvalue <- mkEnumValue cursor
@@ -339,20 +361,21 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
                             , enumAlignment = fromIntegral alignment
                             , enumValues    = values
                             , enumSourceLoc = sloc
+                            , enumTypeSpec  = mTypeSpec
                             }
 
             _ -> panicIO $ show ki
 
     Right CXType_Pointer -> do
         pointee <- clang_getPointeeType ty
-        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) specs unit (RelatedTo declLoc Pointee) Nothing pointee
+        pointee' <- processTypeDeclRec (DeclPathCtxtPtr ctxt) specs extSpecs unit (RelatedTo declLoc Pointee) Nothing pointee
         return (TypePointer pointee')
 
     Right CXType_ConstantArray -> do
         n <- fromIntegral <$> clang_getArraySize ty
         e <- clang_getArrayElementType ty
         -- TODO: This context should use 'DeclPathCtxtConstArray'
-        e' <- processTypeDeclRec ctxt specs unit (RelatedTo declLoc ArrayElement) Nothing e
+        e' <- processTypeDeclRec ctxt specs extSpecs unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeConstArray (Size n $ litSizeExpression n) e')
 
     Right CXType_Void -> do
@@ -371,12 +394,12 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
     Right CXType_IncompleteArray -> do
         e <- clang_getArrayElementType ty
         -- TODO: Should this also use 'DeclPathCtxtConstArray'?
-        e' <- processTypeDeclRec ctxt specs unit (RelatedTo declLoc ArrayElement) Nothing e
+        e' <- processTypeDeclRec ctxt specs extSpecs unit (RelatedTo declLoc ArrayElement) Nothing e
         return (TypeIncompleteArray e')
 
     Right CXType_Attributed -> do
         ty' <- clang_Type_getModifiedType ty
-        processTypeDeclRec ctxt specs unit (RelatedTo declLoc Modified) Nothing ty'
+        processTypeDeclRec ctxt specs extSpecs unit (RelatedTo declLoc Modified) Nothing ty'
 
     _otherwise ->
       unrecognizedType ty declLoc
@@ -434,11 +457,11 @@ processTypeDecl' ctxt specs unit declLoc declCursor ty = case fromSimpleEnum $ c
             -- but for CApiFFI it's irrelevant as it creates C wrappers with known convention
 
             res <- clang_getResultType ty
-            res' <- processTypeDeclRec ctxt specs unit (RelatedTo declLoc Result) Nothing res
+            res' <- processTypeDeclRec ctxt specs extSpecs unit (RelatedTo declLoc Result) Nothing res
             nargs <- clang_getNumArgTypes ty
             args' <- forM [0 .. nargs - 1] $ \i -> do
               arg <- clang_getArgType ty (fromIntegral i)
-              processTypeDeclRec ctxt specs unit (RelatedTo declLoc Arg) Nothing arg
+              processTypeDeclRec ctxt specs extSpecs unit (RelatedTo declLoc Arg) Nothing arg
 
             -- There are no macros in the function, hence no macros in the
             -- function argument or return types either. This is why it's OK
@@ -451,22 +474,27 @@ getElaborated ty = case fromSimpleEnum (cxtKind ty) of
     Right CXType_Elaborated -> getElaborated =<< clang_Type_getNamedType ty
     _otherwise              -> return ty
 
-lookupExtBinding ::
+lookupExtTypeAndTypeSpec ::
      CNameSpelling
   -> SingleLoc
-  -> IBindingSpecs SourcePath
-  -> Eff (State DeclState) (Maybe ExtType)
-lookupExtBinding cname sloc specs =
-    case lookupBindingSpecsType cname specs of
-      Nothing -> return Nothing
-      Just ps -> do
-        graph <- gets cIncludePathGraph
+  -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
+  -> Eff (State DeclState) (Maybe ExtType, Maybe TypeSpec)
+lookupExtTypeAndTypeSpec cname sloc specs extSpecs
+    | isNothing mSpecPs && isNothing mExtSpecPs = return (Nothing, Nothing)
+    | otherwise = do
         let path = singleLocPath sloc
-        case lookupTypeSpec (graph `DynGraph.reaches` path) ps of
+        paths <- gets $ (`DynGraph.reaches` path) . cIncludePathGraph
+        let mTypeSpec = lookupTypeSpec paths =<< mSpecPs
+        fmap (, mTypeSpec) $ case lookupTypeSpec paths =<< mExtSpecPs of
           Nothing -> return Nothing
           Just typeSpec ->
             either (liftIO . throwIO . HsBindgenException) (return . Just) $
               getExtType cname typeSpec
+  where
+    mSpecPs, mExtSpecPs :: Maybe [(Set SourcePath, TypeSpec)]
+    mSpecPs    = lookupBindingSpecsType cname specs
+    mExtSpecPs = lookupBindingSpecsType cname extSpecs
 
 addAlias :: CXType -> Type -> Eff (State DeclState) Type
 addAlias ty t = do
@@ -479,6 +507,7 @@ addAlias ty t = do
             return t
         Just (TypeDeclAlias _) -> panicIO "type already processed"
         Just (TypeDecl _ _) -> panicIO "type already processed"
+        Just (TypeDeclOmitted _) -> panicIO "type already processed"
 
 addTypeDeclProcessing :: CXType -> Type -> Eff (State DeclState) ()
 addTypeDeclProcessing ty t = do
@@ -489,6 +518,7 @@ addTypeDeclProcessing ty t = do
         Just (TypeDeclProcessing t' _as) -> panicIO $ "type already processed (1)" ++ show (t, t')
         Just (TypeDecl t' _) -> panicIO $ "type already processed (2)" ++ show (t, t')
         Just (TypeDeclAlias t') -> panicIO $ "type already processed (3)" ++ show (t, t')
+        Just (TypeDeclOmitted cname) -> panicIO $ "type already processed (4)" ++ show (t, cname)
 
 addDecl :: CXType -> Decl -> Eff (State DeclState) Type
 addDecl ty d = do
@@ -504,8 +534,9 @@ addDecl ty d = do
                         else updateDeclAddAliases aliases d
             put s { typeDeclarations = omapInsertBack ty (TypeDecl t d') ds }
             return t
-        Just (TypeDecl _ _)    -> panicIO "type already processed"
+        Just (TypeDecl _ _) -> panicIO "type already processed"
         Just (TypeDeclAlias _) -> panicIO "type already processed"
+        Just (TypeDeclOmitted _) -> panicIO "type already processed"
 
 updateDeclAddAlias :: CXType -> CName -> Eff (State DeclState) ()
 updateDeclAddAlias ty alias = do
@@ -523,6 +554,7 @@ updateDeclAddAlias ty alias = do
               "updateDeclAddAliases not implemented for type: " ++ show typ
         Just (TypeDeclAlias typ) -> panicIO $
           "cannot add alias to an alias: " ++ show typ
+        Just (TypeDeclOmitted cname) -> liftIO $ throwIO (OmittedTypeUse cname)
 
 updateDeclAddAliases :: [CName] -> Decl -> Maybe Decl
 updateDeclAddAliases aliases = \case
@@ -542,6 +574,22 @@ updateDeclAddAliases aliases = \case
             }
     _otherwise -> Nothing
 
+addOmitted :: CXType -> CNameSpelling -> Eff (State DeclState) Type
+addOmitted ty cname = do
+    s <- get
+    let ds = typeDeclarations s
+    case OMap.lookup ty ds of
+      Nothing -> panicIO "type not being processed"
+      Just (TypeDeclProcessing t aliases) -> do
+        unless (null aliases) $ liftIO $ throwIO (OmittedTypeUse cname)
+        put s {
+            typeDeclarations = omapInsertBack ty (TypeDeclOmitted cname) ds
+          }
+        return t
+      Just (TypeDecl _ _) -> panicIO "type already processed"
+      Just (TypeDeclAlias _) -> panicIO "type already processed"
+      Just (TypeDeclOmitted _) -> panicIO "type already processed"
+
 -- https://github.com/dmwit/ordered-containers/issues/29
 omapInsertBack :: Ord k => k -> v -> OMap.OMap k v -> OMap.OMap k v
 omapInsertBack k v m = m OMap.>| (k, v)
@@ -551,14 +599,17 @@ omapInsertBack k v m = m OMap.>| (k, v)
 -------------------------------------------------------------------------------}
 
 data TypeDeclFlavour =
+    -- | Type declaration that is omitted by binding specs
+    TypeDeclOmitted' CNameSpelling
+
     -- | Type declaration for which we have external bindings
-    TypeDeclExternal ExtType
+  | TypeDeclExternal ExtType
 
     -- | Opaque type declaration
-  | TypeDeclOpaque CName
+  | TypeDeclOpaque CName (Maybe TypeSpec)
 
     -- | All other cases
-  | TypeDeclRegular
+  | TypeDeclRegular (Maybe TypeSpec)
 
 -- | Anonymous top-level declaration
 --
@@ -571,10 +622,11 @@ data AnonTopLevel = AnonTopLevel Type
 -- | Classify type declaration
 classifyTypeDecl ::
      DeclPathCtxt
-  -> IBindingSpecs SourcePath
+  -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> (CXType, CXCursor, Either CInt CXCursorKind, SingleLoc)
   -> Eff (State DeclState) (Either AnonTopLevel (DeclPath, TypeDeclFlavour))
-classifyTypeDecl ctxt specs (ty, decl, ki, sloc) = do
+classifyTypeDecl ctxt specs extSpecs (ty, decl, ki, sloc) = do
     anon <- clang_Cursor_isAnonymous decl
 
     if anon then
@@ -587,28 +639,31 @@ classifyTypeDecl ctxt specs (ty, decl, ki, sloc) = do
           --
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/536>
           -- We might want to support external bindings for anonymous types.
-          return $ Right (DeclPathAnon ctxt, TypeDeclRegular)
+          return $ Right (DeclPathAnon ctxt, TypeDeclRegular Nothing)
     else do
       spelling <- clang_getTypeSpelling ty
-      mExtType <- lookupExtBinding (CNameSpelling spelling) sloc specs
+      let cnameSpelling = CNameSpelling spelling
+      (mExtType, mTypeSpec) <-
+        lookupExtTypeAndTypeSpec cnameSpelling sloc specs extSpecs
 
       let mTag     = CName <$> T.stripPrefix expectedPrefix spelling
           declPath = mkDeclPath spelling mTag
 
-      fmap (Right . (declPath,)) $ do
-        case mExtType of
-          Just extType -> return $ TypeDeclExternal extType
-          Nothing -> do
+      fmap (Right . (declPath,)) $ case mExtType of
+        Just extType -> return $ TypeDeclExternal extType
+        Nothing -> case fmap typeSpecHaskell mTypeSpec of
+          Just (Just Omit) -> return $ TypeDeclOmitted' cnameSpelling
+          _otherwise -> do
             classified <- HighLevel.classifyDeclaration decl
             case classified of
               DeclarationOpaque ->
                 case mTag of
-                  Just tag -> return $ TypeDeclOpaque tag
+                  Just tag -> return $ TypeDeclOpaque tag mTypeSpec
                   Nothing  -> panicIO "opaque definition without tag"
               DeclarationForward _defn ->
                 panicIO "should not happen"
               DeclarationRegular ->
-                return $ TypeDeclRegular
+                return $ TypeDeclRegular mTypeSpec
   where
     expectedPrefix :: Text
     expectedPrefix =
@@ -644,12 +699,13 @@ partitionFields = go id where
     go !fs (Normal f : xs)          = go (fs . (f :)) xs
 
 mkStructField ::
-     IBindingSpecs SourcePath
+     IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
   -> CXTranslationUnit
   -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
   -> CXCursor
   -> Eff (State DeclState) (Maybe Field) -- ^ Left values are flexible array members.
-mkStructField specs unit mkCtxt current = do
+mkStructField specs extSpecs unit mkCtxt current = do
     fieldSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- clang_getCursorKind current
@@ -691,10 +747,10 @@ mkStructField specs unit mkCtxt current = do
               case fromSimpleEnum $ cxtKind ty of
                 Right CXType_IncompleteArray -> do
                   e <- clang_getArrayElementType ty
-                  fieldType <- processTypeDeclRec (mkCtxt fieldName) specs unit (RelatedTo (Precise fieldSourceLoc) ArrayElement) Nothing e
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) specs extSpecs unit (RelatedTo (Precise fieldSourceLoc) ArrayElement) Nothing e
                   return (fieldName, fieldType, True)
                 _ -> do
-                  fieldType <- processTypeDeclRec (mkCtxt fieldName) specs unit (Precise fieldSourceLoc) Nothing ty
+                  fieldType <- processTypeDeclRec (mkCtxt fieldName) specs extSpecs unit (Precise fieldSourceLoc) Nothing ty
                   return (fieldName, fieldType, False)
 
         fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField current
@@ -733,13 +789,14 @@ isIncompleteArrayType _ = False
   Unions
 -------------------------------------------------------------------------------}
 
-mkUnionField
-    :: IBindingSpecs SourcePath
-    -> CXTranslationUnit
-    -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
-    -> CXCursor
-    -> Eff (State DeclState) (Maybe UnionField)
-mkUnionField specs unit mkCtxt current = do
+mkUnionField ::
+     IBindingSpecs SourcePath -- ^ Binding specs for configuration
+  -> IBindingSpecs SourcePath -- ^ External binding specs
+  -> CXTranslationUnit
+  -> (CName -> DeclPathCtxt) -- ^ Construct context given field name
+  -> CXCursor
+  -> Eff (State DeclState) (Maybe UnionField)
+mkUnionField specs extSpecs unit mkCtxt current = do
     ufieldSourceLoc <-
       HighLevel.clang_getExpansionLocation =<< clang_getCursorLocation current
     cursorKind <- clang_getCursorKind current
@@ -780,7 +837,7 @@ mkUnionField specs unit mkCtxt current = do
             Nothing -> do
               fieldName <- CName <$> clang_getCursorDisplayName current
               ty        <- clang_getCursorType current
-              fieldType <- processTypeDeclRec (mkCtxt fieldName) specs unit (Precise ufieldSourceLoc) Nothing ty
+              fieldType <- processTypeDeclRec (mkCtxt fieldName) specs extSpecs unit (Precise ufieldSourceLoc) Nothing ty
               return (fieldName, fieldType)
 
         return $ Just $ UnionField{ufieldName, ufieldType, ufieldSourceLoc}

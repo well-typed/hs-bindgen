@@ -28,7 +28,8 @@ Header
             "simple_structs.h:4:10"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:2:8"},
+        "simple_structs.h:2:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -65,14 +66,16 @@ Header
             "simple_structs.h:11:11"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:8:16"},
+        "simple_structs.h:8:16",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "S2_t",
         typedefType = TypeStruct
           (DeclPathName (CName "S2")),
         typedefSourceLoc =
-        "simple_structs.h:12:3"},
+        "simple_structs.h:12:3",
+        typedefTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -94,7 +97,8 @@ Header
             "simple_structs.h:16:10"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:15:9"},
+        "simple_structs.h:15:9",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -132,7 +136,8 @@ Header
             "simple_structs.h:22:10"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:19:8"},
+        "simple_structs.h:19:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -161,7 +166,8 @@ Header
             "simple_structs.h:28:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:26:16"},
+        "simple_structs.h:26:16",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -190,7 +196,8 @@ Header
             "simple_structs.h:31:25"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:31:8"},
+        "simple_structs.h:31:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -221,7 +228,8 @@ Header
             "simple_structs.h:34:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:34:9"},
+        "simple_structs.h:34:9",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "S7a",
@@ -232,7 +240,8 @@ Header
                 (DeclPathCtxtTypedef
                   (CName "S7a"))))),
         typedefSourceLoc =
-        "simple_structs.h:34:36"},
+        "simple_structs.h:34:36",
+        typedefTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -265,7 +274,8 @@ Header
             "simple_structs.h:35:30"}],
         structFlam = Nothing,
         structSourceLoc =
-        "simple_structs.h:35:9"},
+        "simple_structs.h:35:9",
+        structTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName "S7b",
@@ -280,4 +290,5 @@ Header
                         (DeclPathCtxtTypedef
                           (CName "S7b"))))))))),
         typedefSourceLoc =
-        "simple_structs.h:35:38"}]
+        "simple_structs.h:35:38",
+        typedefTypeSpec = Nothing}]

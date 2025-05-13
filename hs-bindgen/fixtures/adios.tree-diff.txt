@@ -6,7 +6,8 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "adios.h:7:13"},
+        "adios.h:7:13",
+        typedefTypeSpec = Nothing},
     DeclTypedef
       Typedef {
         typedefName = CName
@@ -14,7 +15,8 @@ Header
         typedefType = TypePrim
           (PrimIntegral PrimInt Signed),
         typedefSourceLoc =
-        "adios.h:12:13"},
+        "adios.h:12:13",
+        typedefTypeSpec = Nothing},
     DeclFunction
       Function {
         functionName = CName "\978",

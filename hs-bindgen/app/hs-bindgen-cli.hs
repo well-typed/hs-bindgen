@@ -1,6 +1,7 @@
 module Main (main) where
 
 import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
+import Data.Maybe (maybeToList)
 import Text.Read (readMaybe)
 import System.Exit (ExitCode, exitFailure)
 
@@ -34,9 +35,13 @@ instance Exception LiterateFileException where
 execMode :: Cli -> Tracer IO String -> Mode -> IO ()
 execMode Cli{..} tracer = \case
     ModePreprocess{..} -> do
-      extBindingSpecs <- loadExtBindingSpecs' tracer cliGlobalOpts
+      bindingSpecs <- loadBindingSpecs' tracer cliGlobalOpts $
+        maybeToList (globalOptsBindingSpecs cliGlobalOpts)
+      extBindingSpecs <- loadBindingSpecs' tracer cliGlobalOpts $
+        globalOptsExtBindingSpecs cliGlobalOpts
       let opts = cmdOpts {
-              optsExtBindingSpecs = extBindingSpecs
+              optsBindingSpecs    = bindingSpecs
+            , optsExtBindingSpecs = extBindingSpecs
             , optsTranslation     = preprocessTranslationOpts
             }
           ppOpts = defaultPPOpts {
@@ -55,9 +60,13 @@ execMode Cli{..} tracer = \case
         Just path -> genBindingSpecs ppOpts preprocessInput path decls
 
     ModeGenTests{..} -> do
-      extBindingSpecs <- loadExtBindingSpecs' tracer cliGlobalOpts
+      bindingSpecs <- loadBindingSpecs' tracer cliGlobalOpts $
+        maybeToList (globalOptsBindingSpecs cliGlobalOpts)
+      extBindingSpecs <- loadBindingSpecs' tracer cliGlobalOpts $
+        globalOptsExtBindingSpecs cliGlobalOpts
       let opts = defaultOpts {
-              optsExtBindingSpecs = extBindingSpecs
+              optsBindingSpecs    = bindingSpecs
+            , optsExtBindingSpecs = extBindingSpecs
             }
           ppOpts = defaultPPOpts {
               ppOptsModule = genTestsModuleOpts

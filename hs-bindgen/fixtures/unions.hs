@@ -67,7 +67,8 @@
               "unions.h:3:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:1:8"},
+          "unions.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -139,7 +140,8 @@
                 "unions.h:3:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:1:8"},
+            "unions.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -216,7 +218,8 @@
                         "unions.h:3:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:1:8"},
+                    "unions.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -295,7 +298,8 @@
                         "unions.h:3:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:1:8"},
+                    "unions.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -406,7 +410,8 @@
               "unions.h:9:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:6:8"},
+          "unions.h:6:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -502,7 +507,8 @@
                 "unions.h:9:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:6:8"},
+            "unions.h:6:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -603,7 +609,8 @@
                         "unions.h:9:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:6:8"},
+                    "unions.h:6:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -707,7 +714,8 @@
                         "unions.h:9:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:6:8"},
+                    "unions.h:6:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 3)
@@ -763,7 +771,8 @@
               ufieldSourceLoc =
               "unions.h:14:17"}],
           unionSourceLoc =
-          "unions.h:12:7"},
+          "unions.h:12:7",
+          unionTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -881,7 +890,8 @@
               "unions.h:19:22"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:17:8"},
+          "unions.h:17:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Storable]},
   DeclInstance
@@ -957,7 +967,8 @@
                 "unions.h:19:22"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:17:8"},
+            "unions.h:17:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Storable]}
       StorableInstance {
@@ -1038,7 +1049,8 @@
                         "unions.h:19:22"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:17:8"},
+                    "unions.h:17:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]})
             [
@@ -1121,7 +1133,8 @@
                         "unions.h:19:22"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:17:8"},
+                    "unions.h:17:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]}
               (Add 2)
@@ -1169,7 +1182,8 @@
               ufieldSourceLoc =
               "unions.h:25:17"}],
           unionSourceLoc =
-          "unions.h:23:15"},
+          "unions.h:23:15",
+          unionTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance
@@ -1287,7 +1301,8 @@
               "unions.h:30:17"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:28:8"},
+          "unions.h:28:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Storable]},
   DeclInstance
@@ -1363,7 +1378,8 @@
                 "unions.h:30:17"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:28:8"},
+            "unions.h:28:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Storable]}
       StorableInstance {
@@ -1444,7 +1460,8 @@
                         "unions.h:30:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:28:8"},
+                    "unions.h:28:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]})
             [
@@ -1527,7 +1544,8 @@
                         "unions.h:30:17"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:28:8"},
+                    "unions.h:28:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Storable]}
               (Add 2)
@@ -1609,7 +1627,8 @@
               "unions.h:35:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:35:5"},
+          "unions.h:35:5",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1684,7 +1703,8 @@
                 "unions.h:35:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:35:5"},
+            "unions.h:35:5",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1764,7 +1784,8 @@
                         "unions.h:35:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:35:5"},
+                    "unions.h:35:5",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1846,7 +1867,8 @@
                         "unions.h:35:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:35:5"},
+                    "unions.h:35:5",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1940,7 +1962,8 @@
               "unions.h:36:31"}],
           structFlam = Nothing,
           structSourceLoc =
-          "unions.h:36:5"},
+          "unions.h:36:5",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2015,7 +2038,8 @@
                 "unions.h:36:31"}],
             structFlam = Nothing,
             structSourceLoc =
-            "unions.h:36:5"},
+            "unions.h:36:5",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2095,7 +2119,8 @@
                         "unions.h:36:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:36:5"},
+                    "unions.h:36:5",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2177,7 +2202,8 @@
                         "unions.h:36:31"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "unions.h:36:5"},
+                    "unions.h:36:5",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2244,7 +2270,8 @@
               ufieldSourceLoc =
               "unions.h:36:36"}],
           unionSourceLoc =
-          "unions.h:34:7"},
+          "unions.h:34:7",
+          unionTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [Storable]},
   DeclNewtypeInstance

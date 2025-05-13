@@ -26,7 +26,8 @@ Header
             "unions.h:3:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:1:8"},
+        "unions.h:1:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -61,7 +62,8 @@ Header
             "unions.h:9:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:6:8"},
+        "unions.h:6:8",
+        structTypeSpec = Nothing},
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
@@ -83,7 +85,8 @@ Header
             ufieldSourceLoc =
             "unions.h:14:17"}],
         unionSourceLoc =
-        "unions.h:12:7"},
+        "unions.h:12:7",
+        unionTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -111,7 +114,8 @@ Header
             "unions.h:19:22"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:17:8"},
+        "unions.h:17:8",
+        structTypeSpec = Nothing},
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
@@ -134,7 +138,8 @@ Header
             ufieldSourceLoc =
             "unions.h:25:17"}],
         unionSourceLoc =
-        "unions.h:23:15"},
+        "unions.h:23:15",
+        unionTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -162,7 +167,8 @@ Header
             "unions.h:30:17"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:28:8"},
+        "unions.h:28:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -192,7 +198,8 @@ Header
             "unions.h:35:31"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:35:5"},
+        "unions.h:35:5",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -222,7 +229,8 @@ Header
             "unions.h:36:31"}],
         structFlam = Nothing,
         structSourceLoc =
-        "unions.h:36:5"},
+        "unions.h:36:5",
+        structTypeSpec = Nothing},
     DeclUnion
       Union {
         unionDeclPath = DeclPathName
@@ -252,4 +260,5 @@ Header
             ufieldSourceLoc =
             "unions.h:36:36"}],
         unionSourceLoc =
-        "unions.h:34:7"}]
+        "unions.h:34:7",
+        unionTypeSpec = Nothing}]

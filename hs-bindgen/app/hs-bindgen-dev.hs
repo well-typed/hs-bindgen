@@ -21,7 +21,8 @@ main = do
 execMode :: Dev -> Tracer IO String -> Mode -> IO ()
 execMode Dev{..} tracer = \case
     ModeParse{..} -> do
-      extBindingSpecs <- loadExtBindingSpecs' tracer devGlobalOpts
+      extBindingSpecs <- loadBindingSpecs' tracer devGlobalOpts $
+        globalOptsExtBindingSpecs devGlobalOpts
       let opts = cmdOpts {
               optsExtBindingSpecs = extBindingSpecs
             }

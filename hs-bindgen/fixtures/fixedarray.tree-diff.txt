@@ -15,7 +15,8 @@ Header
           (TypePrim
             (PrimIntegral PrimInt Signed)),
         typedefSourceLoc =
-        "fixedarray.h:1:13"},
+        "fixedarray.h:1:13",
+        typedefTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -69,4 +70,5 @@ Header
             "fixedarray.h:5:9"}],
         structFlam = Nothing,
         structSourceLoc =
-        "fixedarray.h:3:8"}]
+        "fixedarray.h:3:8",
+        structTypeSpec = Nothing}]

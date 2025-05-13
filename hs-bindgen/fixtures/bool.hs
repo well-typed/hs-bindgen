@@ -61,7 +61,8 @@
               fieldSourceLoc =
               "bool.h:3:11"}],
           structFlam = Nothing,
-          structSourceLoc = "bool.h:1:8"},
+          structSourceLoc = "bool.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -127,7 +128,8 @@
                 fieldSourceLoc =
                 "bool.h:3:11"}],
             structFlam = Nothing,
-            structSourceLoc = "bool.h:1:8"},
+            structSourceLoc = "bool.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -198,7 +200,8 @@
                         fieldSourceLoc =
                         "bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = "bool.h:1:8"},
+                    structSourceLoc = "bool.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -271,7 +274,8 @@
                         fieldSourceLoc =
                         "bool.h:3:11"}],
                     structFlam = Nothing,
-                    structSourceLoc = "bool.h:1:8"},
+                    structSourceLoc = "bool.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -356,7 +360,8 @@
               fieldSourceLoc =
               "bool.h:10:10"}],
           structFlam = Nothing,
-          structSourceLoc = "bool.h:8:8"},
+          structSourceLoc = "bool.h:8:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -422,7 +427,8 @@
                 fieldSourceLoc =
                 "bool.h:10:10"}],
             structFlam = Nothing,
-            structSourceLoc = "bool.h:8:8"},
+            structSourceLoc = "bool.h:8:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -493,7 +499,8 @@
                         fieldSourceLoc =
                         "bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = "bool.h:8:8"},
+                    structSourceLoc = "bool.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -566,7 +573,8 @@
                         fieldSourceLoc =
                         "bool.h:10:10"}],
                     structFlam = Nothing,
-                    structSourceLoc = "bool.h:8:8"},
+                    structSourceLoc = "bool.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -760,8 +768,8 @@
               fieldSourceLoc =
               "bool.h:17:10"}],
           structFlam = Nothing,
-          structSourceLoc =
-          "bool.h:15:8"},
+          structSourceLoc = "bool.h:15:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -832,8 +840,8 @@
                 fieldSourceLoc =
                 "bool.h:17:10"}],
             structFlam = Nothing,
-            structSourceLoc =
-            "bool.h:15:8"},
+            structSourceLoc = "bool.h:15:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -909,8 +917,8 @@
                         fieldSourceLoc =
                         "bool.h:17:10"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "bool.h:15:8"},
+                    structSourceLoc = "bool.h:15:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -988,8 +996,8 @@
                         fieldSourceLoc =
                         "bool.h:17:10"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "bool.h:15:8"},
+                    structSourceLoc = "bool.h:15:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

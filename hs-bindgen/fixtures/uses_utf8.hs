@@ -38,7 +38,8 @@
               valueSourceLoc =
               "uses_utf8.h:6:9"}],
           enumSourceLoc =
-          "uses_utf8.h:4:6"},
+          "uses_utf8.h:4:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -86,7 +87,8 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            "uses_utf8.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -134,7 +136,8 @@
                         valueSourceLoc =
                         "uses_utf8.h:6:9"}],
                     enumSourceLoc =
-                    "uses_utf8.h:4:6"},
+                    "uses_utf8.h:4:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -187,7 +190,8 @@
                         valueSourceLoc =
                         "uses_utf8.h:6:9"}],
                     enumSourceLoc =
-                    "uses_utf8.h:4:6"},
+                    "uses_utf8.h:4:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -249,7 +253,8 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            "uses_utf8.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -304,7 +309,8 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            "uses_utf8.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName
@@ -353,7 +359,8 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            "uses_utf8.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -401,7 +408,8 @@
                 valueSourceLoc =
                 "uses_utf8.h:6:9"}],
             enumSourceLoc =
-            "uses_utf8.h:4:6"},
+            "uses_utf8.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,

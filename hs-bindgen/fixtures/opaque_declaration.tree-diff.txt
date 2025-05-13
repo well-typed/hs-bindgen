@@ -5,7 +5,8 @@ Header
         opaqueStructTag = CName "foo",
         opaqueStructAliases = [],
         opaqueStructSourceLoc =
-        "opaque_declaration.h:1:8"},
+        "opaque_declaration.h:1:8",
+        opaqueStructTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -34,7 +35,8 @@ Header
             "opaque_declaration.h:6:17"}],
         structFlam = Nothing,
         structSourceLoc =
-        "opaque_declaration.h:4:8"},
+        "opaque_declaration.h:4:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -45,17 +47,20 @@ Header
         structFields = [],
         structFlam = Nothing,
         structSourceLoc =
-        "opaque_declaration.h:9:8"},
+        "opaque_declaration.h:9:8",
+        structTypeSpec = Nothing},
     DeclOpaqueEnum
       OpaqueEnum {
         opaqueEnumTag = CName "quu",
         opaqueEnumAliases = [],
         opaqueEnumSourceLoc =
-        "opaque_declaration.h:11:6"},
+        "opaque_declaration.h:11:6",
+        opaqueEnumTypeSpec = Nothing},
     DeclOpaqueStruct
       OpaqueStruct {
         opaqueStructTag = CName
           "opaque_union",
         opaqueStructAliases = [],
         opaqueStructSourceLoc =
-        "opaque_declaration.h:13:7"}]
+        "opaque_declaration.h:13:7",
+        opaqueStructTypeSpec = Nothing}]

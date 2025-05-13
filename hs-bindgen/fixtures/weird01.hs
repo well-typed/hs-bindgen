@@ -43,7 +43,8 @@
               "weird01.h:2:13"}],
           structFlam = Nothing,
           structSourceLoc =
-          "weird01.h:1:8"},
+          "weird01.h:1:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -91,7 +92,8 @@
                 "weird01.h:2:13"}],
             structFlam = Nothing,
             structSourceLoc =
-            "weird01.h:1:8"},
+            "weird01.h:1:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -144,7 +146,8 @@
                         "weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:1:8"},
+                    "weird01.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -197,7 +200,8 @@
                         "weird01.h:2:13"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:1:8"},
+                    "weird01.h:1:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -259,7 +263,8 @@
               "weird01.h:4:21"}],
           structFlam = Nothing,
           structSourceLoc =
-          "weird01.h:3:16"},
+          "weird01.h:3:16",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -307,7 +312,8 @@
                 "weird01.h:4:21"}],
             structFlam = Nothing,
             structSourceLoc =
-            "weird01.h:3:16"},
+            "weird01.h:3:16",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -360,7 +366,8 @@
                         "weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:3:16"},
+                    "weird01.h:3:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -413,7 +420,8 @@
                         "weird01.h:4:21"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "weird01.h:3:16"},
+                    "weird01.h:3:16",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)

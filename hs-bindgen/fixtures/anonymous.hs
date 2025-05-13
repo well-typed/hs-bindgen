@@ -70,7 +70,8 @@
               "anonymous.h:5:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:3:3"},
+          "anonymous.h:3:3",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -145,7 +146,8 @@
                 "anonymous.h:5:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:3:3"},
+            "anonymous.h:3:3",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -225,7 +227,8 @@
                         "anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:3:3"},
+                    "anonymous.h:3:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -307,7 +310,8 @@
                         "anonymous.h:5:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:3:3"},
+                    "anonymous.h:3:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -402,7 +406,8 @@
               "anonymous.h:8:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:2:8"},
+          "anonymous.h:2:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -482,7 +487,8 @@
                 "anonymous.h:8:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:2:8"},
+            "anonymous.h:2:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -567,7 +573,8 @@
                         "anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:2:8"},
+                    "anonymous.h:2:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -654,7 +661,8 @@
                         "anonymous.h:8:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:2:8"},
+                    "anonymous.h:2:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -723,7 +731,8 @@
               "anonymous.h:16:11"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:15:5"},
+          "anonymous.h:15:5",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -777,7 +786,8 @@
                 "anonymous.h:16:11"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:15:5"},
+            "anonymous.h:15:5",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -836,7 +846,8 @@
                         "anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:15:5"},
+                    "anonymous.h:15:5",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -895,7 +906,8 @@
                         "anonymous.h:16:11"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:15:5"},
+                    "anonymous.h:15:5",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -1004,7 +1016,8 @@
               "anonymous.h:17:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:13:3"},
+          "anonymous.h:13:3",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1095,7 +1108,8 @@
                 "anonymous.h:17:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:13:3"},
+            "anonymous.h:13:3",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1191,7 +1205,8 @@
                         "anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:13:3"},
+                    "anonymous.h:13:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1289,7 +1304,8 @@
                         "anonymous.h:17:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:13:3"},
+                    "anonymous.h:13:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1390,7 +1406,8 @@
               "anonymous.h:20:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:12:8"},
+          "anonymous.h:12:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1472,7 +1489,8 @@
                 "anonymous.h:20:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:12:8"},
+            "anonymous.h:12:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1559,7 +1577,8 @@
                         "anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:12:8"},
+                    "anonymous.h:12:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1648,7 +1667,8 @@
                         "anonymous.h:20:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:12:8"},
+                    "anonymous.h:12:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1755,7 +1775,8 @@
               "anonymous.h:30:7"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:24:8"},
+          "anonymous.h:24:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1847,7 +1868,8 @@
                 "anonymous.h:30:7"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:24:8"},
+            "anonymous.h:24:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1944,7 +1966,8 @@
                         "anonymous.h:30:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:24:8"},
+                    "anonymous.h:24:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2043,7 +2066,8 @@
                         "anonymous.h:30:7"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:24:8"},
+                    "anonymous.h:24:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -2135,7 +2159,8 @@
               "anonymous.h:27:9"}],
           structFlam = Nothing,
           structSourceLoc =
-          "anonymous.h:25:3"},
+          "anonymous.h:25:3",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -2212,7 +2237,8 @@
                 "anonymous.h:27:9"}],
             structFlam = Nothing,
             structSourceLoc =
-            "anonymous.h:25:3"},
+            "anonymous.h:25:3",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -2294,7 +2320,8 @@
                         "anonymous.h:27:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:25:3"},
+                    "anonymous.h:25:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -2378,7 +2405,8 @@
                         "anonymous.h:27:9"}],
                     structFlam = Nothing,
                     structSourceLoc =
-                    "anonymous.h:25:3"},
+                    "anonymous.h:25:3",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)

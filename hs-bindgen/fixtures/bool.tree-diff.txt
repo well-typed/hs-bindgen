@@ -22,7 +22,8 @@ Header
             fieldSourceLoc =
             "bool.h:3:11"}],
         structFlam = Nothing,
-        structSourceLoc = "bool.h:1:8"},
+        structSourceLoc = "bool.h:1:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -45,7 +46,8 @@ Header
             fieldSourceLoc =
             "bool.h:10:10"}],
         structFlam = Nothing,
-        structSourceLoc = "bool.h:8:8"},
+        structSourceLoc = "bool.h:8:8",
+        structTypeSpec = Nothing},
     DeclMacro
       MacroDecl {
         macroDeclMacro = Macro {
@@ -96,5 +98,5 @@ Header
             fieldSourceLoc =
             "bool.h:17:10"}],
         structFlam = Nothing,
-        structSourceLoc =
-        "bool.h:15:8"}]
+        structSourceLoc = "bool.h:15:8",
+        structTypeSpec = Nothing}]

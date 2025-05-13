@@ -16,6 +16,7 @@ import Data.Map.Ordered.Strict qualified as OMap
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Clang.CNameSpelling
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
@@ -68,6 +69,8 @@ data TypeDecl
     | -- | An alias, for @typedef@s, etc.
       TypeDeclAlias Type
     | TypeDecl Type Decl
+    | -- | The type has been omitted via binding specifications
+      TypeDeclOmitted CNameSpelling
   deriving Show
 
 {-------------------------------------------------------------------------------
@@ -229,4 +232,6 @@ typeDeclTypedef (TypeDecl _typ decl) =
 typeDeclTypedef TypeDeclProcessing{} =
     Map.empty
 typeDeclTypedef TypeDeclAlias{} =
+    Map.empty
+typeDeclTypedef TypeDeclOmitted{} =
     Map.empty

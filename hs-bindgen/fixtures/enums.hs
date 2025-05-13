@@ -34,7 +34,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:6:5"}],
-          enumSourceLoc = "enums.h:4:6"},
+          enumSourceLoc = "enums.h:4:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -78,7 +79,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"},
+            enumSourceLoc = "enums.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -122,7 +124,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:6:5"}],
-                    enumSourceLoc = "enums.h:4:6"},
+                    enumSourceLoc = "enums.h:4:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -171,7 +174,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:6:5"}],
-                    enumSourceLoc = "enums.h:4:6"},
+                    enumSourceLoc = "enums.h:4:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -229,7 +233,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"},
+            enumSourceLoc = "enums.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -274,7 +279,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"},
+            enumSourceLoc = "enums.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "FIRST1")
@@ -315,7 +321,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"},
+            enumSourceLoc = "enums.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -359,7 +366,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:6:5"}],
-            enumSourceLoc = "enums.h:4:6"},
+            enumSourceLoc = "enums.h:4:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -446,7 +454,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:12:5"}],
-          enumSourceLoc = "enums.h:9:6"},
+          enumSourceLoc = "enums.h:9:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -496,7 +505,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"},
+            enumSourceLoc = "enums.h:9:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -546,7 +556,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:12:5"}],
-                    enumSourceLoc = "enums.h:9:6"},
+                    enumSourceLoc = "enums.h:9:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -601,7 +612,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:12:5"}],
-                    enumSourceLoc = "enums.h:9:6"},
+                    enumSourceLoc = "enums.h:9:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -665,7 +677,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"},
+            enumSourceLoc = "enums.h:9:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCInt)
@@ -723,7 +736,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"},
+            enumSourceLoc = "enums.h:9:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "SECOND_A")
@@ -772,7 +786,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"},
+            enumSourceLoc = "enums.h:9:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -822,7 +837,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:12:5"}],
-            enumSourceLoc = "enums.h:9:6"},
+            enumSourceLoc = "enums.h:9:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -923,7 +939,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:17:5"}],
-          enumSourceLoc = "enums.h:15:6"},
+          enumSourceLoc = "enums.h:15:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -968,7 +985,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"},
+            enumSourceLoc = "enums.h:15:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -1013,7 +1031,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:17:5"}],
-                    enumSourceLoc = "enums.h:15:6"},
+                    enumSourceLoc = "enums.h:15:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -1063,7 +1082,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:17:5"}],
-                    enumSourceLoc = "enums.h:15:6"},
+                    enumSourceLoc = "enums.h:15:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -1118,7 +1138,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"},
+            enumSourceLoc = "enums.h:15:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -1166,7 +1187,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"},
+            enumSourceLoc = "enums.h:15:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "SAME_A")
@@ -1208,7 +1230,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"},
+            enumSourceLoc = "enums.h:15:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1253,7 +1276,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:17:5"}],
-            enumSourceLoc = "enums.h:15:6"},
+            enumSourceLoc = "enums.h:15:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1340,7 +1364,8 @@
               valueValue = 404,
               valueSourceLoc =
               "enums.h:23:5"}],
-          enumSourceLoc = "enums.h:20:6"},
+          enumSourceLoc = "enums.h:20:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1390,7 +1415,8 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc = "enums.h:20:6"},
+            enumSourceLoc = "enums.h:20:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -1440,7 +1466,8 @@
                         valueValue = 404,
                         valueSourceLoc =
                         "enums.h:23:5"}],
-                    enumSourceLoc = "enums.h:20:6"},
+                    enumSourceLoc = "enums.h:20:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -1495,7 +1522,8 @@
                         valueValue = 404,
                         valueSourceLoc =
                         "enums.h:23:5"}],
-                    enumSourceLoc = "enums.h:20:6"},
+                    enumSourceLoc = "enums.h:20:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -1559,7 +1587,8 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc = "enums.h:20:6"},
+            enumSourceLoc = "enums.h:20:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -1617,7 +1646,8 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc = "enums.h:20:6"},
+            enumSourceLoc = "enums.h:20:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1667,7 +1697,8 @@
                 valueValue = 404,
                 valueSourceLoc =
                 "enums.h:23:5"}],
-            enumSourceLoc = "enums.h:20:6"},
+            enumSourceLoc = "enums.h:20:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -1774,7 +1805,8 @@
               valueValue = 2,
               valueSourceLoc =
               "enums.h:27:25"}],
-          enumSourceLoc = "enums.h:26:6"},
+          enumSourceLoc = "enums.h:26:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -1825,7 +1857,8 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"},
+            enumSourceLoc = "enums.h:26:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -1876,7 +1909,8 @@
                         valueValue = 2,
                         valueSourceLoc =
                         "enums.h:27:25"}],
-                    enumSourceLoc = "enums.h:26:6"},
+                    enumSourceLoc = "enums.h:26:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -1932,7 +1966,8 @@
                         valueValue = 2,
                         valueSourceLoc =
                         "enums.h:27:25"}],
-                    enumSourceLoc = "enums.h:26:6"},
+                    enumSourceLoc = "enums.h:26:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -1997,7 +2032,8 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"},
+            enumSourceLoc = "enums.h:26:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUChar)
@@ -2056,7 +2092,8 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"},
+            enumSourceLoc = "enums.h:26:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "PACKED_A")
@@ -2106,7 +2143,8 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"},
+            enumSourceLoc = "enums.h:26:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -2157,7 +2195,8 @@
                 valueValue = 2,
                 valueSourceLoc =
                 "enums.h:27:25"}],
-            enumSourceLoc = "enums.h:26:6"},
+            enumSourceLoc = "enums.h:26:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -2259,7 +2298,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:30:23"}],
-          enumSourceLoc = "enums.h:30:9"},
+          enumSourceLoc = "enums.h:30:9",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -2305,7 +2345,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"},
+            enumSourceLoc = "enums.h:30:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -2351,7 +2392,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:30:23"}],
-                    enumSourceLoc = "enums.h:30:9"},
+                    enumSourceLoc = "enums.h:30:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -2402,7 +2444,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:30:23"}],
-                    enumSourceLoc = "enums.h:30:9"},
+                    enumSourceLoc = "enums.h:30:9",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -2462,7 +2505,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"},
+            enumSourceLoc = "enums.h:30:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -2509,7 +2553,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"},
+            enumSourceLoc = "enums.h:30:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "A_FOO")
@@ -2552,7 +2597,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"},
+            enumSourceLoc = "enums.h:30:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -2598,7 +2644,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:30:23"}],
-            enumSourceLoc = "enums.h:30:9"},
+            enumSourceLoc = "enums.h:30:9",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -2680,8 +2727,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:32:29"}],
-          enumSourceLoc =
-          "enums.h:32:14"},
+          enumSourceLoc = "enums.h:32:14",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -2726,8 +2773,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:32:29"}],
-            enumSourceLoc =
-            "enums.h:32:14"},
+            enumSourceLoc = "enums.h:32:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -2772,8 +2819,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:32:29"}],
-                    enumSourceLoc =
-                    "enums.h:32:14"},
+                    enumSourceLoc = "enums.h:32:14",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -2823,8 +2870,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:32:29"}],
-                    enumSourceLoc =
-                    "enums.h:32:14"},
+                    enumSourceLoc = "enums.h:32:14",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -2883,8 +2930,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:32:29"}],
-            enumSourceLoc =
-            "enums.h:32:14"},
+            enumSourceLoc = "enums.h:32:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -2930,8 +2977,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:32:29"}],
-            enumSourceLoc =
-            "enums.h:32:14"},
+            enumSourceLoc = "enums.h:32:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "B_FOO")
@@ -2973,8 +3020,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:32:29"}],
-            enumSourceLoc =
-            "enums.h:32:14"},
+            enumSourceLoc = "enums.h:32:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3019,8 +3066,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:32:29"}],
-            enumSourceLoc =
-            "enums.h:32:14"},
+            enumSourceLoc = "enums.h:32:14",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3102,7 +3149,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:34:21"}],
-          enumSourceLoc = "enums.h:34:6"},
+          enumSourceLoc = "enums.h:34:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -3147,7 +3195,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"},
+            enumSourceLoc = "enums.h:34:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -3192,7 +3241,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:34:21"}],
-                    enumSourceLoc = "enums.h:34:6"},
+                    enumSourceLoc = "enums.h:34:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -3242,7 +3292,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:34:21"}],
-                    enumSourceLoc = "enums.h:34:6"},
+                    enumSourceLoc = "enums.h:34:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -3301,7 +3352,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"},
+            enumSourceLoc = "enums.h:34:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -3347,7 +3399,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"},
+            enumSourceLoc = "enums.h:34:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "C_FOO")
@@ -3389,7 +3442,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"},
+            enumSourceLoc = "enums.h:34:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3434,7 +3488,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:34:21"}],
-            enumSourceLoc = "enums.h:34:6"},
+            enumSourceLoc = "enums.h:34:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3516,7 +3571,8 @@
               valueValue = 1,
               valueSourceLoc =
               "enums.h:37:21"}],
-          enumSourceLoc = "enums.h:37:6"},
+          enumSourceLoc = "enums.h:37:6",
+          enumTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,
@@ -3561,7 +3617,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"},
+            enumSourceLoc = "enums.h:37:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       StorableInstance {
@@ -3606,7 +3663,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:37:21"}],
-                    enumSourceLoc = "enums.h:37:6"},
+                    enumSourceLoc = "enums.h:37:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [
                     Eq,
@@ -3656,7 +3714,8 @@
                         valueValue = 1,
                         valueSourceLoc =
                         "enums.h:37:21"}],
-                    enumSourceLoc = "enums.h:37:6"},
+                    enumSourceLoc = "enums.h:37:6",
+                    enumTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Ord, Read, Show, Storable]}
               (Add 1)
@@ -3715,7 +3774,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"},
+            enumSourceLoc = "enums.h:37:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsPrimType HsPrimCUInt)
@@ -3761,7 +3821,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"},
+            enumSourceLoc = "enums.h:37:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Ord, Read, Show, Storable]}
       (HsName "@NsConstr" "D_FOO")
@@ -3803,7 +3864,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"},
+            enumSourceLoc = "enums.h:37:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3848,7 +3910,8 @@
                 valueValue = 1,
                 valueSourceLoc =
                 "enums.h:37:21"}],
-            enumSourceLoc = "enums.h:37:6"},
+            enumSourceLoc = "enums.h:37:6",
+            enumTypeSpec = Nothing},
         structInstances = Set.fromList
           [
             Eq,
@@ -3918,7 +3981,8 @@
           typedefType = TypeEnum
             (DeclPathName (CName "enumD")),
           typedefSourceLoc =
-          "enums.h:38:20"},
+          "enums.h:38:20",
+          typedefTypeSpec = Nothing},
       newtypeInstances = Set.fromList
         [
           Eq,

@@ -50,7 +50,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               fieldSourceLoc = "flam.h:4:10"},
-          structSourceLoc = "flam.h:2:8"},
+          structSourceLoc = "flam.h:2:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -105,7 +106,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:4:10"},
-            structSourceLoc = "flam.h:2:8"},
+            structSourceLoc = "flam.h:2:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -165,7 +167,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:4:10"},
-                    structSourceLoc = "flam.h:2:8"},
+                    structSourceLoc = "flam.h:2:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -225,7 +228,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:4:10"},
-                    structSourceLoc = "flam.h:2:8"},
+                    structSourceLoc = "flam.h:2:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -299,7 +303,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:4:10"},
-            structSourceLoc = "flam.h:2:8"},
+            structSourceLoc = "flam.h:2:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       (HsPrimType HsPrimCChar)
@@ -357,7 +362,8 @@
                     (CName "bar")
                     DeclPathCtxtTop)),
               fieldSourceLoc = "flam.h:13:4"},
-          structSourceLoc = "flam.h:8:8"},
+          structSourceLoc = "flam.h:8:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -414,7 +420,8 @@
                       (CName "bar")
                       DeclPathCtxtTop)),
                 fieldSourceLoc = "flam.h:13:4"},
-            structSourceLoc = "flam.h:8:8"},
+            structSourceLoc = "flam.h:8:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -476,7 +483,8 @@
                               (CName "bar")
                               DeclPathCtxtTop)),
                         fieldSourceLoc = "flam.h:13:4"},
-                    structSourceLoc = "flam.h:8:8"},
+                    structSourceLoc = "flam.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [PeekByteOff (Idx 0) 0]),
@@ -538,7 +546,8 @@
                               (CName "bar")
                               DeclPathCtxtTop)),
                         fieldSourceLoc = "flam.h:13:4"},
-                    structSourceLoc = "flam.h:8:8"},
+                    structSourceLoc = "flam.h:8:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 1)
@@ -610,7 +619,8 @@
                       (CName "bar")
                       DeclPathCtxtTop)),
                 fieldSourceLoc = "flam.h:13:4"},
-            structSourceLoc = "flam.h:8:8"},
+            structSourceLoc = "flam.h:8:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       (HsTypRef
@@ -687,8 +697,8 @@
               fieldSourceLoc =
               "flam.h:12:7"}],
           structFlam = Nothing,
-          structSourceLoc =
-          "flam.h:10:2"},
+          structSourceLoc = "flam.h:10:2",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -761,8 +771,8 @@
                 fieldSourceLoc =
                 "flam.h:12:7"}],
             structFlam = Nothing,
-            structSourceLoc =
-            "flam.h:10:2"},
+            structSourceLoc = "flam.h:10:2",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -840,8 +850,8 @@
                         fieldSourceLoc =
                         "flam.h:12:7"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "flam.h:10:2"},
+                    structSourceLoc = "flam.h:10:2",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -921,8 +931,8 @@
                         fieldSourceLoc =
                         "flam.h:12:7"}],
                     structFlam = Nothing,
-                    structSourceLoc =
-                    "flam.h:10:2"},
+                    structSourceLoc = "flam.h:10:2",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1024,8 +1034,8 @@
                   (PrimSignImplicit
                     (Just Signed))),
               fieldSourceLoc = "flam.h:20:7"},
-          structSourceLoc =
-          "flam.h:17:8"},
+          structSourceLoc = "flam.h:17:8",
+          structTypeSpec = Nothing},
       structInstances = Set.fromList
         [Eq, Show, Storable]},
   DeclInstance
@@ -1108,8 +1118,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:20:7"},
-            structSourceLoc =
-            "flam.h:17:8"},
+            structSourceLoc = "flam.h:17:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       StorableInstance {
@@ -1197,8 +1207,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:20:7"},
-                    structSourceLoc =
-                    "flam.h:17:8"},
+                    structSourceLoc = "flam.h:17:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]})
             [
@@ -1288,8 +1298,8 @@
                             (PrimSignImplicit
                               (Just Signed))),
                         fieldSourceLoc = "flam.h:20:7"},
-                    structSourceLoc =
-                    "flam.h:17:8"},
+                    structSourceLoc = "flam.h:17:8",
+                    structTypeSpec = Nothing},
                 structInstances = Set.fromList
                   [Eq, Show, Storable]}
               (Add 2)
@@ -1388,8 +1398,8 @@
                     (PrimSignImplicit
                       (Just Signed))),
                 fieldSourceLoc = "flam.h:20:7"},
-            structSourceLoc =
-            "flam.h:17:8"},
+            structSourceLoc = "flam.h:17:8",
+            structTypeSpec = Nothing},
         structInstances = Set.fromList
           [Eq, Show, Storable]}
       (HsPrimType HsPrimCChar)

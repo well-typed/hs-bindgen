@@ -25,7 +25,8 @@ Header
                 (PrimSignImplicit
                   (Just Signed))),
             fieldSourceLoc = "flam.h:4:10"},
-        structSourceLoc = "flam.h:2:8"},
+        structSourceLoc = "flam.h:2:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -53,7 +54,8 @@ Header
                   (CName "bar")
                   DeclPathCtxtTop)),
             fieldSourceLoc = "flam.h:13:4"},
-        structSourceLoc = "flam.h:8:8"},
+        structSourceLoc = "flam.h:8:8",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathAnon
@@ -81,8 +83,8 @@ Header
             fieldSourceLoc =
             "flam.h:12:7"}],
         structFlam = Nothing,
-        structSourceLoc =
-        "flam.h:10:2"},
+        structSourceLoc = "flam.h:10:2",
+        structTypeSpec = Nothing},
     DeclStruct
       Struct {
         structDeclPath = DeclPathName
@@ -118,5 +120,5 @@ Header
                 (PrimSignImplicit
                   (Just Signed))),
             fieldSourceLoc = "flam.h:20:7"},
-        structSourceLoc =
-        "flam.h:17:8"}]
+        structSourceLoc = "flam.h:17:8",
+        structTypeSpec = Nothing}]
