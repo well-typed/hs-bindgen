@@ -17,7 +17,7 @@ manual_examples.o: manual_examples.c ${PROJECT_ROOT}/hs-bindgen/examples/manual_
 # Example for external bindings
 
 libvector.so: vector.o vector_length.o vector_rotate.o
-	gcc -Wall -o libvector.so -shared vector.o vector_length.o vector_rotate.o
+	gcc -Wall -o libvector.so -shared vector.o vector_length.o vector_rotate.o -lm
 
 vector.o: vector.c vector.h
 	gcc -Wall -o vector.o -c -fPIC vector.c
