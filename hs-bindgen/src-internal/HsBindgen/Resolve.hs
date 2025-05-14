@@ -21,6 +21,9 @@ import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
+                              HasSource (getSource), Level (..),
+                              PrettyTrace (prettyTrace), Source (HsBindgen))
 
 {-------------------------------------------------------------------------------
   Error type
@@ -35,6 +38,15 @@ instance Exception ResolveHeaderException where
   displayException = \case
     ResolveHeaderNotFound headerIncludePath ->
       "header not found: " ++ getCHeaderIncludePath headerIncludePath
+
+instance PrettyTrace ResolveHeaderException where
+  prettyTrace = displayException
+
+instance HasDefaultLogLevel ResolveHeaderException where
+  getDefaultLogLevel = const Error
+
+instance HasSource ResolveHeaderException where
+  getSource = const HsBindgen
 
 {-------------------------------------------------------------------------------
   API

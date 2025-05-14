@@ -35,12 +35,8 @@ module HsBindgen.TH (
   , Predicate.Regex -- opaque
 
     -- ** Logging
-  , Tracer.Tracer
-  , Tracer.nullTracer
-  , Tracer.mkTracerIO
-  , Tracer.mkTracerQ
-  , Tracer.mkTracer
-  , Tracer.contramap
+  , Trace.Trace (..)
+  , module HsBindgen.Util.Tracer
 
     -- * Paths
   , Paths.CIncludePathDir(..)
@@ -61,7 +57,8 @@ import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
-import HsBindgen.Util.Tracer qualified as Tracer
+import HsBindgen.Util.Trace qualified as Trace
+import HsBindgen.Util.Tracer hiding (withTracerFile, withTracerStdOut)
 
 #ifdef MIN_VERSION_th_compat
 import Language.Haskell.TH.Syntax.Compat qualified as THSyntax

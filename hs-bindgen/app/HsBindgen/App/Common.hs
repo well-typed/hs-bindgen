@@ -12,15 +12,15 @@ module HsBindgen.App.Common (
   , cmd'
   ) where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
+import Control.Tracer (Tracer)
 import Data.Bifunctor (first)
 import Data.Char qualified as Char
---import Data.Default
 import Data.List qualified as List
+import GHC.Stack (callStack)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
---import Clang.Paths
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsVerbosity   :: Bool
+      globalOptsTracerConf  :: TracerConf
     , globalOptsPredicate   :: Predicate
     , globalOptsClangArgs   :: ClangArgs
     , globalOptsExtBindings :: [FilePath]
@@ -38,18 +38,42 @@ data GlobalOpts = GlobalOpts {
 parseGlobalOpts :: Parser GlobalOpts
 parseGlobalOpts =
     GlobalOpts
-      <$> parseVerbosity
+      <$> parseTracerConf
       <*> parsePredicate
       <*> parseClangArgs
       <*> parseExtBindings
 
-parseVerbosity :: Parser Bool
+parseTracerConf :: Parser TracerConf
+parseTracerConf = TracerConf <$> parseVerbosity
+                             <*> parseShowTimeStamp
+                             <*> parseShowCallStack
+
+parseVerbosity :: Parser Verbosity
 parseVerbosity =
-    switch $ mconcat [
-        short 'v'
-      , long "verbose"
-      , help "Verbose output"
-      ]
+  countToVerbosity . length <$> many (flag' () $
+          mconcat [ short 'v'
+                  , long "verbose"
+                  , help "Verbose output (-v for verbose, -vv for debug)"
+                  ])
+
+  where countToVerbosity x = case x `compare` 1 of
+          LT -> Verbosity Warning
+          EQ -> Verbosity Info
+          GT -> Verbosity Debug
+
+parseShowTimeStamp :: Parser ShowTimeStamp
+parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
+      short 't'
+    , long "show-time"
+    , help "Show time stamp in traces"
+    ]
+
+parseShowCallStack :: Parser ShowCallStack
+parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
+      short 's'
+    , long "show-call-stack"
+    , help "Show call stacks in traces"
+    ]
 
 parsePredicate :: Parser Predicate
 parsePredicate = fmap aux . many . asum $ [
@@ -293,13 +317,13 @@ parseInput =
 
 -- | Load exernal bindings, tracing any errors
 loadExtBindings' ::
-     Tracer IO String
+     Tracer IO (TraceWithCallStack ResolveHeaderException)
   -> GlobalOpts
   -> IO ExtBindings
 loadExtBindings' tracer GlobalOpts{..} = do
     (resolveErrs, extBindings) <-
       loadExtBindings globalOptsClangArgs globalOptsExtBindings
-    mapM_ (traceWith tracer Warning . displayException) resolveErrs
+    mapM_ (traceWithCallStack tracer callStack) resolveErrs
     return extBindings
 
 {-------------------------------------------------------------------------------

@@ -169,10 +169,10 @@ tests packageRoot rustBindgen = testGroup "test-internal" [
 
     mkOpts :: (String -> IO ()) -> Pipeline.Opts
     mkOpts report =
-      let tracer = mkTracer report report report False
+      let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
+          tracer = mkTracer EnableAnsiColor tracerConf report
       in  opts {
-              Pipeline.optsDiagTracer = tracer
-            , Pipeline.optsSkipTracer = tracer
+              Pipeline.optsTracer = tracer
             }
 
     ppOpts :: Pipeline.PPOpts
