@@ -6,10 +6,10 @@ module HsBindgen.Runtime.FlexibleArrayMember (
     peekWithFLAM,
 ) where
 
-import GHC.Exts (Proxy#, proxy#)
-import Foreign
 import Data.Vector.Storable qualified as VS
 import Data.Vector.Storable.Mutable qualified as VSM
+import Foreign
+import GHC.Exts (Proxy#, proxy#)
 
 class HasFlexibleArrayMember element struct | struct -> element where
   flexibleArrayMemberOffset :: Proxy# struct -> Int
