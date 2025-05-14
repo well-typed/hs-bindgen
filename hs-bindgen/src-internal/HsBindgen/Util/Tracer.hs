@@ -4,114 +4,154 @@
 --
 -- Indended for unqualified import.
 module HsBindgen.Util.Tracer (
-    Tracer -- opaque
-  , nullTracer
-  , PrettyLogMsg(..)
-    -- * Using the tracer
-  , Level(..)
-  , traceWith
-  , contramap
-    -- * Constructing tracers
+  -- | Data types and typeclasses useful for tracing
+    Level (..)
+  , AnsiColor (..)
+  , PrettyTrace (..)
+  , HasLogLevel (..)
+  , HasSource (..)
+  , Verbosity (..)
+  -- | Tracers
   , mkTracer
-  , mkTracerIO
-  , mkTracerQ
-  , traceThrow
+  , withTracerStdOut
+  , withTracerFile
   ) where
 
-import Control.Tracer qualified as Contra
-import Control.Tracer.Arrow
-import Data.Bifunctor
-import Data.Functor.Contravariant
-
-import Language.Haskell.TH.Syntax
-import Control.Exception
-
-{-------------------------------------------------------------------------------
-  Definition
--------------------------------------------------------------------------------}
-
-newtype Tracer m a = Wrap {
-      unwrap :: Contra.Tracer m (Level, a)
-    }
-
-instance Monad m => Contravariant (Tracer m) where
-  contramap f = Wrap . contramap (second f) . unwrap
-
-data Level = Error | Warning | Info
-
-traceWith :: Monad m => Tracer m a -> Level -> a -> m ()
-traceWith t l a = Contra.traceWith (unwrap t) (l, a)
+import Control.Tracer (Tracer (Tracer), emit, squelchUnless)
+import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
+import Data.Time.Format (FormatTime)
+import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
+                            ConsoleIntensity (BoldIntensity),
+                            ConsoleLayer (Foreground),
+                            SGR (SetColor, SetConsoleIntensity),
+                            hSupportsANSIColor, setSGRCode)
+import System.IO (IOMode (AppendMode), hPutStrLn, stdout, withFile)
 
 {-------------------------------------------------------------------------------
-  Internal: general tracer construction
+  Data types and type classes useful for tracing
 -------------------------------------------------------------------------------}
 
-nullTracer :: Monad m => Tracer m a
-nullTracer = Wrap Contra.nullTracer
+-- | Log or verbosity level.
+--
+-- Careful, the derived 'Ord' instance is used when determining if a trace
+-- should be emitted, or not.
+data Level = Debug | Info | Warning | Error
+  deriving (Show, Eq, Ord)
 
-mkTracer :: forall m a.
-     Monad m
-  => (a -> m ())  -- ^ Output error
-  -> (a -> m ())  -- ^ Output warning
-  -> (a -> m ())  -- ^ Output info
-  -> Bool         -- ^ Enable 'Info' (verbose mode)
-  -> Tracer m a
-mkTracer outputError outputWarning outputInfo verbose =
-    Wrap $ Contra.arrow aux
+data AnsiColor = WithAnsiColor | WithoutAnsiColor
+
+alignLevel :: Level -> String
+alignLevel = \case
+  Debug   -> "Debug  "
+  Info    -> "Info   "
+  Warning -> "Warning"
+  Error   -> "Error  "
+
+getColorForLevel :: Level -> Color
+getColorForLevel = \case
+  Debug   -> White
+  Info    -> Green
+  Warning -> Yellow
+  Error   -> Red
+
+-- | Render a string in bold and a specified color.
+--
+-- Careful, the applied ANSI code suffix also resets all other activated formatting.
+withColor :: Color -> String -> String
+withColor color x = setColor <> x <> resetColor
   where
-    aux :: TracerA m (Level, a) ()
-    aux = proc (level, msg) -> do
-        case level of
-          Error   -> emit outputError   -< msg
-          Warning -> emit outputWarning -< msg
-          Info    -> if verbose
-                       then emit outputInfo -< msg
-                       else squelch         -< msg
+    setColor :: String
+    setColor = setSGRCode [ SetColor Foreground Vivid color
+                          , SetConsoleIntensity BoldIntensity ]
+
+    resetColor :: String
+    resetColor = setSGRCode []
+
+withAnsiCodes :: AnsiColor -> Level -> String -> String
+withAnsiCodes WithoutAnsiColor _     = id
+withAnsiCodes WithAnsiColor    level = withColor (getColorForLevel level)
+
+-- | Convert values to textual representations used in traces.
+class PrettyTrace a where
+  -- TODO: Use 'Text' (issue #650).
+  prettyTrace :: a -> String
+
+-- | Get log level of values used in traces.
+class HasLogLevel a where
+  getLogLevel :: a -> Level
+
+-- | Get source or context of values used in traces.
+class HasSource a where
+  getSource :: a -> String
+
+data Verbosity = Verbosity !Level | Quiet
+  deriving (Show, Eq)
 
 {-------------------------------------------------------------------------------
-  Specific tracers
+  Tracers
 -------------------------------------------------------------------------------}
 
--- | Standard tracer for use in the 'IO' monad
+-- | Create a tracer emitting traces to a provided function @report@.
 --
--- Intended for use preprocessor mode.
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/84>
--- We should support some ANSI colors here.
-mkTracerIO ::
-     Bool -- ^ Verbose
-  -> Tracer IO String
-mkTracerIO =
-    mkTracer
-      (putStrLn . ("Error: "   ++))
-      (putStrLn . ("Warning: " ++))
-      (putStrLn . ("Info: "    ++))
+-- The traces provide additional information about
+-- - the time,
+-- - the log level, and
+-- - the source.
+mkTracer :: (PrettyTrace a, HasLogLevel a, HasSource a)
+  => AnsiColor -> Verbosity -> (String -> IO ()) -> Tracer IO a
+mkTracer ansiCodes verbosity report =
+  squelchUnless isLogLevelHighEnough $ Tracer $ emit prettyReport
+  where
+    isLogLevelHighEnough :: HasLogLevel a => a -> Bool
+    isLogLevelHighEnough x = case verbosity of
+      Quiet -> False
+      Verbosity v -> getLogLevel x >= v
 
--- | Tracer intended for use in TH mode
-mkTracerQ ::
-     Quasi m
-  => Bool -- ^ Verbose
-  -> Tracer m String
-mkTracerQ  =
-    mkTracer
-      (qReport True)
-      (qReport False)
-      (qReport False . ("Info: " ++))
+    showTime :: FormatTime t => t -> String
+    showTime = formatTime defaultTimeLocale "%Y-%m-%d %H:%M:%S%3QZ"
 
--- | Throw any messages that aren't suppressed by the verbosity level
-traceThrow ::
-     Exception a
-  => Bool  -- ^ Verbose
-  -> Tracer IO a
-traceThrow =
-    mkTracer
-      throwIO
-      throwIO
-      throwIO
+    prependTime :: FormatTime t => t -> String -> String
+    prependTime time x = '[' : showTime time <> "] " <> x
 
-{-------------------------------------------------------------------------------
-  Type class intended for rendering log messages
--------------------------------------------------------------------------------}
+    prependLevel :: Level -> String -> String
+    prependLevel level x = withAnsiCodes ansiCodes level ('[' : alignLevel level <> "] ") <> x
 
-class PrettyLogMsg a where
-  prettyLogMsg :: a -> String
+    prependSource :: String -> String -> String
+    prependSource source x = '[' : source <> "] " <> x
+
+    colorLine :: Level -> String -> String
+    colorLine level = case ansiCodes of
+      WithAnsiColor | level `elem` [Warning, Error] -> withAnsiCodes ansiCodes level
+      _otherwise                                    -> id
+
+    formatLine :: UTCTime -> Level -> String -> String -> String
+    formatLine time level source = prependTime time
+      . prependLevel level . prependSource source . colorLine level
+
+    -- Log format:
+    -- [TIMESTAMP] [LEVEL] [SOURCE/CONTEXT] MESSAGE
+    -- [2025-05-16 05:45:19.391Z] [Info   ] [Source] Skipped "hs-bindgen-c-example.h" at "hs-bindgen-root.h:1:1": Not from the main file
+    prettyReport :: (PrettyTrace a, HasLogLevel a, HasSource a) => a -> IO ()
+    prettyReport trace = do
+      time <- getCurrentTime
+      -- TODO #647: We apply the prefix line-wise. I prefer this behavior, but
+      -- do you agree?
+      mapM_ (report . formatLine time level source) $ lines $ prettyTrace trace
+      where level = getLogLevel trace
+            source = getSource trace
+
+-- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
+withTracerStdOut :: (PrettyTrace a, HasLogLevel a, HasSource a)
+  => Verbosity -> (Tracer IO a -> IO b) -> IO b
+withTracerStdOut verbosity action = do
+  supportsAnsiColor <- hSupportsANSIColor stdout
+  let ansiColor = if supportsAnsiColor then WithAnsiColor else WithoutAnsiColor
+  action $ mkTracer ansiColor verbosity putStrLn
+
+-- | Run an action with a tracer writing to a file. Do not use ANSI colors.
+withTracerFile
+  :: (PrettyTrace a, HasLogLevel a, HasSource a)
+  => FilePath -> Verbosity -> (Tracer IO a -> IO b) -> IO b
+withTracerFile file verbosity action = withFile file AppendMode $ \handle ->
+  let tracer = mkTracer WithoutAnsiColor verbosity (hPutStrLn handle)
+  in action tracer
