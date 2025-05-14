@@ -156,47 +156,41 @@ generateDeclarations opts mu nm (C.Header decs) =
 
 type NameMap = Map C.Type (HsName NsTypeConstr)
 
--- TODO refactor/simplify after implementing name customization
 mkNameMap :: NameMangler -> [C.Decl] -> NameMap
 mkNameMap nm = Map.fromList . concatMap aux
   where
     aux :: C.Decl -> [(C.Type, HsName NsTypeConstr)]
     aux = \case
-      C.DeclStruct struct ->
-        let declPath = C.structDeclPath struct
-            name     = mangle nm $ NameTycon declPath
+      C.DeclStruct C.Struct{..} ->
+        let name = mkName structTypeSpec structDeclPath
+        in  map (, name) $
+                C.TypeStruct structDeclPath
+              : map C.TypeTypedef structAliases
+      C.DeclOpaqueStruct C.OpaqueStruct{..} ->
+        let declPath = C.DeclPathName opaqueStructTag
+            name = mkName opaqueStructTypeSpec declPath
         in  map (, name) $
                 C.TypeStruct declPath
-              : map C.TypeTypedef (C.structAliases struct)
-      C.DeclOpaqueStruct struct ->
-        let declPath = C.DeclPathName $ C.opaqueStructTag struct
-            name     = mangle nm $ NameTycon declPath
+              : map C.TypeTypedef opaqueStructAliases
+      C.DeclUnion C.Union{..} ->
+        let name = mkName unionTypeSpec unionDeclPath
         in  map (, name) $
-                C.TypeStruct declPath
-              : map C.TypeTypedef (C.opaqueStructAliases struct)
-      C.DeclUnion union ->
-        let declPath = C.unionDeclPath union
-            name     = mangle nm $ NameTycon declPath
+                C.TypeUnion unionDeclPath
+              : map C.TypeTypedef unionAliases
+      C.DeclTypedef C.Typedef{..} ->
+        let name = mkName typedefTypeSpec $ C.DeclPathName typedefName
+        in  [(C.TypeTypedef typedefName, name)]
+      C.DeclEnum C.Enu{..} ->
+        let name = mkName enumTypeSpec enumDeclPath
         in  map (, name) $
-                C.TypeUnion declPath
-              : map C.TypeTypedef (C.unionAliases union)
-      C.DeclTypedef typedef ->
-        let cname    = C.typedefName typedef
-            declPath = C.DeclPathName cname
-            name     = mangle nm $ NameTycon declPath
-        in  [(C.TypeTypedef cname, name)]
-      C.DeclEnum enum ->
-        let declPath = C.enumDeclPath enum
-            name     = mangle nm $ NameTycon declPath
+                C.TypeEnum enumDeclPath
+              : map C.TypeTypedef enumAliases
+      C.DeclOpaqueEnum C.OpaqueEnum{..} ->
+        let declPath = C.DeclPathName opaqueEnumTag
+            name = mkName opaqueEnumTypeSpec declPath
         in  map (, name) $
                 C.TypeEnum declPath
-              : map C.TypeTypedef (C.enumAliases enum)
-      C.DeclOpaqueEnum enum ->
-        let declPath = C.DeclPathName $ C.opaqueEnumTag enum
-            name     = mangle nm $ NameTycon declPath
-        in  map (, name) $
-                C.TypeEnum declPath
-              : map C.TypeTypedef (C.opaqueEnumAliases enum)
+              : map C.TypeTypedef opaqueEnumAliases
       C.DeclMacro macroDecl -> case macroDecl of
         C.MacroDecl { macroDeclMacro = macro, macroDeclMacroTy = ty }
           | Macro.Quant bf <- ty, Macro.isPrimTy bf ->
@@ -209,6 +203,13 @@ mkNameMap nm = Map.fromList . concatMap aux
                 _otherwise -> []
         _otherwise -> []
       C.DeclFunction{} -> []
+
+    mkName :: Maybe BindingSpecs.TypeSpec -> C.DeclPath -> HsName NsTypeConstr
+    mkName mTypeSpec declPath =
+      case fmap BindingSpecs.typeSpecHaskell mTypeSpec of
+        Just (Just (BindingSpecs.Require hsRef)) -> HsName $
+          BindingSpecs.getHsIdentifier (BindingSpecs.hsRefIdentifier hsRef)
+        _otherwise -> mangle nm $ NameTycon declPath
 
 getName :: NameMap -> C.Type -> HsName NsTypeConstr
 getName nameMap ctype = case Map.lookup ctype nameMap of
