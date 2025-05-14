@@ -6,6 +6,7 @@ module HsBindgen.Runtime.FlexibleArrayMember (
     peekWithFLAM,
 ) where
 
+import Control.Exception (assert)
 import Data.Vector.Storable qualified as VS
 import Data.Vector.Storable.Mutable qualified as VSM
 import Foreign
@@ -35,3 +36,15 @@ peekWithFLAM ptr = do
         copyBytes ptr' (plusPtr ptr (flexibleArrayMemberOffset (proxy# @struct))) bytesN
     vector' <- VS.unsafeFreeze vector
     return (WithFlexibleArrayMember struct vector')
+
+-- | Poke a
+pokeWithFLAM
+  :: forall struct elem.
+     (Storable struct, Storable elem, HasFlexibleArrayLength elem struct)
+  => Ptr struct -> WithFlexibleArrayMember elem struct -> IO ()
+pokeWithFLAM ptr (WithFlexibleArrayMember struct' vector')  = do
+  struct <- peek ptr
+  let !lenFLAM = flexibleArrayMemberLength struct
+      !lenVector' = VS.length vector'
+  assert (lenFLAM == lenVector') $ do
+    undefined
