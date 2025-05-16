@@ -19,6 +19,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+import HsBindgen.Clang.Args (withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (HasLogLevel (getLogLevel), HasSource (getSource),
@@ -57,9 +58,10 @@ resolveHeader' ::
   -> CHeaderIncludePath
   -> IO (Either ResolveHeaderException SourcePath)
 resolveHeader' args headerIncludePath =
+  withExtraClangArgs args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile headerName headerContent $ \file ->
-        HighLevel.withTranslationUnit2 index headerSourcePath args [file] opts $
+        HighLevel.withTranslationUnit2 index headerSourcePath args' [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error during header resolution: "

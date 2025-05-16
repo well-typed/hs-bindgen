@@ -36,6 +36,7 @@ import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Clang.Args (withExtraClangArgs)
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
@@ -81,9 +82,10 @@ parseCHeaders ::
   -> [CHeaderIncludePath]
   -> IO ([SourcePath], C.Header) -- ^ List of included headers and parsed header
 parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
+  withExtraClangArgs args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
-        HighLevel.withTranslationUnit2 index C.rootHeaderName args [file] opts $
+        HighLevel.withTranslationUnit2 index C.rootHeaderName args' [file] opts $
           \case
             Left err -> throwIO $ ParseCHeadersUnknownError err
             Right unit -> do
@@ -139,9 +141,10 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
 
 getTargetTriple :: ClangArgs -> IO Text
 getTargetTriple args =
+  withExtraClangArgs args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hName hContent $ \file ->
-        HighLevel.withTranslationUnit2 index hPath args [file] opts $
+        HighLevel.withTranslationUnit2 index hPath args' [file] opts $
           \case
             Left err -> panicPure $
               "Clang parse translation unit error while getting target triple: "
