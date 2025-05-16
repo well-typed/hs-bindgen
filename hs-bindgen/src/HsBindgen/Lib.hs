@@ -35,6 +35,7 @@ module HsBindgen.Lib (
   , ExtBindings.ExtBindings
   , ExtBindings.emptyExtBindings
   , ExtBindings.loadExtBindings
+  , Resolve.ResolveHeaderException(..)
 
     -- ** Translation options
   , Hs.TranslationOpts(..)
@@ -47,14 +48,8 @@ module HsBindgen.Lib (
   , Predicate.Regex -- opaque
 
     -- ** Logging
-  , Tracer.Tracer
-  , Tracer.Level(..)
-  , Tracer.nullTracer
-  , Tracer.mkTracerIO
-  , Tracer.mkTracerQ
-  , Tracer.mkTracer
-  , Tracer.contramap
-  , Tracer.traceWith
+  , Trace.Trace (..)
+  , module HsBindgen.Util.Tracer
 
     -- ** Preprocessor
   , Pipeline.PPOpts(..)
@@ -80,9 +75,11 @@ import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
-import HsBindgen.Pipeline qualified as Pipeline
-import HsBindgen.Util.Tracer qualified as Tracer
 import HsBindgen.ModuleUnique
+import HsBindgen.Pipeline qualified as Pipeline
+import HsBindgen.Resolve qualified as Resolve
+import HsBindgen.Util.Trace qualified as Trace
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Parsing and translating

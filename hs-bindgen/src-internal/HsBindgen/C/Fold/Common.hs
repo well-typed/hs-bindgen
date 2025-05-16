@@ -18,6 +18,7 @@ module HsBindgen.C.Fold.Common (
   , continue
   ) where
 
+import Control.Tracer (Tracer, traceWith)
 import Data.Tree (Tree (Node))
 
 import Clang.Backtrace
@@ -29,7 +30,8 @@ import Clang.Paths
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+import HsBindgen.Util.Tracer (HasLogLevel (getLogLevel), HasSource (getSource),
+                              Level (..), PrettyTrace (prettyTrace))
 
 {-------------------------------------------------------------------------------
   Root header
@@ -56,8 +58,8 @@ data Skipped = Skipped {
     , skippedReason :: String
     }
 
-instance PrettyLogMsg Skipped where
-  prettyLogMsg Skipped{skippedName, skippedLoc, skippedReason} = concat [
+instance PrettyTrace Skipped where
+  prettyTrace Skipped{skippedName, skippedLoc, skippedReason} = concat [
         "Skipped "
       , show skippedName
       , " at "
@@ -65,6 +67,12 @@ instance PrettyLogMsg Skipped where
       , ": "
       , skippedReason
       ]
+
+instance HasLogLevel Skipped where
+  getLogLevel = const Info
+
+instance HasSource Skipped where
+  getSource = const "HsBindgen.C.Fold.Common"
 
 whenPredicateMatches ::
      MonadIO m
@@ -84,7 +92,7 @@ whenPredicateMatches tracer p mMainHeader current sloc k =
           Left  reason -> do
             name <- clang_getCursorSpelling current
             loc  <- HighLevel.clang_getCursorLocation current
-            liftIO $ traceWith tracer Info $ Skipped name loc reason
+            liftIO $ traceWith tracer $ Skipped name loc reason
             return $ Continue Nothing
       Nothing -> return $ Continue Nothing
 

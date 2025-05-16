@@ -12,15 +12,14 @@ module HsBindgen.App.Common (
   , cmd'
   ) where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
+import Control.Tracer (Tracer, traceWith)
 import Data.Bifunctor (first)
 import Data.Char qualified as Char
---import Data.Default
 import Data.List qualified as List
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
---import Clang.Paths
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
@@ -28,7 +27,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      globalOptsVerbosity   :: Bool
+      globalOptsVerbosity   :: Verbosity
     , globalOptsPredicate   :: Predicate
     , globalOptsClangArgs   :: ClangArgs
     , globalOptsExtBindings :: [FilePath]
@@ -43,13 +42,16 @@ parseGlobalOpts =
       <*> parseClangArgs
       <*> parseExtBindings
 
-parseVerbosity :: Parser Bool
+parseVerbosity :: Parser Verbosity
 parseVerbosity =
+  toVerbosity <$> (
     switch $ mconcat [
-        short 'v'
-      , long "verbose"
-      , help "Verbose output"
-      ]
+          short 'v'
+        , long "verbose"
+        , help "Verbose output"
+        ])
+  where toVerbosity False = Verbosity Warning
+        toVerbosity True = Verbosity Info
 
 parsePredicate :: Parser Predicate
 parsePredicate = fmap aux . many . asum $ [
@@ -293,13 +295,13 @@ parseInput =
 
 -- | Load exernal bindings, tracing any errors
 loadExtBindings' ::
-     Tracer IO String
+     Tracer IO ResolveHeaderException
   -> GlobalOpts
   -> IO ExtBindings
 loadExtBindings' tracer GlobalOpts{..} = do
     (resolveErrs, extBindings) <-
       loadExtBindings globalOptsClangArgs globalOptsExtBindings
-    mapM_ (traceWith tracer Warning . displayException) resolveErrs
+    mapM_ (traceWith tracer) resolveErrs
     return extBindings
 
 {-------------------------------------------------------------------------------

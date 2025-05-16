@@ -12,6 +12,7 @@ module HsBindgen.C.Parser (
   ) where
 
 import Control.Exception
+import Control.Tracer (Tracer, traceWith)
 import Data.List qualified as List
 import Data.List.Compat ((!?))
 import Data.Map.Strict qualified as Map
@@ -28,8 +29,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Data.DynGraph qualified as DynGraph
 import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
@@ -38,7 +39,6 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Parsing
@@ -90,9 +90,7 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
               (errors, warnings) <- List.partition diagnosticIsError
                 <$> HighLevel.clang_getDiagnostics unit Nothing
               unless (null errors) $ throwIO (getError errors)
-              -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
-              -- We should print warnings only optionally.
-              forM_ warnings $ traceWith diagTracer Warning
+              forM_ warnings $ traceWith diagTracer
               rootCursor <- clang_getTranslationUnitCursor unit
               (decls, finalDeclState) <-
                 C.runFoldState C.initDeclState $

@@ -10,12 +10,12 @@ import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Generics qualified as SYB
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import Test.Tasty (TestTree, TestName)
 import System.FilePath (makeRelative)
+import Test.Tasty (TestName, TestTree)
 
 import Clang.Paths
-import HsBindgen.Lib
 import HsBindgen.Guasi
+import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
 
@@ -24,11 +24,10 @@ goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-        tracer = mkTracer report report report False
+        tracer = mkTracer WithAnsiColor (Verbosity Info) report
         opts = Pipeline.defaultOpts {
             Pipeline.optsClangArgs  = clangArgs packageRoot
-          , Pipeline.optsDiagTracer = tracer
-          , Pipeline.optsSkipTracer = tracer
+          , Pipeline.optsTracer = tracer
           }
     (depPaths, cheader) <- Pipeline.parseCHeader opts headerIncludePath
 

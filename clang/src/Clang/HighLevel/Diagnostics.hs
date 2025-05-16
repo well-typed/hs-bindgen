@@ -85,6 +85,7 @@ data FixIt = FixIt {
     }
   deriving stock (Show)
 
+-- TODO: Probably separate into Info/Warning/Error (issue #175).
 diagnosticIsError :: Diagnostic -> Bool
 diagnosticIsError diag =
     case fromSimpleEnum (diagnosticSeverity diag) of
