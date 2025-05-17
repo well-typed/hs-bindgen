@@ -3940,6 +3940,8 @@
           valueValue = 3,
           valueSourceLoc =
           "distilled_lib_1.h:65:3"}},
+  DeclInlineCInclude
+    "distilled_lib_1.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
