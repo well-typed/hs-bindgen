@@ -1,5 +1,5 @@
 -- | Translate @libclang@ declarations
-module HsBindgen.C.Fold.Decl (
+module HsBindgen.C.FoldOld.Decl (
     DeclState(..)
   , initDeclState
   , foldDecls
@@ -15,9 +15,9 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import HsBindgen.C.AST
-import HsBindgen.C.Fold.Common
-import HsBindgen.C.Fold.DeclState
-import HsBindgen.C.Fold.Type
+import HsBindgen.C.FoldOld.Common
+import HsBindgen.C.FoldOld.DeclState
+import HsBindgen.C.FoldOld.Type
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Reparse
 import HsBindgen.C.Tc.Macro (tcMacro)

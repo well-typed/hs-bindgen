@@ -6,10 +6,12 @@ module Clang.HighLevel.Fold (
     Fold
   , Next(..)
   , recursePure
+  , bindFold
   , clang_visitChildren
+  , clang_visitNodeItself
   ) where
 
-import Control.Monad (forM_)
+import Control.Monad (forM_, (>=>))
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.IO.Unlift (MonadUnliftIO (withRunInIO))
 import Data.IORef (IORef, writeIORef, readIORef, modifyIORef, newIORef)
@@ -56,6 +58,10 @@ data Next m a where
   -- This is the equivalent of 'CXChildVisit_Recurse'.
   Recurse :: Fold m b -> ([b] -> m (Maybe a)) -> Next m a
 
+{-------------------------------------------------------------------------------
+  Combinators
+-------------------------------------------------------------------------------}
+
 instance Functor m => Functor (Next m) where
   fmap f (Break x)     = Break (fmap f x)
   fmap f (Continue x)  = Continue (fmap f x)
@@ -63,6 +69,18 @@ instance Functor m => Functor (Next m) where
 
 recursePure :: Applicative m => Fold m b -> ([b] -> Maybe a) -> Next m a
 recursePure r f = Recurse r (pure . f)
+
+bindFold :: forall m a b. Monad m => Fold m a -> (a -> m b) -> Fold m b
+bindFold fold f curr = do
+    next <- fold curr
+    case next of
+      Break ma        -> Break <$> aux ma
+      Continue ma     -> Continue <$> aux ma
+      Recurse fold' g -> return $ Recurse fold' (g >=> aux)
+  where
+    aux :: Maybe a -> m (Maybe b)
+    aux Nothing  = return Nothing
+    aux (Just a) = Just <$> f a
 
 {-------------------------------------------------------------------------------
   Internal: stack
@@ -189,3 +207,11 @@ clang_visitChildren root topLevelFold = withRunInIO $ \runInIO -> do
             stack' <- push current fold collect stack
             writeIORef someStack $ SomeStack stack'
             return $ simpleEnum CXChildVisit_Recurse
+
+clang_visitNodeItself :: MonadUnliftIO m => CXCursor -> Fold m a -> m (Maybe a)
+clang_visitNodeItself root fold = do
+    next <- fold root
+    case next of
+      Break    a      -> return a
+      Continue a      -> return a
+      Recurse fold' g -> clang_visitChildren root fold' >>= g

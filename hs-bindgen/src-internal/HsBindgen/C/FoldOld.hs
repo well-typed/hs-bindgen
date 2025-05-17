@@ -1,7 +1,7 @@
 -- | Folds over the @clang@ AST
 --
 -- Intended for unqualified import.
-module HsBindgen.C.Fold (
+module HsBindgen.C.FoldOld (
     -- * Executing folds (re-exports from @clang@)
     Fold
   , runFoldIdentity
@@ -9,8 +9,6 @@ module HsBindgen.C.Fold (
   , runFoldState
     -- * Specific folds
     -- ** AST
-  , rootHeaderName
-  , rootHeaderContent
   , DeclState
   , initDeclState
   , foldDecls
@@ -20,5 +18,5 @@ module HsBindgen.C.Fold (
 
 import Clang.HighLevel.Types
 import HsBindgen.Eff
-import HsBindgen.C.Fold.Common
-import HsBindgen.C.Fold.Decl
+import HsBindgen.C.FoldOld.Common
+import HsBindgen.C.FoldOld.Decl

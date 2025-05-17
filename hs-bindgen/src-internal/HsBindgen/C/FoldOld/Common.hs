@@ -1,9 +1,6 @@
-module HsBindgen.C.Fold.Common (
-    -- * Root header
-    rootHeaderName
-  , rootHeaderContent
+module HsBindgen.C.FoldOld.Common (
     -- * Predicates
-  , Skipped(..)
+    Skipped(..)
   , whenPredicateMatches
     -- * Location
   , DeclLoc(..)
@@ -30,21 +27,6 @@ import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-
-{-------------------------------------------------------------------------------
-  Root header
--------------------------------------------------------------------------------}
-
-rootHeaderName :: SourcePath
-rootHeaderName = SourcePath "hs-bindgen-root.h"
-
-rootHeaderContent :: [CHeaderIncludePath] -> String
-rootHeaderContent = unlines . map toLine
-  where
-    toLine :: CHeaderIncludePath -> String
-    toLine = \case
-      CHeaderSystemIncludePath path -> "#include <" ++ path ++ ">"
-      CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
 
 {-------------------------------------------------------------------------------
   Predicates

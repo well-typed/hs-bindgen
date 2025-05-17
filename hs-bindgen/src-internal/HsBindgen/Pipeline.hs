@@ -119,7 +119,7 @@ parseCHeader :: Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
 parseCHeader Opts{..} headerIncludePath =
     C.parseCHeaders
       (contramap show optsDiagTracer)
-      (contramap prettyLogMsg optsSkipTracer)
+      undefined -- (contramap prettyLogMsg optsSkipTracer)
       optsClangArgs
       optsPredicate
       optsExtBindings

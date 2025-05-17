@@ -1,4 +1,4 @@
-module HsBindgen.C.Fold.DeclState (
+module HsBindgen.C.FoldOld.DeclState (
     DeclState(..)
   , TypeDecl (..)
     -- * Construction
