@@ -1,4 +1,5 @@
 [
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -19,6 +20,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:3:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -40,6 +42,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:4:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -60,6 +63,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:5:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -81,6 +85,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:6:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -101,6 +106,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:7:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -121,6 +127,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:8:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -141,6 +148,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:9:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -162,6 +170,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:12:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -182,6 +191,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:13:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -202,6 +212,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:14:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -222,6 +233,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:15:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -243,6 +255,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:16:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -264,6 +277,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:17:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -285,6 +299,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:18:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -305,6 +320,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:19:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -327,6 +343,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:20:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -349,6 +366,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:21:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -369,6 +387,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:22:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -389,6 +408,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:23:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -409,6 +429,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:24:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -429,6 +450,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:25:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -450,6 +472,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:26:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -470,6 +493,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:27:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -491,6 +515,7 @@
           functionHeader = "names.h",
           functionSourceLoc =
           "names.h:28:6"}},
+  DeclInlineCInclude "names.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

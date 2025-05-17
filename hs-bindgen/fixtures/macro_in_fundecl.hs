@@ -522,6 +522,8 @@
     DeriveNewtype
     Real
     (HsName "@NsTypeConstr" "S"),
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -561,6 +563,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:12:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -603,6 +607,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:13:4"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -663,6 +669,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:16:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -720,6 +728,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:17:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -777,6 +787,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:18:4"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -821,6 +833,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:21:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -864,6 +878,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:22:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -905,6 +921,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:23:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -950,6 +968,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:24:5"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1027,6 +1047,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:27:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1103,6 +1125,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:35:7"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1177,6 +1201,8 @@
           "macro_in_fundecl.h",
           functionSourceLoc =
           "macro_in_fundecl.h:43:5"}},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

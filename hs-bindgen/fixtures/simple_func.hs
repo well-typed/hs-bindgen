@@ -1,4 +1,6 @@
 [
+  DeclInlineCInclude
+    "simple_func.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -29,6 +31,8 @@
           "simple_func.h",
           functionSourceLoc =
           "simple_func.h:1:8"}},
+  DeclInlineCInclude
+    "simple_func.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -72,6 +76,8 @@
           "simple_func.h",
           functionSourceLoc =
           "simple_func.h:3:22"}},
+  DeclInlineCInclude
+    "simple_func.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -95,6 +101,8 @@
           "simple_func.h",
           functionSourceLoc =
           "simple_func.h:7:6"}},
+  DeclInlineCInclude
+    "simple_func.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -119,6 +127,8 @@
           "simple_func.h",
           functionSourceLoc =
           "simple_func.h:9:6"}},
+  DeclInlineCInclude
+    "simple_func.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

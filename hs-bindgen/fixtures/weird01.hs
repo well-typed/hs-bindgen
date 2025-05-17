@@ -431,6 +431,7 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "Bar"),
+  DeclInlineCInclude "weird01.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

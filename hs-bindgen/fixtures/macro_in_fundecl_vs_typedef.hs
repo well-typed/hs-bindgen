@@ -197,6 +197,8 @@
     DeriveNewtype
     Real
     (HsName "@NsTypeConstr" "TC"),
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -233,6 +235,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:8:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -273,6 +277,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:9:4"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -315,6 +321,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:10:5"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1291,6 +1299,8 @@
     (HsName
       "@NsTypeConstr"
       "Struct4"),
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1335,6 +1345,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:23:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1375,6 +1387,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:24:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1413,6 +1427,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:25:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1455,6 +1471,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:27:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1497,6 +1515,8 @@
           "macro_in_fundecl_vs_typedef.h",
           functionSourceLoc =
           "macro_in_fundecl_vs_typedef.h:28:6"}},
+  DeclInlineCInclude
+    "macro_in_fundecl_vs_typedef.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

@@ -252,6 +252,10 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclInstance" [toExpr inst]
     Hs.DeclDeriveInstance strategy typeClass name ->
       Expr.App "DeclNewtypeInstance" [toExpr strategy, toExpr typeClass, toExpr name]
+    Hs.DeclInlineCInclude header ->
+      Expr.App "DeclInlineCInclude" [toExpr header]
+    Hs.DeclInlineC src ->
+      Expr.App "DeclInlineC" [toExpr src]
     Hs.DeclForeignImport foreignImport ->
       Expr.App "DeclForeignImport" [toExpr foreignImport]
     Hs.DeclVar v ->
