@@ -420,6 +420,8 @@
     (HsName
       "@NsTypeConstr"
       "Triple"),
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -958,6 +960,8 @@
           valueValue = 2,
           valueSourceLoc =
           "manual_examples.h:29:5"}},
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1205,6 +1209,8 @@
     (HsName
       "@NsTypeConstr"
       "Average"),
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1248,6 +1254,8 @@
           "manual_examples.h",
           functionSourceLoc =
           "manual_examples.h:41:5"}},
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2159,6 +2167,8 @@
     DeriveStock
     Eq
     (HsName "@NsTypeConstr" "Date"),
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3115,6 +3125,8 @@
           opaqueStructAliases = [],
           opaqueStructSourceLoc =
           "manual_examples.h:77:12"}},
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4714,6 +4726,8 @@
     (HsName
       "@NsTypeConstr"
       "Adio'0301s"),
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4855,6 +4869,8 @@
     (HsName
       "@NsTypeConstr"
       "C\25968\23383"),
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4967,6 +4983,8 @@
     DeriveNewtype
     Real
     (HsName "@NsTypeConstr" "Data"),
+  DeclInlineCInclude
+    "manual_examples.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

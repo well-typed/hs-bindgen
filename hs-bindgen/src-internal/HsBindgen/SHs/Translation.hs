@@ -41,11 +41,12 @@ translateDecls decls =
 -- 20250429 this function will change,
 -- but for now we find the includes to test addCSource functionality
 csources :: [Hs.Decl] -> String
-csources decls = unlines $ ordNub
-    [ "#include \"" ++ header ++ "\""
-    | Hs.DeclForeignImport i <- decls
-    , let header = Hs.foreignImportHeader i
-    ]
+csources decls = headers
+  where
+    headers = unlines $ ordNub
+      [ "#include \"" ++ header ++ "\""
+      | Hs.DeclInlineCInclude header <- decls
+      ]
 
 translateDecl :: Hs.Decl -> [SDecl]
 translateDecl (Hs.DeclData d) = singleton $ translateDeclData d
@@ -58,6 +59,9 @@ translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
 translateDecl (Hs.DeclUnionGetter u f n) = singleton $ translateUnionGetter u f n
 translateDecl (Hs.DeclUnionSetter u f n) = singleton $ translateUnionSetter u f n
+-- these are processed by 'csources'
+translateDecl Hs.DeclInlineCInclude {} = []
+translateDecl Hs.DeclInlineC {}        = []
 
 translateDefineInstanceDecl :: Hs.InstanceDecl -> SDecl
 translateDefineInstanceDecl (Hs.InstanceStorable struct i) =

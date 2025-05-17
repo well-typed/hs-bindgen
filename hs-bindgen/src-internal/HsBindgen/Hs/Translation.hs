@@ -888,7 +888,8 @@ functionDecs nm typedefs f
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =
-    [ Hs.DeclForeignImport $ Hs.ForeignImportDecl
+    [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
+    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
         , foreignImportCRes       = C.functionRes f

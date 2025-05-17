@@ -232,6 +232,7 @@
     (HsName
       "@NsTypeConstr"
       "C\25968\23383"),
+  DeclInlineCInclude "adios.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -252,6 +253,7 @@
           functionHeader = "adios.h",
           functionSourceLoc =
           "adios.h:18:6"}},
+  DeclInlineCInclude "adios.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -274,6 +276,7 @@
           functionHeader = "adios.h",
           functionSourceLoc =
           "adios.h:21:6"}},
+  DeclInlineCInclude "adios.h",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
