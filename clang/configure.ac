@@ -1,8 +1,14 @@
 AC_PREREQ([2.69])
 AC_INIT([clang],[0.1.0])
-AC_CONFIG_MACRO_DIRS([m4])
+dnl AC_CONFIG_MACRO_DIRS([m4])
 
 AC_PROG_CC
+
+dnl we get --with-compiler warnings without this
+dnl this is not great, as really it should be --with-ghc or --with-readline
+dnl i.e. pointing to the external software by name
+AC_ARG_WITH([compiler],
+  [AS_HELP_STRING([--with-compiler], [Haskell compiler])])
 
 dnl The discovery logic is following
 dnl * look for llvm-config (LLVM_CONFIG if set, in PATH otherwise)
