@@ -4,6 +4,7 @@
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/distilled_lib_1.h
 -- #include "distilled_lib_1.h"
+-- int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]);
 newtype Int32_t = Int32_t {un_Int32_t :: CInt}
 deriving newtype instance Storable Int32_t
 deriving stock instance Eq Int32_t

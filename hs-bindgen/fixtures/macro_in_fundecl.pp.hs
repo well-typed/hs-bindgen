@@ -16,6 +16,19 @@ import qualified HsBindgen.Runtime.ConstantArray
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 -- #include "macro_in_fundecl.h"
+-- char testmodule_quux (F arg1, char arg2);
+-- C *testmodule_wam (float arg1, C *arg2);
+-- char *testmodule_foo1 (float arg1, signed int (*arg2) (signed int arg1));
+-- char *testmodule_foo2 (F arg1, signed int (*arg2) (signed int arg1));
+-- C *testmodule_foo3 (float arg1, signed int (*arg2) (signed int arg1));
+-- signed int (*testmodule_bar1) (signed short arg1) (signed long arg1);
+-- signed int (*testmodule_bar2) (signed short arg1) (L arg1);
+-- signed int (*testmodule_bar3) (S arg1) (signed long arg1);
+-- I (*testmodule_bar4) (signed short arg1) (signed long arg1);
+-- signed int *testmodule_baz1[2][3] (signed int arg1);
+-- signed int *testmodule_baz2[2][3] (I arg1);
+-- I *testmodule_baz3[2][3] (signed int arg1);
+-- I testmodule_no_args_no_void (void);
 
 newtype I = I
   { un_I :: FC.CInt
@@ -165,54 +178,28 @@ deriving newtype instance Num S
 
 deriving newtype instance Real S
 
--- char quux (F arg1, char arg2)
-
 foreign import capi safe "macro_in_fundecl.h quux" quux :: F -> FC.CChar -> IO FC.CChar
-
--- C *wam (float arg1, C *arg2)
 
 foreign import capi safe "macro_in_fundecl.h wam" wam :: FC.CFloat -> (F.Ptr C) -> IO (F.Ptr C)
 
--- char *foo1 (float arg1, signed int (*arg2) (signed int arg1))
-
 foreign import capi safe "macro_in_fundecl.h foo1" foo1 :: FC.CFloat -> (F.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (F.Ptr FC.CChar)
-
--- char *foo2 (F arg1, signed int (*arg2) (signed int arg1))
 
 foreign import capi safe "macro_in_fundecl.h foo2" foo2 :: F -> (F.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (F.Ptr FC.CChar)
 
--- C *foo3 (float arg1, signed int (*arg2) (signed int arg1))
-
 foreign import capi safe "macro_in_fundecl.h foo3" foo3 :: FC.CFloat -> (F.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (F.Ptr C)
-
--- signed int (*bar1) (signed short arg1) (signed long arg1)
 
 foreign import capi safe "macro_in_fundecl.h bar1" bar1 :: FC.CLong -> IO (F.FunPtr (FC.CShort -> IO FC.CInt))
 
--- signed int (*bar2) (signed short arg1) (L arg1)
-
 foreign import capi safe "macro_in_fundecl.h bar2" bar2 :: L -> IO (F.FunPtr (FC.CShort -> IO FC.CInt))
-
--- signed int (*bar3) (S arg1) (signed long arg1)
 
 foreign import capi safe "macro_in_fundecl.h bar3" bar3 :: FC.CLong -> IO (F.FunPtr (S -> IO FC.CInt))
 
--- I (*bar4) (signed short arg1) (signed long arg1)
-
 foreign import capi safe "macro_in_fundecl.h bar4" bar4 :: FC.CLong -> IO (F.FunPtr (FC.CShort -> IO I))
-
--- signed int *baz1[2][3] (signed int arg1)
 
 foreign import capi safe "macro_in_fundecl.h baz1" baz1 :: FC.CInt -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
--- signed int *baz2[2][3] (I arg1)
-
 foreign import capi safe "macro_in_fundecl.h baz2" baz2 :: I -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
--- I *baz3[2][3] (signed int arg1)
-
 foreign import capi safe "macro_in_fundecl.h baz3" baz3 :: FC.CInt -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
-
--- I no_args_no_void (void)
 
 foreign import capi safe "macro_in_fundecl.h no_args_no_void" no_args_no_void :: IO I

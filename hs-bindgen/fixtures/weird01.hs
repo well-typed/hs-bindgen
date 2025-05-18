@@ -432,6 +432,8 @@
     Eq
     (HsName "@NsTypeConstr" "Bar"),
   DeclInlineCInclude "weird01.h",
+  DeclInlineC
+    "void testmodule_func (struct bar *arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

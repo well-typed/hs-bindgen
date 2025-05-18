@@ -199,6 +199,8 @@
     (HsName "@NsTypeConstr" "TC"),
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "char testmodule_quux1 (MC arg1, TC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -237,6 +239,8 @@
           "macro_in_fundecl_vs_typedef.h:8:6"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "TC testmodule_quux2 (MC arg1, char arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -279,6 +283,8 @@
           "macro_in_fundecl_vs_typedef.h:9:4"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "MC *testmodule_wam1 (float arg1, TC *arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -323,6 +329,8 @@
           "macro_in_fundecl_vs_typedef.h:10:5"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "TC *testmodule_wam2 (float arg1, MC *arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1301,6 +1309,8 @@
       "Struct4"),
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "void testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1347,6 +1357,8 @@
           "macro_in_fundecl_vs_typedef.h:23:6"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "void testmodule_struct_typedef2 (struct3_t *arg1, MC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1389,6 +1401,8 @@
           "macro_in_fundecl_vs_typedef.h:24:6"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "void testmodule_struct_typedef3 (struct4 *arg1, MC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1429,6 +1443,8 @@
           "macro_in_fundecl_vs_typedef.h:25:6"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "void testmodule_struct_name1 (struct struct1 *arg1, MC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1473,6 +1489,8 @@
           "macro_in_fundecl_vs_typedef.h:27:6"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "void testmodule_struct_name2 (struct struct3 *arg1, MC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1517,6 +1535,8 @@
           "macro_in_fundecl_vs_typedef.h:28:6"}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
+  DeclInlineC
+    "void testmodule_struct_name3 (struct struct4 *arg1, MC arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

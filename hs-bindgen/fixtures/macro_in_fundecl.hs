@@ -524,6 +524,8 @@
     (HsName "@NsTypeConstr" "S"),
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "char testmodule_quux (F arg1, char arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -565,6 +567,8 @@
           "macro_in_fundecl.h:12:6"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "C *testmodule_wam (float arg1, C *arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -609,6 +613,8 @@
           "macro_in_fundecl.h:13:4"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "char *testmodule_foo1 (float arg1, signed int (*arg2) (signed int arg1));",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -671,6 +677,8 @@
           "macro_in_fundecl.h:16:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "char *testmodule_foo2 (F arg1, signed int (*arg2) (signed int arg1));",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -730,6 +738,8 @@
           "macro_in_fundecl.h:17:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "C *testmodule_foo3 (float arg1, signed int (*arg2) (signed int arg1));",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -789,6 +799,8 @@
           "macro_in_fundecl.h:18:4"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "signed int (*testmodule_bar1) (signed short arg1) (signed long arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -835,6 +847,8 @@
           "macro_in_fundecl.h:21:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "signed int (*testmodule_bar2) (signed short arg1) (L arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -880,6 +894,8 @@
           "macro_in_fundecl.h:22:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "signed int (*testmodule_bar3) (S arg1) (signed long arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -923,6 +939,8 @@
           "macro_in_fundecl.h:23:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "I (*testmodule_bar4) (signed short arg1) (signed long arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -970,6 +988,8 @@
           "macro_in_fundecl.h:24:5"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "signed int *testmodule_baz1[2][3] (signed int arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1049,6 +1069,8 @@
           "macro_in_fundecl.h:27:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "signed int *testmodule_baz2[2][3] (I arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1127,6 +1149,8 @@
           "macro_in_fundecl.h:35:7"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "I *testmodule_baz3[2][3] (signed int arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1203,6 +1227,8 @@
           "macro_in_fundecl.h:43:5"}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
+  DeclInlineC
+    "I testmodule_no_args_no_void (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

@@ -11,7 +11,6 @@ import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.C.AST qualified as C (MFun(..))
-import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro hiding ( IntegralType )
 import HsBindgen.ExtBindings (HsTypeClass)
 import HsBindgen.Hs.AST qualified as Hs
@@ -41,11 +40,16 @@ translateDecls decls =
 -- 20250429 this function will change,
 -- but for now we find the includes to test addCSource functionality
 csources :: [Hs.Decl] -> String
-csources decls = headers
+csources decls = unlines $ headers ++ bodies
   where
-    headers = unlines $ ordNub
+    headers = ordNub
       [ "#include \"" ++ header ++ "\""
       | Hs.DeclInlineCInclude header <- decls
+      ]
+
+    bodies =
+      [ body
+      | Hs.DeclInlineC body <- decls
       ]
 
 translateDecl :: Hs.Decl -> [SDecl]
@@ -148,8 +152,7 @@ translateVarDecl Hs.VarDecl {..} = DVar
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
 translateForeignImportDecl Hs.ForeignImportDecl {..} =
-    [ DComment $ signature ""
-    , DForeignImport ForeignImport
+    [  DForeignImport ForeignImport
         { foreignImportName     = foreignImportName
         , foreignImportType     = translateType foreignImportType
         , foreignImportOrigName = foreignImportOrigName
@@ -157,12 +160,6 @@ translateForeignImportDecl Hs.ForeignImportDecl {..} =
         , foreignImportOrigin   = foreignImportDeclOrigin
         }
     ]
-  where
-    signature :: ShowS
-    signature = C.showsFunctionType
-      (showString (T.unpack foreignImportOrigName))
-      foreignImportCArgs
-      foreignImportCRes
 
 translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym

@@ -1,5 +1,30 @@
 -- addDependentFile examples/names.h
 -- #include "names.h"
+-- void test_internal_by (void);
+-- void test_internal_forall (void);
+-- void test_internal_mdo (void);
+-- void test_internal_pattern (void);
+-- void test_internal_proc (void);
+-- void test_internal_rec (void);
+-- void test_internal_using (void);
+-- void test_internal_anyclass (void);
+-- void test_internal_capi (void);
+-- void test_internal_cases (void);
+-- void test_internal_ccall (void);
+-- void test_internal_dynamic (void);
+-- void test_internal_export (void);
+-- void test_internal_family (void);
+-- void test_internal_group (void);
+-- void test_internal_interruptible (void);
+-- void test_internal_javascript (void);
+-- void test_internal_label (void);
+-- void test_internal_prim (void);
+-- void test_internal_role (void);
+-- void test_internal_safe (void);
+-- void test_internal_stdcall (void);
+-- void test_internal_stock (void);
+-- void test_internal_unsafe (void);
+-- void test_internal_via (void);
 foreign import capi safe "names.h by" by' :: IO Unit
 foreign import capi safe "names.h forall" forall' :: IO Unit
 foreign import capi safe "names.h mdo" mdo' :: IO Unit

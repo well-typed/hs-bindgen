@@ -34,6 +34,7 @@ import C.Char qualified
 import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
 import HsBindgen.C.AST qualified as C
+import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.ExtBindings (HsTypeClass)
@@ -113,9 +114,9 @@ generateDeclarations ::
   -> NameMangler
   -> C.Header
   -> [Hs.Decl]
-generateDeclarations opts _mu nm (C.Header decs) =
+generateDeclarations opts mu nm (C.Header decs) =
     flip State.evalState Map.empty $
-      concat <$> mapM (generateDecs opts nm typedefs) decs
+      concat <$> mapM (generateDecs opts nm mu typedefs) decs
   where
     typedefs :: Map C.CName C.Type
     typedefs = Map.union actualTypedefs pseudoTypedefs
@@ -293,10 +294,11 @@ generateDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
   -> NameMangler
+  -> ModuleUnique
   -> Map C.CName C.Type
   -> C.Decl
   -> m [Hs.Decl]
-generateDecs opts nm typedefs = \case
+generateDecs opts nm mu typedefs = \case
     C.DeclStruct struct  -> reifyStructFields struct $ structDecs opts nm struct
     C.DeclUnion union    -> unionDecs nm union
     C.DeclOpaqueStruct o -> opaqueStructDecs nm o
@@ -304,7 +306,7 @@ generateDecs opts nm typedefs = \case
     C.DeclOpaqueEnum o   -> opaqueEnumDecs nm o -- TODO?
     C.DeclTypedef d      -> typedefDecs opts nm d
     C.DeclMacro m        -> macroDecs opts nm m
-    C.DeclFunction f     -> return $ functionDecs nm typedefs f
+    C.DeclFunction f     -> return $ functionDecs nm mu typedefs f
 
 {-------------------------------------------------------------------------------
   Structs
@@ -881,14 +883,16 @@ floatingType = \case
 
 functionDecs ::
      NameMangler
+  -> ModuleUnique
   -> Map C.CName C.Type -- ^ typedefs
   -> C.Function
   -> [Hs.Decl]
-functionDecs nm typedefs f
+functionDecs nm mu typedefs f
   | any isFancy (C.functionRes f : C.functionArgs f)
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
+    , Hs.DeclInlineC $ signature ";" -- # TODO only declaration for now.
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
@@ -912,6 +916,12 @@ functionDecs nm typedefs f
 
     ty :: HsType
     ty = foldr HsFun (HsIO $ typ' CFunRes nm $ C.functionRes f) (typ' CFunArg nm <$> C.functionArgs f)
+
+    signature :: ShowS
+    signature = C.showsFunctionType
+      (showString (unModuleUnique mu ++ "_" ++ T.unpack (C.getCName (C.functionName f))))
+      (C.functionArgs f)
+      (C.functionRes f)
 
 {-------------------------------------------------------------------------------
   Macro

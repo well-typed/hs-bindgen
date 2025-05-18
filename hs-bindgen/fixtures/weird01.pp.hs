@@ -11,6 +11,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 -- #include "weird01.h"
+-- void testmodule_func (struct bar *arg1);
 
 data Foo = Foo
   { foo_z :: FC.CInt
@@ -61,7 +62,5 @@ instance F.Storable Bar where
 deriving stock instance Show Bar
 
 deriving stock instance Eq Bar
-
--- void func (struct bar *arg1)
 
 foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO ()

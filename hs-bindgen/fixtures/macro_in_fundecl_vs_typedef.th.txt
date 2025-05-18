@@ -1,5 +1,15 @@
 -- addDependentFile examples/macro_in_fundecl_vs_typedef.h
 -- #include "macro_in_fundecl_vs_typedef.h"
+-- char test_internal_quux1 (MC arg1, TC arg2);
+-- TC test_internal_quux2 (MC arg1, char arg2);
+-- MC *test_internal_wam1 (float arg1, TC *arg2);
+-- TC *test_internal_wam2 (float arg1, MC *arg2);
+-- void test_internal_struct_typedef1 (struct <anon> *arg1, MC arg2);
+-- void test_internal_struct_typedef2 (struct3_t *arg1, MC arg2);
+-- void test_internal_struct_typedef3 (struct4 *arg1, MC arg2);
+-- void test_internal_struct_name1 (struct struct1 *arg1, MC arg2);
+-- void test_internal_struct_name2 (struct struct3 *arg1, MC arg2);
+-- void test_internal_struct_name3 (struct struct4 *arg1, MC arg2);
 newtype MC = MC {un_MC :: CChar}
 deriving newtype instance Storable MC
 deriving stock instance Eq MC

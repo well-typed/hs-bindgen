@@ -24,6 +24,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 import qualified Text.Read
 
 -- #include "distilled_lib_1.h"
+-- int32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]);
 
 newtype Int32_t = Int32_t
   { un_Int32_t :: FC.CInt
@@ -485,8 +486,6 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
-
--- int32_t some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[])
 
 foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 

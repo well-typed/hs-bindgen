@@ -1,5 +1,6 @@
 -- addDependentFile examples/weird01.h
 -- #include "weird01.h"
+-- void test_internal_func (struct bar *arg1);
 data Foo = Foo {foo_z :: CInt}
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;
