@@ -28,7 +28,7 @@ import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 
 import DeBruijn
-import C.Char qualified as CExpr
+import C.Char qualified
 
 {-------------------------------------------------------------------------------
   Backend representation
@@ -191,7 +191,7 @@ data SExpr ctx =
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
-  | EChar CExpr.CharValue
+  | EChar C.Char.CharValue
   | EString String
   | ECString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)

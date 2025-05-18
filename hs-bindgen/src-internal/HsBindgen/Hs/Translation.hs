@@ -30,7 +30,7 @@ import Data.Type.Nat (SNatI, induction)
 import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList (..))
 
-import C.Char qualified as C
+import C.Char qualified
 import C.Type qualified ( FloatingType(..), IntegralType(IntLike) )
 import Clang.Paths
 import HsBindgen.C.AST qualified as C
@@ -1040,7 +1040,7 @@ macroExprHsExpr nm = goExpr where
 
     goString :: C.StringLiteral -> Maybe (Hs.VarDeclRHS ctx)
     goString (C.StringLiteral { stringLiteralValue = s }) = do
-      let bytes = concatMap (IsList.toList . C.charValue) s
+      let bytes = concatMap (IsList.toList . C.Char.charValue) s
       return $
         Hs.VarDeclString (IsList.fromList bytes)
 

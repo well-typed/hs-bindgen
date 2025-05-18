@@ -11,7 +11,7 @@ module HsBindgen.C.AST.Literal (
 
 import Data.Bits
 
-import C.Char qualified as C
+import C.Char qualified
 import C.Type qualified
 
 import HsBindgen.Imports
@@ -84,14 +84,14 @@ canBeRepresentedAsRational f = not $ or
 data CharLiteral =
   CharLiteral
     { charLiteralText :: Text
-    , charLiteralValue :: C.CharValue
+    , charLiteralValue :: C.Char.CharValue
     }
   deriving stock ( Eq, Ord, Show, Generic )
 
 data StringLiteral =
   StringLiteral
     { stringLiteralText :: Text
-    , stringLiteralValue :: [ C.CharValue ]
+    , stringLiteralValue :: [ C.Char.CharValue ]
     }
   deriving stock ( Eq, Ord, Show, Generic )
 

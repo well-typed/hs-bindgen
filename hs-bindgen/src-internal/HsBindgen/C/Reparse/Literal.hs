@@ -13,7 +13,7 @@ import Text.Parsec
 import Text.Parsec.Pos (updatePosChar)
 import GHC.Exts qualified as IsList (IsList(..))
 
-import C.Char qualified as C
+import C.Char qualified
 import C.Type qualified
 
 import HsBindgen.Imports
@@ -229,7 +229,7 @@ digitChar Separator = Nothing
 -- | Re-parse a character literal.
 --
 -- Note that, in C, character literals have type @int@, **not** @char@!
-reparseLiteralChar :: TokenParser C.CharValue
+reparseLiteralChar :: TokenParser C.Char.CharValue
 reparseLiteralChar = do
   let forbidden = [ '\'' ]
   prefix <- parseCharPrefix
@@ -255,7 +255,7 @@ reparseLiteralChar = do
           -- in the constant initialize successive bytes of the resulting integer, in big-endian
           -- zero-padded right-adjusted order, e.g. the value of '\1' is 0x00000001
           -- and the value of '\1\2\3\4' is 0x01020304.
-          case traverse C.utf8SingleByteCodeUnit chars of
+          case traverse C.Char.utf8SingleByteCodeUnit chars of
             Nothing ->
               unexpected "multi-character literal contains a character wider than a byte"
             Just bs
@@ -263,9 +263,9 @@ reparseLiteralChar = do
               -> unexpected "multi-character literal contains more than 4 characters"
               | otherwise
               -> return $
-                   C.CharValue
-                     { C.charValue = IsList.fromList bs
-                     , C.unicodeCodePoint = Nothing
+                   C.Char.CharValue
+                     { C.Char.charValue = IsList.fromList bs
+                     , C.Char.unicodeCodePoint = Nothing
                      }
 
 charPrefixAllowsSequence :: Maybe CharPrefix -> Bool
@@ -278,9 +278,9 @@ charPrefixAllowsSequence = \case
       Prefix_U  -> False -- removed in C23
       Prefix_L  -> True
 
-nonEscapedChar :: [Char] -> TokenParser C.CharValue
+nonEscapedChar :: [Char] -> TokenParser C.Char.CharValue
 nonEscapedChar forbidden =
-  C.fromHaskellChar <$>
+  C.Char.fromHaskellChar <$>
     satisfy ( not . ( `elem` '\n' : '\\' : forbidden ) )
 
 data CharPrefix = Prefix_u8 | Prefix_u | Prefix_U | Prefix_L
@@ -296,7 +296,7 @@ parseCharPrefix = choice
   where
     c = void . char
 
-escapedChar :: TokenParser C.CharValue
+escapedChar :: TokenParser C.Char.CharValue
 escapedChar = do
   void $ char '\\'
   choice
@@ -306,9 +306,9 @@ escapedChar = do
     , universalEscapedChar
     ]
 
-basicEscapedChar :: TokenParser C.CharValue
+basicEscapedChar :: TokenParser C.Char.CharValue
 basicEscapedChar =
-  C.fromHaskellChar <$>
+  C.Char.fromHaskellChar <$>
     satisfyM ( `lookup` ( basicSourceEscapedChars ++ executionEscapedChars ) )
 
 -- | Like 'satisfy' but takes a @Char -> Maybe a@ predicate.
@@ -345,12 +345,12 @@ executionEscapedChars =
   , ( 'r', '\r'   ) -- carriage return
   ]
 
-hexCodeUnitChar, octalCodeUnitChar :: TokenParser C.CharValue
+hexCodeUnitChar, octalCodeUnitChar :: TokenParser C.Char.CharValue
 hexCodeUnitChar = do
   void $ char 'x'
   digs <- many1 (digitInBase False BaseHex)
   let codeUnit = readInBase BaseHex digs
-  return $ C.charValueFromCodeUnit codeUnit
+  return $ C.Char.charValueFromCodeUnit codeUnit
 octalCodeUnitChar = do
   -- NB (https://en.cppreference.com/w/c/language/escape):
   --
@@ -364,9 +364,9 @@ octalCodeUnitChar = do
     digs :: [Digit]
     digs = dig1 : catMaybes [dig2, dig3]
     codeUnit = readInBase BaseOct digs
-  return $ C.charValueFromCodeUnit codeUnit
+  return $ C.Char.charValueFromCodeUnit codeUnit
 
-universalEscapedChar :: TokenParser C.CharValue
+universalEscapedChar :: TokenParser C.Char.CharValue
 universalEscapedChar = do
   nbChars <- choice [4 <$ char 'u', 8 <$ char 'U']
   digs <- replicateM nbChars (digitInBase False BaseHex)
@@ -381,7 +381,7 @@ universalEscapedChar = do
      | codePoint >= 0x10FFFF
      -> unexpected $ "universal character name is not a valid Unicode code point (" ++ showCodePoint ++ ")"
      | otherwise
-     -> return $ C.charValueFromCodePoint codePoint
+     -> return $ C.Char.charValueFromCodePoint codePoint
 
 {-------------------------------------------------------------------------------
   Parser for string literals
@@ -390,7 +390,7 @@ universalEscapedChar = do
 -------------------------------------------------------------------------------}
 
 -- | Re-parse a string literal.
-reparseLiteralString :: TokenParser [C.CharValue]
+reparseLiteralString :: TokenParser [C.Char.CharValue]
 reparseLiteralString = do
   let forbidden = [ '\"' ]
   prefix <- parseCharPrefix
