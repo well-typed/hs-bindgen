@@ -8,11 +8,13 @@ module HsBindgen.Util.Parsec (
   , foldTokens
   ) where
 
-import Control.Monad
+import Control.Monad (guard)
 import Data.Char (toLower)
-import Text.Parsec.Error
-import Text.Parsec.Pos
-import Text.Parsec.Prim
+import Text.Parsec (Consumed (..), ParseError, ParsecT, Reply (..), SourcePos,
+                    State (..), Stream (..), mkPT, tokenPrim, unknownError,
+                    (<?>))
+import Text.Parsec.Error (Message (..), newErrorMessage)
+import Text.Parsec.Pos (updatePosChar, updatePosString)
 
 {-------------------------------------------------------------------------------
   Character streams

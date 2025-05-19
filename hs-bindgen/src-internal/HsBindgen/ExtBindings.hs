@@ -33,7 +33,7 @@ module HsBindgen.ExtBindings (
   ) where
 
 import Control.Applicative
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
 import Control.Monad ((<=<))
 import Control.Tracer (Tracer)
 import Data.Aeson ((.!=), (.:), (.:?), (.=))

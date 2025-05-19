@@ -2,7 +2,7 @@ module Test.HsBindgen.C.Parser (tests) where
 
 import Control.Tracer (Tracer)
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.HUnit ((@?=), testCase)
+import Test.Tasty.HUnit (testCase, (@?=))
 
 import HsBindgen.C.Parser (getTargetTriple)
 import HsBindgen.Lib
