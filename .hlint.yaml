@@ -55,6 +55,7 @@
 - modules:
   - {name: [HsBindgen.C.Tc.Macro], as: Macro} # if you import HsBindgen.C.Tc.Macro qualified, it must be as 'M' (**not** C)
   - {name: [C.Type], as: C.Type}
+  - {name: [C.Char], as: C.Char}
 #   - {name: Control.Arrow, within: []} # Certain modules are banned entirely
 
 
