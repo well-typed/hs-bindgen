@@ -30,8 +30,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Data.DynGraph qualified as DynGraph
 import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C

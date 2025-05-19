@@ -7,7 +7,7 @@ module HsBindgen.C.Fold.Type (
     processTypeDecl,
 ) where
 
-import Control.Monad.State (State, get, put, gets)
+import Control.Monad.State (State, get, gets, put)
 import Data.Map.Ordered.Strict qualified as OMap
 import Data.Text qualified as T
 import Foreign.C

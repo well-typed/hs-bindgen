@@ -6,7 +6,7 @@ module HsBindgen.Resolve (
   , resolveHeader
   ) where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
 import Control.Monad ((<=<))
 import Control.Monad.Except (runExceptT, throwError)
 import Data.Maybe (listToMaybe)

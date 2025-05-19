@@ -13,8 +13,9 @@
 
 module Test01 where
 
+ -- TODO: GHC issue, we need to import this
+import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..))
 import HsBindgen.TH
-import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..)) -- TODO: GHC issue, we need to import this
 
 -- Used by generated code
 import Foreign.C.Types

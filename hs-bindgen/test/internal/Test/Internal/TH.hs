@@ -11,12 +11,12 @@ import Data.Generics qualified as SYB
 import GHC.Stack (HasCallStack)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import Test.Tasty (TestTree, TestName)
 import System.FilePath (makeRelative)
+import Test.Tasty (TestName, TestTree)
 
 import Clang.Paths
-import HsBindgen.Lib
 import HsBindgen.Guasi
+import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
 

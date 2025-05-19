@@ -2,19 +2,19 @@
 module Main (main) where
 
 import Control.DeepSeq (force)
-import Control.Exception (try, displayException, evaluate)
+import Control.Exception (displayException, evaluate, try)
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.List qualified as List
 import Data.TreeDiff.Golden (ediffGolden1)
-import Test.Tasty (TestTree, TestName, defaultMain, testGroup)
+import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
 import Text.Regex.Applicative qualified as R
 import Text.Regex.Applicative.Common qualified as R
 
 import Clang.Paths
-import HsBindgen.Imports
 import HsBindgen.Errors
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as ExtBindings
+import HsBindgen.Imports
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 
