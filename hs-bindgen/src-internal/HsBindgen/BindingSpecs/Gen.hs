@@ -25,7 +25,7 @@ genBindingSpecs ::
   -> HsModuleName
   -> [Hs.Decl]
   -> IBindingSpecs CHeaderIncludePath
-genBindingSpecs headerIncludePath hsRefModule = foldr aux emptyIBindingSpecs
+genBindingSpecs headerIncludePath hsModuleName = foldr aux emptyIBindingSpecs
   where
     aux ::
          Hs.Decl
@@ -56,13 +56,19 @@ genBindingSpecs headerIncludePath hsRefModule = foldr aux emptyIBindingSpecs
 
     insertType ::
          Binding
-      -> Map CNameSpelling [(Set CHeaderIncludePath, TypeSpec)]
-      -> Map CNameSpelling [(Set CHeaderIncludePath, TypeSpec)]
-    insertType (Binding hsRefIdentifier instances cname) =
-      let typeSpecHaskell   = Just $ Require HsRef{..}
-          typeSpecInstances = Map.fromList $
-            (, Nothing) <$> Set.toAscList instances
-      in  Map.insert cname [(headers, TypeSpec{..})]
+      -> Map CNameSpelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
+      -> Map CNameSpelling [(Set CHeaderIncludePath, Omittable TypeSpec)]
+    insertType (Binding hsIdentifier instances cname) =
+      let typeSpecModule     = Just hsModuleName
+          typeSpecIdentifier = Just hsIdentifier
+          typeSpecInstances  = Map.fromList $
+            (, Require defInstanceSpec) <$> Set.toAscList instances
+      in  Map.insert cname [(headers, Require TypeSpec{..})]
+
+    defInstanceSpec :: InstanceSpec
+    defInstanceSpec = InstanceSpec {
+        instanceStrategy = Nothing
+      }
 
     headers :: Set CHeaderIncludePath
     headers = Set.singleton headerIncludePath

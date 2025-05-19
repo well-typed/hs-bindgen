@@ -1,18 +1,16 @@
 types:
 - headers: fixedwidth.h
   cname: struct foo
-  haskell:
-    module: Example
-    identifier: Foo
+  module: Example
+  identifier: Foo
   instances:
   - Eq
   - Show
   - Storable
 - headers: fixedwidth.h
   cname: uint32_t
-  haskell:
-    module: Example
-    identifier: Uint32_t
+  module: Example
+  identifier: Uint32_t
   instances:
   - Eq
   - Ord
@@ -29,9 +27,8 @@ types:
   - Storable
 - headers: fixedwidth.h
   cname: uint64_t
-  haskell:
-    module: Example
-    identifier: Uint64_t
+  module: Example
+  identifier: Uint64_t
   instances:
   - Eq
   - Ord

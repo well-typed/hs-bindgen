@@ -187,7 +187,7 @@ prettyType env prec = \case
     TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
     TLit n -> showToCtxDoc n
-    TExt ExtType{..} _ctype -> pretty extTypeHaskell
+    TExt t _ctype -> pretty t
     TApp c x -> parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
     TFun a b -> parensWhen (prec > 0) $
@@ -493,9 +493,9 @@ ppInfixBackendName = \case
   External binding pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty HsRef where
-  pretty HsRef{..} =
-    hcat [pretty hsRefModule, char '.', pretty hsRefIdentifier]
+instance Pretty ExtType where
+  pretty ExtType{..} =
+    hcat [pretty extTypeModule, char '.', pretty extTypeIdentifier]
 
 instance Pretty HsModuleName where
   pretty = string . Text.unpack . getHsModuleName

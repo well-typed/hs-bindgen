@@ -1,9 +1,8 @@
 types:
 - headers: macro_in_fundecl.h
   cname: C
-  haskell:
-    module: Example
-    identifier: C
+  module: Example
+  identifier: C
   instances:
   - Eq
   - Ord
@@ -20,9 +19,8 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: F
-  haskell:
-    module: Example
-    identifier: F
+  module: Example
+  identifier: F
   instances:
   - Eq
   - Ord
@@ -38,9 +36,8 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: I
-  haskell:
-    module: Example
-    identifier: I
+  module: Example
+  identifier: I
   instances:
   - Eq
   - Ord
@@ -57,9 +54,8 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: L
-  haskell:
-    module: Example
-    identifier: L
+  module: Example
+  identifier: L
   instances:
   - Eq
   - Ord
@@ -76,9 +72,8 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: S
-  haskell:
-    module: Example
-    identifier: S
+  module: Example
+  identifier: S
   instances:
   - Eq
   - Ord

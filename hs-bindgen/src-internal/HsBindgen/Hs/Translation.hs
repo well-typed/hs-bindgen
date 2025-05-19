@@ -206,9 +206,9 @@ mkNameMap nm = Map.fromList . concatMap aux
 
     mkName :: Maybe BindingSpecs.TypeSpec -> C.DeclPath -> HsName NsTypeConstr
     mkName mTypeSpec declPath =
-      case fmap BindingSpecs.typeSpecHaskell mTypeSpec of
-        Just (Just (BindingSpecs.Require hsRef)) -> HsName $
-          BindingSpecs.getHsIdentifier (BindingSpecs.hsRefIdentifier hsRef)
+      case fmap BindingSpecs.typeSpecIdentifier mTypeSpec of
+        Just (Just hsIdentifier) ->
+          HsName $ BindingSpecs.getHsIdentifier hsIdentifier
         _otherwise -> mangle nm $ NameTycon declPath
 
 getName :: NameMap -> C.Type -> HsName NsTypeConstr

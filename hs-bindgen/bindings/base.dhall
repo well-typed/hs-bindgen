@@ -14,7 +14,8 @@ let mkTM =
       \(instances : List Text) ->
         { headers = map Text Text systemHeader headers
         , cname
-        , haskell = {module, identifier}
+        , module
+        , identifier
         , instances
         }
 

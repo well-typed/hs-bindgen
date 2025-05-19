@@ -1,63 +1,56 @@
 types:
 - headers: bitfields.h
   cname: struct alignA
-  haskell:
-    module: Example
-    identifier: AlignA
+  module: Example
+  identifier: AlignA
   instances:
   - Eq
   - Show
   - Storable
 - headers: bitfields.h
   cname: struct alignB
-  haskell:
-    module: Example
-    identifier: AlignB
+  module: Example
+  identifier: AlignB
   instances:
   - Eq
   - Show
   - Storable
 - headers: bitfields.h
   cname: struct flags
-  haskell:
-    module: Example
-    identifier: Flags
+  module: Example
+  identifier: Flags
   instances:
   - Eq
   - Show
   - Storable
 - headers: bitfields.h
   cname: struct overflow32
-  haskell:
-    module: Example
-    identifier: Overflow32
+  module: Example
+  identifier: Overflow32
   instances:
   - Eq
   - Show
   - Storable
 - headers: bitfields.h
   cname: struct overflow32b
-  haskell:
-    module: Example
-    identifier: Overflow32b
+  module: Example
+  identifier: Overflow32b
   instances:
   - Eq
   - Show
   - Storable
 - headers: bitfields.h
   cname: struct overflow32c
-  haskell:
-    module: Example
-    identifier: Overflow32c
+  module: Example
+  identifier: Overflow32c
   instances:
   - Eq
   - Show
   - Storable
 - headers: bitfields.h
   cname: struct overflow64
-  haskell:
-    module: Example
-    identifier: Overflow64
+  module: Example
+  identifier: Overflow64
   instances:
   - Eq
   - Show

@@ -1,16 +1,12 @@
--- These types do not include features for binding configuration.
-
-let HsRef
-    : Type
-    = { module : Text
-      , identifier : Text
-      }
+-- This type is for specifying external bindings.  Features for binding
+-- configuration are not included.
 
 let TypeMapping
     : Type
     = { headers : List Text
       , cname : Text
-      , haskell : HsRef
+      , module : Text
+      , identifier : Text
       , instances : List Text
       }
 

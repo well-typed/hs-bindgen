@@ -1,9 +1,8 @@
 types:
 - headers: typedefs.h
   cname: intptr
-  haskell:
-    module: Example
-    identifier: Intptr
+  module: Example
+  identifier: Intptr
   instances:
   - Eq
   - Ord
@@ -11,9 +10,8 @@ types:
   - Storable
 - headers: typedefs.h
   cname: myint
-  haskell:
-    module: Example
-    identifier: Myint
+  module: Example
+  identifier: Myint
   instances:
   - Eq
   - Ord

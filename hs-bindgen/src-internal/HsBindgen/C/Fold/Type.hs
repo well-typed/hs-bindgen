@@ -143,14 +143,15 @@ processTypeDecl' ctxt specs extSpecs unit declLoc declCursor ty = case fromSimpl
         hasMacro <- gets $ containsMacroExpansion extent
 
         let cnameSpelling = CNameSpelling name
-        (mExtType, mTypeSpec) <-
+        (moExtType, omTypeSpec) <-
           lookupExtTypeAndTypeSpec cnameSpelling sloc specs extSpecs
 
-        case mExtType of
-            Just extType -> addAlias ty $ TypeExtBinding extType ctype
-            Nothing -> case fmap typeSpecHaskell mTypeSpec of
-              Just (Just Omit) -> addOmitted ty cnameSpelling
-              _otherwise -> do
+        case moExtType of
+            Just (Require extType) -> addAlias ty $ TypeExtBinding extType ctype
+            Just Omit -> liftIO $ throwIO (OmittedTypeUse cnameSpelling)
+            Nothing -> case omTypeSpec of
+              Omit -> addOmitted ty cnameSpelling
+              Require mTypeSpec -> do
                 tag <- CName <$> clang_getCursorSpelling decl
                 mbTy <- if not hasMacro
                         then return Nothing
@@ -479,20 +480,29 @@ lookupExtTypeAndTypeSpec ::
   -> SingleLoc
   -> IBindingSpecs SourcePath -- ^ Binding specs for configuration
   -> IBindingSpecs SourcePath -- ^ External binding specs
-  -> Eff (State DeclState) (Maybe ExtType, Maybe TypeSpec)
+  -> Eff
+       (State DeclState)
+       (Maybe (Omittable ExtType), Omittable (Maybe TypeSpec))
 lookupExtTypeAndTypeSpec cname sloc specs extSpecs
-    | isNothing mSpecPs && isNothing mExtSpecPs = return (Nothing, Nothing)
+    | isNothing mSpecPs && isNothing mExtSpecPs =
+        return (Nothing, Require Nothing)
     | otherwise = do
         let path = singleLocPath sloc
         paths <- gets $ (`DynGraph.reaches` path) . cIncludePathGraph
-        let mTypeSpec = lookupTypeSpec paths =<< mSpecPs
-        fmap (, mTypeSpec) $ case lookupTypeSpec paths =<< mExtSpecPs of
+        let omTypeSpec = case lookupTypeSpec paths =<< mSpecPs of
+              Nothing          -> Require Nothing
+              Just (Require x) -> Require (Just x)
+              Just Omit        -> Omit
+        fmap (, omTypeSpec) $ case lookupTypeSpec paths =<< mExtSpecPs of
           Nothing -> return Nothing
-          Just typeSpec ->
-            either (liftIO . throwIO . HsBindgenException) (return . Just) $
-              getExtType cname typeSpec
+          Just (Require typeSpec) ->
+            either
+              (liftIO . throwIO . HsBindgenException)
+              (return . Just . Require)
+              (getExtType cname typeSpec)
+          Just Omit -> return (Just Omit)
   where
-    mSpecPs, mExtSpecPs :: Maybe [(Set SourcePath, TypeSpec)]
+    mSpecPs, mExtSpecPs :: Maybe [(Set SourcePath, Omittable TypeSpec)]
     mSpecPs    = lookupBindingSpecsType cname specs
     mExtSpecPs = lookupBindingSpecsType cname extSpecs
 
@@ -643,17 +653,18 @@ classifyTypeDecl ctxt specs extSpecs (ty, decl, ki, sloc) = do
     else do
       spelling <- clang_getTypeSpelling ty
       let cnameSpelling = CNameSpelling spelling
-      (mExtType, mTypeSpec) <-
+      (moExtType, omTypeSpec) <-
         lookupExtTypeAndTypeSpec cnameSpelling sloc specs extSpecs
 
       let mTag     = CName <$> T.stripPrefix expectedPrefix spelling
           declPath = mkDeclPath spelling mTag
 
-      fmap (Right . (declPath,)) $ case mExtType of
-        Just extType -> return $ TypeDeclExternal extType
-        Nothing -> case fmap typeSpecHaskell mTypeSpec of
-          Just (Just Omit) -> return $ TypeDeclOmitted' cnameSpelling
-          _otherwise -> do
+      fmap (Right . (declPath,)) $ case moExtType of
+        Just (Require extType) -> return $ TypeDeclExternal extType
+        Just Omit -> liftIO $ throwIO (OmittedTypeUse cnameSpelling)
+        Nothing -> case omTypeSpec of
+          Omit -> return $ TypeDeclOmitted' cnameSpelling
+          Require mTypeSpec -> do
             classified <- HighLevel.classifyDeclaration decl
             case classified of
               DeclarationOpaque ->

@@ -1,9 +1,8 @@
 types:
 - headers: manual_examples.h
   cname: DAY
-  haskell:
-    module: Example
-    identifier: DAY
+  module: Example
+  identifier: DAY
   instances:
   - Eq
   - Ord
@@ -20,9 +19,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: MONTH
-  haskell:
-    module: Example
-    identifier: MONTH
+  module: Example
+  identifier: MONTH
   instances:
   - Eq
   - Ord
@@ -39,9 +37,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: YEAR
-  haskell:
-    module: Example
-    identifier: YEAR
+  module: Example
+  identifier: YEAR
   instances:
   - Eq
   - Ord
@@ -58,9 +55,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: adiós
-  haskell:
-    module: Example
-    identifier: Adio'0301s
+  module: Example
+  identifier: Adio'0301s
   instances:
   - Eq
   - Ord
@@ -77,9 +73,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: average
-  haskell:
-    module: Example
-    identifier: Average
+  module: Example
+  identifier: Average
   instances:
   - Eq
   - Ord
@@ -95,9 +90,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: config
-  haskell:
-    module: Example
-    identifier: Config
+  module: Example
+  identifier: Config
   instances:
   - Eq
   - Ord
@@ -105,9 +99,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: data
-  haskell:
-    module: Example
-    identifier: Data
+  module: Example
+  identifier: Data
   instances:
   - Eq
   - Ord
@@ -124,18 +117,16 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: date
-  haskell:
-    module: Example
-    identifier: Date
+  module: Example
+  identifier: Date
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: enum CXCursorKind
-  haskell:
-    module: Example
-    identifier: CXCursorKind
+  module: Example
+  identifier: CXCursorKind
   instances:
   - Eq
   - Ord
@@ -144,9 +135,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: enum HTTP_status
-  haskell:
-    module: Example
-    identifier: HTTP_status
+  module: Example
+  identifier: HTTP_status
   instances:
   - Eq
   - Ord
@@ -155,9 +145,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: enum descending
-  haskell:
-    module: Example
-    identifier: Descending
+  module: Example
+  identifier: Descending
   instances:
   - Eq
   - Ord
@@ -166,9 +155,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: enum index
-  haskell:
-    module: Example
-    identifier: Index
+  module: Example
+  identifier: Index
   instances:
   - Eq
   - Ord
@@ -177,9 +165,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: enum result
-  haskell:
-    module: Example
-    identifier: Result
+  module: Example
+  identifier: Result
   instances:
   - Eq
   - Ord
@@ -188,9 +175,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: enum signal
-  haskell:
-    module: Example
-    identifier: Signal
+  module: Example
+  identifier: Signal
   instances:
   - Eq
   - Ord
@@ -199,9 +185,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: enum vote
-  haskell:
-    module: Example
-    identifier: Vote
+  module: Example
+  identifier: Vote
   instances:
   - Eq
   - Ord
@@ -210,9 +195,8 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: index
-  haskell:
-    module: Example
-    identifier: Index
+  module: Example
+  identifier: Index
   instances:
   - Eq
   - Ord
@@ -221,66 +205,58 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: occupation
-  haskell:
-    module: Example
-    identifier: Occupation
+  module: Example
+  identifier: Occupation
   instances:
   - Storable
 - headers: manual_examples.h
   cname: struct date
-  haskell:
-    module: Example
-    identifier: Date
+  module: Example
+  identifier: Date
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: struct employee
-  haskell:
-    module: Example
-    identifier: Employee
+  module: Example
+  identifier: Employee
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: struct person
-  haskell:
-    module: Example
-    identifier: Person
+  module: Example
+  identifier: Person
 - headers: manual_examples.h
   cname: struct rect
-  haskell:
-    module: Example
-    identifier: Rect
+  module: Example
+  identifier: Rect
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: struct student
-  haskell:
-    module: Example
-    identifier: Student
+  module: Example
+  identifier: Student
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: struct triple
-  haskell:
-    module: Example
-    identifier: Triple
+  module: Example
+  identifier: Triple
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: sum
-  haskell:
-    module: Example
-    identifier: Sum
+  module: Example
+  identifier: Sum
   instances:
   - Eq
   - Ord
@@ -297,25 +273,22 @@ types:
   - Storable
 - headers: manual_examples.h
   cname: triple
-  haskell:
-    module: Example
-    identifier: Triple
+  module: Example
+  identifier: Triple
   instances:
   - Eq
   - Show
   - Storable
 - headers: manual_examples.h
   cname: union occupation
-  haskell:
-    module: Example
-    identifier: Occupation
+  module: Example
+  identifier: Occupation
   instances:
   - Storable
 - headers: manual_examples.h
   cname: 数字
-  haskell:
-    module: Example
-    identifier: C数字
+  module: Example
+  identifier: C数字
   instances:
   - Eq
   - Ord

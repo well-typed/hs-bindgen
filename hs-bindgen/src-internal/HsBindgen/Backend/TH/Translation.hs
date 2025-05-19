@@ -469,9 +469,9 @@ mkType env = \case
             (mkType env' body)
     TExt ExtType{..} _ctype ->
         TH.conT . TH.mkName $ concat [
-              Text.unpack $ getHsModuleName (hsRefModule extTypeHaskell)
+              Text.unpack (getHsModuleName extTypeModule)
             , "."
-            , Text.unpack $ getHsIdentifier (hsRefIdentifier extTypeHaskell)
+            , Text.unpack (getHsIdentifier extTypeIdentifier)
             ]
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type

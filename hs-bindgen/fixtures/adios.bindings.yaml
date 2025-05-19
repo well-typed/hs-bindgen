@@ -1,9 +1,8 @@
 types:
 - headers: adios.h
   cname: adiós
-  haskell:
-    module: Example
-    identifier: Adio'0301s
+  module: Example
+  identifier: Adio'0301s
   instances:
   - Eq
   - Ord
@@ -20,9 +19,8 @@ types:
   - Storable
 - headers: adios.h
   cname: 数字
-  haskell:
-    module: Example
-    identifier: C数字
+  module: Example
+  identifier: C数字
   instances:
   - Eq
   - Ord

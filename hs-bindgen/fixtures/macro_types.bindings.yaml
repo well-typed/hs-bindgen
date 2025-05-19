@@ -1,36 +1,32 @@
 types:
 - headers: macro_types.h
   cname: Arr1
-  haskell:
-    module: Example
-    identifier: Arr1
+  module: Example
+  identifier: Arr1
   instances:
   - Eq
   - Show
   - Storable
 - headers: macro_types.h
   cname: Arr2
-  haskell:
-    module: Example
-    identifier: Arr2
+  module: Example
+  identifier: Arr2
   instances:
   - Eq
   - Show
   - Storable
 - headers: macro_types.h
   cname: Arr3
-  haskell:
-    module: Example
-    identifier: Arr3
+  module: Example
+  identifier: Arr3
   instances:
   - Eq
   - Show
   - Storable
 - headers: macro_types.h
   cname: BOOLEAN_T
-  haskell:
-    module: Example
-    identifier: BOOLEAN_T
+  module: Example
+  identifier: BOOLEAN_T
   instances:
   - Eq
   - Ord
@@ -47,14 +43,12 @@ types:
   - Storable
 - headers: macro_types.h
   cname: Fun1
-  haskell:
-    module: Example
-    identifier: Fun1
+  module: Example
+  identifier: Fun1
 - headers: macro_types.h
   cname: Fun2
-  haskell:
-    module: Example
-    identifier: Fun2
+  module: Example
+  identifier: Fun2
   instances:
   - Eq
   - Ord
@@ -62,9 +56,8 @@ types:
   - Storable
 - headers: macro_types.h
   cname: Fun3
-  haskell:
-    module: Example
-    identifier: Fun3
+  module: Example
+  identifier: Fun3
   instances:
   - Eq
   - Ord
@@ -72,19 +65,16 @@ types:
   - Storable
 - headers: macro_types.h
   cname: Fun4
-  haskell:
-    module: Example
-    identifier: Fun4
+  module: Example
+  identifier: Fun4
 - headers: macro_types.h
   cname: Fun5
-  haskell:
-    module: Example
-    identifier: Fun5
+  module: Example
+  identifier: Fun5
 - headers: macro_types.h
   cname: MTy
-  haskell:
-    module: Example
-    identifier: MTy
+  module: Example
+  identifier: MTy
   instances:
   - Eq
   - Ord
@@ -100,9 +90,8 @@ types:
   - Storable
 - headers: macro_types.h
   cname: PtrInt
-  haskell:
-    module: Example
-    identifier: PtrInt
+  module: Example
+  identifier: PtrInt
   instances:
   - Eq
   - Ord
@@ -110,9 +99,8 @@ types:
   - Storable
 - headers: macro_types.h
   cname: PtrPtrChar
-  haskell:
-    module: Example
-    identifier: PtrPtrChar
+  module: Example
+  identifier: PtrPtrChar
   instances:
   - Eq
   - Ord
@@ -120,9 +108,8 @@ types:
   - Storable
 - headers: macro_types.h
   cname: UINT8_T
-  haskell:
-    module: Example
-    identifier: UINT8_T
+  module: Example
+  identifier: UINT8_T
   instances:
   - Eq
   - Ord
@@ -139,9 +126,8 @@ types:
   - Storable
 - headers: macro_types.h
   cname: boolean_T
-  haskell:
-    module: Example
-    identifier: Boolean_T
+  module: Example
+  identifier: Boolean_T
   instances:
   - Eq
   - Ord
@@ -158,9 +144,8 @@ types:
   - Storable
 - headers: macro_types.h
   cname: tty
-  haskell:
-    module: Example
-    identifier: Tty
+  module: Example
+  identifier: Tty
   instances:
   - Eq
   - Ord

@@ -1,27 +1,24 @@
 types:
 - headers: flam.h
   cname: struct diff
-  haskell:
-    module: Example
-    identifier: Diff
+  module: Example
+  identifier: Diff
   instances:
   - Eq
   - Show
   - Storable
 - headers: flam.h
   cname: struct foo
-  haskell:
-    module: Example
-    identifier: Foo
+  module: Example
+  identifier: Foo
   instances:
   - Eq
   - Show
   - Storable
 - headers: flam.h
   cname: struct pascal
-  haskell:
-    module: Example
-    identifier: Pascal
+  module: Example
+  identifier: Pascal
   instances:
   - Eq
   - Show

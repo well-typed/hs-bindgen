@@ -1,9 +1,8 @@
 types:
 - headers: primitive_types.h
   cname: struct primitive
-  haskell:
-    module: Example
-    identifier: Primitive
+  module: Example
+  identifier: Primitive
   instances:
   - Eq
   - Show

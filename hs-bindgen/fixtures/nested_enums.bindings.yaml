@@ -1,9 +1,8 @@
 types:
 - headers: nested_enums.h
   cname: enum enumA
-  haskell:
-    module: Example
-    identifier: EnumA
+  module: Example
+  identifier: EnumA
   instances:
   - Eq
   - Ord
@@ -12,18 +11,16 @@ types:
   - Storable
 - headers: nested_enums.h
   cname: struct exA
-  haskell:
-    module: Example
-    identifier: ExA
+  module: Example
+  identifier: ExA
   instances:
   - Eq
   - Show
   - Storable
 - headers: nested_enums.h
   cname: struct exB
-  haskell:
-    module: Example
-    identifier: ExB
+  module: Example
+  identifier: ExB
   instances:
   - Eq
   - Show

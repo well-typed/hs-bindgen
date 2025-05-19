@@ -13,10 +13,8 @@ let mkTM =
       \(instances : List Text) ->
         { headers = map Text Text systemHeader headers
         , cname
-        , haskell =
-            { module = "HsBindgen.Runtime.LibC"
-            , identifier
-            }
+        , module = "HsBindgen.Runtime.LibC"
+        , identifier
         , instances
         }
 

@@ -226,7 +226,6 @@ resolveStrategyImports = \case
 
 resolveExtImports :: ExtType -> ImportAcc
 resolveExtImports ExtType{..} =
-    let hsImportModuleName = Text.unpack $
-          getHsModuleName (hsRefModule extTypeHaskell)
+    let hsImportModuleName = Text.unpack $ getHsModuleName extTypeModule
         hsImportModuleAlias = Nothing
     in  ImportAcc (Set.singleton HsImportModule{..}, mempty)

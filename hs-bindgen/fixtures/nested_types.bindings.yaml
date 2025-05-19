@@ -1,45 +1,40 @@
 types:
 - headers: nested_types.h
   cname: struct bar
-  haskell:
-    module: Example
-    identifier: Bar
+  module: Example
+  identifier: Bar
   instances:
   - Eq
   - Show
   - Storable
 - headers: nested_types.h
   cname: struct ex3
-  haskell:
-    module: Example
-    identifier: Ex3
+  module: Example
+  identifier: Ex3
   instances:
   - Eq
   - Show
   - Storable
 - headers: nested_types.h
   cname: struct ex4_even
-  haskell:
-    module: Example
-    identifier: Ex4_even
+  module: Example
+  identifier: Ex4_even
   instances:
   - Eq
   - Show
   - Storable
 - headers: nested_types.h
   cname: struct ex4_odd
-  haskell:
-    module: Example
-    identifier: Ex4_odd
+  module: Example
+  identifier: Ex4_odd
   instances:
   - Eq
   - Show
   - Storable
 - headers: nested_types.h
   cname: struct foo
-  haskell:
-    module: Example
-    identifier: Foo
+  module: Example
+  identifier: Foo
   instances:
   - Eq
   - Show

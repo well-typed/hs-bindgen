@@ -1,18 +1,16 @@
 types:
 - headers: attributes.h
   cname: FILE
-  haskell:
-    module: Example
-    identifier: FILE
+  module: Example
+  identifier: FILE
   instances:
   - Eq
   - Show
   - Storable
 - headers: attributes.h
   cname: struct __sFILE
-  haskell:
-    module: Example
-    identifier: C__SFILE
+  module: Example
+  identifier: C__SFILE
   instances:
   - Eq
   - Show

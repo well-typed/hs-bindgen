@@ -1,9 +1,8 @@
 types:
 - headers: typenames.h
   cname: enum foo
-  haskell:
-    module: Example
-    identifier: Foo
+  module: Example
+  identifier: Foo
   instances:
   - Eq
   - Ord
@@ -12,9 +11,8 @@ types:
   - Storable
 - headers: typenames.h
   cname: foo
-  haskell:
-    module: Example
-    identifier: Foo
+  module: Example
+  identifier: Foo
   instances:
   - Eq
   - Ord

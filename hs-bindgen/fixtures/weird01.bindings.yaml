@@ -1,18 +1,16 @@
 types:
 - headers: weird01.h
   cname: struct bar
-  haskell:
-    module: Example
-    identifier: Bar
+  module: Example
+  identifier: Bar
   instances:
   - Eq
   - Show
   - Storable
 - headers: weird01.h
   cname: struct foo
-  haskell:
-    module: Example
-    identifier: Foo
+  module: Example
+  identifier: Foo
   instances:
   - Eq
   - Show

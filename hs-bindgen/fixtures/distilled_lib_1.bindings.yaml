@@ -1,9 +1,8 @@
 types:
 - headers: distilled_lib_1.h
   cname: a_type_t
-  haskell:
-    module: Example
-    identifier: A_type_t
+  module: Example
+  identifier: A_type_t
   instances:
   - Eq
   - Ord
@@ -20,9 +19,8 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: a_typedef_enum_e
-  haskell:
-    module: Example
-    identifier: A_typedef_enum_e
+  module: Example
+  identifier: A_typedef_enum_e
   instances:
   - Eq
   - Ord
@@ -31,18 +29,16 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: a_typedef_struct_t
-  haskell:
-    module: Example
-    identifier: A_typedef_struct_t
+  module: Example
+  identifier: A_typedef_struct_t
   instances:
   - Eq
   - Show
   - Storable
 - headers: distilled_lib_1.h
   cname: another_typedef_enum_e
-  haskell:
-    module: Example
-    identifier: Another_typedef_enum_e
+  module: Example
+  identifier: Another_typedef_enum_e
   instances:
   - Eq
   - Ord
@@ -51,18 +47,16 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: another_typedef_struct_t
-  haskell:
-    module: Example
-    identifier: Another_typedef_struct_t
+  module: Example
+  identifier: Another_typedef_struct_t
   instances:
   - Eq
   - Show
   - Storable
 - headers: distilled_lib_1.h
   cname: callback_t
-  haskell:
-    module: Example
-    identifier: Callback_t
+  module: Example
+  identifier: Callback_t
   instances:
   - Eq
   - Ord
@@ -70,9 +64,8 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: int32_t
-  haskell:
-    module: Example
-    identifier: Int32_t
+  module: Example
+  identifier: Int32_t
   instances:
   - Eq
   - Ord
@@ -89,18 +82,16 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: struct a_typedef_struct
-  haskell:
-    module: Example
-    identifier: A_typedef_struct
+  module: Example
+  identifier: A_typedef_struct
   instances:
   - Eq
   - Show
   - Storable
 - headers: distilled_lib_1.h
   cname: uint16_t
-  haskell:
-    module: Example
-    identifier: Uint16_t
+  module: Example
+  identifier: Uint16_t
   instances:
   - Eq
   - Ord
@@ -117,9 +108,8 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: uint32_t
-  haskell:
-    module: Example
-    identifier: Uint32_t
+  module: Example
+  identifier: Uint32_t
   instances:
   - Eq
   - Ord
@@ -136,9 +126,8 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: uint8_t
-  haskell:
-    module: Example
-    identifier: Uint8_t
+  module: Example
+  identifier: Uint8_t
   instances:
   - Eq
   - Ord
@@ -155,9 +144,8 @@ types:
   - Storable
 - headers: distilled_lib_1.h
   cname: var_t
-  haskell:
-    module: Example
-    identifier: Var_t
+  module: Example
+  identifier: Var_t
   instances:
   - Eq
   - Ord

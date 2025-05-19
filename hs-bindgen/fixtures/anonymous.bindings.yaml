@@ -1,27 +1,24 @@
 types:
 - headers: anonymous.h
   cname: struct S1
-  haskell:
-    module: Example
-    identifier: S1
+  module: Example
+  identifier: S1
   instances:
   - Eq
   - Show
   - Storable
 - headers: anonymous.h
   cname: struct S2
-  haskell:
-    module: Example
-    identifier: S2
+  module: Example
+  identifier: S2
   instances:
   - Eq
   - Show
   - Storable
 - headers: anonymous.h
   cname: struct S3
-  haskell:
-    module: Example
-    identifier: S3
+  module: Example
+  identifier: S3
   instances:
   - Eq
   - Show
