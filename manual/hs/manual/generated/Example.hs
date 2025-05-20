@@ -30,6 +30,15 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Floating, Fractional, IO, Int, I
 import qualified Text.Read
 
 -- #include "manual_examples.h"
+-- void Example_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4);
+-- signed int Example_index_triple (struct triple *arg1, enum index arg2);
+-- sum Example_sum_triple (struct triple *arg1);
+-- average Example_average_triple (struct triple *arg1);
+-- YEAR Example_getYear (date *arg1);
+-- void Example_print_occupation (signed int arg1, union occupation *arg2);
+-- void Example_拜拜 (void);
+-- void Example_ϒ (void);
+-- void Example_import (void);
 
 data Triple = Triple
   { triple_a :: FC.CInt
@@ -62,8 +71,6 @@ instance F.Storable Triple where
 deriving stock instance Show Triple
 
 deriving stock instance Eq Triple
-
--- void mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4)
 
 foreign import capi safe "manual_examples.h mk_triple" mk_triple :: FC.CInt -> FC.CInt -> FC.CInt -> (F.Ptr Triple) -> IO ()
 
@@ -145,8 +152,6 @@ pattern B = Index 1
 pattern C :: Index
 pattern C = Index 2
 
--- signed int index_triple (struct triple *arg1, enum index arg2)
-
 foreign import capi safe "manual_examples.h index_triple" index_triple :: (F.Ptr Triple) -> Index -> IO FC.CInt
 
 newtype Sum = Sum
@@ -207,11 +212,7 @@ deriving newtype instance RealFloat Average
 
 deriving newtype instance RealFrac Average
 
--- sum sum_triple (struct triple *arg1)
-
 foreign import capi safe "manual_examples.h sum_triple" sum_triple :: (F.Ptr Triple) -> IO Sum
-
--- average average_triple (struct triple *arg1)
 
 foreign import capi safe "manual_examples.h average_triple" average_triple :: (F.Ptr Triple) -> IO Average
 
@@ -346,8 +347,6 @@ deriving stock instance Show Date
 
 deriving stock instance Eq Date
 
--- YEAR getYear (date *arg1)
-
 foreign import capi safe "manual_examples.h getYear" getYear :: (F.Ptr Date) -> IO YEAR
 
 data Student = Student
@@ -434,8 +433,6 @@ set_occupation_employee =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
 data Person
-
--- void print_occupation (signed int arg1, union occupation *arg2)
 
 foreign import capi safe "manual_examples.h print_occupation" print_occupation :: FC.CInt -> (F.Ptr Occupation) -> IO ()
 
@@ -561,6 +558,12 @@ newtype Config = Config
 
 deriving newtype instance F.Storable Config
 
+deriving stock instance Eq Config
+
+deriving stock instance Ord Config
+
+deriving stock instance Show Config
+
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
   }
@@ -590,8 +593,6 @@ deriving newtype instance Integral Adio'0301s
 deriving newtype instance Num Adio'0301s
 
 deriving newtype instance Real Adio'0301s
-
--- void 拜拜 (void)
 
 foreign import capi safe "manual_examples.h 拜拜" 拜拜 :: IO ()
 
@@ -625,8 +626,6 @@ deriving newtype instance Num C数字
 
 deriving newtype instance Real C数字
 
--- void ϒ (void)
-
 foreign import capi safe "manual_examples.h ϒ" cϒ :: IO ()
 
 newtype Data = Data
@@ -658,8 +657,6 @@ deriving newtype instance Integral Data
 deriving newtype instance Num Data
 
 deriving newtype instance Real Data
-
--- void import (void)
 
 foreign import capi safe "manual_examples.h import" import' :: IO ()
 

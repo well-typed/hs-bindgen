@@ -99,11 +99,14 @@ hiMask n = complement (loMask n)
 -- Storable
 -------------------------------------------------------------------------------
 
--- | Peek a "bitfield" from a memory; we assume that offset and width are such
--- that we can read&write whole bitfield with one (read or write) operation.
--- Which means that bitfields cannot span multiple Word64s etc: at the extreme: if width is 64, the offset can only be multiple of 64.
+-- | Peek a 'Bitfield' from a memory.
 --
--- Note: the implementation may do unaligned reads.
+-- We assume that offset and width are such that we can read & write the whole
+-- bitfield with one (read or write) operation. This means that bitfields cannot
+-- span multiple 'Word64's. At the extreme, if the width is 64, the offset can
+-- only be a multiple of 64.
+--
+-- Note: the implementation may perform unaligned reads.
 peekBitOffWidth :: Bitfield a => Ptr b -> Int -> Int -> IO a
 peekBitOffWidth ptr off width
     | (0x7 .&. off) + width <= 8 = do

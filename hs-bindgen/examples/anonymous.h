@@ -8,7 +8,7 @@ struct S1 {
   int d;
 };
 
-// Struct containing nexted anonymous structs
+// Struct containing nested anonymous structs
 struct S2 {
   struct {
     int a;

@@ -3,3 +3,7 @@ types:
   cname: vector
   module: Vector
   identifier: Vector
+  instances:
+  - Eq
+  - Show
+  - Storable

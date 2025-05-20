@@ -11,6 +11,13 @@ cabal run hs-bindgen-cli -- \
     -o hs/manual/generated/Example.hs \
     --module Example
 
+cabal run hs-bindgen-cli -- \
+  preprocess \
+    -i structs.h \
+    -I c \
+    -o hs/manual/generated/Structs.hs \
+    --module Structs
+
 # External bindings: vector example
 
 cabal run hs-bindgen-cli -- \

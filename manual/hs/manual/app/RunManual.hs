@@ -3,13 +3,15 @@
 module RunManual (main) where
 
 import Foreign
-import Foreign.C
+import Foreign.C qualified as FC
 import System.IO.Unsafe
 import Text.Read (readEither)
 
-import HsBindgen.Runtime.CEnum (AsCEnum(..), AsSequentialCEnum(..))
+import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
+import HsBindgen.Runtime.FlexibleArrayMember (HasFlexibleArrayLength (..))
 
 import Example
+import Structs
 
 import Game.Player
 import Game.State
@@ -49,6 +51,13 @@ averageTriple triple = unsafePerformIO $
     with triple $ \ptr -> average_triple ptr
 
 {-------------------------------------------------------------------------------
+  Structs
+-------------------------------------------------------------------------------}
+
+instance HasFlexibleArrayLength FC.CChar Surname where
+  flexibleArrayMemberLength x = fromIntegral (surname_len x)
+
+{-------------------------------------------------------------------------------
   Enums
 -------------------------------------------------------------------------------}
 
@@ -66,7 +75,7 @@ showCursorKind = \case
     CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
     kind -> show kind
 
-readEitherIndexWith :: CUInt -> String -> Either String Index
+readEitherIndexWith :: FC.CUInt -> String -> Either String Index
 readEitherIndexWith upperBound x = case readEither x of
   Right (Index v) | v > upperBound -> Left $ "index out of bounds: " <> show v
   other                            -> other
@@ -106,7 +115,7 @@ main = do
       poke (plusPtr ptr (fromIntegral fIELD_OFFSET)) (1234 :: Word32)
       peek (pTR_TO_FIELD ptr)
     print x
-    print (pTR_TO_FIELD (1 :: CLong))
+    print (pTR_TO_FIELD (1 :: FC.CLong))
 
     year :: YEAR <- alloca $ \ptr -> do
       poke ptr $ Date (YEAR 2025) (MONTH 12) (DAY 25)
