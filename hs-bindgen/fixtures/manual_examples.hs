@@ -422,6 +422,8 @@
       "Triple"),
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "void testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -962,6 +964,8 @@
           "manual_examples.h:29:5"}},
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "signed int testmodule_index_triple (struct triple *arg1, enum index arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1211,6 +1215,8 @@
       "Average"),
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "sum testmodule_sum_triple (struct triple *arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1256,6 +1262,8 @@
           "manual_examples.h:41:5"}},
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "average testmodule_average_triple (struct triple *arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2169,6 +2177,8 @@
     (HsName "@NsTypeConstr" "Date"),
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "YEAR testmodule_getYear (date *arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3127,6 +3137,8 @@
           "manual_examples.h:77:12"}},
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "void testmodule_print_occupation (signed int arg1, union occupation *arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4728,6 +4740,8 @@
       "Adio'0301s"),
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "void testmodule_\25308\25308 (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4871,6 +4885,8 @@
       "C\25968\23383"),
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "void testmodule_\978 (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4985,6 +5001,8 @@
     (HsName "@NsTypeConstr" "Data"),
   DeclInlineCInclude
     "manual_examples.h",
+  DeclInlineC
+    "void testmodule_import (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

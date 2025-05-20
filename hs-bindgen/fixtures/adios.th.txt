@@ -1,5 +1,8 @@
 -- addDependentFile examples/adios.h
 -- #include "adios.h"
+-- void test_internal_ϒ (void);
+-- void test_internal_拜拜 (void);
+-- void test_internal_Say拜拜 (void);
 newtype Adio'0301s = Adio'0301s {un_Adio'0301s :: CInt}
 deriving newtype instance Storable Adio'0301s
 deriving stock instance Eq Adio'0301s

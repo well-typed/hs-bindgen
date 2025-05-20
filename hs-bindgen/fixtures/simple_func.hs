@@ -1,6 +1,8 @@
 [
   DeclInlineCInclude
     "simple_func.h",
+  DeclInlineC
+    "double testmodule_erf (double arg1);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -33,6 +35,8 @@
           "simple_func.h:1:8"}},
   DeclInlineCInclude
     "simple_func.h",
+  DeclInlineC
+    "double testmodule_bad_fma (double arg1, double arg2, double arg3);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -78,6 +82,8 @@
           "simple_func.h:3:22"}},
   DeclInlineCInclude
     "simple_func.h",
+  DeclInlineC
+    "void testmodule_no_args (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -103,6 +109,8 @@
           "simple_func.h:7:6"}},
   DeclInlineCInclude
     "simple_func.h",
+  DeclInlineC
+    "void testmodule_no_args_no_void (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -129,6 +137,8 @@
           "simple_func.h:9:6"}},
   DeclInlineCInclude
     "simple_func.h",
+  DeclInlineC
+    "signed int testmodule_fun (char arg1, double arg2);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

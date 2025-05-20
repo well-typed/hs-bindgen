@@ -1,5 +1,14 @@
 -- addDependentFile examples/manual_examples.h
 -- #include "manual_examples.h"
+-- void test_internal_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4);
+-- signed int test_internal_index_triple (struct triple *arg1, enum index arg2);
+-- sum test_internal_sum_triple (struct triple *arg1);
+-- average test_internal_average_triple (struct triple *arg1);
+-- YEAR test_internal_getYear (date *arg1);
+-- void test_internal_print_occupation (signed int arg1, union occupation *arg2);
+-- void test_internal_拜拜 (void);
+-- void test_internal_ϒ (void);
+-- void test_internal_import (void);
 data Triple
     = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
 instance Storable Triple

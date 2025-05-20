@@ -1,5 +1,10 @@
 -- addDependentFile examples/simple_func.h
 -- #include "simple_func.h"
+-- double test_internal_erf (double arg1);
+-- double test_internal_bad_fma (double arg1, double arg2, double arg3);
+-- void test_internal_no_args (void);
+-- void test_internal_no_args_no_void (void);
+-- signed int test_internal_fun (char arg1, double arg2);
 foreign import capi safe "simple_func.h erf" erf :: CDouble ->
                                                     IO CDouble
 foreign import capi safe "simple_func.h bad_fma" bad_fma :: CDouble ->

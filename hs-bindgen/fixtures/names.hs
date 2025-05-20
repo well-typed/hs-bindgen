@@ -1,5 +1,7 @@
 [
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_by (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -21,6 +23,8 @@
           functionSourceLoc =
           "names.h:3:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_forall (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -43,6 +47,8 @@
           functionSourceLoc =
           "names.h:4:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_mdo (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -64,6 +70,8 @@
           functionSourceLoc =
           "names.h:5:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_pattern (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -86,6 +94,8 @@
           functionSourceLoc =
           "names.h:6:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_proc (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -107,6 +117,8 @@
           functionSourceLoc =
           "names.h:7:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_rec (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -128,6 +140,8 @@
           functionSourceLoc =
           "names.h:8:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_using (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -149,6 +163,8 @@
           functionSourceLoc =
           "names.h:9:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_anyclass (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -171,6 +187,8 @@
           functionSourceLoc =
           "names.h:12:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_capi (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -192,6 +210,8 @@
           functionSourceLoc =
           "names.h:13:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_cases (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -213,6 +233,8 @@
           functionSourceLoc =
           "names.h:14:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_ccall (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -234,6 +256,8 @@
           functionSourceLoc =
           "names.h:15:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_dynamic (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -256,6 +280,8 @@
           functionSourceLoc =
           "names.h:16:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_export (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -278,6 +304,8 @@
           functionSourceLoc =
           "names.h:17:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_family (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -300,6 +328,8 @@
           functionSourceLoc =
           "names.h:18:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_group (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -321,6 +351,8 @@
           functionSourceLoc =
           "names.h:19:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_interruptible (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -344,6 +376,8 @@
           functionSourceLoc =
           "names.h:20:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_javascript (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -367,6 +401,8 @@
           functionSourceLoc =
           "names.h:21:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_label (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -388,6 +424,8 @@
           functionSourceLoc =
           "names.h:22:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_prim (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -409,6 +447,8 @@
           functionSourceLoc =
           "names.h:23:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_role (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -430,6 +470,8 @@
           functionSourceLoc =
           "names.h:24:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_safe (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -451,6 +493,8 @@
           functionSourceLoc =
           "names.h:25:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_stdcall (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -473,6 +517,8 @@
           functionSourceLoc =
           "names.h:26:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_stock (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -494,6 +540,8 @@
           functionSourceLoc =
           "names.h:27:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_unsafe (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -516,6 +564,8 @@
           functionSourceLoc =
           "names.h:28:6"}},
   DeclInlineCInclude "names.h",
+  DeclInlineC
+    "void testmodule_via (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName

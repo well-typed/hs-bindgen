@@ -233,6 +233,8 @@
       "@NsTypeConstr"
       "C\25968\23383"),
   DeclInlineCInclude "adios.h",
+  DeclInlineC
+    "void testmodule_\978 (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -254,6 +256,8 @@
           functionSourceLoc =
           "adios.h:18:6"}},
   DeclInlineCInclude "adios.h",
+  DeclInlineC
+    "void testmodule_\25308\25308 (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -277,6 +281,8 @@
           functionSourceLoc =
           "adios.h:21:6"}},
   DeclInlineCInclude "adios.h",
+  DeclInlineC
+    "void testmodule_Say\25308\25308 (void);",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
