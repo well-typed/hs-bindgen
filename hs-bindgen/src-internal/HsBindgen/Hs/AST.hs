@@ -178,6 +178,8 @@ data Decl where
     DeclPatSyn          :: PatSyn -> Decl
     DeclDefineInstance  :: InstanceDecl -> Decl
     DeclDeriveInstance  :: Strategy HsType -> HsTypeClass -> HsName NsTypeConstr -> Decl
+    DeclInlineCInclude  :: String -> Decl
+    DeclInlineC         :: String -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
     DeclUnionGetter     :: HsName NsTypeConstr -> HsType -> HsName NsVar -> Decl
