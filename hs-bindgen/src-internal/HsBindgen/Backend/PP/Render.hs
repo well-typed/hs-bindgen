@@ -151,8 +151,8 @@ instance Pretty SDecl where
             ]
 
     DForeignImport ForeignImport{..} ->
-      let importStr = foreignImportHeader ++ " " ++ Text.unpack foreignImportOrigName
-      in hsep [ "foreign import capi safe"
+      let importStr = Text.unpack foreignImportOrigName
+      in hsep [ "foreign import ccall safe"
               , "\"" >< string importStr >< "\""
               , pretty foreignImportName
               , "::"
@@ -167,8 +167,8 @@ instance Pretty SDecl where
       ]
 
     DCSource src ->
-        -- TODO: for now put source in comments
-        vcat $ map fromString $ map ("-- " ++) $ lines src
+      -- the single string literal is quite ugly, but it's simple
+      "$(CAPI.addCSource" <+> fromString (show src) >< ")"
 
 strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"

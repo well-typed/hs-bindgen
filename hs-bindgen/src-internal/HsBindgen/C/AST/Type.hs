@@ -3,6 +3,7 @@
 -- This is re-exported in "HsBindgen.C.AST".
 module HsBindgen.C.AST.Type (
     Type(..)
+  , isVoid
     -- * Primitive types
   , PrimType(..)
   , showsType
@@ -76,6 +77,10 @@ data Type =
   deriving stock (Show, Eq, Ord, Generic)
   deriving Repr via ReprShow Type
 
+isVoid :: Type -> Bool
+isVoid TypeVoid = True
+isVoid _        = False
+
 -- | A natural number known at compile time.
 --
 -- Can be an integer literal such as @256@, or it could be an expression such
@@ -106,7 +111,9 @@ showsType x (TypeEnum dp)           = showString "enum " . showDeclPath dp . sho
 showsType x (TypeTypedef n)         = showString (cnameToString n) . showChar ' ' . x
 showsType x (TypePointer t)         = showsType (showString "*" . x) t
 showsType x (TypeConstArray n t)    = showsType (x . showChar '[' . shows (size n) . showChar ']') t
-showsType x (TypeFun args res)      = showsFunctionType (showParen True x) args res
+showsType x (TypeFun args res)      = showsFunctionType (showParen True x) (zipWith named [1..] args) res where
+  named :: Int -> Type -> (ShowS, Type)
+  named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                = showString "void " . x
 showsType x (TypeIncompleteArray t) = showsType (x . showString "[]") t
 showsType x (TypeExtBinding _ t)    = showsType x t
@@ -119,7 +126,7 @@ showDeclPath (DeclPathAnon _) = showString "<anon>"
 
 showsFunctionType
   :: ShowS   -- ^ function name
-  -> [Type]  -- ^ argument types
+  -> [(ShowS, Type)]  -- ^ arguments, names and types
   -> Type    -- ^ return type
   -> ShowS
 showsFunctionType n args res =
@@ -128,12 +135,12 @@ showsFunctionType n args res =
     signatureArgs :: ShowS
     signatureArgs = case args of
         [] -> showString "void"
-        p:ps -> foldr1 sep $ fmap showT $ (1, p) :| zip [2..] ps
+        p:ps -> foldr1 sep $ fmap showT $ p :| ps
       where
         sep a b = a . showString ", " . b
 
-        showT :: (Int, Type) -> ShowS
-        showT (i, p) = showsType (showString "arg" . shows i) p
+        showT :: (ShowS, Type) -> ShowS
+        showT (i, p) = showsType i p
 
 
 cnameToString :: CName -> String

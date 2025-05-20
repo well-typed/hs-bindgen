@@ -1,3 +1,2 @@
-TemplateHaskell
 StandaloneDeriving
 DerivingStrategies

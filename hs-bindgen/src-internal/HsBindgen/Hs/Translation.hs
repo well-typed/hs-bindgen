@@ -892,13 +892,13 @@ functionDecs nm mu typedefs f
   = throwPure_TODO 37 "Struct value arguments and results are not supported"
   | otherwise =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
-    , Hs.DeclInlineC $ signature ";" -- # TODO only declaration for now.
+    , Hs.DeclInlineC $ wrapperCDecl ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
         , foreignImportCRes       = C.functionRes f
         , foreignImportCArgs      = C.functionArgs f
-        , foreignImportOrigName   = C.getCName $ C.functionName f
+        , foreignImportOrigName   = T.pack wrapperName
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
@@ -917,11 +917,41 @@ functionDecs nm mu typedefs f
     ty :: HsType
     ty = foldr HsFun (HsIO $ typ' CFunRes nm $ C.functionRes f) (typ' CFunArg nm <$> C.functionArgs f)
 
+    -- below is generation of C wrapper for userland-capi.
+    innerName :: String
+    innerName = T.unpack (C.getCName (C.functionName f))
+
+    wrapperName :: String
+    wrapperName = unModuleUnique mu ++ "_" ++ innerName
+
+    wrapperCDecl :: ShowS
+    wrapperCDecl
+        | C.isVoid res = signature . showString " { " . innerCall . showString "; }"
+        | otherwise    = signature . showString " { return " . innerCall . showString "; }"
+
+    res :: C.Type
+    res = C.functionRes f
+
+    args :: [(ShowS, C.Type)]
+    args = zipWith named [1..] (C.functionArgs f) where
+      named :: Int -> C.Type -> (ShowS, C.Type)
+      named i t = (showString "arg" . shows i, t)
+
     signature :: ShowS
     signature = C.showsFunctionType
-      (showString (unModuleUnique mu ++ "_" ++ T.unpack (C.getCName (C.functionName f))))
-      (C.functionArgs f)
-      (C.functionRes f)
+      (showString wrapperName)
+      args
+      res
+
+    innerCall :: ShowS
+    innerCall = showString innerName . showChar '('  . callArgs . showChar ')'
+
+    callArgs :: ShowS
+    callArgs = case args of
+        []   -> id
+        x:xs -> foldr1 sep $ fmap fst $ x :| xs
+      where
+        sep u v = u . showString ", " . v
 
 {-------------------------------------------------------------------------------
   Macro

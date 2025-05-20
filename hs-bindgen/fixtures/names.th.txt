@@ -1,52 +1,52 @@
 -- addDependentFile examples/names.h
 -- #include "names.h"
--- void test_internal_by (void);
--- void test_internal_forall (void);
--- void test_internal_mdo (void);
--- void test_internal_pattern (void);
--- void test_internal_proc (void);
--- void test_internal_rec (void);
--- void test_internal_using (void);
--- void test_internal_anyclass (void);
--- void test_internal_capi (void);
--- void test_internal_cases (void);
--- void test_internal_ccall (void);
--- void test_internal_dynamic (void);
--- void test_internal_export (void);
--- void test_internal_family (void);
--- void test_internal_group (void);
--- void test_internal_interruptible (void);
--- void test_internal_javascript (void);
--- void test_internal_label (void);
--- void test_internal_prim (void);
--- void test_internal_role (void);
--- void test_internal_safe (void);
--- void test_internal_stdcall (void);
--- void test_internal_stock (void);
--- void test_internal_unsafe (void);
--- void test_internal_via (void);
-foreign import capi safe "names.h by" by' :: IO Unit
-foreign import capi safe "names.h forall" forall' :: IO Unit
-foreign import capi safe "names.h mdo" mdo' :: IO Unit
-foreign import capi safe "names.h pattern" pattern' :: IO Unit
-foreign import capi safe "names.h proc" proc' :: IO Unit
-foreign import capi safe "names.h rec" rec' :: IO Unit
-foreign import capi safe "names.h using" using' :: IO Unit
-foreign import capi safe "names.h anyclass" anyclass :: IO Unit
-foreign import capi safe "names.h capi" capi :: IO Unit
-foreign import capi safe "names.h cases" cases :: IO Unit
-foreign import capi safe "names.h ccall" ccall :: IO Unit
-foreign import capi safe "names.h dynamic" dynamic :: IO Unit
-foreign import capi safe "names.h export" export :: IO Unit
-foreign import capi safe "names.h family" family :: IO Unit
-foreign import capi safe "names.h group" group :: IO Unit
-foreign import capi safe "names.h interruptible" interruptible :: IO Unit
-foreign import capi safe "names.h javascript" javascript :: IO Unit
-foreign import capi safe "names.h label" label :: IO Unit
-foreign import capi safe "names.h prim" prim :: IO Unit
-foreign import capi safe "names.h role" role :: IO Unit
-foreign import capi safe "names.h safe" safe :: IO Unit
-foreign import capi safe "names.h stdcall" stdcall :: IO Unit
-foreign import capi safe "names.h stock" stock :: IO Unit
-foreign import capi safe "names.h unsafe" unsafe :: IO Unit
-foreign import capi safe "names.h via" via :: IO Unit
+-- void test_internal_by (void) { by(); }
+-- void test_internal_forall (void) { forall(); }
+-- void test_internal_mdo (void) { mdo(); }
+-- void test_internal_pattern (void) { pattern(); }
+-- void test_internal_proc (void) { proc(); }
+-- void test_internal_rec (void) { rec(); }
+-- void test_internal_using (void) { using(); }
+-- void test_internal_anyclass (void) { anyclass(); }
+-- void test_internal_capi (void) { capi(); }
+-- void test_internal_cases (void) { cases(); }
+-- void test_internal_ccall (void) { ccall(); }
+-- void test_internal_dynamic (void) { dynamic(); }
+-- void test_internal_export (void) { export(); }
+-- void test_internal_family (void) { family(); }
+-- void test_internal_group (void) { group(); }
+-- void test_internal_interruptible (void) { interruptible(); }
+-- void test_internal_javascript (void) { javascript(); }
+-- void test_internal_label (void) { label(); }
+-- void test_internal_prim (void) { prim(); }
+-- void test_internal_role (void) { role(); }
+-- void test_internal_safe (void) { safe(); }
+-- void test_internal_stdcall (void) { stdcall(); }
+-- void test_internal_stock (void) { stock(); }
+-- void test_internal_unsafe (void) { unsafe(); }
+-- void test_internal_via (void) { via(); }
+foreign import ccall safe "test_internal_by" by' :: IO Unit
+foreign import ccall safe "test_internal_forall" forall' :: IO Unit
+foreign import ccall safe "test_internal_mdo" mdo' :: IO Unit
+foreign import ccall safe "test_internal_pattern" pattern' :: IO Unit
+foreign import ccall safe "test_internal_proc" proc' :: IO Unit
+foreign import ccall safe "test_internal_rec" rec' :: IO Unit
+foreign import ccall safe "test_internal_using" using' :: IO Unit
+foreign import ccall safe "test_internal_anyclass" anyclass :: IO Unit
+foreign import ccall safe "test_internal_capi" capi :: IO Unit
+foreign import ccall safe "test_internal_cases" cases :: IO Unit
+foreign import ccall safe "test_internal_ccall" ccall :: IO Unit
+foreign import ccall safe "test_internal_dynamic" dynamic :: IO Unit
+foreign import ccall safe "test_internal_export" export :: IO Unit
+foreign import ccall safe "test_internal_family" family :: IO Unit
+foreign import ccall safe "test_internal_group" group :: IO Unit
+foreign import ccall safe "test_internal_interruptible" interruptible :: IO Unit
+foreign import ccall safe "test_internal_javascript" javascript :: IO Unit
+foreign import ccall safe "test_internal_label" label :: IO Unit
+foreign import ccall safe "test_internal_prim" prim :: IO Unit
+foreign import ccall safe "test_internal_role" role :: IO Unit
+foreign import ccall safe "test_internal_safe" safe :: IO Unit
+foreign import ccall safe "test_internal_stdcall" stdcall :: IO Unit
+foreign import ccall safe "test_internal_stock" stock :: IO Unit
+foreign import ccall safe "test_internal_unsafe" unsafe :: IO Unit
+foreign import ccall safe "test_internal_via" via :: IO Unit

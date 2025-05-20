@@ -1,6 +1,6 @@
 -- addDependentFile examples/weird01.h
 -- #include "weird01.h"
--- void test_internal_func (struct bar *arg1);
+-- void test_internal_func (struct bar *arg1) { func(arg1); }
 data Foo = Foo {foo_z :: CInt}
 instance Storable Foo
     where {sizeOf = \_ -> 4 :: Int;
@@ -19,5 +19,5 @@ instance Storable Bar
                                     {Bar bar_x_3 -> pokeByteOff ptr_1 (0 :: Int) bar_x_3}}
 deriving stock instance Show Bar
 deriving stock instance Eq Bar
-foreign import capi safe "weird01.h func" func :: Ptr Bar ->
-                                                  IO Unit
+foreign import ccall safe "test_internal_func" func :: Ptr Bar ->
+                                                       IO Unit

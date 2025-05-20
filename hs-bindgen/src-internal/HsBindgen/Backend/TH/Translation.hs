@@ -521,8 +521,8 @@ mkDecl = \case
           singleton <$> TH.standaloneDerivWithStrategyD (Just s') (TH.cxt []) (mkType EmptyEnv ty)
 
       DForeignImport ForeignImport {..} ->
-           singleton . TH.ForeignD . TH.ImportF TH.CApi TH.Safe
-              (foreignImportHeader ++ " " ++ Text.unpack foreignImportOrigName) -- TODO: header
+           singleton . TH.ForeignD . TH.ImportF TH.CCall TH.Safe
+              (Text.unpack foreignImportOrigName)
               (hsNameToTH foreignImportName)
               <$>
               (mkType EmptyEnv foreignImportType)

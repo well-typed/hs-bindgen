@@ -8,10 +8,10 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
--- #include "weird01.h"
--- void testmodule_func (struct bar *arg1);
+$(CAPI.addCSource "#include \"weird01.h\"\nvoid testmodule_func (struct bar *arg1) { func(arg1); }\n")
 
 data Foo = Foo
   { foo_z :: FC.CInt
@@ -63,4 +63,4 @@ deriving stock instance Show Bar
 
 deriving stock instance Eq Bar
 
-foreign import capi safe "weird01.h func" func :: (F.Ptr Bar) -> IO ()
+foreign import ccall safe "testmodule_func" func :: (F.Ptr Bar) -> IO ()

@@ -12,19 +12,10 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
--- #include "macro_in_fundecl_vs_typedef.h"
--- char testmodule_quux1 (MC arg1, TC arg2);
--- TC testmodule_quux2 (MC arg1, char arg2);
--- MC *testmodule_wam1 (float arg1, TC *arg2);
--- TC *testmodule_wam2 (float arg1, MC *arg2);
--- void testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2);
--- void testmodule_struct_typedef2 (struct3_t *arg1, MC arg2);
--- void testmodule_struct_typedef3 (struct4 *arg1, MC arg2);
--- void testmodule_struct_name1 (struct struct1 *arg1, MC arg2);
--- void testmodule_struct_name2 (struct struct3 *arg1, MC arg2);
--- void testmodule_struct_name3 (struct struct4 *arg1, MC arg2);
+$(CAPI.addCSource "#include \"macro_in_fundecl_vs_typedef.h\"\nchar testmodule_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }\nTC testmodule_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }\nMC *testmodule_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *testmodule_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }\nvoid testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2) { struct_typedef1(arg1, arg2); }\nvoid testmodule_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }\nvoid testmodule_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }\nvoid testmodule_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }\nvoid testmodule_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }\nvoid testmodule_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }\n")
 
 newtype MC = MC
   { un_MC :: FC.CChar
@@ -86,13 +77,13 @@ deriving newtype instance Num TC
 
 deriving newtype instance Real TC
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux1" quux1 :: MC -> TC -> IO FC.CChar
+foreign import ccall safe "testmodule_quux1" quux1 :: MC -> TC -> IO FC.CChar
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux2" quux2 :: MC -> FC.CChar -> IO TC
+foreign import ccall safe "testmodule_quux2" quux2 :: MC -> FC.CChar -> IO TC
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
+foreign import ccall safe "testmodule_wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
+foreign import ccall safe "testmodule_wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
 
 data Struct1 = Struct1
   { struct1_a :: FC.CInt
@@ -204,14 +195,14 @@ deriving stock instance Show Struct4
 
 deriving stock instance Eq Struct4
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
 
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "testmodule_struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()

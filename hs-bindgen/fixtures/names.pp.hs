@@ -4,81 +4,57 @@
 
 module Example where
 
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
--- #include "names.h"
--- void testmodule_by (void);
--- void testmodule_forall (void);
--- void testmodule_mdo (void);
--- void testmodule_pattern (void);
--- void testmodule_proc (void);
--- void testmodule_rec (void);
--- void testmodule_using (void);
--- void testmodule_anyclass (void);
--- void testmodule_capi (void);
--- void testmodule_cases (void);
--- void testmodule_ccall (void);
--- void testmodule_dynamic (void);
--- void testmodule_export (void);
--- void testmodule_family (void);
--- void testmodule_group (void);
--- void testmodule_interruptible (void);
--- void testmodule_javascript (void);
--- void testmodule_label (void);
--- void testmodule_prim (void);
--- void testmodule_role (void);
--- void testmodule_safe (void);
--- void testmodule_stdcall (void);
--- void testmodule_stock (void);
--- void testmodule_unsafe (void);
--- void testmodule_via (void);
+$(CAPI.addCSource "#include \"names.h\"\nvoid testmodule_by (void) { by(); }\nvoid testmodule_forall (void) { forall(); }\nvoid testmodule_mdo (void) { mdo(); }\nvoid testmodule_pattern (void) { pattern(); }\nvoid testmodule_proc (void) { proc(); }\nvoid testmodule_rec (void) { rec(); }\nvoid testmodule_using (void) { using(); }\nvoid testmodule_anyclass (void) { anyclass(); }\nvoid testmodule_capi (void) { capi(); }\nvoid testmodule_cases (void) { cases(); }\nvoid testmodule_ccall (void) { ccall(); }\nvoid testmodule_dynamic (void) { dynamic(); }\nvoid testmodule_export (void) { export(); }\nvoid testmodule_family (void) { family(); }\nvoid testmodule_group (void) { group(); }\nvoid testmodule_interruptible (void) { interruptible(); }\nvoid testmodule_javascript (void) { javascript(); }\nvoid testmodule_label (void) { label(); }\nvoid testmodule_prim (void) { prim(); }\nvoid testmodule_role (void) { role(); }\nvoid testmodule_safe (void) { safe(); }\nvoid testmodule_stdcall (void) { stdcall(); }\nvoid testmodule_stock (void) { stock(); }\nvoid testmodule_unsafe (void) { unsafe(); }\nvoid testmodule_via (void) { via(); }\n")
 
-foreign import capi safe "names.h by" by' :: IO ()
+foreign import ccall safe "testmodule_by" by' :: IO ()
 
-foreign import capi safe "names.h forall" forall' :: IO ()
+foreign import ccall safe "testmodule_forall" forall' :: IO ()
 
-foreign import capi safe "names.h mdo" mdo' :: IO ()
+foreign import ccall safe "testmodule_mdo" mdo' :: IO ()
 
-foreign import capi safe "names.h pattern" pattern' :: IO ()
+foreign import ccall safe "testmodule_pattern" pattern' :: IO ()
 
-foreign import capi safe "names.h proc" proc' :: IO ()
+foreign import ccall safe "testmodule_proc" proc' :: IO ()
 
-foreign import capi safe "names.h rec" rec' :: IO ()
+foreign import ccall safe "testmodule_rec" rec' :: IO ()
 
-foreign import capi safe "names.h using" using' :: IO ()
+foreign import ccall safe "testmodule_using" using' :: IO ()
 
-foreign import capi safe "names.h anyclass" anyclass :: IO ()
+foreign import ccall safe "testmodule_anyclass" anyclass :: IO ()
 
-foreign import capi safe "names.h capi" capi :: IO ()
+foreign import ccall safe "testmodule_capi" capi :: IO ()
 
-foreign import capi safe "names.h cases" cases :: IO ()
+foreign import ccall safe "testmodule_cases" cases :: IO ()
 
-foreign import capi safe "names.h ccall" ccall :: IO ()
+foreign import ccall safe "testmodule_ccall" ccall :: IO ()
 
-foreign import capi safe "names.h dynamic" dynamic :: IO ()
+foreign import ccall safe "testmodule_dynamic" dynamic :: IO ()
 
-foreign import capi safe "names.h export" export :: IO ()
+foreign import ccall safe "testmodule_export" export :: IO ()
 
-foreign import capi safe "names.h family" family :: IO ()
+foreign import ccall safe "testmodule_family" family :: IO ()
 
-foreign import capi safe "names.h group" group :: IO ()
+foreign import ccall safe "testmodule_group" group :: IO ()
 
-foreign import capi safe "names.h interruptible" interruptible :: IO ()
+foreign import ccall safe "testmodule_interruptible" interruptible :: IO ()
 
-foreign import capi safe "names.h javascript" javascript :: IO ()
+foreign import ccall safe "testmodule_javascript" javascript :: IO ()
 
-foreign import capi safe "names.h label" label :: IO ()
+foreign import ccall safe "testmodule_label" label :: IO ()
 
-foreign import capi safe "names.h prim" prim :: IO ()
+foreign import ccall safe "testmodule_prim" prim :: IO ()
 
-foreign import capi safe "names.h role" role :: IO ()
+foreign import ccall safe "testmodule_role" role :: IO ()
 
-foreign import capi safe "names.h safe" safe :: IO ()
+foreign import ccall safe "testmodule_safe" safe :: IO ()
 
-foreign import capi safe "names.h stdcall" stdcall :: IO ()
+foreign import ccall safe "testmodule_stdcall" stdcall :: IO ()
 
-foreign import capi safe "names.h stock" stock :: IO ()
+foreign import ccall safe "testmodule_stock" stock :: IO ()
 
-foreign import capi safe "names.h unsafe" unsafe :: IO ()
+foreign import ccall safe "testmodule_unsafe" unsafe :: IO ()
 
-foreign import capi safe "names.h via" via :: IO ()
+foreign import ccall safe "testmodule_via" via :: IO ()

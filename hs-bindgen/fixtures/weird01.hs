@@ -433,7 +433,7 @@
     (HsName "@NsTypeConstr" "Bar"),
   DeclInlineCInclude "weird01.h",
   DeclInlineC
-    "void testmodule_func (struct bar *arg1);",
+    "void testmodule_func (struct bar *arg1) { func(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -449,7 +449,8 @@
         TypePointer
           (TypeStruct
             (DeclPathName (CName "bar")))],
-      foreignImportOrigName = "func",
+      foreignImportOrigName =
+      "testmodule_func",
       foreignImportHeader =
       "weird01.h",
       foreignImportDeclOrigin =

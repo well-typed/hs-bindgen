@@ -200,7 +200,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "char testmodule_quux1 (MC arg1, TC arg2);",
+    "char testmodule_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -220,7 +220,8 @@
       foreignImportCArgs = [
         TypeTypedef (CName "MC"),
         TypeTypedef (CName "TC")],
-      foreignImportOrigName = "quux1",
+      foreignImportOrigName =
+      "testmodule_quux1",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -240,7 +241,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "TC testmodule_quux2 (MC arg1, char arg2);",
+    "TC testmodule_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -263,7 +264,8 @@
         TypePrim
           (PrimChar
             (PrimSignImplicit Nothing))],
-      foreignImportOrigName = "quux2",
+      foreignImportOrigName =
+      "testmodule_quux2",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -284,7 +286,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "MC *testmodule_wam1 (float arg1, TC *arg2);",
+    "MC *testmodule_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -309,7 +311,8 @@
           (PrimFloating PrimFloat),
         TypePointer
           (TypeTypedef (CName "TC"))],
-      foreignImportOrigName = "wam1",
+      foreignImportOrigName =
+      "testmodule_wam1",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -330,7 +333,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "TC *testmodule_wam2 (float arg1, MC *arg2);",
+    "TC *testmodule_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -355,7 +358,8 @@
           (PrimFloating PrimFloat),
         TypePointer
           (TypeTypedef (CName "MC"))],
-      foreignImportOrigName = "wam2",
+      foreignImportOrigName =
+      "testmodule_wam2",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -1310,7 +1314,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2);",
+    "void testmodule_struct_typedef1 (struct <anon> *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1335,7 +1339,7 @@
                 (CName "struct2")))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
-      "struct_typedef1",
+      "testmodule_struct_typedef1",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -1358,7 +1362,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef2 (struct3_t *arg1, MC arg2);",
+    "void testmodule_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1381,7 +1385,7 @@
             (CName "struct3_t")),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
-      "struct_typedef2",
+      "testmodule_struct_typedef2",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -1402,7 +1406,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_typedef3 (struct4 *arg1, MC arg2);",
+    "void testmodule_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1424,7 +1428,7 @@
           (TypeTypedef (CName "struct4")),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
-      "struct_typedef3",
+      "testmodule_struct_typedef3",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -1444,7 +1448,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name1 (struct struct1 *arg1, MC arg2);",
+    "void testmodule_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1468,7 +1472,7 @@
               (CName "struct1"))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
-      "struct_name1",
+      "testmodule_struct_name1",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -1490,7 +1494,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name2 (struct struct3 *arg1, MC arg2);",
+    "void testmodule_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1514,7 +1518,7 @@
               (CName "struct3"))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
-      "struct_name2",
+      "testmodule_struct_name2",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
@@ -1536,7 +1540,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void testmodule_struct_name3 (struct struct4 *arg1, MC arg2);",
+    "void testmodule_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1560,7 +1564,7 @@
               (CName "struct4"))),
         TypeTypedef (CName "MC")],
       foreignImportOrigName =
-      "struct_name3",
+      "testmodule_struct_name3",
       foreignImportHeader =
       "macro_in_fundecl_vs_typedef.h",
       foreignImportDeclOrigin =
