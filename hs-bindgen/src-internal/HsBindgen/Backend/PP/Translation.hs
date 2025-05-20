@@ -2,7 +2,7 @@
 
 module HsBindgen.Backend.PP.Translation (
     -- * GhcPragma
-    GhcPragma
+    GhcPragma (..)
     -- * ImportListItem
   , ImportListItem(..)
     -- * HsModule
@@ -31,7 +31,8 @@ import HsBindgen.SHs.AST
 -- | GHC Pragma
 --
 -- Example: @LANGUAGE NoImplicitPrelude@
-type GhcPragma = String
+newtype GhcPragma = GhcPragma { unGhcPragma :: String }
+  deriving newtype (Eq, Ord, IsString)
 
 {-------------------------------------------------------------------------------
   ImportListItem
@@ -102,7 +103,7 @@ resolveDeclPragmas :: SDecl -> Set GhcPragma
 resolveDeclPragmas decl =
     Set.map f (requiredExtensions decl)
   where
-    f ext = "LANGUAGE " ++ show ext
+    f ext = GhcPragma ("LANGUAGE " ++ show ext)
 
 {-------------------------------------------------------------------------------
   Auxiliary: Import resolution
