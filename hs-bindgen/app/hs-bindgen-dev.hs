@@ -22,15 +22,12 @@ execMode :: HasCallStack
   => Dev -> Tracer IO (TraceWithCallStack Trace) -> Mode -> IO ()
 execMode Dev{..} tracer = \case
     ModeParse{..} -> do
-      extBindings <- loadExtBindings' resolveHeaderTracer devGlobalOpts
+      extBindings <- loadExtBindings' tracer devGlobalOpts
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
       print . snd =<< Pipeline.parseCHeader opts parseInputPath
   where
-    resolveHeaderTracer :: Tracer IO (TraceWithCallStack ResolveHeaderException)
-    resolveHeaderTracer = useTrace TraceResolveHeader tracer
-
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
         optsClangArgs  = globalOptsClangArgs devGlobalOpts

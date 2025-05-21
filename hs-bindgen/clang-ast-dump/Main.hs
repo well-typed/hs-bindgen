@@ -21,22 +21,26 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
+import HsBindgen.Clang.Args (withExtraClangArgs)
 import HsBindgen.Resolve (resolveHeader)
+import HsBindgen.Util.Tracer (Level (Warning), TracerConf (tVerbosity),
+                              Verbosity (Verbosity), defaultTracerConf,
+                              withTracerStdOut)
 
 {-------------------------------------------------------------------------------
   Options
 -------------------------------------------------------------------------------}
 
 data Options = Options {
-      optBuiltin           :: Bool
-    , optComments          :: Bool
-    , optExtents           :: Bool
-    , optFile              :: CHeaderIncludePath
-    , optKind              :: Bool
+      optBuiltin           :: !Bool
+    , optComments          :: !Bool
+    , optExtents           :: !Bool
+    , optFile              :: !CHeaderIncludePath
+    , optKind              :: !Bool
     , optQuoteIncludePath  :: [CIncludePathDir]
-    , optSameFile          :: Bool
+    , optSameFile          :: !Bool
     , optSystemIncludePath :: [CIncludePathDir]
-    , optType              :: Bool
+    , optType              :: !Bool
     }
 
 {-------------------------------------------------------------------------------
@@ -48,18 +52,23 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    src <- resolveHeader cArgs optFile
-    HighLevel.withIndex DontDisplayDiagnostics $ \index ->
-      HighLevel.withTranslationUnit index src cArgs [] cOpts $ \unit -> do
-        rootCursor <- clang_getTranslationUnitCursor unit
-        void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
-          loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
-          case loc of
-            (file, _, _)
-              | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
-              | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
-              | otherwise                             -> foldDecls opts cursor
+    withTracerStdOut tracerConf $ \tracer ->
+      withExtraClangArgs tracer cArgs $ \cArgs' -> do
+        src <- resolveHeader tracer cArgs' optFile
+        HighLevel.withIndex DontDisplayDiagnostics $ \index ->
+          HighLevel.withTranslationUnit index src cArgs' [] cOpts $ \unit -> do
+            rootCursor <- clang_getTranslationUnitCursor unit
+            void . HighLevel.clang_visitChildren rootCursor $ \cursor -> do
+              loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
+              case loc of
+                (file, _, _)
+                  | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
+                  | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
+                  | otherwise                             -> foldDecls opts cursor
   where
+    tracerConf :: TracerConf
+    tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning}
+
     cArgs :: ClangArgs
     cArgs = defaultClangArgs {
         clangSystemIncludePathDirs = optSystemIncludePath

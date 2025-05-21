@@ -45,6 +45,7 @@ module HsBindgen.TH (
   , THSyntax.getPackageRoot
   ) where
 
+import Control.Tracer (Tracer, natTracer)
 import Data.Set (Set)
 import Language.Haskell.TH qualified as TH
 import System.FilePath qualified as FilePath
@@ -52,6 +53,7 @@ import System.FilePath qualified as FilePath
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen.C.Predicate qualified as Predicate
+import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.Translation qualified as Hs
@@ -78,7 +80,11 @@ import Language.Haskell.TH.Syntax qualified as THSyntax
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 loadExtBindings ::
-     Args.ClangArgs
+     Tracer TH.Q (TraceWithCallStack Trace.Trace)
+  -> Args.ClangArgs
   -> [FilePath]
   -> TH.Q (Set Resolve.ResolveHeaderException, ExtBindings.ExtBindings)
-loadExtBindings args = TH.runIO . ExtBindings.loadExtBindings args
+loadExtBindings tracer args = TH.runIO . ExtBindings.loadExtBindings tracer' args
+  where
+    tracer' :: Tracer IO (TraceWithCallStack ExtraClangArgsLog)
+    tracer' = useTrace Trace.TraceExtraClangArgs $ natTracer TH.runQ tracer

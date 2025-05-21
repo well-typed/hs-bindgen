@@ -17,10 +17,11 @@ $(do
     let args = defaultClangArgs {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-    extBindings <- snd <$> loadExtBindings args [
+    extBindings <- snd <$> (withTracerQ defaultTracerConf $
+      \tracer -> loadExtBindings tracer args [
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]
-      ]
+      ])
     let opts = defaultOpts {
             optsClangArgs   = args
           , optsExtBindings = extBindings
