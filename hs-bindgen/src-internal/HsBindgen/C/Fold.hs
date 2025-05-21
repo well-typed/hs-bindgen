@@ -9,8 +9,6 @@ module HsBindgen.C.Fold (
   , runFoldState
     -- * Specific folds
     -- ** AST
-  , rootHeaderName
-  , rootHeaderContent
   , DeclState
   , initDeclState
   , foldDecls

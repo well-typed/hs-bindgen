@@ -48,6 +48,7 @@ common lang
       DerivingStrategies
       DerivingVia
       DisambiguateRecordFields
+      FunctionalDependencies
       LambdaCase
       MultiWayIf
       OverloadedStrings
@@ -68,6 +69,7 @@ library internal
 
   exposed-modules:
       Data.DynGraph
+      Data.DynGraph.Labelled
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.PP.Names
       HsBindgen.Backend.PP.Render
@@ -96,6 +98,30 @@ library internal
       HsBindgen.Errors
       HsBindgen.ExtBindings
       HsBindgen.ExtBindings.Gen
+      HsBindgen.Frontend
+      HsBindgen.Frontend.Adapter
+      HsBindgen.Frontend.AST
+      HsBindgen.Frontend.AST.Deps
+      HsBindgen.Frontend.Graph.DefUse
+      HsBindgen.Frontend.Graph.Includes
+      HsBindgen.Frontend.Graph.UseDef
+      HsBindgen.Frontend.Pass
+      HsBindgen.Frontend.Pass.HandleMacros
+      HsBindgen.Frontend.Pass.HandleMacros.IsPass
+      HsBindgen.Frontend.Pass.NameMangler
+      HsBindgen.Frontend.Pass.NameMangler.IsPass
+      HsBindgen.Frontend.Pass.Parse
+      HsBindgen.Frontend.Pass.Parse.Decl
+      HsBindgen.Frontend.Pass.Parse.IsPass
+      HsBindgen.Frontend.Pass.Parse.Monad
+      HsBindgen.Frontend.Pass.Parse.Type
+      HsBindgen.Frontend.Pass.Parse.Util
+      HsBindgen.Frontend.Pass.RenameAnon
+      HsBindgen.Frontend.Pass.RenameAnon.IsPass
+      HsBindgen.Frontend.Pass.RenameAnon.ProduceCName
+      HsBindgen.Frontend.Pass.ResolveBindingSpecs
+      HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+      HsBindgen.Frontend.RootHeader
       HsBindgen.GenTests
       HsBindgen.GenTests.C
       HsBindgen.GenTests.Hs
@@ -114,6 +140,7 @@ library internal
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
       HsBindgen.Pipeline
@@ -124,7 +151,6 @@ library internal
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Trace
       HsBindgen.Util.Tracer
-      HsBindgen.ModuleUnique
       Text.SimplePrettyPrint
   other-modules:
       -- Re-exported through HsBindgen.C.AST
@@ -154,6 +180,7 @@ library internal
     , filepath           >= 1.4       && < 1.6
     , fin                >= 0.3.2     && < 0.4
     , mtl                >= 2.2       && < 2.4
+    , optics             >= 0.4       && < 0.5
     , ordered-containers ^>=0.2.4
     , parsec             >= 3.1       && < 3.2
     , pretty             >= 1.1       && < 1.2
@@ -165,8 +192,8 @@ library internal
     , time               >= 1.11      && < 1.15
     , unliftio-core      ^>=0.2.1.0
     , vec                >= 0.5       && < 0.6
-    , yaml               >= 0.11.11.1 && < 0.12
     , witherable         ^>=0.5
+    , yaml               >= 0.11.11.1 && < 0.12
 
   if impl(ghc < 9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2

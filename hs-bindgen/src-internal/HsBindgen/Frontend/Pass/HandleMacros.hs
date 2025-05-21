@@ -1,0 +1,289 @@
+module HsBindgen.Frontend.Pass.HandleMacros (
+    module HsBindgen.Frontend.Pass.HandleMacros.IsPass
+  , handleMacros
+  , MacroError(..)
+  ) where
+
+import Control.Monad.State
+import Data.Map qualified as Map
+import Data.Set qualified as Set
+import Data.Vec.Lazy qualified as Vec
+
+import HsBindgen.C.AST qualified as Old
+import HsBindgen.C.Reparse (ReparseError)
+import HsBindgen.C.Reparse qualified as Reparse
+import HsBindgen.C.Tc.Macro (TcMacroError)
+import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.C.Tc.Macro.Type (MacroTypes)
+import HsBindgen.C.Tc.Macro.Type qualified as Macro
+import HsBindgen.Errors
+import HsBindgen.Frontend.Adapter
+import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.Parse
+import HsBindgen.Imports
+
+{-------------------------------------------------------------------------------
+  Top-level
+-------------------------------------------------------------------------------}
+
+-- | Parse and typecheck macros, and reparse declarations
+--
+-- The macro parser needs to know which things are in scope (other macros as
+-- well as typedefs), so we must process declarations in the right order; that
+-- is, 'handleMacros' must be done after sorting the declarations.
+--
+-- In principle it could run before or after renaming: macros can neither refer
+-- to nor introduce new anonymous declarations, so the relative ordering of
+-- these two passes does not really matter. However, as part of renaming we
+-- replace typedefs around anonymous structs by named structs:
+--
+-- > typedef struct { .. fields .. } foo;
+--
+-- On the C side however @foo@ must be referred to as @foo@, not @struct foo@;
+-- to avoid confusion, it is therefore cleaner to run macro parsing and
+-- declaration reparsing /prior/ to this transformation.
+--
+-- TODO: We should remove 'MacroError' from the AST.
+-- TODO: We are not using the fallback if reparsing fails
+handleMacros :: TranslationUnit Parse -> (TranslationUnit HandleMacros, [MacroError])
+handleMacros TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+    first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
+  where
+    reassemble :: [Decl HandleMacros] -> TranslationUnit HandleMacros
+    reassemble decls' = TranslationUnit{
+          unitDecls = decls'
+        , unitIncludeGraph
+        , unitAnn
+        }
+
+processDecl :: Decl Parse -> M (Maybe (Decl HandleMacros))
+processDecl Decl{declInfo, declKind} =
+    case declKind of
+      DeclMacro   macro   -> processMacro info' macro
+      DeclTypedef typedef -> processTypedef info' typedef
+      DeclStruct  fields  -> Just <$> processStruct info' fields
+      DeclStructOpaque    -> Just <$> processStructOpaque info'
+  where
+    info' :: DeclInfo HandleMacros
+    info' = liftIds declInfo
+
+{-------------------------------------------------------------------------------
+  Function for each kind of declaration
+-------------------------------------------------------------------------------}
+
+processStruct ::
+     DeclInfo HandleMacros
+  -> [Field Parse] -> M (Decl HandleMacros)
+processStruct info = \fields ->
+    mkDecl . catMaybes <$> mapM processField fields
+  where
+    mkDecl :: [Field HandleMacros] -> Decl HandleMacros
+    mkDecl fields = Decl{
+          declInfo = info
+        , declKind = DeclStruct fields
+        , declAnn  = NoAnn
+        }
+
+processField :: Field Parse -> M (Maybe (Field HandleMacros))
+processField field =
+    case fieldAnn of
+      ReparseNotNeeded ->
+        return . Just $ Field{
+            fieldType = liftIds fieldType
+          , fieldAnn  = NoAnn
+          , fieldName
+          , fieldOffset
+          }
+      ReparseNeeded tokens ->
+        reparseWith reparseField tokens $ \(ty, Old.CName name) ->
+          return . Just $ Field{
+              fieldName = name
+            , fieldType = toRaw ty
+            , fieldAnn  = NoAnn
+            , fieldOffset
+            }
+  where
+    Field{
+        fieldName
+      , fieldType
+      , fieldOffset
+      , fieldAnn
+      } = field
+
+processStructOpaque ::
+     DeclInfo HandleMacros
+  -> M (Decl HandleMacros)
+processStructOpaque info =
+    return Decl{
+        declInfo = info
+      , declKind = DeclStructOpaque
+      , declAnn  = NoAnn
+      }
+
+processTypedef ::
+     DeclInfo HandleMacros
+  -> Typedef Parse -> M (Maybe (Decl HandleMacros))
+processTypedef info Typedef{typedefType, typedefAnn} = do
+    modify $ \st -> st{
+        stateTypedefs = Set.insert name (stateTypedefs st)
+      }
+    case typedefAnn of
+      ReparseNotNeeded -> do
+        let decl :: Decl HandleMacros
+            decl = Decl{
+                declInfo = info
+              , declKind = DeclTypedef Typedef{
+                    typedefType = liftIds typedefType
+                  , typedefAnn  = NoAnn
+                  }
+              , declAnn  = NoAnn
+              }
+        return $ Just decl
+      ReparseNeeded tokens ->
+        reparseWith reparseTypedef tokens $ \ty -> do
+          let decl :: Decl HandleMacros
+              decl = Decl{
+                  declInfo = info
+                , declKind = DeclTypedef Typedef{
+                      typedefType = toRaw ty
+                    , typedefAnn  = NoAnn
+                    }
+                , declAnn  = NoAnn
+                }
+          return $ Just decl
+  where
+    name :: Old.CName
+    name = case declId info of
+             DeclNamed n -> Old.CName n
+             _otherwise  -> panicPure "unexpected anonymous typedef"
+
+processMacro ::
+     DeclInfo HandleMacros
+  -> UnparsedMacro -> M (Maybe (Decl HandleMacros))
+processMacro info (UnparsedMacro tokens) =
+    reparseWith reparseMacro tokens $ \(parsed ,ty) -> do
+      modify $ \st -> st{
+          stateMacroTypes = Map.insert name ty (stateMacroTypes st)
+        }
+      let decl :: Decl HandleMacros
+          decl = Decl{
+              declInfo = info
+            , declKind = DeclMacro CheckedMacro{
+                  checkedMacro     = parsed
+                , checkedMacroType = dropEval ty
+                }
+            , declAnn  = NoAnn
+            }
+      return $ Just decl
+  where
+    name :: Old.CName
+    name = case declId info of
+             DeclNamed n -> Old.CName n
+             _otherwise  -> panicPure "unexpected anonymous macro"
+
+{-------------------------------------------------------------------------------
+  Internal: monad used for parsing macros
+-------------------------------------------------------------------------------}
+
+newtype M a = WrapM {
+      unwrapM :: State MacroState a
+    }
+  deriving newtype (
+      Functor
+    , Applicative
+    , Monad
+    , MonadState MacroState
+    )
+
+-- TODO: We might want source location information here
+data MacroError =
+    ReparseError ReparseError
+  | TcMacroError TcMacroError
+  deriving stock (Show)
+
+data MacroState = MacroState {
+      stateErrors     :: [MacroError]  -- ^ Stored in reverse order
+    , stateMacroTypes :: MacroTypes
+    , stateTypedefs   :: Set Old.CName
+    }
+
+initMacroState :: MacroState
+initMacroState = MacroState{
+      stateErrors     = []
+    , stateMacroTypes = Map.empty
+    , stateTypedefs   = Set.empty
+    }
+
+macroTypeEnv :: MacroState -> Macro.TypeEnv
+macroTypeEnv MacroState{stateMacroTypes, stateTypedefs} = Macro.TypeEnv{
+      typeEnvMacros   = stateMacroTypes
+    , typeEnvTypedefs = fromTypedefs stateTypedefs
+    }
+  where
+    fromTypedefs :: Set Old.CName -> Map Old.CName Macro.TypedefUnderlyingType
+    fromTypedefs = Map.fromList . map (, underlying) . Set.toList
+
+    -- TODO: This should go, the macro parser should not need this info.
+    -- (the other options are 'AnonStructTypedef' and 'AnonEnumTypedef', but
+    -- it really should not matter.)
+    underlying :: Macro.TypedefUnderlyingType
+    underlying = Macro.NormalTypedef
+
+runM :: M a -> (a, [MacroError])
+runM = fmap stateErrors . flip runState initMacroState . unwrapM
+
+{-------------------------------------------------------------------------------
+  Internal auxiliary: convenience functions wrapping the macro infrastructure
+-------------------------------------------------------------------------------}
+
+type Reparse a =
+     Macro.TypeEnv
+  -> [Old.Token Old.TokenSpelling]
+  -> Either MacroError a
+
+reparseWith ::
+     Reparse a
+  -> [Old.Token Old.TokenSpelling]
+  -> (a -> M (Maybe b))
+  -> M (Maybe b)
+reparseWith p tokens k = state $ \st ->
+    case p (macroTypeEnv st) tokens of
+      Left  e -> (Nothing, st{stateErrors = e : stateErrors st})
+      Right a -> runState (unwrapM $ k a) st
+
+reparseMacro :: Reparse (
+      Old.Macro Macro.Ps
+    , Macro.Quant (Macro.FunValue, Macro.Type Macro.Ty)
+    )
+reparseMacro typeEnv tokens =
+    case Reparse.reparseWith (Reparse.reparseMacro typeEnv) tokens of
+      Left err -> Left (ReparseError err)
+      Right macro@Old.Macro{macroName, macroArgs, macroBody} ->
+        Vec.reifyList macroArgs $ \args ->
+          case Macro.tcMacro typeEnv macroName args macroBody of
+            Left  err -> Left (TcMacroError err)
+            Right ty  -> Right (macro, ty)
+
+dropEval ::
+     Macro.Quant (Macro.FunValue, Macro.Type 'Macro.Ty)
+  -> Macro.Quant (Macro.Type 'Macro.Ty)
+dropEval = fmap snd
+
+reparseTypedef :: Reparse Old.Type
+reparseTypedef typeEnv tokens =
+    first ReparseError $
+      Reparse.reparseWith (Reparse.reparseTypedef typeEnv) tokens
+
+reparseField :: Reparse (Old.Type, Old.CName)
+reparseField typeEnv tokens =
+    first ReparseError $
+      Reparse.reparseWith (Reparse.reparseFieldDecl typeEnv) tokens
+
+_reparseFunDecl :: Reparse (([Old.Type], Old.Type), Old.CName)
+_reparseFunDecl typeEnv tokens =
+    first ReparseError $
+      Reparse.reparseWith (Reparse.reparseFunDecl typeEnv) tokens
+
+
