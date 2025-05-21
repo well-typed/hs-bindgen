@@ -15,7 +15,7 @@ import HsBindgen.Pipeline qualified as Pipeline
 main :: IO ()
 main = do
     dev@Dev{..} <- getDev
-    withTracerStdOut (globalOptsTracerConf devGlobalOpts) $ \tracer ->
+    withTracerStdOut (globalOptsTracerConf devGlobalOpts) DefaultLogLevel $ \tracer ->
       execMode dev tracer devMode
 
 execMode :: HasCallStack

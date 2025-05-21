@@ -17,6 +17,7 @@ module HsBindgen.Util.Tracer (
   , ShowCallStack (..)
   , TracerConf (..)
   , defaultTracerConf
+  , CustomLogLevel (..)
   -- | Trace with call stack
   , TraceWithCallStack (..)
   , traceWithCallStack
@@ -117,7 +118,15 @@ data TracerConf = TracerConf {
   deriving stock (Show, Eq)
 
 defaultTracerConf :: TracerConf
-defaultTracerConf = TracerConf (Verbosity Info) DisableTimeStamp DisableCallStack
+defaultTracerConf = TracerConf
+  { tVerbosity      = (Verbosity Info)
+  , tShowTimeStamp  = DisableTimeStamp
+  , tShowCallStack  = DisableCallStack
+  }
+
+-- | Sometimes, we want to change log levels. For example, we want to suppress
+-- specific traces in tests.
+data CustomLogLevel a = DefaultLogLevel | CustomLogLevel (a -> Level)
 
 {-------------------------------------------------------------------------------
   Tracers
@@ -130,14 +139,23 @@ defaultTracerConf = TracerConf (Verbosity Info) DisableTimeStamp DisableCallStac
 -- - the log level, and
 -- - the source.
 mkTracer :: forall m a. (MonadIO m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => AnsiColor -> TracerConf -> (String -> m ()) -> Tracer m (TraceWithCallStack a)
-mkTracer ansiColor (TracerConf {..}) report =
+  => AnsiColor
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (String -> m ())
+  -> Tracer m (TraceWithCallStack a)
+mkTracer ansiColor (TracerConf {..}) customLogLevel report =
   squelchUnless (isLogLevelHighEnough . tTrace) $ Tracer $ emit prettyReport
   where
+    getLogLevel :: a -> Level
+    getLogLevel x = case customLogLevel of
+      DefaultLogLevel  -> getDefaultLogLevel x
+      CustomLogLevel f -> f x
+
     isLogLevelHighEnough :: a -> Bool
     isLogLevelHighEnough x = case tVerbosity of
       Quiet -> False
-      Verbosity v -> getDefaultLogLevel x >= v
+      Verbosity v -> getLogLevel x >= v
 
     showTime :: FormatTime t => t -> String
     showTime = formatTime defaultTimeLocale "%Y-%m-%d %H:%M:%S%3QZ"
@@ -179,30 +197,41 @@ mkTracer ansiColor (TracerConf {..}) report =
       mapM_ report $ getZipList $ formatLines time level source <*> traces
       when (tShowCallStack == EnableCallStack) $
         mapM_ (report . indent) $ lines $ prettyCallStack tCallStack
-      where level = getDefaultLogLevel tTrace
+      where level = getLogLevel tTrace
             source = getSource tTrace
             traces = ZipList $ lines $ prettyTrace tTrace
 
 -- | Run an action with a tracer writing to 'stdout'. Use ANSI colors, if available.
 withTracerStdOut :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => TracerConf -> (Tracer IO (TraceWithCallStack a) -> IO b) -> IO b
-withTracerStdOut tracerConf action = do
+  => TracerConf
+  -> CustomLogLevel a
+  -> (Tracer IO (TraceWithCallStack a) -> IO b)
+  -> IO b
+withTracerStdOut tracerConf customLogLevel action = do
   supportsAnsiColor <- hSupportsANSIColor stdout
   let ansiColor = if supportsAnsiColor then EnableAnsiColor else DisableAnsiColor
-  action $ mkTracer ansiColor tracerConf putStrLn
+  action $ mkTracer ansiColor tracerConf customLogLevel putStrLn
 
 -- | Run an action with a tracer writing to a file. Do not use ANSI colors.
 withTracerFile
   :: (PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => FilePath -> TracerConf -> (Tracer IO (TraceWithCallStack a) -> IO b) -> IO b
-withTracerFile file tracerConf action = withFile file AppendMode $ \handle ->
-  let tracer = mkTracer DisableAnsiColor tracerConf (hPutStrLn handle)
+  => FilePath
+  -> TracerConf
+  -> CustomLogLevel a
+  -> (Tracer IO (TraceWithCallStack a) -> IO b)
+  -> IO b
+withTracerFile file tracerConf customLogLevel action = withFile file AppendMode $ \handle ->
+  let tracer = mkTracer DisableAnsiColor tracerConf customLogLevel (hPutStrLn handle)
   in action tracer
 
 -- | Run an action with a tracer in TH mode. Do not use ANSI colors.
 withTracerQ :: forall m a b. (Quasi m, PrettyTrace a, HasDefaultLogLevel a, HasSource a)
-  => TracerConf -> (Tracer m (TraceWithCallStack a) -> m b) -> m b
-withTracerQ tracerConf action = action $ mkTracer DisableAnsiColor tracerConf report
+  => TracerConf
+  -> CustomLogLevel a
+  -> (Tracer m (TraceWithCallStack a) -> m b)
+  -> m b
+withTracerQ tracerConf customLogLevel action =
+  action $ mkTracer DisableAnsiColor tracerConf customLogLevel report
   where
     report :: String -> m ()
     -- Use 'putStrLn' instead of 'qReport', to avoid the "Template Haskell

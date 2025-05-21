@@ -19,13 +19,14 @@ import HsBindgen.Guasi
 import HsBindgen.Lib
 import HsBindgen.Pipeline qualified as Pipeline
 import Test.Internal.Misc
+import Test.Internal.Trace (degradeKnownTraces)
 
 goldenTh :: HasCallStack => FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-        tracer = mkTracer EnableAnsiColor defaultTracerConf report
+        tracer = mkTracer EnableAnsiColor defaultTracerConf degradeKnownTraces report
         opts = Pipeline.defaultOpts {
             Pipeline.optsClangArgs  = clangArgs packageRoot
           , Pipeline.optsTracer = tracer

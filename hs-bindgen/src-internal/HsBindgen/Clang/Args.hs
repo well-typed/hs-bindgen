@@ -29,6 +29,7 @@ data ExtraClangArgsLog =
     ExtraClangArgsNone
   | ExtraClangArgsParsed { envName    :: String
                          , envArgs    :: [String] }
+  deriving stock (Show)
 
 instance PrettyTrace ExtraClangArgsLog where
   prettyTrace = \case
