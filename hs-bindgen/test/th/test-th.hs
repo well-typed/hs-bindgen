@@ -3,21 +3,30 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 -- For flexible array members:
 {-# OPTIONS_GHC -Wno-orphans #-}
 module Main (main) where
 
-import Control.Exception (bracket)
+import Control.Exception (AssertionFailed (AssertionFailed),
+                          Exception (fromException), TypeError (TypeError),
+                          bracket, evaluate, try, tryJust)
+import Control.Monad (unless, when)
+import Data.Data (Proxy (Proxy))
+import Data.Either (isRight)
 import Data.Vector.Storable qualified as VS
 import Foreign (Ptr, Storable (..), nullPtr)
 import Foreign.C.Types (CLong)
 import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, defaultMain, testGroup)
-import Test.Tasty.HUnit (testCase, (@?=))
+import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
+                         (@?=))
 
 import HsBindgen.Runtime.CEnum qualified as CEnum
 import HsBindgen.Runtime.ConstantArray qualified as CA
+import HsBindgen.Runtime.FlexibleArrayMember (FLAMLengthMismatch (FLAMLengthMismatch))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.LibC qualified as LibC
 
@@ -92,8 +101,22 @@ test01 = testGroup "test_01"
             hdr <- peek ptr
             Test01.structFLAM_length hdr @?= n
 
-            struct <- FLAM.peekWithFLAM ptr
-            FLAM.flamExtra struct @?= VS.fromList [0..9]
+            -- Peek.
+            structWithFLAM <- FLAM.peekWithFLAM ptr
+            FLAM.flamExtra structWithFLAM @?= VS.fromList [0..9]
+
+            -- Poke, Ok.
+            let v' = VS.fromList [10..19]
+            FLAM.pokeWithFLAM ptr (FLAM.WithFlexibleArrayMember hdr v')
+            struct' <- FLAM.peekWithFLAM ptr
+            FLAM.flamExtra struct' @?= v'
+
+            -- Poke, error.
+            let vLengthMismatch = VS.fromList [0]
+            assertException "Expected FLAMLengthMismatch" (Proxy :: Proxy FLAMLengthMismatch) $
+              FLAM.pokeWithFLAM ptr (FLAM.WithFlexibleArrayMember hdr vLengthMismatch)
+            struct'' <- FLAM.peekWithFLAM ptr
+            FLAM.flamExtra struct'' @?= v'
 
     , testCase "EnumBasic" $
         [minBound..maxBound]
@@ -157,3 +180,12 @@ main = defaultMain $ testGroup CURRENT_COMPONENT_ID
     [ test01
     , test02
     ]
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
+
+assertException :: forall e a. Exception e => String -> Proxy e -> IO a -> Assertion
+assertException msg exception action = do
+  result <- tryJust (\x -> fromException x :: Maybe e) action
+  when (isRight result) $ assertFailure msg
