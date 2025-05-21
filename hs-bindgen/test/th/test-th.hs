@@ -10,10 +10,10 @@ module Main (main) where
 
 import Control.Exception (bracket)
 import Data.Vector.Storable qualified as VS
-import Foreign (Storable (..), Ptr, nullPtr)
+import Foreign (Ptr, Storable (..), nullPtr)
 import Foreign.C.Types (CLong)
 import Foreign.Marshal.Alloc (alloca)
-import Test.Tasty (TestTree, testGroup, defaultMain)
+import Test.Tasty (TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 
 import HsBindgen.Runtime.CEnum qualified as CEnum

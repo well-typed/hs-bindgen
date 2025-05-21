@@ -7,7 +7,7 @@ module HsBindgen.C.Fold.Type (
     processTypeDecl,
 ) where
 
-import Control.Monad.State (State, get, put, gets)
+import Control.Monad.State (State, get, gets, put)
 import Data.Map.Ordered.Strict qualified as OMap
 import Data.Text qualified as T
 import Foreign.C
@@ -27,7 +27,7 @@ import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (prettyLogMsg)
+import HsBindgen.Util.Tracer (prettyTrace)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -155,7 +155,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                                 , "Proceeding with macros expanded."
                                 , ""
                                 , "Parse error:"
-                                , prettyLogMsg err
+                                , prettyTrace err
                                 , ""
                                 ]
                               return Nothing
@@ -416,7 +416,7 @@ processTypeDecl' ctxt extBindings unit declLoc declCursor ty = case fromSimpleEn
                       , "Proceeding with macros expanded."
                       , ""
                       , "Parse error:"
-                      , prettyLogMsg err
+                      , prettyTrace err
                       , ""
                       ]
                     return Nothing
@@ -669,7 +669,7 @@ mkStructField extBindings unit mkCtxt current = do
                   , "Proceeding with macros expanded."
                   , ""
                   , "Parse error:"
-                  , prettyLogMsg err
+                  , prettyTrace err
                   , ""
                   ]
                 return Nothing
@@ -760,7 +760,7 @@ mkUnionField extBindings unit mkCtxt current = do
                   , "Proceeding with macros expanded."
                   , ""
                   , "Parse error:"
-                  , prettyLogMsg err
+                  , prettyTrace err
                   , ""
                   ]
                 return Nothing

@@ -1,5 +1,8 @@
 module Main (main) where
 
+import Control.Tracer (Tracer)
+import GHC.Stack (HasCallStack)
+
 import HsBindgen.App.Common
 import HsBindgen.App.Dev
 import HsBindgen.Lib
@@ -12,25 +15,25 @@ import HsBindgen.Pipeline qualified as Pipeline
 main :: IO ()
 main = do
     dev@Dev{..} <- getDev
+    withTracerStdOut (globalOptsTracerConf devGlobalOpts) $ \tracer ->
+      execMode dev tracer devMode
 
-    let tracer :: Tracer IO String
-        tracer = mkTracerIO $ globalOptsVerbosity devGlobalOpts
-
-    execMode dev tracer devMode
-
-execMode :: Dev -> Tracer IO String -> Mode -> IO ()
+execMode :: HasCallStack
+  => Dev -> Tracer IO (TraceWithCallStack Trace) -> Mode -> IO ()
 execMode Dev{..} tracer = \case
     ModeParse{..} -> do
-      extBindings <- loadExtBindings' tracer devGlobalOpts
+      extBindings <- loadExtBindings' resolveHeaderTracer devGlobalOpts
       let opts = cmdOpts {
               optsExtBindings = extBindings
             }
       print . snd =<< Pipeline.parseCHeader opts parseInputPath
   where
+    resolveHeaderTracer :: Tracer IO (TraceWithCallStack ResolveHeaderException)
+    resolveHeaderTracer = useTrace TraceResolveHeader tracer
+
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
         optsClangArgs  = globalOptsClangArgs devGlobalOpts
       , optsPredicate  = globalOptsPredicate devGlobalOpts
-      , optsDiagTracer = tracer
-      , optsSkipTracer = tracer
+      , optsTracer = tracer
       }

@@ -12,6 +12,7 @@ module HsBindgen.C.Parser (
   ) where
 
 import Control.Exception
+import Control.Tracer (Tracer)
 import Data.List qualified as List
 import Data.List.Compat ((!?))
 import Data.Map.Strict qualified as Map
@@ -20,6 +21,7 @@ import Data.Ord (comparing)
 import Data.Text qualified as Text
 import Data.Tree (Tree)
 import Data.Tree qualified as Tree
+import GHC.Stack (callStack)
 
 import Clang.Args
 import Clang.Enum.Bitfield
@@ -28,8 +30,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import Data.DynGraph qualified as DynGraph
 import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Fold qualified as C
 import HsBindgen.C.Fold.DeclState qualified as C
@@ -38,7 +40,7 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Parsing
@@ -73,8 +75,9 @@ instance Exception ParseCHeadersException where
       "unknown error parsing C headers: " ++ show errCode
 
 parseCHeaders ::
-     Tracer IO Diagnostic  -- ^ Tracer for warnings
-  -> Tracer IO C.Skipped
+     HasCallStack =>
+     Tracer IO (TraceWithCallStack Diagnostic)  -- ^ Tracer for warnings
+  -> Tracer IO (TraceWithCallStack C.Skipped)
   -> ClangArgs
   -> Predicate
   -> ExtBindings
@@ -90,9 +93,7 @@ parseCHeaders diagTracer skipTracer args p extBindings headerIncludePaths =
               (errors, warnings) <- List.partition diagnosticIsError
                 <$> HighLevel.clang_getDiagnostics unit Nothing
               unless (null errors) $ throwIO (getError errors)
-              -- TODO: <https://github.com/well-typed/hs-bindgen/issues/175>
-              -- We should print warnings only optionally.
-              forM_ warnings $ traceWith diagTracer Warning
+              forM_ warnings $ traceWithCallStack diagTracer callStack
               rootCursor <- clang_getTranslationUnitCursor unit
               (decls, finalDeclState) <-
                 C.runFoldState C.initDeclState $

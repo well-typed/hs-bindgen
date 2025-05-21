@@ -33,6 +33,7 @@ module HsBindgen.Pipeline (
   ) where
 
 import Control.Monad ((<=<))
+import Control.Tracer (Tracer, nullTracer)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
@@ -40,29 +41,30 @@ import Language.Haskell.TH qualified as TH
 import Clang.Args
 import Clang.Paths
 import HsBindgen.Backend.Extensions
-import HsBindgen.Backend.PP.Render (HsRenderOpts(..))
+import HsBindgen.Backend.PP.Render (HsRenderOpts (..))
 import HsBindgen.Backend.PP.Render qualified as Backend.PP
-import HsBindgen.Backend.PP.Translation (HsModuleOpts(..))
+import HsBindgen.Backend.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.PP.Translation qualified as Backend.PP
 import HsBindgen.Backend.TH.Translation qualified as Backend.TH
 import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Parser qualified as C
-import HsBindgen.C.Predicate (Predicate(..))
+import HsBindgen.C.Predicate (Predicate (..))
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.ExtBindings.Gen qualified as GenExtBindings
 import HsBindgen.GenTests qualified as GenTests
+import HsBindgen.Guasi
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.NameMangler (NameMangler)
 import HsBindgen.Hs.NameMangler qualified as NameMangler
 import HsBindgen.Hs.NameMangler.DSL qualified as NameMangler.DSL
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs
-import HsBindgen.Util.Tracer
-import HsBindgen.Guasi
-import HsBindgen.ModuleUnique
+import HsBindgen.Util.Trace (Trace (TraceDiagnostic, TraceSkipped))
+import HsBindgen.Util.Tracer (TraceWithCallStack, useTrace)
 
 {-------------------------------------------------------------------------------
   Options
@@ -75,8 +77,7 @@ data Opts = Opts {
     , optsTranslation :: Hs.TranslationOpts
     , optsNameMangler :: NameMangler
     , optsPredicate   :: Predicate
-    , optsDiagTracer  :: Tracer IO String
-    , optsSkipTracer  :: Tracer IO String
+    , optsTracer      :: Tracer IO (TraceWithCallStack Trace)
     }
 
 -- | Default 'Opts'
@@ -87,8 +88,7 @@ defaultOpts = Opts {
     , optsTranslation = Hs.defaultTranslationOpts
     , optsNameMangler = nameMangler
     , optsPredicate   = SelectFromMainFile
-    , optsDiagTracer  = nullTracer
-    , optsSkipTracer  = nullTracer
+    , optsTracer      = nullTracer
     }
   where
     -- TODO: Make it possible to specify overrides through the CLI
@@ -115,11 +115,11 @@ defaultPPOpts = PPOpts {
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header
-parseCHeader :: Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
+parseCHeader :: HasCallStack => Opts -> CHeaderIncludePath -> IO ([SourcePath], C.Header)
 parseCHeader Opts{..} headerIncludePath =
     C.parseCHeaders
-      (contramap show optsDiagTracer)
-      (contramap prettyLogMsg optsSkipTracer)
+      (useTrace TraceDiagnostic optsTracer)
+      (useTrace TraceSkipped optsTracer)
       optsClangArgs
       optsPredicate
       optsExtBindings
@@ -158,7 +158,8 @@ genExtensions = foldMap requiredExtensions
 -------------------------------------------------------------------------------}
 
 -- | Parse a C header and generate @Hs@ declarations
-translateCHeader :: ModuleUnique -> Opts -> CHeaderIncludePath -> IO [Hs.Decl]
+translateCHeader :: HasCallStack
+  => ModuleUnique -> Opts -> CHeaderIncludePath -> IO [Hs.Decl]
 translateCHeader mu opts headerIncludePath = do
     (_depPaths, header) <- parseCHeader opts headerIncludePath
     return $ genHsDecls mu opts header
@@ -180,7 +181,7 @@ preprocessIO ppOpts fp = genPP ppOpts fp . genModule ppOpts . genSHsDecls
 -------------------------------------------------------------------------------}
 
 -- | Generate bindings for the given C header
-genBindings ::
+genBindings :: HasCallStack =>
      Opts
   -> FilePath -- ^ Input header, as written in C @#include@
   -> TH.Q [TH.Dec]

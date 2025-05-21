@@ -1,8 +1,11 @@
 module Main (main) where
 
-import Control.Exception (handle, SomeException (..), Exception (..), fromException, throwIO)
-import Text.Read (readMaybe)
+import Control.Exception (Exception (..), SomeException (..), fromException,
+                          handle, throwIO)
+import Control.Tracer (Tracer)
+import GHC.Stack (HasCallStack)
 import System.Exit (ExitCode, exitFailure)
+import Text.Read (readMaybe)
 
 import HsBindgen.App.Cli
 import HsBindgen.App.Common
@@ -16,11 +19,8 @@ import HsBindgen.Lib
 main :: IO ()
 main = handle exceptionHandler $ do
     cli@Cli{..} <- getCli
-
-    let tracer :: Tracer IO String
-        tracer = mkTracerIO $ globalOptsVerbosity cliGlobalOpts
-
-    execMode cli tracer cliMode
+    withTracerStdOut (globalOptsTracerConf cliGlobalOpts) $ \tracer ->
+      execMode cli tracer cliMode
 
 data LiterateFileException = LiterateFileException FilePath String
   deriving Show
@@ -31,10 +31,10 @@ instance Exception LiterateFileException where
     displayException (LiterateFileException path err) =
       "error loading " ++ path ++ ": " ++ err
 
-execMode :: Cli -> Tracer IO String -> Mode -> IO ()
+execMode :: HasCallStack => Cli -> Tracer IO (TraceWithCallStack Trace) -> Mode -> IO ()
 execMode Cli{..} tracer = \case
     ModePreprocess{..} -> do
-      extBindings <- loadExtBindings' tracer cliGlobalOpts
+      extBindings <- loadExtBindings' resolveHeaderTracer cliGlobalOpts
       let opts = cmdOpts {
               optsExtBindings = extBindings
             , optsTranslation = preprocessTranslationOpts
@@ -55,7 +55,7 @@ execMode Cli{..} tracer = \case
         Just path -> genExtBindings ppOpts preprocessInput path decls
 
     ModeGenTests{..} -> do
-      extBindings <- loadExtBindings' tracer cliGlobalOpts
+      extBindings <- loadExtBindings' resolveHeaderTracer cliGlobalOpts
       let opts = defaultOpts {
               optsExtBindings = extBindings
             }
@@ -68,15 +68,17 @@ execMode Cli{..} tracer = \case
 
     ModeLiterate input output -> execLiterate input output tracer
   where
+    resolveHeaderTracer :: Tracer IO (TraceWithCallStack ResolveHeaderException)
+    resolveHeaderTracer = useTrace TraceResolveHeader tracer
+
     cmdOpts :: Opts
     cmdOpts = defaultOpts {
         optsClangArgs  = globalOptsClangArgs cliGlobalOpts
       , optsPredicate  = globalOptsPredicate cliGlobalOpts
-      , optsDiagTracer = tracer
-      , optsSkipTracer = tracer
+      , optsTracer     = tracer
       }
 
-execLiterate :: FilePath -> FilePath -> Tracer IO String -> IO ()
+execLiterate :: FilePath -> FilePath -> Tracer IO (TraceWithCallStack Trace) -> IO ()
 execLiterate input output tracer = do
     args <- maybe (throw' "cannot parse literate file") return . readMaybe
       =<< readFile input

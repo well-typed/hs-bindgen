@@ -18,6 +18,7 @@ module HsBindgen.C.Fold.Common (
   , continue
   ) where
 
+import Control.Tracer (Tracer)
 import Data.Tree (Tree (Node))
 
 import Clang.Backtrace
@@ -26,10 +27,14 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+import GHC.Stack (callStack)
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
+                              HasSource (getSource), Level (..),
+                              PrettyTrace (prettyTrace), Source (HsBindgen),
+                              TraceWithCallStack, traceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Root header
@@ -56,8 +61,8 @@ data Skipped = Skipped {
     , skippedReason :: String
     }
 
-instance PrettyLogMsg Skipped where
-  prettyLogMsg Skipped{skippedName, skippedLoc, skippedReason} = concat [
+instance PrettyTrace Skipped where
+  prettyTrace Skipped{skippedName, skippedLoc, skippedReason} = concat [
         "Skipped "
       , show skippedName
       , " at "
@@ -66,9 +71,15 @@ instance PrettyLogMsg Skipped where
       , skippedReason
       ]
 
+instance HasDefaultLogLevel Skipped where
+  getDefaultLogLevel = const Info
+
+instance HasSource Skipped where
+  getSource = const HsBindgen
+
 whenPredicateMatches ::
-     MonadIO m
-  => Tracer IO Skipped
+     (HasCallStack, MonadIO m)
+  => Tracer IO (TraceWithCallStack Skipped)
   -> Predicate
   -> Maybe (CHeaderIncludePath, SourcePath)
   -> CXCursor
@@ -84,7 +95,7 @@ whenPredicateMatches tracer p mMainHeader current sloc k =
           Left  reason -> do
             name <- clang_getCursorSpelling current
             loc  <- HighLevel.clang_getCursorLocation current
-            liftIO $ traceWith tracer Info $ Skipped name loc reason
+            liftIO $ traceWithCallStack tracer callStack $ Skipped name loc reason
             return $ Continue Nothing
       Nothing -> return $ Continue Nothing
 

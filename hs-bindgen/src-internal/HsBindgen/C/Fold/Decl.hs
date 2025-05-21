@@ -6,6 +6,7 @@ module HsBindgen.C.Fold.Decl (
   ) where
 
 import Control.Monad.State
+import Control.Tracer (Tracer)
 import Data.List.Compat ((!?))
 import Data.Vec.Lazy qualified as Vec
 
@@ -21,12 +22,12 @@ import HsBindgen.C.Fold.Type
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Reparse
 import HsBindgen.C.Tc.Macro (tcMacro)
+import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.ExtBindings
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
-import HsBindgen.C.Tc.Macro qualified as Macro
+import HsBindgen.Util.Tracer (TraceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -34,7 +35,7 @@ import HsBindgen.C.Tc.Macro qualified as Macro
 
 foldDecls ::
      HasCallStack
-  => Tracer IO Skipped
+  => Tracer IO (TraceWithCallStack Skipped)
   -> Predicate
   -> ExtBindings
   -> [CHeaderIncludePath]
