@@ -20,7 +20,7 @@ import HsBindgen.Lib
 main :: IO ()
 main = handle exceptionHandler $ do
     cli@Cli{..} <- getCli
-    withTracerStdOut (globalOptsTracerConf cliGlobalOpts) $ \tracer ->
+    withTracerStdOut (globalOptsTracerConf cliGlobalOpts) DefaultLogLevel $ \tracer ->
       execMode cli tracer cliMode
 
 data LiterateFileException = LiterateFileException FilePath String

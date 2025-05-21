@@ -39,7 +39,7 @@ data GlobalOpts = GlobalOpts {
     , globalOptsClangArgs   :: ClangArgs
     , globalOptsExtBindings :: [FilePath]
     }
-  deriving (Show)
+  deriving stock (Show)
 
 parseGlobalOpts :: Parser GlobalOpts
 parseGlobalOpts =

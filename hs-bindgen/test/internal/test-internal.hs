@@ -24,6 +24,7 @@ import Test.HsBindgen.Clang.Args qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
+import Test.Internal.Trace (degradeKnownTraces)
 import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
@@ -37,7 +38,7 @@ import Test.Internal.TH
 main :: IO ()
 main = do
     packageRoot <- findPackageDirectory "hs-bindgen"
-    withTracerStdOut defaultTracerConf $ \tracer ->
+    withTracerStdOut defaultTracerConf degradeKnownTraces $ \tracer ->
       defaultMain . withRustBindgen $ tests tracer packageRoot
 
 {-------------------------------------------------------------------------------
@@ -173,8 +174,8 @@ tests tracer packageRoot rustBindgen = testGroup "test-internal" [
 
     mkOpts :: (String -> IO ()) -> Pipeline.Opts
     mkOpts report =
-      let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-          tracerGolden     = mkTracer EnableAnsiColor tracerConf report
+      let tracerConf   = defaultTracerConf { tVerbosity = Verbosity Warning }
+          tracerGolden = mkTracer EnableAnsiColor tracerConf degradeKnownTraces report
       in  opts {
               Pipeline.optsTracer = tracerGolden
             }
