@@ -1,6 +1,5 @@
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Example where
 

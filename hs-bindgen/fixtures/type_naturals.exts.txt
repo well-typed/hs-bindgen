@@ -1,4 +1,3 @@
-TemplateHaskell
 StandaloneDeriving
 DerivingStrategies
 FlexibleContexts

@@ -12,12 +12,10 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
--- #include "adios.h"
--- void testmodule_ϒ (void);
--- void testmodule_拜拜 (void);
--- void testmodule_Say拜拜 (void);
+$(CAPI.addCSource "#include \"adios.h\"\nvoid testmodule_\978 (void) { \978(); }\nvoid testmodule_\25308\25308 (void) { \25308\25308(); }\nvoid testmodule_Say\25308\25308 (void) { Say\25308\25308(); }\n")
 
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
@@ -79,8 +77,8 @@ deriving newtype instance Num C数字
 
 deriving newtype instance Real C数字
 
-foreign import capi safe "adios.h ϒ" cϒ :: IO ()
+foreign import ccall safe "testmodule_ϒ" cϒ :: IO ()
 
-foreign import capi safe "adios.h 拜拜" 拜拜 :: IO ()
+foreign import ccall safe "testmodule_拜拜" 拜拜 :: IO ()
 
-foreign import capi safe "adios.h Say拜拜" say拜拜 :: IO ()
+foreign import ccall safe "testmodule_Say拜拜" say拜拜 :: IO ()

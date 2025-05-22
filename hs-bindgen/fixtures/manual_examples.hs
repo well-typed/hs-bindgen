@@ -423,7 +423,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4);",
+    "void testmodule_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -456,7 +456,7 @@
             (DeclPathName
               (CName "triple")))],
       foreignImportOrigName =
-      "mk_triple",
+      "testmodule_mk_triple",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -965,7 +965,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "signed int testmodule_index_triple (struct triple *arg1, enum index arg2);",
+    "signed int testmodule_index_triple (struct triple *arg1, enum index arg2) { return index_triple(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -993,7 +993,7 @@
         TypeEnum
           (DeclPathName (CName "index"))],
       foreignImportOrigName =
-      "index_triple",
+      "testmodule_index_triple",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -1216,7 +1216,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "sum testmodule_sum_triple (struct triple *arg1);",
+    "sum testmodule_sum_triple (struct triple *arg1) { return sum_triple(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1241,7 +1241,7 @@
             (DeclPathName
               (CName "triple")))],
       foreignImportOrigName =
-      "sum_triple",
+      "testmodule_sum_triple",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -1263,7 +1263,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "average testmodule_average_triple (struct triple *arg1);",
+    "average testmodule_average_triple (struct triple *arg1) { return average_triple(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1288,7 +1288,7 @@
             (DeclPathName
               (CName "triple")))],
       foreignImportOrigName =
-      "average_triple",
+      "testmodule_average_triple",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -2178,7 +2178,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "YEAR testmodule_getYear (date *arg1);",
+    "YEAR testmodule_getYear (date *arg1) { return getYear(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2201,7 +2201,7 @@
         TypePointer
           (TypeTypedef (CName "date"))],
       foreignImportOrigName =
-      "getYear",
+      "testmodule_getYear",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -3138,7 +3138,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_print_occupation (signed int arg1, union occupation *arg2);",
+    "void testmodule_print_occupation (signed int arg1, union occupation *arg2) { print_occupation(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3162,7 +3162,7 @@
             (DeclPathName
               (CName "occupation")))],
       foreignImportOrigName =
-      "print_occupation",
+      "testmodule_print_occupation",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -4741,7 +4741,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_\25308\25308 (void);",
+    "void testmodule_\25308\25308 (void) { \25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4752,7 +4752,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "\25308\25308",
+      "testmodule_\25308\25308",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -4886,7 +4886,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_\978 (void);",
+    "void testmodule_\978 (void) { \978(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -4896,7 +4896,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "\978",
+      foreignImportOrigName =
+      "testmodule_\978",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =
@@ -5002,7 +5003,7 @@
   DeclInlineCInclude
     "manual_examples.h",
   DeclInlineC
-    "void testmodule_import (void);",
+    "void testmodule_import (void) { import(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -5013,7 +5014,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "import",
+      "testmodule_import",
       foreignImportHeader =
       "manual_examples.h",
       foreignImportDeclOrigin =

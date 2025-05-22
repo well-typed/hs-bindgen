@@ -18,13 +18,13 @@ import qualified Data.List.NonEmpty
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 import qualified Text.Read
 
--- #include "distilled_lib_1.h"
--- int32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]);
+$(CAPI.addCSource "#include \"distilled_lib_1.h\"\nint32_t testmodule_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }\n")
 
 newtype Int32_t = Int32_t
   { un_Int32_t :: FC.CInt
@@ -487,7 +487,7 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
-foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
+foreign import ccall safe "testmodule_some_fun" some_fun :: (F.Ptr A_type_t) -> Uint32_t -> (F.Ptr Uint8_t) -> IO Int32_t
 
 newtype Callback_t = Callback_t
   { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> Uint32_t -> IO Uint32_t)

@@ -1,14 +1,14 @@
 -- addDependentFile examples/manual_examples.h
 -- #include "manual_examples.h"
--- void test_internal_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4);
--- signed int test_internal_index_triple (struct triple *arg1, enum index arg2);
--- sum test_internal_sum_triple (struct triple *arg1);
--- average test_internal_average_triple (struct triple *arg1);
--- YEAR test_internal_getYear (date *arg1);
--- void test_internal_print_occupation (signed int arg1, union occupation *arg2);
--- void test_internal_拜拜 (void);
--- void test_internal_ϒ (void);
--- void test_internal_import (void);
+-- void test_internal_mk_triple (signed int arg1, signed int arg2, signed int arg3, struct triple *arg4) { mk_triple(arg1, arg2, arg3, arg4); }
+-- signed int test_internal_index_triple (struct triple *arg1, enum index arg2) { return index_triple(arg1, arg2); }
+-- sum test_internal_sum_triple (struct triple *arg1) { return sum_triple(arg1); }
+-- average test_internal_average_triple (struct triple *arg1) { return average_triple(arg1); }
+-- YEAR test_internal_getYear (date *arg1) { return getYear(arg1); }
+-- void test_internal_print_occupation (signed int arg1, union occupation *arg2) { print_occupation(arg1, arg2); }
+-- void test_internal_拜拜 (void) { 拜拜(); }
+-- void test_internal_ϒ (void) { ϒ(); }
+-- void test_internal_import (void) { import(); }
 data Triple
     = Triple {triple_a :: CInt, triple_b :: CInt, triple_c :: CInt}
 instance Storable Triple
@@ -21,9 +21,9 @@ instance Storable Triple
                                             triple_c_5 -> pokeByteOff ptr_1 (0 :: Int) triple_a_3 >> (pokeByteOff ptr_1 (4 :: Int) triple_b_4 >> pokeByteOff ptr_1 (8 :: Int) triple_c_5)}}
 deriving stock instance Show Triple
 deriving stock instance Eq Triple
-foreign import capi safe "manual_examples.h mk_triple" mk_triple :: CInt ->
-                                                                    CInt ->
-                                                                    CInt -> Ptr Triple -> IO Unit
+foreign import ccall safe "test_internal_mk_triple" mk_triple :: CInt ->
+                                                                 CInt ->
+                                                                 CInt -> Ptr Triple -> IO Unit
 newtype Index = Index {un_Index :: CUInt}
 instance Storable Index
     where {sizeOf = \_ -> 4 :: Int;
@@ -58,8 +58,8 @@ pattern B :: Index
 pattern B = Index 1
 pattern C :: Index
 pattern C = Index 2
-foreign import capi safe "manual_examples.h index_triple" index_triple :: Ptr Triple ->
-                                                                          Index -> IO CInt
+foreign import ccall safe "test_internal_index_triple" index_triple :: Ptr Triple ->
+                                                                       Index -> IO CInt
 newtype Sum = Sum {un_Sum :: CInt}
 deriving newtype instance Storable Sum
 deriving stock instance Eq Sum
@@ -87,10 +87,10 @@ deriving newtype instance Num Average
 deriving newtype instance Real Average
 deriving newtype instance RealFloat Average
 deriving newtype instance RealFrac Average
-foreign import capi safe "manual_examples.h sum_triple" sum_triple :: Ptr Triple ->
-                                                                      IO Sum
-foreign import capi safe "manual_examples.h average_triple" average_triple :: Ptr Triple ->
-                                                                              IO Average
+foreign import ccall safe "test_internal_sum_triple" sum_triple :: Ptr Triple ->
+                                                                   IO Sum
+foreign import ccall safe "test_internal_average_triple" average_triple :: Ptr Triple ->
+                                                                           IO Average
 fIELD_OFFSET :: CInt
 fIELD_OFFSET = 4 :: CInt
 ePSILON :: CDouble
@@ -151,8 +151,8 @@ instance Storable Date
                                           date_day_5 -> pokeByteOff ptr_1 (0 :: Int) date_year_3 >> (pokeByteOff ptr_1 (4 :: Int) date_month_4 >> pokeByteOff ptr_1 (8 :: Int) date_day_5)}}
 deriving stock instance Show Date
 deriving stock instance Eq Date
-foreign import capi safe "manual_examples.h getYear" getYear :: Ptr Date ->
-                                                                IO YEAR
+foreign import ccall safe "test_internal_getYear" getYear :: Ptr Date ->
+                                                             IO YEAR
 data Student
     = Student {student_university :: (Ptr CChar), student_year :: CInt}
 instance Storable Student
@@ -189,9 +189,9 @@ get_occupation_employee = getUnionPayload
 set_occupation_employee :: Employee -> Occupation
 set_occupation_employee = setUnionPayload
 data Person
-foreign import capi safe "manual_examples.h print_occupation" print_occupation :: CInt ->
-                                                                                  Ptr Occupation ->
-                                                                                  IO Unit
+foreign import ccall safe "test_internal_print_occupation" print_occupation :: CInt ->
+                                                                               Ptr Occupation ->
+                                                                               IO Unit
 data Rect_lower_left
     = Rect_lower_left {rect_lower_left_x :: CInt,
                        rect_lower_left_y :: CInt}
@@ -259,7 +259,7 @@ deriving newtype instance FiniteBits Adio'0301s
 deriving newtype instance Integral Adio'0301s
 deriving newtype instance Num Adio'0301s
 deriving newtype instance Real Adio'0301s
-foreign import capi safe "manual_examples.h \25308\25308" 拜拜 :: IO Unit
+foreign import ccall safe "test_internal_\25308\25308" 拜拜 :: IO Unit
 newtype C数字 = C数字 {un_C数字 :: CInt}
 deriving newtype instance Storable C数字
 deriving stock instance Eq C数字
@@ -274,7 +274,7 @@ deriving newtype instance FiniteBits C数字
 deriving newtype instance Integral C数字
 deriving newtype instance Num C数字
 deriving newtype instance Real C数字
-foreign import capi safe "manual_examples.h \978" cϒ :: IO Unit
+foreign import ccall safe "test_internal_\978" cϒ :: IO Unit
 newtype Data = Data {un_Data :: CInt}
 deriving newtype instance Storable Data
 deriving stock instance Eq Data
@@ -289,7 +289,7 @@ deriving newtype instance FiniteBits Data
 deriving newtype instance Integral Data
 deriving newtype instance Num Data
 deriving newtype instance Real Data
-foreign import capi safe "manual_examples.h import" import' :: IO Unit
+foreign import ccall safe "test_internal_import" import' :: IO Unit
 newtype Signal = Signal {un_Signal :: CUInt}
 instance Storable Signal
     where {sizeOf = \_ -> 4 :: Int;

@@ -33,9 +33,11 @@ import Witherable (ordNub)
 -------------------------------------------------------------------------------}
 
 translateDecls :: [Hs.Decl] -> [SDecl]
-translateDecls decls =
-    DCSource (csources decls) :
-    concatMap translateDecl decls
+translateDecls decls
+    | null csources' =                      concatMap translateDecl decls
+    | otherwise      = DCSource csources' : concatMap translateDecl decls
+  where
+    csources' = csources decls
 
 -- 20250429 this function will change,
 -- but for now we find the includes to test addCSource functionality

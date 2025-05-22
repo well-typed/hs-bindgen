@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
-    "double testmodule_erf (double arg1);",
+    "double testmodule_erf (double arg1) { return erf(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -17,7 +17,8 @@
       foreignImportCArgs = [
         TypePrim
           (PrimFloating PrimDouble)],
-      foreignImportOrigName = "erf",
+      foreignImportOrigName =
+      "testmodule_erf",
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
@@ -36,7 +37,7 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
-    "double testmodule_bad_fma (double arg1, double arg2, double arg3);",
+    "double testmodule_bad_fma (double arg1, double arg2, double arg3) { return bad_fma(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -60,7 +61,7 @@
         TypePrim
           (PrimFloating PrimDouble)],
       foreignImportOrigName =
-      "bad_fma",
+      "testmodule_bad_fma",
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
@@ -83,7 +84,7 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
-    "void testmodule_no_args (void);",
+    "void testmodule_no_args (void) { no_args(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -94,7 +95,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "no_args",
+      "testmodule_no_args",
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
@@ -110,7 +111,7 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
-    "void testmodule_no_args_no_void (void);",
+    "void testmodule_no_args_no_void (void) { no_args_no_void(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -121,7 +122,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "no_args_no_void",
+      "testmodule_no_args_no_void",
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =
@@ -138,7 +139,7 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
-    "signed int testmodule_fun (char arg1, double arg2);",
+    "signed int testmodule_fun (char arg1, double arg2) { return fun(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -158,7 +159,8 @@
               (Just Signed))),
         TypePrim
           (PrimFloating PrimDouble)],
-      foreignImportOrigName = "fun",
+      foreignImportOrigName =
+      "testmodule_fun",
       foreignImportHeader =
       "simple_func.h",
       foreignImportDeclOrigin =

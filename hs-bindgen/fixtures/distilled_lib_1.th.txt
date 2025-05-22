@@ -4,7 +4,7 @@
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/distilled_lib_1.h
 -- #include "distilled_lib_1.h"
--- int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]);
+-- int32_t test_internal_some_fun (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return some_fun(arg1, arg2, arg3); }
 newtype Int32_t = Int32_t {un_Int32_t :: CInt}
 deriving newtype instance Storable Int32_t
 deriving stock instance Eq Int32_t
@@ -226,9 +226,8 @@ pattern ENUM_CASE_2 :: A_typedef_enum_e
 pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
-foreign import capi safe "distilled_lib_1.h some_fun" some_fun :: Ptr A_type_t ->
-                                                                  Uint32_t ->
-                                                                  Ptr Uint8_t -> IO Int32_t
+foreign import ccall safe "test_internal_some_fun" some_fun :: Ptr A_type_t ->
+                                                               Uint32_t -> Ptr Uint8_t -> IO Int32_t
 newtype Callback_t
     = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
                                             Uint32_t -> IO Uint32_t))}

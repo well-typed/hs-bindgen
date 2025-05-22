@@ -1,15 +1,15 @@
 -- addDependentFile examples/macro_in_fundecl_vs_typedef.h
 -- #include "macro_in_fundecl_vs_typedef.h"
--- char test_internal_quux1 (MC arg1, TC arg2);
--- TC test_internal_quux2 (MC arg1, char arg2);
--- MC *test_internal_wam1 (float arg1, TC *arg2);
--- TC *test_internal_wam2 (float arg1, MC *arg2);
--- void test_internal_struct_typedef1 (struct <anon> *arg1, MC arg2);
--- void test_internal_struct_typedef2 (struct3_t *arg1, MC arg2);
--- void test_internal_struct_typedef3 (struct4 *arg1, MC arg2);
--- void test_internal_struct_name1 (struct struct1 *arg1, MC arg2);
--- void test_internal_struct_name2 (struct struct3 *arg1, MC arg2);
--- void test_internal_struct_name3 (struct struct4 *arg1, MC arg2);
+-- char test_internal_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }
+-- TC test_internal_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }
+-- MC *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }
+-- TC *test_internal_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }
+-- void test_internal_struct_typedef1 (struct <anon> *arg1, MC arg2) { struct_typedef1(arg1, arg2); }
+-- void test_internal_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }
+-- void test_internal_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }
+-- void test_internal_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }
+-- void test_internal_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }
+-- void test_internal_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }
 newtype MC = MC {un_MC :: CChar}
 deriving newtype instance Storable MC
 deriving stock instance Eq MC
@@ -38,14 +38,14 @@ deriving newtype instance FiniteBits TC
 deriving newtype instance Integral TC
 deriving newtype instance Num TC
 deriving newtype instance Real TC
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux1" quux1 :: MC ->
-                                                                        TC -> IO CChar
-foreign import capi safe "macro_in_fundecl_vs_typedef.h quux2" quux2 :: MC ->
-                                                                        CChar -> IO TC
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam1" wam1 :: CFloat ->
-                                                                      Ptr TC -> IO (Ptr MC)
-foreign import capi safe "macro_in_fundecl_vs_typedef.h wam2" wam2 :: CFloat ->
-                                                                      Ptr MC -> IO (Ptr TC)
+foreign import ccall safe "test_internal_quux1" quux1 :: MC ->
+                                                         TC -> IO CChar
+foreign import ccall safe "test_internal_quux2" quux2 :: MC ->
+                                                         CChar -> IO TC
+foreign import ccall safe "test_internal_wam1" wam1 :: CFloat ->
+                                                       Ptr TC -> IO (Ptr MC)
+foreign import ccall safe "test_internal_wam2" wam2 :: CFloat ->
+                                                       Ptr MC -> IO (Ptr TC)
 data Struct1 = Struct1 {struct1_a :: CInt}
 instance Storable Struct1
     where {sizeOf = \_ -> 4 :: Int;
@@ -86,18 +86,15 @@ instance Storable Struct4
                                     {Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3}}
 deriving stock instance Show Struct4
 deriving stock instance Eq Struct4
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef1" struct_typedef1 :: Ptr Struct2 ->
-                                                                                            MC ->
-                                                                                            IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef2" struct_typedef2 :: Ptr Struct3_t ->
-                                                                                            MC ->
-                                                                                            IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_typedef3" struct_typedef3 :: Ptr Struct4 ->
-                                                                                            MC ->
-                                                                                            IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name1" struct_name1 :: Ptr Struct1 ->
-                                                                                      MC -> IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name2" struct_name2 :: Ptr Struct3 ->
-                                                                                      MC -> IO Unit
-foreign import capi safe "macro_in_fundecl_vs_typedef.h struct_name3" struct_name3 :: Ptr Struct4 ->
-                                                                                      MC -> IO Unit
+foreign import ccall safe "test_internal_struct_typedef1" struct_typedef1 :: Ptr Struct2 ->
+                                                                             MC -> IO Unit
+foreign import ccall safe "test_internal_struct_typedef2" struct_typedef2 :: Ptr Struct3_t ->
+                                                                             MC -> IO Unit
+foreign import ccall safe "test_internal_struct_typedef3" struct_typedef3 :: Ptr Struct4 ->
+                                                                             MC -> IO Unit
+foreign import ccall safe "test_internal_struct_name1" struct_name1 :: Ptr Struct1 ->
+                                                                       MC -> IO Unit
+foreign import ccall safe "test_internal_struct_name2" struct_name2 :: Ptr Struct3 ->
+                                                                       MC -> IO Unit
+foreign import ccall safe "test_internal_struct_name3" struct_name3 :: Ptr Struct4 ->
+                                                                       MC -> IO Unit

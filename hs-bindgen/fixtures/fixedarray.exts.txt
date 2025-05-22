@@ -1,4 +1,3 @@
-TemplateHaskell
 DataKinds
 StandaloneDeriving
 DerivingStrategies

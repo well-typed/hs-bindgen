@@ -152,8 +152,8 @@ resolveDeclImports = \case
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
         resolvePatExprImports patSynRHS
-    DCSource {} ->
-        mempty -- TODO: we'll need TH imports
+    DCSource _ ->
+        ImportAcc (Set.singleton (HsImportModule "HsBindgen.Runtime.CAPI" (Just "CAPI")), Map.empty)
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc

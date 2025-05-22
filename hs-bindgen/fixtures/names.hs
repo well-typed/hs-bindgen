@@ -1,7 +1,7 @@
 [
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_by (void);",
+    "void testmodule_by (void) { by(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11,7 +11,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "by",
+      foreignImportOrigName =
+      "testmodule_by",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -24,7 +25,7 @@
           "names.h:3:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_forall (void);",
+    "void testmodule_forall (void) { forall(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -35,7 +36,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "forall",
+      "testmodule_forall",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -48,7 +49,7 @@
           "names.h:4:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_mdo (void);",
+    "void testmodule_mdo (void) { mdo(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -58,7 +59,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "mdo",
+      foreignImportOrigName =
+      "testmodule_mdo",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -71,7 +73,7 @@
           "names.h:5:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_pattern (void);",
+    "void testmodule_pattern (void) { pattern(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -82,7 +84,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "pattern",
+      "testmodule_pattern",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -95,7 +97,7 @@
           "names.h:6:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_proc (void);",
+    "void testmodule_proc (void) { proc(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -105,7 +107,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "proc",
+      foreignImportOrigName =
+      "testmodule_proc",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -118,7 +121,7 @@
           "names.h:7:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_rec (void);",
+    "void testmodule_rec (void) { rec(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -128,7 +131,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "rec",
+      foreignImportOrigName =
+      "testmodule_rec",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -141,7 +145,7 @@
           "names.h:8:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_using (void);",
+    "void testmodule_using (void) { using(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -151,7 +155,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "using",
+      foreignImportOrigName =
+      "testmodule_using",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -164,7 +169,7 @@
           "names.h:9:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_anyclass (void);",
+    "void testmodule_anyclass (void) { anyclass(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -175,7 +180,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "anyclass",
+      "testmodule_anyclass",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -188,7 +193,7 @@
           "names.h:12:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_capi (void);",
+    "void testmodule_capi (void) { capi(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -198,7 +203,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "capi",
+      foreignImportOrigName =
+      "testmodule_capi",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -211,7 +217,7 @@
           "names.h:13:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_cases (void);",
+    "void testmodule_cases (void) { cases(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -221,7 +227,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "cases",
+      foreignImportOrigName =
+      "testmodule_cases",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -234,7 +241,7 @@
           "names.h:14:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_ccall (void);",
+    "void testmodule_ccall (void) { ccall(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -244,7 +251,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "ccall",
+      foreignImportOrigName =
+      "testmodule_ccall",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -257,7 +265,7 @@
           "names.h:15:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_dynamic (void);",
+    "void testmodule_dynamic (void) { dynamic(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -268,7 +276,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "dynamic",
+      "testmodule_dynamic",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -281,7 +289,7 @@
           "names.h:16:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_export (void);",
+    "void testmodule_export (void) { export(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -292,7 +300,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "export",
+      "testmodule_export",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -305,7 +313,7 @@
           "names.h:17:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_family (void);",
+    "void testmodule_family (void) { family(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -316,7 +324,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "family",
+      "testmodule_family",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -329,7 +337,7 @@
           "names.h:18:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_group (void);",
+    "void testmodule_group (void) { group(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -339,7 +347,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "group",
+      foreignImportOrigName =
+      "testmodule_group",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -352,7 +361,7 @@
           "names.h:19:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_interruptible (void);",
+    "void testmodule_interruptible (void) { interruptible(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -363,7 +372,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "interruptible",
+      "testmodule_interruptible",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -377,7 +386,7 @@
           "names.h:20:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_javascript (void);",
+    "void testmodule_javascript (void) { javascript(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -388,7 +397,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "javascript",
+      "testmodule_javascript",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -402,7 +411,7 @@
           "names.h:21:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_label (void);",
+    "void testmodule_label (void) { label(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -412,7 +421,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "label",
+      foreignImportOrigName =
+      "testmodule_label",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -425,7 +435,7 @@
           "names.h:22:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_prim (void);",
+    "void testmodule_prim (void) { prim(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -435,7 +445,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "prim",
+      foreignImportOrigName =
+      "testmodule_prim",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -448,7 +459,7 @@
           "names.h:23:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_role (void);",
+    "void testmodule_role (void) { role(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -458,7 +469,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "role",
+      foreignImportOrigName =
+      "testmodule_role",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -471,7 +483,7 @@
           "names.h:24:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_safe (void);",
+    "void testmodule_safe (void) { safe(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -481,7 +493,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "safe",
+      foreignImportOrigName =
+      "testmodule_safe",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -494,7 +507,7 @@
           "names.h:25:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_stdcall (void);",
+    "void testmodule_stdcall (void) { stdcall(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -505,7 +518,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "stdcall",
+      "testmodule_stdcall",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -518,7 +531,7 @@
           "names.h:26:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_stock (void);",
+    "void testmodule_stock (void) { stock(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -528,7 +541,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "stock",
+      foreignImportOrigName =
+      "testmodule_stock",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -541,7 +555,7 @@
           "names.h:27:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_unsafe (void);",
+    "void testmodule_unsafe (void) { unsafe(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -552,7 +566,7 @@
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
       foreignImportOrigName =
-      "unsafe",
+      "testmodule_unsafe",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
@@ -565,7 +579,7 @@
           "names.h:28:6"}},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void testmodule_via (void);",
+    "void testmodule_via (void) { via(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -575,7 +589,8 @@
         (HsPrimType HsPrimUnit),
       foreignImportCRes = TypeVoid,
       foreignImportCArgs = [],
-      foreignImportOrigName = "via",
+      foreignImportOrigName =
+      "testmodule_via",
       foreignImportHeader = "names.h",
       foreignImportDeclOrigin =
       ForeignImportDeclOriginFunction
