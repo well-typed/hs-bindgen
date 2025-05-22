@@ -80,7 +80,7 @@ import HsBindgen.ModuleUnique
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Trace qualified as Trace
-import HsBindgen.Util.Tracer hiding (withTracerQ)
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Parsing and translating

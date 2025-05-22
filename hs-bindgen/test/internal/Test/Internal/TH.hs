@@ -23,37 +23,38 @@ import Test.Internal.Trace (degradeKnownTraces)
 
 goldenTh :: HasCallStack => FilePath -> TestName -> TestTree
 goldenTh packageRoot name = goldenVsStringDiff_ "th" ("fixtures" </> (name ++ ".th.txt")) $ \report -> do
-    -- -<.> does weird stuff for filenames with multiple dots;
-    -- I usually simply avoid using it.
-    let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
-        tracer = mkTracer EnableAnsiColor defaultTracerConf degradeKnownTraces report
-        opts = Pipeline.defaultOpts {
-            Pipeline.optsClangArgs  = clangArgs packageRoot
-          , Pipeline.optsTracer = tracer
-          }
-    (depPaths, cheader) <- Pipeline.parseCHeader opts headerIncludePath
+    (logs, _) <- withTracerCustom EnableAnsiColor defaultTracerConf degradeKnownTraces report $ \tracer -> do
+      -- -<.> does weird stuff for filenames with multiple dots;
+      -- I usually simply avoid using it.
+      let headerIncludePath = CHeaderQuoteIncludePath $ name ++ ".h"
+          opts = Pipeline.defaultOpts {
+              Pipeline.optsClangArgs  = clangArgs packageRoot
+            , Pipeline.optsTracer = tracer
+            }
+      (depPaths, cheader) <- Pipeline.parseCHeader opts headerIncludePath
 
-    let decls :: Qu [TH.Dec]
-        decls = Pipeline.genBindingsFromCHeader opts depPaths cheader
+      let decls :: Qu [TH.Dec]
+          decls = Pipeline.genBindingsFromCHeader opts depPaths cheader
 
-        -- unqualify names, qualified names are noisy *and*
-        -- GHC.Base names have moved.
-        unqualNames :: [TH.Dec] -> [TH.Dec]
-        unqualNames = SYB.everywhere $ SYB.mkT mangleName
+          -- unqualify names, qualified names are noisy *and*
+          -- GHC.Base names have moved.
+          unqualNames :: [TH.Dec] -> [TH.Dec]
+          unqualNames = SYB.everywhere $ SYB.mkT mangleName
 
-        mangleName :: TH.Name -> TH.Name
-        mangleName n | n == ''()             = TH.Name (TH.OccName "Unit") TH.NameS
-        mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
-        mangleName n = n
+          mangleName :: TH.Name -> TH.Name
+          mangleName n | n == ''()             = TH.Name (TH.OccName "Unit") TH.NameS
+          mangleName (TH.Name occ TH.NameG {}) = TH.Name occ TH.NameS
+          mangleName n = n
 
-    let (depfiles, csources, thdecs) = runQu decls
-    return $ unlines $
-        -- here we might have headers outside of our package,
-        -- but in our test setup that SHOULD cause an error, as we use bundled stdlib,
-        -- And we will cause those on CI, which runs tests on different systems
-        [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
-        [ "-- " ++ l | src <- csources, l <- lines src ] ++
-        [ show $ TH.ppr d | d <- unqualNames thdecs ]
+      let (depfiles, csources, thdecs) = runQu decls
+      pure $ unlines $
+          -- here we might have headers outside of our package,
+          -- but in our test setup that SHOULD cause an error, as we use bundled stdlib,
+          -- And we will cause those on CI, which runs tests on different systems
+          [ "-- addDependentFile " ++ convertWindows (makeRelative packageRoot fp) | fp <- depfiles ] ++
+          [ "-- " ++ l | src <- csources, l <- lines src ] ++
+          [ show $ TH.ppr d | d <- unqualNames thdecs ]
+    pure logs
 
 convertWindows :: FilePath -> FilePath
 convertWindows = map f where

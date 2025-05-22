@@ -56,16 +56,24 @@ parseTracerConf = TracerConf <$> parseVerbosity
 
 parseVerbosity :: Parser Verbosity
 parseVerbosity =
-  countToVerbosity . length <$> many (flag' () $
-          mconcat [ short 'v'
-                  , long "verbose"
-                  , help "Verbose output (-v for verbose, -vv for debug)"
-                  ])
+  nToVerbosity <$>
+    (option auto $
+      mconcat [ short 'v'
+              , long "verbosity"
+              , metavar "INT"
+              , value 1
+              , help "Specify verbosity (0: error, 1: warning, 2: info, 3: debug);"
+              , showDefault
+              ])
 
-  where countToVerbosity x = case x `compare` 1 of
-          LT -> Verbosity Warning
-          EQ -> Verbosity Info
-          GT -> Verbosity Debug
+  where
+    nToVerbosity :: Int -> Verbosity
+    nToVerbosity = Verbosity . \case
+      n | n <= 0 -> Error
+      1          -> Warning
+      2          -> Info
+      -- n | n >= 3 -- (But exhaustive checker complains).
+      _nGe3      -> Debug
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [

@@ -60,7 +60,7 @@ import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Pipeline qualified as Pipeline
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Trace qualified as Trace
-import HsBindgen.Util.Tracer hiding (withTracerFile, withTracerStdOut)
+import HsBindgen.Util.Tracer hiding (withTracerFile)
 
 #ifdef MIN_VERSION_th_compat
 import Language.Haskell.TH.Syntax.Compat qualified as THSyntax

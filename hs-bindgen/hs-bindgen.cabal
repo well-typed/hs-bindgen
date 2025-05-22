@@ -280,6 +280,7 @@ test-suite test-internal
       -- Internal
       Test.HsBindgen.C.Parser
       Test.HsBindgen.Clang.Args
+      Test.HsBindgen.Util.Tracer
       Test.Internal.Misc
       Test.Internal.Rust
       Test.Internal.TastyGolden
