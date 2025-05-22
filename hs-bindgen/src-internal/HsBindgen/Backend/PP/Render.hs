@@ -76,7 +76,7 @@ instance Pretty HsModule where
 -------------------------------------------------------------------------------}
 
 instance Pretty GhcPragma where
-  pretty ghcPragma = hsep ["{-#", string ghcPragma, "#-}"]
+  pretty (GhcPragma ghcPragma) = hsep ["{-#", string ghcPragma, "#-}"]
 
 {-------------------------------------------------------------------------------
   Import pretty-printing

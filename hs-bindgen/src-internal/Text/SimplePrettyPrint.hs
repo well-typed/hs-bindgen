@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 -- | Simple pretty-printing library
 --
 -- This library wraps the @pretty@ library.  Instead of using 'PP.Doc' directly,
@@ -21,6 +22,10 @@ module Text.SimplePrettyPrint where
 import Data.List qualified as List
 import Data.String (IsString(fromString))
 import Text.PrettyPrint.HughesPJ qualified as PP
+
+#if MIN_VERSION_base(4,19,0)
+import GHC.TypeError (Unsatisfiable, ErrorMessage (..))
+#endif
 
 {-------------------------------------------------------------------------------
   Context
@@ -109,6 +114,10 @@ class Pretty a where
   prettyPrec _prec = pretty
 
   {-# MINIMAL pretty | prettyPrec #-}
+
+#if MIN_VERSION_base(4,19,0)
+instance Unsatisfiable (Text "Don't pretty Strings, use fromString") => Pretty [a]
+#endif
 
 -- | Render a 'Pretty' value
 renderPretty :: Pretty a => Context -> a -> String
