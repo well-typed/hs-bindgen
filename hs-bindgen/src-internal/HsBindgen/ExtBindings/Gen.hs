@@ -15,6 +15,7 @@ import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Imports
+import HsBindgen.Language.Hs
 
 {-------------------------------------------------------------------------------
   API

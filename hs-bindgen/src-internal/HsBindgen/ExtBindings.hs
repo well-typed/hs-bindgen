@@ -1,9 +1,6 @@
 module HsBindgen.ExtBindings (
     -- * Types
-    HsModuleName(..)
-  , HsIdentifier(..)
-  , HsTypeClass(..)
-  , ExtIdentifier(..)
+    ExtIdentifier(..)
   , UnresolvedExtBindings(..)
   , ExtBindings(..)
     -- ** Exceptions
@@ -52,7 +49,6 @@ import Data.Typeable
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
 import Data.Yaml.Pretty qualified as Yaml.Pretty
-import Text.Read (readMaybe)
 
 import Clang.Args
 import Clang.CNameSpelling
@@ -60,6 +56,7 @@ import Clang.Paths
 import HsBindgen.Clang.Args (ExtraClangArgsLog)
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Language.Hs
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Tracer (TraceWithCallStack)
@@ -67,65 +64,6 @@ import HsBindgen.Util.Tracer (TraceWithCallStack)
 {-------------------------------------------------------------------------------
   Types
 -------------------------------------------------------------------------------}
-
--- | Haskell module name
---
--- Example: @HsBindgen.Runtime.LibC@
-newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
-  deriving stock (Generic)
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
--- | Haskell identifier
---
--- Example: @CTm@
---
--- This type is different from 'HsBindgen.Hs.AST.HsName' in that it does not
--- include a 'HsBindgen.Hs.AST.Namespace'.
-newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
-  deriving stock (Generic)
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
--- | Haskell type class
-data HsTypeClass =
-    -- Haskell98 derivable classes
-    -- <https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/deriving.html>
-    Eq
-  | Ord
-  | Enum
-  | Ix
-  | Bounded
-  | Read
-  | Show
-
-    -- Classes we can only derive through newtype deriving
-  | Bits
-  | FiniteBits
-  | Floating
-  | Fractional
-  | Integral
-  | Num
-  | Real
-  | RealFloat
-  | RealFrac
-
-    -- Classes we can only generate when all components have instances
-  | StaticSize
-  | ReadRaw
-  | WriteRaw
-  | Storable
-  deriving stock (Eq, Generic, Ord, Read, Show)
-
-instance Aeson.FromJSON HsTypeClass where
-  parseJSON = Aeson.withText "HsTypeClass" $ \t ->
-    let s = Text.unpack t
-    in  case readMaybe s of
-          Just htc -> return htc
-          Nothing  -> Aeson.parseFail $ "unknown type class: " ++ s
-
-instance Aeson.ToJSON HsTypeClass where
-  toJSON = Aeson.String . Text.pack . show
 
 -- | External identifier
 data ExtIdentifier = ExtIdentifier {

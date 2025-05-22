@@ -140,6 +140,7 @@ library internal
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.Language.Hs
       HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans
