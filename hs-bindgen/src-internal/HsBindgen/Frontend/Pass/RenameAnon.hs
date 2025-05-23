@@ -1,0 +1,143 @@
+module HsBindgen.Frontend.Pass.RenameAnon (
+    module HsBindgen.Frontend.Pass.RenameAnon.IsPass
+  , renameAnon
+  ) where
+
+import Control.Monad.Reader
+
+import HsBindgen.Errors
+import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.Graph.DefUse (DefUseGraph(..))
+import HsBindgen.Frontend.Graph.DefUse qualified as DefUseGraph
+import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
+import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.HandleMacros
+import HsBindgen.Frontend.Pass.Parse
+import HsBindgen.Frontend.Pass.RenameAnon.IsPass
+import HsBindgen.Frontend.Pass.RenameAnon.ProduceCName
+import HsBindgen.Imports
+
+{-------------------------------------------------------------------------------
+  Top-level
+-------------------------------------------------------------------------------}
+
+-- | Rename anonymous declarations
+--
+-- Precondition: input must be ordered so that def sites come before use sites.
+-- This is required so that we can drop typedefs around anonymous declarations.
+renameAnon :: TranslationUnit HandleMacros -> TranslationUnit RenameAnon
+renameAnon TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+    reassemble $ mapMaybe (renameDef du) unitDecls
+  where
+    du :: DefUseGraph
+    du = DefUseGraph.fromUseDef unitAnn
+
+    reassemble :: [Decl RenameAnon] -> TranslationUnit RenameAnon
+    reassemble decls' = TranslationUnit{
+          unitDecls = decls'
+        , unitIncludeGraph
+        , unitAnn
+        }
+
+{-------------------------------------------------------------------------------
+  Def sites: declarations
+-------------------------------------------------------------------------------}
+
+renameDef :: DefUseGraph -> Decl HandleMacros -> Maybe (Decl RenameAnon)
+renameDef du decl = do
+    guard $ not (squash decl)
+    mkDecl <$>
+      case declId of
+        DeclNamed (NamedId _namespace n) -> Just $ CName n
+        DeclAnon anonId -> nameForAnon <$> DefUseGraph.findUseOfAnon du anonId
+  where
+    Decl{declInfo = DeclInfo{declId, declLoc}, declKind, declAnn} = decl
+
+    mkDecl :: CName -> Decl RenameAnon
+    mkDecl newId = Decl{
+          declInfo = DeclInfo{
+              declId = newId
+            , declLoc
+            }
+        , declKind = renameUses du declKind
+        , declAnn
+        }
+
+-- | Should we squash this declaration?
+squash :: forall p. Id p ~ DeclId => Decl p -> Bool
+squash Decl{declInfo = DeclInfo{declId}, declKind} =
+    case declKind of
+      DeclTypedef typedef -> aroundAnon (typedefType typedef)
+      _otherwise          -> False
+  where
+    aroundAnon :: Type p -> Bool
+    aroundAnon (TypePrim   _)    = False
+    aroundAnon (TypeStruct uid)  = anonOrSameName uid
+    aroundAnon (TypeTypedef _ _) = False
+    aroundAnon (TypePointer _)   = False
+
+    anonOrSameName :: DeclId -> Bool
+    anonOrSameName (DeclNamed (NamedId _namespace name)) =
+        case declId of
+          DeclNamed (NamedId _namespace name') -> name == name'
+          DeclAnon _ -> panicPure "unexpected anonymous typedef"
+    anonOrSameName (DeclAnon  _) =
+        True
+
+{-------------------------------------------------------------------------------
+  Use sites
+-------------------------------------------------------------------------------}
+
+class RenameUseSites a where
+  renameUses :: DefUseGraph -> a HandleMacros -> a RenameAnon
+
+instance RenameUseSites DeclKind where
+  renameUses du = \case
+      DeclStruct fields    -> DeclStruct (map (renameUses du) fields)
+      DeclStructOpaque     -> DeclStructOpaque
+      DeclTypedef typedef  -> DeclTypedef (renameUses du typedef)
+      DeclMacro   unparsed -> DeclMacro unparsed
+
+instance RenameUseSites Field where
+  renameUses du field = Field{
+        fieldName
+      , fieldType = renameUses du fieldType
+      , fieldOffset
+      , fieldAnn
+      }
+    where
+      Field{
+          fieldName
+        , fieldType
+        , fieldOffset
+        , fieldAnn
+        } = field
+
+instance RenameUseSites Typedef where
+  renameUses du Typedef{typedefType, typedefAnn} = Typedef{
+        typedefType = renameUses du typedefType
+      , typedefAnn
+      }
+
+instance RenameUseSites Type where
+  renameUses du = \case
+      TypePrim    prim      -> TypePrim prim
+      TypeStruct  uid       -> TypeStruct (renameUse du uid)
+      TypeTypedef uid NoAnn -> TypeTypedef (renameUse du uid) (squashed du uid)
+      TypePointer ty        -> TypePointer (renameUses du ty)
+
+-- | Rename specific use site
+--
+-- NOTE: there /must/ be at least one use site, because we are renaming one!
+renameUse :: DefUseGraph -> DeclId -> CName
+renameUse _  (DeclNamed (NamedId _namespace name)) = CName name
+renameUse du (DeclAnon aid) =
+    case DefUseGraph.findUseOfAnon du aid of
+      Just useOfAnon -> nameForAnon useOfAnon
+      Nothing        -> panicPure "impossible"
+
+squashed :: DefUseGraph -> DeclId -> SquashedTypedef
+squashed (DefUseGraph ud) uid =
+    case UseDef.lookup uid ud of
+      Just decl | squash decl -> SquashedTypedef
+      _otherwise              -> KeptTypedef
