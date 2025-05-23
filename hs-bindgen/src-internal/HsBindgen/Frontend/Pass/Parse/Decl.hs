@@ -12,6 +12,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.C.Predicate (Predicate (SelectFromMainFile), match)
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.AST.Deps
@@ -28,21 +29,29 @@ import HsBindgen.Imports
 -------------------------------------------------------------------------------}
 
 foldDecl :: HasCallStack => Fold M [Decl Parse]
-foldDecl curr = do
-    loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
-
-    if nullSourcePath (singleLocPath loc) then
-      -- Skip clang built-ins
-      -- TODO: Generalize this to selection predicate
-      return $ Continue Nothing
-    else
-      dispatchWithArg curr $ \case
-        CXCursor_InclusionDirective -> inclusionDirective
-        CXCursor_MacroDefinition    -> macroDefinition
-        CXCursor_StructDecl         -> structDecl
-        CXCursor_TypedefDecl        -> typedefDecl
-        CXCursor_MacroExpansion     -> macroExpansion
-        kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
+foldDecl cursor = do
+    mloc <- HighLevel.clang_getCursorLocation cursor
+    let sloc = multiLocExpansion mloc
+        sourcePath = singleLocPath sloc
+    if nullSourcePath sourcePath then do
+      name <- clang_getCursorSpelling cursor
+      recordTraceWithCallStack callStack (SkippedBuiltIn name)
+      pure $ Continue Nothing
+    else do
+      let includePath = SourcePath "./hs-bindgen/examples/selection.h"
+      isMatch <- match includePath cursor sloc SelectFromMainFile
+      case isMatch of
+        Left reason -> do
+          name <- clang_getCursorSpelling cursor
+          recordTraceWithCallStack callStack $ SkippedPredicate name mloc reason
+          pure (Continue Nothing)
+        Right _  -> dispatchWithArg cursor $ \case
+          CXCursor_InclusionDirective -> inclusionDirective
+          CXCursor_MacroDefinition    -> macroDefinition
+          CXCursor_StructDecl         -> structDecl
+          CXCursor_TypedefDecl        -> typedefDecl
+          CXCursor_MacroExpansion     -> macroExpansion
+          kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -185,5 +194,3 @@ macroExpansion curr = do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
     return $ Continue Nothing
-
-

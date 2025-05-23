@@ -21,13 +21,14 @@ import GHC.Stack (CallStack)
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths (SourcePath)
 import HsBindgen.Eff
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              HasSource (getSource), Level (Error),
+                              HasSource (getSource), Level (Debug, Error, Info),
                               PrettyTrace (prettyTrace), Source (HsBindgen),
                               TraceWithCallStack, traceWithCallStack)
 
@@ -52,17 +53,35 @@ data ParseSupport = ParseSupport {
     }
 
 data ParseLog =
-    -- | Struct with implicit fields
-    --
-    -- We record the name of the struct that has the implicit fields.
-    UnsupportedImplicitFields DeclId
+      SkippedBuiltIn Text
+    | SkippedPredicate {
+          skippedName   :: Text
+        , skippedLoc    :: MultiLoc
+        , skippedReason :: String
+        }
+      -- | Struct with implicit fields
+      --
+      -- We record the name of the struct that has the implicit fields.
+    | UnsupportedImplicitFields DeclId
   deriving stock (Show)
 
 instance PrettyTrace ParseLog where
-  prettyTrace = show
+  prettyTrace = \case
+    SkippedBuiltIn x            -> "Skipped built-in: " <> show x
+    SkippedPredicate {..}       -> concat [ "Skipped "
+                                          , show skippedName
+                                          , " at "
+                                          , show skippedLoc
+                                          , ": "
+                                          , skippedReason
+                                          ]
+    UnsupportedImplicitFields x -> "Unsupported implicit field with ID " <> show x
 
 instance HasDefaultLogLevel ParseLog where
-  getDefaultLogLevel = const Error
+  getDefaultLogLevel = \case
+    SkippedBuiltIn _            -> Debug
+    SkippedPredicate {}         -> Info
+    UnsupportedImplicitFields _ -> Error
 
 instance HasSource ParseLog where
   getSource = const HsBindgen

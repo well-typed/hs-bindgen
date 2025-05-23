@@ -13,7 +13,7 @@ module HsBindgen.C.Predicate (
 
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
 import Text.Regex.PCRE qualified as PCRE
-import Text.Regex.PCRE.Text () -- instances only
+import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -79,7 +79,7 @@ match mainSourcePath current sloc = runExceptT . go
 
     go SelectFromMainFile =
         unless (singleLocPath sloc == mainSourcePath) $
-          throwError $ "Not from the main file"
+          throwError $ "Not from the main file: " <> show sloc <> show mainSourcePath <> show (singleLocPath sloc)
 
     go (SelectByFileName re) = do
         let filename = case singleLocPath sloc of
