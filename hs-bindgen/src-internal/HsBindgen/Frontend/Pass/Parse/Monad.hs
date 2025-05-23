@@ -7,8 +7,10 @@ module HsBindgen.Frontend.Pass.Parse.Monad (
     -- * Functionaltiy
   , liftIO
   , modifyIncludeGraph
-  , recordTraceWithCallStack
   , getTranslationUnit
+  , getPredicate
+  , getMainSourcePaths
+  , recordTraceWithCallStack
   , recordMacroExpansionAt
   , checkHasMacroExpansion
   ) where
@@ -21,13 +23,16 @@ import GHC.Stack (CallStack)
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths (SourcePath)
+import Data.Text qualified as Text
+import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.Eff
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
-                              HasSource (getSource), Level (Error),
+                              HasSource (getSource), Level (Debug, Error, Info),
                               PrettyTrace (prettyTrace), Source (HsBindgen),
                               TraceWithCallStack, traceWithCallStack)
 
@@ -52,24 +57,44 @@ data ParseSupport = ParseSupport {
     }
 
 data ParseLog =
-    -- | Struct with implicit fields
-    --
-    -- We record the name of the struct that has the implicit fields.
-    UnsupportedImplicitFields DeclId
+      SkippedBuiltIn Text
+    | SkippedPredicate {
+          skippedName   :: Text
+        , skippedLoc    :: MultiLoc
+        , skippedReason :: Text
+        }
+      -- | Struct with implicit fields
+      --
+      -- We record the name of the struct that has the implicit fields.
+    | UnsupportedImplicitFields DeclId
   deriving stock (Show)
 
 instance PrettyTrace ParseLog where
-  prettyTrace = show
+  prettyTrace = \case
+    SkippedBuiltIn x            -> "Skipped built-in: " <> show x
+    SkippedPredicate {..}       -> Text.unpack $ Text.concat [ "Skipped "
+                                          , skippedName
+                                          , " at "
+                                          , Text.pack (show skippedLoc)
+                                          , ": "
+                                          , skippedReason
+                                          ]
+    UnsupportedImplicitFields x -> "Unsupported implicit field with ID " <> show x
 
 instance HasDefaultLogLevel ParseLog where
-  getDefaultLogLevel = const Error
+  getDefaultLogLevel = \case
+    SkippedBuiltIn _            -> Debug
+    SkippedPredicate {}         -> Info
+    UnsupportedImplicitFields _ -> Error
 
 instance HasSource ParseLog where
   getSource = const HsBindgen
 
 data ParseEnv = ParseEnv {
-    envUnit   :: CXTranslationUnit
-  , envTracer :: Tracer IO (TraceWithCallStack ParseLog)
+    envUnit            :: CXTranslationUnit
+  , envPredicate       :: Predicate
+  , envMainSourcePaths :: Set SourcePath
+  , envTracer          :: Tracer IO (TraceWithCallStack ParseLog)
   }
 
 type instance Support ParseMonad = ParseSupport
@@ -86,13 +111,19 @@ modifyIncludeGraph :: (IncludeGraph -> IncludeGraph) -> M ()
 modifyIncludeGraph f = wrapEff $ \ParseSupport{parseExtraOutput} ->
     modifyIORef parseExtraOutput f
 
-recordTraceWithCallStack :: CallStack -> ParseLog -> M ()
-recordTraceWithCallStack stack trace = wrapEff $ \ParseSupport{parseEnv} ->
-  traceWithCallStack (envTracer parseEnv) stack trace
-
 getTranslationUnit :: M CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
     pure $ envUnit parseEnv
+
+getPredicate :: M Predicate
+getPredicate = wrapEff $ pure . envPredicate . parseEnv
+
+getMainSourcePaths :: M (Set SourcePath)
+getMainSourcePaths = wrapEff $ pure . envMainSourcePaths . parseEnv
+
+recordTraceWithCallStack :: CallStack -> ParseLog -> M ()
+recordTraceWithCallStack stack trace = wrapEff $ \ParseSupport{parseEnv} ->
+  traceWithCallStack (envTracer parseEnv) stack trace
 
 recordMacroExpansionAt :: SingleLoc -> M ()
 recordMacroExpansionAt loc = do

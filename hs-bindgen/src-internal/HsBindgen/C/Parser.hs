@@ -18,6 +18,7 @@ import Data.List.Compat ((!?))
 import Data.Map.Strict qualified as Map
 import Data.Maybe qualified as Maybe
 import Data.Ord (comparing)
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Tree (Tree)
 import Data.Tree qualified as Tree
@@ -36,9 +37,11 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.C.Predicate (Predicate)
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Clang.Args (ExtraClangArgsLog, withExtraClangArgs)
-import HsBindgen.Errors
+import HsBindgen.Errors (hsBindgenExceptionFromException,
+                         hsBindgenExceptionToException, panicPure)
 import HsBindgen.ExtBindings
 import HsBindgen.Frontend (processTranslationUnit)
+import HsBindgen.Frontend.Pass.Parse.Monad (ParseEnv (ParseEnv))
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Trace (Trace (TraceDiagnostic, TraceExtraClangArgs, TraceParse))
@@ -84,7 +87,7 @@ parseCHeaders ::
   -> ExtBindings
   -> [CHeaderIncludePath]
   -> IO ([SourcePath], C.Header) -- ^ List of included headers and parsed header
-parseCHeaders tracer args p extBindings headerIncludePaths =
+parseCHeaders tracer args predicate extBindings headerIncludePaths =
   withExtraClangArgs (useTrace TraceExtraClangArgs tracer) args $ \args' ->
     HighLevel.withIndex DontDisplayDiagnostics $ \index ->
       HighLevel.withUnsavedFile hFilePath hContent $ \file ->
@@ -99,7 +102,13 @@ parseCHeaders tracer args p extBindings headerIncludePaths =
                                  (useTrace TraceDiagnostic tracer)
                                  callStack
 
-              unit' <- processTranslationUnit unit (useTrace TraceParse tracer)
+              let mainSourcePaths = Set.fromList $
+                    map (SourcePath . Text.pack . getCHeaderIncludePath)
+                      headerIncludePaths
+                  parseTracer = useTrace TraceParse tracer
+                  parseEnvironment :: ParseEnv
+                  parseEnvironment = ParseEnv unit predicate mainSourcePaths parseTracer
+              unit' <- processTranslationUnit parseEnvironment
               print unit'
 
               error "UHOH"

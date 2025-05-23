@@ -12,6 +12,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.C.Predicate (SkipReason (..), match)
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.AST.Deps
@@ -27,16 +28,22 @@ import HsBindgen.Imports
   Top-level
 -------------------------------------------------------------------------------}
 
+
 foldDecl :: HasCallStack => Fold M [Decl Parse]
 foldDecl curr = do
-    loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
-
-    if nullSourcePath (singleLocPath loc) then
-      -- Skip clang built-ins
-      -- TODO: Generalize this to selection predicate
-      return $ Continue Nothing
-    else
-      dispatchWithArg curr $ \case
+    mloc <- HighLevel.clang_getCursorLocation curr
+    let sloc = multiLocExpansion mloc
+    predicate <- getPredicate
+    mainSourcePaths <- getMainSourcePaths
+    matchResult <- match mainSourcePaths curr sloc predicate
+    case matchResult of
+      Left skipReason -> do
+        name <- clang_getCursorSpelling curr
+        case skipReason of
+          SkipBuiltIn -> recordTraceWithCallStack callStack (SkippedBuiltIn name)
+          SkipPredicate {..} -> recordTraceWithCallStack callStack $ SkippedPredicate name mloc reason
+        pure $ Continue Nothing
+      Right _  -> dispatchWithArg curr $ \case
         CXCursor_InclusionDirective -> inclusionDirective
         CXCursor_MacroDefinition    -> macroDefinition
         CXCursor_StructDecl         -> structDecl
@@ -189,5 +196,3 @@ macroExpansion curr = do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
     return $ Continue Nothing
-
-

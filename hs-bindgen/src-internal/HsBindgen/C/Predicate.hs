@@ -8,12 +8,14 @@ module HsBindgen.C.Predicate (
     Predicate(..)
   , Regex -- opaque
     -- * Execution (this is internal API)
+  , SkipReason (..)
   , match
   ) where
 
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
+import Data.Text qualified as Text
 import Text.Regex.PCRE qualified as PCRE
-import Text.Regex.PCRE.Text () -- instances only
+import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -36,11 +38,8 @@ data Predicate =
     -- Used to define the 'Semigroup' instance.
   | SelectIfBoth Predicate Predicate
 
-    -- | Check if the definition is from the \"main\" file
-    --
-    -- Corresponds directly to @clang_Location_isFromMainFile@ in @libclang@;
-    -- <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#gacb4ca7b858d66f0205797ae84cc4e8f2>.
-  | SelectFromMainFile
+    -- | Include definitions in main files (and not in included files)
+  | SelectFromMainFiles
 
     -- | Match filename against regex
   | SelectByFileName Regex
@@ -61,45 +60,47 @@ instance Monoid Predicate where
   NOTE: This is internal API (users construct filters, but don't use them).
 -------------------------------------------------------------------------------}
 
+data SkipReason = SkipBuiltIn | SkipPredicate { reason :: Text }
+
 -- | Match filter
 --
 -- If the filter does not match, we report the reason why.
 match :: forall m.
      MonadIO m
-  => SourcePath -- ^ Path of current main header file
+  => Set SourcePath -- ^ Paths of main files
   -> CXCursor
   -> SingleLoc
   -> Predicate
-  -> m (Either String ())
-match mainSourcePath current sloc = runExceptT . go
+  -> m (Either SkipReason ())
+match mainFilePaths current sloc predicate = runExceptT (go predicate <* skipBuiltIn)
   where
-    go :: Predicate -> ExceptT String m ()
-    go SelectAll      = return ()
+    skipBuiltIn :: ExceptT SkipReason m ()
+    skipBuiltIn = let sourcePath = singleLocPath sloc in
+      when (nullSourcePath sourcePath) $ throwError $ SkipBuiltIn
+    go :: Predicate -> ExceptT SkipReason m ()
+    go SelectAll      = pure ()
     go (SelectIfBoth p q) = go p >> go q
-
-    go SelectFromMainFile =
-        unless (singleLocPath sloc == mainSourcePath) $
-          throwError $ "Not from the main file"
-
+    go SelectFromMainFiles = do
+        unless (any (equalSourcePath (singleLocPath sloc)) mainFilePaths) $
+          throwError $ SkipPredicate "Not from main files"
     go (SelectByFileName re) = do
         let filename = case singleLocPath sloc of
               SourcePath t -> t
         unless (matchTest re filename) $
-          throwError $ mconcat [
-              "File name "
-            , show filename
-            , " does not match "
-            , show re
+          throwError $ SkipPredicate $ mconcat [
+              "File name '"
+            , filename
+            , "' does not match "
+            , Text.pack $ show re
             ]
-
     go (SelectByElementName re) = do
         elementName <- clang_getCursorSpelling current
         unless (matchTest re elementName) $ do
-          throwError $ mconcat [
-              "Element name "
-            , show elementName
-            , " does not match "
-            , show re
+          throwError $ SkipPredicate $ mconcat [
+              "Element name '"
+            , elementName
+            , "' does not match "
+            , Text.pack $ show re
             ]
 
 {-------------------------------------------------------------------------------
