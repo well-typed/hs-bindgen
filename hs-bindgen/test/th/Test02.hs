@@ -8,6 +8,8 @@ module Test02 where
 
 import HsBindgen.TH
 
+import Test.Internal.Trace (degradeKnownTraces)
+
 -- Used by generated code
 import Data.Word qualified
 import HsBindgen.Runtime.LibC qualified
@@ -17,7 +19,7 @@ $(do
     let args = defaultClangArgs {
             clangQuoteIncludePathDirs = [CIncludePathDir (dir </> "examples")]
           }
-    extBindings <- snd <$> (withTracerQ defaultTracerConf $
+    extBindings <- snd . fst <$> (withTracerStdOut defaultTracerConf degradeKnownTraces $
       \tracer -> loadExtBindings tracer args [
         joinPath [dir, "bindings", "base.yaml"]
       , joinPath [dir, "bindings", "hs-bindgen-runtime.yaml"]

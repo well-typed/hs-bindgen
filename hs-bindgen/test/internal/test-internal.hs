@@ -21,9 +21,11 @@ import HsBindgen.Pipeline qualified as Pipeline
 
 import Test.HsBindgen.C.Parser qualified
 import Test.HsBindgen.Clang.Args qualified
+import Test.HsBindgen.Util.Tracer qualified
 import Test.Internal.Misc
 import Test.Internal.Rust
 import Test.Internal.TastyGolden (goldenTestSteps)
+import Test.Internal.Trace (degradeKnownTraces)
 import Test.Internal.TreeDiff.Orphans ()
 
 #if __GLASGOW_HASKELL__ >=904
@@ -37,8 +39,9 @@ import Test.Internal.TH
 main :: IO ()
 main = do
     packageRoot <- findPackageDirectory "hs-bindgen"
-    withTracerStdOut defaultTracerConf $ \tracer ->
+    _ <- withTracerStdOut defaultTracerConf degradeKnownTraces $ \tracer ->
       defaultMain . withRustBindgen $ tests tracer packageRoot
+    pure ()
 
 {-------------------------------------------------------------------------------
   Tests
@@ -48,6 +51,7 @@ tests :: Tracer IO (TraceWithCallStack Trace) -> FilePath -> IO FilePath -> Test
 tests tracer packageRoot rustBindgen = testGroup "test-internal" [
       Test.HsBindgen.C.Parser.tests tracer args
     , Test.HsBindgen.Clang.Args.tests tracer
+    , Test.HsBindgen.Util.Tracer.tests
     , testGroup "examples" [
           golden "simple_structs"
         , golden "recursive_struct"
@@ -120,64 +124,65 @@ tests tracer packageRoot rustBindgen = testGroup "test-internal" [
       let target = "fixtures" </> (name ++ ".tree-diff.txt")
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "treediff" target $ \report ->
-        snd <$> Pipeline.parseCHeader (mkOpts report) headerIncludePath
+        withOpts report $ \opts ->
+          snd <$> Pipeline.parseCHeader opts headerIncludePath
 
     goldenHs :: TestName -> TestTree
     goldenHs name = do
       let target = "fixtures" </> (name ++ ".hs")
           headerIncludePath = mkHeaderIncludePath name
       ediffGolden1 goldenTestSteps "hs" target $ \report ->
-        Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
+        withOpts report $ \opts ->
+          Pipeline.translateCHeader "testmodule" opts headerIncludePath
 
     goldenExtensions :: TestName -> TestTree
     goldenExtensions name = do
       let target = "fixtures" </> (name ++ ".exts.txt")
           headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ "exts" target $ \report -> do
-        decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
-        return $ unlines $ map show $ List.sort $ toList $
-              Pipeline.genExtensions
-            $ Pipeline.genSHsDecls decls
+      goldenVsStringDiff_ "exts" target $ \report ->
+        withOpts report $ \opts -> do
+          decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
+          return $ unlines $ map show $ List.sort $ toList $
+                Pipeline.genExtensions
+              $ Pipeline.genSHsDecls decls
 
     goldenPP :: TestName -> TestTree
     goldenPP name = do
       let target = "fixtures" </> (name ++ ".pp.hs")
           headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ "pp" target $ \report -> do
-        decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
+      goldenVsStringDiff_ "pp" target $ \report ->
+        withOpts report $ \opts -> do
+          decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
 
-        -- TODO: PP.render should add trailing '\n' itself.
-        return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
+          -- TODO: PP.render should add trailing '\n' itself.
+          return $ Pipeline.preprocessPure ppOpts decls ++ "\n"
 
     goldenExtBindings :: TestName -> TestTree
     goldenExtBindings name = do
       let target = "fixtures" </> (name ++ ".extbindings.yaml")
           headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ "extbindings" target $ \report -> do
-        decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
-        return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
-          ExtBindings.genExtBindings
-            headerIncludePath
-            (ExtBindings.HsModuleName "Example")
-            decls
+      goldenVsStringDiff_ "extbindings" target $ \report ->
+        withOpts report $ \opts -> do
+          decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
+          return . UTF8.toString . ExtBindings.encodeUnresolvedExtBindingsYaml $
+            ExtBindings.genExtBindings
+              headerIncludePath
+              (ExtBindings.HsModuleName "Example")
+              decls
 
     -- -<.> does weird stuff for filenames with multiple dots;
     -- I usually simply avoid using it.
     mkHeaderIncludePath :: String -> CHeaderIncludePath
     mkHeaderIncludePath = CHeaderQuoteIncludePath . (++ ".h")
 
-    opts :: Pipeline.Opts
-    opts = Pipeline.defaultOpts {
-        Pipeline.optsClangArgs  = clangArgs packageRoot
-      }
-
-    mkOpts :: (String -> IO ()) -> Pipeline.Opts
-    mkOpts report =
-      let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
-          tracerGolden     = mkTracer EnableAnsiColor tracerConf report
-      in  opts {
-              Pipeline.optsTracer = tracerGolden
-            }
+    withOpts :: (String -> IO ()) -> (Pipeline.Opts -> IO a) -> IO a
+    withOpts report action = fst <$>
+      let tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning } in
+      withTracerCustom EnableAnsiColor tracerConf degradeKnownTraces report $
+        \tracer' -> action $ Pipeline.defaultOpts {
+            Pipeline.optsClangArgs = clangArgs packageRoot
+          , Pipeline.optsTracer = tracer'
+          }
 
     ppOpts :: Pipeline.PPOpts
     ppOpts = Pipeline.defaultPPOpts {
@@ -188,18 +193,19 @@ tests tracer packageRoot rustBindgen = testGroup "test-internal" [
     failing name = do
       let target = "fixtures" </> (name ++ ".failure.txt")
           headerIncludePath = mkHeaderIncludePath name
-      goldenVsStringDiff_ name target $ \report -> do
-        result <- try $ do
-          decls <- Pipeline.translateCHeader "testmodule" (mkOpts report) headerIncludePath
+      goldenVsStringDiff_ name target $ \report ->
+        withOpts report $ \opts -> do
+          result <- try $ do
+            decls <- Pipeline.translateCHeader "testmodule" opts headerIncludePath
 
-          -- TODO: PP.render should add trailing '\n' itself.
-          evaluate $ force $ Pipeline.preprocessPure ppOpts decls ++ "\n"
+            -- TODO: PP.render should add trailing '\n' itself.
+            evaluate $ force $ Pipeline.preprocessPure ppOpts decls ++ "\n"
 
-        case result of
-          Right result' -> fail $
-            "Expected failure; unexpected success\n" ++ result'
-          Left exc -> return $ normalise $
-            displayException (exc :: HsBindgenException)
+          case result of
+            Right result' -> fail $
+              "Expected failure; unexpected success\n" ++ result'
+            Left exc -> return $ normalise $
+              displayException (exc :: HsBindgenException)
 
 -- | Normalise the test fixture output so it doesn't change that often, nor across various systems.
 normalise :: String -> String

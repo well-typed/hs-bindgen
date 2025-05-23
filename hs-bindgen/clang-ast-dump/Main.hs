@@ -23,9 +23,9 @@ import Clang.LowLevel.Doxygen
 import Clang.Paths
 import HsBindgen.Clang.Args (withExtraClangArgs)
 import HsBindgen.Resolve (resolveHeader)
-import HsBindgen.Util.Tracer (Level (Warning), TracerConf (tVerbosity),
-                              Verbosity (Verbosity), defaultTracerConf,
-                              withTracerStdOut)
+import HsBindgen.Util.Tracer (CustomLogLevel (DefaultLogLevel), Level (Warning),
+                              TracerConf (tVerbosity), Verbosity (Verbosity),
+                              defaultTracerConf, withTracerStdOut)
 
 {-------------------------------------------------------------------------------
   Options
@@ -52,7 +52,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ renderCHeaderIncludePath optFile ++ "`"
     putStrLn ""
 
-    withTracerStdOut tracerConf $ \tracer ->
+    _ <- withTracerStdOut tracerConf DefaultLogLevel $ \tracer ->
       withExtraClangArgs tracer cArgs $ \cArgs' -> do
         src <- resolveHeader tracer cArgs' optFile
         HighLevel.withIndex DontDisplayDiagnostics $ \index ->
@@ -65,9 +65,10 @@ clangAstDump opts@Options{..} = do
                   | optSameFile && SourcePath file /= src -> pure $ Continue Nothing
                   | not optBuiltin && isBuiltIn file      -> pure $ Continue Nothing
                   | otherwise                             -> foldDecls opts cursor
+    pure ()
   where
     tracerConf :: TracerConf
-    tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning}
+    tracerConf = defaultTracerConf { tVerbosity = Verbosity Warning }
 
     cArgs :: ClangArgs
     cArgs = defaultClangArgs {
