@@ -11,6 +11,7 @@ import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 -- #include "vector.h"
+-- struct <anon> *Vector_new_vector (double arg1, double arg2);
 
 data Vector = Vector
   { vector_x :: FC.CDouble
@@ -40,7 +41,5 @@ instance F.Storable Vector where
 deriving stock instance Show Vector
 
 deriving stock instance Eq Vector
-
--- struct <anon> *new_vector (double arg1, double arg2)
 
 foreign import capi safe "vector.h new_vector" new_vector :: FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)
