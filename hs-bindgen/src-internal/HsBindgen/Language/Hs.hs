@@ -1,7 +1,9 @@
 -- | General Haskell language types
 module HsBindgen.Language.Hs (
     -- * References
-    HsModuleName(..)
+    HsRef(..)
+  , ExtHsRef(..)
+  , HsModuleName(..)
   , HsIdentifier(..)
     -- * Instances
   , HsTypeClass(..)
@@ -17,6 +19,22 @@ import HsBindgen.Imports
 {-------------------------------------------------------------------------------
   References
 -------------------------------------------------------------------------------}
+
+-- | Haskell reference
+data HsRef =
+    -- | Reference to an identifier in the local scope
+    HsRefLocal HsIdentifier
+
+  | -- | Reference to an identifier in a different module
+    HsRefExt ExtHsRef
+  deriving stock (Eq, Show)
+
+-- | External Haskell reference
+data ExtHsRef = ExtHsRef {
+      extHsRefModule     :: HsModuleName
+    , extHsRefIdentifier :: HsIdentifier
+    }
+  deriving stock (Eq, Show)
 
 -- | Haskell module name
 --
