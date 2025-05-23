@@ -3,6 +3,7 @@ module Main (main) where
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
 import Control.Tracer (Tracer)
+import Data.Char (isLetter)
 import GHC.Stack (HasCallStack)
 import System.Exit (ExitCode, exitFailure)
 import Text.Read (readMaybe)
@@ -47,7 +48,7 @@ execMode Cli{..} tracer = \case
       -- but AFAIK there is no way to get one for preprocessor
       -- https://github.com/well-typed/hs-bindgen/issues/502
       let mu :: ModuleUnique
-          mu = ModuleUnique $ hsModuleOptsName $ preprocessModuleOpts
+          mu = ModuleUnique $ filter isLetter $ hsModuleOptsName $ preprocessModuleOpts
       decls <- translateCHeader mu opts preprocessInput
       preprocessIO ppOpts preprocessOutput decls
       case preprocessGenExtBindings of
