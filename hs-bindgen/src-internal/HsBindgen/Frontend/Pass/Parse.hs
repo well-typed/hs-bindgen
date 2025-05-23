@@ -20,20 +20,16 @@ import HsBindgen.Frontend.Pass.Parse.Monad
 -------------------------------------------------------------------------------}
 
 parseTranslationUnit ::
-     CXTranslationUnit
-  -> IO (TranslationUnit Parse, [UnsupportedError])
-parseTranslationUnit unit = do
-    root <- clang_getTranslationUnitCursor unit
-    (decls, ExtraOutput{outputGraph, outputErrors}) <-
-      fmap (first concat) . runParseMonad unit $
+     ParseEnv
+  -> IO (TranslationUnit Parse)
+parseTranslationUnit env = do
+    root <- clang_getTranslationUnitCursor (envUnit env)
+    (decls, outputGraph) <-
+      fmap (first concat) . runParseMonad env $
         HighLevel.clang_visitChildren root foldDecl
     let useDefGraph = UseDefGraph.fromDecls outputGraph decls
-    return (
-        TranslationUnit{
+    pure $ TranslationUnit {
             unitDecls        = UseDefGraph.toDecls useDefGraph
           , unitIncludeGraph = outputGraph
           , unitAnn          = useDefGraph
           }
-      , outputErrors
-      )
-

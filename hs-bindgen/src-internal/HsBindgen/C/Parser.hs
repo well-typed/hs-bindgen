@@ -41,7 +41,7 @@ import HsBindgen.ExtBindings
 import HsBindgen.Frontend (processTranslationUnit)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
-import HsBindgen.Util.Trace (Trace (TraceDiagnostic, TraceExtraClangArgs, TraceSkipped))
+import HsBindgen.Util.Trace (Trace (TraceDiagnostic, TraceExtraClangArgs, TraceParse))
 import HsBindgen.Util.Tracer (TraceWithCallStack, traceWithCallStack, useTrace)
 
 {-------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ parseCHeaders tracer args p extBindings headerIncludePaths =
                                  (useTrace TraceDiagnostic tracer)
                                  callStack
 
-              unit' <- processTranslationUnit unit
+              unit' <- processTranslationUnit unit (useTrace TraceParse tracer)
               print unit'
 
               error "UHOH"

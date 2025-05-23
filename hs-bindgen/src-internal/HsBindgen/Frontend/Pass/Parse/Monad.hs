@@ -1,22 +1,23 @@
 module HsBindgen.Frontend.Pass.Parse.Monad (
     -- * Definition
     M
-  , ExtraOutput(..)
-  , UnsupportedError(..)
+  , ParseLog(..)
+  , ParseEnv (..)
   , runParseMonad
     -- * Functionaltiy
   , liftIO
   , modifyIncludeGraph
-  , recordError
+  , recordTraceWithCallStack
   , getTranslationUnit
   , recordMacroExpansionAt
   , checkHasMacroExpansion
   ) where
 
 import Control.Monad.IO.Class
+import Control.Tracer (Tracer)
 import Data.IORef
 import Data.Set qualified as Set
-import Optics
+import GHC.Stack (CallStack)
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -25,6 +26,10 @@ import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
+                              HasSource (getSource), Level (Error),
+                              PrettyTrace (prettyTrace), Source (HsBindgen),
+                              TraceWithCallStack, traceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -41,56 +46,53 @@ data ParseMonad a
 
 -- | Support for 'M' (internal type, not exported)
 data ParseSupport = ParseSupport {
-      parseEnv   :: CXTranslationUnit     -- ^ Reader
-    , parseLog   :: IORef ExtraOutput     -- ^ Writer (ish)
-    , parseState :: IORef (Set SingleLoc) -- ^ State
+      parseEnv         :: ParseEnv              -- ^ Reader
+    , parseExtraOutput :: IORef IncludeGraph    -- ^ Writer (ish)
+    , parseState       :: IORef (Set SingleLoc) -- ^ State
     }
 
-data ExtraOutput = ExtraOutput{
-      outputGraph  :: IncludeGraph
-    , outputErrors :: [UnsupportedError]
-    }
-
-emptyExtraOutput :: ExtraOutput
-emptyExtraOutput = ExtraOutput{
-      outputGraph  = IncludeGraph.empty
-    , outputErrors = []
-    }
-
-_outputGraph :: Lens' ExtraOutput IncludeGraph
-_outputGraph = lens outputGraph (\o x -> o{outputGraph = x})
-
-_outputErrors :: Lens' ExtraOutput [UnsupportedError]
-_outputErrors = lens outputErrors (\o x -> o{outputErrors = x})
-
-data UnsupportedError =
+data ParseLog =
     -- | Struct with implicit fields
     --
     -- We record the name of the struct that has the implicit fields.
     UnsupportedImplicitFields DeclId
   deriving stock (Show)
 
+instance PrettyTrace ParseLog where
+  prettyTrace = show
+
+instance HasDefaultLogLevel ParseLog where
+  getDefaultLogLevel = const Error
+
+instance HasSource ParseLog where
+  getSource = const HsBindgen
+
+data ParseEnv = ParseEnv {
+    envUnit   :: CXTranslationUnit
+  , envTracer :: Tracer IO (TraceWithCallStack ParseLog)
+  }
+
 type instance Support ParseMonad = ParseSupport
 
-runParseMonad :: CXTranslationUnit -> M a -> IO (a, ExtraOutput)
-runParseMonad unit f = do
-    support <- ParseSupport unit
-                 <$> newIORef emptyExtraOutput
+runParseMonad :: ParseEnv -> M a -> IO (a, IncludeGraph)
+runParseMonad env f = do
+    support <- ParseSupport env
+                 <$> newIORef IncludeGraph.empty
                  <*> newIORef Set.empty
     result  <- unwrapEff f support
-    (result,) <$> readIORef (parseLog support)
+    (result,) <$> readIORef (parseExtraOutput support)
 
 modifyIncludeGraph :: (IncludeGraph -> IncludeGraph) -> M ()
-modifyIncludeGraph f = wrapEff $ \ParseSupport{parseLog} ->
-    modifyIORef parseLog (over _outputGraph f)
+modifyIncludeGraph f = wrapEff $ \ParseSupport{parseExtraOutput} ->
+    modifyIORef parseExtraOutput f
 
-recordError :: UnsupportedError -> M ()
-recordError err = wrapEff $ \ParseSupport{parseLog} ->
-    modifyIORef parseLog (over _outputErrors (err :))
+recordTraceWithCallStack :: CallStack -> ParseLog -> M ()
+recordTraceWithCallStack stack trace = wrapEff $ \ParseSupport{parseEnv} ->
+  traceWithCallStack (envTracer parseEnv) stack trace
 
 getTranslationUnit :: M CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
-    return parseEnv
+    pure $ envUnit parseEnv
 
 recordMacroExpansionAt :: SingleLoc -> M ()
 recordMacroExpansionAt loc = do

@@ -3,8 +3,8 @@ module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
 import Data.Bifunctor
 import Data.Either (partitionEithers)
-import GHC.Stack
 import Data.List qualified as List
+import GHC.Stack
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -124,7 +124,7 @@ structDecl curr = do
         -- For now we therefore only try to detect the situation and report an
         -- error when it happens. Hopefully this is anyway very rare.
         unless (null unusedDecls) $
-          recordError $ UnsupportedImplicitFields (declId info)
+          recordTraceWithCallStack callStack $ UnsupportedImplicitFields (declId info)
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
