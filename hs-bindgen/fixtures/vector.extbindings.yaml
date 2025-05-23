@@ -1,0 +1,9 @@
+types:
+- headers: vector.h
+  cname: vector
+  module: Example
+  identifier: Vector
+  instances:
+  - Eq
+  - Show
+  - Storable
