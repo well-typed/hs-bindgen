@@ -4,8 +4,6 @@ module HsBindgen.Frontend.Pass.Parse (
   , parseTranslationUnit
   ) where
 
-import Data.Bifunctor
-
 import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
@@ -14,6 +12,7 @@ import HsBindgen.Frontend.Graph.UseDef qualified as UseDefGraph
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Construction

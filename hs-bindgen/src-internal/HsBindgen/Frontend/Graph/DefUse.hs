@@ -10,7 +10,7 @@ module HsBindgen.Frontend.Graph.DefUse (
     -- * Construction
   , fromUseDef
     -- * Query
-  , UseOfAnon(..)
+  , UseOfDecl(..)
   , findUseOfAnon
     -- * Debugging
   , dumpMermaid
@@ -50,15 +50,15 @@ fromUseDef UseDefGraph{useDefIndex, useDefGraph} = DefUseGraph UseDefGraph{
   Query: usage of anon declarations
 -------------------------------------------------------------------------------}
 
-data UseOfAnon =
-    UsedByNamed Usage Text
-  | UsedByAnon Usage UseOfAnon
+data UseOfDecl =
+    UsedByNamed Usage NamedId
+  | UsedByAnon Usage UseOfDecl
   deriving stock (Show)
 
 -- | Find use site for anonymous declaration, if it exists
 --
 -- Unused anonymous declarations can be removed.
-findUseOfAnon :: DefUseGraph -> AnonId -> Maybe UseOfAnon
+findUseOfAnon :: DefUseGraph -> AnonId -> Maybe UseOfDecl
 findUseOfAnon (DefUseGraph UseDefGraph{useDefIndex, useDefGraph}) anonId =
     flip evalState id $
       DynGraph.findTrailFrom
@@ -69,8 +69,8 @@ findUseOfAnon (DefUseGraph UseDefGraph{useDefIndex, useDefGraph}) anonId =
     aux ::
          [(Usage, Decl Parse)] -- ^ Direct use sites
       -> State
-           (UseOfAnon -> UseOfAnon)
-           (Either DeclId (Maybe UseOfAnon))
+           (UseOfDecl -> UseOfDecl)
+           (Either DeclId (Maybe UseOfDecl))
     aux [(u, d)] = do
         case declId of
           DeclNamed name -> do

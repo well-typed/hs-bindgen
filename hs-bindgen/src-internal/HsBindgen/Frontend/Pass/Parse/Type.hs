@@ -10,6 +10,7 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.Parse.Util
@@ -63,6 +64,6 @@ fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getDeclId decl
     dispatch decl $ \case
-      CXCursor_TypedefDecl -> return $ TypeTypedef declId
+      CXCursor_TypedefDecl -> return $ TypeTypedef declId NoAnn
       CXCursor_StructDecl  -> return $ TypeStruct  declId
       kind -> panicIO $ "fromDecl: " ++ show kind

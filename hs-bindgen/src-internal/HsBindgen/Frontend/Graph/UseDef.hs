@@ -13,9 +13,12 @@ module HsBindgen.Frontend.Graph.UseDef (
   , fromDecls
     -- * Query
   , toDecls
+  , lookup
     -- * Debugging
   , dumpMermaid
   ) where
+
+import Prelude hiding (lookup)
 
 import Data.Foldable qualified as Foldable
 import Data.List qualified as List
@@ -26,6 +29,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
@@ -57,10 +61,13 @@ empty = UseDefGraph{
     , useDefGraph = DynGraph.empty
     }
 
-insert :: Ord (Id p) => UseDefGraph p -> Decl p -> UseDefGraph p
+insert :: forall p.
+     (Ord (Id p), Show (Id p), HasCallStack)
+  => UseDefGraph p -> Decl p -> UseDefGraph p
 insert UseDefGraph{useDefIndex, useDefGraph} decl =
     UseDefGraph{
-        useDefIndex = Map.insert declId decl useDefIndex
+        useDefIndex = Map.alter addDecl declId useDefIndex
+        -- Map.insert declId decl useDefIndex
       , useDefGraph = foldr
                        (uncurry $ DynGraph.insertEdge declId)
                        (DynGraph.insertVertex declId useDefGraph)
@@ -69,7 +76,13 @@ insert UseDefGraph{useDefIndex, useDefGraph} decl =
   where
     Decl{declInfo = DeclInfo{declId}, declKind} = decl
 
-fromDecls :: Ord (Id p) => IncludeGraph -> [Decl p] -> UseDefGraph p
+    addDecl :: Maybe (Decl p) -> Maybe (Decl p)
+    addDecl Nothing  = Just decl
+    addDecl (Just _) = panicPure $ "duplicate declaration for " ++ show declId
+
+fromDecls ::
+     (Ord (Id p), Show (Id p), HasCallStack)
+  => IncludeGraph -> [Decl p] -> UseDefGraph p
 fromDecls includeGraph decls =
     Foldable.foldl' insert empty $
       -- It is important that we insert elements into the graph in source order
@@ -101,6 +114,9 @@ toDecls UseDefGraph{useDefIndex, useDefGraph} =
     -- Not sure why that has an additional reverse.
     map (useDefIndex Map.!) . DynGraph.postorderForest $
       DynGraph.dff useDefGraph
+
+lookup :: Ord (Id p) => Id p -> UseDefGraph p -> Maybe (Decl p)
+lookup uid UseDefGraph{useDefIndex} = Map.lookup uid useDefIndex
 
 {-------------------------------------------------------------------------------
   Construction auxiliary: sort key

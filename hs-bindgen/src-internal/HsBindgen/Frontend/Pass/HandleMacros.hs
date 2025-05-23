@@ -59,7 +59,7 @@ handleMacros TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
         }
 
 processDecl :: Decl Parse -> M (Maybe (Decl HandleMacros))
-processDecl Decl{declInfo, declKind} =
+processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
     case declKind of
       DeclMacro   macro   -> processMacro info' macro
       DeclTypedef typedef -> processTypedef info' typedef
@@ -67,7 +67,7 @@ processDecl Decl{declInfo, declKind} =
       DeclStructOpaque    -> Just <$> processStructOpaque info'
   where
     info' :: DeclInfo HandleMacros
-    info' = liftIds declInfo
+    info' = DeclInfo{declId, declLoc}
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration
@@ -91,7 +91,7 @@ processField field =
     case fieldAnn of
       ReparseNotNeeded ->
         return . Just $ Field{
-            fieldType = liftIds fieldType
+            fieldType = processType fieldType
           , fieldAnn  = NoAnn
           , fieldName
           , fieldOffset
@@ -135,7 +135,7 @@ processTypedef info Typedef{typedefType, typedefAnn} = do
             decl = Decl{
                 declInfo = info
               , declKind = DeclTypedef Typedef{
-                    typedefType = liftIds typedefType
+                    typedefType = processType typedefType
                   , typedefAnn  = NoAnn
                   }
               , declAnn  = NoAnn
@@ -156,8 +156,8 @@ processTypedef info Typedef{typedefType, typedefAnn} = do
   where
     name :: Old.CName
     name = case declId info of
-             DeclNamed n -> Old.CName n
-             _otherwise  -> panicPure "unexpected anonymous typedef"
+             DeclNamed (NamedId _namespace n) -> Old.CName n
+             _otherwise -> panicPure "unexpected anonymous typedef"
 
 processMacro ::
      DeclInfo HandleMacros
@@ -180,8 +180,15 @@ processMacro info (UnparsedMacro tokens) =
   where
     name :: Old.CName
     name = case declId info of
-             DeclNamed n -> Old.CName n
-             _otherwise  -> panicPure "unexpected anonymous macro"
+             DeclNamed (NamedId _namespace n) -> Old.CName n
+             _otherwise -> panicPure "unexpected anonymous macro"
+
+processType :: Type Parse -> Type HandleMacros
+processType = \case
+    TypePrim    prim    -> TypePrim prim
+    TypeStruct  uid     -> TypeStruct uid
+    TypeTypedef uid ann -> TypeTypedef uid ann
+    TypePointer ty      -> TypePointer (processType ty)
 
 {-------------------------------------------------------------------------------
   Internal: monad used for parsing macros

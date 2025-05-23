@@ -4,14 +4,12 @@ module HsBindgen.Frontend.Pass.RenameAnon (
   ) where
 
 import Control.Monad.Reader
-import Control.Monad.State
-import Data.Set qualified as Set
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST
-import HsBindgen.Frontend.Graph.DefUse (DefUseGraph, UseOfAnon(..))
+import HsBindgen.Frontend.Graph.DefUse (DefUseGraph(..))
 import HsBindgen.Frontend.Graph.DefUse qualified as DefUseGraph
-import HsBindgen.Frontend.Graph.UseDef (Usage(..), ValOrRef(..))
+import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.Parse
@@ -29,10 +27,10 @@ import HsBindgen.Imports
 -- This is required so that we can drop typedefs around anonymous declarations.
 renameAnon :: TranslationUnit HandleMacros -> TranslationUnit RenameAnon
 renameAnon TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    reassemble $ catMaybes . runM defUseGraph $ mapM renameOrDrop unitDecls
+    reassemble $ mapMaybe (renameDef du) unitDecls
   where
-    defUseGraph :: DefUseGraph
-    defUseGraph = DefUseGraph.fromUseDef unitAnn
+    du :: DefUseGraph
+    du = DefUseGraph.fromUseDef unitAnn
 
     reassemble :: [Decl RenameAnon] -> TranslationUnit RenameAnon
     reassemble decls' = TranslationUnit{
@@ -42,143 +40,104 @@ renameAnon TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
         }
 
 {-------------------------------------------------------------------------------
-  Internal: monad used for renaming
-
-  NOTE: Binding specifications are used to override the /Haskell/ name that we
-  produce. The names we generate for anonymous types are an /input/ to this
-  process. Therefore the process of choosing these anonymous names is
-  deterministic, and we do not need to keep a running mapping between 'UniqueId'
-  and 'CName'.
+  Def sites: declarations
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM {
-      unwrapM :: ReaderT DefUseGraph (State DroppedTypedefs) a
-    }
-  deriving newtype (
-      Functor
-    , Applicative
-    , Monad
-    , MonadReader DefUseGraph
-    , MonadState DroppedTypedefs
-    )
-
-runM :: DefUseGraph -> M a -> a
-runM defUseGraph =
-      flip evalState Set.empty
-    . flip runReaderT defUseGraph
-    . unwrapM
-
--- | We drop typedefs in two cases:
---
--- * When we have a typedef around an anonymous struct
--- * When we have a typedef around a struct with the same name
-type DroppedTypedefs = Set Text
-
-{-------------------------------------------------------------------------------
-  Renaming logic proper
--------------------------------------------------------------------------------}
-
-class Rename a where
-  rename :: a HandleMacros -> M (a RenameAnon)
-
-renameOrDrop :: Decl HandleMacros -> M (Maybe (Decl RenameAnon))
-renameOrDrop decl@Decl{declInfo, declKind} = do
-    shouldDrop <- dropThisTypedef decl
-    if shouldDrop then
-      return Nothing
-    else fmap Just $ do
-      dropLaterTypedefs (declId declInfo)
-      let mkDecl ::
-               DeclInfo RenameAnon
-            -> DeclKind RenameAnon
-            -> Decl RenameAnon
-          mkDecl info' kind' = Decl{
-              declInfo = info'
-            , declKind = kind'
-            , declAnn  = NoAnn
-            }
-      mkDecl <$> rename declInfo <*> rename declKind
-
-instance Rename DeclInfo where
-  rename DeclInfo{declLoc, declId} = DeclInfo declLoc <$> renameDeclId declId
-
-instance Rename DeclKind where
-  rename (DeclStruct  fs) = DeclStruct  <$> mapM rename fs
-  rename DeclStructOpaque = pure $ DeclStructOpaque
-  rename (DeclTypedef ty) = DeclTypedef <$> rename ty
-  rename (DeclMacro   ts) = pure $ DeclMacro ts
-
-instance Rename Field where
-  rename Field{fieldName, fieldType, fieldOffset, fieldAnn} =
-      pure Field
-        <*> pure fieldName
-        <*> rename fieldType
-        <*> pure fieldOffset
-        <*> pure fieldAnn
-
-instance Rename Typedef where
-  rename Typedef{typedefType, typedefAnn} =
-      pure Typedef
-        <*> rename typedefType
-        <*> pure typedefAnn
-
-instance Rename Type where
-  rename (TypePrim    p)   = return $ TypePrim p
-  rename (TypeStruct  uid) = TypeStruct  <$> renameDeclId uid
-  rename (TypeTypedef uid) = TypeTypedef <$> renameDeclId uid
-  rename (TypePointer ty)  = TypePointer <$> rename ty
-
-renameDeclId :: DeclId -> M CName
-renameDeclId declId = do
-    defUseGraph <- ask
-    case declId of
-      DeclNamed name   -> return $ CName name
-      DeclAnon  anonId ->
-        case DefUseGraph.findUseOfAnon defUseGraph anonId of
-          Nothing ->
-            -- clang will actually warn about this, but we should probably
-            -- return an error instead.
-            panicPure $ "Anonymous type without use site: " ++ show anonId
-          Just useOfAnon ->
-            return $ nameForAnon useOfAnon
-
-{-------------------------------------------------------------------------------
-  Drop typedefs
-
-  When we have a typedef around an anonymous declaration:
-
-  > typedef struct {
-  >   int x;
-  >   int y;
-  > } foo;
-
-  then we use the name of the typedef for the name of the struct, and then
-  omit the typedef altogether from the AST.
--------------------------------------------------------------------------------}
-
-dropThisTypedef :: Decl HandleMacros -> M Bool
-dropThisTypedef Decl{declInfo, declKind} = do
-    droppedTypedefs <- get
-    return $
-      if | DeclNamed name <- declId declInfo
-         , DeclTypedef _ <- declKind
-         -> Set.member name droppedTypedefs
-
-         | otherwise
-         -> False
-
-dropLaterTypedefs :: DeclId -> M ()
-dropLaterTypedefs declId = do
-    mName <- aux <$> ask
-    case mName of
-      Nothing   -> return ()
-      Just name -> modify $ Set.insert name
+renameDef :: DefUseGraph -> Decl HandleMacros -> Maybe (Decl RenameAnon)
+renameDef du decl = do
+    guard $ not (squash decl)
+    mkDecl <$>
+      case declId of
+        DeclNamed (NamedId _namespace n) -> Just $ CName n
+        DeclAnon anonId -> nameForAnon <$> DefUseGraph.findUseOfAnon du anonId
   where
-    aux :: DefUseGraph -> Maybe Text
-    aux defUseGraph = do
-        anonId    <- isAnonDecl declId
-        useOfAnon <- DefUseGraph.findUseOfAnon defUseGraph anonId
-        case useOfAnon of
-          UsedByNamed (UsedInTypedef ByValue) name -> Just name
-          _otherwise                               -> Nothing
+    Decl{declInfo = DeclInfo{declId, declLoc}, declKind, declAnn} = decl
 
+    mkDecl :: CName -> Decl RenameAnon
+    mkDecl newId = Decl{
+          declInfo = DeclInfo{
+              declId = newId
+            , declLoc
+            }
+        , declKind = renameUses du declKind
+        , declAnn
+        }
+
+-- | Should we squash this declaration?
+squash :: forall p. Id p ~ DeclId => Decl p -> Bool
+squash Decl{declInfo = DeclInfo{declId}, declKind} =
+    case declKind of
+      DeclTypedef typedef -> aroundAnon (typedefType typedef)
+      _otherwise          -> False
+  where
+    aroundAnon :: Type p -> Bool
+    aroundAnon (TypePrim   _)    = False
+    aroundAnon (TypeStruct uid)  = anonOrSameName uid
+    aroundAnon (TypeTypedef _ _) = False
+    aroundAnon (TypePointer _)   = False
+
+    anonOrSameName :: DeclId -> Bool
+    anonOrSameName (DeclNamed (NamedId _namespace name)) =
+        case declId of
+          DeclNamed (NamedId _namespace name') -> name == name'
+          DeclAnon _ -> panicPure "unexpected anonymous typedef"
+    anonOrSameName (DeclAnon  _) =
+        True
+
+{-------------------------------------------------------------------------------
+  Use sites
+-------------------------------------------------------------------------------}
+
+class RenameUseSites a where
+  renameUses :: DefUseGraph -> a HandleMacros -> a RenameAnon
+
+instance RenameUseSites DeclKind where
+  renameUses du = \case
+      DeclStruct fields    -> DeclStruct (map (renameUses du) fields)
+      DeclStructOpaque     -> DeclStructOpaque
+      DeclTypedef typedef  -> DeclTypedef (renameUses du typedef)
+      DeclMacro   unparsed -> DeclMacro unparsed
+
+instance RenameUseSites Field where
+  renameUses du field = Field{
+        fieldName
+      , fieldType = renameUses du fieldType
+      , fieldOffset
+      , fieldAnn
+      }
+    where
+      Field{
+          fieldName
+        , fieldType
+        , fieldOffset
+        , fieldAnn
+        } = field
+
+instance RenameUseSites Typedef where
+  renameUses du Typedef{typedefType, typedefAnn} = Typedef{
+        typedefType = renameUses du typedefType
+      , typedefAnn
+      }
+
+instance RenameUseSites Type where
+  renameUses du = \case
+      TypePrim    prim      -> TypePrim prim
+      TypeStruct  uid       -> TypeStruct (renameUse du uid)
+      TypeTypedef uid NoAnn -> TypeTypedef (renameUse du uid) (squashed du uid)
+      TypePointer ty        -> TypePointer (renameUses du ty)
+
+-- | Rename specific use site
+--
+-- NOTE: there /must/ be at least one use site, because we are renaming one!
+renameUse :: DefUseGraph -> DeclId -> CName
+renameUse _  (DeclNamed (NamedId _namespace name)) = CName name
+renameUse du (DeclAnon aid) =
+    case DefUseGraph.findUseOfAnon du aid of
+      Just useOfAnon -> nameForAnon useOfAnon
+      Nothing        -> panicPure "impossible"
+
+squashed :: DefUseGraph -> DeclId -> SquashedTypedef
+squashed (DefUseGraph ud) uid =
+    case UseDef.lookup uid ud of
+      Just decl | squash decl -> SquashedTypedef
+      _otherwise              -> KeptTypedef

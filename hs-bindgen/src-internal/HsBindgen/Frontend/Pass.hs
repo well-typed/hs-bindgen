@@ -55,7 +55,8 @@ class IsPass (p :: Pass) where
   -- | Generic TTG-style annotation
   --
   -- For single-constructor datatypes, the index can simply be the name of the
-  -- datatype; for multi-constructor datatypes, it should be @"Type.Constr"@.
+  -- datatype; for multi-constructor datatypes, it should be @"Type.Constr"@
+  -- (or simply @"Constr"@ if that is unambiguous).
   --
   -- TODO: We could consider using a closed universe for these indices; that
   -- would make certain things a bit easier (we should show that all annotations

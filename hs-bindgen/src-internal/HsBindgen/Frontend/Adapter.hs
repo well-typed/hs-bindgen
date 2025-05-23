@@ -14,6 +14,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST qualified as Raw
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Raw
+import HsBindgen.Frontend.Pass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -28,20 +29,15 @@ class ToRaw a where
   toRaw :: a -> Raw a
 
 {-------------------------------------------------------------------------------
-  Name
--------------------------------------------------------------------------------}
-
-type instance Raw Old.CName = Raw.DeclId
-
-instance ToRaw Old.CName where
-  toRaw (Old.CName name) = Raw.DeclNamed name
-
-{-------------------------------------------------------------------------------
   Type
 -------------------------------------------------------------------------------}
 
 type instance Raw Old.Type = Raw.Type HandleMacros
 
 instance ToRaw Old.Type where
-  toRaw (Old.TypeTypedef name) = Raw.TypeTypedef (toRaw name)
-  toRaw ty = panicPure $ "toRaw: unhandled " ++ show ty
+  toRaw (Old.TypeTypedef (Old.CName name)) =
+      Raw.TypeTypedef
+        (Raw.DeclNamed (Raw.NamedId Raw.NamespaceTypedef name))
+        NoAnn
+  toRaw ty =
+      panicPure $ "toRaw: unhandled " ++ show ty

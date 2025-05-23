@@ -4,8 +4,9 @@ module HsBindgen.Frontend.Pass.RenameAnon.ProduceCName (
   ) where
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Graph.DefUse (UseOfAnon(..))
+import HsBindgen.Frontend.Graph.DefUse (UseOfDecl(..))
 import HsBindgen.Frontend.Graph.UseDef (Usage(..), ValOrRef(..))
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 
 -- | Construct name for anonymous declaration
@@ -15,14 +16,14 @@ import HsBindgen.Frontend.Pass.RenameAnon.IsPass
 -- mapping to Haskell names? If we do that, that would also mean that binding
 -- specifications for anonymous declarations would no longer depend on a
 -- choice of name mangler, which would be much better.)
-nameForAnon :: UseOfAnon -> CName
+nameForAnon :: UseOfDecl -> CName
 nameForAnon useOfAnon =
     case useOfAnon of
-      UsedByNamed (UsedInTypedef ByValue) name ->
+      UsedByNamed (UsedInTypedef ByValue) (NamedId _namespace name) ->
         CName name
-      UsedByNamed (UsedInTypedef ByRef) name ->
+      UsedByNamed (UsedInTypedef ByRef) (NamedId _namespace name) ->
         CName name <> "_Deref"
-      UsedByNamed (UsedInField _valOrRef field) name ->
+      UsedByNamed (UsedInField _valOrRef field) (NamedId _namespace name) ->
         CName name <> "_" <> CName field
       UsedByAnon (UsedInTypedef _valOrRef) _useOfAnon' ->
         panicPure $ "nameForAnon: unexpected anonymous typedef"

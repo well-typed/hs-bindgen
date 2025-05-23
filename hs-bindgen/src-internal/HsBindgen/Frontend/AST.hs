@@ -15,8 +15,6 @@ module HsBindgen.Frontend.AST (
   , PrimFloatType(..)
   , PrimSignChar(..)
   , PrimSign(..)
-    -- * Utility: translate between passes
-  , LiftPass(..)
     -- * Show
   , ShowPass
   ) where
@@ -93,7 +91,7 @@ data Typedef p = Typedef {
 data Type p =
     TypePrim PrimType
   | TypeStruct (Id p)
-  | TypeTypedef (Id p)
+  | TypeTypedef (Id p) (Ann "TypeTypedef" p)
   | TypePointer (Type p)
 
 data PrimType =
@@ -124,22 +122,6 @@ data PrimSign = Signed | Unsigned
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
-  Utility: translate between passes
--------------------------------------------------------------------------------}
-
-class LiftPass a where
-  liftIds :: forall p p'. Id p ~ Id p' => a p -> a p'
-
-instance LiftPass Type where
-  liftIds (TypePrim    x) = TypePrim    x
-  liftIds (TypeStruct  x) = TypeStruct  x
-  liftIds (TypeTypedef x) = TypeTypedef x
-  liftIds (TypePointer x) = TypePointer (liftIds x)
-
-instance LiftPass DeclInfo where
-  liftIds DeclInfo{declLoc, declId} = DeclInfo{declLoc, declId}
-
-{-------------------------------------------------------------------------------
   Show instances
 -------------------------------------------------------------------------------}
 
@@ -147,10 +129,13 @@ class ( IsPass p
         -- Show constraints
       , Show (Id    p)
       , Show (Macro p)
-      , Show (Ann "TranslationUnit" p)
+
+        -- Annotations
       , Show (Ann "Decl"            p)
       , Show (Ann "Field"           p)
+      , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
+      , Show (Ann "TypeTypedef"     p)
       ) => ShowPass p where
 
 deriving stock instance ShowPass p => Show (TranslationUnit p)

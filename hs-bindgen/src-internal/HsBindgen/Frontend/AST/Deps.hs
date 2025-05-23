@@ -62,7 +62,7 @@ depsOfTypedef = depsOfType . typedefType
 -- dependencies will materialize when we build the graph. That's why this
 -- returns at most /one/ dependency.
 depsOfType :: Type p -> Maybe (ValOrRef, Id p)
-depsOfType (TypePrim _)      = Nothing
-depsOfType (TypeStruct  uid) = Just (ByValue, uid)
-depsOfType (TypeTypedef uid) = Just (ByValue, uid)
-depsOfType (TypePointer ty)  = first (const ByRef) <$> depsOfType ty
+depsOfType (TypePrim _)           = Nothing
+depsOfType (TypeStruct  uid)      = Just (ByValue, uid)
+depsOfType (TypeTypedef uid _ann) = Just (ByValue, uid)
+depsOfType (TypePointer ty)       = first (const ByRef) <$> depsOfType ty
