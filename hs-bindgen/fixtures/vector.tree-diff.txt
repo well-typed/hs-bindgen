@@ -1,0 +1,47 @@
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathAnon
+          (DeclPathCtxtTypedef
+            (CName "vector")),
+        structAliases = [],
+        structSizeof = 16,
+        structAlignment = 8,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "vector.h:2:12"},
+          StructField {
+            fieldName = CName "y",
+            fieldOffset = 64,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimFloating PrimDouble),
+            fieldSourceLoc =
+            "vector.h:3:12"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "vector.h:1:9"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "new_vector",
+        functionArgs = [
+          TypePrim
+            (PrimFloating PrimDouble),
+          TypePrim
+            (PrimFloating PrimDouble)],
+        functionRes = TypePointer
+          (TypeStruct
+            (DeclPathAnon
+              (DeclPathCtxtTypedef
+                (CName "vector")))),
+        functionHeader = "vector.h",
+        functionSourceLoc =
+        "vector.h:6:9"}]

@@ -89,6 +89,7 @@ tests tracer packageRoot rustBindgen = testGroup "test-internal" [
         , golden "manual_examples"
         , golden "names"
         , golden "attributes"
+        , golden "vector"
         ]
     , testGroup "failing-examples" [
           failing "long_double"
