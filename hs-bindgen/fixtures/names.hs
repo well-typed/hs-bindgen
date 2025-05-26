@@ -9,8 +9,6 @@
         "by'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_by",
       foreignImportHeader = "names.h",
@@ -33,8 +31,6 @@
         "forall'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_forall",
       foreignImportHeader = "names.h",
@@ -57,8 +53,6 @@
         "mdo'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_mdo",
       foreignImportHeader = "names.h",
@@ -81,8 +75,6 @@
         "pattern'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_pattern",
       foreignImportHeader = "names.h",
@@ -105,8 +97,6 @@
         "proc'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_proc",
       foreignImportHeader = "names.h",
@@ -129,8 +119,6 @@
         "rec'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_rec",
       foreignImportHeader = "names.h",
@@ -153,8 +141,6 @@
         "using'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_using",
       foreignImportHeader = "names.h",
@@ -177,8 +163,6 @@
         "anyclass",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_anyclass",
       foreignImportHeader = "names.h",
@@ -201,8 +185,6 @@
         "capi",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_capi",
       foreignImportHeader = "names.h",
@@ -225,8 +207,6 @@
         "cases",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_cases",
       foreignImportHeader = "names.h",
@@ -249,8 +229,6 @@
         "ccall",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_ccall",
       foreignImportHeader = "names.h",
@@ -273,8 +251,6 @@
         "dynamic",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_dynamic",
       foreignImportHeader = "names.h",
@@ -297,8 +273,6 @@
         "export",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_export",
       foreignImportHeader = "names.h",
@@ -321,8 +295,6 @@
         "family",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_family",
       foreignImportHeader = "names.h",
@@ -345,8 +317,6 @@
         "group",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_group",
       foreignImportHeader = "names.h",
@@ -369,8 +339,6 @@
         "interruptible",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_interruptible",
       foreignImportHeader = "names.h",
@@ -394,8 +362,6 @@
         "javascript",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_javascript",
       foreignImportHeader = "names.h",
@@ -419,8 +385,6 @@
         "label",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_label",
       foreignImportHeader = "names.h",
@@ -443,8 +407,6 @@
         "prim",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_prim",
       foreignImportHeader = "names.h",
@@ -467,8 +429,6 @@
         "role",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_role",
       foreignImportHeader = "names.h",
@@ -491,8 +451,6 @@
         "safe",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_safe",
       foreignImportHeader = "names.h",
@@ -515,8 +473,6 @@
         "stdcall",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_stdcall",
       foreignImportHeader = "names.h",
@@ -539,8 +495,6 @@
         "stock",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_stock",
       foreignImportHeader = "names.h",
@@ -563,8 +517,6 @@
         "unsafe",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_unsafe",
       foreignImportHeader = "names.h",
@@ -587,8 +539,6 @@
         "via",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_via",
       foreignImportHeader = "names.h",

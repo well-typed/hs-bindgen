@@ -443,18 +443,6 @@
                     "Triple")))
               (HsIO
                 (HsPrimType HsPrimUnit))))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple")))],
       foreignImportOrigName =
       "testmodule_mk_triple",
       foreignImportHeader =
@@ -983,15 +971,6 @@
               "@NsTypeConstr"
               "Index"))
           (HsIO (HsPrimType HsPrimCInt))),
-      foreignImportCRes = TypePrim
-        (PrimIntegral PrimInt Signed),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple"))),
-        TypeEnum
-          (DeclPathName (CName "index"))],
       foreignImportOrigName =
       "testmodule_index_triple",
       foreignImportHeader =
@@ -1233,13 +1212,6 @@
             (HsName
               "@NsTypeConstr"
               "Sum"))),
-      foreignImportCRes = TypeTypedef
-        (CName "sum"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple")))],
       foreignImportOrigName =
       "testmodule_sum_triple",
       foreignImportHeader =
@@ -1280,13 +1252,6 @@
             (HsName
               "@NsTypeConstr"
               "Average"))),
-      foreignImportCRes = TypeTypedef
-        (CName "average"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "triple")))],
       foreignImportOrigName =
       "testmodule_average_triple",
       foreignImportHeader =
@@ -2195,11 +2160,6 @@
             (HsName
               "@NsTypeConstr"
               "YEAR"))),
-      foreignImportCRes = TypeTypedef
-        (CName "YEAR"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef (CName "date"))],
       foreignImportOrigName =
       "testmodule_getYear",
       foreignImportHeader =
@@ -3153,14 +3113,6 @@
                 "@NsTypeConstr"
                 "Occupation")))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimInt Signed),
-        TypePointer
-          (TypeUnion
-            (DeclPathName
-              (CName "occupation")))],
       foreignImportOrigName =
       "testmodule_print_occupation",
       foreignImportHeader =
@@ -4749,8 +4701,6 @@
         "\25308\25308",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_\25308\25308",
       foreignImportHeader =
@@ -4894,8 +4844,6 @@
         "c\978",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_\978",
       foreignImportHeader =
@@ -5011,8 +4959,6 @@
         "import'",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_import",
       foreignImportHeader =

@@ -340,16 +340,6 @@
                 (HsName
                   "@NsTypeConstr"
                   "Vector"))))),
-      foreignImportCRes = TypePointer
-        (TypeStruct
-          (DeclPathAnon
-            (DeclPathCtxtTypedef
-              (CName "vector")))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimDouble),
-        TypePrim
-          (PrimFloating PrimDouble)],
       foreignImportOrigName =
       "testmodule_new_vector",
       foreignImportHeader =

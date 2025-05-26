@@ -896,8 +896,6 @@ functionDecs nm mu typedefs f
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = mangle nm $ NameVar $ C.functionName f
         , foreignImportType       = ty
-        , foreignImportCRes       = C.functionRes f
-        , foreignImportCArgs      = C.functionArgs f
         , foreignImportOrigName   = T.pack wrapperName
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f

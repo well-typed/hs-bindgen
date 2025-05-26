@@ -3971,16 +3971,6 @@
                 (HsName
                   "@NsTypeConstr"
                   "Int32_t"))))),
-      foreignImportCRes = TypeTypedef
-        (CName "int32_t"),
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef
-            (CName "a_type_t")),
-        TypeTypedef (CName "uint32_t"),
-        TypeIncompleteArray
-          (TypeTypedef
-            (CName "uint8_t"))],
       foreignImportOrigName =
       "testmodule_some_fun",
       foreignImportHeader =
