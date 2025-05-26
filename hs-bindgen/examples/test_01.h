@@ -95,4 +95,24 @@ enum EnumSame {
     ENUM_SAME_D = 200
 };
 
+/* Struct arguments and result types */
+
+struct thing {
+    int x;
+};
+
+static inline int thing_fun_1(struct thing x) {
+    return x.x;
+}
+
+static inline struct thing thing_fun_2(int x) {
+    struct thing res = { .x = x };
+    return res;
+}
+
+static inline struct thing thing_fun_3(struct thing x) {
+    struct thing res = { .x = x.x * 2 };
+    return res;
+}
+
 #endif

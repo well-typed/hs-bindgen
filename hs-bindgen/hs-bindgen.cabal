@@ -150,7 +150,7 @@ library internal
     , containers         >= 0.6.5.1   && < 0.8
     , contra-tracer      >= 0.2       && < 0.3
     , data-default       >= 0.8       && < 0.9
-    , debruijn           ^>=0.3
+    , debruijn           ^>=0.3.1
     , directory          >= 1.3.6.2   && < 1.4
     , filepath           >= 1.4       && < 1.6
     , fin                >= 0.3.2     && < 0.4

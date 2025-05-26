@@ -1,4 +1,0 @@
-hs-bindgen known issue: https://github.com/well-typed/hs-bindgen/issues/37
-Struct value arguments and results are not supported
-CallStack (from HasCallStack):
-  throwPure_TODO, called at src-internal/HsBindgen/Hs/Translation.hs:0:0 in hs-bindgen-0-inplace-internal:HsBindgen.Hs.Translation
