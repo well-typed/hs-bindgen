@@ -7,6 +7,7 @@ module HsBindgen.Frontend.AST (
   , DeclKind(..)
   , Field(..)
   , Typedef(..)
+  , Enumerator(..)
     -- * Types (at use sites)
   , Type(..)
     -- ** Primitive types
@@ -75,9 +76,11 @@ data DeclKind p =
     DeclStruct [Field p]
   | DeclStructOpaque
   | DeclTypedef (Typedef p)
+  | DeclEnum [Enumerator p]
+  | DeclEnumOpaque
   | DeclMacro (Macro p)
 
-data Field p = Field{
+data Field p = Field {
       fieldName   :: Text
     , fieldType   :: Type p
     , fieldOffset :: Int     -- ^ Offset in bits
@@ -89,6 +92,12 @@ data Typedef p = Typedef {
     , typedefAnn  :: Ann "Typedef" p
     }
 
+data Enumerator p = Enumerator {
+      enumeratorName  :: Text
+    , enumeratorValue :: Integer
+    , enumeratorAnn   :: Ann "Enumerator" p
+    }
+
 {-------------------------------------------------------------------------------
   Types (at use sites)
 -------------------------------------------------------------------------------}
@@ -96,6 +105,7 @@ data Typedef p = Typedef {
 data Type p =
     TypePrim PrimType
   | TypeStruct (Id p)
+  | TypeEnum (Id p)
   | TypeTypedef (Id p) (Ann "TypeTypedef" p)
   | TypePointer (Type p)
 
@@ -133,6 +143,7 @@ data PrimSign = Signed | Unsigned
 data Namespace =
     NamespaceTypedef
   | NamespaceStruct
+  | NamespaceEnum
   | NamespaceMacro
   deriving stock (Show, Eq, Ord)
 
@@ -150,6 +161,8 @@ declQualId Decl{declInfo = DeclInfo{declId}, declKind} = QualId (declId) $
     case declKind of
       DeclStruct{}       -> NamespaceStruct
       DeclStructOpaque{} -> NamespaceStruct
+      DeclEnum{}         -> NamespaceEnum
+      DeclEnumOpaque{}   -> NamespaceEnum
       DeclTypedef{}      -> NamespaceTypedef
       DeclMacro{}        -> NamespaceMacro
 
@@ -172,11 +185,13 @@ class ( IsPass p
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
       , Show (Ann "TypeTypedef"     p)
+      , Show (Ann "Enumerator"      p)
       ) => ValidPass p where
 
 deriving stock instance ValidPass p => Show (Decl            p)
 deriving stock instance ValidPass p => Show (DeclInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind        p)
+deriving stock instance ValidPass p => Show (Enumerator      p)
 deriving stock instance ValidPass p => Show (Field           p)
 deriving stock instance ValidPass p => Show (QualId          p)
 deriving stock instance ValidPass p => Show (TranslationUnit p)

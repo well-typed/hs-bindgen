@@ -61,10 +61,12 @@ handleMacros TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
 processDecl :: Decl Parse -> M (Maybe (Decl HandleMacros))
 processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
     case declKind of
-      DeclMacro   macro   -> processMacro info' macro
-      DeclTypedef typedef -> processTypedef info' typedef
-      DeclStruct  fields  -> Just <$> processStruct info' fields
-      DeclStructOpaque    -> Just <$> processStructOpaque info'
+      DeclMacro   macro       -> processMacro info' macro
+      DeclTypedef typedef     -> processTypedef info' typedef
+      DeclStruct  fields      -> Just <$> processStruct info' fields
+      DeclStructOpaque        -> Just <$> processStructOpaque info'
+      DeclEnum    enumerators -> Just <$> processEnum info' enumerators
+      DeclEnumOpaque          -> Just <$> processEnumOpaque info'
   where
     info' :: DeclInfo HandleMacros
     info' = DeclInfo{declId, declLoc}
@@ -119,6 +121,32 @@ processStructOpaque info =
     return Decl{
         declInfo = info
       , declKind = DeclStructOpaque
+      , declAnn  = NoAnn
+      }
+
+processEnum :: DeclInfo HandleMacros -> [Enumerator Parse] -> M (Decl HandleMacros)
+processEnum info = fmap (mkDecl . catMaybes) . mapM processEnumerator
+  where
+    mkDecl :: [Enumerator HandleMacros] -> Decl HandleMacros
+    mkDecl enumerators = Decl{
+          declInfo = info
+        , declKind = DeclEnum enumerators
+        , declAnn  = NoAnn
+        }
+
+processEnumerator :: Enumerator Parse -> M (Maybe (Enumerator HandleMacros))
+processEnumerator Enumerator {..} =
+        pure . Just $ Enumerator {
+            enumeratorName
+          , enumeratorValue
+          , enumeratorAnn = NoAnn
+          }
+
+processEnumOpaque :: DeclInfo HandleMacros -> M (Decl HandleMacros)
+processEnumOpaque info =
+    pure Decl {
+        declInfo = info
+      , declKind = DeclEnumOpaque
       , declAnn  = NoAnn
       }
 
@@ -187,6 +215,7 @@ processType :: Type Parse -> Type HandleMacros
 processType = \case
     TypePrim    prim    -> TypePrim prim
     TypeStruct  uid     -> TypeStruct uid
+    TypeEnum    uid     -> TypeEnum uid
     TypeTypedef uid ann -> TypeTypedef uid ann
     TypePointer ty      -> TypePointer (processType ty)
 
@@ -292,5 +321,3 @@ _reparseFunDecl :: Reparse (([Old.Type], Old.Type), Old.CName)
 _reparseFunDecl typeEnv tokens =
     first ReparseError $
       Reparse.reparseWith (Reparse.reparseFunDecl typeEnv) tokens
-
-

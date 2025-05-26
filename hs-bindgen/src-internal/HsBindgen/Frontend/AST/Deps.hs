@@ -31,6 +31,10 @@ depsOfDecl (DeclStruct fs) =
     concatMap depsOfField fs
 depsOfDecl DeclStructOpaque =
     []
+depsOfDecl (DeclEnum _) =
+    []
+depsOfDecl DeclEnumOpaque =
+    []
 depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ maybeToList (depsOfTypedef ty)
   where
@@ -63,5 +67,6 @@ depsOfTypedef = depsOfType . typedefType
 depsOfType :: Type p -> Maybe (ValOrRef, QualId p)
 depsOfType (TypePrim _)           = Nothing
 depsOfType (TypeStruct  uid)      = Just (ByValue, QualId uid NamespaceStruct)
+depsOfType (TypeEnum uid)         = Just (ByValue, QualId uid NamespaceEnum)
 depsOfType (TypeTypedef uid _ann) = Just (ByValue, QualId uid NamespaceTypedef)
 depsOfType (TypePointer ty)       = first (const ByRef) <$> depsOfType ty

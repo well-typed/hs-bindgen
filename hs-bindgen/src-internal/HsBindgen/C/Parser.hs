@@ -102,7 +102,7 @@ parseCHeaders tracer args predicate extBindings headerIncludePaths =
                                  (useTrace TraceDiagnostic tracer)
                                  callStack
 
-              let mainSourcePaths = Set.fromList $
+              let mainSourcePaths = Set.fromList $ RootHeader.name :
                     map (SourcePath . Text.pack . getCHeaderIncludePath)
                       headerIncludePaths
                   parseTracer = useTrace TraceParse tracer

@@ -3,11 +3,9 @@ module HsBindgen.Frontend.Pass.RenameAnon (
   , renameAnon
   ) where
 
-import Control.Monad.Reader
-
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST
-import HsBindgen.Frontend.Graph.DefUse (DefUseGraph(..))
+import HsBindgen.Frontend.Graph.DefUse (DefUseGraph (..))
 import HsBindgen.Frontend.Graph.DefUse qualified as DefUseGraph
 import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
 import HsBindgen.Frontend.Pass
@@ -77,6 +75,7 @@ squash Decl{declInfo = DeclInfo{declId}, declKind} =
     aroundAnon :: Type p -> Bool
     aroundAnon (TypePrim   _)    = False
     aroundAnon (TypeStruct uid)  = anonOrSameName uid
+    aroundAnon (TypeEnum uid)    = anonOrSameName uid
     aroundAnon (TypeTypedef _ _) = False
     aroundAnon (TypePointer _)   = False
 
@@ -99,8 +98,10 @@ instance RenameUseSites DeclKind where
   renameUses du = \case
       DeclStruct fields    -> DeclStruct (map (renameUses du) fields)
       DeclStructOpaque     -> DeclStructOpaque
+      DeclEnum enumerators -> DeclEnum (map (renameUses du) enumerators)
+      DeclEnumOpaque       -> DeclEnumOpaque
       DeclTypedef typedef  -> DeclTypedef (renameUses du typedef)
-      DeclMacro   unparsed -> DeclMacro unparsed
+      DeclMacro unparsed   -> DeclMacro unparsed
 
 instance RenameUseSites Field where
   renameUses du field = Field{
@@ -117,6 +118,9 @@ instance RenameUseSites Field where
         , fieldAnn
         } = field
 
+instance RenameUseSites Enumerator where
+  renameUses _ Enumerator{..} = Enumerator{..}
+
 instance RenameUseSites Typedef where
   renameUses du Typedef{typedefType, typedefAnn} = Typedef{
         typedefType = renameUses du typedefType
@@ -130,6 +134,9 @@ instance RenameUseSites Type where
       TypeStruct uid ->
         let qid = QualId uid NamespaceStruct
         in TypeStruct (renameUse du qid)
+      TypeEnum    uid ->
+        let qid = QualId uid NamespaceEnum
+        in TypeEnum (renameUse du qid)
       TypeTypedef uid NoAnn ->
         let qid = QualId uid NamespaceTypedef
         in TypeTypedef (renameUse du qid) (squashed du qid)

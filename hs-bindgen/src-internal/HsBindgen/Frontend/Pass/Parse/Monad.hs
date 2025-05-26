@@ -57,35 +57,51 @@ data ParseSupport = ParseSupport {
     }
 
 data ParseLog =
-      SkippedBuiltIn Text
+      RegisterInclude {
+        registerIncludeIncludingFile :: SourcePath
+      , registerIncludeIncludedFile :: SourcePath
+      }
+    | SkippedBuiltIn Text
     | SkippedPredicate {
-          skippedName   :: Text
-        , skippedLoc    :: MultiLoc
-        , skippedReason :: Text
-        }
+        skippedName   :: Text
+      , skippedLoc    :: MultiLoc
+      , skippedReason :: Text
+      }
       -- | Struct with implicit fields
       --
       -- We record the name of the struct that has the implicit fields.
-    | UnsupportedImplicitFields DeclId
+    | UnsupportedImplicitFields {
+        unsupportedImplicitFieldsId  :: DeclId
+      , unsupportedImplicitFieldsLoc :: MultiLoc
+      }
   deriving stock (Show)
 
 instance PrettyTrace ParseLog where
   prettyTrace = \case
-    SkippedBuiltIn x            -> "Skipped built-in: " <> show x
-    SkippedPredicate {..}       -> Text.unpack $ Text.concat [ "Skipped "
-                                          , skippedName
-                                          , " at "
-                                          , Text.pack (show skippedLoc)
-                                          , ": "
-                                          , skippedReason
-                                          ]
-    UnsupportedImplicitFields x -> "Unsupported implicit field with ID " <> show x
+    RegisterInclude h i -> "Registering include: " <> show h <> " includes " <> show i
+    SkippedBuiltIn x ->
+      "Skipped built-in: " <> show x
+    SkippedPredicate {..} ->
+      Text.unpack $ Text.concat [ "Skipped "
+                                , skippedName
+                                , " at "
+                                , Text.pack (show skippedLoc)
+                                , ": "
+                                , skippedReason
+                                ]
+    UnsupportedImplicitFields {..} ->
+      concat [ "Unsupported implicit field with ID "
+             , show unsupportedImplicitFieldsId
+             , " at "
+             , show unsupportedImplicitFieldsLoc
+             ]
 
 instance HasDefaultLogLevel ParseLog where
   getDefaultLogLevel = \case
-    SkippedBuiltIn _            -> Debug
-    SkippedPredicate {}         -> Info
-    UnsupportedImplicitFields _ -> Error
+    RegisterInclude {}           -> Debug
+    SkippedBuiltIn {}            -> Debug
+    SkippedPredicate {}          -> Info
+    UnsupportedImplicitFields {} -> Error
 
 instance HasSource ParseLog where
   getSource = const HsBindgen

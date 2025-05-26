@@ -80,8 +80,8 @@ whenPredicateMatches tracer p mMainHeader current sloc k =
             name <- clang_getCursorSpelling current
             loc  <- HighLevel.clang_getCursorLocation current
             let reason = Text.unpack $ case skipReason of
-                  SkipBuiltIn     -> "builtin"
-                  SkipPredicate r -> r
+                  SkipReasonBuiltIn     -> "builtin"
+                  SkipReasonPredicate r -> r
             liftIO $ traceWithCallStack tracer callStack $ Skipped name loc reason
             return $ Continue Nothing
       Nothing -> return $ Continue Nothing

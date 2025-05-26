@@ -40,8 +40,8 @@ foldDecl curr = do
       Left skipReason -> do
         name <- clang_getCursorSpelling curr
         case skipReason of
-          SkipBuiltIn -> recordTraceWithCallStack callStack (SkippedBuiltIn name)
-          SkipPredicate {..} -> recordTraceWithCallStack callStack $ SkippedPredicate name mloc reason
+          SkipReasonBuiltIn -> recordTraceWithCallStack callStack (SkippedBuiltIn name)
+          SkipReasonPredicate {..} -> recordTraceWithCallStack callStack $ SkippedPredicate name mloc reason
         pure $ Continue Nothing
       Right _  -> dispatchWithArg curr $ \case
         CXCursor_InclusionDirective -> inclusionDirective
@@ -49,6 +49,7 @@ foldDecl curr = do
         CXCursor_StructDecl         -> structDecl
         CXCursor_TypedefDecl        -> typedefDecl
         CXCursor_MacroExpansion     -> macroExpansion
+        CXCursor_EnumDecl           -> enumDecl
         kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
 
 {-------------------------------------------------------------------------------
@@ -78,9 +79,11 @@ getReparseInfo curr = do
 inclusionDirective :: Fold M a
 inclusionDirective curr = do
     loc  <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
-    file <- clang_getIncludedFile curr
-    path <- SourcePath <$> clang_getFileName file
-    modifyIncludeGraph $ IncludeGraph.register (singleLocPath loc) path
+    includedFile <- clang_getIncludedFile curr
+    includedFilePath <- SourcePath <$> clang_getFileName includedFile
+    let includingFilePath = (singleLocPath loc)
+    recordTraceWithCallStack callStack $ RegisterInclude includingFilePath includedFilePath
+    modifyIncludeGraph $ IncludeGraph.register includingFilePath includedFilePath
     return $ Continue Nothing
 
 -- | Macros
@@ -134,7 +137,8 @@ structDecl curr = do
         -- TODO: This check is wrong. When we get more nesting, we get /all/
         -- structs at once, even those used by /nested/ fields, thus triggering
         -- this error.
---        unless (null unusedDecls) $
+--        unless (null unusedDecls) $ do
+--          mloc <- HighLevel.clang_getCursorLocation curr
 --          recordTraceWithCallStack callStack $ UnsupportedImplicitFields (declId info)
         let decl :: Decl Parse
             decl = Decl{
@@ -196,3 +200,43 @@ macroExpansion curr = do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
     return $ Continue Nothing
+
+enumDecl :: Fold M [Decl Parse]
+enumDecl curr = do
+    info <- getDeclInfo curr
+    classification <- HighLevel.classifyDeclaration curr
+    case classification of
+      DeclarationRegular ->
+        pure $ Recurse enumeratorDecl (aux info)
+      DeclarationOpaque -> do
+        let decl :: Decl Parse
+            decl = Decl{
+                declInfo = info
+              , declKind = DeclEnumOpaque
+              , declAnn  = NoAnn
+              }
+        pure $ Continue $ Just [decl]
+      DeclarationForward _ ->
+        pure $ Continue $ Nothing
+    where
+      aux :: DeclInfo Parse -> [Enumerator Parse] -> M (Maybe [Decl Parse])
+      aux info es = let decl = Decl { declInfo = info
+                                    , declKind = DeclEnum es
+                                    , declAnn  = NoAnn
+                                    }
+                     in pure $ Just [decl]
+
+enumeratorDecl :: Fold M (Enumerator Parse)
+enumeratorDecl curr = do
+  dispatch curr $ \case
+    CXCursor_EnumConstantDecl -> do
+      enumeratorName  <- clang_getCursorDisplayName curr
+      enumeratorValue <- toInteger <$> clang_getEnumConstantDeclValue curr
+      pure $ Continue $ Just Enumerator { enumeratorName
+                                        , enumeratorValue
+                                        , enumeratorAnn = NoAnn
+                                        }
+    CXCursor_PackedAttr -> do
+      -- No need to handle the `packed` attribute since `libclang` handles it for us.
+      pure $ Continue Nothing
+    kind -> panicIO $ "Unrecognized cursor in enumerator declaration " <> show kind
