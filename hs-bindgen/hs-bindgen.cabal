@@ -297,6 +297,7 @@ test-suite test-internal
     , deepseq
   build-depends:
       -- Inherited dependencies
+    , ansi-terminal
     , contra-tracer
     , bytestring
     , debruijn
