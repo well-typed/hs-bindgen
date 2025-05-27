@@ -123,15 +123,19 @@ structDecl curr = do
         -- This matters, because we need the offsets of these implicit fields.
         -- For now we therefore only try to detect the situation and report an
         -- error when it happens. Hopefully this is anyway very rare.
-        unless (null unusedDecls) $
-          recordTraceWithCallStack callStack $ UnsupportedImplicitFields (declId info)
+        --
+        -- TODO: This check is wrong. When we get more nesting, we get /all/
+        -- structs at once, even those used by /nested/ fields, thus triggering
+        -- this error.
+--        unless (null unusedDecls) $
+--          recordTraceWithCallStack callStack $ UnsupportedImplicitFields (declId info)
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
               , declKind = DeclStruct fields
               , declAnn  = NoAnn
               }
-        return $ Just $ usedDecls ++ [decl]
+        return $ Just $ otherDecls ++ [decl]
       where
         otherDecls :: [Decl Parse]
         fields     :: [Field Parse]

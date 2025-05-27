@@ -17,7 +17,6 @@ module HsBindgen.Frontend.Graph.DefUse (
   ) where
 
 import Control.Monad.State
-import Data.Map qualified as Map
 
 import Data.DynGraph.Labelled qualified as DynGraph
 import HsBindgen.Errors
@@ -57,11 +56,11 @@ data UseOfDecl =
 
 -- | Find direct or indirect use by a named declaration, if it exists
 findNamedUseOf :: DefUseGraph -> QualId Parse -> Maybe UseOfDecl
-findNamedUseOf (DefUseGraph UseDefGraph{useDefIndex, useDefGraph}) =
+findNamedUseOf (DefUseGraph ud@UseDefGraph{useDefGraph}) =
       flip evalState id
     . DynGraph.findTrailFrom
         useDefGraph
-        (aux . map (second (useDefIndex Map.!)))
+        (aux . map (second (ud UseDefGraph.!)))
   where
     aux ::
          [(Usage, Decl Parse)] -- ^ Direct use sites

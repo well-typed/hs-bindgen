@@ -16,7 +16,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 -------------------------------------------------------------------------------}
 
 type RenameAnon :: Pass
-data RenameAnon a
+data RenameAnon a deriving anyclass ValidPass
 
 type family AnnRenameAnon ix where
   AnnRenameAnon "TranslationUnit" = UseDefGraph Parse
@@ -28,14 +28,12 @@ instance IsPass RenameAnon where
   type Macro  RenameAnon = CheckedMacro
   type Ann ix RenameAnon = AnnRenameAnon ix
 
-instance ShowPass RenameAnon
-
 {-------------------------------------------------------------------------------
   Identity
 -------------------------------------------------------------------------------}
 
 newtype CName = CName Text
-  deriving newtype (Show, IsString, Semigroup)
+  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
 
 {-------------------------------------------------------------------------------
   Annotations

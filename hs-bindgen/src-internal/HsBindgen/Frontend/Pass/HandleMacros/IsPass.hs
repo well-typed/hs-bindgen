@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 -------------------------------------------------------------------------------}
 
 type HandleMacros :: Pass
-data HandleMacros a
+data HandleMacros a deriving anyclass ValidPass
 
 -- We don't need the 'ReparseInfo' anymore.
 type family AnnHandleMacros (ix :: Symbol) :: Star where
@@ -31,8 +31,6 @@ instance IsPass HandleMacros where
   type Id     HandleMacros = DeclId
   type Macro  HandleMacros = CheckedMacro
   type Ann ix HandleMacros = AnnHandleMacros ix
-
-instance ShowPass HandleMacros
 
 {-------------------------------------------------------------------------------
   Parsed macros

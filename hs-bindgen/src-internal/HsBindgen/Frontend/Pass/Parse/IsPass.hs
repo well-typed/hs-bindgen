@@ -28,7 +28,7 @@ import HsBindgen.Imports
 -------------------------------------------------------------------------------}
 
 type Parse :: Pass
-data Parse a
+data Parse a deriving anyclass ValidPass
 
 type family ParseAnn (ix :: Symbol) :: Star where
   ParseAnn "TranslationUnit" = UseDefGraph Parse
@@ -40,8 +40,6 @@ instance IsPass Parse where
   type Id     Parse = DeclId
   type Macro  Parse = UnparsedMacro
   type Ann ix Parse = ParseAnn ix
-
-instance ShowPass Parse
 
 {-------------------------------------------------------------------------------
   Identity

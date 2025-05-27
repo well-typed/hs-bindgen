@@ -21,7 +21,7 @@ module HsBindgen.Frontend.AST (
   , coerceQualId
   , declQualId
     -- * Show
-  , ShowPass
+  , ValidPass
   ) where
 
 import Clang.HighLevel.Types
@@ -158,6 +158,10 @@ declQualId Decl{declInfo = DeclInfo{declId}, declKind} = QualId (declId) $
 -------------------------------------------------------------------------------}
 
 class ( IsPass p
+
+        -- We often store identifiers in maps etc.
+      , Ord (Id p)
+
         -- Show constraints
       , Show (Id    p)
       , Show (Macro p)
@@ -168,13 +172,13 @@ class ( IsPass p
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
       , Show (Ann "TypeTypedef"     p)
-      ) => ShowPass p where
+      ) => ValidPass p where
 
-deriving stock instance ShowPass p => Show (Decl            p)
-deriving stock instance ShowPass p => Show (DeclInfo        p)
-deriving stock instance ShowPass p => Show (DeclKind        p)
-deriving stock instance ShowPass p => Show (Field           p)
-deriving stock instance ShowPass p => Show (QualId          p)
-deriving stock instance ShowPass p => Show (TranslationUnit p)
-deriving stock instance ShowPass p => Show (Type            p)
-deriving stock instance ShowPass p => Show (Typedef         p)
+deriving stock instance ValidPass p => Show (Decl            p)
+deriving stock instance ValidPass p => Show (DeclInfo        p)
+deriving stock instance ValidPass p => Show (DeclKind        p)
+deriving stock instance ValidPass p => Show (Field           p)
+deriving stock instance ValidPass p => Show (QualId          p)
+deriving stock instance ValidPass p => Show (TranslationUnit p)
+deriving stock instance ValidPass p => Show (Type            p)
+deriving stock instance ValidPass p => Show (Typedef         p)

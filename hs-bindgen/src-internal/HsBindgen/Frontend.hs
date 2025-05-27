@@ -7,7 +7,8 @@ import Control.Tracer (Tracer)
 
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.AST (TranslationUnit)
+import HsBindgen.Frontend.AST (TranslationUnit(..))
+import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.NameMangler
 import HsBindgen.Frontend.Pass.Parse
@@ -34,6 +35,8 @@ processTranslationUnit unit tracer = do
         afterRenameAnon                  = renameAnon afterHandleMacros
         afterResolveBindingSpecs         = resolveBindingSpecs afterRenameAnon
         afterNameMangler                 = mangleNames afterResolveBindingSpecs
+
+    writeFile "usedef.mermaid" $ UseDef.dumpMermaid show (unitAnn afterParse)
 
     -- TODO: Use tracer for these
     mapM_ print macroErrors

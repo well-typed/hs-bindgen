@@ -14,6 +14,7 @@ module HsBindgen.Frontend.Graph.UseDef (
     -- * Query
   , toDecls
   , lookup
+  , (!)
     -- * Debugging
   , dumpMermaid
   ) where
@@ -62,7 +63,7 @@ empty = UseDefGraph{
     }
 
 insert :: forall p.
-     (ShowPass p, Ord (Id p), HasCallStack)
+     (ValidPass p, HasCallStack)
   => UseDefGraph p -> Decl p -> UseDefGraph p
 insert UseDefGraph{useDefIndex, useDefGraph} decl@Decl{declKind} =
     UseDefGraph{
@@ -82,7 +83,7 @@ insert UseDefGraph{useDefIndex, useDefGraph} decl@Decl{declKind} =
     addDecl (Just _) = panicPure $ "duplicate declaration for " ++ show qid
 
 fromDecls ::
-     (ShowPass p, Ord (Id p), HasCallStack)
+     (ValidPass p, HasCallStack)
   => IncludeGraph -> [Decl p] -> UseDefGraph p
 fromDecls includeGraph decls =
     Foldable.foldl' insert empty $
@@ -109,15 +110,20 @@ fromDecls includeGraph decls =
 --
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
-toDecls :: Ord (Id p) => UseDefGraph p -> [Decl p]
-toDecls UseDefGraph{useDefIndex, useDefGraph} =
+toDecls :: ValidPass p => UseDefGraph p -> [Decl p]
+toDecls ud@UseDefGraph{useDefGraph} =
     -- TODO: Should this just be DynGraph.topSort?
     -- Not sure why that has an additional reverse.
-    map (useDefIndex Map.!) . DynGraph.postorderForest $
+    map (ud !) . DynGraph.postorderForest $
       DynGraph.dff useDefGraph
 
 lookup :: Ord (Id p) => QualId p -> UseDefGraph p -> Maybe (Decl p)
 lookup uid UseDefGraph{useDefIndex} = Map.lookup uid useDefIndex
+
+(!) :: (ValidPass p, HasCallStack) => UseDefGraph p -> QualId p -> Decl p
+(!) ud uid =
+    fromMaybe (panicPure $ "Unknown key: " ++ show uid) $
+       lookup uid ud
 
 {-------------------------------------------------------------------------------
   Construction auxiliary: sort key
@@ -142,12 +148,13 @@ annSortKey sourceMap Decl{declInfo = DeclInfo{declLoc}} = SortKey{
 -------------------------------------------------------------------------------}
 
 dumpMermaid :: forall p.
-     Ord (Id p)
+     ValidPass p
   => (Id p -> String) -> UseDefGraph p -> String
-dumpMermaid showId UseDefGraph{useDefIndex, useDefGraph} =
+dumpMermaid showId ud@UseDefGraph{useDefGraph} =
+    traceShow ud $
     DynGraph.dumpMermaid
       (Just . show)
-      (\uid -> showDecl $ useDefIndex Map.! uid)
+      (\uid -> showDecl $ ud ! uid)
       useDefGraph
   where
     showDecl :: Decl p -> String
