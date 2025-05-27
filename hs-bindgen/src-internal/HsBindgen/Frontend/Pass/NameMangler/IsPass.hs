@@ -21,10 +21,9 @@ type NameMangler :: Pass
 data NameMangler a
 
 instance IsPass NameMangler where
-  type Previous NameMangler = ResolveBindingSpecs
   type Id       NameMangler = PairOfIds
 
-instance ShowPass NameMangler
+-- instance ShowPass NameMangler
 
 {-------------------------------------------------------------------------------
   Identifiers

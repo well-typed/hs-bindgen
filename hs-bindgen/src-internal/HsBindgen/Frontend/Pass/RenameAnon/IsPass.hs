@@ -8,6 +8,8 @@ import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
+import HsBindgen.Frontend.Pass.Parse.IsPass
 
 {-------------------------------------------------------------------------------
   Pass definition
@@ -17,13 +19,14 @@ type RenameAnon :: Pass
 data RenameAnon a
 
 type family AnnRenameAnon ix where
-  AnnRenameAnon "TypeTypedef" = SquashedTypedef
-  AnnRenameAnon ix            = Ann ix (Previous RenameAnon)
+  AnnRenameAnon "TranslationUnit" = UseDefGraph Parse
+  AnnRenameAnon "TypeTypedef"     = SquashedTypedef
+  AnnRenameAnon _                 = NoAnn
 
 instance IsPass RenameAnon where
-  type Previous RenameAnon = HandleMacros
-  type Id       RenameAnon = CName
-  type Ann ix   RenameAnon = AnnRenameAnon ix
+  type Id     RenameAnon = CName
+  type Macro  RenameAnon = CheckedMacro
+  type Ann ix RenameAnon = AnnRenameAnon ix
 
 instance ShowPass RenameAnon
 

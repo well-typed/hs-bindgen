@@ -22,10 +22,7 @@ type ResolveBindingSpecs :: Pass
 data ResolveBindingSpecs a
 
 instance IsPass ResolveBindingSpecs where
-  -- We can only resolve binding specs once 'RenameAnon' has run, because that
-  -- gives us the ability to reference anonymous declarations.
-  type Previous ResolveBindingSpecs = RenameAnon
 
-instance ShowPass ResolveBindingSpecs
+-- instance ShowPass ResolveBindingSpecs
 
 

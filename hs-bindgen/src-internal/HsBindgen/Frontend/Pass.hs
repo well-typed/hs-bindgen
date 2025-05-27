@@ -28,13 +28,6 @@ data PassSimulatedOpenKind
 
 -- | Pass definition
 class IsPass (p :: Pass) where
-  -- | Previous pass ('None' if this is the first pass)
-  --
-  -- TODO: Delete. Without this, every pass is very explicit about its exact
-  -- annotations, making the code easier to work with.
-  type Previous p :: Pass
-  type Previous p = None
-
   -- | Identity of declarations
   --
   -- This takes various forms during processing:
@@ -46,14 +39,12 @@ class IsPass (p :: Pass) where
   -- 3. After 'NameMangling', this becomes a pair of the C name and the
   --    corresponding Haskell name.
   type Id p :: Star
-  type Id p = Id (Previous p)
 
   -- | Macro body
   --
   -- After parsing this is simply a list of tokens; after 'HandleMacros', this
   -- is the parsed and type-checked macro body.
   type Macro p :: Star
-  type Macro p = Macro (Previous p)
 
   -- | Generic TTG-style annotation
   --
@@ -65,10 +56,6 @@ class IsPass (p :: Pass) where
   -- would make certain things a bit easier (we should show that all annotations
   -- are showable, for example).
   type Ann (ix :: Symbol) p :: Star
-  type Ann ix p = Ann ix (Previous p)
-
-type None :: Pass
-data None a
 
 data NoAnn = NoAnn
   deriving stock (Show)

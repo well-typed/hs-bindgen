@@ -13,6 +13,7 @@ import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -23,14 +24,13 @@ data HandleMacros a
 
 -- We don't need the 'ReparseInfo' anymore.
 type family AnnHandleMacros (ix :: Symbol) :: Star where
-  AnnHandleMacros "Field"   = NoAnn
-  AnnHandleMacros "Typedef" = NoAnn
-  AnnHandleMacros ix        = Ann ix (Previous HandleMacros)
+  AnnHandleMacros "TranslationUnit" = UseDefGraph Parse
+  AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where
-  type Previous HandleMacros = Parse
-  type Macro    HandleMacros = CheckedMacro
-  type Ann ix   HandleMacros = AnnHandleMacros ix
+  type Id     HandleMacros = DeclId
+  type Macro  HandleMacros = CheckedMacro
+  type Ann ix HandleMacros = AnnHandleMacros ix
 
 instance ShowPass HandleMacros
 
