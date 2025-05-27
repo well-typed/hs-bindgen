@@ -87,7 +87,7 @@ defaultOpts = Opts {
     , optsExtBindings = emptyExtBindings
     , optsTranslation = Hs.defaultTranslationOpts
     , optsNameMangler = nameMangler
-    , optsPredicate   = SelectFromMainFile
+    , optsPredicate   = SelectFromMainFiles
     , optsTracer      = nullTracer
     }
   where

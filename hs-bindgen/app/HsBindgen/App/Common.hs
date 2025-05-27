@@ -103,14 +103,14 @@ parsePredicate = fmap aux . many . asum $ [
           long "select-by-element-name"
         , help "Match element name against PCRE"
         ]
-    , flag' SelectFromMainFile $ mconcat [
-          long "select-from-main-file"
-        , help "Only process elements from the main file (this is the default)"
+    , flag' SelectFromMainFiles $ mconcat [
+          long "select-from-main-files"
+        , help "Only process elements from the main files (this is the default)"
         ]
     ]
   where
     aux :: [Predicate] -> Predicate
-    aux [] = SelectFromMainFile
+    aux [] = SelectFromMainFiles
     aux ps = mconcat ps
 
 parseClangArgs :: Parser ClangArgs

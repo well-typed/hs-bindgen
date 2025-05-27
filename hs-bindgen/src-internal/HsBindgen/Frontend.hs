@@ -3,19 +3,14 @@
 -- Intended for unqualified import.
 module HsBindgen.Frontend (processTranslationUnit) where
 
-import Control.Tracer (Tracer)
-
-import Clang.LowLevel.Core
-
-import HsBindgen.Frontend.AST (TranslationUnit(..))
+import HsBindgen.Frontend.AST (TranslationUnit (..))
 import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.NameMangler
 import HsBindgen.Frontend.Pass.Parse
-import HsBindgen.Frontend.Pass.Parse.Monad (ParseEnv (ParseEnv), ParseLog)
+import HsBindgen.Frontend.Pass.Parse.Monad (ParseEnv)
 import HsBindgen.Frontend.Pass.RenameAnon
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
-import HsBindgen.Util.Tracer (TraceWithCallStack)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -27,9 +22,9 @@ import HsBindgen.Util.Tracer (TraceWithCallStack)
 -- pass in the C processing pipeline.
 type Final = RenameAnon
 
-processTranslationUnit :: CXTranslationUnit -> Tracer IO (TraceWithCallStack ParseLog) -> IO (TranslationUnit Final)
-processTranslationUnit unit tracer = do
-    afterParse <- parseTranslationUnit $ ParseEnv unit tracer
+processTranslationUnit :: ParseEnv -> IO (TranslationUnit Final)
+processTranslationUnit parseEnvironment = do
+    afterParse <- parseTranslationUnit parseEnvironment
 
     let (afterHandleMacros, macroErrors) = handleMacros afterParse
         afterRenameAnon                  = renameAnon afterHandleMacros
