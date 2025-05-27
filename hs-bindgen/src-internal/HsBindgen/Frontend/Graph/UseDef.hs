@@ -137,8 +137,13 @@ data SortKey = SortKey{
   deriving (Eq, Ord, Show)
 
 annSortKey :: Map SourcePath Int -> Decl p -> SortKey
-annSortKey sourceMap Decl{declInfo = DeclInfo{declLoc}} = SortKey{
-      sortPathIx = sourceMap Map.! singleLocPath declLoc
+annSortKey sourceMap Decl{declInfo = DeclInfo{declLoc}} =
+  let key        = singleLocPath declLoc
+      sortPathIx = fromMaybe
+        (panicPure $ "Source of declaration " <> show key <> " not in source map")
+        (Map.lookup key sourceMap)
+  in SortKey{
+      sortPathIx
     , sortLineNo = singleLocLine declLoc
     , sortColNo  = singleLocColumn declLoc
     }

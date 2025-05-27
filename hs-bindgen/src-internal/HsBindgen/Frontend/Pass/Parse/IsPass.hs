@@ -100,4 +100,3 @@ getUnparsedMacro unit curr = do
     range  <- HighLevel.clang_getCursorExtent curr
     tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
     return $ UnparsedMacro tokens
-

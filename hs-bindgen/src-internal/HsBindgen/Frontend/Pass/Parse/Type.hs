@@ -41,6 +41,7 @@ fromCXType ty =
       CXType_Elaborated -> elaborated
       CXType_Pointer    -> pointer
 
+      CXType_Enum    -> fromDecl
       CXType_Record  -> fromDecl
       CXType_Typedef -> fromDecl
 
@@ -64,6 +65,7 @@ fromDecl ty = do
     decl   <- clang_getTypeDeclaration ty
     declId <- getDeclId decl
     dispatch decl $ \case
-      CXCursor_TypedefDecl -> return $ TypeTypedef declId NoAnn
+      CXCursor_EnumDecl    -> return $ TypeEnum    declId
       CXCursor_StructDecl  -> return $ TypeStruct  declId
+      CXCursor_TypedefDecl -> return $ TypeTypedef declId NoAnn
       kind -> panicIO $ "fromDecl: " ++ show kind

@@ -60,7 +60,7 @@ instance Monoid Predicate where
   NOTE: This is internal API (users construct filters, but don't use them).
 -------------------------------------------------------------------------------}
 
-data SkipReason = SkipBuiltIn | SkipPredicate { reason :: Text }
+data SkipReason = SkipReasonBuiltIn | SkipReasonPredicate { reason :: Text }
 
 -- | Match filter
 --
@@ -72,22 +72,22 @@ match :: forall m.
   -> SingleLoc
   -> Predicate
   -> m (Either SkipReason ())
-match mainFilePaths current sloc predicate = runExceptT (go predicate <* skipBuiltIn)
+match mainFilePaths current sloc predicate = runExceptT (skipBuiltIn >> go predicate)
   where
     skipBuiltIn :: ExceptT SkipReason m ()
     skipBuiltIn = let sourcePath = singleLocPath sloc in
-      when (nullSourcePath sourcePath) $ throwError $ SkipBuiltIn
+      when (nullSourcePath sourcePath) $ throwError $ SkipReasonBuiltIn
     go :: Predicate -> ExceptT SkipReason m ()
     go SelectAll      = pure ()
     go (SelectIfBoth p q) = go p >> go q
     go SelectFromMainFiles = do
         unless (any (equalSourcePath (singleLocPath sloc)) mainFilePaths) $
-          throwError $ SkipPredicate "Not from main files"
+          throwError $ SkipReasonPredicate "Not from main files"
     go (SelectByFileName re) = do
         let filename = case singleLocPath sloc of
               SourcePath t -> t
         unless (matchTest re filename) $
-          throwError $ SkipPredicate $ mconcat [
+          throwError $ SkipReasonPredicate $ mconcat [
               "File name '"
             , filename
             , "' does not match "
@@ -96,7 +96,7 @@ match mainFilePaths current sloc predicate = runExceptT (go predicate <* skipBui
     go (SelectByElementName re) = do
         elementName <- clang_getCursorSpelling current
         unless (matchTest re elementName) $ do
-          throwError $ SkipPredicate $ mconcat [
+          throwError $ SkipReasonPredicate $ mconcat [
               "Element name '"
             , elementName
             , "' does not match "

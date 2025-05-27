@@ -6,14 +6,15 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
 
 import GHC.TypeLits (Symbol)
 
-import HsBindgen.C.AST.Macro qualified as Old -- TODO
+-- TODO.
+import HsBindgen.C.AST.Macro qualified as Old
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.C.Tc.Macro.Type qualified as Macro
 import HsBindgen.Frontend.AST
+import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
-import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 
 {-------------------------------------------------------------------------------
   Definition
