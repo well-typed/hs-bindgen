@@ -137,11 +137,11 @@ structDecl curr = do
         fields     :: [Field Parse]
         (otherDecls, fields) = first concat $ partitionEithers xs
 
-        fieldDeps :: [DeclId]
+        fieldDeps :: [QualId Parse]
         fieldDeps = map snd $ mapMaybe (depsOfType . fieldType) fields
 
         declIsUsed :: Decl Parse -> Bool
-        declIsUsed Decl{declInfo = DeclInfo{declId}} = declId `elem` fieldDeps
+        declIsUsed decl = declQualId decl `elem` fieldDeps
 
         usedDecls, unusedDecls :: [Decl Parse]
         (usedDecls, unusedDecls) = List.partition declIsUsed otherDecls

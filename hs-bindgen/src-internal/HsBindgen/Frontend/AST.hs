@@ -15,6 +15,11 @@ module HsBindgen.Frontend.AST (
   , PrimFloatType(..)
   , PrimSignChar(..)
   , PrimSign(..)
+    -- * Namespaces
+  , QualId(..)
+  , Namespace(..)
+  , coerceQualId
+  , declQualId
     -- * Show
   , ShowPass
   ) where
@@ -122,6 +127,33 @@ data PrimSign = Signed | Unsigned
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
+  Namespaces
+-------------------------------------------------------------------------------}
+
+data Namespace =
+    NamespaceTypedef
+  | NamespaceStruct
+  | NamespaceMacro
+  deriving stock (Show, Eq, Ord)
+
+data QualId p = QualId (Id p) Namespace
+
+deriving instance Eq  (Id p) => Eq  (QualId p)
+deriving instance Ord (Id p) => Ord (QualId p)
+
+-- TODO: It would be nicer if we could avoid this
+coerceQualId :: (Id p ~ Id p') => QualId p -> QualId p'
+coerceQualId (QualId uid ns) = QualId uid ns
+
+declQualId :: Decl p -> QualId p
+declQualId Decl{declInfo = DeclInfo{declId}, declKind} = QualId (declId) $
+    case declKind of
+      DeclStruct{}       -> NamespaceStruct
+      DeclStructOpaque{} -> NamespaceStruct
+      DeclTypedef{}      -> NamespaceTypedef
+      DeclMacro{}        -> NamespaceMacro
+
+{-------------------------------------------------------------------------------
   Show instances
 -------------------------------------------------------------------------------}
 
@@ -138,11 +170,11 @@ class ( IsPass p
       , Show (Ann "TypeTypedef"     p)
       ) => ShowPass p where
 
-deriving stock instance ShowPass p => Show (TranslationUnit p)
 deriving stock instance ShowPass p => Show (Decl            p)
 deriving stock instance ShowPass p => Show (DeclInfo        p)
 deriving stock instance ShowPass p => Show (DeclKind        p)
 deriving stock instance ShowPass p => Show (Field           p)
-deriving stock instance ShowPass p => Show (Typedef         p)
+deriving stock instance ShowPass p => Show (QualId          p)
+deriving stock instance ShowPass p => Show (TranslationUnit p)
 deriving stock instance ShowPass p => Show (Type            p)
-
+deriving stock instance ShowPass p => Show (Typedef         p)

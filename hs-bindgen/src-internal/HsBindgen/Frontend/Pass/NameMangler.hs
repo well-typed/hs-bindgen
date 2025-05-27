@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass.NameMangler (
 
 import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.Pass.NameMangler.IsPass
-import HsBindgen.Frontend.Pass.RenameAnon
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Imports
 
@@ -22,7 +21,5 @@ mangleNames = undefined
   Internal: state required during name mangling
 -------------------------------------------------------------------------------}
 
-data Namespace = Struct | Enum | Typedef
-
-type State = Map (CName, Namespace) PairOfIds
+type State = Map (QualId ResolveBindingSpecs) PairOfIds
 

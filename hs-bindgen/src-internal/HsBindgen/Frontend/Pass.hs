@@ -29,6 +29,9 @@ data PassSimulatedOpenKind
 -- | Pass definition
 class IsPass (p :: Pass) where
   -- | Previous pass ('None' if this is the first pass)
+  --
+  -- TODO: Delete. Without this, every pass is very explicit about its exact
+  -- annotations, making the code easier to work with.
   type Previous p :: Pass
   type Previous p = None
 

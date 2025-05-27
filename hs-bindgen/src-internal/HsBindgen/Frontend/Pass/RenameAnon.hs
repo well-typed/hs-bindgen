@@ -47,11 +47,15 @@ renameDef :: DefUseGraph -> Decl HandleMacros -> Maybe (Decl RenameAnon)
 renameDef du decl = do
     guard $ not (squash decl)
     mkDecl <$>
-      case declId of
-        DeclNamed (NamedId _namespace n) -> Just $ CName n
-        DeclAnon anonId -> nameForAnon <$> DefUseGraph.findUseOfAnon du anonId
+      case uid of
+        DeclNamed n -> Just $ CName n
+        DeclAnon  _ -> nameForAnon <$>
+                         DefUseGraph.findNamedUseOf du (coerceQualId qid)
   where
-    Decl{declInfo = DeclInfo{declId, declLoc}, declKind, declAnn} = decl
+    Decl{declInfo = DeclInfo{declLoc}, declKind, declAnn} = decl
+
+    qid :: QualId HandleMacros
+    qid@(QualId uid _namespace) = declQualId decl
 
     mkDecl :: CName -> Decl RenameAnon
     mkDecl newId = Decl{
@@ -77,10 +81,10 @@ squash Decl{declInfo = DeclInfo{declId}, declKind} =
     aroundAnon (TypePointer _)   = False
 
     anonOrSameName :: DeclId -> Bool
-    anonOrSameName (DeclNamed (NamedId _namespace name)) =
+    anonOrSameName (DeclNamed name) =
         case declId of
-          DeclNamed (NamedId _namespace name') -> name == name'
-          DeclAnon _ -> panicPure "unexpected anonymous typedef"
+          DeclNamed name' -> name == name'
+          DeclAnon  _     -> panicPure "unexpected anonymous typedef"
     anonOrSameName (DeclAnon  _) =
         True
 
@@ -121,23 +125,31 @@ instance RenameUseSites Typedef where
 
 instance RenameUseSites Type where
   renameUses du = \case
-      TypePrim    prim      -> TypePrim prim
-      TypeStruct  uid       -> TypeStruct (renameUse du uid)
-      TypeTypedef uid NoAnn -> TypeTypedef (renameUse du uid) (squashed du uid)
-      TypePointer ty        -> TypePointer (renameUses du ty)
+      TypePrim prim ->
+        TypePrim prim
+      TypeStruct uid ->
+        let qid = QualId uid NamespaceStruct
+        in TypeStruct (renameUse du qid)
+      TypeTypedef uid NoAnn ->
+        let qid = QualId uid NamespaceTypedef
+        in TypeTypedef (renameUse du qid) (squashed du qid)
+      TypePointer ty ->
+        TypePointer (renameUses du ty)
 
 -- | Rename specific use site
 --
 -- NOTE: there /must/ be at least one use site, because we are renaming one!
-renameUse :: DefUseGraph -> DeclId -> CName
-renameUse _  (DeclNamed (NamedId _namespace name)) = CName name
-renameUse du (DeclAnon aid) =
-    case DefUseGraph.findUseOfAnon du aid of
-      Just useOfAnon -> nameForAnon useOfAnon
-      Nothing        -> panicPure "impossible"
+renameUse :: DefUseGraph -> QualId HandleMacros -> CName
+renameUse du qid@(QualId uid _namespace) =
+    case uid of
+      DeclNamed name -> CName name
+      DeclAnon  _    ->
+       case DefUseGraph.findNamedUseOf du (coerceQualId qid) of
+         Just useOfAnon -> nameForAnon useOfAnon
+         Nothing        -> panicPure "impossible"
 
-squashed :: DefUseGraph -> DeclId -> SquashedTypedef
-squashed (DefUseGraph ud) uid =
-    case UseDef.lookup uid ud of
+squashed :: DefUseGraph -> QualId HandleMacros -> SquashedTypedef
+squashed (DefUseGraph ud) qid =
+    case UseDef.lookup (coerceQualId qid) ud of
       Just decl | squash decl -> SquashedTypedef
       _otherwise              -> KeptTypedef

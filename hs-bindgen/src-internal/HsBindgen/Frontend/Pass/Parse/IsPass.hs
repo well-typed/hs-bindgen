@@ -2,8 +2,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
     -- * Identity
   , DeclId(..)
-  , NamedId(..)
-  , Namespace(..)
   , AnonId(..)
   , isNamedDecl
   , isAnonDecl
@@ -20,11 +18,9 @@ import GHC.TypeLits (Symbol)
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.Graph.UseDef (UseDefGraph)
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Util
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -57,24 +53,15 @@ instance ShowPass Parse
 
 -- | Identity of a declaration
 data DeclId =
-    DeclNamed NamedId
+    DeclNamed Text
   | DeclAnon AnonId
-  deriving stock (Show, Eq, Ord)
-
--- | Identity of a named declaration
-data NamedId = NamedId Namespace Text
-  deriving stock (Show, Eq, Ord)
-
-data Namespace =
-    NamespaceTypedef
-  | NamespaceStruct
   deriving stock (Show, Eq, Ord)
 
 -- | Identity of an anonymous declaration
 newtype AnonId = AnonId SingleLoc
   deriving stock (Show, Eq, Ord)
 
-isNamedDecl :: DeclId -> Maybe NamedId
+isNamedDecl :: DeclId -> Maybe Text
 isNamedDecl (DeclNamed name) = Just name
 isNamedDecl (DeclAnon  _)    = Nothing
 
@@ -85,12 +72,8 @@ isAnonDecl (DeclAnon anonId) = Just anonId
 getDeclId :: MonadIO m => CXCursor -> m DeclId
 getDeclId curr = do
     name <- clang_getCursorSpelling curr
-    if not (Text.null name) then do
-      namespace <- dispatch curr $ \case
-        CXCursor_StructDecl  -> return NamespaceStruct
-        CXCursor_TypedefDecl -> return NamespaceTypedef
-        kind -> panicIO $ "Unknown namespace for " ++ show kind
-      return $ DeclNamed (NamedId namespace name)
+    if not (Text.null name) then
+      return $ DeclNamed name
     else
       DeclAnon . AnonId . multiLocExpansion <$>
         HighLevel.clang_getCursorLocation curr

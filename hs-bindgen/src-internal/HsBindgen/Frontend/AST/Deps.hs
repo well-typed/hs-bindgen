@@ -8,7 +8,6 @@ module HsBindgen.Frontend.AST.Deps (
 import Data.Maybe (maybeToList)
 
 import HsBindgen.Frontend.AST
-import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -27,7 +26,7 @@ data ValOrRef = ByValue | ByRef
   Get all dependencies
 -------------------------------------------------------------------------------}
 
-depsOfDecl :: forall p. DeclKind p -> [(Usage, Id p)]
+depsOfDecl :: forall p. DeclKind p -> [(Usage, QualId p)]
 depsOfDecl (DeclStruct fs) =
     concatMap depsOfField fs
 depsOfDecl DeclStructOpaque =
@@ -35,7 +34,7 @@ depsOfDecl DeclStructOpaque =
 depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ maybeToList (depsOfTypedef ty)
   where
-    aux :: ValOrRef -> Id p -> (Usage, Id p)
+    aux :: ValOrRef -> QualId p -> (Usage, QualId p)
     aux isPtr uid = (UsedInTypedef isPtr, uid)
 depsOfDecl (DeclMacro _ts) =
     -- We cannot know the dependencies of a macro until we parse it, but we
@@ -44,14 +43,14 @@ depsOfDecl (DeclMacro _ts) =
     -- having /any/ dependencies, and will rely instead on source ordering.
     []
 
-depsOfField :: forall p. Field p -> [(Usage, Id p)]
+depsOfField :: forall p. Field p -> [(Usage, QualId p)]
 depsOfField Field{fieldName, fieldType} =
     map (uncurry aux) $ maybeToList (depsOfType fieldType)
   where
-    aux :: ValOrRef -> Id p -> (Usage, Id p)
+    aux :: ValOrRef -> QualId p -> (Usage, QualId p)
     aux isPtr uid = (UsedInField isPtr fieldName, uid)
 
-depsOfTypedef :: Typedef p -> Maybe (ValOrRef, Id p)
+depsOfTypedef :: Typedef p -> Maybe (ValOrRef, QualId p)
 depsOfTypedef = depsOfType . typedefType
 
 -- | The declarations this type depends on
@@ -61,8 +60,8 @@ depsOfTypedef = depsOfType . typedefType
 -- NOTE: We are only interested in /direct/ dependencies here; transitive
 -- dependencies will materialize when we build the graph. That's why this
 -- returns at most /one/ dependency.
-depsOfType :: Type p -> Maybe (ValOrRef, Id p)
+depsOfType :: Type p -> Maybe (ValOrRef, QualId p)
 depsOfType (TypePrim _)           = Nothing
-depsOfType (TypeStruct  uid)      = Just (ByValue, uid)
-depsOfType (TypeTypedef uid _ann) = Just (ByValue, uid)
+depsOfType (TypeStruct  uid)      = Just (ByValue, QualId uid NamespaceStruct)
+depsOfType (TypeTypedef uid _ann) = Just (ByValue, QualId uid NamespaceTypedef)
 depsOfType (TypePointer ty)       = first (const ByRef) <$> depsOfType ty

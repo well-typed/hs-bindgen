@@ -46,8 +46,8 @@ import HsBindgen.Imports
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
 data UseDefGraph p = UseDefGraph{
-      useDefIndex :: Map (Id p) (Decl p)
-    , useDefGraph :: DynGraph Usage (Id p)
+      useDefIndex :: Map (QualId p) (Decl p)
+    , useDefGraph :: DynGraph Usage (QualId p)
     }
   deriving stock (Show)
 
@@ -62,26 +62,27 @@ empty = UseDefGraph{
     }
 
 insert :: forall p.
-     (Ord (Id p), Show (Id p), HasCallStack)
+     (ShowPass p, Ord (Id p), HasCallStack)
   => UseDefGraph p -> Decl p -> UseDefGraph p
-insert UseDefGraph{useDefIndex, useDefGraph} decl =
+insert UseDefGraph{useDefIndex, useDefGraph} decl@Decl{declKind} =
     UseDefGraph{
-        useDefIndex = Map.alter addDecl declId useDefIndex
+        useDefIndex = Map.alter addDecl qid useDefIndex
         -- Map.insert declId decl useDefIndex
       , useDefGraph = foldr
-                       (uncurry $ DynGraph.insertEdge declId)
-                       (DynGraph.insertVertex declId useDefGraph)
+                       (uncurry $ DynGraph.insertEdge qid)
+                       (DynGraph.insertVertex qid useDefGraph)
                        (depsOfDecl declKind)
       }
   where
-    Decl{declInfo = DeclInfo{declId}, declKind} = decl
+    qid :: QualId p
+    qid = declQualId decl
 
     addDecl :: Maybe (Decl p) -> Maybe (Decl p)
     addDecl Nothing  = Just decl
-    addDecl (Just _) = panicPure $ "duplicate declaration for " ++ show declId
+    addDecl (Just _) = panicPure $ "duplicate declaration for " ++ show qid
 
 fromDecls ::
-     (Ord (Id p), Show (Id p), HasCallStack)
+     (ShowPass p, Ord (Id p), HasCallStack)
   => IncludeGraph -> [Decl p] -> UseDefGraph p
 fromDecls includeGraph decls =
     Foldable.foldl' insert empty $
@@ -115,7 +116,7 @@ toDecls UseDefGraph{useDefIndex, useDefGraph} =
     map (useDefIndex Map.!) . DynGraph.postorderForest $
       DynGraph.dff useDefGraph
 
-lookup :: Ord (Id p) => Id p -> UseDefGraph p -> Maybe (Decl p)
+lookup :: Ord (Id p) => QualId p -> UseDefGraph p -> Maybe (Decl p)
 lookup uid UseDefGraph{useDefIndex} = Map.lookup uid useDefIndex
 
 {-------------------------------------------------------------------------------

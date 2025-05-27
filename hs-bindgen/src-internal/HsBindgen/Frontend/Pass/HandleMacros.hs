@@ -156,8 +156,8 @@ processTypedef info Typedef{typedefType, typedefAnn} = do
   where
     name :: Old.CName
     name = case declId info of
-             DeclNamed (NamedId _namespace n) -> Old.CName n
-             _otherwise -> panicPure "unexpected anonymous typedef"
+             DeclNamed n -> Old.CName n
+             _otherwise  -> panicPure "unexpected anonymous typedef"
 
 processMacro ::
      DeclInfo HandleMacros
@@ -180,8 +180,8 @@ processMacro info (UnparsedMacro tokens) =
   where
     name :: Old.CName
     name = case declId info of
-             DeclNamed (NamedId _namespace n) -> Old.CName n
-             _otherwise -> panicPure "unexpected anonymous macro"
+             DeclNamed n -> Old.CName n
+             _otherwise  -> panicPure "unexpected anonymous macro"
 
 processType :: Type Parse -> Type HandleMacros
 processType = \case

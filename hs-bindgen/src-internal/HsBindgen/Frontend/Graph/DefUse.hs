@@ -11,7 +11,7 @@ module HsBindgen.Frontend.Graph.DefUse (
   , fromUseDef
     -- * Query
   , UseOfDecl(..)
-  , findUseOfAnon
+  , findNamedUseOf
     -- * Debugging
   , dumpMermaid
   ) where
@@ -51,36 +51,33 @@ fromUseDef UseDefGraph{useDefIndex, useDefGraph} = DefUseGraph UseDefGraph{
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage NamedId
+    UsedByNamed Usage (Text, Namespace)
   | UsedByAnon Usage UseOfDecl
   deriving stock (Show)
 
--- | Find use site for anonymous declaration, if it exists
---
--- Unused anonymous declarations can be removed.
-findUseOfAnon :: DefUseGraph -> AnonId -> Maybe UseOfDecl
-findUseOfAnon (DefUseGraph UseDefGraph{useDefIndex, useDefGraph}) anonId =
-    flip evalState id $
-      DynGraph.findTrailFrom
+-- | Find direct or indirect use by a named declaration, if it exists
+findNamedUseOf :: DefUseGraph -> QualId Parse -> Maybe UseOfDecl
+findNamedUseOf (DefUseGraph UseDefGraph{useDefIndex, useDefGraph}) =
+      flip evalState id
+    . DynGraph.findTrailFrom
         useDefGraph
         (aux . map (second (useDefIndex Map.!)))
-        (DeclAnon anonId)
   where
     aux ::
          [(Usage, Decl Parse)] -- ^ Direct use sites
       -> State
            (UseOfDecl -> UseOfDecl)
-           (Either DeclId (Maybe UseOfDecl))
+           (Either (QualId Parse) (Maybe UseOfDecl))
     aux [(u, d)] = do
-        case declId of
+        case uid of
           DeclNamed name -> do
             f <- get
-            return $ Right . Just $ f (UsedByNamed u name)
+            return $ Right . Just $ f (UsedByNamed u (name, ns))
           DeclAnon _anonId -> do
             modify (. UsedByAnon u)
-            return $ Left declId
+            return $ Left qid
       where
-        Decl{declInfo = DeclInfo{declId}} = d
+        qid@(QualId uid ns) = declQualId d
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =

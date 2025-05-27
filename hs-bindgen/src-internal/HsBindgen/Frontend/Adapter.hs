@@ -36,8 +36,6 @@ type instance Raw Old.Type = Raw.Type HandleMacros
 
 instance ToRaw Old.Type where
   toRaw (Old.TypeTypedef (Old.CName name)) =
-      Raw.TypeTypedef
-        (Raw.DeclNamed (Raw.NamedId Raw.NamespaceTypedef name))
-        NoAnn
+      Raw.TypeTypedef (Raw.DeclNamed name) NoAnn
   toRaw ty =
       panicPure $ "toRaw: unhandled " ++ show ty
