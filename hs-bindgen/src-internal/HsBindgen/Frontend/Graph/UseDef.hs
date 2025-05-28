@@ -156,7 +156,6 @@ dumpMermaid :: forall p.
      ValidPass p
   => (Id p -> String) -> UseDefGraph p -> String
 dumpMermaid showId ud@UseDefGraph{useDefGraph} =
-    traceShow ud $
     DynGraph.dumpMermaid
       (Just . show)
       (\uid -> showDecl $ ud ! uid)

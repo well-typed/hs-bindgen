@@ -41,9 +41,12 @@ fromCXType ty =
       CXType_Elaborated -> elaborated
       CXType_Pointer    -> pointer
 
-      CXType_Enum    -> fromDecl
-      CXType_Record  -> fromDecl
-      CXType_Typedef -> fromDecl
+      CXType_Enum          -> fromDecl
+      CXType_Record        -> fromDecl
+      CXType_Typedef       -> fromDecl
+      CXType_FunctionProto -> function
+
+      CXType_Void          -> const (pure TypeVoid)
 
       kind -> \_ -> panicIO $ "fromCXType: " ++ show kind
 
@@ -70,3 +73,10 @@ fromDecl ty = do
       CXCursor_UnionDecl   -> return $ TypeUnion   declId
       CXCursor_TypedefDecl -> return $ TypeTypedef declId NoAnn
       kind -> panicIO $ "fromDecl: " ++ show kind
+
+function :: CXType -> M (Type Parse)
+function ty = do
+  res   <- clang_getResultType ty >>= fromCXType
+  nargs <- clang_getNumArgTypes ty
+  args  <- forM [0 .. nargs - 1] $ \i -> (clang_getArgType ty (fromIntegral i) >>= fromCXType)
+  pure $ TypeFunction args res

@@ -69,6 +69,7 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
       DeclUnionOpaque         -> Just <$> processOpaqueWith DeclUnionOpaque info'
       DeclEnum    enumerators -> Just <$> processEnum info' enumerators
       DeclEnumOpaque          -> Just <$> processOpaqueWith DeclEnumOpaque info'
+      DeclFunction fun        -> processFunction info' fun
   where
     info' :: DeclInfo HandleMacros
     info' = DeclInfo{declId, declLoc}
@@ -80,8 +81,7 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
 processStruct ::
      DeclInfo HandleMacros
   -> [StructField Parse] -> M (Decl HandleMacros)
-processStruct info = \fields ->
-    mkDecl . catMaybes <$> mapM processStructField fields
+processStruct info = fmap (mkDecl . catMaybes) . mapM processStructField
   where
     mkDecl :: [StructField HandleMacros] -> Decl HandleMacros
     mkDecl fields = Decl{
@@ -222,6 +222,39 @@ processMacro info (UnparsedMacro tokens) =
              DeclNamed n -> Old.CName n
              _otherwise  -> panicPure "unexpected anonymous macro"
 
+processFunction ::
+     DeclInfo HandleMacros
+  -> Function Parse -> M (Maybe (Decl HandleMacros))
+processFunction info Function {..} =
+  case functionAnn of
+    ReparseNotNeeded -> do
+      let decl :: Decl HandleMacros
+          decl = Decl{
+              declInfo = info
+            , declKind = DeclFunction Function{
+                functionName
+              , functionArgs = map processType functionArgs
+              , functionRes = processType functionRes
+              , functionAnn = NoAnn
+              }
+            , declAnn = NoAnn
+            }
+      pure $ Just decl
+    ReparseNeeded tokens ->
+      reparseWith reparseFunctionDecl tokens $ \((tys, ty), (Old.CName name)) -> do
+        let decl :: Decl HandleMacros
+            decl = Decl{
+                declInfo = info
+              , declKind = DeclFunction Function{
+                  functionName = name
+                , functionArgs = map toRaw tys
+                , functionRes = toRaw ty
+                , functionAnn = NoAnn
+                }
+              , declAnn = NoAnn
+              }
+        pure $ Just decl
+
 processType :: Type Parse -> Type HandleMacros
 processType = \case
     TypePrim    prim    -> TypePrim prim
@@ -230,6 +263,8 @@ processType = \case
     TypeEnum    uid     -> TypeEnum uid
     TypeTypedef uid ann -> TypeTypedef uid ann
     TypePointer ty      -> TypePointer (processType ty)
+    TypeFunction tys ty -> TypeFunction (map processType tys) (processType ty)
+    TypeVoid            -> TypeVoid
 
 {-------------------------------------------------------------------------------
   Internal: monad used for parsing macros
@@ -329,7 +364,7 @@ reparseField typeEnv tokens =
     first ReparseError $
       Reparse.reparseWith (Reparse.reparseFieldDecl typeEnv) tokens
 
-_reparseFunDecl :: Reparse (([Old.Type], Old.Type), Old.CName)
-_reparseFunDecl typeEnv tokens =
+reparseFunctionDecl :: Reparse (([Old.Type], Old.Type), Old.CName)
+reparseFunctionDecl typeEnv tokens =
     first ReparseError $
       Reparse.reparseWith (Reparse.reparseFunDecl typeEnv) tokens

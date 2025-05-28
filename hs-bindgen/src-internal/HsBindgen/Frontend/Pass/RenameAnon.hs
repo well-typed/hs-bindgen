@@ -73,12 +73,14 @@ squash Decl{declInfo = DeclInfo{declId}, declKind} =
       _otherwise          -> False
   where
     aroundAnon :: Type p -> Bool
-    aroundAnon (TypePrim   _)    = False
-    aroundAnon (TypeStruct uid)  = anonOrSameName uid
-    aroundAnon (TypeUnion uid)   = anonOrSameName uid
-    aroundAnon (TypeEnum uid)    = anonOrSameName uid
-    aroundAnon (TypeTypedef _ _) = False
-    aroundAnon (TypePointer _)   = False
+    aroundAnon (TypePrim   _)     = False
+    aroundAnon (TypeStruct uid)   = anonOrSameName uid
+    aroundAnon (TypeUnion uid)    = anonOrSameName uid
+    aroundAnon (TypeEnum uid)     = anonOrSameName uid
+    aroundAnon (TypeTypedef _ _)  = False
+    aroundAnon (TypePointer _)    = False
+    aroundAnon (TypeFunction _ _) = False
+    aroundAnon TypeVoid = False
 
     anonOrSameName :: DeclId -> Bool
     anonOrSameName (DeclNamed name) =
@@ -105,6 +107,7 @@ instance RenameUseSites DeclKind where
       DeclEnumOpaque       -> DeclEnumOpaque
       DeclTypedef typedef  -> DeclTypedef (renameUses du typedef)
       DeclMacro unparsed   -> DeclMacro unparsed
+      DeclFunction fun     -> DeclFunction (renameUses du fun)
 
 instance RenameUseSites StructField where
   renameUses du StructField{..} = StructField{
@@ -121,6 +124,13 @@ instance RenameUseSites UnionField where
 instance RenameUseSites Typedef where
   renameUses du Typedef{..} = Typedef{
         typedefType = renameUses du typedefType
+      , ..
+      }
+
+instance RenameUseSites Function where
+  renameUses du Function{..} = Function{
+        functionArgs = map (renameUses du) functionArgs
+      , functionRes = renameUses du functionRes
       , ..
       }
 
@@ -142,6 +152,10 @@ instance RenameUseSites Type where
         in TypeTypedef (renameUse du qid) (squashed du qid)
       TypePointer ty ->
         TypePointer (renameUses du ty)
+      TypeFunction tys ty ->
+        TypeFunction (map (renameUses du) tys) (renameUses du ty)
+      TypeVoid ->
+        TypeVoid
 
 -- | Rename specific use site
 --
