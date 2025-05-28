@@ -5,9 +5,10 @@ module HsBindgen.Frontend.AST (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
-  , Field(..)
+  , StructField(..)
+  , UnionField(..)
   , Typedef(..)
-  , Enumerator(..)
+  , EnumConstant(..)
     -- * Types (at use sites)
   , Type(..)
     -- ** Primitive types
@@ -73,18 +74,26 @@ data DeclInfo p = DeclInfo{
     }
 
 data DeclKind p =
-    DeclStruct [Field p]
+    DeclStruct [StructField p]
   | DeclStructOpaque
+  | DeclUnion [UnionField p]
+  | DeclUnionOpaque
   | DeclTypedef (Typedef p)
-  | DeclEnum [Enumerator p]
+  | DeclEnum [EnumConstant]
   | DeclEnumOpaque
   | DeclMacro (Macro p)
 
-data Field p = Field {
-      fieldName   :: Text
-    , fieldType   :: Type p
-    , fieldOffset :: Int     -- ^ Offset in bits
-    , fieldAnn    :: Ann "Field" p
+data StructField p = StructField {
+      structFieldName   :: Text
+    , structFieldType   :: Type p
+    , structFieldOffset :: Int     -- ^ Offset in bits
+    , structFieldAnn    :: Ann "StructField" p
+    }
+
+data UnionField p = UnionField {
+      unionFieldName   :: Text
+    , unionFieldType   :: Type p
+    , unionFieldAnn    :: Ann "UnionField" p
     }
 
 data Typedef p = Typedef {
@@ -92,11 +101,11 @@ data Typedef p = Typedef {
     , typedefAnn  :: Ann "Typedef" p
     }
 
-data Enumerator p = Enumerator {
-      enumeratorName  :: Text
-    , enumeratorValue :: Integer
-    , enumeratorAnn   :: Ann "Enumerator" p
+data EnumConstant = EnumConstant {
+      enumConstantName  :: Text
+    , enumConstantValue :: Integer
     }
+  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Types (at use sites)
@@ -105,6 +114,7 @@ data Enumerator p = Enumerator {
 data Type p =
     TypePrim PrimType
   | TypeStruct (Id p)
+  | TypeUnion (Id p)
   | TypeEnum (Id p)
   | TypeTypedef (Id p) (Ann "TypeTypedef" p)
   | TypePointer (Type p)
@@ -143,6 +153,7 @@ data PrimSign = Signed | Unsigned
 data Namespace =
     NamespaceTypedef
   | NamespaceStruct
+  | NamespaceUnion
   | NamespaceEnum
   | NamespaceMacro
   deriving stock (Show, Eq, Ord)
@@ -161,6 +172,8 @@ declQualId Decl{declInfo = DeclInfo{declId}, declKind} = QualId (declId) $
     case declKind of
       DeclStruct{}       -> NamespaceStruct
       DeclStructOpaque{} -> NamespaceStruct
+      DeclUnion{}        -> NamespaceUnion
+      DeclUnionOpaque{}  -> NamespaceUnion
       DeclEnum{}         -> NamespaceEnum
       DeclEnumOpaque{}   -> NamespaceEnum
       DeclTypedef{}      -> NamespaceTypedef
@@ -181,18 +194,18 @@ class ( IsPass p
 
         -- Annotations
       , Show (Ann "Decl"            p)
-      , Show (Ann "Field"           p)
+      , Show (Ann "StructField"     p)
+      , Show (Ann "UnionField"      p)
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
       , Show (Ann "TypeTypedef"     p)
-      , Show (Ann "Enumerator"      p)
       ) => ValidPass p where
 
 deriving stock instance ValidPass p => Show (Decl            p)
 deriving stock instance ValidPass p => Show (DeclInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind        p)
-deriving stock instance ValidPass p => Show (Enumerator      p)
-deriving stock instance ValidPass p => Show (Field           p)
+deriving stock instance ValidPass p => Show (StructField     p)
+deriving stock instance ValidPass p => Show (UnionField      p)
 deriving stock instance ValidPass p => Show (QualId          p)
 deriving stock instance ValidPass p => Show (TranslationUnit p)
 deriving stock instance ValidPass p => Show (Type            p)

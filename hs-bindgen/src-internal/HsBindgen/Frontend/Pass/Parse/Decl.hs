@@ -47,6 +47,7 @@ foldDecl curr = do
         CXCursor_InclusionDirective -> inclusionDirective
         CXCursor_MacroDefinition    -> macroDefinition
         CXCursor_StructDecl         -> structDecl
+        CXCursor_UnionDecl          -> unionDecl
         CXCursor_TypedefDecl        -> typedefDecl
         CXCursor_MacroExpansion     -> macroExpansion
         CXCursor_EnumDecl           -> enumDecl
@@ -110,7 +111,7 @@ structDecl curr = do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       DeclarationRegular ->
-        return $ Recurse fieldDecl (aux info)
+        return $ Recurse (structOrUnionFieldDecl assembleStructField) (aux info)
       DeclarationOpaque -> do
         let decl :: Decl Parse
             decl = Decl{
@@ -124,7 +125,7 @@ structDecl curr = do
   where
     aux ::
          DeclInfo Parse
-      -> [Either [Decl Parse] (Field Parse)]
+      -> [Either [Decl Parse] (StructField Parse)]
       -> M (Maybe [Decl Parse])
     aux info xs = do
         -- Local declarations inside structs that are not used by any fields
@@ -149,11 +150,11 @@ structDecl curr = do
         return $ Just $ otherDecls ++ [decl]
       where
         otherDecls :: [Decl Parse]
-        fields     :: [Field Parse]
+        fields     :: [StructField Parse]
         (otherDecls, fields) = first concat $ partitionEithers xs
 
         fieldDeps :: [QualId Parse]
-        fieldDeps = map snd $ mapMaybe (depsOfType . fieldType) fields
+        fieldDeps = map snd $ mapMaybe (depsOfType . structFieldType) fields
 
         declIsUsed :: Decl Parse -> Bool
         declIsUsed decl = declQualId decl `elem` fieldDeps
@@ -161,23 +162,77 @@ structDecl curr = do
         usedDecls, unusedDecls :: [Decl Parse]
         (usedDecls, unusedDecls) = List.partition declIsUsed otherDecls
 
-fieldDecl :: Fold M (Either [Decl Parse] (Field Parse))
-fieldDecl curr = do
+unionDecl :: Fold M [Decl Parse]
+unionDecl curr = do
+    info           <- getDeclInfo curr
+    classification <- HighLevel.classifyDeclaration curr
+    case classification of
+      DeclarationRegular ->
+        return $ Recurse (structOrUnionFieldDecl assembleUnionField) (aux info)
+      DeclarationOpaque -> do
+        let decl :: Decl Parse
+            decl = Decl{
+                declInfo = info
+              , declKind = DeclUnionOpaque
+              , declAnn  = NoAnn
+              }
+        return $ Continue $ Just [decl]
+      DeclarationForward _ ->
+        return $ Continue $ Nothing
+  where
+    aux ::
+         DeclInfo Parse
+      -> [Either [Decl Parse] (UnionField Parse)]
+      -> M (Maybe [Decl Parse])
+    aux info xs = do
+        -- TODO (#682): Support anonymous structures in unions.
+        let decl :: Decl Parse
+            decl = Decl{
+                declInfo = info
+              , declKind = DeclUnion fields
+              , declAnn  = NoAnn
+              }
+        return $ Just $ otherDecls ++ [decl]
+      where
+        otherDecls :: [Decl Parse]
+        fields     :: [UnionField Parse]
+        (otherDecls, fields) = first concat $ partitionEithers xs
+
+structOrUnionFieldDecl ::
+     (CXCursor -> M (a Parse))
+  -> Fold M (Either [Decl Parse] (a Parse))
+structOrUnionFieldDecl assembleField curr = do
     kind <- fromSimpleEnum <$> clang_getCursorKind curr
     case kind of
       Right CXCursor_FieldDecl -> do
-        fieldName   <- clang_getCursorDisplayName curr
-        fieldType   <- fromCXType =<< clang_getCursorType curr
-        fieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
-        fieldAnn    <- getReparseInfo curr
-        return $ Continue . Just . Right $ Field{
-            fieldName
-          , fieldType
-          , fieldOffset
-          , fieldAnn
-          }
+        field <- assembleField curr
+        return $ Continue . Just . Right $ field
       _otherwise -> do
         fmap Left <$> foldDecl curr
+
+assembleStructField :: CXCursor -> M (StructField Parse)
+assembleStructField curr = do
+    structFieldName   <- clang_getCursorDisplayName curr
+    structFieldType   <- fromCXType =<< clang_getCursorType curr
+    structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
+    structFieldAnn    <- getReparseInfo curr
+    pure StructField{
+        structFieldName
+      , structFieldType
+      , structFieldOffset
+      , structFieldAnn
+      }
+
+assembleUnionField :: CXCursor -> M (UnionField Parse)
+assembleUnionField curr = do
+    unionFieldName   <- clang_getCursorDisplayName curr
+    unionFieldType   <- fromCXType =<< clang_getCursorType curr
+    unionFieldAnn    <- getReparseInfo curr
+    pure UnionField{
+        unionFieldName
+      , unionFieldType
+      , unionFieldAnn
+      }
 
 typedefDecl :: Fold M [Decl Parse]
 typedefDecl curr = do
@@ -219,23 +274,22 @@ enumDecl curr = do
       DeclarationForward _ ->
         pure $ Continue $ Nothing
     where
-      aux :: DeclInfo Parse -> [Enumerator Parse] -> M (Maybe [Decl Parse])
+      aux :: DeclInfo Parse -> [EnumConstant] -> M (Maybe [Decl Parse])
       aux info es = let decl = Decl { declInfo = info
                                     , declKind = DeclEnum es
                                     , declAnn  = NoAnn
                                     }
                      in pure $ Just [decl]
 
-enumeratorDecl :: Fold M (Enumerator Parse)
+enumeratorDecl :: Fold M EnumConstant
 enumeratorDecl curr = do
   dispatch curr $ \case
     CXCursor_EnumConstantDecl -> do
-      enumeratorName  <- clang_getCursorDisplayName curr
-      enumeratorValue <- toInteger <$> clang_getEnumConstantDeclValue curr
-      pure $ Continue $ Just Enumerator { enumeratorName
-                                        , enumeratorValue
-                                        , enumeratorAnn = NoAnn
-                                        }
+      enumConstantName  <- clang_getCursorDisplayName curr
+      enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
+      pure $ Continue $ Just EnumConstant { enumConstantName
+                                          , enumConstantValue
+                                          }
     CXCursor_PackedAttr -> do
       -- No need to handle the `packed` attribute since `libclang` handles it for us.
       pure $ Continue Nothing

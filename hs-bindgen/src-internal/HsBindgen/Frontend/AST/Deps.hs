@@ -28,8 +28,12 @@ data ValOrRef = ByValue | ByRef
 
 depsOfDecl :: forall p. DeclKind p -> [(Usage, QualId p)]
 depsOfDecl (DeclStruct fs) =
-    concatMap depsOfField fs
+    concatMap (depsOfField structFieldName structFieldType) fs
 depsOfDecl DeclStructOpaque =
+    []
+depsOfDecl (DeclUnion fs) =
+    concatMap (depsOfField unionFieldName unionFieldType) fs
+depsOfDecl DeclUnionOpaque =
     []
 depsOfDecl (DeclEnum _) =
     []
@@ -47,12 +51,12 @@ depsOfDecl (DeclMacro _ts) =
     -- having /any/ dependencies, and will rely instead on source ordering.
     []
 
-depsOfField :: forall p. Field p -> [(Usage, QualId p)]
-depsOfField Field{fieldName, fieldType} =
-    map (uncurry aux) $ maybeToList (depsOfType fieldType)
+depsOfField :: (a p -> Text) -> (a p -> Type p) -> a p -> [(Usage, QualId p)]
+depsOfField getName getType field =
+    map (uncurry aux) $ maybeToList (depsOfType $ getType field)
   where
     aux :: ValOrRef -> QualId p -> (Usage, QualId p)
-    aux isPtr uid = (UsedInField isPtr fieldName, uid)
+    aux isPtr uid = (UsedInField isPtr (getName field), uid)
 
 depsOfTypedef :: Typedef p -> Maybe (ValOrRef, QualId p)
 depsOfTypedef = depsOfType . typedefType
@@ -66,7 +70,8 @@ depsOfTypedef = depsOfType . typedefType
 -- returns at most /one/ dependency.
 depsOfType :: Type p -> Maybe (ValOrRef, QualId p)
 depsOfType (TypePrim _)           = Nothing
-depsOfType (TypeStruct  uid)      = Just (ByValue, QualId uid NamespaceStruct)
+depsOfType (TypeStruct uid)       = Just (ByValue, QualId uid NamespaceStruct)
+depsOfType (TypeUnion uid)        = Just (ByValue, QualId uid NamespaceUnion)
 depsOfType (TypeEnum uid)         = Just (ByValue, QualId uid NamespaceEnum)
 depsOfType (TypeTypedef uid _ann) = Just (ByValue, QualId uid NamespaceTypedef)
 depsOfType (TypePointer ty)       = first (const ByRef) <$> depsOfType ty

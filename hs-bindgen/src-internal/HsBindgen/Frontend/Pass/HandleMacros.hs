@@ -64,9 +64,11 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
       DeclMacro   macro       -> processMacro info' macro
       DeclTypedef typedef     -> processTypedef info' typedef
       DeclStruct  fields      -> Just <$> processStruct info' fields
-      DeclStructOpaque        -> Just <$> processStructOpaque info'
+      DeclStructOpaque        -> Just <$> processOpaqueWith DeclStructOpaque info'
+      DeclUnion   fields      -> Just <$> processUnion info' fields
+      DeclUnionOpaque         -> Just <$> processOpaqueWith DeclUnionOpaque info'
       DeclEnum    enumerators -> Just <$> processEnum info' enumerators
-      DeclEnumOpaque          -> Just <$> processEnumOpaque info'
+      DeclEnumOpaque          -> Just <$> processOpaqueWith DeclEnumOpaque info'
   where
     info' :: DeclInfo HandleMacros
     info' = DeclInfo{declId, declLoc}
@@ -77,78 +79,87 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
 
 processStruct ::
      DeclInfo HandleMacros
-  -> [Field Parse] -> M (Decl HandleMacros)
+  -> [StructField Parse] -> M (Decl HandleMacros)
 processStruct info = \fields ->
-    mkDecl . catMaybes <$> mapM processField fields
+    mkDecl . catMaybes <$> mapM processStructField fields
   where
-    mkDecl :: [Field HandleMacros] -> Decl HandleMacros
+    mkDecl :: [StructField HandleMacros] -> Decl HandleMacros
     mkDecl fields = Decl{
           declInfo = info
         , declKind = DeclStruct fields
         , declAnn  = NoAnn
         }
 
-processField :: Field Parse -> M (Maybe (Field HandleMacros))
-processField field =
-    case fieldAnn of
+processStructField :: StructField Parse -> M (Maybe (StructField HandleMacros))
+processStructField StructField{..} =
+    case structFieldAnn of
       ReparseNotNeeded ->
-        return . Just $ Field{
-            fieldType = processType fieldType
-          , fieldAnn  = NoAnn
-          , fieldName
-          , fieldOffset
+        pure . Just $ StructField{
+            structFieldName
+          , structFieldType = processType structFieldType
+          , structFieldOffset
+          , structFieldAnn  = NoAnn
           }
       ReparseNeeded tokens ->
         reparseWith reparseField tokens $ \(ty, Old.CName name) ->
-          return . Just $ Field{
-              fieldName = name
-            , fieldType = toRaw ty
-            , fieldAnn  = NoAnn
-            , fieldOffset
+          pure . Just $ StructField{
+              structFieldName = name
+            , structFieldType = toRaw ty
+            , structFieldOffset
+            , structFieldAnn  = NoAnn
             }
-  where
-    Field{
-        fieldName
-      , fieldType
-      , fieldOffset
-      , fieldAnn
-      } = field
 
-processStructOpaque ::
-     DeclInfo HandleMacros
+processUnion :: DeclInfo HandleMacros -> [UnionField Parse] -> M (Decl HandleMacros)
+processUnion info fields =
+    combineFields . catMaybes <$> mapM processUnionField fields
+  where
+    combineFields :: [UnionField HandleMacros] -> Decl HandleMacros
+    combineFields fields' = Decl{
+          declInfo = info
+        , declKind = DeclUnion fields'
+        , declAnn  = NoAnn
+        }
+
+processUnionField :: UnionField Parse -> M (Maybe (UnionField HandleMacros))
+processUnionField UnionField{..} =
+    case unionFieldAnn of
+      ReparseNotNeeded ->
+        pure . Just $ UnionField{
+            unionFieldName
+          , unionFieldType = processType unionFieldType
+          , unionFieldAnn  = NoAnn
+          }
+      ReparseNeeded tokens ->
+        reparseWith reparseField tokens $ \(ty, Old.CName name) ->
+          pure . Just $ UnionField{
+              unionFieldName = name
+            , unionFieldType = toRaw ty
+            , unionFieldAnn  = NoAnn
+            }
+
+processOpaqueWith ::
+     DeclKind HandleMacros
+  -> DeclInfo HandleMacros
   -> M (Decl HandleMacros)
-processStructOpaque info =
+processOpaqueWith kind info =
     return Decl{
         declInfo = info
-      , declKind = DeclStructOpaque
+      , declKind = kind
       , declAnn  = NoAnn
       }
 
-processEnum :: DeclInfo HandleMacros -> [Enumerator Parse] -> M (Decl HandleMacros)
-processEnum info = fmap (mkDecl . catMaybes) . mapM processEnumerator
+processEnum :: DeclInfo HandleMacros -> [EnumConstant] -> M (Decl HandleMacros)
+processEnum info = fmap (mkDecl . catMaybes) . mapM processEnumConstant
   where
-    mkDecl :: [Enumerator HandleMacros] -> Decl HandleMacros
+    mkDecl :: [EnumConstant] -> Decl HandleMacros
     mkDecl enumerators = Decl{
           declInfo = info
         , declKind = DeclEnum enumerators
         , declAnn  = NoAnn
         }
 
-processEnumerator :: Enumerator Parse -> M (Maybe (Enumerator HandleMacros))
-processEnumerator Enumerator {..} =
-        pure . Just $ Enumerator {
-            enumeratorName
-          , enumeratorValue
-          , enumeratorAnn = NoAnn
-          }
-
-processEnumOpaque :: DeclInfo HandleMacros -> M (Decl HandleMacros)
-processEnumOpaque info =
-    pure Decl {
-        declInfo = info
-      , declKind = DeclEnumOpaque
-      , declAnn  = NoAnn
-      }
+processEnumConstant :: EnumConstant -> M (Maybe EnumConstant)
+processEnumConstant = pure . Just
 
 processTypedef ::
      DeclInfo HandleMacros
@@ -215,6 +226,7 @@ processType :: Type Parse -> Type HandleMacros
 processType = \case
     TypePrim    prim    -> TypePrim prim
     TypeStruct  uid     -> TypeStruct uid
+    TypeUnion   uid     -> TypeUnion uid
     TypeEnum    uid     -> TypeEnum uid
     TypeTypedef uid ann -> TypeTypedef uid ann
     TypePointer ty      -> TypePointer (processType ty)
