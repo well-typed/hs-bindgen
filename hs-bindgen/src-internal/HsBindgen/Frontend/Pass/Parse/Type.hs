@@ -67,5 +67,6 @@ fromDecl ty = do
     dispatch decl $ \case
       CXCursor_EnumDecl    -> return $ TypeEnum    declId
       CXCursor_StructDecl  -> return $ TypeStruct  declId
+      CXCursor_UnionDecl   -> return $ TypeUnion   declId
       CXCursor_TypedefDecl -> return $ TypeTypedef declId NoAnn
       kind -> panicIO $ "fromDecl: " ++ show kind

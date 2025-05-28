@@ -75,6 +75,7 @@ squash Decl{declInfo = DeclInfo{declId}, declKind} =
     aroundAnon :: Type p -> Bool
     aroundAnon (TypePrim   _)    = False
     aroundAnon (TypeStruct uid)  = anonOrSameName uid
+    aroundAnon (TypeUnion uid)   = anonOrSameName uid
     aroundAnon (TypeEnum uid)    = anonOrSameName uid
     aroundAnon (TypeTypedef _ _) = False
     aroundAnon (TypePointer _)   = False
@@ -98,33 +99,29 @@ instance RenameUseSites DeclKind where
   renameUses du = \case
       DeclStruct fields    -> DeclStruct (map (renameUses du) fields)
       DeclStructOpaque     -> DeclStructOpaque
-      DeclEnum enumerators -> DeclEnum (map (renameUses du) enumerators)
+      DeclUnion fields     -> DeclUnion (map (renameUses du) fields)
+      DeclUnionOpaque      -> DeclUnionOpaque
+      DeclEnum enumerators -> DeclEnum enumerators
       DeclEnumOpaque       -> DeclEnumOpaque
       DeclTypedef typedef  -> DeclTypedef (renameUses du typedef)
       DeclMacro unparsed   -> DeclMacro unparsed
 
-instance RenameUseSites Field where
-  renameUses du field = Field{
-        fieldName
-      , fieldType = renameUses du fieldType
-      , fieldOffset
-      , fieldAnn
+instance RenameUseSites StructField where
+  renameUses du StructField{..} = StructField{
+        structFieldType = renameUses du structFieldType
+      , ..
       }
-    where
-      Field{
-          fieldName
-        , fieldType
-        , fieldOffset
-        , fieldAnn
-        } = field
 
-instance RenameUseSites Enumerator where
-  renameUses _ Enumerator{..} = Enumerator{..}
+instance RenameUseSites UnionField where
+  renameUses du UnionField{..} = UnionField{
+        unionFieldType = renameUses du unionFieldType
+      , ..
+      }
 
 instance RenameUseSites Typedef where
-  renameUses du Typedef{typedefType, typedefAnn} = Typedef{
+  renameUses du Typedef{..} = Typedef{
         typedefType = renameUses du typedefType
-      , typedefAnn
+      , ..
       }
 
 instance RenameUseSites Type where
@@ -134,6 +131,9 @@ instance RenameUseSites Type where
       TypeStruct uid ->
         let qid = QualId uid NamespaceStruct
         in TypeStruct (renameUse du qid)
+      TypeUnion uid ->
+        let qid = QualId uid NamespaceUnion
+        in TypeUnion (renameUse du qid)
       TypeEnum    uid ->
         let qid = QualId uid NamespaceEnum
         in TypeEnum (renameUse du qid)

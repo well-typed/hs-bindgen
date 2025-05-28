@@ -32,7 +32,8 @@ data Parse a deriving anyclass ValidPass
 
 type family ParseAnn (ix :: Symbol) :: Star where
   ParseAnn "TranslationUnit" = UseDefGraph Parse
-  ParseAnn "Field"           = ReparseInfo
+  ParseAnn "StructField"     = ReparseInfo
+  ParseAnn "UnionField"      = ReparseInfo
   ParseAnn "Typedef"         = ReparseInfo
   ParseAnn _                 = NoAnn
 
