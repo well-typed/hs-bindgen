@@ -9,6 +9,7 @@ module HsBindgen.Frontend.AST (
   , UnionField(..)
   , Typedef(..)
   , EnumConstant(..)
+  , Function(..)
     -- * Types (at use sites)
   , Type(..)
     -- ** Primitive types
@@ -82,6 +83,7 @@ data DeclKind p =
   | DeclEnum [EnumConstant]
   | DeclEnumOpaque
   | DeclMacro (Macro p)
+  | DeclFunction (Function p)
 
 data StructField p = StructField {
       structFieldName   :: Text
@@ -107,6 +109,13 @@ data EnumConstant = EnumConstant {
     }
   deriving stock (Show)
 
+data Function p = Function {
+      functionName :: Text
+    , functionArgs :: [Type p]
+    , functionRes  :: Type p
+    , functionAnn  :: Ann "Function" p
+    }
+
 {-------------------------------------------------------------------------------
   Types (at use sites)
 -------------------------------------------------------------------------------}
@@ -118,6 +127,8 @@ data Type p =
   | TypeEnum (Id p)
   | TypeTypedef (Id p) (Ann "TypeTypedef" p)
   | TypePointer (Type p)
+  | TypeFunction [Type p] (Type p)
+  | TypeVoid
 
 data PrimType =
     PrimChar PrimSignChar
@@ -156,6 +167,7 @@ data Namespace =
   | NamespaceUnion
   | NamespaceEnum
   | NamespaceMacro
+  | NamespaceFunction
   deriving stock (Show, Eq, Ord)
 
 data QualId p = QualId (Id p) Namespace
@@ -178,6 +190,7 @@ declQualId Decl{declInfo = DeclInfo{declId}, declKind} = QualId (declId) $
       DeclEnumOpaque{}   -> NamespaceEnum
       DeclTypedef{}      -> NamespaceTypedef
       DeclMacro{}        -> NamespaceMacro
+      DeclFunction{}     -> NamespaceFunction
 
 {-------------------------------------------------------------------------------
   Show instances
@@ -199,6 +212,7 @@ class ( IsPass p
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
       , Show (Ann "TypeTypedef"     p)
+      , Show (Ann "Function"        p)
       ) => ValidPass p where
 
 deriving stock instance ValidPass p => Show (Decl            p)
@@ -206,6 +220,7 @@ deriving stock instance ValidPass p => Show (DeclInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind        p)
 deriving stock instance ValidPass p => Show (StructField     p)
 deriving stock instance ValidPass p => Show (UnionField      p)
+deriving stock instance ValidPass p => Show (Function        p)
 deriving stock instance ValidPass p => Show (QualId          p)
 deriving stock instance ValidPass p => Show (TranslationUnit p)
 deriving stock instance ValidPass p => Show (Type            p)

@@ -35,6 +35,7 @@ type family ParseAnn (ix :: Symbol) :: Star where
   ParseAnn "StructField"     = ReparseInfo
   ParseAnn "UnionField"      = ReparseInfo
   ParseAnn "Typedef"         = ReparseInfo
+  ParseAnn "Function"        = ReparseInfo
   ParseAnn _                 = NoAnn
 
 instance IsPass Parse where
@@ -71,11 +72,12 @@ isAnonDecl (DeclAnon anonId) = Just anonId
 getDeclId :: MonadIO m => CXCursor -> m DeclId
 getDeclId curr = do
     name <- clang_getCursorSpelling curr
-    if not (Text.null name) then
-      return $ DeclNamed name
-    else
+    isAnon <- clang_Cursor_isAnonymous curr
+    if isAnon || Text.null name then
       DeclAnon . AnonId . multiLocExpansion <$>
         HighLevel.clang_getCursorLocation curr
+    else
+      return $ DeclNamed name
 
 {-------------------------------------------------------------------------------
   Macros

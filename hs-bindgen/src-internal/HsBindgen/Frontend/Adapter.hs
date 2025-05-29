@@ -12,9 +12,9 @@ import HsBindgen.Imports
 import HsBindgen.C.AST qualified as Old
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST qualified as Raw
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Raw
-import HsBindgen.Frontend.Pass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -37,5 +37,12 @@ type instance Raw Old.Type = Raw.Type HandleMacros
 instance ToRaw Old.Type where
   toRaw (Old.TypeTypedef (Old.CName name)) =
       Raw.TypeTypedef (Raw.DeclNamed name) NoAnn
+  toRaw (Old.TypePointer ty) =
+      Raw.TypePointer (toRaw ty)
+  toRaw (Old.TypeStruct declPath) =
+    let uid = case declPath of
+          Old.DeclPathName (Old.CName name) -> Raw.DeclNamed name
+          Old.DeclPathAnon _ctx -> panicPure $ "toRaw: unhandled anonymous declaration path " ++ show _ctx
+     in Raw.TypeStruct uid
   toRaw ty =
       panicPure $ "toRaw: unhandled " ++ show ty

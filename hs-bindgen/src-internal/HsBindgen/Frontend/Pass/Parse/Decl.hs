@@ -22,7 +22,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Util
-import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -51,6 +50,7 @@ foldDecl curr = do
         CXCursor_TypedefDecl        -> typedefDecl
         CXCursor_MacroExpansion     -> macroExpansion
         CXCursor_EnumDecl           -> enumDecl
+        CXCursor_FunctionDecl       -> functionDecl
         kind -> \_ -> panicIO $ "foldDecl: " ++ show kind
 
 {-------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ structDecl curr = do
         (otherDecls, fields) = first concat $ partitionEithers xs
 
         fieldDeps :: [QualId Parse]
-        fieldDeps = map snd $ mapMaybe (depsOfType . structFieldType) fields
+        fieldDeps = map snd $ concatMap (depsOfType . structFieldType) fields
 
         declIsUsed :: Decl Parse -> Bool
         declIsUsed decl = declQualId decl `elem` fieldDeps
@@ -294,3 +294,28 @@ enumeratorDecl curr = do
       -- No need to handle the `packed` attribute since `libclang` handles it for us.
       pure $ Continue Nothing
     kind -> panicIO $ "Unrecognized cursor in enumerator declaration " <> show kind
+
+functionDecl :: Fold M [Decl Parse]
+functionDecl curr = do
+  info         <- getDeclInfo curr
+  functionName <- clang_getCursorSpelling curr
+  (functionArgs, functionRes) <- guardTypeFunction =<< fromCXType =<< clang_getCursorType curr
+  functionAnn  <- getReparseInfo curr
+  let decl :: Decl Parse
+      decl = Decl{
+          declInfo = info
+        , declKind = DeclFunction Function{
+              functionName
+            , functionArgs
+            , functionRes
+            , functionAnn
+            }
+        , declAnn  = NoAnn
+        }
+  -- TODO (#684): Handle inline declarations.
+  pure $ Continue $ Just [decl]
+  where
+    guardTypeFunction :: Type Parse -> M ([Type Parse], Type Parse)
+    guardTypeFunction ty = case ty of
+      TypeFunction args res -> pure (args, res)
+      otherType -> panicIO $ "Expected function type, but got " <> show otherType
