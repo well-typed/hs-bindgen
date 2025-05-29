@@ -22,6 +22,7 @@ module HsBindgen.BindingSpecs (
   , BindingSpecsExceptions(..)
   , GetExtHsRefException(..)
   , OmittedTypeUseException(..)
+  , TypeNotUsedException(..)
     -- * API
   , empty
   , load
@@ -324,6 +325,18 @@ instance Exception OmittedTypeUseException where
   fromException = hsBindgenExceptionFromException
   displayException (OmittedTypeUse cname) =
     "omitted type use: " ++ Text.unpack (getCNameSpelling cname)
+
+--------------------------------------------------------------------------------
+
+-- | Configured type is not used
+newtype TypeNotUsedException = TypeNotUsed CNameSpelling
+  deriving stock (Show)
+
+instance Exception TypeNotUsedException where
+  toException = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+  displayException (TypeNotUsed cname) =
+    "configured type not used: " ++ Text.unpack (getCNameSpelling cname)
 
 {-------------------------------------------------------------------------------
   API

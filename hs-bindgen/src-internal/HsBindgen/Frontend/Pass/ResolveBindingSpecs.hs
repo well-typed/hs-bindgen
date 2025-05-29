@@ -34,8 +34,11 @@ resolveBindingSpecs
   confSpecs
   extSpecs
   TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    first reassemble . runM $
-      resolveDecls confSpecs extSpecs unitIncludeGraph unitDecls
+    let (decls, ctx) = runM confSpecs $
+          resolveDecls confSpecs extSpecs unitIncludeGraph unitDecls
+        notUsedErrs = BindingSpecsTypeNotUsed . BindingSpecs.TypeNotUsed
+          <$> Set.toAscList (ctxNoConfTypes ctx)
+    in  (reassemble decls, reverse (ctxErrors ctx) ++ notUsedErrs)
   where
     reassemble ::
          [Decl ResolveBindingSpecs]
@@ -47,8 +50,9 @@ resolveBindingSpecs
       }
 
 data BindingSpecsError =
-    BindingSpecsOmittedTypeUse BindingSpecs.OmittedTypeUseException
-  | BindingSpecsInvalidExtRef  BindingSpecs.GetExtHsRefException
+    BindingSpecsInvalidExtRef  BindingSpecs.GetExtHsRefException
+  | BindingSpecsOmittedTypeUse BindingSpecs.OmittedTypeUseException
+  | BindingSpecsTypeNotUsed    BindingSpecs.TypeNotUsedException
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -60,8 +64,8 @@ newtype M a = WrapM {
     }
   deriving newtype (Applicative, Functor, Monad, MonadState Ctx)
 
-runM :: M a -> (a, [BindingSpecsError])
-runM = fmap (reverse . ctxErrors) . flip runState initCtx . unwrapM
+runM :: ResolvedBindingSpecs -> M a -> (a, Ctx)
+runM confSpecs = flip runState (initCtx confSpecs) . unwrapM
 
 {-------------------------------------------------------------------------------
   Internal: state context
@@ -70,13 +74,15 @@ runM = fmap (reverse . ctxErrors) . flip runState initCtx . unwrapM
 data Ctx = Ctx {
       ctxErrors       :: [BindingSpecsError] -- ^ Stored in reverse order
     , ctxExtTypes     :: Map (QualId RenameAnon) (Type ResolveBindingSpecs)
+    , ctxNoConfTypes  :: Set CNameSpelling
     , ctxOmittedTypes :: Set (QualId RenameAnon)
     }
 
-initCtx :: Ctx
-initCtx = Ctx {
+initCtx :: ResolvedBindingSpecs -> Ctx
+initCtx confSpecs = Ctx {
       ctxErrors       = []
     , ctxExtTypes     = Map.empty
+    , ctxNoConfTypes  = Map.keysSet $ BindingSpecs.bindingSpecsTypes confSpecs
     , ctxOmittedTypes = Set.empty
     }
 
@@ -88,6 +94,11 @@ insertError e ctx = ctx {
 insertExtType :: QualId RenameAnon -> Type ResolveBindingSpecs -> Ctx -> Ctx
 insertExtType qualId typ ctx = ctx {
       ctxExtTypes = Map.insert qualId typ (ctxExtTypes ctx)
+    }
+
+deleteNoConfType :: CNameSpelling -> Ctx -> Ctx
+deleteNoConfType cname ctx = ctx {
+      ctxNoConfTypes = Set.delete cname (ctxNoConfTypes ctx)
     }
 
 insertOmittedType :: QualId RenameAnon -> Ctx -> Ctx
@@ -139,10 +150,11 @@ resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
 
         auxConf :: M (Maybe (Decl ResolveBindingSpecs))
         auxConf = case BindingSpecs.lookupType cname declPaths confSpecs of
-          Just (BindingSpecs.Require typeSpec) ->
+          Just (BindingSpecs.Require typeSpec) -> do
+            modify' $ deleteNoConfType cname
             Just <$> mkDecl decl (Just typeSpec)
           Just BindingSpecs.Omit -> do
-            modify' $ insertOmittedType qualId
+            modify' $ deleteNoConfType cname . insertOmittedType qualId
             return Nothing
           Nothing -> Just <$> mkDecl decl Nothing
 
