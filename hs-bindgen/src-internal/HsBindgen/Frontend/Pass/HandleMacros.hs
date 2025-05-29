@@ -266,14 +266,15 @@ processFunction info Function {..} =
 
 processType :: Type Parse -> Type HandleMacros
 processType = \case
-    TypePrim    prim    -> TypePrim prim
-    TypeStruct  uid     -> TypeStruct uid
-    TypeUnion   uid     -> TypeUnion uid
-    TypeEnum    uid     -> TypeEnum uid
-    TypeTypedef uid ann -> TypeTypedef uid ann
-    TypePointer ty      -> TypePointer (processType ty)
-    TypeFunction tys ty -> TypeFunction (map processType tys) (processType ty)
-    TypeVoid            -> TypeVoid
+    TypePrim    prim     -> TypePrim prim
+    TypeStruct  uid      -> TypeStruct uid
+    TypeUnion   uid      -> TypeUnion uid
+    TypeEnum    uid      -> TypeEnum uid
+    TypeTypedef uid ann  -> TypeTypedef uid ann
+    TypePointer ty       -> TypePointer (processType ty)
+    TypeFunction tys ty  -> TypeFunction (map processType tys) (processType ty)
+    TypeVoid             -> TypeVoid
+    TypeExtBinding ref t -> TypeExtBinding ref t
 
 {-------------------------------------------------------------------------------
   Internal: monad used for parsing macros

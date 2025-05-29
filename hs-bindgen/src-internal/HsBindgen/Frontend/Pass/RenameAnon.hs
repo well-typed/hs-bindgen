@@ -73,14 +73,15 @@ squash Decl{declInfo = DeclInfo{declId}, declKind} =
       _otherwise          -> False
   where
     aroundAnon :: Type p -> Bool
-    aroundAnon (TypePrim   _)     = False
-    aroundAnon (TypeStruct uid)   = anonOrSameName uid
-    aroundAnon (TypeUnion uid)    = anonOrSameName uid
-    aroundAnon (TypeEnum uid)     = anonOrSameName uid
-    aroundAnon (TypeTypedef _ _)  = False
-    aroundAnon (TypePointer _)    = False
-    aroundAnon (TypeFunction _ _) = False
-    aroundAnon TypeVoid = False
+    aroundAnon (TypePrim   _)       = False
+    aroundAnon (TypeStruct uid)     = anonOrSameName uid
+    aroundAnon (TypeUnion uid)      = anonOrSameName uid
+    aroundAnon (TypeEnum uid)       = anonOrSameName uid
+    aroundAnon (TypeTypedef _ _)    = False
+    aroundAnon (TypePointer _)      = False
+    aroundAnon (TypeFunction _ _)   = False
+    aroundAnon TypeVoid             = False
+    aroundAnon (TypeExtBinding _ _) = False
 
     anonOrSameName :: DeclId -> Bool
     anonOrSameName (DeclNamed name) =
@@ -168,6 +169,8 @@ instance RenameUseSites Type where
         TypeFunction (map (renameUses du) tys) (renameUses du ty)
       TypeVoid ->
         TypeVoid
+      TypeExtBinding extHsRef typeSpec ->
+        TypeExtBinding extHsRef typeSpec
 
 -- | Rename specific use site
 --

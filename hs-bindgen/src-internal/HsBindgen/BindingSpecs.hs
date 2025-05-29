@@ -25,7 +25,6 @@ module HsBindgen.BindingSpecs (
     -- * API
   , empty
   , load
-  , lookupCType
   , lookupType
   , getExtHsRef
     -- ** YAML/JSON
@@ -45,6 +44,7 @@ module HsBindgen.BindingSpecs (
 
 import Control.Applicative (asum)
 import Control.Exception (Exception(..))
+import Control.Monad ((<=<))
 import Control.Tracer (Tracer)
 import Data.Aeson ((.=), (.:), (.:?), (.!=))
 import Data.Aeson qualified as Aeson
@@ -359,24 +359,16 @@ load tracer args paths = do
         | otherwise -> Left $ BindingSpecsExceptions errs
       Left mergeErr -> Left $ BindingSpecsExceptions (errs ++ [mergeErr])
 
--- | Lookup a type C name spelling in binding specifications
-lookupCType ::
-     CNameSpelling
-  -> ResolvedBindingSpecs
-  -> Maybe [(Set SourcePath, Omittable Type)]
-lookupCType cname = Map.lookup cname . bindingSpecsTypes
-
--- | Lookup a 'Type' associated with a set of header paths with at least one in
--- common with the specified set of header paths
---
--- This is purposefully separate from 'lookupCType' because we do not need to
--- compute the set of header paths unless there is a match for the C name
--- spelling.
+-- | Lookup the 'Type' associated with a C name spelling where there is at least
+-- one header in common with the specified set
 lookupType ::
-     Set SourcePath
-  -> [(Set SourcePath, Omittable Type)]
+     CNameSpelling
+  -> Set SourcePath
+  -> ResolvedBindingSpecs
   -> Maybe (Omittable Type)
-lookupType headers = fmap snd . List.find (not . Set.disjoint headers . fst)
+lookupType cname headers =
+    fmap snd . List.find (not . Set.disjoint headers . fst)
+      <=< Map.lookup cname . bindingSpecsTypes
 
 -- | Get an 'ExtHsRef' for the given 'Type'
 getExtHsRef :: CNameSpelling -> Type -> Either GetExtHsRefException ExtHsRef

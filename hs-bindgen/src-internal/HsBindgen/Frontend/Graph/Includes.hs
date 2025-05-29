@@ -10,10 +10,12 @@ module HsBindgen.Frontend.Graph.Includes (
   , empty
   , register
     -- * Query
+  , reaches
   , toSortedList
   ) where
 
 import Data.List qualified as List
+import Data.Set (Set)
 
 import Clang.Paths
 import Data.DynGraph (DynGraph)
@@ -49,6 +51,9 @@ register header incHeader (IncludeGraph graph) =
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
+
+reaches :: IncludeGraph -> SourcePath -> Set SourcePath
+reaches (IncludeGraph graph) = DynGraph.reaches graph
 
 toSortedList :: IncludeGraph -> [SourcePath]
 toSortedList (IncludeGraph graph) =

@@ -31,9 +31,11 @@ module HsBindgen.Frontend.AST (
   ) where
 
 import Clang.HighLevel.Types
+import HsBindgen.BindingSpecs qualified as BindingSpecs
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.Language.Hs (ExtHsRef)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -151,6 +153,7 @@ data Type p =
   | TypePointer (Type p)
   | TypeFunction [Type p] (Type p)
   | TypeVoid
+  | TypeExtBinding ExtHsRef BindingSpecs.Type
 
 data PrimType =
     PrimChar PrimSignChar

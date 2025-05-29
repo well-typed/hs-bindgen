@@ -80,3 +80,4 @@ depsOfType (TypeTypedef uid _ann) = [(ByValue, QualId uid NamespaceTypedef)]
 depsOfType (TypePointer ty)       = first (const ByRef) <$> depsOfType ty
 depsOfType (TypeFunction tys ty)  = concatMap depsOfType tys <> depsOfType ty
 depsOfType TypeVoid               = []
+depsOfType (TypeExtBinding _ _)   = []
