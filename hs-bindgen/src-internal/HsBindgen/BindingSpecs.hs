@@ -20,14 +20,10 @@ module HsBindgen.BindingSpecs (
   , MergeBindingSpecsException(..)
   , BindingSpecsException(..)
   , BindingSpecsExceptions(..)
-  , GetExtHsRefException(..)
-  , OmittedTypeUseException(..)
-  , TypeNotUsedException(..)
     -- * API
   , empty
   , load
   , lookupType
-  , getExtHsRef
     -- ** YAML/JSON
   , readFile
   , readFileJson
@@ -296,48 +292,6 @@ instance Exception BindingSpecsExceptions where
   displayException (BindingSpecsExceptions es) =
     unlines $ map displayException es
 
---------------------------------------------------------------------------------
-
--- | External reference error
-data GetExtHsRefException =
-    -- | No Haskell module specified
-    GetExtHsRefNoModule CNameSpelling
-  | -- | No Haskell identifier specified
-    GetExtHsRefNoIdentifier CNameSpelling
-  deriving stock (Show)
-
-instance Exception GetExtHsRefException where
-  displayException = \case
-    GetExtHsRefNoModule cname ->
-      "no Haskell module specified: " ++ Text.unpack (getCNameSpelling cname)
-    GetExtHsRefNoIdentifier cname ->
-      "no Haskell identifier specified: "
-        ++ Text.unpack (getCNameSpelling cname)
-
---------------------------------------------------------------------------------
-
--- | Omitted type is used
-newtype OmittedTypeUseException = OmittedTypeUse CNameSpelling
-  deriving stock (Show)
-
-instance Exception OmittedTypeUseException where
-  toException = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
-  displayException (OmittedTypeUse cname) =
-    "omitted type use: " ++ Text.unpack (getCNameSpelling cname)
-
---------------------------------------------------------------------------------
-
--- | Configured type is not used
-newtype TypeNotUsedException = TypeNotUsed CNameSpelling
-  deriving stock (Show)
-
-instance Exception TypeNotUsedException where
-  toException = hsBindgenExceptionToException
-  fromException = hsBindgenExceptionFromException
-  displayException (TypeNotUsed cname) =
-    "configured type not used: " ++ Text.unpack (getCNameSpelling cname)
-
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
@@ -382,14 +336,6 @@ lookupType ::
 lookupType cname headers =
     fmap snd . List.find (not . Set.disjoint headers . fst)
       <=< Map.lookup cname . bindingSpecsTypes
-
--- | Get an 'ExtHsRef' for the given 'Type'
-getExtHsRef :: CNameSpelling -> Type -> Either GetExtHsRefException ExtHsRef
-getExtHsRef cname Type{..} = do
-    extHsRefModule <- maybe (Left (GetExtHsRefNoModule cname)) Right typeModule
-    extHsRefIdentifier <-
-      maybe (Left (GetExtHsRefNoIdentifier cname)) Right typeIdentifier
-    return ExtHsRef{..}
 
 {-------------------------------------------------------------------------------
   API: YAML/JSON

@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
   , BindingSpecsError(..)
   ) where
 
+import Control.Exception (Exception(..))
 import Control.Monad.State
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -13,6 +14,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpecs (ResolvedBindingSpecs)
 import HsBindgen.BindingSpecs qualified as BindingSpecs
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST
 import HsBindgen.Frontend.Graph.Includes (IncludeGraph)
 import HsBindgen.Frontend.Graph.Includes qualified as IncludeGraph
@@ -20,6 +22,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.RenameAnon
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.Hs
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -36,8 +39,8 @@ resolveBindingSpecs
   TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     let (decls, ctx) = runM confSpecs $
           resolveDecls confSpecs extSpecs unitIncludeGraph unitDecls
-        notUsedErrs = BindingSpecsTypeNotUsed . BindingSpecs.TypeNotUsed
-          <$> Set.toAscList (ctxNoConfTypes ctx)
+        notUsedErrs =
+          BindingSpecsTypeNotUsed <$> Set.toAscList (ctxNoConfTypes ctx)
     in  (reassemble decls, reverse (ctxErrors ctx) ++ notUsedErrs)
   where
     reassemble ::
@@ -50,10 +53,26 @@ resolveBindingSpecs
       }
 
 data BindingSpecsError =
-    BindingSpecsInvalidExtRef  BindingSpecs.GetExtHsRefException
-  | BindingSpecsOmittedTypeUse BindingSpecs.OmittedTypeUseException
-  | BindingSpecsTypeNotUsed    BindingSpecs.TypeNotUsedException
+    BindingSpecsExtHsRefNoModule CNameSpelling
+  | BindingSpecsExtHsRefNoIdentifier CNameSpelling
+  | BindingSpecsOmittedTypeUse CNameSpelling
+  | BindingSpecsTypeNotUsed CNameSpelling
   deriving stock (Show)
+
+instance Exception BindingSpecsError where
+  toException = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+  displayException = \case
+    BindingSpecsExtHsRefNoModule cname ->
+      "no Haskell module specified in " ++ show cname
+        ++ " external binding specification"
+    BindingSpecsExtHsRefNoIdentifier cname ->
+      "no Haskell identifier specified in " ++ show cname
+        ++ " external binding specification"
+    BindingSpecsOmittedTypeUse cname ->
+      "omitted type " ++ show cname ++ " used"
+    BindingSpecsTypeNotUsed cname ->
+      "binding specifications for type " ++ show cname ++ " not used"
 
 {-------------------------------------------------------------------------------
   Internal: monad
@@ -134,17 +153,16 @@ resolveDecls confSpecs extSpecs includeGraph = mapMaybeM aux
         auxExt :: M (Maybe (Decl ResolveBindingSpecs))
         auxExt = case BindingSpecs.lookupType cname declPaths extSpecs of
           Just (BindingSpecs.Require typeSpec) ->
-            case BindingSpecs.getExtHsRef cname typeSpec of
+            case getExtHsRef cname typeSpec of
               Right extHsRef -> do
                 let t = TypeExtBinding extHsRef typeSpec
                 modify' $ insertExtType qualId t
                 return Nothing
               Left e -> do
-                modify' $ insertError (BindingSpecsInvalidExtRef e)
+                modify' $ insertError e
                 auxConf
           Just BindingSpecs.Omit -> do
-            let e = BindingSpecs.OmittedTypeUse cname
-            modify' $ insertError (BindingSpecsOmittedTypeUse e)
+            modify' $ insertError (BindingSpecsOmittedTypeUse cname)
             auxConf
           Nothing -> auxConf
 
@@ -168,6 +186,19 @@ qualIdCNameSpelling (QualId (CName cname) namespace) =
           NamespaceMacro    -> ""
           NamespaceFunction -> ""
     in  CNameSpelling $ prefix <> cname
+
+getExtHsRef ::
+     CNameSpelling
+  -> BindingSpecs.Type
+  -> Either BindingSpecsError ExtHsRef
+getExtHsRef cname typ = do
+    extHsRefModule <-
+      maybe (Left (BindingSpecsExtHsRefNoModule cname)) Right $
+        BindingSpecs.typeModule typ
+    extHsRefIdentifier <-
+      maybe (Left (BindingSpecsExtHsRefNoIdentifier cname)) Right $
+        BindingSpecs.typeIdentifier typ
+    return ExtHsRef{extHsRefModule, extHsRefIdentifier}
 
 mkDecl ::
      Decl RenameAnon
@@ -282,9 +313,7 @@ mkType = \case
       let qualId = QualId uid namespace
           cname  = qualIdCNameSpelling qualId
       isOmitted <- gets $ Set.member qualId . ctxOmittedTypes
-      when isOmitted $
-        let e = BindingSpecs.OmittedTypeUse cname
-        in  modify' $ insertError (BindingSpecsOmittedTypeUse e)
+      when isOmitted . modify' $ insertError (BindingSpecsOmittedTypeUse cname)
       gets $ fromMaybe (mk uid) . Map.lookup qualId . ctxExtTypes
 
 {-------------------------------------------------------------------------------
