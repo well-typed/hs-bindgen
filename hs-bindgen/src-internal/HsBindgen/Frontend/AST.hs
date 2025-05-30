@@ -119,7 +119,9 @@ data Typedef p = Typedef {
     }
 
 data Enu = Enu {
-      enumConstants :: [EnumConstant]
+      enumSizeof    :: Int
+    , enumAlignment :: Int
+    , enumConstants :: [EnumConstant]
     }
   deriving stock (Show)
 

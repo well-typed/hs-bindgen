@@ -154,14 +154,15 @@ processOpaqueWith kind info =
       }
 
 processEnum :: DeclInfo HandleMacros -> Enu -> M (Decl HandleMacros)
-processEnum info =
-    fmap (mkDecl . catMaybes) . mapM processEnumConstant . enumConstants
+processEnum info Enu{..} =
+    mkDecl . catMaybes <$> mapM processEnumConstant enumConstants
   where
     mkDecl :: [EnumConstant] -> Decl HandleMacros
     mkDecl enumerators = Decl{
           declInfo = info
         , declKind = DeclEnum Enu{
               enumConstants = enumerators
+            , ..
             }
         , declAnn  = NoAnn
         }
