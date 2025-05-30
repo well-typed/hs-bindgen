@@ -128,6 +128,10 @@ structDecl curr = do
       -> [Either [Decl Parse] (StructField Parse)]
       -> M (Maybe [Decl Parse])
     aux info xs = do
+        ty        <- clang_getCursorType curr
+        sizeof    <- clang_Type_getSizeOf  ty
+        alignment <- clang_Type_getAlignOf ty
+
         -- Local declarations inside structs that are not used by any fields
         -- result in implicit fields. Unfortunately, @libclang@ does not make
         -- these visible <https://github.com/llvm/llvm-project/issues/122257>.
@@ -145,7 +149,9 @@ structDecl curr = do
             decl = Decl{
                 declInfo = info
               , declKind = DeclStruct Struct{
-                    structFields = fields
+                    structSizeof    = fromIntegral sizeof
+                  , structAlignment = fromIntegral alignment
+                  , structFields    = fields
                   }
               , declAnn  = NoAnn
               }

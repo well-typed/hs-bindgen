@@ -79,14 +79,15 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
 -------------------------------------------------------------------------------}
 
 processStruct :: DeclInfo HandleMacros -> Struct Parse -> M (Decl HandleMacros)
-processStruct info =
-    fmap (mkDecl . catMaybes) . mapM processStructField . structFields
+processStruct info Struct{..} =
+    mkDecl . catMaybes <$> mapM processStructField structFields
   where
     mkDecl :: [StructField HandleMacros] -> Decl HandleMacros
     mkDecl fields = Decl{
           declInfo = info
         , declKind = DeclStruct Struct{
               structFields = fields
+            , ..
             }
         , declAnn  = NoAnn
         }

@@ -87,8 +87,10 @@ data DeclKind p =
   | DeclMacro (Macro p)
   | DeclFunction (Function p)
 
-newtype Struct p = Struct {
-      structFields :: [StructField p]
+data Struct p = Struct {
+      structSizeof    :: Int
+    , structAlignment :: Int
+    , structFields    :: [StructField p]
     }
 
 data StructField p = StructField {
