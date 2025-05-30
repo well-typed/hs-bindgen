@@ -5,7 +5,9 @@ module HsBindgen.Frontend.AST (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
+  , Struct(..)
   , StructField(..)
+  , Union(..)
   , UnionField(..)
   , Typedef(..)
   , EnumConstant(..)
@@ -75,9 +77,9 @@ data DeclInfo p = DeclInfo{
     }
 
 data DeclKind p =
-    DeclStruct [StructField p]
+    DeclStruct (Struct p)
   | DeclStructOpaque
-  | DeclUnion [UnionField p]
+  | DeclUnion (Union p)
   | DeclUnionOpaque
   | DeclTypedef (Typedef p)
   | DeclEnum [EnumConstant]
@@ -85,11 +87,23 @@ data DeclKind p =
   | DeclMacro (Macro p)
   | DeclFunction (Function p)
 
+data Struct p = Struct {
+      structSizeof    :: Int
+    , structAlignment :: Int
+    , structFields    :: [StructField p]
+    }
+
 data StructField p = StructField {
       structFieldName   :: Text
     , structFieldType   :: Type p
     , structFieldOffset :: Int     -- ^ Offset in bits
     , structFieldAnn    :: Ann "StructField" p
+    }
+
+data Union p = Union {
+      unionSizeof    :: Int
+    , unionAlignment :: Int
+    , unionFields    :: [UnionField p]
     }
 
 data UnionField p = UnionField {
@@ -207,7 +221,9 @@ class ( IsPass p
 
         -- Annotations
       , Show (Ann "Decl"            p)
+      , Show (Ann "Struct"          p)
       , Show (Ann "StructField"     p)
+      , Show (Ann "Union"           p)
       , Show (Ann "UnionField"      p)
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
@@ -218,7 +234,9 @@ class ( IsPass p
 deriving stock instance ValidPass p => Show (Decl            p)
 deriving stock instance ValidPass p => Show (DeclInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind        p)
+deriving stock instance ValidPass p => Show (Struct          p)
 deriving stock instance ValidPass p => Show (StructField     p)
+deriving stock instance ValidPass p => Show (Union           p)
 deriving stock instance ValidPass p => Show (UnionField      p)
 deriving stock instance ValidPass p => Show (Function        p)
 deriving stock instance ValidPass p => Show (QualId          p)

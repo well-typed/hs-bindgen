@@ -128,6 +128,10 @@ structDecl curr = do
       -> [Either [Decl Parse] (StructField Parse)]
       -> M (Maybe [Decl Parse])
     aux info xs = do
+        ty        <- clang_getCursorType curr
+        sizeof    <- clang_Type_getSizeOf  ty
+        alignment <- clang_Type_getAlignOf ty
+
         -- Local declarations inside structs that are not used by any fields
         -- result in implicit fields. Unfortunately, @libclang@ does not make
         -- these visible <https://github.com/llvm/llvm-project/issues/122257>.
@@ -144,7 +148,11 @@ structDecl curr = do
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
-              , declKind = DeclStruct fields
+              , declKind = DeclStruct Struct{
+                    structSizeof    = fromIntegral sizeof
+                  , structAlignment = fromIntegral alignment
+                  , structFields    = fields
+                  }
               , declAnn  = NoAnn
               }
         return $ Just $ otherDecls ++ [decl]
@@ -185,11 +193,19 @@ unionDecl curr = do
       -> [Either [Decl Parse] (UnionField Parse)]
       -> M (Maybe [Decl Parse])
     aux info xs = do
+        ty        <- clang_getCursorType curr
+        sizeof    <- clang_Type_getSizeOf  ty
+        alignment <- clang_Type_getAlignOf ty
+
         -- TODO (#682): Support anonymous structures in unions.
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
-              , declKind = DeclUnion fields
+              , declKind = DeclUnion Union{
+                    unionSizeof    = fromIntegral sizeof
+                  , unionAlignment = fromIntegral alignment
+                  , unionFields    = fields
+                  }
               , declAnn  = NoAnn
               }
         return $ Just $ otherDecls ++ [decl]

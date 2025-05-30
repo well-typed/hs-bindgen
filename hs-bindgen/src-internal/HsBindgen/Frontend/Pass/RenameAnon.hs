@@ -99,9 +99,9 @@ class RenameUseSites a where
 
 instance RenameUseSites DeclKind where
   renameUses du = \case
-      DeclStruct fields    -> DeclStruct (map (renameUses du) fields)
+      DeclStruct struct    -> DeclStruct (renameUses du struct)
       DeclStructOpaque     -> DeclStructOpaque
-      DeclUnion fields     -> DeclUnion (map (renameUses du) fields)
+      DeclUnion union      -> DeclUnion (renameUses du union)
       DeclUnionOpaque      -> DeclUnionOpaque
       DeclEnum enumerators -> DeclEnum enumerators
       DeclEnumOpaque       -> DeclEnumOpaque
@@ -109,9 +109,21 @@ instance RenameUseSites DeclKind where
       DeclMacro unparsed   -> DeclMacro unparsed
       DeclFunction fun     -> DeclFunction (renameUses du fun)
 
+instance RenameUseSites Struct where
+  renameUses du Struct{..} = Struct{
+        structFields = map (renameUses du) structFields
+      , ..
+      }
+
 instance RenameUseSites StructField where
   renameUses du StructField{..} = StructField{
         structFieldType = renameUses du structFieldType
+      , ..
+      }
+
+instance RenameUseSites Union where
+  renameUses du Union{..} = Union{
+        unionFields = map (renameUses du) unionFields
       , ..
       }
 

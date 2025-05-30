@@ -63,9 +63,9 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
     case declKind of
       DeclMacro   macro       -> processMacro info' macro
       DeclTypedef typedef     -> processTypedef info' typedef
-      DeclStruct  fields      -> Just <$> processStruct info' fields
+      DeclStruct  struct      -> Just <$> processStruct info' struct
       DeclStructOpaque        -> Just <$> processOpaqueWith DeclStructOpaque info'
-      DeclUnion   fields      -> Just <$> processUnion info' fields
+      DeclUnion   union       -> Just <$> processUnion info' union
       DeclUnionOpaque         -> Just <$> processOpaqueWith DeclUnionOpaque info'
       DeclEnum    enumerators -> Just <$> processEnum info' enumerators
       DeclEnumOpaque          -> Just <$> processOpaqueWith DeclEnumOpaque info'
@@ -78,15 +78,17 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
   Function for each kind of declaration
 -------------------------------------------------------------------------------}
 
-processStruct ::
-     DeclInfo HandleMacros
-  -> [StructField Parse] -> M (Decl HandleMacros)
-processStruct info = fmap (mkDecl . catMaybes) . mapM processStructField
+processStruct :: DeclInfo HandleMacros -> Struct Parse -> M (Decl HandleMacros)
+processStruct info Struct{..} =
+    mkDecl . catMaybes <$> mapM processStructField structFields
   where
     mkDecl :: [StructField HandleMacros] -> Decl HandleMacros
     mkDecl fields = Decl{
           declInfo = info
-        , declKind = DeclStruct fields
+        , declKind = DeclStruct Struct{
+              structFields = fields
+            , ..
+            }
         , declAnn  = NoAnn
         }
 
@@ -109,14 +111,17 @@ processStructField StructField{..} =
             , structFieldAnn  = NoAnn
             }
 
-processUnion :: DeclInfo HandleMacros -> [UnionField Parse] -> M (Decl HandleMacros)
-processUnion info fields =
-    combineFields . catMaybes <$> mapM processUnionField fields
+processUnion :: DeclInfo HandleMacros -> Union Parse -> M (Decl HandleMacros)
+processUnion info Union{..} =
+    combineFields . catMaybes <$> mapM processUnionField unionFields
   where
     combineFields :: [UnionField HandleMacros] -> Decl HandleMacros
-    combineFields fields' = Decl{
+    combineFields fields = Decl{
           declInfo = info
-        , declKind = DeclUnion fields'
+        , declKind = DeclUnion Union{
+              unionFields = fields
+            , ..
+            }
         , declAnn  = NoAnn
         }
 
