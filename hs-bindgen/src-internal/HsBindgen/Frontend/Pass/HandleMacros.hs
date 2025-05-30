@@ -65,7 +65,7 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
       DeclTypedef typedef     -> processTypedef info' typedef
       DeclStruct  struct      -> Just <$> processStruct info' struct
       DeclStructOpaque        -> Just <$> processOpaqueWith DeclStructOpaque info'
-      DeclUnion   fields      -> Just <$> processUnion info' fields
+      DeclUnion   union       -> Just <$> processUnion info' union
       DeclUnionOpaque         -> Just <$> processOpaqueWith DeclUnionOpaque info'
       DeclEnum    enumerators -> Just <$> processEnum info' enumerators
       DeclEnumOpaque          -> Just <$> processOpaqueWith DeclEnumOpaque info'
@@ -78,9 +78,7 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
   Function for each kind of declaration
 -------------------------------------------------------------------------------}
 
-processStruct ::
-     DeclInfo HandleMacros
-  -> Struct Parse -> M (Decl HandleMacros)
+processStruct :: DeclInfo HandleMacros -> Struct Parse -> M (Decl HandleMacros)
 processStruct info =
     fmap (mkDecl . catMaybes) . mapM processStructField . structFields
   where
@@ -112,14 +110,16 @@ processStructField StructField{..} =
             , structFieldAnn  = NoAnn
             }
 
-processUnion :: DeclInfo HandleMacros -> [UnionField Parse] -> M (Decl HandleMacros)
-processUnion info fields =
-    combineFields . catMaybes <$> mapM processUnionField fields
+processUnion :: DeclInfo HandleMacros -> Union Parse -> M (Decl HandleMacros)
+processUnion info =
+    fmap (combineFields . catMaybes) . mapM processUnionField . unionFields
   where
     combineFields :: [UnionField HandleMacros] -> Decl HandleMacros
-    combineFields fields' = Decl{
+    combineFields fields = Decl{
           declInfo = info
-        , declKind = DeclUnion fields'
+        , declKind = DeclUnion Union{
+              unionFields = fields
+            }
         , declAnn  = NoAnn
         }
 

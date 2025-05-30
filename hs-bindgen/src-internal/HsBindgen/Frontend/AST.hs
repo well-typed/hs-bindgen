@@ -7,6 +7,7 @@ module HsBindgen.Frontend.AST (
   , DeclKind(..)
   , Struct(..)
   , StructField(..)
+  , Union(..)
   , UnionField(..)
   , Typedef(..)
   , EnumConstant(..)
@@ -78,7 +79,7 @@ data DeclInfo p = DeclInfo{
 data DeclKind p =
     DeclStruct (Struct p)
   | DeclStructOpaque
-  | DeclUnion [UnionField p]
+  | DeclUnion (Union p)
   | DeclUnionOpaque
   | DeclTypedef (Typedef p)
   | DeclEnum [EnumConstant]
@@ -95,6 +96,10 @@ data StructField p = StructField {
     , structFieldType   :: Type p
     , structFieldOffset :: Int     -- ^ Offset in bits
     , structFieldAnn    :: Ann "StructField" p
+    }
+
+newtype Union p = Union {
+      unionFields :: [UnionField p]
     }
 
 data UnionField p = UnionField {
@@ -214,6 +219,7 @@ class ( IsPass p
       , Show (Ann "Decl"            p)
       , Show (Ann "Struct"          p)
       , Show (Ann "StructField"     p)
+      , Show (Ann "Union"           p)
       , Show (Ann "UnionField"      p)
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
@@ -226,6 +232,7 @@ deriving stock instance ValidPass p => Show (DeclInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind        p)
 deriving stock instance ValidPass p => Show (Struct          p)
 deriving stock instance ValidPass p => Show (StructField     p)
+deriving stock instance ValidPass p => Show (Union           p)
 deriving stock instance ValidPass p => Show (UnionField      p)
 deriving stock instance ValidPass p => Show (Function        p)
 deriving stock instance ValidPass p => Show (QualId          p)

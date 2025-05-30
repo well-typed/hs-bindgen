@@ -101,7 +101,7 @@ instance RenameUseSites DeclKind where
   renameUses du = \case
       DeclStruct struct    -> DeclStruct (renameUses du struct)
       DeclStructOpaque     -> DeclStructOpaque
-      DeclUnion fields     -> DeclUnion (map (renameUses du) fields)
+      DeclUnion union      -> DeclUnion (renameUses du union)
       DeclUnionOpaque      -> DeclUnionOpaque
       DeclEnum enumerators -> DeclEnum enumerators
       DeclEnumOpaque       -> DeclEnumOpaque
@@ -118,6 +118,12 @@ instance RenameUseSites Struct where
 instance RenameUseSites StructField where
   renameUses du StructField{..} = StructField{
         structFieldType = renameUses du structFieldType
+      , ..
+      }
+
+instance RenameUseSites Union where
+  renameUses du Union{..} = Union{
+        unionFields = map (renameUses du) unionFields
       , ..
       }
 

@@ -30,8 +30,8 @@ depsOfDecl (DeclStruct Struct{..}) =
     concatMap (depsOfField structFieldName structFieldType) structFields
 depsOfDecl DeclStructOpaque =
     []
-depsOfDecl (DeclUnion fs) =
-    concatMap (depsOfField unionFieldName unionFieldType) fs
+depsOfDecl (DeclUnion Union{..}) =
+    concatMap (depsOfField unionFieldName unionFieldType) unionFields
 depsOfDecl DeclUnionOpaque =
     []
 depsOfDecl (DeclEnum _) =

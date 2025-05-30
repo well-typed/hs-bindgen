@@ -191,7 +191,9 @@ unionDecl curr = do
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
-              , declKind = DeclUnion fields
+              , declKind = DeclUnion Union{
+                    unionFields = fields
+                  }
               , declAnn  = NoAnn
               }
         return $ Just $ otherDecls ++ [decl]
