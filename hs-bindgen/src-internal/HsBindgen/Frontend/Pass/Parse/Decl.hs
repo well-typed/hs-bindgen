@@ -291,11 +291,22 @@ enumDecl curr = do
         pure $ Continue $ Nothing
     where
       aux :: DeclInfo Parse -> [EnumConstant] -> M (Maybe [Decl Parse])
-      aux info es = let decl = Decl { declInfo = info
-                                    , declKind = DeclEnum es
-                                    , declAnn  = NoAnn
-                                    }
-                     in pure $ Just [decl]
+      aux info es = do
+        ty        <- clang_getCursorType curr
+        sizeof    <- clang_Type_getSizeOf  ty
+        alignment <- clang_Type_getAlignOf ty
+
+        let decl :: Decl Parse
+            decl = Decl{
+                declInfo = info
+              , declKind = DeclEnum Enu{
+                    enumSizeof    = fromIntegral sizeof
+                  , enumAlignment = fromIntegral alignment
+                  , enumConstants = es
+                  }
+              , declAnn  = NoAnn
+              }
+        return $ Just [decl]
 
 enumeratorDecl :: Fold M EnumConstant
 enumeratorDecl curr = do
