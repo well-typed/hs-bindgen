@@ -221,9 +221,7 @@ class ( IsPass p
 
         -- Annotations
       , Show (Ann "Decl"            p)
-      , Show (Ann "Struct"          p)
       , Show (Ann "StructField"     p)
-      , Show (Ann "Union"           p)
       , Show (Ann "UnionField"      p)
       , Show (Ann "TranslationUnit" p)
       , Show (Ann "Typedef"         p)
