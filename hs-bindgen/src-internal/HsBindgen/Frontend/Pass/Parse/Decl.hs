@@ -193,12 +193,18 @@ unionDecl curr = do
       -> [Either [Decl Parse] (UnionField Parse)]
       -> M (Maybe [Decl Parse])
     aux info xs = do
+        ty        <- clang_getCursorType curr
+        sizeof    <- clang_Type_getSizeOf  ty
+        alignment <- clang_Type_getAlignOf ty
+
         -- TODO (#682): Support anonymous structures in unions.
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
               , declKind = DeclUnion Union{
-                    unionFields = fields
+                    unionSizeof    = fromIntegral sizeof
+                  , unionAlignment = fromIntegral alignment
+                  , unionFields    = fields
                   }
               , declAnn  = NoAnn
               }

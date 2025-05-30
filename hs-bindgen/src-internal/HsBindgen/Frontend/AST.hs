@@ -100,8 +100,10 @@ data StructField p = StructField {
     , structFieldAnn    :: Ann "StructField" p
     }
 
-newtype Union p = Union {
-      unionFields :: [UnionField p]
+data Union p = Union {
+      unionSizeof    :: Int
+    , unionAlignment :: Int
+    , unionFields    :: [UnionField p]
     }
 
 data UnionField p = UnionField {

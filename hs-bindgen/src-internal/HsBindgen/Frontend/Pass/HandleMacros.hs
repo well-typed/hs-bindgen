@@ -112,14 +112,15 @@ processStructField StructField{..} =
             }
 
 processUnion :: DeclInfo HandleMacros -> Union Parse -> M (Decl HandleMacros)
-processUnion info =
-    fmap (combineFields . catMaybes) . mapM processUnionField . unionFields
+processUnion info Union{..} =
+    combineFields . catMaybes <$> mapM processUnionField unionFields
   where
     combineFields :: [UnionField HandleMacros] -> Decl HandleMacros
     combineFields fields = Decl{
           declInfo = info
         , declKind = DeclUnion Union{
               unionFields = fields
+            , ..
             }
         , declAnn  = NoAnn
         }
