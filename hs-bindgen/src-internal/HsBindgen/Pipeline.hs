@@ -60,6 +60,7 @@ import HsBindgen.Hs.NameMangler qualified as NameMangler
 import HsBindgen.Hs.NameMangler.DSL qualified as NameMangler.DSL
 import HsBindgen.Hs.Translation qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.Language.Hs
 import HsBindgen.ModuleUnique
 import HsBindgen.SHs.AST qualified as SHs
 import HsBindgen.SHs.Translation qualified as SHs

@@ -75,6 +75,7 @@ library internal
       HsBindgen.Backend.PP.Render
       HsBindgen.Backend.PP.Translation
       HsBindgen.Backend.TH.Translation
+      HsBindgen.BindingSpecs
       HsBindgen.C.AST
       HsBindgen.C.Fold
       HsBindgen.C.Fold.Common
@@ -140,6 +141,7 @@ library internal
       HsBindgen.Hs.NameMangler.DSL.ReservedNames
       HsBindgen.Hs.Translation
       HsBindgen.Imports
+      HsBindgen.Language.Hs
       HsBindgen.ModuleUnique
       HsBindgen.NameHint
       HsBindgen.Orphans

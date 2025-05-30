@@ -3,6 +3,7 @@
 -- Intended for unqualified import.
 module HsBindgen.Frontend (processTranslationUnit) where
 
+import HsBindgen.BindingSpecs (ResolvedBindingSpecs)
 import HsBindgen.Frontend.AST (TranslationUnit (..))
 import HsBindgen.Frontend.Graph.UseDef qualified as UseDef
 import HsBindgen.Frontend.Pass.HandleMacros
@@ -26,14 +27,21 @@ processTranslationUnit :: ParseEnv -> IO (TranslationUnit Final)
 processTranslationUnit parseEnvironment = do
     afterParse <- parseTranslationUnit parseEnvironment
 
+    -- TODO receive binding specifications via arguments
+    let confSpecs, extSpecs :: ResolvedBindingSpecs
+        confSpecs = undefined
+        extSpecs  = undefined
+
     let (afterHandleMacros, macroErrors) = handleMacros afterParse
         afterRenameAnon                  = renameAnon afterHandleMacros
-        afterResolveBindingSpecs         = resolveBindingSpecs afterRenameAnon
+        (afterResolveBindingSpecs, bindingSpecsErrors) =
+          resolveBindingSpecs confSpecs extSpecs afterRenameAnon
         afterNameMangler                 = mangleNames afterResolveBindingSpecs
 
     writeFile "usedef.mermaid" $ UseDef.dumpMermaid show (unitAnn afterParse)
 
     -- TODO: Use tracer for these
     mapM_ print macroErrors
+    mapM_ print bindingSpecsErrors
 
     return afterRenameAnon
