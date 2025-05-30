@@ -37,13 +37,13 @@ import HsBindgen.C.AST qualified as C
 import HsBindgen.C.AST.Type qualified as C
 import HsBindgen.C.Tc.Macro qualified as Macro
 import HsBindgen.Errors
-import HsBindgen.ExtBindings (HsTypeClass)
 import HsBindgen.ExtBindings qualified as ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Name
 import HsBindgen.Hs.AST.Type
 import HsBindgen.Hs.NameMangler
 import HsBindgen.Imports
+import HsBindgen.Language.Hs (HsTypeClass)
 import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
 

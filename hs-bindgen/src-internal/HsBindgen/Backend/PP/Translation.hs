@@ -22,6 +22,7 @@ import HsBindgen.ExtBindings
 import HsBindgen.Hs.AST qualified as Hs
 import HsBindgen.Hs.AST.Type qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.Language.Hs
 import HsBindgen.SHs.AST
 
 {-------------------------------------------------------------------------------

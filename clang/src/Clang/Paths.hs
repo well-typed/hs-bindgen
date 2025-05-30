@@ -1,6 +1,7 @@
 module Clang.Paths (
     -- * Source paths
     SourcePath(..)
+  , equalSourcePath
   , getSourcePath
   , nullSourcePath
 
@@ -15,11 +16,12 @@ module Clang.Paths (
   , CIncludePathDir(..)
   ) where
 
-import Control.Exception (Exception(displayException))
+import Control.Exception (Exception (displayException))
+import Data.List qualified as List
 import Data.String
 import Data.Text (Text)
 import Data.Text qualified as Text
-import Data.List qualified as List
+import System.FilePath (equalFilePath)
 import System.FilePath qualified as FilePath
 
 {-------------------------------------------------------------------------------
@@ -36,6 +38,11 @@ import System.FilePath qualified as FilePath
 newtype SourcePath = SourcePath Text
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Eq, IsString, Ord, Show)
+
+-- TODO (#678): Improve comparison of file paths.
+equalSourcePath :: SourcePath -> SourcePath -> Bool
+equalSourcePath (SourcePath l) (SourcePath r) =
+  equalFilePath (Text.unpack l) (Text.unpack r)
 
 -- | Get the 'FilePath' representation of a 'SourcePath'
 getSourcePath :: SourcePath -> FilePath

@@ -34,6 +34,7 @@ module Clang.HighLevel (
   , clang_getDiagnostics
     -- * Folds
   , clang_visitChildren
+  , clang_visitNodeItself
     -- * User-provided names
   , clang_getCursorSpelling
     -- * Declaration classification

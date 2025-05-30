@@ -1,9 +1,6 @@
 module HsBindgen.C.Fold.Common (
-    -- * Root header
-    rootHeaderName
-  , rootHeaderContent
     -- * Predicates
-  , Skipped(..)
+    Skipped(..)
   , whenPredicateMatches
     -- * Location
   , DeclLoc(..)
@@ -19,7 +16,10 @@ module HsBindgen.C.Fold.Common (
   ) where
 
 import Control.Tracer (Tracer)
+import Data.Set qualified as Set
+import Data.Text qualified as Text
 import Data.Tree (Tree (Node))
+import GHC.Stack (callStack)
 
 import Clang.Backtrace
 import Clang.Enum.Simple
@@ -27,29 +27,13 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-import GHC.Stack (callStack)
-import HsBindgen.C.Predicate (Predicate)
+import HsBindgen.C.Predicate (Predicate, SkipReason (..))
 import HsBindgen.C.Predicate qualified as Predicate
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (HasDefaultLogLevel (getDefaultLogLevel),
                               HasSource (getSource), Level (..),
                               PrettyTrace (prettyTrace), Source (HsBindgen),
                               TraceWithCallStack, traceWithCallStack)
-
-{-------------------------------------------------------------------------------
-  Root header
--------------------------------------------------------------------------------}
-
-rootHeaderName :: SourcePath
-rootHeaderName = SourcePath "hs-bindgen-root.h"
-
-rootHeaderContent :: [CHeaderIncludePath] -> String
-rootHeaderContent = unlines . map toLine
-  where
-    toLine :: CHeaderIncludePath -> String
-    toLine = \case
-      CHeaderSystemIncludePath path -> "#include <" ++ path ++ ">"
-      CHeaderQuoteIncludePath  path -> "#include \"" ++ path ++ "\""
 
 {-------------------------------------------------------------------------------
   Predicates
@@ -89,12 +73,15 @@ whenPredicateMatches ::
 whenPredicateMatches tracer p mMainHeader current sloc k =
     case mMainHeader of
       Just (mainHeaderIncludePath, mainSourcePath) -> do
-        isMatch <- Predicate.match mainSourcePath current sloc p
+        isMatch <- Predicate.match (Set.singleton mainSourcePath) current sloc p
         case isMatch of
           Right ()     -> k mainHeaderIncludePath
-          Left  reason -> do
+          Left skipReason -> do
             name <- clang_getCursorSpelling current
             loc  <- HighLevel.clang_getCursorLocation current
+            let reason = Text.unpack $ case skipReason of
+                  SkipReasonBuiltIn     -> "builtin"
+                  SkipReasonPredicate r -> r
             liftIO $ traceWithCallStack tracer callStack $ Skipped name loc reason
             return $ Continue Nothing
       Nothing -> return $ Continue Nothing
