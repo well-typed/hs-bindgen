@@ -292,7 +292,9 @@ enumDecl curr = do
     where
       aux :: DeclInfo Parse -> [EnumConstant] -> M (Maybe [Decl Parse])
       aux info es = let decl = Decl { declInfo = info
-                                    , declKind = DeclEnum es
+                                    , declKind = DeclEnum Enu{
+                                          enumConstants = es
+                                        }
                                     , declAnn  = NoAnn
                                     }
                      in pure $ Just [decl]

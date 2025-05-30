@@ -61,15 +61,15 @@ handleMacros TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
 processDecl :: Decl Parse -> M (Maybe (Decl HandleMacros))
 processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
     case declKind of
-      DeclMacro   macro       -> processMacro info' macro
-      DeclTypedef typedef     -> processTypedef info' typedef
-      DeclStruct  struct      -> Just <$> processStruct info' struct
-      DeclStructOpaque        -> Just <$> processOpaqueWith DeclStructOpaque info'
-      DeclUnion   union       -> Just <$> processUnion info' union
-      DeclUnionOpaque         -> Just <$> processOpaqueWith DeclUnionOpaque info'
-      DeclEnum    enumerators -> Just <$> processEnum info' enumerators
-      DeclEnumOpaque          -> Just <$> processOpaqueWith DeclEnumOpaque info'
-      DeclFunction fun        -> processFunction info' fun
+      DeclMacro   macro   -> processMacro info' macro
+      DeclTypedef typedef -> processTypedef info' typedef
+      DeclStruct  struct  -> Just <$> processStruct info' struct
+      DeclStructOpaque    -> Just <$> processOpaqueWith DeclStructOpaque info'
+      DeclUnion   union   -> Just <$> processUnion info' union
+      DeclUnionOpaque     -> Just <$> processOpaqueWith DeclUnionOpaque info'
+      DeclEnum    enum    -> Just <$> processEnum info' enum
+      DeclEnumOpaque      -> Just <$> processOpaqueWith DeclEnumOpaque info'
+      DeclFunction fun    -> processFunction info' fun
   where
     info' :: DeclInfo HandleMacros
     info' = DeclInfo{declId, declLoc}
@@ -153,13 +153,16 @@ processOpaqueWith kind info =
       , declAnn  = NoAnn
       }
 
-processEnum :: DeclInfo HandleMacros -> [EnumConstant] -> M (Decl HandleMacros)
-processEnum info = fmap (mkDecl . catMaybes) . mapM processEnumConstant
+processEnum :: DeclInfo HandleMacros -> Enu -> M (Decl HandleMacros)
+processEnum info =
+    fmap (mkDecl . catMaybes) . mapM processEnumConstant . enumConstants
   where
     mkDecl :: [EnumConstant] -> Decl HandleMacros
     mkDecl enumerators = Decl{
           declInfo = info
-        , declKind = DeclEnum enumerators
+        , declKind = DeclEnum Enu{
+              enumConstants = enumerators
+            }
         , declAnn  = NoAnn
         }
 

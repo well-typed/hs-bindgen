@@ -10,6 +10,7 @@ module HsBindgen.Frontend.AST (
   , Union(..)
   , UnionField(..)
   , Typedef(..)
+  , Enu(..)
   , EnumConstant(..)
   , Function(..)
     -- * Types (at use sites)
@@ -82,7 +83,7 @@ data DeclKind p =
   | DeclUnion (Union p)
   | DeclUnionOpaque
   | DeclTypedef (Typedef p)
-  | DeclEnum [EnumConstant]
+  | DeclEnum Enu
   | DeclEnumOpaque
   | DeclMacro (Macro p)
   | DeclFunction (Function p)
@@ -116,6 +117,11 @@ data Typedef p = Typedef {
       typedefType :: Type p
     , typedefAnn  :: Ann "Typedef" p
     }
+
+data Enu = Enu {
+      enumConstants :: [EnumConstant]
+    }
+  deriving stock (Show)
 
 data EnumConstant = EnumConstant {
       enumConstantName  :: Text
