@@ -926,26 +926,22 @@ functionDecs nm mu typedefs f
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
 
     cdecl :: PC.Decl
-    cdecl = PC.FunDefn wrapperName res args [cstmt]
-
-    cstmt :: PC.Stmt
-    cstmt
-        | C.isVoid res = PC.Expr cexpr
-        | otherwise    = PC.Return cexpr
-
-    cexpr :: PC.Expr
-    cexpr = PC.Call innerName
-        [ PC.Var n
-        | (n, _) <- args
-        ]
+    cdecl = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName res args' [cwrapperStmt innerName res args']
 
     res :: C.Type
     res = C.functionRes f
 
-    args :: [(String, C.Type)]
-    args = zipWith named [1..] (C.functionArgs f) where
-      named :: Int -> C.Type -> (String, C.Type)
-      named i t = ("arg" ++ show i, t)
+    args :: [C.Type]
+    args = C.functionArgs f
+
+cwrapperStmt :: forall ctx. String -> C.Type -> PC.Args ctx -> PC.Stmt ctx
+cwrapperStmt innerName res args
+    | C.isVoid res = PC.Expr cexpr
+    | otherwise    = PC.Return cexpr
+  where
+    cexpr :: PC.Expr ctx
+    cexpr = PC.Call innerName (map PC.Var (PC.argsToIdx args))
 
 {-------------------------------------------------------------------------------
   Macro
