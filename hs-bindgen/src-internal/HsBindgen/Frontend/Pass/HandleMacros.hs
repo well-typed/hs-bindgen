@@ -63,7 +63,7 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
     case declKind of
       DeclMacro   macro       -> processMacro info' macro
       DeclTypedef typedef     -> processTypedef info' typedef
-      DeclStruct  fields      -> Just <$> processStruct info' fields
+      DeclStruct  struct      -> Just <$> processStruct info' struct
       DeclStructOpaque        -> Just <$> processOpaqueWith DeclStructOpaque info'
       DeclUnion   fields      -> Just <$> processUnion info' fields
       DeclUnionOpaque         -> Just <$> processOpaqueWith DeclUnionOpaque info'
@@ -80,13 +80,16 @@ processDecl Decl{declInfo = DeclInfo{declId, declLoc}, declKind} =
 
 processStruct ::
      DeclInfo HandleMacros
-  -> [StructField Parse] -> M (Decl HandleMacros)
-processStruct info = fmap (mkDecl . catMaybes) . mapM processStructField
+  -> Struct Parse -> M (Decl HandleMacros)
+processStruct info =
+    fmap (mkDecl . catMaybes) . mapM processStructField . structFields
   where
     mkDecl :: [StructField HandleMacros] -> Decl HandleMacros
     mkDecl fields = Decl{
           declInfo = info
-        , declKind = DeclStruct fields
+        , declKind = DeclStruct Struct{
+              structFields = fields
+            }
         , declAnn  = NoAnn
         }
 

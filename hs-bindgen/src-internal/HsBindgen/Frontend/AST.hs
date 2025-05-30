@@ -5,6 +5,7 @@ module HsBindgen.Frontend.AST (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
+  , Struct(..)
   , StructField(..)
   , UnionField(..)
   , Typedef(..)
@@ -75,7 +76,7 @@ data DeclInfo p = DeclInfo{
     }
 
 data DeclKind p =
-    DeclStruct [StructField p]
+    DeclStruct (Struct p)
   | DeclStructOpaque
   | DeclUnion [UnionField p]
   | DeclUnionOpaque
@@ -84,6 +85,10 @@ data DeclKind p =
   | DeclEnumOpaque
   | DeclMacro (Macro p)
   | DeclFunction (Function p)
+
+newtype Struct p = Struct {
+      structFields :: [StructField p]
+    }
 
 data StructField p = StructField {
       structFieldName   :: Text
@@ -207,6 +212,7 @@ class ( IsPass p
 
         -- Annotations
       , Show (Ann "Decl"            p)
+      , Show (Ann "Struct"          p)
       , Show (Ann "StructField"     p)
       , Show (Ann "UnionField"      p)
       , Show (Ann "TranslationUnit" p)
@@ -218,6 +224,7 @@ class ( IsPass p
 deriving stock instance ValidPass p => Show (Decl            p)
 deriving stock instance ValidPass p => Show (DeclInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind        p)
+deriving stock instance ValidPass p => Show (Struct          p)
 deriving stock instance ValidPass p => Show (StructField     p)
 deriving stock instance ValidPass p => Show (UnionField      p)
 deriving stock instance ValidPass p => Show (Function        p)

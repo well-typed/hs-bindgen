@@ -26,8 +26,8 @@ data ValOrRef = ByValue | ByRef
 -------------------------------------------------------------------------------}
 
 depsOfDecl :: forall p. DeclKind p -> [(Usage, QualId p)]
-depsOfDecl (DeclStruct fs) =
-    concatMap (depsOfField structFieldName structFieldType) fs
+depsOfDecl (DeclStruct Struct{..}) =
+    concatMap (depsOfField structFieldName structFieldType) structFields
 depsOfDecl DeclStructOpaque =
     []
 depsOfDecl (DeclUnion fs) =

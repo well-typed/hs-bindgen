@@ -144,7 +144,9 @@ structDecl curr = do
         let decl :: Decl Parse
             decl = Decl{
                 declInfo = info
-              , declKind = DeclStruct fields
+              , declKind = DeclStruct Struct{
+                    structFields = fields
+                  }
               , declAnn  = NoAnn
               }
         return $ Just $ otherDecls ++ [decl]
