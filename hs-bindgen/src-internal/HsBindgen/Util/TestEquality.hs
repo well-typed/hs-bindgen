@@ -26,6 +26,7 @@ import HsBindgen.Imports
 --------------------------------------------------------------------------------
 
 infixr 4 `equals1`
+
 -- | Check whether two GADT values of type @k ->Type@ are equal.
 --
 -- If so, also return a proof that the tags were equal.
@@ -33,6 +34,20 @@ infixr 4 `equals1`
 -- NB: this is stricter than 'testEquality', as 'testEquality' is supposed
 -- to return @Just Refl@ whenever the tags are equal, even when the values
 -- themselves are different.
+--
+-- NB: Doesn't work for types with type indices not-directly implied by
+-- constructor "tags":
+--
+-- >>> data SBool (b :: Bool) where STrue :: SBool True; SFalse :: SBool False
+-- >>> instance Eq (SBool b) where STrue == STrue = True; SFalse == SFalse = False
+-- >>> data Foo b = Foo1 (SBool b) | Foo2 (SBool b) deriving Eq
+-- >>>  equals1 (Foo1 STrue) (Foo1 SFalse)
+-- *** Exception: ...Non-exhaustive patterns in function ==
+-- ...
+--
+-- The GHC generated Eq instance for SBool would have default case, so this example *could* work.
+-- If you want to be safe, use `geq` from `some` package.
+--
 equals1 :: forall a tag1 tag2.
   ( forall tag. Eq ( a tag )
 #if MIN_VERSION_base(4,20,0)
