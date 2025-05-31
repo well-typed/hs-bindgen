@@ -1,0 +1,45 @@
+Header
+  [
+    DeclStruct
+      Struct {
+        structDeclPath = DeclPathName
+          (CName "thing"),
+        structAliases = [],
+        structSizeof = 4,
+        structAlignment = 4,
+        structFields = [
+          StructField {
+            fieldName = CName "x",
+            fieldOffset = 0,
+            fieldWidth = Nothing,
+            fieldType = TypePrim
+              (PrimIntegral PrimInt Signed),
+            fieldSourceLoc =
+            "struct_arg.h:3:9"}],
+        structFlam = Nothing,
+        structSourceLoc =
+        "struct_arg.h:2:8"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "thing_fun_1",
+        functionArgs = [
+          TypeStruct
+            (DeclPathName (CName "thing"))],
+        functionRes = TypePrim
+          (PrimIntegral PrimInt Signed),
+        functionHeader = "struct_arg.h",
+        functionSourceLoc =
+        "struct_arg.h:6:5"},
+    DeclFunction
+      Function {
+        functionName = CName
+          "thing_fun_2",
+        functionArgs = [
+          TypePrim
+            (PrimIntegral PrimInt Signed)],
+        functionRes = TypeStruct
+          (DeclPathName (CName "thing")),
+        functionHeader = "struct_arg.h",
+        functionSourceLoc =
+        "struct_arg.h:7:14"}]

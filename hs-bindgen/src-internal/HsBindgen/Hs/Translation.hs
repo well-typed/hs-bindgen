@@ -48,7 +48,7 @@ import HsBindgen.ModuleUnique
 import HsBindgen.NameHint
 import HsBindgen.PrettyC qualified as PC
 
-import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken)
+import DeBruijn (Add (..), EmptyCtx, Idx (..), pattern I1, pattern I2, weaken, Env (..), zipWithEnv)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -882,27 +882,80 @@ floatingType = \case
   Function
 -------------------------------------------------------------------------------}
 
+data WrappedType
+    = WrapType C.Type
+    | FancyType C.Type
+  deriving Show
+
+unwrapType :: WrappedType -> C.Type
+unwrapType (WrapType ty) = ty
+unwrapType (FancyType ty) = C.TypePointer ty
+
+isVoidW :: WrappedType -> Bool
+isVoidW = C.isVoid . unwrapType
+
+isWrappedFancy :: WrappedType -> Bool
+isWrappedFancy (WrapType _) = False
+isWrappedFancy (FancyType _) = True
+
+-- | userland-api C wrapper.
+wrapperDecl
+    :: String    -- ^ true C name
+    -> String    -- ^ wrapper name
+    -> WrappedType    -- ^ result type
+    -> [WrappedType]  -- ^ arguments
+    -> PC.Decl
+wrapperDecl innerName wrapperName res args
+    | isVoidW res
+    = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> args')
+          [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
+
+    | isWrappedFancy res
+    = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName C.TypeVoid (unwrapType <$> (args' :> res))
+          [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
+
+    | otherwise
+    = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName (unwrapType res) (unwrapType <$> args')
+          [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
+  where
+    callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
+    callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedFancy ty then PC.DeRef (PC.Var idx) else PC.Var idx
+
 functionDecs ::
      NameMangler
   -> ModuleUnique
   -> Map C.CName C.Type -- ^ typedefs
   -> C.Function
   -> [Hs.Decl]
-functionDecs nm mu typedefs f
-  | any isFancy (C.functionRes f : C.functionArgs f)
-  = throwPure_TODO 37 "Struct value arguments and results are not supported"
-  | otherwise =
+functionDecs nm mu typedefs f =
     [ Hs.DeclInlineCInclude $ getCHeaderIncludePath $ C.functionHeader f
-    , Hs.DeclInlineC $ PC.prettyDecl cdecl ""
+    , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = mangle nm $ NameVar $ C.functionName f
-        , foreignImportType       = ty
+        { foreignImportName       = importName
+        , foreignImportType       = importType
         , foreignImportOrigName   = T.pack wrapperName
         , foreignImportHeader     = getCHeaderIncludePath $ C.functionHeader f
         , foreignImportDeclOrigin = Hs.ForeignImportDeclOriginFunction f
         }
+    ] ++
+    -- TODO: Hs wrapper if any type is fancy
+    [
     ]
   where
+    -- TODO: wrapper if any type is fancy
+    importName = mangle nm $ NameVar $ C.functionName f
+
+    wrapType :: C.Type -> WrappedType
+    wrapType ty
+        | isFancy ty = FancyType ty
+        | otherwise = WrapType ty
+
+    res = wrapType $ C.functionRes f
+    args = wrapType <$> C.functionArgs f
+
     -- types which we cannot pass directly using C FFI.
     isFancy :: C.Type -> Bool
     isFancy C.TypeStruct {}     = True
@@ -913,8 +966,13 @@ functionDecs nm mu typedefs f
         in isFancy t
     isFancy _ = False
 
-    ty :: HsType
-    ty = foldr HsFun (HsIO $ typ' CFunRes nm $ C.functionRes f) (typ' CFunArg nm <$> C.functionArgs f)
+    importType :: HsType
+    importType
+        | isWrappedFancy res
+        = foldr HsFun (HsIO $ typ' CFunRes nm C.TypeVoid) (typ' CFunArg nm . unwrapType <$> (args ++ [res]))
+
+        | otherwise
+        = foldr HsFun (HsIO $ typ' CFunRes nm $ unwrapType res) (typ' CFunArg nm . unwrapType <$> args)
 
     -- below is generation of C wrapper for userland-capi.
     innerName :: String
@@ -922,24 +980,6 @@ functionDecs nm mu typedefs f
 
     wrapperName :: String
     wrapperName = unModuleUnique mu ++ "_" ++ innerName
-
-    cdecl :: PC.Decl
-    cdecl = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName res args' [cwrapperStmt innerName res args']
-
-    res :: C.Type
-    res = C.functionRes f
-
-    args :: [C.Type]
-    args = C.functionArgs f
-
-cwrapperStmt :: forall ctx. String -> C.Type -> PC.Args ctx -> PC.Stmt ctx
-cwrapperStmt innerName res args
-    | C.isVoid res = PC.Expr cexpr
-    | otherwise    = PC.Return cexpr
-  where
-    cexpr :: PC.Expr ctx
-    cexpr = PC.Call innerName (map PC.Var (PC.argsToIdx args))
 
 {-------------------------------------------------------------------------------
   Macro

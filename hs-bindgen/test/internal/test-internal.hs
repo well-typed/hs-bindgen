@@ -99,11 +99,10 @@ tests ansiColor tracer packageRoot rustBindgen =
         , golden "names"
         , golden "attributes"
         , golden "vector"
+        , golden "struct_arg"
         ]
     , testGroup "failing-examples" [
           failing "long_double"
-        , failing "struct_arg_a"
-        , failing "struct_arg_b"
         ]
     ]
   where

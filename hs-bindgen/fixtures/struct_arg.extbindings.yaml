@@ -1,0 +1,9 @@
+types:
+- headers: struct_arg.h
+  cname: struct thing
+  module: Example
+  identifier: Thing
+  instances:
+  - Eq
+  - Show
+  - Storable

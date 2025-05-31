@@ -1,0 +1,17 @@
+-- addDependentFile examples/struct_arg.h
+-- #include "struct_arg.h"
+-- signed int test_internal_thing_fun_1 (struct thing *arg1) { return thing_fun_1(*arg1); }
+-- void test_internal_thing_fun_2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }
+data Thing = Thing {thing_x :: CInt}
+instance Storable Thing
+    where {sizeOf = \_ -> 4 :: Int;
+           alignment = \_ -> 4 :: Int;
+           peek = \ptr_0 -> pure Thing <*> peekByteOff ptr_0 (0 :: Int);
+           poke = \ptr_1 -> \s_2 -> case s_2 of
+                                    {Thing thing_x_3 -> pokeByteOff ptr_1 (0 :: Int) thing_x_3}}
+deriving stock instance Show Thing
+deriving stock instance Eq Thing
+foreign import ccall safe "test_internal_thing_fun_1" thing_fun_1 :: Ptr Thing ->
+                                                                     IO CInt
+foreign import ccall safe "test_internal_thing_fun_2" thing_fun_2 :: CInt ->
+                                                                     Ptr Thing -> IO Unit

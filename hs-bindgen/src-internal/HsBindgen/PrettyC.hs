@@ -8,6 +8,7 @@ module HsBindgen.PrettyC (
     withArgs,
     argsToIdx,
     Stmt (..),
+    LVal (..),
     Expr (..),
     prettyDecl,
 ) where
@@ -29,25 +30,31 @@ type Args ctx = Env ctx C.Type
 
 -- Env, and thus Args, are SnocList.
 -- when converting from ordinary list, we need to reverse first.
-withArgs :: [C.Type] -> (forall ctx. Args ctx -> r) -> r
+withArgs :: [a] -> (forall ctx. Env ctx a -> r) -> r
 withArgs tys = withArgs' (reverse tys)
 
-withArgs' :: [C.Type] -> (forall ctx. Args ctx -> r) -> r
+withArgs' :: [a] -> (forall ctx. Env ctx a -> r) -> r
 withArgs' []       k = k EmptyEnv
 withArgs' (x : xs) k = withArgs' xs $ \args -> k (args :> x)
 
-argsToIdx :: Args ctx -> [Idx ctx]
-argsToIdx args = toList (tabulateEnv (sizeEnv args) id)
+argsToIdx :: Env ctx a -> Env ctx (Idx ctx)
+argsToIdx args = tabulateEnv (sizeEnv args) id
 
 data Stmt ctx
     = Return (Expr ctx)
     | Expr (Expr ctx)
+    | Assign (LVal ctx) (Expr ctx) -- technically an expression, but we treat it as a statement.
+  deriving Show
+
+data LVal ctx
+    = LVar (Idx ctx)
+    | LDeRef (LVal ctx)
   deriving Show
 
 data Expr ctx
     = Call Name [Expr ctx]
     | Var (Idx ctx)
-    -- | DeRef Expr
+    | DeRef (Expr ctx)
   deriving Show
 
 prettyDecl :: Decl -> ShowS
@@ -70,11 +77,17 @@ prettyFunDefn fun res args stmts =
     env   = snd <$> args1
 
 prettyStmt :: Env ctx ShowS -> Stmt ctx -> ShowS
-prettyStmt env (Return e) = showString "return " . prettyExpr env e . showChar ';'
-prettyStmt env (Expr e)   =                        prettyExpr env e . showChar ';'
+prettyStmt env (Return e)   = showString "return "                . prettyExpr env e . showChar ';'
+prettyStmt env (Expr e)     =                                       prettyExpr env e . showChar ';'
+prettyStmt env (Assign x e) = prettyLVal env x . showString " = " . prettyExpr env e . showChar ';'
+
+prettyLVal :: Env ctx ShowS -> LVal ctx -> ShowS
+prettyLVal env (LVar x)   = lookupEnv x env
+prettyLVal env (LDeRef x) = showChar '*' . prettyLVal env x
 
 prettyExpr :: Env ctx ShowS -> Expr ctx -> ShowS
 prettyExpr env (Var s)     = lookupEnv s env
+prettyExpr env (DeRef e)   = showChar '*' . prettyExpr env e
 prettyExpr env (Call f xs) = showString f . showChar '(' . foldMapSepShowS (showString ", ") (prettyExpr env) xs . showChar ')'
 
 foldMapShowS :: (a -> ShowS) -> [a] -> ShowS
