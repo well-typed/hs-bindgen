@@ -214,12 +214,6 @@
             (HsName "@NsTypeConstr" "TC"))
           (HsIO
             (HsPrimType HsPrimCChar))),
-      foreignImportCRes = TypePrim
-        (PrimChar
-          (PrimSignImplicit Nothing)),
-      foreignImportCArgs = [
-        TypeTypedef (CName "MC"),
-        TypeTypedef (CName "TC")],
       foreignImportOrigName =
       "testmodule_quux1",
       foreignImportHeader =
@@ -257,13 +251,6 @@
               (HsName
                 "@NsTypeConstr"
                 "TC")))),
-      foreignImportCRes = TypeTypedef
-        (CName "TC"),
-      foreignImportCArgs = [
-        TypeTypedef (CName "MC"),
-        TypePrim
-          (PrimChar
-            (PrimSignImplicit Nothing))],
       foreignImportOrigName =
       "testmodule_quux2",
       foreignImportHeader =
@@ -304,13 +291,6 @@
                 (HsName
                   "@NsTypeConstr"
                   "MC"))))),
-      foreignImportCRes = TypePointer
-        (TypeTypedef (CName "MC")),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimFloat),
-        TypePointer
-          (TypeTypedef (CName "TC"))],
       foreignImportOrigName =
       "testmodule_wam1",
       foreignImportHeader =
@@ -351,13 +331,6 @@
                 (HsName
                   "@NsTypeConstr"
                   "TC"))))),
-      foreignImportCRes = TypePointer
-        (TypeTypedef (CName "TC")),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimFloat),
-        TypePointer
-          (TypeTypedef (CName "MC"))],
       foreignImportOrigName =
       "testmodule_wam2",
       foreignImportHeader =
@@ -1330,14 +1303,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathAnon
-              (DeclPathCtxtTypedef
-                (CName "struct2")))),
-        TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "testmodule_struct_typedef1",
       foreignImportHeader =
@@ -1378,12 +1343,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef
-            (CName "struct3_t")),
-        TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "testmodule_struct_typedef2",
       foreignImportHeader =
@@ -1422,11 +1381,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeTypedef (CName "struct4")),
-        TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "testmodule_struct_typedef3",
       foreignImportHeader =
@@ -1464,13 +1418,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "struct1"))),
-        TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "testmodule_struct_name1",
       foreignImportHeader =
@@ -1510,13 +1457,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "struct3"))),
-        TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "testmodule_struct_name2",
       foreignImportHeader =
@@ -1556,13 +1496,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName
-              (CName "struct4"))),
-        TypeTypedef (CName "MC")],
       foreignImportOrigName =
       "testmodule_struct_name3",
       foreignImportHeader =

@@ -242,8 +242,6 @@
         "c\978",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_\978",
       foreignImportHeader = "adios.h",
@@ -266,8 +264,6 @@
         "\25308\25308",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_\25308\25308",
       foreignImportHeader = "adios.h",
@@ -291,8 +287,6 @@
         "say\25308\25308",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_Say\25308\25308",
       foreignImportHeader = "adios.h",

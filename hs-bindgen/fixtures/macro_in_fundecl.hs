@@ -538,14 +538,6 @@
           (HsPrimType HsPrimCChar)
           (HsIO
             (HsPrimType HsPrimCChar))),
-      foreignImportCRes = TypePrim
-        (PrimChar
-          (PrimSignImplicit Nothing)),
-      foreignImportCArgs = [
-        TypeTypedef (CName "F"),
-        TypePrim
-          (PrimChar
-            (PrimSignImplicit Nothing))],
       foreignImportOrigName =
       "testmodule_quux",
       foreignImportHeader =
@@ -587,13 +579,6 @@
                 (HsName
                   "@NsTypeConstr"
                   "C"))))),
-      foreignImportCRes = TypePointer
-        (TypeTypedef (CName "C")),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimFloat),
-        TypePointer
-          (TypeTypedef (CName "C"))],
       foreignImportOrigName =
       "testmodule_wam",
       foreignImportHeader =
@@ -632,23 +617,6 @@
           (HsIO
             (HsPtr
               (HsPrimType HsPrimCChar)))),
-      foreignImportCRes = TypePointer
-        (TypePrim
-          (PrimChar
-            (PrimSignImplicit
-              (Just Signed)))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimFloat),
-        TypePointer
-          (TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))],
       foreignImportOrigName =
       "testmodule_foo1",
       foreignImportHeader =
@@ -698,21 +666,6 @@
           (HsIO
             (HsPtr
               (HsPrimType HsPrimCChar)))),
-      foreignImportCRes = TypePointer
-        (TypePrim
-          (PrimChar
-            (PrimSignImplicit Nothing))),
-      foreignImportCArgs = [
-        TypeTypedef (CName "F"),
-        TypePointer
-          (TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))],
       foreignImportOrigName =
       "testmodule_foo2",
       foreignImportHeader =
@@ -762,20 +715,6 @@
                 (HsName
                   "@NsTypeConstr"
                   "C"))))),
-      foreignImportCRes = TypePointer
-        (TypeTypedef (CName "C")),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimFloat),
-        TypePointer
-          (TypeFun
-            [
-              TypePrim
-                (PrimIntegral PrimInt Signed)]
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))],
       foreignImportOrigName =
       "testmodule_foo3",
       foreignImportHeader =
@@ -819,16 +758,6 @@
               (HsPrimType HsPrimCShort)
               (HsIO
                 (HsPrimType HsPrimCInt))))),
-      foreignImportCRes = TypePointer
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimShort Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimLong Signed)],
       foreignImportOrigName =
       "testmodule_bar1",
       foreignImportHeader =
@@ -869,15 +798,6 @@
               (HsPrimType HsPrimCShort)
               (HsIO
                 (HsPrimType HsPrimCInt))))),
-      foreignImportCRes = TypePointer
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimShort Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportCArgs = [
-        TypeTypedef (CName "L")],
       foreignImportOrigName =
       "testmodule_bar2",
       foreignImportHeader =
@@ -917,14 +837,6 @@
                 (HsName "@NsTypeConstr" "S"))
               (HsIO
                 (HsPrimType HsPrimCInt))))),
-      foreignImportCRes = TypePointer
-        (TypeFun
-          [TypeTypedef (CName "S")]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimLong Signed)],
       foreignImportOrigName =
       "testmodule_bar3",
       foreignImportHeader =
@@ -965,15 +877,6 @@
                   (HsName
                     "@NsTypeConstr"
                     "I")))))),
-      foreignImportCRes = TypePointer
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimShort Signed)]
-          (TypeTypedef (CName "I"))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimLong Signed)],
       foreignImportOrigName =
       "testmodule_bar4",
       foreignImportHeader =
@@ -1013,32 +916,6 @@
               (HsConstArray
                 3
                 (HsPrimType HsPrimCInt))))),
-      foreignImportCRes = TypePointer
-        (TypeConstArray
-          Size {
-            size = 2,
-            sizeExpression = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "2",
-                  integerLiteralType = Size,
-                  integerLiteralValue = 2})}
-          (TypeConstArray
-            Size {
-              size = 3,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "3",
-                    integerLiteralType = Size,
-                    integerLiteralValue = 3})}
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimInt Signed)],
       foreignImportOrigName =
       "testmodule_baz1",
       foreignImportHeader =
@@ -1096,31 +973,6 @@
               (HsConstArray
                 3
                 (HsPrimType HsPrimCInt))))),
-      foreignImportCRes = TypePointer
-        (TypeConstArray
-          Size {
-            size = 2,
-            sizeExpression = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "2",
-                  integerLiteralType = Int Signed,
-                  integerLiteralValue = 2})}
-          (TypeConstArray
-            Size {
-              size = 3,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "3",
-                    integerLiteralType = Int Signed,
-                    integerLiteralValue = 3})}
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))),
-      foreignImportCArgs = [
-        TypeTypedef (CName "I")],
       foreignImportOrigName =
       "testmodule_baz2",
       foreignImportHeader =
@@ -1179,29 +1031,6 @@
                   (HsName
                     "@NsTypeConstr"
                     "I")))))),
-      foreignImportCRes = TypePointer
-        (TypeConstArray
-          Size {
-            size = 2,
-            sizeExpression = MTerm
-              (MInt
-                IntegerLiteral {
-                  integerLiteralText = "2",
-                  integerLiteralType = Int Signed,
-                  integerLiteralValue = 2})}
-          (TypeConstArray
-            Size {
-              size = 3,
-              sizeExpression = MTerm
-                (MInt
-                  IntegerLiteral {
-                    integerLiteralText = "3",
-                    integerLiteralType = Int Signed,
-                    integerLiteralValue = 3})}
-            (TypeTypedef (CName "I")))),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimIntegral PrimInt Signed)],
       foreignImportOrigName =
       "testmodule_baz3",
       foreignImportHeader =
@@ -1249,9 +1078,6 @@
       foreignImportType = HsIO
         (HsTypRef
           (HsName "@NsTypeConstr" "I")),
-      foreignImportCRes = TypeTypedef
-        (CName "I"),
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_no_args_no_void",
       foreignImportHeader =

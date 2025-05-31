@@ -12,11 +12,6 @@
         (HsPrimType HsPrimCDouble)
         (HsIO
           (HsPrimType HsPrimCDouble)),
-      foreignImportCRes = TypePrim
-        (PrimFloating PrimDouble),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimDouble)],
       foreignImportOrigName =
       "testmodule_erf",
       foreignImportHeader =
@@ -51,15 +46,6 @@
             (HsPrimType HsPrimCDouble)
             (HsIO
               (HsPrimType HsPrimCDouble)))),
-      foreignImportCRes = TypePrim
-        (PrimFloating PrimDouble),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimFloating PrimDouble),
-        TypePrim
-          (PrimFloating PrimDouble),
-        TypePrim
-          (PrimFloating PrimDouble)],
       foreignImportOrigName =
       "testmodule_bad_fma",
       foreignImportHeader =
@@ -92,8 +78,6 @@
         "no_args",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_no_args",
       foreignImportHeader =
@@ -119,8 +103,6 @@
         "no_args_no_void",
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [],
       foreignImportOrigName =
       "testmodule_no_args_no_void",
       foreignImportHeader =
@@ -150,15 +132,6 @@
         (HsFun
           (HsPrimType HsPrimCDouble)
           (HsIO (HsPrimType HsPrimCInt))),
-      foreignImportCRes = TypePrim
-        (PrimIntegral PrimInt Signed),
-      foreignImportCArgs = [
-        TypePrim
-          (PrimChar
-            (PrimSignImplicit
-              (Just Signed))),
-        TypePrim
-          (PrimFloating PrimDouble)],
       foreignImportOrigName =
       "testmodule_fun",
       foreignImportHeader =

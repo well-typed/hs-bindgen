@@ -444,11 +444,6 @@
           (HsTypRef
             (HsName "@NsTypeConstr" "Bar")))
         (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportCRes = TypeVoid,
-      foreignImportCArgs = [
-        TypePointer
-          (TypeStruct
-            (DeclPathName (CName "bar")))],
       foreignImportOrigName =
       "testmodule_func",
       foreignImportHeader =
